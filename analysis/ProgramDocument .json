@@ -1,0 +1,147 @@
+{
+  "filename": "ProgramDocument",
+  "found": true,
+  "summary": "ProgramDocument manages program-related documents including logos, consent forms, and general files. It facilitates adding, deleting, searching, and formatting these documents for display and emailing. It handles both business logic and file system operations for document lifecycle management.",
+  "purpose": "To serve as the data and business logic layer for program-related documents in the HSPnet system. This includes CRUD operations, formatting, validation, searching, and updating program logos.",
+  "entities": [
+    "ProgramDocument",
+    "ProgramDocuments",
+    "DepartmentDocument",
+    "CodeRecord",
+    "HSPnetSession",
+    "Phone"
+  ],
+  "fields": [
+    "ID",
+    "ProgramID",
+    "TypeCodeID",
+    "TypeComments",
+    "FileURL",
+    "FilePath",
+    "FileSize",
+    "FileType",
+    "FileTypeAlt",
+    "Deleted",
+    "UpdateDate",
+    "ByUserId",
+    "LastName",
+    "FirstName",
+    "MiddleName",
+    "TypeCode",
+    "UpdatedDetails",
+    "ProgramLogoCodeID",
+    "Logo",
+    "Code",
+    "DocumentName",
+    "AgencyShortName",
+    "AgencyName",
+    "Phone",
+    "Email",
+    "UpdateDateFormatted",
+    "AgencyUserFormatted",
+    "AgencyUserDetailsFormatted",
+    "EmailFormatted"
+  ],
+  "actors": [
+    "Agency User",
+    "System",
+    "Database"
+  ],
+  "workflows": [
+    {
+      "name": "Add ProgramDocument",
+      "steps": [
+        "Validate document fields (IsValid)",
+        "If valid, call DB procedure 'ProgramDocumentAddDoc'",
+        "Add parameters to DB: SessionID, ProgramDocumentID, ProgramID, TypeCodeID, DocumentName, TypeComments, FileURL, FilePath, FileSize, FileType",
+        "Execute query",
+        "If TypeCodeID indicates Logo, clear procedure name, add Logo and ProgramID parameters, execute SQL update for ProgramLogos"
+      ]
+    },
+    {
+      "name": "Delete ProgramDocument",
+      "steps": [
+        "Check if ID > 0",
+        "Retrieve document by ID",
+        "If file exists, delete file and folder",
+        "Ignore exceptions for file/folder deletion",
+        "Delete database record via 'ProgramDocumentDelete' procedure"
+      ]
+    },
+    {
+      "name": "Search ProgramDocuments",
+      "steps": [
+        "Set DB procedure to 'ProgramDocumentSearch'",
+        "Add parameters: SessionID, ProgramID, LogoOnly",
+        "Retrieve data and fill document list"
+      ]
+    },
+    {
+      "name": "Get Program Consent Forms",
+      "steps": [
+        "Set DB procedure to 'ProgramConsentForms'",
+        "Add parameters: ProgramID, SessionID",
+        "Retrieve and return localized CodeRecord list"
+      ]
+    },
+    {
+      "name": "Format File Link and Email",
+      "steps": [
+        "If FileURL is non-blank and file exists, format FileURL as HTML link",
+        "If Email exists, format as HTML mailto link"
+      ]
+    }
+  ],
+  "business_rules": [
+    "TypeCodeID must not be 0 for validity (Type required)",
+    "Logo file update triggers update to ProgramLogos table",
+    "If alternative language fields are enabled, use alt-language values",
+    "If Code is 'OTHER', display as 'Other'"
+  ],
+  "validations": [
+    "TypeCodeID required",
+    "File existence for display/linking",
+    "Email existence for formatting"
+  ],
+  "calculations": [
+    "UpdateDateFormatted uses UI.DateFormatter.FormatDateShort",
+    "AgencyUserFormatted concatenates initials",
+    "FileURL formatting for display links",
+    "FileSize converted to KBytes for display"
+  ],
+  "conditions": [
+    "If LogoOnly is true, retrieve only logos",
+    "If UseDepartmentLogo is true, retrieve department logo instead of program logo",
+    "If file not found, display 'no logo available' or 'document not found'"
+  ],
+  "system_behavior": [
+    "Document CRUD operations interact with DB procedures and file system",
+    "Exception handling for file/folder deletes (errors ignored)",
+    "Dynamic document and email formatting for UI"
+  ],
+  "dependencies": [
+    "HSPnetSession for DB and context",
+    "CodeRecord for document types and consent forms",
+    "UI namespace for formatting"
+  ],
+  "exceptions": [
+    "File or directory deletion failures are ignored",
+    "If file not found, show default messages"
+  ],
+  "source_document_ids": [
+    "1a0b0c34-45f5-5ca0-a3fc-2f0fff26ae3b",
+    "2c0daec2-0f87-55ad-aef4-100648f0df62",
+    "33d5c925-af8e-52b0-b073-0382a408bbf3",
+    "48e1ff70-8a9e-5beb-91dc-3879521474ca",
+    "833f2f00-6743-52a7-8b65-16562894237e",
+    "97a7f632-3166-5d34-a495-564bd557699a",
+    "9dd4dd0e-53a5-59d8-a1a4-af59119a4581",
+    "c9adad5c-d06d-583a-a3f8-ada73516eac6",
+    "e72f52b8-2ba0-55f3-b719-44c47f1604ad"
+  ],
+  "content_gaps": [
+    "The logic for other document types (besides program and department logos, consent forms) is not fully detailed.",
+    "UI and localization implementations are referenced but not elaborated.",
+    "Further workflow details for editing, viewing documents were not found."
+  ]
+}
