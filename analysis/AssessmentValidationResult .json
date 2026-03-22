@@ -1,0 +1,74 @@
+{
+  "filename": "AssessmentValidationResult",
+  "found": true,
+  "summary": "AssessmentValidationResult is a class representing the outcome of an assessment validation process, containing boolean indicators for specific validation scenarios.",
+  "purpose": "To encapsulate the results of validation checks performed during an assessment workflow, signaling if particular validation rules are triggered.",
+  "entities": [
+    "AssessmentValidationResult"
+  ],
+  "fields": [
+    {
+      "name": "InterimWithoutFinal",
+      "type": "bool",
+      "description": "Indicates whether an interim assessment exists without a corresponding final assessment."
+    },
+    {
+      "name": "InstructorsAndSupervisors",
+      "type": "bool",
+      "description": "Indicates whether instructor and supervisor validations have been triggered."
+    },
+    {
+      "name": "AssessmentMaximumExceeded",
+      "type": "bool",
+      "description": "Indicates whether the maximum allowed assessment count has been exceeded."
+    }
+  ],
+  "actors": [],
+  "workflows": [
+    {
+      "name": "Assessment Validation",
+      "steps": [
+        "Perform assessment validations.",
+        "Set InterimWithoutFinal if interim assessment exists and no final assessment is present.",
+        "Set InstructorsAndSupervisors based on validation of instructor/supervisor roles.",
+        "Set AssessmentMaximumExceeded if assessment count exceeds allowed maximum."
+      ]
+    }
+  ],
+  "business_rules": [
+    "An interim assessment must not exist without a final assessment.",
+    "Instructor and supervisor roles/components must be validated as part of assessment.",
+    "Assessment count must not exceed maximum defined threshold."
+  ],
+  "validations": [
+    "Check for interim assessment without final.",
+    "Validate instructor and supervisor presence.",
+    "Check if assessment maximum is exceeded."
+  ],
+  "calculations": [],
+  "conditions": [
+    "InterimWithoutFinal is true if interim assessment exists without a final assessment.",
+    "InstructorsAndSupervisors is true if validation for instructors and supervisors fails or is triggered.",
+    "AssessmentMaximumExceeded is true if the total assessments go beyond the maximum allowed."
+  ],
+  "system_behavior": [
+    "AssessmentValidationResult object is populated based on validation outcomes.",
+    "Consumers of this class should use the boolean properties to determine next steps or trigger error handling."
+  ],
+  "dependencies": [
+    "Assessment workflow logic.",
+    "Instructor and supervisor validation routines."
+  ],
+  "exceptions": [
+    "If validation rules are violated, corresponding boolean property is set to true."
+  ],
+  "source_document_ids": [
+    "e663d100-85dd-5023-9f4c-94982b490159"
+  ],
+  "content_gaps": [
+    "No information about how the assessment maximum is determined.",
+    "No detail on specific instructor/supervisor validation criteria.",
+    "No further fields or actors in the retrieved content.",
+    "No indication of exception handling mechanism beyond boolean flagging."
+  ]
+}
