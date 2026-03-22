@@ -1,0 +1,272 @@
+{
+  "filename": "SiteDocument",
+  "found": true,
+  "summary": "SiteDocument is a data entity representing a document associated with a site. It includes IDs for both the document and the site, and is used for data access within the HSPnet system.",
+  "purpose": "To enable storage and retrieval of documents linked to specific sites for recordkeeping and management.",
+  "entities": ["SiteDocument"],
+  "fields": [
+    {"name": "ID", "type": "int", "description": "Unique identifier for the document"},
+    {"name": "SiteID", "type": "int", "description": "Unique identifier for the site"}
+  ],
+  "actors": [],
+  "workflows": [],
+  "business_rules": [],
+  "validations": [],
+  "calculations": [],
+  "conditions": [],
+  "system_behavior": [],
+  "dependencies": [],
+  "exceptions": [],
+  "source_document_ids": ["a2967f17-a924-5e9c-8b15-d1f7bd028b32"],
+  "content_gaps": ["No business workflow or UI processing described; only entity and fields defined."]
+}
+
+{
+  "filename": "WelcomeStaffAdmin",
+  "found": true,
+  "summary": "WelcomeStaffAdmin is a web UI page/control for welcoming staff administrators, providing last login info, and facilitating error/warning display. It includes site and discipline filtering, date selection, view refresh, and management of submitted employment applications within a grid.",
+  "purpose": "To provide staff administrators with a dashboard view of employment applications, allow filtering by site/discipline/date, display errors and warnings, and facilitate navigation and interaction.",
+  "entities": [
+    "EmploymentApplication",
+    "UserSession"
+  ],
+  "fields": [
+    {"name": "SiteID", "type": "int", "description": "Site identifier for filtering"},
+    {"name": "DisciplineSubDisciplineID", "type": "string", "description": "Discipline/subdiscipline identifier"},
+    {"name": "StartDate", "type": "date", "description": "Start date for filtering"},
+    {"name": "EndDate", "type": "date", "description": "End date for filtering"},
+    {"name": "Email", "type": "string", "description": "Contact email for applicant"},
+    {"name": "WithdrawnDate", "type": "date", "description": "Date when application was withdrawn"},
+    {"name": "Status", "type": "string", "description": "Status of application"}
+  ],
+  "actors": [
+    "Staff Administrator"
+  ],
+  "workflows": [
+    {
+      "name": "View Employment Applications",
+      "steps": [
+        "Select Site and Discipline via dropdowns",
+        "Choose Start and End Dates with calendar controls",
+        "Toggle Show Withdrawn applications",
+        "Click Refresh to update grid display",
+        "View applications in grid including name, email, site, dates, status"
+      ]
+    }
+  ],
+  "business_rules": [
+    "Required fields for start and end dates",
+    "Date input validated by regular expressions",
+    "StartDate must not be after EndDate",
+    "Withdrawn applications can be shown/hidden"
+  ],
+  "validations": [
+    "RequiredFieldValidator for StartDate and EndDate",
+    "RegularExpressionValidator for Date formats",
+    "CustomValidator to ensure StartDate is not after EndDate"
+  ],
+  "calculations": [],
+  "conditions": [
+    "Show Withdrawn checkbox controls data inclusion",
+    "Filtering parameters set by dropdown and input controls"
+  ],
+  "system_behavior": [
+    "Page loads with default filtered data (last 3 months)",
+    "Displays last login information",
+    "Shows errors and warnings in dedicated panels",
+    "Refresh button triggers data rebind/grid update"
+  ],
+  "dependencies": [
+    "UserSession for context and permissions",
+    "EmploymentApplication entity for grid data",
+    "Site and Discipline entities for filtering options"
+  ],
+  "exceptions": [
+    "Error and warning panels shown when validation or data issues occur"
+  ],
+  "source_document_ids": [
+    "05db31e4-e8b6-53ee-a6fb-812c106f0134",
+    "100d5925-a5f8-53db-8493-02cddd563eb7",
+    "3c84bade-9671-5fbf-acce-3c87a835e9b4",
+    "4c4b97b8-d242-5261-a515-767a3f7d7a49",
+    "52b5066f-23f6-5d82-96cd-5d51dad3de79",
+    "54244516-0707-581e-a8ba-9c041ea38366",
+    "5bb85da3-f5b4-5753-b07c-9bb2a04eeb89",
+    "5d9b92ea-7c12-5070-8603-977cf14d0e04",
+    "6701b153-5288-59e5-8de9-61b68a1fc292",
+    "871df91b-7ba0-558f-83ea-d5be1b0dc8db",
+    "8cea5c3a-2fbf-5206-a0c0-9425a5e14511",
+    "964a48c9-231c-5d58-a44d-3675d949a453",
+    "966ed8d3-a5af-567f-b092-936217777551",
+    "a0c3da28-32a5-5fce-91b2-17274efa016e",
+    "afbb4ec5-43c8-5281-ad2c-4b6cfd23a48e",
+    "b8e79322-9a0e-5fe7-8953-3d05e231f923",
+    "bf423a80-93db-572d-8cb8-c79f04214a93",
+    "ca71b077-cc26-5979-a44f-59700a41316b",
+    "d278278f-d4ec-5f4a-9f29-a02b66773bb9",
+    "db9b35e9-53ca-5eaf-9d75-4f3a72131bc7",
+    "e249a878-c837-5d1c-9a3d-5167df2614fb"
+  ],
+  "content_gaps": []
+}
+
+{
+  "filename": "ServiceCode",
+  "found": true,
+  "summary": "ServiceCode is an entity representing categorized codes with descriptions and alternative names/notes, used in association with courses and timetables.",
+  "purpose": "To manage and retrieve service code metadata for course and timetable options, supporting alternate language fields.",
+  "entities": ["ServiceCode"],
+  "fields": [
+    {"name": "ID", "type": "int", "description": "Unique identifier"},
+    {"name": "CodeCategoryID", "type": "int", "description": "Category for the code"},
+    {"name": "ShortName", "type": "string", "description": "Abbreviated code name"},
+    {"name": "Name", "type": "string", "description": "Description"},
+    {"name": "SortOrder", "type": "int", "description": "Order in display"},
+    {"name": "Notes", "type": "string", "description": "Notes"},
+    {"name": "NameAlt", "type": "string", "description": "Alternative language description"},
+    {"name": "NotesAlt", "type": "string", "description": "Alternative language notes"}
+  ],
+  "actors": [],
+  "workflows": [
+    {
+      "name": "Retrieve Service Codes",
+      "steps": [
+        "Call ServiceCodeListAll for full list",
+        "Call ServiceCodeASMOptionByCourseID for course options",
+        "Call ServiceCodeASMOptionByTimetableID for timetable options"
+      ]
+    }
+  ],
+  "business_rules": [
+    "If alt language mode is active, use NameAlt and NotesAlt"
+  ],
+  "validations": [],
+  "calculations": [],
+  "conditions": [
+    "Alt language mode determines which fields are used"
+  ],
+  "system_behavior": [
+    "Service codes can be listed, filtered by course or timetable",
+    "Localization applies when alt language mode is active"
+  ],
+  "dependencies": [
+    "HSPnetSession for language and user context"
+  ],
+  "exceptions": [],
+  "source_document_ids": [
+    "94f1b055-348d-508a-ae6e-cf7960a8c6a2",
+    "e4ebe4b4-6d14-5c3f-b693-61016f765239",
+    "f976b9af-a402-540f-b162-391d578fac7c"
+  ],
+  "content_gaps": []
+}
+
+{
+  "filename": "SiteProfileHistory",
+  "found": true,
+  "summary": "SiteProfileHistory records actions performed on site profiles, including action date, section, user action, affected fields, agency info, user details, and phone contacts. It supports alternate language fields and formatted representations for audit and UI display.",
+  "purpose": "To track and display the history of changes made to site profiles, including who performed changes, what sections were affected, and audit trails for support and compliance.",
+  "entities": ["SiteProfileHistory", "SiteProfileHistories"],
+  "fields": [
+    {"name": "ID", "type": "int", "description": "Record identifier"},
+    {"name": "ActionDate", "type": "datetime", "description": "Date/time of action"},
+    {"name": "ScreenSection", "type": "string", "description": "Section of screen affected"},
+    {"name": "UserAction", "type": "string", "description": "Action performed"},
+    {"name": "Fields", "type": "string", "description": "Fields affected"},
+    {"name": "Agency", "type": "string", "description": "Agency code"},
+    {"name": "AgencyName", "type": "string", "description": "Agency name"},
+    {"name": "LastName", "type": "string", "description": "User last name"},
+    {"name": "FirstName", "type": "string", "description": "User first name"},
+    {"name": "MiddleName", "type": "string", "description": "User middle name"},
+    {"name": "Phone", "type": "string", "description": "User phone"},
+    {"name": "ByUserID", "type": "int", "description": "User performing action"},
+    {"name": "ByOriginalUserID", "type": "int", "description": "Original user if different"},
+    {"name": "ByUserSysAdmin", "type": "bool", "description": "Whether user is sysadmin"}
+  ],
+  "actors": ["Support Team", "Site Administrator", "User"],
+  "workflows": [
+    {
+      "name": "Search and Display Site Profile History",
+      "steps": [
+        "Call SiteProfileHistorySearch with SiteID, SessionAgencyID, UserSession",
+        "Bind returned history to UI grid for review"
+      ]
+    }
+  ],
+  "business_rules": [
+    "Use alternate language fields if alt language is active",
+    "Display formatted user details for audit"
+  ],
+  "validations": [],
+  "calculations": [
+    "Formatted name and tooltip generation for user details"
+  ],
+  "conditions": [
+    "Support team is flagged when ByUserID differs from ByOriginalUserID and not sysadmin"
+  ],
+  "system_behavior": [
+    "Grid displays site profile history records",
+    "Tooltip shows formatted audit details"
+  ],
+  "dependencies": [
+    "HSPnetSession for language and agency context",
+    "Database procedures for search/fill"
+  ],
+  "exceptions": [],
+  "source_document_ids": [
+    "25f89a24-5eda-5a3f-83df-1de69b12b3f1",
+    "26e09292-d304-55c6-94e5-ef3346453c4b",
+    "7ca6b963-9ae9-5cd3-82d5-f30dcb727ae3",
+    "a8f030c6-90b8-53a1-bb8a-3b7ef33b9488",
+    "e806999c-3a39-5720-9b59-303faebc9eb6"
+  ],
+  "content_gaps": []
+}
+
+{
+  "filename": "EmailPopupDocument",
+  "found": true,
+  "summary": "EmailPopupDocument represents files displayed in email popups, supporting searching and deleting file records based on structured data strings.",
+  "purpose": "To manage document files for email popups, enabling lookup and deletion of files and folders based on provided data.",
+  "entities": ["EmailPopupDocument", "EmailPopupDocuments"],
+  "fields": [
+    {"name": "ID", "type": "int", "description": "Unique document identifier"},
+    {"name": "FileName", "type": "string", "description": "Name of the document file"},
+    {"name": "FilePath", "type": "string", "description": "Path to the document file"},
+    {"name": "Checked", "type": "bool", "description": "Is document checked/selected"}
+  ],
+  "actors": [],
+  "workflows": [
+    {
+      "name": "Search and Delete Email Popup Documents",
+      "steps": [
+        "Call Search with DataInfo string to retrieve document list",
+        "Call Delete with DataInfo and ID to remove file and folder"
+      ]
+    }
+  ],
+  "business_rules": [
+    "Files are deleted only if file and folder are valid",
+    "No operation if DataInfo is empty"
+  ],
+  "validations": [],
+  "calculations": [],
+  "conditions": [
+    "DataInfo string determines available documents and their paths"
+  ],
+  "system_behavior": [
+    "Document list generated from DataInfo input",
+    "File and folder deletion handled safely, with errors captured"
+  ],
+  "dependencies": [
+    "System.IO for file and folder operations"
+  ],
+  "exceptions": [
+    "Try/catch used to suppress deletion errors"
+  ],
+  "source_document_ids": [
+    "7287734e-f13d-550f-9249-4242db620766",
+    "927bc837-5564-5759-9324-27c6d5d7321d"
+  ],
+  "content_gaps": ["UI integration not described; file format handling covered only in code."]
+}
