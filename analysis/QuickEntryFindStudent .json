@@ -1,99 +1,104 @@
 {
   "filename": "QuickEntryFindStudent",
   "found": true,
-  "summary": "QuickEntryFindStudent is a web page and server-side workflow within the HSPnet application that enables users to search for students to place in a program. It provides filtering by last name, first name, student number, and consent program. It includes grid-based selection, error/warning panels, and JavaScript-driven UI interactions for selection, validation, and result binding.",
-  "purpose": "To facilitate rapid identification and selection of students for placement in programs, with options to filter, select, and add students based on consent and core identifiers.",
+  "summary": "QuickEntryFindStudent is an ASP.NET web form for searching and selecting students for placement. The screen allows users to filter students by last name, first name, student number, and consent program. Results are presented in a paged grid, allowing users to select, add, or clear student selections. The workflow integrates JavaScript operations for selection, error/warning display, and validation. The system enforces a minimum search criteria and manages program-specific warnings.",
+  "purpose": "To enable authorized users (such as agency staff) to efficiently search, filter, and select students for placement or enrollment, ensuring they meet program and consent criteria before adding them to a placement workflow.",
   "entities": [
     "Student",
-    "Agency",
     "Program",
-    "UserSession"
+    "Agency"
   ],
   "fields": [
     {
       "name": "txtLast",
-      "type": "String",
-      "purpose": "Student last name filter"
+      "type": "TextBox",
+      "description": "Student last name (string, required for search)"
     },
     {
       "name": "txtFirst",
-      "type": "String",
-      "purpose": "Student first name filter"
+      "type": "TextBox",
+      "description": "Student first name (string, required for search)"
     },
     {
       "name": "txtStudentNumber",
-      "type": "String",
-      "purpose": "Student number filter"
-    },
-    {
-      "name": "txtStudentIDs",
-      "type": "String",
-      "purpose": "Comma-separated list of selected student IDs"
+      "type": "TextBox",
+      "description": "Student number (string, required for search)"
     },
     {
       "name": "ddConsentProgram",
-      "type": "Int32",
-      "purpose": "Consent program filter"
+      "type": "DropDownList",
+      "description": "Program filter (int, required for search, selected program for consent)"
+    },
+    {
+      "name": "txtStudentIDs",
+      "type": "HiddenField",
+      "description": "Comma-separated list of selected student IDs"
+    },
+    {
+      "name": "excludeList",
+      "type": "String",
+      "description": "IDs to exclude from search"
     },
     {
       "name": "includeNoConsent",
       "type": "Boolean",
-      "purpose": "Include students with no consent"
+      "description": "Boolean to include students without consent"
     }
   ],
   "actors": [
-    "User",
-    "System"
+    "Agency Staff",
+    "System (HSPnet)"
   ],
   "workflows": [
     {
-      "name": "Find and Select Students",
+      "name": "Search and Select Students",
       "steps": [
-        "User lands on QuickEntryFindStudent page, page loads consent programs and sets defaults from query string.",
         "User enters search criteria (last name, first name, student number, consent program).",
-        "User clicks 'Search', triggering validation (at least one search field required).",
-        "System executes data source selection with provided filters.",
-        "Result grid (uxMaster) is populated with matching students.",
-        "User may select all/none or select individual students (via checkboxes).",
-        "User clicks 'Add Selected Students', which copies selected IDs and names to parent window using JavaScript.",
-        "User may clear search, close window, or see warnings/errors as appropriate."
+        "User clicks 'Search'; validation ensures at least one search field is populated.",
+        "System displays student search results in a paged grid.",
+        "User selects students via checkboxes.",
+        "User may use 'Select All', 'Select None', or manually check students.",
+        "User clicks 'Add Selected Students' to transfer selected students to placement workflow.",
+        "Program warning is displayed if consent program filter does not match placement requirements.",
+        "User can clear criteria or close the window."
       ]
     }
   ],
   "business_rules": [
-    "At least one of last name, first name, or student number must be entered for search.",
-    "Program filter defaults to the passed-in ProgramID.",
-    "Warning is displayed if program filter does not match the ProgramID from the query string."
+    "At least one search field (last name, first name, student number) must be populated for search.",
+    "Selected consent program must match placement requirements or trigger a warning.",
+    "Students without required consent may be optionally included based on the flag."
   ],
   "validations": [
-    "ClientValidationFunction=ValidateSearch ensures at least one of last, first, or student number is not empty.",
-    "Consent program validation via dropdown; auto-postback triggers search."
+    "CustomValidator ensures that at least one search field is filled.",
+    "Search triggers only if validation passes.",
+    "Error and warning panels display messages regarding search or selection failures."
   ],
   "calculations": [
-    "Student count is incremented based on selected students added.",
-    "ID and Name lists in parent window are updated via JavaScript."
+    "Count of selected students is updated on the parent window.",
+    "Number of matches shown in the grid is dynamically updated."
   ],
   "conditions": [
-    "If no students match, selection panel (spnSelect) is hidden.",
-    "If program dropdown does not match passed ProgramID, warning panel is shown."
+    "Program warning panel is displayed if selected consent program differs from placement program.",
+    "Error panel is shown for validation failures or unexpected conditions."
   ],
   "system_behavior": [
-    "On page load, sets up consent program dropdown, default values, and JavaScript includes.",
-    "Handles postback and async postback scenarios differently for script registration.",
-    "Binds grid based on search criteria.",
-    "Builds client-side checkbox list for selection logic.",
-    "Displays errors and warnings as needed, with user interaction to hide panels."
+    "Handles search operations and result paging.",
+    "Manages client-side JavaScript for error/warning display, selection handling, and search reset.",
+    "Updates parent window with selected students and their count.",
+    "Registers script includes and startup scripts for page operations."
   ],
   "dependencies": [
-    "HSPnet.DataLayer.Students.SelectWithProgram",
-    "HSPnet.UI.HSPnetPage",
-    "Dropdown utility for consent program selection",
-    "Javascript files: QuickEntryFindStudent.js, Global.js, etc.",
-    "Parent window for ID/name transfer"
+    "Resource localization for labels and button text.",
+    "HSPnet.DataLayer.Students for data access.",
+    "Programs.GetProgramListForConsent for program dropdown population.",
+    "Dropdown utility functions for selection and value handling.",
+    "Hashing.ValidateURLHash for URL security."
   ],
   "exceptions": [
-    "If checkboxes or hidden fields are missing when adding students, script returns false.",
-    "If script registration in async postback fails, fallback to client script registration."
+    "Invalid or missing search criteria triggers validation errors.",
+    "Mismatched program selection triggers warnings.",
+    "Unexpected nulls in selection controls cause early exits in JavaScript."
   ],
   "source_document_ids": [
     "01d99b2e-d6b0-501a-8bb0-109b783ac11c",
@@ -119,10 +124,5 @@
     "e50431b0-476c-55b3-b77c-851201770331",
     "fb15b5ed-5317-533f-8b74-f81dce144736"
   ],
-  "content_gaps": [
-    "Actual content and structure of QuickEntryFindStudent.js is not detailed.",
-    "Details of HSPnet.DataLayer.Students.SelectWithProgram are not provided.",
-    "Exact structure of the Resources localization values is not included.",
-    "UI layout is partially described but design details (styling, full HTML) are incomplete."
-  ]
+  "content_gaps": []
 }
