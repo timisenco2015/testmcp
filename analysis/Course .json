@@ -1,288 +1,208 @@
-[
-  {
-    "filename": "SiteDocument",
-    "found": true,
-    "summary": "SiteDocument is a data class representing the association of documents with a specific site in the HSPnet system. It stores references to a site and a document identifier.",
-    "purpose": "Represents and associates uploaded or stored documents with a given site for access, display, or management within the HSPnet application.",
-    "entities": ["SiteDocument"],
-    "fields": [
-      {"name": "ID", "type": "int", "description": "Unique identifier for the SiteDocument."},
-      {"name": "SiteID", "type": "int", "description": "Foreign key referencing the Site."}
-    ],
-    "actors": [],
-    "workflows": [],
-    "business_rules": [],
-    "validations": [],
-    "calculations": [],
-    "conditions": [],
-    "system_behavior": [],
-    "dependencies": [],
-    "exceptions": [],
-    "source_document_ids": ["a2967f17-a924-5e9c-8b15-d1f7bd028b32"],
-    "content_gaps": ["No information available on workflows, actors, validations, or dependencies beyond basic structure."]
-  },
-  {
-    "filename": "WelcomeStaffAdmin",
-    "found": true,
-    "summary": "WelcomeStaffAdmin is an ASP.NET page and associated code-behind focused on displaying a welcome/summary page for staff administrators. It shows last login data, manages error and warning panels, and provides site and discipline filters for employment applications.",
-    "purpose": "To provide staff administrators with a summary view including their last login time, error/warning messages, and a current list/filter of employment applications by site, discipline, and date range.",
-    "entities": ["EmploymentApplication"],
-    "fields": [
-      {"name": "SiteID", "type": "int", "description": "The selected site for filtering applications."},
-      {"name": "DisciplineID", "type": "int", "description": "The selected discipline for filtering applications."},
-      {"name": "SubDisciplineID", "type": "int", "description": "The selected sub-discipline for filtering."},
-      {"name": "StartDate/EndDate", "type": "datetime", "description": "Date range filter for applications."},
-      {"name": "ShowWithdrawn", "type": "bool", "description": "Whether to include withdrawn applications."}
-    ],
-    "actors": [
-      {"name": "StaffAdmin", "description": "User accessing the WelcomeStaffAdmin page to review employment applications."}
-    ],
-    "workflows": [
-      {
-        "name": "View Employment Applications",
-        "steps": [
-          "StaffAdmin logs in and accesses WelcomeStaffAdmin page.",
-          "The system displays last login time and allows selection of site, discipline, subdiscipline, and date range.",
-          "StaffAdmin sets filters and clicks 'Refresh View' to update results.",
-          "Grid displays applications based on selected criteria, including options to show/hide withdrawn applications.",
-          "StaffAdmin can view details, status, and use email links to contact applicants."
-        ]
-      }
-    ],
-    "business_rules": [
-      "ShowWithdrawn checkbox determines if withdrawn applications are included.",
-      "Date fields require valid input; End Date must not precede Start Date.",
-      "Default date range is set to past 3 months."
-    ],
-    "validations": [
-      "RequiredFieldValidator ensures start/end dates are set.",
-      "RegularExpressionValidator checks date format.",
-      "CustomValidator ensures StartDate <= EndDate.",
-      "ValidationSummary aggregates and displays validation errors."
-    ],
-    "calculations": [],
-    "conditions": [
-      "If user has no LastLogin value, panel is hidden.",
-      "If SiteID query string parameter exists, use it as default filter."
-    ],
-    "system_behavior": [
-      "Registers client-side scripts for date and page functionality.",
-      "Handles error and warning messages in always-visible floating panels.",
-      "Data grid supports paging and empty data handling."
-    ],
-    "dependencies": [
-      "HSPnet.Framework (for session/data access, formatting)",
-      "HSPnet.UI controls (for data grid, Ajax extenders)",
-      "DateFormatter, JavaScript, Hashing utilities"
-    ],
-    "exceptions": [
-      "If required UserSession is missing, cancels data retrieval.",
-      "Handles file not found or delete failures silently in auxiliary code."
-    ],
-    "source_document_ids": [
-      "05db31e4-e8b6-53ee-a6fb-812c106f0134",
-      "100d5925-a5f8-53db-8493-02cddd563eb7",
-      "3c84bade-9671-5fbf-acce-3c87a835e9b4",
-      "4c4b97b8-d242-5261-a515-767a3f7d7a49",
-      "52b5066f-23f6-5d82-96cd-5d51dad3de79",
-      "54244516-0707-581e-a8ba-9c041ea38366",
-      "5bb85da3-f5b4-5753-b07c-9bb2a04eeb89",
-      "5d9b92ea-7c12-5070-8603-977cf14d0e04",
-      "6701b153-5288-59e5-8de9-61b68a1fc292",
-      "871df91b-7ba0-558f-83ea-d5be1b0dc8db",
-      "8cea5c3a-2fbf-5206-a0c0-9425a5e14511",
-      "964a48c9-231c-5d58-a44d-3675d949a453",
-      "966ed8d3-a5af-567f-b092-936217777551",
-      "a0c3da28-32a5-5fce-91b2-17274efa016e",
-      "afbb4ec5-43c8-5281-ad2c-4b6cfd23a48e",
-      "b8e79322-9a0e-5fe7-8953-3d05e231f923",
-      "bf423a80-93db-572d-8cb8-c79f04214a93",
-      "ca71b077-cc26-5979-a44f-59700a41316b",
-      "d278278f-d4ec-5f4a-9f29-a02b66773bb9",
-      "db9b35e9-53ca-5eaf-9d75-4f3a72131bc7",
-      "e249a878-c837-5d1c-9a3d-5167df2614fb"
-    ],
-    "content_gaps": ["No details on EmploymentApplication entity's structure, only its UI presentation."]
-  },
-  {
-    "filename": "ServiceCode",
-    "found": true,
-    "summary": "ServiceCode is an entity representing codes associated with services, including attributes for categorization, localization, sorting, and notes.",
-    "purpose": "Enable categorization and retrieval of service codes and their descriptions for use in other entities such as courses and timetables.",
-    "entities": ["ServiceCode"],
-    "fields": [
-      {"name": "ID", "type": "int", "description": "Unique identifier for the service code."},
-      {"name": "CodeCategoryID", "type": "int", "description": "Identifier for the code category."},
-      {"name": "ShortName", "type": "string", "description": "Short code representation."},
-      {"name": "Name", "type": "string", "description": "Long description (localized if in alt language mode)."},
-      {"name": "SortOrder", "type": "int", "description": "Order for sorting the codes."},
-      {"name": "Notes", "type": "string", "description": "Notes field, localized if required."},
-      {"name": "NameAlt", "type": "string", "description": "Alternate (localized) long description."},
-      {"name": "NotesAlt", "type": "string", "description": "Alternate (localized) notes."}
-    ],
-    "actors": [],
-    "workflows": [
-      {
-        "name": "List All Service Codes",
-        "steps": [
-          "Call ServiceCodeListAll with session.",
-          "System executes stored procedure 'ServiceCodeListAll' with SessionID.",
-          "Reads returned fields into ServiceCode objects, applying localization if needed.",
-          "Returns list of ServiceCode objects."
-        ]
-      },
-      {
-        "name": "Get Service Codes for Course",
-        "steps": [
-          "Call ServiceCodeASMOptionByCourseID with session and CourseID.",
-          "System executes 'ServiceCodeASMOptionByCourseID' SP.",
-          "Populates list as for all codes, possibly filtered."
-        ]
-      },
-      {
-        "name": "Get Service Codes for Timetable",
-        "steps": [
-          "Call ServiceCodeASMOptionByTimetableID with session and TimetableID.",
-          "System executes 'ServiceCodeASMOptionByTimetableID' SP.",
-          "Populates list as for all codes."
-        ]
-      }
-    ],
-    "business_rules": [
-      "If UseAltLanguageFields is true, use alternative name/notes fields for localization."
-    ],
-    "validations": [],
-    "calculations": [],
-    "conditions": [],
-    "system_behavior": [],
-    "dependencies": [
-      "Relies on HSPnetSession, database/procedure access, localization settings."
-    ],
-    "exceptions": [],
-    "source_document_ids": [
-      "94f1b055-348d-508a-ae6e-cf7960a8c6a2",
-      "e4ebe4b4-6d14-5c3f-b693-61016f765239",
-      "f976b9af-a402-540f-b162-391d578fac7c"
-    ],
-    "content_gaps": ["No details of UI or validation logic; no detailed field definitions for CodeCategory."]
-  },
-  {
-    "filename": "SiteProfileHistory",
-    "found": true,
-    "summary": "SiteProfileHistory logs audit entries related to site profile actions. It records changes, including dates, user information, and descriptive captions.",
-    "purpose": "Track changes and actions performed on site profiles, including which fields were changed, by whom, and when.",
-    "entities": ["SiteProfileHistory"],
-    "fields": [
-      {"name": "ID", "type": "int", "description": "Unique identifier for the history entry."},
-      {"name": "ActionDate", "type": "datetime", "description": "The date/time when the action occurred."},
-      {"name": "ScreenSection", "type": "string", "description": "Section of the UI where the action was performed."},
-      {"name": "UserAction", "type": "string", "description": "Description of the action performed."},
-      {"name": "Fields", "type": "string", "description": "Fields affected by the action."},
-      {"name": "Agency", "type": "string", "description": "Agency code of the user who performed the action."},
-      {"name": "AgencyName", "type": "string", "description": "Agency name of the user."},
-      {"name": "LastName", "type": "string", "description": "Last name of the user."},
-      {"name": "FirstName", "type": "string", "description": "First name of the user."},
-      {"name": "MiddleName", "type": "string", "description": "Middle name of the user."},
-      {"name": "Phone", "type": "Phone", "description": "Phone number of the user."},
-      {"name": "ByUserID", "type": "int", "description": "User ID of the person performing the action."},
-      {"name": "ByOriginalUserID", "type": "int", "description": "Original user ID, if different."},
-      {"name": "ByUserSysAdmin", "type": "bool", "description": "Indicates if the action was performed by a system admin."},
-      {"name": "ActionDateFormatted", "type": "string", "description": "ActionDate formatted as a short date."},
-      {"name": "AgencyUserFormatted", "type": "string", "description": "Short string for displaying user/agency info."},
-      {"name": "AgencyUserDetailsFormatted", "type": "string", "description": "Full tooltip for user/agency details."}
-    ],
-    "actors": [
-      {"name": "User", "description": "Person performing an action that modifies a site profile."}
-    ],
-    "workflows": [
-      {
-        "name": "Audit Site Profile Actions",
-        "steps": [
-          "User performs an action that modifies a site profile.",
-          "A SiteProfileHistory entry is created recording the action, affected fields, and user details.",
-          "History entries can be retrieved by SiteID and viewing agency."
-        ]
-      }
-    ],
-    "business_rules": [
-      "If action performed by support team or system admin, display as such in formatted fields.",
-      "Phone field is masked depending on localization settings."
-    ],
-    "validations": [],
-    "calculations": [],
-    "conditions": [],
-    "system_behavior": [
-      "SiteProfileHistories.SiteProfileHistorySearch retrieves history entries for a site.",
-      "UI component disables data retrieval if session is missing."
-    ],
-    "dependencies": [
-      "Depends on HSPnetSession, NameFormatter, Phone utility, localization settings."
-    ],
-    "exceptions": [
-      "Data retrieval is cancelled if session is not present."
-    ],
-    "source_document_ids": [
-      "25f89a24-5eda-5a3f-83df-1de69b12b3f1",
-      "26e09292-d304-55c6-94e5-ef3346453c4b",
-      "7ca6b963-9ae9-5cd3-82d5-f30dcb727ae3",
-      "a8f030c6-90b8-53a1-bb8a-3b7ef33b9488",
-      "e806999c-3a39-5720-9b59-303faebc9eb6"
-    ],
-    "content_gaps": ["No UI details for displaying histories; Phone and NameFormatter class details not provided."]
-  },
-  {
-    "filename": "EmailPopupDocument",
-    "found": true,
-    "summary": "EmailPopupDocument represents documents used in email popups, mainly for selection/deletion by users in a UI context. The supporting logic allows searching for and deleting document references.",
-    "purpose": "Allows users to view, select, and manage documents (by file path/name) associated with email functionalities, including deletion from storage.",
-    "entities": ["EmailPopupDocument"],
-    "fields": [
-      {"name": "ID", "type": "int", "description": "Unique identifier for the popup document."},
-      {"name": "FileName", "type": "string", "description": "Name of the file."},
-      {"name": "FilePath", "type": "string", "description": "Full file path used for file operations."},
-      {"name": "Checked", "type": "bool", "description": "Selected status in UI; indicates if the document is marked/checked for an operation."}
-    ],
-    "actors": [
-      {"name": "User", "description": "User selecting or deleting popup documents in the UI."}
-    ],
-    "workflows": [
-      {
-        "name": "Search Documents",
-        "steps": [
-          "User triggers a search with DataInfo parameter.",
-          "System parses DataInfo and splits into documents.",
-          "Each document's filename and path is used to create EmailPopupDocument entries."
-        ]
-      },
-      {
-        "name": "Delete Document",
-        "steps": [
-          "User triggers a delete by specifying DataInfo and target ID.",
-          "System parses DataInfo, deletes the target file by path, and possibly its containing folder.",
-          "Returns updated DataInfo string without the deleted entry."
-        ]
-      }
-    ],
-    "business_rules": [
-      "If deleting a document, attempt to delete the file and the containing folder."
-    ],
-    "validations": [],
-    "calculations": [],
-    "conditions": [
-      "If file/folder delete throws, exceptions are swallowed (not propagated)."
-    ],
-    "system_behavior": ["Search and delete behaviors for email documents; UI not specified but implied."],
-    "dependencies": [
-      "System.IO for file operations.",
-      "HSPnet.Framework, HSPnet.App_GlobalResources for session and resources."
-    ],
-    "exceptions": [
-      "File or folder delete exceptions are caught and ignored."
-    ],
-    "source_document_ids": [
-      "7287734e-f13d-550f-9249-4242db620766",
-      "927bc837-5564-5759-9324-27c6d5d7321d"
-    ],
-    "content_gaps": ["No details on actual UI triggers or displays; limited to backend logic as shown."]
-  }
-]
+{
+  "filename": "Course",
+  "found": true,
+  "summary": "Course management includes CRUD operations, listing, searching, and validation for course data. It supports department, program, agency, cohort, filter-based queries, and handles business rules (e.g., student activity cutoffs, instructor-student ratio validity). Data includes rich fields for course structure, status, and operational flags. Validation ensures required fields and meaningful values. Workflows are defined for add, update, delete, reactivate, ratio update, and ASM update. System caches course data for performance.",
+  "purpose": "To allow users (administrators, instructors, staff) to manage course records in a detailed manner, supporting workflows for searching, adding, editing, validation, and deletion, integrated with department, agency, cohort, and program context.",
+  "entities": [
+    "Course",
+    "DepartmentRequestType"
+  ],
+  "fields": [
+    "ID",
+    "DepartmentID",
+    "Name",
+    "ShortName",
+    "Description",
+    "DurationHours",
+    "DurationShifts",
+    "SupervisionWeeks",
+    "ShiftLength",
+    "DefaultTypeCodeID",
+    "Inactive",
+    "CreatedByQES",
+    "ReportCodeID",
+    "UseBlocks",
+    "UseIndividualWorksheet",
+    "InstructorStudentRatio",
+    "Comments",
+    "UseRotations",
+    "IncludeRequests",
+    "IncludeRequestsWithCFO",
+    "IncludeOutOfProvinceCFO",
+    "TypeCode",
+    "ShortType",
+    "PRFormCode",
+    "ProfileExists",
+    "CourseUsesNISTemplate",
+    "IdleCourse",
+    "ExcludeInstructorFromITProvRole",
+    "MaxStudentPRSelections",
+    "SpecifyDuplicatePRs",
+    "RankWithheldPRs",
+    "ViewClassmateStats",
+    "AllowAnyDestInSite",
+    "AllowAnySiteDestInService",
+    "SearchableStatusCodeID",
+    "SearchableStatusCode",
+    "StudentsViewPRStatus",
+    "StudentsViewDestinations",
+    "AllowDuplicateDestinations",
+    "StudentsViewAgency",
+    "StudentsViewService",
+    "CampusesExist",
+    "PRsAllocatedToCampusOnly",
+    "PRsAllocatedToSectionOnly",
+    "ContactDataExists",
+    "SupervisorCaptionID",
+    "ProfileDataExists",
+    "DocumentDataExists",
+    "CompetencyDataExists",
+    "ASMDataExists",
+    "CorrDataExists",
+    "AssessmentDataExists",
+    "AllowStudentActivities",
+    "StudentActivityCutoffDays",
+    "GroupCodeID",
+    "NISTemplateID",
+    "Use3Prefs",
+    "NISFlag",
+    "CourseType",
+    "AgencyID",
+    "AgencyShortName",
+    "DepartmentShortName",
+    "RequestType",
+    "PRFormTemplate"
+  ],
+  "actors": [
+    "Administrator",
+    "Instructor",
+    "Staff",
+    "Student"
+  ],
+  "workflows": [
+    {
+      "name": "CourseAdd",
+      "steps": [
+        "Validate required fields: Name, ShortName, DefaultTypeCodeID, DurationHours or calculate from DurationShifts and ShiftLength.",
+        "Apply business rules: StudentActivityCutoffDays, AllowStudentActivities.",
+        "Set course properties and parameters in DB procedure.",
+        "Execute CourseAdd database procedure."
+      ]
+    },
+    {
+      "name": "CourseUpdate",
+      "steps": [
+        "Validate required fields: Name, ShortName, DefaultTypeCodeID, DurationHours.",
+        "Apply business rules before saving.",
+        "Set course properties and parameters.",
+        "Execute CourseUpdate database procedure."
+      ]
+    },
+    {
+      "name": "CourseDelete",
+      "steps": [
+        "Call CourseDelete stored DB procedure with CourseID.",
+        "Execute query."
+      ]
+    },
+    {
+      "name": "CourseReactivate",
+      "steps": [
+        "Call CourseReactivate stored procedure with CourseID.",
+        "Execute query."
+      ]
+    },
+    {
+      "name": "CourseUpdateRatio",
+      "steps": [
+        "Validate InstructorStudentRatio: must start with '1', minimum length 3, not ':'",
+        "Error handling for invalid ratio.",
+        "Set parameters and execute CourseUpdateRatio DB procedure."
+      ]
+    },
+    {
+      "name": "CourseUpdateASM",
+      "steps": [
+        "Set ASM fields and conduct relevant validations.",
+        "Set parameters and execute CourseUpdateASM DB procedure."
+      ]
+    },
+    {
+      "name": "CourseSearch (Department/Cohort/Agency/Staff/Filter)",
+      "steps": [
+        "Set search parameters: DepartmentID, ProgramID, CohortID, TermID, CourseID, StaffID, OutboxMode, DateFrom, DateTo, etc.",
+        "Call relevant DB stored procedures.",
+        "Fill and return course lists."
+      ]
+    }
+  ],
+  "business_rules": [
+    "If AllowStudentActivities is false, StudentActivityCutoffDays is set to -1.",
+    "StudentActivityCutoffDays must not be less than -1.",
+    "InstructorStudentRatio must not be ':'; must start with '1' and be at least 3 characters.",
+    "Name and ShortName must be specified.",
+    "DefaultTypeCodeID must not be zero.",
+    "DurationHours must not be zero; if zero, calculate from DurationShifts*ShiftLength.",
+    "Validations are enforced before saving."
+  ],
+  "validations": [
+    "Name must be specified.",
+    "ShortName must be specified.",
+    "DefaultTypeCodeID must not be zero.",
+    "DurationHours must not be zero; else auto-calculate.",
+    "StudentActivityCutoffDays must not be < -1.",
+    "InstructorStudentRatio format and content must be valid."
+  ],
+  "calculations": [
+    "DurationHours = DurationShifts * ShiftLength (if DurationHours is zero).",
+    "StudentActivityCutoffDaysFormatted string."
+  ],
+  "conditions": [
+    "AgencyID != 0 for CourseListAgency workflow.",
+    "CohortID and TermID != 0 for CohortCourses workflow.",
+    "NameFieldsOnly changes returned fields in CohortCourses."
+  ],
+  "system_behavior": [
+    "Caches Course detail data for performance, briefly for UI refresh.",
+    "Uses stored DB procedures for CRUD and search operations."
+  ],
+  "dependencies": [
+    "DB stored procedures (CourseAdd, CourseUpdate, CourseDelete, CourseReactivate, CourseUpdateRatio, CourseUpdateASM, CourseSearchDepartment, etc.)"
+  ],
+  "exceptions": [
+    "Validation errors: missing required fields, invalid ratios, zero duration.",
+    "If searches are called with insufficient parameters (e.g., agency not specified), empty lists returned."
+  ],
+  "source_document_ids": [
+    "113fda5f-b356-500c-b6ba-13a1697099cf",
+    "1657a581-8112-53fb-9bf4-2f85b175adbe",
+    "1b598bad-8a0a-5651-b3a8-4eead3dfef23",
+    "313845ef-1113-5324-bce0-553a0449cde4",
+    "3175d5ed-950b-5b15-b993-9be68c1cc795",
+    "34958587-423a-52a0-9a85-bca13184689b",
+    "3bad9a02-3342-505b-a432-9c1890e8609e",
+    "4080f062-b582-50fd-b379-e843ecf7eecf",
+    "497f9326-eff8-51eb-a7f7-bb67c07aa185",
+    "4da5127c-87fe-54d6-9ece-9e9d45dac9ed",
+    "65f5f8d3-3ba2-5529-8089-938acd1bd636",
+    "7bad651c-cfd5-5b69-81b5-f442b857734d",
+    "8c3e07cc-1594-53cb-bb39-a16ca2222667",
+    "a459233f-9ed0-5fa1-9424-55db75f4571b",
+    "a96477a1-f81a-563d-910f-781f2eccd6e0",
+    "c5eacc90-1336-567f-a4d7-d62e997947cc",
+    "d2082233-b56b-549d-8bb5-24e393af3eb6",
+    "d51e0b1e-ff38-5ceb-bf93-fb8053a744f3",
+    "dea9ffb5-3e1e-507d-b210-dc0339affe73",
+    "e609dbbf-b08b-5d8f-aadb-d9d4b5fb40e3",
+    "e9c1e76e-b034-55c5-8197-719f50ee3ca9",
+    "eb7a2a01-cf08-5bc9-b792-e366690657da",
+    "ef3d177d-9b5f-5cf3-8084-04fd79c6b210",
+    "f44e30f7-3568-5f02-9c6d-42d7675acd48",
+    "f8f7bbad-cefb-5731-b42c-d1dc97ac264d"
+  ],
+  "content_gaps": [
+    "No business logic for DepartmentRequestType except search and basic creation.",
+    "No information on UI integration specifics or error handling beyond validation.",
+    "Not all workflows describe notification or logging behavior."
+  ]
+}
