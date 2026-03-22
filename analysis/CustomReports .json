@@ -1,14 +1,14 @@
 {
   "filename": "CustomReports",
   "found": true,
-  "summary": "CustomReports manages the creation, updating, and status handling of user-requested reports within the HSPnet system. It supports tracking all details related to the report, its requestor, attached files, and related parameters, as well as workflow actions such as cancel, refuse, return, and completion handling. CustomReportParameters allow reports to be customized with additional information.",
-  "purpose": "To enable users and administrators to request, track, manage, and complete customized report requests, including handling uploaded files and parameters, returning completed reports to users, and recording workflow events such as cancellation, refusal, completion, and updates.",
+  "summary": "CustomReports manages the creation, update, search, completion, and file handling for custom report requests within HSPnet. It tracks the lifecycle, metadata, parameters, and associated files for each report, integrates email notifications, and enforces business rules for request handling and status transitions.",
+  "purpose": "To track and manage custom report requests, their parameters, associated files, and processing status, supporting workflows for creation, update, completion, cancellation, refusal, and fulfillment by administrators and users.",
   "entities": [
     "CustomReport",
     "CustomReportParameter",
-    "User",
     "Agency",
-    "Department"
+    "Department",
+    "User"
   ],
   "fields": [
     "ID",
@@ -23,7 +23,6 @@
     "LastUpdateDate",
     "LastUpdateByUserID",
     "ReturnedToUserDate",
-    "ReturnedToUser",
     "PastDetails",
     "StatusCodeID",
     "FileURL",
@@ -40,117 +39,108 @@
     "ReportTypeCode",
     "ReportType",
     "RequestedByStaffID",
-    "CreatedDateFormatted",
     "RequestedByAgency",
+    "RequestedByDepartment",
     "RequestedByLastName",
     "RequestedByFirstName",
     "RequestedByMiddleName",
-    "RequestedByNameFormatted",
     "RequestedByEmail",
     "RequestedByPhone",
     "RequestedByFax",
     "Status",
     "StatusCode",
-    "RequestedByDepartment",
-    "ParameterList"
+    "ParameterList (List<CustomReportParameter>)",
+    "PastDetails"
   ],
   "actors": [
-    "User",
+    "Requesting User",
     "Sysadmin",
-    "Support staff"
+    "HSPnetSession",
+    "Support Staff"
   ],
   "workflows": [
     {
-      "name": "Request Custom Report",
+      "name": "Create Custom Report",
       "steps": [
-        "User submits a request for a custom report including purpose, audience, comments, and parameters.",
-        "Report is created and associated with requestor's user and agency details.",
-        "Notification email may be sent to support/staff on submission."
+        "User fills out request details including purpose, audience, parameters.",
+        "Report is added via CustomReports.Add or CustomReportAdd stored procedure.",
+        "Parameters are stored, report status initialized.",
+        "Email notification sent to support staff."
       ]
     },
     {
       "name": "Update Custom Report",
       "steps": [
-        "Report details and parameter values can be updated by authorized users.",
-        "Updates may trigger notifications and warnings/errors on completion."
+        "User or admin updates report fields and parameters.",
+        "Old parameters are deleted, new parameters added.",
+        "Database update operations performed, email notification sent if successful."
       ]
     },
     {
-      "name": "Complete Custom Report",
+      "name": "Attach/Update File to Custom Report",
       "steps": [
-        "Sysadmin or support staff marks request as completed, optionally uploading a file.",
-        "Completion triggers notification to requesting user with formatted email and report ID/date info."
+        "File uploaded and associated metadata stored.",
+        "Old file and folder deleted (if exists).",
+        "Database updated with new file info.",
+        "Email notification sent to requesting user (on success/failure)."
       ]
     },
     {
-      "name": "Return Custom Report to User",
+      "name": "Search Custom Reports",
       "steps": [
-        "Report is marked as returned to user.",
-        "Email notification may be sent."
+        "Reports filtered by agency, department, user, status, date interval, and sort expression.",
+        "Multiple date-range types supported (Today, CurrentTerm, PastTerm, PastYear, PreviousYears)."
       ]
     },
     {
-      "name": "Cancel Custom Report Request",
+      "name": "Manage Request Lifecycle",
       "steps": [
-        "User or sysadmin cancels request through explicit workflow.",
-        "Cancellation tracked separately if refused by sysadmin."
-      ]
-    },
-    {
-      "name": "Refuse Custom Report Request",
-      "steps": [
-        "Sysadmin can refuse request, tracked as distinct from user cancellation."
-      ]
-    },
-    {
-      "name": "Search and Retrieve Reports",
-      "steps": [
-        "Reports can be searched by agency, department, user, dates, completion status, and sorted by columns.",
-        "Searches include both past and current terms/fiscal years."
+        "ReturnToUser: Admin processes and returns report.",
+        "CancelRequest: User cancels their request.",
+        "RefuseRequest: Sysadmin refuses report (distinct from cancellation).",
+        "CompleteRequest: Sysadmin marks request as completed (may not involve file upload)."
       ]
     }
   ],
   "business_rules": [
-    "Cannot update report file if URL or path is blank.",
-    "ReturnedToUser is determined by whether ReturnedToUserDate is not null.",
-    "Report status tracking includes explicit status codes and descriptions.",
-    "PastDetails field may be used for additional context/history of request.",
-    "Cancellation by user and refusal by sysadmin are handled as separate events.",
-    "Completed requests can be returned without file upload for non-system users."
+    "ReturnedToUser property reflects non-null ReturnedToUserDate.",
+    "Requests may be cancelled by user or refused by sysadmin.",
+    "Completion may occur without file upload (for non-HSPnet users).",
+    "Parameter values must be stored and displayed accurately.",
+    "File upload and update must validate non-empty file paths and URLs."
   ],
   "validations": [
-    "FileURL and FilePath must not be blank for file upload/update.",
-    "User/agency/department/parameter values validated when searching or adding reports.",
-    "Email subject/body templates verified for presence before sending notifications."
+    "FileURL and FilePath must not be blank during upload/update.",
+    "Valid UUID formats for document queries and associations.",
+    "Date fields are validated for expected range or nullability.",
+    "Proper masking for phone fields depending on language and agency."
   ],
   "calculations": [
-    "FileSize is divided by 1000 to display in Kbytes.",
-    "CreatedDateFormatted and RequestedByDateFormatted computed using date formatting utility.",
-    "RequestedByNameFormatted constructed from name fields."
+    "File size presented in kilobytes (display logic).",
+    "Date ranges calculated for filtering reports: Today, CurrentTerm, PastTerm, PastYear, PreviousYears."
   ],
   "conditions": [
-    "Current fiscal/term/year calculated based on system date for searches.",
-    "Status is updated according to workflow events (completion, cancellation, refusal, return)."
+    "If created == 'Today', use today's date for filtering.",
+    "If created == 'CurrentTerm', set range by fiscal term.",
+    "If created == 'PastTerm', calculate prior term dates.",
+    "If created == 'PastYear', range is previous year.",
+    "If created == 'PreviousYears', range is all previous years up to fiscal year end."
   ],
   "system_behavior": [
-    "Executes batch SQL for add/update operations on reports and parameters.",
-    "Sends emails to users/support during workflow events (submission, completion, update).",
-    "Deletes old files/directories on file update.",
-    "Closes database readers after operations.",
-    "Handles errors and warnings via message system."
+    "Automatic sending of email notifications on report creation, update, and file upload.",
+    "Handling of file deletion and directory management on file updates.",
+    "Procedure-driven operations for searching, updating, completing, cancelling, refusing requests.",
+    "Localization for file type and status fields based on session and language."
   ],
   "dependencies": [
-    "Database access utilities (sess.DB, Database)",
-    "Email utility (HSPnet.Framework.Email)",
-    "UI formatting/localization utilities",
-    "Resource templates for notifications",
-    "File system utilities for file handling"
+    "Database procedures: CustomReportAdd, CustomReportUpdate, CustomReportCancelRequest, CustomReportRefuseRequest, CustomReportReturnToUser, CustomReportSearch, CustomReportUpdateFile, CustomReportSearchByID",
+    "Email templates: CustomReportUploadedSubject, CustomReportUploadedBody, CustomReportSubmittedSubject, CustomReportSubmittedBody",
+    "UI date formatting and localization utilities"
   ],
   "exceptions": [
-    "Email not sent triggers error message.",
-    "File not available triggers fallback message.",
-    "File deletion errors ignored during update.",
-    "Filename extraction from path may fail and be ignored."
+    "File deletion and directory removal during file update may fail silently.",
+    "Email may not be sent; errors surfaced to user.",
+    "Filename extraction from file path may fail and is handled gracefully."
   ],
   "source_document_ids": [
     "132be9d9-0ab9-5355-af6c-608ff561a77d",
@@ -173,5 +163,10 @@
     "fd2349bf-80f2-5a79-8560-2c501fd39b45",
     "fd6708a7-4fd2-50c3-9779-bce5557c1ee1"
   ],
-  "content_gaps": []
+  "content_gaps": [
+    "Exact UI actions, error messages, and user interactions require further detail from UI source.",
+    "Business rules regarding access permissions/enforcement are not fully described.",
+    "Parameter types and validation rules for CustomReportParameter are inferred, not fully specified.",
+    "Templates and localization logic referenced but not detailed."
+  ]
 }
