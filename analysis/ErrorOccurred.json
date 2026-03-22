@@ -1,1 +1,96 @@
-{"filename": "ErrorOccurred", "found": true, "summary": "The ErrorOccurred module is a localized ASP.NET error page that displays dynamic error messages to users, manages English and French UI headers, and includes resource-driven error handling. It utilizes web configuration settings for dynamic contact emails and database names, adapts page display based on user locale, and presents custom error messages depending on the type of error encountered.", "purpose": "To inform users of application errors in a localized, user-friendly manner, providing context-specific error messages and contact information, while ensuring proper resource and culture management for English and French users.", "entities": [{"name": "ErrorOccurred", "type": "Web Page"}], "fields": [{"name": "HeaderEN", "type": "Panel"}, {"name": "HeaderFR", "type": "Panel"}, {"name": "uxErrorMessage", "type": "Label"}, {"name": "Locale", "type": "QueryString Parameter"}, {"name": "HttpRequestValidationException", "type": "QueryString Parameter"}], "actors": [{"name": "User", "role": "Receives error message"}, {"name": "System", "role": "Handles error display and localization"}], "workflows": [{"name": "Display Localized Error Page", "steps": ["User is redirected to ErrorOccurred page due to an error.", "Page_Load event is triggered.", "Locale parameter is read from QueryString.", "Headers (EN or FR) are set visible based on locale.", "Error email and database name are loaded from web.config.", "If HttpRequestValidationException parameter equals '1', specialized exception message is shown.", "Otherwise, standard error message is shown.", "Error message content is formatted using resource strings and settings.", "InitializeCulture method sets thread culture for localization."]}], "business_rules": ["Error email must be fetched from web.config (ERROR_EMAIL or ERROR_EMAIL_ALT) depending on locale.", "Displayed headers and error messages must match user locale (English or French)."], "validations": ["HttpRequestValidationException QueryString parameter determines if a specific error message should be shown."], "calculations": ["Error message is dynamically composed using resource string, contact email, and database name from web.config."], "conditions": ["If Locale = 'en-US' or not set, show English header; else show French header.", "If HttpRequestValidationException = '1', show specialized validation exception message."], "system_behavior": ["Page adapts UI and messages to user's locale.", "Contact email and database info are customizable via configuration.", "Culture for thread is set at runtime based on locale parameter.", "Error messages are localized and include dynamic information."], "dependencies": ["web.config AppSettings (ERROR_EMAIL, ERROR_EMAIL_ALT, DatabaseName)", "Resource files (Resources.HttpRequestValidationException_Message, Resources.Error_Occurred_Message)", "Images (topbar.jpg, topbar_fr.jpg)", "Global.css stylesheet"], "exceptions": ["HttpRequestValidationException: triggers a specialized error message."], "source_document_ids": ["061d570b-3af2-5dc8-9639-8df86256fbfd", "745fd8a6-9d74-5b61-a2f4-678706f9e330", "b91b73c2-09c1-55dc-8f24-5033abbc7c12", "b9f61ea8-4e71-5ce8-9493-99a77994d0b6"], "content_gaps": ["Resource file contents and actual error message templates are not provided.", "Details of web.config AppSettings values are not included.", "External dependencies like images and css are referenced but content is unavailable.", "No information on logging, error tracking, or notification mechanisms."]}
+{
+  "filename": "ErrorOccurred",
+  "found": true,
+  "summary": "The ErrorOccurred module presents a localized error page that displays custom error messages and provides contact information to users. It adapts the UI based on locale (English/French), fetches contact email from configuration, and renders error messages based on the context (general error or validation error).",
+  "purpose": "To inform users of application errors, provide appropriately localized UI and messaging, and direct users to contact support with a configurable email address. It distinguishes between general and HTTP validation errors, and shows different content based on locale.",
+  "entities": [
+    "ErrorOccurred (Page)",
+    "ErrorEmail (contact email)",
+    "HeaderEN (English header panel)",
+    "HeaderFR (French header panel)",
+    "uxErrorMessage (error message label)"
+  ],
+  "fields": [
+    {
+      "name": "ErrorEmail",
+      "source": "ConfigurationManager.AppSettings[\"ERROR_EMAIL\"] or [\"ERROR_EMAIL_ALT\"]",
+      "description": "Contact email displayed in error messages; customizable via web.config."
+    },
+    {
+      "name": "Locale",
+      "source": "Request.QueryString[\"Locale\"]",
+      "description": "Determines UI language and content (English or French)."
+    },
+    {
+      "name": "subject",
+      "source": "ConfigurationManager.AppSettings[\"DatabaseName\"]",
+      "description": "Database name appended to error messages."
+    },
+    {
+      "name": "HttpRequestValidationException",
+      "source": "Request.QueryString[\"HttpRequestValidationException\"]",
+      "description": "Determines if a validation error occurred, changing the error message."
+    }
+  ],
+  "actors": [
+    "User (web visitor)",
+    "System (ASP.NET application handling error and localization)"
+  ],
+  "workflows": [
+    {
+      "name": "Display Localized Error Page",
+      "steps": [
+        "Page_Load executed on error page request.",
+        "Determine locale from query string; if 'en-US' or empty, select English UI.",
+        "Show HeaderEN or HeaderFR based on locale.",
+        "Fetch ErrorEmail from web.config depending on locale.",
+        "Fetch subject (DatabaseName) from web.config.",
+        "Check if HttpRequestValidationException parameter is '1'; if so, show specific validation error message.",
+        "Else, show general error message.",
+        "Render localized error message in uxErrorMessage.",
+        "InitializeCulture method sets UI/Culture threads based on locale."
+      ]
+    }
+  ],
+  "business_rules": [
+    "ErrorEmail must be customizable per instance via web.config.",
+    "Locale determines which header panel and error message to display.",
+    "If HttpRequestValidationException=1, display validation-specific message."
+  ],
+  "validations": [
+    "Locale must be a valid culture string (e.g., 'en-US', 'fr-CA').",
+    "HttpRequestValidationException must be '1' to trigger validation error message."
+  ],
+  "calculations": [],
+  "conditions": [
+    "usingDefaultLocale = Request.QueryString[\"Locale\"] == \"en-US\" or is null/empty.",
+    "Show HeaderEN if usingDefaultLocale; HeaderFR otherwise.",
+    "Use ERROR_EMAIL for English, ERROR_EMAIL_ALT for French."
+  ],
+  "system_behavior": [
+    "Page loads and adapts UI based on locale.",
+    "Fetches configuration values for contact information and database name.",
+    "Renders error message dynamically based on error context.",
+    "Culture and UI threads initialized based on user locale."
+  ],
+  "dependencies": [
+    "web.config (AppSettings: ERROR_EMAIL, ERROR_EMAIL_ALT, DatabaseName)",
+    "Resources (localization strings for error messages)",
+    "images/topbar.jpg, images/topbar_fr.jpg (header images)",
+    "Global.css (stylesheet)"
+  ],
+  "exceptions": [
+    "HttpRequestValidationException triggers specific error message."
+  ],
+  "source_document_ids": [
+    "061d570b-3af2-5dc8-9639-8df86256fbfd",
+    "745fd8a6-9d74-5b61-a2f4-678706f9e330",
+    "b91b73c2-09c1-55dc-8f24-5033abbc7c12",
+    "b9f61ea8-4e71-5ce8-9493-99a77994d0b6"
+  ],
+  "content_gaps": [
+    "No sample error messages or full localized resource strings found.",
+    "No specific guidance on error logging or reporting exceptions beyond UI display.",
+    "Underlying error causes and remediation steps not described."
+  ]
+}
