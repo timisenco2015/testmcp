@@ -1,0 +1,94 @@
+{
+  "filename": "RptMnuAssignmentChanges",
+  "found": true,
+  "summary": "RptMnuAssignmentChanges is a report-generating user control in an ASP.NET application, designed to display and export assignment change information for students. It uses a stored procedure (ReportAssignmentChanges) and allows users to select a cutover date to filter report data. The control validates input, manages state, and provides UI features for date selection and export.",
+  "purpose": "To allow users to generate, view, and export reports on student assignment changes by specifying a cutover date and interacting with assignment change data. Supports Excel export and provides information in HTML format, with business rules and validation for input.",
+  "entities": [
+    "Student",
+    "Assignment",
+    "Report",
+    "UserSession"
+  ],
+  "fields": [
+    "txtStartDate (TextBox - Cutover Date input)",
+    "ltlDescription (Literal - Report Description)",
+    "ltlOptions (Literal - Report Options/Notes)",
+    "lblReportHTML (Label - Output HTML for report)",
+    "pnlReportHTML (Panel - Contains rendered report)",
+    "ValidationSummary1 (Validation summary)",
+    "RegularExpressionValidator1 (Regex validation for txtStartDate)",
+    "valEditStartDate (Required field validator for txtStartDate)",
+    "cmdRunExcel (Button - triggers Excel export)",
+    "CalendarExtender1 (Calendar UI for date input)",
+    "lblPleaseWait (Label - status/feedback)",
+    "btnStartDate (LinkButton - activates date UI)"
+  ],
+  "actors": [
+    "End User",
+    "UserSession (application context)",
+    "SQL Server (ReportAssignmentChanges stored procedure)",
+    "ScriptManager (manages JS and async)"
+  ],
+  "workflows": [
+    {
+      "name": "Generate Assignment Change Report",
+      "steps": [
+        "User enters or selects a cutover date in txtStartDate.",
+        "Input is validated (required and regex validation).",
+        "User clicks cmdRunExcel to trigger report.",
+        "System sets ProcedureName to 'ReportAssignmentChanges'.",
+        "SessionID and CutoverDate parameters are added.",
+        "Stored procedure is executed to fetch report data.",
+        "Report output is formatted as HTML/CSV.",
+        "HTML report is displayed in lblReportHTML and pnlReportHTML.",
+        "User can export the report to Excel."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Cutover date is mandatory and validated via required and regex validators.",
+    "Report data is filtered based on cutover date provided.",
+    "SessionID must be attached to the procedure call for user context."
+  ],
+  "validations": [
+    "RequiredFieldValidator ensures txtStartDate is not empty.",
+    "RegularExpressionValidator ensures correct date format in txtStartDate.",
+    "ValidationSummary1 summarizes validation errors."
+  ],
+  "calculations": [
+    "DateFormatter.ParseDate converts txtStartDate input to proper date format for database."
+  ],
+  "conditions": [
+    "Report is only generated if txtStartDate is valid.",
+    "Report HTML is displayed only if reportHTML is not empty."
+  ],
+  "system_behavior": [
+    "On Page_PreRender, report description and options are set based on code lookup.",
+    "SetupJavaScript is invoked to initialize client-side variables and interactions.",
+    "On Excel button click, stored procedure is executed and report data output."
+  ],
+  "dependencies": [
+    "HSPnetSession object for user/session context",
+    "SQL stored procedure 'ReportAssignmentChanges'",
+    "ASP.NET server controls (TextBox, Button, Panel, etc.)",
+    "JavaScript for client-side functionality",
+    "AjaxControlToolkit for calendar UI"
+  ],
+  "exceptions": [
+    "If txtStartDate is invalid or missing, report generation is blocked.",
+    "If stored procedure returns no data, reportHTML may be empty and report will not display."
+  ],
+  "source_document_ids": [
+    "2a158d61-9a96-5f26-80a3-7942361e29ed",
+    "3d469ead-1a66-5796-b177-955b45cdf00a",
+    "55326e63-981c-5728-af03-4c180691f4dc",
+    "5defe0a3-b3ff-5d8b-aed3-cfb67bfc3cd3",
+    "9a5b51e8-9ce9-51be-9727-c9106db96549",
+    "c891e8f5-31f1-50a7-a352-1fc21f7e2db2"
+  ],
+  "content_gaps": [
+    "Details of stored procedure 'ReportAssignmentChanges' output format and internal logic not available.",
+    "No specifics on how assignment change calculations are performed or what fields are included in the report.",
+    "No explicit descriptions of error handling for database failures or business exceptions."
+  ]
+}
