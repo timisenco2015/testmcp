@@ -1,0 +1,175 @@
+{
+  "filename": "SiteOpportunity",
+  "found": true,
+  "summary": "The SiteOpportunity module handles the management of site-specific opportunities in the system. It includes entity definitions, CRUD operations, list retrieval, and logic to format, validate, and control the presentation of opportunity data. Workflows include adding, updating, deleting, copying, and fetching SiteOpportunities by various parameters. Formatting and validation ensure display correctness and business rules compliance.",
+  "purpose": "To provide a structured way to manage site opportunities, allowing users to add, update, delete, retrieve, and present these opportunities with formatting and validation appropriate for UI consumption and business rules.",
+  "entities": [
+    {
+      "name": "SiteOpportunity",
+      "fields": [
+        "ID",
+        "SiteID",
+        "HeadingID",
+        "Response",
+        "SortOrder",
+        "Description",
+        "DescriptionAlt",
+        "DescriptionFormatted",
+        "SortOrderFormatted",
+        "WebPage",
+        "HeaderChanged"
+      ]
+    }
+  ],
+  "fields": [
+    {
+      "name": "ID",
+      "type": "int",
+      "description": "Unique identifier for the opportunity"
+    },
+    {
+      "name": "SiteID",
+      "type": "int",
+      "description": "Associated site identifier"
+    },
+    {
+      "name": "HeadingID",
+      "type": "int",
+      "description": "Related heading/category identifier"
+    },
+    {
+      "name": "Response",
+      "type": "string",
+      "description": "Opportunity response text"
+    },
+    {
+      "name": "SortOrder",
+      "type": "int",
+      "description": "Manual sort order; -1 means blank"
+    },
+    {
+      "name": "Description",
+      "type": "string",
+      "description": "Main description"
+    },
+    {
+      "name": "DescriptionAlt",
+      "type": "string",
+      "description": "Alternate language description"
+    },
+    {
+      "name": "DescriptionFormatted",
+      "type": "string",
+      "description": "UI-ready description, based on language preference"
+    },
+    {
+      "name": "SortOrderFormatted",
+      "type": "string",
+      "description": "UI-ready sort order (blank if -1)"
+    },
+    {
+      "name": "WebPage",
+      "type": "bool",
+      "description": "True if entry is a web page record"
+    },
+    {
+      "name": "HeaderChanged",
+      "type": "bool",
+      "description": "True if heading/category changed for display grouping"
+    }
+  ],
+  "actors": [
+    "HSPnetSession",
+    "SqlDataReader"
+  ],
+  "workflows": [
+    {
+      "name": "Add SiteOpportunity",
+      "steps": [
+        "Validate SiteOpportunity (Response is required)",
+        "Set parameters: SiteID, HeadingID, Response, SortOrder",
+        "Call DB procedure: SiteOpportunitiesAdd"
+      ]
+    },
+    {
+      "name": "Update SiteOpportunity",
+      "steps": [
+        "Check ID is not 0 and Valid",
+        "Set parameters: SiteOpportunitiesID, HeadingID, Response, SortOrder",
+        "Call DB procedure: SiteOpportunitiesUpdate"
+      ]
+    },
+    {
+      "name": "Delete SiteOpportunity",
+      "steps": [
+        "Check ID is not 0",
+        "Set parameter: SiteOpportunitiesID",
+        "Call DB procedure: SiteOpportunitiesDelete"
+      ]
+    },
+    {
+      "name": "Get SiteOpportunities by SiteID",
+      "steps": [
+        "Set procedure: SiteOpportunitiesSearch",
+        "Add parameter: SiteID",
+        "Execute and map results to list"
+      ]
+    },
+    {
+      "name": "Get SiteOpportunity by ID",
+      "steps": [
+        "Set procedure: SiteOpportunitiesSearchID",
+        "Add parameter: ID",
+        "Execute and map result"
+      ]
+    },
+    {
+      "name": "FillList (data mapping for UI)",
+      "steps": [
+        "Iterate data reader rows",
+        "Construct SiteOpportunity entity from DB fields",
+        "Apply formatting (sort order, description language)",
+        "Set WebPage flag if description matches special value",
+        "Handle header changes for grouping"
+      ]
+    }
+  ],
+  "business_rules": [
+    "SortOrder of -1 is treated as blank for display",
+    "DescriptionFormatted uses alternate language if session setting is enabled",
+    "WebPage flag set when Description matches Resources.WEB_PAGE",
+    "HeaderChanged set true when HeadingID changes on subsequent entries"
+  ],
+  "validations": [
+    "Response must not be blank (add error message and prevent operation if blank)"
+  ],
+  "calculations": [
+    "SortOrderFormatted: blank if SortOrder == -1, else string value",
+    "DescriptionFormatted: DescriptionAlt if session language setting, else Description"
+  ],
+  "conditions": [
+    "Entry is a web page if Description == Resources.WEB_PAGE",
+    "HeaderChanged if HeadingID differs from previous entry"
+  ],
+  "system_behavior": [
+    "Maps database rows to strongly-typed entities for UI and business logic",
+    "Resets numbering and header grouping as display context changes"
+  ],
+  "dependencies": [
+    "HSPnetSession (provides DB access and session context)",
+    "HSPnet.UI.NumberingCodes (for numbering/grouping)",
+    "Resources (for multi-language and constant checks)"
+  ],
+  "exceptions": [
+    "Add/Update fails if Response is blank with error message",
+    "No operations performed if SiteOpportunity ID is 0"
+  ],
+  "source_document_ids": [
+    "148590b2-a5c1-5ba2-9f76-5946671326da",
+    "18839216-0ce2-5da0-8629-43191022355e",
+    "2e24ba24-238e-539a-9060-ae9c5b2ef73d",
+    "430d8e05-df1d-5100-81dd-8c604142a057",
+    "64109c98-7c33-509c-9bd9-15bb43722cb7"
+  ],
+  "content_gaps": []
+}
