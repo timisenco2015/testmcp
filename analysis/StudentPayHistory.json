@@ -1,139 +1,97 @@
-{
-  "filename": "ExpenseBatch",
-  "found": true,
-  "summary": "ExpenseBatch manages expense batch records, including creation, updating, searching, and deletion. It encapsulates the data structure and persistence logic for expense batches within the system.",
-  "purpose": "To provide CRUD (Create, Read, Update, Delete) operations and structure for expense batches, corresponding to workflow needs for department-level tracking and status management of expense batches.",
-  "entities": [
-    "ExpenseBatch"
-  ],
-  "fields": [
-    {
-      "name": "ID",
-      "type": "int",
-      "description": "Primary identifier for the ExpenseBatch"
-    },
-    {
-      "name": "DepartmentID",
-      "type": "int",
-      "description": "Department associated with the batch"
-    },
-    {
-      "name": "BatchDescription",
-      "type": "string",
-      "description": "Description of the batch"
-    },
-    {
-      "name": "BatchDate",
-      "type": "DateTime",
-      "description": "The date the batch was created"
-    },
-    {
-      "name": "StatusCodeID",
-      "type": "int",
-      "description": "Current status code reference"
-    },
-    {
-      "name": "StatusCode",
-      "type": "string",
-      "description": "Status code"
-    },
-    {
-      "name": "StatusDescription",
-      "type": "string",
-      "description": "Human-readable description of batch status"
-    },
-    {
-      "name": "ClosedDate",
-      "type": "DateTime",
-      "description": "Date the batch was closed"
-    },
-    {
-      "name": "BatchNumberFormatted",
-      "type": "string",
-      "description": "Formatted batch number for display, combining ID and status description"
-    }
-  ],
-  "actors": [
-    "HSPnetSession (system/service layer)"
-  ],
-  "workflows": [
-    {
-      "name": "Search for Expense Batches",
-      "steps": [
-        "Call ExpenseBatches.Search with departmentID.",
-        "Procedure 'ExpenseBatchSearch' is invoked.",
-        "Results are read and ExpenseBatch objects are constructed with ID, StatusCode, StatusDescription, BatchNumberFormatted.",
-        "Return list of ExpenseBatch items."
-      ]
-    },
-    {
-      "name": "Search ExpenseBatch by ID",
-      "steps": [
-        "Call ExpenseBatch.SearchID with batch ID.",
-        "Procedure 'ExpenseBatchSearchID' is invoked.",
-        "Retrieve batch fields: ID, DepartmentID, BatchDescription, BatchDate, StatusCodeID, StatusCode, StatusDescription (with language support), ClosedDate, BatchNumberFormatted.",
-        "Return populated ExpenseBatch object."
-      ]
-    },
-    {
-      "name": "Add ExpenseBatch",
-      "steps": [
-        "Call ExpenseBatch.Add with session, departmentID, batchDescription, batchDate.",
-        "Procedure 'ExpenseBatchAdd' is invoked with specified parameters.",
-        "Read returned ID from DB.",
-        "Return new ExpenseBatch ID."
-      ]
-    },
-    {
-      "name": "Update ExpenseBatch",
-      "steps": [
-        "Call ExpenseBatch.Update with session, id, batchDescription, batchDate, statusCodeID.",
-        "Procedure 'ExpenseBatchUpdate' is invoked.",
-        "Data is updated in DB."
-      ]
-    },
-    {
-      "name": "Delete ExpenseBatch",
-      "steps": [
-        "Call ExpenseBatch.Delete with session and id.",
-        "Procedure 'ExpenseBatchDelete' is invoked.",
-        "Record is deleted from DB."
-      ]
-    }
-  ],
-  "business_rules": [
-    "StatusDescription is selected to use the alternate language field if language preferences are set.",
-    "BatchNumberFormatted combines ID and StatusDescription for display."
-  ],
-  "validations": [
-    "All CRUD method calls rely on parameterized stored procedures, assuming DB-level validations on ID, departmentID, batchDescription, batchDate, statusCodeID."
-  ],
-  "calculations": [
-    "BatchNumberFormatted = ID + \" - \" + StatusDescription"
-  ],
-  "conditions": [
-    "If StatusDescriptionAlt is present and language preference is set, use it; otherwise, use StatusDescription."
-  ],
-  "system_behavior": [
-    "All data access is through HSPnetSession's DB context and stored procedures.",
-    "ExpenseBatch objects are built from DB data and returned for use in application/UI."
-  ],
-  "dependencies": [
-    "HSPnetSession",
-    "SQL stored procedures: ExpenseBatchSearch, ExpenseBatchSearchID, ExpenseBatchAdd, ExpenseBatchUpdate, ExpenseBatchDelete"
-  ],
-  "exceptions": [
-    "If no data is returned from the database (reader is null), methods return an empty list or default ExpenseBatch object.",
-    "All DB readers are properly closed after use."
-  ],
-  "source_document_ids": [
-    "060e08d3-49ca-5e40-bea0-849f4e6173e1",
-    "3559737f-0154-520e-be2b-d3dd2c3de539",
-    "b2216e58-a144-55cb-8b87-3da9787fc1d7"
-  ],
-  "content_gaps": [
-    "No information about UI interactions or user-triggered validations.",
-    "No explicit business logic for edge cases (e.g., deletion of closed batches).",
-    "No detail on permissions or authorization checks."
-  ]
-}
+[
+  {
+    "filename": "SiteDocument",
+    "found": false,
+    "summary": "",
+    "purpose": "",
+    "entities": [],
+    "fields": [],
+    "actors": [],
+    "workflows": [],
+    "business_rules": [],
+    "validations": [],
+    "calculations": [],
+    "conditions": [],
+    "system_behavior": [],
+    "dependencies": [],
+    "exceptions": [],
+    "source_document_ids": [],
+    "content_gaps": ["No related documents found for filename 'SiteDocument'."]
+  },
+  {
+    "filename": "WelcomeStaffAdmin",
+    "found": false,
+    "summary": "",
+    "purpose": "",
+    "entities": [],
+    "fields": [],
+    "actors": [],
+    "workflows": [],
+    "business_rules": [],
+    "validations": [],
+    "calculations": [],
+    "conditions": [],
+    "system_behavior": [],
+    "dependencies": [],
+    "exceptions": [],
+    "source_document_ids": [],
+    "content_gaps": ["No related documents found for filename 'WelcomeStaffAdmin'."]
+  },
+  {
+    "filename": "ServiceCode",
+    "found": false,
+    "summary": "",
+    "purpose": "",
+    "entities": [],
+    "fields": [],
+    "actors": [],
+    "workflows": [],
+    "business_rules": [],
+    "validations": [],
+    "calculations": [],
+    "conditions": [],
+    "system_behavior": [],
+    "dependencies": [],
+    "exceptions": [],
+    "source_document_ids": [],
+    "content_gaps": ["No related documents found for filename 'ServiceCode'."]
+  },
+  {
+    "filename": "SiteProfileHistory",
+    "found": false,
+    "summary": "",
+    "purpose": "",
+    "entities": [],
+    "fields": [],
+    "actors": [],
+    "workflows": [],
+    "business_rules": [],
+    "validations": [],
+    "calculations": [],
+    "conditions": [],
+    "system_behavior": [],
+    "dependencies": [],
+    "exceptions": [],
+    "source_document_ids": [],
+    "content_gaps": ["No related documents found for filename 'SiteProfileHistory'."]
+  },
+  {
+    "filename": "EmailPopupDocument",
+    "found": false,
+    "summary": "",
+    "purpose": "",
+    "entities": [],
+    "fields": [],
+    "actors": [],
+    "workflows": [],
+    "business_rules": [],
+    "validations": [],
+    "calculations": [],
+    "conditions": [],
+    "system_behavior": [],
+    "dependencies": [],
+    "exceptions": [],
+    "source_document_ids": [],
+    "content_gaps": ["No related documents found for filename 'EmailPopupDocument'."]
+  }
+]
