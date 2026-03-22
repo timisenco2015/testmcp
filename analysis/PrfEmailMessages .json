@@ -1,0 +1,102 @@
+{
+  "filename": "PrfEmailMessages",
+  "found": true,
+  "summary": "PrfEmailMessages is a user control within the StaffProfile namespace for managing staff email messages in an ASP.NET web application. It features workflows for displaying, inserting, editing, and deleting staff messages, presenting them in a grid with detail views and modal popups, enforcing business rules and validations, and providing user session and permission-based behavior.",
+  "purpose": "The control enables staff message CRUD operations linked to a specific staff member, supporting workflow steps such as adding new messages, editing existing entries, and deleting messages. Access and actions are gated by session validity and edit permissions, ensuring only authorized users can perform modifications.",
+  "entities": [
+    "StaffMessage",
+    "HSPnetSession"
+  ],
+  "fields": [
+    "ID",
+    "TypeCodeID",
+    "StaffID"
+  ],
+  "actors": [
+    "User",
+    "System"
+  ],
+  "workflows": [
+    {
+      "name": "Display Staff Messages",
+      "steps": [
+        "dsStaffMessages_Selecting event verifies UserSession and StaffID.",
+        "Grid displays messages in gridData.",
+        "If gridData is empty and screen is editable, show add button and pnlEmptyData."
+      ]
+    },
+    {
+      "name": "Add Staff Message",
+      "steps": [
+        "User clicks add button.",
+        "Grid.SwitchToAddMode(uxDetail) launches detail modal.",
+        "dsStaffMessagesID.Inserting event injects UserSession and StaffID.",
+        "uxDetail_ItemInserting sets TypeCodeID from ddType dropdown.",
+        "Validation checks (Page.IsValid).",
+        "On success, message inserted, session cached, redirect to current page."
+      ]
+    },
+    {
+      "name": "Edit Staff Message",
+      "steps": [
+        "User activates edit from grid row.",
+        "dsStaffMessagesID.SelectParameters sets ID.",
+        "Grid.SwitchToEditMode(uxDetail) launches detail modal.",
+        "dsStaffMessagesID.Updating injects UserSession and StaffID.",
+        "uxDetail_ItemUpdating sets new values (ID, TypeCodeID).",
+        "Validation checks (Page.IsValid).",
+        "On success, updated, session cached, redirect to current page."
+      ]
+    },
+    {
+      "name": "Delete Staff Message",
+      "steps": [
+        "User clicks delete button.",
+        "deleteRow invokes StaffMessages.StaffMessagesDelete(UserSession, ID).",
+        "Session cached, redirect to current page."
+      ]
+    }
+  ],
+  "business_rules": [
+    "UserSession must be present for data actions.",
+    "ScreenIsEditable must be true for add/edit/delete.",
+    "Only editable screens allow modification controls."
+  ],
+  "validations": [
+    "Page.IsValid prevents inserting/updating if validation fails.",
+    "TypeCodeID is required from dropdown ddType."
+  ],
+  "calculations": [],
+  "conditions": [
+    "If UserSession is null, cancel ObjectDataSource selection.",
+    "If gridData has zero rows and ScreenIsEditable, show pnlEmptyData."
+  ],
+  "system_behavior": [
+    "Caches user session after insert/update/delete.",
+    "Always redirects to updated CurrentPage after operations.",
+    "Grid disables edit fields if screen is not editable.",
+    "Shows modal popup for detail view add/edit."
+  ],
+  "dependencies": [
+    "Grid (utility functions for button setup, mode switching, showing details)",
+    "HSPnetSession",
+    "StaffMessages (data layer for delete)",
+    "QueryString (URL manipulation)"
+  ],
+  "exceptions": [
+    "Cancel selection, insertion, or update if UserSession is null or Page is invalid."
+  ],
+  "source_document_ids": [
+    "54eb7f90-aa81-5c73-9edf-449b18368886",
+    "747bb576-2d1e-515e-844c-e5b69a297c7f",
+    "766d2735-749a-5eca-9d70-13ff77e83546",
+    "cf2f0c7f-251f-5853-a971-0e529d5cb0f0",
+    "d2df2107-29e7-5d6e-aafe-d55e8532eeca",
+    "edab8455-e683-5ca9-84d6-77349d98c7a5",
+    "f8b1f8d2-c584-576d-b5c1-20135d6f0924"
+  ],
+  "content_gaps": [
+    "Field-level business rules and validations beyond those listed are not fully covered.",
+    "Exact structure of StaffMessage and auxiliary classes/functions are not included."
+  ]
+}
