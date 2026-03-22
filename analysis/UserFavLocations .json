@@ -1,0 +1,385 @@
+[
+  {
+    "filename": "UserFavLocations",
+    "found": true,
+    "summary": "The UserFavLocations module enables users to manage their favorite agency locations. It features a dual-list interface with included and not-included agencies, facilitating selection and ordering of preferred agencies. The interface supports viewing modes (Quicklist and All), error and warning handling, and workflow for updating favorites. Validation and cache refresh are implemented upon changes.",
+    "purpose": "To enable users to manage their list of favorite agencies for quick selection and access, supporting workflows for viewing, editing, and saving favorite locations.",
+    "entities": [
+      "Agency",
+      "UserSession"
+    ],
+    "fields": [
+      "lbIncluded",
+      "lbNotIncluded",
+      "txtIncluded",
+      "cmdAddAll",
+      "cmdAdd",
+      "cmdRemoveAll",
+      "cmdSave",
+      "cmdClose",
+      "cmdViewRAQ",
+      "cmdViewALL",
+      "pnlViewRAQ",
+      "pnlViewALL",
+      "pnlError",
+      "lblErrorCaption",
+      "lblErrorList",
+      "pnlWarning",
+      "lblWarningCaption",
+      "lblWarningList",
+      "cmdHideErrorPanel",
+      "cmdHideWarningPanel",
+      "pnlRAQModeChanged",
+      "Label9",
+      "lblFooter"
+    ],
+    "actors": [
+      "User",
+      "System",
+      "HSPnet.WebServices.ASSDLookups"
+    ],
+    "workflows": [
+      {
+        "name": "Update Favorites",
+        "steps": [
+          "User adds/removes agencies from lbIncluded/lbNotIncluded.",
+          "User saves changes via cmdSave. This triggers Agencies.UpdateFavourites(UserSession, txtIncluded.Value).",
+          "Lists are reloaded; ASSD cache is cleared.",
+          "Errors/warnings are processed and displayed if present."
+        ]
+      },
+      {
+        "name": "Switch Viewing Modes",
+        "steps": [
+          "User changes between Quicklist and All views using cmdViewRAQ/cmdViewALL.",
+          "Panels pnlViewRAQ and pnlViewALL are toggled.",
+          "pnlRAQModeChanged becomes visible.",
+          "ASSD cache is cleared on mode change."
+        ]
+      }
+    ],
+    "business_rules": [
+      "StandAloneMode disables view mode switching.",
+      "Favorites are stored as comma-separated values in txtIncluded.",
+      "HSPnet.WebServices.ASSDLookups.ClearASSDCache is called after changes."
+    ],
+    "validations": [
+      "Page messages processed for error/warning display.",
+      "Validation ensures favorites are updated correctly."
+    ],
+    "calculations": [],
+    "conditions": [
+      "If StandAloneMode == '1', pnlViewAllMode is hidden.",
+      "If ViewAllMode == '1', pnlViewALL is hidden; otherwise, pnlViewRAQ is hidden."
+    ],
+    "system_behavior": [
+      "Handles error and warning panels with always-visible controls.",
+      "Reloads lists and refreshes cache upon save or mode change.",
+      "Calls ProcessPageMessages for displaying errors and warnings."
+    ],
+    "dependencies": [
+      "Agencies.AgencySearchFav",
+      "Agencies.AgencySearchNotFav",
+      "HSPnet.WebServices.ASSDLookups",
+      "UserSession"
+    ],
+    "exceptions": [
+      "Page messages may display error or warning details.",
+      "Cache clearing may affect subsequent queries."
+    ],
+    "source_document_ids": [
+      "0e0ce165-1ac6-5b86-9ab8-bee8b49aa587",
+      "0ead2eb4-ca22-5079-a649-abe77331e906",
+      "24bd212a-c081-5ef5-ae5c-02cab4069a5d",
+      "29604d5f-956b-5b21-954f-3c46ab12192e",
+      "39f8dcc6-fbbb-554d-a83e-c72d5b507f6a",
+      "48a09015-b9a9-53fc-a3f6-27734ef6e882",
+      "54d138e9-7478-56c9-8436-4908ed0a6a55",
+      "641c8800-7840-52e1-b83a-f1e166e423d6",
+      "69bd95c0-674c-599b-92aa-0a8e2cce2aff",
+      "7386a75d-c648-5bc7-a3af-4adc01281d99",
+      "a2e4703b-ebf3-5bba-8c70-b816d53aee6a",
+      "aae50061-b06b-5938-a542-4d5a074869d6",
+      "d55ce845-aec4-5064-a2fd-a9d6c0f9b14d",
+      "ea5f2a78-1645-5cfc-ad3b-4adb6165bce8",
+      "ed463e4c-9263-5cf6-ac8f-62bd2efd7c68",
+      "faa7e728-71cc-5378-9924-ee141aed52c1",
+      "fd307450-c534-5c7f-bee0-e2544a6f1a88"
+    ],
+    "content_gaps": []
+  },
+  {
+    "filename": "SiteDocument",
+    "found": true,
+    "summary": "SiteDocument represents a data entity associated with a site and an ID, intended for tracking a document related to a site within the HSPnet.DataLayer namespace.",
+    "purpose": "To provide a structure for storing or referencing documents attached to specific sites.",
+    "entities": [
+      "SiteDocument"
+    ],
+    "fields": [
+      "ID",
+      "SiteID"
+    ],
+    "actors": [],
+    "workflows": [],
+    "business_rules": [],
+    "validations": [],
+    "calculations": [],
+    "conditions": [],
+    "system_behavior": [],
+    "dependencies": [],
+    "exceptions": [],
+    "source_document_ids": [
+      "a2967f17-a924-5e9c-8b15-d1f7bd028b32"
+    ],
+    "content_gaps": [
+      "No information on business rules, workflows, actors, or UI behavior."
+    ]
+  },
+  {
+    "filename": "WelcomeStaffAdmin",
+    "found": true,
+    "summary": "WelcomeStaffAdmin is a page/module that displays staff welcome information, including last login details, site selections, and discipline filtering. It controls visibility of panels, updates UI based on session and user input, and provides filtering and paging for employment applications.",
+    "purpose": "To welcome staff with personalized login information and provide interfaces for filtering and viewing employment applications.",
+    "entities": [
+      "UserSession"
+    ],
+    "fields": [
+      "lblTitle",
+      "ltlLastLogin",
+      "pnlLastLogin",
+      "updPnlMain",
+      "pnlError",
+      "lblErrorCaption",
+      "lblErrorList",
+      "pnlWarning",
+      "lblWarningCaption",
+      "lblWarningList",
+      "cmdHideErrorPanel",
+      "cmdHideWarningPanel",
+      "CurrentViewLabel",
+      "pnlCurrentView",
+      "Literal2",
+      "ddSite",
+      "Literal4",
+      "ddDiscipline",
+      "Literal3",
+      "valStartDate",
+      "txtStartDate",
+      "btnStartDateCalendar",
+      "CalendarExtender1",
+      "RegularExpressionValidator1",
+      "LiteralTo",
+      "valEndDate",
+      "txtEndDate",
+      "btnEndDateCalendar",
+      "CalendarExtender2",
+      "RegularExpressionValidator2",
+      "cvrEndDateAfter",
+      "chkShowWithdrawn",
+      "cmdRefreshView",
+      "gvwApplications",
+      "dsEmploymentApplications"
+    ],
+    "actors": [
+      "Staff",
+      "System"
+    ],
+    "workflows": [
+      {
+        "name": "Employment Application Filtering",
+        "steps": [
+          "On page load, fill site and discipline dropdowns based on session.",
+          "Set default date filters (start date -3 months, end date today).",
+          "On selection/filter changes, RefreshData is called, updating the interface.",
+          "User views filtered results in gvwApplications."
+        ]
+      }
+    ],
+    "business_rules": [
+      "LastLogin panel is only shown if user has last login data.",
+      "Employment applications can be filtered by site, discipline, date range, and withdrawn status."
+    ],
+    "validations": [
+      "RequiredFieldValidators for start and end date.",
+      "RegularExpressionValidators for valid date input.",
+      "CustomValidator ensures end date is after start date."
+    ],
+    "calculations": [],
+    "conditions": [
+      "If SiteID is present in query string, dropdown is filled using that SiteID."
+    ],
+    "system_behavior": [
+      "Processes error and warning messages.",
+      "Registers specific JavaScript files for date and admin functions.",
+      "Supports async updates via UpdatePanel."
+    ],
+    "dependencies": [
+      "UserSession",
+      "HSPnet.DataLayer.EmploymentApplications",
+      "DateFormatter"
+    ],
+    "exceptions": [
+      "Error and warning panels are displayed if messages are present."
+    ],
+    "source_document_ids": [
+      "05db31e4-e8b6-53ee-a6fb-812c106f0134",
+      "100d5925-a5f8-53db-8493-02cddd563eb7",
+      "3c84bade-9671-5fbf-acce-3c87a835e9b4",
+      "4c4b97b8-d242-5261-a515-767a3f7d7a49",
+      "52b5066f-23f6-5d82-96cd-5d51dad3de79",
+      "54244516-0707-581e-a8ba-9c041ea38366",
+      "5bb85da3-f5b4-5753-b07c-9bb2a04eeb89",
+      "5d9b92ea-7c12-5070-8603-977cf14d0e04",
+      "6701b153-5288-59e5-8de9-61b68a1fc292",
+      "6eca1317-c0b2-5225-a9af-f034a722d924",
+      "871df91b-7ba0-558f-83ea-d5be1b0dc8db",
+      "8cea5c3a-2fbf-5206-a0c0-9425a5e14511",
+      "964a48c9-231c-5d58-a44d-3675d949a453",
+      "966ed8d3-a5af-567f-b092-936217777551",
+      "a0c3da28-32a5-5fce-91b2-17274efa016e",
+      "afbb4ec5-43c8-5281-ad2c-4b6cfd23a48e",
+      "b8e79322-9a0e-5fe7-8953-3d05e231f923",
+      "bf423a80-93db-572d-8cb8-c79f04214a93",
+      "ca71b077-cc26-5979-a44f-59700a41316b",
+      "d278278f-d4ec-5f4a-9f29-a02b66773bb9",
+      "db9b35e9-53ca-5eaf-9d75-4f3a72131bc7",
+      "e249a878-c837-5d1c-9a3d-5167df2614fb"
+    ],
+    "content_gaps": []
+  },
+  {
+    "filename": "ServiceCode",
+    "found": true,
+    "summary": "ServiceCode is a data entity that models code categories, descriptions, notes, and alternative language fields. The ServiceCodes class provides static methods to retrieve lists of service codes filtered by session, course, or timetable using stored procedures.",
+    "purpose": "To provide structured representation and retrieval of service codes for categorizing and describing services in different contexts.",
+    "entities": [
+      "ServiceCode"
+    ],
+    "fields": [
+      "ID",
+      "CodeCategoryID",
+      "ShortName",
+      "Name",
+      "SortOrder",
+      "Notes",
+      "NameAlt",
+      "NotesAlt"
+    ],
+    "actors": [
+      "HSPnetSession"
+    ],
+    "workflows": [
+      {
+        "name": "ServiceCode Retrieval",
+        "steps": [
+          "ServiceCodeListAll: retrieves all service codes.",
+          "ServiceCodeASMOptionByCourseID: retrieves service codes for given course ID.",
+          "ServiceCodeASMOptionByTimetableID: retrieves service codes for given timetable ID."
+        ]
+      }
+    ],
+    "business_rules": [
+      "If UseAltLanguageFields is true in session, Name uses NameAlt."
+    ],
+    "validations": [],
+    "calculations": [],
+    "conditions": [
+      "Filtering is done by CourseID or TimetableID when required."
+    ],
+    "system_behavior": [
+      "Uses stored procedures for retrieval.",
+      "Returns list of ServiceCode objects."
+    ],
+    "dependencies": [
+      "Database procedures: ServiceCodeListAll, ServiceCodeASMOptionByCourseID, ServiceCodeASMOptionByTimetableID",
+      "HSPnetSession"
+    ],
+    "exceptions": [],
+    "source_document_ids": [
+      "94f1b055-348d-508a-ae6e-cf7960a8c6a2",
+      "e4ebe4b4-6d14-5c3f-b693-61016f765239",
+      "f976b9af-a402-540f-b162-391d578fac7c"
+    ],
+    "content_gaps": [
+      "No information on UI, error handling, or business processes outside code retrieval."
+    ]
+  },
+  {
+    "filename": "SiteProfileHistory",
+    "found": true,
+    "summary": "SiteProfileHistory is a data entity recording the history of actions taken on site profiles. It tracks changes with date, section, action, fields, agency, user, and contact information. The SiteProfileHistories class provides search and fill methods for retrieving historical records.",
+    "purpose": "To provide auditability and tracking of changes in site profiles, identifying who made the changes and what was changed.",
+    "entities": [
+      "SiteProfileHistory"
+    ],
+    "fields": [
+      "ID",
+      "ActionDate",
+      "ScreenSection",
+      "UserAction",
+      "Fields",
+      "Agency",
+      "AgencyName",
+      "LastName",
+      "FirstName",
+      "MiddleName",
+      "Phone",
+      "ByUserID",
+      "ByOriginalUserID",
+      "ByUserSysAdmin",
+      "ActionDateFormatted",
+      "AgencyUserFormatted",
+      "AgencyUserDetailsFormatted"
+    ],
+    "actors": [
+      "User",
+      "SysAdmin",
+      "Support Team"
+    ],
+    "workflows": [
+      {
+        "name": "Site Profile History Search",
+        "steps": [
+          "SiteProfileHistorySearch called with SiteID and SessionAgencyID.",
+          "Database stored procedure filters and returns historical actions.",
+          "FillList reads and formats each result."
+        ]
+      }
+    ],
+    "business_rules": [
+      "If user is not sysadmin and user IDs differ, formatted as Support Team.",
+      "Formatted name and agency information provided for tooltips."
+    ],
+    "validations": [],
+    "calculations": [
+      "ActionDateFormatted: Formats date.",
+      "AgencyUserFormatted and AgencyUserDetailsFormatted: combine user and agency info for display."
+    ],
+    "conditions": [
+      "Fields use alternative language if UseAltLanguageFields is set."
+    ],
+    "system_behavior": [
+      "Provides history records per site.",
+      "Formats user and agency info for display.",
+      "Handles phone masking."
+    ],
+    "dependencies": [
+      "Database stored procedures: SiteProfileHistorySearch",
+      "HSPnetSession",
+      "NameFormatter",
+      "Phone"
+    ],
+    "exceptions": [],
+    "source_document_ids": [
+      "25f89a24-5eda-5a3f-83df-1de69b12b3f1",
+      "26e09292-d304-55c6-94e5-ef3346453c4b",
+      "7ca6b963-9ae9-5cd3-82d5-f30dcb727ae3",
+      "a8f030c6-90b8-53a1-bb8a-3b7ef33b9488",
+      "e806999c-3a39-5720-9b59-303faebc9eb6"
+    ],
+    "content_gaps": [
+      "No information on UI workflows, error handling, or business processes outside history retrieval."
+    ]
+  }
+]
