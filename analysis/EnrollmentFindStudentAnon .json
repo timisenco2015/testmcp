@@ -1,297 +1,44 @@
-[
-  {
-    "filename": "SiteDocument",
-    "found": true,
-    "summary": "Defines a SiteDocument with simple fields for ID and SiteID.",
-    "purpose": "Represents a document related to a site within the system.",
-    "entities": [
-      "SiteDocument"
-    ],
-    "fields": [
-      {"name": "ID", "type": "int"},
-      {"name": "SiteID", "type": "int"}
-    ],
-    "actors": [],
-    "workflows": [],
-    "business_rules": [],
-    "validations": [],
-    "calculations": [],
-    "conditions": [],
-    "system_behavior": [],
-    "dependencies": [],
-    "exceptions": [],
-    "source_document_ids": [
-      "a2967f17-a924-5e9c-8b15-d1f7bd028b32"
-    ],
-    "content_gaps": []
-  },
-  {
-    "filename": "WelcomeStaffAdmin",
-    "found": true,
-    "summary": "Welcome page for staff/admin panel showing last login, error handling, and filtering of employment applications by dates, site, and discipline.",
-    "purpose": "To display a filtered, paged list of student employment applications to staff/admins with date and site/discipline filtering and status handling.",
-    "entities": [
-      "EmploymentApplication",
-      "UserSession"
-    ],
-    "fields": [
-      {"name": "SiteID", "type": "int"},
-      {"name": "DisciplineID", "type": "int"},
-      {"name": "SubDisciplineID", "type": "int"},
-      {"name": "StartDate", "type": "date"},
-      {"name": "EndDate", "type": "date"},
-      {"name": "IncludeWithdrawn", "type": "bool"}
-    ],
-    "actors": [
-      "Staff/Admin"
-    ],
-    "workflows": [
-      {
-        "name": "View/Filter Employment Applications",
-        "steps": [
-          "User selects Site and Discipline filter (with All available).",
-          "User selects date range.",
-          "User may check 'Show Withdrawn Applications'.",
-          "Click 'Refresh View' to update results.",
-          "System binds grid to show matching applications with status, email, site, program, and withdrawal info."
-        ]
-      }
-    ],
-    "business_rules": [
-      "Employment applications are filtered by selected site, discipline, and date range.",
-      "Withdrawn applications can optionally be included/excluded.",
-      "Paging is used (page size 50)."
-    ],
-    "validations": [
-      "Start and End dates are required.",
-      "Start date must be before or equal to End date.",
-      "Dates must match a valid date format."
-    ],
-    "calculations": [],
-    "conditions": [
-      "If withdrawn date is set, status shows as Withdrawn, otherwise Submitted.",
-      "If last login is available, display it, otherwise hide that panel."
-    ],
-    "system_behavior": [
-      "On postback, maintains view state for filters.",
-      "Supports AJAX update panel for partial page refreshes.",
-      "Displays errors and warnings if present."
-    ],
-    "dependencies": [
-      "ObjectDataSource 'dsEmploymentApplications'",
-      "User session data"
-    ],
-    "exceptions": [
-      "If UserSession is empty, data query is cancelled.",
-      "If filter dates invalid, display validation error and do not refresh data."
-    ],
-    "source_document_ids": [
-      "05db31e4-e8b6-53ee-a6fb-812c106f0134",
-      "100d5925-a5f8-53db-8493-02cddd563eb7",
-      "3c84bade-9671-5fbf-acce-3c87a835e9b4",
-      "4c4b97b8-d242-5261-a515-767a3f7d7a49",
-      "52b5066f-23f6-5d82-96cd-5d51dad3de79",
-      "54244516-0707-581e-a8ba-9c041ea38366",
-      "5bb85da3-f5b4-5753-b07c-9bb2a04eeb89",
-      "5d9b92ea-7c12-5070-8603-977cf14d0e04",
-      "6701b153-5288-59e5-8de9-61b68a1fc292",
-      "871df91b-7ba0-558f-83ea-d5be1b0dc8db",
-      "8cea5c3a-2fbf-5206-a0c0-9425a5e14511",
-      "964a48c9-231c-5d58-a44d-3675d949a453",
-      "966ed8d3-a5af-567f-b092-936217777551",
-      "a0c3da28-32a5-5fce-91b2-17274efa016e",
-      "afbb4ec5-43c8-5281-ad2c-4b6cfd23a48e",
-      "b8e79322-9a0e-5fe7-8953-3d05e231f923",
-      "bf423a80-93db-572d-8cb8-c79f04214a93",
-      "ca71b077-cc26-5979-a44f-59700a41316b",
-      "d278278f-d4ec-5f4a-9f29-a02b66773bb9",
-      "db9b35e9-53ca-5eaf-9d75-4f3a72131bc7",
-      "e249a878-c837-5d1c-9a3d-5167df2614fb"
-    ],
-    "content_gaps": []
-  },
-  {
-    "filename": "ServiceCode",
-    "found": true,
-    "summary": "Service codes represent codified, localizable categories for use in various business operations in the system.",
-    "purpose": "Allow selection and localization of service codes for courses, timetables, etc.",
-    "entities": [
-      "ServiceCode"
-    ],
-    "fields": [
-      {"name": "ID", "type": "int"},
-      {"name": "CodeCategoryID", "type": "int"},
-      {"name": "ShortName", "type": "string"},
-      {"name": "Name", "type": "string"},
-      {"name": "SortOrder", "type": "int"},
-      {"name": "Notes", "type": "string"},
-      {"name": "NameAlt", "type": "string"},
-      {"name": "NotesAlt", "type": "string"}
-    ],
-    "actors": [],
-    "workflows": [
-      {
-        "name": "List Service Codes By Context",
-        "steps": [
-          "Call ServiceCodeListAll for all codes.",
-          "Call ServiceCodeASMOptionByCourseID or ServiceCodeASMOptionByTimetableID for context-specific options.",
-          "Localize Name/Notes fields if using an alternate language."
-        ]
-      }
-    ],
-    "business_rules": [
-      "Use alt language fields if session is in alt language mode."
-    ],
-    "validations": [],
-    "calculations": [],
-    "conditions": [],
-    "system_behavior": [
-      "Returns all codes in order, localized as needed."
-    ],
-    "dependencies": [
-      "Database stored procedures: ServiceCodeListAll, ServiceCodeASMOptionByCourseID, ServiceCodeASMOptionByTimetableID",
-      "HSPnetSession"
-    ],
-    "exceptions": [],
-    "source_document_ids": [
-      "94f1b055-348d-508a-ae6e-cf7960a8c6a2",
-      "e4ebe4b4-6d14-5c3f-b693-61016f765239",
-      "f976b9af-a402-540f-b162-391d578fac7c"
-    ],
-    "content_gaps": []
-  },
-  {
-    "filename": "SiteProfileHistory",
-    "found": true,
-    "summary": "Tracks and displays a historical log of edits and actions performed on site profiles.",
-    "purpose": "Audit and display site profile changes, including who performed them and when.",
-    "entities": [
-      "SiteProfileHistory"
-    ],
-    "fields": [
-      {"name": "ID", "type": "int"},
-      {"name": "ActionDate", "type": "datetime"},
-      {"name": "ScreenSection", "type": "string"},
-      {"name": "UserAction", "type": "string"},
-      {"name": "Fields", "type": "string"},
-      {"name": "Agency", "type": "string"},
-      {"name": "AgencyName", "type": "string"},
-      {"name": "LastName", "type": "string"},
-      {"name": "FirstName", "type": "string"},
-      {"name": "MiddleName", "type": "string"},
-      {"name": "Phone", "type": "Phone"},
-      {"name": "ByUserID", "type": "int"},
-      {"name": "ByOriginalUserID", "type": "int"},
-      {"name": "ByUserSysAdmin", "type": "bool"}
-    ],
-    "actors": [
-      "User (often admin/support team)"
-    ],
-    "workflows": [
-      {
-        "name": "View Site Profile History",
-        "steps": [
-          "User control requests history for SiteID and SessionAgencyID.",
-          "ObjectDataSource binds data for display.",
-          "Tooltip/Details show formatted user and agency info."
-        ]
-      }
-    ],
-    "business_rules": [
-      "If user is system admin or acting for another, notation is added."
-    ],
-    "validations": [],
-    "calculations": [],
-    "conditions": [
-      "Values use alt language fields if session is in alt language mode."
-    ],
-    "system_behavior": [
-      "Returns a list of actions, localized and formatted.",
-      "Supports UI tooltips and labels for user/agency details."
-    ],
-    "dependencies": [
-      "SiteProfileHistorySearch (stored procedure)",
-      "Session/User context"
-    ],
-    "exceptions": [],
-    "source_document_ids": [
-      "25f89a24-5eda-5a3f-83df-1de69b12b3f1",
-      "26e09292-d304-55c6-94e5-ef3346453c4b",
-      "7ca6b963-9ae9-5cd3-82d5-f30dcb727ae3",
-      "a8f030c6-90b8-53a1-bb8a-3b7ef33b9488",
-      "e806999c-3a39-5720-9b59-303faebc9eb6"
-    ],
-    "content_gaps": []
-  },
-  {
-    "filename": "EmailPopupDocument",
-    "found": true,
-    "summary": "Represents documents attached or shown in email popups, supporting CRUD operations.",
-    "purpose": "Allow managing and deleting documents shown in email popups.",
-    "entities": [
-      "EmailPopupDocument"
-    ],
-    "fields": [
-      {"name": "ID", "type": "int"},
-      {"name": "FileName", "type": "string"},
-      {"name": "FilePath", "type": "string"},
-      {"name": "Checked", "type": "bool"}
-    ],
-    "actors": [],
-    "workflows": [
-      {
-        "name": "Manage Email Popup Documents",
-        "steps": [
-          "Parse DataInfo string to construct document list.",
-          "Select document for delete by ID.",
-          "Delete file and containing directory if possible.",
-          "Return remaining documents."
-        ]
-      }
-    ],
-    "business_rules": [
-      "On delete, both the file and folder are deleted if present."
-    ],
-    "validations": [],
-    "calculations": [],
-    "conditions": [],
-    "system_behavior": [
-      "Files parsed from input string.",
-      "Safe deletion is attempted (exceptions silently handled)."
-    ],
-    "dependencies": [
-      "File system access"
-    ],
-    "exceptions": [
-      "Exceptions during delete are ignored/silenced."
-    ],
-    "source_document_ids": [
-      "7287734e-f13d-550f-9249-4242db620766",
-      "927bc837-5564-5759-9324-27c6d5d7321d"
-    ],
-    "content_gaps": []
-  },
-  {
-    "filename": "EnrollmentFindStudentAnon",
-    "found": true,
-    "summary": "Legacy VBScript/ASP page for anonymous student enrollment search.",
-    "purpose": "Entry point for screen rendering of anonymous enrollment student search.",
-    "entities": [],
-    "fields": [],
-    "actors": [],
-    "workflows": [],
-    "business_rules": [],
-    "validations": [],
-    "calculations": [],
-    "conditions": [],
-    "system_behavior": [],
-    "dependencies": [
-      "/HSPnet/DoScreen.asp"
-    ],
-    "exceptions": [],
-    "source_document_ids": [
-      "1f6a4249-149f-5f8f-8b91-c417cafa285d"
-    ],
-    "content_gaps": ["Implementation details are in DoScreen.asp include, which is not present in the retrieved content."]
-  }
-]
+{
+  "filename": "EnrollmentFindStudentAnon",
+  "found": true,
+  "summary": "This file appears to be a classic ASP script for the 'EnrollmentFindStudentAnon' screen, serving as an entry or controller layer for an enrollment-related feature that is accessed anonymously. Its main function is to set up screen context and include shared business logic.",
+  "purpose": "To act as the main entry point for the anonymous enrollment search functionality. It configures screen-level settings and delegates core processing to a shared script.",
+  "entities": [],
+  "fields": [],
+  "actors": [
+    "Anonymous user (not logged in)"
+  ],
+  "workflows": [
+    {
+      "name": "Anonymous Enrollment Search Setup",
+      "steps": [
+        "Set VBScript language and disable session state.",
+        "Enable response buffering and disable caching by expiring the response.",
+        "Set the screen name context variable to 'EnrollmentFindStudentAnon'.",
+        "Include shared business logic and rendering via '/HSPnet/DoScreen.asp'."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Screen does not use session state (ENABLESESSIONSTATE = False).",
+    "Response should not be cached (Buffer=true, Expires=-1)."
+  ],
+  "validations": [],
+  "calculations": [],
+  "conditions": [
+    "Always sets screen context to 'EnrollmentFindStudentAnon'."
+  ],
+  "system_behavior": [
+    "Delegates all functional behavior to '/HSPnet/DoScreen.asp'."
+  ],
+  "dependencies": [
+    "/HSPnet/DoScreen.asp"
+  ],
+  "exceptions": [],
+  "source_document_ids": [
+    "1f6a4249-149f-5f8f-8b91-c417cafa285d"
+  ],
+  "content_gaps": [
+    "Actual business logic, validations, and field definitions are housed within the included '/HSPnet/DoScreen.asp', which is not part of this file."
+  ]
+}
