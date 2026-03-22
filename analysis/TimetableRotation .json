@@ -1,0 +1,127 @@
+{
+  "filename": "TimetableRotation",
+  "found": true,
+  "summary": "The TimetableRotation module manages rotation entries within a timetable for cohorts, terms, and courses. It supports creation, update, deletion, validation, and retrieval of rotation records, each covering a date range for a specific timetable. Business logic enforces data integrity, ensuring date constraints and correct associations between rotations and parent timetable ranges.",
+  "purpose": "To manage and validate rotations scheduled within a timetable, associating them with cohorts, terms, and courses. The module enforces date boundaries, provides formatted output, and supports operations for adding, updating, deleting, and searching rotations.",
+  "entities": [
+    "TimetableRotation",
+    "Cohort",
+    "Term",
+    "Course"
+  ],
+  "fields": [
+    "ID",
+    "Count",
+    "TimetableID",
+    "StartDate",
+    "EndDate",
+    "StartDateFormatted",
+    "EndDateFormatted",
+    "CohortName",
+    "CohortShortName",
+    "TermName",
+    "TermStart",
+    "TermEnd",
+    "CourseName",
+    "CourseShortName",
+    "TimetableStartDate",
+    "TimetableEndDate"
+  ],
+  "actors": [
+    "HSPnetSession",
+    "SqlDataReader"
+  ],
+  "workflows": [
+    {
+      "name": "Add TimetableRotation",
+      "steps": [
+        "Validate StartDate and EndDate are not null",
+        "Ensure StartDate <= EndDate",
+        "Ensure StartDate and EndDate fall within TimetableStartDate and TimetableEndDate",
+        "Add rotation using TimetableRotationAdd procedure if valid"
+      ]
+    },
+    {
+      "name": "Update TimetableRotation",
+      "steps": [
+        "Check ID is not 0",
+        "Validate dates as in Add",
+        "Update rotation with TimetableRotationUpdate procedure"
+      ]
+    },
+    {
+      "name": "Delete TimetableRotation",
+      "steps": [
+        "Check ID is not 0",
+        "Delete entry using TimetableRotationDelete procedure"
+      ]
+    },
+    {
+      "name": "Search TimetableRotation",
+      "steps": [
+        "Set procedure name (e.g., TimetableRotationSearch)",
+        "Add relevant parameters (TimetableID, CohortID, TermID, CourseID, etc.)",
+        "Retrieve and fill list from database reader"
+      ]
+    },
+    {
+      "name": "Group Worksheet Rotation Count",
+      "steps": [
+        "Set procedure name (GroupWorksheetRotationCount)",
+        "Add parameters (GroupFlag, CohortID, TermID, CourseID)",
+        "Retrieve count and related data from Db"
+      ]
+    }
+  ],
+  "business_rules": [
+    "Rotation StartDate and EndDate must not be null.",
+    "StartDate must be on or before EndDate.",
+    "Rotation dates must fall within TimetableStartDate and TimetableEndDate.",
+    "Error messages are generated for invalid dates."
+  ],
+  "validations": [
+    "Database.DateIsNull for StartDate and EndDate",
+    "StartDate > EndDate is invalid",
+    "StartDate < TimetableStartDate or EndDate < TimetableStartDate is invalid",
+    "StartDate > TimetableEndDate or EndDate > TimetableEndDate is invalid"
+  ],
+  "calculations": [
+    "StartDateFormatted = UI.DateFormatter.FormatDateShort(StartDate)",
+    "EndDateFormatted = UI.DateFormatter.FormatDateShort(EndDate)"
+  ],
+  "conditions": [
+    "If ID != 0, allow update or delete",
+    "If StartDate or EndDate is null, operation fails",
+    "If StartDate > EndDate, operation fails",
+    "If StartDate or EndDate outside timetable range, operation fails"
+  ],
+  "system_behavior": [
+    "Procedures are called to add, update, delete, or search rotations",
+    "Lists are filled from database reader",
+    "Error messages are added to session in case of invalid operations"
+  ],
+  "dependencies": [
+    "HSPnetSession",
+    "UI.DateFormatter",
+    "Database",
+    "SqlDataReader",
+    "Stored procedures: TimetableRotationAdd, TimetableRotationUpdate, TimetableRotationDelete, TimetableRotationSearch, GroupWorksheetRotationCount"
+  ],
+  "exceptions": [
+    "Invalid dates trigger error messages and abort add/update",
+    "Attempting to delete or update with ID = 0 does nothing"
+  ],
+  "source_document_ids": [
+    "46fb1ff1-1d43-5e8f-a9c1-4001efe45eaf",
+    "90c7c9c6-9236-54ea-b377-83447ca97722",
+    "e5789238-c13a-5d51-ac41-71c9d1c42fcd",
+    "e9bfae10-927e-59d2-855a-5203be6664db",
+    "f3beef69-1a5b-5b46-81d9-ca02affe14dc",
+    "fbf1f45e-8625-5daa-9a44-afd134af6b6d"
+  ],
+  "content_gaps": [
+    "No details on user interface interactions.",
+    "No information on error handling beyond date validation.",
+    "No information on concurrency, access control, or integration with other parts of the system."
+  ]
+}
