@@ -1,0 +1,148 @@
+{
+  "filename": "MaintAgency",
+  "found": true,
+  "summary": "MaintAgency is the Agency Maintenance module in HSPnet. It supports viewing, adding, editing, deleting, and reactivating agency records with complex field validation, conditional UI logic, and role-based behavior. Agencies have relationships such as Receiving, Placing, HSPnet Member, Content Author, Content Manager, and may be flagged as Umbrella agencies.",
+  "purpose": "To manage agency data, including attributes, hierarchical roles, and contact information. It ensures agency records are correctly validated, maintained, and linked to related screens (departments, sites, profiles), supporting operational and reporting requirements.",
+  "entities": [
+    "Agency"
+  ],
+  "fields": [
+    "Name",
+    "ShortName",
+    "PreviousName",
+    "PreviousNameEffectiveDate",
+    "AreaCode",
+    "ReceivingAgency",
+    "PlacingAgency",
+    "HSPnetMember",
+    "ContentAuthor",
+    "ContentManager",
+    "AllowPAL",
+    "UmbrellaAgency",
+    "UmbrellaDescription",
+    "Address1",
+    "Address2",
+    "City",
+    "Province",
+    "PostalCode",
+    "PhoneArea",
+    "PhoneWithoutArea",
+    "FaxArea",
+    "FaxWithoutArea",
+    "Inactive"
+  ],
+  "actors": [
+    "User (with possible SystemAdministrator, ViewOnly rights)",
+    "Agencies (entity, for data management)"
+  ],
+  "workflows": [
+    {
+      "name": "Agency Management",
+      "steps": [
+        "User navigates to the Agency Maintenance page.",
+        "On initial page load: help data standards are checked and shown/hidden, data is refreshed, and UI focus is set.",
+        "User may search, view, add, edit, delete, or reactivate agencies via grid commands and popup detail screens.",
+        "On Add/Edit: details popup is shown, all fields including checkboxes and textboxes become available based on role, data is validated client- and server-side.",
+        "On Save: if validation passes, the agency record is inserted or updated. Data is refreshed.",
+        "On Delete: agency is soft-deleted, status and errors are shown.",
+        "On Reactivate: previously deleted agency is reactivated and displayed.",
+        "Content checkboxes (ContentAuthor, ContentManager) and UmbrellaDescription are enabled only when their parent flags (HSPnetMember, UmbrellaAgency) are set.",
+        "JavaScript enforces client UI logic and validators for phone/fax and agency role selection.",
+        "Custom validators enforce that at least one of ReceivingAgency or PlacingAgency is set.",
+        "Profile, Department, and Site navigation links are conditionally shown for active/non-umbrella/receiving agencies.",
+        "Error/warning panels display real-time validation, and user can hide them.",
+        "All grid/list views support sorting, filtering, and inactive record display toggle."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Name and ShortName are required fields.",
+    "PreviousName and EffectiveDate are optional fields for recording previous agency identity.",
+    "If UmbrellaAgency is checked, UmbrellaDescription must be enabled and entered.",
+    "If HSPnetMember is unchecked, ContentAuthor and ContentManager are disabled and unchecked.",
+    "At least one of ReceivingAgency or PlacingAgency must be checked (enforced by custom validator).",
+    "Inactive agencies cannot have Profile, Department, or Site navigation enabled.",
+    "Edit and Delete are restricted depending on related dependencies (sites, programs, staff)."
+  ],
+  "validations": [
+    "RequiredFieldValidators for Name and ShortName.",
+    "RegularExpressionValidator for PreviousNameEffectiveDate (date format).",
+    "CustomValidator for Phone and Fax format (uses mask if enabled).",
+    "CustomValidator to ensure at least one of ReceivingAgency/PlacingAgency is set.",
+    "AJAX Control Toolkit MaskedEditExtender for area code and phone/fax fields.",
+    "MaxLength on text fields for Name (50), ShortName (10), PreviousName (50), AreaCode (3), Province (2), PostalCode (10), Address1/Address2 (50), City (30)."
+  ],
+  "calculations": [],
+  "conditions": [
+    "Screen (page/fields) is editable only if user is SystemAdministrator and not ViewOnly.",
+    "Show/hide Data Standards help link and new feature icon based on help record presence and update date.",
+    "Show/hide Add button and No Data Found message based on editability.",
+    "Enable/disable Content checkboxes depending on HSPnetMember state.",
+    "Enable/disable UmbrellaDescription depending on UmbrellaAgency state.",
+    "Show/hide default area code field based on UserSession.UsePhoneMask.",
+    "Show/hide inactive agencies based on filter checkbox."
+  ],
+  "system_behavior": [
+    "AJAX UpdatePanel for responsive UI updates without full postback.",
+    "Popup for details view with modal background.",
+    "Client-side JavaScript for dynamic field enable/disable, validation, and event handling.",
+    "Error and warning panels for real-time feedback.",
+    "Commands and navigation links (Profile, Department, Site) are context-aware.",
+    "RefreshData reloads agency grid based on current filter and keyword."
+  ],
+  "dependencies": [
+    "Phone.js and MaintAgency.js client scripts for validation and UI logic.",
+    "HSPnet.DataLayer (data access)",
+    "HSPnet.Framework (shared methods and UI helpers)",
+    "HSPnet.UI.Grid (grid and detail helpers, validation, formatting)",
+    "AJAX Control Toolkit for modal popups and masked input.",
+    "Help.aspx for data standards info.",
+    "MaintSite.aspx, MaintDepartment.aspx, MaintAgencyProfile.aspx for related screens."
+  ],
+  "exceptions": [
+    "Error handling for failed add, update, delete, or validation (shown in error panel).",
+    "If help record is missing or HelpText is empty, data standards link is hidden.",
+    "If there are active sites/programs/staff, some actions (delete) may be blocked."
+  ],
+  "source_document_ids": [
+    "00ec5cb3-a3dd-53cb-9fa9-8d07e4f006b3",
+    "0e632aa7-655e-543b-8f47-0840911d51d7",
+    "15460aec-5b15-5e89-a50c-8d99228e2efd",
+    "1c33a9f1-ecf8-5654-8e6e-cc8a92ddb739",
+    "2533eaf3-fadd-5d05-9ca7-41b293700245",
+    "2a3bdfa1-f264-58c5-95b0-d746ee239db5",
+    "2cacb6cc-d5b3-5603-9530-92ccf064266f",
+    "2d06f9cb-6a06-565d-b8db-6c1b9f89828c",
+    "2d88d0e1-9f79-52ca-8dd2-e2fbfc99d4dc",
+    "3564fbf6-e9f9-51f9-a991-fcb4e1ac5cea",
+    "4014ebbf-5d91-50d7-b875-2fa0cb83e10a",
+    "40474778-bbae-57ce-85d4-84c0c62b8116",
+    "4c95cb48-2ec4-5bdf-816b-462f5bc84b4b",
+    "51931559-b52b-5465-9920-f10f88125f12",
+    "53edb692-5c5b-502e-94b8-315ac3d1679b",
+    "78eed937-e261-5c7d-b097-13e197d718b8",
+    "8689ac57-d410-56da-aad2-c5b73a9467ec",
+    "8f9d2fb7-4cef-5929-a79e-d1f43aae5bd4",
+    "97479364-3f60-571f-8ce9-de203c92eaa9",
+    "9bf80c03-bb13-5962-a117-f9c09f2bd372",
+    "9e31c139-f08c-5950-a115-98ddf9c3c35b",
+    "9efa0685-7f25-5385-9fe3-8128462665c1",
+    "b18faeba-2cb9-5832-ac03-9a8a132911cb",
+    "b37adb34-eba2-5e37-a76d-cf173c930cf4",
+    "b46dbd65-8473-5f64-b54b-a49ae17b49e5",
+    "c64a195b-f89f-5c93-8e30-e5c4be4de9ce",
+    "cb4ef19f-c4a2-50ef-836f-35c4ec1678e2",
+    "d301d832-cc7c-5c82-a78d-5273aa1cd4e8",
+    "dfd04d69-9eeb-5bc3-bd90-2c842d36e1d5",
+    "f98f3c61-500e-558a-ae5a-df3c35568bab",
+    "fb3e5e5e-ee05-5e51-8236-dbdaad56a664",
+    "fef5e4e2-9379-58d8-a68f-16ec37819f13"
+  ],
+  "content_gaps": [
+    "No database schema for Agency provided; actual DB constraints may differ.",
+    "Some field-level business logic or intricate backend processing in DataLayer or UI event handlers may not be fully visible.",
+    "Referenced resources (e.g., Resources:Resources, Phone.js) are not included.",
+    "Detailed logic for some dependencies and linked screens (e.g., MaintSite, MaintDepartment) is not available.",
+    "No explicit logging or audit rule details found."
+  ]
+}
