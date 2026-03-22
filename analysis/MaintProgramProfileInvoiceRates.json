@@ -1,0 +1,128 @@
+{
+  "filename": "MaintProgramProfileInvoiceRates",
+  "found": true,
+  "summary": "MaintProgramProfileInvoiceRates is an ASP.NET user control for maintaining invoice rates related to program profiles. It provides a user interface and business logic for displaying, inserting, updating, and deleting invoice rate records for specific programs, with integrated contact management and validation.",
+  "purpose": "To allow authorized users to manage invoice rates tied to program profiles, including adding, editing, and deleting rate entries, and maintaining invoice contacts for each program.",
+  "entities": [
+    "ProgramInvoiceRate",
+    "Program",
+    "Staff",
+    "UserSession"
+  ],
+  "fields": [
+    "programID",
+    "placementTypeCodeID",
+    "startDate",
+    "rate",
+    "unitCodeID",
+    "ledBySiteInstructor",
+    "ID",
+    "NameFormatted",
+    "Email",
+    "SecureEmail",
+    "Phone",
+    "Fax"
+  ],
+  "actors": [
+    "User",
+    "SiteInstructor",
+    "StaffController",
+    "Dropdown",
+    "Grid",
+    "HSPnetSession"
+  ],
+  "workflows": [
+    {
+      "name": "Invoice Rates Management",
+      "steps": [
+        "Page_Load initializes control and loads invoice contact info if it is the first load.",
+        "User selects or updates invoice contact via dropdown and saves changes.",
+        "GridView displays existing invoice rates; each row provides buttons for add, edit, and delete depending on screen editability.",
+        "Add workflow: User clicks add button, FormView switches to insert mode, user enters details, submits, insertion handled.",
+        "Edit workflow: User clicks edit, FormView switches to edit mode, fields populated, user edits, submits, update handled.",
+        "Delete workflow: User clicks delete, row deleted, session cache updated, redirect performed.",
+        "Detail insert/update: Values are extracted from FormView widgets, validated, parsed (dates and decimals), and saved.",
+        "On successful insert/update, session is cached and page is redirected."
+      ]
+    },
+    {
+      "name": "Invoice Contact Management",
+      "steps": [
+        "FillInvoiceContact loads list of possible invoice contacts for the program.",
+        "SetupInvoiceContact finds the current invoice contact, populates dropdown and contact fields (email/phone).",
+        "User updates invoice contact, invokes StaffController to update contact for program.",
+        "Redirect performed after update."
+      ]
+    }
+  ],
+  "business_rules": [
+    "ScreenIsEditable controls whether add/edit/delete operations are available.",
+    "Add/Edit/Delete buttons appear/disappear depending on row type and editability.",
+    "FirstLoad state controls whether invoice contact info is initialized at page load.",
+    "Only valid UUID keys are used to retrieve document content.",
+    "Dropdowns and checkboxes are programmatically populated and selected based on data.",
+    "Currency symbol fields switch visibility based on user's alternate language field preferences."
+  ],
+  "validations": [
+    "Insert/Update operations check Page.IsValid; if not valid, operation is cancelled.",
+    "Rate is parsed with Decimal.TryParse using current culture and currency format.",
+    "StartDate is parsed with DateFormatter.ParseDate.",
+    "Invoice Contact ID is parsed with Int32.TryParse."
+  ],
+  "calculations": [
+    "MaxDate is calculated by DateFormatter.FormatDateShort(DateTime.Now.AddYears(DateFormatter.Max_Future_Years()))."
+  ],
+  "conditions": [
+    "If UserSession is null, datasource selection is cancelled.",
+    "If GridView has no rows and screen is editable, show EmptyData panel.",
+    "If FormView is not read-only, setup dropdowns and checkboxes, set currency symbol visibility."
+  ],
+  "system_behavior": [
+    "Caches user session after insert, update, or delete.",
+    "Redirects after data change to update UI state.",
+    "JavaScript variables are dynamically registered for async and sync postbacks.",
+    "Details are shown in modal popup for add/edit operations."
+  ],
+  "dependencies": [
+    "StaffController.ProgramInvoiceContactList",
+    "StaffController.ProgramInvoiceContactSearchID",
+    "StaffController.ProgramInvoiceContactUpdate",
+    "ProgramInvoiceRates.Delete",
+    "HSPnetSession.CacheUserSession",
+    "Dropdown.SelectValue",
+    "Grid.SetupAddButton",
+    "Grid.SetupEditButton",
+    "Grid.SetupDeleteButton",
+    "Grid.ShowDetails",
+    "DateFormatter",
+    "Resources",
+    "QueryString.AddQueryStringValueToURL"
+  ],
+  "exceptions": [
+    "Datasource selection is cancelled if UserSession is null.",
+    "Insert/Update is cancelled if Page.IsValid is false.",
+    "Visibility of controls and buttons changes based on modes and editability."
+  ],
+  "source_document_ids": [
+    "395e724d-ed9a-51e7-83d9-bc596aad3521",
+    "3c4619bc-2895-5da2-95fd-d29c5bebd8ca",
+    "478efe5e-b89d-5f00-bd4e-ad16c1bb9b88",
+    "54d0a963-d15f-532a-8991-9d7245dae600",
+    "642a1f3b-8c74-55a2-bdb0-ef38f1e3285e",
+    "66a2d214-a998-50d8-a70a-f81e0a1b3e6a",
+    "7db13c36-4a78-5e0a-90f1-98dfe24ff929",
+    "82391f26-4774-5f49-9c7f-e3e31d6340e3",
+    "85d4462e-3394-525e-9bae-b50948897773",
+    "a88f5251-f8df-5b72-9ccb-af4f26f59d0f",
+    "adbe022b-3797-5313-a58b-1725585b0683",
+    "c28086cc-81a6-5b00-8c98-37269ad0ba12",
+    "d3cafba1-9a6c-5f6d-821f-9b8534089c68"
+  ],
+  "content_gaps": [
+    "No explicit database schema for ProgramInvoiceRate entity found.",
+    "Business logic for ProgramInvoiceRates.Delete and StaffController methods is not fully detailed.",
+    "UI templates and markup files are not included.",
+    "No error handling for failed redirects or server exceptions.",
+    "Unit tests or integration details are absent."
+  ]
+}
