@@ -1,0 +1,127 @@
+{
+  "filename": "EmploymentApplicationDocument",
+  "found": true,
+  "summary": "EmploymentApplicationDocument handles the storage, retrieval, validation, and deletion of documents associated with employment applications. It provides workflows to upload, categorize, display, and remove documents such as resumes (anonymous and named), photos, and user-defined documents. The system includes rules for displaying document metadata, handling anonymous/named status, and ensuring required information is present.",
+  "purpose": "To enable management of documents (upload, display, categorize, remove) related to employment applications. Documents are linked to applicants and categorized by type, with support for anonymous/named distinction and user-defined documents. The module includes validation, business rules, and system behaviors for document lifecycle and access.",
+  "entities": [
+    "EmploymentApplicationDocument",
+    "EmploymentApplicationDocuments"
+  ],
+  "fields": [
+    { "name": "ID", "type": "int", "description": "Unique identifier for the document" },
+    { "name": "EmploymentApplicationID", "type": "int", "description": "Link to related employment application" },
+    { "name": "TypeCodeID", "type": "int", "description": "Document type code (resume-named, resume-anon, photo, etc.)" },
+    { "name": "TypeComments", "type": "string", "description": "Comments on document type" },
+    { "name": "FileURL", "type": "string", "description": "Public URL to access the document" },
+    { "name": "FilePath", "type": "string", "description": "Filesystem path for the document" },
+    { "name": "FileSize", "type": "long", "description": "Document size in bytes" },
+    { "name": "FileType", "type": "string", "description": "MIME/file type" },
+    { "name": "FileTypeAlt", "type": "string", "description": "Alternate file type (for localization)" },
+    { "name": "UpdateDate", "type": "datetime", "description": "Last update date" },
+    { "name": "ByUserID", "type": "int", "description": "ID of the user who last updated" },
+    { "name": "LastName", "type": "string", "description": "Last name of uploader" },
+    { "name": "FirstName", "type": "string", "description": "First name of uploader" },
+    { "name": "MiddleName", "type": "string", "description": "Middle name of uploader" },
+    { "name": "Agency", "type": "string", "description": "Uploader's agency" },
+    { "name": "TypeCode", "type": "string", "description": "Document type (with localizations and comments)" },
+    { "name": "UpdatedDetails", "type": "string", "description": "Details of update (date, by whom, agency)" },
+    { "name": "Anonymous", "type": "bool", "description": "If the document is anonymous" },
+    { "name": "UploadedByStudent", "type": "bool", "description": "If document uploaded by student" }
+  ],
+  "actors": [
+    "Student",
+    "Staff",
+    "System"
+  ],
+  "workflows": [
+    {
+      "name": "Get Employment Application Documents",
+      "steps": [
+        "Search for documents by EmploymentApplicationID and document type code.",
+        "Fill document list with relevant data from database.",
+        "If special (e.g., anonymous resume, photo) and none found, create placeholder document.",
+        "For user-defined documents, append details such as anonymous/named, updated details.",
+        "Return the document list."
+      ]
+    },
+    {
+      "name": "Upload/Add Employment Application Documents",
+      "steps": [
+        "Invoke EmploymentApplicationDocumentAddDoc stored procedure.",
+        "Pass parameters: SessionID, EmploymentApplicationID, StudentDocumentIDList, AddWebPage.",
+        "Retrieve file paths from added documents."
+      ]
+    },
+    {
+      "name": "Remove Employment Application Web Page",
+      "steps": [
+        "Invoke EmploymentApplicationRemoveWebPage stored procedure.",
+        "Pass EmploymentApplicationID.",
+        "Delete web page record."
+      ]
+    },
+    {
+      "name": "Delete Employment Application Document",
+      "steps": [
+        "Retrieve document by ID.",
+        "Delete file and containing folder from filesystem (ignore exceptions).",
+        "Delete database record by DocumentID."
+      ]
+    }
+  ],
+  "business_rules": [
+    "FileURL and FilePath must not be blank for validity.",
+    "TypeCodeID must be specified.",
+    "Display 'Other' as code when applicable.",
+    "Anonymous documents are removed if StaffID equals StudentID.",
+    "Named/anonymous and user-defined documents are treated with magic numbers in placeholder cases.",
+    "TypeCode may be adjusted with comments and named/anonymous flags."
+  ],
+  "validations": [
+    "FileURL and FilePath are required.",
+    "TypeCodeID is required.",
+    "File existence checked before rendering URL as a link.",
+    "Update date checked for update details."
+  ],
+  "calculations": [
+    "FileSize displayed in kilobytes.",
+    "UpdatedDetails composed from update date, name, and agency."
+  ],
+  "conditions": [
+    "If no document present for expected type (anon/named/photo), create empty placeholder.",
+    "If StaffID equals StudentID, remove anonymous docs from list."
+  ],
+  "system_behavior": [
+    "Retrieves and populates document entities from database.",
+    "Deletes files and folders from filesystem on document delete.",
+    "Displays document with full metadata and update details.",
+    "Handles localization and alternate language fields."
+  ],
+  "dependencies": [
+    "SqlDataReader for data retrieval.",
+    "HSPnetSession for context and DB access.",
+    "Stored procedures for search/add/delete operations.",
+    "Resources for localization."
+  ],
+  "exceptions": [
+    "File/folder deletion: exceptions ignored if unable to delete.",
+    "Validation errors: session messages record and return false from IsValid."
+  ],
+  "source_document_ids": [
+    "005a4659-8a78-53ec-90b2-9e784447427e",
+    "0cd7ba9d-79fc-5d40-b5a8-dcd512726a09",
+    "18d07417-6ba6-58a6-b898-eb46d1b06b74",
+    "2d1e2cc1-b01e-5929-aaae-f1dbaf9e80df",
+    "4724fc52-d499-5dec-8239-fff8e3b7fb1b",
+    "6a51a9d9-5ad6-5289-acb4-3addc565d66d",
+    "8eba6cc1-b597-5768-b62a-2a468d67bce2",
+    "d7c3d309-09df-5597-b223-70df5607e08a",
+    "e684f702-de10-5c85-ab50-22c9074b129f",
+    "f01442ad-cafc-5058-af78-bbcc27077ebe"
+  ],
+  "content_gaps": [
+    "Exact UI actions and error handling details are not fully described.",
+    "Specifics on permission checks, document visibility rules, and full business exceptions are incomplete.",
+    "Descriptions of placeholder document creation (magic numbers) refer to comments rather than explicit code."
+  ]
+}
