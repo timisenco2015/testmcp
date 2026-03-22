@@ -1,0 +1,142 @@
+{
+  "filename": "OccHealthInfluenzaEditAll",
+  "found": true,
+  "summary": "OccHealthInfluenzaEditAll is a user control used to edit influenza immunization status for students in an enrollment grid, supporting both single student and batch editing workflows with conditional logic based on H1N1 and seasonal influenza types. The business logic dynamically binds data, manages row-level dropdowns, handles user input, and updates data via backend service methods.",
+  "purpose": "To manage and edit student Occupational Health influenza immunization records within an enrollment management system, supporting efficient batch updates, validations, and conditional rendering based on data and user actions.",
+  "entities": [
+    "Enrollment",
+    "Student",
+    "UserSession",
+    "ImmunFluSeason",
+    "InfluenzaStatusCode",
+    "CodeRecord",
+    "TotalYearType"
+  ],
+  "fields": [
+    "CohortID",
+    "TermID",
+    "CourseID",
+    "SectionFilter",
+    "ActionFilter",
+    "keyword",
+    "CampusID",
+    "CommentFilter",
+    "EnrollmentID",
+    "StartRow",
+    "ShowGrad",
+    "ShowInactive",
+    "ShowWaived",
+    "blnReadOnly",
+    "blnStudentMaint",
+    "H1N1",
+    "InfluenzaStatusCodeID",
+    "InfluenzaStatusCodeID2",
+    "InfluenzaAdminDate",
+    "InfluenzaAdminDate2",
+    "InfluenzaAdminDateDDFormatted",
+    "InfluenzaAdminDateDDFormatted2",
+    "SessionQueryString"
+  ],
+  "actors": [
+    "User (with edit permissions)",
+    "System (automated logic)",
+    "StudentPrerequisites backend service"
+  ],
+  "workflows": [
+    {
+      "name": "Batch Edit and Save Workflow",
+      "steps": [
+        "User opens the OccHealthInfluenzaEditAll control with gridDataEdit listing student records.",
+        "User can filter, sort, and navigate through paged grid rows using parameters like SectionFilter, ActionFilter, etc.",
+        "For each row, dropdowns for influenza status and immunization season are bound and populated based on H1N1 mode and available codes.",
+        "User edits data, triggering JavaScript functions to track changes (marking rows as 'dirty').",
+        "On Save/Save All command, system iterates all rows:",
+        "- For each 'dirty' row, calls StudentPrerequisites.StudentDetailsImmunizationOccHealthInfluUpdate() with appropriate parameters for the row and session.",
+        "If no warnings, system redirects to Enrollment list or reloads page with updated records.",
+        "In single edit mode, only the current record is processed.",
+        "System shows/hides save/cancel buttons and enables/disables controls based on context (read-only mode, page size, number of rows, etc.)"
+      ]
+    },
+    {
+      "name": "Row Data Binding Workflow",
+      "steps": [
+        "gridDataEdit_RowDataBound binds dropdowns for each row to InfluenzaStatusCodeList and ImmunFluSeasonList.",
+        "Dropdown selection is set based on H1N1 mode and data in the row.",
+        "If H1N1, alternate status codes and dates are used.",
+        "Dropdowns for flu season default to current year if not specified and today >= October 1.",
+        "Blank dropdown entries added where appropriate.",
+        "Conditional rendering for header/footer save panel visibility depending on edit mode and row count."
+      ]
+    },
+    {
+      "name": "JavaScript State Management",
+      "steps": [
+        "SetupJavaScript collects client IDs of rows being edited and compiles JavaScript tracking variables for change detection.",
+        "Attaches change handlers for grid row fields and dropdowns."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Batch edit applies only to records with changes (dirty rows).",
+    "Only users with appropriate session (UserSession) and permissions can edit.",
+    "Dropdown for influenza status is dynamically populated and bound per row, with H1N1 variant if enabled.",
+    "Dropdown for immunization season is bound to available seasons and defaults to current year if missing and date >= Oct 1.",
+    "Header/footer save and cancel buttons are hidden if fewer than 14 rows (prevents unnecessary UI clutter).",
+    "Buttons in the grid are conditionally hidden or shown based on EnrollmentID (edit vs add mode), row count, and read-only state.",
+    "Saving triggers validation; if warnings/messages are present, user is not redirected."
+  ],
+  "validations": [
+    "Valid EnrollmentID and Edit permissions required.",
+    "Flu season dropdown defaults only when current date is October 1 or later.",
+    "Dropdown selection must match known codes.",
+    "Read-only mode disables all edit fields and hides save/cancel buttons."
+  ],
+  "calculations": [
+    "Flu season dropdown defaults to current year if data missing and current date >= October 1.",
+    "Dynamic JavaScript variable list of changed rows constructed for client-side tracking."
+  ],
+  "conditions": [
+    "If H1N1 is true, use alternate influenza codes and dates.",
+    "If EnrollmentID != 0, show/hide certain UI elements for single vs batch edit.",
+    "If grid row is 'dirty', include in update batch.",
+    "If grid header/footer exists and row count < 14, hide Save All/Cancel buttons."
+  ],
+  "system_behavior": [
+    "Binds data sources to grid and dropdowns.",
+    "Registers client-side JavaScript for change detection.",
+    "Disables UI in read-only mode.",
+    "Performs server-side data update via StudentPrerequisites service when saving edits.",
+    "Redirects after successful save if no backend warnings.",
+    "Respects pagination and sorting parameters for grid."
+  ],
+  "dependencies": [
+    "User session management (UserSession, HSPnetSession)",
+    "Code tables for Influenza status (Codes.CodeSearch)",
+    "Flu season data (TotalYearType.FluSeasonList)",
+    "StudentPrerequisites.StudentDetailsImmunizationOccHealthInfluUpdate service"
+  ],
+  "exceptions": [
+    "If UserSession is null, data selection is cancelled.",
+    "If binding data fails or code not found, UI falls back to blank/default values.",
+    "If backend update returns warnings, user is not redirected."
+  ],
+  "source_document_ids": [
+    "0d476473-6083-5f51-ba86-86994f8d2005",
+    "1fc2d4a3-13a1-5a93-b0e7-3dbe8577eae0",
+    "3ad241b8-d5da-5077-8e72-14c0dd19a4ca",
+    "4f9ede21-00b0-5e79-a78d-a1cb6db32417",
+    "5127230e-5edc-5e20-8eb4-b402fb0accf8",
+    "5bde432b-bbc5-5f1a-8483-b259a3286565",
+    "731359ca-b860-5846-a8d7-78d1407d0624",
+    "8b2eca1a-596e-54f9-a666-769d9733955d",
+    "91574ad3-0aee-544a-bbf5-981a307edc3d",
+    "9592a93f-9975-5c09-9744-cbd341298017",
+    "a49ab0c1-e5ed-53e8-a380-021afe551cd6"
+  ],
+  "content_gaps": [
+    "UI layout (ASCX markup) is missing; only code-behind and designer logic present.",
+    "Specific field-level validation logic (e.g., allowable values for dropdowns, error messages) is only partially specified.",
+    "No explicit audit logging or security authorization checks beyond session presence.",
+    "Exact structure of backend data contracts (e.g., Enrollment object) is inferred but not fully detailed."
+  ]
+}
