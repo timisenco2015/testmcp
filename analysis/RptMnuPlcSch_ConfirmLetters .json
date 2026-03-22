@@ -1,0 +1,113 @@
+{
+  "filename": "RptMnuPlcSch_ConfirmLetters",
+  "found": true,
+  "summary": "RptMnuPlcSch_ConfirmLetters implements a report menu user control for generating Placement Schedule Confirmation Letters in HSPnet. It provides users with a workflow to select Departments, Programs, Terms, Cohorts/Courses, and report options, then initiates report creation through PrintJobs.ReportConfLetterCreateJob. Controls for including student names, HSPnet users, and options for PDF generation are wired with corresponding business rules and validations.",
+  "purpose": "To allow authorized users to generate confirmation letter reports for placement schedules, selecting relevant departments, programs, terms, and options to customize the output, and to automate report creation with configurable recipient/CC options.",
+  "entities": [
+    "Department",
+    "Program",
+    "Term",
+    "Cohort",
+    "Course",
+    "HSPnet User",
+    "Supervisor",
+    "Course Leader",
+    "Instructor",
+    "Staff",
+    "ReportJob"
+  ],
+  "fields": [
+    "ddDepartment",
+    "ddProgram",
+    "ddTerm",
+    "UCchoosers.IncludedList",
+    "UCchoosers.NotIncludedList",
+    "ddSender",
+    "chkIncludeHSPnetUsers",
+    "chkccSupervisor",
+    "chkccCourseLeader",
+    "chkccInstructor",
+    "chkIncludeStudentName",
+    "chkIndividualPDF"
+  ],
+  "actors": [
+    "Authenticated User",
+    "UserSession (system context)",
+    "ScriptMgr (page context)"
+  ],
+  "workflows": [
+    {
+      "name": "Generate Placement Schedule Confirmation Letter",
+      "steps": [
+        "User loads the report menu user control on the page.",
+        "Departments, Programs, and Terms dropdowns are populated based on UserSession and AgencyID.",
+        "User selects Department, Program, and Term from dropdowns.",
+        "Cohorts/Courses list is populated according to selected Program and Term.",
+        "User selects recipients and CC options (Supervisor, Course Leader, Instructor, HSPnet users, Student names, Individual PDF).",
+        "Sender dropdown is initialized and selected.",
+        "User clicks 'Run Report' (cmdRunReport_Click).",
+        "System invokes PrintJobs.ReportConfLetterCreateJob with selected options and context.",
+        "Report job is processed and generated according to input parameters."
+      ]
+    }
+  ],
+  "business_rules": [
+    "UserSession.AgencyID limits Department and Program choices.",
+    "UserSession.AllowAllDepartments/AllowAllPrograms expands selection scope for Departments/Programs.",
+    "If no UserSession, report creation and data actions are blocked.",
+    "Maximum inclusion items for report is enforced (PrintJobs.MAX_INCLUDE_ITEMS).",
+    "CustomValidator2 displays error if maximum courses are exceeded."
+  ],
+  "validations": [
+    "If UserSession is null, ObjectDataSourceSelecting event cancels data source operation.",
+    "CustomValidator2 ensures that the report job is not created if course inclusion exceeds maximum.",
+    "Dropdown fields require valid selection; blank entry allowed as first item."
+  ],
+  "calculations": [
+    "MAX_INCLUDE_ITEMS for limiting included courses/cohorts.",
+    "Selection of Cohorts/Courses determined by TimetableCourseSearch and user role (CourseLeaderOnly)."
+  ],
+  "conditions": [
+    "UserSession must not be null to perform actions and load options.",
+    "If UserSession.AllowAllDepartments is true, Departments.DepartmentSearchAgency is used.",
+    "If UserSession.AllowAllPrograms is true, Programs.ProgramSearchDepartment is used."
+  ],
+  "system_behavior": [
+    "Dropdowns auto-bind data on load, selection change, or explicit user action.",
+    "SetupJavaScript adds relevant variables to page scope for UI scripting.",
+    "Sender dropdown default is set to StaffID.",
+    "Report creation is a background job via PrintJobs.ReportConfLetterCreateJob."
+  ],
+  "dependencies": [
+    "HSPnetSession (UserSession)",
+    "Departments.DepartmentList/DepartmentSearchAgency",
+    "Programs.ProgramList/ProgramSearchDepartment",
+    "Terms.TimetableTermSearch",
+    "TimetableEntries.TimetableCourseSearch",
+    "PrintJobs.ReportConfLetterCreateJob",
+    "Codes.CodeLookupCodes (for description and notes)",
+    "Page.ClientScript and ScriptManager"
+  ],
+  "exceptions": [
+    "Report job is not created if more than MAX_INCLUDE_ITEMS courses are selected.",
+    "If UserSession is null, report cannot be generated and datasource operations are cancelled."
+  ],
+  "source_document_ids": [
+    "009a0668-9742-5427-a20b-6d28822e7982",
+    "00d20b48-f79f-51de-a1b9-e5e206645789",
+    "174db628-9924-5054-910a-a6e3f428ba4c",
+    "34146395-be81-54d3-98df-80634f7795dc",
+    "47b96f26-7b43-5701-92fb-65c6b00174c6",
+    "4ce8d9c9-22b7-5714-998c-f66ac06b8bc0",
+    "4ef31d9f-f026-5b03-8915-17367c3b69a6",
+    "85bddf0e-4bcb-5d31-9f28-a56334d2c20d",
+    "bbaf4f11-6d2d-5333-b16b-7e9bbb1d6481",
+    "e5553767-dfbf-59f7-b173-dc4aeba8adcb"
+  ],
+  "content_gaps": [
+    "No sample input/output for PrintJobs.ReportConfLetterCreateJob.",
+    "No explicit UI markup or description of user-facing layout.",
+    "No details on how generated reports are delivered or viewed.",
+    "No information about error handling beyond validation described."
+  ]
+}
