@@ -1,12 +1,16 @@
 {
   "filename": "MaintAgency",
   "found": true,
-  "summary": "MaintAgency is the Agency Maintenance module in HSPnet. It supports viewing, adding, editing, deleting, and reactivating agency records with complex field validation, conditional UI logic, and role-based behavior. Agencies have relationships such as Receiving, Placing, HSPnet Member, Content Author, Content Manager, and may be flagged as Umbrella agencies.",
-  "purpose": "To manage agency data, including attributes, hierarchical roles, and contact information. It ensures agency records are correctly validated, maintained, and linked to related screens (departments, sites, profiles), supporting operational and reporting requirements.",
+  "summary": "MaintAgency is an agency maintenance module in the HSPnet system, used to manage agency records, including identification, contact information, membership status, and relationships such as umbrella agencies and departmental links. It includes forms for add/edit/delete/reactivate agencies, validations for required fields and phone/fax formats, and workflow for displaying and editing agency data.",
+  "purpose": "To provide administrators a structured and validated interface to maintain agency information within HSPnet, including tracking membership, contact details, agency status, and hierarchical relationships.",
   "entities": [
-    "Agency"
+    "Agency",
+    "Umbrella Agency",
+    "Department",
+    "Site"
   ],
   "fields": [
+    "ID",
     "Name",
     "ShortName",
     "PreviousName",
@@ -26,83 +30,78 @@
     "Province",
     "PostalCode",
     "PhoneArea",
-    "PhoneWithoutArea",
+    "Phone",
     "FaxArea",
-    "FaxWithoutArea",
+    "Fax",
     "Inactive"
   ],
   "actors": [
-    "User (with possible SystemAdministrator, ViewOnly rights)",
-    "Agencies (entity, for data management)"
+    "System Administrator",
+    "Content Author",
+    "Content Manager",
+    "Agency Manager"
   ],
   "workflows": [
     {
-      "name": "Agency Management",
+      "name": "Agency Maintenance",
       "steps": [
-        "User navigates to the Agency Maintenance page.",
-        "On initial page load: help data standards are checked and shown/hidden, data is refreshed, and UI focus is set.",
-        "User may search, view, add, edit, delete, or reactivate agencies via grid commands and popup detail screens.",
-        "On Add/Edit: details popup is shown, all fields including checkboxes and textboxes become available based on role, data is validated client- and server-side.",
-        "On Save: if validation passes, the agency record is inserted or updated. Data is refreshed.",
-        "On Delete: agency is soft-deleted, status and errors are shown.",
-        "On Reactivate: previously deleted agency is reactivated and displayed.",
-        "Content checkboxes (ContentAuthor, ContentManager) and UmbrellaDescription are enabled only when their parent flags (HSPnetMember, UmbrellaAgency) are set.",
-        "JavaScript enforces client UI logic and validators for phone/fax and agency role selection.",
-        "Custom validators enforce that at least one of ReceivingAgency or PlacingAgency is set.",
-        "Profile, Department, and Site navigation links are conditionally shown for active/non-umbrella/receiving agencies.",
-        "Error/warning panels display real-time validation, and user can hide them.",
-        "All grid/list views support sorting, filtering, and inactive record display toggle."
+        "Display agency list with filtering and inactive toggle",
+        "Show add button if screen is editable",
+        "Add/Edit/Delete/Reactivate agency records via DetailsView form",
+        "On add/edit, validate required fields: Name, ShortName",
+        "Validate phone/fax formats if phone masking is enabled",
+        "Toggle content permission fields based on HSPnetMember checkbox",
+        "Set up department and site links; hide if agency is inactive",
+        "Show/hide error and warning panels as needed",
+        "Handle grid commands for row actions (profile, edit, delete, reactivate)",
+        "On save, update Agency entity fields and refresh grid"
       ]
     }
   ],
   "business_rules": [
-    "Name and ShortName are required fields.",
-    "PreviousName and EffectiveDate are optional fields for recording previous agency identity.",
-    "If UmbrellaAgency is checked, UmbrellaDescription must be enabled and entered.",
-    "If HSPnetMember is unchecked, ContentAuthor and ContentManager are disabled and unchecked.",
-    "At least one of ReceivingAgency or PlacingAgency must be checked (enforced by custom validator).",
-    "Inactive agencies cannot have Profile, Department, or Site navigation enabled.",
-    "Edit and Delete are restricted depending on related dependencies (sites, programs, staff)."
+    "Name and ShortName must be specified",
+    "Phone and Fax must match validation expressions if phone mask is enabled",
+    "Each agency must be either a Placing or Receiving agency (custom validator)",
+    "ContentAuthor and ContentManager checkboxes are enabled only if HSPnetMember is checked",
+    "UmbrellaDescription is enabled only if UmbrellaAgency is checked",
+    "Cannot delete agency if active sites, programs, or staff exist",
+    "Hide default area code field/column if phone mask is not enabled"
   ],
   "validations": [
-    "RequiredFieldValidators for Name and ShortName.",
-    "RegularExpressionValidator for PreviousNameEffectiveDate (date format).",
-    "CustomValidator for Phone and Fax format (uses mask if enabled).",
-    "CustomValidator to ensure at least one of ReceivingAgency/PlacingAgency is set.",
-    "AJAX Control Toolkit MaskedEditExtender for area code and phone/fax fields.",
-    "MaxLength on text fields for Name (50), ShortName (10), PreviousName (50), AreaCode (3), Province (2), PostalCode (10), Address1/Address2 (50), City (30)."
+    "RequiredFieldValidator for Name and ShortName",
+    "RegularExpressionValidator for dates and phone/fax formats",
+    "CustomValidator for Placing/Receiving agency selection",
+    "Client-side validation for phone/fax field formats",
+    "Enabling/disabling form fields based on conditions (JS logic)"
   ],
-  "calculations": [],
+  "calculations": [
+    "PreviousNameEffectiveDate is parsed from text input",
+    "New feature icon is shown if Help record's update date is recent"
+  ],
   "conditions": [
-    "Screen (page/fields) is editable only if user is SystemAdministrator and not ViewOnly.",
-    "Show/hide Data Standards help link and new feature icon based on help record presence and update date.",
-    "Show/hide Add button and No Data Found message based on editability.",
-    "Enable/disable Content checkboxes depending on HSPnetMember state.",
-    "Enable/disable UmbrellaDescription depending on UmbrellaAgency state.",
-    "Show/hide default area code field based on UserSession.UsePhoneMask.",
-    "Show/hide inactive agencies based on filter checkbox."
+    "ScreenIsEditable is true only for System Administrator and not ViewOnly",
+    "UmbrellaAgency checkbox toggles enabling of UmbrellaDescription textbox",
+    "HSPnetMember status toggles enabling of ContentAuthor/ContentManager fields",
+    "Inactive status affects visibility of profile, department, site links"
   ],
   "system_behavior": [
-    "AJAX UpdatePanel for responsive UI updates without full postback.",
-    "Popup for details view with modal background.",
-    "Client-side JavaScript for dynamic field enable/disable, validation, and event handling.",
-    "Error and warning panels for real-time feedback.",
-    "Commands and navigation links (Profile, Department, Site) are context-aware.",
-    "RefreshData reloads agency grid based on current filter and keyword."
+    "On postback, refresh agency list/grid",
+    "Manage modal popups for add/edit details",
+    "Register and manage client-side JS for validation and UI logic",
+    "Show error/warning messages in panels",
+    "Update panels asynchronously with UpdatePanel"
   ],
   "dependencies": [
-    "Phone.js and MaintAgency.js client scripts for validation and UI logic.",
-    "HSPnet.DataLayer (data access)",
-    "HSPnet.Framework (shared methods and UI helpers)",
-    "HSPnet.UI.Grid (grid and detail helpers, validation, formatting)",
-    "AJAX Control Toolkit for modal popups and masked input.",
-    "Help.aspx for data standards info.",
-    "MaintSite.aspx, MaintDepartment.aspx, MaintAgencyProfile.aspx for related screens."
+    "AjaxControlToolkit for modal popups, calendar, masked input",
+    "GridView and DetailsView ASP.NET controls",
+    "Help record for showing data standards",
+    "UserSession for permissions and masking",
+    "HSPnet.DataLayer for loading/saving agency"
   ],
   "exceptions": [
-    "Error handling for failed add, update, delete, or validation (shown in error panel).",
-    "If help record is missing or HelpText is empty, data standards link is hidden.",
-    "If there are active sites/programs/staff, some actions (delete) may be blocked."
+    "Validation errors are shown in error panel",
+    "Delete is prevented if agency has active sites, programs, or staff",
+    "Error messages are added to UserSession.Messages"
   ],
   "source_document_ids": [
     "00ec5cb3-a3dd-53cb-9fa9-8d07e4f006b3",
@@ -139,10 +138,9 @@
     "fef5e4e2-9379-58d8-a68f-16ec37819f13"
   ],
   "content_gaps": [
-    "No database schema for Agency provided; actual DB constraints may differ.",
-    "Some field-level business logic or intricate backend processing in DataLayer or UI event handlers may not be fully visible.",
-    "Referenced resources (e.g., Resources:Resources, Phone.js) are not included.",
-    "Detailed logic for some dependencies and linked screens (e.g., MaintSite, MaintDepartment) is not available.",
-    "No explicit logging or audit rule details found."
+    "Underlying database schema for Agency (table definitions) is not available",
+    "No explicit details on error messages or Help record content",
+    "Business rules about deletion (active dependencies) are partially inferred",
+    "Some client-side JavaScript functions may not be fully described"
   ]
 }
