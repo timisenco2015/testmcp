@@ -1,0 +1,121 @@
+{
+  "filename": "StudentDemographics",
+  "found": true,
+  "summary": "StudentDemographics is a web user control for managing student demographic data, including birth date, ethnicity, and citizenship information. The control allows data viewing, editing, and validation, and supports pop-up modals for detail editing. It interacts with backend data sources and maintains user session state.",
+  "purpose": "To display and edit demographic information for a student within the HSPnet system, supporting workflows for updating, viewing, and validating demographic details including birth date, ethnicity, and citizenship.",
+  "entities": ["Student", "EthnicityCodes", "CitizenshipCodes", "UserSession"],
+  "fields": [
+    {
+      "name": "birthDate",
+      "type": "Date",
+      "source_control": "txtBirthDate",
+      "description": "Student's date of birth"
+    },
+    {
+      "name": "ethnicityCodeID",
+      "type": "String/Code",
+      "source_control": "ddEthnicity",
+      "description": "Code for student's ethnicity"
+    },
+    {
+      "name": "citizenshipCodeID",
+      "type": "String/Code",
+      "source_control": "ddCitizenship",
+      "description": "Code for student's citizenship"
+    },
+    {
+      "name": "ID",
+      "type": "Integer",
+      "description": "Unique identifier for the student"
+    }
+  ],
+  "actors": [
+    {
+      "name": "User",
+      "roles": ["View", "Edit", "Update Student Demographics"]
+    },
+    {
+      "name": "System",
+      "roles": ["Load Codes", "Bind Controls", "Cache Session", "Redirect"]
+    }
+  ],
+  "workflows": [
+    {
+      "name": "View Demographics",
+      "steps": [
+        "User loads StudentDemographics control",
+        "System binds demographic fields (birthDate, ethnicity, citizenship)",
+        "Codes for Ethnicity and Citizenship are loaded and bound to dropdowns"
+      ]
+    },
+    {
+      "name": "Edit Demographics",
+      "steps": [
+        "User clicks edit button",
+        "System switches FormView to edit mode",
+        "System displays editable fields and pop-up modal if required",
+        "User updates birthDate, ethnicity, citizenship",
+        "System validates and binds updated values"
+      ]
+    },
+    {
+      "name": "Update Demographics",
+      "steps": [
+        "User saves changes",
+        "System updates demographic fields",
+        "System caches user session",
+        "System redirects user to the Demographics page"
+      ]
+    }
+  ],
+  "business_rules": [
+    "Ethnicity and citizenship codes must be valid and exist in respective code tables",
+    "User session must be valid for selection/update operations",
+    "If user does not have permission or screen is not editable, edit controls are disabled"
+  ],
+  "validations": [
+    "birthDate parsed and validated from input",
+    "Dropdowns for ethnicity and citizenship default to valid selections",
+    "ValidationSummary control aggregates validation errors"
+  ],
+  "calculations": [
+    "birthDate parsing using DateFormatter.ParseDate",
+    "Dropdown value selection using SelectValue"
+  ],
+  "conditions": [
+    "If ScreenIsEditable is true, show edit controls",
+    "If UserSession is null, cancel selection",
+    "If not ReadOnly, show details"
+  ],
+  "system_behavior": [
+    "Data binding for demographic fields",
+    "Pop-up modal for editing details using ModalPopupExtender",
+    "Redirect to Demographics page after update",
+    "Cache user session after update"
+  ],
+  "dependencies": [
+    "Codes.CodeSearch for Ethnicity and Citizenship",
+    "HSPnetSession for user session management",
+    "DateFormatter utility for birthDate parsing",
+    "Dropdown and FormView controls"
+  ],
+  "exceptions": [
+    "Invalid user session cancels data selection",
+    "Incorrect code values result in failed binding",
+    "Page controls not found disables edit capability"
+  ],
+  "source_document_ids": [
+    "0ca5fc75-f201-5ab2-97a9-0e0353c56509",
+    "3c9cdf75-61fd-5f75-94af-7a5683073940",
+    "3d9c0143-202c-58d0-bebf-b7c9484bfb16",
+    "5ad026e6-f846-5458-b96f-42b5f5527f87",
+    "7467125d-8c3f-5975-b201-0fce9820235f",
+    "c920787e-96df-5b8c-ac2b-87e911d57e53"
+  ],
+  "content_gaps": [
+    "Field-level validation logic details are incomplete",
+    "No descriptive UI layouts or complete field lists",
+    "Business rules for code values (Ethnicity, Citizenship) are referenced but not specified",
+    "Exceptions handling is partly inferred"
+  ]
+}
