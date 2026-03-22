@@ -1,10 +1,11 @@
 {
   "filename": "CourseAssessment",
   "found": true,
-  "summary": "CourseAssessment is an entity for managing course assessments, including creation, updating, deletion, searching, and validation. It organizes assessment templates, assessor and subject types, timing controls, visibility permissions, and business validation for course-related assessments.",
-  "purpose": "To store, retrieve, manage, and validate course-related assessment configurations in an academic or training system, enabling workflows for assessment administration and actor participation.",
+  "summary": "CourseAssessment manages assessment scheduling, viewing permissions, and metadata for courses. CRUD operations, validations, and search functions coordinate between instructors, supervisors, and subjects.",
+  "purpose": "To allow creation, updating, deletion, validation, and retrieval of course assessments, including controlling who can view answers and assessment timeframes, and providing contextual descriptions for assessment types and templates.",
   "entities": [
     "CourseAssessment",
+    "CourseAssessments",
     "AssessmentValidationResult"
   ],
   "fields": [
@@ -41,97 +42,87 @@
     "Subject",
     "Instructor",
     "Supervisor",
-    "Session (system context)"
+    "System (HSPnetSession)"
   ],
   "workflows": [
     {
       "name": "Add Course Assessment",
       "steps": [
-        "Set procedure name to CourseAssessmentAdd",
-        "Add parameters for session, course, codes, timing, visibility, option codes",
+        "Set ProcedureName to 'CourseAssessmentAdd'",
+        "Add parameters for session, course, codes, template, open/close/view days, permissions",
         "Execute query"
       ]
     },
     {
       "name": "Update Course Assessment",
       "steps": [
-        "Set procedure name to CourseAssessmentUpdate",
-        "Add parameters for session, assessment ID, codes, timing, visibility, option codes",
+        "Set ProcedureName to 'CourseAssessmentUpdate'",
+        "Add parameters for session, ID, codes, template, open/close/view days, permissions",
         "Execute query"
       ]
     },
     {
       "name": "Delete Course Assessment",
       "steps": [
-        "Set procedure name to CourseAssessmentDelete",
-        "Add parameters for session and assessment ID",
+        "Set ProcedureName to 'CourseAssessmentDelete'",
+        "Add parameters for session, ID",
         "Execute query"
       ]
     },
     {
       "name": "Search Course Assessment by ID",
       "steps": [
-        "Set procedure name to CourseAssessmentSearchID",
-        "Add session and assessment ID parameters",
-        "Execute query",
-        "Map results to CourseAssessment entity fields"
+        "Set ProcedureName to 'CourseAssessmentSearchID'",
+        "Add parameters for session, ID",
+        "Execute search and map data fields"
       ]
     },
     {
-      "name": "Search Course Assessments by CourseID",
+      "name": "Search Course Assessments for Course",
       "steps": [
-        "Set procedure name to CourseAssessmentSearch",
-        "Add session and courseID parameters",
-        "Execute query",
-        "Iterate through results and map to CourseAssessment entities"
+        "Set ProcedureName to 'CourseAssessmentSearch'",
+        "Add parameters for session, course ID",
+        "Retrieve multiple entries"
       ]
     },
     {
       "name": "Validate Course Assessment",
       "steps": [
-        "Set procedure name to CourseAssessmentValidation",
-        "Add session and courseID parameters",
-        "Execute query",
-        "Read validation flags: InterimWithoutFinal, InstructorsAndSupervisors, AssessmentMaximumExceeded"
+        "Set ProcedureName to 'CourseAssessmentValidation'",
+        "Add parameters for session, course ID",
+        "Retrieve validation flags (InterimWithoutFinal, InstructorsAndSupervisors, AssessmentMaximumExceeded)"
       ]
     }
   ],
   "business_rules": [
-    "Assessor and Subject visibility of answers controlled by respective boolean fields",
-    "Assessment open and close timing can be configured relative to course start/end",
-    "Descriptions and codes support locale (default or alternate)",
-    "If AssessorTypeCode equals SubjectTypeCode, SubjectTypeDescriptionFormatted is set to '(self)'",
-    "OpenDaysAfterStart or CloseDaysAfterEnd = 0 maps to Start_Date or End_Date respectively",
-    "If AssessmentTypeCode is 'Interim', close days formatting uses Start_Date; otherwise End_Date"
+    "Assessor and subject code must be set.",
+    "Assessment templates and types must be selected.",
+    "OpenDaysAfterStart and CloseDaysAfterEnd define assessment windows.",
+    "OptionAppliedAssessorTypeCodeID optionally alters default assessor type behavior."
   ],
   "validations": [
-    "InterimWithoutFinal (flag indicating an interim assessment is present without final assessment)",
-    "InstructorsAndSupervisors (flag indicating inclusion of instructors/supervisors)",
-    "AssessmentMaximumExceeded (flag indicating assessment count exceeded maximum allowed)"
+    "CourseAssessmentValidation checks for: Interim assessment without final, instructors and supervisors present, assessment maximum exceeded."
   ],
   "calculations": [
-    "OpenDaysAfterStart and CloseDaysAfterEnd are formatted based on values and assessment type",
-    "Negative values for days produce a formatted string with '-' and absolute days"
+    "OpenDaysAfterStartFormatted and CloseDaysAfterEndFormatted use Start_Date or End_Date resources with plus/minus days.",
+    "SubjectTypeDescriptionFormatted outputs '(self)' if AssessorTypeCode equals SubjectTypeCode."
   ],
   "conditions": [
-    "Locale determines which description field to use (default or alternate)",
-    "If OpenDaysAfterStart or CloseDaysAfterEnd == 0, formatting is different"
+    "Descriptions use default locale unless otherwise specified.",
+    "AssessmentTypeCode 'Interim' changes CloseDaysAfterEnd formatting to use Start_Date instead of End_Date.",
+    "If OpenDaysAfterStart == 0, formatted as Start_Date; if > 0, as Start_Date + days; if < 0, as Start_Date - days."
   ],
   "system_behavior": [
-    "Procedures abstract SQL, actions performed via DB layer",
-    "Assessment search returns entity mappings for UI or logic",
-    "Validation returns business flags for enforcing assessment constraints"
+    "DB layer handles stored procedure calls and parameter mapping.",
+    "SqlDataReader maps DB responses to entity fields."
   ],
   "dependencies": [
-    "HSPnetSession for database context",
-    "Resources for localized strings",
-    "CourseID links assessments to courses",
-    "AssessmentTemplateCodeID references assessment templates",
-    "AssessorTypeCodeID and SubjectTypeCodeID reference codes for role type"
+    "Database procedures: CourseAssessmentAdd, CourseAssessmentUpdate, CourseAssessmentDelete, CourseAssessmentSearchID, CourseAssessmentSearch, CourseAssessmentValidation.",
+    "Resource strings for formatting (Start_Date, End_Date, Days).",
+    "HSPnetSession for session and locale context."
   ],
   "exceptions": [
-    "AssessmentMaximumExceeded flag may signal workflow constraint violation",
-    "InterimWithoutFinal signals missing final assessment when interim exists"
+    "If validation fails, flags such as InterimWithoutFinal or AssessmentMaximumExceeded are set."
   ],
   "source_document_ids": [
     "0c1ddf30-f1e7-51b9-88fc-4ecde3e29648",
@@ -145,9 +136,8 @@
     "e8acf69f-fa26-5173-8966-b5722ce94765"
   ],
   "content_gaps": [
-    "UI logic, error handling, and concrete business exceptions are not detailed.",
-    "AssessmentTemplate structure is referenced, but its fields and rules are not provided.",
-    "Role definitions (Assessor, Instructor, Supervisor, Subject) are listed as actor codes but not fully described.",
-    "Workflow post-assessment actions and user notification logic are not described."
+    "No user interface details provided.",
+    "Assessment templates and codes are referenced but not defined.",
+    "No explicit error handling or audit trail logic."
   ]
 }
