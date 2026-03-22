@@ -1,100 +1,105 @@
 {
   "filename": "EmailRequestContactChange",
   "found": true,
-  "summary": "The EmailRequestContactChange module implements a web interface and backend workflow for users to request a contact change via email, including attachment management, email validation, and generation of standardized subject/body/signature formats.",
-  "purpose": "To allow users to send requests for contact changes to a destination, with optional attachments, and ensure email formatting, validation, and workflow compliance in HSPnet.",
+  "summary": "The EmailRequestContactChange module enables users to send emails to request contact changes related to a destination in HSPnet. It provides a web interface for composing the email, managing attachments, and specifying recipients, including To, Cc, Bcc fields. The system enforces validations, supports file uploads, and controls visibility and behavior depending on query parameters and user session data.",
+  "purpose": "To allow users to request a contact change by sending an email containing relevant destination information, attachments, and user signature, with flexible recipient fields and robust validation and feedback mechanisms.",
   "entities": [
-    "UserSession",
     "Destination",
     "Staff",
     "Service",
-    "Email",
-    "Attachment"
+    "Attachment",
+    "Email"
   ],
   "fields": [
     "txtEmailTo",
     "txtEmailCc",
     "txtEmailBcc",
-    "txtEmail",
     "ltlEmailFrom",
+    "ltlEmailTo",
     "ltlPhone",
     "ltlEmailSubject",
     "txtEmailBody",
     "txtSignature",
-    "AttachURL",
-    "dtlAttach",
-    "dsAttach",
-    "RequiredFieldValidator1",
-    "RegularExpressionValidator1",
-    "upldAddFile",
+    "txtAttachFile",
     "hdnUserName",
     "hdnASSD",
-    "hdnDDCName"
+    "hdnDDCName",
+    "dtlAttach"
   ],
   "actors": [
-    "User (sender)",
-    "Destination Contact",
-    "System (HSPnet)",
-    "Support (for error handling)"
+    "User",
+    "Staff",
+    "System"
   ],
   "workflows": [
     {
-      "name": "Email Request Contact Change",
+      "name": "Send Email Request for Contact Change",
       "steps": [
-        "Page loads and validates URL hash for security.",
-        "User is presented with a form to specify destination, subject, body, signature, and optionally attach files.",
-        "JavaScript runs client-side validation for email formats and required fields.",
-        "Attachments can be uploaded; files are saved to unique directories on the server.",
-        "Email subject and body are generated or pre-populated using templates and user/session/destination data.",
-        "User clicks Send; server-side validation ensures subject/body presence.",
-        "System constructs recipient lists (To, Cc, Bcc) and formats emails appropriately.",
-        "System sends the email via backend logic, including attachments if present.",
-        "Success or error messages are returned to the user; support email is shown in case of failure."
+        "Page loads and validates URL hash.",
+        "Setup page controls based on query parameters (e.g., ShowBcc, ShowCc, ShowTo, AttachURL).",
+        "Fetches destination, staff, and service data for email fields.",
+        "Pre-fills email body, subject, and signature using templates and session data.",
+        "User enters or confirms recipient emails (To, Cc, Bcc).",
+        "User composes email body and adds signature.",
+        "User can upload attachments to be included in the email.",
+        "Validates email input: subject and body must not be empty; recipients must be valid emails.",
+        "Client-side JavaScript validates input and prevents invalid characters.",
+        "User clicks 'Send Email'.",
+        "System composes email, merges additional data into the template, attaches files, and sends.",
+        "Success/failure feedback provided; errors captured and displayed.",
+        "Attachments may be deleted or added before sending."
+      ]
+    },
+    {
+      "name": "Manage Attachments",
+      "steps": [
+        "User uploads new files.",
+        "System creates a unique folder, saves the file, and updates attachment list.",
+        "User can delete attachments before sending.",
+        "System updates and binds attachment list on changes."
       ]
     }
   ],
   "business_rules": [
-    "Subject and Body must not be empty (server and client validation).",
-    "Email addresses in To/Cc/Bcc must match the validation regex.",
-    "Attachments may only be added if allowed (ShowAttach flag).",
-    "Sender can choose to copy themselves via checkbox.",
-    "All attachments must be stored in a uniquely named directory."
+    "Email subject must be specified.",
+    "Email body must be specified.",
+    "At least one recipient (To or hidden email) must be specified.",
+    "Recipients must be valid email addresses.",
+    "Attachments must conform to upload validation rules (file type, expression)."
   ],
   "validations": [
-    "Client-side: Email format must match Email_ValidationExpression.",
-    "Client-side: Email body must not be empty.",
-    "Client-side: At least one recipient must be specified.",
-    "Client-side: Invalid characters (<> brackets) are removed from email fields.",
-    "Server-side: RequiredFieldValidator ensures file is selected for upload.",
-    "Server-side: RegularExpressionValidator ensures file meets regex criteria.",
-    "Server-side: Email subject and body required."
+    "RequiredFieldValidator for file upload.",
+    "RegularExpressionValidator for email addresses and file upload.",
+    "Client-side JavaScript validation for email body and recipient fields (validEmail, hasEmails, PreventInvalidEmailCharacter).",
+    "Server-side validation for subject and body (CheckIsValid)."
   ],
   "calculations": [
-    "Email subject is templated: replaces <<SITE>>, <<DEST>>, <<PROV>> with actual data from destination/service/session.",
-    "Email body is templated: replaces <<USER_NAME>>, <<EMAIL>>, <<ASSD>>, <<DDC_NAME>> with user/session/destination data, then appends user input and signature."
+    "Dynamic generation of email subject and body using templates.",
+    "Phone and contact info formatting using NameFormatter and session/localization data."
   ],
   "conditions": [
-    "ShowAttach controls whether attachment upload UI is available.",
-    "ShowTo, ShowCc, ShowBcc control visibility of recipient fields.",
-    "Attachments only included if uploaded and visible."
+    "Visibility of To, Cc, Bcc, and Attach fields controlled by query parameters (ShowTo, ShowCc, ShowBcc, ShowAttach).",
+    "Different template body if initial email body not specified.",
+    "Attachment section visible only when files are present or ShowAttach is set."
   ],
   "system_behavior": [
-    "Dynamic field and panel visibility based on request parameters.",
-    "Messages and warnings shown in panels; error and warning messages persist UI state.",
-    "File uploads are processed and stored securely.",
-    "Email is not sent if recipient list is empty; error message is shown.",
-    "Success/failure feedback after attempting to send."
+    "Auto-hide panels for errors and warnings by client actions.",
+    "Dynamically binds attachments list after changes.",
+    "Handles uploaded files by creating unique folders and saving files.",
+    "Provides localized and dynamic UI text based on resources.",
+    "Updates the UI and feedback on send or attachment events."
   ],
   "dependencies": [
-    "Depends on Templates for email subject/body.",
-    "Depends on UserSession for user details and messaging.",
-    "Depends on AJAX Toolkit for UI visibility extenders.",
-    "Depends on DataLayer.EmailPopupDocuments for attachment management."
+    "HSPnet.DataLayer.EmailPopupDocuments",
+    "Templates.TemplateLookup",
+    "Resources for UI/localization",
+    "Client-side JavaScript for validations",
+    "Data binding for attachments"
   ],
   "exceptions": [
-    "Email not sent if no recipients: error message.",
-    "Email sending failure: error message with support email.",
-    "Attachment upload failure: file not stored, warning notifies user."
+    "No email sent if no recipients are specified (error message shown).",
+    "Error feedback if email send fails (message shown).",
+    "Attachment deletion adds warning message."
   ],
   "source_document_ids": [
     "00da2927-1cf9-5b2d-9916-87d63acf55c6",
@@ -128,8 +133,8 @@
     "fe3f633e-2dd6-514e-b2e0-9f6dc1b20fe3"
   ],
   "content_gaps": [
-    "No explicit description of how error messages are localized or constructed, only resource references.",
-    "No workflow diagram; only UI/HTML and code logic.",
-    "Business logic for permission/authorization is not present, assumed handled by UserSession."
+    "Underlying email sending infrastructure details are not included.",
+    "No explicit description of error handling for file upload failures.",
+    "No details about template file contents or localization resource strings."
   ]
 }
