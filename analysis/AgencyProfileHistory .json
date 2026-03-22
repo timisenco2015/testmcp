@@ -1,0 +1,92 @@
+{
+  "filename": "AgencyProfileHistory",
+  "found": true,
+  "summary": "AgencyProfileHistory records and displays changes to agency profiles in the HSPnet platform. The system supports retrieval and formatting of historical change data, user identification and display, field-level changes, multilingual support, and integration into web UI controls.",
+  "purpose": "To track and present a history of actions and changes performed on agency profiles including who made the change, what was changed, and when.",
+  "entities": [
+    "AgencyProfileHistory",
+    "AgencyProfileHistories",
+    "HSPnetSession",
+    "Database",
+    "SqlDataReader",
+    "Phone"
+  ],
+  "fields": [
+    "ID",
+    "ActionDate",
+    "ScreenSection",
+    "UserAction",
+    "Fields",
+    "Agency",
+    "AgencyName",
+    "LastName",
+    "FirstName",
+    "MiddleName",
+    "Phone",
+    "ByUserID",
+    "ByOriginalUserID",
+    "ByUserSysAdmin"
+  ],
+  "actors": [
+    "Agency user",
+    "SysAdmin",
+    "HSPnet Support Team"
+  ],
+  "workflows": [
+    {
+      "name": "Retrieve Agency Profile History",
+      "steps": [
+        "UserControl is instantiated with UserSession and AgencyID.",
+        "On data source selecting event, system checks for valid UserSession.",
+        "If session valid, input parameters are set for AgencyID, SessionAgencyID, session object.",
+        "AgencyProfileHistorySearch procedure is called in the database.",
+        "SqlDataReader iterates results and populates AgencyProfileHistory objects.",
+        "Results are returned and displayed in UI controls (GridView, Button, Label)."
+      ]
+    }
+  ],
+  "business_rules": [
+    "If UserSession is null, data retrieval is cancelled.",
+    "When displaying user details, if ByUserSysAdmin is false and ByUserID is not the original, display support team caption.",
+    "Fields may use alternate language if session specifies UseAltLanguageFields."
+  ],
+  "validations": [
+    "UserSession must be present for history retrieval.",
+    "UUIDs for document lookup must match proper format."
+  ],
+  "calculations": [
+    "AgencyUserFormatted: Format user display using initials and agency name.",
+    "ActionDateFormatted: Format date using DateFormatter utilities."
+  ],
+  "conditions": [
+    "If UseAltLanguageFields is true, use alternate language field values."
+  ],
+  "system_behavior": [
+    "Cancels selection event if user session is not established.",
+    "Formats and displays historical profile actions for an agency.",
+    "Populates UI controls via ObjectDataSource and GridView."
+  ],
+  "dependencies": [
+    "HSPnetSession for authentication and session context.",
+    "Database and SqlDataReader for data access.",
+    "Phone and DateFormatter utility classes.",
+    "Resources for support team and multilingual captions.",
+    "UI controls (Button1, Label1, gridData, dsAgencyProfileHistory)."
+  ],
+  "exceptions": [
+    "No user session or invalid session cancels history retrieval.",
+    "Malformed UUIDs are filtered during lookup."
+  ],
+  "source_document_ids": [
+    "15c94f3f-f742-5810-b434-c20f8ad6b260",
+    "7d79fe20-87f9-5cd7-9bd8-0c268bb0bf53",
+    "9a0cb835-eaac-576f-902b-1c37454bbf0c",
+    "e67d6f27-f1e3-5ea8-8b56-55ef439607e3",
+    "fa907938-cc36-56e5-8ce2-4283ff2a346b"
+  ],
+  "content_gaps": [
+    "No explicit error handling for DB access failures present.",
+    "UI interaction workflow is somewhat implicit and lacks detail.",
+    "Details about persistence and audit logging are inferred, not explicit."
+  ]
+}
