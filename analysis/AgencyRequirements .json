@@ -1,0 +1,151 @@
+{
+  "filename": "AgencyRequirements",
+  "found": true,
+  "summary": "AgencyRequirements implements agency-level prerequisite requirements management, allowing agencies to define, edit, assign, and filter requirements for disciplines and sites. The module supports file uploads, prerequisite types (Standard, Document, Link), discipline filtering, and assignment of requirements to destinations. The user interface uses various controls to facilitate workflow steps, including drag-and-drop, filters, and modal dialogs.",
+  "purpose": "To provide agencies with a configurable tool to manage requirements that apply to their disciplines and sites, including definition, assignment, editing, deletion, and linking to documents or URLs.",
+  "entities": [
+    "GenericRequirement",
+    "Site",
+    "Discipline",
+    "DestinationCode",
+    "Codes",
+    "CodeRecord"
+  ],
+  "fields": [
+    "RequirementCodeID",
+    "Description",
+    "Website",
+    "DocumentName",
+    "Section",
+    "AllowAllSubDisciplines",
+    "SubDisciplineID",
+    "SiteID",
+    "DestinationCodeID"
+  ],
+  "actors": [
+    "Agency user",
+    "System administrator"
+  ],
+  "workflows": [
+    {
+      "name": "Add/Edit Requirement",
+      "steps": [
+        "User opens requirement form (Insert/Edit mode).",
+        "User selects requirement type (Standard, Document, Link).",
+        "User enters description, selects codes, enters website/document name/section as appropriate.",
+        "User optionally uploads a file (Document type).",
+        "User assigns disciplines and sites using drag-and-drop or selection controls.",
+        "User saves requirement, triggering backend assignment and validation.",
+        "Requirements are reflected in the data grid and UI."
+      ]
+    },
+    {
+      "name": "Assign Destinations",
+      "steps": [
+        "User selects requirement.",
+        "User views/edits applied sites and destinations.",
+        "User uses controls to assign/unassign destinations.",
+        "Changes are saved and reflected in UI."
+      ]
+    },
+    {
+      "name": "Filter Requirements",
+      "steps": [
+        "User selects filter criteria for requirement type and discipline.",
+        "Filtered requirements are displayed.",
+        "User can add/edit/delete filtered requirements."
+      ]
+    },
+    {
+      "name": "File Upload/Handling",
+      "steps": [
+        "User uploads document as requirement.",
+        "System stores file in designated folder with unique GUID.",
+        "Document link and metadata are stored and presented."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Requirements can be assigned by type: Standard, Document, or Link.",
+    "Hidden codes (HideDocType, HideUrlType) are omitted from selection.",
+    "Dividers in codes are replaced by 'Notes' field content.",
+    "Fields must be validated before saving.",
+    "If no disciplines are included, requirement applies to all disciplines.",
+    "Requirements are associated with sites and destinations via lists and filters."
+  ],
+  "validations": [
+    "Check requirement description (custom validator).",
+    "File upload requires file presence and size > 0.",
+    "Section field treated as null if empty.",
+    "Discipline filter resets on page load."
+  ],
+  "calculations": [
+    "Increment sectionAdded value for grid placement.",
+    "ValueList method concatenates selected item values/text."
+  ],
+  "conditions": [
+    "If RestrictedSubDisciplines is true, discipline filter is hidden and notes displayed.",
+    "PrerequisiteOption determines which fields are visible/enabled.",
+    "If all disciplines/sites/destinations are selected, requirement applies accordingly."
+  ],
+  "system_behavior": [
+    "Grid and FormView controls show/hide details modals as appropriate.",
+    "UI updates asynchronously when triggered by events.",
+    "File uploads are saved to unique folders, and links are generated.",
+    "Cache is updated post-save/delete operations."
+  ],
+  "dependencies": [
+    "Codes (for prerequisites)",
+    "Disciplines (search and filter)",
+    "Sites (assignment)",
+    "DestinationCodes",
+    "HSPnetSession"
+  ],
+  "exceptions": [
+    "File upload fails if file is missing or invalid.",
+    "Editing/deletion fails if requirement not found.",
+    "Custom validator blocks save if description is invalid."
+  ],
+  "source_document_ids": [
+    "13b196ec-d05c-5fa6-a513-6c6e3fa91617",
+    "1810d933-9b91-50f0-baaa-948277702fc9",
+    "1b207d5b-3d00-5479-a9e2-9fdf8a667f1d",
+    "1b66eb4f-9f52-53b7-a084-f80cf9ccdf17",
+    "27b2702d-39b5-5793-8f68-c2f6a7b0c46c",
+    "286add73-bb16-5796-910b-3f91b063df77",
+    "2b229244-7df6-5337-92ef-b4c2728e7102",
+    "2d52603a-9d1d-5eb7-abf4-1ee1cb2b23a9",
+    "31289871-4d2d-5615-8540-288c45849357",
+    "3b7c3f13-8264-5aa4-a2f2-5eaa648e34fc",
+    "3db69777-c655-527d-a4b7-bb28ed8912a8",
+    "4d8f5e5a-39b4-5444-9f67-609e707a6de6",
+    "5b85b7a3-8e0b-5809-b90b-b827cd5f888d",
+    "6350f5e9-337c-5b9b-a497-ed086dc41956",
+    "6a710b85-d8d4-5b1c-8e39-90ad3a0deaf1",
+    "7a62726b-50a1-59cc-99d2-ec4fb8a84428",
+    "7d860ca8-1086-58a3-a6b6-f1be1f2a9500",
+    "7f21efa6-d3f0-542a-8d1d-d82a3ddb10a4",
+    "856bcca5-ba19-5074-a1fd-233fb36e4880",
+    "869ac191-3e9d-571c-8101-0b98749a1753",
+    "8bc36335-c9e3-5621-b3bc-d149c71f3537",
+    "9c7a9a3a-b039-59d4-b1dc-e36e08b2862d",
+    "a8631584-b7b1-569f-a4f4-20464633d3d0",
+    "aa798c27-e95c-5d1b-b459-82ad3c5413b4",
+    "b8e90e09-6ab1-5f41-8811-1af43cf07a83",
+    "b91e7a89-6dc1-5c1f-a3ef-0ca41f2ded52",
+    "c3acc8f1-0b0d-53f0-af6c-fa09a5bf52d0",
+    "c9e7f9d7-cdb0-5a8c-9df5-9c036ab8a467",
+    "cd93c218-c8e6-51d0-a042-d6a1736fee76",
+    "d96efd3d-eacb-556d-8e3c-9c378012d1e1",
+    "d9fcd023-3e25-5c9b-8907-b082dafef1a0",
+    "df19803e-f48a-551a-8fc4-dabdc1f74e51",
+    "e0fc31dd-c175-5f0b-80c5-cd2ec72be4c3",
+    "eef86d36-48d1-559d-999c-647a02542023",
+    "f37eff7d-3660-5d55-8f7f-52069488a2c8"
+  ],
+  "content_gaps": [
+    "Details of GenericRequirement, Discipline, Site, DestinationCode classes and their fields are inferred; actual class definitions are not present.",
+    "No explicit UI layouts; control declarations are partially inferred from designer files and event handlers.",
+    "Some business logic (e.g. Code filtering) is inferred from procedural fragments without full context."
+  ]
+}
