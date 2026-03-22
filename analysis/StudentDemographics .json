@@ -1,108 +1,84 @@
 {
   "filename": "StudentDemographics",
   "found": true,
-  "summary": "StudentDemographics is a web user control for managing student demographic data, including birth date, ethnicity, and citizenship information. The control allows data viewing, editing, and validation, and supports pop-up modals for detail editing. It interacts with backend data sources and maintains user session state.",
-  "purpose": "To display and edit demographic information for a student within the HSPnet system, supporting workflows for updating, viewing, and validating demographic details including birth date, ethnicity, and citizenship.",
-  "entities": ["Student", "EthnicityCodes", "CitizenshipCodes", "UserSession"],
+  "summary": "StudentDemographics is a user control for managing, displaying, and editing demographic information for a student within an ASP.NET web application. It provides UI elements for viewing and editing birth date, ethnicity, and citizenship, using dropdowns and text fields, with validation and session handling. The control uses forms, data binding, and modal popups for interaction, and its behavior adapts based on user permissions and session state.",
+  "purpose": "To allow authorized users to view and edit specific demographic fields (birth date, ethnicity, citizenship) for a student record, with business logic for field visibility and editability, and proper session/user management.",
+  "entities": [
+    "Student",
+    "Ethnicity",
+    "Citizenship",
+    "HSPnetSession"
+  ],
   "fields": [
     {
       "name": "birthDate",
       "type": "Date",
-      "source_control": "txtBirthDate",
-      "description": "Student's date of birth"
+      "required": false,
+      "source": "TextBox (txtBirthDate)"
     },
     {
       "name": "ethnicityCodeID",
-      "type": "String/Code",
-      "source_control": "ddEthnicity",
-      "description": "Code for student's ethnicity"
+      "type": "Code/ID",
+      "required": false,
+      "source": "DropDownList (ddEthnicity)"
     },
     {
       "name": "citizenshipCodeID",
-      "type": "String/Code",
-      "source_control": "ddCitizenship",
-      "description": "Code for student's citizenship"
-    },
-    {
-      "name": "ID",
-      "type": "Integer",
-      "description": "Unique identifier for the student"
+      "type": "Code/ID",
+      "required": false,
+      "source": "DropDownList (ddCitizenship)"
     }
   ],
   "actors": [
-    {
-      "name": "User",
-      "roles": ["View", "Edit", "Update Student Demographics"]
-    },
-    {
-      "name": "System",
-      "roles": ["Load Codes", "Bind Controls", "Cache Session", "Redirect"]
-    }
+    "User (with session)",
+    "ScriptManager",
+    "System.Web.UI.WebControls (FormView, Panel, Button, DropDownList, TextBox)",
+    "AjaxControlToolkit (ModalPopupExtender)"
   ],
   "workflows": [
     {
-      "name": "View Demographics",
-      "steps": [
-        "User loads StudentDemographics control",
-        "System binds demographic fields (birthDate, ethnicity, citizenship)",
-        "Codes for Ethnicity and Citizenship are loaded and bound to dropdowns"
-      ]
-    },
-    {
       "name": "Edit Demographics",
       "steps": [
-        "User clicks edit button",
-        "System switches FormView to edit mode",
-        "System displays editable fields and pop-up modal if required",
-        "User updates birthDate, ethnicity, citizenship",
-        "System validates and binds updated values"
-      ]
-    },
-    {
-      "name": "Update Demographics",
-      "steps": [
-        "User saves changes",
-        "System updates demographic fields",
-        "System caches user session",
-        "System redirects user to the Demographics page"
+        "User clicks edit button (cmdEdit)",
+        "Switch to edit mode and show modal (mdlDetails)",
+        "Bind UI controls (uxDetail) to student data",
+        "User modifies fields: birth date, ethnicity, citizenship",
+        "On save (ItemUpdating), validate and parse input",
+        "Update values and call session-aware update logic",
+        "Redirect user to updated demographics page"
       ]
     }
   ],
   "business_rules": [
-    "Ethnicity and citizenship codes must be valid and exist in respective code tables",
-    "User session must be valid for selection/update operations",
-    "If user does not have permission or screen is not editable, edit controls are disabled"
+    "Edit button visibility depends on ScreenIsEditable and ReadOnly properties",
+    "Dropdowns for ethnicity and citizenship populated via Codes.CodeSearch with session context",
+    "On update, session parameter is required",
+    "If UserSession is null on selecting data, cancel operation"
   ],
   "validations": [
-    "birthDate parsed and validated from input",
-    "Dropdowns for ethnicity and citizenship default to valid selections",
-    "ValidationSummary control aggregates validation errors"
+    "Birth date input parsed and validated (DateFormatter.ParseDate)",
+    "Dropdowns require valid selection (ethnicityCodeID, citizenshipCodeID)"
   ],
-  "calculations": [
-    "birthDate parsing using DateFormatter.ParseDate",
-    "Dropdown value selection using SelectValue"
-  ],
+  "calculations": [],
   "conditions": [
-    "If ScreenIsEditable is true, show edit controls",
-    "If UserSession is null, cancel selection",
-    "If not ReadOnly, show details"
+    "ScreenIsEditable controls field editability",
+    "ReadOnly disables editing but may show details",
+    "UserSession presence is required for data operations"
   ],
   "system_behavior": [
-    "Data binding for demographic fields",
-    "Pop-up modal for editing details using ModalPopupExtender",
-    "Redirect to Demographics page after update",
-    "Cache user session after update"
+    "Modal popup management for detail editing",
+    "Data binding on controls for display and update",
+    "Session management and redirect upon update",
+    "Client-side JavaScript variable setup for UI"
   ],
   "dependencies": [
-    "Codes.CodeSearch for Ethnicity and Citizenship",
-    "HSPnetSession for user session management",
-    "DateFormatter utility for birthDate parsing",
-    "Dropdown and FormView controls"
+    "Codes.CodeSearch for dropdown data",
+    "HSPnetSession for session context",
+    "QueryString for page redirect"
   ],
   "exceptions": [
-    "Invalid user session cancels data selection",
-    "Incorrect code values result in failed binding",
-    "Page controls not found disables edit capability"
+    "If UserSession is null, selection is canceled",
+    "If script manager is in async postback, different JavaScript registration is used"
   ],
   "source_document_ids": [
     "0ca5fc75-f201-5ab2-97a9-0e0353c56509",
@@ -113,9 +89,9 @@
     "c920787e-96df-5b8c-ac2b-87e911d57e53"
   ],
   "content_gaps": [
-    "Field-level validation logic details are incomplete",
-    "No descriptive UI layouts or complete field lists",
-    "Business rules for code values (Ethnicity, Citizenship) are referenced but not specified",
-    "Exceptions handling is partly inferred"
+    "No explicit field-level validation rules found for dropdown values.",
+    "No details on how CodeSearch data is structured.",
+    "No information on error handling for backend update failures.",
+    "No UI markup present (only code-behind/file fragments)."
   ]
 }
