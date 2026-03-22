@@ -1,0 +1,125 @@
+{
+  "filename": "OccHealthEditAll",
+  "found": true,
+  "summary": "OccHealthEditAll is a user control for bulk editing occupational health prerequisites for student enrollments. It supports grid-based data entry and updating, conditional display of controls and buttons, and handles both batch and individual editing modes. The system uses ASP.NET controls and business logic to manage updates, validations, and navigation.",
+  "purpose": "To provide administrators (or authorized users) the ability to edit, review, and update students' occupational health prerequisite status in bulk or individually, supporting workflows for saving, editing, and navigating enrollment data.",
+  "entities": [
+    "Student",
+    "Enrollment",
+    "UserSession",
+    "Cohort",
+    "Term",
+    "Course"
+  ],
+  "fields": [
+    "StudentID",
+    "OccHealthReqMetStatusCodeID",
+    "MedicalCompleted",
+    "ImmunizationFeePaid",
+    "ReqMetDate",
+    "ReqMetNotes",
+    "CohortID",
+    "TermID",
+    "CourseID",
+    "SectionFilter",
+    "ActionFilter",
+    "keyword",
+    "CampusID",
+    "CommentFilter",
+    "ShowGrad",
+    "ShowInactive",
+    "ShowWaived",
+    "StartRow"
+  ],
+  "actors": [
+    "Administrator",
+    "System (UserControl)",
+    "ScriptManager"
+  ],
+  "workflows": [
+    {
+      "name": "Bulk Edit Occupational Health",
+      "steps": [
+        "Load grid with students and occupational health status fields.",
+        "Handle ObjectDataSource Selecting event to inject session/user and filter parameters.",
+        "Render grid rows with dropdowns, checkboxes, and text fields.",
+        "In batch mode (EnrollmentID == 0), display Save All and Save/Edit Next controls.",
+        "On Save All or Save/Edit Next command, iterate over grid rows.",
+        "Update all 'dirty' rows (those changed) via StudentPrerequisites.StudentDetailsImmunizationOccHealthUpdate.",
+        "If warnings are found, do not redirect; otherwise, redirect to Enrollment summary or next edit set.",
+        "Handle individual row editing (EnrollmentID > 0), display only Save and Cancel buttons.",
+        "After save, rebind grid or redirect as needed."
+      ]
+    },
+    {
+      "name": "Individual Edit Occupational Health",
+      "steps": [
+        "If EnrollmentID > 0, grid displays only one row in edit mode.",
+        "User modifies fields, clicks Save.",
+        "Update student record, check for warnings.",
+        "Redirect to Enrollment summary after save."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Only 'dirty' rows (changed rows) are updated.",
+    "Save All and Save/Edit Next controls are hidden if less than 14 rows are displayed (no scrollbars).",
+    "Button visibility is controlled by read-only status and EnrollmentID.",
+    "Session and context parameters control data filtering.",
+    "Max length for notes field is 1000 characters."
+  ],
+  "validations": [
+    "ValidationSummary control displayed for errors.",
+    "Notes field (txtReqMetNotes) limited to 1000 characters.",
+    "Dropdowns must select valid status codes.",
+    "Hidden fields used to track 'dirty' state."
+  ],
+  "calculations": [
+    "Redirect boolean: set to true if UserSession.Messages.GetWarnings().Count < 1 after update.",
+    "Sort: grid can be sorted by user choice with ascending/descending toggle."
+  ],
+  "conditions": [
+    "If EnrollmentID == 0: batch edit mode; Save All and Save/Edit Next controls enabled.",
+    "If EnrollmentID > 0: single edit mode; only Save and Cancel enabled.",
+    "If grid rows < 14: hide scroll-dependent controls.",
+    "If blnReadOnly: disable edit fields."
+  ],
+  "system_behavior": [
+    "Registers JavaScript for client-side validation and field tracking.",
+    "Binds and renders grid according to session and filter parameters.",
+    "Handles postback events to update server data and manage navigation.",
+    "Hides or displays controls based on context and permissions."
+  ],
+  "dependencies": [
+    "ASP.NET GridView",
+    "ScriptManager",
+    "ObjectDataSource",
+    "StudentPrerequisites.StudentDetailsImmunizationOccHealthUpdate",
+    "UserSession",
+    "QueryString utilities"
+  ],
+  "exceptions": [
+    "If UserSession is null, data selection is canceled.",
+    "If update triggers warnings, redirect is prevented and warnings displayed.",
+    "If invalid UUIDs or missing keys, data may not load (handled upstream)."
+  ],
+  "source_document_ids": [
+    "421982c1-f1ad-5dd5-846c-665fe66c3bdb",
+    "6adcce1d-f1ef-5b38-96a3-95d1a47aed16",
+    "95fb0066-6586-5498-a460-51b49cda325d",
+    "99baa1af-5f67-56eb-b5ed-9bcf2f01ff2b",
+    "9d4f5114-30ed-59cf-85fd-ee742befe45a",
+    "b2ccd809-8782-54a7-b33d-98332441adba",
+    "b61a5919-afbe-510f-9313-ee24bbde76a2",
+    "ba6faf47-98dc-59c7-8652-c97a0679e7d4",
+    "c8228c24-0f9c-5f99-8523-b23808eb9bda",
+    "d14c2ad0-d5c9-5ccd-b6fb-33415293cf86"
+  ],
+  "content_gaps": [
+    "Exact UI layout and field mappings are inferred from code, not fully described.",
+    "How user permissions and roles are assigned/checked.",
+    "Exact error and warning message content and handling details.",
+    "The contents of StudentPrerequisites.StudentDetailsImmunizationOccHealthUpdate are not provided.",
+    "ObjectDataSource configuration and data source details are not shown."
+  ]
+}
