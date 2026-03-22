@@ -1,0 +1,163 @@
+{
+  "filename": "SiteDocument",
+  "found": true,
+  "summary": "The SiteDocument and related files provide a data structure and UI components for handling site-related documents, employment applications, and supporting site/discipline-based filtering within an administrative web system.",
+  "purpose": "To facilitate the administration and management of site documents and employment applications, supporting user selection and validation workflows for staff admins.",
+  "entities": [
+    "SiteDocument",
+    "EmploymentApplication",
+    "SiteProfileHistory",
+    "ServiceCode",
+    "EmailPopupDocument"
+  ],
+  "fields": [
+    "SiteDocument.ID",
+    "SiteDocument.SiteID",
+    "EmploymentApplication.ID",
+    "EmploymentApplication.NameFormatted",
+    "EmploymentApplication.PlcAgencyShortName",
+    "EmploymentApplication.ConsentProgram",
+    "EmploymentApplication.SiteShortName",
+    "EmploymentApplication.SubmittedDate",
+    "EmploymentApplication.Status",
+    "EmploymentApplication.WithdrawnDate",
+    "ServiceCode.ID",
+    "ServiceCode.CodeCategoryID",
+    "ServiceCode.ShortName",
+    "ServiceCode.Name",
+    "ServiceCode.SortOrder",
+    "ServiceCode.Notes",
+    "ServiceCode.NameAlt",
+    "ServiceCode.NotesAlt",
+    "SiteProfileHistory.ID",
+    "SiteProfileHistory.ActionDate",
+    "SiteProfileHistory.ScreenSection",
+    "SiteProfileHistory.UserAction",
+    "SiteProfileHistory.Fields",
+    "SiteProfileHistory.Agency",
+    "SiteProfileHistory.AgencyName",
+    "SiteProfileHistory.LastName",
+    "SiteProfileHistory.FirstName",
+    "SiteProfileHistory.MiddleName",
+    "SiteProfileHistory.Phone",
+    "SiteProfileHistory.ByUserID",
+    "SiteProfileHistory.ByOriginalUserID",
+    "SiteProfileHistory.ByUserSysAdmin",
+    "EmailPopupDocument.ID",
+    "EmailPopupDocument.FileName",
+    "EmailPopupDocument.FilePath",
+    "EmailPopupDocument.Checked"
+  ],
+  "actors": [
+    "AdminUser",
+    "System",
+    "HSPnet_Support_Team"
+  ],
+  "workflows": [
+    {
+      "name": "Employment Applications Filtering and Display",
+      "steps": [
+        "User loads the WelcomeStaffAdmin page.",
+        "Site and Discipline dropdowns are populated via the user's session and agency context.",
+        "User sets filters for Site, Discipline, and date range (start/end date fields).",
+        "Validation occurs on filter input (required fields, regex for date, start date <= end date).",
+        "User can refresh the view to rebind data.",
+        "System retrieves and displays employment applications according to selected filters.",
+        "Applications are displayed with name, program, site, submission date, status, withdrawn date, and support links.",
+        "User can interact (view details, send email) for each application.",
+        "Errors and warnings are surfaced via dedicated panels."
+      ]
+    },
+    {
+      "name": "ServiceCode Retrieval",
+      "steps": [
+        "System or user triggers retrieval of all service codes or those filtered by course or timetable.",
+        "Service codes are returned, supporting localization (main and alt language)."
+      ]
+    },
+    {
+      "name": "Site Profile History Retrieval",
+      "steps": [
+        "System retrieves historical actions (screen section, user, phone, etc.) for a given site.",
+        "Entries formatted with date, user/agency info, and contact."
+      ]
+    },
+    {
+      "name": "EmailPopupDocument Search and Deletion",
+      "steps": [
+        "System parses string input to retrieve email popup document entries (filename and path).",
+        "On delete request by ID, system deletes the associated file and directory."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Filtering requires selection of a site and discipline, with logical defaults (ALL).",
+    "Start date and end date are required and validated for correct format.",
+    "Start date cannot be after end date.",
+    "Applications may be filtered to include withdrawn applications based on user checkbox.",
+    "Grid displays support pagination (default page size 50).",
+    "Employment application links must be hashed for security before navigation.",
+    "Email display depends on the presence of email data (no icon if missing)."
+  ],
+  "validations": [
+    "RequiredFieldValidator for start and end date fields.",
+    "RegularExpressionValidator for acceptable date format.",
+    "CustomValidator ensures start date is not after end date.",
+    "ValidationSummary control surfaces validation issues."
+  ],
+  "calculations": [
+    "ActionDateFormatted and AgencyUserDetailsFormatted use helper methods for display.",
+    "AgencyUserDetails includes logic for formatting based on user/admin context."
+  ],
+  "conditions": [
+    "If SiteID is present in the query string, it's used as default; otherwise, current agency's sites are listed.",
+    "If no email, display no-icon for email links.",
+    "If user is HSPnet_Support_Team or SysAdmin, additional label formatting occurs for audit trail."
+  ],
+  "system_behavior": [
+    "Dropdowns dynamically populate from data layer.",
+    "Auto-postback on dropdown selection changes triggers data refresh.",
+    "Client-side and server-side scripts are registered for page interaction.",
+    "Error and warning panels are always visible with AJAX controls."
+  ],
+  "dependencies": [
+    "UserSession for context and security.",
+    "Data access via HSPnet.DataLayer.",
+    "Resource localization for labels and messages.",
+    "AJAX Control Toolkit for UI behaviors."
+  ],
+  "exceptions": [
+    "If validation fails, error/warning is displayed and no data query is performed.",
+    "If file deletion fails during EmailPopupDocument delete, catch block prevents unhandled errors."
+  ],
+  "source_document_ids": [
+    "a2967f17-a924-5e9c-8b15-d1f7bd028b32",
+    "05db31e4-e8b6-53ee-a6fb-812c106f0134",
+    "100d5925-a5f8-53db-8493-02cddd563eb7",
+    "3c84bade-9671-5fbf-acce-3c87a835e9b4",
+    "4c4b97b8-d242-5261-a515-767a3f7d7a49",
+    "52b5066f-23f6-5d82-96cd-5d51dad3de79",
+    "54244516-0707-581e-a8ba-9c041ea38366",
+    "5bb85da3-f5b4-5753-b07c-9bb2a04eeb89",
+    "5d9b92ea-7c12-5070-8603-977cf14d0e04",
+    "6701b153-5288-59e5-8de9-61b68a1fc292",
+    "6eca1317-c0b2-5225-a9af-f034a722d924",
+    "871df91b-7ba0-558f-83ea-d5be1b0dc8db",
+    "8cea5c3a-2fbf-5206-a0c0-9425a5e14511",
+    "964a48c9-231c-5d58-a44d-3675d949a453",
+    "966ed8d3-a5af-567f-b092-936217777551",
+    "a0c3da28-32a5-5fce-91b2-17274efa016e",
+    "afbb4ec5-43c8-5281-ad2c-4b6cfd23a48e",
+    "b8e79322-9a0e-5fe7-8953-3d05e231f923",
+    "bf423a80-93db-572d-8cb8-c79f04214a93",
+    "ca71b077-cc26-5979-a44f-59700a41316b",
+    "d278278f-d4ec-5f4a-9f29-a02b66773bb9",
+    "db9b35e9-53ca-5eaf-9d75-4f3a72131bc7",
+    "e249a878-c837-5d1c-9a3d-5167df2614fb"
+  ],
+  "content_gaps": [
+    "Details on error handling strategies are limited.",
+    "Low-level implementation of data retrieval and persistence is abstracted.",
+    "Some referenced resources (e.g., external JS, localized text) are not present in the analyzed content."
+  ]
+}
