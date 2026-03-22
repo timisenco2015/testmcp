@@ -1,0 +1,132 @@
+{
+  "filename": "MaintServiceProfile",
+  "found": true,
+  "summary": "MaintServiceProfile is a web page for managing and viewing service profiles in an enterprise system, supporting multiple panels for general profile, positions, and historical data. It dynamically loads and displays details related to a service (such as agency, site, contact), enforces business rules for editability, and provides validation and feedback mechanisms for user actions.",
+  "purpose": "To provide a user interface for viewing, editing, and managing service profiles, including their positions and history, with features for conditional editing, error/warning display, and data validation consistent with system access rules.",
+  "entities": [
+    "Service",
+    "ServiceProfile",
+    "ServicePositions",
+    "ServiceProfileHistory",
+    "UserSession",
+    "ServiceAgency"
+  ],
+  "fields": [
+    "ServiceID",
+    "ServiceAgencyID",
+    "Name",
+    "SiteName",
+    "ContactFormatted",
+    "EmailLinkDestProfileFormatted",
+    "Phone",
+    "ProfileExists",
+    "PositionExists",
+    "SiteUsesPositions",
+    "currentPage",
+    "ReadOnly"
+  ],
+  "actors": [
+    "SystemAdministrator",
+    "StaffAdmin",
+    "EndUser"
+  ],
+  "workflows": [
+    {
+      "name": "Page Load",
+      "steps": [
+        "Validate URL hash",
+        "Fetch ServiceID from query string",
+        "Load service information using ServiceID",
+        "Determine read-only status (from query string and edit rules)",
+        "Setup page footer and client scripts",
+        "Set active tab based on currentPage or default",
+        "Disable Positions tab if SiteUsesPositions is false",
+        "Link child controls (UCProfile, UCPositions, UCHistory) depending on active tab"
+      ]
+    },
+    {
+      "name": "Tab Change/Refresh",
+      "steps": [
+        "Switch active tab to Profile, Positions, or History as specified",
+        "Child controls are linked and data-bound based on the active tab, visibility is managed"
+      ]
+    },
+    {
+      "name": "Error/Warning Handling",
+      "steps": [
+        "Display error or warning panels with captions and lists",
+        "Users can hide panels using provided buttons"
+      ]
+    },
+    {
+      "name": "Validation",
+      "steps": [
+        "Validate pay scale effective date if pay scale codes are selected",
+        "Ensure default pay scale code must be selected if a secondary code is"
+      ]
+    },
+    {
+      "name": "Page PreRender",
+      "steps": [
+        "Register client script for window resize",
+        "Process page messages",
+        "Finalize page setup"
+      ]
+    }
+  ],
+  "business_rules": [
+    "Screen is editable only if not ReadOnly and user is either SystemAdministrator or their agency matches ServiceAgencyID.",
+    "Positions tab is enabled only if SiteUsesPositions is true.",
+    "Profile and Positions headers display an 'exist' flag if relevant data exists.",
+    "Default pay scale must be chosen if secondary pay scale is selected."
+  ],
+  "validations": [
+    "Pay scale effective date must be provided if pay scale codes are selected.",
+    "Secondary pay scale cannot be selected unless default is selected."
+  ],
+  "calculations": [],
+  "conditions": [
+    "Page is read-only if ReadOnly query string is '1' or edit rules do not permit.",
+    "Tab visibility and control linkage depend on active tab and existence of data."
+  ],
+  "system_behavior": [
+    "Loads and binds data to controls based on ServiceID and active tab.",
+    "Handles visibility and editability per user permissions and business rules.",
+    "Displays and manages error/warning panels.",
+    "Resizes window client-side on prerender."
+  ],
+  "dependencies": [
+    "UserSession for access control and contextual data",
+    "Service entity for profile, positions, and history data",
+    "Child user controls for modular display and management: UCProfile, UCPositions, UCHistory",
+    "Resources for localized labels/captions"
+  ],
+  "exceptions": [
+    "If ServiceID is invalid or not found, controls may not display data.",
+    "If user lacks edit permission, controls are set read-only."
+  ],
+  "source_document_ids": [
+    "1f19b0b9-67fe-5001-aeae-ab20bd4e6832",
+    "2bfc8a55-0a29-5b95-9c14-c3ea5ce529fe",
+    "2cb4b8be-662c-509f-b47a-b338b7640294",
+    "37a66989-6e79-514c-9b64-380169bb37fa",
+    "45df54e6-b646-50f5-bf73-bfa295199e1e",
+    "654e5aa9-c069-5a87-bdc8-e3587a2093f4",
+    "6efd8c09-b990-567b-a75e-57cf6220a3be",
+    "71f9601b-b79f-5367-9907-8d85cef353a7",
+    "903e25bc-328a-5070-a44b-d1ef4b51e3c2",
+    "932fee38-0be4-5847-9d0f-9edb2cc496c0",
+    "9b4a881e-f22d-5a23-b1ca-1277998be1c7",
+    "9d9d5537-54ee-5ce5-97fd-e732cfcaab1c",
+    "a33bae59-cf55-5a2c-a073-5d480d5904c6",
+    "b05388c9-978e-5b9c-ace4-832528074d44",
+    "d0fe04b1-52be-58c7-ae0b-10fc87d352fb",
+    "d27c1e48-22d6-554f-aff7-d214e76450fb",
+    "f38314d9-b14c-5369-b8d2-e5b362f3db11"
+  ],
+  "content_gaps": [
+    "No detailed UI layouts or control properties beyond what is available via field definitions.",
+    "No explicit descriptions of error/warning messages or their logic.",
+    "Some referenced controls (e.g., UCProfile, UCPositions, UCHistory) are modular and their internal workings are not included."
+  ]
+}
