@@ -1,0 +1,146 @@
+{
+  "filename": "MaintCodeCategories",
+  "found": true,
+  "summary": "MaintCodeCategories is a maintenance screen for managing code categories in the HSPnet application. It supports viewing, adding, editing, deleting, and searching code categories. The UI is built with ASP.NET controls and AJAX, enabling modal popups and dynamic updates. The categories have fields for name, alternate locale, and description, with validation for mandatory fields. The screen allows navigation to related codes and handles error/warning messages with dedicated panels.",
+  "purpose": "To provide administrative users the ability to maintain (add, edit, delete, search, view) code categories, which are used for organizing and managing subsequent codes within the system.",
+  "entities": [
+    {
+      "name": "CodeCategory",
+      "description": "Represents a category grouping for codes.",
+      "fields": ["ID", "Category", "CategoryAlt", "Description"]
+    }
+  ],
+  "fields": [
+    {
+      "name": "Category",
+      "type": "string",
+      "required": true,
+      "max_length": 50,
+      "description": "The code category name."
+    },
+    {
+      "name": "CategoryAlt",
+      "type": "string",
+      "required": true,
+      "max_length": 50,
+      "description": "Alternate code category name for localization."
+    },
+    {
+      "name": "Description",
+      "type": "string",
+      "required": false,
+      "max_length": 200,
+      "description": "A description of the code category."
+    }
+  ],
+  "actors": [
+    {
+      "name": "UserSession",
+      "description": "Administrative user interacting with the maintenance screen."
+    }
+  ],
+  "workflows": [
+    {
+      "name": "View Code Categories",
+      "steps": [
+        "User accesses MaintCodeCategories screen.",
+        "Code categories are listed in a GridView.",
+        "User can search/filter categories by keyword."
+      ]
+    },
+    {
+      "name": "Add Code Category",
+      "steps": [
+        "User clicks Add button.",
+        "Modal popup appears with DetailsView for entry.",
+        "User enters Category, CategoryAlt, Description.",
+        "On save, mandatory fields validated.",
+        "Category added to database and grid refreshed."
+      ]
+    },
+    {
+      "name": "Edit Code Category",
+      "steps": [
+        "User clicks Edit for a category.",
+        "Modal popup appears with DetailsView for editing.",
+        "User updates fields.",
+        "On save, mandatory fields validated.",
+        "Category updated and grid refreshed."
+      ]
+    },
+    {
+      "name": "Delete Code Category",
+      "steps": [
+        "User clicks Delete on a category.",
+        "Deletion confirmed (optional JS prompt).",
+        "Category deleted and grid refreshed."
+      ]
+    },
+    {
+      "name": "Navigate to Codes",
+      "steps": [
+        "User clicks To Codes for a category.",
+        "Redirects to MaintCode screen with InitialCategoryID in query string."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Category and CategoryAlt are mandatory fields.",
+    "Description is optional but limited to 200 characters.",
+    "Only users in maintenance mode may access this screen.",
+    "Navigation to codes uses the selected category as a filter."
+  ],
+  "validations": [
+    "RequiredFieldValidator for Category and CategoryAlt.",
+    "MaxLength enforced for Category (50), CategoryAlt (50), Description (200)."
+  ],
+  "calculations": [],
+  "conditions": [
+    "Page loads only data relevant to current UserSession and keyword filtering input.",
+    "Modal popup appears conditionally for Add/Edit actions.",
+    "Panels for Error/Warning are only visible when triggered."
+  ],
+  "system_behavior": [
+    "GridView displays categories and supports row command actions.",
+    "UpdatePanel used for partial page updates (AJAX).",
+    "ModalPopupExtender used for showing DetailsView dialog.",
+    "Error and warning messages are handled via dedicated panels.",
+    "Default button set to cmdRefreshView for quick searching."
+  ],
+  "dependencies": [
+    "CodeCategories data binding and retrieval logic.",
+    "Grid utility methods for switching modes and showing details.",
+    "UserSession management for security and context.",
+    "AJAX Control Toolkit for modal popup and always-visible controls.",
+    "Resource files for UI texts and localization."
+  ],
+  "exceptions": [
+    "Invalid UUID or missing category data disables actions.",
+    "Errors in add/edit/delete trigger error panel with message.",
+    "Missing mandatory fields trigger validations and error messages."
+  ],
+  "source_document_ids": [
+    "035aec77-d332-5086-82ba-a828e38a423b",
+    "1b953ab5-2d2e-5b66-9cdc-9e3b82bbd0a1",
+    "2cfa22df-94c8-5664-b787-4c14373a6e99",
+    "3151d303-95e6-5a5c-b06a-d78bc878e104",
+    "5dd7905c-e042-51eb-b7de-986e6a967649",
+    "6261088e-e9b7-5eeb-8bd5-db012d12f2fc",
+    "62f01a02-a69a-5e05-b939-617906b7af9b",
+    "72fe7f23-aab3-534e-a189-ed715d3f49b6",
+    "8668378a-0e53-59a9-b21d-07eb719e312c",
+    "8a360b28-3d46-5e7f-ac51-474363a9ee3a",
+    "942e0d85-cf2e-5c7d-b962-d85c66581cfa",
+    "958dbf2f-3444-5e50-8856-5d5d81cfc55d",
+    "b71b4a22-19ba-5328-9252-bf6cf176d62e",
+    "cdd45be7-8a76-5261-9bf4-1bb07ff4d239",
+    "d0949140-e426-5320-a880-f6f5316f6145",
+    "db86dc91-6af6-57a7-9d74-adaae7cadc9e"
+  ],
+  "content_gaps": [
+    "No explicit error handling code for database failures.",
+    "Resource key values not visible in source.",
+    "No specific permission/role requirements detailed.",
+    "CodeCategory fields beyond Category, CategoryAlt, Description (e.g., ID) assumed from context but not defined in detail."
+  ]
+}
