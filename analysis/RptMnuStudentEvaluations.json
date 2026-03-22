@@ -1,93 +1,115 @@
 {
   "filename": "RptMnuStudentEvaluations",
   "found": true,
-  "summary": "RptMnuStudentEvaluations is an ASP.NET UserControl for generating and displaying student evaluation reports. It manages the selection of department and program, date filtering, validation, and output of report data in HTML or Excel formats. The control leverages dropdowns for department/program selection, date pickers, several validators, and dynamically retrieves/display report details using database queries.",
-  "purpose": "To allow authorized users to generate student evaluation reports filtered by department, program, and date range, and to export these reports in HTML or CSV/Excel format.",
+  "summary": "RptMnuStudentEvaluations is a user control in the HSPnet web application responsible for displaying and generating reports about student evaluations. It provides an interface for users to select Departments and Programs, specify a date range, and produce Excel or HTML reports for student evaluations using backend data retrieval processes. The control includes extensive validation, dropdown population logic, and mechanisms to render the report data in the UI.",
+  "purpose": "To facilitate the generation, viewing, and exporting of student evaluation reports by allowing users to filter based on department, program, and date range, and to validate input and display results in a user-friendly format.",
   "entities": [
     "Department",
     "Program",
-    "StudentEvaluation",
+    "Student Evaluation",
     "UserSession"
   ],
   "fields": [
-    {
-      "name": "DepartmentID",
-      "type": "dropdown",
-      "control": "ddDepartment",
-      "source": "Departments.DepartmentSearchAgency/DepartmentList"
-    },
-    {
-      "name": "ProgramID",
-      "type": "dropdown",
-      "control": "ddProgram",
-      "source": "Programs.ProgramSearchDepartment/ProgramList"
-    },
-    {
-      "name": "DateFrom",
-      "type": "date",
-      "control": "txtStartDate"
-    },
-    {
-      "name": "DateTo",
-      "type": "date",
-      "control": "txtEndDate"
-    }
+    "ValidationSummary1",
+    "Label3",
+    "ltlDescription",
+    "Label4",
+    "ltlOptions",
+    "txtStartDate",
+    "btnStartDate",
+    "CalendarExtender1",
+    "RegularExpressionValidator1",
+    "ltlMandatoryStartDate",
+    "Label8",
+    "txtEndDate",
+    "btnEndDate",
+    "CalendarExtender2",
+    "RegularExpressionValidator2",
+    "Literal1",
+    "valEditStartDate",
+    "valEditEndDate",
+    "CustomValidator1",
+    "LabelA",
+    "ddDepartment",
+    "LabelB",
+    "ddProgram",
+    "cmdRunExcel",
+    "lblPleaseWait",
+    "pnlReportHTML",
+    "lblReportHTML"
   ],
   "actors": [
-    "User",
-    "System (UserSession)",
-    "Database (UserSession.DB)"
+    "UserSession (authenticated user)",
+    "ScriptMgr (script manager handling async postbacks)"
   ],
   "workflows": [
     {
-      "name": "Generate Student Evaluations Report",
+      "name": "Page Initialization and PreRender",
       "steps": [
-        "User selects Department, Program, Start Date, and End Date.",
-        "System validates input fields (required, format).",
-        "On Run/Export, system collects parameters and runs ReportStudentEvaluations DB procedure.",
-        "System fetches and formats report data, displaying HTML or providing CSV/Excel output.",
-        "Report output and controls are dynamically shown/hidden based on result."
+        "On Page_Load, control logic may be initialized (but no explicit logic found).",
+        "On Page_PreRender, if UserSession is present, load description and options for Student Evaluations report.",
+        "Setup JavaScript variables for field client IDs.",
+        "Populate Department and Program dropdowns."
+      ]
+    },
+    {
+      "name": "Dropdown Change Handlers",
+      "steps": [
+        "When ddDepartment dropdown changes, fill Program dropdown with programs related to the selected department."
+      ]
+    },
+    {
+      "name": "Report Generation",
+      "steps": [
+        "User selects department, program, dates.",
+        "Clicking the 'Run Excel' or report button triggers parameter setup: DepartmentID, ProgramID, DateFrom, DateTo.",
+        "Procedure 'ReportStudentEvaluations' is called with current session and filter parameters.",
+        "Fetch report data, generate report HTML or CSV.",
+        "Display report HTML in pnlReportHTML if available."
       ]
     },
     {
       "name": "Dropdown Population",
       "steps": [
-        "On load or department change, departments and programs are populated based on user permissions.",
-        "Dropdowns are dynamically bound to filtered lists."
+        "If UserSession.AllowAllDepartments is true, search agency departments; otherwise, list departments for session agency.",
+        "If UserSession.AllowAllPrograms is true, search programs for selected department; otherwise, list programs.",
+        "Insert an 'ALL' option at the top of Program dropdown."
       ]
     }
   ],
   "business_rules": [
-    "If AllowAllDepartments is true for UserSession, departments fetched via DepartmentSearchAgency; otherwise, DepartmentList.",
-    "If AllowAllPrograms is true, programs fetched via ProgramSearchDepartment; otherwise, ProgramList.",
-    "Program dropdown includes an 'ALL' option.",
-    "User must select minimum required fields to generate a report."
+    "Department and Program dropdowns are dynamically populated based on user session privileges.",
+    "Date fields (StartDate, EndDate) require validation.",
+    "'ALL' option is always included for programs."
   ],
   "validations": [
-    "RequiredFieldValidator for Start Date and End Date.",
-    "RegularExpressionValidator for date formats.",
-    "CustomValidator for additional, possibly cross-field, logic."
+    "RequiredFieldValidator for StartDate and EndDate.",
+    "RegularExpressionValidator for valid date format on both fields.",
+    "CustomValidator1 (details unspecified; presumed for additional logic)."
   ],
   "calculations": [],
   "conditions": [
-    "Dropdowns populated only if UserSession present and dropdowns not already filled.",
-    "DataBind parameter in FillProgramDropdown determines whether program reload occurs."
+    "Populate dropdowns only if UserSession is available.",
+    "Populate dropdowns if counts are zero or a DataBind flag is true.",
+    "Restrict department/program choices according to session permissions."
   ],
   "system_behavior": [
-    "On user action, JavaScript variables for control IDs are registered.",
-    "Report output is displayed if HTML is not empty.",
-    "Report HTML panel visibility is controlled programmatically.",
-    "Report DB reader is closed after use."
+    "Displays report description and options from CodeLookup.",
+    "Sets up client JavaScript for form fields.",
+    "Handles async postback for JavaScript registration.",
+    "Shows report HTML panel if report is generated."
   ],
   "dependencies": [
-    "Departments and Programs data sources (via agency, department)",
-    "UserSession context for permissions and session data",
-    "Resources (for text and labels)",
-    "ReportMain.OutputCSV for output formatting"
+    "UserSession object for authorization and access control.",
+    "Backend stored procedure 'ReportStudentEvaluations'.",
+    "AJAX Control Toolkit for calendar selection.",
+    "Dropdown controls for departments and programs.",
+    "Data binding to department/program collections.",
+    "CodeLookup for report descriptions."
   ],
   "exceptions": [
-    "If no report data is retrieved, report output not displayed.",
-    "Invalid dates or missing required fields prevent report generation."
+    "Dropdown population skips if UserSession is null.",
+    "Report panel is not shown if reportHTML is empty."
   ],
   "source_document_ids": [
     "3bda989e-aee9-5cb0-a91b-23b5c507dcce",
@@ -101,8 +123,8 @@
     "e317b930-d13f-5511-844e-4de35ee59b82"
   ],
   "content_gaps": [
-    "Some control logic and actual report formatting may be defined elsewhere (e.g., in code-behind files, DB procedures, or in referenced frameworks).",
-    "Exact business logic for CustomValidator not visible.",
-    "Details about ReportMain.OutputCSV and Resources.StudentEvaluations outputs are not shown."
+    "No details about contents or logic inside CustomValidator1.",
+    "No information about the actual report output structure or fields.",
+    "No explicit error handling or user feedback details."
   ]
 }
