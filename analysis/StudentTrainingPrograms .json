@@ -1,0 +1,147 @@
+{
+  "filename": "StudentTrainingPrograms",
+  "found": true,
+  "summary": "StudentTrainingPrograms manages a student's connection to training programs, including creation, update, inactivation/reactivation, and retrieval. It supports edit and read-only modes, tracks comments, includes validation, and allows selection of associated agencies, programs, and stages.",
+  "purpose": "To track and administer which training programs a student is assigned to, including program details, stage, agency, timeframe (start/end dates), status (active/inactive), and comments. Allows for management via add, edit, delete (inactivate), and reactivate operations, and provides interfaces for data entry, display, and validation.",
+  "entities": [
+    {
+      "name": "StudentTrainingProgram",
+      "fields": [
+        "ID",
+        "StudentID",
+        "ProgramID",
+        "DepartmentShortName",
+        "ProgramShortName",
+        "StageCodeID",
+        "StageDescription",
+        "AgencyID",
+        "AgencyShortName",
+        "StartDate",
+        "EndDate",
+        "Comments",
+        "Inactive",
+        "StartDateFormatted",
+        "EndDateFormatted",
+        "ProgramNameFormatted"
+      ]
+    }
+  ],
+  "fields": [
+    "ID",
+    "StudentID",
+    "ProgramID",
+    "StageCodeID",
+    "AgencyID",
+    "StartDate",
+    "EndDate",
+    "Comments",
+    "Inactive"
+  ],
+  "actors": [
+    "Student",
+    "Admin",
+    "Agency"
+  ],
+  "workflows": [
+    {
+      "name": "Add Student Training Program",
+      "steps": [
+        "Select student",
+        "Open training program entry form",
+        "Select program, stage, and agency",
+        "Enter start/end dates and comments",
+        "Validate required fields and date order",
+        "Submit (insert operation via stored procedure)",
+        "Refresh data display"
+      ]
+    },
+    {
+      "name": "Edit Student Training Program",
+      "steps": [
+        "Select existing program entry",
+        "Open edit form",
+        "Modify fields (program, stage, agency, dates, comments)",
+        "Validate changes",
+        "Submit (update operation via stored procedure)",
+        "Refresh data display"
+      ]
+    },
+    {
+      "name": "Delete/Inactivate Student Training Program",
+      "steps": [
+        "Select program entry to delete/inactivate",
+        "Trigger inactivation operation",
+        "Confirm change",
+        "Refresh data display"
+      ]
+    },
+    {
+      "name": "Reactivate Student Training Program",
+      "steps": [
+        "Select inactive program entry",
+        "Trigger reactivate operation",
+        "Confirm change",
+        "Refresh data display"
+      ]
+    }
+  ],
+  "business_rules": [
+    "StartDate must precede EndDate",
+    "Comments max length is 1000 characters",
+    "Inactive flag marks records as deleted/reactivated",
+    "Read-only screens hide add/edit controls",
+    "Dropdowns for Program, Stage, and Agency must be populated from reference data",
+    "Only editable screens allow add/edit/delete/reactivate actions"
+  ],
+  "validations": [
+    "RequiredFieldValidator on StartDate and EndDate",
+    "RegularExpressionValidator on date fields",
+    "CustomValidator for StartDate < EndDate",
+    "MaxLength validation on Comments field"
+  ],
+  "calculations": [
+    "ProgramNameFormatted = DepartmentShortName + \" / \" + ProgramShortName",
+    "StartDateFormatted and EndDateFormatted via DateFormatter"
+  ],
+  "conditions": [
+    "If UserSession is null, cancel data operations",
+    "ScreenIsEditable controls access to edit functions",
+    "Inactive flag controls visibility/reactivatable state"
+  ],
+  "system_behavior": [
+    "Grid displays, adds, edits, deletes, and reactivates entries",
+    "FormView used for detailed entry/edit",
+    "Modal popup for editing/adding",
+    "DataBind functions refresh UI",
+    "Redirect after operations to reflect changes",
+    "JavaScript setup for field validation and client scripting"
+  ],
+  "dependencies": [
+    "Programs.ProgramListByDepartment for populating dropdowns",
+    "Dropdown.SelectValue for setting dropdown defaults",
+    "Agency, Program, Stage reference data required",
+    "Stored procedures: StudentDetailsTrainingProgramAdd, Update, Inactivate, Search"
+  ],
+  "exceptions": [
+    "Data operation cancelled if UserSession is null",
+    "Invalid dates prevent submission",
+    "Failed validation cancels insert/update"
+  ],
+  "source_document_ids": [
+    "0278f2e1-15e1-52a6-99a7-f338f943183e",
+    "05b14484-f473-554e-9329-5cd197d38538",
+    "094a255c-158e-5673-8035-49c3b8079045",
+    "2fb139b8-0210-50a6-828e-fa15412ab2af",
+    "4e4c7fe5-d241-55f0-8891-b5d1a1f0eb5c",
+    "5cea2d81-d05c-5e38-b063-5a61480d3ddc",
+    "6d23c568-767a-5d73-9902-2960157889ee",
+    "6fd4dd72-e302-5556-b966-7ec54d109472",
+    "7c178050-5e50-5ab3-b00e-2b86e7608f3b",
+    "aa5bf129-3c5f-592b-916d-25fefa436a58",
+    "c0e203b7-40a3-5fc8-a207-6b367df9d40e",
+    "f17f9152-f9ac-5e33-83b8-670178cb8f58",
+    "f1f0d3cc-fb97-524b-a5db-24f7339be1de",
+    "f598e46d-3a3a-509d-b28e-2ef02bc8fa36"
+  ],
+  "content_gaps": []
+}
