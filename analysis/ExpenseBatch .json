@@ -1,0 +1,109 @@
+{
+  "filename": "ExpenseBatch",
+  "found": true,
+  "summary": "ExpenseBatch is a data entity and process responsible for managing batches of expenses, primarily grouped by department. The code implements CRUD operations (Create, Read, Update, Delete) and includes search functionality, formatted batch numbering, and handles status codes and descriptions. It uses explicit stored procedures for all main actions.",
+  "purpose": "To manage grouped sets of expenses (batches) in an organization, allowing users to search, add, update, and delete expense batches for reporting, workflow, and tracking purposes.",
+  "entities": [
+    "ExpenseBatch",
+    "ExpenseBatches"
+  ],
+  "fields": [
+    "ID",
+    "DepartmentID",
+    "BatchDescription",
+    "BatchDate",
+    "StatusCodeID",
+    "StatusCode",
+    "StatusDescription",
+    "ClosedDate",
+    "BatchNumberFormatted"
+  ],
+  "actors": [
+    "HSPnetSession (system/context for DB access)",
+    "User (implied, performing batched expense actions)"
+  ],
+  "workflows": [
+    {
+      "name": "Search Expense Batches",
+      "steps": [
+        "Receive department ID.",
+        "Call stored procedure 'ExpenseBatchSearch' with DepartmentID.",
+        "For each returned record: map fields to 'ExpenseBatch' object, including formatting BatchNumberFormatted.",
+        "Return list of batches."
+      ]
+    },
+    {
+      "name": "Search Expense Batch by ID",
+      "steps": [
+        "Receive batch ID.",
+        "Call stored procedure 'ExpenseBatchSearchID' with ID.",
+        "If record found: map fields to 'ExpenseBatch' object.",
+        "Return the batch."
+      ]
+    },
+    {
+      "name": "Add Expense Batch",
+      "steps": [
+        "Receive departmentID, batchDescription, and batchDate.",
+        "Call stored procedure 'ExpenseBatchAdd' with parameters.",
+        "On success: retrieve generated ID.",
+        "Return the new batch ID."
+      ]
+    },
+    {
+      "name": "Update Expense Batch",
+      "steps": [
+        "Receive ID, batchDescription, batchDate, and statusCodeID.",
+        "Call stored procedure 'ExpenseBatchUpdate' with parameters.",
+        "No return expected."
+      ]
+    },
+    {
+      "name": "Delete Expense Batch",
+      "steps": [
+        "Receive batch ID.",
+        "Call stored procedure 'ExpenseBatchDelete' with ID.",
+        "No return expected."
+      ]
+    }
+  ],
+  "business_rules": [
+    "A batch must have a DepartmentID, description, and date specified when created.",
+    "BatchNumberFormatted concatenates ID and StatusDescription for display.",
+    "StatusDescription uses alternative language if session indicates."
+  ],
+  "validations": [
+    "Batch ID must be a valid integer (implicit by database).",
+    "Department ID must be provided and valid.",
+    "BatchDate must be a valid date.",
+    "StatusDescription field uses alternate language if session requires."
+  ],
+  "calculations": [
+    "BatchNumberFormatted = ID + ' - ' + StatusDescription"
+  ],
+  "conditions": [
+    "If session uses alternate language fields, fetch StatusDescriptionAlt else StatusDescription."
+  ],
+  "system_behavior": [
+    "All DB access is via stored procedures.",
+    "Readers are always closed after use.",
+    "Methods return mapped objects or lists as appropriate."
+  ],
+  "dependencies": [
+    "HSPnetSession for DB and session context.",
+    "SQL Server stored procedures: ExpenseBatchSearch, ExpenseBatchSearchID, ExpenseBatchAdd, ExpenseBatchUpdate, ExpenseBatchDelete."
+  ],
+  "exceptions": [
+    "If stored procedure returns no results, object or list will be empty.",
+    "Database errors are not detailed in these fragments (handled elsewhere)."
+  ],
+  "source_document_ids": [
+    "060e08d3-49ca-5e40-bea0-849f4e6173e1",
+    "3559737f-0154-520e-be2b-d3dd2c3de539",
+    "b2216e58-a144-55cb-8b87-3da9787fc1d7"
+  ],
+  "content_gaps": [
+    "No UI details, security/authorization logic, or error handling in these code fragments.",
+    "No explicit transaction or concurrency control logic."
+  ]
+}
