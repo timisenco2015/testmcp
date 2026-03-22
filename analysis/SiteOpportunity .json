@@ -1,175 +1,130 @@
 {
   "filename": "SiteOpportunity",
   "found": true,
-  "summary": "The SiteOpportunity module handles the management of site-specific opportunities in the system. It includes entity definitions, CRUD operations, list retrieval, and logic to format, validate, and control the presentation of opportunity data. Workflows include adding, updating, deleting, copying, and fetching SiteOpportunities by various parameters. Formatting and validation ensure display correctness and business rules compliance.",
-  "purpose": "To provide a structured way to manage site opportunities, allowing users to add, update, delete, retrieve, and present these opportunities with formatting and validation appropriate for UI consumption and business rules.",
+  "summary": "SiteOpportunity manages opportunities associated with a site, including responses, headings, descriptions, sorting, and web page flags. It supports CRUD operations and handles workflow for displaying, updating, and deleting site opportunities with business validations.",
+  "purpose": "To represent and manage individual opportunity records related to a site, providing structured data for UI display and business logic enforcement.",
   "entities": [
-    {
-      "name": "SiteOpportunity",
-      "fields": [
-        "ID",
-        "SiteID",
-        "HeadingID",
-        "Response",
-        "SortOrder",
-        "Description",
-        "DescriptionAlt",
-        "DescriptionFormatted",
-        "SortOrderFormatted",
-        "WebPage",
-        "HeaderChanged"
-      ]
-    }
+    "SiteOpportunity",
+    "SiteOpportunities"
   ],
   "fields": [
-    {
-      "name": "ID",
-      "type": "int",
-      "description": "Unique identifier for the opportunity"
-    },
-    {
-      "name": "SiteID",
-      "type": "int",
-      "description": "Associated site identifier"
-    },
-    {
-      "name": "HeadingID",
-      "type": "int",
-      "description": "Related heading/category identifier"
-    },
-    {
-      "name": "Response",
-      "type": "string",
-      "description": "Opportunity response text"
-    },
-    {
-      "name": "SortOrder",
-      "type": "int",
-      "description": "Manual sort order; -1 means blank"
-    },
-    {
-      "name": "Description",
-      "type": "string",
-      "description": "Main description"
-    },
-    {
-      "name": "DescriptionAlt",
-      "type": "string",
-      "description": "Alternate language description"
-    },
-    {
-      "name": "DescriptionFormatted",
-      "type": "string",
-      "description": "UI-ready description, based on language preference"
-    },
-    {
-      "name": "SortOrderFormatted",
-      "type": "string",
-      "description": "UI-ready sort order (blank if -1)"
-    },
-    {
-      "name": "WebPage",
-      "type": "bool",
-      "description": "True if entry is a web page record"
-    },
-    {
-      "name": "HeaderChanged",
-      "type": "bool",
-      "description": "True if heading/category changed for display grouping"
-    }
+    { "name": "ID", "type": "int", "description": "Unique identifier of the opportunity." },
+    { "name": "SiteID", "type": "int", "description": "Identifier of the associated site." },
+    { "name": "HeadingID", "type": "int", "description": "Identifier for category headings." },
+    { "name": "Response", "type": "string", "description": "Opportunity response text." },
+    { "name": "SortOrder", "type": "int", "description": "Order of opportunity display; -1 used for blank sort order." },
+    { "name": "Description", "type": "string", "description": "Main description." },
+    { "name": "DescriptionAlt", "type": "string", "description": "Alternate language description." },
+    { "name": "DescriptionFormatted", "type": "string", "description": "Formatted display description, uses alternate if enabled." },
+    { "name": "SortOrderFormatted", "type": "string", "description": "Formatted sort order for display." },
+    { "name": "WebPage", "type": "bool", "description": "True if entry is a web page." },
+    { "name": "ResponseFormatted", "type": "string", "description": "HTML-translated newlines from Response." },
+    { "name": "HeaderChanged", "type": "bool", "description": "True if header category changes between entries." }
   ],
   "actors": [
     "HSPnetSession",
+    "SiteOpportunity",
     "SqlDataReader"
   ],
   "workflows": [
     {
       "name": "Add SiteOpportunity",
       "steps": [
-        "Validate SiteOpportunity (Response is required)",
-        "Set parameters: SiteID, HeadingID, Response, SortOrder",
-        "Call DB procedure: SiteOpportunitiesAdd"
+        "Validate Response is not blank.",
+        "Set stored procedure to SiteOpportunitiesAdd.",
+        "Add parameters: SiteID, HeadingID, Response, SortOrder.",
+        "Execute query to add record."
       ]
     },
     {
       "name": "Update SiteOpportunity",
       "steps": [
-        "Check ID is not 0 and Valid",
-        "Set parameters: SiteOpportunitiesID, HeadingID, Response, SortOrder",
-        "Call DB procedure: SiteOpportunitiesUpdate"
+        "Ensure ID is not zero and Response is valid.",
+        "Set stored procedure to SiteOpportunitiesUpdate.",
+        "Add parameters: SiteOpportunitiesID, HeadingID, Response, SortOrder.",
+        "Execute query."
       ]
     },
     {
       "name": "Delete SiteOpportunity",
       "steps": [
-        "Check ID is not 0",
-        "Set parameter: SiteOpportunitiesID",
-        "Call DB procedure: SiteOpportunitiesDelete"
+        "Ensure ID is not zero.",
+        "Set stored procedure to SiteOpportunitiesDelete.",
+        "Add parameter: SiteOpportunitiesID.",
+        "Execute query."
       ]
     },
     {
       "name": "Get SiteOpportunities by SiteID",
       "steps": [
-        "Set procedure: SiteOpportunitiesSearch",
-        "Add parameter: SiteID",
-        "Execute and map results to list"
+        "Set stored procedure to SiteOpportunitiesSearch.",
+        "Add parameter: SiteID.",
+        "Execute query.",
+        "Fill list from SqlDataReader."
       ]
     },
     {
-      "name": "Get SiteOpportunity by ID",
+      "name": "Get SiteOpportunities by ID",
       "steps": [
-        "Set procedure: SiteOpportunitiesSearchID",
-        "Add parameter: ID",
-        "Execute and map result"
+        "Set stored procedure to SiteOpportunitiesSearchID.",
+        "Add parameter: ID.",
+        "Execute query.",
+        "Fill list from SqlDataReader."
       ]
     },
     {
-      "name": "FillList (data mapping for UI)",
+      "name": "Fill List",
       "steps": [
-        "Iterate data reader rows",
-        "Construct SiteOpportunity entity from DB fields",
-        "Apply formatting (sort order, description language)",
-        "Set WebPage flag if description matches special value",
-        "Handle header changes for grouping"
+        "Iterate SqlDataReader rows.",
+        "Map fields: ID, SiteID, HeadingID, Response, SortOrder, Description, DescriptionAlt.",
+        "If UseAltLanguageFields, set DescriptionFormatted from DescriptionAlt.",
+        "Handle header changes via HeaderChanged flag.",
+        "Handle WebPage flag if Description matches Resources.WEB_PAGE.",
+        "Format SortOrder for display."
       ]
     }
   ],
   "business_rules": [
-    "SortOrder of -1 is treated as blank for display",
-    "DescriptionFormatted uses alternate language if session setting is enabled",
-    "WebPage flag set when Description matches Resources.WEB_PAGE",
-    "HeaderChanged set true when HeadingID changes on subsequent entries"
+    "Response must not be blank to add or update.",
+    "SortOrder set to -1 is treated as blank (displayed as empty string).",
+    "HeaderChanged flag set if HeadingID differs from last processed entry.",
+    "WebPage flag set if Description matches predefined constant."
   ],
   "validations": [
-    "Response must not be blank (add error message and prevent operation if blank)"
+    "IsValid: Response cannot be blank; error message added if validation fails."
   ],
   "calculations": [
-    "SortOrderFormatted: blank if SortOrder == -1, else string value",
-    "DescriptionFormatted: DescriptionAlt if session language setting, else Description"
+    "ResponseFormatted: HTML translation of newlines in Response.",
+    "SortOrderFormatted: Displayed as empty string if SortOrder is -1; otherwise, as string."
   ],
   "conditions": [
-    "Entry is a web page if Description == Resources.WEB_PAGE",
-    "HeaderChanged if HeadingID differs from previous entry"
+    "If UseAltLanguageFields is true, use DescriptionAlt as DescriptionFormatted.",
+    "If HeadingID changes, HeaderChanged is true and counts are reset.",
+    "If Description equals Resources.WEB_PAGE, WebPage is true."
   ],
   "system_behavior": [
-    "Maps database rows to strongly-typed entities for UI and business logic",
-    "Resets numbering and header grouping as display context changes"
+    "CRUD operations (Add, Update, Delete) executed via stored procedures and parameterized SQL.",
+    "UI may display alternate language fields per session setting.",
+    "Header management prevents repeated entries and supports numbered codes."
   ],
   "dependencies": [
-    "HSPnetSession (provides DB access and session context)",
-    "HSPnet.UI.NumberingCodes (for numbering/grouping)",
-    "Resources (for multi-language and constant checks)"
+    "HSPnetSession for database access and message logging.",
+    "Resources constants for handling special descriptions.",
+    "SqlDataReader for loading records."
   ],
   "exceptions": [
-    "Add/Update fails if Response is blank with error message",
-    "No operations performed if SiteOpportunity ID is 0"
+    "Cannot add/update opportunity if Response is blank (returns validation error)."
   ],
   "source_document_ids": [
-    "148590b2-a5c1-5ba2-9f76-5946671326da",
-    "18839216-0ce2-5da0-8629-43191022355e",
+    "64109c98-7c33-509c-9bd9-15bb43722cb7",
     "2e24ba24-238e-539a-9060-ae9c5b2ef73d",
     "430d8e05-df1d-5100-81dd-8c604142a057",
-    "64109c98-7c33-509c-9bd9-15bb43722cb7"
+    "18839216-0ce2-5da0-8629-43191022355e",
+    "148590b2-a5c1-5ba2-9f76-5946671326da"
   ],
-  "content_gaps": []
+  "content_gaps": [
+    "No UI code or specific screen layout provided.",
+    "No description of error handling beyond validation.",
+    "No information about SiteOpportunitiesCopy beyond commented code."
+  ]
 }
