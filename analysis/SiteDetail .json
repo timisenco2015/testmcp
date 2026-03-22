@@ -1,0 +1,220 @@
+{
+  "filename": "SiteDocument",
+  "found": true,
+  "summary": "SiteDocument represents a data model for documents associated with a site, encapsulating document and site identifiers.",
+  "purpose": "To structure and store site-related document records, facilitating data operations, retrieval, and relationship mapping between sites and their documents.",
+  "entities": ["SiteDocument"],
+  "fields": [
+    { "name": "ID", "type": "int", "description": "Unique document identifier" },
+    { "name": "SiteID", "type": "int", "description": "Associated site identifier" }
+  ],
+  "actors": [],
+  "workflows": [],
+  "business_rules": [],
+  "validations": [],
+  "calculations": [],
+  "conditions": [],
+  "system_behavior": ["Provides a model for site documents with integer ID and SiteID properties."],
+  "dependencies": [],
+  "exceptions": [],
+  "source_document_ids": ["a2967f17-a924-5e9c-8b15-d1f7bd028b32"],
+  "content_gaps": []
+}
+
+{
+  "filename": "WelcomeStaffAdmin",
+  "found": true,
+  "summary": "WelcomeStaffAdmin is a web page/control for staff administrators, showing welcome content, last login info, and facilitating filtered viewing and searching of staff employment applications.",
+  "purpose": "To provide a welcome interface for staff admins, summarizing staff activity and enabling application data filtering and search based on sites, disciplines, and date ranges.",
+  "entities": ["EmploymentApplication", "Site", "Discipline", "UserSession"],
+  "fields": [
+    { "name": "LastLogin", "type": "string", "description": "Last login information displayed to staff" },
+    { "name": "SiteID", "type": "int", "description": "Site filter" },
+    { "name": "DisciplineID", "type": "int", "description": "Discipline filter" },
+    { "name": "SubDisciplineID", "type": "int", "description": "Subdiscipline filter" },
+    { "name": "StartDate", "type": "date", "description": "Start date filter" },
+    { "name": "EndDate", "type": "date", "description": "End date filter" },
+    { "name": "IncludeWithdrawn", "type": "bool", "description": "Include withdrawn applications" }
+  ],
+  "actors": ["StaffAdmin"],
+  "workflows": [
+    {
+      "name": "Employment Application Search",
+      "steps": [
+        "StaffAdmin selects site, discipline, and date range filters",
+        "System applies required field/format validations on dates",
+        "StaffAdmin triggers search (RefreshData) via a button",
+        "System binds filtered applications to the grid",
+        "Applications display with status, withdrawn date, and contact details"
+      ]
+    }
+  ],
+  "business_rules": [
+    "Start date is required",
+    "End date is required",
+    "Start date must be before end date",
+    "Withdrawn applications can be optionally included"
+  ],
+  "validations": [
+    "RequiredFieldValidator for StartDate and EndDate",
+    "RegularExpressionValidator for date format",
+    "CustomValidator for start-after-end logic"
+  ],
+  "calculations": [],
+  "conditions": [
+    "Display withdrawn status/withdrawn date only if application is withdrawn"
+  ],
+  "system_behavior": [
+    "Displays welcome and last login information",
+    "Populates filtering dropdowns based on session and agency context",
+    "Performs client-side and server-side date validation",
+    "Refreshes grid data on filter or button actions"
+  ],
+  "dependencies": [
+    "UserSession",
+    "Database procedures for searching applications"
+  ],
+  "exceptions": [],
+  "source_document_ids": [
+    "05db31e4-e8b6-53ee-a6fb-812c106f0134",
+    "100d5925-a5f8-53db-8493-02cddd563eb7",
+    "3c84bade-9671-5fbf-acce-3c87a835e9b4",
+    "4c4b97b8-d242-5261-a515-767a3f7d7a49",
+    "52b5066f-23f6-5d82-96cd-5d51dad3de79",
+    "5bb85da3-f5b4-5753-b07c-9bb2a04eeb89",
+    "5d9b92ea-7c12-5070-8603-977cf14d0e04",
+    "6701b153-5288-59e5-8de9-61b68a1fc292",
+    "871df91b-7ba0-558f-83ea-d5be1b0dc8db",
+    "8cea5c3a-2fbf-5206-a0c0-9425a5e14511",
+    "964a48c9-231c-5d58-a44d-3675d949a453",
+    "966ed8d3-a5af-567f-b092-936217777551",
+    "a0c3da28-32a5-5fce-91b2-17274efa016e",
+    "afbb4ec5-43c8-5281-ad2c-4b6cfd23a48e",
+    "b8e79322-9a0e-5fe7-8953-3d05e231f923",
+    "bf423a80-93db-572d-8cb8-c79f04214a93",
+    "ca71b077-cc26-5979-a44f-59700a41316b",
+    "d278278f-d4ec-5f4a-9f29-a02b66773bb9",
+    "db9b35e9-53ca-5eaf-9d75-4f3a72131bc7",
+    "e249a878-c837-5d1c-9a3d-5167df2614fb"
+  ],
+  "content_gaps": []
+}
+
+{
+  "filename": "ServiceCode",
+  "found": true,
+  "summary": "ServiceCode is a data model used for categorizing and describing services via codes, names, notes, and sort orders, supporting localization and search/filtering for course/timetable contexts.",
+  "purpose": "To provide structured coding for services within the system, including support for localization and filtering within course and timetable workflows.",
+  "entities": ["ServiceCode"],
+  "fields": [
+    { "name": "ID", "type": "int", "description": "Unique identifier of the service code" },
+    { "name": "CodeCategoryID", "type": "int", "description": "Category reference for grouping service codes" },
+    { "name": "ShortName", "type": "string", "description": "Code representing the service" },
+    { "name": "Name", "type": "string", "description": "Description of the service code" },
+    { "name": "SortOrder", "type": "int", "description": "Order for listing codes" },
+    { "name": "Notes", "type": "string", "description": "Additional notes" },
+    { "name": "NameAlt", "type": "string", "description": "Localized description" },
+    { "name": "NotesAlt", "type": "string", "description": "Localized notes" }
+  ],
+  "actors": [],
+  "workflows": [
+    {
+      "name": "Service Code Retrieval",
+      "steps": [
+        "ServiceCodeListAll: retrieves all service codes for session",
+        "ServiceCodeASMOptionByCourseID: retrieves service codes available for a course",
+        "ServiceCodeASMOptionByTimetableID: retrieves service codes available for a timetable"
+      ]
+    }
+  ],
+  "business_rules": [
+    "Localized fields are used if session indicates use of alt language"
+  ],
+  "validations": [],
+  "calculations": [],
+  "conditions": [
+    "Localization of service code name and notes based on session field"
+  ],
+  "system_behavior": [
+    "Service codes are constructed dynamically from database queries",
+    "Supports localization via alt fields",
+    "Can be filtered by course or timetable context"
+  ],
+  "dependencies": [
+    "HSPnetSession",
+    "Database procedures for service code retrieval"
+  ],
+  "exceptions": [],
+  "source_document_ids": [
+    "94f1b055-348d-508a-ae6e-cf7960a8c6a2",
+    "e4ebe4b4-6d14-5c3f-b693-61016f765239",
+    "f976b9af-a402-540f-b162-391d578fac7c"
+  ],
+  "content_gaps": []
+}
+
+{
+  "filename": "SiteProfileHistory",
+  "found": true,
+  "summary": "SiteProfileHistory records snapshots of actions performed on site profiles, including user, agency, and field details, for audit and historical purposes.",
+  "purpose": "To track changes and actions performed on site profiles, including user context, agency, field changes, and localized information for historical/audit reporting.",
+  "entities": ["SiteProfileHistory"],
+  "fields": [
+    { "name": "ID", "type": "int", "description": "Unique record identifier" },
+    { "name": "ActionDate", "type": "datetime", "description": "Date/time of the action" },
+    { "name": "ScreenSection", "type": "string", "description": "Section of the screen affected" },
+    { "name": "UserAction", "type": "string", "description": "Action performed" },
+    { "name": "Fields", "type": "string", "description": "Fields changed" },
+    { "name": "Agency", "type": "string", "description": "Agency code" },
+    { "name": "AgencyName", "type": "string", "description": "Agency name" },
+    { "name": "LastName", "type": "string", "description": "User last name" },
+    { "name": "FirstName", "type": "string", "description": "User first name" },
+    { "name": "MiddleName", "type": "string", "description": "User middle name" },
+    { "name": "Phone", "type": "Phone", "description": "User phone object" },
+    { "name": "ByUserID", "type": "int", "description": "User ID making the change" },
+    { "name": "ByOriginalUserID", "type": "int", "description": "Original user ID" },
+    { "name": "ByUserSysAdmin", "type": "bool", "description": "Indicates if system administrator made change" },
+    { "name": "ActionDateFormatted", "type": "string", "description": "Formatted action date" },
+    { "name": "AgencyUserFormatted", "type": "string", "description": "Formatted agency/user info" },
+    { "name": "AgencyUserDetailsFormatted", "type": "string", "description": "Detailed formatted info" }
+  ],
+  "actors": ["SiteProfileEditor", "SystemAdmin"],
+  "workflows": [
+    {
+      "name": "Site Profile History Recording",
+      "steps": [
+        "User edits site profile fields",
+        "System records change in SiteProfileHistory with user, agency, and field details",
+        "History is retrievable and can be filtered by site and agency"
+      ]
+    }
+  ],
+  "business_rules": [
+    "Localized fields are used if session indicates alt language"
+  ],
+  "validations": [],
+  "calculations": [
+    "ActionDateFormatted: converts ActionDate to short format"
+  ],
+  "conditions": [
+    "TooltipDetails formatting depends on user admin status and context"
+  ],
+  "system_behavior": [
+    "Enables audit/history lookup for site profile edits",
+    "Formats user/agency information for display"
+  ],
+  "dependencies": [
+    "HSPnetSession",
+    "Phone mask setting",
+    "Database procedures for history search"
+  ],
+  "exceptions": [],
+  "source_document_ids": [
+    "25f89a24-5eda-5a3f-83df-1de69b12b3f1",
+    "26e09292-d304-55c6-94e5-ef3346453c4b",
+    "7ca6b963-9ae9-5cd3-82d5-f30dcb727ae3",
+    "a8f030c6-90b8-53a1-bb8a-3b7ef33b9488",
+    "e806999c-3a39-5720-9b59-303faebc9eb6"
+  ],
+  "content_gaps": []
+}
