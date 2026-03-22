@@ -1,0 +1,134 @@
+{
+  "filename": "PlacementRequest",
+  "found": true,
+  "summary": "PlacementRequest manages the creation, validation, linkage, and state tracking (deleted, archived, cohort-linked) of placement requests within the HSPnet system. It performs business logic and database operations to retrieve, validate, and update placement request data, enforce user access rules, handle workflow operations, and generate email communications based on placement request status.",
+  "purpose": "To ensure placement requests are securely managed, validated, and processed according to business rules. The module facilitates correct assignment of request attributes, linkage between requests, filtering by status, and tracking lifecycle events (archived, deleted, shared cohort). It supports automated communication and ensures only authorized users can access or modify request data.",
+  "entities": [
+    "PlacementRequestDestination",
+    "HSPnetSession",
+    "PR (PlacementRequest)",
+    "Database",
+    "Site",
+    "Service",
+    "Destination"
+  ],
+  "fields": [
+    "PRD_ID",
+    "PlcAgencyID",
+    "DepartmentID",
+    "ProgramID",
+    "CourseID",
+    "TypeCodeID",
+    "StartDate",
+    "EndDate",
+    "RcvAgencyID",
+    "SiteID",
+    "ServiceID",
+    "DestinationID",
+    "Discipline",
+    "SubDiscipline",
+    "RcvAgencyName",
+    "SiteShortName",
+    "ServiceShortName",
+    "DestinationShortName"
+  ],
+  "actors": [
+    "User (by userType)",
+    "Database Administrator",
+    "System (automation, validation)",
+    "Sites/Services/Destinations managers"
+  ],
+  "workflows": [
+    {
+      "name": "PlacementRequest Validation",
+      "steps": [
+        "Retrieve PlacementRequest data using stored procedures.",
+        "Validate user access based on userType and agency attributes.",
+        "Check site, service, and destination access if applicable.",
+        "Check PlacementRequest status (archived, deleted, linked, cohort).",
+        "Return validation results and parent CFO flag if applicable."
+      ]
+    },
+    {
+      "name": "PlacementRequest Link/Unlink",
+      "steps": [
+        "Link multiple PlacementRequests by passing PRList to stored procedure.",
+        "Handle errors or provide success notifications.",
+        "Unlink PlacementRequest by passing PlacementRequestID and SessionID."
+      ]
+    },
+    {
+      "name": "PlacementRequest Email Subject Generation",
+      "steps": [
+        "Check cached subject for PlacementRequest.",
+        "If not found, retrieve required fields from PlacementRequest.",
+        "Format email subject and cache it for consistency."
+      ]
+    },
+    {
+      "name": "Status Code Filter Retrieval",
+      "steps": [
+        "Call StatusCodeFilterList stored procedure with userType.",
+        "Aggregate status code IDs for filtering."
+      ]
+    },
+    {
+      "name": "HSPnet Term Date Calculation",
+      "steps": [
+        "Determine start/end date of term based on input date using month rules."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Only users with valid access (site, service, destination) may interact with PlacementRequests.",
+    "Status code filters depend on userType.",
+    "Requests must belong to valid (non-zero) entities.",
+    "Parent CFO PR determination based on UseCallForOffers flag and worksheet group."
+  ],
+  "validations": [
+    "User access validation (site/service/destination logic per userType).",
+    "Check if PlacementRequest is archived or deleted.",
+    "Email subject consistency via caching.",
+    "Status code filtering.",
+    "Proper linkage/unlinkage of PlacementRequests."
+  ],
+  "calculations": [
+    "HSPnetTermStart: calculates term start date based on month.",
+    "HSPnetTermEnd: calculates term end date based on month."
+  ],
+  "conditions": [
+    "If SiteID/ServiceID/DestinationID is not zero, perform access check.",
+    "If UseCallForOffers is true and CFOWorksheetGroupID is zero, set ParentCFO flag.",
+    "Short email subject if session flag set."
+  ],
+  "system_behavior": [
+    "Use stored procedures to retrieve/update PlacementRequest data.",
+    "Cache email subject for each PlacementRequest for efficiency.",
+    "Return warnings and errors when linking/unlinking requests fails.",
+    "Aggregate and return filter lists as comma-separated string."
+  ],
+  "dependencies": [
+    "PlacementRequest relies on sites, services, destinations, stored procedures for data retrieval and validation."
+  ],
+  "exceptions": [
+    "Linking PlacementRequests fails and triggers a warning if a SQL error occurs.",
+    "Access denied when user fails site/service/destination validation.",
+    "PlacementRequest not found or invalid returns false for validation."
+  ],
+  "source_document_ids": [
+    "15235962-0eeb-54d6-9f5b-edaa8346fba6",
+    "2863538b-bf60-5073-9b7e-57f298db10c3",
+    "6f227eaa-3683-5739-afe9-487f394da6a5",
+    "7bf65f3a-18ba-59ea-a095-7c407497e073",
+    "81316798-3a13-5f76-9b1e-b67132235ac3",
+    "997cb356-368b-5cdf-9a5c-0127f4c1a775",
+    "a2e4f80e-043b-5cf1-88a3-43acc007d683",
+    "f9d5bf7f-30f8-5e4e-9b6b-4f26d2988793"
+  ],
+  "content_gaps": [
+    "No explicit user interface details.",
+    "No business rule configuration or customization information.",
+    "Incomplete error handling logic details.",
+    "Some cross-references (e.g., Resources, Sites, Services) are not explained."
+  ]
+}
