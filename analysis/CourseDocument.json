@@ -1,0 +1,135 @@
+{
+  "filename": "CourseDocument",
+  "found": true,
+  "summary": "CourseDocument manages course-related documents, including their metadata, storage, retrieval, addition, and deletion operations. It interacts with the database via stored procedures and maintains links between courses, documents, and users/agencies.",
+  "purpose": "To provide a structured method for handling course documents: storing document files and their metadata, allowing users to add and remove documents, validating document requirements (e.g., type code), linking documents to courses and users/agencies, and formatting document details for presentation and notification.",
+  "entities": [
+    "CourseDocument",
+    "CourseDocuments",
+    "HSPnetSession",
+    "SqlDataReader",
+    "Phone"
+  ],
+  "fields": [
+    "ID",
+    "CourseID",
+    "TypeCodeID",
+    "TypeComments",
+    "FileURL",
+    "FilePath",
+    "FileSize",
+    "FileType",
+    "FileTypeAlt",
+    "UpdateDate",
+    "ByUserID",
+    "LastName",
+    "FirstName",
+    "MiddleName",
+    "TypeCode",
+    "UpdatedDetails",
+    "DocumentName",
+    "Code",
+    "AgencyShortName",
+    "AgencyName",
+    "Phone",
+    "Email",
+    "UpdateDateFormatted",
+    "AgencyUserFormatted",
+    "AgencyUserDetailsFormatted",
+    "EmailFormatted"
+  ],
+  "actors": [
+    "User creating/deleting documents (ByUserID)",
+    "Agency (AgencyName, AgencyShortName)",
+    "System/database (HSPnetSession, DB procedures)"
+  ],
+  "workflows": [
+    {
+      "name": "Add Course Document",
+      "steps": [
+        "Validate TypeCodeID (must be non-zero)",
+        "Prepare parameters (SessionID, CourseDocumentID, CourseID, TypeCodeID, DocumentName, TypeComments, FileURL, FilePath, FileSize, FileType)",
+        "Invoke stored procedure 'CourseDocumentAddDoc' with parameters",
+        "Execute query to add document data"
+      ]
+    },
+    {
+      "name": "Delete Course Document",
+      "steps": [
+        "Check if document ID > 0",
+        "Retrieve document by ID using GetByID",
+        "Delete file at FilePath",
+        "Delete containing folder",
+        "Ignore any exceptions during file/folder deletion",
+        "Call stored procedure 'CourseDocumentDelete' to remove DB record"
+      ]
+    },
+    {
+      "name": "Retrieve Documents by Course ID",
+      "steps": [
+        "Prepare parameters (SessionID, CourseID)",
+        "Invoke 'CourseDocumentSearch' stored procedure",
+        "Fill list with results using FillList method"
+      ]
+    },
+    {
+      "name": "Retrieve Documents by Document ID",
+      "steps": [
+        "Prepare parameters (ID)",
+        "Invoke 'CourseDocumentSearchByID' stored procedure",
+        "Fill list with results using FillList method"
+      ]
+    }
+  ],
+  "business_rules": [
+    "TypeCodeID must be specified when adding a document (validation failure triggers error message: Document_Type_Required).",
+    "If document code is 'OTHER', display TypeCode as 'Other'.",
+    "If document Email is blank, EmailFormatted is an empty string.",
+    "FileURL is converted to a hyperlink if file exists; otherwise, 'Document_Not_Found' message is shown."
+  ],
+  "validations": [
+    "TypeCodeID must be non-zero for Add operation.",
+    "File existence is checked before hyperlink is generated for FileURL.",
+    "Email is checked for non-empty before formatting."
+  ],
+  "calculations": [
+    "FileSize displayed in KB for link description.",
+    "AgencyUserFormatted concatenates ShortName and initials of FirstName, MiddleName, LastName.",
+    "AgencyUserDetailsFormatted assembles full name (via NameFormatter) and agency, phone."
+  ],
+  "conditions": [
+    "Language: Use alt-language fields if UseAltLanguageFields is true.",
+    "Code: Display 'Other' for code 'OTHER'.",
+    "File: Show hyperlink only if file exists; otherwise, show not found message.",
+    "Email: Format only if not empty."
+  ],
+  "system_behavior": [
+    "Ignores exceptions when deleting file or folder.",
+    "Fills list of CourseDocument objects from DB reader.",
+    "Formats dates, names, and emails for display."
+  ],
+  "dependencies": [
+    "HSPnetSession for DB access and context.",
+    "SqlDataReader for DB result iteration.",
+    "UI.NameFormatter, UI.DateFormatter, UI.Localization for formatting."
+  ],
+  "exceptions": [
+    "Deletion ignores any exceptions if file/folder cannot be deleted.",
+    "Validation exception shown when TypeCodeID is missing.",
+    "File not found exception handled with 'Document_Not_Found' message."
+  ],
+  "source_document_ids": [
+    "072418f2-c5d1-5431-be3d-3807b5f97794",
+    "24e353dd-023b-543d-baf3-f6e2cd9d4cdd",
+    "2bffddc9-2d7a-53bb-bca3-97057e225d9f",
+    "5966ff92-1f55-5c4f-8de7-b1145ba7a295",
+    "6775a1bf-e500-5369-8629-d8daef043230",
+    "7e50a4a3-80f5-5fb9-9e6e-e16ca95f42c7"
+  ],
+  "content_gaps": [
+    "No information on user interface or front-end handling.",
+    "No explicit error handling strategy beyond ignoring exceptions.",
+    "No details on document storage configuration or file handling policies.",
+    "Does not specify notification or audit trail systems."
+  ]
+}
