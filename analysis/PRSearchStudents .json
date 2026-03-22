@@ -1,18 +1,14 @@
 {
   "filename": "PRSearchStudents",
   "found": true,
-  "summary": "The PRSearchStudents module is responsible for retrieving, formatting, and filtering historical placement request data for students, staff, instructors, and supervisors. It manages which placement records are visible or editable to users based on their roles, permissions, and agency, enforcing business rules around data privacy and access. It includes support for complex business logic such as consent expiry, hour validation, multiple instructors, group placements, split placements, and placement request hierarchies.",
-  "purpose": "To provide structured, permission-sensitive lists of placement requests (PRs) and placement request destinations (PRDs) associated with students, instructors, supervisors, and staff, including all necessary business rules, workflow, and validations needed to display, sort, and update placement history in an educational or agency context.",
+  "summary": "PRSearchStudents is a data access and business logic layer for retrieving and managing student Placement Request (PR) history records, typically representing clinical placements in health-related academic programs. It provides multiple search and retrieval workflows for staff, supervisors, instructors, and students. It manages field-level and workflow-level business rules for access, formatting, record filtering, and status calculations.",
+  "purpose": "To support retrieval and display of Placement Request history for students and their associated parties (staff, supervisors, instructors) in a secure, context-aware, and role-sensitive manner, including sorting, field-level masking, formatting, and conditional logic based on business rules, user roles, and data state.",
   "entities": [
     "PRSearchStudent",
-    "PRSearchStudents",
     "AllowedList",
-    "StaffManualPlacement",
-    "PlacementRequest",
-    "PlacementRequestDestination"
+    "StaffManualPlacement"
   ],
   "fields": [
-    "Archived",
     "PR_ID",
     "GroupFlag",
     "PRD_ID",
@@ -53,9 +49,6 @@
     "StartDateBlock2",
     "EndDateBlock2",
     "ProgramShortName",
-    "ProgramID",
-    "ProgramYear",
-    "ProgramTotalYear",
     "CohortShortName",
     "CourseShortName",
     "TermShortName",
@@ -76,37 +69,18 @@
     "SiteID",
     "ServiceID",
     "DestinationID",
-    "StudentNameFormatted",
-    "DurationHoursFormatted",
-    "ExpectedDurationHoursFormatted",
-    "TypeCodeFormatted",
-    "InstructorNameFormatted",
-    "SupervisorNameFormatted",
-    "ParentPRDIDFormatted",
-    "ParentSiteStudentFormatted",
-    "ParentServiceStudentFormatted",
-    "ParentDestinationStudentFormatted",
-    "ParentDestinationFormatted",
-    "ScreenIsEditable",
-    "GroupSizeFormatted",
+    "RequestCode",
+    "HasMultiplePreceptors",
+    "WithHoldPlacement",
+    "SubDisciplineID",
+    "Comments",
+    "Notes",
     "ASMIteration",
     "SavedASMConfirmation",
     "StudentPRPreferenceCount",
     "AssignedRanking",
-    "ASMResultsFormatted",
-    "Comments",
-    "Notes",
-    "HasMultiplePreceptors",
-    "WithHoldPlacement",
-    "SubDisciplineID",
-    "StatusCodeNStdFormatted",
-    "StatusCodeTranslated",
-    "Disabledtext",
-    "ClientClick",
-    "ToolTip",
-    "CostClientClick",
-    "DestGroupSizeSupFormatted",
-    "PRD_IDSupFormatted",
+    "Archived",
+    "ScreenIsEditable",
     "ShowDetails",
     "IsHSPnetMember",
     "IsHSPnetUser",
@@ -114,97 +88,101 @@
   ],
   "actors": [
     "Student",
-    "Instructor",
-    "Supervisor",
-    "Placement Coordinator",
     "Staff",
-    "System Administrator"
+    "Supervisor",
+    "Instructor",
+    "PlacementCoordinator",
+    "SystemAdministrator"
   ],
   "workflows": [
     {
-      "name": "Student Placement Request History Search",
+      "name": "StudentSearchPRHistory",
       "steps": [
-        "Initialize allowed locations (sites, services, destinations, sub-disciplines) based on session/user.",
-        "Call database procedure to retrieve PR history for student.",
-        "For each result: apply consent expiry masking logic, format names and dates.",
-        "Filter and format placement data according to business and privacy rules.",
-        "Update split parent hours if necessary.",
-        "Return ordered, formatted list for display."
+        "Validate session and retrieve student ID.",
+        "Determine allowed lists for sites, services, destinations, sub-disciplines (role-dependent).",
+        "Execute stored procedure 'StudentSearchPRHistory' with session, student ID, and agency ID.",
+        "For each result, build PRSearchStudent entry.",
+        "Apply access/masking rules: remove or hide data if not confirmed or not allowed.",
+        "Format fields (dates, names, durations, statuses) per business/UI requirements.",
+        "Apply color coding, warnings, and icons for amended hours, notes, consent expiries, etc.",
+        "Optionally filter by assignment status and archived status.",
+        "Return collection."
       ]
     },
     {
-      "name": "Staff Placement Search",
+      "name": "SupervisorSearchPRHistory",
       "steps": [
-        "Initialize allowed locations.",
-        "Call StaffPlacementSearchHistory or StaffPlacementSearchInternal stored procedures.",
-        "For each record, check status and permissions, apply field masking as required.",
-        "Format entry for display, including details, tooltips, and click actions.",
-        "Return result list."
+        "Accept supervisor ID, sort expression, and PRHistoryOnly flag.",
+        "Get all supervisor-related PRSearchStudent entries.",
+        "Order by provided sort expression (StartDate, Course, Site, Status, etc.).",
+        "Apply data masking, show/hide details per allowed lists and masking rules.",
+        "Return results."
       ]
     },
     {
-      "name": "Supervisor/Instructor Placement Request History Search",
+      "name": "InstructorSearchPRHistory",
       "steps": [
-        "Call stored procedure with relevant parameters.",
-        "Sort and filter result list based on sort expression (date, course, site, or status).",
-        "For each entry, check permission and allowed lists.",
-        "Format data for display, including instructor information and duration formatting."
+        "Accept instructor ID, editability flag, sort expression, and private mode flag.",
+        "Determine allowed lists for current session (private mode check).",
+        "Filter PRs by site/service/destination/sub-discipline access and agency matches.",
+        "Mask/omit data if outside allowed lists.",
+        "For each entry, format and return fields as per UI/business rules."
       ]
     },
     {
-      "name": "Placement Request Update (Student Hours)",
+      "name": "StaffPlacementSearchHistory",
       "steps": [
-        "Validate PRD_ID and StudentID are positive.",
-        "Check that amended duration is not negative (unless special code -99 for not set).",
-        "If valid, update PlacementRequestStudentHours in database with new duration and notes."
+        "For staff, retrieve Placement Requests using staff ID, agency ID, and session data.",
+        "Fill list with context-based allowed lists for sites, services, destinations.",
+        "Enforce masking/hiding using same allowed-list logic.",
+        "Format and filter results as above."
       ]
     }
   ],
   "business_rules": [
-    "Placement details are only shown to users with permissions for the agency, site, service, destination, and sub-discipline.",
-    "Archived placement requests have special display (e.g., comments icon) and are not included in certain lists.",
-    "Students cannot see detailed PR information unless their consent is valid and request is confirmed.",
-    "Data masking for consent-expired students (names cleared if consent is expired).",
-    "Placement hour differences greater than a threshold (e.g., 8 hours) are highlighted in red.",
-    "Group and split requests are treated specially for hour calculations and display."
+    "Only show PR details if user is allowed for the specified site/service/destination/sub-discipline.",
+    "If user is Student and PR is not Confirmed and not released to temp student, mask key fields (IDs, site/service/destination, etc.).",
+    "If consent is expired, remove or hide name fields unless session is SystemAdmin.",
+    "Archived records may replace 'Details' links with comment icons if comment alert is set.",
+    "Only display actual PRs (by PRD_ID != 0) when required.",
+    "Do not show enrollment-only (non-placement) entries or held PRs in private mode.",
+    "Hours shown in red if the difference between entered and expected hours is greater than 8 (MIN_HOUR_DIFFERENCE) or hours otherwise do not match.",
+    "Rows are hidden if outside current user's allowed lists unless all are allowed."
   ],
   "validations": [
-    "Amended duration hours must not be less than zero (except -99 for unset).",
-    "PRD_ID and StudentID must be greater than zero for updates.",
-    "Consent status is checked and enforced for privacy.",
-    "Records outside the user's allowed location lists are hidden."
+    "PRD_ID and StudentID must be > 0 to allow updates.",
+    "DurationAmendedHours cannot be negative (unless set to -99, indicating unset/not applicable).",
+    "Warn or highlight if DurationHoursAmended differs significantly (using MIN_HOUR_DIFFERENCE) from DurationHours or ExpectedDurationHours.",
+    "Suppress/hide details if access is not allowed (site/service/destination/sub-discipline checks)."
   ],
   "calculations": [
-    "Split parent placement hours are calculated by summing children’s hours, dividing by group size.",
-    "DurationHoursFormatted and ExpectedDurationHoursFormatted fields can be conditionally highlighted or displayed based on difference and thresholds.",
-    "ASMResultsFormatted shows rank and preference count for assignment-matched placements."
+    "DurationHoursFormatted combines actual and expected hours, with color coding if hours differ by more than 8.",
+    "ExpectedDurationHoursFormatted for split parents: sum actual + (group size) and compare; show in red if mismatched.",
+    "ASMResultsFormatted renders rank/assignment preference metrics for 'ASM-matched' parent PRDs.",
+    "GroupSizeFormatted handles alternate observations and formatting."
   ],
   "conditions": [
-    "If a user does not have access to a location (site, service, destination, sub-discipline), details are hidden.",
-    "If the PR is archived, comments and tooltips are shown instead of standard details.",
-    "If consent is expired, names are masked for non-system administrators.",
-    "If a placement is not confirmed, details may be hidden from students.",
-    "If placement is split or grouped, special calculation and display rules apply."
+    "Display varies by user role/context (private mode, placement coordinator, instructor, system admin, student, etc.).",
+    "Different workflows for supervisors, instructors, staff, and students.",
+    "Multiple instructors/preceptors handled specially."
   ],
   "system_behavior": [
-    "Retrieves and formats lists of placement requests for specific user types.",
-    "Sorts and orders results by user-defined expressions (e.g., date, status, course).",
-    "Supports click actions for viewing placement details and staff costing.",
-    "Handles consent expiry, masking fields as required.",
-    "Maintains data privacy and enforces security on sensitive information.",
-    "Updates student hours on placement requests with validation."
+    "All retrievals can optionally sort by StartDate, CourseShortName, Site, StatusCode, etc.",
+    "Formatting is handled for UI display (e.g. masking fields, showing tooltips, highlighting differences, showing icons).",
+    "Mask or omit data when not allowed by business rules or allowed lists.",
+    "Return values as lists of PRSearchStudent objects, ready for UI binding or further processing."
   ],
   "dependencies": [
-    "Session context: agency, user type, permissions.",
-    "AllowedLists.SessionAllowedLocations for permission boundaries.",
-    "Stored procedures for retrieving and updating data (e.g., StudentSearchPRHistory, StaffPlacementSearchHistory, PlacementRequestStudentHoursUpdate).",
-    "Resources for localized UI strings, formatting utilities."
+    "AllowedLists (determines access to records by role and agency)",
+    "Session context (agency, mode, user type)",
+    "Database stored procedures (StudentSearchPRHistory, SupervisorSearchPRHistory, etc.)",
+    "UI formatters (for names, dates, statuses)",
+    "Resources strings for localization, labels, tooltips"
   ],
   "exceptions": [
-    "Records hidden for users outside permission boundaries.",
-    "Details masked for expired consent, or non-confirmed placements for students.",
-    "Validation errors prevent updates to duration hours or student hours.",
-    "Special handling for archived placements and split/group requests."
+    "Omit entries where user does not have allowed access.",
+    "If consent is expired and user is not admin, name fields are blanked.",
+    "If entry is not confirmed and not released, or is held, suppress details for students."
   ],
   "source_document_ids": [
     "00c558d6-3cb8-5cac-b6d6-77d2bdd190ac",
@@ -263,9 +241,8 @@
     "f932c5b4-9dce-59f4-a349-2574eb6fba73"
   ],
   "content_gaps": [
-    "Some procedural details (such as exact list of stored procedures and the shape of UI formatting helpers) are inferred from naming and usage but not exhaustively described.",
-    "Localized resources and permission-checking logic are assumed through naming conventions and partial code.",
-    "Underlying implementation of AllowedLists, formatting utilities, and how roles are actually assigned to session context is not fully shown.",
-    "Actual implementation for updating or deleting records is minimally described (mostly focused on 'update student hours')."
+    "Full stored procedure logic for DB access is not provided, so some filtering/logic is inferred from parameter usage and function signatures.",
+    "UI logic and resource string exact outputs are not always available (e.g., exact formatting for icons).",
+    "Some edge business rules depend on external types (e.g., AllowedList, StringUtil, UI.Formatters) and resource files, which are referenced but not detailed."
   ]
 }
