@@ -1,0 +1,91 @@
+{
+  "filename": "ConnectionFailed",
+  "found": true,
+  "summary": "The ConnectionFailed feature is an ASP.NET web page which informs users of a failed connection event. It displays distinct headers and navigation maps for English and French locales and presents a localized error message to the user.",
+  "purpose": "To notify users that a connection to the web application has failed, provide relevant resources and navigation links, and ensure the experience is localized for English or French users.",
+  "entities": [
+    {
+      "name": "ConnectionFailed",
+      "type": "ASP.NET Page",
+      "description": "Handles UI and logic for representing connection failure notification."
+    }
+  ],
+  "fields": [
+    {
+      "name": "HeaderEN",
+      "type": "Panel",
+      "description": "Displays English header and navigation map."
+    },
+    {
+      "name": "HeaderFR",
+      "type": "Panel",
+      "description": "Displays French header and navigation map."
+    },
+    {
+      "name": "uxErrorMessage",
+      "type": "Label",
+      "description": "Displays an error message for connection failure, localized."
+    }
+  ],
+  "actors": [
+    {
+      "name": "User",
+      "role": "Web application visitor who encounters a connection failure."
+    }
+  ],
+  "workflows": [
+    {
+      "name": "ConnectionFailed Page Display",
+      "steps": [
+        "User attempts to access a resource in the web application.",
+        "System determines a failed connection scenario.",
+        "ConnectionFailed page is rendered.",
+        "Locale is determined from QueryString['Locale'], defaulting to English if not specified.",
+        "HeaderEN is shown if locale is English or not set.",
+        "HeaderFR is shown if locale is French.",
+        "Localized error message (uxErrorMessage) is displayed with failure details.",
+        "User is provided with navigation links: Contact Us, Glossary, Feedback, Homepage."
+      ]
+    }
+  ],
+  "business_rules": [
+    "HeaderEN is visible only when locale is 'en-US' or missing.",
+    "HeaderFR is visible only when locale is 'fr-CA'.",
+    "uxErrorMessage displays localized failure message.",
+    "Navigation maps and links are shown corresponding to detected locale."
+  ],
+  "validations": [
+    "Locale must be a valid culture string ('en-US', 'fr-CA')."
+  ],
+  "calculations": [],
+  "conditions": [
+    "If QueryString['Locale'] == 'en-US' or is empty, display HeaderEN.",
+    "If QueryString['Locale'] == 'fr-CA', display HeaderFR."
+  ],
+  "system_behavior": [
+    "Page_Load event controls visibility of English/French header panels based on locale.",
+    "InitializeCulture method sets thread UI and culture accordingly."
+  ],
+  "dependencies": [
+    "Resources file (for localized error message and page title).",
+    "Global.css stylesheet.",
+    "images/topbar.jpg and images/topbar_fr.jpg.",
+    "External navigation links (contact, glossary, feedback, homepage)."
+  ],
+  "exceptions": [
+    "If locale is invalid or missing, defaults to English.",
+    "If connection failure occurs, user is routed to ConnectionFailed page."
+  ],
+  "source_document_ids": [
+    "1b519992-db1d-5f57-b018-a0e1befe8491",
+    "5ba21fbf-7905-59e7-90cb-c18e7f0bb6fb",
+    "83674888-1068-5d79-8a82-659f9547d3c0",
+    "8aaa6f24-0523-5c88-a8bb-fc0af3303321"
+  ],
+  "content_gaps": [
+    "No details on how or when connection failure is specifically detected.",
+    "No information about error logging or user support escalation.",
+    "No functional description for uxErrorMessage content except resource reference.",
+    "No details about accessibility or mobile compatibility."
+  ]
+}
