@@ -1,0 +1,141 @@
+{
+  "filename": "StudentPayHistory",
+  "found": true,
+  "summary": "StudentPayHistory manages the history of payment-related attributes for students, including creation, viewing, updating, and deletion of pay history records tied to students. The module handles workflow for CRUD operations, field population, alternate display languages, and user attribution.",
+  "purpose": "To track and manage detailed payment history for each student, including employment class, designation, status, pay level, year, and fixed-term appointments. It supports creation, updating, viewing, and deletion of pay history records.",
+  "entities": [
+    "StudentPayHistory",
+    "HSPnetSession"
+  ],
+  "fields": [
+    "ID",
+    "StudentID",
+    "CreatedByUserID",
+    "CreatedByUserFirstName",
+    "CreatedByUserLastName",
+    "EffectiveDate",
+    "EmploymentClassCodeID",
+    "EmploymentClass",
+    "DesignationCodeID",
+    "Designation",
+    "StatusCodeID",
+    "Status",
+    "StatusReasonCodeID",
+    "StatusReason",
+    "PayLevelCodeID",
+    "PayLevel",
+    "PayLevelReasonCodeID",
+    "PayLevelReason",
+    "YearCodeID",
+    "Year",
+    "FixedTermAppointmentCodeID",
+    "FixedTermAppointment",
+    "FixedTermAppointmentNotes"
+  ],
+  "actors": [
+    "User",
+    "Automated_process"
+  ],
+  "workflows": [
+    {
+      "name": "Add StudentPayHistory",
+      "steps": [
+        "Prepare parameters: StudentID, CreatedByUserID, EffectiveDate, EmploymentClassCodeID, DesignationCodeID, StatusCodeID, StatusReasonCodeID, PayLevelCodeID, PayLevelReasonCodeID, YearCodeID, FixedTermAppointmentCodeID, FixedTermAppointmentNotes",
+        "Call Add method with parameters",
+        "Call stored procedure 'StudentDetailsPayHistoryAdd'",
+        "Insert parameters into database"
+      ]
+    },
+    {
+      "name": "Update StudentPayHistory",
+      "steps": [
+        "Prepare parameters: ID, EffectiveDate, EmploymentClassCodeID, DesignationCodeID, StatusCodeID, StatusReasonCodeID, PayLevelCodeID, PayLevelReasonCodeID, YearCodeID, FixedTermAppointmentCodeID, FixedTermAppointmentNotes",
+        "Call Update method with parameters",
+        "Call stored procedure 'StudentDetailsPayHistoryUpdate'",
+        "Update database record"
+      ]
+    },
+    {
+      "name": "Delete StudentPayHistory",
+      "steps": [
+        "Prepare parameter: ID",
+        "Call Delete method",
+        "Call stored procedure 'StudentPayHistoryDelete'",
+        "Delete record from database"
+      ]
+    },
+    {
+      "name": "Search StudentPayHistory by Student",
+      "steps": [
+        "Prepare parameters: StudentID and SessionID",
+        "Call Search method",
+        "Call stored procedure 'StudentDetailsPayHistorySearch'",
+        "Populate list via FillEntry from data reader"
+      ]
+    },
+    {
+      "name": "Search StudentPayHistory by ID",
+      "steps": [
+        "Prepare parameter: ID",
+        "Call SearchID method",
+        "Call stored procedure 'StudentDetailsPayHistorySearchID'",
+        "Populate entry via FillEntry"
+      ]
+    },
+    {
+      "name": "Search Most Recent StudentPayHistory",
+      "steps": [
+        "Prepare parameter: StudentID",
+        "Call StudentDetailsPayHistorySearchMostRecent",
+        "If record found, populate via FillEntry; else, initialize entry with default/blank values"
+      ]
+    }
+  ],
+  "business_rules": [
+    "If CreatedByUserID is 0, treat as Automated_process for display purposes.",
+    "In displays, use alternate language fields if UseAltLanguageFields is true.",
+    "If FixedTermAppointmentCodeID is 0, FixedTermAppointmentFormatted is blank.",
+    "StatusOrPayLevelReason returns StatusReason if available, otherwise PayLevelReason."
+  ],
+  "validations": [
+    "All parameters must be provided and type-checked when adding or updating.",
+    "ID must be unique when adding; must exist when updating or deleting.",
+    "Date fields must be valid DateTime objects."
+  ],
+  "calculations": [
+    "CreatedByUserLong and CreatedByUserShort are computed based on CreatedByUserID, FirstName, and LastName.",
+    "EffectiveDateFormatted is computed via DateFormatter.FormatDateShort.",
+    "FixedTermAppointmentFormatted combines text and notes into a formatted string if applicable.",
+    "StatusOrPayLevelReason selects non-blank status or pay level reason."
+  ],
+  "conditions": [
+    "Alternate language fields are used if UseAltLanguageFields is true in session.",
+    "If reading most recent entry and not found, default entry values to zeros and empty strings."
+  ],
+  "system_behavior": [
+    "Uses stored procedures for all CRUD operations.",
+    "Closes data readers properly after operations.",
+    "Populates entity from SqlDataReader using FillEntry.",
+    "Handles missing records gracefully by returning default/empty entry."
+  ],
+  "dependencies": [
+    "HSPnetSession",
+    "HSPnet.Framework",
+    "DateFormatter",
+    "Resources (for language/label resolution)"
+  ],
+  "exceptions": [
+    "If an entry is not found during search, default fields are returned.",
+    "If parameters are not valid or missing, database operation may fail."
+  ],
+  "source_document_ids": [
+    "12549b42-cfff-56ce-8694-a42806d84a22",
+    "15447d6a-7962-5621-897b-73c7b7bef4e9",
+    "3065877d-a9e0-5eb2-a6f7-070a1a5c63f6",
+    "82a1c5f2-1661-5918-a92d-c9596f6f4a5d",
+    "ca09209d-8b98-5556-bde4-4d65ffca8331",
+    "d8425d60-2000-55f5-9e75-d6934d0ef545",
+    "e6e0cd55-384d-5d52-90d3-27f6ce935968"
+  ],
+  "content_gaps": []
+}
