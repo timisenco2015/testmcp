@@ -1,0 +1,151 @@
+{
+  "filename": "CriminalRecordsCheck",
+  "found": true,
+  "summary": "The CriminalRecordsCheck module is a user control within the HSPnet Enrollment subsystem for displaying, editing, and maintaining students' criminal record check (CRC) information. It supports filtering, sorting, paging, bulk actions, in-grid editing, and integrates with role-based access and workflow mechanisms.",
+  "purpose": "To manage, validate, and update criminal records check details for students enrolled in courses/cohorts, supporting both individual and bulk update workflows while ensuring access control and auditability.",
+  "entities": [
+    "Student",
+    "Enrollment",
+    "Course",
+    "Cohort",
+    "Term",
+    "CRCStatus",
+    "UserSession"
+  ],
+  "fields": [
+    "CohortID",
+    "TermID",
+    "CourseID",
+    "ShowGrad",
+    "ShowInactive",
+    "ShowWaived",
+    "SectionFilter",
+    "ActionFilter",
+    "keyword",
+    "CampusID",
+    "CommentFilter",
+    "StartRow",
+    "AllowStudentAccess",
+    "StudentName",
+    "StudentEmail",
+    "CRCStatusDate",
+    "CRCStatusCodeID",
+    "CRCStatusNotes"
+  ],
+  "actors": [
+    "System Administrator",
+    "Enrollment Administrator",
+    "Student (with controlled access)",
+    "Instructor"
+  ],
+  "workflows": [
+    {
+      "name": "View and Filter CRC Records",
+      "steps": [
+        "User sets filters (section, action, campus, keyword, show grad, show inactive, show waived, comments).",
+        "System queries and displays a paginated list of students matching the criteria with CRC status columns.",
+        "User can toggle paging or search for specific students."
+      ]
+    },
+    {
+      "name": "Edit Single CRC Record",
+      "steps": [
+        "User clicks edit for a specific student.",
+        "System loads CRC edit grid for the student, showing editable fields: status, date, notes.",
+        "User updates information and saves.",
+        "System validates, updates record, refreshes list and UI."
+      ]
+    },
+    {
+      "name": "Bulk Edit/Save CRC Records",
+      "steps": [
+        "User clicks edit all; system transitions grid to multi-edit mode.",
+        "User updates CRC status for multiple students.",
+        "User clicks 'Save All'.",
+        "System iterates through edited rows, validates, and updates each record.",
+        "If success, refresh main grid and update UI."
+      ]
+    },
+    {
+      "name": "Waive CRC Requirement",
+      "steps": [
+        "User invokes 'Unwaive' or waives requirement for a student.",
+        "System updates the CRC waived status and disables other actions for the row if waived."
+      ]
+    },
+    {
+      "name": "Reactivate/Remove Student from Cohort",
+      "steps": [
+        "User clicks reactivate or delete.",
+        "System prompts for confirmation, performs the action, and updates grid."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Read-only mode disables editing and hides edit/all controls.",
+    "Rows are disabled for editing if the student is graduated, inactive, waived, or if enrollment prerequisites/worksite exist.",
+    "Only users with appropriate permissions (StudentMaint, SystemAdministrator) have edit access.",
+    "Waived CRC disables all other row actions.",
+    "'Save All' and 'Cancel' only appear if more than 14 records (for scrolling)."
+  ],
+  "validations": [
+    "Date values are parsed and validated during edit.",
+    "Dropdowns for CRC status are only active for enabled rows.",
+    "Null or missing session cancels data source operations.",
+    "On save, status/date/notes cannot be left empty (implied by UI requirements)."
+  ],
+  "calculations": [
+    "Determining whether a row or action is disabled based on student status and role.",
+    "Paging and visibility toggling based on user action and record count."
+  ],
+  "conditions": [
+    "Show/hide edit and save controls depending on read-only state.",
+    "Show/hide CRC actions depending on waived status or student graduation/inactive.",
+    "Attach client-side handlers (JavaScript) for 'Select All', 'Select None', and dirty tracking."
+  ],
+  "system_behavior": [
+    "Binds and refreshes grids after any update or filter change.",
+    "Registers client-side scripts for field variable registration after AJAX postbacks.",
+    "Populates dropdowns and controls based on context (filled on Page_Load, filter, or row events).",
+    "Uses modal popups for single record editing.",
+    "Handles asynchronous updates (partial page updates via UpdatePanel)."
+  ],
+  "dependencies": [
+    "Grid control utilities (HideButtons, SetupEditButton, SetupReactivateButton, DisableEditFields, etc.)",
+    "DataLayer.Enrollment and Codes.CodeSearch for data access.",
+    "UserSession state.",
+    "JavaScript helpers for client-side interactivity.",
+    "ObjectDataSource controls for data binding."
+  ],
+  "exceptions": [
+    "Missing or invalid session results in cancelled data operations.",
+    "Database errors trigger user session cache and redirect to error handling or fallback screens.",
+    "Invalid/dirty tracking may skip updating specific rows."
+  ],
+  "source_document_ids": [
+    "018b4cb0-466e-546e-a4f6-9cbe2f0bfd5a",
+    "101a207a-a9ca-56b1-a511-aab50a2218d6",
+    "168a0c21-10c4-5784-a580-35079238da5a",
+    "2ed829a3-3cf1-5949-849e-274011b559a0",
+    "389b25e5-d7df-5b4a-8c40-fb9820024171",
+    "45404fbd-9796-50a4-83ff-8c6a48e8d8c1",
+    "4dfebe4c-dec8-57fc-8712-0020b7d7b520",
+    "5596fbc8-189b-53c3-9f85-25fc45cb92e4",
+    "694b55ed-27fa-5dd7-ad5a-2db4e5fa7ba0",
+    "6b7e0909-6d2c-579d-8787-4e2fed76ee92",
+    "6fb73049-f9d7-5a55-b7af-cb26fbe583be",
+    "77c5461b-f5b6-5a35-a92f-a70ac5613ded",
+    "7a26bb82-edb5-5587-b904-d4f8c060f724",
+    "8329dfcd-065e-5763-8523-f9570e7e933c",
+    "87c40865-d3ff-51eb-b678-274bbab39799",
+    "a9d65bae-4caa-5d4c-9c8a-c5d706318435",
+    "c1d5289b-847a-5e2f-b368-f5041a9d3377",
+    "c494ef9c-ebce-5597-88c3-d89f1be09e16",
+    "c6b757f7-4f28-56d1-af24-b5ce8f83dca9"
+  ],
+  "content_gaps": [
+    "No documentation for user-facing validation messages or detailed error handling.",
+    "No explicit documentation of role definitions or security beyond code structure.",
+    "No description of external integration or export features, if any."
+  ]
+}
