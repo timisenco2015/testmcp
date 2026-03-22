@@ -1,0 +1,97 @@
+{
+  "filename": "StudentActiveCohort",
+  "found": true,
+  "summary": "StudentActiveCohort manages active cohort assignments for students, including course enrollments, cohort details, and system behaviors related to assignment and removal from cohorts.",
+  "purpose": "To track, assign, and remove cohort-course associations for students and provide detailed information used in academic scheduling and validation.",
+  "entities": [
+    "StudentActiveCohort",
+    "StudentActiveCohorts"
+  ],
+  "fields": [
+    "DepartmentID",
+    "DepartmentShortName",
+    "ProgramID",
+    "ProgramShortName",
+    "CohortID",
+    "CohortShortName",
+    "Unstructured",
+    "EnrolledCourses",
+    "AssignedCourses",
+    "UnassignedCourses",
+    "TimetableID",
+    "StudentHasActiveUserID",
+    "TermID",
+    "CourseID",
+    "CourseName",
+    "CohortTypeFormatted"
+  ],
+  "actors": [
+    "Student",
+    "HSPnetSession",
+    "System/Database"
+  ],
+  "workflows": [
+    {
+      "name": "StudentSearchActiveCohorts",
+      "steps": [
+        "Set database procedure to StudentSearchActiveCohorts",
+        "Add session and student parameters",
+        "Run DB query and read results",
+        "For each result, populate StudentActiveCohort fields",
+        "Add valid StudentActiveCohort entries to list",
+        "Return list of active cohorts for student"
+      ]
+    },
+    {
+      "name": "StudentRemoveFromCohort",
+      "steps": [
+        "Set database procedure to StudentRemoveFromCohort",
+        "Add session, student, and cohort parameters",
+        "Run DB query and read results",
+        "For each result, populate StudentActiveCohort fields",
+        "Add valid StudentActiveCohort entries to list if conditions met",
+        "Return updated list after removal"
+      ]
+    }
+  ],
+  "business_rules": [
+    "UnassignedCourses = EnrolledCourses - AssignedCourses",
+    "Skip any StudentActiveCohort entry where AssignedCourses and UnassignedCourses are both zero"
+  ],
+  "validations": [
+    "Only add StudentActiveCohort entries to result list if AssignedCourses != 0 OR UnassignedCourses != 0"
+  ],
+  "calculations": [
+    "UnassignedCourses is calculated as EnrolledCourses minus AssignedCourses"
+  ],
+  "conditions": [
+    "When reading cohort results, skip all-zero entries",
+    "When searching for temp-assigned courses, move through recordsets until 'Course' is found"
+  ],
+  "system_behavior": [
+    "DB procedure selection and parameter setting",
+    "Iterative reading from DB results",
+    "Field population and entry filtering",
+    "Session-based data retrieval"
+  ],
+  "dependencies": [
+    "HSPnetSession",
+    "Database stored procedures: StudentSearchActiveCohorts, StudentRemoveFromCohort",
+    "SqlDataReader",
+    "Resource strings (for CohortTypeFormatted)"
+  ],
+  "exceptions": [
+    "If DB reader returns null, skip processing",
+    "Skip entries with all-zero course assignments"
+  ],
+  "source_document_ids": [
+    "24eaf078-e391-5240-9a2b-f1e669753812",
+    "8027c505-01e5-5861-af3d-ec417f2e1383",
+    "ebe839ba-3287-52fb-84f5-416ae2b6ec35"
+  ],
+  "content_gaps": [
+    "No explicit description of error handling for other DB failures",
+    "No detail on UI or external triggers for workflows",
+    "No information on how course assignment/removal interacts with other system modules"
+  ]
+}
