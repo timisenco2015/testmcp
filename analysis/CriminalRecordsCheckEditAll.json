@@ -1,0 +1,125 @@
+{
+  "filename": "CriminalRecordsCheckEditAll",
+  "found": true,
+  "summary": "CriminalRecordsCheckEditAll is a UserControl in the HSPnet enrollment module for editing and updating multiple students' criminal record check (CRC) statuses in a grid view. It provides multi-row edit, save, and validation capabilities with role-based read-only/view logic, and implements complex workflow navigation and data handling associated with CRC statuses for students.",
+  "purpose": "To allow authorized users to efficiently view, edit, and save CRC status and related information for a cohort or group of students in a single, editable grid interface, supporting bulk operations and UI controls for status tracking.",
+  "entities": [
+    "Student",
+    "CRC Status",
+    "UserSession",
+    "Enrollment",
+    "Cohort",
+    "Term",
+    "Course"
+  ],
+  "fields": [
+    "CRCStatusCodeID",
+    "CRCStatusDate",
+    "CRCStatusNotes",
+    "StudentID",
+    "CohortID",
+    "TermID",
+    "CourseID",
+    "SectionFilter",
+    "ActionFilter",
+    "CampusID",
+    "ShowGrad",
+    "ShowInactive",
+    "ShowWaived",
+    "keyword",
+    "CommentFilter",
+    "StartRow",
+    "ShowAllRecords"
+  ],
+  "actors": [
+    "User (with edit or read-only rights)",
+    "System (HSPnet web application)",
+    "StudentPrerequisites (logic layer)"
+  ],
+  "workflows": [
+    {
+      "name": "Bulk Edit and Save CRC Statuses",
+      "steps": [
+        "Display student list in gridDataEdit with CRC status fields",
+        "Filter students by cohort, term, course, section, action, and campus",
+        "Allow edits to CRCStatus, CRCStatusDate, CRCStatusNotes for each student if not read-only",
+        "Mark edited records as dirty (txtDirty) using javascript and hidden fields",
+        "Pressing Save All or Save Edit Next triggers validation and update for all edited records",
+        "Call StudentPrerequisites.StudentDetailsSafetyCRCUpdate for each 'dirty' student row",
+        "If there are update warnings, display warnings and halt redirect",
+        "On success, redirect to either EnrollmentEditAll.aspx for next set or Enrollment.aspx as appropriate",
+        "For single row edit, only one record is updated and redirect follows same as above",
+        "Disable editing if read-only"
+      ]
+    },
+    {
+      "name": "Grid Display and UI Dynamics",
+      "steps": [
+        "Show/Hide Save All or navigation buttons based on number of records and page size",
+        "Dynamically bind dropdown lists and set values for CRCStatus",
+        "Hide grid and navigation elements if not applicable (ex: less than 14 rows)",
+        "Setup javascript variables for tracking dirty rows and hook up setDirty calls",
+        "Disable all grid editing UI if in read-only mode"
+      ]
+    }
+  ],
+  "business_rules": [
+    "Only users with appropriate rights can edit CRC statuses; otherwise grid is read-only.",
+    "Dirty flag (txtDirty) is required to determine which rows should be updated.",
+    "For bulk operations, only rows marked as dirty are processed.",
+    "After save, warnings must be checked before redirecting.",
+    "Dropdown for CRCStatusCodeID is populated from Codes.CodeSearch using user session.",
+    "Navigation buttons are displayed or hidden based on the number of grid rows and pagination."
+  ],
+  "validations": [
+    "User session must be valid for any data operations.",
+    "Data binding and updates only occur if not in read-only mode.",
+    "If not enough rows for paging, navigation and Save All controls are hidden.",
+    "Dropdown selection must be valid for CRCStatus."
+  ],
+  "calculations": [
+    "Next page start row (StartRow + PageSize) for navigation.",
+    "Grid sort expression and direction for data ordering.",
+    "Checkbox/flag logic for ShowGrad, ShowInactive, ShowWaived, etc."
+  ],
+  "conditions": [
+    "If EnrollmentID > 0, modify grid and show/hide buttons accordingly.",
+    "If EnrollmentID == 0, hide Save All and Cancel if under 14 rows.",
+    "If grid is read-only, all input controls and update logic are disabled."
+  ],
+  "system_behavior": [
+    "Implements dynamic data-binding and paging in grid view.",
+    "Performs javascript integration for UI state (dirty row tracking).",
+    "Handles redirects after save based on user's actions and outcome of update/warnings.",
+    "Supports both synchronous and asynchronous postbacks for grid operations."
+  ],
+  "dependencies": [
+    "HSPnetSession for user/session context.",
+    "DataLayer.Enrollment for student row data.",
+    "StudentPrerequisites.StudentDetailsSafetyCRCUpdate for updating CRC info.",
+    "Codes.CodeSearch for populating CRC status codes.",
+    "Grid utilities for UI behaviors."
+  ],
+  "exceptions": [
+    "Operation cancelled if UserSession is null.",
+    "Save/update not performed on read-only grids.",
+    "On update, if warnings are present, redirect is stopped and user is notified."
+  ],
+  "source_document_ids": [
+    "03144aa6-93b7-599f-b8e0-5588317ba19b",
+    "48902891-c057-57e5-9068-3b1307b2dffd",
+    "6918cccf-5e9d-514f-b001-797e2af8307f",
+    "b2bd51ac-3047-55c8-af59-4f8eed91961b",
+    "bd4a4fa1-d3ef-5764-b65e-7bf1cb6bbc30",
+    "c5efee46-5e88-55df-947d-7fe86465a805",
+    "d9e68048-669a-5e6a-b9fe-b5fe6ff4416e",
+    "f1a93269-4cd6-5f47-93a1-f9f2e4730224",
+    "f3ce8c3c-3cd0-531b-a85e-f90764dac0e2"
+  ],
+  "content_gaps": [
+    "No explicit UI layout, database table schema or user-facing error messages.",
+    "No details on the exact validation logic for each edit field.",
+    "No list of CRC statuses or example record contents.",
+    "No specifics on role/rights matrix for read-only vs. editable usage."
+  ]
+}
