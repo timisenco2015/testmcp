@@ -1,142 +1,652 @@
 {
-  "filename": "FindLocationForWorksheet",
+  "filename": "SiteDocument",
   "found": true,
-  "summary": "FindLocationForWorksheet is a web form and codebehind in ASP.NET used to search for locations (destinations) that can be added to a worksheet. The interface allows users to filter and select destinations based on various parameters, view search results, and create worksheet entries for selected destinations.",
-  "purpose": "The file enables users to locate and select destinations to be added to a worksheet for subsequent administrative actions. Its main use case is in organizing placements (e.g., in a healthcare or education context) by filtering, reviewing, and batch-adding selected destinations to a worksheet.",
-  "entities": [
-    "Agency",
-    "GoverningOrg",
-    "SiteType",
-    "Service",
-    "DatabaseLocation",
-    "Region",
-    "Province",
-    "Discipline",
-    "Worksheet",
-    "Destination"
-  ],
+  "summary": "SiteDocument is a data structure representing a document associated with a site. It contains basic identifiers for the document and its site.",
+  "purpose": "To represent and manage the association between a document and a site within the system.",
+  "entities": ["SiteDocument"],
   "fields": [
-    "WorksheetID",
-    "CFOFlag",
-    "GWSFlag",
-    "txtKeyword",
-    "ddAgency",
-    "ddGoverningOrg",
-    "ddSiteType",
-    "ddServiceFilter",
-    "ddRegion",
-    "ddProvinceFilter",
-    "ddDisciplineFilter",
-    "chkIncludeCity",
-    "chkIncludeAddress",
-    "cmdPrint",
-    "cmdClear",
-    "cmdSearch",
-    "cmdClose",
-    "cmdCreate",
-    "txtGroupSize",
-    "chkUseTemplate",
-    "lblMatches",
-    "lblReportHTML"
+    {
+      "name": "ID",
+      "type": "int",
+      "description": "Unique identifier for the document"
+    },
+    {
+      "name": "SiteID",
+      "type": "int",
+      "description": "Identifier for the associated site"
+    }
   ],
-  "actors": [
-    "User (with web session)",
-    "System administrator (for configuration)"
+  "actors": [],
+  "workflows": [],
+  "business_rules": [],
+  "validations": [],
+  "calculations": [],
+  "conditions": [],
+  "system_behavior": [
+    "SiteDocument is used for storing the mapping between a document and its site."
   ],
+  "dependencies": [],
+  "exceptions": [],
+  "source_document_ids": ["a2967f17-a924-5e9c-8b15-d1f7bd028b32"],
+  "content_gaps": ["No information about workflows, business rules, actors, or exceptions."]
+}
+
+{
+  "filename": "WelcomeStaffAdmin",
+  "found": true,
+  "summary": "The WelcomeStaffAdmin file defines UI components, behavior, and validations for the staff admin welcome page.",
+  "purpose": "To welcome staff administrators, manage their view, provide access to employment applications, and handle date-based filtering and error/warning display.",
+  "entities": ["EmploymentApplication"],
+  "fields": [
+    {"name": "EndDate", "type": "date"},
+    {"name": "StartDate", "type": "date"},
+    {"name": "Site", "type": "dropdown"},
+    {"name": "Discipline", "type": "dropdown"},
+    {"name": "ShowWithdrawn", "type": "checkbox"},
+    {"name": "RefreshView", "type": "button"},
+    {"name": "ErrorList", "type": "label"},
+    {"name": "WarningList", "type": "label"},
+    {"name": "LastLogin", "type": "label"},
+    {"name": "EmploymentApplications", "type": "gridview"}
+  ],
+  "actors": ["Staff Administrator"],
   "workflows": [
     {
-      "name": "Search and Add Destinations to Worksheet",
+      "name": "View Employment Applications",
       "steps": [
-        "User loads the FindLocationForWorksheet page with WorksheetID and CFOFlag as query parameters.",
-        "User enters/chooses one or more filters: keyword, agency, governing org, site type, service, region, province, discipline, include city/address.",
-        "User clicks Search (cmdSearch). The search is performed using the filter fields; gridData is populated with matching results.",
-        "User reviews the results and optionally uses Select All/None.",
-        "User checks desired destinations in the results grid.",
-        "User enters group size (if allowed by GWSFlag).",
-        "User chooses whether to use a template (chkUseTemplate).",
-        "User clicks Create (cmdCreate), which collects checked row keys and invokes Location.CreateWorksheetEntries to add them to the worksheet.",
-        "The system clears related cached lists to ensure new entries are reflected.",
-        "Optionally, the user can print (cmdPrint), clear (cmdClear), or close the form (cmdClose)."
+        "Select Site and Discipline",
+        "Enter Start and End Dates",
+        "Optionally filter withdrawn applications",
+        "Refresh the view",
+        "View filtered employment applications"
+      ]
+    }
+  ],
+  "business_rules": ["Withdrawn applications are visually indicated.", "Error and warning panels are used for system feedback."],
+  "validations": [
+    "StartDate and EndDate required.",
+    "StartDate and EndDate must be valid dates.",
+    "EndDate must be on or after StartDate."
+  ],
+  "calculations": [],
+  "conditions": [
+    "If ShowWithdrawn is selected, withdrawn applications are included."
+  ],
+  "system_behavior": [
+    "Displays last login and timezone for user.",
+    "Provides calendar selectors for date fields.",
+    "Allows filtering and postback on site/discipline/date selection.",
+    "Handles error and warning display."
+  ],
+  "dependencies": ["UserSession", "EmploymentApplications", "Sites", "Disciplines"],
+  "exceptions": [],
+  "source_document_ids": [
+    "05db31e4-e8b6-53ee-a6fb-812c106f0134",
+    "100d5925-a5f8-53db-8493-02cddd563eb7",
+    "3c84bade-9671-5fbf-acce-3c87a835e9b4",
+    "4c4b97b8-d242-5261-a515-767a3f7d7a49",
+    "52b5066f-23f6-5d82-96cd-5d51dad3de79",
+    "54244516-0707-581e-a8ba-9c041ea38366",
+    "5bb85da3-f5b4-5753-b07c-9bb2a04eeb89",
+    "5d9b92ea-7c12-5070-8603-977cf14d0e04",
+    "6701b153-5288-59e5-8de9-61b68a1fc292",
+    "6eca1317-c0b2-5225-a9af-f034a722d924",
+    "871df91b-7ba0-558f-83ea-d5be1b0dc8db",
+    "8cea5c3a-2fbf-5206-a0c0-9425a5e14511",
+    "964a48c9-231c-5d58-a44d-3675d949a453",
+    "966ed8d3-a5af-567f-b092-936217777551",
+    "a0c3da28-32a5-5fce-91b2-17274efa016e",
+    "afbb4ec5-43c8-5281-ad2c-4b6cfd23a48e",
+    "b8e79322-9a0e-5fe7-8953-3d05e231f923",
+    "bf423a80-93db-572d-8cb8-c79f04214a93",
+    "ca71b077-cc26-5979-a44f-59700a41316b",
+    "d278278f-d4ec-5f4a-9f29-a02b66773bb9",
+    "db9b35e9-53ca-5eaf-9d75-4f3a72131bc7",
+    "e249a878-c837-5d1c-9a3d-5167df2614fb"
+  ],
+  "content_gaps": ["No detailed business logic for how employment applications are handled.", "No security/authorization detail."]
+}
+
+{
+  "filename": "ServiceCode",
+  "found": true,
+  "summary": "ServiceCode is a system entity used for categorizing and describing services provided. It supports multi-language descriptions and is managed in relation to courses and timetables.",
+  "purpose": "To provide classification, description, and management of service codes for courses and timetables.",
+  "entities": ["ServiceCode"],
+  "fields": [
+    {"name": "ID", "type": "int"},
+    {"name": "CodeCategoryID", "type": "int"},
+    {"name": "ShortName", "type": "string"},
+    {"name": "Name", "type": "string"},
+    {"name": "SortOrder", "type": "int"},
+    {"name": "Notes", "type": "string"},
+    {"name": "NameAlt", "type": "string"},
+    {"name": "NotesAlt", "type": "string"}
+  ],
+  "actors": ["System Administrator"],
+  "workflows": [
+    {
+      "name": "List All Service Codes",
+      "steps": [
+        "Invoke ServiceCodeListAll procedure",
+        "Return localized service code entities"
+      ]
+    },
+    {
+      "name": "Filter Service Codes By Course",
+      "steps": [
+        "Invoke ServiceCodeASMOptionByCourseID",
+        "Return course-specific service code entities"
+      ]
+    },
+    {
+      "name": "Filter Service Codes By Timetable",
+      "steps": [
+        "Invoke ServiceCodeASMOptionByTimetableID",
+        "Return timetable-specific service code entities"
+      ]
+    }
+  ],
+  "business_rules": ["Use NameAlt if running in alternate language mode."],
+  "validations": [],
+  "calculations": [],
+  "conditions": [],
+  "system_behavior": [
+    "ServiceCode supports localization and contextual filtering."
+  ],
+  "dependencies": ["ServiceCodeListAll", "ServiceCodeASMOptionByCourseID", "ServiceCodeASMOptionByTimetableID"],
+  "exceptions": [],
+  "source_document_ids": [
+    "94f1b055-348d-508a-ae6e-cf7960a8c6a2",
+    "e4ebe4b4-6d14-5c3f-b693-61016f765239",
+    "f976b9af-a402-540f-b162-391d578fac7c"
+  ],
+  "content_gaps": ["No detail on CodeCategory structure or user interactions."]
+}
+
+{
+  "filename": "SiteProfileHistory",
+  "found": true,
+  "summary": "SiteProfileHistory tracks history actions, changes, and audit trails for a site profile, including agency, user, and field changes.",
+  "purpose": "To maintain a historical record of changes to site profiles, including user actions, fields changed, and agency involvement.",
+  "entities": ["SiteProfileHistory"],
+  "fields": [
+    {"name": "ID", "type": "int"},
+    {"name": "ActionDate", "type": "datetime"},
+    {"name": "ScreenSection", "type": "string"},
+    {"name": "UserAction", "type": "string"},
+    {"name": "Fields", "type": "string"},
+    {"name": "Agency", "type": "string"},
+    {"name": "AgencyName", "type": "string"},
+    {"name": "LastName", "type": "string"},
+    {"name": "FirstName", "type": "string"},
+    {"name": "MiddleName", "type": "string"},
+    {"name": "Phone", "type": "Phone"},
+    {"name": "ByUserID", "type": "int"},
+    {"name": "ByOriginalUserID", "type": "int"},
+    {"name": "ByUserSysAdmin", "type": "bool"}
+  ],
+  "actors": ["Support Team", "Site Profile User"],
+  "workflows": [
+    {
+      "name": "Audit Site Profile Changes",
+      "steps": [
+        "Search SiteProfileHistory by SiteID and SessionAgencyID",
+        "Return change log with formatted user details"
       ]
     }
   ],
   "business_rules": [
-    "WorksheetID and CFOFlag must be provided to enable Create functionality.",
-    "If GWSFlag is not true, group size defaults to 1 and the field is hidden.",
-    "If group size is required, it must be a valid integer (validated).",
-    "When no destinations are selected, Create does nothing."
+    "Display agency user details differently if support team or non-original user.",
+    "Format dates and names for display."
   ],
-  "validations": [
-    "Keyword field may be required for search (CustomValidator2).",
-    "Group size must be an integer (CompareValidator4) and required if GWSFlag is true (RequiredFieldValidator2).",
-    "Multiple validation summaries for search and create actions.",
-    "UI disables Create button if prerequisite query string values are not present."
-  ],
+  "validations": [],
   "calculations": [
-    "lblMatches displays the count of matched search results (loc.RowCount())."
+    "ActionDateFormatted: FormatDateShort(ActionDate)",
+    "AgencyUserFormatted: Conditional logic on user/original user/sysadmin"
   ],
-  "conditions": [
-    "If GWSFlag is true, allow group size input; otherwise, default to 1.",
-    "If WorksheetID or CFOFlag is missing, hide the Create button.",
-    "If MaxRowsHit is true, display a warning about too many results."
-  ],
+  "conditions": [],
   "system_behavior": [
-    "On Page_Load, validates URL hash, sets up the page, parses query strings, and initializes lookup data and controls.",
-    "Client-side JavaScript is initialized for controls.",
-    "Page_PreRender sets up the matches panel and group size visibility.",
-    "Search repopulates the grid and updates match count.",
-    "Clear resets filters, results, and the form state.",
-    "Create processes selected grid rows into worksheet entries.",
-    "Print launches report generation for search results and displays printable report HTML.",
-    "Error and warning panels are managed for user feedback."
+    "Stores and retrieves change records for site profiles",
+    "Handles alternative language display for ScreenSection, UserAction, and Fields"
   ],
-  "dependencies": [
-    "HSPnet.DataLayer.Locations",
-    "HSPnet.WebServices.ASSDLookups.ClearASSDCache",
-    "HSPnet.Framework.Reporting.RunReport",
-    "HSPnet.Framework.HSPnetPage",
-    "JavaScript functions (selectAll, selectNone, printForm, etc.)",
-    ".NET WebForms infrastructure (GridView, Panels, Labels, Validators, etc.)",
-    "AJAX Control Toolkit for always-visible panels"
+  "dependencies": ["SiteProfileHistorySearch", "FillSiteDropdown"],
+  "exceptions": [],
+  "source_document_ids": [
+    "25f89a24-5eda-5a3f-83df-1de69b12b3f1",
+    "26e09292-d304-55c6-94e5-ef3346453c4b",
+    "7ca6b963-9ae9-5cd3-82d5-f30dcb727ae3",
+    "a8f030c6-90b8-53a1-bb8a-3b7ef33b9488",
+    "e806999c-3a39-5720-9b59-303faebc9eb6"
   ],
+  "content_gaps": ["No detail on UI or integration with other audit systems."]
+}
+
+{
+  "filename": "EmailPopupDocument",
+  "found": true,
+  "summary": "EmailPopupDocument manages email-related document files, including search and deletion operations.",
+  "purpose": "To provide a serializable representation of email-linked documents, enabling searching and deletion for UI popups.",
+  "entities": ["EmailPopupDocument"],
+  "fields": [
+    {"name": "ID", "type": "int"},
+    {"name": "FileName", "type": "string"},
+    {"name": "FilePath", "type": "string"},
+    {"name": "Checked", "type": "Boolean"}
+  ],
+  "actors": ["System User"],
+  "workflows": [
+    {
+      "name": "Search Email Documents",
+      "steps": [
+        "Invoke Search with DataInfo string",
+        "Parse DataInfo to extract file records"
+      ]
+    },
+    {
+      "name": "Delete Email Document",
+      "steps": [
+        "Invoke Delete with DataInfo and ID",
+        "Delete file and folder from the system"
+      ]
+    }
+  ],
+  "business_rules": ["DataInfo string must be well-formed for parsing.", "Attempt file/folder deletion, ignore errors."],
+  "validations": [],
+  "calculations": [],
+  "conditions": [],
+  "system_behavior": [
+    "Serializes/deserializes document file info",
+    "Deletes files and folders based on user action"
+  ],
+  "dependencies": ["System.IO", "File.Delete", "Directory.Delete"],
   "exceptions": [
-    "If query parameters are missing, some features are unavailable.",
-    "If group size is invalid or not entered when required, creation fails validation."
+    "File/Directory deletion errors are caught and ignored."
   ],
   "source_document_ids": [
-    "0176c680-d043-50cd-be84-810b9401ca4d",
-    "03390d5d-ec3d-55eb-bff3-cba2dbd1b246",
-    "053b5717-2acf-59f7-9163-abe991148b67",
-    "0dd7cd0d-2cbf-5782-86d1-f2be26bf0bbe",
-    "13fa92a9-f429-5cb6-9cbd-3c88732aa5bc",
-    "241b58a3-1f5e-5f69-bc89-4fe78108573d",
-    "26e28072-71f0-53e1-9791-63f7de682466",
-    "45de5522-32eb-5a87-8edc-5d699d153dab",
-    "4c55c8aa-4cac-588b-a6fd-a740c81f9808",
-    "4faeb7ba-4c89-5e62-a00b-c8a40782f01f",
-    "5d250228-2982-5245-80e4-0ce0ab4d04b5",
-    "5fcbfe6a-9f61-5170-be0d-16eacc6a7001",
-    "6b473dde-bf18-59ee-a5a6-3a8dbe3274a4",
-    "7de49aad-0888-574a-9d95-9c3d50c6ffda",
-    "80166401-2bc6-5aee-a816-5afefcef1717",
-    "810b3899-1eff-5479-be21-638dc4b04ba2",
-    "864717f5-e4db-56fc-b7fb-41b7b7f53d54",
-    "8ac0b000-856b-52fa-a0cd-d3dc0eb82072",
-    "8d730e3e-7cc0-554e-b14d-0f1a09df33f2",
-    "a00242d2-3405-5e54-946b-65f3cf6a3ac4",
-    "b5eef186-7bdd-59d5-b85d-e05e630f7e9c",
-    "cdd03bf2-5f2f-5b34-9a10-1d8d280138e0",
-    "cf3d5e55-cee1-5841-b770-5c0d94a350c9",
-    "d5f24882-02cb-56ef-b582-1b8adeb57a5c",
-    "e1a4ba6c-9dbb-536b-ae95-71d25de835fc",
-    "e8b44847-b94c-5b36-86fb-6593c2f83973",
-    "e99c8dbf-87b7-5245-ba1d-2cc1c2532ebe",
-    "faf4f79b-857c-56c1-898e-40a1ec9716ca",
-    "fccc1c70-95f6-5ea8-86ed-eae47887742a"
+    "7287734e-f13d-550f-9249-4242db620766",
+    "927bc837-5564-5759-9324-27c6d5d7321d"
   ],
-  "content_gaps": [
-    "Exact structures of the backend entities (Agency, GoverningOrg, etc.) are not detailed in the source.",
-    "Implementation of certain helper methods and external dependencies (like CreateWorksheetEntries) is outside the file.",
-    "Front-end resources (localization, scripts, styling) are referenced but not included."
-  ]
+  "content_gaps": ["No information on linking documents to emails or UI design."]
+}
+
+{
+  "filename": "ExpenseBatch",
+  "found": true,
+  "summary": "ExpenseBatch is a financial entity managing expense batches by department and status, allowing CRUD operations and batch formatting.",
+  "purpose": "To represent and manage batches of financial expenses, linked to departments, including searching, adding, updating, and deleting batches.",
+  "entities": ["ExpenseBatch"],
+  "fields": [
+    {"name": "ID", "type": "int"},
+    {"name": "DepartmentID", "type": "int"},
+    {"name": "BatchDescription", "type": "string"},
+    {"name": "BatchDate", "type": "DateTime"},
+    {"name": "StatusCodeID", "type": "int"},
+    {"name": "StatusCode", "type": "string"},
+    {"name": "StatusDescription", "type": "string"},
+    {"name": "ClosedDate", "type": "DateTime"},
+    {"name": "BatchNumberFormatted", "type": "string"}
+  ],
+  "actors": ["Financial Clerk"],
+  "workflows": [
+    {
+      "name": "Search Expense Batches",
+      "steps": [
+        "Invoke ExpenseBatchSearch with DepartmentID",
+        "Return batch list with formatted number and status"
+      ]
+    },
+    {
+      "name": "Add Expense Batch",
+      "steps": [
+        "Invoke ExpenseBatchAdd with DepartmentID, Description, Date",
+        "Return new batch ID"
+      ]
+    },
+    {
+      "name": "Update Expense Batch",
+      "steps": [
+        "Invoke ExpenseBatchUpdate with ID and parameters",
+        "Apply update"
+      ]
+    },
+    {
+      "name": "Delete Expense Batch",
+      "steps": [
+        "Invoke ExpenseBatchDelete with ID",
+        "Delete batch"
+      ]
+    }
+  ],
+  "business_rules": [
+    "BatchNumberFormatted is concatenation of ID and StatusDescription."
+  ],
+  "validations": [],
+  "calculations": [],
+  "conditions": [],
+  "system_behavior": [
+    "CRUD operations for batches",
+    "Formatting batch numbers"
+  ],
+  "dependencies": ["ExpenseBatchSearch", "ExpenseBatchAdd", "ExpenseBatchUpdate", "ExpenseBatchDelete"],
+  "exceptions": [],
+  "source_document_ids": [
+    "060e08d3-49ca-5e40-bea0-849f4e6173e1",
+    "3559737f-0154-520e-be2b-d3dd2c3de539",
+    "b2216e58-a144-55cb-8b87-3da9787fc1d7"
+  ],
+  "content_gaps": ["No detail on batch approval workflows or error handling."]
+}
+
+{
+  "filename": "CostCentre",
+  "found": true,
+  "summary": "CostCentre manages placement cost center records, supporting filtering by multiple criteria and providing details on agencies, sites, and financial information.",
+  "purpose": "To return cost center records for placements, with detailed filtering and record structure for reporting.",
+  "entities": ["CostCentreRecord"],
+  "fields": [
+    "PlacingAgency",
+    "Department",
+    "Program",
+    "Discipline",
+    "SubDiscipline",
+    "ReceivingAgency",
+    "Site",
+    "Portfolio",
+    "Service",
+    "Destination",
+    "CostCentre",
+    "CostCentreDescription",
+    "PRType",
+    "StartDate",
+    "EndDate",
+    "Status",
+    "Course",
+    "ProgramYear",
+    "ReferenceNumber",
+    "CFO",
+    "PRCount",
+    "StudentCount",
+    "PRHours",
+    "StudentHours"
+  ],
+  "actors": ["Placement Coordinator"],
+  "workflows": [
+    {
+      "name": "Get Cost Centre Records",
+      "steps": [
+        "Invoke PlacementCostCentre with filter criteria",
+        "Return record list"
+      ]
+    }
+  ],
+  "business_rules": [],
+  "validations": [],
+  "calculations": [],
+  "conditions": [],
+  "system_behavior": [
+    "Generates detailed placement cost center records based on filters"
+  ],
+  "dependencies": ["PlacementCostCentre procedure"],
+  "exceptions": [],
+  "source_document_ids": [
+    "20ac8054-536e-5203-b33d-7db2b2dc2359",
+    "2c04f259-cf58-5d95-803c-8ebf16840f6c",
+    "97bc3ba9-9fe4-52b1-8847-dce2198e0aee",
+    "dd965b0f-f9cf-57eb-a3f8-32b3b97a6d1a",
+    "e1ac7e41-5e9e-5f16-baa0-29d05a70f976"
+  ],
+  "content_gaps": ["No information on data validation or security."]
+}
+
+{
+  "filename": "TimetableAssessments",
+  "found": true,
+  "summary": "TimetableAssessments manages student assessments for a timetable, including creation, editing, deletion, validation, and UI logic.",
+  "purpose": "To allow staff to manage assessment records for students by timetable, including adding/editing/deleting, validating data, and handling assessment templates.",
+  "entities": ["TimetableAssessment", "AssessmentTemplate", "CodeRecord", "CourseAssessment"],
+  "fields": [
+    "AssessorTypeCodeID",
+    "SubjectTypeCodeID",
+    "AssessmentTypeCodeID",
+    "AssessmentTemplateCodeID",
+    "OpenDaysAfterStart",
+    "CloseDaysAfterEnd",
+    "ViewUntilDaysAfterEnd",
+    "OptionAppliedAssessorTypeCodeID",
+    "AssessorCanViewSubjectsAnswers",
+    "SubjectsCanViewAssessorAnswers"
+  ],
+  "actors": ["Placement Coordinator", "System Administrator"],
+  "workflows": [
+    {
+      "name": "Manage Timetable Student Assessments",
+      "steps": [
+        "View assessments grid",
+        "Add new assessment",
+        "Edit assessment",
+        "Delete assessment",
+        "Validate assessment for correct relationships"
+      ]
+    }
+  ],
+  "business_rules": [
+    "Only users with placement coordinator or admin role can edit assessments.",
+    "Interim assessments require a final assessment.",
+    "Maximum assessment limit enforced."
+  ],
+  "validations": [
+    "Open/Close/ViewUntil days must be integers.",
+    "Days after placement date must follow rules for assessment type."
+  ],
+  "calculations": [],
+  "conditions": [
+    "ScreenIsEditable is true for admin or placement coordinator."
+  ],
+  "system_behavior": [
+    "Grid shows assessments with add/edit/delete",
+    "Validation feedback for errors and warnings",
+    "Popup UI for editing details"
+  ],
+  "dependencies": [
+    "AssessmentTemplates",
+    "Codes",
+    "TimetableEntries",
+    "CourseAssessments"
+  ],
+  "exceptions": [
+    "Validation errors for missing assessments or exceeding limits"
+  ],
+  "source_document_ids": [
+    "0781696d-dec4-5dfc-aa58-80ddd173c0ae",
+    "0d330d29-e0a7-5f88-8c71-d32f88b252b0",
+    "0ea3e178-f11b-5ee8-afc8-441e55e2d2f4",
+    "135455cd-1a34-5b2d-b8cc-298a1d98c47e",
+    "14ec7368-e312-5de7-b00e-188a6d5310ef",
+    "1807e536-2914-59f1-a538-b9e127d25f77",
+    "1d7ea219-2359-5da1-9c7b-79cbd696c770",
+    "345a2e51-fcf0-5df0-b1f6-b535c4b757c6",
+    "447b10a9-0558-5d06-9fac-926c94892393",
+    "50cbdfe8-4a64-5c51-ba1e-e88fb00ca8fc",
+    "528d9fc6-cb63-5c52-9327-f323552f37e3",
+    "61fa5351-3118-588b-a4f0-3147cd92841a",
+    "6f04742e-ad06-58cf-af37-b3ae7ebe39cc",
+    "6f1aa10e-0697-5c9e-8e0a-182b597a2d3e",
+    "707335b9-f19a-5366-959c-4872a99363e8",
+    "727a0287-de95-52fe-a841-7f49f9958884",
+    "734dd83e-2a57-578d-9891-96f90686f95e",
+    "7a89081a-a4a0-569f-8bc4-676ec99f7dcb",
+    "7ab03f3d-3b63-594e-a3ac-ea304249c66a",
+    "7afa582c-d2e5-5803-b315-7f8f63d1bc7e",
+    "7bb40b95-0bb5-5f6d-91ca-bbcb527d60ff",
+    "824387dc-2c7b-5cca-96a6-bfab53dbaeee",
+    "96eaf83a-27cc-5e53-b93a-4835addb1ab6",
+    "a1b432d1-2597-591b-a1a7-80d7b39db2b7",
+    "a7c42983-f1a4-5f7f-8487-6a59e89d7502",
+    "b0600110-1773-5335-a423-4e456e7b615b",
+    "b66763e8-1cd7-5741-9b81-95c511b8cf64",
+    "c55e37c8-0668-52c9-8860-02706d05d1c5",
+    "c8e37d14-9d6e-5d5f-a710-581fe5dfd958",
+    "dd0997ef-5454-5014-9d78-fa20aed967eb",
+    "e506841f-d914-5482-b64c-7deca11f392a",
+    "ed5d2f45-0dea-5606-bc98-3a7d2c634bf5",
+    "ede3c463-e1b7-551c-bad2-e5db6d44165e",
+    "f0d967b2-325c-584a-a002-fd27615e3c62",
+    "f34f81c5-ea44-558f-a144-dc0a4d5a65ac"
+  ],
+  "content_gaps": ["No end-user instructions; no security detail; no information about assessment scoring."]
+}
+
+{
+  "filename": "AdHocQuery",
+  "found": true,
+  "summary": "AdHocQuery provides methods to render SQL query results as HTML tables for flexible, user-driven data display.",
+  "purpose": "To allow users or system components to render SQL query results dynamically as HTML, supporting flexible reporting.",
+  "entities": [],
+  "fields": [],
+  "actors": [],
+  "workflows": [
+    {
+      "name": "Render Query Results",
+      "steps": [
+        "Receive SQL query results",
+        "Create table header and rows",
+        "Return HTML table"
+      ]
+    }
+  ],
+  "business_rules": [],
+  "validations": [],
+  "calculations": [],
+  "conditions": [],
+  "system_behavior": [
+    "Converts SQL data readers to HTML tables for display."
+  ],
+  "dependencies": ["SqlDataReader", "StringBuilder"],
+  "exceptions": [],
+  "source_document_ids": ["20140dcf-7d8e-51f1-86ab-4b5a291db2b2", "2878adb2-c26b-5d41-a6a4-d9f5a2c2c782"],
+  "content_gaps": ["No details on user permissions, error handling, or SQL injection prevention."]
+}
+
+{
+  "filename": "StudentPrerequisites",
+  "found": true,
+  "summary": "StudentPrerequisites tracks and manages detailed student health, safety, and confidentiality requirements for placements, supporting updates and validations.",
+  "purpose": "To ensure students meet prerequisite health, safety, and confidentiality requirements for placement, with detailed record and update support.",
+  "entities": ["StudentPrerequisite"],
+  "fields": [
+    "ID", "StudentID", "CRCStatusCodeID", "IDCard", "WCBWaiver", "ConfidentialityForm", "UseAssessmentModule", "DepartmentUseAssessmentModule",
+    "N95MaskSizeCodeID", "N95MaskAltSizeCodeID", "N95MaskFitTestExpiryDate", "TetanusExpiryDate", "TdapImmunity", "PolioImmunity",
+    "MeaslesStatusCodeID", "Covid19StatusCodeID", "RubellaStatusCodeID", "VaricellaStatusCodeID", "InfluenzaStatusCodeID", "ChestXRayDate",
+    "ChestXRayResultsCodeID", "HepBFirstShotDate", "HepBSecondShotDate", "HepBThirdShotDate", "HepABResultsCodeID", "ImmunizationNotes",
+    "InfectionControlSolutionID", "N95MaskFitNotes", "WCBStatusCodeID", "WCBWaiverDate", "ConfidentialityFormDateReceived", "ConfidentialityNotes", "TetanusAdminDate",
+    "TdapStatusCodeID", "TdapAdminDate", "PolioStatusCodeID", "PolioAdminDate", "PolioReinforcingDoseDate", "MumpsStatusCodeID", "MeaslesAdminDate", "Covid19AdminDate",
+    "VaricellaAdminDate1", "VaricellaAdminDate2", "TBTestNotes", "HepABTestDate", "CRCStatusDate", "IDCardDate", "OccHealthReqMetStatusCodeID", "ImmunReqMetDate",
+    "ImmunReqMetNotes", "MedicalCompletedDate", "ImmunizationFeePaid", "ImmunizationFeePaidDate", "RubellaAdminDate2", "MumpsAdminDate2", "TetanusSourceCodeID", "TdapSourceCodeID",
+    "PolioSourceCodeID", "PolioReinforcingDoseSourceCodeID", "MeaslesSourceCodeID", "Covid19SourceCodeID", "RubellaSourceCodeID", "MumpsSourceCodeID", "VaricellaSourceCodeID",
+    "InfluenzaSourceCodeID", "HepBSourceCodeID", "HepSerologySourceCodeID", "TBSourceCodeID", "StaffID", "InfluenzaStatusCodeID2", "FluReqMet2", "InfluenzaAdminDate2",
+    "InfluenzaSourceCodeID2", "MeaslesTitreDate", "MumpsTitreDate", "RubellaTitreDate", "VaricellaTitreDate"
+  ],
+  "actors": ["Student", "Staff"],
+  "workflows": [
+    {
+      "name": "Validate Student Prerequisites",
+      "steps": [
+        "Update and validate student health, safety, confidentiality data",
+        "Check dates and codes against allowed ranges",
+        "Save only valid updates"
+      ]
+    },
+    {
+      "name": "Update Student Health Record",
+      "steps": [
+        "Submit health data with session ID",
+        "Execute validation logic",
+        "Persist data to database"
+      ]
+    }
+  ],
+  "business_rules": [
+    "Dates must not exceed max allowed future/past values.",
+    "Year values must be within valid ranges.",
+    "Expiry must be on or after completion."
+  ],
+  "validations": [
+    "Fit test date is required if mask size is specified.",
+    "No field may exceed maximum allowed years in past/future.",
+    "Year fields must be within min/max allowed."
+  ],
+  "calculations": [],
+  "conditions": [],
+  "system_behavior": [
+    "Validates health and safety prerequisites for student placements.",
+    "Supports CRUD operations for prerequisite records."
+  ],
+  "dependencies": [
+    "StudentDetailsPrerequisitesSearch",
+    "StudentDetailsImmunizationUpdate",
+    "StudentDetailsSafetyUpdate",
+    "StudentDetailsOccHealthReqUpdate",
+    "StudentDetailsConfidentialityUpdate"
+  ],
+  "exceptions": [
+    "Validation errors for date and year violations."
+  ],
+  "source_document_ids": [
+    "126148d2-7c46-5bb8-8a4c-606105b702bd",
+    "165b1b6b-fd06-59e5-b7d7-81e87dbeac55",
+    "280408b2-2e1d-5bd7-8feb-59603ff0bb80",
+    "2f8ba20e-ca9a-5fc1-932a-1899a9499417",
+    "3787eddd-1ce0-519f-9959-30c8a913c827",
+    "3c00eec5-f694-53fb-abe6-a8d94038fd60",
+    "3e68c0d0-3ab9-5c14-a221-bf0f7592302c",
+    "430fc305-a57a-53e5-9f01-35e07b707792",
+    "46edf9a0-d978-5197-be20-b4536cae3e91",
+    "4a51cb58-538c-57f2-82ff-13fb4d577aa8",
+    "4abb53e7-107a-535d-a3b7-97b5279e2632",
+    "4c84ad96-eff9-5f59-ad88-b1083437874e",
+    "4fef49f1-918d-5276-9b5d-2394b74edd53",
+    "580b77b9-dd28-5027-bdae-912684d6c0b6",
+    "5829b29d-0fd8-5ba1-98f8-f7195d0f276d",
+    "5847f312-ca34-559d-b351-cdadb289d73c",
+    "58666a42-abe8-54d8-89a0-54666f57461b",
+    "5eaa703a-dd1e-5dee-bb2e-1fb263c75db6",
+    "60564881-fabd-566c-ae55-496631ed07ce",
+    "60fbd355-bf2a-5b34-900c-2d4271e50c18",
+    "61704a31-73c8-510f-a8a5-2f3f90576102",
+    "6326993d-e08e-5e60-9b82-ab09b0ee7aaa",
+    "64b9d3fc-975d-5d39-ab37-dbeff805220f",
+    "6c76048a-8dbd-57f8-a34d-f0474a8066e7",
+    "6f4e2f7e-5afe-5594-b7af-e3164b62cc31",
+    "72969051-b340-56cd-9567-db665fe9963a",
+    "7ad65168-6ffa-588e-8b5e-2c138a0092b6",
+    "80c6896a-128a-591a-8ca6-2b17198986fb",
+    "80da2e19-0529-5ff8-b271-c7143aa2de8f",
+    "80ed1288-90d5-5218-87e0-ea7d3f5db104",
+    "812c66d2-bc1a-5ced-a6c2-fafa49e2bcb9",
+    "8325c58d-21a0-55d5-a8e9-e1479ebd011f",
+    "92a9a02b-cd4f-5050-9603-a3c1fb695f28",
+    "92f4ca82-b65d-570b-b830-aa1aae296ad4",
+    "97ddf3ed-0086-5903-91ce-adc367f9ec68",
+    "9a9ab264-40f6-5641-bf80-27e1944adffd",
+    "9c001d9f-6b5e-5efb-bae5-beec7494b84c",
+    "9dc9edf7-a95e-57c9-ae8e-a04ecdfa88be",
+    "a9be8e45-83d9-54f8-baf7-de5e6c16d394",
+    "b017c1aa-ba9e-5224-b66a-42e4768ed23b",
+    "b5ab106e-c17a-5125-84ac-e4f9d60a842e",
+    "c2b792da-41a1-54e8-9415-795065348574",
+    "c44b7954-91d6-5eaa-b033-a765cc18d949",
+    "c5635bb5-13a4-5707-a628-269e77e4ede2",
+    "d0eb0cc2-a4a7-55d8-8468-1d6ae5eefb35",
+    "d29d4c69-472b-5cdc-8324-d8b31f86cb75",
+    "d65fc939-7e93-5874-a3e2-934f23808835",
+    "dadce6a1-e08f-5117-9767-bb9b5e83fef7",
+    "e9656b6a-7fa3-53ad-8e91-5ea186dd35de",
+    "ea26e640-45be-5fed-9d03-b18363a3b120",
+    "ec8c8c16-1482-5149-87fd-34c4724af0a2",
+    "eedb6500-7e63-5aba-b652-8cfbbf9b798d",
+    "f1337cc9-2c22-570f-8028-6d6cf3d3f36d",
+    "f8567591-2583-55e9-b4a7-cf7fbe15dba9"
+  ],
+  "content_gaps": ["No detail on integration with placement request workflow; no UI or access control detail."]
 }
