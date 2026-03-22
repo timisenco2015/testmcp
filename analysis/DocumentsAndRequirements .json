@@ -1,0 +1,83 @@
+{
+  "filename": "DocumentsAndRequirements",
+  "found": true,
+  "summary": "The DocumentsAndRequirements web service manages the ordering of 'Requirement' and 'Document' entities associated with Agency, Site, or Destination contexts, supporting drag-and-drop UI sort actions. It validates user sessions and updates sort order in the database for these entities via specialized stored procedures.",
+  "purpose": "To provide an API endpoint that allows authorized users to update the sort order of requirements and documents for Agencies, Sites, and Destinations; enabling UI-driven order changes to persist in the backend database.",
+  "entities": [
+    "Agency",
+    "Site",
+    "Destination",
+    "Requirement",
+    "Document"
+  ],
+  "fields": [
+    "uiOrder",
+    "sessionHash",
+    "ParentIDName",
+    "ParentID",
+    "ActiveTab"
+  ],
+  "actors": [
+    "User (with valid session)",
+    "System (web service)"
+  ],
+  "workflows": [
+    {
+      "name": "PostUISortOrder",
+      "steps": [
+        "1. User initiates a sort order update from the UI (drag-and-drop action).",
+        "2. The client sends a request to PostUISortOrder with uiOrder, sessionHash, ParentIDName, ParentID, ActiveTab.",
+        "3. The web service retrieves SessionID from sessionHash and validates the session (SessionIsValid stored procedure).",
+        "4. If session is valid, it determines context (Agency, Site, Destination) from ParentIDName and intended entity type from ActiveTab (Requirement or Document).",
+        "5. Calls the corresponding stored procedure to update sort order (e.g., AgencyRequirementUpdateSortOrder, SiteDocumentUpdateSortOrder, etc.), providing relevant ParentID and uiOrder parameters.",
+        "6. Executes database update.",
+        "7. On failure or invalid session, returns empty result array to client."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Sort orders can only be updated by users with a valid session.",
+    "Sort order changes are context-sensitive: Agency, Site, or Destination.",
+    "Sort orders are only updated for 'Requirement' or 'Document' tabs."
+  ],
+  "validations": [
+    "Session must be valid before any update is processed.",
+    "ParentID (AgencyID, SiteID, DestinationCodeID) must be convertible to integer.",
+    "ActiveTab must be 'Requirement' or 'Document'.",
+    "ParentIDName must be 'Agency', 'Site', or 'Destination'."
+  ],
+  "calculations": [],
+  "conditions": [
+    "If sessionValid == false, response is empty array.",
+    "If ParentIDName == 'Agency', use Agency-specific stored procedures.",
+    "If ParentIDName == 'Site', use Site-specific stored procedures.",
+    "If ParentIDName == 'Destination', use Destination-specific stored procedures.",
+    "If ActiveTab == 'Requirement', update Requirement sort order.",
+    "If ActiveTab == 'Document', update Document sort order."
+  ],
+  "system_behavior": [
+    "Validates session before processing any database update.",
+    "Updates sort order in the database using stored procedures.",
+    "Returns empty array on exception or invalid session."
+  ],
+  "dependencies": [
+    "HSPnetSession (session management and database retrieval)",
+    "Stored procedures: SessionIsValid, AgencyRequirementUpdateSortOrder, AgencyDocumentUpdateSortOrder, SiteRequirementUpdateSortOrder, SiteDocumentUpdateSortOrder, DestinationRequirementUpdateSortOrder, DestinationDocumentUpdateSortOrder"
+  ],
+  "exceptions": [
+    "If ParentID cannot be converted to integer, operation fails.",
+    "If any database operation fails or throws exception, returns empty array.",
+    "If session invalid, returns empty array."
+  ],
+  "source_document_ids": [
+    "37bdabcd-9f7d-52cf-8017-de42b921f190",
+    "63c95a50-6966-5f51-b560-ebd7452199d0",
+    "7b11b5bd-eef4-58ce-98df-fbec9ec799db"
+  ],
+  "content_gaps": [
+    "No information is provided about the structure or format of 'uiOrder'.",
+    "No details on error logging or response format beyond returning empty arrays.",
+    "No details on authentication mechanism apart from session validation.",
+    "No business logic about how sort order affects downstream processes."
+  ]
+}
