@@ -1,0 +1,100 @@
+{
+  "filename": "MaintTemplates",
+  "found": true,
+  "summary": "MaintTemplates provides a web-based maintenance interface for managing template records in HSPnet. Users can add, edit, delete, and filter templates. The interface uses ASP.NET controls to facilitate CRUD operations, validation, error/warning messaging, and supports multi-locale templates.",
+  "purpose": "To allow authorized users to maintain a list of templates with names and content, including alternate locale descriptions, in a structured, validated, and user-friendly manner.",
+  "entities": [
+    {"name": "TemplateRecord", "description": "Represents a template entry with Name, Template, TemplateAlt fields, and ID."},
+    {"name": "Templates", "description": "Collection/class for retrieving and manipulating template data."}
+  ],
+  "fields": [
+    {"name": "ID", "type": "int", "description": "Unique identifier for each template record."},
+    {"name": "Name", "type": "string", "description": "Template name. Required field with max length 50."},
+    {"name": "Template", "type": "string", "description": "Template content/main description. Required, multiline."},
+    {"name": "TemplateAlt", "type": "string", "description": "Alternate locale content. Required, multiline."},
+    {"name": "Keyword", "type": "string", "description": "Search/filter keyword entered by user."}
+  ],
+  "actors": [
+    {"name": "UserSession", "roles": ["User performing maintenance", "Authentication context"]},
+    {"name": "HSPnetPage", "roles": ["Base page class"]},
+    {"name": "Grid", "roles": ["UI CRUD handler"]}
+  ],
+  "workflows": [
+    {
+      "name": "Template Maintenance",
+      "steps": [
+        "Page loads; sets up session context.",
+        "User optionally enters Keyword for filtering.",
+        "User clicks Refresh to filter template list.",
+        "Grid displays templates with Name, Template, TemplateAlt.",
+        "User clicks Add to create a new template (shows DetailsView).",
+        "User enters Name, Template, TemplateAlt; validation required.",
+        "User clicks Save: If valid and ID=0, adds new; else updates existing.",
+        "User clicks Edit on a row to modify existing template (DetailsView opens; values populated).",
+        "User clicks Delete to permanently remove template (confirmation handled).",
+        "System shows error/warning messages as needed; panels can be hidden.",
+        "After add/edit/delete, grid is refreshed and main panel updated."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Name, Template, and TemplateAlt fields must be specified (required).",
+    "Name field max length is 50 characters.",
+    "Delete action requires confirmation.",
+    "Keyword filtering applies wildcard if empty."
+  ],
+  "validations": [
+    "RequiredFieldValidator on Name, Template, TemplateAlt.",
+    "MaxLength validator for Name.",
+    "DisplayMode for ValidationSummary is List; ShowMessageBox enabled.",
+    "Errors and warnings are shown in dedicated panels."
+  ],
+  "calculations": [
+    {"name": "TruncateString", "description": "Template and TemplateAlt fields are truncated to 75 characters in grid display."}
+  ],
+  "conditions": [
+    "If Page.IsValid on save, then update/add record.",
+    "If ID=0, add new record; else update existing."
+  ],
+  "system_behavior": [
+    "Panel for error/warning messages shown/hidden based on actions.",
+    "GridData row command handler dispatches actions for Add, Edit, Delete.",
+    "DetailsView handles Save, Cancel for template editing.",
+    "RefreshData fetches templates filtered by keyword.",
+    "Page setup and teardown handled on load/unload.",
+    "Ajax UpdatePanel used for responsive UI updates."
+  ],
+  "dependencies": [
+    "AjaxControlToolkit for modal, always-visible controls.",
+    "HSPnet.DataLayer for template data operations.",
+    "HSPnet.UI.Grid for grid actions/confirmation.",
+    "Resource files for localized strings."
+  ],
+  "exceptions": [
+    "Invalid input triggers error panel with list of issues.",
+    "Delete actions require user confirmation (no undo)."
+  ],
+  "source_document_ids": [
+    "14e0e280-2c2d-50b0-8735-fac94445af98",
+    "15a2499c-b36f-5cb5-a0af-39dcef6a2bab",
+    "1b734f1c-1068-59b4-b016-b11ae3adfb93",
+    "2377ea77-675a-5338-80c4-404c7c8ce394",
+    "300f4930-fd57-58c1-b34f-dbe783d604e4",
+    "35369f5b-a7d5-52fd-a34a-d21c884af64d",
+    "3a6d9f34-ce38-57c6-b094-99062a7d691b",
+    "3e1e1809-0f04-5db7-bab6-a112ea788da5",
+    "44e17d13-2019-5ef3-8ac8-30f94f7f6f5b",
+    "a6a9e09c-d3d9-57a0-a86d-3c36eba4d032",
+    "d55046a9-7bde-584d-a425-c7fec0154ee2",
+    "e0dba9d9-061d-5d27-baeb-0435d5e001c4",
+    "ec5a86d1-de8d-5b9b-96e4-f3d83801977c",
+    "ed97220c-57c7-530e-9c5a-b8742c4bd215",
+    "f67b0c7c-aa47-588a-9091-e0a6a280251f"
+  ],
+  "content_gaps": [
+    "No explicit authentication/authorization logic found.",
+    "Underlying database schema and stored procedures not shown.",
+    "Resource/localization file values not included.",
+    "UI sample data not shown."
+  ]
+}
