@@ -1,0 +1,139 @@
+{
+  "filename": "CohortRotations",
+  "found": true,
+  "summary": "CohortRotations manages the creation, editing, validation, and copying of course rotation schedules (timetables) for cohorts in an educational system. The interface allows users to view and manipulate rotations, with strict validation on date ranges and business rules about how rotations relate to course/timetable dates.",
+  "purpose": "To allow authorized users to create, edit, delete, and copy rotation schedules for educational cohorts, ensuring all rotations adhere to course and timetable constraints and are properly validated.",
+  "entities": [
+    "Cohort",
+    "Course",
+    "Term",
+    "Timetable",
+    "TimetableRotation"
+  ],
+  "fields": [
+    "Rotation",
+    "StartDate",
+    "EndDate",
+    "TimetableStartDate",
+    "TimetableEndDate",
+    "CohortName",
+    "CohortShortName",
+    "TermName",
+    "TermStart",
+    "TermEnd",
+    "CourseName",
+    "CourseShortName"
+  ],
+  "actors": [
+    "UserSession (authenticated user)",
+    "Admin",
+    "Viewer (ViewOnly)"
+  ],
+  "workflows": [
+    {
+      "name": "Add/Edit/Delete Rotation",
+      "steps": [
+        "User selects Add/Edit/Delete action from the grid.",
+        "For Add: Show details panel. Default StartDate is TimetableStartDate or last rotation's EndDate + 1.",
+        "For Edit: Show details panel populated via FindEntryToEdit.",
+        "For Delete: Remove entry using timetableRotationID.",
+        "On Save: Validate fields, update or create TimetableRotation via Add or Update.",
+        "Hide details, refresh grid and panels."
+      ]
+    },
+    {
+      "name": "Copy Rotations",
+      "steps": [
+        "User selects source course from ddTimetable.",
+        "Clicks Copy Rotations.",
+        "TimetableEntries.CopyRotations(UserSession, sourceID, timetableID) is called.",
+        "Grid and panels are refreshed."
+      ]
+    },
+    {
+      "name": "Validation",
+      "steps": [
+        "On Save, validate StartDate and EndDate with required fields.",
+        "Validate date format (RegularExpressionValidator).",
+        "Ensure StartDate <= EndDate (checkStartEnd).",
+        "Ensure Rotation dates are between TimetableStartDate and TimetableEndDate.",
+        "Ensure Rotation dates are not before course start/end (checkBeforeTimetableStartDate, checkAfterTimetableEndDate)."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Rotation Start/End dates must fall within the timetable's start and end dates.",
+    "Rotation dates cannot precede course start or follow course end.",
+    "New rotation StartDate defaults to timetable start or last rotation's EndDate + 1.",
+    "ViewOnly users cannot edit or add rotations.",
+    "Copying rotations is only available if there are no rotations and screen is editable."
+  ],
+  "validations": [
+    "RequiredFieldValidator for StartDate and EndDate.",
+    "RegularExpressionValidator for correct date format.",
+    "CustomValidator functions checkStartEnd, checkBeforeTimetableStartDate, checkAfterTimetableEndDate (client-side JS).",
+    "ValidationSummary with show message box."
+  ],
+  "calculations": [
+    "New rotation StartDate is last EndDate + 1 day or TimetableStartDate.",
+    "EndDate displayed and managed via Literal controls."
+  ],
+  "conditions": [
+    "If user is ViewOnly, hide add/edit controls.",
+    "If there are no rotations for a timetable, display Copy Rotations option if editable.",
+    "If ddTimetable has no items, hide copy panel."
+  ],
+  "system_behavior": [
+    "Panels for error and warning messages are shown/hidden based on state.",
+    "Grid auto-refreshes after add/edit/delete/copy.",
+    "ClientScript registers JS includes for date and rotation editing.",
+    "Modal popup shows/hides details view for editing rotations."
+  ],
+  "dependencies": [
+    "HSPnet.DataLayer.TimetableRotations",
+    "HSPnet.DataLayer.TimetableEntries",
+    "HSPnet.Framework.HSPnetPage",
+    "JavaScript and AjaxControlToolkit for client-side UI/validation",
+    "Database access for cohort/timetable/rotation records"
+  ],
+  "exceptions": [
+    "Invalid date format",
+    "Start date after end date",
+    "Rotation dates outside of course/timetable"
+  ],
+  "source_document_ids": [
+    "075d7bc5-6794-5411-8449-f2c9badfb381",
+    "084b9a0c-4475-5bff-a225-8643df22f092",
+    "0f9d67e7-72c6-502c-9f32-17b4809eab47",
+    "3a6407de-4584-5130-8699-90d729c60cb2",
+    "3f56c673-dd3f-5c4c-b471-64499e3db45e",
+    "475da45a-2a4d-574d-9058-f22b6d86d72f",
+    "49919a7e-534f-5b9f-bc49-ef6910e277d4",
+    "4d2eb54e-150d-5c52-8f7d-fc5f383c2f0c",
+    "4f7fadea-4a91-564c-9ed0-b68b4bd1116b",
+    "4fddba0d-d2ce-5424-aac5-5be9a24906ad",
+    "592bbd7e-5eed-5c0e-a438-22943c8a6672",
+    "59eab3cf-e483-5c7a-b5a1-fd99e35f37eb",
+    "82dbd1fb-7288-56d7-8e45-0214057efbdd",
+    "a6015431-4eb3-5495-972b-09a80ef375c3",
+    "b1086307-cdb1-554f-abd7-d2e9d0c3f8c2",
+    "b1add5c7-8eba-5428-b187-0c19c07f8c77",
+    "b67d407d-6703-578f-951a-27e1924ad083",
+    "c38a45b6-8b86-5451-b74f-857c0394a802",
+    "d1918c51-9bd8-5db2-897f-d1f3bfdf391c",
+    "d5876471-1334-5ba7-832e-a10ce9e88bcf",
+    "d9b60f93-34d1-580d-a2bc-ee29e6cd1d03",
+    "ddb430e4-11fe-5b6d-9394-15b817e257f0",
+    "e1ba2b16-15f4-5982-8005-22677af0e7f0",
+    "e9aec944-acb4-5d7a-a307-299cc22fe8b0",
+    "edf2c75b-85b3-5c22-88b6-3ec51a071d8d",
+    "f0cf26db-e53b-5429-8f8e-8aaa22ef620c",
+    "f83dde3d-eddb-5867-961c-1564dfc52063"
+  ],
+  "content_gaps": [
+    "No actual backend database schema for TimetableRotation or TimetableEntries",
+    "No explicit sample data for rotations or full example of UI in use",
+    "No security model details beyond ViewOnly/Authenticated user",
+    "No detail on error handling for backend exceptions"
+  ]
+}
