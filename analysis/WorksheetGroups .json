@@ -1,11 +1,23 @@
 {
   "filename": "WorksheetGroups",
   "found": true,
-  "summary": "WorksheetGroups manages groupings for worksheet entries, facilitating batch operations and reporting on placements, site-instructor assignments, shift schedules, and requests. The content covers data models, business rules, workflows, and system behaviors for group creation, editing, deletion, searching, and reporting.",
-  "purpose": "To enable group-based management of worksheet entries, allowing bulk operations, reporting, and integration with placement requests, site profiles, and related entities. It supports workflows for batch copying, updating, scheduling, and reporting on group-based placements.",
+  "summary": "WorksheetGroups implement grouping, searching, updating, and reporting of worksheet entries tied to academic, site, instructor, and service contexts in HSPnet. They support bulk operations, grouping rules, calendar and scheduling logic, call for offers, capacity management, and integration with print/report jobs.",
+  "purpose": "To enable efficient management, grouping, searching, updating, scheduling, and reporting of worksheet entries (for placements, courses, sites, instructors, etc.) particularly in bulk or group contexts. Designed for workflow automation and tracking within academic placement systems.",
   "entities": [
     "WorksheetGroup",
-    "WorksheetGroupStats"
+    "WorksheetGroupStats",
+    "Agency",
+    "Site",
+    "Service",
+    "Destination",
+    "Instructor",
+    "Supervisor",
+    "Cohort",
+    "Term",
+    "Course",
+    "PlacementRequest",
+    "CalendarGrid",
+    "PrintJob"
   ],
   "fields": [
     "ID",
@@ -50,8 +62,8 @@
     "ServicePositionID",
     "PositionNumber",
     "FTE",
-    "AgencyID",
     "AgencyShortName",
+    "AgencyID",
     "SiteShortName",
     "ServiceShortName",
     "DestinationShortName",
@@ -94,156 +106,113 @@
     "TemplateWorksheetGroupID",
     "AllowStudentPref",
     "CampusID",
-    "ProgramUseSiteInstructor",
-    "PRD_IDFormatted",
-    "StartDateFormatted",
-    "EndDateFormatted",
-    "StartDateFormattedReadOnly",
-    "EndDateFormattedReadOnly",
-    "DaysFormatted",
-    "StatusCodeFormatted",
-    "ReplyByDateFormatted",
-    "GroupHasBlock2",
-    "StartDateBlock2Formatted",
-    "EndDateBlock2Formatted",
-    "StartDateBlock2FormattedReadOnly",
-    "EndDateBlock2FormattedReadOnly",
-    "CalendarGridIcon",
-    "CalendarGridNavigate",
-    "CalendarGridToolTip",
-    "ShowCalendarGridIcon",
-    "InstructorNameFormatted",
-    "RequestedFormatted",
-    "SentFormatted",
-    "Accepted",
-    "AcceptedFormatted",
-    "RequestedBlock2Formatted",
-    "SentBlock2Formatted",
-    "AcceptedBlock2Formatted",
-    "UseAsTemplate",
-    "CFOFormatted",
-    "RotationIndicatorFormatted",
-    "OverCapacityEntryFound",
-    "DepartmentShortName",
-    "ProgramShortName",
-    "CohortShortName",
-    "TermShortName",
-    "CourseShortName",
-    "RcvAgencyShortName",
-    "GoverningOrg",
-    "CampusName",
-    "CampusShortName",
-    "CampusNameFormatted",
     "Section",
+    "ProgramUseSiteInstructor",
     "ClosureWarningDates",
-    "RequireRequestCode",
-    "DisplayClosureWarningDates"
+    "RequireRequestCode"
   ],
   "actors": [
     "Placement Coordinator",
-    "Site Instructor",
+    "Instructor",
     "Supervisor",
-    "Student",
-    "System/Database"
+    "Agency Staff",
+    "System (HSPnet)"
   ],
   "workflows": [
     {
-      "name": "Group Worksheet Search",
+      "name": "GroupWorksheetSearch",
       "steps": [
-        "Accept parameters: groupFlag, cohortID, termID, courseID, siteID, instructorFilter, dateFilter, serviceCodeID, cfoMode, agencyID, governingOrgID, courseUsesBlocks, block, multipleStatusList, draftFilter",
-        "Retrieve cohort terms and set termStartDate and programDisciplineID",
-        "Call stored procedure 'GroupWorksheetSearch'",
-        "Iterate through records and build WorksheetGroup entries",
-        "Format fields for display",
-        "Calculate statistical totals (requested, sent, accepted, confirmed, rotations)"
+        "Set up search parameters (groupFlag, IDs, filters, use blocks, etc.)",
+        "Invoke stored procedure 'GroupWorksheetSearch'",
+        "Iterate through results and construct WorksheetGroup entries",
+        "Format dates and status codes",
+        "Calculate and accumulate statistics, including rotations and blocks",
+        "Handle capacity and over-capacity warnings",
+        "Return list and stats"
       ]
     },
     {
-      "name": "Group Worksheet Accepted",
+      "name": "GroupWorksheetAccepted",
       "steps": [
-        "Call stored procedure 'GroupWorksheetAccepted' with parameters for acceptance filtering",
-        "Accumulate accepted counts for groups"
+        "Set up parameters (groupFlag, rollup, worksheetID, filters, etc.)",
+        "Invoke stored procedure 'GroupWorksheetAccepted'",
+        "Iterate through results, construct WorksheetGroup entries",
+        "Return accepted counts, group/block info"
       ]
     },
     {
-      "name": "Group Worksheet Add",
+      "name": "GroupWorksheetAdd/Update",
       "steps": [
-        "Accept all group entry parameters",
-        "Call stored procedure 'GroupWorksheetAdd'",
-        "Return new group ID"
+        "Prepare parameters for add/update (including all fields)",
+        "Invoke 'GroupWorksheetAdd' or 'GroupWorksheetUpdate' as needed",
+        "Update DB with new values, including block2, rotation, preceptors, etc.",
+        "Handle template and request code requirements"
       ]
     },
     {
-      "name": "Group Worksheet Update",
+      "name": "SendToDestination (Reporting/Printing)",
       "steps": [
-        "Accept all group update parameters",
-        "Call stored procedure 'GroupWorksheetUpdate'"
+        "Prepare PRs and WorksheetGroups",
+        "For each entry, create report/placement print jobs as needed",
+        "Handle print job status, deletion, and warnings",
+        "Support individual PDFs and report queueing"
       ]
     },
     {
-      "name": "Group Worksheet Delete",
+      "name": "Copy/Change Date",
       "steps": [
-        "Accept groupFlag and worksheets",
-        "Iterate through groups, delete if PRExists is false",
-        "Return notDeleted count"
-      ]
-    },
-    {
-      "name": "Group Worksheet Copy Previous Term",
-      "steps": [
-        "Copy entries from prior term into new term for batch operations"
-      ]
-    },
-    {
-      "name": "Send To Destination (Reporting)",
-      "steps": [
-        "Prepare print jobs, letters, or schedules",
-        "Close or delete print jobs as needed",
-        "Update statuses and warnings"
+        "For selected entries, copy previous term data or update date",
+        "Handle bulk/batch operations",
+        "Delete or warn as required"
       ]
     }
   ],
   "business_rules": [
-    "If instructorID is 0, set InstructorNameFormatted to ALL; if -1, set to Unassigned; else use named instructor",
-    "If siteID, governingOrgID, serviceID, campusID are 0, set corresponding fields to ALL",
-    "GroupFlag determines batch behavior vs individual records",
-    "Multiple instructors and preceptors are formatted and shown if present",
-    "ShowCalendarGridIcon only if PRD_ID and DestinationID are valid and PRStatus is not DECA/CANC",
-    "OverCapacityEntryFound when Requested > MaxSpaces",
-    "RequireRequestCode is enforced at entry level",
-    "Closure warnings are displayed based on ClosureWarningDates"
+    "If siteID, governingOrgID, instructorID, or serviceID is 0, use 'ALL' for display",
+    "If instructorID == -1, show as 'Unassigned'",
+    "If campusID == 0 and zeroIsAllCampuses, show as 'ALL'; else as 'No Campus'",
+    "Capacity overflows are flagged visually",
+    "CFO (Call For Offers) entries are managed with group and parent/child logic",
+    "Statuses and formatting depend on PRStatus, block number, and other flags",
+    "Templates require match on TemplateWorksheetGroupID",
+    "Days and times are formatted for scheduling display including shift/amendment icons"
   ],
   "validations": [
-    "Date and time formatting (StartDateFormatted, EndDateFormatted)",
-    "Requested and Sent counts must be positive integers",
-    "Instructor, site, service, destination, and campus IDs validated for presence and type",
-    "Status codes are formatted and checked for business meaning"
+    "Day fields (Monday-Sunday) and VariousDays must be logically consistent",
+    "Date/time blocks must be valid and formatted",
+    "MaxSpaces must not be exceeded unless flagged",
+    "Request codes may be required for certain entries",
+    "Supervisor/instructor presence validated for site instructor logic"
   ],
   "calculations": [
-    "Stats: RequestTotal, CreatedTotal, AcceptedTotal, ConfirmedCount, GroupRotationTotal, RequestRotationTotal, CreatedRotationTotal, AcceptedRotationTotal, AcceptedOfferCount",
-    "Derived fields: RequestedFormatted, AcceptedFormatted, PRD_IDFormatted, RotationIndicatorFormatted"
+    "Requested = max(Sent, Requested) per entry",
+    "Accepted counts per group/block, including offer remaining logic for CFO",
+    "Column totals: RequestTotal, CreatedTotal, AcceptedTotal, plus rotation/block equivalents"
   ],
   "conditions": [
-    "If UseCallForOffers is true and CFOWorksheetGroupID is 0, entry is CFO parent",
-    "If PRStatus is DECA or CANC, reporting and icons are disabled",
-    "If entry has AmendmentExists, icon and warning is shown"
+    "If groupFlag is true, grouping and block2 logic applies",
+    "CFOParent determined by UseCallForOffers and CFOWorksheetGroupID",
+    "Date filters and status code lists control results",
+    "DraftFilter returns only entries without PR"
   ],
   "system_behavior": [
-    "Bulk group operations are supported (add, update, delete, copy)",
-    "Print job and reporting integration for outputs",
-    "Validation and warnings for over-capacity, closure conflicts, and missing data",
-    "Dynamic formatting for UI fields and icons"
+    "Bulk/batch processing for worksheet groups",
+    "Integration with print/report jobs (including deletion, update, queueing)",
+    "Error/warning handling for database and print job operations",
+    "Formatting for calendar grid, scheduling icons, and site instructor/preceptor presentation"
   ],
   "dependencies": [
-    "Terms.CohortTerms for term information",
-    "Sites and Agencies for site/agency dropdowns",
-    "StatusCodeFormatter for status formatting",
-    "Database and stored procedures for all CRUD and reporting operations"
+    "Database procedures (GroupWorksheetSearch, GroupWorksheetAccepted, etc.)",
+    "Status code formatter",
+    "Date/time formatters",
+    "Hashing for URL navigation",
+    "Resources for labels, statuses, error/warning messages"
   ],
   "exceptions": [
-    "No PRs or entries found leads to warning messages",
-    "Over-capacity entries trigger error formatting",
-    "SQLErrorOccured triggers error messages on print job operations"
+    "No entries for selected group/term: warning message",
+    "SQLError during print jobs: error message",
+    "Over-capacity flagged visually and/or in warning",
+    "Deleted entries with PR exist: not deleted, warning"
   ],
   "source_document_ids": [
     "00ab77b7-5c9f-5483-b04e-f9d65413f50e",
@@ -297,5 +266,11 @@
     "f82dfcad-8e7e-5ae3-bf41-9c52580d1f24",
     "fe1086b4-20b1-5a89-ae55-15c88b7b9a6b"
   ],
-  "content_gaps": []
+  "content_gaps": [
+    "No explicit business process diagrams.",
+    "No mapping of all possible status codes or workflow transitions.",
+    "No information about user interface actions or error recovery beyond message display.",
+    "No details on API endpoints or integration with external systems.",
+    "No sample data or user stories."
+  ]
 }
