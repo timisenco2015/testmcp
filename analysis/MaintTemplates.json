@@ -1,78 +1,112 @@
 {
   "filename": "MaintTemplates",
   "found": true,
-  "summary": "MaintTemplates provides a web-based maintenance interface for managing template records in HSPnet. Users can add, edit, delete, and filter templates. The interface uses ASP.NET controls to facilitate CRUD operations, validation, error/warning messaging, and supports multi-locale templates.",
-  "purpose": "To allow authorized users to maintain a list of templates with names and content, including alternate locale descriptions, in a structured, validated, and user-friendly manner.",
+  "summary": "MaintTemplates is an ASP.NET web page and supporting code for maintaining template records in a grid interface. Users can view, search, add, edit, and delete templates. The system supports error and warning handling, validation, and modal detail views for record editing.",
+  "purpose": "To allow authorized users to manage template records (add, edit, delete) used elsewhere in the system via a searchable, grid-based web interface. Provides validation and feedback to ensure data integrity.",
   "entities": [
-    {"name": "TemplateRecord", "description": "Represents a template entry with Name, Template, TemplateAlt fields, and ID."},
-    {"name": "Templates", "description": "Collection/class for retrieving and manipulating template data."}
+    {
+      "name": "TemplateRecord",
+      "description": "Represents a single template, including Name, Template, and TemplateAlt fields."
+    },
+    {
+      "name": "Templates",
+      "description": "Collection and data access layer for TemplateRecord entries."
+    }
   ],
   "fields": [
-    {"name": "ID", "type": "int", "description": "Unique identifier for each template record."},
-    {"name": "Name", "type": "string", "description": "Template name. Required field with max length 50."},
-    {"name": "Template", "type": "string", "description": "Template content/main description. Required, multiline."},
-    {"name": "TemplateAlt", "type": "string", "description": "Alternate locale content. Required, multiline."},
-    {"name": "Keyword", "type": "string", "description": "Search/filter keyword entered by user."}
+    {
+      "name": "ID",
+      "type": "int",
+      "required": false,
+      "description": "Primary key for template record, hidden in UI."
+    },
+    {
+      "name": "Name",
+      "type": "string",
+      "required": true,
+      "description": "Name of the template. Required, max length 50."
+    },
+    {
+      "name": "Template",
+      "type": "string",
+      "required": true,
+      "description": "Main template text. Required, multiline textbox."
+    },
+    {
+      "name": "TemplateAlt",
+      "type": "string",
+      "required": true,
+      "description": "Alternate locale text for the template. Required, multiline textbox."
+    },
+    {
+      "name": "Keyword",
+      "type": "string",
+      "required": false,
+      "description": "Search keyword used to filter templates."
+    }
   ],
   "actors": [
-    {"name": "UserSession", "roles": ["User performing maintenance", "Authentication context"]},
-    {"name": "HSPnetPage", "roles": ["Base page class"]},
-    {"name": "Grid", "roles": ["UI CRUD handler"]}
+    {
+      "name": "UserSession",
+      "role": "Authenticated user performing maintenance actions."
+    }
   ],
   "workflows": [
     {
       "name": "Template Maintenance",
       "steps": [
-        "Page loads; sets up session context.",
-        "User optionally enters Keyword for filtering.",
-        "User clicks Refresh to filter template list.",
-        "Grid displays templates with Name, Template, TemplateAlt.",
-        "User clicks Add to create a new template (shows DetailsView).",
-        "User enters Name, Template, TemplateAlt; validation required.",
-        "User clicks Save: If valid and ID=0, adds new; else updates existing.",
-        "User clicks Edit on a row to modify existing template (DetailsView opens; values populated).",
-        "User clicks Delete to permanently remove template (confirmation handled).",
-        "System shows error/warning messages as needed; panels can be hidden.",
-        "After add/edit/delete, grid is refreshed and main panel updated."
+        "User loads page; data is refreshed and displayed in grid.",
+        "User searches using a keyword (optional; defaults to '%').",
+        "User clicks Add, Edit, or Delete for a template row.",
+        "Add/Edit: Modal details panel pops up with data fields.",
+        "User enters/updates Name, Template, TemplateAlt.",
+        "Validations are performed (required fields).",
+        "On Save, data is persisted (Add or Update) and grid refreshed.",
+        "On Delete, confirmation is shown and record is removed.",
+        "Errors and warnings are shown in panels as needed.",
+        "Page supports AJAX updates for smooth operation."
       ]
     }
   ],
   "business_rules": [
-    "Name, Template, and TemplateAlt fields must be specified (required).",
-    "Name field max length is 50 characters.",
-    "Delete action requires confirmation.",
-    "Keyword filtering applies wildcard if empty."
+    "Name, Template, and TemplateAlt fields are mandatory.",
+    "Name maximum length is 50 characters.",
+    "Keyword search defaults to '%' if empty.",
+    "Row actions (Add/Edit/Delete) require authentication (UserSession).",
+    "Data is refreshed after every modification.",
+    "Errors and warnings are presented in designated panels."
   ],
   "validations": [
-    "RequiredFieldValidator on Name, Template, TemplateAlt.",
-    "MaxLength validator for Name.",
-    "DisplayMode for ValidationSummary is List; ShowMessageBox enabled.",
-    "Errors and warnings are shown in dedicated panels."
+    "RequiredFieldValidator to ensure Name, Template, TemplateAlt are not empty.",
+    "MaxLength enforced for Name (50 chars)."
   ],
   "calculations": [
-    {"name": "TruncateString", "description": "Template and TemplateAlt fields are truncated to 75 characters in grid display."}
+    "Template and TemplateAlt fields are truncated for display (75 chars in Grid).",
+    "ID is parsed from CommandArgument for actions."
   ],
   "conditions": [
-    "If Page.IsValid on save, then update/add record.",
-    "If ID=0, add new record; else update existing."
+    "If txtKeyword is empty, search uses '%'.",
+    "If IsPostBack is false, RefreshData() and focus on txtKeyword.",
+    "If Page.IsValid on Save, record is added/updated."
   ],
   "system_behavior": [
-    "Panel for error/warning messages shown/hidden based on actions.",
-    "GridData row command handler dispatches actions for Add, Edit, Delete.",
-    "DetailsView handles Save, Cancel for template editing.",
-    "RefreshData fetches templates filtered by keyword.",
-    "Page setup and teardown handled on load/unload.",
-    "Ajax UpdatePanel used for responsive UI updates."
+    "AJAX panels for error/warning and modal popups.",
+    "Grid and modal detail views auto-refresh after actions.",
+    "Panels display error/warning messages based on state.",
+    "MasterPage integration for layout and shared controls.",
+    "Auto-generated fields for UI controls, accessible in code-behind."
   ],
   "dependencies": [
-    "AjaxControlToolkit for modal, always-visible controls.",
-    "HSPnet.DataLayer for template data operations.",
-    "HSPnet.UI.Grid for grid actions/confirmation.",
-    "Resource files for localized strings."
+    "HSPnet.Framework.HSPnetPage",
+    "HSPnet.DataLayer",
+    "HSPnet.UI",
+    "AjaxControlToolkit",
+    "Resources:Resources for UI text"
   ],
   "exceptions": [
-    "Invalid input triggers error panel with list of issues.",
-    "Delete actions require user confirmation (no undo)."
+    "If casting of keys fails, no data is loaded.",
+    "If required fields are not filled, validation error is shown.",
+    "If user is not authenticated, actions may be blocked."
   ],
   "source_document_ids": [
     "14e0e280-2c2d-50b0-8735-fac94445af98",
@@ -92,9 +126,8 @@
     "f67b0c7c-aa47-588a-9091-e0a6a280251f"
   ],
   "content_gaps": [
-    "No explicit authentication/authorization logic found.",
-    "Underlying database schema and stored procedures not shown.",
-    "Resource/localization file values not included.",
-    "UI sample data not shown."
+    "No explicit information about permission checks or user roles beyond UserSession.",
+    "No details about how templates are used elsewhere in the system.",
+    "No sample template data or format."
   ]
 }
