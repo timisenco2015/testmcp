@@ -1,112 +1,139 @@
 {
-  "filename": "EmailPopupDocument",
+  "filename": "ExpenseBatch",
   "found": true,
-  "summary": "The EmailPopupDocument module manages email attachment document records for a popup interface, including searching and deleting documents based on serialized string data.",
-  "purpose": "To represent and control the lifecycle of documents attached to an email popup, allowing listing and deletion of files and associated folders.",
+  "summary": "ExpenseBatch manages expense batch records, including creation, updating, searching, and deletion. It encapsulates the data structure and persistence logic for expense batches within the system.",
+  "purpose": "To provide CRUD (Create, Read, Update, Delete) operations and structure for expense batches, corresponding to workflow needs for department-level tracking and status management of expense batches.",
   "entities": [
-    {
-      "name": "EmailPopupDocument",
-      "attributes": [
-        "ID",
-        "FileName",
-        "FilePath",
-        "Checked"
-      ]
-    },
-    {
-      "name": "EmailPopupDocuments",
-      "type": "collection"
-    }
+    "ExpenseBatch"
   ],
   "fields": [
     {
-      "entity": "EmailPopupDocument",
       "name": "ID",
       "type": "int",
-      "description": "Unique identifier (sequential index) for the document"
+      "description": "Primary identifier for the ExpenseBatch"
     },
     {
-      "entity": "EmailPopupDocument",
-      "name": "FileName",
+      "name": "DepartmentID",
+      "type": "int",
+      "description": "Department associated with the batch"
+    },
+    {
+      "name": "BatchDescription",
       "type": "string",
-      "description": "Name of the attached file"
+      "description": "Description of the batch"
     },
     {
-      "entity": "EmailPopupDocument",
-      "name": "FilePath",
+      "name": "BatchDate",
+      "type": "DateTime",
+      "description": "The date the batch was created"
+    },
+    {
+      "name": "StatusCodeID",
+      "type": "int",
+      "description": "Current status code reference"
+    },
+    {
+      "name": "StatusCode",
       "type": "string",
-      "description": "Local server path to the file"
+      "description": "Status code"
     },
     {
-      "entity": "EmailPopupDocument",
-      "name": "Checked",
-      "type": "Boolean",
-      "description": "Indicates if the document is selected/checked"
+      "name": "StatusDescription",
+      "type": "string",
+      "description": "Human-readable description of batch status"
+    },
+    {
+      "name": "ClosedDate",
+      "type": "DateTime",
+      "description": "Date the batch was closed"
+    },
+    {
+      "name": "BatchNumberFormatted",
+      "type": "string",
+      "description": "Formatted batch number for display, combining ID and status description"
     }
   ],
   "actors": [
-    "System",
-    "User (implicit, through actions)"
+    "HSPnetSession (system/service layer)"
   ],
   "workflows": [
     {
-      "name": "Search for Email Popup Documents",
+      "name": "Search for Expense Batches",
       "steps": [
-        "Receive serialized DataInfo string containing document metadata, separated by '|' delimiters.",
-        "Split DataInfo into entries.",
-        "For each entry, split by '>' into [filename, filepath].",
-        "If well-formed, instantiate EmailPopupDocument with sequential ID, filename, filepath.",
-        "Return list of EmailPopupDocument objects."
+        "Call ExpenseBatches.Search with departmentID.",
+        "Procedure 'ExpenseBatchSearch' is invoked.",
+        "Results are read and ExpenseBatch objects are constructed with ID, StatusCode, StatusDescription, BatchNumberFormatted.",
+        "Return list of ExpenseBatch items."
       ]
     },
     {
-      "name": "Delete Email Popup Document",
+      "name": "Search ExpenseBatch by ID",
       "steps": [
-        "Receive DataInfo string and target ID.",
-        "Iterate over DataInfo entries; for the matching ID:",
-        "Split out [filename, filepath], extract folder name from filepath.",
-        "Attempt to delete file at the given path.",
-        "Attempt to delete the associated folder.",
-        "Suppress and ignore any exceptions during file/folder deletion.",
-        "Reconstruct DataInfo string excluding the deleted entry.",
-        "Return the updated DataInfo string."
+        "Call ExpenseBatch.SearchID with batch ID.",
+        "Procedure 'ExpenseBatchSearchID' is invoked.",
+        "Retrieve batch fields: ID, DepartmentID, BatchDescription, BatchDate, StatusCodeID, StatusCode, StatusDescription (with language support), ClosedDate, BatchNumberFormatted.",
+        "Return populated ExpenseBatch object."
+      ]
+    },
+    {
+      "name": "Add ExpenseBatch",
+      "steps": [
+        "Call ExpenseBatch.Add with session, departmentID, batchDescription, batchDate.",
+        "Procedure 'ExpenseBatchAdd' is invoked with specified parameters.",
+        "Read returned ID from DB.",
+        "Return new ExpenseBatch ID."
+      ]
+    },
+    {
+      "name": "Update ExpenseBatch",
+      "steps": [
+        "Call ExpenseBatch.Update with session, id, batchDescription, batchDate, statusCodeID.",
+        "Procedure 'ExpenseBatchUpdate' is invoked.",
+        "Data is updated in DB."
+      ]
+    },
+    {
+      "name": "Delete ExpenseBatch",
+      "steps": [
+        "Call ExpenseBatch.Delete with session and id.",
+        "Procedure 'ExpenseBatchDelete' is invoked.",
+        "Record is deleted from DB."
       ]
     }
   ],
   "business_rules": [
-    "Only entries with exactly two parts separated by '>' are processed as valid documents.",
-    "IDs are assigned sequentially during Search execution.",
-    "File and folder deletion attempts are wrapped in try/catch; failures are suppressed (not surfaced to the caller)."
+    "StatusDescription is selected to use the alternate language field if language preferences are set.",
+    "BatchNumberFormatted combines ID and StatusDescription for display."
   ],
   "validations": [
-    "DataInfo must not be null or empty.",
-    "Entries must contain exactly one '>' delimiter separating filename and filepath."
+    "All CRUD method calls rely on parameterized stored procedures, assuming DB-level validations on ID, departmentID, batchDescription, batchDate, statusCodeID."
   ],
   "calculations": [
-    "ID is incremented sequentially for each parsed document in Search."
+    "BatchNumberFormatted = ID + \" - \" + StatusDescription"
   ],
   "conditions": [
-    "If DataInfo is empty, return an empty list or string."
+    "If StatusDescriptionAlt is present and language preference is set, use it; otherwise, use StatusDescription."
   ],
   "system_behavior": [
-    "Suppress exceptions when deleting files or folders (silent failure).",
-    "Document and folder deletions are performed on the file system based on parsed DataInfo."
+    "All data access is through HSPnetSession's DB context and stored procedures.",
+    "ExpenseBatch objects are built from DB data and returned for use in application/UI."
   ],
   "dependencies": [
-    ".NET System.IO (File.Delete, Directory.Delete)",
-    "String parsing to manage document data",
-    ".NET List<T> for document collection"
+    "HSPnetSession",
+    "SQL stored procedures: ExpenseBatchSearch, ExpenseBatchSearchID, ExpenseBatchAdd, ExpenseBatchUpdate, ExpenseBatchDelete"
   ],
   "exceptions": [
-    "Any exceptions during File.Delete or Directory.Delete are caught and ignored."
+    "If no data is returned from the database (reader is null), methods return an empty list or default ExpenseBatch object.",
+    "All DB readers are properly closed after use."
   ],
   "source_document_ids": [
-    "7287734e-f13d-550f-9249-4242db620766",
-    "927bc837-5564-5759-9324-27c6d5d7321d"
+    "060e08d3-49ca-5e40-bea0-849f4e6173e1",
+    "3559737f-0154-520e-be2b-d3dd2c3de539",
+    "b2216e58-a144-55cb-8b87-3da9787fc1d7"
   ],
   "content_gaps": [
-    "User interaction (UI) details are not described.",
-    "No information about handling permissions or security context for file deletion.",
-    "No information about persistence beyond in-memory string or the database field sources."
+    "No information about UI interactions or user-triggered validations.",
+    "No explicit business logic for edge cases (e.g., deletion of closed batches).",
+    "No detail on permissions or authorization checks."
   ]
 }
