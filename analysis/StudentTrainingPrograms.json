@@ -1,0 +1,143 @@
+{
+  "filename": "StudentTrainingPrograms",
+  "found": true,
+  "summary": "StudentTrainingPrograms is a user control and data layer module that manages the assignment, tracking, and workflow of student training program records. It supports CRUD operations (create, read, update, inactivate/reactivate) for training program entries associated with students. The system enforces workflow-driven form submissions, validations, and conditional rendering based on editability.",
+  "purpose": "To allow users (typically staff) to manage student training programs — add, update, inactivate/reactivate entries; search entries by student or ID; display program data in editable/read-only forms; and ensure data quality through validations.",
+  "entities": [
+    {
+      "name": "StudentTrainingProgram",
+      "description": "A record linking a student to a training program, includes program, stage, agency, dates, comments, activity status."
+    },
+    {
+      "name": "StudentTrainingPrograms",
+      "description": "Collection manager for StudentTrainingProgram objects; provides search, add, update, inactivate logic."
+    }
+  ],
+  "fields": [
+    "ID",
+    "StudentID",
+    "ProgramID",
+    "DepartmentShortName",
+    "ProgramShortName",
+    "StageCodeID",
+    "StageDescription",
+    "AgencyID",
+    "AgencyShortName",
+    "StartDate",
+    "EndDate",
+    "Comments",
+    "Inactive",
+    "StartDateFormatted",
+    "EndDateFormatted",
+    "ProgramNameFormatted"
+  ],
+  "actors": [
+    "User (typically staff)",
+    "HSPnetSession",
+    "Grid (UI)",
+    "ScriptManager"
+  ],
+  "workflows": [
+    {
+      "name": "Add Student Training Program",
+      "steps": [
+        "User initiates Add operation via gridData/cmdAdd.",
+        "FormView uxDetail changes to Insert mode.",
+        "User fills required fields (program, stage, agency, dates, comments).",
+        "Validations are triggered (e.g. required fields, date format).",
+        "Upon valid input, ObjectDataSource dsDetail calls Add method with parameters.",
+        "DB procedure StudentDetailsTrainingProgramAdd executes.",
+        "Redirect and cache session."
+      ]
+    },
+    {
+      "name": "Edit Student Training Program",
+      "steps": [
+        "User initiates Edit operation via gridData/cmdEdit with selected row ID.",
+        "FormView uxDetail changes to Edit mode.",
+        "Fields populated from DB via dsDetail.SelectParameters.",
+        "User updates fields.",
+        "Validations are triggered.",
+        "Upon valid input, ObjectDataSource dsDetail calls Update method.",
+        "DB procedure StudentDetailsTrainingProgramUpdate executes.",
+        "Redirect and cache session."
+      ]
+    },
+    {
+      "name": "Inactivate/Reactivate Program Entry",
+      "steps": [
+        "User triggers cmdDelete or cmdReactivate in gridData.",
+        "inactivateRow method calls DataLayer.StudentTrainingPrograms.Inactivate with ID and inactivate flag.",
+        "DB procedure StudentDetailsTrainingProgramInactivate executes.",
+        "Redirect and cache session."
+      ]
+    },
+    {
+      "name": "Search Student Training Programs",
+      "steps": [
+        "Search invoked (by studentID or ID) using DataLayer.StudentTrainingPrograms.Search or SearchID methods.",
+        "Stored procedures StudentDetailsTrainingProgramSearch or StudentDetailsTrainingProgramSearchID execute.",
+        "Results returned as StudentTrainingProgram objects with formatted fields."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Only users with edit permission can add/edit/inactivate/reactivate program entries.",
+    "Inactive flag controls visibility and UI action buttons (edit/delete/reactivate).",
+    "Program dropdown is populated by department and agency context.",
+    "Stage/agency dropdown values depend on entry context."
+  ],
+  "validations": [
+    "Comments field has max length 1000, enforced via UI JavaScript.",
+    "Date fields are validated and formatted (StartDateFormatted, EndDateFormatted).",
+    "Required fields (program, stage, agency, dates) must be filled; cancel on invalid.",
+    "UI disables edit fields if screen is not editable.",
+    "Dropdowns select current values on edit."
+  ],
+  "calculations": [
+    "ProgramNameFormatted is calculated: DepartmentShortName + ' / ' + ProgramShortName.",
+    "Date fields are formatted for display."
+  ],
+  "conditions": [
+    "FormView mode determines field binding, dropdown population, and command names.",
+    "ScreenIsEditable controls visibility of edit/save buttons and editability."
+  ],
+  "system_behavior": [
+    "gridData setup processes add/edit/delete/reactivate buttons per row based on Inactive status and ScreenIsEditable.",
+    "After insert/update/inactivate/reactivate, system redirects and caches session.",
+    "Dropdowns populated dynamically based on department/agency or entry being edited."
+  ],
+  "dependencies": [
+    "HSPnetSession (context for user and DB access)",
+    "Grid UI components",
+    "DateFormatter for date parsing and formatting",
+    "Dropdown control utilities",
+    "Stored procedures: StudentDetailsTrainingProgramSearch, StudentDetailsTrainingProgramAdd, StudentDetailsTrainingProgramUpdate, StudentDetailsTrainingProgramInactivate"
+  ],
+  "exceptions": [
+    "Insert/update cancelled if Page.IsValid is false.",
+    "DB access cancelled if UserSession is null.",
+    "Null/empty comments disables relevant UI elements."
+  ],
+  "source_document_ids": [
+    "0278f2e1-15e1-52a6-99a7-f338f943183e",
+    "05b14484-f473-554e-9329-5cd197d38538",
+    "094a255c-158e-5673-8035-49c3b8079045",
+    "2fb139b8-0210-50a6-828e-fa15412ab2af",
+    "4e4c7fe5-d241-55f0-8891-b5d1a1f0eb5c",
+    "5cea2d81-d05c-5e38-b063-5a61480d3ddc",
+    "6d23c568-767a-5d73-9902-2960157889ee",
+    "6fd4dd72-e302-5556-b966-7ec54d109472",
+    "7c178050-5e50-5ab3-b00e-2b86e7608f3b",
+    "aa5bf129-3c5f-592b-916d-25fefa436a58",
+    "c0e203b7-40a3-5fc8-a207-6b367df9d40e",
+    "f17f9152-f9ac-5e33-83b8-670178cb8f58",
+    "f1f0d3cc-fb97-524b-a5db-24f7339be1de",
+    "f598e46d-3a3a-509d-b28e-2ef02bc8fa36"
+  ],
+  "content_gaps": [
+    "UI layout, page navigation, and screen-level permission logic not fully described.",
+    "No explicit error handling documented for DB failures or invalid dropdown values.",
+    "No description of what triggers ScreenIsEditable or ReadOnly."
+  ]
+}
