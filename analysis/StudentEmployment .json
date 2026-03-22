@@ -1,0 +1,92 @@
+{
+  "filename": "StudentEmployment",
+  "found": true,
+  "summary": "StudentEmployment is a user control in an ASP.NET web application, designed to display and manage student employment records in a repeater grid. It handles data binding, user session validation, conditional display of UI components, access control, and details navigation for placement requests.",
+  "purpose": "To provide a UI component that enables staff and placement coordinators to view, interact with, and navigate student employment and placement request data, ensuring appropriate data display, access restrictions, and workflow steps based on session and data context.",
+  "entities": [
+    "StudentEmployment (UserControl)",
+    "HSPnetSession (UserSession)",
+    "PRSearchStudent (Placement Request Data)",
+    "rprStudEmployment (Repeater Control)",
+    "dsGridData (ObjectDataSource)"
+  ],
+  "fields": [
+    "UserSession",
+    "StudentID",
+    "AlternateObservation",
+    "PRSS.ParentPRDID",
+    "PRSS.PR_ID",
+    "PRSS.PRD_ID",
+    "PRSS.PlcAgencyID"
+  ],
+  "actors": [
+    "UserSession (Staff, Placement Coordinator)",
+    "Supervisor",
+    "Student"
+  ],
+  "workflows": [
+    {
+      "name": "Display Student Employment Data",
+      "steps": [
+        "UserControl initializes with UserSession and StudentID.",
+        "DataBind method triggered to bind data from dsGridData.",
+        "dsGridData_Selecting checks for valid UserSession; cancels if null.",
+        "Parameters 'sess' and 'StaffID' passed to data source if session valid.",
+        "Repeater rprStudEmployment binds employment records.",
+        "For each item: Set header supervisor caption, track AlternateObservation flag, determine visibility of specific UI rows, configure client-side navigation button for details, set row classes for alternating items.",
+        "Footer row visibility depends on AlternateObservation flag."
+      ]
+    },
+    {
+      "name": "Navigate to Placement Request Details",
+      "steps": [
+        "If cmdDetails button is present: Assign OnClientClick JavaScript to open PlacementRequestDetails.aspx.",
+        "Include hashed query string for PlacementRequestID, DestID, UserType, ReadOnly flag, and agency/session parameters.",
+        "Button tooltip constructed using Resources and PRD_ID."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Data source selection cancelled if UserSession is null.",
+    "StaffID and session parameters must be set for data source queries.",
+    "Details button visible only if PR_ID is nonzero and PlcAgencyID matches UserSession.AgencyID.",
+    "Row visibility for trRow3 depends on ParentPRDID > 0.",
+    "Footer visibility depends on AlternateObservation flag."
+  ],
+  "validations": [
+    "UserSession existence validation for data selection.",
+    "Row visibility checks based on ParentPRDID and AlternateObservation.",
+    "Details button visibility based on PR_ID and PlcAgencyID condition."
+  ],
+  "calculations": [],
+  "conditions": [
+    "ParentPRDID > 0 shows trRow3.",
+    "AlternateObservation flag determines footer visibility.",
+    "PR_ID == 0 or PlcAgencyID != session's AgencyID hides details button.",
+    "e.Item.ItemType == Header sets supervisor caption.",
+    "e.Item.ItemType == AlternatingItem sets special row class."
+  ],
+  "system_behavior": [
+    "Auto-generation note: Changes to code-behind affect control behavior.",
+    "Dynamic JavaScript assignment for client-navigation.",
+    "Dynamic visibility and styling for rows and UI elements."
+  ],
+  "dependencies": [
+    "Depends on HSPnetSession, PRSearchStudent, HSPnet.DataLayer, HSPnet.Framework.",
+    "Uses ObjectDataSource and Repeater controls for ASP.NET WebForms."
+  ],
+  "exceptions": [
+    "Data source selection cancelled if UserSession is null.",
+    "Control not visible if conditions fail."
+  ],
+  "source_document_ids": [
+    "008173b2-fa40-51c1-9f67-806ecc8e7c57",
+    "7c838bae-40e5-59c1-9a8e-2f9278f8d26c",
+    "ec370be1-d0e6-5139-9978-3552ffe80644"
+  ],
+  "content_gaps": [
+    "No direct description of complete data model or full list of fields for PRSearchStudent.",
+    "No workflow for editing or saving student employment records.",
+    "Some referenced resources and query string generation logic not fully documented."
+  ]
+}
