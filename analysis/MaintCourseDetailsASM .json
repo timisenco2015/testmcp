@@ -1,15 +1,15 @@
 {
   "filename": "MaintCourseDetailsASM",
   "found": true,
-  "summary": "MaintCourseDetailsASM is a user control for managing course details in HSPnet. It allows editing, viewing, and updating course parameters, including student PR selections, duplicate PR handling, withheld PR rankings, classmate stats visibility, destination configurations, and service code inclusions. The control dynamically configures available options based on course data (such as campus or section existence), provides service chooser UI elements, and enforces business logic through UI and code-behind event handlers.",
-  "purpose": "To facilitate administrators in managing all details about a course, including permissions, statuses, PR options, and associated services for students, while ensuring business rules, conditions, and dependencies are handled consistently.",
+  "summary": "MaintCourseDetailsASM manages the maintenance and detail display/editing of course-related options for ASM (likely Assignment or Academic Service Management) within the HSPnet web platform. It controls the course options presented to users such as selection/visibility of campus/section, student permissions for selecting and viewing information, and service code assignments.",
+  "purpose": "To provide a user interface and backend logic for administrators to configure and manage detailed course options, permissions, and associations related to campus, section, and services for ASM within the system.",
   "entities": [
     "Course",
+    "UserSession",
     "ServiceCode",
-    "HSPnetSession",
-    "FormView",
-    "User",
-    "ListBox"
+    "ServiceCodeASMOption",
+    "SearchableStatus",
+    "ListItem"
   ],
   "fields": [
     "maxStudentPRSelections",
@@ -31,67 +31,85 @@
   "actors": [
     "Administrator",
     "Student",
-    "System"
+    "System (HSPnet Web Application)"
   ],
   "workflows": [
     {
-      "name": "Update Course Details",
+      "name": "Load and Display Course Details",
       "steps": [
-        "Administrator opens course details form.",
-        "Screen renders components based on course (campus, section, services).",
-        "Administrator edits fields (checkboxes, dropdowns, listboxes) for course parameters.",
-        "Services chooser controls allow adding/removing service codes.",
-        "Upon save/update, fields are validated and saved with session context.",
-        "System applies business rules and redirects as necessary."
+        "On page load, initialize user session and course context.",
+        "On data select, provide session and course ID as input to data source.",
+        "If no user session, cancel data retrieval.",
+        "On data bound, update display fields (e.g., converting zero MaxStudentPRSelections to 'Not Applicable').",
+        "Display/hide campus or section controls depending on whether those entities exist for the course."
       ]
     },
     {
-      "name": "Service Code Configuration",
+      "name": "Edit Course Details",
       "steps": [
-        "Service lists are populated based on available and allowed service codes.",
-        "Administrator can move service codes between included/excluded lists.",
-        "Selections are sorted alphabetically.",
-        "Service code changes are recorded in course details."
+        "When edit invoked, switch FormView to Edit mode, bind data, and show modal if applicable.",
+        "Bind control values from the course entity into dropdowns and checkboxes.",
+        "Support for popup/modal controls for editing."
+      ]
+    },
+    {
+      "name": "Update Course Details",
+      "steps": [
+        "On item updating, read input values from controls (dropdowns, checkboxes, listboxes).",
+        "Populate new value map for all course control fields.",
+        "If 'allowAnySiteDestForSelectedService' is checked, assemble allowedServiceCodeList from selected ListBox items.",
+        "Call backend update with all collected values.",
+        "On successful update, cache the session and redirect user to details view."
+      ]
+    },
+    {
+      "name": "Configure Visible Services",
+      "steps": [
+        "Display or hide services selection row depending on checkbox state.",
+        "Allow moving services between included and not-included lists using Add/Remove (single or all) logic.",
+        "Sort included/excluded listboxes after change.",
+        "Persist service code selection as allowedServiceCodeList."
       ]
     }
   ],
   "business_rules": [
-    "If session is null, selection operations are canceled.",
-    "Course components (campus, section) are shown/hidden based on course data.",
-    "If MaxStudentPRSelections is zero, display 'NotApplicable'.",
-    "AllowAnySiteDestInService is enabled only if the relevant checkbox is checked.",
-    "Service codes selection must be tracked and submitted as a comma-separated list.",
-    "PRs allocated to campus and section fields must reflect course structure."
+    "If there is no user session on selection, the operation is cancelled.",
+    "When MaxStudentPRSelections is zero, show 'Not Applicable'.",
+    "If CampusesExist is false, hide campus controls.",
+    "If allowAnySiteDestForSelectedService is checked, the allowedServiceCodeList field must be populated.",
+    "student-visibility flags (e.g., studentsViewAgency, studentsViewDestinations) are controlled via checkboxes."
   ],
   "validations": [
-    "Session must be valid for operations.",
-    "CourseID must be provided for course selection and updates.",
-    "Service lists, dropdowns, and checkboxes are validated before saving.",
-    "Selected service code IDs must be valid strings."
+    "User session must be present for all operations.",
+    "CourseID must be specified and valid.",
+    "All values from controls (checkboxes, dropdowns, listboxes) must be captured before update.",
+    "Only valid GUIDs are used for IDs linking documents and related files."
   ],
   "calculations": [
-    "Sort service code lists alphabetically.",
-    "AllowedServiceCodeList is calculated from included service codes."
+    "allowedServiceCodeList is constructed by joining the values of all selected ListBox items with a comma.",
+    "TextList and ValueList utility functions build comma-delimited lists from listbox items."
   ],
   "conditions": [
-    "Show/hide campus or section rows based on CampusesExist and course structure.",
-    "Edit button is only visible if ScreenIsEditable.",
-    "Service chooser UI is enabled or disabled based on checkbox states."
+    "Visibility of campus and section controls depends on CampusesExist and business rules.",
+    "Display of services row depends on allowAnySiteDestForSelectedService checkbox."
   ],
   "system_behavior": [
-    "Redirects to course details page after update.",
-    "Caches user session before redirect.",
-    "Dynamically updates UI based on form data changes.",
-    "Show/hide services row when the relevant checkbox changes."
+    "Redirects to course details on update.",
+    "Caches user session after update.",
+    "Displays or hides UI controls and sections depending on data and user actions.",
+    "Binds parameters to data sources for updates and selects."
   ],
   "dependencies": [
-    "UserSession needed for all data operations.",
-    "Dropdown and ListBox controls must map to course and service parameters.",
-    "ServiceCodes.ServiceCodeListAll and ServiceCodeASMOptionByCourseID functions fetch service data."
+    "HSPnetSession (User/session management)",
+    "Course entity/model",
+    "ServiceCodes (for service code lookups)",
+    "AjaxControlToolkit (for modal popups)",
+    "Dropdown, ListBox, CheckBox controls from ASP.NET WebForms",
+    "Hashing and QueryString manipulation utilities"
   ],
   "exceptions": [
-    "If session is invalid, operations are canceled.",
-    "If course data is missing or invalid, UI components are hidden or not accessible."
+    "On missing/invalid UserSession, course details will not load.",
+    "If required controls are not found (e.g., dropdowns, checkboxes), values may not be set or updated."
   ],
   "source_document_ids": [
     "19ba5b49-43f5-5856-9092-d98ec3a45a3d",
@@ -109,8 +127,9 @@
     "f9ed376a-9105-5493-901f-860a57734594"
   ],
   "content_gaps": [
-    "Underlying data structure for Course and ServiceCode entities is not fully defined.",
-    "UI rendering logic relies on external resources and methods (e.g., Resources.NotApplicable, ServiceCodes.ServiceCodeListAll) not detailed in the content.",
-    "Exact validation rules for field values (e.g., allowed formats, limits) are not described."
+    "No explicit error handling is described for control-not-found scenarios.",
+    "Exact UI layout and all validation feedback messages are not fully detailed.",
+    "Assumes existence and correct configuration of backend objects (e.g., ServiceCodes, Course, HSPnetSession), but no source or schema for them.",
+    "Details on security or access control for editing/updates are not found."
   ]
 }
