@@ -1,95 +1,96 @@
 {
   "filename": "StudentPreInfControl",
   "found": true,
-  "summary": "StudentPreInfControl is a web user control in the HSPnet application, designed to manage and display student infection control prerequisites, including various mask-related fields and infection control solutions. The control consists of FormViews for displaying and editing student prerequisite data, integrates DropDownLists for mask sizes and solutions, uses AJAX for calendar selection, and ensures fields are properly translated and populated for both English and French language users.",
-  "purpose": "To facilitate tracking, viewing, and editing the infection control prerequisites for students, including mask fit test dates, mask sizes, alternative mask sizes, mask expiry checks, and infection control solutions. The control ensures correct data entry, localization, workflow handling, and proper UI behavior for authorized users.",
+  "summary": "StudentPreInfControl is a user control within the HSPnet application that manages student infection control prerequisites, including N95 mask fit test details and infection control solutions. It enables viewing, editing, and updating of relevant fields for a student and handles localization, field validations, dropdown selections, and asynchronous operations.",
+  "purpose": "The purpose of StudentPreInfControl is to facilitate the capture, display, and management of student prerequisites related to infection control, such as N95 mask fit test dates/sizes and infection control solution selections. It provides workflows for data entry, validation, and ensures proper localization and system behavior during updates.",
   "entities": [
-    "StudentPreInfControl",
     "StudentPrerequisite",
     "HSPnetSession",
-    "QueryString",
     "Grid",
     "Dropdown",
-    "Localization"
+    "Localization",
+    "DateFormatter",
+    "UserSession"
   ],
   "fields": [
     "N95MaskSizeCodeID",
     "N95MaskAltSizeCodeID",
     "N95MaskFitTestExpiryDateCheckID",
     "InfectionControlSolutionID",
-    "txtCalendarPlaceholder",
-    "calCalendarPlaceholder",
+    "N95MaskSizeUnknownCodeID",
     "StudentID",
-    "UserSession",
-    "ReadOnly",
-    "ScreenIsEditable",
-    "MaxDate",
-    "N95MaskSizeUnknownCodeID"
+    "SessionID",
+    "UseAltLanguageFields",
+    "MaxDate"
   ],
   "actors": [
     "Student",
-    "System User",
-    "Page",
-    "ScriptManager"
+    "User (with session)",
+    "System Administrator"
   ],
   "workflows": [
     {
-      "name": "Student Infection Control Prerequisite Management",
+      "name": "Prerequisite Detail Update",
       "steps": [
-        "Page loads and binds StudentPreInfControl.",
-        "ObjectDataSource selects student prerequisite details based on StudentID and UserSession.",
-        "FormView fvmStdPrerequisite displays and translates fields.",
-        "User initiates edit (cmdEdit), switches FormView to edit mode, shows modal popup.",
-        "User enters/edit mask size, alt mask size, mask fit test date, expiry check, infection control solution.",
-        "Dropdown values are selected and populated correctly, with localization applied.",
-        "JavaScript variables initialized and registered for client validation and async postbacks.",
-        "User saves changes (cmdSave), triggering ItemUpdating event.",
-        "Validation executed; if invalid, update is canceled.",
-        "If valid, new values updated and redirected.",
-        "Session updated and user redirected to InfectionControl page."
+        "User accesses infection control screen.",
+        "Data binding occurs, setting up fields and localizing display.",
+        "Dropdowns are populated and translated as needed.",
+        "FormView (uxDetail) shows current student prerequisite data.",
+        "User initiates edit or insert mode.",
+        "System checks permissions (ScreenIsEditable, ReadOnly).",
+        "User saves or updates prerequisite details.",
+        "Validations are checked (Page.IsValid).",
+        "New values are read from dropdowns and input fields.",
+        "Data is updated via ObjectDataSource (dsStdPrerequisiteDetail).",
+        "System caches session and redirects user after update."
+      ]
+    },
+    {
+      "name": "Dropdown Initialization and Selection",
+      "steps": [
+        "Populate dropdowns for N95 mask size, alt size, fit test date, infection control solution.",
+        "Set 'Unknown' value in dropdown, handling localization.",
+        "Select and display current values from StudentPrerequisite data.",
+        "Add blank entry to dropdown when needed."
       ]
     }
   ],
   "business_rules": [
-    "Mask size values must be properly localized and selected in English regardless of UI language.",
-    "Update is canceled if Page.IsValid returns false during ItemUpdating.",
-    "Grid disables edit fields if ScreenIsEditable is false.",
-    "Dropdown for N95MaskSizeCode uses English 'Unknown' value if not set from localization.",
-    "Add blank entry to dropdowns as needed for selection."
+    "If UserSession is null, selection is cancelled.",
+    "All changes require Page.IsValid to be true.",
+    "Dropdown values must be set according to business logic and localization.",
+    "Unknown values must be handled explicitly for English display irrespective of system language.",
+    "ScreenIsEditable and ReadOnly control field visibility and editability."
   ],
   "validations": [
-    "Page.IsValid checked during update (ItemUpdating).",
-    "DropDownLists and input values must correspond to valid mask sizes, fit test dates, expiry checks, and infection control solutions.",
-    "ValidationSummary control used to summarize validation errors."
+    "Page.IsValid check before update.",
+    "FormView validation summary provided.",
+    "Dropdown value selection and verify correct value retrieval."
   ],
   "calculations": [
-    "MaxDate calculated as current date plus maximum allowed future years for mask expiry.",
-    "N95MaskSizeUnknownCodeID determined dynamically based on localization and dropdown contents."
+    "MaxDate calculation using DateFormatter.FormatDateShort(DateTime.Now.AddYears(DateFormatter.Max_Future_Years()))."
   ],
   "conditions": [
-    "ScreenIsEditable determines if fields can be edited.",
-    "ReadOnly flag disables edit controls and calendars.",
-    "UserSession presence required for ObjectDataSource selection; if absent, selection is canceled."
+    "ScreenIsEditable flag determines if fields are editable.",
+    "ReadOnly flag disables edit fields and calendar controls.",
+    "Dropdown blank entry is added when required."
   ],
   "system_behavior": [
-    "FormView switches between display, edit, and insert modes.",
-    "Edit fields disabled if ScreenIsEditable is false.",
-    "Dropdowns initialized and selected appropriately.",
-    "JavaScript variables injected for client-side behavior.",
-    "On update, session is cached and user redirected."
+    "Auto-generates fields for web controls.",
+    "Handles async postback and startup script registration.",
+    "Caches user session and redirects after update.",
+    "Translates display fields at runtime based on user session language."
   ],
   "dependencies": [
-    "HSPnetSession object for session management.",
-    "StudentID for selecting correct student.",
-    "Grid utility for handling edit/view mode transitions.",
-    "Dropdown utility for selection and localization.",
-    "AjaxControlToolkit calendar for date fields.",
-    "Localization for translating display fields."
+    "HSPnetSession for session data.",
+    "StudentPrerequisite entity for data binding.",
+    "Dropdown/Localization/JavaScript for UI behavior.",
+    "DateFormatter for date calculations.",
+    "ObjectDataSource for CRUD operations."
   ],
   "exceptions": [
-    "If UserSession is missing, data source selection is canceled.",
-    "If update fails validation, changes are not applied.",
-    "Dropdown localization may fail if French resources are used but English values required."
+    "If UserSession is null, selection is cancelled.",
+    "If Page.IsValid is false, update is cancelled."
   ],
   "source_document_ids": [
     "04e9c4ac-7f77-5f3e-bfe5-d536dd31d727",
@@ -103,8 +104,6 @@
     "d4625212-8b62-5355-8519-8cf54815b538"
   ],
   "content_gaps": [
-    "Underlying data model details (types and DB structure) not available.",
-    "User permissions and authorization not fully described.",
-    "Some business rules depend on external utilities (Grid, Dropdown, Localization) whose inner logic is not provided."
+    "Some referenced controls and business logic details are not fully included in the retrieved content (e.g., full definition of StudentPrerequisite, certain UI behaviors, and the complete workflow for all possible user actions)."
   ]
 }
