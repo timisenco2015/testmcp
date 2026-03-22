@@ -1,19 +1,84 @@
-To proceed, I need clarification:  
-You said "Generate all files and analyse each file and write the file to github."  
-Here’s what I can do based on your request and my capabilities:
-
-1. **Retrieve all related files from your database (as described above).**
-2. **Analyze each file based on its content, following strict factual instructions.**
-3. **Format each analysis as structured JSON according to your rules.**
-4. **Provide the JSON output for each file, ready for writing to GitHub.**
-
-**However:**  
-- I do not have direct GitHub write access.  
-- I can output all JSON files, which you can then upload to GitHub.
-
-**Questions for you:**  
-- Do you want me to fetch and analyze all filenames in grouped_related_files, or only SiteRecruitmentResources?
-- Do you want the analyses as separate JSON files for each filename?
-- Would you like a ZIP or folder structure recommendation for your GitHub repository?
-
-Please confirm your preferences, and I’ll proceed to retrieve, analyze, and output each file as JSON for you.
+{
+  "filename": "SiteRecruitmentResources",
+  "found": true,
+  "summary": "SiteRecruitmentResources manages the recruitment resources for a site within the HSPnet application. It allows users to view and edit recruitment details, including reference numbers, web pages, and recruitment status. The control uses modal dialogs for editing and displays validation summaries, with data-binding to user session and site context.",
+  "purpose": "To enable site administrators or users to manage recruitment-related resources, such as recruitment reference numbers, associated web pages, and the status (closed/open) for a site. It supports editing, saving, and viewing these details, and ensures user session validation.",
+  "entities": [
+    "Site",
+    "RecruitmentResource",
+    "UserSession"
+  ],
+  "fields": [
+    "RecruitmentReferenceNumber",
+    "WebPage",
+    "RecruitmentClosed",
+    "SiteID"
+  ],
+  "actors": [
+    "Site administrator",
+    "Authenticated user"
+  ],
+  "workflows": [
+    {
+      "name": "Edit Recruitment Resource",
+      "steps": [
+        "User clicks edit button (cmdEdit_click)",
+        "FormView changes to edit mode and header updates",
+        "Details shown in modal popup",
+        "User modifies fields (RecruitmentReferenceNumber, WebPage, RecruitmentClosed)",
+        "User clicks save (cmdSave)",
+        "System retrieves input values from form",
+        "SiteRecruitmentResources.UpdateRecruitmentResources called with updated data",
+        "User session cached",
+        "User redirected to updated site profile page"
+      ]
+    },
+    {
+      "name": "View Recruitment Resource",
+      "steps": [
+        "FormView binds recruitment details",
+        "Setup javascript (placeholder, not implemented)",
+        "ValidationSummary shown if errors exist"
+      ]
+    }
+  ],
+  "business_rules": [
+    "Recruitment details are editable only if the screen is in editable mode.",
+    "SiteID and UserSession must be present to bind/select data."
+  ],
+  "validations": [
+    "ValidationSummary control displays bound validation errors.",
+    "If UserSession is null during datasource selection, the operation is cancelled."
+  ],
+  "calculations": [],
+  "conditions": [
+    "Operation cancelled if UserSession is null.",
+    "Redirection includes ReadOnly=1 parameter if screen is not editable."
+  ],
+  "system_behavior": [
+    "Uses ModalPopupExtender for editing recruitment resource details.",
+    "Caches user session after saving changes.",
+    "Redirects user to site profile page after successful operation."
+  ],
+  "dependencies": [
+    "HSPnetSession",
+    "User session cache",
+    "SiteID",
+    "Grid utility for extracting values from FormView"
+  ],
+  "exceptions": [
+    "Datasource selection cancelled if UserSession is null."
+  ],
+  "source_document_ids": [
+    "2d4e39aa-3711-5891-9efb-c1e9d0379093",
+    "456dd6b9-b89b-5a65-b681-2aa917a399a8",
+    "a61db9ae-f959-5975-ac27-4e818c75be32",
+    "cb4e80a6-37e6-5555-bfe5-d164c8ef5f87"
+  ],
+  "content_gaps": [
+    "SetupJavaScript method is referenced but not implemented.",
+    "Further validations, field definitions, and error handling not detailed.",
+    "UI layout and specific user permissions not described.",
+    "No explicit workflow for resource deletion or addition."
+  ]
+}
