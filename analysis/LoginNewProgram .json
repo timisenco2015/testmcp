@@ -1,0 +1,95 @@
+{
+  "filename": "LoginNewProgram",
+  "found": true,
+  "summary": "LoginNewProgram is a data access layer class responsible for retrieving and organizing a list of new HSPnet programs for a user session. It fetches program data from the database using a stored procedure and structures the results into objects for further use.",
+  "purpose": "To provide a structured list of newly available HSPnet programs for a user session, including program names and associated PC lists.",
+  "entities": [
+    {
+      "name": "ProgramItem",
+      "description": "Represents a program with its name and PC list."
+    },
+    {
+      "name": "LoginNewProgram",
+      "description": "Main class handling retrieval and presentation of new programs."
+    }
+  ],
+  "fields": [
+    {
+      "entity": "ProgramItem",
+      "name": "Name",
+      "type": "string",
+      "description": "Concatenation of LongName and ShortName from database."
+    },
+    {
+      "entity": "ProgramItem",
+      "name": "PCList",
+      "type": "string",
+      "description": "PC list associated with the program from database."
+    }
+  ],
+  "actors": [
+    {
+      "name": "User",
+      "role": "Session owner; receives list of new programs."
+    },
+    {
+      "name": "HSPnetSession",
+      "role": "Session context handling database access."
+    }
+  ],
+  "workflows": [
+    {
+      "name": "Retrieve New Programs Workflow",
+      "steps": [
+        "Initialize LoginNewProgram with HSPnetSession instance.",
+        "Call FillList method during initialization.",
+        "Set stored procedure name to 'LoginWelcomeNewHSPnetPrograms'.",
+        "Execute stored procedure and obtain SqlDataReader.",
+        "Iterate over SqlDataReader results.",
+        "For each record, create ProgramItem, populate Name and PCList, add to Data list.",
+        "Close SqlDataReader."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Program name presented as 'LongName, ShortName'.",
+    "Only programs retrieved from 'LoginWelcomeNewHSPnetPrograms' stored procedure are shown."
+  ],
+  "validations": [
+    "Check for null SqlDataReader before processing.",
+    "Close SqlDataReader after reading."
+  ],
+  "calculations": [
+    {
+      "description": "ProgramItem.Name is calculated as concatenation of LongName and ShortName with a comma separator."
+    }
+  ],
+  "conditions": [
+    {
+      "description": "If SqlDataReader is null, no data is processed."
+    }
+  ],
+  "system_behavior": [
+    "On LoginNewProgram object creation, the list of new programs is automatically loaded.",
+    "Uses database abstraction from HSPnetSession for procedure execution and data retrieval."
+  ],
+  "dependencies": [
+    "HSPnet.Framework.HSPnetSession",
+    "LoginWelcomeNewHSPnetPrograms stored procedure",
+    "SqlDataReader",
+    "HSPnet.DB methods (GetString, ProcedureName, GetData, CloseReader)"
+  ],
+  "exceptions": [
+    {
+      "description": "No explicit exception handling found; processing stops if SqlDataReader is null."
+    }
+  ],
+  "source_document_ids": [
+    "bacebeb1-0a76-5a12-9d0b-1275211b772c"
+  ],
+  "content_gaps": [
+    "No information on error handling for failed database calls.",
+    "No user interface or presentation logic described.",
+    "No details on the structure or format of PCList."
+  ]
+}
