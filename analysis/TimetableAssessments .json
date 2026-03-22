@@ -1,0 +1,405 @@
+{
+  "filename": "SiteDocument",
+  "found": true,
+  "summary": "Represents a document associated with a specific site, likely part of the HSPnet system's data layer.",
+  "purpose": "To provide a data entity for linking and referencing documents to sites within the system.",
+  "entities": [
+    "SiteDocument"
+  ],
+  "fields": [
+    "ID",
+    "SiteID"
+  ],
+  "actors": [],
+  "workflows": [],
+  "business_rules": [],
+  "validations": [],
+  "calculations": [],
+  "conditions": [],
+  "system_behavior": [],
+  "dependencies": [
+    "HSPnet.Framework",
+    "System.Data.SqlClient",
+    "System.Collections.Generic"
+  ],
+  "exceptions": [],
+  "source_document_ids": [
+    "a2967f17-a924-5e9c-8b15-d1f7bd028b32"
+  ],
+  "content_gaps": [
+    "No workflows or system behavior described.",
+    "No validation or business logic is shown."
+  ]
+}
+
+{
+  "filename": "WelcomeStaffAdmin",
+  "found": true,
+  "summary": "This is a code-behind and ASP.NET markup for a 'Welcome Staff Admin' page showing user login info, error/warning panels, and a grid/list filter interface for employment applications with filtering, validation, and paging.",
+  "purpose": "To present and filter student employment applications data to admin users, with facilities for showing/hiding errors and warnings, date range filtering, discipline and site selection, and basic input validation.",
+  "entities": [
+    "WelcomeStaffAdmin"
+  ],
+  "fields": [
+    "lblTitle",
+    "pnlLastLogin",
+    "ltlLastLogin",
+    "pnlError",
+    "lblErrorCaption",
+    "lblErrorList",
+    "cmdHideErrorPanel",
+    "pnlWarning",
+    "lblWarningCaption",
+    "lblWarningList",
+    "cmdHideWarningPanel",
+    "ValidationSummary1",
+    "CurrentViewLabel",
+    "pnlCurrentView",
+    "ddSite",
+    "ddDiscipline",
+    "txtStartDate",
+    "txtEndDate",
+    "chkShowWithdrawn",
+    "cmdRefreshView",
+    "gvwApplications",
+    "dsEmploymentApplications"
+  ],
+  "actors": [
+    "Admin users"
+  ],
+  "workflows": [
+    {
+      "name": "Viewing and Filtering Employment Applications",
+      "steps": [
+        "Page loads and initializes controls, sets default date filters (-3 months to today).",
+        "User selects site and discipline from dropdowns (with 'All' option).",
+        "User sets start and end dates using text fields and calendar controls.",
+        "User can show/hide withdrawn applications via checkbox.",
+        "User clicks refresh, grid is updated.",
+        "Validations ensure date format and start <= end.",
+        "On row data bound, sets up hyperlinks for names and email, status displays based on withdrawn date.",
+        "Paging and error/warning summaries are available."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Withdrawn applications are shown or hidden based on checkbox.",
+    "Start date must not be after end date."
+  ],
+  "validations": [
+    "RequiredFieldValidator for dates.",
+    "RegularExpressionValidator for date formats.",
+    "CustomValidator for start date before end date."
+  ],
+  "calculations": [],
+  "conditions": [
+    "Withdrawn applications set status and withdrawn date display.",
+    "Show/hide panels for errors or warnings."
+  ],
+  "system_behavior": [
+    "Grid auto-binds on refresh or filter change.",
+    "Panel and field visibility based on state and errors.",
+    "JavaScript sets up date variables and client-side interaction."
+  ],
+  "dependencies": [
+    "HSPnet.Framework",
+    "HSPnet.UI",
+    "HSPnet.App_GlobalResources",
+    "AjaxControlToolkit"
+  ],
+  "exceptions": [],
+  "source_document_ids": [
+    "05db31e4-e8b6-53ee-a6fb-812c106f0134",
+    "100d5925-a5f8-53db-8493-02cddd563eb7",
+    "3c84bade-9671-5fbf-acce-3c87a835e9b4",
+    "4c4b97b8-d242-5261-a515-767a3f7d7a49",
+    "52b5066f-23f6-5d82-96cd-5d51dad3de79",
+    "54244516-0707-581e-a8ba-9c041ea38366",
+    "5bb85da3-f5b4-5753-b07c-9bb2a04eeb89",
+    "5d9b92ea-7c12-5070-8603-977cf14d0e04",
+    "6701b153-5288-59e5-8de9-61b68a1fc292",
+    "6eca1317-c0b2-5225-a9af-f034a722d924",
+    "871df91b-7ba0-558f-83ea-d5be1b0dc8db",
+    "8cea5c3a-2fbf-5206-a0c0-9425a5e14511",
+    "964a48c9-231c-5d58-a44d-3675d949a453",
+    "966ed8d3-a5af-567f-b092-936217777551",
+    "a0c3da28-32a5-5fce-91b2-17274efa016e",
+    "afbb4ec5-43c8-5281-ad2c-4b6cfd23a48e",
+    "b8e79322-9a0e-5fe7-8953-3d05e231f923",
+    "bf423a80-93db-572d-8cb8-c79f04214a93",
+    "ca71b077-cc26-5979-a44f-59700a41316b",
+    "d278278f-d4ec-5f4a-9f29-a02b66773bb9",
+    "db9b35e9-53ca-5eaf-9d75-4f3a72131bc7",
+    "e249a878-c837-5d1c-9a3d-5167df2614fb"
+  ],
+  "content_gaps": [
+    "No explicit user/system exceptions handled beyond display panels.",
+    "No business logic for application approval/rejection, only filtering and display workflow."
+  ]
+}
+
+{
+  "filename": "ServiceCode",
+  "found": true,
+  "summary": "Represents codes and code lists used for services, with multi-language support and retrieval via stored procedures.",
+  "purpose": "To manage, query, and localize service codes and descriptions for use in course and timetable options.",
+  "entities": [
+    "ServiceCode"
+  ],
+  "fields": [
+    "ID",
+    "CodeCategoryID",
+    "ShortName",
+    "Name",
+    "SortOrder",
+    "Notes",
+    "NameAlt",
+    "NotesAlt"
+  ],
+  "actors": [],
+  "workflows": [
+    {
+      "name": "List Service Codes",
+      "steps": [
+        "Retrieve all service codes via ServiceCodeListAll procedure.",
+        "Optionally localize description fields based on session language flag."
+      ]
+    },
+    {
+      "name": "List Service Code Options by Course or Timetable",
+      "steps": [
+        "Retrieve codes by CourseID or TimetableID using appropriate procedures.",
+        "Build and return list of code objects with alternate language data if required."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Use alternate language description if session is flagged for alternate language."
+  ],
+  "validations": [],
+  "calculations": [],
+  "conditions": [
+    "Language fields switch to alternate based on session flag."
+  ],
+  "system_behavior": [
+    "Data access via parametrized stored procedures.",
+    "Reader object is always closed after use."
+  ],
+  "dependencies": [
+    "HSPnet.Framework",
+    "System.Data.SqlClient",
+    "System.Collections.Generic"
+  ],
+  "exceptions": [],
+  "source_document_ids": [
+    "94f1b055-348d-508a-ae6e-cf7960a8c6a2",
+    "e4ebe4b4-6d14-5c3f-b693-61016f765239",
+    "f976b9af-a402-540f-b162-391d578fac7c"
+  ],
+  "content_gaps": [
+    "No workflow for how codes are assigned to services outside of selection procedures.",
+    "No actors or UI described."
+  ]
+}
+
+{
+  "filename": "SiteProfileHistory",
+  "found": true,
+  "summary": "Represents a history record for changes and actions related to a site profile, including user, agency, and field details.",
+  "purpose": "To track and display changes made to site profiles, with support for alternate languages and user/agency context.",
+  "entities": [
+    "SiteProfileHistory"
+  ],
+  "fields": [
+    "ID",
+    "ActionDate",
+    "ScreenSection",
+    "UserAction",
+    "Fields",
+    "Agency",
+    "AgencyName",
+    "LastName",
+    "FirstName",
+    "MiddleName",
+    "Phone",
+    "ByUserID",
+    "ByOriginalUserID",
+    "ByUserSysAdmin"
+  ],
+  "actors": [
+    "HSPnet Support Team",
+    "Agency Users"
+  ],
+  "workflows": [
+    {
+      "name": "Site Profile History Retrieval",
+      "steps": [
+        "Call stored procedure with site ID and session agency ID.",
+        "Fill entity fields from data reader.",
+        "Localize alternate text fields when session requires."
+      ]
+    }
+  ],
+  "business_rules": [
+    "If ByUserSysAdmin is false and user IDs differ, attribute action to HSPnet Support Team.",
+    "Format agency/user details for tooltip or display."
+  ],
+  "validations": [],
+  "calculations": [
+    "ActionDateFormatted returns formatted date.",
+    "AgencyUserFormatted composes display string from fields."
+  ],
+  "conditions": [
+    "Session language field enables alternate text."
+  ],
+  "system_behavior": [
+    "Supports tooltip/details format for agency users.",
+    "Handles null/empty field display gracefully."
+  ],
+  "dependencies": [
+    "HSPnet.Framework",
+    "HSPnet.DataLayer",
+    "HSPnet.App_GlobalResources"
+  ],
+  "exceptions": [],
+  "source_document_ids": [
+    "25f89a24-5eda-5a3f-83df-1de69b12b3f1",
+    "26e09292-d304-55c6-94e5-ef3346453c4b",
+    "7ca6b963-9ae9-5cd3-82d5-f30dcb727ae3",
+    "a8f030c6-90b8-53a1-bb8a-3b7ef33b9488",
+    "e806999c-3a39-5720-9b59-303faebc9eb6"
+  ],
+  "content_gaps": [
+    "No audit or deletion workflow is described.",
+    "No explicit error handling shown."
+  ]
+}
+
+{
+  "filename": "EmailPopupDocument",
+  "found": true,
+  "summary": "Represents a document used in the context of email popups, including file management for attachments or related files.",
+  "purpose": "To hold data about email popup documents and provide functions to search and delete them, including physical file operations.",
+  "entities": [
+    "EmailPopupDocument"
+  ],
+  "fields": [
+    "ID",
+    "FileName",
+    "FilePath",
+    "Checked"
+  ],
+  "actors": [],
+  "workflows": [
+    {
+      "name": "Search Email Popup Documents",
+      "steps": [
+        "Parse input string to build list of EmailPopupDocument objects."
+      ]
+    },
+    {
+      "name": "Delete Email Popup Document",
+      "steps": [
+        "Parse string to identify file and folder.",
+        "Delete file if exists.",
+        "Delete folder if possible.",
+        "Return updated list string."
+      ]
+    }
+  ],
+  "business_rules": [
+    "ID is assigned in order as documents are processed."
+  ],
+  "validations": [],
+  "calculations": [],
+  "conditions": [],
+  "system_behavior": [
+    "Performs physical file deletion.",
+    "Skips errors when deleting file/folder."
+  ],
+  "dependencies": [
+    "System.IO",
+    "HSPnet.Framework"
+  ],
+  "exceptions": [
+    "File or directory deletions are wrapped in try/catch to avoid breaking workflow."
+  ],
+  "source_document_ids": [
+    "7287734e-f13d-550f-9249-4242db620766",
+    "927bc837-5564-5759-9324-27c6d5d7321d"
+  ],
+  "content_gaps": [
+    "No UI/actor beyond backend methods.",
+    "No access control/checks for file deletion."
+  ]
+}
+
+{
+  "filename": "CostCentre",
+  "found": true,
+  "summary": "Provides data structures and methods to retrieve and represent cost centre records for placements, including extensive field breakdown and filtering capabilities.",
+  "purpose": "To retrieve, filter, and display placement cost centre information with support for time ranges, agencies, sites, disciplines, and other tags.",
+  "entities": [
+    "CostCentreView",
+    "CostCentreRecord"
+  ],
+  "fields": [
+    "PlacingAgency",
+    "Department",
+    "Program",
+    "Discipline",
+    "SubDiscipline",
+    "ReceivingAgency",
+    "Site",
+    "Portfolio",
+    "Service",
+    "Destination",
+    "CostCentre",
+    "CostCentreDescription",
+    "PRType",
+    "StartDate",
+    "EndDate",
+    "Status",
+    "Course",
+    "ProgramYear",
+    "ReferenceNumber",
+    "CFO",
+    "PRCount",
+    "StudentCount",
+    "PRHours",
+    "StudentHours"
+  ],
+  "actors": [],
+  "workflows": [
+    {
+      "name": "Get Cost Centre Records",
+      "steps": [
+        "Call stored procedure with filter parameters.",
+        "Retrieve records and map to CostCentreRecord.",
+        "Return list of records."
+      ]
+    }
+  ],
+  "business_rules": [],
+  "validations": [],
+  "calculations": [],
+  "conditions": [],
+  "system_behavior": [
+    "Data retrieved from PlacementCostCentre stored procedure."
+  ],
+  "dependencies": [
+    "HSPnet.Framework"
+  ],
+  "exceptions": [],
+  "source_document_ids": [
+    "20ac8054-536e-5203-b33d-7db2b2dc2359",
+    "2c04f259-cf58-5d95-803c-8ebf16840f6c",
+    "97bc3ba9-9fe4-52b1-8847-dce2198e0aee",
+    "dd965b0f-f9cf-57eb-a3f8-32b3b97a6d1a",
+    "e1ac7e41-5e9e-5f16-baa0-29d05a70f976"
+  ],
+  "content_gaps": [
+    "No actor, UI, or validation logic shown.",
+    "No description of cost calculation or UI-driven refresh."
+  ]
+}
