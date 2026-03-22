@@ -1,0 +1,57 @@
+{
+  "filename": "Safari3AjaxHack",
+  "found": true,
+  "summary": "A browser compatibility hack for ASP.NET Ajax Toolkit modal popups, targeting Safari 3 and Chrome browsers by defining WebKit agent objects.",
+  "purpose": "Enables modal popups and other Ajax Toolkit features to work properly in Chrome and Safari 3 by recognizing them as WebKit browsers and configuring ASP.NET Sys.Browser accordingly.",
+  "entities": [],
+  "fields": [
+    "Sys.Browser.agent",
+    "Sys.Browser.version",
+    "Sys.Browser.name"
+  ],
+  "actors": [
+    "Browser",
+    "Sys.Browser (ASP.NET Client Framework)"
+  ],
+  "workflows": [
+    {
+      "name": "WebKit Browser Detection and Configuration",
+      "steps": [
+        "Check if userAgent string contains 'WebKit/'",
+        "If present, set Sys.Browser.agent to WebKit object",
+        "Parse WebKit version from userAgent and set Sys.Browser.version",
+        "Set Sys.Browser.name to 'WebKit'"
+      ]
+    }
+  ],
+  "business_rules": [
+    "Treat browsers with 'WebKit/' in userAgent as WebKit for ASP.NET Ajax Toolkit compatibility."
+  ],
+  "validations": [
+    "UserAgent must contain 'WebKit/' to trigger configuration."
+  ],
+  "calculations": [
+    "Parse WebKit version from userAgent string."
+  ],
+  "conditions": [
+    "navigator.userAgent.indexOf('WebKit/') > -1"
+  ],
+  "system_behavior": [
+    "Overrides Sys.Browser agent property to improve compatibility.",
+    "Ensures modal popups and other Ajax Toolkit components work on Chrome and Safari 3."
+  ],
+  "dependencies": [
+    "ASP.NET Ajax Toolkit",
+    "Client browser userAgent string"
+  ],
+  "exceptions": [
+    "If userAgent does not contain 'WebKit/', hack does not apply."
+  ],
+  "source_document_ids": [
+    "30d7e416-f425-577d-9586-65f99864695b"
+  ],
+  "content_gaps": [
+    "No details on limitations or side effects of the hack.",
+    "No coverage of browsers other than Safari 3 and Chrome."
+  ]
+}
