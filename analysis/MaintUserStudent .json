@@ -1,155 +1,163 @@
 {
   "filename": "MaintUserStudent",
   "found": true,
-  "summary": "MaintUserStudent manages student user accounts in the HSPnet system, providing a web-based workflow for creating, updating, enabling/disabling, supporting, and securing student login credentials. Special handling is implemented for accounts using Single Sign-On (SSO), and rigorous validation and messaging are employed for account operations.",
-  "purpose": "To facilitate the administration of student user accounts, including creation, modification, password management, SSO integration, and user support commentary. The screen enables system administrators and authorized users to safely manage student access and ensure compliance with security and business rules.",
+  "summary": "MaintUserStudent manages student user accounts in HSPnet, including creation, updates, password changes, and support comments. The implementation includes web forms, validations, SSO support, email notifications, password strength indicators, and administrative controls.",
+  "purpose": "The purpose of MaintUserStudent is to allow administrators and system users to add, update, and manage student user accounts, including handling SSO status, sending emails for account creation/password changes, and recording support comments.",
   "entities": [
     "User",
     "Student",
     "UserSession",
     "Program",
     "Department",
-    "SsoSetting"
+    "SsoSetting",
+    "Agency",
+    "SupportComment"
   ],
   "fields": [
     {
       "name": "UserName",
       "type": "string",
-      "required": true,
-      "maxLength": null,
-      "validation": "RequiredFieldValidator1; must be unique for add; editable if UserId == 0 or administrator"
+      "validations": [
+        "RequiredFieldValidator",
+        "UserDuplicate check"
+      ]
     },
     {
       "name": "Email",
       "type": "string",
-      "required": true,
-      "maxLength": 200,
-      "validation": "RegularExpressionValidator1, RequiredFieldValidator2"
+      "validations": [
+        "RequiredFieldValidator",
+        "RegularExpressionValidator"
+      ]
     },
     {
       "name": "active",
       "type": "boolean",
-      "required": false,
-      "validation": null
+      "description": "Indicates if the user account is enabled.",
+      "validations": []
     },
     {
       "name": "NewPassword",
       "type": "string",
-      "required": true,
-      "validation": [
-        "RequiredFieldValidator3",
-        "RegularExpressionValidator2 (letters & digits combination)",
-        "RegularExpressionValidator3 (must contain min 12 characters)",
-        "RegularExpressionValidator7 (must contain upper/lower case)",
-        "RegularExpressionValidator8 (must contain symbol)",
-        "pwdStrength control: min length, numeric, symbol, case requirements"
+      "validations": [
+        "RequiredFieldValidator",
+        "RegularExpressionValidator: length, combination, upper/lower/symbol/numeric",
+        "CompareValidator (with ConfirmPassword)"
       ]
     },
     {
       "name": "ConfirmPassword",
       "type": "string",
-      "required": true,
-      "validation": [
-        "CompareValidator (must match NewPassword)",
-        "RequiredFieldValidator4"
+      "validations": [
+        "RequiredFieldValidator",
+        "CompareValidator"
       ]
     },
     {
-      "name": "uxSupportComment",
+      "name": "SupportComment",
       "type": "string",
-      "required": false,
-      "maxLength": 4000
+      "description": "Administrator support comment.",
+      "validations": [
+        "MaxLength=4000"
+      ]
+    },
+    {
+      "name": "uxLastLoginDate",
+      "type": "string",
+      "description": "Last login date formatted."
     }
   ],
   "actors": [
     "System Administrator",
     "Student",
-    "HSPnetPage (system)"
+    "User",
+    "Support Staff"
   ],
   "workflows": [
     {
-      "name": "Create Student User",
+      "name": "Add Student User",
       "steps": [
-        "Check for duplicate user name (Users.UserDuplicateAdd)",
-        "Generate a new random password (12 chars)",
-        "If SSO enabled, UserId = Users.UserAddStudent(..., IssueEmail = false); else, IssueEmail may be true.",
-        "Add warning/message depending on SSOUPN presence.",
-        "If IssueEmail, send email to user with credentials.",
-        "On success, show Save button and enable Change Password."
+        "Check for duplicate UserName",
+        "Generate new password (minimum 12 characters, mix of cases, symbols, digits)",
+        "Validate SSO (Single Sign-On) status",
+        "Create student user record",
+        "Send account creation email if IssueEmail is true",
+        "Display warnings about SSOUPN status"
       ]
     },
     {
       "name": "Update Student User",
       "steps": [
-        "Check for duplicate user name (Users.UserDuplicate)",
-        "If SSO enabled and EntityID present, IssueEmail is false; update student user.",
-        "Add warning/message depending on SSOUPN presence.",
-        "If SSO not enabled, update student user and optionally issue email.",
-        "If account was disabled and is now enabled, offer password reset workflow."
+        "Check for duplicate UserName",
+        "Validate SSO status",
+        "Update student user record",
+        "Send modification email if IssueEmail is true",
+        "Handle edge cases for SSOUPN presence",
+        "Display relevant warnings"
       ]
     },
     {
-      "name": "Change Password",
+      "name": "Change Student Password",
       "steps": [
-        "Show password panel.",
-        "Validate new password requirements.",
-        "Save new password (Users.UserSetPassword); send email if enabled.",
-        "Show warning/message depending on email success."
+        "Display password change panel",
+        "Apply password strength indicators and validators",
+        "Send password change email if IssueEmail is true and email is present",
+        "Set user password in backend",
+        "Display warning about password change status"
       ]
     },
     {
-      "name": "User Support Comment",
+      "name": "Edit Support Comment",
       "steps": [
-        "Show support comment pop-up.",
-        "Edit/comment on user support.",
-        "Save support comment; update support comment display and icon."
+        "Open support comment modal",
+        "Edit and save support comment",
+        "Update UI class based on comment existence"
       ]
     }
   ],
   "business_rules": [
-    "User names must be unique for new accounts.",
-    "Email address is required and must match validation regex.",
-    "New passwords must be minimum 12 characters, contain upper/lower case, symbols, and digits.",
-    "SSO-enabled accounts do not send user credentials by email and hide issue email controls.",
-    "Disabled student users cannot change password until enabled.",
-    "Support comments only editable by system administrator and visible for non-zero user IDs."
+    "UserName must be unique for student users.",
+    "Email must be valid and not empty.",
+    "Password must be at least 12 characters and contain upper/lower case, number, and symbol.",
+    "SSO enabled accounts do not receive User ID/password emails or allow password changes via UI.",
+    "Support comments are only editable by System Administrators."
   ],
   "validations": [
-    "RequiredFieldValidator on UserName, Email, NewPassword, ConfirmPassword.",
-    "RegularExpressionValidator for Email, NewPassword (letters/digits/symbols/case).",
-    "CompareValidator for ConfirmPassword.",
-    "PasswordStrength control for NewPassword.",
-    "Panel validation summaries for detail and password groups."
+    "UserName: required, must not duplicate existing user.",
+    "Email: required, valid format.",
+    "NewPassword: required, must match regular expressions for minimum length, mixed characters.",
+    "ConfirmPassword: required, must match NewPassword.",
+    "PasswordStrength: minimum numeric, symbol, upper/lower case requirements."
   ],
   "calculations": [
-    "Generate new password with Framework.Security.GenerateNewPassword(12)."
+    "GenerateNewPassword: Algorithm to create secure password (12 characters)."
   ],
   "conditions": [
-    "If UserId == 0, treat as creation.",
-    "If SSO.EntityID != null, treat as SSO-enabled.",
-    "If account disabled, hide Change Password button.",
-    "If IssueEmail checkbox is visible and checked, send creation email.",
-    "If SSOUPN is present or missing, display corresponding warning."
+    "If SSO is enabled, IssueEmail and password change controls are hidden and disabled.",
+    "If UserId is 0, show Create User interface.",
+    "If account is disabled, hide Change Password button.",
+    "If SSOUPN is present or absent, show specific warnings."
   ],
   "system_behavior": [
-    "Page_Render processes error and warning panels for user feedback.",
-    "Page_Load sets up session, loads user and student info, configures visibility.",
-    "Controls for warnings and errors are always visible using extender.",
-    "Panels and popups manage workflow visibility for change password and user support."
+    "Hides/show controls based on user/SSO status.",
+    "Sends emails on creation/update/password change if IssueEmail is true and email is present.",
+    "Records warnings and errors in UserSession.Messages.",
+    "Manages support comments in modal popups."
   ],
   "dependencies": [
-    "Resources: for all text, error messages, tooltips, labels.",
-    "HSPnet.DataLayer.Students: for student lookup.",
-    "Users: for create, update, set password, support comment.",
-    "Programs, Departments, SsoSettingsActions: for SSO configuration.",
-    "Templates: for email subject/body templates.",
-    "HSPnet.Framework.Email: for sending email."
+    "Resources (localized strings)",
+    "Templates (email content)",
+    "HSPnet.DataLayer.Students",
+    "HSPnet.Framework.Email",
+    "SSO Settings",
+    "UI controls: ASP.NET, AJAX Toolkit"
   ],
   "exceptions": [
-    "If duplicate user detected, show error message.",
-    "If SSO enabled, hide IssueEmail controls and section.",
-    "If email sending fails on creation or password set, add warning or error.",
-    "If input validation fails, prevent save/change."
+    "User_Exists: Duplicate username error.",
+    "AccountCreated_NoEmail: Email sending failure.",
+    "StudentPasswordChange_EmailFailure: Password email failed.",
+    "StudentPasswordChange_NoEmail: No email present for password change.",
+    "SSO_StudentUser_Modified_Without_SsoUPN: SSO user modified without SSOUPN."
   ],
   "source_document_ids": [
     "13904179-d5bb-55e5-9d43-9fef1611b632",
@@ -185,8 +193,8 @@
     "efb41c90-de10-5643-8d0c-5d250fc6b860"
   ],
   "content_gaps": [
-    "Resource string values are referenced rather than inlined; exact UI text and some error messages not directly available.",
-    "Business logic for password and email templates may depend on external template definitions not provided.",
-    "Some field max length validations are inferred but not explicitly stated in code."
+    "Resource string values and final email templates are referenced but not shown.",
+    "Some referenced logic (e.g., GenerateNewPassword implementation) is described but not fully detailed.",
+    "UI design details are parsed from markup but exact UI layout is not reconstructed."
   ]
 }
