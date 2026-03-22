@@ -1,20 +1,23 @@
 {
   "filename": "QuickEntryPlacing",
   "found": true,
-  "summary": "QuickEntryPlacing handles the workflow for creating and placing placement requests (PRs) in the HSPnet system using a quick entry interface. It manages the selection and validation of agencies, departments, programs, sites, services, destinations, courses, instructors, placement coordinators, students, dates, shift codes, times, group sizes, and other request details. The screen enables rapid entry while upholding business rules and validation logic for placements across multiple entities, supporting both group and individual PR types.",
-  "purpose": "To quickly create and place placement requests by capturing essential information about placing and receiving agencies, departments, programs, courses, contacts, scheduling, group size, request codes, and comments. Provides server-side validation and business logic to ensure valid and complete requests.",
+  "summary": "QuickEntryPlacing facilitates the creation and submission of Placement Requests (PRs) for educational placements, supporting both single and group placements, and managing associated metadata, validations, actors, and workflows.",
+  "purpose": "To provide a guided workflow for quickly entering Placement Requests, including assignment of students, agency/site/service/destination selection, request code selection, scheduling (dates, times, shifts), and all necessary validation before submission to the Outbox or Receiving Agency.",
   "entities": [
+    "Placement Request",
     "Agency",
     "Department",
     "Program",
     "Site",
     "Service",
     "Destination",
-    "PlacementRequest (PR)",
+    "Placement Coordinator",
+    "Instructor",
+    "Service Contact",
+    "Destination Contact",
     "Course",
-    "Staff",
     "Student",
-    "RequestCode"
+    "Request Code"
   ],
   "fields": [
     "fromAgencyID",
@@ -28,136 +31,107 @@
     "instructorID",
     "serviceContactID",
     "destinationContactID",
+    "projectTitle",
+    "destDetails",
     "courseID",
     "programYear",
     "groupSize",
     "studentIDList",
-    "studentCount",
     "requestCodeIDs",
-    "NISFlag",
-    "IRPFlag",
-    "ShowPABreaks",
     "startDate",
     "endDate",
     "replyDate",
     "shiftCodeID",
     "startTime",
     "endTime",
-    "variousTimes",
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday",
-    "Saturday",
-    "Sunday",
-    "variousDays",
     "durationShifts",
     "shiftLength",
     "durationHours",
-    "projectTitle",
-    "destDetails",
     "comments",
     "showComments",
     "alert",
-    "Action"
+    "NISFlag",
+    "IRPFlag",
+    "ShowPABreaks"
   ],
   "actors": [
-    "Placing Agency user",
-    "Receiving Agency user",
+    "UserSession",
     "Placement Coordinator",
     "Instructor",
-    "Service Contact",
-    "Destination Contact",
-    "Student"
+    "Staff (Service/Destination Contact)",
+    "Students"
   ],
   "workflows": [
     {
-      "name": "Quick Entry Placement Request Creation",
+      "name": "Placement Request Creation and Submission",
       "steps": [
-        "User loads QuickEntryPlacing screen (defaults and session variables are applied)",
-        "User selects/inputs placing agency, department, program, receiving agency, site, service, and destination",
-        "User selects placement coordinator, instructor, service contact, and destination contact",
-        "User selects course, program year, and group size",
-        "User assigns students (add/unassign)",
-        "User specifies project title, destination details, request codes",
-        "User selects options for NIS, IRP, PA breaks",
-        "User specifies reply-by date, start date, end date, shift code, times, days, various days/times",
-        "User enters shift length, shift count, duration hours",
-        "User adds comments, chooses to show comments, enters alert",
-        "User selects action (Outbox, Send to Receiving Agency)",
-        "Server-side validation: checks required fields and business rules",
-        "If valid, placement request is created and user notified",
-        "If errors, screen shows messages and reloads assigned students"
-      ]
-    },
-    {
-      "name": "Dropdown Population and Dependency Workflow",
-      "steps": [
-        "Dropdowns for department, program, to-agency, site, service, destination populated based on prior selections and session values",
-        "Contacts and staff search for placement coordinator, instructor, service and destination contacts based on agency and service/destination",
-        "Request codes, course info, program years pulled from appropriate lists/functions",
-        "On change of dropdown, dependent fields and options are refreshed"
-      ]
-    },
-    {
-      "name": "Validation Workflow",
-      "steps": [
-        "Validate all required fields: program, site, service, course, program year, placement coordinator, start/end dates, duration",
-        "Validate date fields (start, end, reply-by), times (24hr, shift code matching), group size, student assignment",
-        "Perform calculations (shift length from start/end time, duration hours from shift count and shift length)",
-        "Enforce business rules for NIS/IRP/PA breaks based on program flags",
-        "Show/hide fields and controls based on context (service/destination contacts, request dropdown visibility, NIS/IRP/PA breaks)"
+        "Initialize dropdowns for agencies, departments, programs, sites, services, destinations, courses, placement coordinators, instructors, request codes.",
+        "Populate session variables for placing and receiving context (agency, department, program, site, service, destination).",
+        "Collect student assignments via command buttons (cmdAdd, cmdClear), update hidden fields.",
+        "Present request code options depending on program, hide if not used.",
+        "Enter and validate metadata: Project Title, Destination Details, Group Size, Request Codes, Comments, Alerts.",
+        "Schedule placement: input/validation for Start Date, End Date, Reply By Date.",
+        "Configure shifts/times: choose shift code or manually input start/end times, select applicable days, durations, shift length, and various flags.",
+        "Validate all fields: program, site/service, course, program year, placement coordinator, dates, times, group sizes, durations, request codes.",
+        "Handle NIS/IRP participation and PA Breaks flags based on context.",
+        "On successful validation, call DataLayer.QuickEntry.QESCreatePARequest with all parameters.",
+        "If creation is successful: display confirmation including reference number, and handle printing as needed."
       ]
     }
   ],
   "business_rules": [
-    "Program, site, service, course, program year, placement coordinator are mandatory",
-    "Start and end dates must be valid and end date must follow start date",
-    "Reply-by date must be valid and before start date",
-    "Duration hours and shifts must be numeric and not zero",
-    "Group size must be greater than or equal to student count if course is Group type",
-    "If department uses shift codes, only show shift fields, otherwise show start/end time fields",
-    "Placement coordinator defaults to current user if not selected",
-    "Request codes shown/hidden based on program",
-    "NIS/IRP/PA breaks visibility depends on program and user session"
+    "Program, site/service, course, and placement coordinator are required.",
+    "Start and end dates are required and must be valid; end date must be after start date.",
+    "Reply by date must be valid, can be blank, but if present must be before start date.",
+    "Duration (hours) is required and must be a positive number.",
+    "Shifts and shift length must be numeric if provided.",
+    "Group size must be numeric and > 0 if entered; must be >= student count for group placements.",
+    "Validation of start/end times (24-hour format) and shift code if used.",
+    "If group size is 1, placement type isn't Group, and exactly one student assigned, group size reset to blank (interpreted as Enrollment PR).",
+    "Request codes must be valid and present for programs using requests.",
+    "Comments and alerts are optional but subject to visibility controls.",
+    "NIS/IRP participation and PA breaks are controlled by program and user context."
   ],
   "validations": [
-    "Required field checks (program, site, service, course, program year, placement coordinator)",
-    "Date/time validation (start/end/reply-by dates, 24hr format, valid period)",
-    "Group size validation (numeric, >0, >= student count)",
-    "Shift fields validation (numeric, >0)",
-    "Duration calculation and validation",
-    "Student assignment validation",
-    "Request codes selection validation"
+    "Required fields: program, site, service, course, program year, placement coordinator.",
+    "Date parsing and order validation.",
+    "Duration, shift length, group size numeric validation.",
+    "Times validated for 24-hour format and for shift code if selected.",
+    "Group size validation against student count and course type.",
+    "Request code selection validation.",
+    "If start/end times present without shift length, auto-calculate shift length.",
+    "If duration shifts and shift length valid but duration blank, auto-calculate duration."
   ],
   "calculations": [
-    "Shift length calculated from start/end times if not provided",
-    "Duration hours calculated from shift count and shift length if not provided",
-    "Student count calculated from assigned students"
+    "Shift length = endTime - startTime (in hours), adjust for overnight if endTime < startTime.",
+    "Duration hours = durationShifts * shiftLength, auto-calculated if possible.",
+    "Group size recalculated for single student, non-group placements."
   ],
   "conditions": [
-    "Show/hide request dropdown based on program",
-    "Show/hide NIS/IRP/PA breaks checkboxes based on program/user",
-    "Show service/destination contact input fields only if no contact is found",
-    "Shift codes dropdown shown if department uses shift codes, otherwise show time fields"
+    "If department uses shift codes, show shift code field; otherwise show start/end time fields.",
+    "If program uses requests, show request code selector; hide otherwise.",
+    "Show NIS/IRP and PA Breaks flags based on user/program context.",
+    "Validation errors stop workflow and show error panel.",
+    "If no service or destination contact, show edit fields; otherwise show formatted contact info."
   ],
   "system_behavior": [
-    "Dropdowns auto-populate based on session and previous selections",
-    "Validation errors shown in error panel; screen reloads students after error",
-    "Session variables saved/unloaded across page actions",
-    "On Save, placement request is created (QESCreatePARequest) and user receives feedback/warning"
+    "Page loads and initializes controls, session values, and dropdowns.",
+    "Client-side JavaScript updates fields, hidden values for students, durations, and validation.",
+    "On submit, server validates and creates Placement Request, then updates UI for confirmation.",
+    "Handles reset (“lbReset”) to clear all fields to default values."
   ],
   "dependencies": [
-    "Dropdown population depends on agency, department, program, site, service, destination selections",
-    "Contact selection/search depends on agency, service, destination",
-    "Program flags drive visibility of NIS/IRP/PA breaks",
-    "Client-side JavaScript controls various behaviors (duration, shift length calculation, comments visibility, student reload)"
+    "Dropdowns depend on UserSession and selected values.",
+    "Contacts depend on agency/service/destination IDs.",
+    "Course info and request codes depend on program/department.",
+    "NIS/IRP and PA Breaks depend on program/user/system configuration.",
+    "Validation messages depend on resource localization."
   ],
   "exceptions": [
-    "Service/destination contact not found triggers input fields for manual entry",
-    "Invalid start/end dates, times, shift values, group sizes, or missing students trigger error messages and prevent save",
-    "If group size is 1 and course type isn't Group, with 1 student, group size reset to null to avoid incorrect PR creation"
+    "Validation errors for required fields, date formats, group sizes, durations, shifts, times.",
+    "No assigned students or improper group sizes block submission.",
+    "Invalid start/end time or shift/time mismatch triggers error.",
+    "Reply by date after start date triggers error."
   ],
   "source_document_ids": [
     "02cb66e3-1749-53f2-9f96-df2b8d75e412",
@@ -246,9 +220,9 @@
     "fdd91497-3fff-50a8-b905-1622c869178b"
   ],
   "content_gaps": [
-    "No detailed field-level descriptions for all dropdowns and hidden fields.",
-    "Exact error message text is resource-based and not listed.",
-    "No detailed UI mock-ups or client-side JavaScript code for some dynamic screen controls.",
-    "Underlying database schema details and code for QESCreatePARequest not included."
+    "Resource string values (label/caption text) are not provided.",
+    "Exact business logic of code-behind methods referenced by name but not fully detailed.",
+    "Some JavaScript functions referenced but not completely documented.",
+    "Underlying database schema detail not included."
   ]
 }
