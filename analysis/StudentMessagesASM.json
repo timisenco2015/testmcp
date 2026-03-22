@@ -1,0 +1,130 @@
+{
+  "filename": "StudentMessagesASM",
+  "found": true,
+  "summary": "The StudentMessagesASM user control manages student-related messages within a course selection and preference system. It interfaces with session data, displays course-related messages, and handles student preference messages, allowing viewing and conditional deletion. The control enforces visibility, status messaging, and deletion confirmation, adapting UI behavior based on business rules and user context.",
+  "purpose": "To display, manage, and perform actions on student messages concerning course and placement selector preferences in a web application, ensuring proper workflow behavior based on session status and student actions.",
+  "entities": [
+    "StudentMessagesASM",
+    "HSPnetSession",
+    "StudentID",
+    "Timetable",
+    "StudentPRPreferenceMessages"
+  ],
+  "fields": [
+    {
+      "name": "UserSession",
+      "type": "HSPnetSession",
+      "description": "Represents the user's session; used for authentication, authorization, and context checks."
+    },
+    {
+      "name": "StudentID",
+      "type": "int",
+      "description": "Identifies the student whose messages and preferences are being managed."
+    },
+    {
+      "name": "pnlSiteSelectorMessages",
+      "type": "Panel",
+      "description": "Panel for site selector messages display."
+    },
+    {
+      "name": "Label3",
+      "type": "Label",
+      "description": "Label control for message display."
+    },
+    {
+      "name": "gvwCourses",
+      "type": "GridView",
+      "description": "Displays a list of courses related to the student."
+    },
+    {
+      "name": "dsCourses",
+      "type": "ObjectDataSource",
+      "description": "Data source for courses."
+    },
+    {
+      "name": "gvwPRPreferenceMessages",
+      "type": "GridView",
+      "description": "Displays student placement selector preference messages."
+    },
+    {
+      "name": "dsPRPreferenceMessages",
+      "type": "ObjectDataSource",
+      "description": "Data source for placement selector preference messages."
+    }
+  ],
+  "actors": [
+    "Student",
+    "Site Administrator",
+    "System (HSPnetSession)",
+    "Local Administrator (SwitchUserViewOnly)"
+  ],
+  "workflows": [
+    {
+      "name": "Display Courses and Selector Messages",
+      "steps": [
+        "On Page_Load, check if UserSession is valid.",
+        "Bind course data using dsCourses with UserSession and StudentID.",
+        "Display gvwCourses; for each row, setup selector link and status based on timetable dates.",
+        "Display number of choices submitted or saved based on selector status."
+      ]
+    },
+    {
+      "name": "Display and Manage Preference Messages",
+      "steps": [
+        "Bind preference messages using dsPRPreferenceMessages with UserSession and StudentID.",
+        "Display gvwPRPreferenceMessages; hide delete button if SwitchUserViewOnly is enabled.",
+        "Allow deletion of preference message if permitted, triggering delete confirmation and rebinding grid."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Selector status is determined by comparing timetable's PRSelectorStartDate and PRSelectorEndDate with current LocalDateTime.",
+    "If selector not open yet, hide controls and display 'Not yet open'.",
+    "If selector closed, show number of choices submitted and display 'Closed'.",
+    "If selector open, allow interaction, display 'Open', and show number of choices saved.",
+    "Panel visibility (pnlSiteSelectorMessages) based on course list count.",
+    "Deletion of preference messages is not allowed if SwitchUserViewOnly is enabled."
+  ],
+  "validations": [
+    "UserSession must be present for data operations; otherwise, selection is cancelled.",
+    "Timetable IDs and dates must be valid to determine control visibility and user interaction.",
+    "Delete confirmation is required before deleting preference messages."
+  ],
+  "calculations": [
+    "Number of choices submitted or saved (StudentPRPreferencesCount) is shown in status messages."
+  ],
+  "conditions": [
+    "If UserSession is null, cancel any selection operations.",
+    "If PRSelectorStartDate > LocalDateTime or PRSelectorEndDate < LocalDateTime, selector controls are hidden.",
+    "SwitchUserViewOnly disables delete actions."
+  ],
+  "system_behavior": [
+    "Dynamically binds data on page load and upon user actions.",
+    "Updates visibility of panels and controls based on data and user session.",
+    "Handles deletion of preference messages via command and confirmation.",
+    "Suppresses delete actions when user is being monitored (SwitchUserViewOnly)."
+  ],
+  "dependencies": [
+    "Timetable and StudentPRPreferenceMessages entity data.",
+    "Session context (HSPnetSession).",
+    "Web UI controls (GridView, Panel, ObjectDataSource).",
+    "Localization resources for status messages."
+  ],
+  "exceptions": [
+    "Selection operations cancelled if no valid session.",
+    "Delete actions suppressed for monitored users.",
+    "Controls hidden when selection is not open or is closed."
+  ],
+  "source_document_ids": [
+    "5056beeb-f5ea-51a8-8a39-c36468786837",
+    "5aa653c9-23a5-5dd3-ac87-92cc8a5d3b78",
+    "72f259f4-4d82-5873-bd42-b24a57c413cc",
+    "e289a620-4ed7-5bf3-a792-2b58e92cf5d0",
+    "f1abcc1f-e68a-575d-a794-3ad5e6208f87"
+  ],
+  "content_gaps": [
+    "Underlying data access logic and entity definition for Timetable and StudentPRPreferenceMessages are not shown.",
+    "UI markup and full localization resource values are not included.",
+    "No explicit error handling details beyond what's implied in code."
+  ]
+}
