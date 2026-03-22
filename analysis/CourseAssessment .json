@@ -1,0 +1,153 @@
+{
+  "filename": "CourseAssessment",
+  "found": true,
+  "summary": "CourseAssessment is an entity for managing course assessments, including creation, updating, deletion, searching, and validation. It organizes assessment templates, assessor and subject types, timing controls, visibility permissions, and business validation for course-related assessments.",
+  "purpose": "To store, retrieve, manage, and validate course-related assessment configurations in an academic or training system, enabling workflows for assessment administration and actor participation.",
+  "entities": [
+    "CourseAssessment",
+    "AssessmentValidationResult"
+  ],
+  "fields": [
+    "ID",
+    "CourseID",
+    "AssessmentTemplateCodeID",
+    "AssessorTypeCodeID",
+    "SubjectTypeCodeID",
+    "AssessmentTypeCodeID",
+    "AssessorCanViewSubjectsAnswers",
+    "OpenDaysAfterStart",
+    "CloseDaysAfterEnd",
+    "SubjectCanViewAssessorAnswers",
+    "ViewUntilDaysAfterEnd",
+    "AssessorTypeCode",
+    "AssessorTypeDescription",
+    "SubjectTypeCode",
+    "SubjectTypeDescription",
+    "AssessmentTypeCode",
+    "AssessmentTypeDescription",
+    "AssessmentTemplateCode",
+    "AssessmentTemplateDescription",
+    "SubjectTypeDescriptionFormatted",
+    "OpenDaysAfterStartFormatted",
+    "CloseDaysAfterEndFormatted",
+    "ViewUntilDaysAfterEndFormatted",
+    "OptionAppliedAssessorTypeCodeID",
+    "InstructorsAndSupervisors",
+    "AssessmentMaximumExceeded",
+    "InterimWithoutFinal"
+  ],
+  "actors": [
+    "Assessor",
+    "Subject",
+    "Instructor",
+    "Supervisor",
+    "Session (system context)"
+  ],
+  "workflows": [
+    {
+      "name": "Add Course Assessment",
+      "steps": [
+        "Set procedure name to CourseAssessmentAdd",
+        "Add parameters for session, course, codes, timing, visibility, option codes",
+        "Execute query"
+      ]
+    },
+    {
+      "name": "Update Course Assessment",
+      "steps": [
+        "Set procedure name to CourseAssessmentUpdate",
+        "Add parameters for session, assessment ID, codes, timing, visibility, option codes",
+        "Execute query"
+      ]
+    },
+    {
+      "name": "Delete Course Assessment",
+      "steps": [
+        "Set procedure name to CourseAssessmentDelete",
+        "Add parameters for session and assessment ID",
+        "Execute query"
+      ]
+    },
+    {
+      "name": "Search Course Assessment by ID",
+      "steps": [
+        "Set procedure name to CourseAssessmentSearchID",
+        "Add session and assessment ID parameters",
+        "Execute query",
+        "Map results to CourseAssessment entity fields"
+      ]
+    },
+    {
+      "name": "Search Course Assessments by CourseID",
+      "steps": [
+        "Set procedure name to CourseAssessmentSearch",
+        "Add session and courseID parameters",
+        "Execute query",
+        "Iterate through results and map to CourseAssessment entities"
+      ]
+    },
+    {
+      "name": "Validate Course Assessment",
+      "steps": [
+        "Set procedure name to CourseAssessmentValidation",
+        "Add session and courseID parameters",
+        "Execute query",
+        "Read validation flags: InterimWithoutFinal, InstructorsAndSupervisors, AssessmentMaximumExceeded"
+      ]
+    }
+  ],
+  "business_rules": [
+    "Assessor and Subject visibility of answers controlled by respective boolean fields",
+    "Assessment open and close timing can be configured relative to course start/end",
+    "Descriptions and codes support locale (default or alternate)",
+    "If AssessorTypeCode equals SubjectTypeCode, SubjectTypeDescriptionFormatted is set to '(self)'",
+    "OpenDaysAfterStart or CloseDaysAfterEnd = 0 maps to Start_Date or End_Date respectively",
+    "If AssessmentTypeCode is 'Interim', close days formatting uses Start_Date; otherwise End_Date"
+  ],
+  "validations": [
+    "InterimWithoutFinal (flag indicating an interim assessment is present without final assessment)",
+    "InstructorsAndSupervisors (flag indicating inclusion of instructors/supervisors)",
+    "AssessmentMaximumExceeded (flag indicating assessment count exceeded maximum allowed)"
+  ],
+  "calculations": [
+    "OpenDaysAfterStart and CloseDaysAfterEnd are formatted based on values and assessment type",
+    "Negative values for days produce a formatted string with '-' and absolute days"
+  ],
+  "conditions": [
+    "Locale determines which description field to use (default or alternate)",
+    "If OpenDaysAfterStart or CloseDaysAfterEnd == 0, formatting is different"
+  ],
+  "system_behavior": [
+    "Procedures abstract SQL, actions performed via DB layer",
+    "Assessment search returns entity mappings for UI or logic",
+    "Validation returns business flags for enforcing assessment constraints"
+  ],
+  "dependencies": [
+    "HSPnetSession for database context",
+    "Resources for localized strings",
+    "CourseID links assessments to courses",
+    "AssessmentTemplateCodeID references assessment templates",
+    "AssessorTypeCodeID and SubjectTypeCodeID reference codes for role type"
+  ],
+  "exceptions": [
+    "AssessmentMaximumExceeded flag may signal workflow constraint violation",
+    "InterimWithoutFinal signals missing final assessment when interim exists"
+  ],
+  "source_document_ids": [
+    "0c1ddf30-f1e7-51b9-88fc-4ecde3e29648",
+    "211455c7-0731-54d5-ae7f-428ae36f5adf",
+    "2868ba8f-8517-54cb-9965-af3056f02a8d",
+    "441804ae-233d-55f1-bf17-b2afda55fcdf",
+    "7908e8fe-0105-5fbd-a397-ad9c92ca4b5d",
+    "a0d9506b-0c33-5d13-8abf-7c577500d0a3",
+    "b607dc1c-b566-5d8a-b423-eefab6a14ea9",
+    "c8475c24-cc6e-5838-9754-82e7420a0328",
+    "e8acf69f-fa26-5173-8966-b5722ce94765"
+  ],
+  "content_gaps": [
+    "UI logic, error handling, and concrete business exceptions are not detailed.",
+    "AssessmentTemplate structure is referenced, but its fields and rules are not provided.",
+    "Role definitions (Assessor, Instructor, Supervisor, Subject) are listed as actor codes but not fully described.",
+    "Workflow post-assessment actions and user notification logic are not described."
+  ]
+}
