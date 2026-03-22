@@ -1,0 +1,119 @@
+{
+  "filename": "WCBEditAll",
+  "found": true,
+  "summary": "WCBEditAll is a user control in the HSPnet system for batch editing and managing Workers Compensation Board (WCB) status and related waiver details for student enrollments. It provides a grid-based interface supporting both individual and bulk updates, with filtering, sorting, and workflow actions for multiple statuses and waivers.",
+  "purpose": "To facilitate bulk editing, reviewing, and updating of student WCB status, waiver date, and waiver notes for enrollments. Administrators and authorized users can use this interface to process multiple records efficiently, applying business rules, validations, and workflow steps tied to WCB compliance.",
+  "entities": [
+    "Student",
+    "Enrollment",
+    "WCBStatus",
+    "Waiver",
+    "UserSession"
+  ],
+  "fields": [
+    "CohortID",
+    "TermID",
+    "CourseID",
+    "ShowGrad",
+    "ShowInactive",
+    "ShowWaived",
+    "SectionFilter",
+    "ActionFilter",
+    "keyword",
+    "CampusID",
+    "CommentFilter",
+    "StartRow",
+    "PageSize",
+    "EnrollmentID",
+    "StudentID",
+    "WCBStatusCodeID",
+    "WCBWaiverDate",
+    "WCBWaiverNotes",
+    "isDirty"
+  ],
+  "actors": [
+    "Administrator",
+    "Enrollment Manager",
+    "Student (indirectly via record)",
+    "System"
+  ],
+  "workflows": [
+    {
+      "name": "Bulk WCB Edit Workflow",
+      "steps": [
+        "User accesses WCBEditAll interface.",
+        "Filters and sorts enrollments using parameters such as CohortID, TermID, CourseID, ShowGrad, ShowInactive, ShowWaived, SectionFilter, ActionFilter, keyword, CampusID, CommentFilter.",
+        "Grid loads enrollment data with WCB status and waiver fields.",
+        "User edits WCB status, waiver date, waiver notes for one or more students.",
+        "Dirty flag is set if a row is edited.",
+        "User can save individual row (cmdSave) or all edited rows (cmdSaveAll).",
+        "System applies StudentPrerequisites.StudentDetailsSafetyWCBUpdate for each edited student record.",
+        "If no warnings/messages, redirect occurs to Enrollment list or next edit set (cmdSaveEditNext).",
+        "Buttons and controls are conditionally visible based on EnrollmentID and mode (single or bulk edit).",
+        "System disables editing for read-only mode and hides buttons appropriately.",
+        "After save, updates and recalculates grid state."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Only users with proper session context (UserSession) may access or update records.",
+    "If EnrollmentID is not 0, hide Save All button in header to prevent bulk save for single edit mode.",
+    "ShowGrad, ShowInactive, ShowWaived filter determines which student enrollments are visible.",
+    "WCBStatusesList is loaded from Codes.CodeSearch and used to populate dropdowns.",
+    "Grid disables certain fields/buttons in read-only mode.",
+    "Save/Cancel/EditNext actions are available only when editing is enabled."
+  ],
+  "validations": [
+    "Dirty flag (isDirty) ensures only changed rows are processed.",
+    "WCBStatus dropdown is validated and required for update.",
+    "WCBWaiverDate and WCBWaiverNotes processed as text inputs.",
+    "System checks for warnings after update before redirecting."
+  ],
+  "calculations": [
+    "StartRow and PageSize control pagination and the subset of enrollments shown.",
+    "Grid.SortExpression and SortDirection control order of rows.",
+    "URL query strings are generated for navigation and filtering."
+  ],
+  "conditions": [
+    "If EnrollmentID != 0, Save All is hidden and only individual saves visible.",
+    "If gridDataEdit.Rows.Count < gridDataEdit.PageSize, certain header/footer controls are hidden.",
+    "If blnReadOnly is true, editing is disabled and only viewing is allowed."
+  ],
+  "system_behavior": [
+    "Grid renders enrollment rows for bulk editing with WCB fields.",
+    "Enables/disables buttons and fields based on session, edit mode, and read-only status.",
+    "Handles server-side update of student WCB details.",
+    "Redirects user after save/cancel/edit actions.",
+    "Registers JavaScript for dirty row tracking and field state.",
+    "Populates controls dynamically (dropdowns, panels, etc.)."
+  ],
+  "dependencies": [
+    "Codes.CodeSearch for WCBStatuses data.",
+    "StudentPrerequisites.StudentDetailsSafetyWCBUpdate for updating student WCB details.",
+    "UserSession for context and permissions.",
+    "HSPnet.Enrollment for query string keys.",
+    "Grid.HideButtons, Grid.DisableEditFields, Grid.Sort for UI logic."
+  ],
+  "exceptions": [
+    "If UserSession is null, cancel data source selection.",
+    "If warnings/messages found after update, do not redirect.",
+    "If field controls not found (null), hide/disable failed."
+  ],
+  "source_document_ids": [
+    "04bbe570-1e68-580a-82d5-cb4f52b7154d",
+    "37783754-1a27-56cc-a1fd-f7e76c9cdf5b",
+    "8d9a2928-310a-58fd-83a9-3ba59639f9f4",
+    "8e24e435-191f-56b3-b34c-703e00de0aba",
+    "cbe54a21-b151-5e80-a169-7133c86792e4",
+    "d31f5194-c27c-5a4e-94f4-24f39618de3a",
+    "e1de25b5-41c4-50a3-9b66-f0472f7a4e46",
+    "ec24234e-0fd7-59e8-8399-ef54c758fe87",
+    "fa0346af-3657-5f0d-9dde-5ba563cf52c5"
+  ],
+  "content_gaps": [
+    "No explicit UI layouts or screenshots present.",
+    "Field-level validation details are implicit, actual error handling not fully described.",
+    "No sample data or test cases included.",
+    "No explicit permission or authentication flow beyond UserSession."
+  ]
+}
