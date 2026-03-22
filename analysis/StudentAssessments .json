@@ -1,0 +1,141 @@
+{
+  "filename": "StudentAssessments",
+  "found": true,
+  "summary": "The StudentAssessments user control in the HSPnet application manages the display, filtering, and reporting of student assessment data, including generating downloadable CSVs, managing assessment templates, and supporting role-based access to assessment records.",
+  "purpose": "To provide a user interface for students and staff to view, filter, and report on student assessments, supporting various workflows like filtering by course or template, displaying assessment records, managing report downloads, and supporting combined/interim/final assessment views.",
+  "entities": [
+    "Student",
+    "PlacementRequestAssessment",
+    "AssessmentTemplate",
+    "UserSession"
+  ],
+  "fields": [
+    "StudentID",
+    "StudentFirstName",
+    "StudentLastName",
+    "StudentNumber",
+    "ScreenIsEditable",
+    "PlacementRequestDestinationID",
+    "CourseNameStartDate",
+    "AssessmentTemplateCode",
+    "AssessmentTypeCode",
+    "AssessorTypeCode",
+    "StatusCode",
+    "CombinedTypeEarliestStatusCode",
+    "DistributionOpenDate",
+    "DistributionCloseDate",
+    "LocalDateTime",
+    "FurthestStatusCode"
+  ],
+  "actors": [
+    "Student user",
+    "Staff user",
+    "Supervisor"
+  ],
+  "workflows": [
+    {
+      "name": "Student Assessment Display and Interaction",
+      "steps": [
+        "On initial page load: Set ViewState 'FirstDataLoad' and call Refresh.",
+        "Refresh: Check for valid UserSession.",
+        "Show or hide report generation button based on ScreenIsEditable.",
+        "Populate course and template dropdowns using FillCourseDropdown and FillAssessmentTemplateDropdown.",
+        "If user is a student and matches staff ID, preselect course in dropdown if within open distribution window.",
+        "Display assessment data grid (DisplayGrid).",
+        "Bind data and configure gridData with appropriate filters/parameters (student, course, template).",
+        "On dropdown/filter changes, call Refresh.",
+        "Support sorting gridData by columns (Course, Date, Assessment, Type)."
+      ]
+    },
+    {
+      "name": "Assessment Record Row Data Binding",
+      "steps": [
+        "For each row, bind PlacementRequestAssessment data.",
+        "Display progress icon using SetupProgressIcon.",
+        "Configure action hyperlinks:",
+        "If student: show/hide link to open assessment based on open/close dates and status.",
+        "If staff/supervisor: configure link appropriately (View/Open/Closed).",
+        "Show combined view link if interim or final assessment submitted.",
+        "Set row CSS classes based on status/timing for visual cues.",
+        "Display status/supervisor/joint assessment information as needed."
+      ]
+    },
+    {
+      "name": "Report Generation and Download",
+      "steps": [
+        "User clicks 'Generate Report' button.",
+        "Context and report description are constructed, including metadata (author, agency, date).",
+        "Run data query using ReportCohortStudentAssessmentCSV with selected filters.",
+        "Generate CSV via ReportMain.OutputCSV.",
+        "If report HTML generated, show download link.",
+        "Configure download filename based on template, cohort, term, course, and student info.",
+        "Download file via ReportMain.DownloadFile."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Students can only view/edit their own assessments.",
+    "Staff access is restricted by roles and context.",
+    "Report generation is only visible if the screen is editable.",
+    "Assessments can only be opened/edited if within distribution/open date windows.",
+    "Combined view is enabled if interim or final assessments are submitted."
+  ],
+  "validations": [
+    "Check that UserSession exists before processing.",
+    "Validate dropdown selections (course, template) against available data.",
+    "Ensure valid uuid format when querying data.",
+    "Hide or disable UI elements when not applicable (e.g., no valid assessment to display, out of open window)."
+  ],
+  "calculations": [
+    "Determine earliest distribution date for course pre-selection.",
+    "Build download filenames with sanitized values (student name, course, template)."
+  ],
+  "conditions": [
+    "If FirstDataLoad is 1, trigger initial Refresh.",
+    "If student is also a staff ID match, perform special pre-selection logic for course.",
+    "If assessment is submitted, show combined view link.",
+    "Disable/enable report generation and download based on permissions and state."
+  ],
+  "system_behavior": [
+    "Loads and binds grid data based on selected filters and user session.",
+    "Enables/disables controls based on role, state, and assessment status.",
+    "Sorts grid data on user command.",
+    "Dynamically updates UI on dropdown/filter changes.",
+    "Handles file download for generated reports."
+  ],
+  "dependencies": [
+    "HSPnet.DataLayer.PlacementRequestAssessments",
+    "HSPnet.DataLayer.AssessmentTemplates",
+    "HSPnet.Framework.ReportMain",
+    "Resources (localization strings)",
+    "Dropdown utility",
+    "UserSession management"
+  ],
+  "exceptions": [
+    "No UserSession: cancel data selection.",
+    "No available or open assessments: hide relevant links and actions.",
+    "Invalid data or missing fields: controls hidden, actions disabled."
+  ],
+  "source_document_ids": [
+    "152ea2b5-0e47-54c6-8fb4-1a593694fcc8",
+    "18975034-34fd-5ada-aa15-e50aa6f01e3e",
+    "36f2e201-e23a-5fe0-9463-2e5a123b82a0",
+    "3c098c58-04d7-5414-a6d4-a1ba81476378",
+    "4d41ad30-7063-547a-9863-14aebb19422d",
+    "69831e90-452c-5743-bfaa-01f63b4ad32f",
+    "7ede13bb-194a-50e2-a7de-6226265ab73c",
+    "90af7c25-e487-5a6c-a1e6-4933afcd9bcc",
+    "98dd668c-090d-5b92-9788-74e88e707c80",
+    "b28d3385-e44b-58d2-84ae-9e419d465d40",
+    "c2f8b2a8-5360-55a2-bde9-e69d2d6fb8ab",
+    "c37b919e-11d5-5a05-bc71-2f3d96c4f0c3",
+    "f4bf0152-9368-52ef-933c-c706b30572ac",
+    "fffbac8e-91eb-58e2-8bd4-87894276ec1b"
+  ],
+  "content_gaps": [
+    "Underlying data model for PlacementRequestAssessment and AssessmentTemplate is inferred, not fully defined.",
+    "Resource/localization strings content not provided.",
+    "Security and audit handling implementation details not present.",
+    "No explicit description of error messaging for failed report downloads."
+  ]
+}
