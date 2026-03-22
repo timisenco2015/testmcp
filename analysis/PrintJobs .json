@@ -1,0 +1,172 @@
+{
+  "filename": "PrintJobs",
+  "found": true,
+  "summary": "PrintJobs is a module responsible for managing system-generated print jobs, primarily for report creation and correspondence in the HSPnet platform. It encompasses report scheduling, creation, status tracking, grouping, and delivery via email. It enforces business rules for report generation thresholds, validates input parameters, and handles workflow exceptions.",
+  "purpose": "The main purpose of PrintJobs is to automate, manage, and deliver various reports and correspondence related to placements, staff, students, and agencies. It tracks job status, handles batching, supports grouped/correspondence functionality, and enforces user-specific and report-specific business logic concerning scheduling, sending, and delivery.",
+  "entities": [
+    "PrintJob",
+    "HSPnetSession"
+  ],
+  "fields": [
+    "ID",
+    "UserID",
+    "JobDate",
+    "JobName",
+    "ParamsReady",
+    "ReportReady",
+    "ReportViewed",
+    "OutputFileName",
+    "ReportSent",
+    "URLBase",
+    "SentDate",
+    "Details",
+    "Category",
+    "Status",
+    "StatusDisplay",
+    "StatusDisplayFormatted",
+    "PRD_ID",
+    "PRD_COUNT",
+    "StaffEmail",
+    "PRDLIST_SINGLE",
+    "RecipientID",
+    "RecipientName",
+    "RecipientEmail",
+    "CategoryCaption",
+    "IndentClientClick",
+    "JobDateFormatted",
+    "JobTimeFormatted",
+    "ReportSentFormatted",
+    "ReportDetails",
+    "CategoryDelivery",
+    "Group",
+    "GroupEnd",
+    "GroupIndex",
+    "URLOutputFileFormatted",
+    "EmailClientClick",
+    "DueDate",
+    "DueDateFormatted"
+  ],
+  "actors": [
+    "System",
+    "User",
+    "Staff",
+    "Instructor",
+    "Supervisor",
+    "DepartmentContact",
+    "DestinationCoordinator",
+    "ReceivingCoordinator"
+  ],
+  "workflows": [
+    {
+      "name": "Report Creation Workflow",
+      "steps": [
+        "Validate input parameters and selected entities (e.g., courses, destinations, agencies).",
+        "Check against MAX_INCLUDE_ITEMS business rule.",
+        "Set database procedure name for report creation.",
+        "Add required parameters (e.g., SessionID, entity lists, options).",
+        "Execute database procedure.",
+        "If success, add a report added warning message; if failure, add error message."
+      ]
+    },
+    {
+      "name": "PrintJob Status & Grouping Workflow",
+      "steps": [
+        "Search for jobs, optionally grouped by status or name.",
+        "Populate PrintJob fields including status, recipients, and output information.",
+        "Determine grouping and group indices based on job date and name similarity.",
+        "Apply ready/delivered status formatting for display.",
+        "Generate email click actions depending on job conditions."
+      ]
+    },
+    {
+      "name": "Job Deletion & Status Update",
+      "steps": [
+        "Set PrintJob status using PrintJobSetStatus procedure.",
+        "Delete PrintJob using PrintJobDelete procedure."
+      ]
+    }
+  ],
+  "business_rules": [
+    "MAX_INCLUDE_ITEMS (constant: 50) limits number of entities included in batch jobs.",
+    "Jobs will not be created if input lists are empty or exceed maximum.",
+    "Reports must have valid date ranges; start date must not exceed end date.",
+    "At least one staff role must be selected for staff report creation.",
+    "Job grouping occurs if jobs are within 5 seconds of each other and have the same name.",
+    "Reports are added to queue if no SQL errors occur."
+  ],
+  "validations": [
+    "ValidStartEndDate checks dateFrom and dateTo values, ensures not null and logical order.",
+    "Input lists (courses, destinations, agencies) are checked for emptiness and length.",
+    "StaffEmail is parsed and validated; disabled display if email is absent.",
+    "At least one staff role flag must be true for staff list report."
+  ],
+  "calculations": [
+    "JobDateFormatted and JobTimeFormatted for sorting and display.",
+    "ReportSentFormatted for display based on job sent status.",
+    "Grouping logic based on time span between jobs and job name."
+  ],
+  "conditions": [
+    "If IndividualPDF is true, each entity gets its own job; if false, batch jobs are created.",
+    "Special handling for TermIndex == 5 (custom date logic).",
+    "Group caption is set if category changes."
+  ],
+  "system_behavior": [
+    "Adds warnings or errors based on validation and execution outcomes.",
+    "Handles grouped job display and toggling in UI.",
+    "Tracks job status (Ready, Viewed, Delivered, Submitted) and display formatting.",
+    "Handles delivery via email with subject line/recipient logic.",
+    "Deletes or updates status of jobs upon request."
+  ],
+  "dependencies": [
+    "Depends on resources for error, warning, and display strings.",
+    "Uses database procedures for all job creations and searches.",
+    "Relies on DateFormatter, NameFormatter, Hashing, and QueryString utilities."
+  ],
+  "exceptions": [
+    "Input validation errors (empty, too long, logical error).",
+    "SQL errors during job creation or execution.",
+    "No confirmed placements, no selected entities, or date errors."
+  ],
+  "source_document_ids": [
+    "00cfa3ca-6039-5a65-9880-9d6f386533c6",
+    "02b8c9b7-0198-5b6e-b82d-364ac42ccd25",
+    "0439b504-a8c2-5b8d-88b8-c17ae20c1c08",
+    "12dd920c-d8e7-59fd-bd44-aad168149f93",
+    "1881216b-5ff7-5273-84cb-3cf61993dad0",
+    "1a553aff-8362-50ff-ac48-fcc9edd606b4",
+    "21403eeb-e5d8-5b3f-80f3-882b0cac919d",
+    "2b60976f-e321-55ea-8f5d-3fafff8ff090",
+    "30a59770-6401-5d7b-bdde-e8fe726ac4cf",
+    "323bd332-2ef0-53f9-8636-fdddd292e6d0",
+    "343a2831-bc35-5f70-9c3a-3df49fd887dc",
+    "43f1424a-a288-5473-8deb-d061c2bfe017",
+    "55b721e0-e3c3-57ca-bc5b-e73fbac45b27",
+    "67d6b52e-34e6-5656-ae4f-f437466d856d",
+    "6ede39b3-4c67-58e1-a164-8ad0769f2124",
+    "76cc9be4-b39b-58ea-a054-ac2544c5bc43",
+    "855eb02a-40e1-54de-b0b7-a766aec8bfbb",
+    "87bdd11d-fb03-5409-b5a2-62c23bf96de3",
+    "9252ec14-aab4-54a4-915b-7870ade9a71f",
+    "92dc8063-9adb-5edf-a21d-c80089616b39",
+    "93a10cb2-2ba8-595b-9055-4615890d1461",
+    "bac8b1a7-500b-510e-b7da-51fb87d03234",
+    "bbc00f3d-b36c-5690-be17-b4a8cb083f40",
+    "bcdf09c3-a54d-5066-858c-0e9798259f41",
+    "c3f794aa-5886-5d59-b809-c9f0e79547c9",
+    "cd4ccf09-b970-5f1b-bc44-81cb69bd18ff",
+    "e1da26f7-b8da-55b3-a18b-4f7b41a66590",
+    "e4b6255e-850c-529c-9832-74fc0c444bae",
+    "e79fe64a-0af6-5e1c-a1ec-9bc69daaf82b",
+    "ec577460-73c0-5305-ac94-639029835e51",
+    "ee9639f7-c2b3-56b6-8be9-699177535f6b",
+    "f0e87828-b60b-53f4-8885-46ccaf20634a",
+    "fba7db30-fd03-55a5-88fb-db0f4c39f149",
+    "fd81ec4d-f88b-5d27-bcb7-d4ce8b6b14bc"
+  ],
+  "content_gaps": [
+    "No UI or API usage examples provided.",
+    "Details on specific database schema and relationships for PrintJobs are missing.",
+    "No explicit error codes or message formats.",
+    "No information on how files are written to GitHub or external repositories."
+  ]
+}
