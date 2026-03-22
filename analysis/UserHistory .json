@@ -1,0 +1,101 @@
+{
+  "filename": "UserHistory",
+  "found": true,
+  "summary": "The UserHistory component records and manages changes to user profiles and roles, tracking which users made changes, when, and under what circumstances. It handles the storage, retrieval, and formatting of historical records concerning user actions, authorization, and change control.",
+  "purpose": "The purpose is to maintain an audit trail of user-related changes, including who authorized them, relevant comments, and role or status adjustments. It enables administrators to review historical changes for compliance, debugging, and accountability.",
+  "entities": [
+    "UserHistory",
+    "UserHistoryController"
+  ],
+  "fields": [
+    "ID",
+    "UserID",
+    "ActionDate",
+    "AuthorizedBy",
+    "ReasonCodeID",
+    "Comments",
+    "AuthorizedByContactID",
+    "Description",
+    "FirstName",
+    "MiddleName",
+    "LastName",
+    "AuthorizedByFirstName",
+    "AuthorizedByMiddleName",
+    "AuthorizedByLastName",
+    "NameFormatted",
+    "AuthorizedByNameFormatted",
+    "ActionDateFormatted",
+    "ViewOnly",
+    "HideStudentNames",
+    "RoleID",
+    "Disabled"
+  ],
+  "actors": [
+    "User",
+    "Administrator",
+    "Authorizing User"
+  ],
+  "workflows": [
+    {
+      "name": "Retrieve User History",
+      "steps": [
+        "Call UserHistoryController.GetByUser with session and userID.",
+        "Controller sets procedure to UserHistorySearch.",
+        "Add UserID parameter.",
+        "Retrieve data with GetData.",
+        "Populate UserHistory fields from data reader.",
+        "Format ActionDate."
+      ]
+    },
+    {
+      "name": "Add or Change User History",
+      "steps": [
+        "Call UserHistoryController.AddChanged with all relevant user, date, role, and status fields.",
+        "Set procedure to UserHistoryAddChanged.",
+        "Add all relevant parameters (SessionID, UserID, ActionDate, AuthorizedBy, ReasonCodeID, Comments, ViewOnly, HideStudentNames, RoleID, Disabled, AuthorizedByContactID).",
+        "Execute the procedure."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Each change must record who authorized it and when.",
+    "ReasonCodeID and Comments provide context for the change.",
+    "Role and status fields (ViewOnly, HideStudentNames, RoleID, Disabled) must be tracked for each change."
+  ],
+  "validations": [
+    "Ensure required parameters are provided before adding or retrieving history.",
+    "Cast and validate parameter types (for database procedures)."
+  ],
+  "calculations": [
+    "ActionDateFormatted is derived from ActionDate using DateFormatter.FormatDateShort.",
+    "Name formatting is handled by UI.NameFormatter.FormatName using first, middle, and last name components."
+  ],
+  "conditions": [
+    "If data is found in the data reader, populate the UserHistory entry.",
+    "Parameters like ReasonCodeID and AuthorizedByContactID may have default value 0."
+  ],
+  "system_behavior": [
+    "Stores and retrieves user history using stored procedures (UserHistoryAddChanged, UserHistorySearch).",
+    "Supports formatted output for names and dates.",
+    "Handles complex membership changes and audit scenarios."
+  ],
+  "dependencies": [
+    "HSPnetSession.DB",
+    "UI.NameFormatter",
+    "DateFormatter",
+    "SqlDataReader"
+  ],
+  "exceptions": [
+    "If no data is returned by the database, an empty UserHistory entry is returned."
+  ],
+  "source_document_ids": [
+    "26448301-75ec-55a1-bcac-075303f08a12",
+    "4d0e7773-7610-5e67-873a-19fcb4ac259d",
+    "b76f3b45-3643-504d-a9d6-3386fd84ebd0"
+  ],
+  "content_gaps": [
+    "No details about UI or API exposure.",
+    "No explicit field validations or error handling details.",
+    "No information on authorization checks or security model."
+  ]
+}
