@@ -1,0 +1,127 @@
+{
+  "filename": "CertificationEditAll",
+  "found": true,
+  "summary": "CertificationEditAll is a user control for managing and editing student certification records in the context of enrollment. It provides a grid interface for bulk editing, updating, and maintaining certifications, supporting complex filtering, workflow commands, and field-level validation. The control integrates with session state, performs updates via backend services, and dynamically adjusts UI elements based on context (such as read-only mode and number of rows).",
+  "purpose": "Enable administrators or authorized users to view, edit, and bulk update student certification details for a selected cohort, course, and term. Handles the certification workflow during enrollment processing, including status changes, date validation, and navigation between records.",
+  "entities": [
+    "StudentCertification",
+    "Course",
+    "Enrollment",
+    "HSPnetSession"
+  ],
+  "fields": [
+    "StudentID",
+    "CertificationCodeID",
+    "CertificationNumber",
+    "EffectiveDate",
+    "ExpiryDate",
+    "StatusCodeID",
+    "CohortID",
+    "TermID",
+    "CourseID",
+    "SectionFilter",
+    "ActionFilter",
+    "CampusID",
+    "keyword",
+    "ShowGrad",
+    "ShowInactive",
+    "ShowWaived",
+    "CommentFilter",
+    "StartRow"
+  ],
+  "actors": [
+    "UserSession (Administrator/Authorized user)",
+    "System Administrator"
+  ],
+  "workflows": [
+    {
+      "name": "Bulk Edit and Save Certifications",
+      "steps": [
+        "Load certifications based on filtering parameters (CohortID, CertificationCodeID, etc).",
+        "Bind certification data to grid rows for each student.",
+        "Allow editing of certification number, effective date, expiry date, status via grid controls.",
+        "If actor is System Administrator, expiry date dropdown is visible; otherwise hidden.",
+        "On 'Save All' or 'SaveEditNext' command, iterate rows: update dirty rows using StudentDetailsCertificateUpdate service.",
+        "Validate input fields: EffectiveDate, ExpiryDate, CertificationNumber, Status.",
+        "If errors exist, prevent redirect and display messages.",
+        "If successful, redirect to Enrollment or EnrollmentEditAll page with context via query string.",
+        "Setup JavaScript for client-side dirty tracking and validation messages.",
+        "Hide or show Save/Cancel/EditNext buttons based on read-only state and row count."
+      ]
+    },
+    {
+      "name": "Single Certification Update",
+      "steps": [
+        "Edit individual row fields in context of single student certification.",
+        "On 'Save' command, call StudentDetailsCertificateUpdate with row data.",
+        "Validate fields and handle errors.",
+        "Redirect if successful."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Only allow expiry date modification if user is System Administrator.",
+    "Certification updates are only performed on rows marked 'dirty'.",
+    "Redirect only occurs if no error messages are present after update.",
+    "Show/hide Save All and Cancel buttons depending on row count and mode.",
+    "Hide Save/EditNext buttons in header/footer if fewer than page size rows.",
+    "Certification fields are pre-filled from backend for existing certifications."
+  ],
+  "validations": [
+    "EffectiveDate must be valid.",
+    "ExpiryDate must be valid.",
+    "ExpiryDate must be on or after EffectiveDate.",
+    "CertificationNumber required for certification update.",
+    "Status must be selected for each certification row."
+  ],
+  "calculations": [
+    "ExpiryDate >= EffectiveDate (validation rule)."
+  ],
+  "conditions": [
+    "Read-only mode disables calendar, editing, and certain buttons.",
+    "If EnrollmentID == 0, bulk edit mode; if > 0, single edit mode.",
+    "If certifications exist for student and code, fields are pre-populated."
+  ],
+  "system_behavior": [
+    "Loads and binds certification records to grid via ObjectDataSource (dsCRC).",
+    "Handles grid commands for saving, editing, navigation.",
+    "Controls visibility of UI elements based on context and permissions.",
+    "Client-side JavaScript tracks changes and validates fields.",
+    "Redirects to enrollment pages based on workflow command and success."
+  ],
+  "dependencies": [
+    "StudentCertifications.StudentCertificationSearch()",
+    "StudentCertifications.StudentDetailsCertificateUpdate()",
+    "HSPnetSession",
+    "GridDataEdit",
+    "UserSession",
+    "Dropdown",
+    "Calendar",
+    "QueryString helper",
+    "JavaScript helper"
+  ],
+  "exceptions": [
+    "Validation failure (dates, number, status) blocks update and redirect.",
+    "Errors in StudentDetailsCertificateUpdate result in error messages and prevent navigation."
+  ],
+  "source_document_ids": [
+    "1222fbc3-250e-55b4-b8b4-60d60de320ec",
+    "3bb5ea2e-d0be-52b1-b4a7-ed18748f42ee",
+    "3f5aab61-d0b2-52ae-8e24-51a67d881587",
+    "4cc31364-0b64-55f1-883f-a2943ea20c0b",
+    "54b85faf-2d00-5472-a3a0-c1fe681fdc76",
+    "7d7cc830-39b1-5d9d-b489-4575e70780f4",
+    "7f9eb089-a320-5302-9cd0-07bb5ab02b2f",
+    "9b726ecc-2937-5117-b396-fc2a8c916cd5",
+    "9f544382-0164-5431-b438-4d0d8cff18ee",
+    "ab8f2c0f-45fb-5935-b2f8-8684e2c47a4d",
+    "ba60038f-dcfe-595c-8656-14bc8d91cf7a",
+    "fd91bd44-a983-5f4f-899f-9f5aa39bc870"
+  ],
+  "content_gaps": [
+    "No explicit field definitions for StudentCertification; inferred from usage.",
+    "Underlying implementation of StudentDetailsCertificateUpdate and StudentCertificationSearch not present.",
+    "No details on error message formatting and display logic.",
+    "Some UI behavior (e.g., button hiding) is referenced but not fully defined."
+  ]
+}
