@@ -1,13 +1,21 @@
 {
   "filename": "StudentAssessments",
   "found": true,
-  "summary": "The StudentAssessments user control in the HSPnet application manages the display, filtering, and reporting of student assessment data, including generating downloadable CSVs, managing assessment templates, and supporting role-based access to assessment records.",
-  "purpose": "To provide a user interface for students and staff to view, filter, and report on student assessments, supporting various workflows like filtering by course or template, displaying assessment records, managing report downloads, and supporting combined/interim/final assessment views.",
+  "summary": "The StudentAssessments user control allows students and staff to view, filter, interact with, and generate reports for student assessments. It is part of an ASP.NET WebForms application, integrating business logic, data access, and user interface controls. It manages workflows for assessment viewing, status tracking, downloading CSV reports, and supports interactive filtering by course and assessment template.",
+  "purpose": "Enable students (or staff agents) to interact with their placement-related assessments: filtering, viewing status and details, generating downloadable CSV reports, and accessing combined views when conditions are met.",
   "entities": [
+    "HSPnetSession",
     "Student",
     "PlacementRequestAssessment",
     "AssessmentTemplate",
-    "UserSession"
+    "Course",
+    "GridView (gridData)",
+    "Panel (pnlReportHTML)",
+    "DropDownList (ddCourse, ddAssessmentTemplateFilter)",
+    "SqlDataReader",
+    "ObjectDataSource",
+    "ReportMain",
+    "Resources"
   ],
   "fields": [
     "StudentID",
@@ -16,7 +24,6 @@
     "StudentNumber",
     "ScreenIsEditable",
     "PlacementRequestDestinationID",
-    "CourseNameStartDate",
     "AssessmentTemplateCode",
     "AssessmentTypeCode",
     "AssessorTypeCode",
@@ -24,97 +31,102 @@
     "CombinedTypeEarliestStatusCode",
     "DistributionOpenDate",
     "DistributionCloseDate",
+    "PRDStartDate",
+    "PRDEndDate",
     "LocalDateTime",
-    "FurthestStatusCode"
+    "FurthestStatusCode",
+    "JointAssessmentID",
+    "ReportHTML",
+    "fileName"
   ],
   "actors": [
-    "Student user",
-    "Staff user",
-    "Supervisor"
+    "Student (UserSession.StudentUser)",
+    "Staff",
+    "Supervisor",
+    "System (for report generation, file download, data binding)"
   ],
   "workflows": [
     {
-      "name": "Student Assessment Display and Interaction",
+      "name": "Assessment Listing and Filtering",
       "steps": [
-        "On initial page load: Set ViewState 'FirstDataLoad' and call Refresh.",
-        "Refresh: Check for valid UserSession.",
-        "Show or hide report generation button based on ScreenIsEditable.",
-        "Populate course and template dropdowns using FillCourseDropdown and FillAssessmentTemplateDropdown.",
-        "If user is a student and matches staff ID, preselect course in dropdown if within open distribution window.",
-        "Display assessment data grid (DisplayGrid).",
-        "Bind data and configure gridData with appropriate filters/parameters (student, course, template).",
-        "On dropdown/filter changes, call Refresh.",
-        "Support sorting gridData by columns (Course, Date, Assessment, Type)."
+        "Load StudentAssessments control.",
+        "On first load, set FirstDataLoad ViewState.",
+        "Call Refresh(true) to bind data if user session is valid.",
+        "FillCourseDropdown() with available assessments, select course.",
+        "FillAssessmentTemplateDropdown() with templates.",
+        "Bind gridData to filtered PlacementRequestAssessments.",
+        "Allow sorting by Course, Date, Assessment, Type.",
+        "Enable filtering via course and assessment template drop-downs.",
+        "Support combined view hyperlink if final/interim assessment submitted."
       ]
     },
     {
-      "name": "Assessment Record Row Data Binding",
+      "name": "Assessment Row Interaction",
       "steps": [
-        "For each row, bind PlacementRequestAssessment data.",
-        "Display progress icon using SetupProgressIcon.",
-        "Configure action hyperlinks:",
-        "If student: show/hide link to open assessment based on open/close dates and status.",
-        "If staff/supervisor: configure link appropriately (View/Open/Closed).",
-        "Show combined view link if interim or final assessment submitted.",
-        "Set row CSS classes based on status/timing for visual cues.",
-        "Display status/supervisor/joint assessment information as needed."
+        "Bind row data in gridData_RowDataBound.",
+        "Setup progress icons and hyperlinks for each assessment row.",
+        "Show Open/View/Closed status depending on Assessment state, user role, time, and status.",
+        "Joint assessment indicator shown for submitted assessments with a joint ID.",
+        "Apply warningCaption style to rows when assessment window is active."
       ]
     },
     {
-      "name": "Report Generation and Download",
+      "name": "CSV Report Generation and Download",
       "steps": [
-        "User clicks 'Generate Report' button.",
-        "Context and report description are constructed, including metadata (author, agency, date).",
-        "Run data query using ReportCohortStudentAssessmentCSV with selected filters.",
-        "Generate CSV via ReportMain.OutputCSV.",
-        "If report HTML generated, show download link.",
-        "Configure download filename based on template, cohort, term, course, and student info.",
-        "Download file via ReportMain.DownloadFile."
+        "Button btnGenerateReport triggers cohort assessment CSV generation.",
+        "Context information and metadata assembled (summary, author, agency).",
+        "Call ReportMain.OutputCSV to generate HTML and physical file.",
+        "Display report HTML, file link, and download button if .csv file produced.",
+        "lnkDownloadFile_Click triggers download logic, generates valid filename, and serves file.",
+        "Error messages displayed in lblReportHTML."
       ]
     }
   ],
   "business_rules": [
-    "Students can only view/edit their own assessments.",
-    "Staff access is restricted by roles and context.",
-    "Report generation is only visible if the screen is editable.",
-    "Assessments can only be opened/edited if within distribution/open date windows.",
-    "Combined view is enabled if interim or final assessments are submitted."
+    "Student can only view/edit their own assessments (UserSession.StudentUser && UserSession.StaffID == StudentID).",
+    "Course and assessment template dropdowns must be populated based on available data.",
+    "Combined view is only shown if interim or final student assessment is submitted.",
+    "Grid rows styled with warningCaption when assessment window active.",
+    "Report generation only allowed if ScreenIsEditable is true.",
+    "Download link and report HTML only shown if CSV file generated."
   ],
   "validations": [
-    "Check that UserSession exists before processing.",
-    "Validate dropdown selections (course, template) against available data.",
-    "Ensure valid uuid format when querying data.",
-    "Hide or disable UI elements when not applicable (e.g., no valid assessment to display, out of open window)."
+    "Validate UUID format before matching keys.",
+    "UserSession must be valid before data selection.",
+    "Dropdown selection must reflect current ID and value.",
+    "Only valid assessments/templates shown based on user context."
   ],
   "calculations": [
-    "Determine earliest distribution date for course pre-selection.",
-    "Build download filenames with sanitized values (student name, course, template)."
+    "Assessment window calculation: DistributionOpenDate <= LocalDateTime < DistributionCloseDate.AddDays(1)",
+    "CSV filename generated dynamically from student/course/template data",
+    "Combined view decision based on CombinedTypeEarliestStatusCode for interim/final assessment"
   ],
   "conditions": [
-    "If FirstDataLoad is 1, trigger initial Refresh.",
-    "If student is also a staff ID match, perform special pre-selection logic for course.",
-    "If assessment is submitted, show combined view link.",
-    "Disable/enable report generation and download based on permissions and state."
+    "First data load triggers refresh and initial setup.",
+    "Grid sorted by default on Course unless user sorts by other columns.",
+    "Show/hide download/report panel based on report generation result.",
+    "Show/hide combined view link based on assessment status."
   ],
   "system_behavior": [
-    "Loads and binds grid data based on selected filters and user session.",
-    "Enables/disables controls based on role, state, and assessment status.",
-    "Sorts grid data on user command.",
-    "Dynamically updates UI on dropdown/filter changes.",
-    "Handles file download for generated reports."
+    "Auto-refreshes and binds data for the logged-in user.",
+    "Supports sorting and filtering of assessments in grid.",
+    "Combines data from multiple assessments, templates, and courses.",
+    "Generates downloadable CSV and displays HTML preview.",
+    "Handles row data-bound events for status and progress.",
+    "Handles file download and error reporting."
   ],
   "dependencies": [
-    "HSPnet.DataLayer.PlacementRequestAssessments",
-    "HSPnet.DataLayer.AssessmentTemplates",
-    "HSPnet.Framework.ReportMain",
-    "Resources (localization strings)",
-    "Dropdown utility",
-    "UserSession management"
+    "PlacementRequestAssessments.PlacementRequestAssessmentStudentSearchPRD",
+    "PlacementRequestAssessments.PlacementRequestAssessmentStudentSearch",
+    "AssessmentTemplates.AssessmentTemplateSearchByStudentID",
+    "ReportMain.OutputCSV",
+    "ReportMain.DownloadFile"
   ],
   "exceptions": [
-    "No UserSession: cancel data selection.",
-    "No available or open assessments: hide relevant links and actions.",
-    "Invalid data or missing fields: controls hidden, actions disabled."
+    "Invalid user session cancels data source selection.",
+    "No assessments/templates found disables filtering.",
+    "Failed report generation hides download link, shows error.",
+    "UUID casting errors handled by safe SQL."
   ],
   "source_document_ids": [
     "152ea2b5-0e47-54c6-8fb4-1a593694fcc8",
@@ -133,9 +145,9 @@
     "fffbac8e-91eb-58e2-8bd4-87894276ec1b"
   ],
   "content_gaps": [
-    "Underlying data model for PlacementRequestAssessment and AssessmentTemplate is inferred, not fully defined.",
-    "Resource/localization strings content not provided.",
-    "Security and audit handling implementation details not present.",
-    "No explicit description of error messaging for failed report downloads."
+    "Exact field mappings and UI layout are inferred from code, documentation not provided.",
+    "AssessmentTemplate and PlacementRequestAssessment entity definitions are referenced but not fully visible.",
+    "Error handling, logging, and UI display logic may rely on external components not included.",
+    "Resources localization and system integration specifics are referenced but not documented."
   ]
 }
