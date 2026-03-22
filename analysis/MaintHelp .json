@@ -1,149 +1,108 @@
 {
   "filename": "MaintHelp",
   "found": true,
-  "summary": "MaintHelp is a maintenance utility screen for displaying, editing, adding, and deleting help text records for various screens in the application. It features an alphabetically indexed grid view for fast navigation of help entries by their 'ScreenName', with support for alternate titles/text (locales), searching, validation, modal editing, and error/warning messaging.",
-  "purpose": "To maintain help content records for application screens, allowing administrators to manage help text, alternate text, and titles for user-facing guidance. The screen supports add/edit/delete, search and filter, and displays warnings/errors.",
+  "summary": "MaintHelp is an ASP.NET web page and code module supporting the maintenance and editing of help records within an HSPnet system. It provides a user interface for listing, searching, filtering, viewing, editing, adding, deleting, and previewing help content tied to specific screens or modules. The page leverages update panels, modal popups, validation controls, grid and detail views, and integrations with the backend data layer to manage help records.",
+  "purpose": "The purpose of MaintHelp is to provide system administrators and maintainers with a dedicated interface for managing help documentation related to various screens in HSPnet. This includes creating, updating, and deleting help text and titles, as well as previewing and searching for help records, ensuring users have accurate and context-sensitive assistance.",
   "entities": [
     "HelpRecord",
     "UserSession"
   ],
   "fields": [
-    {
-      "name": "ScreenName",
-      "type": "string",
-      "maxLength": 50,
-      "required": true,
-      "description": "Identifier linking help content to specific screens."
-    },
-    {
-      "name": "HelpTitle",
-      "type": "string",
-      "maxLength": 200,
-      "required": true,
-      "description": "Main title for the help content."
-    },
-    {
-      "name": "HelpText",
-      "type": "string",
-      "required": true,
-      "description": "Primary help text."
-    },
-    {
-      "name": "HelpTitleAlt",
-      "type": "string",
-      "maxLength": 200,
-      "required": false,
-      "description": "Alternate title (for different locale or context)."
-    },
-    {
-      "name": "HelpTextAlt",
-      "type": "string",
-      "required": false,
-      "description": "Alternate help text."
-    }
+    "ScreenName",
+    "HelpTitle",
+    "HelpText",
+    "HelpTitleAlt",
+    "HelpTextAlt"
   ],
   "actors": [
-    {
-      "role": "Administrator",
-      "actions": [
-        "View help entries",
-        "Add new help entries",
-        "Edit help entries",
-        "Delete help entries",
-        "Search/filter help entries",
-        "Preview help screens"
-      ]
-    }
+    "System Administrator",
+    "Maintainer"
   ],
   "workflows": [
     {
-      "name": "Add Help Entry",
+      "name": "View Help Records",
       "steps": [
-        "Click 'Add' button.",
-        "Fill in ScreenName, HelpTitle, HelpText, optional HelpTitleAlt, HelpTextAlt.",
-        "Validation performed (all required fields).",
-        "Submit record.",
-        "Confirmation, grid refresh."
+        "Page loads and initializes user session.",
+        "Default listing of help records displayed in GridView (gridData).",
+        "User can filter records by entering a keyword (txtKeyword) or selecting a starting character (lbStartsWith_Click).",
+        "GridView is refreshed with filtered results."
       ]
     },
     {
-      "name": "Edit Help Entry",
+      "name": "Add Help Record",
       "steps": [
-        "Select entry in grid.",
-        "Click 'Edit' button.",
-        "Fields populated with current values.",
-        "Update fields as needed.",
-        "Validation performed.",
-        "Submit changes.",
-        "Confirmation, grid refresh."
+        "User clicks 'Add' button (cmdAdd or cmdAddEmptyData).",
+        "Switches DetailsView to add mode.",
+        "User enters ScreenName, HelpTitle, HelpText, HelpTitleAlt, HelpTextAlt.",
+        "Required field validators ensure mandatory values.",
+        "User clicks 'Save' (cmdSave).",
+        "New HelpRecord is created and added to backend via UserSession."
       ]
     },
     {
-      "name": "Delete Help Entry",
+      "name": "Edit Help Record",
       "steps": [
-        "Select entry in grid.",
-        "Click 'Delete' button.",
-        "Confirmation prompt (JavaScript, No Undo).",
-        "Entry deleted.",
-        "Grid refresh."
+        "User clicks 'Edit' button in GridView.",
+        "DetailsView switches to edit mode with fields populated.",
+        "ScreenName cannot be edited; label is shown, textbox hidden.",
+        "User modifies fields and clicks 'Save'.",
+        "Record is updated in backend and GridView refreshed."
       ]
     },
     {
-      "name": "Search/Filter Help Entries",
+      "name": "Delete Help Record",
       "steps": [
-        "Enter keyword in search box.",
-        "Select optional 'starts with' letter or ALL.",
-        "Grid displays filtered entries."
+        "User clicks 'Delete' button.",
+        "Confirmation required.",
+        "HelpRecord is deleted via UserSession.",
+        "GridView is refreshed."
       ]
     },
     {
-      "name": "Preview Help Screen",
+      "name": "Preview Help Record",
       "steps": [
-        "Click 'Preview' button on entry.",
-        "JavaScript opens new window for previewing help content."
+        "User clicks 'Preview' button.",
+        "JavaScript opens help screen in new window with session information.",
+        "Display preview of help content."
       ]
     }
   ],
   "business_rules": [
-    "ScreenName must be unique and specified.",
-    "HelpTitle and HelpText are mandatory.",
-    "Alternate locale fields (HelpTitleAlt, HelpTextAlt) are optional.",
-    "Validation is enforced before save (RequiredFieldValidators).",
-    "Confirmation required before permanent deletion.",
-    "Search defaults to '%' (all) if keyword not specified."
+    "ScreenName is required for all help records.",
+    "HelpTitle and HelpText fields are mandatory.",
+    "HelpTitleAlt and HelpTextAlt are mandatory when alternate locale is used.",
+    "GridView and DetailsView use validation controls to enforce mandatory fields."
   ],
   "validations": [
-    "RequiredFieldValidator for ScreenName, HelpTitle, HelpText.",
-    "MaxLength restriction on ScreenName (50), HelpTitle/HelpTitleAlt (200).",
-    "Error messages shown using ValidationSummary.",
-    "Client/server validation for add/edit actions."
+    "RequiredFieldValidator for ScreenName, HelpTitle, HelpTitleAlt, HelpText, HelpTextAlt.",
+    "ValidationSummary displays list of errors when fields are missing or invalid.",
+    "Client-side and server-side validations ensure correct inputs."
   ],
-  "calculations": [],
+  "calculations": [
+    "Truncate HelpText and HelpTextAlt for GridView display to 75 characters."
+  ],
   "conditions": [
-    "If in edit mode, ScreenName is shown as label and is not editable.",
-    "If in add mode, ScreenName field is editable.",
-    "If keyword is empty, search grid with all entries ('%').",
-    "If delete is confirmed, remove entry and refresh grid."
+    "If ScreenName is empty (new record), textbox is shown for entry.",
+    "If editing existing record, ScreenName is displayed as label and cannot be modified.",
+    "If keyword is empty, default search uses '%' to fetch all records."
   ],
   "system_behavior": [
-    "GridView displays entries, supports add/edit/delete and alphabet navigation.",
-    "ModalPopupExtender used for modal add/edit forms.",
-    "AlwaysVisibleControlExtender keeps warnings/errors visible.",
-    "Search/filter controls update grid contents live.",
-    "Preview opens window for help content."
+    "Uses AJAX UpdatePanel for partial page updates and responsive UI.",
+    "Modal popups used for editing and validation without full page reload.",
+    "AlwaysVisibleControlExtender keeps error and warning panels visible.",
+    "Handles error and warning messages centrally via dedicated panels."
   ],
   "dependencies": [
-    "HSPnet.DataLayer.Help",
-    "UserSession context",
-    "ModalPopupExtender (AjaxControlToolkit)",
-    "GridView, DetailsView controls",
-    "ValidationSummary",
-    "JavaScript for confirmation and preview"
+    "HSPnet.DataLayer.Help for data retrieval and modification.",
+    "HSPnet.UI.Grid for client scripting and utility functions.",
+    "HSPnet.Framework for page/session handling.",
+    "AjaxControlToolkit for modal popups and always visible controls.",
+    "Resource files for localization of labels, tooltips, and error messages."
   ],
   "exceptions": [
-    "Show error panel on failed validation.",
-    "Show warning panel for status messages.",
-    "Hide modal/details on cancel or after save/delete."
+    "Error panel displays when backend operation fails (e.g., save, delete).",
+    "Warning panel shown for status messages or non-critical issues.",
+    "ValidationSummary shows errors if required fields are missing."
   ],
   "source_document_ids": [
     "086f8287-aaa2-589f-b82f-0814a01c1079",
@@ -165,7 +124,7 @@
     "84c407ad-7fdf-5856-a281-0860c4c17bd2",
     "866cd791-6600-51dc-bfb0-9fe9924e44c9",
     "8c319c95-6739-5403-9d52-9ca69d40671f",
-    "8f50bd72-4836-575b5c7-17efbf994122",
+    "8f50bd72-4836-575b-b5c7-17efbf994122",
     "9e4563c6-3bd1-5eab-9842-d1772f9f2f8a",
     "9f020580-bf0b-5bbd-b096-59323d786cca",
     "c168c875-8de7-5539-8e7c-2c71a15e6163",
@@ -175,9 +134,9 @@
     "fcbbf8b8-78a7-5531-ae18-c839b5154645"
   ],
   "content_gaps": [
-    "Sample help content records not included in the pageContent.",
-    "Business logic for alternate locale handling (HelpTitleAlt, HelpTextAlt) is inferred but not explicitly described.",
-    "Detailed error/warning handling messages are referenced but not fully described in the fragments.",
-    "No example of UserSession object structure or permissions."
+    "Business rules for alternate locales and help text specifics are inferred from field validators and requirements; actual locale logic and help text processing not shown.",
+    "No example help records or sample data present.",
+    "Limited detail on error handling logic and specific exceptions.",
+    "No explicit permission or user role validation shown; assumed System Administrator or Maintainer access."
   ]
 }
