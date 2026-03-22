@@ -1,101 +1,146 @@
 {
   "filename": "ExpenseBatch",
   "found": true,
-  "summary": "ExpenseBatch is a data entity and process responsible for managing batches of expenses, primarily grouped by department. The code implements CRUD operations (Create, Read, Update, Delete) and includes search functionality, formatted batch numbering, and handles status codes and descriptions. It uses explicit stored procedures for all main actions.",
-  "purpose": "To manage grouped sets of expenses (batches) in an organization, allowing users to search, add, update, and delete expense batches for reporting, workflow, and tracking purposes.",
+  "summary": "ExpenseBatch represents a data and workflow structure for managing grouped expenses within a department. The system allows searching, creating, updating, and deleting expense batches, providing both a formatted batch identifier and multilingual support for status descriptions.",
+  "purpose": "To manage batches of expenses for departments, including creation, search, update, and deletion, and to provide descriptive and status-driven batch identification for administrative and operational purposes.",
   "entities": [
-    "ExpenseBatch",
-    "ExpenseBatches"
+    {
+      "name": "ExpenseBatch",
+      "description": "A batch containing grouped expenses, associated with a department and status codes.",
+      "fields": [
+        "ID",
+        "DepartmentID",
+        "BatchDescription",
+        "BatchDate",
+        "StatusCodeID",
+        "StatusCode",
+        "StatusDescription",
+        "ClosedDate",
+        "BatchNumberFormatted"
+      ]
+    }
   ],
   "fields": [
-    "ID",
-    "DepartmentID",
-    "BatchDescription",
-    "BatchDate",
-    "StatusCodeID",
-    "StatusCode",
-    "StatusDescription",
-    "ClosedDate",
-    "BatchNumberFormatted"
+    {
+      "name": "ID",
+      "type": "int",
+      "description": "Unique identifier for the expense batch"
+    },
+    {
+      "name": "DepartmentID",
+      "type": "int",
+      "description": "Identifier for the department associated with the batch"
+    },
+    {
+      "name": "BatchDescription",
+      "type": "string",
+      "description": "Description of the batch"
+    },
+    {
+      "name": "BatchDate",
+      "type": "DateTime",
+      "description": "Date when the batch was created"
+    },
+    {
+      "name": "StatusCodeID",
+      "type": "int",
+      "description": "Identifier for the status code of the batch"
+    },
+    {
+      "name": "StatusCode",
+      "type": "string",
+      "description": "Code representing the status of the batch"
+    },
+    {
+      "name": "StatusDescription",
+      "type": "string",
+      "description": "Description of the batch's status, supports alternate language fields"
+    },
+    {
+      "name": "ClosedDate",
+      "type": "DateTime",
+      "description": "Date when the batch was closed"
+    },
+    {
+      "name": "BatchNumberFormatted",
+      "type": "string",
+      "description": "Formatted identifier combining the batch ID and status description"
+    }
   ],
   "actors": [
-    "HSPnetSession (system/context for DB access)",
-    "User (implied, performing batched expense actions)"
+    {
+      "name": "HSPnetSession",
+      "description": "Session context used to access and manipulate batch data"
+    }
   ],
   "workflows": [
     {
-      "name": "Search Expense Batches",
+      "name": "Search ExpenseBatch",
       "steps": [
-        "Receive department ID.",
-        "Call stored procedure 'ExpenseBatchSearch' with DepartmentID.",
-        "For each returned record: map fields to 'ExpenseBatch' object, including formatting BatchNumberFormatted.",
-        "Return list of batches."
+        "Initiate session",
+        "Set stored procedure 'ExpenseBatchSearch' or 'ExpenseBatchSearchID'",
+        "Add parameters (DepartmentID or ID)",
+        "Retrieve batches using SqlDataReader",
+        "Map database fields to ExpenseBatch structure, including language-aware status description",
+        "Format BatchNumber and aggregate results"
       ]
     },
     {
-      "name": "Search Expense Batch by ID",
+      "name": "Add ExpenseBatch",
       "steps": [
-        "Receive batch ID.",
-        "Call stored procedure 'ExpenseBatchSearchID' with ID.",
-        "If record found: map fields to 'ExpenseBatch' object.",
-        "Return the batch."
+        "Initiate session",
+        "Set stored procedure 'ExpenseBatchAdd'",
+        "Add parameters: SessionID, DepartmentID, BatchDescription, BatchDate",
+        "Retrieve new batch ID from database",
+        "Return batch ID"
       ]
     },
     {
-      "name": "Add Expense Batch",
+      "name": "Update ExpenseBatch",
       "steps": [
-        "Receive departmentID, batchDescription, and batchDate.",
-        "Call stored procedure 'ExpenseBatchAdd' with parameters.",
-        "On success: retrieve generated ID.",
-        "Return the new batch ID."
+        "Initiate session",
+        "Set stored procedure 'ExpenseBatchUpdate'",
+        "Add parameters: SessionID, ID, BatchDescription, BatchDate, StatusCodeID",
+        "Execute update query"
       ]
     },
     {
-      "name": "Update Expense Batch",
+      "name": "Delete ExpenseBatch",
       "steps": [
-        "Receive ID, batchDescription, batchDate, and statusCodeID.",
-        "Call stored procedure 'ExpenseBatchUpdate' with parameters.",
-        "No return expected."
-      ]
-    },
-    {
-      "name": "Delete Expense Batch",
-      "steps": [
-        "Receive batch ID.",
-        "Call stored procedure 'ExpenseBatchDelete' with ID.",
-        "No return expected."
+        "Initiate session",
+        "Set stored procedure 'ExpenseBatchDelete'",
+        "Add parameters: SessionID, ID",
+        "Execute delete query"
       ]
     }
   ],
   "business_rules": [
-    "A batch must have a DepartmentID, description, and date specified when created.",
-    "BatchNumberFormatted concatenates ID and StatusDescription for display.",
-    "StatusDescription uses alternative language if session indicates."
+    "StatusDescription uses alternate language fields if session mandates",
+    "BatchNumberFormatted is constructed as ID + ' - ' + StatusDescription"
   ],
   "validations": [
-    "Batch ID must be a valid integer (implicit by database).",
-    "Department ID must be provided and valid.",
-    "BatchDate must be a valid date.",
-    "StatusDescription field uses alternate language if session requires."
+    "Ensure ID and DepartmentID are integer values",
+    "BatchDate and ClosedDate must be valid DateTime",
+    "StatusCodeID must be provided for update"
   ],
   "calculations": [
-    "BatchNumberFormatted = ID + ' - ' + StatusDescription"
+    "BatchNumberFormatted: ID.ToString() + ' - ' + StatusDescription"
   ],
   "conditions": [
-    "If session uses alternate language fields, fetch StatusDescriptionAlt else StatusDescription."
+    "StatusDescription uses alternate language if sess.UseAltLanguageFields is true"
   ],
   "system_behavior": [
-    "All DB access is via stored procedures.",
-    "Readers are always closed after use.",
-    "Methods return mapped objects or lists as appropriate."
+    "Session context controls procedure invocation and language field selection",
+    "ExpenseBatch entity is constructed from database fields",
+    "Batch operations are encapsulated within stored procedures"
   ],
   "dependencies": [
-    "HSPnetSession for DB and session context.",
-    "SQL Server stored procedures: ExpenseBatchSearch, ExpenseBatchSearchID, ExpenseBatchAdd, ExpenseBatchUpdate, ExpenseBatchDelete."
+    "Relies on HSPnetSession for DB procedure and language selection",
+    "Depends on stored procedures: ExpenseBatchSearch, ExpenseBatchSearchID, ExpenseBatchAdd, ExpenseBatchUpdate, ExpenseBatchDelete"
   ],
   "exceptions": [
-    "If stored procedure returns no results, object or list will be empty.",
-    "Database errors are not detailed in these fragments (handled elsewhere)."
+    "Null SqlDataReader results in empty batch or no update",
+    "Failed database queries return default values or exit workflow early"
   ],
   "source_document_ids": [
     "060e08d3-49ca-5e40-bea0-849f4e6173e1",
@@ -103,7 +148,8 @@
     "b2216e58-a144-55cb-8b87-3da9787fc1d7"
   ],
   "content_gaps": [
-    "No UI details, security/authorization logic, or error handling in these code fragments.",
-    "No explicit transaction or concurrency control logic."
+    "No explicit validation for input data beyond type checks",
+    "No details on batch expense items or approval workflow",
+    "No UI-level or integration documentation"
   ]
 }
