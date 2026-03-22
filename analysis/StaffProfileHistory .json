@@ -1,12 +1,12 @@
 {
   "filename": "StaffProfileHistory",
   "found": true,
-  "summary": "StaffProfileHistory records, displays, and manages a historical view of key actions, changes, and consent associated with staff profiles. It retrieves data from the database based on staff ID and session, selectively includes entries depending on specific consent criteria, and displays these entries in a grid with actionable controls for printing, refreshing, or closing the view.",
-  "purpose": "To provide an auditable, filterable, and user-accessible log/history of staff profile actions, changes, and consents for operational review, compliance, and tracking by authorized users.",
+  "summary": "StaffProfileHistory provides a historical log of profile-related actions for staff members. The screen displays a searchable grid of actions, sections, and changes performed by various users for a given staff member. It includes workflow for loading, refreshing, and displaying profile history, as well as access validation.",
+  "purpose": "To display and manage the history of profile-related changes and actions for a staff member in a searchable, filterable interface. It enables viewing who performed what action, when, and on which section of the staff profile.",
   "entities": [
     "StaffPRHistory",
     "StaffPRHistoryList",
-    "StaffProfileHistory"
+    "HSPnetSession"
   ],
   "fields": [
     "ActionDate",
@@ -22,82 +22,90 @@
     "Phone",
     "ByUserID",
     "ByOriginalUserID",
-    "ByUserSysAdmin",
-    "AgencyUser",
-    "AgencyUserDetails"
+    "ByUserSysAdmin"
   ],
   "actors": [
-    "Staff",
-    "Supervisor",
-    "Instructor",
-    "System User",
-    "SysAdmin"
+    "User (viewer)",
+    "System Administrator",
+    "Support Team"
   ],
   "workflows": [
     {
-      "name": "View Staff Profile History",
+      "name": "Page Load and Display History",
       "steps": [
-        "User accesses the staff profile history screen.",
-        "System reads StaffID from query parameters.",
-        "System retrieves relevant history using StaffProfileHistorySearch and session context.",
-        "Entries are filtered: if FPREConsentObtained is false, certain sections (Orientation, Certifications, Safety&Security, Infection Control, Occupational Health) are excluded.",
-        "System formats and populates entries with fields, including language alternates if configured.",
-        "History is displayed in a grid with date, section, agency user, action, and changed fields.",
-        "User can print, refresh, or close the history view."
+        "Parse StaffID from query string",
+        "If StaffID is valid, initialize StaffPRHistoryList with session and StaffID",
+        "Call FillList to retrieve history data for the staff",
+        "Bind the retrieved history list (Data) to the grid for display"
       ]
     },
     {
-      "name": "Search Staff Profile History (API/Backend)",
+      "name": "Refresh History View",
       "steps": [
-        "API takes StaffID and session as parameters.",
-        "Procedure StaffProfileHistorySearch is run with StaffID and SessionID.",
-        "Results are read and mapped to StaffPRHistory entries.",
-        "Entries are filtered by consent and section.",
-        "Entries are returned as a list."
+        "User clicks Refresh button",
+        "Call RefreshData, which re-fetches StaffPRHistoryList",
+        "Re-bind the data to the grid"
       ]
     },
     {
-      "name": "User Access-based Search",
+      "name": "Profile History Search",
       "steps": [
-        "API takes StaffID and session as parameters.",
-        "Procedure StaffProfileHistorySearchUserAccess is run.",
-        "Relevant historical entries are returned based on user access rights."
+        "Invoke stored procedure 'StaffProfileHistorySearch' with StaffID and SessionID",
+        "For each entry, populate StaffPRHistory fields including alternate language if enabled",
+        "Apply display rules based on FPREConsentObtained and ScreenSection"
+      ]
+    },
+    {
+      "name": "Profile History Search User Access",
+      "steps": [
+        "Invoke stored procedure 'StaffProfileHistorySearchUserAccess' with StaffID and SessionID",
+        "Populate StaffPRHistory fields"
+      ]
+    },
+    {
+      "name": "Error/Warning Handling",
+      "steps": [
+        "Error and warning panels are hidden/shown as needed",
+        "Messages processed on pre-render"
       ]
     }
   ],
   "business_rules": [
-    "Entries related to certain sections are only included if FPREConsentObtained is true, otherwise these sections are excluded: Orientation, Certifications, Safety&Security, Infection Control, Occupational Health.",
-    "Language fields (ScreenSectionAlt, UserActionAlt, FieldsAlt) are used if session.UseAltLanguageFields is true."
+    "If FPREConsentObtained is false, entries related to Orientation, Certifications, Safety&Security, Infection Control, or Occupational Health are excluded from results.",
+    "Support Team details are shown for entries not made by SysAdmin and where ByUserID does not match ByOriginalUserID.",
+    "AgencyUser and AgencyUserDetails are dynamically formatted using name and agency information with initials."
   ],
   "validations": [
-    "StaffID must be valid integer for retrieval.",
-    "UUID format enforced for document/entity linking."
+    "StaffID must be a valid integer from the query string.",
+    "FPREConsentObtained field is checked before certain sections are displayed.",
+    "SessionID must match current session."
   ],
   "calculations": [
-    "AgencyUser field is calculated by concatenating Agency, User initials, and additional context if SysAdmin or specific user matching applies.",
-    "AgencyUserDetails is formatted with Agency, Name, Phone and context strings."
+    "AgencyUser is constructed from Agency and user initials.",
+    "AgencyUserDetails combines user name, agency, and phone for tooltip display.",
+    "ActionDate formatted using DateFormatter.FormatDateShort."
   ],
   "conditions": [
-    "FPREConsentObtained controls inclusion/exclusion of particular section entries.",
-    "session.UseAltLanguageFields modifies which fields are displayed."
+    "UseAltLanguageFields determines which field variants to use (e.g., ScreenSectionAlt).",
+    "FPREConsentObtained determines which sections are shown."
   ],
   "system_behavior": [
-    "On page load, refreshes data if StaffID is valid.",
-    "On refresh button click, reloads profile history.",
-    "On close button click, closes view without saving changes.",
-    "Grid displays empty message if no data is available.",
-    "Error and warning panels are auto-generated and shown as needed."
+    "Grid displays historical profile entries for a staff member.",
+    "Grid columns include date, section, agency user, action, and change fields.",
+    "Buttons allow refreshing, printing, and closing the window.",
+    "Error/Warning panels display processing messages.",
+    "If no data found, EmptyDataTemplate shown."
   ],
   "dependencies": [
-    "HSPnetSession (session context)",
-    "Stored procedures: StaffProfileHistorySearch, StaffProfileHistorySearchUserAccess",
-    "SqlDataReader for data access",
-    "UI controls: gridData, panels, buttons"
+    "HSPnetSession for state and DB access.",
+    "SqlDataReader for loading history entries.",
+    "Stored procedures: StaffProfileHistorySearch, StaffProfileHistorySearchUserAccess, StaffHasPR.",
+    "UI components: GridView, Panels, Buttons, Labels, Literal."
   ],
   "exceptions": [
-    "If StaffID is invalid, no history is shown.",
-    "If no consent is obtained, restricted sections are excluded.",
-    "If database connection fails, error panel is shown."
+    "Invalid StaffID results in no data displayed.",
+    "Database errors or missing session will prevent history from being loaded.",
+    "No profile history found: grid displays EmptyDataTemplate."
   ],
   "source_document_ids": [
     "00fb12a6-eb16-59aa-93ee-d8f6f2a67bbf",
@@ -118,9 +126,5 @@
     "f58327e0-e3d2-5a58-b4b0-081cac9ed014",
     "fc4be3de-b143-5b22-a506-59059c12070d"
   ],
-  "content_gaps": [
-    "Details on user access control for StaffProfileHistorySearchUserAccess are not fully specified.",
-    "Error handling implementation beyond UI hints is not fully documented.",
-    "Field descriptions for ScreenSection and Fields are not defined."
-  ]
+  "content_gaps": []
 }
