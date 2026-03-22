@@ -1,112 +1,132 @@
 {
   "filename": "WorksheetAssignStudentsEditAll",
   "found": true,
-  "summary": "The WorksheetAssignStudentsEditAll module is a complex ASP.NET Web Forms UI component for managing student assignment to practicum or course placements in a group or individual workflow. It provides facilities to filter, sort, and assign students to placements, supporting multiple views, edit modes, validation mechanisms, user customizations, and feedback on actions and errors.",
-  "purpose": "To enable users (typically administrators or coordinators) to view, filter, sort, and edit the assignment of students to practicums or courses in bulk, supporting both grouped and individual workflows, and to handle assignment preferences, prerequisites, and associated data and validations.",
+  "summary": "WorksheetAssignStudentsEditAll is a web page and user control in the HSPnet system used for managing the assignment of students to worksheet groups, courses, and destinations. It supports both group and individual workflows, adapting its controls and functionality depending on query parameters and user session. It provides a paginated, editable grid view of student assignments, with workflow controls for sorting, filtering, and batch editing. The system leverages ASP.NET controls, resources, and session state for dynamic rendering and state management.",
+  "purpose": "To allow administrators or coordinators to assign students to courses, sections, groups, and destination placements, supporting both group and individual assignment modes. The page provides workflow for searching, sorting, filtering, batch editing, and confirming assignments. It also handles validation, error, and warning messaging.",
   "entities": [
-    "WorksheetGroup",
     "WorksheetAssignedStudent",
-    "WorksheetAssignSearchCriteria",
+    "WorksheetGroup",
     "UserSession",
-    "WorksheetGroups",
-    "WorksheetAssignedStudents"
+    "WorksheetAssignSearchCriteria"
   ],
   "fields": [
-    "_groupFlag",
-    "_departmentID",
-    "_programID",
-    "_cohortID",
-    "_termID",
-    "_courseID",
-    "_showConfirmed",
-    "_block",
-    "_assignmentSortOrder",
-    "_sort",
-    "_asc",
-    "_section",
-    "_campusID",
-    "_showPreferences",
-    "_showSitePrerequisites",
-    "_searchCriteria",
-    "_useCFO",
-    "_cfoMode",
-    "_courseUsesBlocks",
-    "_startRow",
-    "_totalCount",
-    "_keyword",
-    "_editFlag"
+    "DepartmentID",
+    "ProgramID",
+    "CohortID",
+    "TermID",
+    "CourseID",
+    "ShowConfirmed",
+    "Block",
+    "AssignmentSortOrder",
+    "Sort",
+    "Asc",
+    "Section",
+    "CampusID",
+    "ShowPreferences",
+    "ShowSitePrerequisites",
+    "UseCFO",
+    "CFOMode",
+    "CourseUsesBlocks",
+    "StartRow",
+    "TotalCount",
+    "Keyword",
+    "EditFlag",
+    "DestinationList",
+    "AssignedPRDestID",
+    "WSG_ID"
   ],
   "actors": [
     "Administrator",
     "Coordinator",
-    "End user with assignment privileges"
+    "System (HSPnet)",
+    "Student (indirectly)"
   ],
   "workflows": [
     {
-      "name": "Student Assignment Bulk Edit Workflow",
+      "name": "Page Initialization",
       "steps": [
-        "Initialize page and read filter/query parameters from request.",
-        "Set up user session and page resources.",
-        "Bind UI controls to resource strings (e.g., department, program, course, section, blocks).",
-        "Display filters for confirmed students, preferences, prerequisites, campus, sort options.",
-        "On Page_Load and postbacks, populate filters and controls with current query values or defaults.",
-        "Fetch the bulk assignment data according to search criteria and display using a GridView.",
-        "For each row (student), show the appropriate assignment controls (DropDownList, etc), with the list of valid destinations.",
-        "Disable controls appropriately for confirmed assignments.",
-        "Handle events for saving, editing, or cancelling assignments.",
-        "On save actions, validate dirty records, call assignment save/update logic, display errors/warnings as needed.",
-        "Apply assignment sort order, filter by keyword, and support paging.",
-        "On successful save, redirect or update the UI; otherwise, present validation messages.",
-        "Support both group and individual assignment modes."
+        "Setup page context from master and user session",
+        "Register client-side scripts",
+        "Parse query parameters for control state",
+        "Load worksheet group context and display summary",
+        "Initialize field values and UI controls"
+      ]
+    },
+    {
+      "name": "Search and Display Assignments",
+      "steps": [
+        "Retrieve assignment search criteria based on session and parameters",
+        "Bind editable grid view for assignments",
+        "Display summary and paging information"
+      ]
+    },
+    {
+      "name": "Edit Assignments",
+      "steps": [
+        "Show editable rows in grid for each student",
+        "Allow assignment via dropdown lists",
+        "Hide controls for confirmed students",
+        "Display/Hide assignment blocks based on flags",
+        "Batch edit and update via Save/Edit Next commands"
+      ]
+    },
+    {
+      "name": "Save Assignment Changes",
+      "steps": [
+        "Capture changes marked as dirty via hidden fields",
+        "Save updated assignments by row",
+        "Handle errors and warnings",
+        "Redirect or refresh as needed on completion"
+      ]
+    },
+    {
+      "name": "Validation and Messaging",
+      "steps": [
+        "Display errors and warnings in panels",
+        "Allow users to hide error/warning panels",
+        "Apply validation summary controls"
       ]
     }
   ],
   "business_rules": [
-    "Confirmed assignments cannot be edited unless explicitly overridden.",
-    "Assignment options (destination list) depend on group mode, selection criteria, and student confirmation status.",
-    "Page size for edit/view is determined by configuration (WorksheetGroups.PAGE_SIZE_EDIT/VIEW).",
-    "Sorting and filtering options include assignment sort order, department, program, cohort, term, course, section, keyword, and campus.",
-    "Blocks are shown only if the course uses blocks and the group flag is active.",
-    "Preferences and prerequisites filters are available and their controls are enabled/disabled according to context.",
-    "Validation prevents saving if the user session is missing."
+    "GroupFlag determines if assignment is in group or individual mode, switching context and search logic.",
+    "Confirmed students cannot be reassigned; assignment controls hidden.",
+    "Sorting and filtering options depend on query parameters and session state.",
+    "Assignment block visibility depends on CourseUsesBlocks and GroupFlag.",
+    "AssignmentSortOrder determines which field is used for sorting assignment options."
   ],
   "validations": [
-    "All assignment records are checked for 'dirty' state before save.",
-    "Confirmed assignments cannot be changed unless specific conditions are met.",
-    "DropDownList controls are re-bound if their data source changes.",
-    "If the user session is null during data selection, the operation is cancelled.",
-    "On save, errors such as assigning to already accepted/confirmed destinations are reported."
+    "ValidationSummary control displays field and form validation errors.",
+    "Confirmed assignments are protected from reassignment.",
+    "Dropdown values must be valid assignment or separator rows.",
+    "Certain fields required depending on query and session state."
   ],
   "calculations": [
-    "Determination of current record/page range based on StartRow, PageSize, and TotalCount.",
-    "Display of worksheet count and page number.",
-    "Assignment option ID parsing for both group and non-group assignments (e.g., ID/BlockFlag split)."
+    "Paging: StartRow, PageSize, TotalCount used to calculate page indices and display record counts.",
+    "Block assignment logic: Block is parsed from dropdown value or set based on context.",
+    "AssignmentSortOrder sets displayed label and order."
   ],
   "conditions": [
-    "If query string parameters are missing, default values are applied.",
-    "Block, campus, keyword, and other filters are only effective if corresponding flags are set.",
-    "The destination list for assignments is selected based on group mode and visibility of confirmed students.",
-    "Sorting direction is determined by 'Asc' parameter.",
-    "Display and edit controls vary depending on RowType (header, footer, datarow) in the GridView."
+    "If GroupFlag is true, group context and search methods are used; otherwise, individual context.",
+    "If CourseUsesBlocks is true and Block > 0, block controls and values are shown.",
+    "If ShowConfirmed is true, confirmed students are displayed but cannot be reassigned."
   ],
   "system_behavior": [
-    "Page includes warning and error panels with AlwaysVisible extenders for asynchronous feedback.",
-    "On save or edit, if validation fails, the grid is rebound and messages displayed.",
-    "JavaScript variables are dynamically generated for tracking dirty states in asynchronous postbacks.",
-    "Supports asynchronous updates and popup-triggered refresh workflows.",
-    "Session state is updated on navigation actions."
+    "Page binds controls and fields dynamically based on session and query parameters.",
+    "Assignment changes are batch processed; errors/warnings handled via panels.",
+    "Redirects or refreshes triggered by Save/Cancel/EditNext commands.",
+    "JavaScript variables dynamically registered based on grid state."
   ],
   "dependencies": [
-    "Global resources (multi-language or customizable captions).",
-    "User session for security and context.",
-    "Worksheets data access layer for assignment and search criteria.",
-    "AJAX Control Toolkit for UI enhancements.",
-    "Dropdown, ListItem, and GridView ASP.NET controls."
+    "SessionConstants for retrieving session keys.",
+    "WorksheetGroups and WorksheetAssignedStudents for assignment logic.",
+    "ASP.NET WebForms grid view and controls.",
+    "HSPnet global resources for label text."
   ],
   "exceptions": [
-    "Null UserSession cancels data operations.",
-    "Error and warning messages displayed if business rules are violated (e.g., attempted assignment after confirmation).",
-    "UI controls are hidden/disabled when displaying the last page or when conditions do not permit further editing."
+    "If UUID parsing fails, assignment search may not work.",
+    "If UserSession is null, assignment operations are cancelled.",
+    "Assignment update may trigger warnings/errors based on business rules."
   ],
   "source_document_ids": [
     "0fd56451-7a7a-514b-8562-e05661f7da8b",
@@ -141,8 +161,10 @@
     "ed2812d5-f552-5fea-a01f-26bfc90f279f"
   ],
   "content_gaps": [
-    "Source documents do not include the implementation for WorksheetGroups, WorksheetAssignedStudents, or WorksheetAssignSearchCriteriaController. Business logic for assignment update and destination options is referenced but not present.",
-    "UI/UX specifics, database schema and external dependencies are assumed and not fully documented.",
-    "Some referenced resources (e.g., Resources strings) are not included."
+    "No explicit UI mockup, only code and markup fragments.",
+    "No complete explanation of every possible query parameter.",
+    "No exhaustive list of validations or business rules (some left implied).",
+    "No complete sample of dropdown list or data source logic.",
+    "No description of error/warning message formats."
   ]
 }
