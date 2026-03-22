@@ -1,0 +1,169 @@
+{
+  "filename": "GenericDocument",
+  "found": true,
+  "summary": "The GenericDocument system is responsible for managing, validating, adding, deleting, retrieving, and displaying document records and their associated metadata in the context of agency, site, and destination profiles. It supports sorting, ordering, and formatting of document data, and handles document assignment to different entities via stored procedures. The system provides comprehensive business logic for working with documents, including workflow for adding documents, retrieval by parent ID or other criteria, displaying formatted URLs, and managing deletion. User details, agency info, disciplines, and document metadata are included and validated, with configurable options for subdisciplines and alternate languages.",
+  "purpose": "To provide a robust workflow for the management of generic documents related to agency, site, and destination profiles in a database-driven system. This includes CRUD operations, validation, sorting, workflow automation, formatted output for document links and user info, and business rule enforcement for document type and requirements.",
+  "entities": [
+    "GenericDocument",
+    "GenericDocuments",
+    "HSPnetSession",
+    "SqlDataReader",
+    "Phone"
+  ],
+  "fields": [
+    "ID",
+    "ParentID",
+    "TypeCodeID",
+    "TypeComments",
+    "FileURL",
+    "FilePath",
+    "FileSize",
+    "FileType",
+    "FileTypeAlt",
+    "UpdateDate",
+    "ByUserID",
+    "LastName",
+    "FirstName",
+    "MiddleName",
+    "AgencyShortName",
+    "TypeCode",
+    "DocumentName",
+    "AllowAllSubDisciplines",
+    "SubDisciplineIDList",
+    "IsApplied",
+    "SourceLevel",
+    "CanEditRow",
+    "AgencyName",
+    "Phone",
+    "Email",
+    "DisciplineFormatted",
+    "DisciplineListingAll",
+    "UpdateDateFormatted",
+    "Section",
+    "EmailFormatted",
+    "AgencyUserFormatted",
+    "AgencyUserDetailsFormatted",
+    "UserSession"
+  ],
+  "actors": [
+    "User",
+    "Agency",
+    "Site",
+    "Destination",
+    "System (HSPnetSession)"
+  ],
+  "workflows": [
+    {
+      "name": "Add Document",
+      "steps": [
+        "Validate document fields (FileURL not blank, TypeCodeID != 0, DocumentName not blank)",
+        "Set stored procedure name and add parameters",
+        "Execute query to add record and retrieve new document ID",
+        "Return document ID"
+      ]
+    },
+    {
+      "name": "Get Documents By ParentID",
+      "steps": [
+        "Set stored procedure and parameters based on parent entity and discipline info",
+        "Execute query and fetch document list",
+        "Apply sorting or ordering via Sort or Section fields",
+        "Return document list"
+      ]
+    },
+    {
+      "name": "Delete Document",
+      "steps": [
+        "Fetch document file path based on ID",
+        "Delete file and folder if exists (handle exceptions silently)",
+        "Delete database record with stored procedure",
+        "Return status"
+      ]
+    },
+    {
+      "name": "Assign Document to Destinations/Sites",
+      "steps": [
+        "Set procedure name (e.g., SiteDocumentAppliedDestinationsAssign, AgencyDocumentAppliedSitesAssign)",
+        "Add session, document, and destination/site parameters",
+        "Execute assignment procedure"
+      ]
+    },
+    {
+      "name": "Document Link Formatting",
+      "steps": [
+        "Check if document is of type (has FilePath)",
+        "If applied and file exists, create formatted link with file type, size, and name",
+        "If not applied or file missing, create disabled/greyed link or mark as Not Found"
+      ]
+    }
+  ],
+  "business_rules": [
+    "Document cannot be added without FileURL, TypeCodeID, or DocumentName",
+    "Documents can be assigned to destinations/sites via stored procedures",
+    "Documents support sorting/order by Section or parent entity",
+    "If alternate language is used, TypeCodeAlt is used",
+    "If Code is 'OTHER', always display as 'Other'",
+    "Email link is formatted if Email is non-empty"
+  ],
+  "validations": [
+    "Upload_File_Blank (FileURL must not be blank)",
+    "Document_Type_Required (TypeCodeID must not be zero)",
+    "Document_Name_Required (DocumentName must not be empty)"
+  ],
+  "calculations": [
+    "Document link title includes file type (translated), file size (in KBytes), and document name",
+    "AgencyUserFormatted = AgencyShortName + initials from FirstName, MiddleName, LastName",
+    "TooltipDetails includes formatted name, agency, and phone if available"
+  ],
+  "conditions": [
+    "If IsDocumentType (FilePath non-empty), link is created",
+    "If file exists, show link; else mark as Not Found",
+    "If CanEditRow is false, show inherited agency/site profile text",
+    "If Section is non-empty, use it for sorting",
+    "If UseAltLanguageFields is true, TypeCodeAlt is used"
+  ],
+  "system_behavior": [
+    "Supports CRUD on documents tied to parent entities",
+    "Handles errors silently for file/folder deletion",
+    "Retrieves and formats document/user info for display",
+    "Supports alternate language and subdiscipline listing",
+    "Orders documents based on Sort/Section info and handles gaps"
+  ],
+  "dependencies": [
+    "Database stored procedures for CRUD and assignment",
+    "Resources for localization and error messages",
+    "UI components for formatting names and URLs"
+  ],
+  "exceptions": [
+    "Silent catches for file/folder deletion in Delete",
+    "Resources.Document_Not_Found returned if file missing"
+  ],
+  "source_document_ids": [
+    "0698ba2c-76e2-5348-9ba7-a2bfb8db076f",
+    "1160f8a9-61da-537f-811f-7c4722a4ba6e",
+    "1e5dc926-2c08-5d0d-bb90-b776cb1ccf63",
+    "217169c4-71b6-591e-8e5c-f9a83c942355",
+    "331d7c6a-adea-5de8-ae16-79d979b515d8",
+    "3779934a-6b41-5aa1-b81a-5047f8a4a16a",
+    "48e7c371-34d2-5e3a-9b7b-ff3db2ca22aa",
+    "4f8d4014-242f-5b22-b3b5-8b1524f11f46",
+    "53eb1f0e-8871-5c32-a117-dfb51d0c56e2",
+    "7a67ab13-79a8-5da4-932f-829371c429ab",
+    "8dab23a1-b93c-5c36-b28c-a57123284bcd",
+    "9bf3e30c-ddcc-5934-8cf1-2fa40c031cf2",
+    "a24be76d-c50b-54af-8fed-4b875f53c71b",
+    "a39164da-6925-532d-8fc5-1713d390780b",
+    "b83a40e1-c536-534d-934e-cf787b3f4e94",
+    "b8a5cb0f-da92-564c-a760-ef6bfa7c5ea2",
+    "c7a79510-34e8-5464-a460-f631bd030153",
+    "f076a8b3-f886-559a-bf67-8ff05f3cebc3",
+    "f80a8941-dfb0-5150-9212-37ea8cc1f373"
+  ],
+  "content_gaps": [
+    "User interface details are not included; requires UI layer reference.",
+    "Some referenced resources (e.g., Resources upload error and localization) are not described in detail.",
+    "Details on discipline/subdiscipline and alternate database handling are brief.",
+    "Behavior for exceptional errors (other than file/folder deletion) is not fully documented.",
+    "Exact implementation of UI.Localization.TranslateFileType and UI.DateFormatter.FormatDateShort is not included."
+  ]
+}
