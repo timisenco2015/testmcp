@@ -1,140 +1,21 @@
 {
   "filename": "ClinicalPracticeCodes",
-  "found": true,
-  "summary": "ClinicalPracticeCodes manages codes representing types of clinical practice activities within a program. It provides CRUD operations, search, validation, and reactivation functionality for clinical practice codes, ensuring each code is uniquely identified and properly validated before database actions.",
-  "purpose": "To facilitate management (create, read, update, delete, search, and reactivate) of clinical practice codes tied to programs or students. This ensures codes are available, searchable, and their integrity is maintained within the system.",
-  "entities": [
-    "ClinicalPracticeCode",
-    "ClinicalPracticeCodes"
-  ],
-  "fields": [
-    {
-      "name": "ID",
-      "type": "int",
-      "description": "Unique identifier for the clinical practice code."
-    },
-    {
-      "name": "ProgramID",
-      "type": "int",
-      "description": "Identifier for the associated program."
-    },
-    {
-      "name": "Name",
-      "type": "string",
-      "description": "Name of the clinical practice code."
-    },
-    {
-      "name": "ShortName",
-      "type": "string",
-      "description": "Short name or abbreviation."
-    },
-    {
-      "name": "Inactive",
-      "type": "Boolean",
-      "description": "Indicates whether the code is inactive."
-    }
-  ],
-  "actors": [
-    "HSPnetSession",
-    "Database",
-    "SqlDataReader"
-  ],
-  "workflows": [
-    {
-      "name": "Add ClinicalPracticeCode",
-      "steps": [
-        "Validate Name and ShortName are not blank.",
-        "If valid, set database procedure to 'ClinicalPracticeCodeAdd'.",
-        "Add parameters ProgramID, Name, ShortName.",
-        "Execute query to add code."
-      ]
-    },
-    {
-      "name": "Update ClinicalPracticeCode",
-      "steps": [
-        "Check ID is not zero.",
-        "Validate Name and ShortName.",
-        "Set database procedure to 'ClinicalPracticeCodeUpdate'.",
-        "Add parameters ID, Name, ShortName.",
-        "Execute query to update code."
-      ]
-    },
-    {
-      "name": "Delete ClinicalPracticeCode",
-      "steps": [
-        "Check ID is not zero.",
-        "Set database procedure to 'ClinicalPracticeCodeDelete'.",
-        "Add parameter ID.",
-        "Execute query to delete code."
-      ]
-    },
-    {
-      "name": "Reactivate ClinicalPracticeCode",
-      "steps": [
-        "Check ID is not zero.",
-        "Set database procedure to 'ClinicalPracticeCodeReactivate'.",
-        "Add parameter ID.",
-        "Execute query to reactivate code."
-      ]
-    },
-    {
-      "name": "Search ClinicalPracticeCode by Program",
-      "steps": [
-        "Set database procedure to 'ClinicalPracticeCodeSearchProgram'.",
-        "Add parameters ProgramID, ShowInactive, keyword.",
-        "Retrieve and return list of codes."
-      ]
-    },
-    {
-      "name": "Search ClinicalPracticeCode by Student",
-      "steps": [
-        "Set database procedure to 'ClinicalPracticeCodeSearchStudent'.",
-        "Add parameter StudentID.",
-        "Retrieve and return list of codes."
-      ]
-    }
-  ],
-  "business_rules": [
-    "Name must not be blank.",
-    "ShortName must not be blank.",
-    "ID must be non-zero for update, delete, and reactivate operations."
-  ],
-  "validations": [
-    {
-      "field": "Name",
-      "rule": "Must not be blank."
-    },
-    {
-      "field": "ShortName",
-      "rule": "Must not be blank."
-    }
-  ],
+  "found": false,
+  "summary": "",
+  "purpose": "",
+  "entities": [],
+  "fields": [],
+  "actors": [],
+  "workflows": [],
+  "business_rules": [],
+  "validations": [],
   "calculations": [],
-  "conditions": [
-    "ShowInactive: Determines if inactive codes should be included in search results.",
-    "ID != 0: Required for update, delete, reactivate."
-  ],
-  "system_behavior": [
-    "Adds error messages to session when validation fails.",
-    "Uses stored procedures for all database operations.",
-    "Returns lists of codes as search results."
-  ],
-  "dependencies": [
-    "HSPnetSession must be active for operations.",
-    "Database procedures exist: ClinicalPracticeCodeAdd, ClinicalPracticeCodeUpdate, ClinicalPracticeCodeDelete, ClinicalPracticeCodeReactivate, ClinicalPracticeCodeSearchProgram, ClinicalPracticeCodeSearchStudent."
-  ],
-  "exceptions": [
-    "Validation errors on missing Name or ShortName.",
-    "Attempt to update/delete/reactivate with ID = 0."
-  ],
-  "source_document_ids": [
-    "09b8daec-a933-5e6b-b231-4d178784b73f",
-    "8d64c60c-eea5-5a32-8758-268715c5cd97",
-    "a76658a5-bb41-56c9-aa1b-e44948df78bb"
-  ],
+  "conditions": [],
+  "system_behavior": [],
+  "dependencies": [],
+  "exceptions": [],
+  "source_document_ids": [],
   "content_gaps": [
-    "No details on how Name and ShortName should be formatted beyond being non-blank.",
-    "No information about permissions or authorization.",
-    "No error handling for database failures."
+    "No file named 'ClinicalPracticeCodes' or related documents could be found in the database. Please verify that the filename exists and is spelled exactly as required."
   ]
 }
