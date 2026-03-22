@@ -1,0 +1,112 @@
+{
+  "filename": "WelcomeStudentPRHistory",
+  "found": true,
+  "summary": "WelcomeStudentPRHistory is a .NET UserControl component for displaying and managing a student's Practice Placement (PR) History, including confirmed, future, and not-confirmed placements. It supports sorting, printing, and visual display customization for records grouped by status and date.",
+  "purpose": "The purpose is to provide students (and supervisors) with a detailed, interactive report of their Practice Placement History. The report allows sorting, printing, and visual distinction between confirmed, future, and withheld placements. It serves as a dashboard for placement history.",
+  "entities": [
+    "PRSearchStudent",
+    "HSPnetSession",
+    "RepeaterItemEventArgs",
+    "RepeaterCommandEventArgs"
+  ],
+  "fields": [
+    "StudentID",
+    "WarnStudentHours",
+    "UserSession",
+    "StartDate",
+    "PRD_ID",
+    "CourseShortName",
+    "StatusCode",
+    "StatusCodeSort",
+    "SiteStudentFormatted",
+    "ParentPRDID",
+    "EndDate",
+    "EndDateBlock2",
+    "ReleasedToTempAssignedStudent",
+    "WithHoldPlacement"
+  ],
+  "actors": [
+    "Student",
+    "Supervisor",
+    "System User",
+    "UserControl (the system component itself)"
+  ],
+  "workflows": [
+    {
+      "name": "Display PR History",
+      "steps": [
+        "Clear confirmed and not-confirmed lists.",
+        "Fetch PR history records for the StudentID using StudentSearchPRHistory.",
+        "Iterate through each record:",
+        "Determine placement end date using EndDate or EndDateBlock2.",
+        "If placement is confirmed or released to temporary assignment, add to confirmed or not-confirmed lists based on WithHoldPlacement.",
+        "If placement has no status and ends today or after, add to not-confirmed list.",
+        "Bind confirmed placements to the rprPRStudHistory repeater control.",
+        "If not-confirmed placements exist, show future panel and bind these to rprFuture repeater control; otherwise, hide future panel.",
+        "Customize row display based on ParentPRDID and item type.",
+        "Allow sorting by StartDate, PRD_ID, CourseShortName, StatusCodeFormatted, SiteStudentFormatted.",
+        "Handle item commands for sorting and rebinding."
+      ]
+    },
+    {
+      "name": "Printing Placement History",
+      "steps": [
+        "On cmdPrint click, execute RunReport with PDF format and relevant student/session details.",
+        "Display report HTML in lblReportHTML label.",
+        "Make pnlReportHTML visible."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Confirmed placements are identified by StatusCode == 'Conf' or ReleasedToTempAssignedStudent.",
+    "Placements with WithHoldPlacement are shown in not-confirmed list even if confirmed.",
+    "Future placements are those with no StatusCode and EndDate >= today."
+  ],
+  "validations": [
+    "Check for UserSession present before binding data.",
+    "Validate UUID format for keys when casting.",
+    "Ensure EndDateBlock2 is not null before using, otherwise fallback to EndDate."
+  ],
+  "calculations": [
+    "PREndDate = EndDateBlock2 if present, otherwise EndDate.",
+    "Sort direction toggled between ASC and DESC based on ViewState."
+  ],
+  "conditions": [
+    "If ConfLst.Count > 0, bind to rprPRStudHistory.",
+    "If NotConfLst.Count > 0, make pnlFuture visible and bind to rprFuture; else hide panel.",
+    "Show trRow3 if ParentPRDID > 0."
+  ],
+  "system_behavior": [
+    "Visual display of placement history separated into confirmed and not-confirmed (future) panels.",
+    "Row styling is applied for alternating items and based on parent-child relationships.",
+    "Sorting via repeater item commands changes order and direction of display."
+  ],
+  "dependencies": [
+    "HSPnet.DataLayer for data fetching.",
+    "HSPnet.Framework.Reporting for PDF report generation.",
+    "UserSession object for user context and supervisor caption.",
+    "PRSearchStudents.StudentSearchPRHistory for history retrieval."
+  ],
+  "exceptions": [
+    "If UserSession is null, workflow does not proceed.",
+    "Invalid UUID formats in keys are filtered out before casting.",
+    "Changes to auto-generated fields should be made in code-behind, not designer files."
+  ],
+  "source_document_ids": [
+    "12ba6e83-f3d6-5440-80b0-094b8dd27a8c",
+    "4b55d321-598f-5a5c-8961-7fdbb26b88ee",
+    "50d4f5e4-f91a-593e-8a8c-aa3bb34fd9e4",
+    "6019bf51-f18b-5910-b6c0-554223de3d34",
+    "744e71ce-a9b4-5f0d-8d5e-ad5eb299e926",
+    "7511ee31-26f4-503a-96f2-db189be44f23",
+    "9ed2db53-9513-50d3-8315-e09fdbcfcff2",
+    "e7f3e571-0be7-5e57-a718-566cc76242c0",
+    "f9a68402-d4e7-54d9-9d56-4c41aefcb777"
+  ],
+  "content_gaps": [
+    "No explicit data schema for PRSearchStudent fields.",
+    "No UI mockups or complete ASPX markup included.",
+    "Calculation of sorting expressions and bindings is inferred from code, but not fully documented.",
+    "No explicit error handling for failed report generation."
+  ]
+}
