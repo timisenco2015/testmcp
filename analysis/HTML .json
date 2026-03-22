@@ -1,71 +1,100 @@
 {
   "filename": "HTML",
   "found": true,
-  "summary": "The HTML file provides reusable UI support and link generation for the HSPnet web application. It contains methods for rendering icon placeholders, building JavaScript links to launch new windows, and manipulating text for browser compatibility.",
-  "purpose": "To support UI rendering and link generation on web pages, specifically for launching detailed views and calendar grids in new windows, and standardizing the use of spacer icons and browser-specific formatting.",
+  "summary": "The 'HTML' utility provides methods for rendering HTML fragments and generating JavaScript links (for new windows or popups) with specific parameters, icons, and titles. It streamlines the construction of anchor and span elements for UI, supports link hashing for security or consistency, and contains utility helpers for formatting and disabling elements.",
+  "purpose": "To facilitate consistent, secure, and flexible rendering of HTML snippets—especially dynamic links and icons—in a .NET-based web application.",
   "entities": [
-    {
-      "name": "HTML",
-      "type": "class",
-      "description": "Provides UI helper methods for icon placeholders and link creation."
-    }
+    "HSPnetSession",
+    "RoleConstants",
+    "Resources"
   ],
-  "fields": [],
-  "actors": [],
+  "fields": [
+    "PlacementRequestID",
+    "PRD_ID",
+    "Role",
+    "ReadOnly",
+    "imgName",
+    "imgTitle",
+    "HideStudents",
+    "currentPage",
+    "SessionID",
+    "paramNames",
+    "paramValues",
+    "pageName",
+    "GroupShiftSchedule",
+    "AmendmentExists",
+    "StartDate",
+    "EndDate",
+    "EndDateBlock2",
+    "element",
+    "text"
+  ],
+  "actors": [
+    "System/Server-side code (invoking the HTML static methods)",
+    "User (client, clicking the generated links)"
+  ],
   "workflows": [
     {
-      "name": "newWindowLink Creation",
+      "name": "Generate a new window link with icon and hashed URL",
       "steps": [
-        "Compose a link to open a new window for a specified page.",
-        "Append session hash and parameters to the URL.",
-        "Optionally add icon placeholder.",
-        "Return a formatted anchor element with JavaScript onclick."
+        "Call newWindowLink with session, page, parameters, icon name, and icon title.",
+        "Iterate through paramNames/paramValues, appending to URL as needed.",
+        "If an icon is specified, generate a span with appropriate class and title.",
+        "Return complete anchor HTML with embedded onclick JavaScript.",
+        "For placement or calendar grid links, call newWindowDetails or newWindowCalendarGrid with specific parameters.",
+        "Insert URL hash into link URL with Hashing.AddURLHash.",
+        "Return the final link HTML."
       ]
     },
     {
-      "name": "newWindowDetails Link Creation",
+      "name": "Disable an element for display",
       "steps": [
-        "Call newWindowLink() with PlacementRequestDetails parameters.",
-        "Replace URL segment with hash using Hashing.AddURLHash.",
-        "Optionally include CurrentPage parameter after the hash.",
-        "Return the modified link."
+        "Call disableElement with the element string.",
+        "Wrap the element in a span with 'disabledtext' class."
       ]
     },
     {
-      "name": "newWindowCalendarGrid Link Creation",
+      "name": "Format text with HTML line breaks",
       "steps": [
-        "Call newWindowLink() with CalendarGrid or CalendarGridNonGrp parameters.",
-        "Include shift schedule parameters for group/individual shifts.",
-        "Return a formatted link with hashed URL, icon, and title."
+        "Call translateNewLines with a text string.",
+        "Replace environment newlines and '\\n' with '<br />'."
       ]
     }
   ],
   "business_rules": [
-    "If paramName[x] is blank, skip parameter (caller provides optional parameters).",
-    "Icon placeholder is rendered as <span class=\"no-icon\"></span> instead of an image.",
-    "URL hash is required for security and tracking.",
-    "CurrentPage parameter is added after URL hash if provided."
+    "If a parameter name is blank, it is skipped when constructing query string.",
+    "For role-based parameterization, set UserType depending on Role (PC or RC).",
+    "The 'CurrentPage' parameter does not affect the URL hash and is appended after hashing if present.",
+    "If AmendmentExists, modify icon class and title to reflect changes.",
+    "For group vs. individual calendar grids, change page name and icon/title accordingly."
   ],
-  "validations": [],
-  "calculations": [],
+  "validations": [
+    "Check for string.IsNullOrEmpty before rendering icons or processing text.",
+    "Only hash URLs if they are non-empty and valid for the hashing function."
+  ],
+  "calculations": [
+    "Dynamic assignment of query parameters for URLs based on method arguments.",
+    "Construction of CSS classes and icon tooltips using input values and resources."
+  ],
   "conditions": [
-    "If GroupShiftSchedule, use CalendarGrid.aspx; otherwise, use CalendarGridNonGrp.aspx.",
-    "If ReadOnly or Role == DC, include ReadOnly flag in parameters."
+    "Switch behavior for 'GroupShiftSchedule' and 'AmendmentExists' to dictate UI icons/text.",
+    "If 'currentPage' is non-blank, append it to the URL after hashing.",
+    "If 'ReadOnly' is true or Role is DC, add ReadOnly parameter."
   ],
   "system_behavior": [
-    "Renders icon placeholders for UI consistency without actual image files.",
-    "Generates links for launching auxiliary windows with session tracking.",
-    "Replaces newlines in text with <br /> for browser compatibility."
+    "Generates anchor tags with JavaScript onclick events to launch new windows with constructed URLs.",
+    "Uses span elements instead of images for icons.",
+    "Replaces line breaks in text with HTML line breaks for display purposes."
   ],
   "dependencies": [
-    "Hashing.AddURLHash for security hash on URLs.",
-    "HSPnetSession for session hash and locale.",
-    "RoleConstants for determining user type.",
-    "Database for date formatting and validation."
+    "HSPnet.Framework (for session, roles, and possibly database access)",
+    "HSPnet.App_GlobalResources (for localized resource strings)",
+    "Hashing utility for URL hashing",
+    "Database utility for date formatting"
   ],
   "exceptions": [
-    "If text is empty, translateNewLines returns empty string.",
-    "If CurrentPage parameter is blank, it is not added to URL."
+    "If text or element input is null or empty, returns empty string for display.",
+    "If page parameters are invalid or missing, URLs may lack those components but will not throw errors."
   ],
   "source_document_ids": [
     "a1f24300-f7a9-5ecd-b319-6a94054049c9",
@@ -74,8 +103,8 @@
     "fd01b28f-b2a0-50a6-853a-ff007b7ac8eb"
   ],
   "content_gaps": [
-    "No UI rendering context given (how these methods are invoked in specific pages).",
-    "No specific input/output examples provided for link generation methods.",
-    "No error handling details for malformed session or parameters."
+    "No example output HTML is given for methods.",
+    "Specific details of resource lookups, role constants, and hashing implementation are not present.",
+    "Database utility and Hashing functions are referenced but not defined in this content."
   ]
 }
