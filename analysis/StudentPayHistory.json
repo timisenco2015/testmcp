@@ -1,19 +1,112 @@
 {
-  "filename": "SiteProfileHistory",
-  "found": false,
-  "summary": "",
-  "purpose": "",
-  "entities": [],
-  "fields": [],
-  "actors": [],
-  "workflows": [],
-  "business_rules": [],
-  "validations": [],
-  "calculations": [],
-  "conditions": [],
-  "system_behavior": [],
-  "dependencies": [],
-  "exceptions": [],
-  "source_document_ids": [],
-  "content_gaps": ["No related documents found for filename 'SiteProfileHistory'. There is no content to analyze or generate."]
+  "filename": "EmailPopupDocument",
+  "found": true,
+  "summary": "The EmailPopupDocument module manages email attachment document records for a popup interface, including searching and deleting documents based on serialized string data.",
+  "purpose": "To represent and control the lifecycle of documents attached to an email popup, allowing listing and deletion of files and associated folders.",
+  "entities": [
+    {
+      "name": "EmailPopupDocument",
+      "attributes": [
+        "ID",
+        "FileName",
+        "FilePath",
+        "Checked"
+      ]
+    },
+    {
+      "name": "EmailPopupDocuments",
+      "type": "collection"
+    }
+  ],
+  "fields": [
+    {
+      "entity": "EmailPopupDocument",
+      "name": "ID",
+      "type": "int",
+      "description": "Unique identifier (sequential index) for the document"
+    },
+    {
+      "entity": "EmailPopupDocument",
+      "name": "FileName",
+      "type": "string",
+      "description": "Name of the attached file"
+    },
+    {
+      "entity": "EmailPopupDocument",
+      "name": "FilePath",
+      "type": "string",
+      "description": "Local server path to the file"
+    },
+    {
+      "entity": "EmailPopupDocument",
+      "name": "Checked",
+      "type": "Boolean",
+      "description": "Indicates if the document is selected/checked"
+    }
+  ],
+  "actors": [
+    "System",
+    "User (implicit, through actions)"
+  ],
+  "workflows": [
+    {
+      "name": "Search for Email Popup Documents",
+      "steps": [
+        "Receive serialized DataInfo string containing document metadata, separated by '|' delimiters.",
+        "Split DataInfo into entries.",
+        "For each entry, split by '>' into [filename, filepath].",
+        "If well-formed, instantiate EmailPopupDocument with sequential ID, filename, filepath.",
+        "Return list of EmailPopupDocument objects."
+      ]
+    },
+    {
+      "name": "Delete Email Popup Document",
+      "steps": [
+        "Receive DataInfo string and target ID.",
+        "Iterate over DataInfo entries; for the matching ID:",
+        "Split out [filename, filepath], extract folder name from filepath.",
+        "Attempt to delete file at the given path.",
+        "Attempt to delete the associated folder.",
+        "Suppress and ignore any exceptions during file/folder deletion.",
+        "Reconstruct DataInfo string excluding the deleted entry.",
+        "Return the updated DataInfo string."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Only entries with exactly two parts separated by '>' are processed as valid documents.",
+    "IDs are assigned sequentially during Search execution.",
+    "File and folder deletion attempts are wrapped in try/catch; failures are suppressed (not surfaced to the caller)."
+  ],
+  "validations": [
+    "DataInfo must not be null or empty.",
+    "Entries must contain exactly one '>' delimiter separating filename and filepath."
+  ],
+  "calculations": [
+    "ID is incremented sequentially for each parsed document in Search."
+  ],
+  "conditions": [
+    "If DataInfo is empty, return an empty list or string."
+  ],
+  "system_behavior": [
+    "Suppress exceptions when deleting files or folders (silent failure).",
+    "Document and folder deletions are performed on the file system based on parsed DataInfo."
+  ],
+  "dependencies": [
+    ".NET System.IO (File.Delete, Directory.Delete)",
+    "String parsing to manage document data",
+    ".NET List<T> for document collection"
+  ],
+  "exceptions": [
+    "Any exceptions during File.Delete or Directory.Delete are caught and ignored."
+  ],
+  "source_document_ids": [
+    "7287734e-f13d-550f-9249-4242db620766",
+    "927bc837-5564-5759-9324-27c6d5d7321d"
+  ],
+  "content_gaps": [
+    "User interaction (UI) details are not described.",
+    "No information about handling permissions or security context for file deletion.",
+    "No information about persistence beyond in-memory string or the database field sources."
+  ]
 }
