@@ -1,0 +1,501 @@
+[
+  {
+    "filename": "SiteDocument",
+    "found": true,
+    "summary": "SiteDocument is a simple entity that represents a document associated with a site.",
+    "purpose": "To store and reference documents by site ID.",
+    "entities": ["SiteDocument"],
+    "fields": [
+      { "name": "ID", "type": "int" },
+      { "name": "SiteID", "type": "int" }
+    ],
+    "actors": [],
+    "workflows": [],
+    "business_rules": [],
+    "validations": [],
+    "calculations": [],
+    "conditions": [],
+    "system_behavior": [],
+    "dependencies": [],
+    "exceptions": [],
+    "source_document_ids": ["a2967f17-a924-5e9c-8b15-d1f7bd028b32"],
+    "content_gaps": []
+  },
+  {
+    "filename": "WelcomeStaffAdmin",
+    "found": true,
+    "summary": "WelcomeStaffAdmin provides a staff admin welcome and interface, including last login tracking and error/warning panel management.",
+    "purpose": "To greet staff admins, track last login, and provide error/warning information.",
+    "entities": ["WelcomeStaffAdmin"],
+    "fields": [
+      { "name": "LastLogin", "type": "string" },
+      { "name": "TimeZoneDescription", "type": "string" }
+    ],
+    "actors": ["StaffAdmin"],
+    "workflows": [
+      {
+        "name": "Welcome Staff Admin Workflow",
+        "steps": [
+          "Display welcome label",
+          "Show last login info",
+          "Show error and warning panels as needed"
+        ]
+      }
+    ],
+    "business_rules": [],
+    "validations": [],
+    "calculations": [],
+    "conditions": [],
+    "system_behavior": ["Displays welcome and last login", "Shows errors and warnings"],
+    "dependencies": [],
+    "exceptions": [],
+    "source_document_ids": [
+      "05db31e4-e8b6-53ee-a6fb-812c106f0134",
+      "100d5925-a5f8-53db-8493-02cddd563eb7",
+      "3c84bade-9671-5fbf-acce-3c87a835e9b4",
+      "4c4b97b8-d242-5261-a515-767a3f7d7a49",
+      "52b5066f-23f6-5d82-96cd-5d51dad3de79",
+      "5bb85da3-f5b4-5753-b07c-9bb2a04eeb89",
+      "5d9b92ea-7c12-5070-8603-977cf14d0e04",
+      "6701b153-5288-59e5-8de9-61b68a1fc292",
+      "6eca1317-c0b2-5225-a9af-f034a722d924",
+      "871df91b-7ba0-558f-83ea-d5be1b0dc8db",
+      "8cea5c3a-2fbf-5206-a0c0-9425a5e14511",
+      "964a48c9-231c-5d58-a44d-3675d949a453",
+      "966ed8d3-a5af-567f-b092-936217777551",
+      "a0c3da28-32a5-5fce-91b2-17274efa016e",
+      "afbb4ec5-43c8-5281-ad2c-4b6cfd23a48e",
+      "b8e79322-9a0e-5fe7-8953-3d05e231f923",
+      "bf423a80-93db-572d-8cb8-c79f04214a93",
+      "ca71b077-cc26-5979-a44f-59700a41316b",
+      "d278278f-d4ec-5f4a-9f29-a02b66773bb9",
+      "db9b35e9-53ca-5eaf-9d75-4f3a72131bc7",
+      "e249a878-c837-5d1c-9a3d-5167df2614fb"
+    ],
+    "content_gaps": []
+  },
+  {
+    "filename": "ServiceCode",
+    "found": true,
+    "summary": "ServiceCode represents categorization and descriptive information for service codes used throughout the system.",
+    "purpose": "To provide code, description, sort order, notes, and alternate information for services.",
+    "entities": ["ServiceCode"],
+    "fields": [
+      { "name": "ID", "type": "int" },
+      { "name": "CodeCategoryID", "type": "int" },
+      { "name": "ShortName", "type": "string" },
+      { "name": "Name", "type": "string" },
+      { "name": "SortOrder", "type": "int" },
+      { "name": "Notes", "type": "string" },
+      { "name": "NameAlt", "type": "string" },
+      { "name": "NotesAlt", "type": "string" }
+    ],
+    "actors": [],
+    "workflows": [
+      {
+        "name": "ServiceCode Retrieval Workflow",
+        "steps": [
+          "List all ServiceCodes",
+          "Filter ServiceCodes by CourseID",
+          "Filter ServiceCodes by TimetableID"
+        ]
+      }
+    ],
+    "business_rules": [
+      "If UseAltLanguageFields is true, use alternate name/description fields"
+    ],
+    "validations": [],
+    "calculations": [],
+    "conditions": ["UseAltLanguageFields"],
+    "system_behavior": [
+      "Provides lists of codes and descriptions for various services",
+      "Localization logic alters returned fields"
+    ],
+    "dependencies": [],
+    "exceptions": [],
+    "source_document_ids": [
+      "94f1b055-348d-508a-ae6e-cf7960a8c6a2",
+      "e4ebe4b4-6d14-5c3f-b693-61016f765239",
+      "f976b9af-a402-540f-b162-391d578fac7c"
+    ],
+    "content_gaps": []
+  },
+  {
+    "filename": "SiteProfileHistory",
+    "found": true,
+    "summary": "SiteProfileHistory records actions taken on site profiles, including fields changed, user information, action details, and formatted outputs.",
+    "purpose": "To audit changes made to site profiles and provide history records.",
+    "entities": ["SiteProfileHistory"],
+    "fields": [
+      { "name": "ID", "type": "int" },
+      { "name": "ActionDate", "type": "DateTime" },
+      { "name": "ScreenSection", "type": "string" },
+      { "name": "UserAction", "type": "string" },
+      { "name": "Fields", "type": "string" },
+      { "name": "Agency", "type": "string" },
+      { "name": "AgencyName", "type": "string" },
+      { "name": "LastName", "type": "string" },
+      { "name": "FirstName", "type": "string" },
+      { "name": "MiddleName", "type": "string" },
+      { "name": "Phone", "type": "Phone" },
+      { "name": "ByUserID", "type": "int" },
+      { "name": "ByOriginalUserID", "type": "int" },
+      { "name": "ByUserSysAdmin", "type": "bool" },
+      { "name": "ActionDateFormatted", "type": "string" },
+      { "name": "AgencyUserFormatted", "type": "string" },
+      { "name": "AgencyUserDetailsFormatted", "type": "string" }
+    ],
+    "actors": ["User", "SysAdmin"],
+    "workflows": [
+      {
+        "name": "Site Profile History Retrieval",
+        "steps": [
+          "Search historical actions for a site",
+          "Format action date",
+          "Provide user details"
+        ]
+      }
+    ],
+    "business_rules": [
+      "If ByUserSysAdmin and User IDs match, add support team details to formatting"
+    ],
+    "validations": [],
+    "calculations": [
+      "ActionDateFormatted",
+      "AgencyUserFormatted"
+    ],
+    "conditions": ["UseAltLanguageFields alters fields"],
+    "system_behavior": [
+      "Returns history records with formatted strings for UI"
+    ],
+    "dependencies": [],
+    "exceptions": [],
+    "source_document_ids": [
+      "25f89a24-5eda-5a3f-83df-1de69b12b3f1",
+      "26e09292-d304-55c6-94e5-ef3346453c4b",
+      "7ca6b963-9ae9-5cd3-82d5-f30dcb727ae3",
+      "a8f030c6-90b8-53a1-bb8a-3b7ef33b9488",
+      "e806999c-3a39-5720-9b59-303faebc9eb6"
+    ],
+    "content_gaps": []
+  },
+  {
+    "filename": "EmailPopupDocument",
+    "found": true,
+    "summary": "EmailPopupDocument manages email-related document popups with file operations and UI bindings.",
+    "purpose": "To display, manage, and delete email-related documents in popups.",
+    "entities": ["EmailPopupDocument"],
+    "fields": [
+      { "name": "ID", "type": "int" },
+      { "name": "FileName", "type": "string" },
+      { "name": "FilePath", "type": "string" },
+      { "name": "Checked", "type": "Boolean" }
+    ],
+    "actors": ["User"],
+    "workflows": [
+      {
+        "name": "EmailPopupDocument Search/Delete Workflow",
+        "steps": [
+          "Search documents by DataInfo",
+          "Delete document by ID"
+        ]
+      }
+    ],
+    "business_rules": [],
+    "validations": [],
+    "calculations": [],
+    "conditions": [],
+    "system_behavior": [
+      "Deletes file and folder from disk on deletion"
+    ],
+    "dependencies": [],
+    "exceptions": ["Delete operation ignores exceptions for file/folder deletion"],
+    "source_document_ids": [
+      "7287734e-f13d-550f-9249-4242db620766",
+      "927bc837-5564-5759-9324-27c6d5d7321d"
+    ],
+    "content_gaps": []
+  },
+  {
+    "filename": "ExpenseBatch",
+    "found": true,
+    "summary": "ExpenseBatch tracks batches for expenses, their statuses, dates, and department assignments.",
+    "purpose": "To manage batches of expense claims per department, with status and history.",
+    "entities": ["ExpenseBatch"],
+    "fields": [
+      { "name": "ID", "type": "int" },
+      { "name": "DepartmentID", "type": "int" },
+      { "name": "BatchDescription", "type": "string" },
+      { "name": "BatchDate", "type": "DateTime" },
+      { "name": "StatusCodeID", "type": "int" },
+      { "name": "StatusCode", "type": "string" },
+      { "name": "StatusDescription", "type": "string" },
+      { "name": "ClosedDate", "type": "DateTime" },
+      { "name": "BatchNumberFormatted", "type": "string" }
+    ],
+    "actors": ["User"],
+    "workflows": [
+      {
+        "name": "ExpenseBatch Management Workflow",
+        "steps": [
+          "Search batches for department",
+          "Add new expense batch",
+          "Update batch status",
+          "Delete batch"
+        ]
+      }
+    ],
+    "business_rules": [
+      "Batch numbers are formatted as ID - StatusDescription"
+    ],
+    "validations": [],
+    "calculations": ["BatchNumberFormatted"],
+    "conditions": ["UseAltLanguageFields alters status descriptions"],
+    "system_behavior": [
+      "CRUD operations for expense batches",
+      "Batch search limited to last year"
+    ],
+    "dependencies": [],
+    "exceptions": [],
+    "source_document_ids": [
+      "060e08d3-49ca-5e40-bea0-849f4e6173e1",
+      "3559737f-0154-520e-be2b-d3dd2c3de539",
+      "b2216e58-a144-55cb-8b87-3da9787fc1d7"
+    ],
+    "content_gaps": []
+  },
+  {
+    "filename": "CostCentre",
+    "found": true,
+    "summary": "CostCentre provides record tracking for placements including agencies, disciplines, dates, cost centre codes and hours.",
+    "purpose": "Tracks placement details and aggregates financial/operational information by cost centre.",
+    "entities": ["CostCentreRecord"],
+    "fields": [
+      { "name": "PlacingAgency", "type": "string" },
+      { "name": "Department", "type": "string" },
+      { "name": "Program", "type": "string" },
+      { "name": "Discipline", "type": "string" },
+      { "name": "SubDiscipline", "type": "string" },
+      { "name": "ReceivingAgency", "type": "string" },
+      { "name": "Site", "type": "string" },
+      { "name": "Portfolio", "type": "string" },
+      { "name": "Service", "type": "string" },
+      { "name": "Destination", "type": "string" },
+      { "name": "CostCentre", "type": "string" },
+      { "name": "CostCentreDescription", "type": "string" },
+      { "name": "PRType", "type": "string" },
+      { "name": "StartDate", "type": "DateTime" },
+      { "name": "EndDate", "type": "DateTime" },
+      { "name": "Status", "type": "string" },
+      { "name": "Course", "type": "string" },
+      { "name": "ProgramYear", "type": "int" },
+      { "name": "ReferenceNumber", "type": "int" },
+      { "name": "CFO", "type": "string" },
+      { "name": "PRCount", "type": "int" },
+      { "name": "StudentCount", "type": "int" },
+      { "name": "PRHours", "type": "decimal" },
+      { "name": "StudentHours", "type": "decimal" }
+    ],
+    "actors": [],
+    "workflows": [
+      {
+        "name": "CostCentre Search Workflow",
+        "steps": [
+          "Search for records by multiple placement-related filters"
+        ]
+      }
+    ],
+    "business_rules": [],
+    "validations": [],
+    "calculations": [],
+    "conditions": [],
+    "system_behavior": [],
+    "dependencies": [],
+    "exceptions": [],
+    "source_document_ids": [
+      "20ac8054-536e-5203-b33d-7db2b2dc2359",
+      "2c04f259-cf58-5d95-803c-8ebf16840f6c",
+      "97bc3ba9-9fe4-52b1-8847-dce2198e0aee",
+      "dd965b0f-f9cf-57eb-a3f8-32b3b97a6d1a",
+      "e1ac7e41-5e9e-5f16-baa0-29d05a70f976"
+    ],
+    "content_gaps": []
+  },
+  {
+    "filename": "TimetableAssessments",
+    "found": true,
+    "summary": "TimetableAssessments enables management, addition, editing, and deletion of assessments for students based on academic timetables.",
+    "purpose": "To facilitate assignment, tracking, and validation of student assessments within a timetable context.",
+    "entities": ["TimetableAssessment"],
+    "fields": [],
+    "actors": ["User", "Assessor", "Student", "Supervisor", "Instructor"],
+    "workflows": [
+      {
+        "name": "Assessment Management Workflow",
+        "steps": [
+          "Add/Edit/Delete timetable assessment",
+          "Configure assessor/subject/type/template",
+          "Handle optional sections",
+          "Validate assessment rules",
+          "Show errors for unsupported workflow cases"
+        ]
+      }
+    ],
+    "business_rules": [
+      "Interim assessments must be paired with final assessments",
+      "Assessments by both instructors and supervisors trigger error/warning",
+      "Assessment maximum exceeded triggers error"
+    ],
+    "validations": [
+      "Days after placement start/end must be valid numbers",
+      "Template must be specified",
+      "Dates must be valid (not in past/future)"
+    ],
+    "calculations": [
+      "OpenDaysAfterStart",
+      "CloseDaysAfterEnd",
+      "ViewUntilDaysAfterEnd"
+    ],
+    "conditions": [
+      "Show/hide UI sections based on assessor/subject/type/template combinations",
+      "Optional section logic based on templates and types"
+    ],
+    "system_behavior": [
+      "Popup editing for each assessment",
+      "Validation errors displayed in UI",
+      "AJAX update panels, modal popups and grid management"
+    ],
+    "dependencies": ["AssessmentTypes", "AssessmentTemplates", "CodeRecords"],
+    "exceptions": [
+      "Handle JavaScript event validation errors for certain UI actions"
+    ],
+    "source_document_ids": [
+      "0781696d-dec4-5dfc-aa58-80ddd173c0ae",
+      "0d330d29-e0a7-5f88-8c71-d32f88b252b0",
+      "0ea3e178-f11b-5ee8-afc8-441e55e2d2f4",
+      "135455cd-1a34-5b2d-b8cc-298a1d98c47e",
+      "14ec7368-e312-5de7-b00e-188a6d5310ef",
+      "1807e536-2914-59f1-a538-b9e127d25f77",
+      "1d7ea219-2359-5da1-9c7b-79cbd696c770",
+      "345a2e51-fcf0-5df0-b1f6-b535c4b757c6",
+      "447b10a9-0558-5d06-9fac-926c94892393",
+      "50cbdfe8-4a64-5c51-ba1e-e88fb00ca8fc",
+      "528d9fc6-cb63-5c52-9327-f323552f37e3",
+      "61fa5351-3118-588b-a4f0-3147cd92841a",
+      "6f04742e-ad06-58cf-af37-b3ae7ebe39cc",
+      "6f1aa10e-0697-5c9e-8e0a-182b597a2d3e",
+      "707335b9-f19a-5366-959c-4872a99363e8",
+      "734dd83e-2a57-578d-9891-96f90686f95e",
+      "7a89081a-a4a0-569f-8bc4-676ec99f7dcb",
+      "7ab03f3d-3b63-594e-a3ac-ea304249c66a",
+      "7afa582c-d2e5-5803-b315-7f8f63d1bc7e",
+      "7bb40b95-0bb5-5f6d-91ca-bbcb527d60ff",
+      "824387dc-2c7b-5cca-96a6-bfab53dbaeee",
+      "96eaf83a-27cc-5e53-b93a-4835addb1ab6",
+      "9ff99ed6-d3d2-55bd-a19b-ea38ec6c20be",
+      "a1b432d1-2597-591b-a1a7-80d7b39db2b7",
+      "a7c42983-f1a4-5f7f-8487-6a59e89d7502",
+      "b0600110-1773-5335-a423-4e456e7b615b",
+      "b66763e8-1cd7-5741-9b81-95c511b8cf64",
+      "c55e37c8-0668-52c9-8860-02706d05d1c5",
+      "c8e37d14-9d6e-5d5f-a710-581fe5dfd958",
+      "dd0997ef-5454-5014-9d78-fa20aed967eb",
+      "e506841f-d914-5482-b64c-7deca11f392a",
+      "ed5d2f45-0dea-5606-bc98-3a7d2c634bf5",
+      "ede3c463-e1b7-551c-bad2-e5db6d44165e",
+      "f0d967b2-325c-584a-a002-fd27615e3c62",
+      "f34f81c5-ea44-558f-a144-dc0a4d5a65ac"
+    ],
+    "content_gaps": []
+  },
+  {
+    "filename": "AdHocQuery",
+    "found": true,
+    "summary": "AdHocQuery provides utility for converting SQL data to HTML tables for ad hoc reporting.",
+    "purpose": "To transform SQL query results into HTML tables dynamically for display/reporting.",
+    "entities": [],
+    "fields": [],
+    "actors": [],
+    "workflows": [
+      {
+        "name": "DataReader to HTML Table Workflow",
+        "steps": [
+          "Convert SQL reader header to HTML table header",
+          "Convert SQL reader rows to HTML table rows",
+          "Append footer row"
+        ]
+      }
+    ],
+    "business_rules": [],
+    "validations": [],
+    "calculations": [],
+    "conditions": [],
+    "system_behavior": [
+      "Transforms SQL reader output to display format"
+    ],
+    "dependencies": [],
+    "exceptions": [],
+    "source_document_ids": [
+      "20140dcf-7d8e-51f1-86ab-4b5a291db2b2",
+      "2878adb2-c26b-5d41-a6a4-d9f5a2c2c782"
+    ],
+    "content_gaps": []
+  },
+  {
+    "filename": "StudentPrerequisites",
+    "found": true,
+    "summary": "StudentPrerequisites tracks and validates student health, immunization, safety, and confidentiality requirements, including detailed audit and update workflows.",
+    "purpose": "To record and enforce student health requirements, immunizations, mask fit tests, safety, confidentiality forms, and related program validation.",
+    "entities": ["StudentPrerequisite"],
+    "fields": [
+      { "name": "ID", "type": "int" },
+      { "name": "StudentID", "type": "int" },
+      { "name": "CRCStatusCodeID", "type": "int" },
+      { "name": "IDCard", "type": "bool" },
+      { "name": "WCBWaiver", "type": "bool" },
+      { "name": "ConfidentialityForm", "type": "bool" },
+      { "name": "UseAssessmentModule", "type": "bool" }
+    ],
+    "actors": ["Student", "Staff", "UserSession"],
+    "workflows": [
+      {
+        "name": "StudentPrerequisite Search and Update Workflow",
+        "steps": [
+          "Search student prerequisites",
+          "Update infection, occ health, mask, safety, confidentiality forms",
+          "Validate all dates and codes against business rules"
+        ]
+      }
+    ],
+    "business_rules": [
+      "Year values must be between MIN_YEAR and MaxYear",
+      "Dates must not be in the future beyond Max_Future_Years",
+      "Expiry dates must not be before completion dates",
+      "Mandatory fields must be filled"
+    ],
+    "validations": [
+      "Validate expiry dates",
+      "Validate dates against future limits",
+      "Validate required fields"
+    ],
+    "calculations": [
+      "Formatted dates",
+      "Expiry calculation"
+    ],
+    "conditions": [
+      "UseAltLanguageFields affects descriptions",
+      "Null values trigger warnings and error messages"
+    ],
+    "system_behavior": [
+      "CRUD operations for student prerequisites",
+      "System adds errors/messages if validations fail"
+    ],
+    "dependencies": [
+      "Codes.CodeSearch (lookup codes)",
+      "HSPnetSession (session context)"
+    ],
+    "exceptions": [],
+    "source_document_ids": [],
+    "content_gaps": ["Field listing is partial; refer to source for all fields"]
+  }
+]
