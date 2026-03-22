@@ -1,0 +1,142 @@
+{
+  "filename": "FindLocationForWorksheet",
+  "found": true,
+  "summary": "FindLocationForWorksheet is a web form and codebehind in ASP.NET used to search for locations (destinations) that can be added to a worksheet. The interface allows users to filter and select destinations based on various parameters, view search results, and create worksheet entries for selected destinations.",
+  "purpose": "The file enables users to locate and select destinations to be added to a worksheet for subsequent administrative actions. Its main use case is in organizing placements (e.g., in a healthcare or education context) by filtering, reviewing, and batch-adding selected destinations to a worksheet.",
+  "entities": [
+    "Agency",
+    "GoverningOrg",
+    "SiteType",
+    "Service",
+    "DatabaseLocation",
+    "Region",
+    "Province",
+    "Discipline",
+    "Worksheet",
+    "Destination"
+  ],
+  "fields": [
+    "WorksheetID",
+    "CFOFlag",
+    "GWSFlag",
+    "txtKeyword",
+    "ddAgency",
+    "ddGoverningOrg",
+    "ddSiteType",
+    "ddServiceFilter",
+    "ddRegion",
+    "ddProvinceFilter",
+    "ddDisciplineFilter",
+    "chkIncludeCity",
+    "chkIncludeAddress",
+    "cmdPrint",
+    "cmdClear",
+    "cmdSearch",
+    "cmdClose",
+    "cmdCreate",
+    "txtGroupSize",
+    "chkUseTemplate",
+    "lblMatches",
+    "lblReportHTML"
+  ],
+  "actors": [
+    "User (with web session)",
+    "System administrator (for configuration)"
+  ],
+  "workflows": [
+    {
+      "name": "Search and Add Destinations to Worksheet",
+      "steps": [
+        "User loads the FindLocationForWorksheet page with WorksheetID and CFOFlag as query parameters.",
+        "User enters/chooses one or more filters: keyword, agency, governing org, site type, service, region, province, discipline, include city/address.",
+        "User clicks Search (cmdSearch). The search is performed using the filter fields; gridData is populated with matching results.",
+        "User reviews the results and optionally uses Select All/None.",
+        "User checks desired destinations in the results grid.",
+        "User enters group size (if allowed by GWSFlag).",
+        "User chooses whether to use a template (chkUseTemplate).",
+        "User clicks Create (cmdCreate), which collects checked row keys and invokes Location.CreateWorksheetEntries to add them to the worksheet.",
+        "The system clears related cached lists to ensure new entries are reflected.",
+        "Optionally, the user can print (cmdPrint), clear (cmdClear), or close the form (cmdClose)."
+      ]
+    }
+  ],
+  "business_rules": [
+    "WorksheetID and CFOFlag must be provided to enable Create functionality.",
+    "If GWSFlag is not true, group size defaults to 1 and the field is hidden.",
+    "If group size is required, it must be a valid integer (validated).",
+    "When no destinations are selected, Create does nothing."
+  ],
+  "validations": [
+    "Keyword field may be required for search (CustomValidator2).",
+    "Group size must be an integer (CompareValidator4) and required if GWSFlag is true (RequiredFieldValidator2).",
+    "Multiple validation summaries for search and create actions.",
+    "UI disables Create button if prerequisite query string values are not present."
+  ],
+  "calculations": [
+    "lblMatches displays the count of matched search results (loc.RowCount())."
+  ],
+  "conditions": [
+    "If GWSFlag is true, allow group size input; otherwise, default to 1.",
+    "If WorksheetID or CFOFlag is missing, hide the Create button.",
+    "If MaxRowsHit is true, display a warning about too many results."
+  ],
+  "system_behavior": [
+    "On Page_Load, validates URL hash, sets up the page, parses query strings, and initializes lookup data and controls.",
+    "Client-side JavaScript is initialized for controls.",
+    "Page_PreRender sets up the matches panel and group size visibility.",
+    "Search repopulates the grid and updates match count.",
+    "Clear resets filters, results, and the form state.",
+    "Create processes selected grid rows into worksheet entries.",
+    "Print launches report generation for search results and displays printable report HTML.",
+    "Error and warning panels are managed for user feedback."
+  ],
+  "dependencies": [
+    "HSPnet.DataLayer.Locations",
+    "HSPnet.WebServices.ASSDLookups.ClearASSDCache",
+    "HSPnet.Framework.Reporting.RunReport",
+    "HSPnet.Framework.HSPnetPage",
+    "JavaScript functions (selectAll, selectNone, printForm, etc.)",
+    ".NET WebForms infrastructure (GridView, Panels, Labels, Validators, etc.)",
+    "AJAX Control Toolkit for always-visible panels"
+  ],
+  "exceptions": [
+    "If query parameters are missing, some features are unavailable.",
+    "If group size is invalid or not entered when required, creation fails validation."
+  ],
+  "source_document_ids": [
+    "0176c680-d043-50cd-be84-810b9401ca4d",
+    "03390d5d-ec3d-55eb-bff3-cba2dbd1b246",
+    "053b5717-2acf-59f7-9163-abe991148b67",
+    "0dd7cd0d-2cbf-5782-86d1-f2be26bf0bbe",
+    "13fa92a9-f429-5cb6-9cbd-3c88732aa5bc",
+    "241b58a3-1f5e-5f69-bc89-4fe78108573d",
+    "26e28072-71f0-53e1-9791-63f7de682466",
+    "45de5522-32eb-5a87-8edc-5d699d153dab",
+    "4c55c8aa-4cac-588b-a6fd-a740c81f9808",
+    "4faeb7ba-4c89-5e62-a00b-c8a40782f01f",
+    "5d250228-2982-5245-80e4-0ce0ab4d04b5",
+    "5fcbfe6a-9f61-5170-be0d-16eacc6a7001",
+    "6b473dde-bf18-59ee-a5a6-3a8dbe3274a4",
+    "7de49aad-0888-574a-9d95-9c3d50c6ffda",
+    "80166401-2bc6-5aee-a816-5afefcef1717",
+    "810b3899-1eff-5479-be21-638dc4b04ba2",
+    "864717f5-e4db-56fc-b7fb-41b7b7f53d54",
+    "8ac0b000-856b-52fa-a0cd-d3dc0eb82072",
+    "8d730e3e-7cc0-554e-b14d-0f1a09df33f2",
+    "a00242d2-3405-5e54-946b-65f3cf6a3ac4",
+    "b5eef186-7bdd-59d5-b85d-e05e630f7e9c",
+    "cdd03bf2-5f2f-5b34-9a10-1d8d280138e0",
+    "cf3d5e55-cee1-5841-b770-5c0d94a350c9",
+    "d5f24882-02cb-56ef-b582-1b8adeb57a5c",
+    "e1a4ba6c-9dbb-536b-ae95-71d25de835fc",
+    "e8b44847-b94c-5b36-86fb-6593c2f83973",
+    "e99c8dbf-87b7-5245-ba1d-2cc1c2532ebe",
+    "faf4f79b-857c-56c1-898e-40a1ec9716ca",
+    "fccc1c70-95f6-5ea8-86ed-eae47887742a"
+  ],
+  "content_gaps": [
+    "Exact structures of the backend entities (Agency, GoverningOrg, etc.) are not detailed in the source.",
+    "Implementation of certain helper methods and external dependencies (like CreateWorksheetEntries) is outside the file.",
+    "Front-end resources (localization, scripts, styling) are referenced but not included."
+  ]
+}
