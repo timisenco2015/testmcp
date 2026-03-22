@@ -1,0 +1,125 @@
+{
+  "filename": "MaintGoverningOrg",
+  "found": true,
+  "summary": "MaintGoverningOrg implements a web-based interface for maintaining Governing Organization records. It supports CRUD operations, field validations, masking for phone and fax inputs, conditional workflows based on user roles, and feedback panels for errors and warnings. GridView and DetailsView components are used for displaying and editing records, with data binding, masked input, and client/server validation. Screen editability is governed by user session roles.",
+  "purpose": "To facilitate the management (add, edit, delete, reactivate) of Governing Organizations, ensuring data quality by enforcing field requirements, input masks, and business validation, while providing interactive feedback and filtering capabilities for administrators.",
+  "entities": [
+    "GoverningOrg",
+    "UserSession",
+    "Grid",
+    "Phone"
+  ],
+  "fields": [
+    "Name",
+    "ShortName",
+    "PreviousName",
+    "PreviousNameEffectiveDate",
+    "Address1",
+    "Address2",
+    "City",
+    "Province",
+    "PostalCode",
+    "PhoneArea",
+    "PhoneWithoutArea",
+    "FaxArea",
+    "FaxWithoutArea",
+    "Inactive",
+    "ID"
+  ],
+  "actors": [
+    "SystemAdministrator",
+    "ViewOnlyUser"
+  ],
+  "workflows": [
+    {
+      "name": "Add/Edit/Delete GoverningOrg",
+      "steps": [
+        "User clicks Add/Edit/Delete/Reactivate in GridView.",
+        "If Add/Edit: Show DetailsView, populate fields.",
+        "On Save: Validate required fields (Name, ShortName), validate phone/fax if mask enabled, validate Effective Date format.",
+        "If validation passes: Save or update GoverningOrg.",
+        "If Delete: Attempt deletion; if not allowed, show error.",
+        "If Reactivate: Trigger reactivate action.",
+        "Refresh data grid."
+      ]
+    },
+    {
+      "name": "Filtering and Viewing",
+      "steps": [
+        "User enters keyword, toggles Show Inactive.",
+        "Click Refresh View to filter list."
+      ]
+    },
+    {
+      "name": "Panel Feedback",
+      "steps": [
+        "Display error panel for errors.",
+        "Display warning panel for status or validation warnings.",
+        "Hide panels on user action."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Only SystemAdministrator users (not ViewOnly) may edit.",
+    "Name and ShortName must be specified.",
+    "Phone and Fax must match masks/validation if UsePhoneMask is enabled.",
+    "Cannot delete organization if not allowed; show error.",
+    "Inactive records can be reactivated."
+  ],
+  "validations": [
+    "RequiredFieldValidator for Name and ShortName.",
+    "CustomValidator for Phone and Fax (checks area and number, applies mask if enabled).",
+    "RegularExpressionValidator for PreviousNameEffectiveDate (must match date format)."
+  ],
+  "calculations": [],
+  "conditions": [
+    "Screen editability is set by UserSession.SystemAdministrator && !UserSession.ViewOnly.",
+    "Phone/Fax validation depends on UsePhoneMask user session setting."
+  ],
+  "system_behavior": [
+    "Setup JavaScript for field variables and phone mask toggles.",
+    "Hide add button and change no data found message if read only.",
+    "Disable fields and calendar controls if not editable.",
+    "Bind grid data based on filters (keyword, inactive toggle).",
+    "Panels (error, warning) display and hide based on events."
+  ],
+  "dependencies": [
+    "AjaxControlToolkit for masked input and modal popups.",
+    "GridView and DetailsView web controls.",
+    "GoverningOrg data layer for CRUD operations.",
+    "Resource strings for labels, tooltips, and validation messages."
+  ],
+  "exceptions": [
+    "Delete operation not permitted: Shows error panel with error message.",
+    "Validation failures: Show warning or error messages."
+  ],
+  "source_document_ids": [
+    "064ee812-6a9e-513f-830a-cdf02a947bcb",
+    "0bbfc55c-4e37-5195-9c61-06b1b8bbb59a",
+    "0f83fafd-cd79-59fa-a23f-09de153cfaa4",
+    "29468167-d473-5cf7-929e-9df67d7f2beb",
+    "31e628c6-8463-5f57-b846-2eb33136cfe6",
+    "3d1f42de-c51a-5625-9520-3f5ed219012f",
+    "4f7edf0a-2f0b-560d-8ff2-b03f7a2982d3",
+    "59ef3d25-a882-5c86-975e-d2e1c44e9230",
+    "5aa6bea1-1faa-5e57-a784-644389bf5365",
+    "619d6734-d0c9-52c0-8d5c-0976e4edf2a0",
+    "7d6f3b52-1161-5de0-b716-7e830b7ace9f",
+    "7f1c0e15-b484-5ae2-84f2-f93564a400c6",
+    "b2792b6a-5f2f-588d-adca-cf130db38ac3",
+    "c92121f4-6b7c-5000-a75a-ee150930c7bd",
+    "d1cc81b5-4c5a-5911-a244-9601ac1d16e1",
+    "d9e8164c-d9a7-5a21-8d85-18b9deff580b",
+    "debf1ec2-971e-5b87-89a0-33f3741080e7",
+    "e46eaa7e-8653-50c2-8226-2abfecb10ee3",
+    "e5d9461e-eb36-5b05-9bd2-a5c07722db93",
+    "eabe1def-39a0-5ddd-a649-fb02b97bb993",
+    "f926bedd-b133-5a25-9a43-11f99a1d4714"
+  ],
+  "content_gaps": [
+    "No explicit list of all possible error messages.",
+    "No details on underlying data model, e.g. database structure.",
+    "No information on authorization/permissions model beyond user session flags.",
+    "Resource string values are referenced but not defined."
+  ]
+}
