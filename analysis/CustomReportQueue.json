@@ -1,0 +1,133 @@
+{
+  "filename": "CustomReportQueue",
+  "found": true,
+  "summary": "CustomReportQueue is a Web UI user control for managing and processing custom report requests in the HSPnet system. It provides both administrative and user workflows for requesting, viewing, editing, completing, refusing, canceling, and returning custom report requests. The control supports filtering by agency, department, user, and created date, manages request status transitions, and facilitates file uploads and communication with stakeholders.",
+  "purpose": "To handle the queue and workflow for custom report requests, allowing users and administrators to filter, view, edit, upload supporting documents, and action report requests (complete, refuse, cancel, return to user). It ensures proper interaction, validation, and visibility depending on user roles and request statuses.",
+  "entities": [
+    "CustomReport",
+    "UserSession",
+    "Agency",
+    "Department",
+    "User"
+  ],
+  "fields": [
+    "radModePending",
+    "radModeCompleted",
+    "chkShowDetails",
+    "CurrentViewLabel",
+    "ddCreated",
+    "ddAgency",
+    "ddDepartment",
+    "ddUser",
+    "cmdRefreshView",
+    "rprCustomReport",
+    "pnlPopup",
+    "btnShowPopup",
+    "mdlDetails",
+    "ValidationSummary3",
+    "fvwDocument",
+    "dsAgency",
+    "dsDepartment",
+    "dsUser",
+    "dsCustomReport"
+  ],
+  "actors": [
+    "SystemAdministrator",
+    "LocalAdministrator",
+    "User",
+    "Requester"
+  ],
+  "workflows": [
+    {
+      "name": "Custom Report Request Workflow",
+      "steps": [
+        "User/Administrator selects agency, department, user, and created date filters.",
+        "Custom report requests are listed in rprCustomReport; each request displays associated fields and controls.",
+        "User/Administrator can edit requests (cmdEdit), action requests (cmdCompleteRequest, cmdRefuseRequest, cmdCancelRequest, cmdReturnToUser), and view details (hlDetails).",
+        "Administrators have visibility and permission to action requests based on request status (PEND, Completed, etc.).",
+        "Supporting documents can be uploaded and saved for each request.",
+        "Data binding for dropdowns ensures defaults and blank entries are managed (e.g., 'ALL', 'Previous Years').",
+        "Sorting is supported by CreatedDate, RequestedByDate, UserName.",
+        "After actions (complete, refuse, cancel), RefreshData is called to update the UI."
+      ]
+    },
+    {
+      "name": "File Upload Workflow",
+      "steps": [
+        "FileUpload control is used to upload documents.",
+        "Files are saved to a uniquely named folder.",
+        "Relative URLs and metadata are generated and attached to the report request.",
+        "Uploaded files are associated with the CustomReport entity via UpdateFile."
+      ]
+    },
+    {
+      "name": "Admin Communication Workflow",
+      "steps": [
+        "Admins can return requests to users for more information (cmdReturnToUser).",
+        "Email popups facilitate communication with requesters.",
+        "Visual indicators for awaiting info or status changes."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Administrators can action (complete, refuse, cancel, return) requests only if StatusCode is 'PEND'.",
+    "Dropdowns are populated with context-sensitive options; blank entries are added if multiple items exist.",
+    "System administrators have broader permissions across actions and visibility.",
+    "Data binding for dropdowns is triggered on first load and when Popups cause refresh."
+  ],
+  "validations": [
+    "ValidationSummary3 used for consolidating validation messages.",
+    "HandleUploadedFile checks file existence, type, and saves to unique location.",
+    "Visibility and enablement of action buttons are validated based on user role and request status."
+  ],
+  "calculations": [
+    "FileSize calculation during upload.",
+    "Dynamic sorting direction for CreatedDate, RequestedByDate, UserName based on ViewState.",
+    "Formatting of email and phone links with NameFormatter."
+  ],
+  "conditions": [
+    "If ViewState['FirstLoad'] == '1', dropdowns are databound and defaults set.",
+    "If request.StatusCode != 'PEND', action buttons (complete, refuse, cancel) are hidden.",
+    "Visibility for controls and rows is based on user role, request status, and presence of comments."
+  ],
+  "system_behavior": [
+    "Page_Load manages initial setup and refresh from popups.",
+    "Page_PreRender updates ViewState to track load state.",
+    "RefreshData rebinds dropdowns, retains selected values, and updates report list.",
+    "ItemCommand events handle workflow transitions (edit, return, cancel, refuse, complete).",
+    "Uploaded files are handled, validated, and stored on the server."
+  ],
+  "dependencies": [
+    "UserSession for context and permissions.",
+    "Dropdown utility functions (Dropdown.SelectValue, ddAddBlankEntry).",
+    "Grid utility (HideButton, ShowDetails, HideDetails, SwitchToEditMode, GetIDfromDataKey).",
+    "CustomReports data layer for request actions."
+  ],
+  "exceptions": [
+    "Invalid file uploads (missing file, wrong type) are not processed.",
+    "Incorrect ViewState or command arguments may cause failed actions.",
+    "Data binding errors if required entities (agency, department, user) are unavailable."
+  ],
+  "source_document_ids": [
+    "065fbc13-294e-5802-8862-5eeee1e293c4",
+    "06673988-c0e1-567b-8e5e-6f7d10ad50f7",
+    "272b27a8-86a2-54d3-848f-122354d493b0",
+    "44f2b574-24db-5c77-bfac-e398c3e03f66",
+    "4a0eefa9-782b-5738-ae9d-61aaa33b65f9",
+    "6f3e30c7-6486-5332-96a9-c3d68207c376",
+    "723416ea-321b-5391-a8c6-a9e6dba4e56e",
+    "780c9195-9780-5849-b2fc-0b934fdd83c7",
+    "9de91c08-26c4-5167-95f1-7aa271077b75",
+    "a8d7e60d-8732-5c60-9c47-06ec00b1a95b",
+    "af753a9f-2d1b-5d8a-9197-7f3f4b9346e6",
+    "b44bfebd-b2aa-5370-94e5-e506fae93724",
+    "cb9f6f4b-fe7c-5342-b9b2-b8dd36b32d4c",
+    "e37e6caa-a235-5e9a-9262-ce42a18e5898"
+  ],
+  "content_gaps": [
+    "No explicit field definitions or data types for CustomReport entity.",
+    "No details on security or error handling mechanisms beyond file upload validation.",
+    "No example data or configurations for dropdowns (agency, department, user).",
+    "Limited details about the dependencies' implementation (e.g., Grid, CustomReports, Dropdown utility classes)."
+  ]
+}
