@@ -1,279 +1,139 @@
 {
-  "files": [
+  "filename": "WelcomeStaffAdmin",
+  "found": true,
+  "summary": "WelcomeStaffAdmin is an ASP.NET web page within HSPnet. It provides a staff administrative interface for listing student employment applications with filtering and administration options. The interface displays the current user's name and last login details, allows filtering by Site, Discipline, date range, and withdrawn status, and supports grid-based listing with paging. It enforces strict front-end and back-end validation for dates, uses AJAX controls, and provides user feedback panels for errors and warnings.",
+  "purpose": "To allow staff administrators to view, filter, and manage student employment applications within HSPnet, using a grid interface with flexible filtering (Site, Discipline, Date Range, Withdrawn/Active), quick access to application details, and validation/error handling.",
+  "entities": [
+    "StudentEmploymentApplication",
+    "Site",
+    "Discipline",
+    "UserSession"
+  ],
+  "fields": [
     {
-      "filename": "SiteDocument",
-      "found": true,
-      "summary": "Defines a SiteDocument class with properties for document identity and association with a Site.",
-      "purpose": "Represents documents related to a Site, for use in data access and association within the application.",
-      "entities": ["SiteDocument"],
-      "fields": [
-        { "name": "ID", "type": "int", "description": "Unique identifier for the document" },
-        { "name": "SiteID", "type": "int", "description": "Associated site identifier" }
-      ],
-      "actors": [],
-      "workflows": [],
-      "business_rules": [],
-      "validations": [],
-      "calculations": [],
-      "conditions": [],
-      "system_behavior": [],
-      "dependencies": [
-        "HSPnet.Framework",
-        "HSPnet.App_GlobalResources"
-      ],
-      "exceptions": [],
-      "source_document_ids": ["a2967f17-a924-5e9c-8b15-d1f7bd028b32"],
-      "content_gaps": []
+      "name": "Site",
+      "type": "dropdown",
+      "source": "Sites.GetByAgencyID"
     },
     {
-      "filename": "WelcomeStaffAdmin",
-      "found": true,
-      "summary": "Implements the staff admin welcome page, providing filtering, error/warning handling, and presentation of employment applications.",
-      "purpose": "Allows staff admins to view, filter, and interact with student employment applications; includes UI controls, validation, and data presentation.",
-      "entities": [
-        "EmploymentApplication"
-      ],
-      "fields": [
-        { "name": "ddSite", "type": "DropDownList", "description": "Site selection filter" },
-        { "name": "ddDiscipline", "type": "DropDownList", "description": "Discipline selection filter" },
-        { "name": "txtStartDate", "type": "TextBox", "description": "Filter start date" },
-        { "name": "txtEndDate", "type": "TextBox", "description": "Filter end date" },
-        { "name": "chkShowWithdrawn", "type": "CheckBox", "description": "Show withdrawn applications" },
-        { "name": "gvwApplications", "type": "HSPnetGridView", "description": "Data grid for applications" }
-      ],
-      "actors": [
-        "StaffAdmin",
-        "System"
-      ],
-      "workflows": [
-        {
-          "name": "FilterAndViewApplications",
-          "steps": [
-            "StaffAdmin selects site and discipline",
-            "StaffAdmin sets start and end date filters",
-            "StaffAdmin can check to include withdrawn applications",
-            "StaffAdmin clicks refresh to update grid",
-            "Applications are presented in data grid with links/details"
-          ]
-        }
-      ],
-      "business_rules": [
-        "Start date and end date must be valid dates and start must not be after end.",
-        "Withdrawn applications are shown only if the box is checked."
-      ],
-      "validations": [
-        "RequiredFieldValidator for start and end date",
-        "RegularExpressionValidator for date format",
-        "CustomValidator ensures start date is before or equal to end date"
-      ],
-      "calculations": [],
-      "conditions": [
-        "If withdrawn date exists, status is 'Withdrawn'; otherwise 'Submitted'."
-      ],
-      "system_behavior": [
-        "On filter changes, grid is refreshed with new data.",
-        "Error or warning messages are shown in floating panels.",
-        "Grid supports paging and displays application summary fields."
-      ],
-      "dependencies": [
-        "HSPnet.UI.HSPnetGridView",
-        "AjaxControlToolkit",
-        "DateFormatter",
-        "Resources",
-        "DropDownList",
-        "UserSession",
-        "Hashing"
-      ],
-      "exceptions": [
-        "If UserSession is null selection is cancelled.",
-        "Error panels are shown for screen issues."
-      ],
-      "source_document_ids": [
-        "05db31e4-e8b6-53ee-a6fb-812c106f0134", "100d5925-a5f8-53db-8493-02cddd563eb7",
-        "3c84bade-9671-5fbf-acce-3c87a835e9b4", "4c4b97b8-d242-5261-a515-767a3f7d7a49",
-        "52b5066f-23f6-5d82-96cd-5d51dad3de79", "54244516-0707-581e-a8ba-9c041ea38366",
-        "5bb85da3-f5b4-5753-b07c-9bb2a04eeb89", "5d9b92ea-7c12-5070-8603-977cf14d0e04",
-        "6701b153-5288-59e5-8de9-61b68a1fc292", "6eca1317-c0b2-5225-a9af-f034a722d924",
-        "871df91b-7ba0-558f-83ea-d5be1b0dc8db", "8cea5c3a-2fbf-5206-a0c0-9425a5e14511",
-        "964a48c9-231c-5d58-a44d-3675d949a453", "966ed8d3-a5af-567f-b092-936217777551",
-        "a0c3da28-32a5-5fce-91b2-17274efa016e", "afbb4ec5-43c8-5281-ad2c-4b6cfd23a48e",
-        "b8e79322-9a0e-5fe7-8953-3d05e231f923", "bf423a80-93db-572d-8cb8-c79f04214a93",
-        "ca71b077-cc26-5979-a44f-59700a41316b", "d278278f-d4ec-5f4a-9f29-a02b66773bb9",
-        "db9b35e9-53ca-5eaf-9d75-4f3a72131bc7", "e249a878-c837-5d1c-9a3d-5167df2614fb"
-      ],
-      "content_gaps": []
+      "name": "Discipline",
+      "type": "dropdown",
+      "source": "Disciplines.DisciplineList"
     },
     {
-      "filename": "ServiceCode",
-      "found": true,
-      "summary": "ServiceCode class encapsulates information about service codes, including listing and localization functions.",
-      "purpose": "Manages service code data entities, retrieves lists for use in application workflows and UI.",
-      "entities": [
-        "ServiceCode"
-      ],
-      "fields": [
-        { "name": "ID", "type": "int", "description": "Unique identifier" },
-        { "name": "CodeCategoryID", "type": "int", "description": "Category ID" },
-        { "name": "ShortName", "type": "string", "description": "Short code" },
-        { "name": "Name", "type": "string", "description": "Description (localizable)" },
-        { "name": "SortOrder", "type": "int", "description": "Sort order" },
-        { "name": "Notes", "type": "string", "description": "Notes" },
-        { "name": "NameAlt", "type": "string", "description": "Alternative description" },
-        { "name": "NotesAlt", "type": "string", "description": "Alternative notes" }
-      ],
-      "actors": [],
-      "workflows": [
-        {
-          "name": "ListServiceCodes",
-          "steps": [
-            "Call ServiceCodeListAll or option-specific methods",
-            "Populate code instances from database",
-            "Apply localization if needed"
-          ]
-        }
-      ],
-      "business_rules": [
-        "Use alternative name if running in alternate language mode."
-      ],
-      "validations": [],
-      "calculations": [],
-      "conditions": [],
-      "system_behavior": [
-        "Fetches service code data from database via stored procedures.",
-        "Supports alt-language display."
-      ],
-      "dependencies": [
-        "HSPnet.Framework",
-        "HSPnet.App_GlobalResources"
-      ],
-      "exceptions": [],
-      "source_document_ids": [
-        "94f1b055-348d-508a-ae6e-cf7960a8c6a2",
-        "e4ebe4b4-6d14-5c3f-b693-61016f765239",
-        "f976b9af-a402-540f-b162-391d578fac7c"
-      ],
-      "content_gaps": []
+      "name": "StartDate",
+      "type": "date",
+      "validators": [
+        "RequiredFieldValidator",
+        "RegularExpressionValidator"
+      ]
     },
     {
-      "filename": "SiteProfileHistory",
-      "found": true,
-      "summary": "Tracks history of changes to site profiles, including user actions, fields changed, and user/agency information.",
-      "purpose": "Provides audit trails for site profile modifications and displays history in the UI.",
-      "entities": [
-        "SiteProfileHistory"
-      ],
-      "fields": [
-        { "name": "ID", "type": "int", "description": "Unique identifier" },
-        { "name": "ActionDate", "type": "DateTime", "description": "Date/time of the action" },
-        { "name": "ScreenSection", "type": "string", "description": "UI section changed" },
-        { "name": "UserAction", "type": "string", "description": "Action taken" },
-        { "name": "Fields", "type": "string", "description": "Fields affected" },
-        { "name": "Agency", "type": "string", "description": "Agency code" },
-        { "name": "AgencyName", "type": "string", "description": "Agency name" },
-        { "name": "LastName", "type": "string", "description": "User last name" },
-        { "name": "FirstName", "type": "string", "description": "User first name" },
-        { "name": "MiddleName", "type": "string", "description": "User middle name" },
-        { "name": "Phone", "type": "Phone", "description": "Contact phone" },
-        { "name": "ByUserID", "type": "int", "description": "ID of user performing action" },
-        { "name": "ByOriginalUserID", "type": "int", "description": "Original user ID" },
-        { "name": "ByUserSysAdmin", "type": "bool", "description": "Whether action by sysadmin" },
-        { "name": "ActionDateFormatted", "type": "string", "description": "Formatted action date" },
-        { "name": "AgencyUserFormatted", "type": "string", "description": "Formatted user/agency info" },
-        { "name": "AgencyUserDetailsFormatted", "type": "string", "description": "Tooltip-style user info" }
-      ],
-      "actors": [
-        "User",
-        "System"
-      ],
-      "workflows": [
-        {
-          "name": "RecordSiteProfileChange",
-          "steps": [
-            "User modifies a site profile section",
-            "Action is recorded with all details and context",
-            "User/agency details auto-formatted for display"
-          ]
-        }
-      ],
-      "business_rules": [
-        "Support team actions are labeled with caption for clarity",
-        "Display alternate field names if in alt language mode"
-      ],
-      "validations": [
-        "Ensure only valid sessions/agency info can record history"
-      ],
-      "calculations": [
-        "Auto-computes formatted names and tooltips"
-      ],
-      "conditions": [],
-      "system_behavior": [
-        "UI control for displaying grid of profile histories",
-        "Uses object data source for retrieval"
-      ],
-      "dependencies": [
-        "HSPnet.Framework",
-        "HSPnet.App_GlobalResources",
-        "HSPnet.UI"
-      ],
-      "exceptions": [
-        "Selection cancelled if session missing"
-      ],
-      "source_document_ids": [
-        "25f89a24-5eda-5a3f-83df-1de69b12b3f1",
-        "26e09292-d304-55c6-94e5-ef3346453c4b",
-        "7ca6b963-9ae9-5cd3-82d5-f30dcb727ae3",
-        "a8f030c6-90b8-53a1-bb8a-3b7ef33b9488",
-        "e806999c-3a39-5720-9b59-303faebc9eb6"
-      ],
-      "content_gaps": []
+      "name": "EndDate",
+      "type": "date",
+      "validators": [
+        "RequiredFieldValidator",
+        "RegularExpressionValidator",
+        "CustomValidator (EndDateAfter)"
+      ]
     },
     {
-      "filename": "EmailPopupDocument",
-      "found": true,
-      "summary": "Encapsulates email popup document info with support for searching and deleting attached files.",
-      "purpose": "Manage files used in email popups, maintain reference info, and handle deletion/cleanup.",
-      "entities": [
-        "EmailPopupDocument"
-      ],
-      "fields": [
-        { "name": "ID", "type": "int", "description": "Document identifier" },
-        { "name": "FileName", "type": "string", "description": "Document filename" },
-        { "name": "FilePath", "type": "string", "description": "Document file path" },
-        { "name": "Checked", "type": "bool", "description": "Selection state" }
-      ],
-      "actors": [],
-      "workflows": [
-        {
-          "name": "SearchAndDelete",
-          "steps": [
-            "Search parses structured string data and builds EmailPopupDocument objects",
-            "Delete removes file and directory for specified ID; composes new structure string"
-          ]
-        }
-      ],
-      "business_rules": [],
-      "validations": [
-        "Checks for data format integrity (split, field count checking)"
-      ],
-      "calculations": [],
-      "conditions": [
-        "Only deletes if data present and format matches"
-      ],
-      "system_behavior": [
-        "Handles physical file deletion, catches file system errors",
-        "Maintains object list and structure for front-end use"
-      ],
-      "dependencies": [
-        "System.IO"
-      ],
-      "exceptions": [
-        "File/Directory deletion errors are silently caught"
-      ],
-      "source_document_ids": [
-        "7287734e-f13d-550f-9249-4242db620766",
-        "927bc837-5564-5759-9324-27c6d5d7321d"
-      ],
-      "content_gaps": []
+      "name": "ShowWithdrawn",
+      "type": "checkbox"
     }
+  ],
+  "actors": [
+    "Staff Admin (current user, as determined by UserSession)"
+  ],
+  "workflows": [
+    {
+      "name": "View and Filter Employment Applications",
+      "steps": [
+        "Page loads and initializes user/session context.",
+        "User's last login is retrieved and displayed.",
+        "Site and Discipline dropdowns are populated based on agency and session.",
+        "Default dates are set to past 3 months (start) through today (end).",
+        "User can filter applications by selecting Site, Discipline, and date range.",
+        "User can include/exclude withdrawn applications via checkbox.",
+        "User triggers data retrieval with the refresh button.",
+        "Grid updates with matching application rows. Shows Name, Site, Submission Date, Status (Withdrawn/Submitted), WithdrawnDate, agency, and program.",
+        "Users can click names for detail popups and emails for mailto links.",
+        "Errors and warnings display in floating panels (AJAX Extender)."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Withdrawn applications can be toggled to show/hide via checkbox.",
+    "StartDate and EndDate are both required and must be valid dates.",
+    "EndDate must not precede StartDate.",
+    "Filters (Site, Discipline) default to agency-wide/all if not explicitly chosen.",
+    "Paging is enabled, 50 rows per page."
+  ],
+  "validations": [
+    "StartDate RequiredFieldValidator.",
+    "EndDate RequiredFieldValidator.",
+    "StartDate/EndDate use RegularExpressionValidator to ensure valid date format.",
+    "CustomValidator (checkStartEnd) ensures EndDate >= StartDate.",
+    "All validation uses ValidationSummary tied to 'currentview' group."
+  ],
+  "calculations": [
+    "Default StartDate is 3 months before current date.",
+    "Default EndDate is current date.",
+    "Withdrawn/Submitted status is calculated based on whether WithdrawnDate is null.",
+    "Display of WithdrawnDate only occurs if applicable."
+  ],
+  "conditions": [
+    "If SiteID is in URL query, use it; otherwise, default to all for agency.",
+    "If a discipline/subdiscipline is chosen, filter accordingly.",
+    "If user triggers refresh or changes filter, rebind grid."
+  ],
+  "system_behavior": [
+    "AJAX controls keep warning/error panels floating.",
+    "Dropdowns automatically include an 'ALL' option.",
+    "Grid triggers RowDataBound for setting up hyperlinks and email links.",
+    "Client-side JS validates date logic pre-submission."
+  ],
+  "dependencies": [
+    "Sites.GetByAgencyID",
+    "Disciplines.DisciplineList",
+    "DateFormatter.FormatDateShort",
+    "EmploymentApplications.SearchSubmitted",
+    "UserSession properties (e.g., AgencyID, PreferredFirstName, LastLogin, TimeZoneDescription)",
+    "HSPnetGridView"
+  ],
+  "exceptions": [
+    "Invalid or missing required fields (dates, etc.) block grid refresh and prompt errors.",
+    "If StartDate > EndDate, validation fails.",
+    "If no data is found, grid displays an 'empty' message."
+  ],
+  "source_document_ids": [
+    "05db31e4-e8b6-53ee-a6fb-812c106f0134",
+    "100d5925-a5f8-53db-8493-02cddd563eb7",
+    "3c84bade-9671-5fbf-acce-3c87a835e9b4",
+    "4c4b97b8-d242-5261-a515-767a3f7d7a49",
+    "52b5066f-23f6-5d82-96cd-5d51dad3de79",
+    "54244516-0707-581e-a8ba-9c041ea38366",
+    "5bb85da3-f5b4-5753-b07c-9bb2a04eeb89",
+    "5d9b92ea-7c12-5070-8603-977cf14d0e04",
+    "6701b153-5288-59e5-8de9-61b68a1fc292",
+    "6eca1317-c0b2-5225-a9af-f034a722d924",
+    "871df91b-7ba0-558f-83ea-d5be1b0dc8db",
+    "8cea5c3a-2fbf-5206-a0c0-9425a5e14511",
+    "964a48c9-231c-5d58-a44d-3675d949a453",
+    "966ed8d3-a5af-567f-b092-936217777551",
+    "a0c3da28-32a5-5fce-91b2-17274efa016e",
+    "afbb4ec5-43c8-5281-ad2c-4b6cfd23a48e",
+    "b8e79322-9a0e-5fe7-8953-3d05e231f923",
+    "bf423a80-93db-572d-8cb8-c79f04214a93",
+    "ca71b077-cc26-5979-a44f-59700a41316b",
+    "d278278f-d4ec-5f4a-9f29-a02b66773bb9",
+    "db9b35e9-53ca-5eaf-9d75-4f3a72131bc7",
+    "e249a878-c837-5d1c-9a3d-5167df2614fb"
+  ],
+  "content_gaps": [
+    "No explicit documentation of user roles/permissions, assumed to be staff admin.",
+    "No explicit description of security model or access controls.",
+    "No explicit details on data returned in grid rows beyond field bindings.",
+    "No high-level architectural diagram or summary."
   ]
 }
