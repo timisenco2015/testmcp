@@ -1,0 +1,87 @@
+{
+  "filename": "StudentMessagesASM",
+  "found": true,
+  "summary": "StudentMessagesASM is an ASP.NET user control designed to manage and display student preference messages and course selections. It interacts with session data and provides features for displaying course and preference information, managing visibility, and handling user actions such as deleting preference messages.",
+  "purpose": "To facilitate the display and management of student-related messages and course preferences within a web application. It supports operations like showing courses, managing preference submission status, and controlling UI elements based on session and user actions.",
+  "entities": [
+    "Student",
+    "Timetable",
+    "StudentPRPreferenceMessages",
+    "HSPnetSession"
+  ],
+  "fields": [
+    "UserSession",
+    "StudentID",
+    "PRSelectorStartDate",
+    "PRSelectorEndDate",
+    "LocalDateTime",
+    "StudentPRPreferencesCount",
+    "sess"
+  ],
+  "actors": [
+    "Student",
+    "Administrator",
+    "SwitchUserViewOnly (user in monitoring mode)"
+  ],
+  "workflows": [
+    {
+      "name": "Course Preferences Display",
+      "steps": [
+        "Page loads and checks UserSession validity.",
+        "Courses are fetched and displayed in grid view.",
+        "For each course row, set up navigation link and status.",
+        "Display status as Not yet open, Open, or Closed based on dates.",
+        "Show/hide number of choices submitted/saved."
+      ]
+    },
+    {
+      "name": "Student Preference Message Management",
+      "steps": [
+        "Preference messages are fetched and displayed in grid view.",
+        "Delete button is hidden if monitoring mode is active.",
+        "If delete is triggered, delete the message and rebind the grid."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Delete button is not visible when monitoring users.",
+    "Panel visibility depends on whether timetable data is available."
+  ],
+  "validations": [
+    "Selection events are canceled if UserSession is null.",
+    "Delete confirmation prompt uses resource text."
+  ],
+  "calculations": [
+    "Number of submitted or saved choices is displayed using StudentPRPreferencesCount."
+  ],
+  "conditions": [
+    "Panel and controls only visible if appropriate session and timetable data exist.",
+    "Status label and choice controls change based on PRSelectorStartDate and PRSelectorEndDate compared to LocalDateTime."
+  ],
+  "system_behavior": [
+    "Panel pnlSiteSelectorMessages is shown only if timetable list is non-empty.",
+    "Delete command triggers removal of preference messages and refresh of grid.",
+    "Navigation link to selector is enabled only within permissible date range."
+  ],
+  "dependencies": [
+    "Resources for localized messages.",
+    "Timetable and StudentPRPreferenceMessages data structures.",
+    "HSPnetSession for session context."
+  ],
+  "exceptions": [
+    "Selection operations canceled if UserSession is not present.",
+    "Delete command handled with confirmation."
+  ],
+  "source_document_ids": [
+    "5056beeb-f5ea-51a8-8a39-c36468786837",
+    "5aa653c9-23a5-5dd3-ac87-92cc8a5d3b78",
+    "72f259f4-4d82-5873-bd42-b24a57c413cc",
+    "e289a620-4ed7-5bf3-a792-2b58e92cf5d0",
+    "f1abcc1f-e68a-575d-a794-3ad5e6208f87"
+  ],
+  "content_gaps": [
+    "No information about exact UI layout or full set of business rules for message types.",
+    "Details of Resource strings and their values are not provided.",
+    "No examples of actual data or downstream effects beyond grid and panel visibility."
+  ]
+}
