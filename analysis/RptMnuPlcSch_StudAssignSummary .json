@@ -1,8 +1,8 @@
 {
   "filename": "RptMnuPlcSch_StudAssignSummary",
   "found": true,
-  "summary": "RptMnuPlcSch_StudAssignSummary is a web control for generating student assignment summary reports in a placement scheduling system. It provides a configurable UI for filtering and including various report options, such as campus, department, program, cohort, contact info, shift schedules, internal comments, and multiple display controls. The system handles dropdown filtering, permissions, validations, and report generation workflow based on user session context.",
-  "purpose": "To enable users (typically staff and supervisors) to generate customized student assignment summary reports for placements, allowing filtering and inclusion of specific information fields and presentation options.",
+  "summary": "RptMnuPlcSch_StudAssignSummary is a Web User Control in an ASP.NET application responsible for configuring, validating, and generating the Student Placement Schedule Summary report. It exposes interactive UI elements (checkboxes, dropdowns, radio buttons) that allow a user to select departments, programs, cohorts, campuses, report options, and advanced settings, then creates a print job via a backend method with these parameters.",
+  "purpose": "To allow authorized users to generate a detailed student assignment summary report for placements and schedules, with options for customizing the output format and included information (e.g., contact info, comments, shift schedules).",
   "entities": [
     "Department",
     "Program",
@@ -10,108 +10,105 @@
     "Campus",
     "Student",
     "Preceptor",
-    "DC (Director of Care)",
-    "Placement",
-    "ReportJob",
-    "UserSession"
+    "Course Leader",
+    "UserSession",
+    "TimetableEntries"
   ],
   "fields": [
     "chkIncDestAddressComments",
     "chkShowDestPhone",
     "chkIncludeStudentContactInfo",
-    "Label4",
     "chkIncludeAdvancedStudentContactInfo",
     "chkIncludeInternalComment",
     "chkIncludeShiftSchedule",
     "ddCampus",
-    "Label2",
     "radSinglePDFFile",
     "radIndividualPDFfile",
-    "Literal5",
     "radPageBreakStudents",
     "chkShowPreceptor",
     "chkShowPreceptorPhone",
     "chkShowDC",
     "chkShowDCPhone",
-    "Label6",
-    "ltlOptions",
-    "Literal2",
     "ddDepartment",
-    "Literal3",
     "ddProgram",
-    "Literal4",
     "ddCohort",
-    "lblTermsCourses",
     "UCchoosers",
-    "Label1",
+    "cmdRunReport",
     "ValidationSummary1",
-    "Label5",
-    "ltlDescription",
     "CustomValidator1",
     "CustomValidator2",
-    "cmdRunReport",
-    "dsCampus"
+    "ltlDescription",
+    "ltlOptions",
+    "lblTermsCourses"
   ],
   "actors": [
-    "Staff",
-    "Supervisor",
     "Course Leader",
     "Instructor",
-    "UserSession"
+    "Supervisor",
+    "UserSession (Logged-in User)"
   ],
   "workflows": [
     {
       "name": "Generate Student Assignment Summary Report",
       "steps": [
-        "User selects department, program, cohort, and campus from dropdowns.",
-        "Dropdowns are populated based on user session permissions.",
-        "User selects report options via checkboxes and radio buttons (e.g., include contact info, advanced info, internal comments, shift schedules, preceptor/DC info, PDF export mode, page breaks).",
-        "Program permissions checked for internal comment inclusion.",
-        "User clicks 'Run Report' (cmdRunReport).",
-        "System validates input, including maximum allowed items.",
-        "System creates a PrintJobs.ReportStudentPlacementScheduleCreateJob with selected parameters.",
-        "Report is generated and exported as single PDF or individual files based on user selection."
+        "User loads the report menu control.",
+        "Dropdowns for department, program, cohort, and campus are populated based on permissions and selections.",
+        "User selects students to include using UCchoosers.",
+        "User configures report options using checkboxes and radio buttons (e.g., include contact info, internal comments, PDF format).",
+        "Validation is performed to ensure selected options and limits (e.g., maximum included items).",
+        "User clicks cmdRunReport.",
+        "PrintJobs.ReportStudentPlacementScheduleCreateJob is called with all selected parameters, generating the report."
+      ]
+    },
+    {
+      "name": "Dropdown Dependency Updates",
+      "steps": [
+        "Department selection triggers FillProgramDropdown and FillCohortDropdown.",
+        "Program selection triggers FillCohortDropdown and checkProgramPermission."
       ]
     }
   ],
   "business_rules": [
-    "Field declarations are auto-generated and should be moved to code-behind files for modification.",
-    "Maximum include items enforced, with error messages if exceeded.",
-    "Program permissions determine if internal comments can be included.",
-    "Dropdowns populated only if not already populated, or on change events.",
-    "User session context determines available options and permissions."
+    "Course Leader permission required to view internal comments (chkIncludeInternalComment.Enabled = selPrg.CLViewStudentInternalComment).",
+    "CustomValidator2 enforces maximum included items for report.",
+    "Only authorized programs and departments available based on UserSession.",
+    "Report can be generated as single or individual PDF files.",
+    "Page break option can be toggled for report output."
   ],
   "validations": [
-    "CustomValidator1 and CustomValidator2 for input validation.",
-    "ValidationSummary1 for displaying validation messages.",
-    "Cancel data selection if UserSession is null."
+    "ValidationSummary1 control for displaying validation messages.",
+    "CustomValidator1 and CustomValidator2 for custom error messages, maximum items, etc.",
+    "cmdRunReport does not run if critical parameters (e.g., UserSession) are missing."
   ],
   "calculations": [
-    "MAX_INCLUDE_ITEMS used to limit selections.",
-    "Dynamic error messages utilizing PrintJobs.MAX_INCLUDE_ITEMS and course count."
+    "MAX_INCLUDE_ITEMS used to limit report generation.",
+    "Dropdown.CurrentID used to resolve selected IDs."
   ],
   "conditions": [
-    "If UserSession.AllowAllDepartments, list all departments; otherwise, filter by agency.",
-    "If UserSession.AllowAllPrograms, list all programs; otherwise, filter by department.",
-    "If selected program allows course leader view, enable internal comment checkbox.",
-    "Data binding occurs only if items not already loaded or on specific control events."
+    "If UserSession.AllowAllPrograms, all programs are listed; else filtered.",
+    "If UserSession.Instructor and UserSession.CourseLeader, internal comment permission checked.",
+    "If UserSession is null, data source selection (dsCampus) is cancelled."
   ],
   "system_behavior": [
-    "Dropdowns dynamically populate based on user permissions and selections.",
-    "Radio buttons determine PDF report format and page break options.",
-    "Checkboxes control inclusion of report fields such as student contact info, advanced info, internal comments, shift schedules, preceptor and DC info.",
-    "JavaScript setup for client-side interactivity and maximum include item enforcement.",
-    "Data source selection is cancelled if user session is not present."
+    "On page load, labels and validators are initialized with resource values.",
+    "Dropdowns dynamically populated based on session and selection.",
+    "Report generation logic calls backend PrintJobs methods with all parameters from UI.",
+    "JavaScript setup is performed for client-side UI variables."
   ],
   "dependencies": [
-    "HSPnet.DataLayer for department, program, cohort data.",
-    "HSPnet.App_GlobalResources for labels and resources.",
-    "UserSession context for permissions and filtering.",
-    "Dropdown.CurrentID for extracting selected values."
+    "Departments.DepartmentSearchAgency",
+    "Departments.DepartmentList",
+    "Programs.ProgramSearchDepartment",
+    "Programs.ProgramList",
+    "DataLayer.Cohorts",
+    "TimetableEntries.CohortTimetable",
+    "PrintJobs.ReportStudentPlacementScheduleCreateJob",
+    "Codes.CodeLookupCodes"
   ],
   "exceptions": [
-    "Input validation failures (e.g., exceeding MAX_INCLUDE_ITEMS) trigger error messages and halt report generation.",
-    "Null UserSession cancels data source selection."
+    "Critical parameters (UserSession, selected cohort/program/department) not set: report generation cancelled.",
+    "Exceeded maximum allowed items for report: CustomValidator2 error.",
+    "dsCampus datasource selection cancelled if UserSession is null."
   ],
   "source_document_ids": [
     "356c1064-9115-56e8-adb5-8c6fe23ae6a7",
@@ -127,9 +124,8 @@
     "f95ddbc3-e09d-517c-931a-fbb7943deb38"
   ],
   "content_gaps": [
-    "No explicit sample output or UI screenshots.",
-    "No details on the exact PDF format or layout.",
-    "No information on error handling beyond simple validation logic.",
-    "No information on user authentication or session expiration."
+    "Full details of PrintJobs.ReportStudentPlacementScheduleCreateJob logic not present.",
+    "Exact format and structure of generated report not specified.",
+    "No UI screen mockups or exact field descriptions aside from ASP.NET field names."
   ]
 }
