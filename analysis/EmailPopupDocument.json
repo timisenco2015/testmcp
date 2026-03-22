@@ -1,100 +1,98 @@
 {
   "filename": "EmailPopupDocument",
   "found": true,
-  "summary": "The EmailPopupDocument module manages the creation, retrieval, and deletion of email attachments or documents, handling them in-memory using a pipe-separated string representation for temporary storage. It provides mechanisms to parse, list, and remove documents including associated filesystem operations.",
-  "purpose": "To facilitate the lifecycle of documents used in email popups, specifically for searching, displaying, and deleting documents (and folders) as needed during the email composition or sending workflow.",
+  "summary": "EmailPopupDocument manages email-related document records, supporting search, retrieval, and deletion of email file data. It handles parsing structured input, maintains document metadata, and safely deletes files and folders associated with emails.",
+  "purpose": "To provide structured handling of email document files—including listing, metadata storage, and deletion of both files and directories—by parsing a delimited input string and performing file system operations.",
   "entities": [
     "EmailPopupDocument"
   ],
   "fields": [
     {
-      "entity": "EmailPopupDocument",
       "name": "ID",
       "type": "int",
-      "description": "Unique in-session identifier for each document entry. Initialized to -1 in the constructor."
+      "description": "Unique identifier for the document (default: -1)"
     },
     {
-      "entity": "EmailPopupDocument",
       "name": "FileName",
       "type": "string",
-      "description": "The display or attachment file name."
+      "description": "Name of the email document file"
     },
     {
-      "entity": "EmailPopupDocument",
       "name": "FilePath",
       "type": "string",
-      "description": "The path to the file for further operations, such as deletion."
+      "description": "Full system path to the document file"
     },
     {
-      "entity": "EmailPopupDocument",
       "name": "Checked",
       "type": "Boolean",
-      "description": "Boolean indicating if the item is checked (usage not fully detailed in content)."
+      "description": "Indicates if the document is checked"
     }
   ],
   "actors": [
     "System",
-    "User (triggering document selection/deletion in UI or workflow)"
+    "User"
   ],
   "workflows": [
     {
-      "name": "Search for Email Popup Documents",
+      "name": "Search Email Documents",
       "steps": [
-        "Receive raw data string (DataInfo), typically pipe-separated values.",
-        "Split DataInfo using '|' delimiter into individual entries.",
-        "For each entry, split using '>' to separate FileName and FilePath.",
-        "For valid entries (length == 2), instantiate EmailPopupDocument objects, set properties (ID, FileName, FilePath), append to result list.",
-        "Return the list of EmailPopupDocument instances for display or further handling."
+        "Receive DataInfo string as input.",
+        "Split DataInfo on '|' to get email record segments.",
+        "For each segment: Split by '>' to parse FileName and FilePath.",
+        "Instantiate EmailPopupDocument for each valid segment.",
+        "Populate ID, FileName, FilePath fields.",
+        "Add each document entry to the result list."
       ]
     },
     {
-      "name": "Delete Email Popup Document",
+      "name": "Delete Email Document",
       "steps": [
-        "Receive pipe-separated data string (DataInfo) and target document ID (index).",
-        "Iterate through DataInfo entries.",
-        "When the current index matches the supplied ID:",
-        "  - Split entry using '>' to get FilePath.",
-        "  - Extract directory name from FilePath.",
-        "  - Attempt to delete the file at FilePath (ignore errors).",
-        "  - Attempt to delete the directory (ignore errors).",
-        "All other entries are retained into a return string.",
-        "Return the updated DataInfo string, now missing the deleted document."
+        "Receive DataInfo and target ID as input.",
+        "Split DataInfo on '|' to get email record segments.",
+        "Iterate over segments to find the one matching the provided ID.",
+        "If found, split by '>' to get FilePath.",
+        "Attempt to delete the file at FilePath.",
+        "Attempt to delete the containing folder.",
+        "Catch any exceptions silently.",
+        "For non-deleted records, concatenate back into the output string."
       ]
     }
   ],
   "business_rules": [
-    "Only entries with two segments after splitting by '>' are considered valid email documents.",
-    "IDs are assigned incrementally during parsing and are positional (array index based)."
+    "EmailPopupDocument only processes entries with two parts (FileName and FilePath) split by '>'.",
+    "Only the entry matching the provided ID in the Delete workflow is deleted; others are preserved.",
+    "Exceptions during file or folder deletion are caught and do not interrupt the workflow."
   ],
   "validations": [
-    "Check if provided DataInfo is not null or empty before performing operations.",
-    "For delete operation, ensure DataInfo is not null or empty and ID is valid (indexable)."
+    "DataInfo must not be null or empty.",
+    "Email record segments must split into exactly two parts ('>' delimiter) for valid processing."
   ],
   "calculations": [
-    "ID is incrementally assigned in the order of parsing valid documents."
+    "ID is incremented for each entry during search workflow."
   ],
   "conditions": [
-    "Deletion only proceeds if the index matches the provided ID and the split entry is valid."
+    "If DataInfo is empty, workflows return empty results.",
+    "If emailData length is not 2, entry is skipped."
   ],
   "system_behavior": [
-    "On delete, errors in deleting files or directories are caught and ignored (fail silently).",
-    "All document lifecycle logic is handled in-memory using string manipulation and not persisted beyond the session unless further context is provided."
+    "System performs file and directory deletions when deleting an email document.",
+    "System catches and ignores exceptions during file or directory deleting operations."
   ],
   "dependencies": [
-    "System.IO for file and directory operations.",
-    "Data is managed via in-memory string parsing rather than persisted data storage."
+    "System.IO for file and directory manipulation.",
+    "Delimited input string format ('|' and '>') for workflow logic."
   ],
   "exceptions": [
-    "Try/catch blocks around file and directory deletion: failures are ignored and do not halt the method."
+    "File deletion or directory deletion may throw exceptions, which are caught and ignored."
   ],
   "source_document_ids": [
     "7287734e-f13d-550f-9249-4242db620766",
     "927bc837-5564-5759-9324-27c6d5d7321d"
   ],
   "content_gaps": [
-    "No explicit description of the larger workflow (such as UI triggers or complete lifecycle beyond search/delete).",
-    "Checked field usage is not detailed in the retrieved content.",
-    "Persistence mechanism for documents (beyond in-memory representation) is not described.",
-    "No authentication/authorization logic described."
+    "No information on how DataInfo input is constructed or managed outside of these workflows.",
+    "No explicit user interface details.",
+    "No authentication or authorization logic mentioned.",
+    "No information on Checked field usage beyond storage."
   ]
 }
