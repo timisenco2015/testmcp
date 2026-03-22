@@ -1,8 +1,8 @@
 {
   "filename": "StudentActiveCohort",
   "found": true,
-  "summary": "StudentActiveCohort manages active cohort assignments for students, including course enrollments, cohort details, and system behaviors related to assignment and removal from cohorts.",
-  "purpose": "To track, assign, and remove cohort-course associations for students and provide detailed information used in academic scheduling and validation.",
+  "summary": "StudentActiveCohort models a student's memberships in academic cohorts and their course assignments. It provides workflows to search, enumerate, and remove students from cohorts, capturing associated details such as department, program, timetable, and enrollment/assignment counts.",
+  "purpose": "Enable management, querying, and updating of student cohort assignments, allowing users to track students' active cohorts, course assignments, and remove students from cohorts when required.",
   "entities": [
     "StudentActiveCohort",
     "StudentActiveCohorts"
@@ -26,63 +26,61 @@
     "CohortTypeFormatted"
   ],
   "actors": [
-    "Student",
-    "HSPnetSession",
-    "System/Database"
+    "System user",
+    "HSPnetSession"
   ],
   "workflows": [
     {
       "name": "StudentSearchActiveCohorts",
       "steps": [
-        "Set database procedure to StudentSearchActiveCohorts",
-        "Add session and student parameters",
-        "Run DB query and read results",
-        "For each result, populate StudentActiveCohort fields",
-        "Add valid StudentActiveCohort entries to list",
-        "Return list of active cohorts for student"
+        "Set database procedure name to 'StudentSearchActiveCohorts'.",
+        "Add parameters: SessionID, StudentID.",
+        "Execute query and retrieve results via SqlDataReader.",
+        "For each record, instantiate StudentActiveCohort and populate fields.",
+        "Calculate UnassignedCourses as EnrolledCourses - AssignedCourses.",
+        "Skip records where both AssignedCourses and UnassignedCourses are zero.",
+        "Return the filtered list of cohorts."
       ]
     },
     {
       "name": "StudentRemoveFromCohort",
       "steps": [
-        "Set database procedure to StudentRemoveFromCohort",
-        "Add session, student, and cohort parameters",
-        "Run DB query and read results",
-        "For each result, populate StudentActiveCohort fields",
-        "Add valid StudentActiveCohort entries to list if conditions met",
-        "Return updated list after removal"
+        "Set database procedure name to 'StudentRemoveFromCohort'.",
+        "Add parameters: SessionID, StudentID, CohortID.",
+        "Execute query and retrieve results via SqlDataReader.",
+        "Enumerate temp-assigned courses if available."
       ]
     }
   ],
   "business_rules": [
-    "UnassignedCourses = EnrolledCourses - AssignedCourses",
-    "Skip any StudentActiveCohort entry where AssignedCourses and UnassignedCourses are both zero"
+    "UnassignedCourses is calculated as EnrolledCourses minus AssignedCourses.",
+    "Records with zero AssignedCourses and zero UnassignedCourses are excluded from results.",
+    "CohortTypeFormatted returns '(Unstructured)' if Unstructured is true, otherwise empty."
   ],
   "validations": [
-    "Only add StudentActiveCohort entries to result list if AssignedCourses != 0 OR UnassignedCourses != 0"
+    "Type checks during data retrieval: integer and string fields populated via session DB methods.",
+    "Skip records if both AssignedCourses and UnassignedCourses are zero."
   ],
   "calculations": [
-    "UnassignedCourses is calculated as EnrolledCourses minus AssignedCourses"
+    "UnassignedCourses = EnrolledCourses - AssignedCourses"
   ],
   "conditions": [
-    "When reading cohort results, skip all-zero entries",
-    "When searching for temp-assigned courses, move through recordsets until 'Course' is found"
+    "If Unstructured is true, CohortTypeFormatted includes '(Unstructured)'.",
+    "If both AssignedCourses and UnassignedCourses are zero, exclude from result."
   ],
   "system_behavior": [
-    "DB procedure selection and parameter setting",
-    "Iterative reading from DB results",
-    "Field population and entry filtering",
-    "Session-based data retrieval"
+    "Retrieves active cohorts and assigned courses for a student.",
+    "Allows removal of cohort assignments for a student.",
+    "Filters out records with no meaningful assignment counts."
   ],
   "dependencies": [
     "HSPnetSession",
-    "Database stored procedures: StudentSearchActiveCohorts, StudentRemoveFromCohort",
-    "SqlDataReader",
-    "Resource strings (for CohortTypeFormatted)"
+    "Database procedures: StudentSearchActiveCohorts, StudentRemoveFromCohort",
+    "SqlDataReader"
   ],
   "exceptions": [
-    "If DB reader returns null, skip processing",
-    "Skip entries with all-zero course assignments"
+    "If the database reader is null, no records are processed.",
+    "Records with all-zero assignment counts are skipped."
   ],
   "source_document_ids": [
     "24eaf078-e391-5240-9a2b-f1e669753812",
@@ -90,8 +88,8 @@
     "ebe839ba-3287-52fb-84f5-416ae2b6ec35"
   ],
   "content_gaps": [
-    "No explicit description of error handling for other DB failures",
-    "No detail on UI or external triggers for workflows",
-    "No information on how course assignment/removal interacts with other system modules"
+    "UI-level workflow steps and error handling are not described.",
+    "No detailed description of procedure return values beyond cohorts and assignments.",
+    "Business logic for course assignment beyond simple counts is not provided."
   ]
 }
