@@ -1,37 +1,20 @@
 {
   "filename": "ReportQueue",
   "found": true,
-  "summary": "The ReportQueue module manages the selection, filtering, status updates, email delivery, and deletion of print jobs (reports) for users within an ASP.NET web application. It is implemented as a page and as a user control, allowing staff to interact with queued reports using a rich UI that supports filtering, batch actions, and feedback via warnings and errors.",
-  "purpose": "To provide users (primarily staff) the ability to view, filter, select, act upon, and manage print jobs (reports). This includes marking reports as delivered or undelivered, emailing reports to default or specific recipients, permanently deleting reports, and refreshing the report queue view.",
+  "summary": "ReportQueue is a web UI module for managing, viewing, filtering, and acting on queued print jobs and delivered reports within the HSPnet system. It provides users with tools to filter by status, user, report type, and actions such as marking reports as delivered, emailing reports, or deleting them.",
+  "purpose": "To enable users (typically staff) to view, filter, and take actions (such as email, mark delivered, delete) on queued print jobs and reports, grouped by delivery status and recipient. The module organizes reports into categories (to be delivered, delivered, others) and provides a UI for batch or individual operations.",
   "entities": [
-    "ReportQueue",
     "PrintJob",
     "UserSession",
-    "Staff",
-    "EmailInfo",
-    "PRDInfo",
-    "SessionConstants"
+    "StaffUser",
+    "Recipient",
+    "ReportQueue"
   ],
   "fields": [
     "lblTitle",
-    "ddReportName",
-    "ddStaffUser",
-    "chkSubmittedReports",
-    "chkReadyReports",
-    "chkViewedReports",
-    "chkDeliveredReports",
-    "chkShowDetails",
-    "lblInstructions",
-    "lblSUMMARYHEADING",
-    "lblFIRSTCATEGORYSUMMARY",
-    "lblSECONDCATEGORYSUMMARY",
-    "rprReportQ",
-    "dsReportQ",
-    "cmdSelectAll",
-    "cmdSelectNone",
-    "lblAction",
-    "ddAction",
-    "cmdSubmit",
+    "AlwaysVisibleControlExtender1",
+    "AlwaysVisibleControlExtender2",
+    "ctl00_txtRefreshWindow",
     "pnlError",
     "lblErrorCaption",
     "lblErrorList",
@@ -39,70 +22,121 @@
     "pnlWarning",
     "lblWarningCaption",
     "lblWarningList",
-    "cmdHideWarningPanel"
+    "cmdHideWarningPanel",
+    "pnlCurrentView",
+    "CurrentViewLabel",
+    "Label1",
+    "ddReportName",
+    "trUser",
+    "Label2",
+    "ddStaffUser",
+    "Label4",
+    "chkSubmittedReports",
+    "chkReadyReports",
+    "chkViewedReports",
+    "chkDeliveredReports",
+    "chkShowDetails",
+    "cmdRefreshView",
+    "lblInstructions",
+    "Literal1",
+    "Literal2",
+    "Literal3",
+    "hlPrintQueueNotesHelp",
+    "lblSUMMARYHEADING",
+    "lblFIRSTCATEGORYSUMMARY",
+    "lblSECONDCATEGORYSUMMARY",
+    "rprReportQ",
+    "dsReportQ",
+    "pnlSelect",
+    "cmdSelectAll",
+    "cmdSelectNone",
+    "lblAction",
+    "ddAction",
+    "cmdSubmit"
   ],
   "actors": [
     "Staff User",
-    "System (backend)",
-    "Recipients (of emailed reports)"
+    "System",
+    "Recipient"
   ],
   "workflows": [
     {
-      "name": "Standard Report View and Action Workflow",
+      "name": "Viewing and Filtering Reports",
       "steps": [
-        "User loads the ReportQueue view. If first load, sets up session and filters.",
-        "User applies filters using checkboxes and dropdowns (report type, staff, status).",
-        "Report list is displayed (using rprReportQ, dsReportQ) with the ability to select individual or all reports (cmdSelectAll/cmdSelectNone).",
-        "User selects one or more reports and chooses an action: Mark as delivered, Undelivered, Email (default/specific recipient), or Delete.",
-        "Actions are processed; status is updated accordingly in backend via PrintJobs.PrintJobSetStatus or PrintJobs.PrintJobDelete.",
-        "If emailing, the appropriate email popup or batch process is triggered. If deleting, confirmation may be shown before removal.",
-        "View is refreshed to display updated report queue state.",
-        "Feedback for errors or warnings is shown in panels as needed."
+        "User selects filters: report name, user, delivery/viewed/submitted status.",
+        "The UI displays reports grouped by delivery categories.",
+        "User can toggle group visibility, sort by columns, and view summaries."
       ]
     },
     {
-      "name": "Report Email Workflow",
+      "name": "Taking Action on Selected Reports",
       "steps": [
-        "User selects reports and chooses to email (default or specific).",
-        "System verifies at least one report is selected and recipient(s) are valid.",
-        "If validation passes, builds URL to EmailPopup.aspx and uses PageMethods.hashURL for security.",
-        "On success, opens popup window for the email process."
+        "User selects one or more reports (checkboxes).",
+        "User chooses action from ddAction (Mark Delivered, Mark Undelivered, Email to Default/Specific Recipient, Delete Permanently).",
+        "User submits action via cmdSubmit.",
+        "System processes action, updates report status, triggers email or deletion, and refreshes the view."
+      ]
+    },
+    {
+      "name": "Emailing Reports",
+      "steps": [
+        "User selects reports and chooses Email action.",
+        "System checks for readiness and recipient validity.",
+        "If all checks pass, system opens/email popup, hashes URL, and sends email.",
+        "If not, alerts are shown for missing recipient or not-ready status."
+      ]
+    },
+    {
+      "name": "Deleting Reports",
+      "steps": [
+        "User selects reports and chooses 'Delete Permanently'.",
+        "System verifies user is permitted (not viewing as another user).",
+        "Reports are deleted and queue refreshed."
       ]
     }
   ],
   "business_rules": [
-    "Only reports that are not marked as 'Submitted' and have an available output file can be marked as delivered, emailed, or deleted.",
-    "Delete action may be hidden if the selected staff user does not match the current session user.",
-    "Email action validation ensures each report has a default or specific recipient before sending; otherwise, a message is shown.",
-    "Selection actions (All/None) and report-specific actions are managed by client-side scripts and server-side code."
+    "Only users with appropriate permissions may delete reports.",
+    "Reports may only be emailed if marked as 'Ready'.",
+    "Default recipient must be set before emailing multiple reports.",
+    "Category summaries show counts of 'to be delivered', 'delivered', and 'other' reports."
   ],
   "validations": [
-    "On email actions, checks for at least one report selected and validates recipient assignment; otherwise, alerts the user.",
-    "On batch actions, only processes selected reports with valid IDs.",
-    "Further validations on state transitions (e.g., from undelivered to delivered) are enforced in PrintJobs backend."
+    "Check if at least one report is selected before performing an action.",
+    "Alert if attempting to email a report with missing recipient.",
+    "Alert if trying to act on a report not marked 'Ready'.",
+    "Ensure that delete is only available if user is acting as self."
   ],
   "calculations": [
-    "Counts of reports by category (delivered/not delivered/other) are calculated and displayed in summary labels.",
-    "Dynamic building and maintenance of client-side lists for selected reports, recipient IDs, and group indices."
+    "FirstCategoryNotDeliveredCount: number of reports to be delivered.",
+    "FirstCategoryDeliveredCount: number of delivered reports.",
+    "SecondCategoryCount: number of other reports.",
+    "Summaries and totals displayed in UI corresponding to delivery status."
   ],
   "conditions": [
-    "UI elements (such as Delete action) may be hidden based on session user context.",
-    "Group summaries and warning/error panels are only shown if applicable reports exist or an error/warning state occurs."
+    "IsPostBack controls filter and UI population logic.",
+    "UserSession settings determine filter defaults and permitted actions.",
+    "HideDelete flag set based on user context and permissions."
   ],
   "system_behavior": [
-    "AJAX and postback are used to maintain state and update the UI after actions.",
-    "Repeater (rprReportQ) binds to an ObjectDataSource (dsReportQ) with filters provided by the user.",
-    "Client-side JavaScript is injected dynamically to support batch selection, email popups, and UI toggling.",
-    "Summary and category counts update in real time as the view changes."
+    "Page_Load initializes UI and retrieves report queue data.",
+    "Page_PreRender resets actions and highlights icons.",
+    "SearchReports updates session variables and triggers data refresh.",
+    "Repeater control (rprReportQ) binds report data and processes item actions.",
+    "On client-side, JavaScript manages selection, group toggling, and email popup logic."
   ],
   "dependencies": [
-    "HSPnet.DataLayer.PrintJobs for backend data access and actions.",
-    "UserSession for session management and user context.",
-    "ASP.NET Events (Page_Load, Page_PreRender, OnItemDataBound, OnItemCommand, etc.)",
-    "Client-side JavaScript for dynamic UI updates and validation."
+    "HSPnet.DataLayer.PrintJobs for retrieving and updating print jobs.",
+    "StaffController.SearchUserDepartment for filling staff user dropdown.",
+    "JavaScript and tablesorter libraries for client-side UI.",
+    "Resources for localized UI strings and labels.",
+    "SessionConstants for storing session variables."
   ],
   "exceptions": [
-    "Display of error/warning panels if operations fail or invalid data is detected (e.g., no recipient assigned for email, no report selected, backend exceptions)."
+    "Attempting to email a report without a default recipient shows alert.",
+    "Trying to act on reports not ready for delivery shows alert.",
+    "Delete action disabled for non-self users or in view-only mode.",
+    "Invalid report or user selection prevents action submission."
   ],
   "source_document_ids": [
     "042ad0f1-f5a9-553b-a4d2-e9cbea87be5b",
@@ -151,8 +185,9 @@
     "fab3ee9e-acee-58e3-9389-a954416f3f8e"
   ],
   "content_gaps": [
-    "No details about the PrintJobs.PrintJobSetStatus or PrintJobs.PrintJobDelete backend methods implementation.",
-    "Some referenced resources (like text for UI labels) are dynamically localized and not provided.",
-    "Assumes a specific session and user management infrastructure exists."
+    "No explicit database schema for PrintJobs or session variable structure.",
+    "Specific permission model for staff not detailed.",
+    "Exact email format and delivery operation not shown.",
+    "Underlying data structure for report contents, delivery, and status is inferred but not explicitly described."
   ]
 }
