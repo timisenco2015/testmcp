@@ -1,0 +1,177 @@
+{
+  "filename": "CustomReports",
+  "found": true,
+  "summary": "CustomReports manages the creation, updating, and status handling of user-requested reports within the HSPnet system. It supports tracking all details related to the report, its requestor, attached files, and related parameters, as well as workflow actions such as cancel, refuse, return, and completion handling. CustomReportParameters allow reports to be customized with additional information.",
+  "purpose": "To enable users and administrators to request, track, manage, and complete customized report requests, including handling uploaded files and parameters, returning completed reports to users, and recording workflow events such as cancellation, refusal, completion, and updates.",
+  "entities": [
+    "CustomReport",
+    "CustomReportParameter",
+    "User",
+    "Agency",
+    "Department"
+  ],
+  "fields": [
+    "ID",
+    "RequestedByUserID",
+    "ReportTypeCodeID",
+    "ReportTypeComments",
+    "Purpose",
+    "Audience",
+    "RequestedByDate",
+    "Comments",
+    "CreatedDate",
+    "LastUpdateDate",
+    "LastUpdateByUserID",
+    "ReturnedToUserDate",
+    "ReturnedToUser",
+    "PastDetails",
+    "StatusCodeID",
+    "FileURL",
+    "FilePath",
+    "FileSize",
+    "FileType",
+    "FileTypeAlt",
+    "FileUpdateDate",
+    "ByUserId",
+    "LastName",
+    "FirstName",
+    "MiddleName",
+    "FileName",
+    "ReportTypeCode",
+    "ReportType",
+    "RequestedByStaffID",
+    "CreatedDateFormatted",
+    "RequestedByAgency",
+    "RequestedByLastName",
+    "RequestedByFirstName",
+    "RequestedByMiddleName",
+    "RequestedByNameFormatted",
+    "RequestedByEmail",
+    "RequestedByPhone",
+    "RequestedByFax",
+    "Status",
+    "StatusCode",
+    "RequestedByDepartment",
+    "ParameterList"
+  ],
+  "actors": [
+    "User",
+    "Sysadmin",
+    "Support staff"
+  ],
+  "workflows": [
+    {
+      "name": "Request Custom Report",
+      "steps": [
+        "User submits a request for a custom report including purpose, audience, comments, and parameters.",
+        "Report is created and associated with requestor's user and agency details.",
+        "Notification email may be sent to support/staff on submission."
+      ]
+    },
+    {
+      "name": "Update Custom Report",
+      "steps": [
+        "Report details and parameter values can be updated by authorized users.",
+        "Updates may trigger notifications and warnings/errors on completion."
+      ]
+    },
+    {
+      "name": "Complete Custom Report",
+      "steps": [
+        "Sysadmin or support staff marks request as completed, optionally uploading a file.",
+        "Completion triggers notification to requesting user with formatted email and report ID/date info."
+      ]
+    },
+    {
+      "name": "Return Custom Report to User",
+      "steps": [
+        "Report is marked as returned to user.",
+        "Email notification may be sent."
+      ]
+    },
+    {
+      "name": "Cancel Custom Report Request",
+      "steps": [
+        "User or sysadmin cancels request through explicit workflow.",
+        "Cancellation tracked separately if refused by sysadmin."
+      ]
+    },
+    {
+      "name": "Refuse Custom Report Request",
+      "steps": [
+        "Sysadmin can refuse request, tracked as distinct from user cancellation."
+      ]
+    },
+    {
+      "name": "Search and Retrieve Reports",
+      "steps": [
+        "Reports can be searched by agency, department, user, dates, completion status, and sorted by columns.",
+        "Searches include both past and current terms/fiscal years."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Cannot update report file if URL or path is blank.",
+    "ReturnedToUser is determined by whether ReturnedToUserDate is not null.",
+    "Report status tracking includes explicit status codes and descriptions.",
+    "PastDetails field may be used for additional context/history of request.",
+    "Cancellation by user and refusal by sysadmin are handled as separate events.",
+    "Completed requests can be returned without file upload for non-system users."
+  ],
+  "validations": [
+    "FileURL and FilePath must not be blank for file upload/update.",
+    "User/agency/department/parameter values validated when searching or adding reports.",
+    "Email subject/body templates verified for presence before sending notifications."
+  ],
+  "calculations": [
+    "FileSize is divided by 1000 to display in Kbytes.",
+    "CreatedDateFormatted and RequestedByDateFormatted computed using date formatting utility.",
+    "RequestedByNameFormatted constructed from name fields."
+  ],
+  "conditions": [
+    "Current fiscal/term/year calculated based on system date for searches.",
+    "Status is updated according to workflow events (completion, cancellation, refusal, return)."
+  ],
+  "system_behavior": [
+    "Executes batch SQL for add/update operations on reports and parameters.",
+    "Sends emails to users/support during workflow events (submission, completion, update).",
+    "Deletes old files/directories on file update.",
+    "Closes database readers after operations.",
+    "Handles errors and warnings via message system."
+  ],
+  "dependencies": [
+    "Database access utilities (sess.DB, Database)",
+    "Email utility (HSPnet.Framework.Email)",
+    "UI formatting/localization utilities",
+    "Resource templates for notifications",
+    "File system utilities for file handling"
+  ],
+  "exceptions": [
+    "Email not sent triggers error message.",
+    "File not available triggers fallback message.",
+    "File deletion errors ignored during update.",
+    "Filename extraction from path may fail and be ignored."
+  ],
+  "source_document_ids": [
+    "132be9d9-0ab9-5355-af6c-608ff561a77d",
+    "1744f290-c8d5-5f64-be14-14ad185a12ed",
+    "1ccc9e21-60c2-5ef7-8c04-3fd740c1d498",
+    "1e6887f9-2fe7-5b89-b57d-1e67d9800af3",
+    "29ced8f0-f8b4-5981-ab51-50fcb0ca67e3",
+    "3d03bf43-48c1-528c-82b9-26b9821f9cfe",
+    "3dd96cf6-446d-5681-a73f-7c5414cff50e",
+    "58f66194-5411-5bff-ac3f-2c4e31920a1a",
+    "6c0ae209-9319-5c6a-bb2b-00022e80701b",
+    "ac63d459-5a21-5ebb-a8a6-f6fd776553ab",
+    "b039d0d4-8c57-5af1-ad3c-34c5ca06e76d",
+    "b3c191b5-276f-56ac-86fa-70953a75044a",
+    "c1a120c4-ca5b-5666-888c-1e5d50c546ea",
+    "d10b05a2-efa3-57ff-a59c-46b97bb2f88f",
+    "db01691d-1bdd-55a1-aef7-e492acf94fe4",
+    "e6ecf84d-68f6-5fde-bad1-54e653a398ec",
+    "f568b951-92bb-5296-bdf7-fc5f83285c34",
+    "fd2349bf-80f2-5a79-8560-2c501fd39b45",
+    "fd6708a7-4fd2-50c3-9779-bce5557c1ee1"
+  ],
+  "content_gaps": []
+}
