@@ -1,0 +1,118 @@
+{
+  "filename": "StudentEmploymentApplication",
+  "found": true,
+  "summary": "StudentEmploymentApplication is a web page and code-behind for submitting a student employment application in HSPnet. It presents application details, manages document uploads, handles placement history, and manages submission workflows including email notifications to recruitment contacts. Controls are organized in tabbed panels for Documents and Placement History. The application is editable by students or system administrators unless withdrawn. Submission triggers backend logic and email notifications.",
+  "purpose": "To allow students or authorized staff to submit employment applications, manage supporting documents, view placement history, and send notifications to recruitment contacts.",
+  "entities": [
+    "EmploymentApplication",
+    "UserSession",
+    "RecruitmentContact"
+  ],
+  "fields": [
+    "ID",
+    "NameFormatted",
+    "Email",
+    "PlcAgencyShortName",
+    "ConsentProgram",
+    "RcvAgencyShortName",
+    "SiteName",
+    "WithdrawnDate",
+    "RecruitmentContactEmail",
+    "ReleaseHistory"
+  ],
+  "actors": [
+    "Student (with matching StaffID)",
+    "System Administrator",
+    "Recruitment Contact"
+  ],
+  "workflows": [
+    {
+      "name": "Submission",
+      "steps": [
+        "User loads employment application page (with ID in query string)",
+        "Application data is fetched and bound to header",
+        "Visibility of controls decided (submit panel, release history, etc.)",
+        "User selects to release placement history and submits",
+        "EmploymentApplications.Submit is called with session, application ID, and release history flag",
+        "If no errors, recruitment contact email is looked up",
+        "Templates for subject and body are loaded",
+        "Email template fields (e.g., SiteName) are merged",
+        "Email is sent to Recruitment Contact",
+        "Warnings or errors about email sending are shown as messages"
+      ]
+    },
+    {
+      "name": "Documents Tab Workflow",
+      "steps": [
+        "TabPanelDocuments is activated",
+        "EmploymentApplicationDocuments and StudentDocumentSelector are initialized and bound with session and IDs",
+        "Documents grid is displayed and editable if allowed"
+      ]
+    },
+    {
+      "name": "Placement History Tab Workflow",
+      "steps": [
+        "TabPanelPlacementHistory is enabled only if ReleaseHistory is set",
+        "WelcomeStudentPRHistory user control is initialized and bound",
+        "Placement history grid is displayed"
+      ]
+    }
+  ],
+  "business_rules": [
+    "Screen is editable only if not withdrawn and user is system administrator or student ID matches staff ID",
+    "Submit panel is visible if staff ID equals student ID",
+    "ReleaseHistory checkbox controls visibility of placement history tab",
+    "If RecruitmentContactEmail is empty, warning is shown",
+    "Email template fields are replaced with real values before sending"
+  ],
+  "validations": [
+    "UserSession hash is validated on page load",
+    "EmploymentApplication ID is parsed and used as key",
+    "Email format is checked before sending"
+  ],
+  "calculations": [],
+  "conditions": [
+    "TabPanelPlacementHistory is enabled if _data.ReleaseHistory is true",
+    "Controls visibility depend on UserSession and ScreenIsEditable",
+    "IsPostBack decides if ReleaseHistory is checked and which tab is activated"
+  ],
+  "system_behavior": [
+    "Show/hide error and warning panels via client-side script",
+    "Resize window to fixed size on page render",
+    "Handle user messages (errors, warnings) centrally",
+    "Bind document and placement history grids"
+  ],
+  "dependencies": [
+    "HSPnet.DataLayer.EmploymentApplications",
+    "HSPnet.UserControls.EmploymentApplications.EmploymentApplicationDocuments",
+    "HSPnet.UserControls.EmploymentApplications.StudentDocumentSelector",
+    "HSPnet.UserControls.WelcomeStudentPRHistory",
+    "HSPnet.App_GlobalResources",
+    "Templates for email subject and body"
+  ],
+  "exceptions": [
+    "No Recruitment Contact: warning shown, no email sent",
+    "Email send failure: error message shown"
+  ],
+  "source_document_ids": [
+    "01ea9a96-78dc-5b69-bf99-dd78f9ab7d2c",
+    "2e11f2e2-b3d7-57c7-9f96-c8a6d09f3f41",
+    "3aed9cc5-854b-5015-9088-34dfe272a551",
+    "463c74e9-4a83-506e-a840-6a1769182541",
+    "46c93c09-e5bd-5e2e-b2ab-b70bb5627a41",
+    "5ea3042f-9b65-50cf-9bd4-fc2b5ebf9b36",
+    "67337a7c-220a-5751-9f58-a81ce72341a5",
+    "6f729748-bcda-5f93-96fd-194c5ca20d25",
+    "893bba98-bb22-59b4-9a22-6ad12dfebcfa",
+    "b9d7d384-0885-5cdb-acb8-43237a689cf5",
+    "c363fbde-4746-5012-87f1-40201d0a236f",
+    "c3985a6a-d7d4-5334-92c3-e469fbea9a56",
+    "ddf77603-da48-57ac-a3bd-cf108973653f",
+    "f0c1a4cf-f50b-5b0f-98a2-86605fb62278",
+    "f84f29fd-2423-56b9-b9ba-d7a5b81a42df"
+  ],
+  "content_gaps": [
+    "Underlying field definitions and business logic for controls (e.g., EmploymentApplications, Templates) are referenced but not detailed in retrieved content.",
+    "Some user controls and templates are included by reference only, their internal behavior is not analyzed here."
+  ]
+}
