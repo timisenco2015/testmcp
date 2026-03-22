@@ -1,136 +1,137 @@
 {
   "filename": "HSPnetPage",
   "found": true,
-  "summary": "HSPnetPage provides the foundational class and behaviors for web pages in the HSPnet application, including session validation, locale handling, asset and script injection, Google Analytics, session timeout warning logic, error/warning management, footer composition, and navigation setup.",
-  "purpose": "To standardize and control the initialization, session management, asset loading, culture/locale settings, error/warning display, navigation, and session timeout warnings for all HSPnet web pages.",
-  "entities": ["HSPnetPage", "HSPnetSession", "LeftNav", "FooterLabel", "Panel", "Label", "UserSession", "Resources", "Hashing", "AjaxControlToolkit.AlwaysVisibleControlExtender"],
+  "summary": "HSPnetPage is a foundational web page class for the HSPnet system, responsible for managing user session, initialization, culture settings, client asset loading, Google Analytics, session timeout handling, dynamic navigation, user-specific UI, error and warning panels, and footer generation. It contains robust workflows for session management, security, and client feedback, heavily relying on dynamic JavaScript and server-side logic to maintain a secure, responsive user experience.",
+  "purpose": "To provide a secure, standardized, and localized web page experience for HSPnet users, handling user session validation, timeouts, UI assets, navigation, and dynamic feedback panels (errors/warnings), ensuring user activity is tracked and managed, and presenting session and user-related information in the page footer.",
+  "entities": [
+    "HSPnetPage (System.Web.UI.Page)",
+    "HSPnetSession",
+    "UserSession",
+    "Panel",
+    "Label",
+    "FooterLabel",
+    "Master (HSPnet.LeftNav)"
+  ],
   "fields": [
     "locale",
     "startTime",
-    "_UserSession",
-    "UserSession.TimeOutSeconds",
-    "UserSession.TimeOutWarningSeconds",
-    "UserSession.TimeOutRefreshSeconds",
-    "UserSession.TimeOutRedirectPage",
-    "UserSession.Messages",
-    "SessionID",
-    "sessHash",
-    "tRemain",
-    "sessID",
-    "FooterLabel.Text",
-    "Master.StartupScreen",
-    "Master.MakeStartPagePanel.Visible"
+    "curPage",
+    "lastLogin",
+    "AgencyShortName",
+    "DepartmentShortName",
+    "RoleName",
+    "TimeOutSeconds",
+    "TimeOutWarningSeconds",
+    "TimeOutRefreshSeconds",
+    "TimeOutRedirectPage",
+    "SessionQueryString",
+    "LoggingOut",
+    "SwitchUserViewOnly",
+    "FirstName",
+    "LastName",
+    "VersionNumber"
   ],
   "actors": [
-    "Web Page User",
-    "System (HSPnetPage)",
-    "HSPnetSession",
-    "LeftNav Master Navigation",
-    "Google Analytics",
-    "Hashing",
-    "Ajax/Javascript"
+    "User",
+    "Session",
+    "Web browser",
+    "HSPnet LeftNav"
   ],
   "workflows": [
     {
-      "name": "Session Management and Time-Out Warning",
+      "name": "Session Validation & Initialization",
       "steps": [
-        "On page load, initialize session and check its validity.",
-        "If session invalid, redirect to Timedout.aspx.",
-        "Set up session time-out warning: inject JS dialog that counts down seconds, shows warning, allows session reset or closure.",
-        "Use AJAX calls to /WebServices/ManageSession.asmx/CheckSession or /ResetSession based on user action.",
-        "Update UI to show remaining session time and warning dialog.",
-        "Clear all intervals and timers as needed."
+        "OnInit: Set startTime, initialize culture, instantiate or retrieve UserSession.",
+        "If UserSession is invalid, redirect to timeout page.",
+        "Save UserSession object for later access.",
+        "Set thread culture and date formats based on locale and HSPnet standards.",
+        "Set up Google Analytics if configured.",
+        "Set up global assets and scripts (CSS and JavaScript).",
+        "Set up session timeout warning logic unless login/forgot password page."
       ]
     },
     {
-      "name": "Culture/Locale Initialization",
+      "name": "Session Timeout Warning Workflow",
       "steps": [
-        "Locale is retrieved from query string or database.",
-        "If none is found, use default locale.",
-        "Sets thread culture and date formats based on locale and resources.",
-        "Allows for override of date format per HSPnet standards."
+        "Calculate timeout and warning intervals.",
+        "Inject dynamic JS to client for dialog popup on session expiry.",
+        "Repeated AJAX calls to ManageSession.asmx (CheckSession/ResetSession) using session hash.",
+        "Show countdown, warning dialog (pop-up), and allow reset/close by user.",
+        "Clear JS intervals and redirect on actual timeout."
       ]
     },
     {
-      "name": "Asset Injection",
+      "name": "Error and Warning Panel Workflow",
       "steps": [
-        "Inject necessary CSS and JS assets (including jQuery, custom scripts, Google Analytics, etc.) into page header.",
-        "Add Google Analytics script if tracking ID is provided.",
-        "Ensure asset loading order to prevent JS errors."
+        "Process page errors and warnings via UserSession.Messages.",
+        "Display errors and warnings in scrollable panels, format bold sections, adjust panel location if both present.",
+        "Add client JavaScript to allow panels to be hidden.",
+        "Warnings processed after errors, dynamically offset warning panel."
       ]
     },
     {
-      "name": "Navigation Setup",
+      "name": "Footer Generation Workflow",
       "steps": [
-        "Build left navigation via HSPnet.Framework.LeftNavigation.",
-        "Restore navigation tree state based on cookies.",
-        "Set startup screen and make start page panel visible."
+        "Build footer with copyright, version, user identity, agency/department, role, last login, timezone.",
+        "Append session info and last login, handle switched user/read-only state.",
+        "Show load time as HTML comment."
       ]
     },
     {
-      "name": "Page Error/Warning Handling",
+      "name": "Navigation Initialization Workflow",
       "steps": [
-        "Gather errors and warnings from UserSession.Messages.",
-        "Display errors and warnings via panels with scrollable containers.",
-        "Adjust warning panel offset if errors are present to avoid UI conflicts.",
-        "Register JavaScript client IDs for panels."
-      ]
-    },
-    {
-      "name": "Footer Generation",
-      "steps": [
-        "Compose footer with copyright, version, user info, agency/department, login time, time zone, and page load time."
+        "Initialize menu expansion states from cookies per section.",
+        "Build left navigation based on session/user."
       ]
     }
   ],
   "business_rules": [
-    "Session must be valid on every page load; otherwise user is redirected.",
-    "Locale must be valid; if not, fallback to default.",
-    "Session time-out warning only shown if enabled in session settings.",
-    "Asset loading must occur in proper order to prevent JS errors.",
-    "Certain pages (e.g., Default.aspx, ForgotPassword.aspx) skip session timeout logic.",
-    "Navigation expanded state restored via cookies."
+    "If UserSession is invalid, must redirect user to timeout page.",
+    "Default locale is applied if not present in query or database.",
+    "Session timeout warning dialog only shown if user is not on login or forgot password page.",
+    "Session expiry must clear all interval timers and redirect user.",
+    "Panel errors are processed and displayed before warnings, panels can be hidden."
   ],
   "validations": [
-    "URL hash validated for security (except login page).",
-    "Session validity checked in HSPnetSession.IsValid(Request, Response).",
-    "Locale checked against allowed values.",
-    "Errors/warnings panels shown only if messages exist.",
-    "Session hash format checked before AJAX calls."
+    "URL hash must be validated for non-login screens.",
+    "UserSession validity check (IsValid) on every page load.",
+    "Locale string must match allowed values or fallback to database/default.",
+    "Panel controls (Panel, Label) must not be null before processing."
   ],
   "calculations": [
-    "Session warning and refresh intervals calculated from session settings.",
-    "Vertical offset for warning panel determined by number of errors.",
-    "Footer includes load time (seconds and milliseconds) calculated from start and end time."
+    "Timeout intervals (mRefRate, sRefRate) based on UserSession properties.",
+    "Warning panel vertical offset: 50 + (20 * number of errors).",
+    "Footer load time: endTime - startTime in seconds and milliseconds."
   ],
   "conditions": [
-    "If UserSession useTimeOutWarning is true, enable timeout warning.",
-    "If session hash is null, skip AJAX session check.",
-    "If Master.LoggingOut.Value equals '1', set session as logging out.",
-    "If locale is not found or invalid, fallback to default."
+    "If UserSession is null or invalid, create new session and/or redirect.",
+    "If session hash is not present, do not perform AJAX session checks.",
+    "If error count != 0, adjust warning panel offset and visibility.",
+    "If switched user or view-only mode, append specific footer notice."
   ],
   "system_behavior": [
-    "Injects assets and scripts dynamically based on settings.",
-    "Manages session state and redirects when necessary.",
-    "Displays session timeout warnings and handles user actions.",
-    "Builds navigation and restores state.",
-    "Handles error/warning display and UI adjustment."
+    "Injects required global assets (CSS, JS) via server code.",
+    "Injects Google Analytics script dynamically if tracking ID is present.",
+    "Handles session timeout warnings via client-side JS and AJAX.",
+    "Displays feedback panels for errors/warnings, dynamically formatted.",
+    "Navigation menus expand/collapse based on user cookie state.",
+    "Footer is dynamically constructed based on session/user details."
   ],
   "dependencies": [
     "HSPnetSession",
-    "Resources",
-    "Hashing",
-    "AjaxControlToolkit",
-    "jQuery and UI libraries",
-    "Google Analytics",
-    "LeftNav navigation",
-    "Panel and Label controls"
+    "HSPnet.LeftNav",
+    "UserSession.Messages",
+    "Resources class for localization and strings",
+    "ManageSession.asmx web service",
+    "Hashing utilities for URL validation",
+    "AJAXControlToolkit for panel controls",
+    "jQuery, jQuery UI, Popper, Tippy, FontAwesome, custom JS/css",
+    "ConfigurationManager.AppSettings for analytics"
   ],
   "exceptions": [
-    "Session invalid or expired → redirect to Timedout.aspx.",
-    "Invalid locale → fallback to default.",
-    "AJAX errors handled via console logging.",
-    "Missing tracking ID for Google Analytics → skip injection."
+    "Session timeout or invalid session: Redirect to timeout page.",
+    "Panels are not displayed if no errors or warnings exist.",
+    "AJAX errors logged to console, dialog closed gracefully."
   ],
   "source_document_ids": [
     "0ee086d5-89d6-5440-a0a6-686260aed1f4",
@@ -151,8 +152,9 @@
     "fb853967-a63f-52f7-a60f-4f37548220ed"
   ],
   "content_gaps": [
-    "Details about some internal methods and UI components (e.g., actual Error/Warning message formats, custom JS code, localization translations) are assumed based on method signatures and context.",
-    "References to resource values and session properties are inferred from variable usage but explicit content not available.",
-    "Behavior of third-party controls (AjaxControlToolkit, LeftNav) and underlying WebServices is not exhaustively covered in source."
+    "No detailed field validation logic for individual input fields (besides session and panels).",
+    "Underlying structure of HSPnetSession and UserSession.Messages not present.",
+    "Exact error/warning message formats and localization resources not included.",
+    "Some referenced external scripts and CSS files not described."
   ]
 }
