@@ -1,0 +1,157 @@
+{
+  "filename": "EmploymentApplicationDocument",
+  "found": true,
+  "summary": "EmploymentApplicationDocument manages documents (e.g., resumes, photos, user-defined files) attached to employment applications in HSPnet. It supports searching, adding, deleting, and listing application documents, manages both system and user-defined document types, and handles permissions and validation for document operations.",
+  "purpose": "To facilitate the upload, retrieval, listing, and management of documents related to an employment application; enabling users (students, staff, agencies) to attach supporting documentation, with controls for anonymity, document type, and access.",
+  "entities": [
+    {
+      "name": "EmploymentApplicationDocument",
+      "fields": [
+        "ID",
+        "EmploymentApplicationID",
+        "TypeCodeID",
+        "TypeComments",
+        "FileURL",
+        "FilePath",
+        "FileSize",
+        "FileType",
+        "FileTypeAlt",
+        "UpdateDate",
+        "ByUserID",
+        "LastName",
+        "FirstName",
+        "MiddleName",
+        "Agency",
+        "TypeCode",
+        "UpdatedDetails",
+        "Anonymous",
+        "UploadedByStudent"
+      ]
+    }
+  ],
+  "fields": [
+    "ID",
+    "EmploymentApplicationID",
+    "TypeCodeID",
+    "TypeComments",
+    "FileURL",
+    "FilePath",
+    "FileSize",
+    "FileType",
+    "FileTypeAlt",
+    "UpdateDate",
+    "ByUserID",
+    "LastName",
+    "FirstName",
+    "MiddleName",
+    "Agency",
+    "TypeCode",
+    "UpdatedDetails",
+    "Anonymous",
+    "UploadedByStudent"
+  ],
+  "actors": [
+    "Student",
+    "Staff",
+    "Agency"
+  ],
+  "workflows": [
+    {
+      "name": "Get Employment Application Documents by Application ID",
+      "steps": [
+        "Receive EmploymentApplicationID and user context (studentID, anonymous, isPrivate).",
+        "Look up document type codes (named, anonymous, photo) as needed.",
+        "Execute EmploymentApplicationDocumentSearch procedure with parameters.",
+        "Fill result list with matching EmploymentApplicationDocument records (using FillList logic).",
+        "Add user-defined documents if needed using EmploymentApplicationDocumentUserDefinedSearch.",
+        "For students viewing their own applications, remove anonymous docs from the result.",
+        "Return the documents list."
+      ]
+    },
+    {
+      "name": "Add Employment Application Documents",
+      "steps": [
+        "Receive EmploymentApplicationID, StudentDocumentIDList, and addWebPage flag.",
+        "Execute EmploymentApplicationDocumentAddDoc procedure.",
+        "Collect file paths from the result.",
+        "Return file paths of added documents."
+      ]
+    },
+    {
+      "name": "Remove Web Page Document",
+      "steps": [
+        "Receive employmentApplicationID.",
+        "Execute EmploymentApplicationRemoveWebPage procedure."
+      ]
+    },
+    {
+      "name": "Delete Employment Application Document",
+      "steps": [
+        "Receive document instance.",
+        "If ID > 0, retrieve full file path.",
+        "Attempt to delete the file and containing folder (exceptions ignored).",
+        "Delete the document record from the database using EmploymentApplicationDocumentDelete."
+      ]
+    },
+    {
+      "name": "Validate Document Before Save",
+      "steps": [
+        "Check FileURL and FilePath are not blank.",
+        "Check TypeCodeID is nonzero.",
+        "If checks fail, add error message and stop operation."
+      ]
+    }
+  ],
+  "business_rules": [
+    "A document must have a non-blank FileURL and FilePath to be valid.",
+    "A document must have a nonzero TypeCodeID.",
+    "If viewing as a student (sess.StaffID == studentID), anonymous docs are not shown.",
+    "If no named/anonymous/photo/user-defined doc exists, supply a placeholder entry with default properties and no document available.",
+    "Document type code may be appended with comments and Anonymous/Named tags as appropriate."
+  ],
+  "validations": [
+    "FileURL is required and cannot be blank.",
+    "FilePath is required and cannot be blank.",
+    "TypeCodeID must be nonzero.",
+    "If validation fails, error messages are added to sess.Messages."
+  ],
+  "calculations": [
+    "UpdatedDetails is built from update date, user name (formatted), and agency if present.",
+    "TypeCode is augmented with comments and tags (Anonymous/Named) as needed.",
+    "If FileURL is not blank and file exists, convert to web link with translated file type and file size in KB."
+  ],
+  "conditions": [
+    "If document is uploaded by student, use student name/agency fields; else use staff's.",
+    "If userDefined and anonymous, only include entry if both 'anonymous' context and entry.Anonymous are true.",
+    "If system is in alt language mode, use TypeCodeAlt field for type code."
+  ],
+  "system_behavior": [
+    "Searches invoke stored procedures with contextually constructed parameters.",
+    "Deletion attempts to remove both file and parent directory, ignoring exceptions.",
+    "Addition of documents returns physical file paths added.",
+    "Anonymous and user-defined document rows are programmatically added as needed to maintain business logic."
+  ],
+  "dependencies": [
+    "Relies on Codes.CodeSearchID to resolve document type codes for resume/photo.",
+    "Uses Resources and UI.Localization for translated strings and file type descriptors.",
+    "Database stored procedures: EmploymentApplicationDocumentSearch, EmploymentApplicationDocumentUserDefinedSearch, EmploymentApplicationDocumentAddDoc, EmploymentApplicationRemoveWebPage, EmploymentApplicationDocumentDelete."
+  ],
+  "exceptions": [
+    "File or directory delete failures are ignored.",
+    "Validation failure halts further operations and adds an error.",
+    "If no matching documents, placeholder entries may be returned."
+  ],
+  "source_document_ids": [
+    "8eba6cc1-b597-5768-b62a-2a468d67bce2",
+    "f01442ad-cafc-5058-af78-bbcc27077ebe",
+    "d7c3d309-09df-5597-b223-70df5607e08a",
+    "18d07417-6ba6-58a6-b898-eb46d1b06b74",
+    "2d1e2cc1-b01e-5929-aaae-f1dbaf9e80df",
+    "0cd7ba9d-79fc-5d40-b5a8-dcd512726a09",
+    "e684f702-de10-5c85-ab50-22c9074b129f",
+    "4724fc52-d499-5dec-8239-fff8e3b7fb1b",
+    "6a51a9d9-5ad6-5289-acb4-3addc565d66d",
+    "005a4659-8a78-53ec-90b2-9e784447427e"
+  ],
+  "content_gaps": []
+}
