@@ -1,0 +1,117 @@
+{
+  "filename": "GuestAccess",
+  "found": true,
+  "summary": "GuestAccess enables temporary access for users through a guest invitation mechanism, utilizing a session key passed via query string. The system validates credentials and session expiry, allows login if valid, and displays errors accordingly. The page shows a title with province context, handles login errors, and renders a footer with copyright and version.",
+  "purpose": "Provide temporary, restricted system access to users via guest invitation links. Enforces session validation and displays contextual information and errors.",
+  "entities": [
+    "UserSession",
+    "Security",
+    "Resources",
+    "Request",
+    "Response",
+    "Guest invitation session credentials"
+  ],
+  "fields": [
+    "Key (Session Hash from QueryString)",
+    "user",
+    "pwHashed",
+    "expiryDate",
+    "provinceCode",
+    "errorMsg",
+    "LastTry",
+    "LockedOut",
+    "Inactivated",
+    "authCode",
+    "Captcha"
+  ],
+  "actors": [
+    "Guest User",
+    "System Security Handler"
+  ],
+  "workflows": [
+    {
+      "name": "Guest Login Workflow",
+      "steps": [
+        "Page loads and triggers LoginGuest()",
+        "Extract sessionHash (Key) from query string",
+        "Call Security.GuestInvitationSearchCredentials with sessionHash",
+        "If credentials found:",
+        "  If expiryDate < current date:",
+        "    Display expiry error message",
+        "  Else:",
+        "    Attempt Security.LoginEncrypted",
+        "    If login successful:",
+        "      Retrieve start screen, append sessionHash, redirect",
+        "    Else if Inactivated:",
+        "      Display expiry error message",
+        "Else:",
+        "  Display invalid invitation error",
+        "Show/hide login error label based on errorMsg"
+      ]
+    },
+    {
+      "name": "Page PreRender",
+      "steps": [
+        "If provinceCode exists in session",
+        "  Update page and screen title with province context"
+      ]
+    },
+    {
+      "name": "Setup Footer",
+      "steps": [
+        "Render copyright from resource",
+        "Render version and number from resource",
+        "Display on lblFooter label"
+      ]
+    }
+  ],
+  "business_rules": [
+    "Guest invitation must not be expired.",
+    "Login only allowed if session credentials are valid.",
+    "Display province in title if available.",
+    "Show error messages for expiry, inactivation, or invalid invitation."
+  ],
+  "validations": [
+    "SessionHash (Key) must be present in query string.",
+    "Credentials must be found for sessionHash.",
+    "Session must not be expired.",
+    "Login must be successful (Security.LoginEncrypted)."
+  ],
+  "calculations": [
+    "expiryDate compared to current DateTime for session validity.",
+    "Formatting expiry date into error message."
+  ],
+  "conditions": [
+    "If expiryDate < DateTime.Now, show expiry error.",
+    "If Security.LoginEncrypted fails and Inactivated, show expiry error.",
+    "If credentials search fails, show invalid invitation error."
+  ],
+  "system_behavior": [
+    "Redirects user to start screen if login succeeds.",
+    "Shows/hides login error label depending on error state.",
+    "Updates page title with province context on PreRender.",
+    "Displays footer with copyright and version."
+  ],
+  "dependencies": [
+    "Security module for authentication and credential lookup.",
+    "Resources for localized error messages and UI text.",
+    "DateFormatter for date display formatting."
+  ],
+  "exceptions": [
+    "Expired invitation displays expiry error.",
+    "Invalid invitation displays invalid error.",
+    "Inactivated user displays expiry error."
+  ],
+  "source_document_ids": [
+    "5484c8c4-06f4-5581-b86e-16bac58259ef",
+    "8ca9c0d8-07f6-5493-b7b4-b61a79ab8f77",
+    "9a74901d-41d8-5a53-bec7-798d824f83fb",
+    "a27aca24-e32e-5057-8c9e-d1d0c280348b",
+    "e27dce77-7a6f-5e07-a995-4254690c2333"
+  ],
+  "content_gaps": [
+    "Field details and data types are inferred from context and may be incomplete.",
+    "No specific information on security implementation details or encryption.",
+    "UI behavior is inferred from code and markup; no sample screenshots or runtime flow."
+  ]
+}
