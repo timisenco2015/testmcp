@@ -1,0 +1,135 @@
+{
+  "filename": "CourseDetail",
+  "found": true,
+  "summary": "CourseDetail manages the details of courses, including adding, updating, deleting, copying, and retrieving course details. It handles fields related to course structuring, display formatting, and validation. Interaction is primarily through database stored procedures and involves workflows for CRUD operations and detail formatting.",
+  "purpose": "To store, manage, and manipulate detailed information about courses, including structured responses, formatting, and display configuration for course details within an educational system.",
+  "entities": [
+    "CourseDetail",
+    "CourseDetails"
+  ],
+  "fields": [
+    "ID",
+    "CourseID",
+    "HeadingID",
+    "Response",
+    "SortOrder",
+    "NumberingCodeID",
+    "Description",
+    "DescriptionAlt",
+    "DescriptionFormatted",
+    "NumberingCode",
+    "SortOrderFormatted",
+    "WebPage",
+    "NumberCharacter",
+    "NumberingIndentLevel",
+    "HeaderChanged",
+    "ResponseFormatted"
+  ],
+  "actors": [
+    "HSPnetSession (system context)",
+    "SqlDataReader (data access layer)"
+  ],
+  "workflows": [
+    {
+      "name": "Add Course Detail",
+      "steps": [
+        "Validate course detail fields.",
+        "Set stored procedure name to 'CourseDetailsAdd'.",
+        "Add parameters: CourseID, HeadingID, Response, SortOrder (-1 for blank), NumberingCodeID.",
+        "Execute procedure to add entry."
+      ]
+    },
+    {
+      "name": "Update Course Detail",
+      "steps": [
+        "Check ID != 0 and validate fields.",
+        "Set stored procedure name to 'CourseDetailsUpdate'.",
+        "Add parameters: CourseDetailID, HeadingID, Response, SortOrder (-1 for blank), NumberingCodeID.",
+        "Execute procedure to update entry."
+      ]
+    },
+    {
+      "name": "Delete Course Detail",
+      "steps": [
+        "Check ID != 0.",
+        "Set stored procedure name to 'CourseDetailsDelete'.",
+        "Add parameter: CourseDetailID.",
+        "Execute procedure to delete entry."
+      ]
+    },
+    {
+      "name": "Copy Course Detail",
+      "steps": [
+        "Check ID != 0.",
+        "Set stored procedure name to 'CourseDetailsCopy'.",
+        "Add parameter: ID.",
+        "Execute procedure to copy entry."
+      ]
+    },
+    {
+      "name": "Retrieve Course Details by CourseID",
+      "steps": [
+        "Set stored procedure name to 'CourseDetailsSearch'.",
+        "Add parameter: CourseID.",
+        "Execute and read entries.",
+        "Populate and format fields per record."
+      ]
+    },
+    {
+      "name": "Retrieve Course Details by ID",
+      "steps": [
+        "Set stored procedure name to 'CourseDetailsSearchID'.",
+        "Add parameter: ID.",
+        "Execute and read entry.",
+        "Populate and format fields."
+      ]
+    }
+  ],
+  "business_rules": [
+    "If Response is blank, add error and reject operation.",
+    "SortOrder of -1 is interpreted and displayed as blank (0 and empty string).",
+    "If UseAltLanguageFields is enabled, DescriptionFormatted uses DescriptionAlt, else Description.",
+    "Do not repeat header entries (HeaderChanged flag).",
+    "If Description matches WEB_PAGE resource, mark entry as WebPage."
+  ],
+  "validations": [
+    "Response must not be blank for add/update.",
+    "ID must be non-zero for update/delete/copy."
+  ],
+  "calculations": [
+    "NumberCharacter and NumberingIndentLevel determined based on NumberingCode and previous state.",
+    "SortOrderFormatted is blank if SortOrder is -1, else string version of SortOrder."
+  ],
+  "conditions": [
+    "UseAltLanguageFields toggles between Description and DescriptionAlt for display.",
+    "HeaderChanged set when HeadingID changes from previous entry.",
+    "WebPage set when Description matches certain resource."
+  ],
+  "system_behavior": [
+    "CourseDetail entries are handled via stored procedures.",
+    "Entries are formatted and flagged for display (indent levels, header changes, web page flag)."
+  ],
+  "dependencies": [
+    "HSPnetSession for DB operations and messages.",
+    "SqlDataReader for retrieving records.",
+    "Resources for localized strings.",
+    "HSPnet.UI.NumberingCodes for formatting numbering and indent levels."
+  ],
+  "exceptions": [
+    "Operations fail with error if Response is blank.",
+    "Operations (Update/Delete/Copy) bypassed if ID is zero."
+  ],
+  "source_document_ids": [
+    "4c927f86-38fd-569d-993c-ecb14b1c2eb8",
+    "4f923d1d-c9d2-5122-97b1-feb4c28153ef",
+    "59b7e9a9-48a6-5f88-b4d2-105956914870",
+    "9e7b6283-3788-5d6b-83aa-7f42e837c370",
+    "a1693e76-d88a-589c-9fe4-35a74ee97c98",
+    "c3c2e46d-57db-5b24-9020-c8a557b23022"
+  ],
+  "content_gaps": [
+    "No details on user interface handling beyond formatting.",
+    "No explicit error handling for DB failures.",
+    "No information about permissions or authentication."
+  ]
+}
