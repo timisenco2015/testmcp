@@ -1,0 +1,117 @@
+{
+  "filename": "WelcomeStudentPRHistory",
+  "found": true,
+  "summary": "WelcomeStudentPRHistory is a web user control for displaying a student's Placement Record (PR) History. It retrieves and organizes confirmed and unconfirmed placements and provides sorting, data binding, and reporting functionalities for student placement records.",
+  "purpose": "To display and manage a student’s Placement Record (PR) history including confirmed, unconfirmed/future placements, provide sorting and reporting features, and facilitate interactive workflow for site supervisors and students within the HSPnet system.",
+  "entities": [
+    "PRSearchStudent",
+    "HSPnetSession"
+  ],
+  "fields": [
+    "UserSession",
+    "StudentID",
+    "WarnStudentHours",
+    "PRSSLst",
+    "ConfLst",
+    "NotConfLst",
+    "ConfSortExpression",
+    "NotConfSortExpression",
+    "ViewState['ConfSortExpression']",
+    "ViewState['ConfDirection']",
+    "ViewState['NotConfSortExpression']",
+    "ViewState['NotConfDirection']",
+    "lblReportHTML",
+    "Label1",
+    "Label2",
+    "Label3",
+    "rprPRStudHistory",
+    "rprFuture",
+    "pnlFuture",
+    "pnlReportHTML",
+    "cmdPrint",
+    "lblPleaseWait"
+  ],
+  "actors": [
+    "Student",
+    "Site Supervisor",
+    "System/Administrator"
+  ],
+  "workflows": [
+    {
+      "name": "Display PR History",
+      "steps": [
+        "On DataBind, retrieve student's PR history using PRSearchStudents.StudentSearchPRHistory.",
+        "Separate PR records into confirmed (ConfLst), unconfirmed/future (NotConfLst) based on status and placement conditions.",
+        "Bind confirmed list to rprPRStudHistory repeater.",
+        "Bind unconfirmed/future list to rprFuture repeater.",
+        "If lists are empty, panels are hidden accordingly."
+      ]
+    },
+    {
+      "name": "Sorting PR Records",
+      "steps": [
+        "User interacts with repeater header (e.g., cmdStart, cmdCourse, cmdStatus, etc.).",
+        "Set corresponding sort expression and direction using ViewState.",
+        "Sort the lists (ConfLst or NotConfLst) by field and direction.",
+        "Re-bind sorted data to the repeater."
+      ]
+    },
+    {
+      "name": "Print PR History Report",
+      "steps": [
+        "User clicks cmdPrint button.",
+        "Call HSPnet.Framework.Reporting.RunReport with student session and PR history parameters.",
+        "Display generated report HTML in lblReportHTML and make pnlReportHTML visible."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Confirmed PR history includes placements with StatusCode == 'Conf' or ReleasedToTempAssignedStudent.",
+    "Future placements shown if StatusCode is null and the placement end date is on or after today.",
+    "If WithHoldPlacement is true, confirmed placements are shown in unconfirmed/future section for students."
+  ],
+  "validations": [
+    "Only show entries ending on or after today's date in future section.",
+    "Validate sorting expressions and directions for both confirmed and unconfirmed repeater lists."
+  ],
+  "calculations": [
+    "PREndDate is determined by checking if EndDateBlock2 is null; if so, use EndDate, otherwise use EndDateBlock2."
+  ],
+  "conditions": [
+    "If UserSession is not null, proceed with PR history retrieval and binding.",
+    "If ConfLst.Count > 0, show and bind confirmed placements.",
+    "If NotConfLst.Count > 0, show and bind future/unconfirmed placements, otherwise hide."
+  ],
+  "system_behavior": [
+    "Panels (pnlFuture, pnlReportHTML) are dynamically shown or hidden based on data availability.",
+    "Sorting direction toggles between ASC and DESC using ViewState when interacted.",
+    "Repeater items are styled as alternating rows for visual clarity.",
+    "Supervisor caption is dynamically displayed in header rows."
+  ],
+  "dependencies": [
+    "PRSearchStudents.StudentSearchPRHistory for data retrieval.",
+    "HSPnet.Framework.Reporting.RunReport for generating reports.",
+    "Repeater controls for listing and interaction.",
+    "User session management."
+  ],
+  "exceptions": [
+    "If UserSession is null, PR history is not retrieved or displayed.",
+    "If sorting expressions are invalid or missing, default sorting is applied."
+  ],
+  "source_document_ids": [
+    "12ba6e83-f3d6-5440-80b0-094b8dd27a8c",
+    "4b55d321-598f-5a5c-8961-7fdbb26b88ee",
+    "50d4f5e4-f91a-593e-8a8c-aa3bb34fd9e4",
+    "6019bf51-f18b-5910-b6c0-554223de3d34",
+    "744e71ce-a9b4-5f0d-8d5e-ad5eb299e926",
+    "7511ee31-26f4-503a-96f2-db189be44f23",
+    "9ed2db53-9513-50d3-8315-e09fdbcfcff2",
+    "e7f3e571-0be7-5e57-a718-566cc76242c0",
+    "f9a68402-d4e7-54d9-9d56-4c41aefcb777"
+  ],
+  "content_gaps": [
+    "No detailed business rules about permissions, error handling, or user feedback for edge cases.",
+    "Details on PRSearchStudents class structure or methods are not present.",
+    "No UI layout or .ascx designer markup provided."
+  ]
+}
