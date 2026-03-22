@@ -1,0 +1,100 @@
+{
+  "filename": "EmailPopupDocument",
+  "found": true,
+  "summary": "The EmailPopupDocument module manages the creation, retrieval, and deletion of email attachments or documents, handling them in-memory using a pipe-separated string representation for temporary storage. It provides mechanisms to parse, list, and remove documents including associated filesystem operations.",
+  "purpose": "To facilitate the lifecycle of documents used in email popups, specifically for searching, displaying, and deleting documents (and folders) as needed during the email composition or sending workflow.",
+  "entities": [
+    "EmailPopupDocument"
+  ],
+  "fields": [
+    {
+      "entity": "EmailPopupDocument",
+      "name": "ID",
+      "type": "int",
+      "description": "Unique in-session identifier for each document entry. Initialized to -1 in the constructor."
+    },
+    {
+      "entity": "EmailPopupDocument",
+      "name": "FileName",
+      "type": "string",
+      "description": "The display or attachment file name."
+    },
+    {
+      "entity": "EmailPopupDocument",
+      "name": "FilePath",
+      "type": "string",
+      "description": "The path to the file for further operations, such as deletion."
+    },
+    {
+      "entity": "EmailPopupDocument",
+      "name": "Checked",
+      "type": "Boolean",
+      "description": "Boolean indicating if the item is checked (usage not fully detailed in content)."
+    }
+  ],
+  "actors": [
+    "System",
+    "User (triggering document selection/deletion in UI or workflow)"
+  ],
+  "workflows": [
+    {
+      "name": "Search for Email Popup Documents",
+      "steps": [
+        "Receive raw data string (DataInfo), typically pipe-separated values.",
+        "Split DataInfo using '|' delimiter into individual entries.",
+        "For each entry, split using '>' to separate FileName and FilePath.",
+        "For valid entries (length == 2), instantiate EmailPopupDocument objects, set properties (ID, FileName, FilePath), append to result list.",
+        "Return the list of EmailPopupDocument instances for display or further handling."
+      ]
+    },
+    {
+      "name": "Delete Email Popup Document",
+      "steps": [
+        "Receive pipe-separated data string (DataInfo) and target document ID (index).",
+        "Iterate through DataInfo entries.",
+        "When the current index matches the supplied ID:",
+        "  - Split entry using '>' to get FilePath.",
+        "  - Extract directory name from FilePath.",
+        "  - Attempt to delete the file at FilePath (ignore errors).",
+        "  - Attempt to delete the directory (ignore errors).",
+        "All other entries are retained into a return string.",
+        "Return the updated DataInfo string, now missing the deleted document."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Only entries with two segments after splitting by '>' are considered valid email documents.",
+    "IDs are assigned incrementally during parsing and are positional (array index based)."
+  ],
+  "validations": [
+    "Check if provided DataInfo is not null or empty before performing operations.",
+    "For delete operation, ensure DataInfo is not null or empty and ID is valid (indexable)."
+  ],
+  "calculations": [
+    "ID is incrementally assigned in the order of parsing valid documents."
+  ],
+  "conditions": [
+    "Deletion only proceeds if the index matches the provided ID and the split entry is valid."
+  ],
+  "system_behavior": [
+    "On delete, errors in deleting files or directories are caught and ignored (fail silently).",
+    "All document lifecycle logic is handled in-memory using string manipulation and not persisted beyond the session unless further context is provided."
+  ],
+  "dependencies": [
+    "System.IO for file and directory operations.",
+    "Data is managed via in-memory string parsing rather than persisted data storage."
+  ],
+  "exceptions": [
+    "Try/catch blocks around file and directory deletion: failures are ignored and do not halt the method."
+  ],
+  "source_document_ids": [
+    "7287734e-f13d-550f-9249-4242db620766",
+    "927bc837-5564-5759-9324-27c6d5d7321d"
+  ],
+  "content_gaps": [
+    "No explicit description of the larger workflow (such as UI triggers or complete lifecycle beyond search/delete).",
+    "Checked field usage is not detailed in the retrieved content.",
+    "Persistence mechanism for documents (beyond in-memory representation) is not described.",
+    "No authentication/authorization logic described."
+  ]
+}
