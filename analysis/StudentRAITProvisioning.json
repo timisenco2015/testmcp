@@ -1,11 +1,12 @@
 {
   "filename": "StudentRAITProvisioning",
   "found": true,
-  "summary": "StudentRAITProvisioning manages and provisions IT access for students across agencies within an educational software system. It supports searching, adding, updating, deleting, and batch updating student IT provisioning records, with clear entity definitions, validations, and workflow steps. Both individual and batch operations are supported, integrating XML serialization for batch actions.",
-  "purpose": "To facilitate and manage IT access provisioning for students, linking them with agencies, and supporting workflow operations including search, add, update, delete, batch update, and result reporting.",
+  "summary": "StudentRAITProvisioning manages provisioning and access for students to IT systems and agencies, enabling search, create, update, delete, and batch operations. The system leverages stored procedures and XML serialization to manage student and agency relationships, credentials, and IT requirements.",
+  "purpose": "To facilitate the provisioning, updating, retrieval, and management of student access and information with agencies and IT systems, supporting workflow automation for education and registration platforms.",
   "entities": [
     {
       "name": "StudentRAITProvisioning",
+      "description": "Represents a student and their provisioning to an agency or IT system.",
       "fields": [
         "ID",
         "StudentID",
@@ -21,6 +22,7 @@
     },
     {
       "name": "StudentITProvisioning",
+      "description": "Serializable entity for web service delivery of student IT provisioning data.",
       "fields": [
         "ID",
         "StudentID",
@@ -35,6 +37,7 @@
     },
     {
       "name": "StudentITProvisioningResult",
+      "description": "Extends StudentITProvisioning with a provisioning status and message.",
       "fields": [
         "ID",
         "StudentID",
@@ -65,106 +68,93 @@
     "Msg"
   ],
   "actors": [
-    "HSPnetSession",
-    "Database",
-    "Staff"
+    "Student",
+    "Staff",
+    "Agency",
+    "System (HSPnetSession)"
   ],
   "workflows": [
     {
-      "name": "StudentDetailsRAITProvisionSearch",
+      "name": "Search Student Provisioning",
       "steps": [
-        "Set procedure to StudentDetailsRAITProvisionSearch",
-        "Add parameters: SessionID, StudentID, StaffID",
-        "Execute DB procedure and retrieve data",
-        "Fill and return list of StudentRAITProvisioning entities"
+        "Invoke StudentDetailsRAITProvisionSearch with StudentID and StaffID",
+        "Database procedure executes (StudentDetailsRAITProvisionSearch)",
+        "FillList constructs StudentRAITProvisioning objects from SqlDataReader",
+        "Return list of StudentRAITProvisioning"
       ]
     },
     {
-      "name": "StudentDetailsRAITProvisionSearchID",
+      "name": "Add Student Provisioning",
       "steps": [
-        "Check ID > 0",
-        "Set procedure to StudentDetailsRAITProvisionSearchID",
-        "Add parameters: SessionID, ID",
-        "Execute DB procedure and retrieve data",
-        "Fill and return list of StudentRAITProvisioning entities"
+        "Invoke Add method with parameters",
+        "Database procedure executes (StudentDetailsRAITProvisionAdd)",
+        "Parameters added: SessionID, StudentID, AgencyID, UniqueID, LoginID, EmailRequired, Employee, Email, StaffID",
+        "Query is executed"
       ]
     },
     {
-      "name": "StudentDetailsRAITProvisionSearchByCohortID",
+      "name": "Update Student Provisioning",
       "steps": [
-        "Check CohortID > 0",
-        "Set procedure to StudentDetailsRAITProvisionSearchByCohortID",
-        "Add parameters: SessionID, CohortID",
-        "Execute DB procedure and retrieve data",
-        "Fill and return list of StudentRAITProvisioning entities"
+        "Invoke Update method with parameters",
+        "Database procedure executes (StudentDetailsRAITProvisionUpdate)",
+        "Parameters added: SessionID, ID, AgencyID, UniqueID, LoginID, EmailRequired, Employee, Email",
+        "Query is executed"
       ]
     },
     {
-      "name": "Add StudentRAITProvisioning",
+      "name": "Delete Student Provisioning",
       "steps": [
-        "Set procedure to StudentDetailsRAITProvisionAdd",
-        "Add parameters: SessionID, StudentID, AgencyID, UniqueID, LoginID, EmailRequired, Employee, Email, StaffID",
-        "Execute DB query to insert record"
+        "Invoke Delete method with ID parameter",
+        "Database procedure executes (StudentDetailsRAITProvisionDelete)",
+        "Parameters: SessionID, ID",
+        "Query is executed"
       ]
     },
     {
-      "name": "Update StudentRAITProvisioning",
+      "name": "Batch Update Provisioning",
       "steps": [
-        "Set procedure to StudentDetailsRAITProvisionUpdate",
-        "Add parameters: SessionID, ID, AgencyID, UniqueID, LoginID, EmailRequired, Employee, Email",
-        "Execute DB query to update record"
+        "Serialize list of StudentITProvisioning to XML (ITProvXML)",
+        "Invoke UpdateBatch with sessionID and ITProvXML",
+        "Database procedure executes (StudentDetailsRAITProvisionUpdateBatch)",
+        "SqlDataReader returns StudentITProvisioningResult objects"
       ]
     },
     {
-      "name": "Delete StudentRAITProvisioning",
+      "name": "Search by Other Criteria",
       "steps": [
-        "Check ID > 0",
-        "Set procedure to StudentDetailsRAITProvisionDelete",
-        "Add parameters: SessionID, ID",
-        "Execute DB query to delete record"
-      ]
-    },
-    {
-      "name": "Batch Update StudentITProvisioning",
-      "steps": [
-        "Serialize List<StudentITProvisioning> as XML",
-        "Set procedure to StudentDetailsRAITProvisionUpdateBatch",
-        "Add parameters: SessionID, ITProvXML",
-        "Execute DB procedure and retrieve results",
-        "Fill and return list of StudentITProvisioningResult entities"
+        "Search by ID using StudentDetailsRAITProvisionSearchID",
+        "Search by CohortID using StudentDetailsRAITProvisionSearchByCohortID"
       ]
     }
   ],
   "business_rules": [
-    "ID, StudentID, AgencyID, StaffID must be valid integers.",
-    "EmailRequired and Employee must be boolean values.",
-    "Email field may be required depending on EmailRequired flag."
+    "ID, StudentID, AgencyID must be integers.",
+    "EmailRequired and Employee are Boolean flags.",
+    "Add, Update, Delete operations must provide a valid SessionID.",
+    "Search by ID or CohortID only performed if input is greater than 0."
   ],
   "validations": [
-    "ID > 0 for search and delete operations.",
-    "CohortID > 0 for cohort search.",
-    "EmailRequired is checked before requiring Email."
+    "SessionID, StudentID, AgencyID, StaffID must be valid and greater than 0.",
+    "Email required if EmailRequired is set to true."
   ],
   "calculations": [],
   "conditions": [
-    "Search and delete operations only execute if provided ID > 0.",
-    "Cohort search only executes if CohortID > 0."
+    "Search or update only proceeds if ID or CohortID is greater than 0.",
+    "Delete operation performed only if ID > 0."
   ],
   "system_behavior": [
-    "Uses stored procedures for DB operations.",
-    "Closes SqlDataReader after every DB operation.",
-    "Serializes batch updates as XML before DB submission.",
-    "Results are returned as lists of relevant entity objects."
+    "System uses stored procedures for all CRUD operations.",
+    "Data is serialized/deserialized for batch operations using XML.",
+    "Results returned as entity lists or result objects."
   ],
   "dependencies": [
-    "HSPnetSession",
-    "Database",
-    "SqlDataReader",
-    "XML serialization for batch update"
+    "HSPnetSession for database access.",
+    "Stored procedures: StudentDetailsRAITProvisionSearch, StudentDetailsRAITProvisionAdd, StudentDetailsRAITProvisionUpdate, StudentDetailsRAITProvisionDelete, StudentDetailsRAITProvisionUpdateBatch, StudentDetailsRAITProvisionSearchID, StudentDetailsRAITProvisionSearchByCohortID.",
+    "XML serialization for batch updates."
   ],
   "exceptions": [
-    "If ID or CohortID is invalid (<= 0), search/delete/update is not performed.",
-    "If no SqlDataReader is returned, no entries are processed."
+    "If ID or CohortID <= 0, no search or delete is performed.",
+    "If SqlDataReader is null, no entries are processed."
   ],
   "source_document_ids": [
     "17c05ac7-9041-54f5-a021-8370e03196d6",
@@ -176,9 +166,9 @@
     "f6b4b128-6ff2-5246-a9ab-77e70f1305eb"
   ],
   "content_gaps": [
-    "No explicit field-level validation logic (e.g. regex for email).",
-    "No details on error handling beyond basic exceptions.",
-    "No UI or integration descriptions.",
-    "No explicit permission or role restrictions for actors."
+    "No explicit information on authorization or security checks.",
+    "No description of error handling beyond input validation and reader null checks.",
+    "Email validation rules not specified (e.g., format).",
+    "Employee and Agency business logic not described."
   ]
 }
