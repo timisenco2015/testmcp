@@ -1,21 +1,21 @@
 {
   "filename": "GenerateCourse",
   "found": true,
-  "summary": "The GenerateCourse module is a web user control for generating course correspondence within the HSPnet system. It enables users (typically coordinators and administrators) to select departments, programs, terms, cohorts, courses, and apply filters to generate recipient lists and correspondence documents in various formats. The control manages workflows for both outbox-driven and course-driven correspondence, encapsulating business rules, validations, and dynamic field assembly for correspondence generation.",
-  "purpose": "To facilitate the generation of customized course correspondence documents for selected recipients, including options for document format, inclusion of logos, address information, CCs, and date settings, ensuring that users can flexibly configure and generate recipient lists and correspondence output based on their permissions and contextual requirements.",
+  "summary": "GenerateCourse is a web user control for generating course-related correspondence, including recipient lists and formatted letters, with detailed filtering and workflow for administrators, coordinators, and instructors.",
+  "purpose": "To facilitate creation and management of course correspondence, recipient lists, and formal letters for courses/cohorts, providing flexible selection, filtering, and output format options for authorized users within an educational placement system.",
   "entities": [
     "Correspondence",
-    "UserSession",
+    "Course",
+    "Cohort",
     "Department",
     "Program",
     "Term",
-    "Course",
-    "Cohort",
+    "Staff",
+    "Recipient",
     "CorrespondenceDetail",
-    "CorrespondenceRunVariables",
-    "CorrespondenceRecipients",
-    "Signatory",
-    "Recipient"
+    "CorrespondenceRunVariable",
+    "CorrespondenceCohortSchedule",
+    "UserSession"
   ],
   "fields": [
     "txtRequestDestID",
@@ -27,21 +27,28 @@
     "radXLS",
     "radTXT",
     "radLABEL",
-    "OutputFormat",
+    "chkUseBlankAddressee",
     "chkIncludeLogo",
     "chkIncludeDeptAddress",
     "chkSeparateStudentPages",
+    "chkCCServiceContact",
+    "chkCCDestContact",
+    "chkCCPreceptor",
+    "chkCCInstructor",
+    "chkCCCourseLeader",
+    "chkCCStudent",
+    "OutputFormat",
     "ddDepartment",
     "ddProgram",
     "ddTerm",
     "UCchoosers",
     "ddDateSource",
-    "OrderSC",
-    "OrderDC",
-    "OrderPre",
-    "OrderInstr",
-    "OrderCourseLeader",
-    "OrderStudent",
+    "txtOrderSC",
+    "txtOrderDC",
+    "txtOrderPre",
+    "txtOrderInstr",
+    "txtOrderCourseLeader",
+    "txtOrderStudent",
     "chkAddresseeContactInfo",
     "chkUseDisciplineContact",
     "radNameOnly",
@@ -49,86 +56,123 @@
     "radUseCustomSignature",
     "chkSignatorySignature",
     "chkUseDeptAddress",
-    "chkCCServiceContact",
-    "chkCCDestContact",
-    "chkCCPreceptor",
-    "chkCCInstructor",
-    "chkCCCourseLeader",
-    "chkCCStudent"
+    "ddSignatory",
+    "SignatoryID",
+    "CorrespondenceDate",
+    "StatusFilters",
+    "CoursesIncluded",
+    "OutboxPRsIncluded",
+    "ScheduledCorrespondence",
+    "AddresseeContactInfo",
+    "UseDisciplineContact",
+    "SignatoryContactInfo",
+    "DefaultSignature"
   ],
   "actors": [
     "System Administrator",
     "Local Administrator",
     "Placement Coordinator",
     "Receiving Coordinator",
-    "Student Maintainer",
+    "StudentMaint (Instructor)",
     "Destination Coordinator",
     "Supervisor",
-    "Instructor"
+    "Staff"
   ],
   "workflows": [
     {
-      "name": "Generate Correspondence",
+      "name": "Initialize and Bind Controls",
       "steps": [
-        "Page_Load: Set up context based on QueryString (CohortID, CourseID), adjust UI visibility.",
-        "DataBind: Fill dropdowns for department, program, term, choosers, and date source.",
-        "SetupJavaScript: Register dynamic variables and UI controls for client-side interaction.",
-        "User sets filters/status via cklStatus, selects department/program/term, and optionally a cohort/course.",
-        "User chooses output format and options (PDF, MultiPDF, RTF, XLS, TXT, LABEL).",
-        "User sets correspondence options: addressee, logo inclusion, department address, CCs, signatory, date, etc.",
-        "Validation: Check recipient list is not empty, validate date, ensure required fields are set.",
-        "cmdGerenate_Click: On generate button click, creates run variables, selects recipients, builds correspondence output based on selected parameters.",
-        "If successful, opens CorrespondenceRecipientsPopup with generated correspondence for review/download.",
-        "Handles workflow for both Outbox (bulk/agency-driven) and Course context (single course/cohort)."
+        "Page_Load: Detect if CohortID and CourseID are present; set up appropriate UI changes; initialize CorrespondenceRecipientsPopup.",
+        "Page_PreRender: Setup JavaScript variables for UI behavior; reset txtRequestDestID.",
+        "DataBind: Fill department, program, term, choosers, and date source dropdowns; initialize glossary/help links."
+      ]
+    },
+    {
+      "name": "User Input and Filtering",
+      "steps": [
+        "User selects department, program, term, filters (status, dates, recipients); system populates dropdowns accordingly.",
+        "User selects output format (PDF, MultiPDF, RTF, XLS, TXT, LABEL).",
+        "User chooses addressee/contact options, signatory, and other correspondence options.",
+        "System validates input data (recipient list, date, status selection)."
+      ]
+    },
+    {
+      "name": "Save and Prepare Correspondence Variables",
+      "steps": [
+        "SaveRunVariables: Validate all selections, dates, filters, checkboxes; populate Hashtable 'data' with each option.",
+        "If Outbox and valid recipient list, include OutboxPRsIncluded.",
+        "Handle program/term/cohort/course filtering for correspondence.",
+        "Set OutputFormat and other flags (CCs, logos, department address, separate student pages, etc).",
+        "Determine SignatoryID and handle custom signature logic.",
+        "Iterate through options and persist them via CorrespondenceRunVariablesAdd."
+      ]
+    },
+    {
+      "name": "Generate Correspondence Output",
+      "steps": [
+        "On cmdGerenate_Click: Use current TimeStamp and OutputFormat; run SaveRunVariables; clear certain checkboxes after successful save.",
+        "Determine user role for correspondence context (PC, DC, RC).",
+        "Build correspondence recipient popup URL with relevant parameters.",
+        "Open recipient popup for final selection/confirmation."
+      ]
+    },
+    {
+      "name": "Dropdown Change Handling",
+      "steps": [
+        "Each dropdown change (department, program, term) triggers re-population of dependent dropdowns and choosers.",
+        "Date source dropdown change updates correspondence date logic.",
+        "Status and signatory dropdowns load based on user context and previous selections."
       ]
     }
   ],
   "business_rules": [
-    "Outbox correspondence requires valid recipient list (txtRequestDestID must not be '-1' or empty).",
-    "Status filters must be selected from cklStatus.",
-    "Correspondence date must be valid and parsed correctly (using DateFormatter.ParseDate).",
-    "Output format must be selected through radio buttons; only one format allowed.",
-    "If both CohortID and CourseID are present in QueryString, user cannot change cohort/course selection and correspondence is scheduled.",
-    "Correspondence for Courses requires correct ProgramID and Term selection.",
-    "FormalLetter option affects signature selection logic."
+    "Recipient list must be valid and not empty ('-1' or null triggers error).",
+    "Date must be valid; invalid dates trigger error.",
+    "Certain fields only enabled or visible depending on user role and system settings.",
+    "Cohort/Course ID presence disables manual selection.",
+    "ProgramID and TermID are required if not Outbox.",
+    "If Outbox, dates may be auto-selected from session variables.",
+    "CorrespondenceDate format respects alternate language fields.",
+    "Scheduled correspondence is flagged if date source is PR Dates with appropriate context."
   ],
   "validations": [
-    "Recipient list validation: not empty, not '-1'.",
-    "Date validation: txtCorDate must be valid or trigger error.",
-    "Dropdowns for department, program, term must be correctly populated.",
-    "Status filter validation: at least one must be selected if applicable.",
-    "Checkboxes/radio button validation for correspondence options (e.g., logo, CCs, address)."
+    "Recipient List: Must not be '-1' or empty.",
+    "Date: Must match expected format and not be null.",
+    "Status: At least one status must be selected if required.",
+    "Dropdown dependencies: Program and term selections must cascade properly.",
+    "Checkboxes: Proper dependency (e.g., addressee/contact info only if not blank addressee)."
   ],
   "calculations": [
-    "Date reset calculations for Outbox using CustomDateFrom and CustomDateTo.",
-    "Correspondence date formatting depends on language settings (French/English).",
-    "Schedule calculations for correspondence based on PR DueDate for scheduled correspondence."
+    "Dates for Outbox correspondence use session and constant values, with possible custom ranges.",
+    "CorrespondenceDate formatted differently depending on UseAltLanguageFields (French or English format).",
+    "CoursesIncluded constructed from either query parameters or included list."
   ],
   "conditions": [
-    "If Outbox is true, UI and data logic adjusts to agency-driven correspondence.",
-    "If QueryString contains CohortID and CourseID, fixed selection for course/cohort, disables chooser.",
-    "FormalLetter alters available options and signature selection.",
-    "Department/program/term dropdowns enabled/disabled based on QueryString and page state.",
-    "If chkUseBlankAddressee is checked, suppress order fields for correspondence addressee."
+    "If Outbox is true, recipient logic and date selection differ.",
+    "If FormalLetter is true, signature and custom fields populate differently.",
+    "If CohortID and CourseID are provided, user cannot change included courses.",
+    "Dropdowns enabled/disabled based on query parameters and context.",
+    "Status filter included only if specified."
   ],
   "system_behavior": [
-    "Dynamic UI adjustments based on role, context (Outbox/Course), and permissions.",
-    "Dropdown population for department, program, term, date source based on UserSession and QueryString.",
-    "Javascript variables registered for client-side interactivity.",
-    "Run variables are saved for correspondence generation, mapped to selected options and controls.",
-    "CorrespondenceRecipientsPopup builds dynamic correspondence preview/download based on selections.",
-    "Validations trigger errors and messaging for missing/invalid data."
+    "UI populates, enables/disables controls based on user session and query parameters.",
+    "System validates, saves, and persists correspondence variables.",
+    "Generates recipient popup for correspondence.",
+    "Handles JavaScript registration for UI variables on pre-render.",
+    "Clears and resets fields after correspondence generation."
   ],
   "dependencies": [
-    "UserSession context governs access, visibility, and workflow.",
-    "Departments, Programs, Terms, Courses, Cohorts are populated and filtered based on UserSession and permissions.",
-    "CorrespondenceDetails and CorrespondenceRunVariables are required for assembling correspondence.",
-    "Dropdowns and choosers depend on QueryString for default values and enable/disable logic."
+    "HSPnetSession",
+    "Dropdown controls for department, program, term, signatory",
+    "CorrespondenceDetails, CorrespondenceRunVariables",
+    "User roles and session variables",
+    "JavaScript and client-side UI scripting"
   ],
   "exceptions": [
-    "If no recipients are selected or recipient list is invalid, error is shown and correspondence is not generated.",
-    "If correspondence date is invalid, error messaging and halt workflow.",
-    "If required permissions or context are missing (UserSession), dropdowns and selection logic are disabled or canceled."
+    "Invalid recipient list triggers error message.",
+    "Invalid date triggers error message.",
+    "Dropdowns fail to populate if session or required data is missing.",
+    "Scheduled correspondence not possible if date source missing or invalid."
   ],
   "source_document_ids": [
     "02e09e81-5a82-5c62-bb4c-751a99905bb1",
@@ -162,5 +206,10 @@
     "fc250fd4-9e76-542e-9350-6c1a5e9bf92f",
     "fce71396-0d2e-538c-98c6-f7bafb9925a3"
   ],
-  "content_gaps": []
+  "content_gaps": [
+    "Source does not include user interface markup or full implementation details for certain referenced classes (e.g. CorrespondenceDetails, Programs, Departments, Terms).",
+    "Exact validation expressions for date not shown.",
+    "Not all possible business rules or system exceptions are fully enumerated.",
+    "No actual output file or template content provided, only logic and variable construction."
+  ]
 }
