@@ -1,0 +1,93 @@
+{
+  "filename": "SiteProfileHistory",
+  "found": true,
+  "summary": "SiteProfileHistory tracks user interactions and changes within site profiles, recording metadata and audit trail information for each modification. The implementation includes both a data model and search/retrieval logic, as well as UI integration for displaying audit history in a GridView for users.",
+  "purpose": "To provide a detailed audit trail of changes made to site profiles, including who made the change, when, what screen section or fields were affected, and contextual information such as agency and user contact details.",
+  "entities": [
+    "SiteProfileHistory",
+    "SiteProfileHistories"
+  ],
+  "fields": [
+    "ID",
+    "ActionDate",
+    "ScreenSection",
+    "UserAction",
+    "Fields",
+    "Agency",
+    "AgencyName",
+    "LastName",
+    "FirstName",
+    "MiddleName",
+    "Phone",
+    "ByUserID",
+    "ByOriginalUserID",
+    "ByUserSysAdmin",
+    "ActionDateFormatted",
+    "AgencyUserFormatted",
+    "AgencyUserDetailsFormatted"
+  ],
+  "actors": [
+    "User",
+    "SysAdmin",
+    "HSPnet Support Team"
+  ],
+  "workflows": [
+    {
+      "name": "Site Profile History Search and Display",
+      "steps": [
+        "UserControl initializes with UserSession and SiteID.",
+        "On data source selection, checks UserSession validity.",
+        "Search logic (SiteProfileHistorySearch) called with SiteID, SessionAgencyID, and session object.",
+        "SQL stored procedure returns history records.",
+        "Each record is parsed and mapped to SiteProfileHistory objects.",
+        "Records are displayed to user in a GridView.",
+        "Additional formatting of user details and action information, including tooltips for context and phone numbers."
+      ]
+    }
+  ],
+  "business_rules": [
+    "If UserSession is null, history retrieval is canceled.",
+    "If UseAltLanguageFields is true, uses alt-language fields for ScreenSection, UserAction, Fields.",
+    "Formatting of AgencyUserFormatted includes special logic if user is not sysadmin and user ID does not match original user ID.",
+    "AgencyUserDetailsFormatted provides contextual tooltips with name, agency, and phone if present."
+  ],
+  "validations": [
+    "All fields are mapped and formatted before display.",
+    "Phone numbers are masked if UsePhoneMask is enabled in session."
+  ],
+  "calculations": [
+    "ActionDateFormatted converts DateTime to short date string.",
+    "AgencyUserFormatted reduces names to initials and adds agency info.",
+    "AgencyUserDetailsFormatted constructs a tooltip string with detailed info."
+  ],
+  "conditions": [
+    "UseAltLanguageFields determines which fields to display for localization.",
+    "ByUserSysAdmin and ByUserID/ByOriginalUserID affect display formatting."
+  ],
+  "system_behavior": [
+    "GridView updates with search results.",
+    "Tooltips and formatted display for user and agency details.",
+    "UI disables search if UserSession is invalid."
+  ],
+  "dependencies": [
+    "SiteProfileHistory depends on session context (UserSession, AgencyID) and stored procedure SiteProfileHistorySearch.",
+    "Formatting utilities (DateFormatter, NameFormatter, Phone object) are used for data presentation.",
+    "UI depends on ObjectDataSource for data binding."
+  ],
+  "exceptions": [
+    "Cancel data retrieval if UserSession is null.",
+    "Handle cases where phone is missing for tooltip formatting."
+  ],
+  "source_document_ids": [
+    "25f89a24-5eda-5a3f-83df-1de69b12b3f1",
+    "26e09292-d304-55c6-94e5-ef3346453c4b",
+    "7ca6b963-9ae9-5cd3-82d5-f30dcb727ae3",
+    "a8f030c6-90b8-53a1-bb8a-3b7ef33b9488",
+    "e806999c-3a39-5720-9b59-303faebc9eb6"
+  ],
+  "content_gaps": [
+    "Details on how the UI renders history records for users outside the provided control definition.",
+    "Examples of history entries and exact stored procedure implementation.",
+    "No details of role-based access or what constitutes changes recorded in UserAction."
+  ]
+}
