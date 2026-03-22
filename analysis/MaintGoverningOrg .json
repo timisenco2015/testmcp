@@ -1,0 +1,141 @@
+{
+  "filename": "MaintGoverningOrg",
+  "found": true,
+  "summary": "MaintGoverningOrg is a web application module for maintaining governing organization records. It provides workflows for adding, editing, deleting, and reactivating organization entries, along with detailed validation, masking, and UI behaviors. The module is heavily reliant on ASP.NET WebForms components and AJAX Toolkit extenders for input validation and UI enhancements.",
+  "purpose": "The purpose of MaintGoverningOrg is to allow authorized users to manage governing organizations, including their names, addresses, contact information, and status (active/inactive). It enforces business rules to ensure data integrity, allows users to filter and view organizations, and provides controlled workflows for editing and updating records.",
+  "entities": [
+    "GoverningOrg",
+    "UserSession",
+    "Grid",
+    "Phone"
+  ],
+  "fields": [
+    "Name",
+    "ShortName",
+    "PreviousName",
+    "PreviousNameEffectiveDate",
+    "Address1",
+    "Address2",
+    "City",
+    "Province",
+    "PostalCode",
+    "PhoneArea",
+    "Phone",
+    "FaxArea",
+    "Fax",
+    "Inactive",
+    "ID"
+  ],
+  "actors": [
+    "SystemAdministrator",
+    "UserSession (with ViewOnly or edit privileges)"
+  ],
+  "workflows": [
+    {
+      "name": "Add/Edit GoverningOrg",
+      "steps": [
+        "User clicks 'Add' or 'Edit' button.",
+        "System switches DetailsView to add/edit mode.",
+        "Screen fields enabled based on user permissions.",
+        "User enters values for required fields (Name, ShortName, etc.).",
+        "Client-side and server-side validations applied (required, masking, regex).",
+        "User clicks 'Save'.",
+        "If valid, GoverningOrg record is created or updated.",
+        "Grid is refreshed to display updated data.",
+        "If not valid, error/warning panels display messages."
+      ]
+    },
+    {
+      "name": "Delete GoverningOrg",
+      "steps": [
+        "User clicks 'Delete' button.",
+        "Confirmation dialog shown.",
+        "If confirmed, invoke GoverningOrg.Delete.",
+        "If deletion fails (e.g., dependencies), error message shown.",
+        "Grid is refreshed."
+      ]
+    },
+    {
+      "name": "Reactivate GoverningOrg",
+      "steps": [
+        "User clicks 'Reactivate' button.",
+        "Invoke GoverningOrg.Reactivate.",
+        "Grid is refreshed."
+      ]
+    },
+    {
+      "name": "View/Filter GoverningOrgs",
+      "steps": [
+        "User enters filter keywords or toggles 'Show Inactive'.",
+        "Grid displays matching organizations.",
+        "User can refresh view using 'Refresh View' button."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Name and ShortName fields must be specified (required).",
+    "PreviousNameEffectiveDate must be a valid date if entered.",
+    "Phone and Fax fields are masked and validated according to UsePhoneMask flag.",
+    "Only SystemAdministrators who are not ViewOnly may edit/add/delete/reactivate organizations.",
+    "Cannot delete organization if dependencies exist (error message shown)."
+  ],
+  "validations": [
+    "RequiredFieldValidator for Name and ShortName.",
+    "RegularExpressionValidator for date fields.",
+    "CustomValidator for Phone and Fax, using client-side JavaScript functions.",
+    "Masking applied to PhoneArea, Phone, FaxArea, Fax fields using AJAX Toolkit MaskedEditExtender.",
+    "If UsePhoneMask is false, masking and validation are disabled."
+  ],
+  "calculations": [
+    "DateFormatter.ParseDate for PreviousNameEffectiveDate.",
+    "Phone object constructed from area and number fields and UsePhoneMask flag."
+  ],
+  "conditions": [
+    "If ScreenIsEditable is false, editing controls and fields are disabled, 'Save' button hidden, calendar disabled.",
+    "If UsePhoneMask is false, phone/fax masking is removed.",
+    "If Inactive is true, edit/delete/reactivate buttons are setup accordingly."
+  ],
+  "system_behavior": [
+    "GridView displays organizations, supports add/edit/delete/reactivate.",
+    "DetailsView toggles between modes based on user action.",
+    "Panels for error and warning messages update dynamically.",
+    "JavaScript variables and validation logic injected on page load.",
+    "Modal popup used for editing details.",
+    "Client script includes for phone validation and member checkbox behavior."
+  ],
+  "dependencies": [
+    "HSPnet.UI.Grid",
+    "HSPnet.DataLayer",
+    "HSPnet.Framework",
+    "AJAX Control Toolkit",
+    "HSPnet.App_GlobalResources"
+  ],
+  "exceptions": [
+    "Cannot delete organization: error message shown (UserSession.Messages.AddError).",
+    "Invalid input: specific error/warning panels display validation messages."
+  ],
+  "source_document_ids": [
+    "064ee812-6a9e-513f-830a-cdf02a947bcb",
+    "0bbfc55c-4e37-5195-9c61-06b1b8bbb59a",
+    "0f83fafd-cd79-59fa-a23f-09de153cfaa4",
+    "29468167-d473-5cf7-929e-9df67d7f2beb",
+    "31e628c6-8463-5f57-b846-2eb33136cfe6",
+    "3d1f42de-c51a-5625-9520-3f5ed219012f",
+    "4f7edf0a-2f0b-560d-8ff2-b03f7a2982d3",
+    "59ef3d25-a882-5c86-975e-d2e1c44e9230",
+    "5aa6bea1-1faa-5e57-a784-644389bf5365",
+    "619d6734-d0c9-52c0-8d5c-0976e4edf2a0",
+    "7d6f3b52-1161-5de0-b716-7e830b7ace9f",
+    "7f1c0e15-b484-5ae2-84f2-f93564a400c6",
+    "b2792b6a-5f2f-588d-adca-cf130db38ac3",
+    "c92121f4-6b7c-5000-a75a-ee150930c7bd",
+    "d1cc81b5-4c5a-5911-a244-9601ac1d16e1",
+    "d9e8164c-d9a7-5a21-8d85-18b9deff580b",
+    "debf1ec2-971e-5b87-89a0-33f3741080e7",
+    "e46eaa7e-8653-50c2-8226-2abfecb10ee3",
+    "e5d9461e-eb36-5b05-9bd2-a5c07722db93",
+    "eabe1def-39a0-5ddd-a649-fb02b97bb993",
+    "f926bedd-b133-5a25-9a43-11f99a1d4714"
+  ],
+  "content_gaps": []
+}
