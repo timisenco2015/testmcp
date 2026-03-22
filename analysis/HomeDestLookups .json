@@ -1,59 +1,334 @@
-[
-  {
-    "filename": "SiteDocument",
-    "found": false,
-    "summary": "",
-    "purpose": "",
-    "entities": [],
-    "fields": [],
-    "actors": [],
-    "workflows": [],
-    "business_rules": [],
-    "validations": [],
-    "calculations": [],
-    "conditions": [],
-    "system_behavior": [],
-    "dependencies": [],
-    "exceptions": [],
-    "source_document_ids": [],
-    "content_gaps": ["No related documents found for filename: SiteDocument."]
-  },
-  {
-    "filename": "WelcomeStaffAdmin",
-    "found": false,
-    "summary": "",
-    "purpose": "",
-    "entities": [],
-    "fields": [],
-    "actors": [],
-    "workflows": [],
-    "business_rules": [],
-    "validations": [],
-    "calculations": [],
-    "conditions": [],
-    "system_behavior": [],
-    "dependencies": [],
-    "exceptions": [],
-    "source_document_ids": [],
-    "content_gaps": ["No related documents found for filename: WelcomeStaffAdmin."]
-  },
-  {
-    "filename": "ServiceCode",
-    "found": false,
-    "summary": "",
-    "purpose": "",
-    "entities": [],
-    "fields": [],
-    "actors": [],
-    "workflows": [],
-    "business_rules": [],
-    "validations": [],
-    "calculations": [],
-    "conditions": [],
-    "system_behavior": [],
-    "dependencies": [],
-    "exceptions": [],
-    "source_document_ids": [],
-    "content_gaps": ["No related documents found for filename: ServiceCode."]
-  }
-]
+{
+  "filename": "SiteDocument",
+  "found": true,
+  "summary": "SiteDocument represents a site-attached document within the HSPnet system. It is a data layer class primarily used for storing and referencing documents by SiteID.",
+  "purpose": "To encapsulate the storage and retrieval of documents associated with a site, identified by SiteID. Used for organizing and managing site-specific documentation.",
+  "entities": [
+    "SiteDocument"
+  ],
+  "fields": [
+    { "name": "ID", "type": "int", "description": "Unique identifier for the document." },
+    { "name": "SiteID", "type": "int", "description": "Identifier for the site to which the document is attached." }
+  ],
+  "actors": [],
+  "workflows": [],
+  "business_rules": [],
+  "validations": [],
+  "calculations": [],
+  "conditions": [],
+  "system_behavior": [
+    "SiteDocument objects are serialized and deserialized as part of site document management."
+  ],
+  "dependencies": [
+    "HSPnet.Framework",
+    "HSPnet.App_GlobalResources",
+    "System.Data.SqlClient"
+  ],
+  "exceptions": [],
+  "source_document_ids": [
+    "a2967f17-a924-5e9c-8b15-d1f7bd028b32"
+  ],
+  "content_gaps": [
+    "No information on storage details, retrieval mechanisms, or UI integration."
+  ]
+}
+{
+  "filename": "WelcomeStaffAdmin",
+  "found": true,
+  "summary": "WelcomeStaffAdmin is a web page in HSPnet that presents staff administrators with a welcome screen, last login details, and error or warning information.",
+  "purpose": "To welcome staff administrators, display last login information, and provide feedback through warnings and error panels.",
+  "entities": [
+    "WelcomeStaffAdmin"
+  ],
+  "fields": [
+    { "name": "lblTitle", "type": "Label", "description": "Displays welcome text and user first name." },
+    { "name": "ltlLastLogin", "type": "Literal", "description": "Shows last login details." },
+    { "name": "pnlLastLogin", "type": "Panel", "description": "Panel for last login display." },
+    { "name": "pnlWarning", "type": "Panel", "description": "Displays warnings." },
+    { "name": "pnlError", "type": "Panel", "description": "Displays errors." },
+    { "name": "lblErrorCaption", "type": "Label", "description": "Displays error caption." },
+    { "name": "lblErrorList", "type": "Label", "description": "Lists error messages." },
+    { "name": "lblWarningCaption", "type": "Label", "description": "Displays warning caption." },
+    { "name": "lblWarningList", "type": "Label", "description": "Lists warning messages." },
+    { "name": "AlwaysVisibleControlExtender1", "type": "Extender", "description": "Keeps warning panel visible." },
+    { "name": "AlwaysVisibleControlExtender2", "type": "Extender", "description": "Keeps error panel visible." }
+  ],
+  "actors": [
+    "Staff Administrator"
+  ],
+  "workflows": [
+    {
+      "name": "Display Welcome and Login Info",
+      "steps": [
+        "On page load, display welcome text including user's preferred first name.",
+        "Show last login details and time zone if available.",
+        "If errors or warnings exist, display them in the appropriate panel."
+      ]
+    }
+  ],
+  "business_rules": [],
+  "validations": [],
+  "calculations": [],
+  "conditions": [
+    "Last login panel only visible if last login exists."
+  ],
+  "system_behavior": [
+    "Client-side scripts for WelcomeStaffAdmin and Date functions are included.",
+    "Panels and labels auto-generated, fields must be moved for code customization."
+  ],
+  "dependencies": [
+    "HSPnet.LeftNav.Master",
+    "HSPnet.App_GlobalResources",
+    "AjaxControlToolkit"
+  ],
+  "exceptions": [],
+  "source_document_ids": [
+    "bf423a80-93db-572d-8cb8-c79f04214a93",
+    "ca71b077-cc26-5979-a44f-59700a41316b",
+    "b8e79322-9a0e-5fe7-8953-3d05e231f923",
+    "e249a878-c837-5d1c-9a3d-5167df2614fb"
+  ],
+  "content_gaps": [
+    "No information on user actions or interaction beyond display logic."
+  ]
+}
+{
+  "filename": "ServiceCode",
+  "found": true,
+  "summary": "ServiceCode and ServiceCodes represent a system for describing, storing, and retrieving codes for services associated with courses and timetables.",
+  "purpose": "To provide a list and options for service codes, including sorting, localization, and grouping by course or timetable.",
+  "entities": [
+    "ServiceCode",
+    "ServiceCodes"
+  ],
+  "fields": [
+    { "name": "ID", "type": "int", "description": "Unique identifier for the service code." },
+    { "name": "CodeCategoryID", "type": "int", "description": "Identifier for the code category." },
+    { "name": "ShortName", "type": "string", "description": "Short code name." },
+    { "name": "Name", "type": "string", "description": "Service code description." },
+    { "name": "SortOrder", "type": "int", "description": "Order for sorting service codes." },
+    { "name": "Notes", "type": "string", "description": "Notes on the code." },
+    { "name": "NameAlt", "type": "string", "description": "Alternative service code description when in alt-language." },
+    { "name": "NotesAlt", "type": "string", "description": "Alternative notes when in alt-language." }
+  ],
+  "actors": [],
+  "workflows": [
+    {
+      "name": "List Service Codes",
+      "steps": [
+        "Query ServiceCodeListAll or specific options by CourseID or TimetableID using related stored procedures.",
+        "Localize fields if alt-language mode is active."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Use alt-language fields if session is in alt-language mode."
+  ],
+  "validations": [],
+  "calculations": [],
+  "conditions": [],
+  "system_behavior": [
+    "ServiceCodes objects retrieve and localize service code lists as needed.",
+    "Stored procedures provide main listing interface."
+  ],
+  "dependencies": [
+    "HSPnetSession",
+    "System.Data.SqlClient",
+    "HSPnet.Framework"
+  ],
+  "exceptions": [],
+  "source_document_ids": [
+    "e4ebe4b4-6d14-5c3f-b693-61016f765239",
+    "94f1b055-348d-508a-ae6e-cf7960a8c6a2",
+    "f976b9af-a402-540f-b162-391d578fac7c"
+  ],
+  "content_gaps": [
+    "Stored procedures implementation not shown.",
+    "No UI or actor described."
+  ]
+}
+{
+  "filename": "SiteProfileHistory",
+  "found": true,
+  "summary": "SiteProfileHistory captures a record of changes made to a Site's profile, including user actions, fields changed, and agent details. Histories are retrieved and formatted for display and auditing.",
+  "purpose": "To record, display, and audit Site profile changes, including who made the changes, what was changed, and when.",
+  "entities": [
+    "SiteProfileHistory",
+    "SiteProfileHistories"
+  ],
+  "fields": [
+    { "name": "ID", "type": "int", "description": "Record identifier." },
+    { "name": "ActionDate", "type": "DateTime", "description": "Date of action." },
+    { "name": "ScreenSection", "type": "string", "description": "Section affected." },
+    { "name": "UserAction", "type": "string", "description": "Action taken." },
+    { "name": "Fields", "type": "string", "description": "Fields changed." },
+    { "name": "Agency", "type": "string", "description": "Agency code." },
+    { "name": "AgencyName", "type": "string", "description": "Agency full name." },
+    { "name": "LastName", "type": "string", "description": "Last name of user." },
+    { "name": "FirstName", "type": "string", "description": "First name of user." },
+    { "name": "MiddleName", "type": "string", "description": "Middle name of user." },
+    { "name": "Phone", "type": "Phone", "description": "Phone contact." },
+    { "name": "ByUserID", "type": "int", "description": "Changing user's ID." },
+    { "name": "ByOriginalUserID", "type": "int", "description": "Original user's ID." },
+    { "name": "ByUserSysAdmin", "type": "bool", "description": "If user was a system admin." }
+  ],
+  "actors": [
+    "User making changes",
+    "System Admin"
+  ],
+  "workflows": [
+    {
+      "name": "Site Profile History Search",
+      "steps": [
+        "SiteProfileHistorySearch stored procedure retrieves changes for site and agency session.",
+        "Populate SiteProfileHistory records with change details.",
+        "Format and display records for auditing."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Display support team attribution if change was made by someone other than original user and not system admin.",
+    "Fields are localized if session is in alt-language mode.",
+    "Display formatted name, agency, and phone if available."
+  ],
+  "validations": [],
+  "calculations": [],
+  "conditions": [],
+  "system_behavior": [
+    "Records are formatted with ActionDate and agency/user details.",
+    "Tooltip and display logic encapsulated."
+  ],
+  "dependencies": [
+    "HSPnetSession",
+    "Database",
+    "SqlDataReader",
+    "NameFormatter"
+  ],
+  "exceptions": [],
+  "source_document_ids": [
+    "25f89a24-5eda-5a3f-83df-1de69b12b3f1",
+    "26e09292-d304-55c6-94e5-ef3346453c4b",
+    "a8f030c6-90b8-53a1-bb8a-3b7ef33b9488",
+    "7ca6b963-9ae9-5cd3-82d5-f30dcb727ae3",
+    "e806999c-3a39-5720-9b59-303faebc9eb6"
+  ],
+  "content_gaps": [
+    "No actual stored procedure or database schema details.",
+    "UI display details are minimal."
+  ]
+}
+{
+  "filename": "EmailPopupDocument",
+  "found": true,
+  "summary": "EmailPopupDocument is a data layer class that represents documents associated with popup email functionality, including file name, path, and checked status. It supports searching and deletion of such documents.",
+  "purpose": "To facilitate saving, searching, and deletion of documents for email popup features, enabling users to select and manage files for email attachments.",
+  "entities": [
+    "EmailPopupDocument",
+    "EmailPopupDocuments"
+  ],
+  "fields": [
+    { "name": "ID", "type": "int", "description": "Document identifier." },
+    { "name": "FileName", "type": "string", "description": "Name of the file." },
+    { "name": "FilePath", "type": "string", "description": "Path to the file." },
+    { "name": "Checked", "type": "Boolean", "description": "Whether the document is checked for action." }
+  ],
+  "actors": [],
+  "workflows": [
+    {
+      "name": "Search and Delete Email Popup Documents",
+      "steps": [
+        "Search: Split DataInfo and create EmailPopupDocument objects.",
+        "Delete: Remove file and its folder, update info."
+      ]
+    }
+  ],
+  "business_rules": [],
+  "validations": [],
+  "calculations": [],
+  "conditions": [],
+  "system_behavior": [
+    "Handles file deletion and document management within email popup context."
+  ],
+  "dependencies": [
+    "System.IO"
+  ],
+  "exceptions": [
+    "Catches errors during file and folder deletion."
+  ],
+  "source_document_ids": [
+    "927bc837-5564-5759-9324-27c6d5d7321d",
+    "7287734e-f13d-550f-9249-4242db620766"
+  ],
+  "content_gaps": [
+    "UI not described; no actor/method usage context."
+  ]
+}
+{
+  "filename": "CostCentre",
+  "found": true,
+  "summary": "CostCentre manages the retrieval and representation of cost center data associated with placements, including placing agency, discipline, site, service, destination, costs and hours.",
+  "purpose": "To provide detailed cost center reporting for placements, including filters and aggregation of hours, counts, and related fields.",
+  "entities": [
+    "CostCentreRecord",
+    "CostCentreView"
+  ],
+  "fields": [
+    { "name": "PlacingAgency", "type": "string", "description": "Agency placing the student." },
+    { "name": "Department", "type": "string", "description": "Department involved." },
+    { "name": "Program", "type": "string", "description": "Program associated." },
+    { "name": "Discipline", "type": "string", "description": "Discipline for placement." },
+    { "name": "SubDiscipline", "type": "string", "description": "Subdiscipline for placement." },
+    { "name": "ReceivingAgency", "type": "string", "description": "Agency receiving students." },
+    { "name": "Site", "type": "string", "description": "Site of placement." },
+    { "name": "Portfolio", "type": "string", "description": "Portfolio group." },
+    { "name": "Service", "type": "string", "description": "Service at site." },
+    { "name": "Destination", "type": "string", "description": "Destination for placement." },
+    { "name": "CostCentre", "type": "string", "description": "Cost center code." },
+    { "name": "CostCentreDescription", "type": "string", "description": "Description of cost center." },
+    { "name": "PRType", "type": "string", "description": "Placement request type." },
+    { "name": "StartDate", "type": "DateTime", "description": "Placement start date." },
+    { "name": "EndDate", "type": "DateTime", "description": "Placement end date." },
+    { "name": "Status", "type": "string", "description": "Status for placement." },
+    { "name": "Course", "type": "string", "description": "Associated course." },
+    { "name": "ProgramYear", "type": "int", "description": "Year in program." },
+    { "name": "ReferenceNumber", "type": "int", "description": "Internal reference number." },
+    { "name": "CFO", "type": "string", "description": "Chief Financial Officer (or cost code)." },
+    { "name": "PRCount", "type": "int", "description": "Number of placement requests." },
+    { "name": "StudentCount", "type": "int", "description": "Number of students." },
+    { "name": "PRHours", "type": "decimal", "description": "Hours for placements." },
+    { "name": "StudentHours", "type": "decimal", "description": "Hours for students." }
+  ],
+  "actors": [],
+  "workflows": [
+    {
+      "name": "Get Cost Centre Data",
+      "steps": [
+        "Query PlacementCostCentre procedure with filters.",
+        "Populate CostCentreRecord for each result row."
+      ]
+    }
+  ],
+  "business_rules": [],
+  "validations": [],
+  "calculations": [],
+  "conditions": [],
+  "system_behavior": [
+    "Aggregates placement and student counts and hours by cost centre and related fields."
+  ],
+  "dependencies": [
+    "HSPnetSession",
+    "Database",
+    "SqlDataReader"
+  ],
+  "exceptions": [],
+  "source_document_ids": [
+    "20ac8054-536e-5203-b33d-7db2b2dc2359",
+    "2c04f259-cf58-5d95-803c-8ebf16840f6c",
+    "e1ac7e41-5e9e-5f16-baa0-29d05a70f976",
+    "dd965b0f-f9cf-57eb-a3f8-32b3b97a6d1a",
+    "97bc3ba9-9fe4-52b1-8847-dce2198e0aee"
+  ],
+  "content_gaps": [
+    "No UI, actor, or business decision rules described."
+  ]
+}
