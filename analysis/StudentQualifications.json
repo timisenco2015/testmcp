@@ -1,0 +1,98 @@
+{
+  "filename": "StudentQualifications",
+  "found": true,
+  "summary": "StudentQualifications is an ASP.NET Web User Control for managing student qualification records. It supports listing, adding, editing, and deleting qualifications for students, with business logic for permissions, validations, and workflow. Interaction is primarily via a GridView and FormView interface, backed by ObjectDataSources for both listing and details.",
+  "purpose": "To provide a user interface and workflow for authorized users to manage student qualification data, including linking each qualification to codes for type, authority, and country, and handling permissions for read-only and editable screens.",
+  "entities": [
+    "StudentQualification",
+    "QualificationCode",
+    "AuthorityCode",
+    "CountryCode"
+  ],
+  "fields": [
+    "StudentID",
+    "QualificationCodeID",
+    "AuthorityCodeID",
+    "CountryCodeID",
+    "id"
+  ],
+  "actors": [
+    "UserSession (logged-in user with permissions)",
+    "GridView (gridData)",
+    "FormView (uxDetail)",
+    "ScriptManager"
+  ],
+  "workflows": [
+    {
+      "name": "Grid Row Command Workflow",
+      "steps": [
+        "Add: Change uxDetail to Insert mode, display popup for entry.",
+        "Edit: Change uxDetail to Edit mode, set detail parameters, display popup.",
+        "Delete: Call deletion method with student qualification id, redirect after completion."
+      ]
+    },
+    {
+      "name": "Detail Item Workflow",
+      "steps": [
+        "Insert: Validate page, extract values from dropdowns, set input parameters, perform insert.",
+        "Update: Validate page, extract new values from dropdowns, set input parameters, perform update.",
+        "DataBind: Populate dropdowns with values based on current data item.",
+        "PreRender: Set edit/insert mode commands, control editability based on ScreenIsEditable."
+      ]
+    }
+  ],
+  "business_rules": [
+    "ScreenIsEditable controls whether add/edit/delete are available.",
+    "ReadOnly disables edit/delete actions.",
+    "If UserSession is null, cancel data selection.",
+    "No data found message shown based on ScreenIsEditable.",
+    "Dropdown values for qualification, authority, country must be set for insert/update.",
+    "Add Button and No Data message appearance changes depending on editable state."
+  ],
+  "validations": [
+    "Page.IsValid checked before insert/update; invalid pages cancel operation.",
+    "Business logic disables edit fields when not editable."
+  ],
+  "calculations": [],
+  "conditions": [
+    "If UserSession is null, cancel data retrieval.",
+    "If not Page.IsValid, cancel insert/update.",
+    "If ScreenIsEditable is false, disable fields and hide add button.",
+    "Check command name (Add, Edit, Delete) for processing grid actions."
+  ],
+  "system_behavior": [
+    "Redirect after insert, update, or delete to refresh UI.",
+    "Populate dropdowns for qualification, authority, country in Edit mode.",
+    "Cache UserSession before redirect.",
+    "Setup edit, add, and delete buttons per row, based on permissions.",
+    "Process no data found message depending on editable state."
+  ],
+  "dependencies": [
+    "HSPnetSession",
+    "GridView (gridData)",
+    "FormView (uxDetail)",
+    "Dropdown controls",
+    "ModalPopupExtender (mdlDetails)",
+    "ObjectDataSource (dsQualifications, dsDetail, dsQualificationTypes, dsAuthority, dsCountry)"
+  ],
+  "exceptions": [
+    "Null UserSession cancels data operations.",
+    "Invalid page cancels data insert/update.",
+    "Non-editable screens disable all editing functions."
+  ],
+  "source_document_ids": [
+    "09ce27fe-3be9-5c03-a6b4-222db63d2aea",
+    "10de9de8-337a-5f73-baf6-074ae6edf92a",
+    "1c70f924-86d5-57f9-a3a9-b10209636022",
+    "1d8d4da2-bee5-5cf8-b907-4d37607057b2",
+    "208f0285-d3a3-54b5-a273-9d435d31338a",
+    "40cb8a36-535d-5080-910e-0f8ead44b6c0",
+    "44b8b949-915a-5ed9-950a-9d5adf1d1fc1",
+    "cb324e00-9a29-51a2-8366-63d4920ee2f0"
+  ],
+  "content_gaps": [
+    "Details of qualification, authority, and country codes (e.g., lookup tables) not included.",
+    "Business rule exceptions for qualification data not described (e.g., duplicate prevention, allowed values).",
+    "UI layout and style information omitted."
+  ]
+}
