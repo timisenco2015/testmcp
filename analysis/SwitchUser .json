@@ -1,0 +1,120 @@
+{
+  "filename": "SwitchUser",
+  "found": true,
+  "summary": "The SwitchUser feature enables users to change their active login to an alternate user, particularly useful for system administrators and staff with multiple user roles. It provides workflow support for switching sessions, retrieving alternate logins, and determining the correct start screen after the switch. The system optimizes behavior depending on user type (e.g., SysAdmin, Instructor, Placement Coordinator, Supervisor).",
+  "purpose": "Facilitate user session switching between alternate user IDs in a secure and role-aware manner, ensuring correct start screens and preserving user-specific filters and permissions.",
+  "entities": [
+    {
+      "name": "AltUser",
+      "fields": ["StaffID", "FullName", "FullNameWithAgency", "Original"]
+    },
+    {
+      "name": "SwitchUser",
+      "fields": ["Sess", "Data"]
+    }
+  ],
+  "fields": [
+    "StaffID",
+    "FullName",
+    "FullNameWithAgency",
+    "Original",
+    "SessionID",
+    "OriginalSessionID",
+    "NewLoginID",
+    "ViewOnly",
+    "SystemAdministrator",
+    "SessionHash",
+    "Locale"
+  ],
+  "actors": [
+    "System Administrator",
+    "Staff",
+    "Instructor",
+    "Placement Coordinator",
+    "Receiving Coordinator",
+    "Destination Coordinator",
+    "Supervisor",
+    "StudentMaint (maintenance)",
+    "GroupInstructor",
+    "CourseLeader"
+  ],
+  "workflows": [
+    {
+      "name": "Switch Login",
+      "steps": [
+        "User initiates switch (providing StaffID and session context).",
+        "System builds SwitchLogin procedure parameters, including session identifiers and view-only flags.",
+        "SessionSwitch database procedure is called.",
+        "If successful, session information is updated with new SessionID.",
+        "System determines StartScreen via GetStartScreen depending on calling screen and user role.",
+        "StartScreen URL is hashed and includes session and locale.",
+        "Security cookies are updated and response redirected if needed."
+      ]
+    },
+    {
+      "name": "Go Back to Primary ID",
+      "steps": [
+        "User triggers goBackToPrimaryID.",
+        "System calls SwitchLogin using OriginalUserID and redirects to new StartScreen if available."
+      ]
+    },
+    {
+      "name": "Retrieve Alternate Logins",
+      "steps": [
+        "System checks if user is SystemAdministrator.",
+        "If true, retrieves all logins; if false, retrieves only alternate logins.",
+        "Builds AltUser objects for each possible login."
+      ]
+    }
+  ],
+  "business_rules": [
+    "SysAdmins do not use SessionStartScreen when switching; prevents resetting filters for target user.",
+    "StartScreen determined by role-specific flags; e.g., GroupInstructorOnly, InstructorOnly, PALOnly, SupervisorOnly.",
+    "OriginalSessionID is null for initial logins.",
+    "Switching to primary ID redirects to Tools.aspx screen.",
+    "Legacy .asp screens are mapped to .aspx equivalents.",
+    "Monitoring indicator shown if SwitchUserViewOnly flag is set."
+  ],
+  "validations": [
+    "StaffID and SessionID must be valid.",
+    "SessionID must match uuid format.",
+    "If StartScreen is not empty, Response.Redirect is executed."
+  ],
+  "calculations": [
+    "Role flags calculated via multiple DB fields (e.g., StudentMaintOnly = StudentMaint && not (PlacementCoordinator || Instructor || ...)).",
+    "StartScreen selection logic based on flags and calling screen."
+  ],
+  "conditions": [
+    "If CalledFromScreen == MaintStudent.aspx, StartScreen = WelcomeStudent.aspx.",
+    "If not FromLogin and SystemAdministrator, do not use DB procedure for start screen.",
+    "If GroupInstructorOnly, StartScreen = GrpInstructorSummary.aspx.",
+    "Else, StartScreen may default to CalledFromScreen."
+  ],
+  "system_behavior": [
+    "Session and security context is updated when user switches.",
+    "StartScreen redirection logic adapts to user role and preserves state filters.",
+    "Alternative logins are dynamically retrieved and displayed."
+  ],
+  "dependencies": [
+    "SqlDataReader for all DB calls.",
+    "SessionSwitch, SessionUserInfo, SessionStartScreen, SessionGetAllLogins, SessionGetAlternateLogins procedures.",
+    "Security.SaveSecurityCookie for updating cookies.",
+    "Hashing.AddURLHash and QueryString utilities for URL management.",
+    "HSPnet.Framework and HSPnet.App_GlobalResources."
+  ],
+  "exceptions": [
+    "If DB reader returns null or fails, session switch does not proceed.",
+    "If switched StartScreen is empty, no redirection.",
+    "Legacy .asp screens handled to avoid broken links."
+  ],
+  "source_document_ids": [
+    "17dcfa4c-08cd-5f34-a025-c22db6d65ad9",
+    "222869d2-81e8-5299-aabf-ec050b17e505",
+    "63203cfb-c460-5784-a759-d79c0e7082c3",
+    "99d50dd0-e9cd-5cc1-b399-af03780e485e",
+    "9c0f2d3d-a4ef-5694-acf0-63638ea2159f",
+    "c67e0f38-1e3b-5b7f-9b2a-c37353bbfaeb",
+    "fd2a66ea-bda8-5ec0-a28b-6c836b35309b"
+  ],
+  "content_gaps": []
+}
