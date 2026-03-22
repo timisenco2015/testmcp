@@ -1,1 +1,41 @@
-{"filename": "SupervisorPRHistory", "found": true, "summary": "The document is an ASP/VBScript web application component for the SupervisorPRHistory screen. It establishes session and response parameters and delegates main logic to an included script.", "purpose": "To present or process SupervisorPRHistory information within a web application context, by delegating the screen's core logic to a separate included file.", "entities": ["SupervisorPRHistory"], "fields": ["strScreenName"], "actors": ["web user", "server"], "workflows": [{"name": "SupervisorPRHistory Screen Rendering", "steps": ["Set response buffering and expiration headers.", "Define or assign strScreenName to 'SupervisorPRHistory'.", "Include and execute the DoScreen.asp script, which implements the screen logic."]}], "business_rules": ["Session state is disabled for this page (ENABLESESSIONSTATE = False).", "strScreenName must be 'SupervisorPRHistory'."], "validations": [], "calculations": [], "conditions": ["Response is configured to buffer and never cache (Expires = -1)."], "system_behavior": ["Page delegates functionality to DoScreen.asp.", "No additional page logic is defined in this file."], "dependencies": ["/HSPnet/DoScreen.asp"], "exceptions": ["If DoScreen.asp fails to load, core screen logic does not execute."], "source_document_ids": ["ca1d1f5a-406a-5308-a9f6-8ec358cecf68"], "content_gaps": ["Details of the SupervisorPRHistory screen logic are not present in this file and depend on DoScreen.asp.", "No information about input fields, user actions, or output structure is found."]}
+{
+  "filename": "SupervisorPRHistory",
+  "found": true,
+  "summary": "The file is an ASP VBScript web page that primarily defines the screen SupervisorPRHistory and includes core functionality from a shared application script.",
+  "purpose": "This file is used to render the SupervisorPRHistory screen within the HSPnet system, likely displaying supervisor-related PR history information. It delegates workflow and logic handling to the included DoScreen.asp file.",
+  "entities": [],
+  "fields": [
+    "strScreenName"
+  ],
+  "actors": [],
+  "workflows": [
+    {
+      "name": "Render SupervisorPRHistory Screen",
+      "steps": [
+        "Set script language to VBScript and disables session state.",
+        "Enables response buffering and disables caching (Expires = -1).",
+        "Defines the screen name variable (strScreenName = 'SupervisorPRHistory').",
+        "Includes and executes the shared DoScreen.asp file to handle business logic, UI rendering, and workflow."
+      ]
+    }
+  ],
+  "business_rules": [],
+  "validations": [],
+  "calculations": [],
+  "conditions": [],
+  "system_behavior": [
+    "The script always sets the screen name to SupervisorPRHistory when loaded.",
+    "All main logic and rendering are handled by the included DoScreen.asp file."
+  ],
+  "dependencies": [
+    "DoScreen.asp"
+  ],
+  "exceptions": [],
+  "source_document_ids": [
+    "ca1d1f5a-406a-5308-a9f6-8ec358cecf68"
+  ],
+  "content_gaps": [
+    "No business rules, validations, calculations, or UI details are available in this file.",
+    "All main workflow logic is abstracted in the included DoScreen.asp file, which is not analyzed."
+  ]
+}
