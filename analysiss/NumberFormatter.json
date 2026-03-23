@@ -1,19 +1,49 @@
 {
   "filename": "NumberFormatter",
-  "found": false,
-  "summary": "",
-  "purpose": "",
+  "found": true,
+  "summary": "The NumberFormatter is a utility class in the HSPnet.UI namespace designed for parsing strings into numeric values with default values for non-convertible strings.",
+  "purpose": "To provide methods for safely converting string inputs into numeric data types, with default values used when conversion fails.",
   "entities": [],
   "fields": [],
   "actors": [],
-  "workflows": [],
-  "business_rules": [],
+  "workflows": [
+    {
+      "name": "Parsing Number Strings",
+      "steps": [
+        "Call ParseDecimal with a string and a default decimal value.",
+        "Attempt to parse the string into a Decimal.",
+        "If parsing is successful, return the parsed Decimal.",
+        "If parsing fails, return the provided default decimal value."
+      ]
+    },
+    {
+      "name": "Parsing Integer Strings",
+      "steps": [
+        "Call ParseInt with a string and a default integer value.",
+        "Attempt to parse the string into an Integer.",
+        "If parsing is successful, return the parsed Integer.",
+        "If parsing fails, return the provided default integer value."
+      ]
+    }
+  ],
+  "business_rules": [
+    "When parsing strings to decimals, use a default value if the string cannot be converted.",
+    "When parsing strings to integers, use a default value if the string cannot be converted."
+  ],
   "validations": [],
   "calculations": [],
-  "conditions": [],
-  "system_behavior": [],
+  "conditions": [
+    "If Decimal.TryParse or Int32.TryParse returns true, the string is converted to the respective numeric type.",
+    "If Decimal.TryParse or Int32.TryParse returns false, the default value is returned."
+  ],
+  "system_behavior": [
+    "The system provides two static methods for parsing: ParseDecimal and ParseInt.",
+    "Both methods are designed to prevent exceptions by handling non-convertible strings gracefully."
+  ],
   "dependencies": [],
   "exceptions": [],
-  "source_document_ids": [],
-  "content_gaps": ["No related documents found"]
+  "source_document_ids": [
+    "b159c550-95b9-58cf-bf2c-2b387c188f6b"
+  ],
+  "content_gaps": []
 }
