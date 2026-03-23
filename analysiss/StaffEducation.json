@@ -1,0 +1,141 @@
+{
+  "filename": "StaffEducation",
+  "found": true,
+  "summary": "The StaffEducation module in HSPnet manages staff educational records, allowing for operations such as adding, updating, and deleting educational data for staff members. The system interfaces with a database to maintain these records, facilitating the tracking of educational programs, student numbers, graduation details, and consent forms.",
+  "purpose": "To manage and maintain staff education records within the HSPnet system, ensuring accurate tracking and reporting of educational data linked to staff members.",
+  "entities": [
+    "StaffEducation",
+    "HSPnetSession",
+    "Database",
+    "SqlDataReader",
+    "Phone"
+  ],
+  "fields": [
+    "ID",
+    "StaffID",
+    "ProgramID",
+    "StudentNumber",
+    "GraduationDate",
+    "GraduationConfirmed",
+    "ConsentObtained",
+    "ByUserID",
+    "StudentID",
+    "ReleaseAuthorized",
+    "AuthorizingStaffID",
+    "ReleaseDate",
+    "CreatedByQES",
+    "AgencyName",
+    "DepartmentName",
+    "ByStaffID",
+    "ByFirstName",
+    "ByMiddleName",
+    "ByLastName",
+    "ByPhone",
+    "ByEmail",
+    "FirstName",
+    "MiddleName",
+    "LastName",
+    "ForProgram",
+    "EmploymentProgram",
+    "LinkedIcon",
+    "PhoneFormatted",
+    "AgencyDepartFormatted",
+    "ConsentObtainedFormatted",
+    "ConsentObtainedEditFormatted",
+    "GraduationConfirmedFormattedNoBas",
+    "GraduationDateFormatted",
+    "NameFormatted",
+    "ReleaseDateFormatted",
+    "ByEmailFormatted"
+  ],
+  "actors": [
+    "Staff",
+    "Authorizing Staff",
+    "System (HSPnetSession)",
+    "Database"
+  ],
+  "workflows": [
+    {
+      "name": "Add Staff Education",
+      "steps": [
+        "Initialize a StaffEducation object",
+        "Check for required fields (ProgramID, etc.)",
+        "Validate the object",
+        "Set database procedure to StaffEducationAdd",
+        "Add parameters for session and education details",
+        "Execute the query in the database"
+      ]
+    },
+    {
+      "name": "Update Staff Education",
+      "steps": [
+        "Initialize a StaffEducation object",
+        "Check for required fields (ProgramID, ConsentObtained, etc.)",
+        "Validate the object",
+        "Set database procedure to StaffEducationUpdate",
+        "Add parameters for session and education details",
+        "Execute the query in the database"
+      ]
+    },
+    {
+      "name": "Delete Staff Education",
+      "steps": [
+        "Check for valid EducationID",
+        "Set database procedure to StaffEducationDelete",
+        "Add parameters for session and education details",
+        "Execute the query in the database"
+      ]
+    },
+    {
+      "name": "Search Staff Education",
+      "steps": [
+        "Set database procedure to StaffEducationSearch",
+        "Add parameters for session and StaffID",
+        "Execute the query and retrieve data",
+        "Populate StaffEducation objects from the data"
+      ]
+    }
+  ],
+  "business_rules": [
+    "ProgramID must be specified for education operations.",
+    "Authorizing user must be specified if Release is authorized.",
+    "Student number cannot be blank if consent is obtained."
+  ],
+  "validations": [
+    "Check whether ProgramID is greater than zero.",
+    "Validate the existence of required fields before executing database procedures.",
+    "Verify the consent and release conditions before proceeding with updates."
+  ],
+  "calculations": [],
+  "conditions": [
+    "ProgramID must be greater than zero.",
+    "ReleaseAuthorized requires AuthorizingStaffID to not equal Database.NullInt.",
+    "StudentNumber must not be blank if ConsentObtained is true."
+  ],
+  "system_behavior": [
+    "The system retrieves staff education records based on StaffID or EducationID using database procedures.",
+    "The system formats phone numbers and staff names for display.",
+    "The system manages linking icons for authorized or half-authorized entries."
+  ],
+  "dependencies": [
+    "Database procedures (e.g., StaffEducationAdd, StaffEducationUpdate, StaffEducationDelete)",
+    "Resource strings for UI elements and error messages"
+  ],
+  "exceptions": [
+    "Error added to session messages if ProgramID is zero during add or update operations.",
+    "Error added to session messages if AuthorizingStaffID is missing during release authorization."
+  ],
+  "source_document_ids": [
+    "1039e66b-3360-5832-8264-f655234c0733",
+    "18486827-9a79-5e95-b596-d1a9f52238ec",
+    "49cb3b9b-3e76-5703-9444-11dbe31eadda",
+    "75e8d50e-a691-5e43-8e0d-8b93be9b7572",
+    "8ec84827-1866-5b5d-bfbc-bc361c184a9b",
+    "905e95b3-af51-5936-b9b9-fb05636b7526",
+    "a6608edd-8212-5553-8d17-2b012b57fabb",
+    "b849512a-9d2a-5306-a941-83ba82429daf",
+    "b9d83c8c-103d-5147-a2c9-0775f3147f2e",
+    "c00a887e-3267-5c2e-bfd6-3e02cf56317b"
+  ],
+  "content_gaps": []
+}
