@@ -1,77 +1,57 @@
 {
   "filename": "RptStaffList",
   "found": true,
-  "summary": "The RptStaffList document is a web user control for generating staff reports in an application. It includes functionalities for handling page events, executing a report generation command, and setting up JavaScript for the front-end interaction.",
-  "purpose": "The purpose of RptStaffList is to provide a user interface for generating staff reports based on selected department criteria.",
-  "entities": [
-    "HSPnetSession",
-    "ScriptManager",
-    "Department"
-  ],
-  "fields": [
-    "UserSession",
-    "ScriptMgr",
-    "DC",
-    "Supervisor",
-    "ddDepartment",
-    "cmdRunReport",
-    "ValidationSummary1",
-    "Label1"
-  ],
+  "summary": "RptStaffList is a user control in the HSPnet application, designed to generate and handle staff list reports. The control interacts with user sessions, manages department data, and initiates report generation based on user roles.",
+  "purpose": "The primary purpose of RptStaffList is to enable users to generate staff list reports based on their department and roles within the HSPnet system.",
+  "entities": [],
+  "fields": [],
   "actors": [
     "User"
   ],
   "workflows": [
     {
-      "name": "Page Load and Initialization",
+      "name": "Generate Staff List Report",
       "steps": [
-        "Check if it's not a postback or first load.",
-        "Retrieve departments based on user's session and agency ID.",
-        "Setup JavaScript for department dropdown.",
-        "Bind department data to the dropdown on first load."
-      ]
-    },
-    {
-      "name": "Run Report Command",
-      "steps": [
-        "Check user roles (DC and Supervisor).",
-        "Add error message if no roles are selected.",
-        "Create a job to generate the staff report with selected options."
-      ]
-    },
-    {
-      "name": "Pre Render Page",
-      "steps": [
-        "Disable report generation if viewing as a different user."
+        "User loads the page.",
+        "System checks if it's a post-back or the first load.",
+        "User's session is verified.",
+        "Department data is retrieved based on the user's session and agency ID.",
+        "JavaScript is set up for department dropdown.",
+        "If first load, department dropdown is populated and the user's department is selected.",
+        "User clicks the 'Run Report' button.",
+        "System verifies user roles as DC or Supervisor.",
+        "If roles are valid, a report generation job is initiated."
       ]
     }
   ],
   "business_rules": [
-    "User must have at least one staff role selected to run reports."
+    "Report cannot be generated while monitoring another user if switched from a local admin.",
+    "At least one staff role (DC or Supervisor) must be selected to generate a report."
   ],
   "validations": [
-    "ValidationSummary1"
+    "Ensure JavaScript variables for department dropdown are registered depending on postback state.",
+    "Validate user's session and roles prior to report generation."
   ],
   "calculations": [],
   "conditions": [
-    "IsPostBack check for page load.",
-    "User role checks for report generation."
+    "UserSession.AllowAllDepartments determines if all departments are fetched.",
+    "FirstLoad view state determines if the department dropdown should be initially populated."
   ],
   "system_behavior": [
-    "Configures JavaScript for UI elements during async postbacks or full page loads.",
-    "Controls visibility of the report generation button when in user view mode."
+    "Populate department dropdown on first page load.",
+    "Handle report generation through PrintJobs.ReportStaffListCreateJob."
   ],
-  "dependencies": [
-    "Departments data retrieval based on user's permissions.",
-    "Dropdown component for department selection."
-  ],
+  "dependencies": [],
   "exceptions": [
-    "No roles selected exception prevents report generation."
+    "If user roles are not valid, an error message is added to user session messages."
   ],
   "source_document_ids": [
     "9a00fba8-1697-5d5f-a0b5-ffed948731b9",
     "d5dc2908-b09d-5fef-bc4e-80351b638c25",
     "fa4eb94b-bf61-5061-91dd-0b12f34db062"
   ],
-  "content_gaps": []
+  "content_gaps": [
+    "Specific details on the department list retrieval logic are not fully explained.",
+    "Error handling for failed report generation is not detailed."
+  ]
 }
