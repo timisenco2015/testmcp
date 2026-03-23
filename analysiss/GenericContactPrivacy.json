@@ -1,0 +1,55 @@
+{
+    "filename": "GenericContactPrivacy",
+    "found": true,
+    "summary": "The GenericContactPrivacy feature allows for managing contact privacy settings within a system, including assigning destinations, inheriting privacy settings, and CRUD operations on privacy entries.",
+    "purpose": "To manage and apply privacy settings to contacts based on destination type codes.",
+    "entities": ["GenericContactPrivacy"],
+    "fields": ["ID", "ParentID", "DestinationContactTypeCodeID", "DestinationContactTypeCode", "DestinationContactTypeDesc", "WithholdDays", "UpdateDate", "UpdateDateFormatted", "ByUserID", "CategoryDividerDescription", "IsApplied", "SourceLevel", "CanEditRow"],
+    "actors": ["HSPnetSession"],
+    "workflows": [
+        {
+            "name": "Get Privacy by Parent ID",
+            "steps": [
+                "Set procedure name",
+                "Add session and parent ID as parameters",
+                "Fetch data",
+                "Fill list with privacy entries",
+                "Close data reader"
+            ]
+        },
+        {
+            "name": "Inherited Contact Privacy by Parent ID",
+            "steps": [
+                "Set procedure name with optional alternate database",
+                "Add session and parent ID as parameters",
+                "Fetch data",
+                "Use alt-language data if necessary",
+                "Fill list with privacy entries",
+                "Close data reader"
+            ]
+        },
+        {
+            "name": "Assign Applied Destinations",
+            "steps": [
+                "Set procedure name",
+                "Add session and privacy ID as parameters",
+                "Execute query to assign destinations"
+            ]
+        }
+    ],
+    "business_rules": ["Use proper procedure names for operations", "Follow alt-language mode settings", "Ensure proper session handling"],
+    "validations": ["SessionID must be valid", "DestinationContactTypeCodeID must be non-zero"],
+    "calculations": [],
+    "conditions": ["UseAltLanguageFields impacts data localization"],
+    "system_behavior": ["Retrieves and updates privacy settings", "Handles session-based operations"],
+    "dependencies": [],
+    "exceptions": [],
+    "source_document_ids": [
+        "3a37a694-cc1b-59b4-b4e3-7c7e71d988bf",
+        "625e874a-8c9d-56eb-865c-73d10c2f96da",
+        "b7bd0515-1355-5c4d-aa6f-7f02a8942568",
+        "db071198-d6b0-5378-8312-6308be1a3abe",
+        "dda1e8bb-fa68-5f11-a4b6-1d7d1ef57847"
+    ],
+    "content_gaps": []
+}
