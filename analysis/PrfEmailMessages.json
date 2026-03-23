@@ -1,0 +1,84 @@
+{
+  "filename": "PrfEmailMessages",
+  "found": true,
+  "summary": "The PrfEmailMessages functionality is part of the HSPnet.UserControls.StaffProfile namespace. It manages staff messages through an interface that supports viewing, adding, editing, and deleting messages. The interface includes various controls like grids, panels, and buttons to manage these operations.",
+  "purpose": "To facilitate the management of email messages for staff profiles within the HSPnet application.",
+  "entities": [],
+  "fields": [
+    "mdlDetails",
+    "ValidationSummary1",
+    "uxDetail",
+    "dsStaffMessagesID",
+    "dsType",
+    "updPnlMain",
+    "pnlEmptyData",
+    "lblEmptyData",
+    "cmdAddEmptyData",
+    "gridData",
+    "dsStaffMessages",
+    "pnlPopup",
+    "updPnlPopup",
+    "btnShowPopup"
+  ],
+  "actors": [
+    "User",
+    "System"
+  ],
+  "workflows": [
+    {
+      "name": "Manage Staff Messages",
+      "steps": [
+        "StaffMessages.StaffMessagesDelete(UserSession, ID)",
+        "HSPnetSession.CacheUserSession(UserSession)",
+        "Response.Redirect to the CurrentPage URL",
+        "Bound the uxDetail data",
+        "PreRender: Adjust visibility and command name of save button based on mode",
+        "ItemInserting: Validate page and setup TypeCodeID",
+        "ItemInserted: Cache session and redirect",
+        "ItemUpdating: Validate page and setup ID and TypeCodeID",
+        "ItemUpdated: Cache session and redirect",
+        "dsStaffMessagesID: Selecting, Updating, and Inserting based on UserSession"
+      ]
+    }
+  ],
+  "business_rules": [],
+  "validations": [
+    "Ensure that the page is valid before inserting or updating items",
+    "If UserSession is null in selecting methods, cancel the operation"
+  ],
+  "calculations": [],
+  "conditions": [
+    "Check if uxDetail.Row and uxDetail.DataItem are not null",
+    "Check if ScreenIsEditable to show or hide certain UI elements",
+    "Check if GridView gv rows count is zero and ScreenIsEditable to show pnlEmptyData"
+  ],
+  "system_behavior": [
+    "Use AjaxControlToolkit and System.Web.UI controls to manage the interface",
+    "Auto-generate fields and require modifications in code-behind files for changes",
+    "Maintain session state using HSPnetSession.CacheUserSession",
+    "Redirects user to the current page after certain actions"
+  ],
+  "dependencies": [
+    "HSPnet.App_GlobalResources",
+    "HSPnet.DataLayer",
+    "HSPnet.UI",
+    "HSPnet.Framework",
+    "System.Web.UI",
+    "System.Web.UI.WebControls",
+    "AjaxControlToolkit"
+  ],
+  "exceptions": [
+    "If UserSession is null, operations related to staff messages are canceled",
+    "JavaScript errors related to event validation caused by EmptyDataTemplate"
+  ],
+  "source_document_ids": [
+    "54eb7f90-aa81-5c73-9edf-449b18368886",
+    "747bb576-2d1e-515e-844c-e5b69a297c7f",
+    "766d2735-749a-5eca-9d70-13ff77e83546",
+    "cf2f0c7f-251f-5853-a971-0e529d5cb0f0",
+    "d2df2107-29e7-5d6e-aafe-d55e8532eeca",
+    "edab8455-e683-5ca9-84d6-77349d98c7a5",
+    "f8b1f8d2-c584-576d-b5c1-20135d6f0924"
+  ],
+  "content_gaps": []
+}
