@@ -1,0 +1,68 @@
+```json
+{
+  "filename": "CostCentre",
+  "found": true,
+  "summary": "The CostCentre documents define and handle the retrieval and management of cost centre records within a system. They involve database operations and object serialization.",
+  "purpose": "The purpose of the CostCentre is to manage and retrieve cost centre records associated with different parameters such as session ID, date range, and various categorization fields (e.g., discipline, site).",
+  "entities": [
+    "CostCentreRecord"
+  ],
+  "fields": [
+    "PlacingAgency",
+    "Department",
+    "Program",
+    "Discipline",
+    "SubDiscipline",
+    "ReceivingAgency",
+    "Site",
+    "Portfolio",
+    "Service",
+    "Destination",
+    "CostCentre",
+    "CostCentreDescription",
+    "PRType",
+    "StartDate",
+    "EndDate",
+    "Status",
+    "Course",
+    "ProgramYear",
+    "ReferenceNumber",
+    "CFO",
+    "PRCount",
+    "StudentCount",
+    "PRHours",
+    "StudentHours"
+  ],
+  "actors": [],
+  "workflows": [
+    {
+      "name": "GetCostCentre",
+      "steps": [
+        "Initialize a database connection using session data.",
+        "Set up stored procedure parameters for PlacementCostCentre.",
+        "Execute the stored procedure to retrieve data.",
+        "Read and populate CostCentreRecord objects from the database results.",
+        "Return the list of populated CostCentreRecord objects."
+      ]
+    }
+  ],
+  "business_rules": [],
+  "validations": [],
+  "calculations": [],
+  "conditions": [],
+  "system_behavior": [
+    "The system connects to a database, executes a stored procedure, and reads results into predefined data structures."
+  ],
+  "dependencies": [
+    "HSPnet.DataLayer",
+    "HSPnet.Framework",
+    "HSPnet.UI",
+    "System.Data.SqlClient"
+  ],
+  "exceptions": [
+    "Handling for when data reader returns no results."
+  ],
+  "source_document_ids": [],
+  "content_gaps": []
+}
+```
