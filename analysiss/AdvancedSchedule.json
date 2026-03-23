@@ -1,0 +1,138 @@
+{
+  "filename": "AdvancedSchedule",
+  "found": true,
+  "summary": "The AdvancedSchedule system facilitates managing user interaction and data processing for scheduling and placement requests within a web interface. It includes controls for validation, interaction handling, data manipulation, and dynamic interface updates.",
+  "purpose": "To provide a user interface for handling advanced scheduling, including placement requests and shifts management within an administrative system.",
+  "entities": [
+    "PRD",
+    "UserSession",
+    "splitList",
+    "PlacementRequestSplits"
+  ],
+  "fields": [
+    "txtShiftLength",
+    "txtDurationHours",
+    "txtDurationShifts",
+    "txtStartDate",
+    "txtEndDate",
+    "txtStartDateBlock2",
+    "txtEndDateBlock2",
+    "ddSite",
+    "ddService",
+    "ddDest",
+    "ddRequest"
+  ],
+  "actors": [
+    "User",
+    "Admin"
+  ],
+  "workflows": [
+    {
+      "name": "Shift and Duration Calculation",
+      "steps": [
+        "User enters number of shifts and shift length.",
+        "System calculates total duration in hours.",
+        "Displays the calculated duration in the interface."
+      ]
+    },
+    {
+      "name": "Validation Workflow",
+      "steps": [
+        "User inputs data into forms.",
+        "System runs validation checks on dates and numerical values.",
+        "Display error messages if validation fails."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Shift duration must be greater than zero.",
+    "Group size cannot be negative."
+  ],
+  "validations": [
+    "Date fields must not be in conflict with business rules.",
+    "Numeric fields must be valid and within expected ranges."
+  ],
+  "calculations": [
+    "DurationHours = DurationShifts * ShiftLength."
+  ],
+  "conditions": [
+    "If using a default locale, values are adjusted accordingly."
+  ],
+  "system_behavior": [
+    "Interface updates dynamically based on user actions.",
+    "JavaScript functions manage client-side interactions."
+  ],
+  "dependencies": [
+    "JavaScript functions for calculations and validations.",
+    "UserSession for session-specific data handling."
+  ],
+  "exceptions": [
+    "Handling of invalid date ranges.",
+    "Fallbacks for missing or incomplete data entries."
+  ],
+  "source_document_ids": [
+    "008d5df1-c615-5be7-9e59-8671578ed77f",
+    "03ebc1e9-981a-5592-a31b-617515726b46",
+    "051c92cc-c36d-5457-b7a8-c6c1e95b539c",
+    "0c5dfee8-9874-5a74-9731-7f20cf01798e",
+    "1539b8ad-005f-53a5-9c3b-d2db0d776b11",
+    "17a5ca9f-fb60-580c-a0d0-d2f06f96f9c7",
+    "18958baf-948c-5497-a39f-57c716f8b812",
+    "209beb17-0eec-52c6-8ade-6ae93b28f9a9",
+    "215094f5-c9b7-5efd-8f46-4e1fa8e36985",
+    "22f0194f-bd1f-54de-b05b-ddb13e73ef0d",
+    "239c17cd-75e8-5904-8211-80673a0a4062",
+    "285219a9-41df-5e32-b376-f921bb7ea8f8",
+    "28b11101-adea-5a6c-94ba-cdb596d7597f",
+    "2ed7263f-c8db-543e-99d0-4758d97df2ff",
+    "31818e27-1338-5b02-8378-8994e870b0c0",
+    "3b5ef1f0-f270-5481-8382-81a5916c2bf9",
+    "3c89ab82-22e3-5261-be1a-a1c4f6442e5f",
+    "3cbd6adf-946e-5720-8602-30e4251b0b72",
+    "42d6838e-1ef6-5c32-8f52-3f8bb33c093b",
+    "447b1853-eb5f-5047-9584-6d4168e0ab2e",
+    "44a08b08-3714-5595-b379-0d67a101882a",
+    "484147ef-85d6-53a8-a2d6-e076c6e2775d",
+    "4bac457a-74a5-5a96-94bb-2b613e6c8161",
+    "4bcbc512-c495-5489-b438-1c3634d16d73",
+    "4f965964-21ce-54fb-a872-ec545cb1ca10",
+    "51bb498e-1422-5dc5-8b0d-673e7a95d681",
+    "52777b8f-af89-56e6-81a6-b7d40d3bfb28",
+    "554a39e8-39db-5721-b177-8b6b788213d1",
+    "5720834d-0751-564f-8ce0-b45e63b0e73c",
+    "581f2ec7-b7d2-5fbf-a11b-9ba945fa5765",
+    "65db8cef-0518-5a3b-864e-c7c7d275779f",
+    "6a17ee05-0424-5146-8aa1-e2c83e8a2ca7",
+    "6a43e094-540a-5bde-8436-8fbf420c8044",
+    "6d7b4c98-5ddc-5bff-b0ea-84f4d2144a92",
+    "7651e0b4-13ce-5658-88e4-292bb7019e61",
+    "76e384fb-bded-5c0e-a90b-90103a48e65a",
+    "7e83ff6e-caa2-5e26-aa35-04bdfd5e07fa",
+    "81f33912-d872-53cf-8113-594e4a454779",
+    "834506f8-e08e-5320-9f93-b55512455266",
+    "85c9eb2d-978d-5234-b293-74c5678477e7",
+    "87313214-21cd-5da8-a4eb-27d8d71a7460",
+    "8996356e-2320-5889-ad7e-b4936149fbb7",
+    "8f4d5357-0927-5e94-8dd3-55f14f294a52",
+    "92e9ef7c-d83b-5ba5-88b5-e375294badb5",
+    "9709ee0d-3ace-5e92-a327-45831fb6dccf",
+    "971ae843-2747-5c46-b39e-72bc048cba8a",
+    "9a3694a4-db1b-5ce0-afa0-d01aba8b1853",
+    "a1c45b25-8721-5f5e-99b4-53c07861fc14",
+    "a7bd21e7-1d55-550c-8697-217ec87ffb7e",
+    "a7cd2da9-4032-563f-b910-44c26f80c97e",
+    "a82811c4-6770-5f69-b040-442b41c0a90d",
+    "abb9018c-f9f6-5124-86b8-59e30a7e53b7",
+    "bea03aaf-4956-559d-ae9a-d2e6d1a210ad",
+    "c0c1c60d-72b3-5aa4-ab33-37a8a1cf2375",
+    "ce5f44c2-7480-56ff-9b8d-158d214cda77",
+    "d2f698a6-9ead-5840-b7b2-3c4e25efb0bc",
+    "d4cba051-ca50-5758-8d4a-6c25d1e485fd",
+    "de075837-04b8-5bcd-98d2-6231ef6c863f",
+    "eaa0acd1-7b58-539b-91da-247b5493121f",
+    "eaa6ac94-c26a-5914-8bd9-2de1dce87d07",
+    "f1a4c7a9-b03f-5a79-b151-2599a41c93d4",
+    "fc87e534-08b0-55c2-8028-b0a641fac6af"
+  ],
+  "content_gaps": []
+}
