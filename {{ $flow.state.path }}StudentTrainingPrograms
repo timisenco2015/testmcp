@@ -1,0 +1,105 @@
+```json
+{
+  "filename": "StudentTrainingPrograms",
+  "found": true,
+  "summary": "The Student Training Programs system facilitates managing training programs for students, including adding, updating, searching, and inactivating program records.",
+  "purpose": "To manage and facilitate the various processes involved with student training programs, such as registration, updates, and record management.",
+  "entities": [
+    "StudentTrainingProgram"
+  ],
+  "fields": [
+    "ID",
+    "StudentID",
+    "ProgramID",
+    "DepartmentShortName",
+    "ProgramShortName",
+    "StageCodeID",
+    "StageDescription",
+    "AgencyID",
+    "AgencyShortName",
+    "StartDate",
+    "EndDate",
+    "Comments",
+    "Inactive",
+    "StartDateFormatted",
+    "EndDateFormatted",
+    "ProgramNameFormatted"
+  ],
+  "actors": [
+    "HSPnetSession",
+    "UserSession"
+  ],
+  "workflows": [
+    {
+      "name": "Add Student Training Program",
+      "steps": [
+        "Initialize the session and database procedure for adding a program.",
+        "Add necessary parameters: SessionID, StudentID, ProgramID, StageCodeID, AgencyID, StartDate, EndDate, Comments.",
+        "Execute the database query to insert the program."
+      ]
+    },
+    {
+      "name": "Update Student Training Program",
+      "steps": [
+        "Initialize the session and database procedure for updating a program.",
+        "Add necessary parameters: SessionID, ID, ProgramID, StageCodeID, AgencyID, StartDate, EndDate, Comments.",
+        "Execute the database update query."
+      ]
+    },
+    {
+      "name": "Search Student Training Program",
+      "steps": [
+        "Set up a database procedure for searching based on StudentID and optionally include inactive records.",
+        "Execute the database search query and retrieve results."
+      ]
+    },
+    {
+      "name": "Inactivate Student Training Program",
+      "steps": [
+        "Initialize the database procedure for inactivating a program.",
+        "Add parameters: SessionID, ID, Inactivate flag.",
+        "Execute the database query for inactivation."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Ensure that Start and End dates are formatted correctly before storing.",
+    "Manage visibility of edit controls based on user permissions (ScreenIsEditable)."
+  ],
+  "validations": [
+    "Check for null or invalid date entries and format them appropriately.",
+    "Validate form inputs on insert and update operations."
+  ],
+  "calculations": [],
+  "conditions": [
+    "If the session is null, cancel data selection.",
+    "Utilize alt language fields if specified for stage descriptions."
+  ],
+  "system_behavior": [
+    "Loads available programs and stages based on the current user's session and agency.",
+    "Triggers JavaScript registration on async postback for dynamic form elements."
+  ],
+  "dependencies": [
+    "DateFormatter",
+    "Database procedures: StudentDetailsTrainingProgramAdd, StudentDetailsTrainingProgramUpdate, StudentDetailsTrainingProgramSearch, StudentDetailsTrainingProgramInactivate"
+  ],
+  "exceptions": [],
+  "source_document_ids": [
+    "0278f2e1-15e1-52a6-99a7-f338f943183e",
+    "05b14484-f473-554e-9329-5cd197d38538",
+    "094a255c-158e-5673-8035-49c3b8079045",
+    "2fb139b8-0210-50a6-828e-fa15412ab2af",
+    "4e4c7fe5-d241-55f0-8891-b5d1a1f0eb5c",
+    "5cea2d81-d05c-5e38-b063-5a61480d3ddc",
+    "6d23c568-767a-5d73-9902-2960157889ee",
+    "6fd4dd72-e302-5556-b966-7ec54d109472",
+    "7c178050-5e50-5ab3-b00e-2b86e7608f3b",
+    "aa5bf129-3c5f-592b-916d-25fefa436a58",
+    "c0e203b7-40a3-5fc8-a207-6b367df9d40e",
+    "f17f9152-f9ac-5e33-83b8-670178cb8f58",
+    "f1f0d3cc-fb97-524b-a5db-24f7339be1de",
+    "f598e46d-3a3a-509d-b28e-2ef02bc8fa36"
+  ],
+  "content_gaps": []
+}
+```
