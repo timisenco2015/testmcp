@@ -1,0 +1,69 @@
+{
+    "filename": "StudentEmployment",
+    "found": true,
+    "summary": "The document contains code for a user control named StudentEmployment in the HSPnet application. The control includes a repeater for student employment data and an ObjectDataSource for data binding. It is designed to handle the presentation and interaction of student employment information within a web application.",
+    "purpose": "The purpose of the StudentEmployment control is to manage and display employment-related information for students within the HSPnet application, particularly focusing on handling data binding and user interactions.",
+    "entities": [
+        "StudentEmployment",
+        "UserSession",
+        "PRSearchStudent"
+    ],
+    "fields": [
+        "rprStudEmployment",
+        "dsGridData",
+        "UserSession",
+        "StudentID",
+        "AlternateObservation"
+    ],
+    "actors": [
+        "HSPnetSession"
+    ],
+    "workflows": [
+        {
+            "name": "Data Binding Workflow",
+            "steps": [
+                "Check if UserSession is null during data selection.",
+                "Cancel data selection if UserSession is null.",
+                "Set input parameters for data selection based on UserSession and StudentID."
+            ]
+        },
+        {
+            "name": "Item Data Bound Workflow",
+            "steps": [
+                "Set supervisor caption in the header if available.",
+                "Check visibility conditions for certain controls based on PRSearchStudent properties.",
+                "Set CSS classes for rows based on item type."
+            ]
+        }
+    ],
+    "business_rules": [
+        "UserSession must not be null to proceed with data selection.",
+        "Supervisor caption should be set in the header if available."
+    ],
+    "validations": [
+        "UserSession validation for null check during data selection."
+    ],
+    "calculations": [],
+    "conditions": [
+        "Visibility of controls based on PRSearchStudent properties.",
+        "Row class setting based on item type."
+    ],
+    "system_behavior": [
+        "Data binding is contingent on UserSession availability."
+    ],
+    "dependencies": [
+        "HSPnet Framework",
+        "HSPnet DataLayer"
+    ],
+    "exceptions": [
+        "Data selection is cancelled if UserSession is null."
+    ],
+    "source_document_ids": [
+        "008173b2-fa40-51c1-9f67-806ecc8e7c57",
+        "7c838bae-40e5-59c1-9a8e-2f9278f8d26c",
+        "ec370be1-d0e6-5139-9978-3552ffe80644"
+    ],
+    "content_gaps": [
+        "Detailed explanation of PRSearchStudent properties and its role is missing."
+    ]
+}
