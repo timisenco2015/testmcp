@@ -1,60 +1,77 @@
 {
   "filename": "PlacementRequestGoBackData",
   "found": true,
-  "summary": "The PlacementRequestGoBackData class is responsible for checking the placement requests within a specific date range for a given agency and its departments, programs, courses, and cohorts. It processes data related to these entities and returns their status and enrollment count.",
-  "purpose": "To facilitate checking of placement requests for educational programs in an organization’s departments and courses over defined date ranges, providing necessary details and enrollment status.",
-  "entities": [
-    "PlacementRequestGoBackData",
-    "HSPnetSession",
-    "SqlDataReader"
-  ],
+  "summary": "The PlacementRequestGoBackData class is used for managing and verifying placement request data within a healthcare education management system. It involves checking certain conditions with respect to placement requests in various departments, programs, courses, and cohorts within specific date ranges.",
+  "purpose": "The primary purpose of PlacementRequestGoBackData is to verify and retrieve data related to placement requests in educational settings, ensuring all necessary parameters are met and relevant information is accurately captured.",
+  "entities": [],
   "fields": [
-    "DepartmentID",
-    "ProgramID",
-    "CohortID",
-    "TermID",
-    "CourseID",
-    "GWSExists",
-    "IWSExists",
-    "EnrolledStudentCount"
+    {
+      "name": "DepartmentID",
+      "type": "int",
+      "description": "Identifier for the department."
+    },
+    {
+      "name": "ProgramID",
+      "type": "int",
+      "description": "Identifier for the program."
+    },
+    {
+      "name": "CohortID",
+      "type": "int",
+      "description": "Identifier for the cohort."
+    },
+    {
+      "name": "TermID",
+      "type": "int",
+      "description": "Identifier for the term."
+    },
+    {
+      "name": "CourseID",
+      "type": "int",
+      "description": "Identifier for the course."
+    },
+    {
+      "name": "GWSExists",
+      "type": "bool",
+      "description": "Indicates if GWS requirement exists."
+    },
+    {
+      "name": "IWSExists",
+      "type": "bool",
+      "description": "Indicates if IWS requirement exists."
+    },
+    {
+      "name": "EnrolledStudentCount",
+      "type": "int",
+      "description": "Number of enrolled students."
+    }
   ],
   "actors": [
-    "Educational Organization",
-    "Agency"
+    {
+      "name": "HSPnetSession",
+      "role": "Session object managing database interactions."
+    }
   ],
   "workflows": [
     {
       "name": "PlacementRequestBoBackCheck",
       "steps": [
-        "Initialize database with procedure name 'PlacementRequestGoBackCheck'.",
-        "Add parameters to the session's database, including AgencyID, DepartmentID, ProgramID, CourseID, CohortID, DateFrom, and DateTo.",
-        "Execute database command and process resulting data.",
-        "Check reader for available data and populate fields accordingly.",
-        "Return the populated PlacementRequestGoBackData object."
+        "Initialize PlacementRequestGoBackData entry as null.",
+        "Set procedure name in session database to 'PlacementRequestGoBackCheck'.",
+        "Add required parameters to the session database.",
+        "Execute session database query to retrieve data.",
+        "If data exists, populate the entry object with the retrieved values.",
+        "Close the data reader and return the entry."
       ]
     }
   ],
-  "business_rules": [
-    "Check placement requests for specified date range and entity IDs."
-  ],
-  "validations": [
-    "Ensure reader returns valid data before populating fields."
-  ],
+  "business_rules": [],
+  "validations": [],
   "calculations": [],
-  "conditions": [
-    "If SqlDataReader contains data, populate PlacementRequestGoBackData fields."
-  ],
-  "system_behavior": [
-    "Database interaction and object population based on query results."
-  ],
-  "dependencies": [
-    "HSPnet.Framework",
-    "HSPnet.App_GlobalResources",
-    "HSPnet.UI"
-  ],
-  "exceptions": [
-    "Handle null results from SqlDataReader gracefully."
-  ],
+  "conditions": [],
+  "system_behavior": [],
+  "dependencies": [],
+  "exceptions": [],
   "source_document_ids": [
     "280a3f70-446b-56d3-aa95-2a376524e496",
     "7d42cd90-2f8f-5ab4-b462-997181ecb8e0"
