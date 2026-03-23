@@ -1,1 +1,144 @@
-{"instructions":"Retrieve and analyze all files: I will retrieve content for all distinct filenames in grouped_related_files, analyze each file individually, and produce a structured JSON artifact for each file based strictly on the retrieved content. Write to GitHub: I will provide the JSON output for each file, suitable for upload to GitHub. If you specify a repository and file structure, I can help with the output paths or file names. Please confirm: Should I analyze every file in grouped_related_files, not just ExpenseBatch? Do you want the output as a set of JSON files, one per filename (e.g., ExpenseBatch.json)? Please provide your desired GitHub repository path or folder structure, or should I just output the JSON text for each file? Once confirmed, I will retrieve, analyze, and output the JSON for all files."}
+{
+  "filename": "ExpenseBatch",
+  "found": true,
+  "summary": "The ExpenseBatch component models and manages batches of expenses associated with departments. It supports searching, adding, updating, and deleting expense batches through a set of stored procedures and entity classes.",
+  "purpose": "To facilitate the creation, maintenance, and retrieval of expense batch records linked to departments, allowing for structured tracking and workflow management of expense processing.",
+  "entities": [
+    "ExpenseBatch",
+    "ExpenseBatches"
+  ],
+  "fields": [
+    {
+      "name": "ID",
+      "type": "int",
+      "description": "Unique identifier for the expense batch."
+    },
+    {
+      "name": "DepartmentID",
+      "type": "int",
+      "description": "Identifier for the related department."
+    },
+    {
+      "name": "BatchDescription",
+      "type": "string",
+      "description": "A textual description of the batch."
+    },
+    {
+      "name": "BatchDate",
+      "type": "DateTime",
+      "description": "The date the batch was created or is effective."
+    },
+    {
+      "name": "StatusCodeID",
+      "type": "int",
+      "description": "ID referencing the batch's workflow status."
+    },
+    {
+      "name": "StatusCode",
+      "type": "string",
+      "description": "The code representing the batch status."
+    },
+    {
+      "name": "StatusDescription",
+      "type": "string",
+      "description": "The description of the batch's status."
+    },
+    {
+      "name": "ClosedDate",
+      "type": "DateTime",
+      "description": "Indicates when the batch was closed, if applicable."
+    },
+    {
+      "name": "BatchNumberFormatted",
+      "type": "string",
+      "description": "A formatted string combining the batch ID and its status description."
+    }
+  ],
+  "actors": [
+    "HSPnetSession (system or user session)",
+    "Database (SQL Server via stored procedures)"
+  ],
+  "workflows": [
+    {
+      "name": "Search Expense Batches",
+      "steps": [
+        "User initiates search by department ID.",
+        "System sets stored procedure to 'ExpenseBatchSearch'.",
+        "System queries database for all batches for the given department in the last year.",
+        "Each result row is mapped to an ExpenseBatch object, with key fields populated.",
+        "BatchNumberFormatted is composed by combining the batch ID and status description."
+      ]
+    },
+    {
+      "name": "Retrieve Expense Batch By ID",
+      "steps": [
+        "User or system provides an ExpenseBatch ID.",
+        "System calls 'ExpenseBatchSearchID' stored procedure with the provided ID.",
+        "Database returns matching batch details.",
+        "System populates all entity fields from returned data, including handling alternate language fields for descriptions if needed."
+      ]
+    },
+    {
+      "name": "Add Expense Batch",
+      "steps": [
+        "User provides department ID, batch description, and batch date.",
+        "System sets stored procedure to 'ExpenseBatchAdd' and passes parameters, including current session.",
+        "Database inserts the record and returns the new batch ID."
+      ]
+    },
+    {
+      "name": "Update Expense Batch",
+      "steps": [
+        "User supplies batch ID and updated field values.",
+        "System sets stored procedure to 'ExpenseBatchUpdate' and passes all parameters.",
+        "Database updates the record accordingly."
+      ]
+    },
+    {
+      "name": "Delete Expense Batch",
+      "steps": [
+        "User provides the batch ID.",
+        "System sets stored procedure to 'ExpenseBatchDelete' and passes ID.",
+        "Database deletes the record."
+      ]
+    }
+  ],
+  "business_rules": [
+    "BatchNumberFormatted is created as a string concatenating batch ID and status description.",
+    "Status descriptions are language-dependent; alternate language fields may be used based on session settings."
+  ],
+  "validations": [
+    "Batch ID must be a valid int (for update/delete).",
+    "Department ID must be provided (for add/search).",
+    "BatchDate must be a valid DateTime (for add/update).",
+    "StatusCodeID must be valid (for update)."
+  ],
+  "calculations": [
+    "BatchNumberFormatted = ID + ' - ' + StatusDescription"
+  ],
+  "conditions": [
+    "If session is using alternate language fields, use StatusDescriptionAlt; otherwise, use StatusDescription."
+  ],
+  "system_behavior": [
+    "All CRUD operations are routed via stored procedures.",
+    "All database connections are managed through session-based abstractions."
+  ],
+  "dependencies": [
+    "HSPnetSession infrastructure for database access.",
+    "ExpenseBatch stored procedures: ExpenseBatchSearch, ExpenseBatchSearchID, ExpenseBatchAdd, ExpenseBatchUpdate, ExpenseBatchDelete."
+  ],
+  "exceptions": [
+    "If result set is empty, return empty objects/lists.",
+    "If input parameters are invalid, stored procedures may fail or return no result."
+  ],
+  "source_document_ids": [
+    "060e08d3-49ca-5e40-bea0-849f4e6173e1",
+    "3559737f-0154-520e-be2b-d3dd2c3de539",
+    "b2216e58-a144-55cb-8b87-3da9787fc1d7"
+  ],
+  "content_gaps": [
+    "No explicit error handling logic is described.",
+    "No authorization or authentication checks are mentioned.",
+    "No detailed description of all possible status codes or their meanings."
+  ]
+}
