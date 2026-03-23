@@ -1,28 +1,32 @@
 {
-    "filename": "WelcomeStaffAdmin",
-    "found": true,
-    "summary": "The WelcomeStaffAdmin is a web form designed for administrative staff. It includes controls for entering and validating dates, dropdowns for site and discipline selection, and features for managing employment applications.",
-    "purpose": "To facilitate administrative functions related to staff management and site operations.",
-    "entities": [],
-    "fields": [],
-    "actors": [],
-    "workflows": [],
-    "business_rules": [],
-    "validations": [],
-    "calculations": [],
-    "conditions": [],
-    "system_behavior": [],
-    "dependencies": [],
-    "exceptions": [],
-    "source_document_ids": [
-        "05db31e4-e8b6-53ee-a6fb-812c106f0134",
-        "100d5925-a5f8-53db-8493-02cddd563eb7",
-        "3c84bade-9671-5fbf-acce-3c87a835e9b4",
-        "4c4b97b8-d242-5261-a515-767a3f7d7a49",
-        "52b5066f-23f6-5d82-96cd-5d51dad3de79",
-        "5bb85da3-f5b4-5753-b07c-9bb2a04eeb89",
-        "5d9b92ea-7c12-5070-8603-977cf14d0e04",
-        "54244516-0707-581e-a8ba-9c041ea38366"
+  "filename": "WelcomeStaffAdmin",
+  "found": true,
+  "summary": "Display welcome information for staff admins with last login details and specific JavaScript setups.",
+  "purpose": "To provide a personalized greeting page for staff administrators in HSPnet, displaying relevant information and links.",
+  "entities": [],
+  "fields": ["lblTitle", "ltlLastLogin", "dsEmploymentApplications"],
+  "actors": ["UserSession"],
+  "workflows": [
+      {
+        "name": "Display Last Login Panel",
+        "steps": [
+          "Retrieve last login details from UserSession.",
+          "Determine visibility based on data presence.",
+          "Format and display the timezone description."
+        ]
+      }
     ],
-    "content_gaps": []
+  "business_rules": [],
+  "validations": [],
+  "calculations": [],
+  "conditions": ["Check if UserSession is null to cancel operations"],
+  "system_behavior": ["Setup JavaScript for page functionality", "Page loading and event handling"],
+  "dependencies": [],
+  "exceptions": [],
+  "source_document_ids": [
+      "bf423a80-93db-572d-8cb8-c79f04214a93",
+      "ca71b077-cc26-5979-a44f-59700a41316b",
+      "e249a878-c837-5d1c-9a3d-5167df2614fb"
+    ],
+  "content_gaps": []
 }
