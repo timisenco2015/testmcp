@@ -1,0 +1,112 @@
+```json
+{
+  "filename": "MaintAgency",
+  "found": true,
+  "summary": "The 'MaintAgency' module is a web-based interface for managing agency details within the HSPnet system. It allows users to view, edit, add, and delete agency records using a detailed form and grid view. The module integrates various JavaScript functions and ASP.NET controls for data handling and validation.",
+  "purpose": "To provide a user interface for managing agency records including information such as name, address, contact details, and status within the HSPnet system.",
+  "entities": [
+    "Agency"
+  ],
+  "fields": [
+    "ID",
+    "Name",
+    "ShortName",
+    "PreviousName",
+    "PreviousNameEffectiveDate",
+    "AreaCode",
+    "ReceivingAgency",
+    "PlacingAgency",
+    "HSPnetMember",
+    "ContentAuthor",
+    "ContentManager",
+    "AllowPAL",
+    "UmbrellaAgency",
+    "UmbrellaDescription",
+    "Address1",
+    "Address2",
+    "City",
+    "Province",
+    "PostalCode",
+    "Phone",
+    "Fax"
+  ],
+  "actors": [
+    "UserSession"
+  ],
+  "workflows": [
+    {
+      "name": "Manage Agency Details",
+      "steps": [
+        "Load Page",
+        "Check User Permissions",
+        "Bind Data to Grid",
+        "Add or Edit Agency Details",
+        "Validate Input",
+        "Save or Cancel Changes",
+        "Update Data Grid"
+      ]
+    }
+  ],
+  "business_rules": [
+    "Only SystemAdministrators with edit privileges can modify data.",
+    "Agencies can be marked as Receiving, Placing, or both."
+  ],
+  "validations": [
+    "Phone and Fax numbers are validated through JavaScript functions if UsePhoneMask is enabled.",
+    "Agencies must have at least one role: Receiving or Placing."
+  ],
+  "calculations": [],
+  "conditions": [
+    "JavaScript toggles fields based on HSPnet member status.",
+    "Screen elements are enabled or disabled based on edit permissions."
+  ],
+  "system_behavior": [
+    "Page refreshes and data updates occur via asynchronous postbacks.",
+    "Grid actions (add, edit, delete) are handled through server-side event handlers."
+  ],
+  "dependencies": [
+    "HSPnet.DataLayer",
+    "HSPnet.Framework",
+    "HSPnet.App_GlobalResources",
+    "AjaxControlToolkit"
+  ],
+  "exceptions": [
+    "UserSession messages are used to display errors encountered during data operations."
+  ],
+  "source_document_ids": [
+    "3564fbf6-e9f9-51f9-a991-fcb4e1ac5cea",
+    "b46dbd65-8473-5f64-b54b-a49ae17b49e5",
+    "f98f3c61-500e-558a-ae5a-df3c35568bab",
+    "78eed937-e261-5c7d-b097-13e197d718b8",
+    "97479364-3f60-571f-8ce9-de203c92eaa9",
+    "2d06f9cb-6a06-565d-b8db-6c1b9f89828c",
+    "c64a195b-f89f-5c93-8e30-e5c4be4de9ce",
+    "15460aec-5b15-5e89-a50c-8d99228e2efd",
+    "00ec5cb3-a3dd-53cb-9fa9-8d07e4f006b3",
+    "40474778-bbae-57ce-85d4-84c0c62b8116",
+    "9bf80c03-bb13-5962-a117-f9c09f2bd372",
+    "d301d832-cc7c-5c82-a78d-5273aa1cd4e8",
+    "dfd04d69-9eeb-5bc3-bd90-2c842d36e1d5",
+    "2533eaf3-fadd-5d05-9ca7-41b293700245",
+    "0e632aa7-655e-543b-8f47-0840911d51d7",
+    "fef5e4e2-9379-58d8-a68f-16ec37819f13",
+    "4014ebbf-5d91-50d7-b875-2fa0cb83e10a",
+    "b37adb34-eba2-5e37-a76d-cf173c930cf4",
+    "51931559-b52b-5465-9920-f10f88125f12",
+    "fb3e5e5e-ee05-5e51-8236-dbdaad56a664",
+    "53edb692-5c5b-502e-94b8-315ac3d1679b",
+    "b18faeba-2cb9-5832-ac03-9a8a132911cb",
+    "9efa0685-7f25-5385-9fe3-8128462665c1",
+    "2cacb6cc-d5b3-5603-9530-92ccf064266f",
+    "4c95cb48-2ec4-5bdf-816b-462f5bc84b4b",
+    "cb4ef19f-c4a2-50ef-836f-35c4ec1678e2",
+    "2a3bdfa1-f264-58c5-95b0-d746ee239db5",
+    "8689ac57-d410-56da-aad2-c5b73a9467ec",
+    "9e31c139-f08c-5950-a115-98ddf9c3c35b",
+    "8f9d2fb7-4cef-5929-a79e-d1f43aae5bd4",
+    "1c33a9f1-ecf8-5654-8e6e-cc8a92ddb739",
+    "2d88d0e1-9f79-52ca-8dd2-e2fbfc99d4dc"
+  ],
+  "content_gaps": []
+}
+```
