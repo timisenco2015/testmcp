@@ -1,0 +1,57 @@
+{
+  "filename": "MaintProgramProfileHistory",
+  "found": true,
+  "summary": "The MaintProgramProfileHistory component is part of the HSPnet application. It involves a user control that manages the selection and display of program profile history data through a grid interface. It relies on user session data for accurate retrieval of program profiles.",
+  "purpose": "To display and manage the history of program profiles using a web interface.",
+  "entities": [],
+  "fields": [
+    {
+      "name": "Label1",
+      "description": "A label control auto-generated for the interface."
+    },
+    {
+      "name": "gridData",
+      "description": "A grid view control for displaying program profile data."
+    },
+    {
+      "name": "dsProgramProfileHistory",
+      "description": "An object data source for selecting program profile history."
+    }
+  ],
+  "actors": [
+    {
+      "name": "UserSession",
+      "description": "Manages user session details and agency information."
+    }
+  ],
+  "workflows": [
+    {
+      "name": "Program Profile History Selection",
+      "steps": [
+        "Check if UserSession is null.",
+        "Cancel selection if UserSession is null.",
+        "Set InputParameters for ProgramID, SessionAgencyID, and sess if UserSession is available."
+      ]
+    }
+  ],
+  "business_rules": [],
+  "validations": [
+    {
+      "condition": "UserSession is null",
+      "action": "Cancel the selection process."
+    }
+  ],
+  "calculations": [],
+  "conditions": [],
+  "system_behavior": [
+    "Auto-generated fields can be modified by moving declarations from designer file to code-behind file.",
+    "ProgramID and session-related data are utilized for data selection."
+  ],
+  "dependencies": [],
+  "exceptions": [],
+  "source_document_ids": [
+    "2d6858bc-c10e-5cbd-aac1-a6e161c16d1a",
+    "e9119bfe-56b4-52b7-8499-f8e20d213d0a"
+  ],
+  "content_gaps": []
+}
