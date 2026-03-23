@@ -1,60 +1,78 @@
 {
-    "filename": "SupervisorMessages",
-    "found": true,
-    "summary": "The SupervisorMessages file is part of the HSPnet system and involves functionalities related to supervisor assessments, session management, and change tracking. The file contains implementations for managing supervisor assessment views and updating session variables.",
-    "purpose": "To manage the display and functionality of supervisor messages and related assessments within the HSPnet system.",
-    "entities": [],
-    "fields": [
-      "UserSession",
-      "StaffID",
-      "ActivatedByAnotherAgency",
-      "gridRowCount",
-      "assignedHours",
-      "totalHours",
-      "SupervisorCaption",
-      "localSupervisorCaption",
-      "DepartmentUseAssessmentModule"
-    ],
-    "actors": [
-      "Supervisor",
-      "Student",
-      "UserSession"
-    ],
-    "workflows": [
-      {
-        "name": "Setup Supervisor Messages",
-        "steps": [
-          "Initialize session variables for agency, date, and welcome screen.",
-          "Bind assessment data to grid view.",
-          "Update session variables based on user actions."
-        ]
-      }
-    ],
-    "business_rules": [
-      "If the user session lacks certain variables, set defaults.",
-      "Ensure changes are only visible when a supervisor has been added or altered.",
-      "Session changes should be preserved for subsequent operations."
-    ],
-    "validations": [
-      "Verify supervisor message data before display.",
-      "Ensure assessment data is loaded correctly into the view."
-    ],
-    "calculations": [],
-    "conditions": [],
-    "system_behavior": [
-      "Displays supervisor messages and assessments.",
-      "Configures view elements based on session state.",
-      "Manages assessment data binding for supervisor views."
-    ],
-    "dependencies": [],
-    "exceptions": [],
-    "source_document_ids": [
-      "06c76b89-02fa-53bf-aff6-13f52528eace",
-      "228eda21-8657-5ecf-8fef-5e195b0c1f85",
-      "35510d44-1368-568b-933e-d11ce26fa3eb",
-      "57b7311c-d788-52a3-8e40-67ffb6073423",
-      "71290b85-74d0-5f81-929f-cf4c01ad9f01",
-      "7b7a92f2-8f50-5623-8223-7d2f60c2bafe"
-    ],
-    "content_gaps": []
-  }
+  "filename": "SupervisorMessages",
+  "found": true,
+  "summary": "The `SupervisorMessages` file is a part of a web-based system that manages and displays supervisor messages related to placement requests and assessments. It involves handling user sessions, setting up assessments, capturing changes, and interacting with various UI controls.",
+  "purpose": "To manage and display supervisor messages and assessments within a placement management web application.",
+  "entities": [],
+  "fields": [
+    "UserSession",
+    "StaffID",
+    "ActivatedByAnotherAgency",
+    "ViewState",
+    "SessionConstants",
+    "Dropdown",
+    "PlacementStatisticsDC",
+    "HyperLink",
+    "Label",
+    "Lite",
+    "LinkButton",
+    "ProfileIcon",
+    "fvwChanges",
+    "trHelpText",
+    "hlOverview",
+    "tRecentChangesByOthers"
+  ],
+  "actors": ["Supervisor", "UserSession"],
+  "workflows": [
+    {
+      "name": "Setup Assessments",
+      "steps": [
+        "Set data source for assessments",
+        "Bind data to GridView",
+        "Handle row data bound"
+      ]
+    }
+  ],
+  "business_rules": [
+    "Do not display duplicates of student assessment entries in GridView.",
+    "Highlight the correct row on command execution."
+  ],
+  "validations": [
+    "Check if DistributionOpenDate is before LocalDateTime.",
+    "Ensure ViewUntilDaysAfterEnd is within range."
+  ],
+  "calculations": [],
+  "conditions": [
+    "If data StatusCode is 'Distributed', check distribution date range.",
+    "If AssessorTypeCode is 'Student', handle view permissions accordingly."
+  ],
+  "system_behavior": [
+    "Changes various session variables based on the current session and user state.",
+    "Handles events to update the UI elements dynamically based on data bindings and command executions."
+  ],
+  "dependencies": [
+    "Session management",
+    "Data access layers for help and assessments"
+  ],
+  "exceptions": [
+    "Hide UI elements if no data is bound to the controls."
+  ],
+  "source_document_ids": [
+    "06c76b89-02fa-53bf-aff6-13f52528eace",
+    "0a741195-581d-5782-8813-2c5604e10b60",
+    "228eda21-8657-5ecf-8fef-5e195b0c1f85",
+    "35510d44-1368-568b-933e-d11ce26fa3eb",
+    "57b7311c-d788-52a3-8e40-67ffb6073423",
+    "646ef978-3471-5862-bf8f-01a18d2ee8f8",
+    "71290b85-74d0-5f81-929f-cf4c01ad9f01",
+    "7891b8ba-83e5-5a53-8072-976a5085d900",
+    "7b7a92f2-8f50-5623-8223-7d2f60c2bafe",
+    "adb832a4-9e62-54b5-a8ab-6cb541597cc9",
+    "bc0e2127-a69a-569a-8157-e1fecec556ef",
+    "d365848e-b32f-518e-a673-6da913c0648d",
+    "d38d1f06-6516-5e40-b754-f68a858f9bb1",
+    "d9194d4a-cc20-5d1e-a160-a70a3460f631",
+    "e75af57b-8cf2-581d-bd78-cb6bafdb925b"
+  ],
+  "content_gaps": []
+}
