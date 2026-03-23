@@ -1,0 +1,104 @@
+{
+  "filename": "RptMnuNextAssignmentReport",
+  "found": true,
+  "summary": "RptMnuNextAssignmentReport is an ASP.NET user control for generating a 'Next Assignment Report'. It enables users to select agencies, set date ranges, and export the report in Excel/CSV format. The control interfaces with a backend database and renders HTML/CSV output for reporting.",
+  "purpose": "To allow authorized users to generate, view, and export the Next Assignment Report based on specified agencies and date ranges.",
+  "entities": [
+    "HSPnetSession",
+    "ScriptManager",
+    "CodeRecord",
+    "Agencies",
+    "UCchoosersRcvAgency",
+    "SqlDataReader"
+  ],
+  "fields": [
+    "txtStartDate",
+    "txtEndDate",
+    "IncludedID",
+    "IncludedList",
+    "NotIncludedList",
+    "ltlDescription",
+    "ltlOptions",
+    "lblReportHTML",
+    "pnlReportHTML",
+    "lblPleaseWait"
+  ],
+  "actors": [
+    "UserSession",
+    "Page",
+    "ScriptMgr"
+  ],
+  "workflows": [
+    {
+      "name": "Generate and Export Next Assignment Report",
+      "steps": [
+        "User loads the report menu user control.",
+        "User selects receiving agencies via UCchoosersRcvAgency.",
+        "User sets start and end dates using txtStartDate and txtEndDate; both fields validated with RequiredFieldValidator and RegularExpressionValidator.",
+        "On cmdExcel_Click, parameters (SessionID, CutoverDate, NextCutoverDate, RcvAgencyList) are added to DB procedure ReportGoneTo.",
+        "Data is retrieved via UserSession.DB.GetData() and SqlDataReader.",
+        "Report output is rendered in HTML/CSV using ReportMain.OutputCSV.",
+        "HTML content is assigned to lblReportHTML and pnlReportHTML is set visible if reportHTML is not empty.",
+        "User can export the report using the Excel button (cmdRunExcel).",
+        "Page and ScriptManager setup JavaScript variables for fields on load/pre-render for client-side scripting."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Only agencies included in IncludedList are used in the report.",
+    "Start and end date fields are required and format-validated.",
+    "User session must be active for report generation.",
+    "Descriptions and options for the report are pulled from CodeRecord via Codes.CodeLookupCodes."
+  ],
+  "validations": [
+    "RequiredFieldValidator on txtStartDate and txtEndDate (valEditStartDate, valEditEndDate).",
+    "RegularExpressionValidator on txtStartDate and txtEndDate (RegularExpressionValidator1, RegularExpressionValidator2).",
+    "CustomValidator1 and CustomValidator2 for potentially custom business logic.",
+    "ValidationSummary control shows validation results."
+  ],
+  "calculations": [
+    "DateFormatter.ParseDate used to parse user-inputted date fields.",
+    "ReportMain.OutputCSV processes SqlDataReader and generates report output."
+  ],
+  "conditions": [
+    "If UserSession is null, no processing occurs.",
+    "If reportHTML is empty, pnlReportHTML is not shown.",
+    "ScriptMgr.IsInAsyncPostBack determines how JavaScript is registered."
+  ],
+  "system_behavior": [
+    "PreRender populates description and options literals from lookup codes.",
+    "UCchoosersRcvAgency.NotIncludedList is populated from Agencies.AgencySearchReceiving.",
+    "JavaScript variables setup for use in page scripts.",
+    "Report output rendered and displayed dynamically."
+  ],
+  "dependencies": [
+    "HSPnetSession (user session management)",
+    "ScriptManager (client scripting)",
+    "CodeRecord and Codes.CodeLookupCodes (for report metadata)",
+    "Agencies.AgencySearchReceiving (agency data)",
+    "DateFormatter.ParseDate (date parsing)",
+    "ReportMain.OutputCSV (report generation)",
+    "ASP.NET controls (for UI interactions)"
+  ],
+  "exceptions": [
+    "Empty reportHTML returns no visible report panel.",
+    "Invalid or missing required fields trigger validation errors.",
+    "UserSession null or expired disables report functionality."
+  ],
+  "source_document_ids": [
+    "211fb8e7-8c48-50f7-ab84-5ce082f240f7",
+    "4a35c40e-827e-5e32-99bd-831eda73a9d9",
+    "95f828d9-9a87-5908-bd52-a59f7deced04",
+    "b14daebe-0721-58e9-b748-5af163742356",
+    "cc718bd7-6ce9-5302-aa51-1ae72d14a833",
+    "cd709060-1d59-5e8a-9be2-c308121af558",
+    "e41929ce-b138-5dfe-8b0c-7efddd30fef2",
+    "f4c12dce-3136-519f-955a-9b1360ada872"
+  ],
+  "content_gaps": [
+    "No detailed business logic for custom validators.",
+    "No information regarding specific data fields in the output CSV.",
+    "No sample output or field mapping from SqlDataReader to report structure.",
+    "No explicit explanations for error handling or edge case management."
+  ]
+}
