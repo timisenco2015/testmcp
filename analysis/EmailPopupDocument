@@ -1,0 +1,82 @@
+```json
+{
+    "filename": "EmailPopupDocument",
+    "found": true,
+    "summary": "The retrieved content pertains to the management of a class called EmailPopupDocument, including its properties, construction, searching, and deletion logic.",
+    "purpose": "To handle email popup documents, including their instantiation, searching by data, and deletion from a list.",
+    "entities": [
+        "EmailPopupDocument",
+        "EmailPopupDocuments"
+    ],
+    "fields": [
+        {
+            "name": "ID",
+            "type": "int",
+            "description": "The unique identifier for each email popup document."
+        },
+        {
+            "name": "FileName",
+            "type": "string",
+            "description": "The name of the file."
+        },
+        {
+            "name": "FilePath",
+            "type": "string",
+            "description": "The path to the file."
+        },
+        {
+            "name": "Checked",
+            "type": "Boolean",
+            "description": "Status flag, presumably if the document has been checked or not."
+        }
+    ],
+    "actors": [],
+    "workflows": [
+        {
+            "name": "Search for email popup documents",
+            "steps": [
+                "Receive input string DataInfo with document details.",
+                "Split DataInfo by '|' to obtain individual document data.",
+                "For each email data string, split by '>' to extract FileName and FilePath.",
+                "Instantiate EmailPopupDocument with extracted FileName, FilePath, and assign ID.",
+                "Add the instantiated object to a list of EmailPopupDocuments.",
+                "Return the list."
+            ]
+        },
+        {
+            "name": "Delete an email popup document",
+            "steps": [
+                "Receive input string DataInfo and integer ID to identify the document to delete.",
+                "Verify if DataInfo is not empty.",
+                "Split DataInfo by '|' to iterate over email documents.",
+                "For the document at position ID, split its data to get FilePath.",
+                "Attempt to delete the file and its directory.",
+                "Concatenate remaining documents into a result string and return."
+            ]
+        }
+    ],
+    "business_rules": [],
+    "validations": [
+        "Check if DataInfo string is not empty before processing."
+    ],
+    "calculations": [],
+    "conditions": [],
+    "system_behavior": [
+        "If a document is identified for deletion, attempts are made to remove both the file and the folder it resides in."
+    ],
+    "dependencies": [
+        "System",
+        "System.Data.SqlClient",
+        "System.Collections.Generic",
+        "HSPnet.Framework",
+        "HSPnet.App_GlobalResources",
+        "System.IO"
+    ],
+    "exceptions": [],
+    "source_document_ids": [
+        "7287734e-f13d-550f-9249-4242db620766",
+        "927bc837-5564-5759-9324-27c6d5d7321d"
+    ],
+    "content_gaps": []
+}
+```
