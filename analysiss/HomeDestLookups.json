@@ -1,0 +1,76 @@
+{
+  "filename": "HomeDestLookups",
+  "found": true,
+  "summary": "The HomeDestLookups service provides AJAX Toolkit cascading dropdowns for retrieving various HomeDestination entities such as sites, destinations, and services associated with agencies. It involves multiple web methods designed to interact with the data layer to fetch results based on the given parameters and context keys.",
+  "purpose": "To facilitate AJAX Toolkit cascading dropdowns that dynamically fetch and display HomeDestination options based on user selections and context.",
+  "entities": ["HomeDestination", "Site", "Service", "Destination"],
+  "fields": ["knownCategoryValues", "category", "contextKey", "ServiceID", "SiteID", "sessionID", "agencyID", "destinationID"],
+  "actors": ["System.Web.Services.WebService", "HSPnetSession", "CascadingDropDown", "Sites", "Destinations", "Services"],
+  "workflows": [
+    {
+      "name": "GetHomeSites",
+      "steps": [
+        "Parse category to get the agency ID.",
+        "Fetch site list using the agency ID.",
+        "Iterate over site list and populate cascading dropdown values.",
+        "Return site names and IDs as dropdown options."
+      ]
+    },
+    {
+      "name": "GetHomeDest",
+      "steps": [
+        "Parse known category values for current category.",
+        "Fetch destination list using the category ID and service ID.",
+        "Iterate over destination list to match service ID.",
+        "Return destination names and IDs as dropdown options."
+      ]
+    },
+    {
+      "name": "GetHomeServices",
+      "steps": [
+        "Parse referer URL for session ID.",
+        "Fetch service list using the agency ID and session ID.",
+        "Iterate over service list to match site ID.",
+        "Return service names and IDs as dropdown options."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Web methods buffer responses and have a cache duration of 60 seconds.",
+    "Dropdowns populated based on matched IDs with given context keys."
+  ],
+  "validations": [
+    "Check if known category values contain the current category.",
+    "Validate non-nullity of referer URLs before parsing."
+  ],
+  "calculations": [
+    "Convert category and context keys to integers for ID extraction.",
+    "Derive session ID from referer hash."
+  ],
+  "conditions": [
+    "Proceed with dropdown population only if service/site IDs match.",
+    "Return null if category values are invalid or incomplete."
+  ],
+  "system_behavior": [
+    "AJAX Toolkit interacts with web methods to fetch dropdown data dynamically.",
+    "Uses session and agency data to refine search results."
+  ],
+  "dependencies": [
+    "HSPnet.DataLayer",
+    "HSPnet.Framework",
+    "AjaxControlToolkit"
+  ],
+  "exceptions": [
+    "Handles incomplete category values by returning null."
+  ],
+  "source_document_ids": [
+    "04d9347e-c6fb-5dcf-9a02-c8941c1681e7",
+    "0e716145-06b7-5a04-9263-c438f660b7e7",
+    "3624f1ca-9731-57f7-a4bd-052d3d6d911b",
+    "4eb6638e-6b2b-5a4e-812b-566260145aab",
+    "7898228d-c130-5d4e-9ad3-e07affe6eff1",
+    "c7d9bf63-18aa-5f02-aba3-2247696b6b60",
+    "cf113f09-95bc-5de2-a3f3-c10fccc9ab45"
+  ],
+  "content_gaps": []
+}
