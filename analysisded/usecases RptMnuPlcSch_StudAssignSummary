@@ -1,0 +1,49 @@
+# Module: RptMnuPlcSch_StudAssignSummary
+
+## RptMnuPlcSch_StudAssignSummary-UC1 — Generate Student Assignment Summary Report
+
+- Primary Actor(s):
+  - User (Instructor, Administrator)
+- Secondary Actor(s):
+  - System
+
+- Trigger:
+  - User clicks the "Run Report" button.
+
+- Description:
+  - The user can generate a report summarizing student assignments within the placement schedule module. This action involves selecting various options and settings to customize the report output.
+
+- Preconditions:
+  - User must be logged into the system.
+  - Appropriate permissions to access the report module.
+  - Session must not be null.
+
+- Postconditions:
+  - A report is created with selected customizations, such as contact info, shift schedules, and student internal comments.
+
+- Main Success Scenario:
+  1. User selects desired options including campus, department, program, and cohort.
+  2. User chooses report format options: single PDF or individual files.
+  3. User specifies whether to include additional information like preceptor contact details and shift schedule.
+  4. User clicks the "Run Report" button.
+  5. System gathers necessary data and generates the report.
+
+- Extensions:
+  - If user changes department, program dropdown is repopulated.
+
+- Exceptions:
+  - User session is null, selection process is cancelled.
+  - Maximum allowable items exceeded, report generation is restricted.
+
+- Business Rules:
+  - Maximum include items are enforced for report generation.
+  - User permissions determine visibility and accessibility of fields and options.
+
+- Assumptions:
+  - User understands and selects appropriate reporting options based on permissions.
+  - System resources are available to generate timely reports.
+
+- Open Issues:
+  - Potential enhancements for dynamic report customization feedback. 
+
+(Repeat for all use cases)
