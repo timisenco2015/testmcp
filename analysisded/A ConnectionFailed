@@ -1,0 +1,60 @@
+```json
+{
+  "filename": "ConnectionFailed",
+  "found": true,
+  "summary": "The 'ConnectionFailed' page is an ASP.NET page used to communicate connection failure messages to users in either English or French language, depending on the user's locale settings.",
+  "purpose": "To display a message to users when a connection failure occurs and to provide links to relevant resources like contact, glossary, and feedback.",
+  "entities": [
+    "HSPnet.ConnectionFailed"
+  ],
+  "fields": [
+    "HeaderEN",
+    "HeaderFR",
+    "uxErrorMessage"
+  ],
+  "actors": [],
+  "workflows": [
+    {
+      "name": "Page Load",
+      "steps": [
+        "Determine locale from query string.",
+        "Display HeaderEN if locale is 'en-US' or empty.",
+        "Display HeaderFR if locale is 'fr-CA'."
+      ]
+    },
+    {
+      "name": "Initialize Culture",
+      "steps": [
+        "Retrieve locale from query string.",
+        "Set CurrentUICulture and CurrentCulture based on retrieved locale."
+      ]
+    }
+  ],
+  "business_rules": [],
+  "validations": [],
+  "calculations": [],
+  "conditions": [
+    "Locale equals 'en-US' or is empty",
+    "Locale equals 'fr-CA'"
+  ],
+  "system_behavior": [
+    "Automatically determines and sets user interface culture based on locale parameter.",
+    "Displays appropriate language content based on user's locale."
+  ],
+  "dependencies": [
+    "System.Web.UI.Page",
+    "System.Web.UI.WebControls.Panel",
+    "System.Web.UI.WebControls.Label",
+    "System.Threading",
+    "System.Globalization"
+  ],
+  "exceptions": [],
+  "source_document_ids": [
+    "1b519992-db1d-5f57-b018-a0e1befe8491",
+    "5ba21fbf-7905-59e7-90cb-c18e7f0bb6fb",
+    "83674888-1068-5d79-8a82-659f9547d3c0",
+    "8aaa6f24-0523-5c88-a8bb-fc0af3303321"
+  ],
+  "content_gaps": []
+}
+```
