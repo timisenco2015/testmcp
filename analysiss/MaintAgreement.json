@@ -1,34 +1,42 @@
 {
   "filename": "MaintAgreement",
   "found": true,
-  "summary": "The document appears to be a VBScript file used for web-based screen rendering, specifically for a screen named 'MaintAgreement'. It includes a directive to enable session state and buffer responses, and also includes another file named 'DoScreen.asp'.",
-  "purpose": "To render a web-based screen called 'MaintAgreement' using VBScript, possibly as part of a larger application.",
+  "summary": "The document appears to be a script related to a screen named 'MaintAgreement'. It includes VBScript code for server-side processing with session state disabled.",
+  "purpose": "This file likely serves as a server-side script for handling web page interactions related to maintenance agreements.",
   "entities": [],
-  "fields": [],
+  "fields": [
+    {
+      "name": "strScreenName",
+      "description": "Represents the screen name for which the script is executed, set to 'MaintAgreement'."
+    }
+  ],
   "actors": [],
   "workflows": [
     {
-      "name": "Screen Rendering Workflow",
+      "name": "Load MaintAgreement Screen",
       "steps": [
-        "Set scripting language to VBScript.",
-        "Enable session state and response buffering.",
-        "Declare and set screen name to 'MaintAgreement'.",
-        "Include external script '/HSPnet/DoScreen.asp' to handle screen-specific rendering."
+        "Set the screen name to 'MaintAgreement'.",
+        "Include the server-side processing script 'DoScreen.asp'."
       ]
     }
   ],
-  "business_rules": [
-    "The screen name must be set explicitly as 'MaintAgreement'."
-  ],
+  "business_rules": [],
   "validations": [],
   "calculations": [],
-  "conditions": [],
+  "conditions": [
+    {
+      "description": "Session state is disabled for this script."
+    }
+  ],
   "system_behavior": [
-    "The system buffers responses to ensure smooth user experience.",
-    "Session state is maintained for user interactions."
+    {
+      "description": "The script sets the response buffer and expiration."
+    }
   ],
   "dependencies": [
-    "Dependency on external script: '/HSPnet/DoScreen.asp'."
+    {
+      "description": "Depends on the inclusion of 'DoScreen.asp'."
+    }
   ],
   "exceptions": [],
   "source_document_ids": [
