@@ -1,0 +1,90 @@
+{
+  "filename": "ETopicHistory",
+  "found": true,
+  "summary": "ETopicHistory manages and displays historical log entries related to electronic topics within HSPnet.",
+  "purpose": "To provide detailed history tracking for electronic topics, including actions taken, user details, and timestamps.",
+  "entities": [
+    "ETopicHistory",
+    "HSPnetSession",
+    "Phone",
+    "NameFormatter",
+    "Resources"
+  ],
+  "fields": [
+    "ActionDate",
+    "ScreenSection",
+    "UserAction",
+    "Fields",
+    "Agency",
+    "AgencyName",
+    "LastName",
+    "FirstName",
+    "MiddleName",
+    "Phone",
+    "ByUserID",
+    "ByOriginalUserID",
+    "ByUserSysAdmin"
+  ],
+  "actors": [
+    "User",
+    "Administrator",
+    "Support Team"
+  ],
+  "workflows": [
+    {
+      "name": "Fill History List",
+      "steps": [
+        "Query database for history records.",
+        "Populate the ETopicHistory object with data from the query.",
+        "Format user information using NameFormatter.",
+        "Return history entry list."
+      ]
+    },
+    {
+      "name": "Load ETopic History",
+      "steps": [
+        "Validate URL hash.",
+        "Set page titles based on history type.",
+        "Load history records into the user interface controls."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Use alternate fields if Session.UseAltLanguageFields is true.",
+    "Populate all fields for the history entity."
+  ],
+  "validations": [
+    "URL hash should be valid.",
+    "Fields must not be null when filling history data."
+  ],
+  "calculations": [],
+  "conditions": [
+    "Session.UseAltLanguageFields determines field selection.",
+    "Compare ByUserID and ByOriginalUserID for tooltip details."
+  ],
+  "system_behavior": [
+    "Displays history entries for electronic topics.",
+    "Updates UI controls based on history data."
+  ],
+  "dependencies": [
+    "Resources",
+    "Database",
+    "HSPnet",
+    "SqlDataReader"
+  ],
+  "exceptions": [],
+  "source_document_ids": [
+    "41f66a30-b45f-5ded-b086-eb1cfb766c4b",
+    "4ac8f5d7-a394-5340-b377-5dcad9fda2a6",
+    "635b3fa2-9353-515c-9a8e-a045bc3b188f",
+    "9338cdad-d443-5bb7-996c-455080c9df71",
+    "98329d31-a2fc-53a9-81b1-11e4f034daff",
+    "b4dc85d3-bacd-5a33-baf5-076d4c563821",
+    "b55974d7-2f73-5100-9a9b-3d04c0adf479",
+    "bd6ed3b4-0edd-593f-aefe-4a06dfe12370",
+    "c97dc701-b583-5e4c-af47-8763c7d2fa97",
+    "de2da1c1-154e-5e55-9782-b9cd7cb9fcdd",
+    "fadb7df0-a45a-5d45-85b1-275821f1f652"
+  ],
+  "content_gaps": []
+}
