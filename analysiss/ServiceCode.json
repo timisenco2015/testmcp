@@ -1,17 +1,57 @@
 {
   "filename": "ServiceCode",
   "found": true,
-  "summary": "This class manages service codes, providing functionalities to list and search for service codes.",
-  "purpose": "To handle and retrieve service code data based on various parameters.",
-  "entities": ["ServiceCode", "ServiceCodes"],
-  "fields": ["ID", "CodeCategoryID", "ShortName", "Name", "SortOrder", "Notes", "NameAlt", "NotesAlt"],
+  "summary": "Class definition and methods for ServiceCode management.",
+  "purpose": "Handle service codes relevant to courses and timetables within the system.",
+  "entities": [
+    "ServiceCode"
+  ],
+  "fields": [
+    "ID",
+    "CodeCategoryID",
+    "ShortName",
+    "Name",
+    "SortOrder",
+    "Notes",
+    "NameAlt",
+    "NotesAlt"
+  ],
   "actors": [],
-  "workflows": [],
-  "business_rules": [],
+  "workflows": [
+    {
+      "name": "Fetch All Service Codes",
+      "steps": [
+        "Retrieve all service codes through stored procedure",
+        "Localize using alt-language if applicable",
+        "Return list of service codes"
+      ]
+    },
+    {
+      "name": "Fetch Service Codes by Course",
+      "steps": [
+        "Retrieve service codes for specific course through stored procedure",
+        "Localize using alt-language if applicable",
+        "Return list of service codes"
+      ]
+    },
+    {
+      "name": "Fetch Service Codes by Timetable",
+      "steps": [
+        "Retrieve service codes for specific timetable through stored procedure",
+        "Localize using alt-language if applicable",
+        "Return list of service codes"
+      ]
+    }
+  ],
+  "business_rules": [
+    "Use alt-language data if running in alt language mode."
+  ],
   "validations": [],
   "calculations": [],
   "conditions": [],
-  "system_behavior": [],
+  "system_behavior": [
+    "Manages service codes through database operations with localization support."
+  ],
   "dependencies": [],
   "exceptions": [],
   "source_document_ids": [
