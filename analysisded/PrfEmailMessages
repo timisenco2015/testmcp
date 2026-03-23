@@ -1,0 +1,107 @@
+```json
+{
+  "filename": "PrfEmailMessages",
+  "found": true,
+  "summary": "The PrfEmailMessages code manages the user interface for viewing, editing, and inserting staff email messages in the HSPnet system.",
+  "purpose": "To provide a user control for staff email message management, including displaying, editing, and inserting messages within a web application.",
+  "entities": [
+    "HSPnetSession",
+    "StaffID",
+    "StaffMessage",
+    "UserSession"
+  ],
+  "fields": [
+    "mdlDetails",
+    "ValidationSummary1",
+    "uxDetail",
+    "dsStaffMessagesID",
+    "dsType",
+    "ScreenIsEditable",
+    "ReadOnly",
+    "ScriptMgr",
+    "CurrentPage"
+  ],
+  "actors": [
+    "UserSession"
+  ],
+  "workflows": [
+    {
+      "name": "uxDetail Data Bound",
+      "steps": [
+        "Check if uxDetail row and data item exist.",
+        "If exists, find and select value in TypeCodeID dropdown."
+      ]
+    },
+    {
+      "name": "uxDetail PreRender",
+      "steps": [
+        "Find 'cmdSave' button.",
+        "Set visibility based on ScreenIsEditable and uxDetail mode."
+      ]
+    },
+    {
+      "name": "uxDetail Item Inserting",
+      "steps": [
+        "Check if page is valid.",
+        "Retrieve TypeCodeID from dropdown."
+      ]
+    },
+    {
+      "name": "Data Selection",
+      "steps": [
+        "Check UserSession validity.",
+        "Set input parameters for data retrieval."
+      ]
+    },
+    {
+      "name": "Data Bound",
+      "steps": [
+        "Toggle empty data panel based on row count and ScreenIsEditable."
+      ]
+    },
+    {
+      "name": "Row Command Handling",
+      "steps": [
+        "Handle add, edit, and delete commands using grid controls."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Auto-generated fields should be managed via code-behind.",
+    "FormView's visibility and editability is dependent on ScreenIsEditable flag."
+  ],
+  "validations": [
+    "Cancel operations if Page is not valid.",
+    "Ensure UserSession is valid before selecting or updating."
+  ],
+  "calculations": [
+    "Redirect URLs include query string values, such as CurrentPage."
+  ],
+  "conditions": [
+    "ScreenIsEditable dictates visual components' enablement.",
+    "UserSession must be valid for data operations."
+  ],
+  "system_behavior": [
+    "Cache the user session after certain operations.",
+    "Redirect to the current page after data operations."
+  ],
+  "dependencies": [
+    "System.Web.UI",
+    "AjaxControlToolkit",
+    "HSPnet.DataLayer"
+  ],
+  "exceptions": [
+    "Operations are canceled if Page is not valid or UserSession is null."
+  ],
+  "source_document_ids": [
+    "54eb7f90-aa81-5c73-9edf-449b18368886",
+    "747bb576-2d1e-515e-844c-e5b69a297c7f",
+    "766d2735-749a-5eca-9d70-13ff77e83546",
+    "cf2f0c7f-251f-5853-a971-0e529d5cb0f0",
+    "d2df2107-29e7-5d6e-aafe-d55e8532eeca",
+    "edab8455-e683-5ca9-84d6-77349d98c7a5",
+    "f8b1f8d2-c584-576d-b5c1-20135d6f0924"
+  ],
+  "content_gaps": []
+}
+```
