@@ -1,0 +1,52 @@
+{
+  "filename": "AdHocQuery",
+  "found": true,
+  "summary": "The AdHocQuery file defines a static C# class for converting a SqlDataReader's data into an HTML table. It systematically generates table headers, rows, and footers by iterating over the fields and rows of the data reader, rendering null values as 'NULL' and ensuring all values are HTML-encoded inside table cells.",
+  "purpose": "To transform SQL query results (from SqlDataReader) into an HTML table representation for display purposes.",
+  "entities": ["SqlDataReader", "StringBuilder", "HTML Table"],
+  "fields": ["dr (SqlDataReader input)", "FieldCount", "GetName(i)", "GetValue(i)"],
+  "actors": ["Application code invoking AdHocQuery", "Database returning SqlDataReader"],
+  "workflows": [
+    {
+      "name": "DataReaderToHTMLTable generation",
+      "steps": [
+        "Check if SqlDataReader contains rows",
+        "Append HTML table header using field names",
+        "Iterate through each row in SqlDataReader",
+        "For each field, check for NULL or value and append table data cell accordingly",
+        "Append all data rows",
+        "Append table footer"
+      ]
+    }
+  ],
+  "business_rules": [
+    "Render NULL for any database null values",
+    "Wrap each row in <tr> and each field in <td>",
+    "Table always uses class 'help-table' and border=1"
+  ],
+  "validations": [
+    "Check dr.HasRows before rendering table"
+  ],
+  "calculations": [],
+  "conditions": [
+    "If dr.IsDBNull(i), render 'NULL'; else, render value"
+  ],
+  "system_behavior": [
+    "Returns the complete HTML table as a string for rendering"
+  ],
+  "dependencies": [
+    "System.Data.SqlClient",
+    "System.Text",
+    "HSPnet.Framework",
+    "HSPnet.App_GlobalResources"
+  ],
+  "exceptions": [],
+  "source_document_ids": [
+    "20140dcf-7d8e-51f1-86ab-4b5a291db2b2",
+    "2878adb2-c26b-5d41-a6a4-d9f5a2c2c782"
+  ],
+  "content_gaps": [
+    "No explicit handling for SQL or HTML injection",
+    "No mention of HTML encoding for special characters"
+  ]
+}
