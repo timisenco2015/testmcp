@@ -1,121 +1,69 @@
 {
   "filename": "calendar",
   "found": true,
-  "summary": "The documents outline a JavaScript-based calendar popup system, providing functions for displaying, interacting with, and managing calendar objects in both DIV and window formats. It includes functionalities for navigating by month, quarter, and year, supporting dropdowns for quick selection, and enables customization through CSS styles, date formats, and disabled date ranges.",
-  "purpose": "Enable users to select dates through a JavaScript-driven calendar interface, which can be integrated into web pages for various applications requiring date inputs.",
+  "summary": "The retrieved content represents a JavaScript library for creating and handling popup calendars on a webpage. It provides mechanisms for displaying calendars in various formats, setting specific dates or ranges as unselectable, and customizing the appearance and behavior of the calendar through CSS and JavaScript functions.",
+  "purpose": "This library is used to add interactive calendar functionality to web applications. It allows users to select dates and provides configurations for different calendar displays, like months, quarters, and years, as well as support for international date formatting.",
   "entities": [],
   "fields": [
-    {
-      "name": "currentDate",
-      "description": "The currently selected date in the calendar."
-    },
-    {
-      "name": "monthNames",
-      "description": "An array of month names used in the calendar display."
-    },
-    {
-      "name": "monthAbbreviations",
-      "description": "An array of month abbreviations used in the calendar display."
-    },
-    {
-      "name": "dayHeaders",
-      "description": "Headers for days of the week on the calendar, customizable by the user."
-    },
-    {
-      "name": "displayType",
-      "description": "The type of calendar view: date, month, quarter, or year."
-    },
-    {
-      "name": "disabledWeekDays",
-      "description": "Object defining weekdays that are not selectable in the calendar."
-    },
-    {
-      "name": "disabledDatesExpression",
-      "description": "Logical expression for dates that are disabled in the calendar."
-    },
-    {
-      "name": "todayText",
-      "description": "Text for the link displaying today's date on the calendar."
-    }
+    "monthNames",
+    "monthAbbreviations",
+    "dayHeaders",
+    "weekStartDay",
+    "disabledWeekDays",
+    "disabledDatesExpression",
+    "yearSelectStartOffset",
+    "cssPrefix",
+    "displayType",
+    "todayText"
   ],
   "actors": [
-    {
-      "name": "User",
-      "description": "Interacts with the calendar to select dates."
-    },
-    {
-      "name": "Web Developer",
-      "description": "Integrates and configures the calendar into web applications."
-    }
+    "User",
+    "Developer"
   ],
   "workflows": [
     {
-      "name": "Show Calendar",
+      "name": "Display Calendar",
       "steps": [
-        "Trigger calendar display with showCalendar() relative to an anchor.",
-        "Use getAnchorPosition() or getAnchorWindowPosition() to determine display coordinates.",
-        "Render the calendar using the current or specified date."
+        "Initialize CalendarPopup object",
+        "Set display type (e.g., date, month, year)",
+        "Configure appearance and behavior via settings (e.g., CSS prefix, disabled dates)",
+        "Show calendar using showCalendar(anchorname)"
       ]
     },
     {
       "name": "Select Date",
       "steps": [
-        "User clicks a date on the calendar.",
-        "run setReturnFunction() to pass the selected date to a specified function.",
-        "Update input field if linked using CP_select()."
-      ]
-    },
-    {
-      "name": "Navigate Calendar",
-      "steps": [
-        "Use month or year navigation links or dropdowns to change the calendar view.",
-        "Refresh calendar view using CP_refreshCalendar with new month/year values."
+        "User clicks on a calendar element",
+        "Invoke setReturnFunction to handle selection",
+        "Return selected date in specified format"
       ]
     }
   ],
   "business_rules": [
-    "Calendar should only display selectable dates unless specified otherwise by disabledWeekDays or addDisabledDates().",
-    "Dropdowns or input boxes can be used for navigation if enabled by showNavigationDropdowns() or showYearNavigationInput()."
+    "Supports multiple date formats for internationalization",
+    "Calendar can be displayed as a DIV or separate window",
+    "Anchor tags must have both NAME and ID attributes"
   ],
   "validations": [
-    {
-      "rule": "Ensure date inputs are valid using isDate() before processing.",
-      "detail": "Leverage getDateFromFormat() to parse and validate date strings."
-    }
+    "Check if input object is a valid form input",
+    "Validate date format using getDateFromFormat()"
   ],
-  "calculations": [
-    {
-      "name": "Leap Year Calculation",
-      "description": "Adjust February days based on leap year status."
-    }
-  ],
+  "calculations": [],
   "conditions": [
-    {
-      "condition": "Calendar visibility",
-      "description": "Determined by user interactions such as clicking outside to auto-hide."
-    }
+    "If display_month < 1, adjust year and month accordingly",
+    "Leap year adjustment for February"
   ],
   "system_behavior": [
-    {
-      "behavior": "Auto-hide calendar on mouse click outside the element.",
-      "description": "Enabled through PopupWindow_autoHide()."
-    }
+    "Popup calendars can auto-hide when clicks occur outside them",
+    "Dropdowns for month and year navigation are optional"
   ],
   "dependencies": [
-    {
-      "dependency": "AnchorPosition.js",
-      "description": "Required for positioning the calendar relative to page or window."
-    },
-    {
-      "dependency": "date.js",
-      "description": "Required for parsing and formatting date strings."
-    }
+    "AnchorPosition.js",
+    "date.js"
   ],
   "exceptions": [
-    {
-      "exception": "Invalid Date Format",
-      "resolution": "Return 0 from getDateFromFormat() if date does not match expected format."
-    }
+    "Invalid display type alert",
+    "Error alert for invalid form input"
   ],
   "source_document_ids": [
     "012354d8-7dc0-5892-866f-fe75c1bdb03b",
