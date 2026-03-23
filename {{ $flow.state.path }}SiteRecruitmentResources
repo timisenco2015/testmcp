@@ -1,0 +1,79 @@
+```json
+{
+  "filename": "SiteRecruitmentResources",
+  "found": true,
+  "summary": "The 'SiteRecruitmentResources' is a user control for managing recruitment resources at a site, involving actions like editing recruitment details and updating site profiles.",
+  "purpose": "The purpose of 'SiteRecruitmentResources' is to facilitate the management of recruitment resources within a site's profile, allowing users to view, edit, and update recruitment details.",
+  "entities": [],
+  "fields": [
+    "updPnlPopup",
+    "btnShowPopup",
+    "mdlDetails",
+    "ValidationSummary1",
+    "uxDetail",
+    "dsSiteDetail",
+    "updPnlProfile",
+    "fvwProfile",
+    "pnlPopup",
+    "UserSession",
+    "ScreenIsEditable",
+    "SiteID",
+    "ScriptMgr"
+  ],
+  "actors": [],
+  "workflows": [
+    {
+      "name": "Edit Site Recruitment Resource",
+      "steps": [
+        "Invoke cmdEdit_click to change mode to edit and set header text.",
+        "Show details in uxDetail using Grid.ShowDetails.",
+        "Bind SiteID to dsSiteDetail."
+      ]
+    },
+    {
+      "name": "Save Recruitment Details",
+      "steps": [
+        "Command cmdSave gets invoked.",
+        "Retrieve ID from data key.",
+        "Fetch values for webPage, recruitmentRefNo, and recruitmentClosed.",
+        "Call Sites.UpdateRecruitmentResources with session, ID, and fetched values."
+      ]
+    },
+    {
+      "name": "Redirect on Command",
+      "steps": [
+        "Check if e.CommandName is not 'cmdCancel'.",
+        "Cache user session.",
+        "Redirect with suitable query string and conditions."
+      ]
+    }
+  ],
+  "business_rules": [],
+  "validations": [],
+  "calculations": [],
+  "conditions": [
+    "Check if UserSession is null in dsSiteDetail_Selecting to cancel.",
+    "Set InputParameters for sess and SiteID if UserSession exists."
+  ],
+  "system_behavior": [
+    "Auto-generated fields are used and modified through code-behind files.",
+    "Interfaces with HSPnetSession and caching mechanisms."
+  ],
+  "dependencies": [
+    "HSPnet.App_GlobalResources",
+    "HSPnet.DataLayer",
+    "HSPnet.UI",
+    "HSPnet.Framework"
+  ],
+  "exceptions": [
+    "Cancel actions if UserSession is null in selection process."
+  ],
+  "source_document_ids": [
+    "2d4e39aa-3711-5891-9efb-c1e9d0379093",
+    "456dd6b9-b89b-5a65-b681-2aa917a399a8",
+    "a61db9ae-f959-5975-ac27-4e818c75be32",
+    "cb4e80a6-37e6-5555-bfe5-d164c8ef5f87"
+  ],
+  "content_gaps": []
+}
+```
