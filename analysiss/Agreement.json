@@ -1,8 +1,8 @@
 {
   "filename": "Agreement",
   "found": true,
-  "summary": "The Agreement component handles operations related to the management of agreements, including searching, adding, updating, and displaying agreements. The system is designed to handle agreements with templates and provide interface elements based on the user's access rights. The data layer leverages a database session to perform operations on the agreements.",
-  "purpose": "To manage agreements through a series of workflows that allow for adding, updating, viewing, and organizing agreements and their associated templates.",
+  "summary": "This content primarily involves the management of agreements within a system, comprising functionalities to add, update, delete, and search agreements. It details the procedures, methods, and properties associated with handling agreement templates, status, navigation, and database interactions.",
+  "purpose": "The purpose of this content is to outline the backend functionalities for managing agreements in a system, including actions such as adding, updating, searching, and interacting with agreements and their templates.",
   "entities": [
     "Agreement",
     "HSPnetSession",
@@ -50,6 +50,12 @@
     "AgreementExists",
     "Inactive",
     "SiteListing",
+    "OtherSourceDescription",
+    "AppliedAllDepartmentsFormatted",
+    "AppliedAllProgramsFormatted",
+    "AppliedAllSitesFormatted",
+    "AppliedAllServicesFormatted",
+    "AppliedAllDestinationsFormatted",
     "LastUpdatedFormatted",
     "LastReviewFormatted",
     "NextReviewFormatted",
@@ -68,66 +74,74 @@
     "Detail"
   ],
   "actors": [
-    "Users",
-    "CAUsers"
+    "System",
+    "User",
+    "Database"
   ],
   "workflows": [
     {
       "name": "Agreement Search",
       "steps": [
-        "Use AgreementSearchTemplate stored procedure",
-        "Add session parameters to DB",
-        "Process results into Agreement list"
+        "Set procedure to AgreementSearchTemplate.",
+        "Add necessary parameters (SessionID, New, Pending, etc.).",
+        "Execute database call to fetch data.",
+        "Iterate through reader and populate Agreement objects.",
+        "Return the list of agreements."
       ]
     },
     {
       "name": "Agreement Add",
       "steps": [
-        "Call AgreementAdd stored procedure",
-        "Add session and agreement parameters to DB",
-        "Return new agreement ID on success"
+        "Set procedure to AgreementAdd.",
+        "Add necessary parameters (SessionID, DescriptionID, etc.).",
+        "Execute procedure and read returned data.",
+        "Return new Agreement ID."
       ]
     },
     {
       "name": "Agreement Update",
       "steps": [
-        "Call AgreementUpdate stored procedure",
-        "Add session and agreement parameters to DB"
+        "Set procedure to AgreementUpdate.",
+        "Add necessary parameters (AgreementID, NextReview, etc.).",
+        "Execute update procedure."
       ]
     },
     {
       "name": "Agreement Delete",
       "steps": [
-        "Call AgreementDelete stored procedure",
-        "Add agreement ID parameter",
-        "Execute query to delete agreement"
+        "Set procedure to AgreementDelete.",
+        "Add AgreementID parameter.",
+        "Execute delete procedure."
       ]
     }
   ],
   "business_rules": [
-    "Only existing agreements can be viewed or edited.",
-    "Template records behave differently based on user access rights."
+    "Only CA users can list other Agencies.",
+    "Template exists if AgreementExists is true.",
+    "Templates are not displayed if user does not have edit rights."
   ],
   "validations": [
-    "Check that startIndex and endIndex are valid indices when setting group lists.",
-    "Validate that the agreement ID exists before updating or deleting."
+    "Verify if AgreementID exists before update.",
+    "Ensure valid dates for LastUpdated and ExpiryDate.",
+    "Validate user permissions for editing templates."
   ],
   "calculations": [],
   "conditions": [
-    "Display agreements differently based on TemplateExists flag and user's edit rights.",
-    "Render LastUpdated in red if ExpiryDate is before today's date."
+    "Check if AgreementExists to display or edit templates.",
+    "Check user permissions (canEdit) to grant actions on templates."
   ],
   "system_behavior": [
-    "Load agreement data from database through stored procedures.",
-    "Toggle UI components based on agreement data and user rights."
+    "Fetch and list agreements based on search criteria.",
+    "Add new agreements through stored procedures.",
+    "Update or delete agreements with verification of existence."
   ],
   "dependencies": [
-    "HSPnet Framework",
-    "System.Data.SqlClient"
+    "AgreementAdd",
+    "AgreementSearchTemplate",
+    "AgreementUpdate",
+    "AgreementDelete"
   ],
-  "exceptions": [
-    "Handle cases where SqlDataReader is null or fails to read data."
-  ],
+  "exceptions": [],
   "source_document_ids": [
     "1ba6c2bc-e058-582c-85e1-da0f1117a1a5",
     "47f70ad1-b18e-5473-8ebf-54139a777c97",
