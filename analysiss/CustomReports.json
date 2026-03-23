@@ -1,8 +1,8 @@
 {
   "filename": "CustomReports",
   "found": true,
-  "summary": "The CustomReports module handles the creation, management, and processing of custom reports within the system. It includes functionality for adding, updating, searching, and managing custom reports and their parameters.",
-  "purpose": "To enable users to request, create, and manage custom reports, facilitating data retrieval and distribution according to user-specified parameters.",
+  "summary": "The CustomReports module manages various operations related to custom reports within the application, including creation, update, retrieval, and cancellation of custom reports. It handles file attachments, user requests, and report parameters.",
+  "purpose": "To facilitate the generation, management, and distribution of custom reports based on specific user or system requirements.",
   "entities": [],
   "fields": [
     "ID",
@@ -17,67 +17,82 @@
     "LastUpdateDate",
     "LastUpdateByUserID",
     "ReturnedToUserDate",
-    "PastDetails",
     "StatusCodeID",
     "FileURL",
     "FilePath",
     "FileSize",
     "FileType",
     "FileTypeAlt",
-    "FileUpdateDate",
-    "ByUserId",
-    "LastName",
-    "FirstName",
-    "MiddleName",
-    "Status",
+    "RequestedByStaffID",
     "RequestedByAgency",
     "RequestedByDepartment",
+    "RequestedByFirstName",
+    "RequestedByLastName",
+    "RequestedByMiddleName",
     "RequestedByEmail",
-    "ParameterList"
+    "RequestedByPhone",
+    "RequestedByFax",
+    "Status",
+    "StatusCode",
+    "PastDetails"
   ],
-  "actors": [
-    "User",
-    "Sysadmin"
-  ],
+  "actors": ["User", "SysAdmin"],
   "workflows": [
     {
-      "name": "Custom Report Request Workflow",
+      "name": "Create Custom Report",
       "steps": [
-        "User requests a custom report with specified parameters.",
-        "System validates the request.",
-        "If valid, the request is saved, and an ID is generated.",
-        "The user may update the report details or parameters.",
-        "System processes the report and updates status.",
-        "Completed reports are available for download."
+        "User initiates a report request by providing necessary details including report type, purpose, and audience.",
+        "System stores the request along with user details.",
+        "The report is processed and stored as a file if applicable."
+      ]
+    },
+    {
+      "name": "Update Custom Report",
+      "steps": [
+        "User updates existing report details or parameters.",
+        "System validates updates and stores them, notifying users if successful."
+      ]
+    },
+    {
+      "name": "Cancel Report",
+      "steps": [
+        "User requests cancellation of a report.",
+        "System flags the report as canceled and updates the status."
+      ]
+    },
+    {
+      "name": "Complete Report without File",
+      "steps": [
+        "Report is marked as completed without file upload.",
+        "Used for non-HSPnet users or internal purposes."
       ]
     }
   ],
   "business_rules": [
-    "Reports must be associated with a user ID and a report type.",
-    "Only active reports are processed and made available for download."
+    "Reports can be canceled or refused by users or system administrators.",
+    "A report is considered returned to user once the 'ReturnedToUserDate' is set."
   ],
   "validations": [
-    "Check if required fields such as RequestedByUserID are present.",
-    "Validate report parameters and ensure they conform to expected formats."
+    "Dates must be valid and within set term limits for processing specific requests.",
+    "File details must not be blank during updates."
   ],
   "calculations": [
-    "Calculate report creation and update dates.",
-    "Determine previous terms based on today's date for date range calculations."
+    "Date ranges for report searches based on user input conditions like 'Today', 'CurrentTerm', and 'PastTerm'."
   ],
   "conditions": [
-    "The report request can be made for 'Today', 'CurrentTerm', 'PastTerm', 'PastYear', or 'PreviousYears' timeframes.",
-    "ReturnedToUser is true if ReturnedToUserDate is not null."
+    "Different date calculations apply based on the report's term status ('CurrentTerm', 'PastTerm')."
   ],
   "system_behavior": [
-    "System sends email notifications for important updates, such as when a report is uploaded or completed.",
-    "File management includes creating and deleting files associated with reports."
+    "Automatically generates email notifications for report creation and updates.",
+    "Executes stored procedures for managing report data."
   ],
   "dependencies": [
-    "Depends on user management for validation of requesting users.",
-    "Database operations for storing and retrieving report details."
+    "Database operations depend on proper connectivity and valid input parameters.",
+    "Email notifications depend on template availability and correct user email configuration."
   ],
   "exceptions": [
-    "Requests can be canceled by the user or refused by sysadmin."
+    "Files not found during URL linking result in a 'no_document_available' message.",
+    "Deletion of files or directories ignores exceptions for non-critical errors."
   ],
   "source_document_ids": [
     "132be9d9-0ab9-5355-af6c-608ff561a77d",
