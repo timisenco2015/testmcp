@@ -1,19 +1,56 @@
 {
-        "filename": "StudentEmergencyContacts",
-        "found": false,
-        "summary": "",
-        "purpose": "",
-        "entities": [],
-        "fields": [],
-        "actors": [],
-        "workflows": [],
-        "business_rules": [],
-        "validations": [],
-        "calculations": [],
-        "conditions": [],
-        "system_behavior": [],
-        "dependencies": [],
-        "exceptions": [],
-        "source_document_ids": [],
-        "content_gaps": ["No related documents found"]
+  "filename": "StudentEmergencyContacts",
+  "found": true,
+  "summary": "The StudentEmergencyContacts module manages emergency contact information for students, enabling CRUD operations with validation and JavaScript enhancements for form interaction.",
+  "purpose": "To provide an interface for handling student emergency contact data, supporting functionalities like insert, update, and validation within a web application.",
+  "entities": [],
+  "fields": [
+    "studentID",
+    "sess"
+  ],
+  "actors": [
+    "UserSession"
+  ],
+  "workflows": [
+    {
+      "name": "Emergency Contacts Management",
+      "steps": [
+        "Load emergency contact details.",
+        "Enable edit mode if screen is editable.",
+        "Insert or update the contact information based on the form mode.",
+        "Render JavaScript to handle phone masking.",
+        "Validate input with custom validators.",
+        "Handle form submissions with FormView events."
+      ]
     }
+  ],
+  "business_rules": [
+    "If screen is editable, display edit button.",
+    "If the screen is not in read-only mode, the edit button tooltip displays 'Details'."
+  ],
+  "validations": [
+    "Use CustomValidator controls for specific validations.",
+    "Ensure the user session is valid before allowing data selection."
+  ],
+  "calculations": [],
+  "conditions": [
+    "FormView mode determines insert or update operations."
+  ],
+  "system_behavior": [
+    "Redirects to 'Demographics' page after update.",
+    "JavaScript manages phone mask configuration based on user settings."
+  ],
+  "dependencies": [],
+  "exceptions": [
+    "Cancel selection if the user session is null."
+  ],
+  "source_document_ids": [
+    "3290d5eb-3115-55ad-8bda-a171b0f84bd9",
+    "6ff919fa-e342-5d4a-9b51-c3f32bb7fbba",
+    "b8e870e7-7682-51d4-b096-de48593d73d0",
+    "c068bff9-c8a0-594e-ab99-d1a16440eff3",
+    "c9bb1aac-db5d-54a9-857c-023786edd6e1",
+    "e57794fd-5375-51f2-8ef2-02e6c0cdb3ac"
+  ],
+  "content_gaps": []
+}
