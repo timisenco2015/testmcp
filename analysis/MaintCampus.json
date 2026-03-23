@@ -1,0 +1,121 @@
+{
+  "filename": "MaintCampus",
+  "found": true,
+  "summary": "MaintCampus is a web page and backend module that facilitates the management of campus records within an organization, including creation, editing, deletion, and reactivation. It enforces access control and validation based on user roles and provides workflows and UI controls for campus data management in a web environment.",
+  "purpose": "To allow authorized users to view, add, edit, delete, and reactivate campus entries for specific departments/agencies, governed by role-based permissions and validation rules. It also provides error/warning messaging and supports consistent display and interaction via ASP.NET controls.",
+  "entities": ["Campus", "Department", "Agency", "UserSession"],
+  "fields": [
+    {
+      "name": "ID",
+      "type": "int",
+      "description": "Unique identifier for campus records"
+    },
+    {
+      "name": "Name",
+      "type": "string",
+      "description": "Name of the campus"
+    },
+    {
+      "name": "ShortName",
+      "type": "string",
+      "description": "Short name or abbreviation for the campus"
+    },
+    {
+      "name": "DepartmentID",
+      "type": "int",
+      "description": "Department associated with the campus"
+    },
+    {
+      "name": "AgencyID",
+      "type": "int",
+      "description": "Agency associated with the campus"
+    },
+    {
+      "name": "Inactive",
+      "type": "bool",
+      "description": "Status flag indicating whether the campus is inactive"
+    }
+  ],
+  "actors": [
+    "SystemAdministrator",
+    "LocalAdministrator",
+    "ViewOnlyUser",
+    "EndUser"
+  ],
+  "workflows": [
+    {
+      "name": "Campus Management",
+      "steps": [
+        "User loads MaintCampus page (checks access, populates dropdowns, loads data)",
+        "User selects department/agency from dropdown (data refreshes)",
+        "Grid displays campus information, with Add/Edit/Delete/Reactivate buttons based on access and status",
+        "Add/Edit: Opens popup (DetailsView), fills mandatory fields, validates, saves",
+        "Delete: Sets campus as inactive, updates grid",
+        "Reactivate: Sets campus as active, updates grid",
+        "ValidationSummary errors/warnings shown as needed",
+        "After actions: Refreshes grid, updates UI panels"
+      ]
+    }
+  ],
+  "business_rules": [
+    "Only users with SystemAdministrator or LocalAdministrator roles may edit.",
+    "SystemAdministrators must be assigned to the selected agency.",
+    "LocalAdministrators must have access to the selected department.",
+    "ViewOnly users may not edit campus information.",
+    "Mandatory fields: Name (max 50 chars), ShortName (max 10 chars)."
+  ],
+  "validations": [
+    "RequiredFieldValidator for Name and ShortName",
+    "Name must be specified (error message: Name_must_be_specified)",
+    "ShortName must be specified (error message: ShortName_must_be_specified)",
+    "Field max lengths enforced (Name: 50, ShortName: 10)",
+    "ValidationSummary used for errors"
+  ],
+  "calculations": [],
+  "conditions": [
+    "ScreenIsEditable is set only if user role and access checks pass",
+    "Grid buttons and edit fields enabled/disabled based on ScreenIsEditable and Inactive status",
+    "If campus is inactive, show Reactivate option",
+    "If grid is empty, show Add button and no data message"
+  ],
+  "system_behavior": [
+    "GridView and DetailsView bind and display data",
+    "Panels display error/warning/status messages as appropriate",
+    "Modal popup used for Add/Edit forms",
+    "Dropdowns for agency/department trigger data refresh",
+    "Inactive campuses hidden unless Show Inactive is checked"
+  ],
+  "dependencies": [
+    "HSPnet.DataLayer for database access",
+    "HSPnet.UI for UI logic",
+    "AjaxControlToolkit for modal/popup/extenders",
+    "Agencies and Departments modules for dropdown data",
+    "UserSession for authentication and authorization"
+  ],
+  "exceptions": [
+    "Unauthorized access disables editing and hides buttons",
+    "Errors and warnings displayed in error/warning panels",
+    "Null/invalid campus records handled gracefully"
+  ],
+  "source_document_ids": [
+    "0d9437d3-0b37-5803-a5c1-2c5219b2bd25",
+    "17fec33a-41bb-5988-8b25-4e180e1aad6a",
+    "22128af3-5be6-5054-84d2-f266aceab7ea",
+    "2fb393a6-f0f0-5d00-84b0-a714e446997a",
+    "39c78b9e-0e97-56ef-beb4-7888f4c68ca6",
+    "3cc7a3c5-0127-55c9-888e-c5e3a5eaf8f8",
+    "513c2a99-7fe1-5f28-b2a1-705215296db3",
+    "61f8f0ca-19ba-562a-a3b2-f510ac019797",
+    "9c2a7b46-1e65-5178-a2d2-07e885faccb4",
+    "9e662116-da42-5465-8ce4-b75765ea9c4a",
+    "b280ccab-6156-5f54-8afe-7f5293e3a1cb",
+    "bbad919b-7208-5e2c-9ab4-2ae59084fdfd",
+    "d06f3606-807e-5be1-bfa0-f2d775c7c381",
+    "de47dd4c-d67e-5924-be3f-c1c764db836b",
+    "dee73270-3b9b-5bb3-afbf-be933126db8f",
+    "df12fff5-ba28-5f57-b202-05995953ca5b",
+    "e5da22b4-9b44-5c6b-9782-28647ae5c38d",
+    "f698e36b-7543-56f8-84d8-8557c95f16b8"
+  ],
+  "content_gaps": []
+}
