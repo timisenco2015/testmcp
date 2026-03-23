@@ -1,8 +1,8 @@
 {
   "filename": "CorrespondenceCohortSchedule",
   "found": true,
-  "summary": "The CorrespondenceCohortSchedule system is designed to manage schedules related to cohort correspondences. It includes functionalities for adding, updating, deleting, and inheriting schedules, as well as searching and retrieving schedule details based on various parameters.",
-  "purpose": "To facilitate the management and tracking of cohort-related correspondences and schedules in an educational setting.",
+  "summary": "The CorrespondenceCohortSchedule involves the management and scheduling of correspondence timelines for cohorts within a program, assessing due dates based on start and end dates, and formatting schedule information.",
+  "purpose": "To manage and schedule correspondence related to cohort activities, ensuring timelines are adhered to and reminders are effectively scheduled for staff.",
   "entities": [],
   "fields": [
     "ID",
@@ -14,6 +14,7 @@
     "TypeDescription",
     "PeriodCode",
     "PeriodDescription",
+    "TemplateFormatted",
     "StartDate",
     "EndDate",
     "EndDateBlock2",
@@ -29,48 +30,79 @@
     "CohortShortName",
     "TermShortName",
     "CourseShortName",
-    "Template_Exists",
+    "TemplateExists",
     "PRDueDate",
     "PRDueDateFormatted",
     "EmailReminderStaffID"
   ],
   "actors": [
-    "HSPnetSession"
+    "CorrespondenceCohortSchedule",
+    "HSPnetSession",
+    "Database"
   ],
   "workflows": [
     {
-      "name": "Schedule Management",
+      "name": "Add Schedule Entry",
       "steps": [
-        "Add schedule using CorrespondenceCohortSchedulesAdd",
-        "Update schedule using CorrespondenceCohortSchedulesUpdate",
-        "Delete schedule using CorrespondenceCohortSchedulesDelete",
-        "Inherit schedule using CorrespondenceCohortSchedulesInherit",
-        "Retrieve schedule details using CorrespondenceCohortSchedulesSearch"
+        "Set procedure name to 'CorrespondenceCohortSchedulesAdd'.",
+        "Add parameters: TimetableID, CorrespondenceID, Days, PeriodCodeID, EmailReminderStaffID.",
+        "Execute database query."
+      ]
+    },
+    {
+      "name": "Update Schedule Entry",
+      "steps": [
+        "Set procedure name to 'CorrespondenceCohortSchedulesUpdate'.",
+        "Add parameters: ID, CorrespondenceID, Days, PeriodCodeID, EmailReminderStaffID.",
+        "Execute database query."
+      ]
+    },
+    {
+      "name": "Delete Schedule Entry",
+      "steps": [
+        "Set procedure name to 'CorrespondenceCohortSchedulesDelete'.",
+        "Add parameter: ID.",
+        "Execute database query."
+      ]
+    },
+    {
+      "name": "Inherit Schedule",
+      "steps": [
+        "Set procedure name to 'CorrespondenceCohortSchedulesInherit'.",
+        "Add parameter: TimetableID.",
+        "Execute database query."
+      ]
+    },
+    {
+      "name": "Queue Search",
+      "steps": [
+        "Set procedure name to 'CorrespondenceQueueSearch'.",
+        "Add parameters: SessionID, Filter, ProgramID.",
+        "Retrieve data and populate schedule list."
       ]
     }
   ],
   "business_rules": [
-    "DueDate is calculated based on the PeriodCode and Days relative to StartDate/EndDate",
-    "GeneratedDate is formatted using DateFormatter"
+    "Due Date calculations based on PeriodCode: 'BEFORESTART', 'AFTERSTART', 'BEFOREEND', 'AFTEREND' conditions.",
+    "Use alternate language fields if UseAltLanguageFields is true."
   ],
   "validations": [
-    "Ensure UUID format for parameters",
-    "UseAltLanguageFields toggles between alternative and default descriptions"
+    "DateFormatter is used to format DueDate and GeneratedDate."
   ],
   "calculations": [
-    "DueDate based on PeriodCode and Days",
-    "DueDateFormatted using DateFormatter"
+    "Calculate DueDate using StartDate or EndDate and Days based on PeriodCode."
   ],
   "conditions": [
-    "PeriodCode options include BEFORESTART, AFTERSTART, BEFOREEND, AFTEREND"
+    "Use alternate descriptions if UseAltLanguageFields is true.",
+    "Calculate DueDate differently based on the presence of EndDateBlock2."
   ],
   "system_behavior": [
-    "Executes stored procedures for schedule management tasks",
-    "Handles database interactions using HSPnetSession"
+    "Retrieves and formats correspondence schedules based on predefined criteria and methods.",
+    "Executes database operations to manage schedules."
   ],
   "dependencies": [
-    "DateFormatter",
-    "Database class for date checks"
+    "DateFormatter for date formatting.",
+    "Database utility for checking null dates and executing queries."
   ],
   "exceptions": [],
   "source_document_ids": [
