@@ -1,26 +1,68 @@
 {
   "filename": "MaintServiceProfile",
   "found": true,
-  "summary": "MaintServiceProfile is a maintenance interface for managing service profiles.",
-  "purpose": "To enable users to view and manage detailed information about service profiles, including positions and service history.",
+  "summary": "The MaintServiceProfile page is designed to manage various functional aspects of a service profile within the HSPnet application. It features multiple tabs for detailed service information, including positions and history. Each tab can display specific user controls related to the service profile, positions, or history.",
+  "purpose": "The purpose of the MaintServiceProfile is to provide a user interface within the HSPnet system that allows users to view, edit, and manage a service profile, including its positions and historical data.",
   "entities": [],
   "fields": [
+    "ServiceID",
+    "ReadOnly",
+    "ProfileExists",
+    "PositionExists",
+    "SiteUsesPositions",
+    "ServiceAgencyID",
+    "currentPage"
+  ],
+  "actors": [
+    "UserSession",
+    "SystemAdministrator",
+    "StaffAdmin"
+  ],
+  "workflows": [
     {
-      "name": "ServiceID",
-      "type": "string",
-      "description": "The unique identifier for the service."
+      "name": "Page Load",
+      "steps": [
+        "Validate URL hash using Hashing.ValidateURLHash.",
+        "Retrieve ServiceID from QueryString.",
+        "Invoke LoadServiceInfo to populate service details.",
+        "Check read-only status via ProcessReadOnly.",
+        "Setup page using SetupHSPnetPage with UserSession.",
+        "Register client script 'EditDetails'."
+      ]
+    },
+    {
+      "name": "Tab Switching",
+      "steps": [
+        "Check currentPage value from QueryString.",
+        "Set ActiveTab of TabContainer1 based on currentPage.",
+        "Disable TabPanelPositions if SiteUsesPositions is false."
+      ]
     }
   ],
-  "actors": [],
-  "workflows": [],
-  "business_rules": [],
-  "validations": [],
-  "calculations": [],
-  "conditions": [],
-  "system_behavior": [
-    "The page adjusts to be read-only if specified by query parameters or user permissions."
+  "business_rules": [
+    "Screen should be read-only if ReadOnlyQS equals '1'.",
+    "TabPanelPositions should be disabled if SiteUsesPositions is false.",
+    "Screen editability is determined by system administrator status or agency ID match."
   ],
-  "dependencies": [],
+  "validations": [
+    "Ensure effective date is set when pay scales are selected in checkPayScaleEffectiveDate.",
+    "Default pay scale must be selected if secondary pay scale is."
+  ],
+  "calculations": [],
+  "conditions": [
+    "If ProfileExists, append exists flag to TabPanelProfile HeaderText.",
+    "If PositionExists, append exists flag to TabPanelPositions HeaderText."
+  ],
+  "system_behavior": [
+    "Changes ActiveTab based on query string parameter or default value.",
+    "Binds data to relevant user controls based on active tab."
+  ],
+  "dependencies": [
+    "Resources for localized text",
+    "UserSession for session management",
+    "Services for service data retrieval",
+    "HSPnet.Framework for framework utilities"
+  ],
   "exceptions": [],
   "source_document_ids": [
     "1f19b0b9-67fe-5001-aeae-ab20bd4e6832",
