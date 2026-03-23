@@ -1,125 +1,59 @@
 {
-    "filename": "CostCentre",
-    "found": true,
-    "summary": "The CostCentre entities represent cost centers within HSPnet, detailing placements, agencies, sites, services, and financial summaries.",
-    "purpose": "Track and manage cost center records associated with placements within HSPnet.",
-    "entities": [
-        "CostCentreRecord",
-        "CostCentreView"
-    ],
-    "fields": [
-        {
-            "name": "PlacingAgency",
-            "type": "string"
-        },
-        {
-            "name": "Department",
-            "type": "string"
-        },
-        {
-            "name": "Program",
-            "type": "string"
-        },
-        {
-            "name": "Discipline",
-            "type": "string"
-        },
-        {
-            "name": "SubDiscipline",
-            "type": "string"
-        },
-        {
-            "name": "ReceivingAgency",
-            "type": "string"
-        },
-        {
-            "name": "Site",
-            "type": "string"
-        },
-        {
-            "name": "Portfolio",
-            "type": "string"
-        },
-        {
-            "name": "Service",
-            "type": "string"
-        },
-        {
-            "name": "Destination",
-            "type": "string"
-        },
-        {
-            "name": "CostCentre",
-            "type": "string"
-        },
-        {
-            "name": "CostCentreDescription",
-            "type": "string"
-        },
-        {
-            "name": "PRType",
-            "type": "string"
-        },
-        {
-            "name": "StartDate",
-            "type": "DateTime"
-        },
-        {
-            "name": "EndDate",
-            "type": "DateTime"
-        },
-        {
-            "name": "Status",
-            "type": "string"
-        },
-        {
-            "name": "Course",
-            "type": "string"
-        },
-        {
-            "name": "ProgramYear",
-            "type": "int"
-        },
-        {
-            "name": "ReferenceNumber",
-            "type": "int"
-        },
-        {
-            "name": "CFO",
-            "type": "string"
-        },
-        {
-            "name": "PRCount",
-            "type": "int"
-        },
-        {
-            "name": "StudentCount",
-            "type": "int"
-        },
-        {
-            "name": "PRHours",
-            "type": "decimal"
-        },
-        {
-            "name": "StudentHours",
-            "type": "decimal"
-        }
-    ],
-    "actors": [],
-    "workflows": [],
-    "business_rules": [],
-    "validations": [],
-    "calculations": [],
-    "conditions": [],
-    "system_behavior": [],
-    "dependencies": [],
-    "exceptions": [],
-    "source_document_ids": [
-        "20ac8054-536e-5203-b33d-7db2b2dc2359",
-        "2c04f259-cf58-5d95-803c-8ebf16840f6c",
-        "97bc3ba9-9fe4-52b1-8847-dce2198e0aee",
-        "dd965b0f-f9cf-57eb-a3f8-32b3b97a6d1a",
-        "e1ac7e41-5e9e-5f16-baa0-29d05a70f976"
-    ],
-    "content_gaps": []
+  "filename": "CostCentre",
+  "found": true,
+  "summary": "CostCentre tracks financial records and allocations related to program placements.",
+  "purpose": "To allocate and record financial details per cost centre, including placements and services.",
+  "entities": [
+    "CostCentreRecord"
+  ],
+  "fields": [
+    "PlacingAgency",
+    "Department",
+    "Program",
+    "Discipline",
+    "SubDiscipline",
+    "ReceivingAgency",
+    "Site",
+    "Portfolio",
+    "Service",
+    "Destination",
+    "CostCentre",
+    "CostCentreDescription",
+    "PRType",
+    "StartDate",
+    "EndDate",
+    "Status",
+    "Course",
+    "ProgramYear",
+    "ReferenceNumber",
+    "CFO"
+  ],
+  "actors": [],
+  "workflows": [
+    {
+      "name": "Financial Allocation",
+      "steps": [
+        "Retrieve data for cost centre.",
+        "Format and return cost centre records."
+      ]
+    }
+  ],
+  "business_rules": [],
+  "validations": [],
+  "calculations": [],
+  "conditions": [],
+  "system_behavior": [],
+  "dependencies": [
+    "SqlDataReader",
+    "Database"
+  ],
+  "exceptions": [],
+  "source_document_ids": [
+    "20ac8054-536e-5203-b33d-7db2b2dc2359",
+    "2c04f259-cf58-5d95-803c-8ebf16840f6c",
+    "97bc3ba9-9fe4-52b1-8847-dce2198e0aee",
+    "dd965b0f-f9cf-57eb-a3f8-32b3b97a6d1a",
+    "e1ac7e41-5e9e-5f16-baa0-29d05a70f976"
+  ],
+  "content_gaps": []
 }
