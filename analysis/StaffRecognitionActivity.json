@@ -1,0 +1,115 @@
+{
+  "filename": "StaffRecognitionActivity",
+  "found": true,
+  "summary": "StaffRecognitionActivity manages the recognition of staff members for specific activities tied to academic appointments, departments, and programs. It provides CRUD operations via stored procedures, supports alternate language fields, and formats date fields for display.",
+  "purpose": "To record, update, delete, and search staff recognition activities, including details such as activity types, comments, dates, departments, programs, and academic appointment types.",
+  "entities": [
+    "StaffRecognitionActivity"
+  ],
+  "fields": [
+    "ID",
+    "StaffID",
+    "ActivityTypeCodeID",
+    "AcademicAppointmentTypeCodeID",
+    "ActivityTypeComments",
+    "ActivityDate",
+    "ExpiryDate",
+    "DepartmentID",
+    "ProgramID",
+    "CanEdit",
+    "ActivityTypeDescription",
+    "AcademicAppointmentTypeDescription",
+    "DepartmentShortName",
+    "ProgramShortName",
+    "ActivityDateFormatted",
+    "ExpiryDateFormatted"
+  ],
+  "actors": [
+    "HSPnetSession"
+  ],
+  "workflows": [
+    {
+      "name": "Add Staff Recognition Activity",
+      "steps": [
+        "ProcedureName set to StaffRecognitionActivityAdd",
+        "Parameters: SessionID, StaffID, ActivityTypeCodeID, AcademicAppointmentTypeCodeID, ActivityTypeComments, ActivityDate, ExpiryDate, DepartmentID, ProgramID",
+        "ExecuteQuery called"
+      ]
+    },
+    {
+      "name": "Delete Staff Recognition Activity",
+      "steps": [
+        "ProcedureName set to StaffRecognitionActivityDelete",
+        "Parameters: SessionID, StaffRecognitionActivityID",
+        "ExecuteQuery called"
+      ]
+    },
+    {
+      "name": "Update Staff Recognition Activity",
+      "steps": [
+        "ProcedureName set to StaffRecognitionActivityUpdate",
+        "Parameters: SessionID, StaffRecognitionActivityID, ActivityTypeCodeID, AcademicAppointmentTypeCodeID, ActivityTypeComments, ActivityDate, ExpiryDate, DepartmentID, ProgramID",
+        "ExecuteQuery called"
+      ]
+    },
+    {
+      "name": "Search Staff Recognition Activity by StaffID",
+      "steps": [
+        "ProcedureName set to StaffRecognitionActivitySearch",
+        "Parameters: SessionID, StaffID",
+        "Data read and entities loaded from SqlDataReader",
+        "Fields populated from DB, including alternate language fields if enabled"
+      ]
+    },
+    {
+      "name": "Search Staff Recognition Activity by ID",
+      "steps": [
+        "ProcedureName set to StaffRecognitionActivitySearchID",
+        "Parameter: ID",
+        "Data read and entity loaded from SqlDataReader",
+        "Fields populated from DB"
+      ]
+    }
+  ],
+  "business_rules": [
+    "If UseAltLanguageFields is true, use alternate description fields for ActivityType and AcademicAppointmentType.",
+    "If ActivityTypeComments is not empty, append it to ActivityTypeDescription.",
+    "If ActivityTypeComments is empty but AcademicAppointmentTypeDescription is not, append it to ActivityTypeDescription."
+  ],
+  "validations": [
+    "Check for null or empty values for ActivityTypeComments and AcademicAppointmentTypeDescription before appending descriptions."
+  ],
+  "calculations": [
+    "ActivityDateFormatted: Format ActivityDate using DateFormatter.FormatDateShort",
+    "ExpiryDateFormatted: Format ExpiryDate using DateFormatter.FormatDateShort"
+  ],
+  "conditions": [
+    "UseAltLanguageFields determines if alternate language fields are used."
+  ],
+  "system_behavior": [
+    "CRUD operations are performed through stored procedures.",
+    "Date fields are formatted for display.",
+    "DepartmentShortName may include AgencyShortName."
+  ],
+  "dependencies": [
+    "HSPnetSession (DB connection and session management)",
+    "DateFormatter (date formatting utilities)",
+    "SqlDataReader (data retrieval)"
+  ],
+  "exceptions": [
+    "If SqlDataReader is null, no StaffRecognitionActivity entities are loaded.",
+    "If parameters are invalid or missing in Add/Update/Delete, execution may fail."
+  ],
+  "source_document_ids": [
+    "042dde0c-0d13-5233-86a2-a68c949aa4af",
+    "758e4598-c6e3-5221-84ff-ac28110536a4",
+    "a0d189c0-1fc2-5671-96a9-613674bdb64d",
+    "a48f8727-09ca-514b-a0f3-fc0607295621",
+    "ad562122-4374-5559-8d5a-396c9d447627"
+  ],
+  "content_gaps": [
+    "Details about UI or client behavior and permission rules (beyond CanEdit) are not specified.",
+    "Business logic for validation and error handling is only partially outlined.",
+    "No sample values or explicit error messages for exceptions."
+  ]
+}
