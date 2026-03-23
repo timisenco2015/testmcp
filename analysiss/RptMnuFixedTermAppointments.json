@@ -1,0 +1,66 @@
+{
+    "filename": "RptMnuFixedTermAppointments",
+    "found": true,
+    "summary": "The `RptMnuFixedTermAppointments` user control in the HSPnet application is responsible for generating reports of fixed-term appointments. It utilizes a variety of UI controls and validators to ensure proper user input and provides the ability to export data to Excel.",
+    "purpose": "To facilitate the generation and export of reports on fixed-term appointments within the HSPnet application environment.",
+    "entities": [],
+    "fields": [
+        "ltlDescription",
+        "ltlOptions",
+        "txtStartDate",
+        "txtEndDate",
+        "lblReportHTML"
+    ],
+    "actors": [
+        "User"
+    ],
+    "workflows": [
+        {
+            "name": "Generate Fixed Term Appointment Report",
+            "steps": [
+                "User navigates to the RptMnuFixedTermAppointments control.",
+                "User inputs start and end dates for the report using txtStartDate and txtEndDate fields.",
+                "User clicks the button to run the report.",
+                "The system validates the input dates using RegularExpressionValidators and RequiredFieldValidators.",
+                "If valid, the system calls the stored procedure 'ReportFixedTermAppointments' with the provided date range.",
+                "The system generates and displays the report.",
+                "User can export the report to Excel by clicking the Excel export button."
+            ]
+        }
+    ],
+    "business_rules": [
+        "Stored procedure 'ReportFixedTermAppointments' must be executed to fetch the report data."
+    ],
+    "validations": [
+        "Date fields (Start and End dates) must be validated for correct format using RegularExpressionValidators.",
+        "Both Start and End dates are mandatory fields, enforced by RequiredFieldValidators."
+    ],
+    "calculations": [],
+    "conditions": [
+        "The report generation is contingent on valid date inputs."
+    ],
+    "system_behavior": [
+        "Renders UI components for report options and descriptions.",
+        "Registers and executes JavaScript for date fields and validation.",
+        "Fetches report data based on user session and date parameters.",
+        "Displays report in HTML format on the UI if data is retrieved successfully."
+    ],
+    "dependencies": [
+        "UserSession object for session management.",
+        "Stored procedure 'ReportFixedTermAppointments' for data retrieval."
+    ],
+    "exceptions": [
+        "Invalid dates input will prevent report generation.",
+        "Empty reportHTML will not display a report."
+    ],
+    "source_document_ids": [
+        "04404aaf-ef8b-588b-b962-b44984144897",
+        "0ca8a7f3-8efe-501d-b6d5-c821d83c0204",
+        "0d012883-5763-59a2-b79d-d47392dd5c80",
+        "9ea5c4a6-8319-553d-8727-dbc3e71cb049",
+        "c81b90d9-f8d1-5d11-82cd-350f6e3eb667",
+        "d5e08c92-fad2-50dd-b520-33c58327f163",
+        "ec1cabf0-80d5-5530-adab-02b9bc0631cd"
+    ],
+    "content_gaps": []
+}
