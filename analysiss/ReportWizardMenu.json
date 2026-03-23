@@ -1,0 +1,111 @@
+{
+  "filename": "ReportWizardMenu",
+  "found": true,
+  "summary": "The ReportWizardMenu is a part of the HSPnet application designed to manage and display wizards for creating reports. It includes various UI components such as labels, hyperlinks, grid views, and panels to facilitate user interaction and report management. The system integrates controls for handling events, data binding, and user session management, providing a comprehensive interface for report operations.",
+  "purpose": "The purpose of the ReportWizardMenu is to provide an interface for users to create, manage, and interact with report wizards within the HSPnet framework. It allows users to navigate, sort, and execute report operations while providing necessary help and glossary tools.",
+  "entities": [],
+  "fields": [
+    "UpdatePanel1",
+    "btnDuplicateShowPopup",
+    "mdlDuplicate",
+    "uxDuplicate",
+    "dsDuplicate",
+    "dsStaff",
+    "hlWizardGlossary",
+    "hlWizardHelp",
+    "gridData",
+    "lblWizardName",
+    "hlWizardGlossary2",
+    "hlWizardHelp2",
+    "grvWizard",
+    "Label1",
+    "AlwaysVisibleControlExtender1",
+    "AlwaysVisibleControlExtender2",
+    "pnlError",
+    "lblErrorCaption",
+    "lblErrorList",
+    "cmdHideErrorPanel",
+    "pnlWarning",
+    "lblWarningCaption",
+    "lblWarningList",
+    "cmdHideWarningPanel",
+    "cmdRefreshView",
+    "Label2"
+  ],
+  "actors": [
+    "UserSession",
+    "SystemAdministrator",
+    "WizardsController",
+    "Grid"
+  ],
+  "workflows": [
+    {
+      "name": "Report Management",
+      "steps": [
+        "Page_Load: Initialize page settings and user session.",
+        "Data Binding: Configure data sources and grid views.",
+        "Event Handling: Manage button clicks and commands.",
+        "Sorting: Implement sorting logic for grid data.",
+        "Popup Management: Handle modal popups for duplication.",
+        "Page_PreRender: Process page messages before rendering."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Only system administrators can run locked wizards.",
+    "Show or hide controls based on user roles and wizard status."
+  ],
+  "validations": [
+    "Check if page is valid before updating an item.",
+    "Validate wizards before execution."
+  ],
+  "calculations": [],
+  "conditions": [
+    "If a wizard is complete and validated, allow execution.",
+    "Non-system administrators cannot run locked templates."
+  ],
+  "system_behavior": [
+    "Load user-specific data on Page_Load.",
+    "Refresh data and rebind grid views on certain events.",
+    "Handle errors and warnings through UI panels."
+  ],
+  "dependencies": [
+    "HSPnet.Framework",
+    "HSPnet.DataLayer",
+    "AjaxControlToolkit"
+  ],
+  "exceptions": [
+    "Errors are displayed in pnlError panel with detailed messages.",
+    "Warnings are captured in pnlWarning for user attention."
+  ],
+  "source_document_ids": [
+    "06f567f3-b1c9-5ee9-9deb-41bce3122c81",
+    "0abee10f-796c-5899-abd8-8a4b50e04dc9",
+    "16ec778e-0dbc-54c1-8c0e-f55559bec87b",
+    "2a8a3fb7-a109-5d36-a12a-7501efbaaf39",
+    "384e19de-dd8f-501d-befc-84c7f5f5f131",
+    "3c588258-4880-5b27-857b-7844a083f469",
+    "47b64089-b5ce-574a-a3b5-c889f20a0414",
+    "55477478-a0fc-5ed6-bd43-c8314ad8e5da",
+    "55a52836-ba84-5cdd-87e2-a4ea41c594a2",
+    "59a99b5f-aff0-5c3f-bfb4-1e22e261b164",
+    "696a7b9f-74eb-54a2-88e9-347d82294627",
+    "735f6565-7a5b-59c7-ae2e-93fad6536357",
+    "8fe4b468-12d3-57f4-bd44-3814edf5e54a",
+    "98905d21-c134-5c31-b6b6-bc126db8d139",
+    "9bb22de9-e8f4-57a2-b5cd-dfec29d1a4c5",
+    "9d6ddefc-11f3-5fb2-b551-a68e253481db",
+    "a802d056-2f9d-5291-8046-60961248af8d",
+    "aa93d531-343d-578a-9880-82592974b166",
+    "b39adab6-965a-5ae4-a742-8585ccdf6152",
+    "cb09af76-0da5-562f-8e7d-754279075a13",
+    "d63ffb38-9d9c-5c7f-bbb2-355b9de0183a",
+    "db6e6b36-11aa-51ab-82c8-294b3d8f4c67",
+    "de07a1b0-8304-5cf1-8c72-301300c1db5e",
+    "f20f1260-becf-5c07-b0aa-c9e874bbab71",
+    "f6082dc9-4a26-5972-9c49-46ee50ec0af1",
+    "fd2050aa-2920-5771-925d-c7eb164bb4f8",
+    "fe163813-1adf-5ef4-85f3-8bc855a93240"
+  ],
+  "content_gaps": []
+}
