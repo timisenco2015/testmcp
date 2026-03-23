@@ -2,8 +2,8 @@
 {
   "filename": "StudentPREvaluations",
   "found": true,
-  "summary": "The StudentPREvaluations module is part of HSPnet's data layer, responsible for managing student placement evaluations including adding, updating, deleting, and searching evaluations.",
-  "purpose": "To manage student placement evaluations including adding, updating, deleting, and searching evaluations by student ID or other criteria.",
+  "summary": "The StudentPREvaluations module provides functionalities to manage evaluations related to student placement requests in an academic setting. It includes operations for adding, updating, deleting, and searching evaluations.",
+  "purpose": "To manage student placement request evaluations including creating, updating, searching, and deleting evaluations.",
   "entities": [
     "StudentPREvaluation",
     "StudentPREvaluations"
@@ -28,63 +28,58 @@
   ],
   "workflows": [
     {
-      "name": "Add Evaluation",
+      "name": "Add StudentPREvaluation",
       "steps": [
-        "Check placementRequestDestinationID is not 0",
-        "Set procedure name to StudentPREvaluationAdd",
-        "Add necessary parameters including studentID and statusCodeID",
-        "Execute query"
+        "Check if PlacementRequestDestinationID is not 0",
+        "Set ProcedureName to StudentPREvaluationAdd",
+        "Add parameters: SessionID, StudentID, PlacementRequestDestinationID, RequirementCodeID, StatusCodeID, EvaluationDate, Comment",
+        "Execute Query"
       ]
     },
     {
-      "name": "Update Evaluation",
+      "name": "Update StudentPREvaluation",
       "steps": [
-        "Set procedure name to StudentPREvaluationUpdate",
-        "Add necessary parameters including ID, requirementCodeID, evaluationDate",
-        "Execute query"
+        "Set ProcedureName to StudentPREvaluationUpdate",
+        "Add parameters: SessionID, ID, RequirementCodeID, StatusCodeID, EvaluationDate, Comment",
+        "Execute Query"
       ]
     },
     {
-      "name": "Delete Evaluation",
+      "name": "Delete StudentPREvaluation",
       "steps": [
-        "Set procedure name to StudentPREvaluationDelete",
-        "Add necessary parameters including ID",
-        "Execute query"
+        "Set ProcedureName to StudentPREvaluationDelete",
+        "Add parameters: SessionID, ID",
+        "Execute Query"
       ]
     },
     {
-      "name": "Search by ID",
+      "name": "Search StudentPREvaluation by ID",
       "steps": [
-        "Check ID is not 0",
-        "Set procedure name to StudentPREvaluationSearchID",
-        "Add parameter ID",
-        "Retrieve data using SqlDataReader",
-        "Close reader"
+        "Set ProcedureName to StudentPREvaluationSearchID",
+        "Add parameters: ID",
+        "Execute Query using SqlDataReader",
+        "Fill list with results"
       ]
     },
     {
-      "name": "Search Evaluations",
+      "name": "Search StudentPREvaluation by StudentID and PRD_ID",
       "steps": [
-        "Set procedure name to StudentPREvaluationSearch",
-        "Add parameters including studentID and PRD_ID",
-        "Retrieve data using SqlDataReader",
-        "Close reader"
+        "Set ProcedureName to StudentPREvaluationSearch",
+        "Add parameters: StudentID, PRD_ID, SessionID",
+        "Execute Query using SqlDataReader",
+        "Fill list with results"
       ]
     }
   ],
-  "business_rules": [
-    "placementRequestDestinationID must not be 0"
-  ],
-  "validations": [
-    "Check if DateIsNull for EvaluationDate and return formatted date accordingly"
-  ],
+  "business_rules": [],
+  "validations": [],
   "calculations": [],
   "conditions": [
-    "If UseAltLanguageFields use alternative fields for Requirement and Status"
+    "Check if PlacementRequestDestinationID is not 0 during Add operation",
+    "Use alternate language fields if UseAltLanguageFields is set"
   ],
   "system_behavior": [
-    "Format date using DateFormatter",
-    "Use SqlDataReader for data retrieval"
+    "Formats EvaluationDate using HSPnet.UI.DateFormatter if not null"
   ],
   "dependencies": [
     "HSPnet.Framework",
