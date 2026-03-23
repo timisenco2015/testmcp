@@ -1,88 +1,90 @@
 {
   "filename": "PrfPortfolio",
   "found": true,
-  "summary": "The PrfPortfolio component facilitates the management of staff profiles, specifically in handling expertise, skills, interests, professions, and activities. It allows for the selection, addition, update, and deletion of these elements, incorporating UI controls for user interaction.",
-  "purpose": "Manage and display staff expertise and activities within a structured user interface, supporting various operations such as adding, editing, and deleting profile information.",
-  "entities": [
-    "StaffExpertiseEdit",
-    "StaffActivity",
-    "CodeRecord"
-  ],
+  "summary": "The PrfPortfolio file is part of the HSPnet User Controls StaffProfile module. It involves managing staff expertise, interest, skills, and activities via a web interface. The file is connected to various controls and functionalities such as grid views, drop-down lists, and checkboxes for selecting and displaying staff profile data.",
+  "purpose": "To facilitate the management of staff profiles, specifically to handle their expertise, interests, skills, and associated activities using a web-based user interface.",
+  "entities": [],
   "fields": [
-    "SkillCodeID",
-    "InterestCodeID",
-    "DisciplineID",
-    "SubDisciplineID",
-    "CurrentEmployment",
-    "Comments",
-    "Description",
-    "ActivityRoleCodeID",
-    "ActivityTypeCodeID",
-    "KeywordCodeID",
-    "EndDateEditFormatted",
-    "FileName",
-    "FileURL",
-    "FileSize",
-    "FileType"
+    "Skill1ID",
+    "Skill2ID",
+    "Skill3ID",
+    "Skill4ID",
+    "Skill5ID",
+    "SkillCode1ID",
+    "SkillCode2ID",
+    "SkillCode3ID",
+    "SkillCode4ID",
+    "SkillCode5ID",
+    "InterestCode1ID",
+    "InterestCode2ID",
+    "InterestCode3ID",
+    "InterestCode4ID",
+    "InterestCode5ID",
+    "Profession1ID",
+    "Profession2ID",
+    "Profession3ID",
+    "Profession4ID",
+    "Profession5ID",
+    "Discipline1ID",
+    "Discipline2ID",
+    "Discipline3ID",
+    "Discipline4ID",
+    "Discipline5ID",
+    "SubDiscipline1ID",
+    "SubDiscipline2ID",
+    "SubDiscipline3ID",
+    "SubDiscipline4ID",
+    "SubDiscipline5ID",
+    "CurrentEmployment1",
+    "CurrentEmployment2",
+    "CurrentEmployment3",
+    "CurrentEmployment4",
+    "CurrentEmployment5",
+    "Comments"
   ],
   "actors": [
-    "User",
-    "Staff",
-    "Admin"
+    "UserSession",
+    "StaffID"
   ],
   "workflows": [
     {
-      "name": "Add New Skill or Interest",
+      "name": "Manage Staff Profile",
       "steps": [
-        "User adds a new skill or interest by selecting from a dropdown.",
-        "The selection is bound to the grid view for display.",
-        "JavaScript is used to update UI elements based on user interaction."
-      ]
-    },
-    {
-      "name": "Edit Existing Profile",
-      "steps": [
-        "User clicks on the edit button.",
-        "Profile fields become editable.",
-        "Changes are saved to the database upon confirmation."
-      ]
-    },
-    {
-      "name": "Upload Document",
-      "steps": [
-        "User browses and selects a document to upload.",
-        "The file is saved to a server directory.",
-        "File information is stored in the database."
+        "Select details from drop-down lists",
+        "Bind data to controls",
+        "Display and edit expertise, interest, and skill details",
+        "Handle add, edit, and delete commands for staff activities",
+        "Save changes and refresh view with updated information"
       ]
     }
   ],
   "business_rules": [
-    "Ensure profile fields are not empty before saving.",
-    "Skill and interest IDs must be positive integers."
+    "Auto-generate fields based on user actions",
+    "Ensure ScreenIsEditable condition for showing edit controls",
+    "Bind and select values in drop-downs based on user data",
+    "Display appropriate messages for empty data scenarios"
   ],
   "validations": [
-    "Check if UserSession is not null before executing database operations.",
-    "Ensure file upload content length is greater than zero."
+    "Ensure non-empty drop-down selections for skills and interests",
+    "Validate command execution only when Page.IsValid"
   ],
-  "calculations": [
-    "Convert dropdown list selections to integer IDs."
-  ],
+  "calculations": [],
   "conditions": [
-    "ScreenIsEditable must be true for edit operations.",
-    "UserSession must be active for any data binding."
+    "UserSession must be active for data operations",
+    "Check for ReadOnly mode to disable editing capabilities"
   ],
   "system_behavior": [
-    "Disable edit fields when the screen is in read-only mode.",
-    "Show or hide UI elements based on the current mode (edit/add)."
+    "Switches between add, edit, and view modes",
+    "Handles file uploads and generates unique paths",
+    "Caches user session for consistent user experience"
   ],
   "dependencies": [
-    "UserSession",
-    "Grid Component",
-    "JavaScript for UI interactions"
+    "Codes.CodeSearch for fetching skill and interest lists",
+    "HSPnetSession for session management"
   ],
   "exceptions": [
-    "Invalid file type or size during upload returns an error.",
-    "Null UserSession cancels data operations."
+    "Cancel operation does not alter current page URL",
+    "Handle file operations safely to avoid file system clutter"
   ],
   "source_document_ids": [
     "09b59ced-81e3-599f-b2a6-373fdb3394d3",
