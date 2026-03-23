@@ -1,0 +1,75 @@
+{
+  "filename": "StudentQualifications",
+  "found": true,
+  "summary": "The StudentQualifications component is a user control in a web application, designed to manage and display qualifications of students. It involves various functionalities such as adding, editing, and deleting qualifications through a grid interface. The control interacts with user sessions and performs CRUD operations using a data source connected to the student qualifications database.",
+  "purpose": "To manage, display, and facilitate the CRUD operations for student qualifications within a web application interface.",
+  "entities": [],
+  "fields": [
+    "StudentID",
+    "qualificationCodeID",
+    "authorityCodeID",
+    "countryCodeID"
+  ],
+  "actors": [],
+  "workflows": [
+    {
+      "name": "Data Binding Workflow",
+      "steps": [
+        "Check for valid user session.",
+        "Bind data to the grid if session is valid.",
+        "Cancel operation if session is not valid."
+      ]
+    },
+    {
+      "name": "Data Management Workflow",
+      "steps": [
+        "Add a new qualification using the `cmdAdd` command.",
+        "Edit an existing qualification using the `cmdEdit` command.",
+        "Delete a qualification using the `cmdDelete` command."
+      ]
+    },
+    {
+      "name": "Data Update Workflow",
+      "steps": [
+        "Validate page data before inserting or updating.",
+        "Pass new or updated data fields to the data source.",
+        "Execute redirect after a successful operation."
+      ]
+    }
+  ],
+  "business_rules": [],
+  "validations": [
+    "Page validation must succeed for operations to proceed.",
+    "Validate presence of user session for data operations."
+  ],
+  "calculations": [],
+  "conditions": [
+    "Screen must be editable for add, edit, or delete operations.",
+    "Presence of a valid user session for executing data operations."
+  ],
+  "system_behavior": [
+    "Displays qualifications in a grid format.",
+    "Handles CRUD operations with session management integration.",
+    "Provides visual feedback and modal popups for user interactions."
+  ],
+  "dependencies": [
+    "HSPnetSession for user session management.",
+    "Grid utility for table operations.",
+    "Dropdown utility for handling dropdown lists in forms."
+  ],
+  "exceptions": [
+    "Operation cancellation on invalid page state.",
+    "Operation cancellation on missing user session."
+  ],
+  "source_document_ids": [
+    "09ce27fe-3be9-5c03-a6b4-222db63d2aea",
+    "10de9de8-337a-5f73-baf6-074ae6edf92a",
+    "1c70f924-86d5-57f9-a3a9-b10209636022",
+    "1d8d4da2-bee5-5cf8-b907-4d37607057b2",
+    "208f0285-d3a3-54b5-a273-9d435d31338a",
+    "44b8b949-915a-5ed9-950a-9d5adf1d1fc1",
+    "40cb8a36-535d-5080-910e-0f8ead44b6c0",
+    "cb324e00-9a29-51a2-8366-63d4920ee2f0"
+  ],
+  "content_gaps": []
+}
