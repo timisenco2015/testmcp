@@ -1,153 +1,102 @@
 {
   "filename": "EmploymentApplicationDocument",
   "found": true,
-  "summary": "The EmploymentApplicationDocument is a class and a series of procedures within the HSPnet system aimed at managing documents related to employment applications. It includes functionalities for adding, retrieving, validating, and deleting documents, such as resumes and photos, associated with employment applications.",
-  "purpose": "To manage employment application documents, including operations like addition, removal, retrieval, and validation of different types of documents associated with employment applications within the HSPnet system.",
+  "summary": "The EmploymentApplicationDocument class and related functions manage employment application documents including creation, retrieval, updating, and deletion of these documents from the database. They handle various document types such as resumes and photos, both anonymous and named, supporting workflows for adding, searching, and removing documents.",
+  "purpose": "To manage employment application documents including operations like adding new documents, searching based on application ID and type, updating, and deleting documents.",
   "entities": [
     "EmploymentApplicationDocument",
-    "EmploymentApplicationDocuments"
-  ],
-  "fields": [
-    {
-      "name": "ID",
-      "description": "Unique identifier for the document."
-    },
-    {
-      "name": "EmploymentApplicationID",
-      "description": "Identifier for the associated employment application."
-    },
-    {
-      "name": "TypeCodeID",
-      "description": "Identifier for the type of document."
-    },
-    {
-      "name": "TypeComments",
-      "description": "Additional comments regarding the type of document."
-    },
-    {
-      "name": "FileURL",
-      "description": "URL of the document file."
-    },
-    {
-      "name": "FilePath",
-      "description": "File path of the document."
-    },
-    {
-      "name": "FileSize",
-      "description": "Size of the document file in bytes."
-    },
-    {
-      "name": "FileType",
-      "description": "Type of the document file."
-    },
-    {
-      "name": "FileTypeAlt",
-      "description": "Alternative type of the document file (for localization purposes)."
-    },
-    {
-      "name": "UpdateDate",
-      "description": "Date when the document was last updated."
-    },
-    {
-      "name": "ByUserID",
-      "description": "Identifier of the user who performed the last update."
-    },
-    {
-      "name": "LastName",
-      "description": "Last name of the person associated with the document."
-    },
-    {
-      "name": "FirstName",
-      "description": "First name of the person associated with the document."
-    },
-    {
-      "name": "MiddleName",
-      "description": "Middle name of the person associated with the document."
-    },
-    {
-      "name": "Agency",
-      "description": "Agency associated with the document."
-    },
-    {
-      "name": "TypeCode",
-      "description": "Code representing the document type."
-    },
-    {
-      "name": "UpdatedDetails",
-      "description": "Details about the document's last update, including user name and agency information."
-    },
-    {
-      "name": "Anonymous",
-      "description": "Flag indicating if the document is anonymous."
-    },
-    {
-      "name": "UploadedByStudent",
-      "description": "Flag indicating if the document was uploaded by the student."
-    }
-  ],
-  "actors": [
+    "EmploymentApplicationDocuments",
     "HSPnetSession",
     "SqlDataReader"
   ],
+  "fields": [
+    "ID",
+    "EmploymentApplicationID",
+    "TypeCodeID",
+    "TypeComments",
+    "FileURL",
+    "FilePath",
+    "FileSize",
+    "FileType",
+    "FileTypeAlt",
+    "UpdateDate",
+    "ByUserID",
+    "LastName",
+    "FirstName",
+    "MiddleName",
+    "Agency",
+    "TypeCode",
+    "UpdatedDetails",
+    "Anonymous",
+    "UploadedByStudent"
+  ],
+  "actors": [
+    "sess.DB",
+    "entry"
+  ],
   "workflows": [
     {
-      "name": "Add Document",
+      "name": "Add Employment Application Documents",
       "steps": [
-        "Procedure: EmploymentApplicationDocumentAddDoc",
-        "Add parameters: SessionID, EmploymentApplicationID, StudentDocumentIDList, AddWebPage",
-        "Execute query to retrieve file paths"
+        "Use EmploymentApplicationDocumentAddDoc procedure",
+        "Add session and document parameters",
+        "Retrieve data using SqlDataReader",
+        "Close the reader"
       ]
     },
     {
       "name": "Remove Web Page",
       "steps": [
-        "Procedure: EmploymentApplicationRemoveWebPage",
-        "Add parameter: EmploymentApplicationID",
-        "Execute query to remove associated web page"
+        "Set procedure name to EmploymentApplicationRemoveWebPage",
+        "Add EmploymentApplicationID parameter",
+        "Execute query"
       ]
     },
     {
-      "name": "Get Documents by Employment Application ID",
+      "name": "Get Documents by EmploymentApplicationID",
       "steps": [
-        "Procedure: EmploymentApplicationDocumentSearch",
-        "Add parameters: EmploymentApplicationID, TypeCodeID",
-        "Retrieve and fill list of documents"
+        "Set procedure name to EmploymentApplicationDocumentSearch",
+        "Add parameters EmploymentApplicationID and TypeCodeID",
+        "Retrieve data and fill list",
+        "Close reader"
       ]
     },
     {
-      "name": "Delete Document",
+      "name": "Delete EmploymentApplicationDocument",
       "steps": [
-        "Retrieve document details by ID",
-        "Delete file and containing folder",
-        "Procedure: EmploymentApplicationDocumentDelete",
-        "Add parameter: DocumentID",
-        "Execute query to delete database record"
+        "Retrieve document by ID",
+        "Delete file and folder",
+        "Delete database record using EmploymentApplicationDocumentDelete procedure"
       ]
     }
   ],
   "business_rules": [
-    "If document type is required but missing, add an error message.",
-    "If file URL or file path is blank, add an error message."
+    "Document must have valid FileURL and FilePath",
+    "TypeCodeID must be non-zero"
   ],
   "validations": [
-    "Ensure FileURL and FilePath are not blank.",
-    "Ensure TypeCodeID is not zero."
+    "Check if FileURL or FilePath is blank",
+    "Verify TypeCodeID"
   ],
-  "calculations": [],
+  "calculations": [
+    "File size in kilobytes"
+  ],
   "conditions": [
-    "Differentiate document types by using magic numbers (e.g., -1 for anonymous resume).",
-    "Append comments to TypeCode if non-blank."
+    "If entry.UploadedByStudent is true, use student details",
+    "If userDefined and anonymous conditions met, continue workflow"
   ],
   "system_behavior": [
-    "Retrieve documents using specified procedures based on IDs and parameters.",
-    "Remove documents and associated records following the defined procedures."
+    "Returns list of file paths",
+    "Adds EmploymentApplicationDocument entries to a list",
+    "Deletes file and folder ignoring exceptions"
   ],
   "dependencies": [
     "HSPnet.Framework",
-    "HSPnet.App_GlobalResources"
+    "HSPnet.App_GlobalResources",
+    "System.Data.SqlClient"
   ],
   "exceptions": [
-    "Ignore exceptions during file and directory deletion."
+    "If file can't be deleted, exception is ignored"
   ],
   "source_document_ids": [
     "005a4659-8a78-53ec-90b2-9e784447427e",
