@@ -1,8 +1,8 @@
 {
   "filename": "AgencyWebsites",
   "found": true,
-  "summary": "The AgencyWebsites component is a user control within the HSPnet system designed for managing agency website data. It includes functionality for displaying, editing, adding, and deleting records in a GridView, with associated controls for handling actions like showing details and validating inputs.",
-  "purpose": "To manage and display website information related to agencies within the HSPnet system, providing a user interface for CRUD operations on agency website records.",
+  "summary": "AgencyWebsites control manages agency websites data, allowing users to add, edit, and delete website entries associated with an agency. It includes validations and provides a user interface for managing website records.",
+  "purpose": "To manage and display agency websites, allowing for edits and entries.",
   "entities": [],
   "fields": [
     "updPnlProfile",
@@ -10,56 +10,42 @@
     "Label1",
     "lblEmptyData",
     "cmdAddEmptyData",
-    "gvwWebsites",
-    "dsWebsites",
-    "pnlPopup",
     "updPnlPopup",
     "btnShowPopup",
     "mdlDetails",
     "ValidationSummary3",
-    "fvwWebsite"
+    "fvwWebsite",
+    "pnlPopup"
   ],
-  "actors": [
-    "UserSession",
-    "ScreenIsEditable",
-    "AgencyID",
-    "AlternateDatabase"
-  ],
+  "actors": ["UserSession"],
   "workflows": [
     {
-      "name": "Agency Website Management",
+      "name": "Manage Agency Websites",
       "steps": [
-        "Load the control with Page_Load.",
-        "Select data via dsWebsites_Selecting using session and agency ID.",
-        "Bind data to GridView in gvwWebsites_RowDataBound.",
-        "Handle user commands in gvwWebsites_RowCommand, such as cmdEdit, cmdAdd, and cmdDelete.",
-        "Add new data when cmdAddEmptyData is clicked.",
-        "Save or update data using fvwWebsite_ItemCommand, then redirect to Agency Profile page."
+        "Select website from list",
+        "Click cmdEdit to modify entry",
+        "Submit changes",
+        "Use cmdAdd to add new entry",
+        "Delete website entry if necessary"
       ]
     }
   ],
   "business_rules": [
-    "If UserSession is null during data select, cancel the operation.",
-    "GridView shows 'no data found' button only if rows exist and screen is editable."
+    "Websites can only be modified if ScreenIsEditable is true"
   ],
   "validations": [
-    "Check if UserSession is null before proceeding with data selection."
+    "Ensure that the UserSession is active before data operations",
+    "Validation on website URL and name fields"
   ],
   "calculations": [],
   "conditions": [
-    "ScreenIsEditable affects the visibility of UI elements like add/edit buttons.",
-    "Command names determine the type of database operation (edit, add, delete).",
-    "Data row type affects GridView setup (header vs data row)."
+    "Screen must be editable to modify data"
   ],
   "system_behavior": [
-    "Switches between edit and add modes in the FormView.",
-    "Handles insert and update operations via fvwWebsite_ItemCommand.",
-    "Redirects users after specific operations to the agency profile page."
+    "Displays website data in grid",
+    "Allows for interaction via form view"
   ],
-  "dependencies": [
-    "Depends on HSPnet session management for caching and user session handling.",
-    "Utilizes AJAX for ModalPopupExtender functionality to show website details."
-  ],
+  "dependencies": [],
   "exceptions": [],
   "source_document_ids": [
     "3bc6d105-ab67-5629-9be9-e3e1c6988245",
