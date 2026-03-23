@@ -1,0 +1,84 @@
+{
+  "filename": "PlacementRequestReminders",
+  "found": true,
+  "summary": "This document details a system for managing reminders related to placement requests, including adding, updating, searching for, and deleting reminders. It involves procedural database operations and error handling to ensure reminders are managed correctly.",
+  "purpose": "To provide functionalities for adding, updating, searching, and deleting placement request reminders within a system, ensuring reminders are managed and communicated effectively.",
+  "entities": [
+    "PlacementRequestReminder"
+  ],
+  "fields": [
+    "ID",
+    "UserID",
+    "PlacementRequestDestinationID",
+    "EmailFrom",
+    "EmailTo",
+    "Subject",
+    "Message",
+    "Priority",
+    "SendOn",
+    "FinalMessageBody",
+    "ShareReminder"
+  ],
+  "actors": [
+    "HSPnetSession"
+  ],
+  "workflows": [
+    {
+      "name": "Add Placement Request Reminder",
+      "steps": [
+        "Call Procedure: PlacementRequestReminderAdd",
+        "Add Parameters: SessionID, PlacementRequestDestinationID, emailFrom, EmailTo, Subject, Message, Priority, SendOn, ShareReminder",
+        "Execute Database Query",
+        "Handle Errors: Replace or Add Warnings"
+      ]
+    },
+    {
+      "name": "Update Placement Request Reminder",
+      "steps": [
+        "Call Procedure: PlacementRequestReminderUpdate",
+        "Add Parameters: SessionID, PlacementRequestDestinationID, emailFrom, EmailTo, Subject, Message, Priority, SendOn, ShareReminder",
+        "Execute Database Query",
+        "Handle Errors: Replace or Add Warnings"
+      ]
+    },
+    {
+      "name": "Search Placement Request Reminder",
+      "steps": [
+        "Call Procedure: PlacementRequestReminderSearch",
+        "Add Parameters: SessionID, PlacementRequestDestinationID",
+        "Retrieve Data Reader",
+        "Parse Data and Populate List",
+        "Close Data Reader"
+      ]
+    },
+    {
+      "name": "Delete Placement Request Reminder",
+      "steps": [
+        "Call Procedure: PlacementRequestReminderDelete",
+        "Add Parameters: SessionID, PlacementRequestDestinationID",
+        "Execute Database Query"
+      ]
+    }
+  ],
+  "business_rules": [],
+  "validations": [],
+  "calculations": [],
+  "conditions": [],
+  "system_behavior": [
+    "Utilizes procedural database operations for CRUD (Create, Read, Update, Delete) actions.",
+    "Handles duplicate entry errors with custom messages.",
+    "Supports email notifications with configurable parameters."
+  ],
+  "dependencies": [],
+  "exceptions": [
+    "Unique constraint violation handled with custom error message."
+  ],
+  "source_document_ids": [
+    "042d2890-7d80-5a99-8bd1-6c4c42b51065",
+    "81e52049-4bd9-5e08-9695-f7a1c3d9de2a",
+    "909ed2e6-41cc-5d33-bb80-f01cf718a686",
+    "b3949ecb-f208-5550-bfea-776ad2d03c3a",
+    "de1b75cd-a646-58fe-8149-b3d2dae73484"
+  ],
+  "content_gaps": []
+}
