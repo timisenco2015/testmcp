@@ -1,0 +1,94 @@
+{
+  "filename": "CostCentre",
+  "found": true,
+  "summary": "CostCentre is a system feature for retrieving cost centre records related to placements, aggregating placement data by parameters such as date range, agencies, discipline, site, service, destination, and placement request status. It organizes and exposes structured information for financial and reporting operations.",
+  "purpose": "To provide detailed cost centre reporting and data for placements, supporting financial tracking, reporting, and accounting tasks within the system. Enables querying of placement cost centre records by multiple filters for analysis and downstream integration.",
+  "entities": [
+    "CostCentreRecord",
+    "CostCentreView"
+  ],
+  "fields": [
+    "PlacingAgency",
+    "Department",
+    "Program",
+    "Discipline",
+    "SubDiscipline",
+    "ReceivingAgency",
+    "Site",
+    "Portfolio",
+    "Service",
+    "Destination",
+    "CostCentre",
+    "CostCentreDescription",
+    "PRType",
+    "StartDate",
+    "EndDate",
+    "Status",
+    "Course",
+    "ProgramYear",
+    "ReferenceNumber",
+    "CFO",
+    "PRCount",
+    "StudentCount",
+    "PRHours",
+    "StudentHours"
+  ],
+  "actors": [
+    "SystemUser",
+    "FinancialAdministrator",
+    "PlacementCoordinator"
+  ],
+  "workflows": [
+    {
+      "name": "GetCostCentre",
+      "steps": [
+        "User or system calls GetCostCentre with filtering parameters (sessionID, date range, agencies, discipline, etc.)",
+        "Database procedure PlacementCostCentre is executed with provided parameters",
+        "Records are retrieved and mapped into CostCentreRecord objects",
+        "Results are returned as a list for further processing, display, or reporting"
+      ]
+    }
+  ],
+  "business_rules": [
+    "All filtering parameters are optional and can be combined as needed.",
+    "PlacementCostCentre procedure aggregates placement data by defined fields.",
+    "Returned records include assignment details, program year, hours, and financial fields needed for cost centre reporting."
+  ],
+  "validations": [
+    "Date range must be valid (StartDate <= EndDate)",
+    "SessionID must be valid",
+    "UUIDs and IDs must be safely cast for database compatibility"
+  ],
+  "calculations": [
+    "PRCount: Number of placement requests in scope",
+    "StudentCount: Number of students in scope",
+    "PRHours: Total hours from placements",
+    "StudentHours: Total student hours from placements"
+  ],
+  "conditions": [
+    "Filtering by any field (agencies, discipline, site, service, destination, PRStatus) is possible",
+    "Records only returned when matching criteria"
+  ],
+  "system_behavior": [
+    "Aggregation of placement data over selected filters",
+    "Return of detailed structured record per placement",
+    "Support for downstream use in reporting or accounting interfaces"
+  ],
+  "dependencies": [
+    "Database procedures and parameter casting (PlacementCostCentre)",
+    "CostCentreRecord mapping",
+    "HSPnetSession for session/context"
+  ],
+  "exceptions": [
+    "Invalid filtering parameters cause empty result",
+    "Database errors or unsafe casts prevent retrieval"
+  ],
+  "source_document_ids": [
+    "20ac8054-536e-5203-b33d-7db2b2dc2359",
+    "2c04f259-cf58-5d95-803c-8ebf16840f6c",
+    "97bc3ba9-9fe4-52b1-8847-dce2198e0aee",
+    "dd965b0f-f9cf-57eb-a3f8-32b3b97a6d1a",
+    "e1ac7e41-5e9e-5f16-baa0-29d05a70f976"
+  ],
+  "content_gaps": []
+}
