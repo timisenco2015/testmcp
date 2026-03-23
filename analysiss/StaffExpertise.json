@@ -1,0 +1,81 @@
+{
+    "filename": "StaffExpertise",
+    "found": true,
+    "summary": "The content involves managing expertise information associated with staff profiles, including their skills, interests, and professional disciplines.",
+    "purpose": "To gather and update staff expertise details including skills, interests, disciplines, and sub-disciplines, ensuring uniqueness and validating input data.",
+    "entities": [
+        "StaffExpertise",
+        "StaffExpertiseEdit"
+    ],
+    "fields": [
+        "ProfessionID",
+        "DisciplineID",
+        "SubDisciplineID",
+        "CurrentEmployment",
+        "InterestID",
+        "InterestCodeID",
+        "InterestDetails",
+        "SkillID",
+        "SkillCodeID",
+        "SkillDetails"
+    ],
+    "actors": [
+        "HSPnetSession",
+        "StaffProfiles",
+        "StaffExpertises"
+    ],
+    "workflows": [
+        {
+            "name": "Update Staff Expertise",
+            "steps": [
+                "Validate the input data for uniqueness of skills, interests, and disciplines.",
+                "Check for required fields such as sub-disciplines if a discipline is selected.",
+                "Call StaffExpertiseUpdate to update expertise data for skills, interests, and profession."
+            ]
+        }
+    ],
+    "business_rules": [
+        "Ensure skills, interests, and disciplines/sub-disciplines are unique across entries.",
+        "Sub-discipline is required if discipline is selected."
+    ],
+    "validations": [
+        "Check for uniqueness of skills by SkillCodeID.",
+        "Check for uniqueness of interests by InterestCodeID.",
+        "Check for uniqueness of disciplines and sub-disciplines combination."
+    ],
+    "calculations": [
+        "ProfessionLst Count to determine entity retrieval and assignment.",
+        "InterestLst and SkillLst Count to determine entity retrieval and assignment."
+    ],
+    "conditions": [
+        "Validation fails if disciplines/sub-disciplines or skills/interests are duplicate.",
+        "Validation fails if discipline is selected without sub-discipline."
+    ],
+    "system_behavior": [
+        "Retrieves and updates staff expertise data based on valid input.",
+        "Uses session parameters for database operations."
+    ],
+    "dependencies": [
+        "Resources for error messages and data formatting.",
+        "Database interaction through HSPnetSession."
+    ],
+    "exceptions": [
+        "Addition of error messages when validation fails."
+    ],
+    "source_document_ids": [
+        "07ca4d9d-1bd8-5683-9153-c6ebb7d31a2f",
+        "0ad238ef-d9f6-5fb6-846b-0ce5b35c3b60",
+        "43f61cf5-1a4d-53f0-9151-34623200dbed",
+        "7e545faa-cb2b-58ae-beba-6f9545076f57",
+        "7f54b87a-307e-577f-8e7c-09045d1bcb51",
+        "87aab715-8b9d-57e3-bc2c-10dad50ae081",
+        "9a84ac99-83f5-5ac5-8420-a5746c1fd75d",
+        "b8e04d0c-d917-5b8b-ae96-1e296f9be725",
+        "bdc4958e-d920-5bc3-971c-ea5491210283",
+        "c4d1bb56-d75b-54cc-9c86-67c105e4de6e",
+        "c7c06e38-71c0-5994-b4fd-c8ee9b264d14",
+        "cca4d3e7-41f7-5fd8-b3ae-83fe6093337d",
+        "cda92783-02fd-5e1d-a273-acac191856d5"
+    ],
+    "content_gaps": []
+}
