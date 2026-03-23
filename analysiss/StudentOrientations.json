@@ -1,0 +1,78 @@
+{
+    "filename": "StudentOrientations",
+    "found": true,
+    "summary": "The Student Orientations module appears to handle interactions related to student orientation procedures. It involves functionality for adding, editing, and deleting student orientation records, customizing the user interface based on user roles, and handling data related to agency sites and provider types. The module also manages data bindings and interactions with web controls like dropdowns, buttons, and panels.",
+    "purpose": "Facilitate the management of student orientation records within the system, allowing authorized users to add, edit, and delete records while ensuring proper data validation and access control.",
+    "entities": [
+        "StudentOrientation",
+        "UserSession"
+    ],
+    "fields": [
+        "agencySiteID",
+        "providerTypeCodeID",
+        "ProviderTypeDescription",
+        "RCAllowedEdit",
+        "CreatedByAgencyID",
+        "ScreenIsEditable",
+        "StudentID"
+    ],
+    "actors": [
+        "PlacingUser",
+        "StudentMaint",
+        "StudentUser",
+        "LocalAdministrator",
+        "ReceivingCoordinator",
+        "SystemAdministrator"
+    ],
+    "workflows": [
+        {
+            "name": "Add/Edit/Delete Student Orientation",
+            "steps": [
+                "Check user permissions and roles",
+                "Bind data to controls",
+                "Display form for add/edit/delete",
+                "Process user actions like add, edit, or delete",
+                "Validate data and permissions",
+                "Save changes to the database",
+                "Redirect to the appropriate page"
+            ]
+        }
+    ],
+    "business_rules": [
+        "Only users with proper permissions can edit or delete records",
+        "Editable status is contingent upon user roles and permissions"
+    ],
+    "validations": [
+        "Page validation occurs before data updates",
+        "Dropdown selections must match expected values"
+    ],
+    "calculations": [],
+    "conditions": [
+        "User permissions affect visibility and editable status of controls"
+    ],
+    "system_behavior": [
+        "Page redirects after successful insert/update/delete",
+        "Setup of JavaScript variables and functions to manage UI interactions"
+    ],
+    "dependencies": [
+        "User session data determines available functions",
+        "Agency and provider type data influence dropdown selections"
+    ],
+    "exceptions": [
+        "Cancel operations if user session is invalid",
+        "Prevent interactions if data is not aligned with user permissions"
+    ],
+    "source_document_ids": [
+        "09cbea0f-c593-540b-8a7e-2d539d0d5601",
+        "2853c796-f2be-5358-bdd3-5c9d4011a657",
+        "6e489253-3e18-513e-bec2-0e9ba4a379c5",
+        "711fe716-22b2-5f7f-9758-f9dd36370b1c",
+        "854b90dd-c3f5-5c90-8396-15d4c08fd25a",
+        "9e80174d-06ef-5b58-b710-6767cecb5fe2",
+        "a0aa11fe-3df0-5eb6-b0ec-1954fcd98d1f",
+        "a8e588ec-c6d9-59ac-bce2-23f9e20bdb9b",
+        "a9290e59-bcf3-55d4-901d-d5b58ee03a19",
+        "cf3dac64-f5a0-5e77-8568-7da8d9474e3f"
+    ],
+    "content_gaps": []
+}
