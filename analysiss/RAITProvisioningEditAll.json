@@ -1,99 +1,105 @@
 {
-  "filename": "RAITProvisioningEditAll",
-  "found": true,
-  "summary": "The RAITProvisioningEditAll component facilitates the management and provisioning of student RAIT data within a web application. It includes controls for viewing, editing, and saving student records under various conditions.",
-  "purpose": "To manage student RAIT data in a web-based enrollment system, allowing for viewing, editing, and saving of provisioning records.",
-  "entities": [],
-  "fields": [
-    "UserSession",
-    "ScriptMgr",
-    "CohortID",
-    "TermID",
-    "CourseID",
-    "ShowGrad",
-    "ShowInactive",
-    "ShowWaived",
-    "SectionFilter",
-    "ActionFilter",
-    "keyword",
-    "CampusID",
-    "CommentFilter",
-    "blnReadOnly",
-    "blnStudentMaint",
-    "blnGotoOutbox",
-    "blnGotoGWS",
-    "blnGotoIWS",
-    "CourseLst",
-    "CertificationCodeID",
-    "EnrollmentID",
-    "StartRow",
-    "ScreenMode",
-    "StudentRAITPros",
-    "gridDataEdit",
-    "ValidationSummary1",
-    "dsRAIT",
-    "dsList"
-  ],
-  "actors": [
-    "UserSession",
-    "GridViewRow",
-    "GridViewCommandEventArgs",
-    "ObjectDataSourceSelectingEventArgs"
-  ],
-  "workflows": [
-    {
-      "name": "RAIT Provisioning Management",
-      "steps": [
-        "Page Load - Initialize components.",
-        "Row Command - Execute command based on input (save, edit, etc.).",
-        "Row Data Bound - Bind data to UI elements.",
-        "Row Editing - Enable edit mode for rows.",
-        "PreRender - Set read-only state and configure JavaScript.",
-        "JavaScript Setup - Configure client-side interaction.",
-        "Data Bound - Manage UI based on data state."
-      ]
-    }
-  ],
-  "business_rules": [
-    "Ensure no errors in UserSession messages to proceed with redirect.",
-    "Validate presence of UserSession before proceeding with data source actions."
-  ],
-  "validations": [
-    "Check for UserSession and message errors before redirect.",
-    "Field presence validation during data binding and command execution."
-  ],
-  "calculations": [],
-  "conditions": [
-    "If EnrollmentID is not zero, disable certain UI buttons.",
-    "Enable certain panels based on the number of rows in gridDataEdit."
-  ],
-  "system_behavior": [
-    "Redirect based on command executed without errors.",
-    "Bind data to grid and UI elements based on retrieved rows."
-  ],
-  "dependencies": [
-    "UserSession management",
-    "GridView controls for data interaction"
-  ],
-  "exceptions": [
-    "Cancel data selection if UserSession is null.",
-    "Handle row data binding errors gracefully."
-  ],
-  "source_document_ids": [
-    "08785d9f-3b7e-5bec-8715-8eb5805f8a0f",
-    "0a2c041e-9d8b-5a19-a734-d93d582018f4",
-    "109d7efb-4a09-5307-8c08-24dba016379d",
-    "121ef750-3571-53e0-ba69-7f1a28228fc7",
-    "165b92ae-6d5c-5f20-ab0b-942f82580314",
-    "3c5c81d6-67f9-5bee-8764-a9c0a199a4e9",
-    "43a13f05-a444-5ab8-a7b0-62ae3a5e0033",
-    "790287de-0c59-5903-9f92-a7b604c9d507",
-    "9db6c85e-29b2-5eb5-952e-f167673c0688",
-    "a7b4a139-76ab-5ba1-82d7-a61c487080a6",
-    "cef946da-c016-5317-8cf7-2f54eafb9699",
-    "ed0933fd-1fa6-50cb-a982-beef354d8ea5",
-    "f6a869d1-c6f3-5044-a368-2eeb20f5c3cd",
-    "fce37fe9-4e9f-5c1e-bce5-f4ea572a9d66"
-  ],
-  "content_gaps": []
+    "filename": "RAITProvisioningEditAll",
+    "found": true,
+    "summary": "The RAITProvisioningEditAll user control is part of a web-based enrollment system and handles RAIT provisioning tasks for students. It provides functionalities such as viewing and editing student RAIT details, saving changes, managing user sessions, and configuring display settings.",
+    "purpose": "To facilitate the management and editing of RAIT provisioning details within the HSPnet enrollment system, allowing for efficient handling of data related to student agency associations and login credentials.",
+    "entities": [
+        "StudentRAITProvisioning",
+        "Course",
+        "HSPnetSession",
+        "StudentRAITProvisionings"
+    ],
+    "fields": [
+        "CohortID",
+        "TermID",
+        "CourseID",
+        "ShowGrad",
+        "ShowInactive",
+        "ShowWaived",
+        "SectionFilter",
+        "ActionFilter",
+        "keyword",
+        "CampusID",
+        "CommentFilter",
+        "blnReadOnly",
+        "blnStudentMaint",
+        "blnGotoOutbox",
+        "blnGotoGWS",
+        "blnGotoIWS",
+        "CourseLst",
+        "CertificationCodeID",
+        "EnrollmentID",
+        "StartRow",
+        "ScreenMode"
+    ],
+    "actors": [
+        "UserSession"
+    ],
+    "workflows": [
+        {
+            "name": "Grid Data Edit Row Command",
+            "steps": [
+                "Check if message exists and errors count.",
+                "Iterate over grid rows to identify dirty rows.",
+                "Update or add RAIT provisioning using StudentRAITProvisionings.",
+                "Redirect if error count is less than 1."
+            ]
+        },
+        {
+            "name": "Grid Data Edit Row Data Bound",
+            "steps": [
+                "Handle header visibility based on EnrollmentID.",
+                "Bind data to controls like HiddenField, DropDownList, TextBox, CheckBox based on StudentRAITProvisioning object.",
+                "Update visibility and states based on read-only state."
+            ]
+        },
+        {
+            "name": "Setup JavaScript Variables",
+            "steps": [
+                "Iterate over grid rows to collect dirty field IDs.",
+                "Register JavaScript startup script depending on postback status."
+            ]
+        }
+    ],
+    "business_rules": [
+        "Hide Save All button if in single Edit mode.",
+        "Set row state to Edit if EnrollmentID > -1."
+    ],
+    "validations": [
+        "Cancel ObjectDataSource selection if UserSession is null."
+    ],
+    "calculations": [],
+    "conditions": [
+        "Check if the row type is DataControlRowType.DataRow before data binding.",
+        "Execute conditional redirects based on command names in grid commands."
+    ],
+    "system_behavior": [
+        "Disable edit fields if blnReadOnly is true.",
+        "Hide Save buttons if certain conditions are met (e.g., less than 14 rows)."
+    ],
+    "dependencies": [
+        "Grid",
+        "UserSession",
+        "GridView"
+    ],
+    "exceptions": [],
+    "source_document_ids": [
+        "08785d9f-3b7e-5bec-8715-8eb5805f8a0f",
+        "0a2c041e-9d8b-5a19-a734-d93d582018f4",
+        "109d7efb-4a09-5307-8c08-24dba016379d",
+        "121ef750-3571-53e0-ba69-7f1a28228fc7",
+        "165b92ae-6d5c-5f20-ab0b-942f82580314",
+        "3c5c81d6-67f9-5bee-8764-a9c0a199a4e9",
+        "43a13f05-a444-5ab8-a7b0-62ae3a5e0033",
+        "790287de-0c59-5903-9f92-a7b604c9d507",
+        "9db6c85e-29b2-5eb5-952e-f167673c0688",
+        "a7b4a139-76ab-5ba1-82d7-a61c487080a6",
+        "cef946da-c016-5317-8cf7-2f54eafb9699",
+        "ed0933fd-1fa6-50cb-a982-beef354d8ea5",
+        "f6a869d1-c6f3-5044-a368-2eeb20f5c3cd",
+        "fce37fe9-4e9f-5c1e-bce5-f4ea572a9d66"
+    ],
+    "content_gaps": [
+        "Incomplete details on calculations and exceptions."
+    ]
 }
