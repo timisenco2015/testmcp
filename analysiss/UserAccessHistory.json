@@ -1,69 +1,47 @@
 {
   "filename": "UserAccessHistory",
   "found": true,
-  "summary": "The UserAccessHistory file contains auto-generated code and user control logic for displaying and interacting with a user's access history in a staff profile. It includes controls for a button panel, a print details button, a grid view to display data, and an ObjectDataSource for fetching staff PR history. The code manages user sessions and ensures data loading is conditional on a valid session.",
-  "purpose": "To provide an interface for viewing and managing user access history in a staff profile section of an application.",
-  "entities": [],
+  "summary": "The UserAccessHistory class is a part of the HSPnet.UserControls.StaffProfile namespace, serving as a user control for managing user access history. It provides a user interface including controls like pnlButtons, btnPrintDetails, and gridData to display user access data. It interacts with the HSPnetSession to manage user sessions and uses data-bindings to object sources like dsStaffPRHistoryList.",
+  "purpose": "To present and manage user access history within the HSPnet application framework, enabling administrators to view and manage historical data related to user activities.",
+  "entities": [
+    "HSPnetSession",
+    "UserAccessHistory"
+  ],
   "fields": [
-    {
-      "name": "pnlButtons",
-      "type": "Panel",
-      "description": "A panel for button controls."
-    },
-    {
-      "name": "btnPrintDetails",
-      "type": "HtmlInputButton",
-      "description": "A button control for printing details."
-    },
-    {
-      "name": "Literal2",
-      "type": "Literal",
-      "description": "A literal control for displaying text."
-    },
-    {
-      "name": "gridData",
-      "type": "GridView",
-      "description": "A grid view for displaying access history data."
-    },
-    {
-      "name": "dsStaffPRHistoryList",
-      "type": "ObjectDataSource",
-      "description": "An object data source for fetching staff PR history data."
-    }
+    "pnlButtons",
+    "btnPrintDetails",
+    "Literal2",
+    "gridData",
+    "dsStaffPRHistoryList"
   ],
   "actors": [
-    {
-      "name": "UserSession",
-      "role": "Session management for current user."
-    },
-    {
-      "name": "StaffID",
-      "role": "Identifier for the staff member."
-    }
+    "User",
+    "Administrator"
   ],
   "workflows": [
     {
-      "name": "LoadUserAccessHistory",
+      "name": "Display User Access History",
       "steps": [
-        "Initialize user session and check if it is valid.",
-        "If the session is invalid, cancel the data loading operation.",
-        "If the session is valid, set session and staff ID parameters for data fetching.",
-        "Bind data to grid view for display."
+        "Initialize the UserAccessHistory control.",
+        "Bind data to gridData control using dsStaffPRHistoryList.",
+        "Render UI components like pnlButtons and btnPrintDetails for user interaction.",
+        "Handle user session through HSPnetSession."
       ]
     }
   ],
   "business_rules": [],
-  "validations": [
-    "Ensure the user session is valid before fetching data."
-  ],
+  "validations": [],
   "calculations": [],
-  "conditions": [
-    "Load data only if user session is valid."
-  ],
+  "conditions": [],
   "system_behavior": [
-    "Cancels data loading if user session is invalid."
+    "Displays user access history in a grid format.",
+    "Allows exporting or printing of access details."
   ],
-  "dependencies": [],
+  "dependencies": [
+    "System.Web.UI.WebControls",
+    "HSPnet.App_GlobalResources",
+    "HSPnet.DataLayer"
+  ],
   "exceptions": [],
   "source_document_ids": [
     "75b9f8ca-9e1e-5d6e-b7eb-180b26d94587",
