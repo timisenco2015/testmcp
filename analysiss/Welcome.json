@@ -1,0 +1,100 @@
+{
+  "filename": "Welcome",
+  "found": true,
+  "summary": "The Welcome system for HSPnet is a comprehensive platform designed to manage various workflows related to student placements, supervision, and program coordination. It provides interfaces for different user roles such as Placement Coordinators, Receiving Coordinators, and Supervisors, allowing them to manage placement requests and track changes efficiently.",
+  "purpose": "The purpose of the Welcome system is to provide a centralized platform for managing student placements, coordinating between agencies, managing documents, and handling exemptions and alerts in educational and training programs managed through HSPnet.",
+  "entities": [],
+  "fields": [
+    "ProgramID",
+    "AgencyID",
+    "SiteID",
+    "ServiceID",
+    "DestinationID",
+    "DisciplineID",
+    "SubDisciplineID",
+    "CourseID",
+    "CohortID",
+    "SearchMode",
+    "KeyChanges",
+    "AdvancedFilter",
+    "GroupFilter",
+    "QESFilter",
+    "StartDate",
+    "EndDate",
+    "CustomDateFrom",
+    "CustomDateTo"
+  ],
+  "actors": [
+    "UserSession",
+    "PlacementCoordinator",
+    "ReceivingCoordinator",
+    "Instructor",
+    "NIS_Agency",
+    "IRP_Agency",
+    "Supervisor",
+    "CourseLeader",
+    "Student"
+  ],
+  "workflows": [
+    {
+      "name": "Placement Request Management",
+      "steps": [
+        "Initialize session variables for program and placement details.",
+        "Trigger actions based on user interactions with the interface.",
+        "Handle date and search filters for queries.",
+        "Process placement requests and updates based on user roles.",
+        "Display results and execute navigation commands."
+      ]
+    },
+    {
+      "name": "Document Management",
+      "steps": [
+        "Retrieve documents related to student placements.",
+        "Provide interfaces for viewing and editing documents.",
+        "Update document status and logs accordingly."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Only NIS and IRP agencies have access to all agency options.",
+    "Filters are applied based on user's role and assigned agencies.",
+    "Default to 'All' when advanced filters are turned off.",
+    "Display eOpe monitoring link only if the site is configured for it."
+  ],
+  "validations": [
+    "Ensure date ranges do not exceed one year.",
+    "Validate required fields before processing search or updates."
+  ],
+  "calculations": [],
+  "conditions": [
+    "Mode determines the set of features available to the user.",
+    "NIS/IRP agencies can access additional resources and options."
+  ],
+  "system_behavior": [
+    "Dynamic loading of user-specific data and configurations based on role.",
+    "Automatic redirection based on command execution outcomes.",
+    "Session state management for user filters and settings."
+  ],
+  "dependencies": [
+    "HSPnet Framework for querying and setting URLs.",
+    "DataLayer for retrieving help and configuration settings."
+  ],
+  "exceptions": [
+    "Handle missing role-specific data gracefully with default settings.",
+    "Display alerts when required data fields are not filled."
+  ],
+  "source_document_ids": [
+    "0437b39a-08da-59f7-b66c-c777b7c53f1d",
+    "0783fdfa-0134-5354-95a0-12707cf9ce76",
+    "085e6644-f7a6-50af-b3e7-db7c2a326ddf",
+    "0db750ac-ba2c-5eb9-b0d7-3edf60cba7f8",
+    "10a611ea-cca2-5c13-bb01-decd82d6022b",
+    "1116e19c-ffe8-5fe5-a261-ccebd27d061f",
+    "1128d4f0-a549-52cf-8c69-da97275e6192",
+    "11d1c875-8907-59fa-8968-db5c1f38b716",
+    "1309af66-4a72-51d6-afba-45c33f0b4dba",
+    "1495a405-563b-5059-863a-db0460aec41c",
+    "154050a9-41b5-59ea-9dba-f394051e7d80"
+  ],
+  "content_gaps": []
+}
