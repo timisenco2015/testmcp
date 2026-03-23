@@ -1,0 +1,66 @@
+```json
+{
+  "filename": "DocumentsAndRequirements",
+  "found": true,
+  "summary": "The DocumentsAndRequirements service provides methods for updating the sort order of requirements and documents within an application. It uses ASP.NET and SQL operations to interact with a database based on different ParentID types such as Agency, Site, and Destination.",
+  "purpose": "To manage and update the sort order of documents and requirements based on different parent entities within the system.",
+  "entities": [
+    "Agency",
+    "Site",
+    "Destination"
+  ],
+  "fields": [
+    "uiOrder",
+    "sessionHash",
+    "ParentIDName",
+    "ParentID",
+    "ActiveTab",
+    "SessionID"
+  ],
+  "actors": [
+    "WebService",
+    "Database"
+  ],
+  "workflows": [
+    {
+      "name": "PostUISortOrder",
+      "steps": [
+        "Retrieve sessionID using sessionHash.",
+        "Validate session by executing 'SessionIsValid' procedure.",
+        "Convert ParentID to integer.",
+        "Execute sort order update procedure based on ParentIDName and ActiveTab."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Sort order update is dependent on the ParentIDName and ActiveTab values."
+  ],
+  "validations": [
+    "Session validation is required using SessionID."
+  ],
+  "calculations": [
+    "Convert ParentID to integer format."
+  ],
+  "conditions": [
+    "Session must be valid before proceeding with sort order updates.",
+    "Different procedures are called based on ParentIDName and ActiveTab."
+  ],
+  "system_behavior": [
+    "Database interaction to update sort orders.",
+    "Response is written back as JSON."
+  ],
+  "dependencies": [
+    "ASP.NET",
+    "SQL Server"
+  ],
+  "exceptions": [
+    "Handle database query exceptions and return an empty JSON response."
+  ],
+  "source_document_ids": [
+    "37bdabcd-9f7d-52cf-8017-de42b921f190",
+    "63c95a50-6966-5f51-b560-ebd7452199d0",
+    "7b11b5bd-eef4-58ce-98df-fbec9ec799db"
+  ],
+  "content_gaps": []
+}
+```
