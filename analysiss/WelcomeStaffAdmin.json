@@ -1,60 +1,48 @@
 {
     "filename": "WelcomeStaffAdmin",
     "found": true,
-    "summary": "The WelcomeStaffAdmin page provides an interface for staff administrators to review current site status and employment applications.",
-    "purpose": "To facilitate staff administrators in managing site operations and reviewing employment applications.",
-    "entities": [
-        "WelcomeStaffAdmin"
-    ],
+    "summary": "WelcomeStaffAdmin manages the staff admin welcome interface.",
+    "purpose": "Facilitates staff administration by providing a dashboard interface with controls for user sessions and data display.",
+    "entities": ["UserSession"],
     "fields": [
+        "lblTitle",
+        "ltlLastLogin",
         "txtStartDate",
         "txtEndDate",
         "ddSite",
-        "ddDiscipline",
-        "gvwApplications"
+        "ddDiscipline"
     ],
-    "actors": [
-        "UserSession"
-    ],
+    "actors": ["User"],
     "workflows": [
         {
-            "name": "Load Page",
+            "name": "Data Refresh",
             "steps": [
-                "Setup page and user session.",
-                "Initialize form elements.",
-                "Load site and discipline data."
-            ]
-        },
-        {
-            "name": "Refresh View",
-            "steps": [
-                "Validate date inputs.",
-                "Load and bind application data."
+                "Fill Site and Discipline Dropdowns",
+                "Set Start and End Date Defaults",
+                "Bind Data to View"
             ]
         }
     ],
-    "business_rules": [
-        "Dates must be valid and end date cannot precede start date.",
-        "Include withdrawn applications based on checkbox state."
-    ],
-    "validations": [
-        "Date fields must be properly formatted.",
-        "Start date must be before end date."
-    ],
+    "business_rules": [],
+    "validations": [],
     "calculations": [],
-    "conditions": [],
+    "conditions": ["IsPostBack condition manages initial data load."],
     "system_behavior": [
-        "Updates view dynamically based on site and discipline selection."
+        "Page.ClientScript manages inclusion of JavaScript files for session operations."
     ],
-    "dependencies": [
-        "UserSession",
-        "DateFormatter",
-        "HSPnetGridView"
-    ],
+    "dependencies": ["Resources"],
     "exceptions": [],
     "source_document_ids": [
         "05db31e4-e8b6-53ee-a6fb-812c106f0134",
-        "100d5925-a5f8-53db-8493-02cddd563eb7"
+        "100d5925-a5f8-53db-8493-02cddd563eb7",
+        "3c84bade-9671-5fbf-acce-3c87a835e9b4",
+        "4c4b97b8-d242-5261-a515-767a3f7d7a49",
+        "52b5066f-23f6-5d82-96cd-5d51dad3de79",
+        "54244516-0707-581e-a8ba-9c041ea38366",
+        "5bb85da3-f5b4-5753-b07c-9bb2a04eeb89",
+        "5d9b92ea-7c12-5070-8603-977cf14d0e04",
+        "6701b153-5288-59e5-8de9-61b68a1fc292",
+        "6eca1317-c0b2-5225-a9af-f034a722d924"
     ],
     "content_gaps": []
 }
