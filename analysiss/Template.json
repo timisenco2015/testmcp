@@ -1,0 +1,87 @@
+{
+  "filename": "Template",
+  "found": true,
+  "summary": "The documents describe a system for handling email and template records within a HSPnet session, including functionalities for adding, updating, and deleting templates, as well as retrieving template information based on different criteria.",
+  "purpose": "To manage email templates and related operations within a HSPnet session, including creating, updating, deleting, and retrieving templates.",
+  "entities": [],
+  "fields": [
+    {
+      "name": "ID",
+      "description": "Unique identifier for a template."
+    },
+    {
+      "name": "Name",
+      "description": "The name of the template."
+    },
+    {
+      "name": "Template",
+      "description": "The main content of the template."
+    },
+    {
+      "name": "TemplateAlt",
+      "description": "Alternative content of the template, used if an alternative language is required."
+    }
+  ],
+  "actors": [
+    {
+      "name": "HSPnetSession",
+      "role": "Facilitates database operations and session management."
+    }
+  ],
+  "workflows": [
+    {
+      "name": "Template Management",
+      "steps": [
+        "Add a new template with name, template content, and alternative content.",
+        "Validate template information before creating or updating.",
+        "Update existing template information when an ID is provided.",
+        "Delete a template using its ID."
+      ]
+    },
+    {
+      "name": "Template Retrieval",
+      "steps": [
+        "Retrieve template by name using TemplateLookup.",
+        "Retrieve email template by emailJobID and name using EmailTemplateLookup.",
+        "Retrieve a list of templates containing specified text."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Name must be specified.",
+    "Template or TemplateAlt must be specified."
+  ],
+  "validations": [
+    {
+      "rule": "Name must not be blank.",
+      "enforced_by": "IsValid function."
+    },
+    {
+      "rule": "Template and TemplateAlt must not be blank.",
+      "enforced_by": "IsValid function."
+    }
+  ],
+  "calculations": [],
+  "conditions": [],
+  "system_behavior": [
+    "The system retrieves data from the database using stored procedures.",
+    "Template data is refreshed by querying the database with specified keywords."
+  ],
+  "dependencies": [
+    "Database connection using SqlDataReader.",
+    "HSPnet.Framework for session management."
+  ],
+  "exceptions": [
+    {
+      "condition": "Invalid data provided.",
+      "handling": "Return error messages and halt operation."
+    }
+  ],
+  "source_document_ids": [
+    "156f7bb4-239b-5738-9da1-127c4d695c5e",
+    "1b53fa2c-2784-5783-924e-bb067eb93762",
+    "6144a446-e628-5045-9fcb-aea6c174dfd6",
+    "f2ad8956-a80a-5c7e-9d6d-22067b6cdfe9"
+  ],
+  "content_gaps": []
+}
