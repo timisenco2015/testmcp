@@ -1,0 +1,77 @@
+{
+  "filename": "RptMnuPositionUtilizationSummary",
+  "found": true,
+  "summary": "The RptMnuPositionUtilizationSummary control is used to generate reports on position utilization. It allows users to specify start and end dates, select agency, department, and program, and provides validation for input fields. Reports can be generated in CSV format.",
+  "purpose": "To provide a user interface for generating position utilization summary reports.",
+  "entities": [],
+  "fields": [
+    "valEditEndDate",
+    "CustomValidator1",
+    "LabelA",
+    "ddPlcAgency",
+    "Label1",
+    "ddDepartment",
+    "LabelB",
+    "ddProgram",
+    "cmdRunExcel",
+    "lblPleaseWait",
+    "pnlReportHTML",
+    "lblReportHTML",
+    "ValidationSummary1",
+    "ltlDescription",
+    "ltlOptions",
+    "ltlMandatoryStartDate",
+    "txtEndDate",
+    "btnEndDate",
+    "CalendarExtender2",
+    "RegularExpressionValidator2",
+    "Literal1",
+    "valEditStartDate",
+    "txtStartDate",
+    "btnStartDate",
+    "CalendarExtender1",
+    "RegularExpressionValidator1"
+  ],
+  "actors": ["UserSession"],
+  "workflows": [
+    {
+      "name": "Generate Position Utilization Summary Report",
+      "steps": [
+        "User specifies start and end dates",
+        "Select agency, department, and program",
+        "Click cmdRunExcel to generate CSV report",
+        "Displayed report in pnlReportHTML"
+      ]
+    }
+  ],
+  "business_rules": [
+    "The report is generated based on selected parameters: agency, department, program, and date range."
+  ],
+  "validations": [
+    "RequiredFieldValidator for start and end dates",
+    "RegularExpressionValidator for date format"
+  ],
+  "calculations": [],
+  "conditions": [
+    "UserSession must be active for generating reports"
+  ],
+  "system_behavior": [
+    "Displays report in HTML format",
+    "Generates CSV output for download"
+  ],
+  "dependencies": [],
+  "exceptions": [],
+  "source_document_ids": [
+    "25fbcf7c-9df8-5317-9ec3-8c1e0c1fbe91",
+    "2e8f6e2e-ffe9-5b71-913d-3544dc0dcd1b",
+    "30e6eb5d-f357-5a7d-9964-7def5861ce17",
+    "76013b2d-edee-53e5-9bff-9cddd39f2c37",
+    "8d1302f3-03be-50a6-b1e6-7a9bf6b5c714",
+    "92fd932b-76a6-5535-a316-fa0368f8c327",
+    "e4fb7111-ba5a-52f8-8cb3-967982bf1a2e",
+    "e9a42aeb-8b85-5911-9e22-41ab264b7e9e",
+    "ea1cc4de-2c4d-56e3-a187-add44607a06a",
+    "f7f74fe0-4d69-54d6-9d43-fea2345ef9dc"
+  ],
+  "content_gaps": []
+}
