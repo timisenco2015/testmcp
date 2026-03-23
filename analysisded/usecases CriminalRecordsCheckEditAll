@@ -1,0 +1,115 @@
+# Module: CriminalRecordsCheckEditAll
+
+## CriminalRecordsCheckEditAll-UC1 — Display and Edit Records
+
+- Primary Actor(s): User
+- Secondary Actor(s): System
+- Trigger: User accesses the Criminal Records Check Edit All page.
+- Description: User can view, edit, and update criminal record checks for multiple students at once using a grid interface.
+- Preconditions:
+  - User must be authenticated.
+  - User must have sufficient permissions to edit student records.
+- Postconditions:
+  - Records are updated and saved.
+  - Page displays updates or error messages if any validation fails.
+- Main Success Scenario:
+  1. User navigates to the Criminal Records Check Edit All page.
+  2. System displays a grid with student records.
+  3. User edits records directly in the grid.
+  4. User saves changes.
+  5. System updates the database and reloads the grid with the new data.
+- Extensions:
+  - If user selects sorting options, grid is sorted accordingly.
+  - Filters can be applied to show specific records.
+- Exceptions:
+  - If user session is invalid, data fetching is canceled.
+  - Validation errors prevent saving changes.
+- Business Rules:
+  - Only users with editing permissions can modify records.
+- Assumptions:
+  - User understands how to interact with grid controls.
+- Open Issues:
+  - None identified.
+
+## CriminalRecordsCheckEditAll-UC2 — Batch Save Records
+
+- Primary Actor(s): User
+- Secondary Actor(s): System
+- Trigger: User clicks 'Save All' button.
+- Description: User attempts to save all changes made to student records at once.
+- Preconditions:
+  - User must have edited at least one student record.
+  - User session must be active.
+- Postconditions:
+  - All edited records are saved.
+  - The user is redirected or notified based on success or failure.
+- Main Success Scenario:
+  1. User edits multiple student records in the grid.
+  2. User clicks 'Save All'.
+  3. System validates entries.
+  4. System updates each record in the database.
+  5. System provides feedback to the user.
+- Extensions:
+  - If redirect condition met, user is redirected to another page.
+- Exceptions:
+  - Validation issues with individual records prevent batch saving.
+  - Warning messages may require user attention before completing save.
+- Business Rules:
+  - Saving is contingent on validation checks.
+- Assumptions:
+  - Batch operations are permitted based on user permissions.
+- Open Issues:
+  - None identified.
+
+## CriminalRecordsCheckEditAll-UC3 — Handle Dirty Records
+
+- Primary Actor(s): System
+- Secondary Actor(s): User
+- Trigger: System identifies changes to student records.
+- Description: System tracks edited records and manages state between page interactions.
+- Preconditions:
+  - Grid must be loaded with editable records.
+- Postconditions:
+  - System correctly tracks and saves the state of edited records.
+- Main Success Scenario:
+  1. User edits a record in the grid.
+  2. System marks record as 'dirty'.
+  3. System binds changes to the JavaScript context.
+  4. Changes are retained across postbacks.
+- Extensions:
+  - System can handle asynchronous postbacks similarly.
+- Exceptions:
+  - Failures in JavaScript execution prevent tracking.
+- Business Rules:
+  - System must efficiently track and manage state without conflicts.
+- Assumptions:
+  - JavaScript is enabled in the user’s browser.
+- Open Issues:
+  - None identified. 
+
+## CriminalRecordsCheckEditAll-UC4 — Filter Records
+
+- Primary Actor(s): User
+- Secondary Actor(s): System
+- Trigger: User applies filters.
+- Description: User filters records based on specific criteria like status, cohort, or comments.
+- Preconditions:
+  - Records are loaded into the grid.
+- Postconditions:
+  - Filtered records are displayed.
+- Main Success Scenario:
+  1. User specifies filter criteria.
+  2. System updates the grid to reflect filtered data.
+  3. User views and interacts with filtered records.
+- Extensions:
+  - Filters can be combined for refined search results.
+- Exceptions:
+  - Invalid filter criteria can result in no data being displayed.
+- Business Rules:
+  - User must have valid session to apply filters.
+- Assumptions:
+  - Filter options are intuitive and clear to the user.
+- Open Issues:
+  - None identified.
+
+No further extractable use cases found.
