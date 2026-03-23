@@ -1,19 +1,33 @@
 {
-  "filename": "Safari3AjaxHack",
-  "found": false,
-  "summary": "",
-  "purpose": "",
-  "entities": [],
-  "fields": [],
-  "actors": [],
-  "workflows": [],
-  "business_rules": [],
-  "validations": [],
-  "calculations": [],
-  "conditions": [],
-  "system_behavior": [],
-  "dependencies": [],
-  "exceptions": [],
-  "source_document_ids": [],
-  "content_gaps": ["No related documents found"]
+    "filename": "Safari3AjaxHack",
+    "found": true,
+    "summary": "The document contains a JavaScript hack to ensure modal popups and potentially other Ajax Toolkit elements function correctly in WebKit-based browsers such as Safari 3 and Chrome.",
+    "purpose": "To implement compatibility between Ajax Toolkit features and WebKit-based browsers by identifying the WebKit user agent and adjusting the browser detection logic in JavaScript.",
+    "entities": [],
+    "fields": [],
+    "actors": [],
+    "workflows": [
+        {
+            "name": "Apply WebKit Compatibility Hack",
+            "steps": [
+                "Identify if the user agent string contains 'WebKit/'.",
+                "Set Sys.Browser.agent to Sys.Browser.WebKit if the condition is true.",
+                "Extract the version of WebKit from the user agent string and assign it to Sys.Browser.version.",
+                "Set Sys.Browser.name to 'WebKit'."
+            ]
+        }
+    ],
+    "business_rules": [],
+    "validations": [],
+    "calculations": [],
+    "conditions": [
+        "navigator.userAgent.indexOf('WebKit/') > -1"
+    ],
+    "system_behavior": [
+        "Modifies the Sys.Browser object properties based on the user agent string to ensure compatibility with WebKit-based browsers."
+    ],
+    "dependencies": [],
+    "exceptions": [],
+    "source_document_ids": ["30d7e416-f425-577d-9586-65f99864695b"],
+    "content_gaps": []
 }
