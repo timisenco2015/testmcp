@@ -1,0 +1,65 @@
+```json
+{
+  "filename": "MaintProgramProfileDescription",
+  "found": true,
+  "summary": "The MaintProgramProfileDescription is a user control used in the HSPnet framework to manage program profiles. It includes functionalities for viewing, editing, adding, and deleting program details with various UI controls and event handlers.",
+  "purpose": "To provide a user interface for managing the profiles of maintenance programs within the HSPnet application, allowing for operations such as viewing, editing, adding, and deleting program details.",
+  "entities": [
+    "HSPnetSession",
+    "ProgramDetail"
+  ],
+  "fields": [
+    "UserSession",
+    "ScreenIsEditable",
+    "ProgramID",
+    "ScriptMgr"
+  ],
+  "actors": [],
+  "workflows": [
+    {
+      "name": "Profile Management",
+      "steps": [
+        "Initialize user session and program ID.",
+        "Handle data source selection based on visibility.",
+        "Bind program details to GridView.",
+        "Provide edit and delete options in GridView.",
+        "Redirect after save or add operations.",
+        "Show or hide data panels based on conditions."
+      ]
+    }
+  ],
+  "business_rules": [],
+  "validations": [
+    "ValidationSummary3"
+  ],
+  "calculations": [],
+  "conditions": [
+    "Check if screen is visible before selecting data source.",
+    "Determine row type in GridView to configure buttons.",
+    "Set visibility of empty data panel based on GridView's row count.",
+    "Redirect to a URL with session and program ID query strings."
+  ],
+  "system_behavior": [
+    "Switch to edit or add mode based on command name.",
+    "Enable or disable UI elements based on the editability of the screen."
+  ],
+  "dependencies": [
+    "System.Web.UI.WebControls",
+    "HSPnet.DataLayer",
+    "HSPnet.Framework"
+  ],
+  "exceptions": [
+    "JavaScript errors related to event validation in GridView's EmptyDataTemplate."
+  ],
+  "source_document_ids": [
+    "03243333-f3df-579f-ad44-5ded284d50a1",
+    "48f3677a-01bd-5710-a3f8-afafe12875d1",
+    "7f195e6b-fcb7-5897-b890-fff56ef4cb54",
+    "928dc17b-7169-5ba0-a6f4-c689fce7ca49",
+    "94ae5bfb-0b66-53f9-b652-bbe29956a6b0",
+    "b2e9809d-c5d7-513c-ae63-d196eb9e2765",
+    "f7b13a6b-513f-55fc-bdbe-90e2121260d0"
+  ],
+  "content_gaps": []
+}
+```
