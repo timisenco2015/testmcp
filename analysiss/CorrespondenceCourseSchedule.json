@@ -1,0 +1,71 @@
+{
+  "filename": "CorrespondenceCourseSchedule",
+  "found": true,
+  "summary": "Handles the CRUD operations for correspondence course schedules in the HSPnet system.",
+  "purpose": "To manage schedule entries, including adding, updating, and deleting correspondence schedules linked to courses.",
+  "entities": [
+    {
+      "name": "CorrespondenceCourseSchedule",
+      "attributes": [
+        "ID",
+        "CourseID",
+        "CorrespondenceID",
+        "Days",
+        "PeriodCodeID",
+        "CorrespondenceName",
+        "TypeDescription",
+        "PeriodDescription"
+      ]
+    }
+  ],
+  "fields": [
+    "CourseID",
+    "CorrespondenceID",
+    "Days",
+    "PeriodCodeID"
+  ],
+  "actors": [
+    "HSPnetSession"
+  ],
+  "workflows": [
+    {
+      "name": "Add Correspondence Course Schedule",
+      "steps": [
+        "Set procedure name to CorrespondenceCourseSchedulesAdd",
+        "Add parameters CourseID, CorrespondenceID, Days, PeriodCodeID",
+        "Execute query"
+      ]
+    },
+    {
+      "name": "Update Correspondence Course Schedule",
+      "steps": [
+        "Set procedure name to CorrespondenceCourseSchedulesUpdate",
+        "Add parameters ID, CorrespondenceID, Days, PeriodCodeID",
+        "Execute query"
+      ]
+    },
+    {
+      "name": "Delete Correspondence Course Schedule",
+      "steps": [
+        "Set procedure name to CorrespondenceCourseSchedulesDelete",
+        "Add parameter ID",
+        "Execute query"
+      ]
+    }
+  ],
+  "business_rules": [],
+  "validations": [],
+  "calculations": [],
+  "conditions": [],
+  "system_behavior": [
+    "Use alt-language fields if session flag is set."
+  ],
+  "dependencies": [],
+  "exceptions": [],
+  "source_document_ids": [
+    "433f1f60-30c5-537a-bd7c-729b3d0a5496",
+    "6e0281aa-01ec-56c8-9f50-f68ce5c69aa9",
+    "f58e19a0-5a2c-5a5b-b765-eac59c6e989d"
+  ],
+  "content_gaps": []
+}
