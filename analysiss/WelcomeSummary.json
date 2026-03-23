@@ -1,88 +1,67 @@
 {
   "filename": "WelcomeSummary",
   "found": true,
-  "summary": "The WelcomeSummary is a web application page that provides a summary view for various statuses, conditions, and actions related to placement requests. It includes functionalities such as updating status, printing reports, and managing supervisors.",
-  "purpose": "The primary purpose of the WelcomeSummary is to provide users with comprehensive tools to manage placement requests efficiently. It allows for status updates, reporting, and supervisory actions, tailored to different user roles within the system.",
+  "summary": "The WelcomeSummary document is part of an administrative and management system for handling placement requests and other related tasks. It offers functionality for viewing, processing, and updating information related to student placements and supervisor assignments.",
+  "purpose": "To provide a user interface and backend logic for managing and updating student placement requests, handling supervisor assignments, processing status changes, and generating reports all within a web-based management system.",
   "entities": [],
   "fields": [
-    "txtDurationShifts",
-    "txtShiftLength",
-    "txtDurationHours",
-    "txtReplyByDate",
-    "ddNewStatus",
-    "ddDeclineReason",
-    "ddReportTag",
-    "lnkDownloadFile2",
+    "txtPRDList",
     "txtCheckedPRDIDList",
-    "txtPRStartDate",
-    "txtPREndDate",
+    "txtSupervisorPRDIDList",
+    "txtSupervisorIDList",
+    "txtShowDismissedPRs",
     "txtReasonDate",
-    "txtReasonNotes",
-    "txtReasonBehalf",
-    "hdnSupervisorID",
     "chkUseShiftSchedule",
-    "chkReSubmit",
-    "chkPrintIndividualPDFs",
     "chkOverdueReplyWarning",
     "chkIncludeStudentInfo",
-    "chkEmailHspnetUser",
-    "spnReplyCaption",
-    "spnAcceptControls",
-    "spnAcceptButton",
-    "spnReasonHelp",
-    "spnNonHSPnetuser",
-    "spnDismiss"
+    "ddNewStatus",
+    "hlReasonGlossary",
+    "ddDeclineReason",
+    "txtDeclineReasonNotes"
   ],
-  "actors": [
-    "UserSession",
-    "PlacementRequestDestinations",
-    "Codes",
-    "PlacementRequestInformation",
-    "PlacementRequestStaffController",
-    "StaffController",
-    "PrintJobs"
-  ],
+  "actors": ["UserSession", "PlacementRequestDestinations", "PlacementRequestStaffController", "UserIgnoredPRs"],
   "workflows": [
     {
-      "name": "Manage Placement Requests",
+      "name": "Update Status Workflow",
       "steps": [
-        "Select placement requests using checkboxes.",
-        "Update status via dropdown.",
-        "Print details or summary reports as needed.",
-        "Enter reasons and notes for certain actions.",
-        "Select or assign supervisors."
+        "Check permissions and status validity.",
+        "Parse provided input data for shifts and schedule.",
+        "Update the status of placement requests.",
+        "Handle errors or validation issues.",
+        "Generate reports based on new status if required."
       ]
     }
   ],
   "business_rules": [
-    "Ensure status transitions are valid and provide feedback if not.",
-    "Dismissed requests can be restored.",
-    "Require specific reasons for declines.",
-    "Handle exceptions in supervisor assignments."
+    "Only certain users (e.g., administrators, coordinators) can edit specific fields.",
+    "Reasons are required for certain status changes.",
+    "Different roles (DC, RC, PC) have access to different actions and views."
   ],
   "validations": [
-    "Date validation for start, end, and reply-by dates.",
-    "Mandatory fields require inputs, such as notes for 'Other' reasons.",
-    "Shift schedule duration and length must be valid numbers."
+    "Start and end dates must be valid and logically consistent.",
+    "Shift duration and length fields must be numeric and greater than zero.",
+    "Certain statuses require additional data like reason or notes."
   ],
   "calculations": [
-    "Calculate total duration based on shifts and shift length."
+    "Calculate total hours based on number of shifts and shift length."
   ],
   "conditions": [
-    "Display controls based on user roles and permissions.",
-    "Show or hide sections like 'Reason' and 'Reply' depending on the selected status."
+    "If the status is 'AccANoSuper', supervisor assignment instructions are displayed.",
+    "If a document is flagged to resend or redirect, allow duplicate status."
   ],
   "system_behavior": [
-    "Display errors or warnings when actions are not permitted.",
-    "Load supervisor lists dynamically based on user interaction."
+    "Display error messages for invalid input data.",
+    "Update database records when status changes.",
+    "Show or hide UI elements based on current user role and context."
   ],
   "dependencies": [
-    "HSPnet.Framework and HSPnet.DataLayer for backend operations.",
-    "JavaScript for client-side interactivity."
+    "CodeRecord entities for status and reason information.",
+    "HSPnet.Framework utilities for query manipulation and hashing.",
+    "JavaScript for dynamic UI updates and validations."
   ],
   "exceptions": [
-    "Handling invalid shift schedule information.",
-    "Managing supervisor overlaps and related errors."
+    "Handling invalid date inputs by displaying error messages.",
+    "Catch and display warnings for missing required fields."
   ],
   "source_document_ids": [
     "00271393-56bd-5d9e-b98b-f96773845166",
@@ -106,7 +85,6 @@
     "1af16750-9d35-550b-bf93-c6e2aaa5b171",
     "1c104897-1bc1-5fd9-8351-01a01a98d2b2",
     "1d862444-39d7-5d8c-8ad5-0a6c2a05d2d7",
-    "1f366509-ca9e-56a4-abfc-5b4b7d88c8d1",
     "22d39f6b-a7d9-57bf-876c-0e197eec4509",
     "274bc0a7-44e4-5ec8-9fac-a434d109b2e1",
     "2ead8b8e-2f6a-5c5a-a7fa-d56e15e32fcd",
@@ -157,13 +135,11 @@
     "6c292e9a-42ad-51de-8f28-73dcdc5103cf",
     "6d7dc0d5-23ed-5bc5-bf02-3565adb43761",
     "6ed9f730-a402-514e-9851-76e3c1062178",
-    "6fb92174-f23b-5b9f-b04e-bfed4bad06d4",
     "6fc5e157-01c4-5997-8855-eb83616e9693",
     "73592f80-78e8-5e91-9499-85e4e1c045b3",
     "73a76eb8-5060-583f-95da-d79f691f6b97",
     "75ffeb62-b5ac-5131-86db-d238f5847bdd",
     "76d1aa41-d46f-5dff-8857-8824d611d677",
-    "77684be3-7d57-562c-b3cf-427b33865ae9",
     "781b1085-cfcf-55dd-a3de-7dd309befab6",
     "7a221c83-81b8-562a-8862-b58801c67a14",
     "7a915635-4a3d-5801-b43b-0b183048a0cf",
@@ -173,7 +149,6 @@
     "825b9595-2f78-583d-955f-600b5dc85064",
     "856c031c-031d-53ef-83f4-aaf763e6c73c",
     "8616f9d4-b676-5de5-a3f7-f8522c8db506",
-    "8639c708-5e66-5885-997f-ebb2c0da37d3",
     "866251ac-60e4-5055-9deb-29d12323df60",
     "87bb7d1a-735d-5ff6-be66-8fa4f4a0ee35",
     "88d50944-05e9-582d-83a8-f5b25dfcd5fb",
@@ -186,7 +161,6 @@
     "93e28da9-c767-5420-b937-1aa3fe66a6e2",
     "99566bfc-0936-5169-97e9-83ccfab26530",
     "9bee283c-040c-5aae-8242-bf9d0738f53e",
-    "9d75f871-d846-591c-a5df-763cfa054bb7",
     "9e5fea54-7958-54cd-a640-39d2168edfd1",
     "9f740d06-cb9e-5d27-9603-28996cd2290f",
     "a0592ff6-e8b6-5786-8197-c415131d77a1",
@@ -195,6 +169,8 @@
     "a790cb6b-71cb-5c4d-bf92-7ad3a1c36ebb",
     "a8f43037-7f1f-51fa-b7b3-7ccb46c5fdc4",
     "a9434a36-8399-59b4-aca4-65879387093a",
+    "a98e2c87-1c4b-59bd-ae0c-6ca7d9938f1b",
+    "a99c0d87-5261-5e84-87e3-5a75dabf1e05",
     "aaec7ae8-34db-5586-93e9-883e7ddfa7c1",
     "ab1a2556-ad49-5562-9037-c1fc104ec2d6",
     "ab514d67-d685-5046-a21f-2e2439df6f97",
@@ -241,6 +217,7 @@
     "f61b9959-b2b3-5ff3-887a-ddb210055db8",
     "f9e73673-e1c5-5e63-812d-fcb9d19c1df0",
     "facd5e33-fa1a-504a-9ed1-31dfd76cddeb",
+    "fc4572b6-1ef7-509e-9774-2685e475894c",
     "fe0fe736-d1c1-5b0e-8cb1-a0f3bc062729",
     "fee8f670-6705-5c2b-b6c3-76c71e55f1f7"
   ],
