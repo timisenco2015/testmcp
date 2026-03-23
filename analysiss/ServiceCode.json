@@ -1,57 +1,26 @@
 {
     "filename": "ServiceCode",
     "found": true,
-    "summary": "The ServiceCode class manages service coding within the HSPnet framework, including operations for retrieval and localization.",
-    "purpose": "Handles service code data, providing methods for accessing service code lists and options based on course and timetable.",
+    "summary": "Manages service codes, properties and localization for service codes within HSPnet.",
+    "purpose": "To handle service code data retrieval and localization for both regular and alternative language fields.",
     "entities": [],
     "fields": [
-        {
-            "name": "ID",
-            "type": "int",
-            "description": "Unique identifier for the service code"
-        },
-        {
-            "name": "CodeCategoryID",
-            "type": "int",
-            "description": "Category identifier for the code"
-        },
-        {
-            "name": "ShortName",
-            "type": "string",
-            "description": "Abbreviated name of the service code"
-        },
-        {
-            "name": "Name",
-            "type": "string",
-            "description": "Descriptive name of the service code"
-        },
-        {
-            "name": "SortOrder",
-            "type": "int",
-            "description": "Determines the display order of the service code"
-        },
-        {
-            "name": "Notes",
-            "type": "string",
-            "description": "Additional notes for the service code"
-        }
+        "ID",
+        "CodeCategoryID",
+        "ShortName",
+        "Name",
+        "SortOrder",
+        "Notes",
+        "NameAlt"
     ],
     "actors": [],
     "workflows": [
         {
-            "name": "Service Code Retrieval by Course",
+            "name": "Service Code Retrieval",
             "steps": [
-                "Access procedure named 'ServiceCodeASMOptionByCourseID'.",
-                "Add course ID and session ID as parameters.",
-                "Retrieve and populate service code list."
-            ]
-        },
-        {
-            "name": "Service Code Retrieval by Timetable",
-            "steps": [
-                "Access procedure named 'ServiceCodeASMOptionByTimetableID'.",
-                "Add timetable ID and session ID as parameters.",
-                "Retrieve and populate service code list."
+                "ProcedureName set to 'ServiceCodeListAll'.",
+                "Add 'SessionID' parameter.",
+                "Retrieve and localize service code data."
             ]
         }
     ],
@@ -60,7 +29,7 @@
     "calculations": [],
     "conditions": [],
     "system_behavior": [
-        "The class interacts with the database through stored procedures to fetch service codes based on course ID or timetable ID."
+        "Localizes service code data based on session settings."
     ],
     "dependencies": [],
     "exceptions": [],
