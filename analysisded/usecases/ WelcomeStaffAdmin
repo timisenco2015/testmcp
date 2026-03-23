@@ -1,0 +1,87 @@
+# Module: WelcomeStaffAdmin
+
+## WelcomeStaffAdmin-UC1 — Load and Initialize Page
+
+- Primary Actor(s): System
+- Secondary Actor(s): None
+- Trigger: Page is loaded by the user.
+- Description: Initializes the WelcomeStaffAdmin page, setting up dropdowns and date fields, and loading user-specific data.
+- Preconditions: User must be logged in with a valid session.
+- Postconditions: The page is initialized with the dropdowns filled and the data grid refreshed.
+- Main Success Scenario:
+  1. Page is loaded.
+  2. Initialize page components.
+  3. Set up site and discipline dropdowns.
+  4. Set start and end dates to the last three months and today.
+  5. Bind grid data and display it.
+- Extensions: None
+- Exceptions: None
+- Business Rules:
+  - Site and discipline dropdowns are populated based on user's agency.
+  - Default date range is three months prior to today.
+- Assumptions: User has access to the required dropdown data sources.
+- Open Issues: None
+
+## WelcomeStaffAdmin-UC2 — Refresh View with Filters
+
+- Primary Actor(s): User
+- Secondary Actor(s): None
+- Trigger: User clicks the refresh button or changes site/discipline dropdowns.
+- Description: Refreshes the data view based on selected filters.
+- Preconditions: The page is initialized, and the user is logged in.
+- Postconditions: The data view is refreshed and reflects the selected filters.
+- Main Success Scenario:
+  1. User changes site or discipline selections or clicks refresh.
+  2. System validates input dates.
+  3. Executes refreshing data with new filters.
+  4. Updates the grid view with the filtered data.
+- Extensions:
+  - 2a. If the start date is invalid, an error message is displayed.
+  - 2b. If the end date is before the start date, an error message is displayed.
+- Exceptions: Invalid date inputs.
+- Business Rules:
+  - Validation for start date and end date.
+  - Auto-reload data on filter change.
+- Assumptions: Data binding works correctly without errors.
+- Open Issues: None
+
+## WelcomeStaffAdmin-UC3 — Display Employment Applications
+
+- Primary Actor(s): System
+- Secondary Actor(s): User
+- Trigger: Initial page load or refresh action.
+- Description: Displays a list of employment applications based on current filters.
+- Preconditions: Valid filters are set, and the system has access to the data.
+- Postconditions: Employment applications data is displayed in the grid view.
+- Main Success Scenario:
+  1. Load data source based on agency, site, discipline, date range, and withdrawn status.
+  2. Bind data to the grid view.
+  3. Display the data in a formatted table with paging.
+- Extensions: None
+- Exceptions: Data retrieval failures.
+- Business Rules:
+  - Allow pagination with a default page size of 50 entries.
+  - Display the status and withdrawn date of applications.
+- Assumptions: Data source is available and up-to-date.
+- Open Issues: None
+
+## WelcomeStaffAdmin-UC4 — Handle User Interactions
+
+- Primary Actor(s): User
+- Secondary Actor(s): System
+- Trigger: User interacts with UI elements (e.g., calendar, dropdowns).
+- Description: Enables user interactions for selecting dates and filter options.
+- Preconditions: User is logged in and page is loaded.
+- Postconditions: User successfully interacts with UI components without errors.
+- Main Success Scenario:
+  1. User clicks on calendar icon to select dates.
+  2. User selects options from dropdowns.
+  3. Validate and update UI as per interaction.
+- Extensions:
+  - 3a. If date selection is invalid, display a warning.
+- Exceptions: UI error or malfunction.
+- Business Rules:
+  - Calendar fields should only accept valid date formats.
+  - Dropdown selections trigger automatic data reload.
+- Assumptions: JavaScript functions are functioning correctly.
+- Open Issues: None
