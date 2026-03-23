@@ -1,0 +1,98 @@
+# Module: SiteDetail
+
+## SiteDetail-UC1 — Add Site Details
+
+- Primary Actor(s): System Administrator
+- Secondary Actor(s): None
+- Trigger: Administrator wants to add new site details to the database.
+- Description: This use case describes how an administrator can add new site details to the system.
+- Preconditions: The administrator must be authenticated and have appropriate permissions.
+- Postconditions: New site details are stored in the database.
+- Main Success Scenario:
+  1. Administrator starts the Add Site Details process.
+  2. Administrator enters the site details, including SiteID, HeadingID, Response, and SortOrder.
+  3. The system validates the input.
+  4. The system executes the stored procedure `SiteDetailsAdd`.
+  5. Site details are successfully added to the database.
+- Extensions:
+  - 2a. If the SortOrder is left blank, the system uses -1 as an indicator.
+- Exceptions:
+  - 3a. If validation fails (e.g., Response is blank), an error message is displayed.
+- Business Rules: Response cannot be blank.
+- Assumptions: Administrator is familiar with input fields and their required format.
+- Open Issues: None
+
+## SiteDetail-UC2 — Update Site Details
+
+- Primary Actor(s): System Administrator
+- Secondary Actor(s): None
+- Trigger: Administrator wants to update existing site details.
+- Description: This use case allows the administrator to update details of an existing site.
+- Preconditions: Existing site details must be present with a valid ID and user must have permissions.
+- Postconditions: Site details are updated in the database.
+- Main Success Scenario:
+  1. Administrator selects the site detail to update.
+  2. Administrator modifies the required fields: HeadingID, Response, SortOrder.
+  3. The system validates the modified input.
+  4. The system executes the stored procedure `SiteDetailsUpdate`.
+  5. Site details are successfully updated.
+- Extensions:
+  - 2a. If the SortOrder is left blank, the system uses -1 as an indicator.
+- Exceptions:
+  - 3a. If validation fails (e.g., Response is blank), an error message is displayed.
+- Business Rules: Response cannot be blank.
+- Assumptions: None
+- Open Issues: None
+
+## SiteDetail-UC3 — Delete Site Details
+
+- Primary Actor(s): System Administrator
+- Secondary Actor(s): None
+- Trigger: Administrator wants to delete site details.
+- Description: This use case describes the process of deleting site details.
+- Preconditions: Existing site details must be present with a valid ID and user must have permissions.
+- Postconditions: Site details are removed from the database.
+- Main Success Scenario:
+  1. Administrator selects the site detail to delete.
+  2. The system executes the stored procedure `SiteDetailsDelete`.
+  3. Site details are successfully removed from the database.
+- Exceptions:
+  - 2a. If the site detail ID is invalid, an error is returned.
+- Business Rules: None
+- Assumptions: None
+- Open Issues: None
+
+## SiteDetail-UC4 — Get Site Details by Site ID
+
+- Primary Actor(s): System
+- Secondary Actor(s): None
+- Trigger: System needs to retrieve site details for a given Site ID.
+- Description: This use case allows the system to fetch site details based on a specific Site ID.
+- Preconditions: SiteID must be valid and existing in the database.
+- Postconditions: Site details are retrieved and provided to the requesting process.
+- Main Success Scenario:
+  1. The system receives a request to fetch details by Site ID.
+  2. The system executes the stored procedure `SiteDetailsSearch`.
+  3. Site details are retrieved and returned to the requester.
+- Business Rules: None
+- Assumptions: Database connection is valid.
+- Open Issues: None
+
+## SiteDetail-UC5 — Copy Site Details
+
+- Primary Actor(s): System
+- Secondary Actor(s): None
+- Trigger: System needs to duplicate existing site details.
+- Description: This use case describes how the system copies site details for a given ID.
+- Preconditions: Existing site details must be present with a valid ID.
+- Postconditions: A copy of the site details is created in the database.
+- Main Success Scenario:
+  1. The system triggers a copy request for a given site detail ID.
+  2. The system executes the stored procedure `SiteDetailsCopy`.
+  3. Site details are successfully duplicated in the database.
+- Extensions: None
+- Exceptions:
+  - 2a. If the site detail ID is invalid, an error is returned.
+- Business Rules: None
+- Assumptions: None
+- Open Issues: None
