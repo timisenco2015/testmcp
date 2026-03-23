@@ -1,0 +1,132 @@
+```json
+{
+  "filename": "PlacementRequestPreceptors",
+  "found": true,
+  "summary": "The Placement Request Preceptors module handles allocation and management of preceptors and joint preceptors for placement requests. It includes features for managing assessment answers, supervisor assignments, and the distribution of hours among preceptors.",
+  "purpose": "To facilitate the management of placement requests involving supervisors, preceptors, and assessments, ensuring proper allocation of hours and assessment handling.",
+  "entities": [
+    "PlacementRequestStaff",
+    "PlacementRequestDestination"
+  ],
+  "fields": [
+    "StaffID",
+    "JointStaffID",
+    "AssessmentAnswersExist",
+    "SubmittedJointAssessment",
+    "DurationHours",
+    "StartDate",
+    "EndDate",
+    "SupervisorCaption"
+  ],
+  "actors": [
+    "UserSession",
+    "Supervisor",
+    "Preceptor",
+    "JointPreceptor"
+  ],
+  "workflows": [
+    {
+      "name": "Add Staff",
+      "steps": [
+        "Check if new staff needs to be added",
+        "Open new window to add staff"
+      ]
+    },
+    {
+      "name": "Edit entry",
+      "steps": [
+        "Change mode to edit",
+        "Bind details from database",
+        "Show edit details in modal"
+      ]
+    },
+    {
+      "name": "Delete entry",
+      "steps": [
+        "Confirm deletion if assessment answers exist",
+        "Proceed with deletion",
+        "Refresh data view"
+      ]
+    },
+    {
+      "name": "Adjust Hours",
+      "steps": [
+        "Adjust assigned hours for a staff",
+        "Refresh data view"
+      ]
+    }
+  ],
+  "business_rules": [
+    "Supervisors cannot be removed if a joint assessment is submitted",
+    "Assessment answers must allow deletion confirmation",
+    "Hours must be balanced for popup closure"
+  ],
+  "validations": [
+    "Supervisor assignment must be greater than zero",
+    "Start date and end date are required",
+    "Hours must be a positive number"
+  ],
+  "calculations": [
+    "Calculate total and assigned hours difference",
+    "Display over/under hours based on difference"
+  ],
+  "conditions": [
+    "Screen is read-only if user has view-only rights",
+    "Assessment module usage determines column visibility",
+    "JavaScript variables setup for page interaction"
+  ],
+  "system_behavior": [
+    "Populate dropdowns with staff from the database",
+    "Handle events like data bound and item command"
+  ],
+  "dependencies": [
+    "HSPnet.Framework",
+    "HSPnet.DataLayer",
+    "AjaxControlToolkit"
+  ],
+  "exceptions": [
+    "Javascript errors handled with alerts",
+    "Empty list serialization fallback"
+  ],
+  "source_document_ids": [
+    "010495d5-4efe-56b2-9f81-0b535bb2c74e",
+    "0d2cddff-8051-551a-96df-35afc717b3fc",
+    "0f07eed3-7122-564b-b842-855d95007d24",
+    "15574e1c-a809-536a-8842-30e8af54abc2",
+    "1758c675-f3e7-55ab-9155-06759dc088c8",
+    "17efc161-4457-5519-a943-39f228e02459",
+    "1c8ad798-a008-5ecb-bda2-e6df68acee2c",
+    "231edcf1-df09-5871-ab09-4d1844edf808",
+    "26579d07-0d09-54d5-a4eb-05bb9e81bdd6",
+    "2f345c48-f217-54c4-8411-3204831dbdbf",
+    "36455408-fffe-538b-bfc6-6cb692fc2dfc",
+    "4bb4ed14-30f9-5f90-ae17-6566cebbbbc9",
+    "4c303a56-6617-5299-bb86-5df2caae46f2",
+    "4f04dea5-9be6-51c6-a630-1ee0f9644472",
+    "5029788e-d478-5cd3-a19b-ab9fc2b4747f",
+    "62111875-accd-5f22-ad9e-aa870d5d6453",
+    "66487865-c34c-56c3-80fe-a43e1f9ea3de",
+    "6792605b-8ed2-54c5-8501-1a1373d24156",
+    "7fa3769c-8b42-5c4f-ba3f-e946e50014a2",
+    "876faba9-b1ee-5279-948e-b1360a3ab2cc",
+    "8d63f2df-28e5-5dde-8cff-eba0b3bdb654",
+    "96a27269-7057-54fe-808c-d59535ba045a",
+    "9fcac63e-9c93-547e-a579-396a71fa3d59",
+    "a274a394-573f-5fe3-ba1c-93dfef028cf6",
+    "a4fb76a6-fc5c-5cdc-b830-f2efe36048fc",
+    "a5ab9e73-6e41-550e-97a8-ee0bce7468e1",
+    "a643817f-7e59-5713-87f9-8c06a2a8621c",
+    "bf19a742-4d57-5945-8c56-bbaa5df7748e",
+    "c0d9325a-711f-5945-98eb-7414a95e0387",
+    "c8a16839-90da-570d-810a-e57ec81a6f7b",
+    "cc7d843b-9b1e-5fdb-8b3d-06a3dff45b7e",
+    "e6546e2f-b679-59e0-8b97-0678b9bcf803",
+    "e9d7812d-9414-59d5-86ee-cab3ab3e3172",
+    "ef278e39-ba97-5377-92c9-5f9d4c68f5f8",
+    "f48c749b-97ba-51d2-98e0-d3a701742200",
+    "f5b8bef9-c099-581b-828d-9a971463a1b9",
+    "f90a6977-a811-5f33-90d3-402ef98acdb1"
+  ],
+  "content_gaps": []
+}
+```
