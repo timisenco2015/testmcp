@@ -1,0 +1,139 @@
+{
+  "filename": "CriminalRecordsCheck",
+  "found": true,
+  "summary": "The CriminalRecordsCheck file is part of the HSPnet user controls for managing enrollment processes. It involves various controls and functionalities focused on managing and updating student records related to criminal records checks.",
+  "purpose": "To facilitate the management of student enrollment records, specifically handling the processes and validations involved in criminal records checks within the HSPnet system.",
+  "entities": [],
+  "fields": [
+    {
+      "name": "CohortID",
+      "type": "int",
+      "description": "Identifier for the cohort."
+    },
+    {
+      "name": "TermID",
+      "type": "int",
+      "description": "Identifier for the term."
+    },
+    {
+      "name": "CourseID",
+      "type": "int",
+      "description": "Identifier for the course."
+    },
+    {
+      "name": "ShowGrad",
+      "type": "Boolean",
+      "description": "Indicator if graduates should be shown."
+    },
+    {
+      "name": "ShowInactive",
+      "type": "Boolean",
+      "description": "Indicator if inactive students should be shown."
+    },
+    {
+      "name": "ShowWaived",
+      "type": "Boolean",
+      "description": "Indicator if waived students should be shown."
+    },
+    {
+      "name": "SectionFilter",
+      "type": "string",
+      "description": "Filter for sections."
+    },
+    {
+      "name": "ActionFilter",
+      "type": "string",
+      "description": "Filter for actions."
+    },
+    {
+      "name": "keyword",
+      "type": "string",
+      "description": "Keyword for searching."
+    },
+    {
+      "name": "CampusID",
+      "type": "int",
+      "description": "Identifier for the campus."
+    },
+    {
+      "name": "CommentFilter",
+      "type": "string",
+      "description": "Filter for comments."
+    },
+    {
+      "name": "blnReadOnly",
+      "type": "Boolean",
+      "description": "Indicates if the records are read-only."
+    }
+  ],
+  "actors": [
+    {
+      "name": "UserSession",
+      "role": "Manages the session context for user operations."
+    },
+    {
+      "name": "GridViewRow",
+      "role": "Represents each row in the data grid for display and action handling."
+    }
+  ],
+  "workflows": [
+    {
+      "name": "Sort Records",
+      "steps": [
+        "Initialize sorting parameters",
+        "Apply sorting direction as per user preference",
+        "Rebind grid with sorted data"
+      ]
+    },
+    {
+      "name": "Data Binding",
+      "steps": [
+        "Prepare data source based on current session and filters",
+        "Bind data to grid view for display"
+      ]
+    }
+  ],
+  "business_rules": [
+    "Records are read-only if not editable by the current user session.",
+    "Action commands are disabled if records are inactive or waived."
+  ],
+  "validations": [
+    "Ensure valid data bindings for dropdown and text fields.",
+    "Hide buttons appropriately based on the row's state."
+  ],
+  "calculations": [],
+  "conditions": [
+    "Check access rights for each row before displaying actions.",
+    "Determine visibility of controls based on user permissions."
+  ],
+  "system_behavior": [
+    "Registers JavaScript for asynchronous page updates.",
+    "Maintains client-side checkbox lists for select operations."
+  ],
+  "dependencies": [],
+  "exceptions": [
+    "Handle cancellation if UserSession is null during data operations."
+  ],
+  "source_document_ids": [
+    "018b4cb0-466e-546e-a4f6-9cbe2f0bfd5a",
+    "101a207a-a9ca-56b1-a511-aab50a2218d6",
+    "168a0c21-10c4-5784-a580-35079238da5a",
+    "2ed829a3-3cf1-5949-849e-274011b559a0",
+    "389b25e5-d7df-5b4a-8c40-fb9820024171",
+    "45404fbd-9796-50a4-83ff-8c6a48e8d8c1",
+    "4dfebe4c-dec8-57fc-8712-0020b7d7b520",
+    "5596fbc8-189b-53c3-9f85-25fc45cb92e4",
+    "694b55ed-27fa-5dd7-ad5a-2db4e5fa7ba0",
+    "6b7e0909-6d2c-579d-8787-4e2fed76ee92",
+    "6fb73049-f9d7-5a55-b7af-cb26fbe583be",
+    "77c5461b-f5b6-5a35-a92f-a70ac5613ded",
+    "7a26bb82-edb5-5587-b904-d4f8c060f724",
+    "8329dfcd-065e-5763-8523-f9570e7e933c",
+    "87c40865-d3ff-51eb-b678-274bbab39799",
+    "a9d65bae-4caa-5d4c-9c8a-c5d706318435",
+    "c1d5289b-847a-5e2f-b368-f5041a9d3377",
+    "c494ef9c-ebce-5597-88c3-d89f1be09e16",
+    "c6b757f7-4f28-56d1-af24-b5ce8f83dca9"
+  ],
+  "content_gaps": []
+}
