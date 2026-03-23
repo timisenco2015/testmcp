@@ -1,0 +1,154 @@
+{
+    "filename": "WorksheetAssignedInstructor",
+    "found": true,
+    "summary": "The content from 'WorksheetAssignedInstructor' primarily revolves around managing and processing instructor assignments within a structured framework. It includes various functionalities such as date formatting, handling multiple instructors, adjustments for group sizes, and conditions related to the visibility and organization of calendar icons. The process appears to include several database interactions to retrieve and store data related to assignments.",
+    "purpose": "The purpose of the 'WorksheetAssignedInstructor' system is to manage instructor assignments within educational or organizational settings, providing tools for scheduling, data validation, and organizational logic concerning instructor roles and shifts.",
+    "entities": [
+        "WorksheetAssignedInstructor",
+        "WorksheetAssignedInstructorStats",
+        "CodeRecord",
+        "Term",
+        "Site",
+        "Staff",
+        "GoverningOrg",
+        "ItemList"
+    ],
+    "fields": [
+        "ID",
+        "WorksheetID",
+        "GroupName",
+        "SiteID",
+        "ServiceID",
+        "DestinationID",
+        "StartDate",
+        "EndDate",
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+        "Sunday",
+        "VariousDays",
+        "StartTime",
+        "EndTime",
+        "VariousTimes",
+        "AgencyShortName",
+        "AgencyID",
+        "SiteShortName",
+        "ServiceShortName",
+        "DestinationShortName",
+        "InstructorID",
+        "InstructorID2",
+        "InstructorID3",
+        "InstructorLastName",
+        "InstructorMiddleName",
+        "InstructorFirstName",
+        "InstructorLastName2",
+        "InstructorMiddleName2",
+        "InstructorFirstName2",
+        "InstructorLastName3",
+        "InstructorMiddleName3",
+        "InstructorFirstName3",
+        "PositionNumber",
+        "Comments",
+        "StudentGenderRequired",
+        "Accepted",
+        "Block1Assigned",
+        "Block2Assigned"
+    ],
+    "actors": [
+        "HSPnetSession",
+        "Instructor",
+        "Supervisor"
+    ],
+    "workflows": [
+        {
+            "name": "Worksheet Assignment Process",
+            "steps": [
+                "Initialize session and retrieve necessary data from database.",
+                "Process assignment statistics and adjust group sizes if needed.",
+                "Format data for display and handle user interactions.",
+                "Update calendar grids and other UI components based on assignment data."
+            ]
+        }
+    ],
+    "business_rules": [
+        "Only include entries in worksheets where Site=ALL when using CFO.",
+        "Adjust group sizes based on certain calculations like remaining space.",
+        "Only show destination details if request code does not exist."
+    ],
+    "validations": [
+        "Check if termStartDate is null before using it in queries.",
+        "Ensure non-negative remaining block values.",
+        "Validate preceptor and supervisor data before display."
+    ],
+    "calculations": [
+        "Calculate remaining assignments as Accepted - Assigned.",
+        "Adjust AvailableTotalFiltered and AssignedTotalFiltered based on NotAvailable status."
+    ],
+    "conditions": [
+        "Show Adjust Hours icon if tempRemain is greater than 0 and less than Accepted.",
+        "Display site instructor icons only if UseSiteInstructor is true."
+    ],
+    "system_behavior": [
+        "Update UI components based on group and block data.",
+        "Close and reopen database connections during large transactions."
+    ],
+    "dependencies": [
+        "UI.DateFormatter",
+        "NameFormatter",
+        "Resources",
+        "Database"
+    ],
+    "exceptions": [
+        "Handle null references for database fields gracefully.",
+        "Ensure that supervisor details are correctly handled for group flag states."
+    ],
+    "source_document_ids": [
+        "0f732227-60c3-5a8f-a39b-3ec38cd5ac59",
+        "0f93b3b8-ddae-5d6f-b06f-1cdcb8dfe58b",
+        "15cb76be-4d4b-5cf5-bc75-8665fa6e8617",
+        "1e1c3255-8fb7-5633-8daf-d25154077a6b",
+        "1f19f6c3-5052-5a97-856f-a7ad63c82a65",
+        "1fed2341-0285-55a9-8521-c37b46b9a056",
+        "2d4d3945-062e-50fc-9d4b-d7d1eedafae8",
+        "2e951507-71bc-5533-8493-7ff81ef79ba0",
+        "2fbbfa56-31e8-536d-b794-f20b571863cb",
+        "31da8585-70f0-5253-b9d9-40924aaed695",
+        "3becaeef-07b7-502a-9988-8fe1ae9e8cf8",
+        "432a1f44-1665-5e6b-a56e-627291dfb9c0",
+        "4b385247-83af-5f90-89d3-e2b273b17851",
+        "4cc99ef7-ec86-5776-97a3-74f11d0f355e",
+        "4e405bb4-2002-5b6c-a13c-43ab32147bad",
+        "59cff320-1c6f-5766-8a47-a062d9768a31",
+        "5a91bc53-6a29-577e-acf9-1462df18aa7e",
+        "5ba8ffc3-e2bf-56b9-9fa9-a35a3631fa2b",
+        "5ff1f1ea-43ec-5360-ade5-73e3d4ff9291",
+        "6e68fc3e-b142-560b-8e42-0c6690014655",
+        "74777d89-0b8a-5f4d-9f8f-1e8fdbc97706",
+        "79db3beb-8aad-5e44-a133-65891674e564",
+        "7fb5f693-06bd-512e-ba6f-55a7a9fbd0d8",
+        "82b4a705-acee-590a-a5fb-6dec28f868a0",
+        "85f807ec-2aa0-5482-86db-63b5c4b5330d",
+        "8ae604bb-57b2-55b4-9c2f-52d977484e80",
+        "8b32d9d8-27e9-56ac-886d-f6da8e555549",
+        "8eaba313-58d2-5868-9dd9-4b5506d818ad",
+        "97cd58e3-ae9d-529f-9544-e10d093fb677",
+        "98f99c26-22e6-5b26-a568-af7113433a0c",
+        "a91c0a91-8b69-57f8-892f-df7eb0dc51bd",
+        "aadaef92-bce6-53db-aa08-c2d7d6909928",
+        "c09b2fb7-5118-52b9-848a-a0238079e2c7",
+        "c1a8967e-eeac-5f57-a14b-17bd444ada28",
+        "c52dc3de-d95d-5e64-9313-4da22af334e2",
+        "d6c5c04f-a629-5b1d-8afa-f873eab2da64",
+        "dbec160d-284c-54ab-a265-a2f2d4a6bb7f",
+        "df20451e-8c33-55a5-b5a6-bb5872a915a0",
+        "eae9c319-1450-59d4-9408-f8ddb40ea413",
+        "ee77ecf0-2018-53cf-9cad-d4d6b56c4e18",
+        "f49b5c21-dff9-5a64-a2a7-260d8b157959",
+        "ff08815f-9c06-57ca-9254-918c390f257c",
+        "ff362e23-6815-51e9-8442-36e046656ba9"
+    ],
+    "content_gaps": []
+}
