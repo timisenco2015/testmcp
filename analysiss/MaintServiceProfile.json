@@ -1,106 +1,60 @@
 {
   "filename": "MaintServiceProfile",
   "found": true,
-  "summary": "The MaintServiceProfile is a web application page of HSPnet system managing service profiles. It involves rendering and handling user-control tabs such as Profile, Positions, and History, along with handling actions on these tabs.",
-  "purpose": "To display and manage detailed information of service profiles, positions, and history within the HSPnet system. It allows administrators and staff to edit and view data depending on permissions.",
+  "summary": "The MaintServiceProfile is a component of the HSPnet application that manages service profiles, including their setup and display within a web interface. It involves several UI elements that allow users to view and potentially edit service information.",
+  "purpose": "The component is designed to load, display, and manage information related to service profiles, including details about positions, history, and main service data.",
   "entities": [],
   "fields": [
-    {
-      "name": "ServiceID",
-      "type": "string",
-      "description": "The identifier for the service being managed."
-    },
-    {
-      "name": "ReadOnly",
-      "type": "Boolean",
-      "description": "Flag indicating if the page is in read-only mode."
-    },
-    {
-      "name": "ProfileExists",
-      "type": "Boolean",
-      "description": "Flag indicating if a profile exists for the service."
-    },
-    {
-      "name": "PositionExists",
-      "type": "Boolean",
-      "description": "Flag indicating if positions exist for the service."
-    },
-    {
-      "name": "SiteUsesPositions",
-      "type": "Boolean",
-      "description": "Flag indicating if the site uses positions."
-    },
-    {
-      "name": "ServiceAgencyID",
-      "type": "int",
-      "description": "Identifier for the service agency associated with the profile."
-    },
-    {
-      "name": "currentPage",
-      "type": "string",
-      "description": "The current page/tab being displayed."
-    }
+    "ServiceID",
+    "ReadOnly",
+    "ProfileExists",
+    "PositionExists",
+    "SiteUsesPositions",
+    "ServiceAgencyID",
+    "currentPage"
   ],
-  "actors": [
-    {
-      "name": "UserSession",
-      "role": "Holds the session data for the current user, used throughout the page for various checks and operations."
-    }
-  ],
+  "actors": ["UserSession", "SystemAdministrator", "StaffAdmin"],
   "workflows": [
     {
-      "name": "Tab Navigation",
+      "name": "Load Service Info",
       "steps": [
-        "On page load, determine the current tab based on request parameters.",
-        "If the site does not use positions, disable the Positions tab.",
-        "Make the currently active tab visible and load its data."
+        "Validate URL hash",
+        "Retrieve service data using ServiceID",
+        "Check and process read-only status",
+        "Setup page and header information"
       ]
     },
     {
-      "name": "Service Information Load",
+      "name": "Display Profile",
       "steps": [
-        "Retrieve service information using the service ID.",
-        "Populate the profile, position, and service data on the page.",
-        "Update header information and existence flags."
+        "Check active tab",
+        "Bind data to UCProfile control",
+        "Set visibility based on tab and conditions"
       ]
     }
   ],
   "business_rules": [
-    "The Profile tab is shown by default if no current page is specified.",
-    "Positions tab is disabled if the site does not use positions.",
-    "Tabs are enabled based on the existence of data, indicated by flags."
+    "ServiceID should be validated and converted from query string",
+    "SiteUsesPositions determines tab availability"
   ],
   "validations": [
-    {
-      "condition": "Ensure PayScale Effective Date",
-      "script": "checkPayScaleEffectiveDate",
-      "description": "Ensures that an effective date is entered if a pay scale is selected."
-    },
-    {
-      "condition": "Check Pay Scales selection",
-      "script": "checkPayScales",
-      "description": "Ensures that a default pay scale is selected if a secondary pay scale is chosen."
-    }
+    "Check if effective date is provided when pay scales are selected",
+    "Validate the relationship between default and secondary pay scales"
   ],
   "calculations": [],
   "conditions": [
-    {
-      "condition": "Editable screen",
-      "description": "Screen becomes editable based on user permissions and edit mode flag."
-    }
+    "if ReadOnly is true, the page is not editable",
+    "if SiteUsesPositions is false, disable the Positions tab"
   ],
   "system_behavior": [
-    "Resizes the window to fit content upon pre-render.",
-    "Processes messages to display any error or warning information."
+    "LoadServiceInfo method manages retrieval and setting up of service data",
+    "SetupHeader method configures UI elements with service data"
   ],
   "dependencies": [
-    "Requires the 'UserSession' object to manage session details.",
-    "Interacts with various user controls to display and manage information."
+    "ProfileExists flag impacts UI header display",
+    "Editable screens depend on user role and permissions"
   ],
-  "exceptions": [
-    "If the 'ServiceID' is not present, certain data cannot be loaded.",
-    "Without 'UserSession', the page cannot validate or process as intended."
-  ],
+  "exceptions": [],
   "source_document_ids": [
     "1f19b0b9-67fe-5001-aeae-ab20bd4e6832",
     "2bfc8a55-0a29-5b95-9c14-c3ea5ce529fe",
