@@ -1,0 +1,87 @@
+{
+    "filename": "PlacementHistory",
+    "found": true,
+    "summary": "This document describes the `PlacementHistory` user control in the HSPnet system, which handles viewing and interacting with a supervisor's placement history. It includes user interface elements, data handling, and actions for managing placement data.",
+    "purpose": "The `PlacementHistory` control is used to view and manage the historical data related to supervisor placements, including the ability to print reports and handle user interactions.",
+    "entities": [],
+    "fields": [
+        {
+            "name": "UserSession",
+            "type": "HSPnetSession",
+            "description": "Contains user session information."
+        },
+        {
+            "name": "StaffID",
+            "type": "int",
+            "description": "The ID of the staff member whose placement history is being viewed."
+        },
+        {
+            "name": "ScreenIsEditable",
+            "type": "Boolean",
+            "description": "Indicates whether the screen is editable."
+        },
+        {
+            "name": "SortExpression",
+            "type": "string",
+            "description": "The sort expression for ordering data."
+        },
+        {
+            "name": "PRHistoryOnly",
+            "type": "Boolean",
+            "description": "Determines whether to show only placement report history."
+        },
+        {
+            "name": "AlternateObservation",
+            "type": "Boolean",
+            "description": "Indicates if there is an alternate observation."
+        }
+    ],
+    "actors": [
+        {
+            "name": "User",
+            "role": "Interacts with the PlacementHistory control to view and manage placement reports."
+        }
+    ],
+    "workflows": [
+        {
+            "name": "View and Manage Placement History",
+            "steps": [
+                "Load the PlacementHistory page.",
+                "Check if only the report history view is required.",
+                "Bind data to the repeater control.",
+                "Handle various command actions such as sorting or showing details.",
+                "Print the report if required by the user."
+            ]
+        }
+    ],
+    "business_rules": [
+        "If PRHistoryOnly is true, certain UI elements are hidden.",
+        "Only allow details view if the PR_ID is greater than zero and conditions are editable."
+    ],
+    "validations": [
+        "Check if UserSession is not null before proceeding with actions.",
+        "Ensure PR_ID is greater than zero for certain UI elements to be visible."
+    ],
+    "calculations": [],
+    "conditions": [
+        "Visibility of UI elements based on the UserSession and editable state."
+    ],
+    "system_behavior": [
+        "The system toggles css classes for detail buttons based on whether entries are archived."
+    ],
+    "dependencies": [
+        "It relies on HSPnet session management, user interface controls, and data handling components."
+    ],
+    "exceptions": [
+        "Cancel data selection if UserSession is null."
+    ],
+    "source_document_ids": [
+        "038f5c7c-b9e1-515c-8df7-e0ea45a4cd54",
+        "175e6272-074c-5229-9c6b-4e2e273c56b7",
+        "1f73fd38-29b5-5084-97ae-d9b115cb1f07",
+        "4756e290-e7b8-581b-b359-eaaca10e987e",
+        "54b6952c-2e88-5de5-8009-1af71a987456",
+        "79c8c0b6-05fb-50c4-95eb-592fb1ab085e"
+    ],
+    "content_gaps": []
+}
