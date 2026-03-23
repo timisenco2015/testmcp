@@ -1,28 +1,36 @@
 {
   "filename": "SiteProfileHistory",
   "found": true,
-  "summary": "Contains definitions and operations related to the history of site profiles.",
-  "purpose": "To track and retrieve the history of changes made to site profiles.",
-  "entities": ["SiteProfileHistory"],
-  "fields": [
-    {
-      "name": "ActionDate",
-      "type": "DateTime",
-      "description": "Date of the action taken."
-    },
-    {
-      "name": "ScreenSection",
-      "type": "string",
-      "description": "Screen section where the action was taken."
-    }
+  "summary": "SiteProfileHistory is a structure and associated logic to record changes and user actions on site profiles.",
+  "purpose": "To track and manage the history of site profile changes, including who made changes and when.",
+  "entities": [
+    "SiteProfileHistory"
   ],
-  "actors": [],
+  "fields": [
+    "ID",
+    "ActionDate",
+    "ScreenSection",
+    "UserAction",
+    "Fields",
+    "Agency",
+    "AgencyName",
+    "LastName",
+    "FirstName",
+    "MiddleName",
+    "Phone",
+    "ByUserID",
+    "ByOriginalUserID",
+    "ByUserSysAdmin"
+  ],
+  "actors": [
+    "HSPnetSession"
+  ],
   "workflows": [],
   "business_rules": [],
   "validations": [],
   "calculations": [],
   "conditions": [],
-  "system_behavior": ["Manages site profile history retrieval and formatting."],
+  "system_behavior": [],
   "dependencies": [],
   "exceptions": [],
   "source_document_ids": [
