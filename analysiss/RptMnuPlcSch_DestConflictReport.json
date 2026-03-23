@@ -1,0 +1,83 @@
+{
+  "filename": "RptMnuPlcSch_DestConflictReport",
+  "found": true,
+  "summary": "The Destination Conflict Report is a user control designed to generate reports concerning conflicts in destinations for placement requests. It involves web controls for user selection and validation.",
+  "purpose": "Generate destination conflict reports based on user selection.",
+  "entities": ["HSPnetSession", "ScriptManager", "CodeRecord", "Agencies", "PrintJobs", "JavaScript"],
+  "fields": [
+    "CustomValidator4",
+    "cmdRunReport",
+    "Label1",
+    "UCchoosersRcvAgency",
+    "Label3",
+    "radAll_Types",
+    "radGroups_Only",
+    "radNon_Groups_Only",
+    "chkPageBreakSites",
+    "CustomValidator1",
+    "CustomValidator2",
+    "CustomValidator3",
+    "ValidationSummary1",
+    "Label4",
+    "ltlDescription",
+    "Label5",
+    "ltlOptions",
+    "ddTerm",
+    "txtStartDate",
+    "btnStartDate",
+    "CalendarExtender1",
+    "RegularExpressionValidator1",
+    "Label8",
+    "txtEndDate",
+    "btnEndDate",
+    "CalendarExtender2",
+    "RegularExpressionValidator2",
+    "UCchoosersPlcAgency",
+    "Label2"
+  ],
+  "actors": ["UserSession"],
+  "workflows": [
+    {
+      "name": "Generate Report",
+      "steps": [
+        "User selects options and clicks 'Run Report'",
+        "System validates selections",
+        "Report generation function is called with user-selected parameters"
+      ]
+    }
+  ],
+  "business_rules": [
+    "Report cannot be generated if maximum items are exceeded",
+    "Report generation depends on user selections of agency types"
+  ],
+  "validations": [
+    "CustomValidator1",
+    "CustomValidator2",
+    "CustomValidator3",
+    "CustomValidator4"
+  ],
+  "calculations": [],
+  "conditions": [
+    "IsPostBack",
+    "ScriptMgr.IsInAsyncPostBack"
+  ],
+  "system_behavior": [
+    "Binds term data on initial load",
+    "Setup JavaScript variables for client"
+  ],
+  "dependencies": ["HSPnet.App_GlobalResources", "HSPnet.DataLayer", "HSPnet.UI", "HSPnet.Framework"],
+  "exceptions": [],
+  "source_document_ids": [
+    "0e31d40a-9633-54b8-93c7-a97faca14f96",
+    "19af1ae4-74d5-589a-bfe9-4d126314cd86",
+    "694ae729-5505-5dec-a725-eb371594f3e2",
+    "6aa02bb8-1947-5250-bf3b-a3c66c7661c9",
+    "a10851d9-c38b-5ad7-a4eb-d1e6c24e2844",
+    "a628f1a9-9f26-5bf4-b4eb-8364aa9467a6",
+    "b704610b-290b-58fa-98b2-2223df050579",
+    "bf45053b-2c38-58e5-a430-ad8ca24b404d",
+    "d2b89fa7-b27e-598f-babd-14528c7c7cc9",
+    "e7de563e-2624-5e1b-a706-ae19e4429669"
+  ],
+  "content_gaps": []
+}
