@@ -1,66 +1,90 @@
 {
   "filename": "CorrespondenceCourseSchedule",
   "found": true,
-  "summary": "Handles the CRUD operations for correspondence course schedules in the HSPnet system.",
-  "purpose": "To manage schedule entries, including adding, updating, and deleting correspondence schedules linked to courses.",
+  "summary": "The CorrespondenceCourseSchedule system manages schedules related to correspondence courses by performing operations such as adding, updating, deleting, and retrieving schedule entries.",
+  "purpose": "The purpose of the CorrespondenceCourseSchedule system is to facilitate the management of schedules for courses that involve correspondence, ensuring accurate records and querying capabilities.",
   "entities": [
-    {
-      "name": "CorrespondenceCourseSchedule",
-      "attributes": [
-        "ID",
-        "CourseID",
-        "CorrespondenceID",
-        "Days",
-        "PeriodCodeID",
-        "CorrespondenceName",
-        "TypeDescription",
-        "PeriodDescription"
-      ]
-    }
+    "CorrespondenceCourseSchedule"
   ],
   "fields": [
+    "ID",
     "CourseID",
     "CorrespondenceID",
     "Days",
-    "PeriodCodeID"
+    "PeriodCodeID",
+    "CorrespondenceName",
+    "TypeDescription",
+    "PeriodDescription",
+    "TypeDescriptionAlt",
+    "PeriodDescriptionAlt"
   ],
   "actors": [
     "HSPnetSession"
   ],
   "workflows": [
     {
-      "name": "Add Correspondence Course Schedule",
+      "name": "Add Schedule",
       "steps": [
-        "Set procedure name to CorrespondenceCourseSchedulesAdd",
-        "Add parameters CourseID, CorrespondenceID, Days, PeriodCodeID",
+        "Set ProcedureName to 'CorrespondenceCourseSchedulesAdd'",
+        "Add parameters: CourseID, CorrespondenceID, Days, PeriodCodeID",
         "Execute query"
       ]
     },
     {
-      "name": "Update Correspondence Course Schedule",
+      "name": "Update Schedule",
       "steps": [
-        "Set procedure name to CorrespondenceCourseSchedulesUpdate",
-        "Add parameters ID, CorrespondenceID, Days, PeriodCodeID",
+        "Set ProcedureName to 'CorrespondenceCourseSchedulesUpdate'",
+        "Add parameters: ID, CorrespondenceID, Days, PeriodCodeID",
         "Execute query"
       ]
     },
     {
-      "name": "Delete Correspondence Course Schedule",
+      "name": "Delete Schedule",
       "steps": [
-        "Set procedure name to CorrespondenceCourseSchedulesDelete",
-        "Add parameter ID",
+        "Set ProcedureName to 'CorrespondenceCourseSchedulesDelete'",
+        "Add parameter: ID",
         "Execute query"
+      ]
+    },
+    {
+      "name": "Retrieve Schedule by CourseID",
+      "steps": [
+        "Set ProcedureName to 'CorrespondenceCourseSchedulesSearch'",
+        "Add parameter: CourseID",
+        "Get data using SqlDataReader",
+        "Fill list using FillList method",
+        "Close SqlDataReader"
+      ]
+    },
+    {
+      "name": "Retrieve Schedule by ID",
+      "steps": [
+        "Set ProcedureName to 'CorrespondenceCourseSchedulesSearchID'",
+        "Add parameter: ID",
+        "Get data using SqlDataReader",
+        "Fill list using FillList method",
+        "Close SqlDataReader"
       ]
     }
   ],
-  "business_rules": [],
+  "business_rules": [
+    "Use alternative language fields if applicable"
+  ],
   "validations": [],
-  "calculations": [],
+  "calculations": [
+    "TemplateFormatted field combines TypeDescription and CorrespondenceName"
+  ],
   "conditions": [],
   "system_behavior": [
-    "Use alt-language fields if session flag is set."
+    "Executes defined stored procedures for schedule management",
+    "Fills schedule list using SqlDataReader",
+    "Switches between alternative language descriptions based on session settings"
   ],
-  "dependencies": [],
+  "dependencies": [
+    "HSPnet.Framework",
+    "HSPnet.App_GlobalResources",
+    "System.Data.SqlClient"
+  ],
   "exceptions": [],
   "source_document_ids": [
     "433f1f60-30c5-537a-bd7c-729b3d0a5496",
