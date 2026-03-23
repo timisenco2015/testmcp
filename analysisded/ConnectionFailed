@@ -1,0 +1,63 @@
+```json
+{
+    "filename": "ConnectionFailed",
+    "found": true,
+    "summary": "The ConnectionFailed page is an ASP.NET page that displays a localized error message when a connection fails. It includes both English and French headers and uses ASP.NET WebForm controls to manage UI components.",
+    "purpose": "To inform users of a connection failure with localized messages based on user locale settings.",
+    "entities": [],
+    "fields": [
+        {
+            "name": "HeaderEN",
+            "type": "Panel",
+            "description": "Panel for English header UI components."
+        },
+        {
+            "name": "HeaderFR",
+            "type": "Panel",
+            "description": "Panel for French header UI components."
+        },
+        {
+            "name": "uxErrorMessage",
+            "type": "Label",
+            "description": "Label to display the connection failed message."
+        }
+    ],
+    "actors": [],
+    "workflows": [
+        {
+            "name": "Connection Failure Handling",
+            "steps": [
+                "Detect user locale from query string.",
+                "Display appropriate header based on locale.",
+                "Show connection failure message."
+            ]
+        }
+    ],
+    "business_rules": [],
+    "validations": [],
+    "calculations": [],
+    "conditions": [
+        {
+            "description": "HeaderEN is visible if locale is en-US or locale is not set."
+        },
+        {
+            "description": "HeaderFR is visible if locale is fr-CA."
+        }
+    ],
+    "system_behavior": [
+        "The page dynamically adjusts visible components based on locale specified in the query string."
+    ],
+    "dependencies": [
+        "System.Web.UI.Page for page lifecycle management.",
+        "System.Globalization for handling locale-specific operations."
+    ],
+    "exceptions": [],
+    "source_document_ids": [
+        "1b519992-db1d-5f57-b018-a0e1befe8491",
+        "5ba21fbf-7905-59e7-90cb-c18e7f0bb6fb",
+        "83674888-1068-5d79-8a82-659f9547d3c0",
+        "8aaa6f24-0523-5c88-a8bb-fc0af3303321"
+    ],
+    "content_gaps": []
+}
+```
