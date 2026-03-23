@@ -1,31 +1,27 @@
 {
     "filename": "ExpenseBatch",
     "found": true,
-    "summary": "The ExpenseBatch document provides methods for managing expense batches within the application. It includes methods for adding, updating, deleting, and retrieving expense data.",
-    "purpose": "To manage financial batches related to expenses, enabling various CRUD operations within the application.",
-    "entities": [
-        "ExpenseBatch"
-    ],
+    "summary": "The ExpenseBatch class manages batches of expenses, supporting actions such as searching, adding, updating, and deleting expense batches based on department and other criteria.",
+    "purpose": "To manage a batch of expenses related to a department within HSPnet's financial tracking system.",
+    "entities": [],
     "fields": [
-        "ID",
-        "DepartmentID",
-        "BatchDescription",
-        "BatchDate",
-        "StatusCodeID",
-        "StatusCode",
-        "StatusDescription",
-        "ClosedDate",
-        "BatchNumberFormatted"
+        {"name": "ID", "type": "int"},
+        {"name": "DepartmentID", "type": "int"},
+        {"name": "BatchDescription", "type": "string"},
+        {"name": "BatchDate", "type": "DateTime"},
+        {"name": "StatusCodeID", "type": "int"},
+        {"name": "StatusCode", "type": "string"},
+        {"name": "StatusDescription", "type": "string"},
+        {"name": "ClosedDate", "type": "DateTime"}
     ],
     "actors": [],
     "workflows": [
         {
-            "name": "Expense Batch Management",
+            "name": "Expense Batch Search",
             "steps": [
-                "Add Expense Batch",
-                "Update Expense Batch",
-                "Delete Expense Batch",
-                "Retrieve Expense Batch"
+                "Set procedure name to ExpenseBatchSearch.",
+                "Add departmentID as a parameter.",
+                "Retrieve data and store in ExpenseBatch entities."
             ]
         }
     ],
@@ -33,9 +29,7 @@
     "validations": [],
     "calculations": [],
     "conditions": [],
-    "system_behavior": [
-        "Database queries use batch and session IDs"
-    ],
+    "system_behavior": [],
     "dependencies": [],
     "exceptions": [],
     "source_document_ids": [
