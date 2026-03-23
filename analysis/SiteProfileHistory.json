@@ -1,76 +1,39 @@
 {
-  "filename": "SiteProfileHistory",
-  "found": true,
-  "summary": "The `SiteProfileHistory` class handles historical site profile data, capturing changes made to site profiles including user actions, field changes, and timestamps.",
-  "purpose": "To track and manage the history of site profile changes, reflecting user actions and details.",
-  "entities": [
-    {
-      "name": "SiteProfileHistory",
-      "properties": [
+    "filename": "SiteProfileHistory",
+    "found": true,
+    "summary": "The SiteProfileHistory class manages the historical changes made to site profiles within HSPnet.",
+    "purpose": "Track and manage changes to site profiles.",
+    "entities": [
         {
-          "name": "ID",
-          "type": "int",
-          "description": "Unique identifier for the site profile history entry."
-        },
-        {
-          "name": "ActionDate",
-          "type": "DateTime",
-          "description": "Timestamp of the action performed."
-        },
-        {
-          "name": "ScreenSection",
-          "type": "string",
-          "description": "The section of the screen affected."
-        },
-        {
-          "name": "UserAction",
-          "type": "string",
-          "description": "Description of the user's action."
-        },
-        {
-          "name": "Fields",
-          "type": "string",
-          "description": "Fields affected by the action."
-        },
-        {
-          "name": "Agency",
-          "type": "string",
-          "description": "The agency related to the profile."
-        },
-        {
-          "name": "FirstName",
-          "type": "string",
-          "description": "First name of the user related to the action."
-        },
-        {
-          "name": "LastName",
-          "type": "string",
-          "description": "Last name of the user related to the action."
-        },
-        {
-          "name": "ByUserID",
-          "type": "int",
-          "description": "ID of the user who performed the action."
+            "name": "SiteProfileHistory",
+            "properties": [
+                {"name": "ID", "type": "int"},
+                {"name": "ActionDate", "type": "DateTime"},
+                {"name": "ScreenSection", "type": "string"},
+                {"name": "UserAction", "type": "string"},
+                {"name": "Fields", "type": "string"},
+                {"name": "Agency", "type": "string"},
+                {"name": "LastName", "type": "string"},
+                {"name": "FirstName", "type": "string"},
+                {"name": "MiddleName", "type": "string"}
+            ]
         }
-      ]
-    }
-  ],
-  "fields": [],
-  "actors": [],
-  "workflows": [],
-  "business_rules": [],
-  "validations": [],
-  "calculations": [],
-  "conditions": [],
-  "system_behavior": [],
-  "dependencies": [],
-  "exceptions": [],
-  "source_document_ids": [
-    "25f89a24-5eda-5a3f-83df-1de69b12b3f1",
-    "26e09292-d304-55c6-94e5-ef3346453c4b",
-    "7ca6b963-9ae9-5cd3-82d5-f30dcb727ae3",
-    "a8f030c6-90b8-53a1-bb8a-3b7ef33b9488",
-    "e806999c-3a39-5720-9b59-303faebc9eb6"
-  ],
-  "content_gaps": []
+    ],
+    "fields": ["ID", "ActionDate", "ScreenSection", "UserAction", "Fields", "Agency", "LastName", "FirstName", "MiddleName"],
+    "actors": [],
+    "workflows": [
+        {
+            "name": "Site Profile History",
+            "steps": []
+        }
+    ],
+    "business_rules": [],
+    "validations": [],
+    "calculations": [],
+    "conditions": [],
+    "system_behavior": [],
+    "dependencies": [],
+    "exceptions": [],
+    "source_document_ids": ["25f89a24-5eda-5a3f-83df-1de69b12b3f1"],
+    "content_gaps": []
 }
