@@ -1,0 +1,115 @@
+```json
+{
+  "filename": "Template",
+  "found": true,
+  "summary": "Template management and lookup functions for HSPnet.",
+  "purpose": "Manage templates and perform database operations related to templates.",
+  "entities": [
+    "TemplateRecord",
+    "Templates"
+  ],
+  "fields": [
+    "ID",
+    "Name",
+    "Template",
+    "TemplateAlt",
+    "TextContains"
+  ],
+  "actors": [
+    "HSPnetSession"
+  ],
+  "workflows": [
+    {
+      "name": "TemplateLookup",
+      "steps": [
+        "AddParameter Name",
+        "GetData",
+        "Read data",
+        "Return Template or TemplateAlt"
+      ]
+    },
+    {
+      "name": "EmailTemplateLookup",
+      "steps": [
+        "AddParameter EmailJobID",
+        "AddParameter Name",
+        "GetData",
+        "Read data",
+        "Return Template"
+      ]
+    },
+    {
+      "name": "TemplateAdd",
+      "steps": [
+        "AddParameter Name",
+        "AddParameter Template",
+        "AddParameter TemplateAlt",
+        "ExecuteQuery"
+      ]
+    },
+    {
+      "name": "TemplateUpdate",
+      "steps": [
+        "AddParameter ID",
+        "AddParameter Name",
+        "AddParameter Template",
+        "AddParameter TemplateAlt",
+        "ExecuteQuery"
+      ]
+    },
+    {
+      "name": "TemplateDelete",
+      "steps": [
+        "AddParameter ID",
+        "ExecuteQuery"
+      ]
+    },
+    {
+      "name": "TemplateList",
+      "steps": [
+        "AddParameter keyword",
+        "GetData",
+        "Read data",
+        "CloseReader"
+      ]
+    },
+    {
+      "name": "TemplateSearchID",
+      "steps": [
+        "AddParameter ID",
+        "GetData",
+        "Read data",
+        "Return entry"
+      ]
+    }
+  ],
+  "business_rules": [
+    "Name must be specified",
+    "Template and TemplateAlt must be specified"
+  ],
+  "validations": [
+    "IsValid method checks if Name, Template, and TemplateAlt are not blank"
+  ],
+  "calculations": [],
+  "conditions": [
+    "UseAltLanguageFields condition for template retrieval"
+  ],
+  "system_behavior": [
+    "Procedures executed on database via HSPnetSession",
+    "Templates refreshed based on keyword"
+  ],
+  "dependencies": [
+    "SqlDataReader",
+    "StringUtil",
+    "Resources"
+  ],
+  "exceptions": [],
+  "source_document_ids": [
+    "156f7bb4-239b-5738-9da1-127c4d695c5e",
+    "1b53fa2c-2784-5783-924e-bb067eb93762",
+    "6144a446-e628-5045-9fcb-aea6c174dfd6",
+    "f2ad8956-a80a-5c7e-9d6d-22067b6cdfe9"
+  ],
+  "content_gaps": []
+}
+```
