@@ -1,0 +1,59 @@
+{
+    "filename": "StudentUserAccessHistory",
+    "found": true,
+    "summary": "The StudentUserAccessHistory system is designed to provide a view of user access history for students. It involves data binding to load user access data into a grid for display, using session information and specific student IDs.",
+    "purpose": "To manage and display the access history of students within the system, allowing administrators to review past student user interactions.",
+    "entities": [],
+    "fields": [
+        {
+            "name": "pnlButtons",
+            "type": "Panel",
+            "description": "Control for panel of buttons, auto-generated."
+        },
+        {
+            "name": "btnPrintDetails",
+            "type": "HtmlInputButton",
+            "description": "Button control for printing details, auto-generated."
+        },
+        {
+            "name": "Literal2",
+            "type": "Label",
+            "description": "Literal control for displaying static text, auto-generated."
+        },
+        {
+            "name": "gridData",
+            "type": "GridView",
+            "description": "Grid control for displaying user access data, auto-generated."
+        }
+    ],
+    "actors": [
+        {
+            "name": "HSPnetSession",
+            "role": "Provides user session information used for data binding."
+        }
+    ],
+    "workflows": [
+        {
+            "name": "BindUserAccessHistoryToGrid",
+            "steps": [
+                "Check if UserSession is not null.",
+                "Use StudentProfileHistorySearchUserAccess with UserSession and StudentID to fetch data.",
+                "Bind fetched data to gridData."
+            ]
+        }
+    ],
+    "business_rules": [],
+    "validations": [],
+    "calculations": [],
+    "conditions": [],
+    "system_behavior": [
+        "Loads user access history into a grid view when data binding is triggered."
+    ],
+    "dependencies": [],
+    "exceptions": [],
+    "source_document_ids": [
+        "90555548-5ece-51d5-87a5-8325c559e1e2",
+        "93eaf11e-d639-570e-864e-1a68238f17ba"
+    ],
+    "content_gaps": []
+}
