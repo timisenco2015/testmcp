@@ -1,1 +1,24 @@
-{"filename": "SiteProfileHistory", "found": true, "summary": "Defines SiteProfileHistory class with properties for tracking changes and user actions on site profiles.", "purpose": "To track and manage the history of changes made to site profiles.", "entities": [], "fields": ["ID", "ActionDate", "ScreenSection", "UserAction", "Fields", "Agency", "AgencyName", "LastName", "FirstName", "MiddleName", "Phone", "ByUserID", "ByOriginalUserID", "ByUserSysAdmin"], "actors": ["HSPnetSession", "Database", "SqlDataReader"], "workflows": [], "business_rules": [], "validations": [], "calculations": [], "conditions": [], "system_behavior": [], "dependencies": [], "exceptions": [], "source_document_ids": ["25f89a24-5eda-5a3f-83df-1de69b12b3f1", "26e09292-d304-55c6-94e5-ef3346453c4b", "7ca6b963-9ae9-5cd3-82d5-f30dcb727ae3", "a8f030c6-90b8-53a1-bb8a-3b7ef33b9488", "e806999c-3a39-5720-9b59-303faebc9eb6"], "content_gaps": []}
+{
+  "filename": "SiteProfileHistory",
+  "found": true,
+  "summary": "Handles the profile changes for sites.",
+  "purpose": "Records history of changes made to site profiles.",
+  "entities": ["SiteProfileHistory", "SiteProfileHistories"],
+  "fields": ["ID", "ActionDate", "ScreenSection", "UserAction", "Fields", "Agency", "AgencyName", "LastName", "FirstName", "MiddleName", "Phone", "ByUserID", "ByOriginalUserID", "ByUserSysAdmin"],
+  "actors": [],
+  "workflows": [
+    {
+      "name": "Record Changes",
+      "steps": ["Trigger stored procedure", "Read data", "Populate history objects", "Return history list"]
+    }
+  ],
+  "business_rules": [],
+  "validations": [],
+  "calculations": [],
+  "conditions": [],
+  "system_behavior": ["Formatted representation of action date and agency user"],
+  "dependencies": [],
+  "exceptions": [],
+  "source_document_ids": ["25f89a24-5eda-5a3f-83df-1de69b12b3f1","26e09292-d304-55c6-94e5-ef3346453c4b","7ca6b963-9ae9-5cd3-82d5-f30dcb727ae3","a8f030c6-90b8-53a1-bb8a-3b7ef33b9488","e806999c-3a39-5720-9b59-303faebc9eb6"],
+  "content_gaps": []
+}
