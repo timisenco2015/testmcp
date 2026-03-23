@@ -1,0 +1,82 @@
+# Module: MaintServiceProfile
+
+## MaintServiceProfile-UC1 — View and Manage Service Profile
+
+- Primary Actor(s): System Administrator, Staff Admin
+- Secondary Actor(s): None
+- Trigger: User accesses the MaintServiceProfile page.
+- Description: This use case allows users to view and manage service profiles, including profile data, position data, and service history.
+- Preconditions:
+  - The user must be logged in with appropriate permissions (either System Administrator or Staff Admin).
+  - The ServiceID must be present in the query string.
+- Postconditions:
+  - The service profile, positions, or history is displayed based on the active tab.
+- Main Success Scenario:
+  1. User navigates to the MaintServiceProfile page.
+  2. System validates the URL hash and retrieves the ServiceID from the query string.
+  3. System loads the service information and displays it.
+  4. User views or edits the profile, positions, or history based on the permission.
+- Extensions:
+  - If `ReadOnly` is set to 1 in the query string, the page becomes read-only.
+  - Default tab is set based on `CurrentPage` query string parameter.
+- Exceptions:
+  - If the ServiceID is missing, the page fails to load service information.
+  - Validation errors occur if the user tries to edit without permission.
+- Business Rules:
+  - Only System Administrators and Staff Admins can edit positions.
+- Assumptions:
+  - The service profile uses a tabbed interface.
+- Open Issues:
+  - None known.
+
+## MaintServiceProfile-UC2 — Error and Warning Management
+
+- Primary Actor(s): System User
+- Secondary Actor(s): None
+- Trigger: An error or warning condition arises on the MaintServiceProfile page.
+- Description: This use case manages the display and handling of error and warning messages.
+- Preconditions:
+  - User must be interacting with the MaintServiceProfile interface.
+- Postconditions:
+  - Errors and warnings are displayed and can be dismissed by the user.
+- Main Success Scenario:
+  1. An error or warning condition is triggered.
+  2. The system displays the error or warning panel with appropriate messages.
+  3. User dismissively hides the error or warning panel.
+- Extensions:
+  - The panel's visibility and message content are managed through server controls.
+- Exceptions:
+  - Persistent errors may prevent user from completing the task.
+- Business Rules:
+  - Error and warning messages must be clear and actionable.
+- Assumptions:
+  - Error and warning panels are hidden initially and shown only when needed.
+- Open Issues:
+  - None known.
+
+## MaintServiceProfile-UC3 — Pay Scale Validation
+
+- Primary Actor(s): Staff Admin
+- Secondary Actor(s): None
+- Trigger: User attempts to save or update pay scales without a valid effective date.
+- Description: This use case ensures that pay scales have an appropriate effective date before processing.
+- Preconditions:
+  - Pay scale fields are populated.
+- Postconditions:
+  - Validation is performed; user is notified of any issues.
+- Main Success Scenario:
+  1. User tries to save pay scales.
+  2. System checks if the effective date is set when pay scales are selected.
+  3. System validates that a default pay scale is specified before a secondary one.
+- Extensions:
+  - System prevents form submission if validation fails.
+- Exceptions:
+  - Pay scale validation failure prompts user to correct inputs.
+- Business Rules:
+  - An effective date is required when pay scales are selected.
+- Assumptions:
+  - Validation occurs on the client side before any server-side processing.
+- Open Issues:
+  - None known.
+
+Note: These use cases reflect the functionality as described in the retrieved content. Further real-world testing and requirements gathering may refine these scenarios.
