@@ -1,19 +1,111 @@
 {
   "filename": "StudentMessagesASM",
-  "found": false,
-  "summary": "",
-  "purpose": "",
+  "found": true,
+  "summary": "The StudentMessagesASM is a part of the HSPnet application, specifically a user control used to manage and display student messages and preferences within the system.",
+  "purpose": "The purpose of the StudentMessagesASM is to handle student-related messages and preferences within an educational or training management system, facilitating message display, student selections, and managing preferences.",
   "entities": [],
-  "fields": [],
-  "actors": [],
-  "workflows": [],
-  "business_rules": [],
-  "validations": [],
+  "fields": [
+    {
+      "name": "UserSession",
+      "type": "HSPnetSession"
+    },
+    {
+      "name": "StudentID",
+      "type": "int"
+    },
+    {
+      "name": "pnlSiteSelectorMessages",
+      "type": "System.Web.UI.WebControls.Panel"
+    },
+    {
+      "name": "Label3",
+      "type": "System.Web.UI.WebControls.Label"
+    },
+    {
+      "name": "gvwCourses",
+      "type": "System.Web.UI.WebControls.GridView"
+    },
+    {
+      "name": "dsCourses",
+      "type": "System.Web.UI.WebControls.ObjectDataSource"
+    },
+    {
+      "name": "gvwPRPreferenceMessages",
+      "type": "System.Web.UI.WebControls.GridView"
+    },
+    {
+      "name": "dsPRPreferenceMessages",
+      "type": "System.Web.UI.WebControls.ObjectDataSource"
+    }
+  ],
+  "actors": [
+    "UserSession"
+  ],
+  "workflows": [
+    {
+      "name": "Page Load",
+      "steps": [
+        "Check if UserSession is not null."
+      ]
+    },
+    {
+      "name": "Data Binding",
+      "steps": [
+        "Bind data to controls when called."
+      ]
+    },
+    {
+      "name": "Row Data Bound",
+      "steps": [
+        "Setup go-to selector and choices in the grid view row based on timetable data.",
+        "Hide panel if outside date range."
+      ]
+    },
+    {
+      "name": "Course Selection",
+      "steps": [
+        "Use UserSession and StudentID as parameters for course selection.",
+        "Show or hide pnlSiteSelectorMessages based on course count."
+      ]
+    },
+    {
+      "name": "Preference Messages",
+      "steps": [
+        "Hide delete button for view-only users.",
+        "Handle delete command to remove preference messages."
+      ]
+    }
+  ],
+  "business_rules": [
+    "The go-to panel should be hidden if the current time is outside the start and end date."
+  ],
+  "validations": [
+    "Check if UserSession is null before proceeding with data selection."
+  ],
   "calculations": [],
-  "conditions": [],
-  "system_behavior": [],
-  "dependencies": [],
-  "exceptions": [],
-  "source_document_ids": [],
-  "content_gaps": ["No related documents found"]
+  "conditions": [
+    "If UserSession is null, cancel the operation.",
+    "If row type is DataRow, perform specific setup operations."
+  ],
+  "system_behavior": [
+    "Hide delete options based on user view permissions.",
+    "Confirm deletion action with a JavaScript confirmation dialog."
+  ],
+  "dependencies": [
+    "HSPnet.App_GlobalResources",
+    "HSPnet.DataLayer",
+    "HSPnet.UI",
+    "HSPnet.Framework"
+  ],
+  "exceptions": [
+    "Cancel data selection if UserSession is null."
+  ],
+  "source_document_ids": [
+    "5056beeb-f5ea-51a8-8a39-c36468786837",
+    "5aa653c9-23a5-5dd3-ac87-92cc8a5d3b78",
+    "72f259f4-4d82-5873-bd42-b24a57c413cc",
+    "e289a620-4ed7-5bf3-a792-2b58e92cf5d0",
+    "f1abcc1f-e68a-575d-a794-3ad5e6208f87"
+  ],
+  "content_gaps": []
 }
