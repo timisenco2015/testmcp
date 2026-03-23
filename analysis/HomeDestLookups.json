@@ -1,0 +1,78 @@
+{
+  "filename": "HomeDestLookups",
+  "found": true,
+  "summary": "The documents provide source code and configurations for different components of a web application involving ASP.NET, C#, and SQL. They're related to functionality like site document handling, staff administration, service codes, profile history management, email document management, financial and expense tracking, cost centers, timetable assessments, ad-hoc query formation, and student prerequisites.",
+  "purpose": "The purpose of these components is to manage various functionalities within a larger application system, including document management, user interface interactions, database operations, financial tracking, query formation, and prerequisite handling for users.",
+  "entities": [],
+  "fields": [
+    "ID",
+    "SiteID",
+    "CodeCategoryID",
+    "ShortName",
+    "BatchNumberFormatted",
+    "DepartmentID",
+    "StartDate",
+    "EndDate",
+    "PRStatus",
+    "SessionID",
+    "StaffID",
+    "N95MaskSizeCodeID",
+    "TetanusAdminDate"
+  ],
+  "actors": [
+    "System Administrator",
+    "Placement Coordinator",
+    "Local Administrator",
+    "User Session"
+  ],
+  "workflows": [
+    {
+      "name": "Site Document Management",
+      "steps": ["Initialize document", "Handle document operations", "Close reader"]
+    },
+    {
+      "name": "Expense Batch Processing",
+      "steps": ["Declare batch", "Initialize database", "Execute batch add operation", "Return batch ID"]
+    }
+  ],
+  "business_rules": [
+    "Ensure ID is non-negative before processing batch operations.",
+    "Costs must be accurately recorded with relevant session and department IDs."
+  ],
+  "validations": [
+    "Check for valid date inputs in date fields.",
+    "Ensure required fields are filled before processing data."
+  ],
+  "calculations": [
+    "Formatted batch number using ID and status description."
+  ],
+  "conditions": [
+    "If session ID is valid, proceed to database operations."
+  ],
+  "system_behavior": [
+    "Handles creation and deletion of email popup documents within specified directory structures."
+  ],
+  "dependencies": [
+    "ASP.NET WebForms for UI components",
+    "SQL Server for data operations",
+    "AJAX Control Toolkit for UI enhancement"
+  ],
+  "exceptions": [
+    "Capture and handle errors during file operations in the email document handler."
+  ],
+  "source_document_ids": [
+    "a2967f17-a924-5e9c-8b15-d1f7bd028b32",
+    "05db31e4-e8b6-53ee-a6fb-812c106f0134",
+    "94f1b055-348d-508a-ae6e-cf7960a8c6a2",
+    "25f89a24-5eda-5a3f-83df-1de69b12b3f1",
+    "7287734e-f13d-550f-9249-4242db620766",
+    "060e08d3-49ca-5e40-bea0-849f4e6173e1",
+    "20ac8054-536e-5203-b33d-7db2b2dc2359",
+    "0781696d-dec4-5dfc-aa58-80ddd173c0ae",
+    "20140dcf-7d8e-51f1-86ab-4b5a291db2b2",
+    "126148d2-7c46-5bb8-8a4c-606105b702bd"
+  ],
+  "content_gaps": [
+    "Some procedures and method implementations are auto-generated and lack descriptive comments."
+  ]
+}
