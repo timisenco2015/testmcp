@@ -1,0 +1,114 @@
+{
+  "filename": "ExpenseBatch",
+  "found": true,
+  "summary": "ExpenseBatch is a class used for managing expense batches within a system. It includes functionality for adding, updating, deleting, and searching for expense batch records.",
+  "purpose": "To manage and manipulate expense batch records, allowing for operations like add, update, delete, and search within the system.",
+  "entities": [
+    "ExpenseBatch",
+    "ExpenseBatches"
+  ],
+  "fields": [
+    {
+      "name": "ID",
+      "type": "int"
+    },
+    {
+      "name": "DepartmentID",
+      "type": "int"
+    },
+    {
+      "name": "BatchDescription",
+      "type": "string"
+    },
+    {
+      "name": "BatchDate",
+      "type": "DateTime"
+    },
+    {
+      "name": "StatusCodeID",
+      "type": "int"
+    },
+    {
+      "name": "StatusCode",
+      "type": "string"
+    },
+    {
+      "name": "StatusDescription",
+      "type": "string"
+    },
+    {
+      "name": "ClosedDate",
+      "type": "DateTime"
+    },
+    {
+      "name": "BatchNumberFormatted",
+      "type": "string"
+    },
+    {
+      "name": "SessionID",
+      "type": "int"
+    }
+  ],
+  "actors": [
+    "HSPnetSession"
+  ],
+  "workflows": [
+    {
+      "name": "Add ExpenseBatch",
+      "steps": [
+        "Set procedure name to 'ExpenseBatchAdd'",
+        "Add parameters: SessionID, DepartmentID, BatchDescription, BatchDate",
+        "Execute query and retrieve ID"
+      ]
+    },
+    {
+      "name": "Update ExpenseBatch",
+      "steps": [
+        "Set procedure name to 'ExpenseBatchUpdate'",
+        "Add parameters: SessionID, ID, BatchDescription, BatchDate, StatusCodeID",
+        "Execute query to update the record"
+      ]
+    },
+    {
+      "name": "Delete ExpenseBatch",
+      "steps": [
+        "Set procedure name to 'ExpenseBatchDelete'",
+        "Add parameters: SessionID, ID",
+        "Execute query to delete the record"
+      ]
+    },
+    {
+      "name": "Search ExpenseBatch",
+      "steps": [
+        "Set procedure name to 'ExpenseBatchSearchID'",
+        "Add parameter: ID",
+        "Retrieve and populate ExpenseBatch object"
+      ]
+    }
+  ],
+  "business_rules": [
+    "Use alternative language fields if specified in the session.",
+    "BatchNumberFormatted is constructed using ID and StatusDescription."
+  ],
+  "validations": [],
+  "calculations": [
+    "BatchNumberFormatted = ID.ToString() + ' - ' + StatusDescription"
+  ],
+  "conditions": [
+    "Check for alternative language fields in StatusDescription."
+  ],
+  "system_behavior": [
+    "Retrieve data through SQL commands and manipulate ExpenseBatch entities accordingly."
+  ],
+  "dependencies": [
+    "HSPnetSession class",
+    "Database procedures: ExpenseBatchAdd, ExpenseBatchUpdate, ExpenseBatchDelete, ExpenseBatchSearch"
+  ],
+  "exceptions": [],
+  "source_document_ids": [
+    "060e08d3-49ca-5e40-bea0-849f4e6173e1",
+    "3559737f-0154-520e-be2b-d3dd2c3de539",
+    "b2216e58-a144-55cb-8b87-3da9787fc1d7"
+  ],
+  "content_gaps": []
+}
