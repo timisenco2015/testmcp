@@ -1,0 +1,93 @@
+{
+    "filename": "DestProfilePRHistory",
+    "found": true,
+    "summary": "The code is a part of a web application user control named 'DestProfilePRHistory', primarily dealing with the handling and display of profile history data within the HSPnet system. It manages data binding, user interactions on history records, and ensures proper data visibility based on user roles.",
+    "purpose": "To manage and display profile history records in a web application, allowing interactions like viewing details, printing, and handling data binding to present relevant information to authorized users.",
+    "entities": [],
+    "fields": [
+        {
+            "name": "UserSession",
+            "type": "HSPnetSession",
+            "description": "Stores session information for the current user."
+        },
+        {
+            "name": "DestinationCodeID",
+            "type": "int",
+            "description": "Identifier for the destination code associated with the session."
+        },
+        {
+            "name": "ScreenIsEditable",
+            "type": "Boolean",
+            "description": "Indicates whether the screen is editable."
+        },
+        {
+            "name": "ScriptMgr",
+            "type": "ScriptManager",
+            "description": "Manages client script for AJAX-enabled web pages."
+        },
+        {
+            "name": "CurrentPage",
+            "type": "string",
+            "description": "The identifier or name of the current page."
+        },
+        {
+            "name": "PrivateMode",
+            "type": "bool",
+            "description": "Indicates whether only instructor history for allowed ASSD/Disciplines is shown."
+        }
+    ],
+    "actors": [
+        "User",
+        "System"
+    ],
+    "workflows": [
+        {
+            "name": "Item Command Handling",
+            "steps": [
+                "Detect command name from user interaction.",
+                "Execute a switch case based on command name.",
+                "For specific commands, like 'cmdDetails', toggle CSS classes to reflect the state change.",
+                "Rebind data if required for certain commands."
+            ]
+        },
+        {
+            "name": "Item Data Binding",
+            "steps": [
+                "Check the item type in the repeater.",
+                "Retrieve and handle data for each item.",
+                "Set visibility and appearance based on data properties like 'Archived' or 'ParentPRDID'.",
+                "Adjust HTML attributes and visibility."
+            ]
+        }
+    ],
+    "business_rules": [
+        "Items are bound and displayed in a repeater control based on user session data.",
+        "Command names dictate user interactions and trigger specific system behaviors.",
+        "CSS classes are used to visually indicate the state or action of a button."
+    ],
+    "validations": [
+        "Ensure UserSession is not null before proceeding with data selection actions."
+    ],
+    "calculations": [],
+    "conditions": [
+        "e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem",
+        "data.ParentPRDID > 0",
+        "data.PR_ID > 0 && !UserSession.CourseLeaderOnly"
+    ],
+    "system_behavior": [
+        "Data binding and control visibility are dynamically managed based on the user session and data states.",
+        "The system toggles CSS classes to indicate detailed views on user interaction."
+    ],
+    "dependencies": [],
+    "exceptions": [
+        "If UserSession is null during data selection, the operation is cancelled."
+    ],
+    "source_document_ids": [
+        "50df5d60-d9d8-5a43-9eca-503b5d44d69c",
+        "533ecbc2-3c0f-55aa-afeb-718fdee68645",
+        "73f5867a-76a6-555a-a70f-16c896537229",
+        "8da736b0-8412-53be-8094-d55aaaad6f36",
+        "eb485709-9813-50fb-bf8a-1a972c6a80ed"
+    ],
+    "content_gaps": []
+}
