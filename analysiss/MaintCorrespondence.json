@@ -1,0 +1,116 @@
+{
+  "filename": "MaintCorrespondence",
+  "found": true,
+  "summary": "The document provides a detailed overview of the MaintCorrespondence functionality within the HSPnet application, including the generation, management, and history tracking of correspondence.",
+  "purpose": "The purpose of the MaintCorrespondence module is to facilitate the management and generation of correspondence templates within the system, offering functionalities for creating, tracking, and generating correspondence for various agencies.",
+  "entities": [],
+  "fields": [
+    "Outbox",
+    "ScreenIsEditable",
+    "ProgramID",
+    "CORRInfo",
+    "currentPage",
+    "Summary",
+    "Content",
+    "Data",
+    "Generate",
+    "GenerateRecAgency",
+    "GeneratePlcAgency",
+    "ContentHistory",
+    "GenerateHistory"
+  ],
+  "actors": [],
+  "workflows": [
+    {
+      "name": "Generate Correspondence",
+      "steps": [
+        "Set active view to ViewGenerateCourse.",
+        "Assign user session and correspondence ID.",
+        "Set screen properties and data bindings."
+      ]
+    },
+    {
+      "name": "Load Content",
+      "steps": [
+        "Assign user session and correspondence ID.",
+        "Set screen properties and data bindings."
+      ]
+    }
+  ],
+  "business_rules": [
+    "TabPanelGenerate is enabled if CORRInfo.ContentUserID1 > 0.",
+    "Outbox flag determines visibility and text of controls."
+  ],
+  "validations": [
+    {
+      "name": "checkResponse",
+      "description": "Validates the response comments and heading selection."
+    },
+    {
+      "name": "checkAddressee",
+      "description": "Ensures addressee fields are correctly populated and numeric."
+    }
+  ],
+  "calculations": [
+    {
+      "name": "GetRequestDestID",
+      "description": "Compiles and returns request destination IDs from selections."
+    }
+  ],
+  "conditions": [
+    "If Outbox is true, make certain controls visible or invisible.",
+    "If CORRInfo.UseFreeForm, generate a specific report name."
+  ],
+  "system_behavior": [
+    "Uses TabContainer1 to switch between different correspondence views.",
+    "Generates reports based on configured templates and options."
+  ],
+  "dependencies": [
+    "HSPnet.Framework",
+    "HSPnet.UserControls.MaintCorrespondence"
+  ],
+  "exceptions": [
+    "If no correspondence ID is provided, an error message is shown and specific panels are hidden."
+  ],
+  "source_document_ids": [
+    "002e97be-5cce-5fae-851d-b14fc979d295",
+    "0e8dd089-6e1f-58bd-b597-7227d04a01a4",
+    "17ebf458-e799-5d29-854d-e26fddc842ad",
+    "1ac0810e-77c3-53d6-bb7a-f06aa11513ae",
+    "299fc784-a9a4-52b2-b70d-b6c34113d76b",
+    "2bf915b4-8c5f-5c59-9f92-58930af9a198",
+    "2f93f999-3aeb-5e80-aa09-fdf8c12498b7",
+    "401763f8-0d29-5f9f-9ef5-44a9411959c5",
+    "4a27d851-1fad-59c5-9034-e62f87193e81",
+    "4aca576d-4d81-5113-ad2b-e38bd5048359",
+    "5356e660-4f32-5913-b6af-8a5b735ddccd",
+    "54a54e26-f5ba-51b0-8459-6292ed0d0bdc",
+    "55dca297-dd7e-5033-9863-776d01372d0c",
+    "58d4ec73-0eae-53ac-8d40-3b873b1d1341",
+    "58ecb5c7-fdd5-5b9c-897f-5f7733a20384",
+    "6199308d-0f41-5434-bfaa-e358898b5dc5",
+    "64210586-8341-542a-a5db-485358f7229a",
+    "66a5f721-6de5-528e-9b28-5d385709816b",
+    "6e3fa63f-57d3-5b62-ae06-90694de295dc",
+    "860dd543-6633-52b1-aae4-63060d5274d8",
+    "86767cda-4641-5a03-8ff3-18c9b6b38703",
+    "906f0a11-016a-5210-95b6-1b2854092782",
+    "9382ce4c-2d7d-5f11-afbb-35f6ca3a16c9",
+    "bab9d074-f80c-536c-a257-65bf8a4fb44f",
+    "bef92d6e-bd2b-568b-b35b-e6ebfd8e0f00",
+    "c6352e9a-1bd9-542a-8673-4bf4cf0887cb",
+    "c7f6abca-36de-566d-a44c-d41045b0f863",
+    "d55a2bfa-752e-5a9b-8a67-4f475ca57f72",
+    "d74d5cfe-7e4e-5085-9c6f-2555fb76d977",
+    "e32a5a32-bb03-54c1-8b97-a1db802047c1",
+    "ecc0a64c-c539-53e1-9390-b92844de8c5a",
+    "ed55fd6d-3eb4-5b21-a344-db2cd672223b",
+    "ef20b278-afce-5ae3-8c3b-feeaa705ba18",
+    "f0d48892-c9a3-5411-9fe2-176dccf95a3e",
+    "f6436370-f62b-5a27-b382-36091a7d62f1",
+    "f8519743-0ef8-5e37-82d6-7a0eeabcc869",
+    "f9177e2c-991c-5fe9-939a-da48295b5130",
+    "fde052f6-87de-5f29-98fa-d6c97919c067"
+  ],
+  "content_gaps": []
+}
