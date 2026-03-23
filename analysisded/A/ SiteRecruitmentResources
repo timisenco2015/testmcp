@@ -1,0 +1,58 @@
+```json
+{
+  "filename": "SiteRecruitmentResources",
+  "found": true,
+  "summary": "The SiteRecruitmentResources system is designed to manage recruitment resources related to site profiles, facilitating user interactions and data management through web controls.",
+  "purpose": "To manage and update recruitment resources for site profiles through a web interface.",
+  "entities": ["SiteRecruitmentResources", "UserSession", "SiteID"],
+  "fields": ["updPnlPopup", "btnShowPopup", "mdlDetails", "ValidationSummary1", "uxDetail", "dsSiteDetail", "updPnlProfile", "fvwProfile", "pnlPopup"],
+  "actors": ["User", "System"],
+  "workflows": [
+    {
+      "name": "Update Recruitment Resources",
+      "steps": [
+        "User triggers edit mode via cmdEdit_click.",
+        "The system sets uxDetail in edit mode and shows details.",
+        "User enters new recruitment details and saves changes.",
+        "System updates resources based on UserSession, ID, webPage, recruitmentRefNo, and recruitmentClosed.",
+        "If save is successful, redirects to MaintSiteProfile.aspx with updates."
+      ]
+    },
+    {
+      "name": "Data Retrieval",
+      "steps": [
+        "dsSiteDetail_Selecting checks if UserSession is null.",
+        "If not, retrieves data using UserSession and SiteID."
+      ]
+    }
+  ],
+  "business_rules": [],
+  "validations": [
+    "ValidationSummary1 validates form inputs before submission."
+  ],
+  "calculations": [],
+  "conditions": [
+    "If UserSession is null during data selection, the operation is canceled."
+  ],
+  "system_behavior": [
+    "Displays information in various form fields using ASP.NET controls.",
+    "Handles user commands like edit and save through event handlers."
+  ],
+  "dependencies": [
+    "HSPnet.App_GlobalResources",
+    "HSPnet.DataLayer",
+    "HSPnet.UI",
+    "HSPnet.Framework"
+  ],
+  "exceptions": [
+    "Operation canceled if UserSession is null during data selection."
+  ],
+  "source_document_ids": [
+    "2d4e39aa-3711-5891-9efb-c1e9d0379093",
+    "456dd6b9-b89b-5a65-b681-2aa917a399a8",
+    "a61db9ae-f959-5975-ac27-4e818c75be32",
+    "cb4e80a6-37e6-5555-bfe5-d164c8ef5f87"
+  ],
+  "content_gaps": []
+}
+```
