@@ -1,0 +1,84 @@
+{
+  "filename": "EduPostEmployment",
+  "found": true,
+  "summary": "The EduPostEmployment module in HSPnet handles the user interface components related to staff education post-employment. It involves managing the display and actions within a grid, including operations like adding, editing, and deleting entries related to staff post-education records.",
+  "purpose": "This module is designed to facilitate the management of staff post-employment education records including their display, update, and deletion through a web interface.",
+  "entities": [],
+  "fields": [
+    "EducationID",
+    "ProgramID",
+    "GraduationConfirmed",
+    "DeliveryMethodCodeID",
+    "TermCodeID",
+    "TermYear",
+    "StaffID"
+  ],
+  "actors": [
+    "UserSession"
+  ],
+  "workflows": [
+    {
+      "name": "Delete Staff Post Education",
+      "steps": [
+        "Invoke deleteRow with EducationID.",
+        "Call StaffPostEducations.StaffPostEducationDelete.",
+        "Cache updated UserSession.",
+        "Redirect to current page."
+      ]
+    },
+    {
+      "name": "Update Staff Post Education",
+      "steps": [
+        "Check if page is valid; cancel if not.",
+        "Update new values using dropdown selections.",
+        "Cache updated UserSession.",
+        "Redirect to current page."
+      ]
+    },
+    {
+      "name": "Insert Staff Post Education",
+      "steps": [
+        "Check if page is valid; cancel if not.",
+        "Insert new values using dropdown selections.",
+        "Cache updated UserSession.",
+        "Redirect to current page."
+      ]
+    }
+  ],
+  "business_rules": [
+    "If an update or insert operation detects an invalid page state, it is canceled.",
+    "Specific dropdown selections map to entity fields for updates and inserts."
+  ],
+  "validations": [
+    "Ensure page validity before proceeding with updates or inserts."
+  ],
+  "calculations": [],
+  "conditions": [
+    "Screen visibility and editability are contingent on the current mode (Edit or Insert)."
+  ],
+  "system_behavior": [
+    "Handles grid row operations including data binding and command execution.",
+    "Manages visibility of UI elements based on screen's editability."
+  ],
+  "dependencies": [
+    "HSPnetSession",
+    "Grid",
+    "Dropdown",
+    "QueryString"
+  ],
+  "exceptions": [],
+  "source_document_ids": [
+    "0de18e68-3a02-5154-9cd3-094f777dead7",
+    "11182ff6-98d7-5bef-abba-fd72dc89ee05",
+    "5669055b-1b3f-5e43-9ff7-ed4e8a757413",
+    "60ada732-c0e0-55b5-aebc-cf4b26639765",
+    "6703a628-2c7c-599e-846e-6174f49b70fa",
+    "6876c498-0808-595d-9200-a95732c6ecd8",
+    "a20203c6-dfa7-5255-8fb8-04a6c76faa0f",
+    "b5df2d93-a6ff-507d-b70c-0e8d0036f245",
+    "e59f03bb-3ddd-527e-8ffd-b834efc2a184",
+    "f59fcad1-0356-5355-a7d6-1d0fb79b5f75",
+    "f5e05898-eff9-5c72-a154-997b8c8bb4ba"
+  ],
+  "content_gaps": []
+}
