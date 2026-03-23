@@ -1,0 +1,124 @@
+{
+  "filename": "HSPnetGridView",
+  "found": true,
+  "summary": "HSPnetGridView is a custom GridView extension for ASP.NET WebForms, providing advanced numeric paging with support for toggling between paged and 'Show All' views, dynamic pager links, and enhanced UI elements for navigation.",
+  "purpose": "To give users a flexible and accessible way to navigate large datasets in a tabular UI by implementing custom numeric paging logic, allowing toggling between page-based navigation and 'Show All', and offering UI controls such as ellipsis and next/previous buttons.",
+  "entities": [
+    {
+      "name": "HSPnetGridView",
+      "type": "class"
+    },
+    {
+      "name": "NextPrevNumericPagerTemplate",
+      "type": "class"
+    }
+  ],
+  "fields": [
+    {
+      "name": "StartRow",
+      "type": "int",
+      "description": "Calculated as PageIndex * PageSize. Controls the starting row of displayed data."
+    },
+    {
+      "name": "PageSize",
+      "type": "int",
+      "description": "Number of records displayed per page."
+    },
+    {
+      "name": "PageIndex",
+      "type": "int",
+      "description": "Current index for paging (zero-based)."
+    },
+    {
+      "name": "PageCount",
+      "type": "int",
+      "description": "Total number of pages."
+    }
+  ],
+  "actors": [
+    {
+      "name": "User",
+      "role": "Interacts with grid navigation controls."
+    },
+    {
+      "name": "Developer",
+      "role": "Configures GridView paging options and UI."
+    }
+  ],
+  "workflows": [
+    {
+      "name": "Custom Numeric Pager Creation",
+      "steps": [
+        "Instantiate NextPrevNumericPagerTemplate with current page index and page count.",
+        "Determine pager start and end indices based on current page.",
+        "Add previous button, next button, ellipsis if needed, and numeric page buttons.",
+        "Render selected page as label, others as clickable LinkButton.",
+        "Toggle paging mode and update button captions appropriately."
+      ]
+    },
+    {
+      "name": "Paging Toggle Workflow",
+      "steps": [
+        "User clicks Toggle Paging button.",
+        "If PageSize < maxPageSize, set PageSize = maxPageSize (Show All mode).",
+        "If PageSize >= maxPageSize, set PageSize = defaultPageSize (Paged mode).",
+        "Update Toggle Paging button caption accordingly."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Show All is activated by setting PageSize to a very large value (maxPageSize).",
+    "When PageCount == 1 and PageSize == defaultPageSize, paging controls and toggle are hidden."
+  ],
+  "validations": [
+    "Hide TogglePaging button if pager is not necessary (PageCount == 1 and PageSize == defaultPageSize)."
+  ],
+  "calculations": [
+    {
+      "name": "StartRow",
+      "formula": "PageIndex * PageSize"
+    },
+    {
+      "name": "PageNumber",
+      "formula": "pageIndex + 1"
+    },
+    {
+      "name": "PageIndex",
+      "formula": "pageNumber - 1"
+    },
+    {
+      "name": "ShowAllRecords",
+      "formula": "(PageCount == 1 && PageSize == defaultPageSize) || (PageSize >= maxPageSize)"
+    }
+  ],
+  "conditions": [
+    "If PageSize < maxPageSize, Show All mode is available.",
+    "If PageSize >= maxPageSize, revert to default paging."
+  ],
+  "system_behavior": [
+    "GridView dynamically switches between Show All and paged view.",
+    "Pager UI adapts button labels and visibility based on current paging mode.",
+    "Numeric pager shows correct range of pages, with ellipsis controls as needed.",
+    "Selected page button is rendered as label, other pages as LinkButton."
+  ],
+  "dependencies": [
+    "Uses HSPnet.App_GlobalResources for UI labels/captions.",
+    "Depends on ASP.NET WebForms server-side control context."
+  ],
+  "exceptions": [
+    "If the page index or count are invalid, UI may display fewer/more buttons than expected.",
+    "TogglePaging button is hidden when only one page is present."
+  ],
+  "source_document_ids": [
+    "e8c519ff-2768-5da8-85f3-1c0ab0d1ede4",
+    "0d68b324-d542-5f5c-94ea-1d8b14b0b954",
+    "15d00a66-9ce3-52ef-b0a6-1c6f44395536",
+    "b67f6667-c1c0-574d-83ce-52aff5d9bf7b",
+    "b76073b8-f945-54a7-a489-21d4c53d17e6",
+    "e629e36d-ae75-5762-8018-ef6b59a65b22"
+  ],
+  "content_gaps": [
+    "No explicit error handling for invalid PageSize or PageIndex values.",
+    "No information about underlying data binding or sorting behaviors."
+  ]
+}
