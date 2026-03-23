@@ -1,24 +1,72 @@
 {
   "filename": "ServiceCode",
   "found": true,
-  "summary": "Handles service code operations within HSPnet.",
-  "purpose": "Manage service codes for courses and timetables.",
-  "entities": ["ServiceCode", "ServiceCodes"],
-  "fields": ["ID", "CodeCategoryID", "ShortName", "Name", "SortOrder", "Notes", "NameAlt"],
+  "summary": "Defines and manages service codes, including retrieval of service codes by different criteria.",
+  "purpose": "To handle service code-related data operations, such as retrieval and localization based on session settings.",
+  "entities": [
+    "ServiceCode",
+    "ServiceCodes"
+  ],
+  "fields": [
+    {
+      "name": "ID",
+      "type": "int"
+    },
+    {
+      "name": "CodeCategoryID",
+      "type": "int"
+    },
+    {
+      "name": "ShortName",
+      "type": "string"
+    },
+    {
+      "name": "Name",
+      "type": "string"
+    },
+    {
+      "name": "SortOrder",
+      "type": "int"
+    },
+    {
+      "name": "Notes",
+      "type": "string"
+    },
+    {
+      "name": "NameAlt",
+      "type": "string"
+    },
+    {
+      "name": "NotesAlt",
+      "type": "string"
+    }
+  ],
   "actors": [],
   "workflows": [
     {
-      "name": "Fetch Service Codes",
-      "steps": ["Set procedure to ServiceCodeListAll", "Add session parameter", "Return list"]
+      "name": "ServiceCode Retrieval",
+      "steps": [
+        "Connect to database",
+        "Retrieve service codes",
+        "Localize if required",
+        "Return list of service codes"
+      ]
     }
   ],
-  "business_rules": ["Use alt-language fields if necessary"],
+  "business_rules": [],
   "validations": [],
   "calculations": [],
   "conditions": [],
-  "system_behavior": ["Localize service codes based on session settings"],
+  "system_behavior": [
+    "Retrieves service codes with specific criteria such as course or timetable ID.",
+    "Provides localization if alt-language fields are used."
+  ],
   "dependencies": [],
   "exceptions": [],
-  "source_document_ids": ["94f1b055-348d-508a-ae6e-cf7960a8c6a2", "e4ebe4b4-6d14-5c3f-b693-61016f765239", "f976b9af-a402-540f-b162-391d578fac7c"],
+  "source_document_ids": [
+    "94f1b055-348d-508a-ae6e-cf7960a8c6a2",
+    "e4ebe4b4-6d14-5c3f-b693-61016f765239",
+    "f976b9af-a402-540f-b162-391d578fac7c"
+  ],
   "content_gaps": []
 }
