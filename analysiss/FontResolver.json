@@ -1,0 +1,52 @@
+{
+    "filename": "FontResolver",
+    "found": true,
+    "summary": "The FontResolver class is responsible for resolving font file paths based on font characteristics such as family name, boldness, and italicization. The class implements the IFontResolver interface and provides methods to retrieve font files and resolve typefaces for specific font family requests.",
+    "purpose": "To resolve and provide appropriate font files based on specified font properties such as family name, boldness, and italic properties for rendering text.",
+    "entities": [],
+    "fields": [],
+    "actors": [],
+    "workflows": [
+        {
+            "name": "Font Resolution Workflow",
+            "steps": [
+                "Accept font properties such as face name, family name, bold, and italic.",
+                "Retrieve font file bytes from the system based on the face name.",
+                "Determine the appropriate font file name based on family name, boldness, and italic properties.",
+                "Return the resolved font information."
+            ]
+        }
+    ],
+    "business_rules": [
+        "Font files should be retrieved from the 'C:\\Windows\\Fonts' directory.",
+        "If the font family is 'Arial', resolve to specific TTF files based on bold and italic properties.",
+        "If the font family is 'Courier New', resolve to specific TTF files based on bold and italic properties.",
+        "If the font family is 'Segoe UI Symbol', resolve to 'seguisym.ttf'."
+    ],
+    "validations": [
+        "Check if the family names are compared ignoring case sensitivity."
+    ],
+    "calculations": [],
+    "conditions": [
+        "If the family name is 'Arial' and both bold and italic are true, use 'arialbi.ttf'.",
+        "If the family name is 'Arial' and only bold is true, use 'arialbd.ttf'.",
+        "If the family name is 'Arial' and only italic is true, use 'ariali.ttf'.",
+        "If the family name is 'Arial' and neither bold nor italic is true, use 'arial.ttf'.",
+        "If the family name is 'Courier New' and both bold and italic are true, use 'courbi.ttf'.",
+        "If the family name is 'Courier New' and only bold is true, use 'courbd.ttf'.",
+        "If the family name is 'Courier New' and only italic is true, use 'couri.ttf'.",
+        "If the family name is 'Courier New' and neither bold nor italic is true, use 'cour.ttf'.",
+        "If the family name is 'Segoe UI Symbol', use 'seguisym.ttf'."
+    ],
+    "system_behavior": [
+        "Loads font file data from the filesystem and resolves typefaces based on the specified logic."
+    ],
+    "dependencies": [],
+    "exceptions": [
+        "Returns null if the family name does not match any of the predefined cases."
+    ],
+    "source_document_ids": [
+        "eaab7778-187d-5f3d-b484-29699a5e484f"
+    ],
+    "content_gaps": []
+}
