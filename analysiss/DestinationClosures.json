@@ -1,0 +1,118 @@
+{
+  "filename": "DestinationClosures",
+  "found": true,
+  "summary": "The DestinationClosures documents provide functionality for managing closure codes related to destinations, including adding, updating, and deleting records in a database.",
+  "purpose": "To manage and maintain records of closures related to destination codes in a database, ensuring data integrity and validation through predefined business rules and workflows.",
+  "entities": [
+    "DestinationClosure",
+    "HSPnetSession"
+  ],
+  "fields": [
+    {
+      "name": "ID",
+      "type": "int"
+    },
+    {
+      "name": "DestinationCodeID",
+      "type": "int"
+    },
+    {
+      "name": "ClosureCodeID",
+      "type": "int"
+    },
+    {
+      "name": "StartDate",
+      "type": "DateTime"
+    },
+    {
+      "name": "EndDate",
+      "type": "DateTime"
+    },
+    {
+      "name": "ClosureCode",
+      "type": "string"
+    },
+    {
+      "name": "StartDateFormatted",
+      "type": "string"
+    },
+    {
+      "name": "EndDateFormatted",
+      "type": "string"
+    }
+  ],
+  "actors": [
+    "User",
+    "System Administrator"
+  ],
+  "workflows": [
+    {
+      "name": "Add Destination Closure",
+      "steps": [
+        "User provides the SessionID, DestinationCodeID, ClosureCodeID, StartDate, and EndDate.",
+        "System validates the closure details.",
+        "Database procedure 'DestinationClosureAdd' is invoked with parameters.",
+        "Record is added if valid."
+      ]
+    },
+    {
+      "name": "Update Destination Closure",
+      "steps": [
+        "User provides the SessionID, ID, ClosureCodeID, StartDate, and EndDate.",
+        "System validates the updated closure details.",
+        "Database procedure 'DestinationClosureUpdate' is invoked with updated parameters.",
+        "Record is updated if valid."
+      ]
+    },
+    {
+      "name": "Delete Destination Closure",
+      "steps": [
+        "User provides the SessionID and ID.",
+        "System checks if ID is greater than 0.",
+        "Database procedure 'DestinationClosureDelete' is invoked with parameters.",
+        "Record is deleted if conditions are met."
+      ]
+    },
+    {
+      "name": "Search Destination Closures",
+      "steps": [
+        "User provides the DestinationCodeID.",
+        "Database procedure 'DestinationClosureSearch' is invoked.",
+        "Results are populated and returned."
+      ]
+    }
+  ],
+  "business_rules": [
+    "ClosureCodeID is mandatory.",
+    "StartDate must be less than EndDate.",
+    "EndDate must not exceed 5 years from now."
+  ],
+  "validations": [
+    "Check if ClosureCodeID is provided.",
+    "Verify that StartDate is before EndDate.",
+    "Ensure EndDate does not exceed five years from the current date."
+  ],
+  "calculations": [
+    "MaxDate is calculated as current date plus five years."
+  ],
+  "conditions": [
+    "If ID is greater than 0, proceed with deletion."
+  ],
+  "system_behavior": [
+    "Retrieves database instance through HSPnetSession.",
+    "Executes stored procedures based on user actions."
+  ],
+  "dependencies": [
+    "HSPnetSession for database operations."
+  ],
+  "exceptions": [
+    "Invalid ClosureType or StartDate results in error messages being added to HSPnetSession."
+  ],
+  "source_document_ids": [
+    "3fc0b795-fe6a-5242-9abb-3e37af6fdb80",
+    "716bc77b-6ab7-525b-810b-77568cd366de",
+    "77c92348-2955-510a-b53f-2c87bd55c242",
+    "aa8d27a9-5cee-5cd1-afa5-840df056ca94"
+  ],
+  "content_gaps": []
+}
