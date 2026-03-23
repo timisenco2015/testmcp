@@ -1,0 +1,96 @@
+```markdown
+# Module: MaintProgramProfileDetails
+
+## MaintProgramProfileDetails-UC1 — Manage Program Profile
+
+- Primary Actor(s):
+  - Program Administrator
+- Secondary Actor(s):
+  - System
+- Trigger:
+  - The need to access or update program details arises.
+- Description:
+  - This use case describes accessing and managing the details of a program profile through a user interface. The profile includes various components like contact information, access rights, and validation settings.
+- Preconditions:
+  - User must have permissions to access the program profile.
+- Postconditions:
+  - Program profile is successfully updated or accessed.
+- Main Success Scenario:
+  1. User logs into the system.
+  2. User navigates to the program profile management interface.
+  3. User accesses the desired program profile.
+  4. User updates profile details such as address, phone, and permissions.
+  5. User saves changes.
+  6. System validates changes and updates the profile.
+- Extensions:
+  - If the system detects invalid input, an error message is displayed to the user.
+- Exceptions:
+  - System rejects incomplete or invalid data during the update.
+- Business Rules:
+  - Program profiles must comply with predefined validation rules (e.g., phone number formats).
+- Assumptions:
+  - User has the necessary role and access level (e.g., SysAdmin).
+- Open Issues:
+  - None identified.
+
+## MaintProgramProfileDetails-UC2 — Control Visibility Based on User Role
+
+- Primary Actor(s):
+  - User
+- Secondary Actor(s):
+  - System
+- Trigger:
+  - User interacts with the program profile interface.
+- Description:
+  - This use case describes how certain controls and fields in the program profile interface are hidden based on the user's role and session settings.
+- Preconditions:
+  - User must be logged in with a specific role.
+- Postconditions:
+  - Interface elements are dynamically displayed or hidden based on user role.
+- Main Success Scenario:
+  1. User logs into the system.
+  2. User interacts with the program profile screen.
+  3. System evaluates user session and role.
+  4. System hides or shows specific controls like email masks or student access.
+- Extensions:
+  - System prompts additional permission checks if a high-level control is accessed.
+- Exceptions:
+  - None identified.
+- Business Rules:
+  - User roles determine interface visibility for specific elements.
+- Assumptions:
+  - Role-based access control is accurately configured.
+- Open Issues:
+  - None identified.
+
+## MaintProgramProfileDetails-UC3 — Handle Student Access Provisioning
+
+- Primary Actor(s):
+  - Program Administrator
+- Secondary Actor(s):
+  - System
+- Trigger:
+  - Student access settings need verification or modification.
+- Description:
+  - This use case describes managing student access settings within the program profile, including toggling available features like document upload or site prerequisites.
+- Preconditions:
+  - Program allows student access provisioning.
+- Postconditions:
+  - Student access settings are properly configured according to program needs.
+- Main Success Scenario:
+  1. User logs into the system.
+  2. User navigates to student access settings within the program profile.
+  3. User enables or disables specific student access options.
+  4. System updates and reflects changes in the access settings.
+- Extensions:
+  - User requests additional permissions if access provisioning is disabled.
+- Exceptions:
+  - System disallows changes if business rules are violated.
+- Business Rules:
+  - Student access options must comply with organizational policies.
+- Assumptions:
+  - Access provisioning settings are accurately documented.
+- Open Issues:
+  - Possible integration with external student management systems.
+
+```
