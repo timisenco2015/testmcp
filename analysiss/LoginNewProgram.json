@@ -1,53 +1,52 @@
 {
-  "filename": "LoginNewProgram",
-  "found": true,
-  "summary": "The LoginNewProgram class is responsible for handling login activities for new HSPnet programs. It retrieves and stores program information using database procedures.",
-  "purpose": "To manage login interactions for new HSPnet programs by fetching relevant data and maintaining a list of program items.",
-  "entities": [],
-  "fields": [
-    {
-      "name": "Name",
-      "description": "The name of the program, combining LongName and ShortName from the database."
-    },
-    {
-      "name": "PCList",
-      "description": "A list of PC identifiers related to the program."
-    }
-  ],
-  "actors": [
-    "HSPnetSession"
-  ],
-  "workflows": [
-    {
-      "name": "Populate Program List",
-      "steps": [
-        "Initialize HSPnetSession.",
-        "Call the stored procedure 'LoginWelcomeNewHSPnetPrograms' to retrieve data.",
-        "Read through the SqlDataReader and create ProgramItem objects.",
-        "Populate the Name and PCList fields from the database fields LongName, ShortName, and PCList.",
-        "Add each ProgramItem to the Data list."
-      ]
-    }
-  ],
-  "business_rules": [],
-  "validations": [],
-  "calculations": [],
-  "conditions": [],
-  "system_behavior": [
-    "The system initializes with a session and retrieves data using a stored procedure.",
-    "The retrieved data is processed to create a list of program items."
-  ],
-  "dependencies": [
-    "HSPnet.Framework",
-    "System.Data.SqlClient",
-    "HSPnet.App_GlobalResources"
-  ],
-  "exceptions": [
-    "Ensure SqlDataReader is not null before attempting to read data.",
-    "Close the SqlDataReader after data retrieval."
-  ],
-  "source_document_ids": [
-    "bacebeb1-0a76-5a12-9d0b-1275211b772c"
-  ],
-  "content_gaps": []
+    "filename": "LoginNewProgram",
+    "found": true,
+    "summary": "The content defines a class named LoginNewProgram that is responsible for retrieving program details from a database and storing them in a list of ProgramItem objects.",
+    "purpose": "To manage the login process for new programs in the HSPnet system by retrieving and organizing program information.",
+    "entities": ["ProgramItem", "LoginNewProgram"],
+    "fields": [
+        {
+            "name": "Name",
+            "type": "string",
+            "description": "Concatenated string of the long and short names of the program."
+        },
+        {
+            "name": "PCList",
+            "type": "string",
+            "description": "List of program components."
+        }
+    ],
+    "actors": ["HSPnetSession"],
+    "workflows": [
+        {
+            "name": "Data Retrieval Workflow",
+            "steps": [
+                "Initialize a new LoginNewProgram object with an HSPnetSession.",
+                "Invoke the FillList method to populate program data.",
+                "Use the HSPnetSession to call the procedure LoginWelcomeNewHSPnetPrograms.",
+                "Iterate over the SqlDataReader to create ProgramItem objects.",
+                "Add each ProgramItem to the internal Data list."
+            ]
+        }
+    ],
+    "business_rules": [
+        "Program names are combined from long and short names separated by a comma."
+    ],
+    "validations": [],
+    "calculations": [],
+    "conditions": [
+        "SqlDataReader must not be null to proceed with data reading."
+    ],
+    "system_behavior": [
+        "Retrieves data from the database using the stored procedure LoginWelcomeNewHSPnetPrograms.",
+        "Closes the SqlDataReader after data has been read."
+    ],
+    "dependencies": [
+        "HSPnetSession must be provided to the constructor of LoginNewProgram."
+    ],
+    "exceptions": [
+        "Handles the case where SqlDataReader is null by not attempting to read."
+    ],
+    "source_document_ids": ["bacebeb1-0a76-5a12-9d0b-1275211b772c"],
+    "content_gaps": []
 }
