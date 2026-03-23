@@ -1,19 +1,91 @@
 {
   "filename": "SiteProfileHistory",
   "found": true,
-  "summary": "Defines data structures and methods related to the tracking of changes in site profiles, including user actions and agency details.",
-  "purpose": "To record and manage the history of site profile changes within the HSPnet system.",
-  "entities": [],
-  "fields": ["ID", "ActionDate", "ScreenSection", "UserAction", "Fields", "Agency", "AgencyName", "LastName", "FirstName", "MiddleName", "Phone", "ByUserID", "ByOriginalUserID"],
-  "actors": [],
-  "workflows": [],
-  "business_rules": [],
-  "validations": [],
-  "calculations": [],
-  "conditions": [],
-  "system_behavior": [],
-  "dependencies": [],
-  "exceptions": [],
-  "source_document_ids": ["25f89a24-5eda-5a3f-83df-1de69b12b3f1", "26e09292-d304-55c6-94e5-ef3346453c4b"],
+  "summary": "The `SiteProfileHistory` is a component within the HSPnet system that tracks changes and actions taken by users on a specified site profile. It captures and formats details regarding user actions, associated agencies, and user identities.",
+  "purpose": "To record and display historical changes made to site profiles within the HSPnet system, including actions by users and administrative adjustments.",
+  "entities": [
+    "SiteProfileHistory",
+    "SiteProfileHistories",
+    "HSPnetSession",
+    "Database",
+    "SqlDataReader",
+    "Phone"
+  ],
+  "fields": [
+    "ID",
+    "ActionDate",
+    "ScreenSection",
+    "UserAction",
+    "Fields",
+    "Agency",
+    "AgencyName",
+    "LastName",
+    "FirstName",
+    "MiddleName",
+    "Phone",
+    "ByUserID",
+    "ByOriginalUserID",
+    "ByUserSysAdmin",
+    "ActionDateFormatted",
+    "AgencyUserFormatted",
+    "AgencyUserDetailsFormatted"
+  ],
+  "actors": [
+    {
+      "name": "User",
+      "roles": ["Performs actions"]
+    },
+    {
+      "name": "System Administrator",
+      "roles": ["Manages user access and performs administrative actions"]
+    }
+  ],
+  "workflows": [
+    {
+      "name": "SiteProfileHistory Retrieval",
+      "steps": [
+        "Query the database using SiteID and SessionAgencyID.",
+        "Retrieve data using a stored procedure `SiteProfileHistorySearch`.",
+        "Data formatting depending on language setting (UseAltLanguageFields).",
+        "Generate formatted display strings for user details and agency information.",
+        "Handle session parameters to control data access."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Ensure that the session is valid before retrieving Site Profile History.",
+    "Format names and phone numbers using specific session settings."
+  ],
+  "validations": [
+    "Check if UserSession is null before data retrieval.",
+    "Validate user identity against original user ID for distinguishing system admin actions."
+  ],
+  "calculations": [
+    "Format Action Date using DateFormatter.",
+    "Create formatted strings for user and agency details."
+  ],
+  "conditions": [
+    "If UseAltLanguageFields is true, retrieve alternative language fields.",
+    "If user identity matches a system admin identity, adjust formatted name and details."
+  ],
+  "system_behavior": [
+    "Auto-generates web UI components based on user actions.",
+    "Handles data retrieval through a stored procedure with input parameters."
+  ],
+  "dependencies": [
+    "Resources for language-specific strings.",
+    "HSPnetSession for user session details.",
+    "Database interaction to facilitate data retrieval."
+  ],
+  "exceptions": [
+    "Cancel data retrieval if UserSession is null."
+  ],
+  "source_document_ids": [
+    "25f89a24-5eda-5a3f-83df-1de69b12b3f1",
+    "26e09292-d304-55c6-94e5-ef3346453c4b",
+    "7ca6b963-9ae9-5cd3-82d5-f30dcb727ae3",
+    "a8f030c6-90b8-53a1-bb8a-3b7ef33b9488",
+    "e806999c-3a39-5720-9b59-303faebc9eb6"
+  ],
   "content_gaps": []
 }
