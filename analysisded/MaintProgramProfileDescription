@@ -1,0 +1,91 @@
+```json
+{
+  "filename": "MaintProgramProfileDescription",
+  "found": true,
+  "summary": "The MaintProgramProfileDescription is a user control component in an ASP.NET application that handles the maintenance of program profiles. It manages the display, addition, editing, and deletion of program details in a web interface.",
+  "purpose": "To facilitate the management and manipulation of program profile data within a web application, including displaying program details, handling user inputs, and performing CRUD operations.",
+  "entities": ["ProgramDetail", "HSPnetSession"],
+  "fields": [
+    "UserSession",
+    "ScreenIsEditable",
+    "ProgramID",
+    "ScriptMgr",
+    "GridView gvwProfile",
+    "ObjectDataSource dsProfile",
+    "Panel pnlPopup",
+    "UpdatePanel updPnlPopup",
+    "Button btnShowPopup",
+    "ModalPopupExtender mdlDetails",
+    "ValidationSummary ValidationSummary3",
+    "FormView fvwProfile",
+    "ObjectDataSource dsHeading",
+    "Panel pnlEmptyData",
+    "LinkButton cmdAddEmptyData"
+  ],
+  "actors": [],
+  "workflows": [
+    {
+      "name": "Profile Display",
+      "steps": [
+        "Initialize components and set properties.",
+        "Bind data from data source to GridView.",
+        "Display data in GridView with options for editing and deleting."
+      ]
+    },
+    {
+      "name": "Add/Edit Program Detail",
+      "steps": [
+        "User clicks 'Add' or 'Edit'.",
+        "Switch to appropriate mode in FormView.",
+        "Bind data to FormView.",
+        "User fills in detail and saves.",
+        "Data is validated and stored."
+      ]
+    },
+    {
+      "name": "Delete Program Detail",
+      "steps": [
+        "User clicks 'Delete'.",
+        "Confirm deletion.",
+        "Remove detail from data source.",
+        "Refresh view."
+      ]
+    }
+  ],
+  "business_rules": [],
+  "validations": [
+    "Ensure required fields are filled before saving.",
+    "Validate data types of entries.",
+    "Check for duplicate entries before adding."
+  ],
+  "calculations": [
+    "Calculate sort order if not provided, defaults to -1."
+  ],
+  "conditions": [],
+  "system_behavior": [
+    "Switches to add or edit mode based on user action.",
+    "Displays popup modals for additional details."
+  ],
+  "dependencies": [
+    "System.Web",
+    "System.Web.UI",
+    "HSPnet.DataLayer",
+    "HSPnet.Framework",
+    "AjaxControlToolkit"
+  ],
+  "exceptions": [
+    "Handle errors in data binding.",
+    "Catch exceptions during CRUD operations."
+  ],
+  "source_document_ids": [
+    "03243333-f3df-579f-ad44-5ded284d50a1",
+    "48f3677a-01bd-5710-a3f8-afafe12875d1",
+    "7f195e6b-fcb7-5897-b890-fff56ef4cb54",
+    "928dc17b-7169-5ba0-a6f4-c689fce7ca49",
+    "94ae5bfb-0b66-53f9-b652-bbe29956a6b0",
+    "b2e9809d-c5d7-513c-ae63-d196eb9e2765",
+    "f7b13a6b-513f-55fc-bdbe-90e2121260d0"
+  ],
+  "content_gaps": []
+}
+```
