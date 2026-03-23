@@ -1,0 +1,58 @@
+```json
+{
+  "filename": "AdHocQuery",
+  "found": true,
+  "summary": "The content describes a class AdHocQuery in the namespace HSPnet.DataLayer that provides methods to convert the results of a SqlDataReader into an HTML table format.",
+  "purpose": "To convert data from a SqlDataReader into a formatted HTML table for display purposes.",
+  "entities": [
+    "HSPnet.DataLayer",
+    "AdHocQuery"
+  ],
+  "fields": [
+    "StringBuilder HTML",
+    "SqlDataReader dr"
+  ],
+  "actors": [],
+  "workflows": [
+    {
+      "name": "DataReaderToHTMLTable",
+      "steps": [
+        "Initialize StringBuilder for HTML.",
+        "Check if the SqlDataReader has rows.",
+        "Append header row using HeaderRow method.",
+        "Iterate over each row in SqlDataReader.",
+        "Append each row using DataRow method.",
+        "Append footer row using FooterRow method.",
+        "Return the HTML string."
+      ]
+    }
+  ],
+  "business_rules": [],
+  "validations": [
+    "dr.HasRows",
+    "dr.FieldCount",
+    "dr.IsDBNull(i)"
+  ],
+  "calculations": [],
+  "conditions": [
+    "If dr.HasRows is true, process the data."
+  ],
+  "system_behavior": [
+    "Generates HTML formatted table from data reader object."
+  ],
+  "dependencies": [
+    "System",
+    "System.Data",
+    "System.Data.SqlClient",
+    "HSPnet.Framework",
+    "HSPnet.App_GlobalResources",
+    "System.Text"
+  ],
+  "exceptions": [],
+  "source_document_ids": [
+    "20140dcf-7d8e-51f1-86ab-4b5a291db2b2",
+    "2878adb2-c26b-5d41-a6a4-d9f5a2c2c782"
+  ],
+  "content_gaps": []
+}
+```
