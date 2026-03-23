@@ -1,0 +1,35 @@
+# Module: RptDestPlcSchedule
+
+## RptDestPlcSchedule-UC1 — Generate Placement Schedule Report
+
+- Primary Actor(s): User
+- Secondary Actor(s): None
+- Trigger: User initiates the process to generate a placement schedule report.
+- Description: This use case describes the process of generating a placement schedule report based on user-selected parameters.
+- Preconditions:
+  - User must be logged into the system.
+  - User must have access permissions to generate reports.
+- Postconditions:
+  - The placement schedule report is generated and available for the user.
+- Main Success Scenario:
+  1. User selects the term for which the report is needed from the dropdown `ddTerm`.
+  2. User selects the start and end dates for the report using `txtStartDate` and `txtEndDate`.
+  3. User chooses the inclusion option: only confirmed requests, include accepted, or include pending requests using radio buttons.
+  4. User checks the option for individual PDF generation if required.
+  5. User chooses to append the schedule using the checkbox.
+  6. User clicks the `cmdRunReport` button to generate the report.
+  7. The system validates the input and prepares the report.
+  8. The report is generated and displayed to the user.
+- Extensions:
+  - User can adjust the date range using the calendar extenders `CalendarExtender1` and `CalendarExtender2`.
+  - User can input validation is provided by `RegularExpressionValidator1` and `RegularExpressionValidator2` for date fields.
+- Exceptions:
+  - If no destinations are selected, an error message is shown instructing the user to select at least one destination.
+  - If the number of included items exceeds the maximum, an error message is displayed.
+- Business Rules:
+  - Only users with the necessary permissions can generate reports.
+  - The report includes only the destinations accessible to the user.
+- Assumptions:
+  - The system contains valid data for the selected term and dates.
+- Open Issues:
+  - None identified.
