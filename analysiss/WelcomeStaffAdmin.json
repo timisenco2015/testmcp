@@ -1,55 +1,34 @@
 {
-    "filename": "WelcomeStaffAdmin",
-    "found": true,
-    "summary": "The WelcomeStaffAdmin page includes various controls such as validators, calendar extenders, and dropdown lists for administering staff-related activities.",
-    "purpose": "To provide an administrative interface for staff in HSPnet, including validation and data entry controls.",
-    "entities": [],
-    "fields": ["valEndDate", "txtEndDate", "btnEndDateCalendar", "CalendarExtender2", "RequiredFieldValidator1", "Literal3", "valStartDate", "txtStartDate"],
-    "actors": ["StaffAdmin"],
-    "workflows": [
-        {
-            "name": "Manage Staff Details",
-            "steps": [
-                "Load WelcomeStaffAdmin page.",
-                "Input or select start and end dates.",
-                "Submit form for validation.",
-                "Receive feedback on actions taken."
-            ]
-        }
-    ],
-    "business_rules": [],
-    "validations": [
-        "End date cannot be earlier than start date.",
-        "End date must be provided."
-    ],
-    "calculations": [],
-    "conditions": [],
-    "system_behavior": [
-        "Displays last login information.",
-        "Handles postback for date selection."
-    ],
-    "dependencies": [],
-    "exceptions": [],
-    "source_document_ids": [
-        "05db31e4-e8b6-53ee-a6fb-812c106f0134",
-        "100d5925-a5f8-53db-8493-02cddd563eb7",
-        "3c84bade-9671-5fbf-acce-3c87a835e9b4",
-        "4c4b97b8-d242-5261-a515-767a3f7d7a49",
-        "52b5066f-23f6-5d82-96cd-5d51dad3de79",
-        "5bb85da3-f5b4-5753-b07c-9bb2a04eeb89",
-        "5d9b92ea-7c12-5070-8603-977cf14d0e04",
-        "54244516-0707-581e-a8ba-9c041ea38366",
-        "871df91b-7ba0-558f-83ea-d5be1b0dc8db",
-        "964a48c9-231c-5d58-a44d-3675d949a453",
-        "966ed8d3-a5af-567f-b092-936217777551",
-        "a0c3da28-32a5-5fce-91b2-17274efa016e",
-        "afbb4ec5-43c8-5281-ad2c-4b6cfd23a48e",
-        "b8e79322-9a0e-5fe7-8953-3d05e231f923",
-        "bf423a80-93db-572d-8cb8-c79f04214a93",
-        "ca71b077-cc26-5979-a44f-59700a41316b",
-        "db9b35e9-53ca-5eaf-9d75-4f3a72131bc7",
-        "d278278f-d4ec-5f4a-9f29-a02b66773bb9",
-        "e249a878-c837-5d1c-9a3d-5167df2614fb"
-    ],
-    "content_gaps": []
+  "filename": "WelcomeStaffAdmin",
+  "found": true,
+  "summary": "Provides view and functionalities for staff administrators, including site and discipline selection.",
+  "purpose": "To manage staff admin functionalities related to site and discipline selection with associated validations and operations.",
+  "entities": [],
+  "fields": ["valEndDate", "txtEndDate", "btnEndDateCalendar"],
+  "actors": ["StaffAdmin"],
+  "workflows": [
+    {
+      "name": "Dropdown Operations",
+      "steps": [
+        "Initialize dropdowns",
+        "Handle selection changes"
+      ]
+    }
+  ],
+  "business_rules": [],
+  "validations": [
+    {
+      "name": "Validate Dates",
+      "steps": [
+        "Ensure EndDate is after StartDate"
+      ]
+    }
+  ],
+  "calculations": [],
+  "conditions": ["Visibility based on data presence."],
+  "system_behavior": ["Refresh data based on user inputs."],
+  "dependencies": ["WebControls"],
+  "exceptions": [],
+  "source_document_ids": ["05db31e4-e8b6-53ee-a6fb-812c106f0134", "100d5925-a5f8-53db-8493-02cddd563eb7", "3c84bade-9671-5fbf-acce-3c87a835e9b4", "4c4b97b8-d242-5261-a515-767a3f7d7a49", "52b5066f-23f6-5d82-96cd-5d51dad3de79"],
+  "content_gaps": []
 }
