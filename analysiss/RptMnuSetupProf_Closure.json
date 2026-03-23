@@ -1,19 +1,122 @@
 {
-    "filename": "RptMnuSetupProf_Closure",
-    "found": false,
-    "summary": "",
-    "purpose": "",
-    "entities": [],
-    "fields": [],
-    "actors": [],
-    "workflows": [],
-    "business_rules": [],
-    "validations": [],
-    "calculations": [],
-    "conditions": [],
-    "system_behavior": [],
-    "dependencies": [],
-    "exceptions": [],
-    "source_document_ids": [],
-    "content_gaps": ["No related documents found"]
+  "filename": "RptMnuSetupProf_Closure",
+  "found": true,
+  "summary": "The RptMnuSetupProf_Closure is a user control designed for setting up professional closure reports in the HSPnet web application. It facilitates the selection of agencies and sites, generates reports, and provides options for exporting report data.",
+  "purpose": "To manage the setup and generation of professional closure reports within the HSPnet application, allowing users to select agencies and sites, execute report generation, and handle report output.",
+  "entities": [],
+  "fields": [
+    {
+      "name": "UserSession",
+      "type": "HSPnetSession",
+      "description": "User session information",
+      "access": "public"
+    },
+    {
+      "name": "ScriptMgr",
+      "type": "ScriptManager",
+      "description": "Script manager for handling client-side script",
+      "access": "public"
+    },
+    {
+      "name": "blnRCUser",
+      "type": "Boolean",
+      "description": "Flag indicating if the user is a receiving center user",
+      "access": "public"
+    },
+    {
+      "name": "lblDescription",
+      "type": "Literal",
+      "description": "Label control for displaying description",
+      "access": "protected"
+    },
+    {
+      "name": "lblOptions",
+      "type": "Label",
+      "description": "Label control for displaying options",
+      "access": "protected"
+    },
+    {
+      "name": "ddAgency",
+      "type": "DropDownList",
+      "description": "Dropdown control for selecting agencies",
+      "access": "protected"
+    },
+    {
+      "name": "lbSites",
+      "type": "ListBox",
+      "description": "List box for displaying sites",
+      "access": "protected"
+    },
+    {
+      "name": "btnRunReport",
+      "type": "Button",
+      "description": "Button control for executing report generation",
+      "access": "protected"
+    },
+    {
+      "name": "aReportFile",
+      "type": "HyperLink",
+      "description": "Hyperlink control for accessing the generated report file",
+      "access": "protected"
+    },
+    {
+      "name": "litMessage",
+      "type": "Literal",
+      "description": "Literal control for displaying messages",
+      "access": "protected"
+    }
+  ],
+  "actors": [
+    {
+      "actor": "User",
+      "description": "Interacts with the user control to set up and generate reports."
+    }
+  ],
+  "workflows": [
+    {
+      "name": "Generate Professional Closure Report",
+      "steps": [
+        "User selects an agency from the ddAgency dropdown.",
+        "Upon selection, sites related to the agency are displayed in lbSites.",
+        "User selects sites from lbSites.",
+        "User clicks btnRunReport to generate the report.",
+        "The system prepares a file path and executes the SQL query to retrieve report data.",
+        "The report is generated and saved as XML and CSV files.",
+        "A link to the generated report file is displayed via aReportFile."
+      ]
+    }
+  ],
+  "business_rules": [
+    "If the ddAgency dropdown has no items, it automatically loads available agencies for the user session.",
+    "A blank entry is added to the top of the agency dropdown as a default selection option."
+  ],
+  "validations": [
+    "Ensure ddAgency and lbSites are not null and have a selected item before proceeding with report generation."
+  ],
+  "calculations": [],
+  "conditions": [
+    "If the selected agency ID is 0, clear the lbSites, collapse list and hide the report file link.",
+    "Show the lbSites if there are sites related to the selected agency."
+  ],
+  "system_behavior": [
+    "Automatically bind agencies to ddAgency on pre-render if not already populated.",
+    "Display message control only when required during report processing errors."
+  ],
+  "dependencies": [
+    "Relies on HSPnet.DataLayer for data access and manipulation.",
+    "Uses System.Web.UI.WebControls for web UI controls."
+  ],
+  "exceptions": [
+    "If report generation fails (return value not 1), display an error message."
+  ],
+  "source_document_ids": [
+    "0d3d8e45-0bc1-566b-84ce-956d9bd8c350",
+    "791a3cd4-b9d6-523d-aa7e-229fdb1c63ab",
+    "7ce50601-cccc-52e8-ac8d-4e22ea492c30",
+    "7d64fbdb-59e5-5cd4-9816-7be2ba181423",
+    "9321d88b-9255-513b-b560-de9558c13417",
+    "a3eedb43-0006-5597-9697-6021d2d3e677",
+    "e8b584c4-a0c7-5738-96fc-745b2ea2167c"
+  ],
+  "content_gaps": []
 }
