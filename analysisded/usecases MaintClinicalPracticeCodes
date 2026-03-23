@@ -1,0 +1,207 @@
+# Module: MaintClinicalPracticeCodes
+
+## MaintClinicalPracticeCodes-UC1 — Add Clinical Practice Code
+
+- Primary Actor(s):
+  - User
+
+- Secondary Actor(s):
+  - System
+
+- Trigger:
+  - User selects the option to add a new Clinical Practice Code.
+
+- Description:
+  - This use case allows a user to add a new Clinical Practice Code into the system. The user provides the name and short name of the code and confirms the addition.
+
+- Preconditions:
+  - User must have edit permissions.
+  - Department and program dropdowns must not be empty.
+  
+- Postconditions:
+  - A new Clinical Practice Code is added and displayed in the list.
+
+- Main Success Scenario:
+  1. User navigates to the Clinical Practice Code maintenance page.
+  2. User clicks the 'Add' button.
+  3. System displays the add form with fields for name and short name.
+  4. User enters valid data into the form fields.
+  5. User clicks 'Save'.
+  6. System validates the input and saves the new code.
+  7. System updates the display with the new code included.
+
+- Extensions:
+  - 3a. If form fields are invalid:
+    - 3a1. System displays validation error messages.
+
+- Exceptions:
+  - E1: System errors prevent saving the code. System displays an error message.
+
+- Business Rules:
+  - BR1: Name and short name must be specified and must not exceed character limits.
+
+- Assumptions:
+  - User has access to add new codes and the system is operational.
+
+- Open Issues:
+  - None
+
+## MaintClinicalPracticeCodes-UC2 — Edit Clinical Practice Code
+
+- Primary Actor(s):
+  - User
+
+- Secondary Actor(s):
+  - System
+
+- Trigger:
+  - User selects an existing Clinical Practice Code to edit.
+
+- Description:
+  - This use case allows a user to modify an existing Clinical Practice Code. The user provides new values for name and/or short name and confirms the changes.
+
+- Preconditions:
+  - User must have edit permissions.
+  - The Clinical Practice Code to be edited must exist.
+
+- Postconditions:
+  - The Clinical Practice Code is updated with the new information.
+
+- Main Success Scenario:
+  1. User navigates to the Clinical Practice Code maintenance page.
+  2. User selects a code to edit.
+  3. System displays the edit form with current data.
+  4. User modifies the name/short name.
+  5. User clicks 'Save'.
+  6. System validates and updates the code.
+  7. System refreshes the display.
+
+- Extensions:
+  - 4a. If form fields are invalid:
+    - 4a1. System displays validation error messages.
+
+- Exceptions:
+  - E1: System errors prevent updating the code. System displays an error message.
+
+- Business Rules:
+  - BR1: Name and short name must be specified and must not exceed character limits.
+
+- Assumptions:
+  - User has access to edit codes and the system is operational.
+
+- Open Issues:
+  - None
+
+## MaintClinicalPracticeCodes-UC3 — Delete Clinical Practice Code
+
+- Primary Actor(s):
+  - User
+
+- Secondary Actor(s):
+  - System
+
+- Trigger:
+  - User selects an existing Clinical Practice Code to delete.
+
+- Description:
+  - This use case allows a user to delete an existing Clinical Practice Code from the system.
+
+- Preconditions:
+  - User must have delete permissions.
+  - The Clinical Practice Code must exist.
+
+- Postconditions:
+  - The Clinical Practice Code is removed from the system.
+
+- Main Success Scenario:
+  1. User navigates to the Clinical Practice Code maintenance page.
+  2. User selects a code to delete.
+  3. System asks for confirmation.
+  4. User confirms deletion.
+  5. System deletes the code and refreshes the display.
+
+- Exceptions:
+  - E1: System errors prevent deletion. System displays an error message.
+
+- Business Rules:
+  - BR1: Only inactive codes can be deleted.
+
+- Assumptions:
+  - User has access to delete codes and the system is operational.
+
+- Open Issues:
+  - None
+
+## MaintClinicalPracticeCodes-UC4 — Reactivate Clinical Practice Code
+
+- Primary Actor(s):
+  - User
+
+- Secondary Actor(s):
+  - System
+
+- Trigger:
+  - User selects an inactive Clinical Practice Code to reactivate.
+
+- Description:
+  - This use case allows a user to reactivate an inactive Clinical Practice Code.
+
+- Preconditions:
+  - User must have permissions to reactivate codes.
+
+- Postconditions:
+  - The Clinical Practice Code is reactivated and flagged as active.
+
+- Main Success Scenario:
+  1. User navigates to the Clinical Practice Code maintenance page.
+  2. User selects an inactive code to reactivate.
+  3. System reactivates the code.
+  4. System updates the display.
+
+- Exceptions:
+  - E1: System errors prevent reactivation. System displays an error message.
+
+- Business Rules:
+  - BR1: Only inactive codes can be reactivated.
+
+- Assumptions:
+  - User has access to reactivate codes and the system is operational.
+
+- Open Issues:
+  - None
+
+## MaintClinicalPracticeCodes-UC5 — Refresh Data View
+
+- Primary Actor(s):
+  - User
+
+- Secondary Actor(s):
+  - System
+
+- Trigger:
+  - User requests refresh of the data view.
+
+- Description:
+  - This use case allows a user to refresh the data view to see the most current information.
+
+- Preconditions:
+  - User is on the Clinical Practice Code page.
+
+- Postconditions:
+  - The data view is updated with the latest information.
+
+- Main Success Scenario:
+  1. User clicks the refresh button.
+  2. System retrieves the latest data and updates the display.
+
+- Exceptions:
+  - E1: System errors prevent data refresh. System displays an error message.
+
+- Business Rules:
+  - None
+
+- Assumptions:
+  - User has access to refresh data and the system is operational.
+
+- Open Issues:
+  - None
