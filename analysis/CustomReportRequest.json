@@ -1,135 +1,121 @@
 {
   "filename": "CustomReportRequest",
   "found": true,
-  "summary": "The CustomReportRequest module facilitates users in submitting custom report requests within a web application. It supports several report types (Placement Requests, Student, Student PR History, Staff Users, Sites/Services, and Other), each with its own workflow, required input fields, and validation logic. The module dynamically adapts its forms and validation to the selected report type, integrates with dropdown and chooser controls for entity selection, and handles file uploads when student authorization is needed.",
-  "purpose": "To collect user input for ad-hoc/custom reporting needs, capturing parameters based on the type of report requested. It enforces validations, supports file uploads, and manages workflow steps for data collection, review, and final submission of custom report requests.",
+  "summary": "Implements the Custom Report Request feature/page. Allows users to request and configure custom reports by capturing parameters such as report type, purpose, audience, date ranges, programs, cohorts, courses, sites, agencies, statuses, and authorization details. Supports file upload for student authorization. Handles creation and editing of requests, validation, parameter lists by report type, and rendering of complex, multi-type web forms.",
+  "purpose": "Enables users to submit requests for custom reports tailored to various entities (students, staff, sites/services). Collects required criteria/input via dynamic forms and validates according to business and security rules. Allows for administrative and user-based report definition and submission.",
   "entities": [
-    "CustomReportRequest",
+    "CustomReport",
     "CustomReportParameter",
     "Staff",
-    "UserSession",
-    "Department",
     "Program",
-    "Cohort",
-    "Term",
-    "Course",
     "Site",
+    "Course",
+    "Cohort",
+    "Department",
     "Agency",
-    "Service",
-    "ListBoxChooser (UCchooser)",
-    "CodeRecord"
+    "UserSession",
+    "CodeRecord",
+    "Service"
   ],
   "fields": [
-    "Report Type (ddReportType)",
-    "Report Type Comments (txtReportTypeComments)",
-    "Purpose (txtPurpose)",
-    "Audience (txtAudience)",
-    "Past Details (txtPastDetails)",
-    "Requested Date (txtRequestedDate)",
-    "Comments (txtComments)",
-    "Status Codes (cklStatus)",
-    "NIS Released (chkNISRelFilter)",
-    "IRP Released (chkIRPRelFilter)",
-    "Departments (UCDepartments.IncludedList, ddDepartment)",
-    "Programs (UCPrograms.IncludedList, ddProgram)",
-    "Cohort (ddCohort)",
-    "Cohort Term (ddCohortTerm)",
-    "Course (ddCourse)",
-    "Student Data Fields (txtStudentDataFields)",
-    "Student Information (txtStudentInformation)",
-    "Student Authorization (txtStudentAuthorization, upldUploadFile)",
-    "Staff User Data Fields (txtStaffUsersDataFields)",
-    "Sites (UCSites.IncludedList, UCRASites.IncludedList, UCPASites.IncludedList, ddSiteFilter)",
-    "Agencies (UCPAAgencies.IncludedList, ddAgencyFilter)",
-    "Services (UCRAServices.IncludedList)",
-    "Sites/Services Data Fields (txtSitesServicesDataFields)",
-    "Other Programs (txtProgramsIncluded)",
-    "Other Sites (txtSitesIncluded)"
+    "ReportType",
+    "Purpose",
+    "Audience",
+    "RequestedDate",
+    "Comments",
+    "PastDetails",
+    "DepartmentID",
+    "ProgramID",
+    "CohortID",
+    "TermID",
+    "CourseID",
+    "DataFields",
+    "StatusCodeIDList",
+    "NIS_Released",
+    "IRP_Released",
+    "StudentInformation",
+    "StudentAuthorization",
+    "StudentAuthorizationUploadFile",
+    "AgencyIDList",
+    "SiteIDList",
+    "ServiceIDList",
+    "OtherPrograms",
+    "OtherSites",
+    "ProgramsIncluded",
+    "SitesIncluded"
   ],
   "actors": [
-    "End User (request submitter, typically staff)",
+    "User (requestor)",
+    "Staff (requested by)",
     "Placement Coordinator",
-    "Destination Coordinator",
     "System Administrator"
   ],
   "workflows": [
     {
       "name": "Custom Report Request Submission",
       "steps": [
-        "Page loads and validates session and URL.",
-        "User selects a report type from ddReportType (Placement, Student, Student PR History, Staff, Site, Other).",
-        "Relevant input view is activated according to report type.",
-        "User completes required fields: purpose, audience, parameters (departments, programs, sites, etc.), and for some types uploads files.",
-        "Validation is enforced per report type (required fields, date formats, selection lists).",
-        "On submission, parameters are packaged into CustomReportParameter objects.",
-        "System conducts server-side validation.",
-        "If creating new report, it's added to the database; if editing, the existing report is updated.",
-        "Success sets hidden ID or displays errors if validation failed."
-      ]
-    },
-    {
-      "name": "Dynamic Entity Selection",
-      "steps": [
-        "Departments, programs, cohorts, sites, agencies, and services are populated and selected via dropdowns or ListBoxChooser controls.",
-        "Selection state is persisted and reloaded for edits."
-      ]
-    },
-    {
-      "name": "Student PR History Authorization Workflow",
-      "steps": [
-        "User must provide student information.",
-        "User provides student authorization either by text entry or file upload.",
-        "File is saved and referenced by URL for download."
+        "Validate user session and permissions.",
+        "Display and initialize the request form, pre-populating fields for existing requests.",
+        "User selects report type (Placement Requests, Student, Student PR History, Staff, Site, Other).",
+        "Depending on report type, display appropriate input controls (department, program, cohort, site, agency, etc.).",
+        "User enters required information: purpose, audience, report parameters, optional past details.",
+        "If Student PR History: require information fields, authorization text or file upload.",
+        "If Placement Requests: select programs/sites, statuses, release filters.",
+        "If Staff: select departments, list data fields.",
+        "If Site/Services: select agencies/sites/services, specify data fields.",
+        "Perform client and server-side validation (required fields, date formats, permissions).",
+        "Save or update the CustomReport with associated parameters.",
+        "Display errors or confirmation as appropriate."
       ]
     }
   ],
   "business_rules": [
-    "Required fields are enforced by validators per report type.",
-    "At least one department/program/site/agency must be selected where applicable.",
-    "Student authorization is required either as entered text or file upload for Student PR History requests.",
-    "Date fields must match specified format and (optionally) be after today.",
-    "Checklists for statuses can be 'select all' or 'none'.",
-    "Only users with appropriate roles can access/submit relevant report type views.",
-    "Submission is only enabled if all validations pass and user has permission."
+    "Required fields (purpose, audience, requested date, etc.) must be entered.",
+    "Data fields entry is mandatory for all report types.",
+    "Student Authorization (text or file) is required for Student PR History requests.",
+    "At least one site, agency, program, department, or service must be selected when relevant.",
+    "Only Placement Coordinators can request for all placements; other users may have restricted access.",
+    "Report type 'Other' requires comments.",
+    "Submit button enabled only for authorized users and pending or new requests."
   ],
   "validations": [
-    "RequiredFieldValidators for key text fields and entity selectors.",
-    "RegularExpressionValidator for date fields.",
-    "CustomValidator for requested date (if not sysadmin, must be today or future).",
-    "Mandatory selection for programs, departments, sites, agencies, and services as relevant.",
-    "File upload must be of allowed type (regex validator for file extension)."
+    "Required field validators for all mandatory inputs.",
+    "Regular expression validators for date fields.",
+    "CustomValidator for requested date (must be today or future unless user is sysadmin).",
+    "File upload validation (only allowed types, e.g., PDF).",
+    "OnSave, checks for business rule compliance and displays errors using UserSession.Messages."
   ],
   "calculations": [
-    "Date calculations for term selection (resetDates JS function).",
-    "Dynamic concatenation/packaging of selected parameters into delimited strings."
+    "Auto-population of user, agency, and department fields based on session.",
+    "Resetting of date fields based on chosen term (via resetDates JS and backend logic)."
   ],
   "conditions": [
-    "If report type == OTHER, comments are required.",
-    "If report type == STUPH (Student PR History), authorization is mandatory.",
-    "If Placement Coordinator, show program selection. If not, show site selection.",
-    "Form adapts view and validation group logic based on report type."
+    "If report type = 'Placement Requests' and Placement Coordinator: show programs views. Else show sites.",
+    "If report type = 'Student PR History': require consent fields and/or file upload.",
+    "If report for existing CustomReport, prefill all controls and lock certain fields if finalized.",
+    "JavaScript controls presentation and validation according to selected report type."
   ],
   "system_behavior": [
-    "Dynamic UI adapts to selected report type.",
-    "Client and server validation for all critical inputs.",
-    "Populates dropdown lists and chooser controls based on session/user context.",
-    "Handles async and standard postbacks.",
-    "File upload management for student consent.",
-    "Displays errors and warnings in dedicated panels.",
-    "Finalizes and submits request only if all business rules/validations pass."
+    "Dynamically switches form panels/views based on user input.",
+    "Enables/disables controls according to user rights and report state.",
+    "Handles postbacks to keep form state consistent.",
+    "Registers client-side scripts for UI features (calendar, bulk select, dynamic fields).",
+    "Saves/updates report and parameters to backend on submit.",
+    "Uploads files to server and stores references for authorization documents."
   ],
   "dependencies": [
-    "ListBoxChooser user controls (UCchooser)",
-    "AjaxControlToolkit for calendar extenders",
-    "HSPnet.DataLayer for entity searches",
-    "Session variables/UserSession",
-    "JavaScript utilities for UI behaviors",
-    "CustomReportParameter and Codes helper classes"
+    "User controls: UCchooser, ListBoxChooser",
+    "AjaxControlToolkit (CalendarExtender, AlwaysVisibleControlExtender)",
+    "CustomReport, Staff, Agencies, Sites, Departments, Programs data access APIs",
+    "Codes for dropdowns (e.g., report types, status codes)",
+    "Resources for UI text",
+    "JavaScript libraries for client behavior"
   ],
   "exceptions": [
-    "Submission aborted if validations fail.",
-    "User prompted if mandatory selections or file uploads are missing.",
-    "Error panel displays detailed server-side errors."
+    "Invalid or missing required input: returns error message, halts submission.",
+    "File upload errors: returns message, prevents file save.",
+    "Unauthorized access: user prevented from saving or editing requests.",
+    "Backend/data errors: error displayed in error panel."
   ],
   "source_document_ids": [
     "00aebfc5-778a-5e93-93a2-b6ef20e08d92",
@@ -228,9 +214,10 @@
     "fe1151a2-2f3b-56bf-aee1-210fd73dc1c0"
   ],
   "content_gaps": [
-    "No information provided for the structure or schema of the CustomReportParameter object.",
-    "Resource labels (e.g., Resources.Custom_Report_Request) are referenced but not defined.",
-    "No database schema or backend implementation details.",
-    "Exact list of status codes, departments, programs, cohorts, etc. is not present—populated dynamically."
+    "Specific field mapping for all CustomReportParameter values is inferred from naming and context but not comprehensively enumerated.",
+    "No screenshots, UI mockups, or direct resource (label/text) definitions included.",
+    "Underlying data structure definitions (e.g., class definitions for CustomReport, CustomReportParameter) are not shown.",
+    "No details on authentication or authorization logic implementation.",
+    "Some referenced resource strings (for UI text/labels) are not detailed."
   ]
 }
