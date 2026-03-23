@@ -1,0 +1,57 @@
+{
+  "filename": "UserReportFilters",
+  "found": true,
+  "summary": "The UserReportFilters class is responsible for updating and searching user-specific report filters within the HSPnet system. It interacts with the database to perform these operations.",
+  "purpose": "To manage user-specific report filters by allowing updates and searches on report filters based on the user session details.",
+  "entities": [
+    "UserReportFilters"
+  ],
+  "fields": [
+    "UserID",
+    "ReportName",
+    "FieldName",
+    "FieldValue"
+  ],
+  "actors": [
+    "User",
+    "HSPnetSession"
+  ],
+  "workflows": [
+    {
+      "name": "Update Report Filter",
+      "steps": [
+        "Set the database procedure name to UserReportFilterUpdate.",
+        "Add parameters UserID, ReportName, FieldName, and FieldValue to the database session.",
+        "Execute the database query."
+      ]
+    },
+    {
+      "name": "Search Report Filters",
+      "steps": [
+        "Set the database procedure name to UserReportFiltersSearch.",
+        "Add parameters UserID and ReportName to the database session.",
+        "Execute the database query to get data.",
+        "Iterate through the data reader to read FieldName and FieldValue.",
+        "Add each FieldName and FieldValue to a dictionary.",
+        "Close the data reader."
+      ]
+    }
+  ],
+  "business_rules": [],
+  "validations": [],
+  "calculations": [],
+  "conditions": [],
+  "system_behavior": [
+    "The system updates or retrieves report filter details based on user session data."
+  ],
+  "dependencies": [
+    "HSPnet.Framework",
+    "HSPnet.App_GlobalResources",
+    "System.Data.SqlClient"
+  ],
+  "exceptions": [],
+  "source_document_ids": [
+    "aae6a5b0-8786-5c27-b78b-43241f13e3c2"
+  ],
+  "content_gaps": []
+}
