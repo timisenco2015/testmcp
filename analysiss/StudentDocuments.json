@@ -1,80 +1,71 @@
 {
     "filename": "StudentDocuments",
     "found": true,
-    "summary": "The 'StudentDocuments' module encompasses operations related to handling student documents such as uploading, saving, editing, and managing document visibility. The module interacts with user sessions to determine document access, implements JavaScript for dynamic content management, and provides server-side support for file anonymization and handling.",
-    "purpose": "To facilitate the uploading, management, and secure handling of student documents while ensuring proper access permissions and anonymity where necessary.",
-    "entities": [
-        "Student",
-        "StudentDocument",
-        "UserSession",
-        "Program"
-    ],
+    "summary": "The documents pertain to a web application module for managing student documents. The system supports uploading, editing, and managing various types of student documents, including anonymous and named resumes, and photos. It integrates JavaScript for client-side operations and utilizes ASP.NET components to manage document interactions in a web environment.",
+    "purpose": "To provide a web interface for students and staff to upload and manage student documents, ensure proper document handling, and enforce access controls based on user roles.",
+    "entities": [],
     "fields": [
-        "StudentID",
-        "FileName",
-        "FileURL",
-        "FileSize",
-        "FileType",
-        "DeleteAfterDate",
+        "fileName",
+        "fileURL",
+        "fileSize",
+        "fileType",
         "DocumentName",
+        "DeleteAfterDate",
+        "StudentID",
         "Anonymous",
-        "Withhold",
-        "TypeCodeID",
-        "TypeCodeCode",
-        "TypeComments"
+        "Withhold"
     ],
     "actors": [
-        "User",
-        "PlacementCoordinator",
-        "CourseLeader",
-        "Instructor"
+        "Student",
+        "Staff",
+        "Instructor",
+        "Course Leader"
     ],
     "workflows": [
         {
-            "name": "Document Upload",
+            "name": "Document Upload and Save",
             "steps": [
-                "User selects document type and uploads file.",
-                "System anonymizes file name and stores it.",
-                "Document metadata is saved in the database.",
-                "Visibility and access rights are checked based on user role."
+                "User selects document upload.",
+                "FileUpload control captures the document.",
+                "HandleUploadedFile function processes the file.",
+                "The document is saved with metadata including name, size, and type.",
+                "Document is added to database."
             ]
         },
         {
-            "name": "Document Edit",
+            "name": "Document Display and Management",
             "steps": [
-                "User selects document to edit.",
-                "Document details are loaded and displayed.",
-                "User makes changes and submits.",
-                "Changes are validated and saved."
+                "System checks user session and document visibility permissions.",
+                "Relevant documents are displayed based on user's role.",
+                "Users can add, edit, or delete documents as per permissions."
             ]
         }
     ],
     "business_rules": [
-        "Documents should be anonymized before storage.",
-        "Photo uploads are restricted based on user roles.",
-        "Certain document types are restricted from being changed."
+        "Documents can be uploaded or edited only if the user has the necessary permissions.",
+        "Certain document types like 'RESUME-ANON', 'RESUME-NAMED', and 'PHOTO' have constraints on editing.",
+        "File names are anonymized by appending the student ID and timestamp."
     ],
     "validations": [
-        "Check if document name is not empty during upload.",
-        "Validate file type and size.",
-        "Ensure document type code is selected."
+        "RequiredFieldValidator for document upload ensures file selection.",
+        "JavaScript validations ensure correct input before form submission."
     ],
     "calculations": [],
     "conditions": [
-        "Documents are visible if the user is a PlacementCoordinator or has consent from the student.",
-        "Document type codes determine if an anonymized or named document is allowed."
+        "Documents are visible if the user session indicates staff maintaining or placing roles.",
+        "Instructors may view documents if program permissions allow."
     ],
     "system_behavior": [
-        "Automatically binds data to control when details are edited or added.",
-        "Utilizes JavaScript for client-side interactions."
+        "System registers JavaScript for dynamic content management.",
+        "Documents are uploaded to specific directories and links are returned.",
+        "User-based access controls dynamically adjust visible content."
     ],
     "dependencies": [
-        "User session data for permissions and access.",
-        "System configuration for directory paths."
+        "HSPnet.Session management for user authentication.",
+        "ASP.NET web controls and Ajax for dynamic content."
     ],
     "exceptions": [
-        "Handling of undefined or null document types.",
-        "Graceful degradation if database operations fail."
+        "Catch blocks are in place for administrative setup errors regarding document type codes."
     ],
     "source_document_ids": [
         "0082c427-47d0-54cf-81b9-9d6bb5f40cce",
@@ -97,7 +88,6 @@
         "9f11d8c9-a5ec-58f2-8840-2acb1abc6c25",
         "a22cdb1f-a48b-57f3-88a9-14a0019b6225",
         "a546829e-16df-5e90-9f96-4e750b3ec96b",
-        "bd14b6fd-1a08-51b8-82dd-a25ece9ccccf",
         "be74a746-7308-5bc7-8918-0185ba9c2a35",
         "e40f7b97-b4e7-523d-98f5-c9c663a50a59",
         "e49c264f-0d8e-5c1c-974c-8e1fe704bfbe",
