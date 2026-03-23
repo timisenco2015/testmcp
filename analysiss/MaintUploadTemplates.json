@@ -1,0 +1,132 @@
+{
+  "filename": "MaintUploadTemplates",
+  "found": true,
+  "summary": "The document provides structure and functionality for the 'Upload Templates' page within HSPnet. It includes UI components, event handling, data binding, and validation for managing template uploads.",
+  "purpose": "To facilitate uploading and managing templates through a web interface within HSPnet.",
+  "entities": [],
+  "fields": [
+    {
+      "name": "txtHeaderRows",
+      "type": "TextBox",
+      "properties": {
+        "MaxLength": 4,
+        "Text": "string"
+      }
+    },
+    {
+      "name": "txtName",
+      "type": "TextBox",
+      "properties": {
+        "MaxLength": 50,
+        "Text": "string"
+      }
+    },
+    {
+      "name": "gridData",
+      "type": "GridView",
+      "properties": {
+        "DataKeyNames": ["ID"],
+        "AutoGenerateColumns": false
+      }
+    },
+    {
+      "name": "ddAgency",
+      "type": "DropDownList",
+      "properties": {
+        "AutoPostBack": true
+      }
+    },
+    {
+      "name": "ddDepartment",
+      "type": "DropDownList",
+      "properties": {
+        "AutoPostBack": true
+      }
+    },
+    {
+      "name": "ValidationSummary1",
+      "type": "ValidationSummary"
+    },
+    {
+      "name": "dvwDetail",
+      "type": "DetailsView",
+      "properties": {
+        "AutoGenerateRows": false,
+        "DataKeyNames": ["ID"],
+        "Visible": false
+      }
+    }
+  ],
+  "actors": [
+    "UserSession"
+  ],
+  "workflows": [
+    {
+      "name": "Template Management",
+      "steps": [
+        "Page Load: Initialize template management page and dropdowns.",
+        "Agency Change: Update department dropdown and refresh data.",
+        "Department Change: Refresh data based on selected department.",
+        "Add Template: Switch to add mode and show details view.",
+        "Edit Template: Fetch and populate details for editing.",
+        "Delete Template: Remove selected template and refresh data.",
+        "Save Template: Validate and save template details."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Templates are hard-coded to the Excel format.",
+    "Header Rows must be greater than zero."
+  ],
+  "validations": [
+    {
+      "field": "txtName",
+      "validation": "Required",
+      "message": "Name must be specified."
+    },
+    {
+      "field": "txtHeaderRows",
+      "validation": "Required",
+      "message": "HeaderRows are mandatory."
+    },
+    {
+      "field": "txtHeaderRows",
+      "validation": "Must be an integer greater than zero.",
+      "message": "HeaderRows must be a number greater than zero."
+    }
+  ],
+  "calculations": [],
+  "conditions": [],
+  "system_behavior": [
+    "GridView and DetailsView are used for data presentation and manipulation.",
+    "ModalPopupExtender is used for displaying detail views as pop-ups."
+  ],
+  "dependencies": [
+    "AjaxControlToolkit",
+    "HSPnet.DataLayer",
+    "HSPnet.App_GlobalResources",
+    "HSPnet.UI"
+  ],
+  "exceptions": [],
+  "source_document_ids": [
+    "0b4d7100-dd2c-5299-ac56-c9a2a5d6ea31",
+    "0c4da539-7638-5d2b-994f-1a28caf276b8",
+    "2452fc83-705e-5ccc-88d4-9d1f96c1acfb",
+    "36bae1a6-33ed-5cd5-8346-6b03f5e4c51e",
+    "3b7cb03c-32e0-50ca-978d-fe6279e4666f",
+    "40fa639a-f5b7-5d69-aa44-2627b6b4aa67",
+    "418268d4-2876-5828-8005-5594a831e27e",
+    "4ddc3871-620d-518a-b0ee-901810d02e59",
+    "661ebacd-b24b-53ae-9054-f99c38c46489",
+    "8800a6b4-2932-5656-b57f-daa7ede563bd",
+    "9036e64d-570e-5d22-8a59-b9522f1c6a1a",
+    "a16f8604-9ff7-51e8-ba6a-e862b6027d5a",
+    "a5ff5374-e43e-51af-adfe-13cae180d0a8",
+    "b4aae9b4-6902-5843-8b91-5ef5d24a9887",
+    "b7287609-aa55-583e-a8e5-b4ef5f48758c",
+    "b781fa2a-fd54-5ee9-b1e1-bfa95f55ab94",
+    "baa21dd9-5580-5403-b973-1ddefabdbaa3",
+    "d1aa9b40-7998-578c-b104-0c4aefa594c9"
+  ],
+  "content_gaps": []
+}
