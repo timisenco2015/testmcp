@@ -1,137 +1,99 @@
 {
   "filename": "GenericDocument",
   "found": true,
-  "summary": "The GenericDocument is a part of a system used to manage documents related to agencies, sites, and other entities within an HSPnet session. It includes functionalities to sort, manage, and access these documents, and integrates with a database for data retrieval and manipulation.",
-  "purpose": "The purpose of GenericDocument is to handle various document-related operations such as retrieval, sorting, validation, and linking within the HSPnet system, which supports healthcare placement networks.",
+  "summary": "The retrieved content primarily revolves around the handling and operations related to generic documents within a system. Key operations include adding, deleting, retrieving, and sorting documents, managing document-related session data, and formatting document-related information for display purposes.",
+  "purpose": "The document serves to facilitate various operations on generic documents in the system, including management of document metadata, ensuring document validity, and providing formatted display output for end-users.",
   "entities": [],
   "fields": [
-    {
-      "name": "ID",
-      "type": "int",
-      "description": "Unique identifier for the document."
-    },
-    {
-      "name": "ParentID",
-      "type": "int",
-      "description": "Identifier for the parent entity of the document."
-    },
-    {
-      "name": "TypeCodeID",
-      "type": "int",
-      "description": "Identifier for the type of document."
-    },
-    {
-      "name": "TypeComments",
-      "type": "string",
-      "description": "Comments associated with the document type."
-    },
-    {
-      "name": "FileURL",
-      "type": "string",
-      "description": "URL link to the document."
-    },
-    {
-      "name": "FilePath",
-      "type": "string",
-      "description": "File path of the document in the system."
-    },
-    {
-      "name": "FileSize",
-      "type": "long",
-      "description": "Size of the document file."
-    },
-    {
-      "name": "FileType",
-      "type": "string",
-      "description": "Type of the document file."
-    },
-    {
-      "name": "UpdateDate",
-      "type": "DateTime",
-      "description": "Last update date of the document."
-    },
-    {
-      "name": "ByUserID",
-      "type": "int",
-      "description": "Identifier of the user who last updated the document."
-    },
-    {
-      "name": "DocumentName",
-      "type": "string",
-      "description": "Name of the document."
-    },
-    {
-      "name": "IsApplied",
-      "type": "bool",
-      "description": "Indicates if the document has been applied."
-    },
-    {
-      "name": "SourceLevel",
-      "type": "string",
-      "description": "Source level indication for the document."
-    },
-    {
-      "name": "CanEditRow",
-      "type": "bool",
-      "description": "Indicates if the document row can be edited."
-    }
+    "ID",
+    "ParentID",
+    "TypeCodeID",
+    "TypeComments",
+    "FileURL",
+    "FilePath",
+    "FileSize",
+    "FileType",
+    "FileTypeAlt",
+    "UpdateDate",
+    "ByUserID",
+    "LastName",
+    "FirstName",
+    "MiddleName",
+    "AgencyShortName",
+    "TypeCode",
+    "DocumentName",
+    "AllowAllSubDisciplines",
+    "SubDisciplineIDList",
+    "IsApplied",
+    "SourceLevel",
+    "CanEditRow",
+    "AgencyName",
+    "Phone",
+    "Email",
+    "DisciplineFormatted",
+    "DisciplineListingAll",
+    "UpdateDateFormatted",
+    "EmailFormatted",
+    "AgencyUserFormatted",
+    "AgencyUserDetailsFormatted",
+    "DocumentRawURL",
+    "WebsiteURL"
   ],
   "actors": [
-    {
-      "name": "HSPnetSession",
-      "role": "Represents a session of the HSPnet system within which documents are managed."
-    }
+    "UserSession",
+    "HSPnetSession"
   ],
   "workflows": [
     {
-      "name": "Document Retrieval",
+      "name": "Add Document",
       "steps": [
-        "Initialize session.",
-        "Retrieve documents using stored procedures.",
-        "Apply sorting based on specified parameters."
+        "Validate document data.",
+        "Prepare session and procedure name.",
+        "Add parameters such as DocumentID, ParentID, TypeCodeID, FileURL, etc.",
+        "Execute the database query."
       ]
     },
     {
-      "name": "Document Validation",
+      "name": "Delete Document",
       "steps": [
-        "Check for required fields.",
-        "Validate document type and name.",
-        "Return validation result."
+        "Check document ID validity.",
+        "Retrieve current document data.",
+        "Delete file and directory if they exist.",
+        "Execute delete procedure in the database."
       ]
     },
     {
-      "name": "Document Deletion",
+      "name": "Retrieve Documents by ParentID",
       "steps": [
-        "Locate document by ID.",
-        "Delete physical file if exists.",
-        "Remove record from the database."
+        "Prepare session and procedure name.",
+        "Add parameters such as ParentID, TypeCodeID, and sort expression.",
+        "Execute database query and read data.",
+        "Populate document list from retrieved data."
       ]
     }
   ],
   "business_rules": [
-    "Documents must have a valid type and name.",
-    "Documents linked to specific agencies or sites must adhere to their respective sort orders."
+    "If TypeCodeID is 0, document is considered invalid.",
+    "Document must have a name to be considered valid."
   ],
   "validations": [
-    "Document type and name are mandatory.",
-    "File URL must not be blank if the document ID is specified."
+    "Check if FileURL is not blank.",
+    "Ensure TypeCodeID is non-zero.",
+    "Require non-empty DocumentName."
   ],
   "calculations": [],
   "conditions": [
-    "Check if the document is of type 'document' by verifying if the FilePath is not empty.",
-    "Translate file type using localization settings."
+    "Check if the document is of a file type before generating URLs.",
+    "Use alternative language data if session is set to alternate language mode."
   ],
   "system_behavior": [
-    "Documents are fetched via stored procedures using specified parameters.",
-    "Documents are sorted based on source levels and specified criteria.",
-    "Documents can be linked and displayed with specific formatting if they are applied."
+    "Generate hyperlinks for document URLs based on existence and user permissions.",
+    "Sort documents based on Section or default sorting if no specific order is found."
   ],
-  "dependencies": [
-    "Database connection for data retrieval and manipulation.",
-    "Localization resources for translating file types and other strings."
-  ],
+  "dependencies": [],
   "exceptions": [
-    "If document fields are not valid, an error is added to the session messages."
+    "Unable to delete files and directories silently ignored.",
+    "Return default sort order if custom sorting fails."
   ],
   "source_document_ids": [
     "0698ba2c-76e2-5348-9ba7-a2bfb8db076f",
