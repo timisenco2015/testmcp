@@ -1,68 +1,90 @@
 {
-  "filename": "TimetableRotation",
-  "found": true,
-  "summary": "The TimetableRotation entity manages timetable entries, including start and end dates for specific rotations. It supports operations like adding, updating, and validating rotations, ensuring dates fall within allowable ranges.",
-  "purpose": "To manage timetable rotations, ensuring proper scheduling within defined date ranges and providing facilities for adding, updating, and deleting rotation entries.",
-  "entities": [],
-  "fields": [
-    "ID",
-    "Count",
-    "TimetableID",
-    "StartDate",
-    "EndDate",
-    "CohortName",
-    "CohortShortName",
-    "TermName",
-    "TermStart",
-    "TermEnd",
-    "CourseName",
-    "CourseShortName",
-    "TimetableStartDate",
-    "TimetableEndDate",
-    "StartDateFormatted",
-    "EndDateFormatted"
-  ],
-  "actors": [],
-  "workflows": [
-    {
-      "name": "TimetableRotation Management",
-      "steps": [
-        "Initialize TimetableRotation with applicable attributes.",
-        "Validate that StartDate and EndDate are within the Timetable range.",
-        "Insert or update the TimetableRotation entry if valid.",
-        "Delete TimetableRotation entry if an ID is provided."
-      ]
-    }
-  ],
-  "business_rules": [
-    "Start and End dates must be within the timetable range.",
-    "StartDate must not be after EndDate."
-  ],
-  "validations": [
-    "Ensure StartDate and EndDate are not null.",
-    "Check if StartDate is before EndDate."
-  ],
-  "calculations": [
-    "StartDateFormatted",
-    "EndDateFormatted"
-  ],
-  "conditions": [],
-  "system_behavior": [
-    "Facilitates adding, updating, and deleting timetable rotations.",
-    "Ensures rotation dates are valid."
-  ],
-  "dependencies": [],
-  "exceptions": [
-    "Throws error if StartDate or EndDate are outside the timetable bounds.",
-    "Throws error if StartDate is after EndDate."
-  ],
-  "source_document_ids": [
-    "46fb1ff1-1d43-5e8f-a9c1-4001efe45eaf",
-    "90c7c9c6-9236-54ea-b377-83447ca97722",
-    "e5789238-c13a-5d51-ac41-71c9d1c42fcd",
-    "e9bfae10-927e-59d2-855a-5203be6664db",
-    "f3beef69-1a5b-5b46-81d9-ca02affe14dc",
-    "fbf1f45e-8625-5daa-9a44-afd134af6b6d"
-  ],
-  "content_gaps": []
+    "filename": "TimetableRotation",
+    "found": true,
+    "summary": "This document defines the TimetableRotation class and its related methods used for handling timetable rotations in an educational booking system. It includes functionalities for retrieving, adding, updating, and deleting timetable rotations based on various criteria. Business logic is applied to ensure dates fall within permissible ranges.",
+    "purpose": "To manage and manipulate timetable rotations, ensuring they adhere to defined business rules and date validations within an educational system's scheduling component.",
+    "entities": [],
+    "fields": [
+        "ID",
+        "Count",
+        "TimetableID",
+        "StartDate",
+        "EndDate",
+        "CohortName",
+        "CohortShortName",
+        "TermName",
+        "TermStart",
+        "TermEnd",
+        "CourseName",
+        "CourseShortName",
+        "TimetableStartDate",
+        "TimetableEndDate",
+        "StartDateFormatted",
+        "EndDateFormatted"
+    ],
+    "actors": [],
+    "workflows": [
+        {
+            "name": "GetByTimetableID",
+            "steps": [
+                "Set ProcedureName to TimetableRotationSearch",
+                "Add procedure parameters",
+                "Execute data retrieval",
+                "Fill list with results",
+                "Close data reader"
+            ]
+        },
+        {
+            "name": "Add TimetableRotation",
+            "steps": [
+                "Validate entry with IsValid",
+                "Set ProcedureName to TimetableRotationAdd",
+                "Add procedure parameters",
+                "Execute query"
+            ]
+        },
+        {
+            "name": "Update TimetableRotation",
+            "steps": [
+                "Check if ID is not zero and Validate with IsValid",
+                "Set ProcedureName to TimetableRotationUpdate",
+                "Add procedure parameters",
+                "Execute query"
+            ]
+        },
+        {
+            "name": "Delete TimetableRotation",
+            "steps": [
+                "Check if ID is not zero",
+                "Set ProcedureName to TimetableRotationDelete",
+                "Add procedure parameter ID",
+                "Execute query"
+            ]
+        }
+    ],
+    "business_rules": [],
+    "validations": [
+        "StartDate must not be after EndDate",
+        "Dates must not be before TimetableStartDate",
+        "Dates must not be after TimetableEndDate"
+    ],
+    "calculations": [],
+    "conditions": [],
+    "system_behavior": [
+        "Retrieves rotations based on TimetableID",
+        "Adds a new rotation if dates are valid",
+        "Updates an existing rotation if dates are valid",
+        "Deletes a rotation if ID is specified"
+    ],
+    "dependencies": [],
+    "exceptions": [],
+    "source_document_ids": [
+        "46fb1ff1-1d43-5e8f-a9c1-4001efe45eaf",
+        "90c7c9c6-9236-54ea-b377-83447ca97722",
+        "e5789238-c13a-5d51-ac41-71c9d1c42fcd",
+        "e9bfae10-927e-59d2-855a-5203be6664db",
+        "f3beef69-1a5b-5b46-81d9-ca02affe14dc",
+        "fbf1f45e-8625-5daa-9a44-afd134af6b6d"
+    ],
+    "content_gaps": []
 }
