@@ -1,11 +1,10 @@
 {
   "filename": "CriminalRecordsCheck",
   "found": true,
-  "summary": "The CriminalRecordsCheck functionality is part of the HSPnet user controls for managing student enrollment-related activities, particularly focusing on handling criminal records checks for enrolled students.",
-  "purpose": "The purpose of the CriminalRecordsCheck module is to manage the enrollment process related to student criminal records checks. It provides functionalities for displaying, sorting, filtering, and updating criminal record check statuses and related student details.",
+  "summary": "The 'CriminalRecordsCheck' document is part of a software system related to handling student enrollments and criminal records checks in an educational context. It provides UI components and functions to manage, display, and interact with enrollment data, including functionalities for editing, sorting, and filtering student records.",
+  "purpose": "To manage and facilitate the process of criminal records checks within a student enrollment system, enabling authorized personnel to view, edit, and update relevant information pertaining to students' criminal records checks.",
   "entities": [],
   "fields": [
-    "ScriptMgr",
     "CohortID",
     "TermID",
     "CourseID",
@@ -26,56 +25,53 @@
     "CourseIDLst",
     "CourseShortNameLst",
     "StartRow",
-    "AllowStudentAccess",
-    "CRCStatusList",
-    "Enrol",
-    "RowDisabled",
-    "ActionDisabled",
-    "ScreenIsEditable",
-    "Sorted"
+    "AllowStudentAccess"
   ],
-  "actors": [],
+  "actors": [
+    "UserSession",
+    "DataLayer.Enrollment"
+  ],
   "workflows": [
     {
-      "name": "Data Sorting and Filtering",
+      "name": "Handling Criminal Records Check",
       "steps": [
-        "User selects sorting and filtering options.",
-        "System applies sort and filter to the grid data display.",
-        "Data is updated based on the selected criteria."
-      ]
-    },
-    {
-      "name": "Edit Enrollment Entry",
-      "steps": [
-        "User invokes the edit command for a specific enrollment entry.",
-        "System retrieves entry details and displays them in editable fields.",
-        "User modifies details and saves changes."
-      ]
-    },
-    {
-      "name": "Save All Changes",
-      "steps": [
-        "User selects the 'Save All' option.",
-        "System iterates over all modified entries and applies updates to the database."
+        "Initialize page with current session and user checks.",
+        "Load and bind grid data with student enrollment records.",
+        "Handle row data bound events, updating UI elements and controls based on student data.",
+        "Provide options to edit, waive, or update student records through client-side actions.",
+        "Manage sorting and filtering of data using provided fields.",
+        "Process commands like save, delete, and reactivate, interacting with system backend.",
+        "Render UI components dynamically based on session state and user privileges."
       ]
     }
   ],
   "business_rules": [
-    "If an enrollment entry is waived, override other actions with disabled state.",
-    "Only enrolled students not marked as graduated or inactive are considered for processing."
+    "Rows are disabled for graduated or inactive students.",
+    "Waived students override other actions and set rows to disabled.",
+    "Read-only mode restricts edit capabilities."
   ],
   "validations": [
-    "UserSession must be valid for data operations to proceed.",
-    "Course and student details must be populated before actions can be taken."
+    "Ensure correct input parameters during data selection.",
+    "Disable actions if user session is null."
   ],
   "calculations": [],
-  "conditions": [],
-  "system_behavior": [
-    "System disables edit fields if the page is in a read-only state.",
-    "System hides certain UI elements based on the user's permissions and entry status."
+  "conditions": [
+    "Check if a row is disabled based on student's status.",
+    "Determine editability based on system conditions."
   ],
-  "dependencies": [],
-  "exceptions": [],
+  "system_behavior": [
+    "Bind grid view with enrollment records.",
+    "Update UI based on user interactions and selections.",
+    "Execute server-side logic for enrollment management."
+  ],
+  "dependencies": [
+    "DataLayer.Enrollment",
+    "UserSession",
+    "HSPnet.UI"
+  ],
+  "exceptions": [
+    "Cancel data operations if user session is invalid or missing."
+  ],
   "source_document_ids": [
     "018b4cb0-466e-546e-a4f6-9cbe2f0bfd5a",
     "101a207a-a9ca-56b1-a511-aab50a2218d6",
@@ -89,6 +85,7 @@
     "6b7e0909-6d2c-579d-8787-4e2fed76ee92",
     "6fb73049-f9d7-5a55-b7af-cb26fbe583be",
     "77c5461b-f5b6-5a35-a92f-a70ac5613ded",
+    "7a26bb82-edb5-5587-b904-d4f8c060f724",
     "8329dfcd-065e-5763-8523-f9570e7e933c",
     "87c40865-d3ff-51eb-b678-274bbab39799",
     "a9d65bae-4caa-5d4c-9c8a-c5d706318435",
