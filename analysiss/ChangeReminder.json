@@ -1,0 +1,97 @@
+{
+  "filename": "ChangeReminder",
+  "found": true,
+  "summary": "The ChangeReminder system is designed to allow users to change their forgotten password reminder questions within the HSPnet application. It consists of various web controls and validation mechanisms to ensure that the reminder question and answer provided by a user meet specific criteria.",
+  "purpose": "The purpose of the ChangeReminder system is to facilitate users in updating their forgotten password reminder questions for enhanced security and recovery options.",
+  "entities": [],
+  "fields": [
+    {
+      "name": "txtAnswer",
+      "type": "TextBox",
+      "maxLength": 255,
+      "validation": "Required; Min Length 4"
+    },
+    {
+      "name": "txtCurrentPassword",
+      "type": "TextBox",
+      "validation": "Required"
+    },
+    {
+      "name": "ddReminderQuestion",
+      "type": "DropDownList",
+      "validation": "Selection Required"
+    },
+    {
+      "name": "txtReminderQuestion",
+      "type": "TextBox",
+      "maxLength": 255,
+      "validation": "Min Length 10"
+    }
+  ],
+  "actors": [
+    "User",
+    "System"
+  ],
+  "workflows": [
+    {
+      "name": "ChangeReminder Workflow",
+      "steps": [
+        "User navigates to ChangeReminder page.",
+        "User selects or enters a new reminder question.",
+        "User enters the current password.",
+        "User provides an answer to the reminder question.",
+        "User submits the form.",
+        "System validates inputs and updates the reminder question if valid."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Reminder question must be selected or entered with a minimum length of 10 characters.",
+    "Answer must be at least 4 characters long.",
+    "Current password must be provided correctly."
+  ],
+  "validations": [
+    "checkddReminderQuestion: Ensures a reminder question is selected from the dropdown.",
+    "checkdtxtReminderQuestion: Ensures that a typed reminder question is at least 10 characters long.",
+    "CustomValidator1 and CustomValidator2 ensure proper user input validation for reminder questions.",
+    "RequiredFieldValidator1 ensures the answer field is not left blank.",
+    "valCurrentPassword ensures current password is not empty."
+  ],
+  "calculations": [],
+  "conditions": [
+    "If ddReminderQuestion is visible, it should be focused.",
+    "If txtReminderQuestion is visible, it should be focused."
+  ],
+  "system_behavior": [
+    "Hides error or warning panels if there are no errors or warnings.",
+    "Displays specific validation error messages based on input failures.",
+    "Redirects to Tools.aspx upon successful update of reminder question."
+  ],
+  "dependencies": [
+    "Uses HSPnet.DataLayer for database operations.",
+    "Uses AjaxControlToolkit for enhanced UI interactions."
+  ],
+  "exceptions": [
+    "Input validation errors trigger specific error messages displayed to the user.",
+    "System redirects to the same page if validation fails, with error messages displayed."
+  ],
+  "source_document_ids": [
+    "2fbaadc3-eb80-5e9e-ac49-dba30f26288a",
+    "4e6e142b-e1ab-5f96-ba73-808a0d1c698b",
+    "767c15ef-f476-5c98-91bc-3f95d7350ed5",
+    "83f54738-9cfa-514b-bf24-0c4b4b2566d3",
+    "89904825-6cba-5a60-8822-647152e512d3",
+    "8d1b638d-22da-531e-b776-73e184438a26",
+    "8fbf861e-d1f2-5001-acff-45e8273568f2",
+    "9299c9cf-7777-5502-b1ea-56c160f7c849",
+    "93a5ebbb-37c9-5a96-a1f2-eef013c1ca41",
+    "9b8aee2e-79c3-50a7-ac7b-68caa420aee4",
+    "ae270b85-b4ce-50b6-9e8a-c795c6e2fd31",
+    "b36d50f2-a803-56c3-8666-2a4c3e749776",
+    "cdd043c2-a9f5-53d3-96cf-91659e67c436",
+    "daa85fb0-f3f8-5228-b52b-975142309c9d",
+    "e7014932-5cf1-5ea2-be92-89c1799d6be0",
+    "f4c20f8d-c554-5be3-b467-bb0dae73bbd8"
+  ],
+  "content_gaps": []
+}
