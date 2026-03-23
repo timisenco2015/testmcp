@@ -1,0 +1,62 @@
+```json
+{
+    "filename": "ConnectionFailed",
+    "found": true,
+    "summary": "The ConnectionFailed module handles the display of a connection failure message on a web page, providing versions in English and French based on user language preferences.",
+    "purpose": "To inform users about a connection failure in their preferred language and provide navigation links to other parts of the website.",
+    "entities": [
+        "ConnectionFailed",
+        "HeaderEN",
+        "HeaderFR",
+        "uxErrorMessage",
+        "MapEN",
+        "MapFR"
+    ],
+    "fields": [
+        "Locale",
+        "HeaderEN",
+        "HeaderFR",
+        "uxErrorMessage"
+    ],
+    "actors": [],
+    "workflows": [
+        {
+            "name": "Display Connection Failed Message",
+            "steps": [
+                "Detect locale from query string",
+                "Set visibility of language-specific headers",
+                "Initialize culture settings",
+                "Display error message"
+            ]
+        }
+    ],
+    "business_rules": [
+        "Display English header if 'Locale' is 'en-US' or empty",
+        "Display French header if 'Locale' is 'fr-CA'"
+    ],
+    "validations": [],
+    "calculations": [],
+    "conditions": [
+        "HeaderEN.Visible based on Locale == 'en-US' or empty",
+        "HeaderFR.Visible based on Locale == 'fr-CA'"
+    ],
+    "system_behavior": [
+        "Page displays based on culture settings",
+        "UI culture initialized based on query parameter"
+    ],
+    "dependencies": [
+        "System.Web.UI",
+        "System.Threading",
+        "System.Globalization",
+        "System.Web.UI.WebControls"
+    ],
+    "exceptions": [],
+    "source_document_ids": [
+        "1b519992-db1d-5f57-b018-a0e1befe8491",
+        "5ba21fbf-7905-59e7-90cb-c18e7f0bb6fb",
+        "83674888-1068-5d79-8a82-659f9547d3c0",
+        "8aaa6f24-0523-5c88-a8bb-fc0af3303321"
+    ],
+    "content_gaps": []
+}
+```
