@@ -1,0 +1,149 @@
+{
+  "filename": "Time24Hour",
+  "found": true,
+  "summary": "The retrieved documents cover a range of functionalities related to site documents, staff administration, service codes, site profile histories, and email popups within an application framework. Each file contributes specific functionalities and data structures that support operations like site profile management, staff admin actions, service coding, and email document management.",
+  "purpose": "The documents appear to be designed to support an academic or administrative software system, handling tasks like tracking site profiles, managing staff admin views, detailing service code usage, recording historical site profile actions, and managing email popups.",
+  "entities": [],
+  "fields": [
+    {
+      "name": "ID",
+      "description": "An identifier common across entities such as SiteDocument, ServiceCode, SiteProfileHistory, and EmailPopupDocument."
+    },
+    {
+      "name": "Date",
+      "description": "Used in various forms to track actions, submissions, and other time-specific operations."
+    },
+    {
+      "name": "FileName",
+      "description": "Refers to a name associated with files, likely used in managing documents."
+    },
+    {
+      "name": "ScreenSection",
+      "description": "Part of the SiteProfileHistory, indicating where an action took place."
+    }
+  ],
+  "actors": [
+    {
+      "role": "User",
+      "description": "Performs actions and has attributes such as ID and SysAdmin status."
+    },
+    {
+      "role": "Session",
+      "description": "Represents a user session, used in service code operations."
+    }
+  ],
+  "workflows": [
+    {
+      "name": "Service Code Management",
+      "steps": [
+        "Retrieve session and course/timetable details",
+        "Access service code database",
+        "Read and localize data entries",
+        "Return a list or execute specific operations"
+      ]
+    },
+    {
+      "name": "Site Profile History Update",
+      "steps": [
+        "Capture user action details",
+        "Format and store historical records"
+      ]
+    },
+    {
+      "name": "Email Popup Document Management",
+      "steps": [
+        "Parse and split data info",
+        "Maintain or delete email document records"
+      ]
+    }
+  ],
+  "business_rules": [
+    {
+      "rule": "UseAltLanguageFields",
+      "description": "Switches data fields to alternative language when applicable."
+    },
+    {
+      "rule": "Check Start- and End-Date Validity",
+      "description": "Ensures that a Start Date is not later than an End Date."
+    }
+  ],
+  "validations": [
+    {
+      "validation": "Date Validation",
+      "description": "Ensures dates conform to specific formats and logical sequences."
+    },
+    {
+      "validation": "Required Fields",
+      "description": "Mandates the completion of critical fields in forms."
+    }
+  ],
+  "calculations": [
+    {
+      "calculation": "AgencyUserFormatted",
+      "description": "Formats user details for display, adjusting based on SysAdmin status."
+    }
+  ],
+  "conditions": [
+    {
+      "condition": "Session Validity",
+      "description": "Tied to user sessions, impacting data and service accessibility."
+    }
+  ],
+  "system_behavior": [
+    {
+      "behavior": "Data Localization",
+      "description": "Switches to alternate language fields based on session settings."
+    },
+    {
+      "behavior": "Dynamic Data Binding",
+      "description": "Binds data elements dynamically in user controls and views."
+    }
+  ],
+  "dependencies": [
+    {
+      "dependency": "HSPnet Framework",
+      "description": "A foundational library providing tools and resources for application operations."
+    }
+  ],
+  "exceptions": [
+    {
+      "exception": "Data Access",
+      "description": "Issues that may arise during database operations and data retrieval."
+    }
+  ],
+  "source_document_ids": [
+    "a2967f17-a924-5e9c-8b15-d1f7bd028b32",
+    "05db31e4-e8b6-53ee-a6fb-812c106f0134",
+    "100d5925-a5f8-53db-8493-02cddd563eb7",
+    "3c84bade-9671-5fbf-acce-3c87a835e9b4",
+    "4c4b97b8-d242-5261-a515-767a3f7d7a49",
+    "52b5066f-23f6-5d82-96cd-5d51dad3de79",
+    "54244516-0707-581e-a8ba-9c041ea38366",
+    "5bb85da3-f5b4-5753-b07c-9bb2a04eeb89",
+    "5d9b92ea-7c12-5070-8603-977cf14d0e04",
+    "6701b153-5288-59e5-8de9-61b68a1fc292",
+    "871df91b-7ba0-558f-83ea-d5be1b0dc8db",
+    "8cea5c3a-2fbf-5206-a0c0-9425a5e14511",
+    "964a48c9-231c-5d58-a44d-3675d949a453",
+    "966ed8d3-a5af-567f-b092-936217777551",
+    "a0c3da28-32a5-5fce-91b2-17274efa016e",
+    "afbb4ec5-43c8-5281-ad2c-4b6cfd23a48e",
+    "b8e79322-9a0e-5fe7-8953-3d05e231f923",
+    "bf423a80-93db-572d-8cb8-c79f04214a93",
+    "ca71b077-cc26-5979-a44f-59700a41316b",
+    "d278278f-d4ec-5f4a-9f29-a02b66773bb9",
+    "db9b35e9-53ca-5eaf-9d75-4f3a72131bc7",
+    "e249a878-c837-5d1c-9a3d-5167df2614fb",
+    "25f89a24-5eda-5a3f-83df-1de69b12b3f1",
+    "26e09292-d304-55c6-94e5-ef3346453c4b",
+    "7ca6b963-9ae9-5cd3-82d5-f30dcb727ae3",
+    "a8f030c6-90b8-53a1-bb8a-3b7ef33b9488",
+    "e806999c-3a39-5720-9b59-303faebc9eb6",
+    "94f1b055-348d-508a-ae6e-cf7960a8c6a2",
+    "e4ebe4b4-6d14-5c3f-b693-61016f765239",
+    "f976b9af-a402-540f-b162-391d578fac7c",
+    "7287734e-f13d-550f-9249-4242db620766",
+    "927bc837-5564-5759-9324-27c6d5d7321d"
+  ],
+  "content_gaps": []
+}
