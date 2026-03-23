@@ -1,178 +1,86 @@
 {
-    "filename": "PlacementRequestDetails",
-    "found": true,
-    "summary": "The PlacementRequestDetails system is designed to manage and display details related to placement requests. It involves various user controls for handling placement comments, documents, student information, contacts, and more. Key operations include viewing, editing, and printing placement details, as well as managing user permissions and visibility based on roles.",
-    "purpose": "To provide a comprehensive interface for managing details related to placement requests, including the ability to edit, view, and print details, manage user accessibility, and handle related documents and comments efficiently.",
-    "entities": [],
-    "fields": [
-        "PlacementRequestID",
-        "PRD_ID",
-        "UserType",
-        "ReadOnly",
-        "ReadOnlyOverride",
-        "CurrentPage",
-        "ToShowAllMode",
-        "DestinationDetails",
-        "RequestCode",
-        "StatusCode",
-        "StartDate",
-        "EndDateForDisplay",
-        "AgreementID",
-        "AmendmentExists",
-        "DocumentExists",
-        "Comments",
-        "ConditionCodeID",
-        "UrgentAlert",
-        "ConflictAlert",
-        "UserAllowedProgram"
-    ],
-    "actors": [
-        "UserSession",
-        "PlacementRequestDestination",
-        "PlacementRequestCourse",
-        "PlacementRequestStudentInfo",
-        "StaffController"
-    ],
-    "workflows": [
-        {
-            "name": "Placement Request Details Management",
-            "steps": [
-                "Load and validate user session.",
-                "Retrieve placement request details based on given IDs.",
-                "Check user permissions and determine visibility of controls.",
-                "Handle various tab activations like Contacts, Program, Students, etc.",
-                "Allow users to edit fields if permissions allow.",
-                "Print placement details using predefined templates.",
-                "Display warning or error messages as necessary."
-            ]
-        },
-        {
-            "name": "Document Handling",
-            "steps": [
-                "Check if documents exist for the placement request.",
-                "Bind the document view grid with available documents.",
-                "Provide options to upload new documents if permissions allow.",
-                "Handle document type categories and restrictions."
-            ]
-        }
-    ],
-    "business_rules": [
-        "User visibility and access to editing are controlled by user roles and specific conditions set during the session.",
-        "Document and comment visibility is dependent on the configuration of the placement request and user permissions."
-    ],
-    "validations": [
-        "Check if the end date is after the start date.",
-        "Validate the presence of necessary fields before saving.",
-        "Ensure that user roles match required permissions for editing."
-    ],
-    "calculations": [
-        "Calculate shift length based on shift codes and durations.",
-        "Determine date ranges for placements and ensure they fall within valid periods."
-    ],
-    "conditions": [
-        "Placement request fields are editable only if the user has sufficient permissions.",
-        "Warnings are displayed based on data inconsistency or error conditions."
-    ],
-    "system_behavior": [
-        "Display different tabs based on the current active tab logic.",
-        "Load controls dynamically based on session data and user roles.",
-        "Handle asynchronous requests for user interactions without full page reloads."
-    ],
-    "dependencies": [
-        "User session management for maintaining state across different operations.",
-        "Resource files for managing multilingual content and static text.",
-        "Database querying for retrieving and updating placement request details."
-    ],
-    "exceptions": [
-        "Display error messages when database retrieval or updates fail.",
-        "Handle cases where user sessions are invalid or expired."
-    ],
-    "source_document_ids": [
-        "00d268f0-1cb4-5563-a7b4-a363ab4d0db5",
-        "04bc3b0d-516a-5ec7-8872-df47f50699c3",
-        "07104b83-1689-5758-af57-5626db405496",
-        "0fb92401-99e9-55ff-bba6-e0194b670e3a",
-        "0fc8659a-4510-5f5c-ba99-810b7803bcd0",
-        "1210304d-eabf-5a98-b912-a8977fda7161",
-        "12b3f789-1f98-5e5a-965c-ab2bf365ddd2",
-        "133cf2e1-00a9-5e05-af8a-091f92a9b9fd",
-        "137aacc6-9f4f-596e-b6ae-d6d0725516e7",
-        "1aaa5977-9ce9-5e8b-b18d-5c351a38d5c0",
-        "1af2cfbe-7305-53b1-a3a3-3009fa59bfa1",
-        "1fd8582b-ad35-5dd1-b5b1-d38c9fe2937f",
-        "20c77e33-d327-50e9-b5c3-ccff3ba74055",
-        "2bed2731-ae24-5b55-875c-1a333a774724",
-        "2f83743c-d042-5831-9ac5-9ffbf99162a8",
-        "3119c15c-f853-5ba6-a6e5-b27187ab823c",
-        "31e7878e-1c4e-5d9a-a343-16cc580ca04d",
-        "34774324-ebf1-5487-937d-b288386d0de7",
-        "354abbd7-927f-5a81-b1ea-3dfebc6aa02e",
-        "3848e62f-9ae1-524b-a66e-ebeb7e519a0e",
-        "38caac04-ec6e-51b2-944d-94ff953e6730",
-        "3ccf461f-0907-5dd3-a744-b9dd8db0b1b2",
-        "3eb850aa-a175-53ca-9164-1a2086779606",
-        "3ffd1d71-dc66-55e5-84dc-2d8b05b4b3ee",
-        "460e106e-7545-5aa3-b888-dfd34dfca727",
-        "4b0cde20-7c59-515f-8dd9-78b2e36912fe",
-        "4f4a3d1b-8fc2-542d-854d-f5e5515a2eff",
-        "4f7f46e8-830a-585e-8742-16294503de3b",
-        "54088ce0-aad6-5cb8-840b-dff124557a9c",
-        "58f18e95-5d82-53f1-9bda-073e00c7dff3",
-        "59899a61-27d3-5aaf-af7c-ef47eb31923f",
-        "5ea72b11-42e3-5bcf-bda9-f60964adfc19",
-        "6324380e-01e4-59c2-80ea-9d4e3bca1d8b",
-        "65bc5b42-a45f-58ac-9db9-05d8fed607ef",
-        "6690a6e8-b485-59b7-84f4-a251bbc83dc4",
-        "6b19f563-7676-50cb-b183-426d834aae84",
-        "6b62a450-e131-548a-af58-ae2508c80ff9",
-        "6b9dca52-865d-565b-ba63-c1621a50403c",
-        "6c9d04de-5705-53cb-a524-de2a43343538",
-        "72480cf5-95ee-5ca2-9f90-21b98610cc48",
-        "765bc1c8-59b3-5f63-b774-9b4d0f088172",
-        "7a52d7da-c588-5897-99e9-949b3ae2361f",
-        "7a65abca-3498-5e97-86cb-334703e2bddc",
-        "7b56b3d6-3ada-5032-a8c9-b3c8f7a3a32b",
-        "7d71ea38-c127-591e-ba8c-bf5a18377167",
-        "80ec175f-0a52-58d7-a7d1-2dd9a231c354",
-        "8362b040-4501-575f-b7c5-13705fe437d7",
-        "85073757-3f96-5cea-b965-fd813087409a",
-        "873937a7-4be8-5aa8-a96c-a3f746ce40e6",
-        "8e317204-df5d-56a6-8500-4f0bbbf61c03",
-        "8e6bb633-1905-56aa-a876-e7c130e913ef",
-        "8f8c26d7-b5ed-5c5c-a2d9-504098e44252",
-        "9a0a2897-0a2e-5eee-b63b-8cdb780c9906",
-        "9d84f2f1-6d67-5a3f-bb89-2b51ff88f6a0",
-        "9f161955-9168-5533-8265-e1ec23037f34",
-        "9ff17564-8bf5-5bae-9d68-c729180da556",
-        "a6ef4e63-5b67-560f-a12f-ccf1fa909d86",
-        "b0f40811-f0d8-5a41-9784-1bcbeb0b81c7",
-        "b1c2c303-1bd9-5029-b48f-08085f628a90",
-        "b71389fd-8e6d-5337-99fb-22fe15bec9d0",
-        "ba3c080c-8940-5eb1-a9b4-b57594f0536f",
-        "be1cd784-88eb-59a2-a945-b63caf9d6251",
-        "be3a992b-33df-555f-a279-86edc797ad41",
-        "bfd7394d-6360-5f0b-bbbe-498deda31ced",
-        "c0c168ec-74d3-5f36-8e22-4ad452a0dd3c",
-        "c67f01c5-4bfc-5a82-bb7d-47b905eb82c4",
-        "c93d6a91-8fe9-561d-96ea-e76b1a9e9f17",
-        "ca1b76cf-fe83-57a8-a39d-ec38b4180705",
-        "cb7331f2-0604-5760-a106-5e84513b00fb",
-        "cb95c7b4-67fe-5294-b56e-0e196b15e612",
-        "cf894bbf-a772-57cf-b380-fbd4f1e30f73",
-        "dda3aab2-07c7-5cbe-b615-fe51e9ee574c",
-        "d0d59c0f-a58f-5377-ba5a-6aa966b1e742",
-        "d38466ba-7802-5937-aaf0-3ac2e46f2100",
-        "d5ac0ece-8b82-540b-b8d6-8fa148b908d9",
-        "e7c3f60d-8a90-5494-81eb-e05c4fdeb322",
-        "eecff3e9-27b3-5af0-8e55-fecee089258f",
-        "f03b8ebf-abe4-50e0-9257-02372a07258b",
-        "f312af95-2639-508a-b9a7-95d9e533d135",
-        "f5027c48-7beb-5d3f-9c13-b1045eb31e9d",
-        "f8253cc6-2990-5d53-b695-2bacb3eca9f0",
-        "fcba842b-b414-5b3c-82fb-1eb280aecbe6"
-    ],
-    "content_gaps": [
-        "Lack of explicit details on data storage structure.",
-        "Missing information on user roles and permissions definitions."
-    ]
+  "filename": "PlacementRequestDetails",
+  "found": true,
+  "summary": "The PlacementRequestDetails system is designed to handle various aspects of managing placement requests, including documentation, student information, program and course details, and assessments. It includes several user controls and validation mechanisms to ensure data integrity and appropriate access based on user roles.",
+  "purpose": "The system manages placement requests, providing functionalities for users to enter, review, and process placement-related data. It includes mechanisms for validation, role-based access control, and user interface elements to facilitate interaction with the data.",
+  "entities": [],
+  "fields": [
+    "_placementRequestID",
+    "_PRD_ID",
+    "_userType",
+    "_readOnly",
+    "_readOnlyOverride",
+    "ScreenIsEditable",
+    "_toShowAllMode",
+    "currentPage"
+  ],
+  "actors": [
+    "UserSession",
+    "PlacementRequestDestination",
+    "PlacementRequestCourse",
+    "PlacementRequestStudentInfo",
+    "StaffController",
+    "PlacementRequestActions"
+  ],
+  "workflows": [
+    {
+      "name": "Page_Load_Process",
+      "steps": [
+        "Validate URL hash",
+        "Parse query strings for DestID and UserType",
+        "Retrieve placement request details",
+        "Set user access rights",
+        "Check screen read-only state"
+      ]
+    },
+    {
+      "name": "CmdPrintForm_Click",
+      "steps": [
+        "Check report template for course",
+        "Retrieve department logo",
+        "Generate and display report HTML"
+      ]
+    }
+  ],
+  "business_rules": [
+    "Placement requests are read-only if ended more than 18 months ago unless user is sysadmin.",
+    "Placement requests are restricted based on user role (RC, DC, QESEdit)."
+  ],
+  "validations": [
+    "Date validations for start and end dates",
+    "Check for valid group size",
+    "Ensure reply by date is before start date"
+  ],
+  "calculations": [
+    "Shift length calculation",
+    "Duration calculation based on number of shifts and shift length"
+  ],
+  "conditions": [
+    "Check user roles for access rights",
+    "Verify if requests are read-only"
+  ],
+  "system_behavior": [
+    "Display warnings and errors in panels",
+    "Handle tab visibility based on user permissions"
+  ],
+  "dependencies": [
+    "Resources for text and tooltips",
+    "User controls for specific UI components"
+  ],
+  "exceptions": [
+    "Redirect to appropriate page if necessary",
+    "Handle cases for screen access based on user type"
+  ],
+  "source_document_ids": [
+    "00d268f0-1cb4-5563-a7b4-a363ab4d0db5",
+    "04bc3b0d-516a-5ec7-8872-df47f50699c3",
+    "07104b83-1689-5758-af57-5626db405496",
+    "0fb92401-99e9-55ff-bba6-e0194b670e3a",
+    "0fc8659a-4510-5f5c-ba99-810b7803bcd0",
+    "1210304d-eabf-5a98-b912-a8977fda7161",
+    "12b3f789-1f98-5e5a-965c-ab2bf365ddd2",
+    "133cf2e1-00a9-5e05-af8a-091f92a9b9fd",
+    "137aacc6-9f4f-596e-b6ae-d6d0725516e7"
+  ],
+  "content_gaps": []
 }
