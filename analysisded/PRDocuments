@@ -1,0 +1,65 @@
+```json
+{
+  "filename": "PRDocuments",
+  "found": true,
+  "summary": "The PRDocuments class is part of the HSPnet system and manages documents related to placement requests. It handles document uploads, storage, and retrieval within a web application context.",
+  "purpose": "The purpose of the PRDocuments class is to manage the lifecycle of placement request documents, including uploading, storing, displaying, and deleting documents within the HSPnet system.",
+  "entities": ["PlacementRequestDocument", "Codes"],
+  "fields": ["ltlInstructions", "Literal1", "gvwDocument", "dsDocument", "pnlPopup", "btnShowPopup", "mdlDetails", "ValidationSummary3", "CustomValidator1", "fvwDocument"],
+  "actors": [],
+  "workflows": [
+    {
+      "name": "Document Upload",
+      "steps": [
+        "Handle file upload through FileUpload control.",
+        "Save the uploaded file to a unique folder.",
+        "Store document details in the database."
+      ]
+    },
+    {
+      "name": "Document Edit",
+      "steps": [
+        "Switch to edit mode for the selected document.",
+        "Update document details.",
+        "Rebind data source and refresh UI."
+      ]
+    },
+    {
+      "name": "Document Delete",
+      "steps": [
+        "Delete the selected document entry from the database.",
+        "Remove file from server if exists."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Hide document type and comments fields for specific document types.",
+    "Omit specific document types from dropdown based on conditions."
+  ],
+  "validations": ["CustomValidator1 verifies specific document rules."],
+  "calculations": [],
+  "conditions": [
+    "Check if DocumentExists to enable delete button.",
+    "Check if UserSession is available before executing database operations."
+  ],
+  "system_behavior": [
+    "Redirects to current page with updated query string after certain operations.",
+    "Handles client-side script registration for UI interactions."
+  ],
+  "dependencies": ["HSPnet.DataLayer", "HSPnet.UI", "HSPnet.Framework"],
+  "exceptions": ["Operation cancelled if UserSession is null."],
+  "source_document_ids": [
+    "0b412b93-8664-5be6-805b-1ee2191d9d74",
+    "23b4d3b7-10c4-5d78-b417-25806a3b6a78",
+    "315aa7cb-e2a6-5af5-88f3-e3bceefb450f",
+    "55917466-db99-5182-a2a2-833ec3f8ac73",
+    "69b6a57a-d344-53e2-83c0-1b66e394f75c",
+    "ab5070cc-bed5-5724-81f7-a337463e0b26",
+    "c708b08e-5172-57a5-a019-e21d52674f1d",
+    "e2dbef3b-8922-580e-a47b-155764f78dc8",
+    "ef75673a-9291-5ff8-ac62-566c091feb8f",
+    "f20d0f3f-4573-59af-87eb-f9f110c51931"
+  ],
+  "content_gaps": []
+}
+```
