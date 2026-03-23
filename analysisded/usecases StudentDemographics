@@ -1,0 +1,88 @@
+# Module: StudentDemographics
+
+## StudentDemographics-UC1 — Update Student Demographics
+
+- Primary Actor(s): User
+- Secondary Actor(s): None
+- Trigger: User updates the student demographics information.
+- Description: The user is able to update a student's demographic information through a form view interface.
+- Preconditions: 
+  - The system must have the student's current demographic data loaded.
+  - The session must be active.
+- Postconditions:
+  - The student's demographic information is updated in the system.
+  - User is redirected to the demographics page confirming the update.
+- Main Success Scenario:
+  1. User accesses the student demographics form.
+  2. User updates fields such as birth date, ethnicity, and citizenship.
+  3. User submits form.
+  4. System validates the input.
+  5. System updates the database with new values.
+  6. System redirects user to the confirmation page.
+- Extensions:
+  - If the session is inactive, the update is canceled.
+- Exceptions:
+  - Input validation fails.
+  - Session is inactive or lost.
+- Business Rules:
+  - Fields must be validated before submission.
+  - Updates are not allowed if session is inactive.
+- Assumptions:
+  - User has necessary permissions to update student information.
+- Open Issues:
+  - None
+
+## StudentDemographics-UC2 — View Student Demographics Details
+
+- Primary Actor(s): User
+- Secondary Actor(s): None
+- Trigger: User requests to view detailed student demographic information.
+- Description: The user can view a student's demographic information with the option to edit if permissions allow.
+- Preconditions: 
+  - Session is active.
+  - Student ID is provided.
+- Postconditions:
+  - User views detailed information of the student's demographics.
+- Main Success Scenario:
+  1. User enters the Student Demographics page.
+  2. User selects a student to view detailed information.
+  3. System displays information including birth date, ethnicity, and citizenship.
+  4. User may switch to edit mode if permissions allow.
+- Extensions:
+  - If permissions do not allow editing, the fields remain read-only.
+- Exceptions:
+  - Session becomes inactive during the process.
+- Business Rules:
+  - Only users with edit permissions can switch to edit mode.
+- Assumptions:
+  - User has permission to view at least basic demographic details.
+- Open Issues:
+  - None
+
+## StudentDemographics-UC3 — Edit Mode Activation
+
+- Primary Actor(s): User
+- Secondary Actor(s): None
+- Trigger: User selects edit mode to modify student demographics information.
+- Description: The system enables fields for editing based on user permissions.
+- Preconditions:
+  - User has edit permissions.
+  - Session is active.
+- Postconditions:
+  - The fields become editable.
+- Main Success Scenario:
+  1. User requests to enter edit mode.
+  2. System checks permissions.
+  3. System enables fields for editing.
+  4. User modifies required fields.
+  5. User saves changes.
+- Extensions: 
+  - If permissions are insufficient, fields remain read-only.
+- Exceptions:
+  - Session becomes inactive; edit attempt is canceled.
+- Business Rules:
+  - Edit mode is strictly regulated by user permissions.
+- Assumptions:
+  - Permission settings are correct and current.
+- Open Issues:
+  - None
