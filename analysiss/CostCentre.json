@@ -1,46 +1,49 @@
 {
     "filename": "CostCentre",
     "found": true,
-    "summary": "The CostCentre class provides management and retrieval of financial records associated with various cost centers, including fields like PlacingAgency, Program, and Status. It offers methods to retrieve records based on criteria such as session ID and date range.",
-    "purpose": "To manage and provide financial data related to cost centers for placement records within the HSPnet system.",
-    "entities": [],
+    "summary": "The document defines the CostCentreRecord class used for managing placement cost centers within HSPnet. It includes fields for various attributes such as agency, site, service, destination, and cost center specifics.",
+    "purpose": "Facilitate placement cost center tracking and management within the HSPnet framework.",
+    "entities": [
+        "CostCentreRecord"
+    ],
     "fields": [
-        {"name": "PlacingAgency", "type": "string"},
-        {"name": "Program", "type": "string"},
-        {"name": "Discipline", "type": "string"},
-        {"name": "SubDiscipline", "type": "string"},
-        {"name": "ReceivingAgency", "type": "string"},
-        {"name": "Site", "type": "string"},
-        {"name": "CostCentre", "type": "string"},
-        {"name": "StartDate", "type": "DateTime"},
-        {"name": "EndDate", "type": "DateTime"},
-        {"name": "Status", "type": "string"},
-        {"name": "Course", "type": "string"}
+        "PlacingAgency",
+        "Department",
+        "Program",
+        "Discipline",
+        "SubDiscipline",
+        "ReceivingAgency",
+        "Site",
+        "Portfolio",
+        "Service",
+        "Destination",
+        "CostCentre",
+        "CostCentreDescription",
+        "PRType",
+        "StartDate",
+        "EndDate",
+        "Status",
+        "Course",
+        "ProgramYear",
+        "ReferenceNumber",
+        "CFO"
     ],
     "actors": [],
-    "workflows": [
-        {
-            "name": "Retrieve Cost Centre Information",
-            "steps": [
-                "Set procedure name to PlacementCostCentre.",
-                "Add parameters like sessionID, startDate, and endDate.",
-                "Execute query and store results in CostCentreRecord objects."
-            ]
-        }
-    ],
+    "workflows": [],
     "business_rules": [],
     "validations": [],
     "calculations": [],
     "conditions": [],
-    "system_behavior": [],
-    "dependencies": [],
+    "system_behavior": [
+        "Data is retrieved and processed for placement cost center reporting."
+    ],
+    "dependencies": [
+        "HSPnetSession",
+        "Database"
+    ],
     "exceptions": [],
     "source_document_ids": [
-        "20ac8054-536e-5203-b33d-7db2b2dc2359",
-        "2c04f259-cf58-5d95-803c-8ebf16840f6c",
-        "97bc3ba9-9fe4-52b1-8847-dce2198e0aee",
-        "dd965b0f-f9cf-57eb-a3f8-32b3b97a6d1a",
-        "e1ac7e41-5e9e-5f16-baa0-29d05a70f976"
+        "20ac8054-536e-5203-b33d-7db2b2dc2359"
     ],
     "content_gaps": []
 }
