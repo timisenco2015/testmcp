@@ -1,0 +1,75 @@
+{
+  "filename": "LeftNavigation",
+  "found": true,
+  "summary": "The `LeftNavigation` module in the HSPnet framework is responsible for building and managing the left-hand navigation within the application. It manages various menus and navigation elements, customizing visibility and functionality based on the user's session and role.",
+  "purpose": "The purpose of the LeftNavigation module is to construct and manage the dynamic behavior of the left navigation panel, providing a contextual navigation experience tailored to user roles and permissions.",
+  "entities": [],
+  "fields": [],
+  "actors": [
+    "PlacingUser",
+    "ReceivingUser",
+    "StudentMaintOnly",
+    "SystemDataAdministrator",
+    "GroupInstructorOnly",
+    "ReceivingCoordinator",
+    "PlacementCoordinator",
+    "SupervisorOnly",
+    "ContentUser",
+    "DestinationCoordinator"
+  ],
+  "workflows": [
+    {
+      "name": "BuildLeftNavigation",
+      "steps": [
+        "Check session role and permissions.",
+        "Set up version tag and welcome panels.",
+        "Conditionally render cohort, person, inbox, and outbox panels.",
+        "Construct worksheet, content, reporting, maintenance, and help menus.",
+        "Evaluate and set the visibility of each panel and menu item.",
+        "Highlight the current selection where applicable."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Specific panels and hyperlinks are visible or hidden based on user roles.",
+    "Highlighting of current page or node is dynamic based on the requested page.",
+    "The navigation menu adapts to the user's session configuration, such as language and role."
+  ],
+  "validations": [
+    "Ensure URL hashes are added for navigation links.",
+    "Confirm current page special cases to highlight appropriate links."
+  ],
+  "calculations": [],
+  "conditions": [
+    "Panel visibility is conditioned on user roles like StudentMaintOnly or SystemDataAdministrator.",
+    "Navigation elements are conditionally rendered based on session attributes like UseAgreements."
+  ],
+  "system_behavior": [
+    "Adjust menu styles based on session attributes.",
+    "Alter navigation element actions based on role-based conditions."
+  ],
+  "dependencies": [
+    "Resources for various sections (Agencies, Governing Orgs, etc.)",
+    "Session attributes for role determination and visibility logic.",
+    "URL hashing and query string additions for secure navigation."
+  ],
+  "exceptions": [],
+  "source_document_ids": [
+    "07d3a9ee-edd1-537d-a44d-124e867f4c21",
+    "205c5fdc-5feb-525d-a251-236ff83c9c5b",
+    "208f805c-7a62-5470-af00-6354ecae2e69",
+    "2f325961-53af-529e-82d4-9c6650ff1986",
+    "332828af-cfe0-5b6c-866a-c45298238eac",
+    "3a6a9863-2733-5845-9c9b-29808c8e6cb2",
+    "6196334d-45ff-5feb-ae25-c31d7447418e",
+    "770bf0fc-7a8b-56e0-86ee-209772706239",
+    "852013d1-02a2-5425-860e-232bb498c30f",
+    "960e3e9c-687c-5ea4-8492-0267bcbba828",
+    "aaa1ab90-01c8-50b2-b8d3-3b99cdf30be1",
+    "b5b0b113-6ba1-5534-ad6f-3c3e75a2181a",
+    "d0520f08-0309-5f15-8ed1-2b97f99f3991",
+    "e5b101b4-b4e9-5374-b8ad-0d4f2db19356",
+    "e9300867-b14d-5c28-b468-1c1c4a4a8773"
+  ],
+  "content_gaps": []
+}
