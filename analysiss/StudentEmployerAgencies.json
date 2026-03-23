@@ -1,0 +1,71 @@
+{
+  "filename": "StudentEmployerAgencies",
+  "found": true,
+  "summary": "The StudentEmployerAgencies component facilitates the management and display of student-employer agency relationships within the HSPnet system. It includes functionalities for viewing, editing, inserting, and deleting records related to employer agencies associated with students. The system uses ASP.NET Web Forms with controls such as GridView, FormView, and ObjectDataSource.",
+  "purpose": "To provide a user interface for managing relationships between students and their associated employer agencies in the HSPnet system, allowing for the display and modification of data related to these associations.",
+  "entities": [],
+  "fields": [
+    "updPnlMain",
+    "chkShowInactive",
+    "gridData",
+    "dsEmployerAgencies",
+    "pnlPopup",
+    "updPnlPopup",
+    "btnShowPopup",
+    "mdlDetails",
+    "ValidationSummary1",
+    "uxDetail",
+    "dsDetail"
+  ],
+  "actors": [
+    "UserSession"
+  ],
+  "workflows": [
+    {
+      "name": "Manage Student Employer Agencies",
+      "steps": [
+        "Select or display records using gridData and dsEmployerAgencies.",
+        "Add new records by switching uxDetail to Insert mode.",
+        "Edit existing records by switching uxDetail to Edit mode.",
+        "Delete or reactivate records by executing commands in gridData.",
+        "View record details in a modal popup using mdlDetails."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Records can be marked as inactive or reactivated.",
+    "Only users with an active UserSession can interact with the data.",
+    "Editable screens depend on the ReadOnly and ScreenIsEditable flags."
+  ],
+  "validations": [
+    "Form validation occurs before inserting or updating records.",
+    "e.Cancel is set to true if Page.IsValid is false during insert/update operations."
+  ],
+  "calculations": [],
+  "conditions": [
+    "Screen is editable based on ScreenIsEditable property.",
+    "Commands such as Add, Edit, Delete, Reactivate are context-driven by the current state of the grid and row data."
+  ],
+  "system_behavior": [
+    "Updates to records are handled by redirecting to a specified page upon completion.",
+    "Dynamic UI elements are managed using ASP.NET AJAX components."
+  ],
+  "dependencies": [
+    "AjaxControlToolkit",
+    "HSPnet.DataLayer"
+  ],
+  "exceptions": [
+    "Data source operations are canceled if UserSession is null."
+  ],
+  "source_document_ids": [
+    "0e4883d8-ed4e-54cc-9423-317740658769",
+    "42afceda-a9db-545d-834f-3170e9e2bd44",
+    "678a36c5-f497-5066-ad7c-0ec0023f579a",
+    "98e17990-fa7e-50da-983d-05e0f8bf79bb",
+    "9ecbdb80-a204-5d7e-8d51-51fbe1528951",
+    "a3ba370a-1996-595f-ad5a-a14b3959cfe2",
+    "a786d8b9-a529-5df9-9f7f-d34d4dcb56f2",
+    "bcb07588-9f09-5163-a2fc-fdfa5cd35a8f"
+  ],
+  "content_gaps": []
+}
