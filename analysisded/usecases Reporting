@@ -1,0 +1,75 @@
+# Module: Reporting
+
+## Reporting-UC1 — Generate Report
+
+- Primary Actor(s): User, System
+- Secondary Actor(s): None
+- Trigger: User initiates a report generation request.
+- Description: Generates a report in various formats based on user requirements, utilizing a specific template and set parameters. Handles multiple output types and localization settings.
+- Preconditions: User must have access to reporting tools and required permissions. Appropriate report templates must be available.
+- Postconditions: A report is generated and stored in the designated directory with the correct format.
+- Main Success Scenario:
+  1. User selects report type and output format.
+  2. System checks template availability and applies localization settings.
+  3. System sets parameters and attempts report generation.
+  4. Report is generated successfully and saved.
+  5. User is notified of successful generation.
+- Extensions:
+  - 3a. If template is in French: Use `_alt.xml` template file.
+  - 4a. Report can be saved in formats like PDF, RTF.
+- Exceptions:
+  - If report generation fails due to invalid parameters or connection issues, the user is notified with the specific failure reason.
+- Business Rules:
+  - Reports should handle localization and alternative languages.
+  - Parameters must be validated before report generation.
+- Assumptions:
+  - User has a valid session and access rights.
+- Open Issues:
+  - None
+
+## Reporting-UC2 — Handle Report Generation Errors
+
+- Primary Actor(s): System
+- Secondary Actor(s): None
+- Trigger: Error occurs during report generation process.
+- Description: System manages various errors during report generation, ensuring proper user notification and logging for troubleshooting.
+- Preconditions: An error condition arises during report processing.
+- Postconditions: Error message generated and user notified. Error logged for further analysis.
+- Main Success Scenario:
+  1. System detects an error during report generation.
+  2. Appropriate error message is formatted based on error type.
+  3. User is notified of failure.
+  4. Error details are logged for troubleshooting.
+- Extensions:
+  - None
+- Exceptions:
+  - None
+- Business Rules:
+  - System provides specific error messages for connection, parameter, and export errors.
+- Assumptions:
+  - System has a logging mechanism in place.
+- Open Issues:
+  - None
+
+## Reporting-UC3 — Apply Template Localization
+
+- Primary Actor(s): System
+- Secondary Actor(s): None
+- Trigger: Template localization is required during report generation.
+- Description: The system uses the appropriate template based on user language settings, falling back to default if necessary.
+- Preconditions: User session indicates alternative language usage.
+- Postconditions: Correct template is applied according to language settings.
+- Main Success Scenario:
+  1. System assesses user language preferences.
+  2. If alternative language is needed, checks for `_alt.xml` availability.
+  3. Uses localized template or falls back to default.
+- Extensions:
+  - None
+- Exceptions:
+  - Template not found: User is notified of failure.
+- Business Rules:
+  - Templates must exist in alternative languages if localization is required.
+- Assumptions:
+  - Language setting is accurately maintained in the user session.
+- Open Issues:
+  - None
