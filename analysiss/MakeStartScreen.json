@@ -1,0 +1,46 @@
+{
+  "filename": "MakeStartScreen",
+  "found": true,
+  "summary": "The MakeStartScreen functionality is part of the HSPnet.DataLayer namespace and is responsible for setting the start screen for a session in the HSPnet application.",
+  "purpose": "The purpose of the MakeStartScreen component is to update the start screen preference for a user's session in the HSPnet system.",
+  "entities": [],
+  "fields": [
+    "SessionID",
+    "StartScreen"
+  ],
+  "actors": [
+    "HSPnetSession"
+  ],
+  "workflows": [
+    {
+      "name": "SetStartScreen",
+      "steps": [
+        "Check if the StartScreen parameter is not null or empty.",
+        "Set the stored procedure name to 'SessionSetStartScreen'.",
+        "Add 'SessionID' and 'StartScreen' as parameters to the database query.",
+        "Execute the query.",
+        "Add a warning message indicating success."
+      ]
+    }
+  ],
+  "business_rules": [],
+  "validations": [
+    "Check if the StartScreen is not null or empty."
+  ],
+  "calculations": [],
+  "conditions": [
+    "StartScreen must not be null or empty to proceed with setting it."
+  ],
+  "system_behavior": [
+    "Updates the session's start screen in the database using a stored procedure."
+  ],
+  "dependencies": [
+    "HSPnet.Framework",
+    "HSPnet.App_GlobalResources"
+  ],
+  "exceptions": [],
+  "source_document_ids": [
+    "35b9d67c-aa65-52cc-8267-18722163c3b9"
+  ],
+  "content_gaps": []
+}
