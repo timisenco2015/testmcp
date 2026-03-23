@@ -1,124 +1,80 @@
 {
-  "filename": "WCBEditAll",
-  "found": true,
-  "summary": "The WCBEditAll module is a user control in the HSPnet system designed to handle enrollment data, particularly focusing on WorkSafeBC (WCB) status updates. It allows users to filter and edit enrollment records based on various criteria such as CohortID, TermID, CourseID, and campus-related details. The control handles both single and batch editing operations and interacts with the user session for access and permissions.",
-  "purpose": "To facilitate the editing and management of WCB status information within enrollment records in the HSPnet system.",
-  "entities": [],
-  "fields": [
-    {
-      "name": "CohortID",
-      "type": "integer"
-    },
-    {
-      "name": "TermID",
-      "type": "integer"
-    },
-    {
-      "name": "CourseID",
-      "type": "integer"
-    },
-    {
-      "name": "ShowGrad",
-      "type": "boolean"
-    },
-    {
-      "name": "ShowInactive",
-      "type": "boolean"
-    },
-    {
-      "name": "ShowWaived",
-      "type": "boolean"
-    },
-    {
-      "name": "SectionFilter",
-      "type": "string"
-    },
-    {
-      "name": "ActionFilter",
-      "type": "string"
-    },
-    {
-      "name": "keyword",
-      "type": "string"
-    },
-    {
-      "name": "CampusID",
-      "type": "integer"
-    },
-    {
-      "name": "CommentFilter",
-      "type": "string"
-    },
-    {
-      "name": "blnReadOnly",
-      "type": "boolean"
-    },
-    {
-      "name": "blnStudentMaint",
-      "type": "boolean"
-    },
-    {
-      "name": "EnrollmentID",
-      "type": "integer"
-    },
-    {
-      "name": "StartRow",
-      "type": "integer"
-    }
-  ],
-  "actors": [
-    {
-      "name": "UserSession",
-      "role": "Manages user context and permissions"
-    }
-  ],
-  "workflows": [
-    {
-      "name": "WCB Status Update",
-      "steps": [
-        "Initialize InputParameters with session data",
-        "Search code records for WCB statuses",
-        "Bind data to grid view",
-        "Handle row data binding for header and footer visibility",
-        "Enable data manipulation based on row type",
-        "Execute command operations (save, cancel, edit next)"
-      ]
-    }
-  ],
-  "business_rules": [
-    "Hide Save All button in header when EnrollmentID is not zero",
-    "Show Save button in footer when EnrollmentID is not zero",
-    "Bind dropdown list with WCB statuses",
-    "Disable calendar controls if read-only"
-  ],
-  "validations": [
-    "Validate session existence before selecting data"
-  ],
-  "calculations": [],
-  "conditions": [
-    "Check if gridDataEdit rows count is less than page size for button visibility adjustments",
-    "Determine redirect based on warnings count"
-  ],
-  "system_behavior": [
-    "Manage visibility of control buttons based on user permissions and data state",
-    "Update JavaScript variables asynchronously"
-  ],
-  "dependencies": [
-    "Depends on HSPnet session for user context",
-    "Interacts with code search for WCB statuses",
-    "Utilizes data layer for enrollment data binding"
-  ],
-  "exceptions": [],
-  "source_document_ids": [
-    "04bbe570-1e68-580a-82d5-cb4f52b7154d",
-    "37783754-1a27-56cc-a1fd-f7e76c9cdf5b",
-    "8d9a2928-310a-58fd-83a9-3ba59639f9f4",
-    "8e24e435-191f-56b3-b34c-703e00de0aba",
-    "cbe54a21-b151-5e80-a169-7133c86792e4",
-    "d31f5194-c27c-5a4e-94f4-24f39618de3a",
-    "e1de25b5-41c4-50a3-9b66-f0472f7a4e46",
-    "ec24234e-0fd7-59e8-8399-ef54c758fe87",
-    "fa0346af-3657-5f0d-9dde-5ba563cf52c5"
-  ],
-  "content_gaps": []
+    "filename": "WCBEditAll",
+    "found": true,
+    "summary": "The WCBEditAll user control facilitates the editing of Enrollment-related data within a grid interface. It handles parameters like CohortID, TermID, CourseID, and provides functionalities for filtering by various statuses. The control includes workflow steps for saving, editing, and updating safety and waiver statuses for students.",
+    "purpose": "Manage and edit enrollment details, specifically focusing on Worker's Compensation Board (WCB) statuses and safety requirements.",
+    "entities": [
+        "Enrollment",
+        "StudentPrerequisites",
+        "UserSession"
+    ],
+    "fields": [
+        "CohortID",
+        "TermID",
+        "CourseID",
+        "ShowGrad",
+        "ShowInactive",
+        "ShowWaived",
+        "SectionFilter",
+        "ActionFilter",
+        "keyword",
+        "CampusID",
+        "StartRow",
+        "maximumRows",
+        "CommentFilter",
+        "WCBStatusesList"
+    ],
+    "actors": [
+        "User",
+        "ScriptManager"
+    ],
+    "workflows": [
+        {
+            "name": "Edit Enrollment Details",
+            "steps": [
+                "Initialize parameters for the grid view.",
+                "Bind data to the grid and manage visibility of controls based on Enrollment ID.",
+                "Handle row commands for saving and editing.",
+                "Redirect after processing safety and WCB updates."
+            ]
+        }
+    ],
+    "business_rules": [
+        "Hide Save All button if EnrollmentID is not zero.",
+        "Show Save panel if EnrollmentID is zero."
+    ],
+    "validations": [
+        "Ensure UserSession is active before selecting data.",
+        "Check for warnings before redirecting."
+    ],
+    "calculations": [
+        "Convert DropDownList value to integer for StudentPrerequisites update.",
+        "Toggle visibility of panels based on row count and read-only state."
+    ],
+    "conditions": [
+        "EnrollmentID determines visibility and editability of grid rows."
+    ],
+    "system_behavior": [
+        "Adjust sorting behavior of grid based on user input.",
+        "Disable editing fields if session is read-only."
+    ],
+    "dependencies": [
+        "HSPnetSession",
+        "UserSession"
+    ],
+    "exceptions": [
+        "Cancel selection process if UserSession is null."
+    ],
+    "source_document_ids": [
+        "04bbe570-1e68-580a-82d5-cb4f52b7154d",
+        "37783754-1a27-56cc-a1fd-f7e76c9cdf5b",
+        "8d9a2928-310a-58fd-83a9-3ba59639f9f4",
+        "8e24e435-191f-56b3-b34c-703e00de0aba",
+        "cbe54a21-b151-5e80-a169-7133c86792e4",
+        "d31f5194-c27c-5a4e-94f4-24f39618de3a",
+        "e1de25b5-41c4-50a3-9b66-f0472f7a4e46",
+        "ec24234e-0fd7-59e8-8399-ef54c758fe87",
+        "fa0346af-3657-5f0d-9dde-5ba563cf52c5"
+    ],
+    "content_gaps": []
 }
