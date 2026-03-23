@@ -1,0 +1,68 @@
+{
+  "filename": "EmailPopupDocument",
+  "found": true,
+  "summary": "The EmailPopupDocument class handles email pop-up functionalities such as searching for, listing, and deleting email data stored in a specific format. It includes methods for parsing and handling email-related data.",
+  "purpose": "To manage email documents within the HSPnet framework, including the ability to list, search, and delete documents based on a given dataset.",
+  "entities": [
+    {
+      "name": "EmailPopupDocument",
+      "properties": [
+        "ID",
+        "FileName",
+        "FilePath",
+        "Checked"
+      ]
+    },
+    {
+      "name": "EmailPopupDocuments",
+      "methods": [
+        "Search",
+        "Delete"
+      ]
+    }
+  ],
+  "fields": [
+    "ID",
+    "FileName",
+    "FilePath",
+    "Checked"
+  ],
+  "actors": [],
+  "workflows": [
+    {
+      "name": "Email Data Management",
+      "steps": [
+        "Parse the input data string into individual email data components.",
+        "Construct an EmailPopupDocument instance for each valid component.",
+        "Handle deletion of specified email documents using their indices."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Email data must be parsed from a '|' delimited string.",
+    "Only email data with a valid path component should be processed."
+  ],
+  "validations": [
+    {
+      "type": "DataFormat",
+      "condition": "Check if emailData has exactly two components after splitting with '>'."
+    }
+  ],
+  "calculations": [],
+  "conditions": [],
+  "system_behavior": [
+    "The system deletes files and directories associated with the specified email data when the Delete function is triggered."
+  ],
+  "dependencies": [],
+  "exceptions": [
+    {
+      "type": "FileDeletion",
+      "handling": "Swallow exceptions when file or directory deletion fails."
+    }
+  ],
+  "source_document_ids": [
+    "7287734e-f13d-550f-9249-4242db620766",
+    "927bc837-5564-5759-9324-27c6d5d7321d"
+  ],
+  "content_gaps": []
+}
