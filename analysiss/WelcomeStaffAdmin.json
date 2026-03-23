@@ -1,35 +1,50 @@
 {
   "filename": "WelcomeStaffAdmin",
   "found": true,
-  "summary": "WelcomeStaffAdmin is a page that serves as a welcome interface for staff administrators.",
-  "purpose": "To provide an interface for staff administrators with functionality to manage staff-related data.",
+  "summary": "Setup for the Welcome Staff Admin page with functionalities for date filtering and data refresh.",
+  "purpose": "Provide administrative interfaces for staff, allowing filtering and managing student employment applications.",
   "entities": [],
   "fields": [
+    "txtStartDate",
+    "txtEndDate",
+    "ddSite",
+    "ddDiscipline",
+    "chkShowWithdrawn",
+    "gvwApplications",
+    "dsEmploymentApplications"
+  ],
+  "actors": [
+    "Staff Admin"
+  ],
+  "workflows": [
     {
-      "name": "valEndDate",
-      "type": "validator",
-      "description": "A required field validator for an end date input."
+      "name": "Page Load",
+      "steps": [
+        "Setup HSPnet Page",
+        "Register necessary JavaScript includes",
+        "Initialize UI components like dropdowns and textboxes",
+        "Set default dates for filtering",
+        "Bind data to application grid"
+      ]
     },
     {
-      "name": "txtEndDate",
-      "type": "textbox",
-      "description": "Textbox for entering the end date."
+      "name": "Refresh View",
+      "steps": [
+        "Bind data again to refresh the application list"
+      ]
     }
   ],
-  "actors": [],
-  "workflows": [],
   "business_rules": [],
   "validations": [
-    {
-      "field": "txtEndDate",
-      "validator": "RegularExpressionValidator",
-      "validation_expression": "regex for date validation",
-      "error_message": "End Date is Invalid"
-    }
+    "Date validation on txtStartDate and txtEndDate using RegularExpressionValidator",
+    "CustomValidator for comparing Start and End dates"
   ],
   "calculations": [],
   "conditions": [],
-  "system_behavior": [],
+  "system_behavior": [
+    "Loads Welcome Staff Admin page with required data and functionality.",
+    "Handles date filtering and refresh of student employment applications."
+  ],
   "dependencies": [],
   "exceptions": [],
   "source_document_ids": [
@@ -38,9 +53,9 @@
     "3c84bade-9671-5fbf-acce-3c87a835e9b4",
     "4c4b97b8-d242-5261-a515-767a3f7d7a49",
     "52b5066f-23f6-5d82-96cd-5d51dad3de79",
-    "54244516-0707-581e-a8ba-9c041ea38366",
     "5bb85da3-f5b4-5753-b07c-9bb2a04eeb89",
     "5d9b92ea-7c12-5070-8603-977cf14d0e04",
+    "54244516-0707-581e-a8ba-9c041ea38366",
     "6701b153-5288-59e5-8de9-61b68a1fc292",
     "871df91b-7ba0-558f-83ea-d5be1b0dc8db",
     "8cea5c3a-2fbf-5206-a0c0-9425a5e14511",
@@ -51,8 +66,8 @@
     "b8e79322-9a0e-5fe7-8953-3d05e231f923",
     "bf423a80-93db-572d-8cb8-c79f04214a93",
     "ca71b077-cc26-5979-a44f-59700a41316b",
-    "d278278f-d4ec-5f4a-9f29-a02b66773bb9",
     "db9b35e9-53ca-5eaf-9d75-4f3a72131bc7",
+    "d278278f-d4ec-5f4a-9f29-a02b66773bb9",
     "e249a878-c837-5d1c-9a3d-5167df2614fb"
   ],
   "content_gaps": []
