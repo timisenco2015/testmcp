@@ -1,32 +1,19 @@
 {
-    "filename": "ServiceCode",
-    "found": true,
-    "summary": "Definitions for the ServiceCode class and related operations within HSPnet, including methods for listing and retrieving specific service codes.",
-    "purpose": "To manage Service Codes in the HSPnet system by listing and retrieving them based on various parameters.",
-    "entities": [],
-    "fields": ["ID", "CodeCategoryID", "ShortName", "Name", "SortOrder", "Notes", "NameAlt"],
-    "actors": [],
-    "workflows": [
-        {
-            "name": "Retrieve Service Codes",
-            "steps": [
-                "Initiate service code retrieval by session ID.",
-                "Execute stored procedure based on session context.",
-                "Return and localize service code list."
-            ]
-        }
-    ],
-    "business_rules": [],
-    "validations": [],
-    "calculations": [],
-    "conditions": [],
-    "system_behavior": ["Service code data retrieval and localization based on session language preferences."],
-    "dependencies": [],
-    "exceptions": [],
-    "source_document_ids": [
-        "94f1b055-348d-508a-ae6e-cf7960a8c6a2",
-        "e4ebe4b4-6d14-5c3f-b693-61016f765239",
-        "f976b9af-a402-540f-b162-391d578fac7c"
-    ],
-    "content_gaps": []
+  "filename": "ServiceCode",
+  "found": true,
+  "summary": "Defines the structure and retrieval of service codes within a session.",
+  "purpose": "To manage and retrieve service codes associated with various categories and sessions.",
+  "entities": ["ServiceCode"],
+  "fields": ["ID", "CodeCategoryID", "ShortName", "Name", "SortOrder", "Notes", "NameAlt"],
+  "actors": [],
+  "workflows": [],
+  "business_rules": [],
+  "validations": [],
+  "calculations": [],
+  "conditions": ["Using alternate language fields"],
+  "system_behavior": ["DB interaction for service code retrieval"],
+  "dependencies": ["SQL, HSPnetSession"],
+  "exceptions": [],
+  "source_document_ids": ["94f1b055-348d-508a-ae6e-cf7960a8c6a2", "e4ebe4b4-6d14-5c3f-b693-61016f765239", "f976b9af-a402-540f-b162-391d578fac7c"],
+  "content_gaps": []
 }
