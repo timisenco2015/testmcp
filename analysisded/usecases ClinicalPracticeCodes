@@ -1,0 +1,121 @@
+# Module: ClinicalPracticeCodes
+
+## ClinicalPracticeCodes-UC1 — Add Clinical Practice Code
+
+- Primary Actor(s): User
+- Secondary Actor(s): System
+- Trigger: The user initiates the addition of a new clinical practice code.
+- Description: This use case describes the process of adding a new clinical practice code to the system.
+- Preconditions: The user must be authenticated and authorized to add codes. The session must be valid.
+- Postconditions: A new clinical practice code is created and stored in the database.
+- Main Success Scenario:
+  1. User provides the necessary details: ProgramID, Name, ShortName.
+  2. System validates the provided details.
+  3. System executes the stored procedure `ClinicalPracticeCodeAdd`.
+  4. System confirms the addition of the clinical practice code.
+- Extensions:
+  - 3a. If validation fails, the system informs the user with appropriate error messages.
+- Exceptions:
+  - Database connectivity issues or procedure execution errors.
+- Business Rules:
+  - Name and ShortName must not be blank.
+- Assumptions:
+  - The database is available and operational.
+- Open Issues:
+  - None identified.
+
+## ClinicalPracticeCodes-UC2 — Update Clinical Practice Code
+
+- Primary Actor(s): User
+- Secondary Actor(s): System
+- Trigger: The user chooses to update an existing clinical practice code.
+- Description: This use case outlines the process of updating an existing clinical practice code.
+- Preconditions: The clinical practice code ID must exist. The user must have appropriate permissions.
+- Postconditions: The specified clinical practice code is updated with new details.
+- Main Success Scenario:
+  1. User selects a clinical practice code to update.
+  2. User modifies the details as necessary.
+  3. System validates the modified details.
+  4. System executes the stored procedure `ClinicalPracticeCodeUpdate`.
+  5. System confirms the update.
+- Extensions:
+  - 3a. If validation fails, the system informs the user with appropriate error messages.
+- Exceptions:
+  - Code ID not found or database errors.
+- Business Rules:
+  - Name and ShortName must not be blank.
+- Assumptions:
+  - The code ID is valid and exists in the system.
+- Open Issues:
+  - None identified.
+
+## ClinicalPracticeCodes-UC3 — Delete Clinical Practice Code
+
+- Primary Actor(s): User
+- Secondary Actor(s): System
+- Trigger: The user initiates the deletion of a clinical practice code.
+- Description: This use case involves the removal of a clinical practice code from the system.
+- Preconditions: The user must be authorized to delete codes. The code ID must exist.
+- Postconditions: The specified clinical practice code is removed from the system.
+- Main Success Scenario:
+  1. User specifies the ID of the clinical practice code to be deleted.
+  2. System confirms the existence of the code.
+  3. System executes the stored procedure `ClinicalPracticeCodeDelete`.
+  4. System confirms the deletion.
+- Extensions:
+  - None identified.
+- Exceptions:
+  - Code ID not found or database errors.
+- Business Rules:
+  - Only non-essential codes should be deleted.
+- Assumptions:
+  - The database is consistent and operational.
+- Open Issues:
+  - None identified.
+
+## ClinicalPracticeCodes-UC4 — Reactivate Clinical Practice Code
+
+- Primary Actor(s): User
+- Secondary Actor(s): System
+- Trigger: The user initiates the reactivation of an inactive clinical practice code.
+- Description: This use case details the reactivation of a previously inactive clinical practice code.
+- Preconditions: The code must be marked inactive. User must have the necessary rights.
+- Postconditions: The clinical practice code is marked as active in the system.
+- Main Success Scenario:
+  1. User specifies the ID of the clinical practice code to reactivate.
+  2. System verifies the code is currently inactive.
+  3. System executes the stored procedure `ClinicalPracticeCodeReactivate`.
+  4. System confirms the reactivation.
+- Extensions:
+  - None identified.
+- Exceptions:
+  - Code ID not found or database errors.
+- Business Rules:
+  - Only codes that are safe to reactivate should be reactivated.
+- Assumptions:
+  - Inactive codes can be reactivated without issue.
+- Open Issues:
+  - None identified.
+
+## ClinicalPracticeCodes-UC5 — Search Clinical Practice Codes by Program
+
+- Primary Actor(s): User
+- Secondary Actor(s): System
+- Trigger: The user performs a search for clinical practice codes.
+- Description: This use case allows users to search for clinical practice codes associated with a specific program.
+- Preconditions: User must have access to perform searches.
+- Postconditions: The system returns a list of matching clinical practice codes.
+- Main Success Scenario:
+  1. User specifies programID and optional search filters (showInactive, textContains).
+  2. System executes the stored procedure `ClinicalPracticeCodeSearchProgram`.
+  3. System returns a list of matching codes.
+- Extensions:
+  - None identified.
+- Exceptions:
+  - Database errors or no matching records found.
+- Business Rules:
+  - Search must adhere to user permissions and data visibility settings.
+- Assumptions:
+  - Search procedures are optimized for performance.
+- Open Issues:
+  - None identified.
