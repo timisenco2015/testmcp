@@ -1,8 +1,8 @@
 {
     "filename": "CertificationEditAll",
     "found": true,
-    "summary": "The CertificationEditAll component is a web-based user control designed to manage the editing of certification records in a system. It provides functionalities to view, edit, and save certification details for students within an enrollment module.",
-    "purpose": "To facilitate the management and editing of student certification details within a larger enrollment system, providing administrative users with tools to update certifications efficiently.",
+    "summary": "The 'CertificationEditAll' user control is part of the HSPnet enrollment module. It manages the display and editing of student certifications in a grid format, allowing data operations like save, update, and navigation between student records.",
+    "purpose": "To provide a user interface for managing student certifications within a grid system, including operations such as saving, updating, and navigating through records.",
     "entities": [],
     "fields": [
         "UserSession",
@@ -19,59 +19,62 @@
         "CommentFilter",
         "blnReadOnly",
         "blnStudentMaint",
-        "blnGotoOutbox",
-        "blnGotoGWS",
-        "blnGotoIWS",
-        "CourseLst",
-        "CertificationCodeID",
         "EnrollmentID",
-        "StartRow"
+        "StartRow",
+        "CertificationCodeID"
     ],
     "actors": [
-        "System Administrator",
-        "UserSession"
+        "UserSession",
+        "StudentCertification",
+        "GridView",
+        "ObjectDataSource"
     ],
     "workflows": [
         {
-            "name": "Save Certification Details",
+            "name": "Edit and Save Certification",
             "steps": [
-                "Initialize redirect and hasMessage flags",
-                "Iterate through grid rows to check 'isDirty' state",
-                "If 'isDirty', update certification details for the student",
-                "Set redirect flag based on error messages",
-                "If redirect, navigate to Enrollment page with query parameters"
+                "User loads the enrollment page.",
+                "Grid data is bound to certifications based on user session and selected filters.",
+                "User edits certification details in grid rows.",
+                "User triggers a save command, which validates and updates certification records.",
+                "Upon successful validation, the system redirects the user to the enrollment overview page."
+            ]
+        },
+        {
+            "name": "Navigate Records",
+            "steps": [
+                "User selects a record navigation command.",
+                "System adjusts URL with query string parameters to reflect selected navigation and filter settings.",
+                "User is redirected to the next set of records based on current selections."
             ]
         }
     ],
     "business_rules": [
-        "If in Add or single Edit mode, hide the Save All button",
-        "If EnrollmentID is zero, make certain header controls invisible based on conditions",
-        "If less than 14 rows, hide Save All and Cancel buttons"
+        "Certifications are retrieved based on user session, cohort ID, and certification code.",
+        "Grid rows marked as 'dirty' indicate changes and must be saved.",
+        "Save actions are only successful if no error messages are present in the user session."
     ],
     "validations": [
-        "Effective Date Invalid",
-        "Expiry Date Invalid",
-        "Expiry Date must be on or after Effective Date"
+        "Ensure effective date is before expiry date.",
+        "System checks for any pending error messages before finalizing save operations."
     ],
     "calculations": [],
     "conditions": [
-        "ShowGrad is true or false",
-        "ShowInactive is true or false",
-        "ShowWaived is true or false"
+        "Redirect occurs only if no messages are present.",
+        "Dropdown lists are only visible to system administrators."
     ],
     "system_behavior": [
-        "Loads student certifications from the database if not already loaded",
-        "Disables certain user interface elements if blnReadOnly is true",
-        "Binds grid data during data selection"
+        "Hides buttons in grid header/footer based on enrollment state and row count.",
+        "Disables calendar controls in read-only mode.",
+        "Initializes JavaScript variables for client-side operations."
     ],
     "dependencies": [
-        "StudentCertifications.StudentCertificationSearch",
-        "StudentCertifications.StudentDetailsCertificateUpdate",
-        "Grid methods for data retrieval",
-        "UserSession for session-based operations"
+        "Relies on HSPnet data and resource layers for retrieving and displaying data.",
+        "Utilizes ASP.NET controls for grid and data source operations."
     ],
     "exceptions": [
-        "Cancel data loading if UserSession is null"
+        "Cancel data selection if the user session is null.",
+        "Blocks visible dropdowns for non-administrators."
     ],
     "source_document_ids": [
         "1222fbc3-250e-55b4-b8b4-60d60de320ec",
