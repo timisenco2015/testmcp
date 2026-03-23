@@ -1,0 +1,94 @@
+{
+  "filename": "Help",
+  "found": true,
+  "summary": "The Help module provides functionality for searching, retrieving, updating, and displaying help topics and records within the HSPnet system.",
+  "purpose": "To facilitate context-sensitive help functionality, allow searching of help topics, and manage help records.",
+  "entities": [
+    "HelpRecord"
+  ],
+  "fields": [
+    "ScreenName",
+    "HelpTitle",
+    "HelpText",
+    "HelpTitleAlt",
+    "HelpTextAlt",
+    "UpdateDate"
+  ],
+  "actors": [
+    "HSPnetSession",
+    "SqlDataReader"
+  ],
+  "workflows": [
+    {
+      "name": "HelpSearch",
+      "steps": [
+        "Set ProcedureName to 'HelpSearch'.",
+        "Add parameters ScreenName and SessionID.",
+        "Execute GetData() and read results.",
+        "If results exist, initialize HelpRecord.",
+        "Fill HelpRecord fields from database results."
+      ]
+    },
+    {
+      "name": "GetHelp",
+      "steps": [
+        "Attempt to retrieve HelpRecord by ScreenName.",
+        "If not found and specified, retrieve 'NoHelp' topic.",
+        "Process the topic and return HelpRecord."
+      ]
+    },
+    {
+      "name": "ProcessTopic",
+      "steps": [
+        "Replace placeholders with Session-specific data.",
+        "Process new feature placeholder and dynamic SQL placeholders."
+      ]
+    }
+  ],
+  "business_rules": [
+    "HelpSearch requires 'ScreenName' and 'SessionID' parameters.",
+    "GetHelp attempts retrieval of 'NoHelp' topic if specific topic not found.",
+    "Locale-specific fields are used based on alt language settings."
+  ],
+  "validations": [
+    "ScreenName, HelpTitle, and HelpTitleAlt must not be blank."
+  ],
+  "calculations": [
+    "Calculate end date for new feature icon based on creation date and retention days."
+  ],
+  "conditions": [
+    "Use alt language fields if Sess.UseAltLanguageFields is true."
+  ],
+  "system_behavior": [
+    "Help text placeholders are dynamically replaced with session data.",
+    "Execute SQL statements embedded within help text and replace with results."
+  ],
+  "dependencies": [
+    "Uses HSPnetSession for database operations and session management.",
+    "Relies on SqlDataReader for database interactions."
+  ],
+  "exceptions": [
+    "If SQL placeholder processing fails, text remains unchanged."
+  ],
+  "source_document_ids": [
+    "21d46c2d-5929-5124-a119-8066c6d437e4",
+    "3348fa71-4e75-59ee-b032-ed422d8abf87",
+    "449d8f47-715b-5cf5-8e83-d1106e930693",
+    "526e28e5-8a8f-5643-ac42-8023f91dbd31",
+    "5d8e056c-9e95-55da-a240-bc812a02939a",
+    "64ed09ec-bec2-5bbf-865e-fa81f7d61056",
+    "741559a8-09ae-5e89-907c-2ff25599521e",
+    "8ef38b09-2579-5d72-8ab9-2b6ec376759c",
+    "98a9ab4f-7e18-56a4-b779-a6c08ce4c4a8",
+    "ab0f77a5-2e1c-5c6d-92c5-f65074b5dd2b",
+    "b1a0acfb-3176-5b64-960b-9eefe93fc047",
+    "bd988788-3cba-5a82-8653-2605d1ab787b",
+    "caae44a5-231d-5fee-a43d-d4299c4a1635",
+    "e0d85c8d-11b5-5081-991f-f60002c4a38b",
+    "ea4992cf-9c99-5cae-bbb8-0783738c4554",
+    "eeb82427-592c-5915-8234-b27d7026c285",
+    "fbbd70a0-ace9-5354-ae00-e12f21b58d63",
+    "fe567c34-537d-5ac5-a7f9-834ae65febf0"
+  ],
+  "content_gaps": []
+}
