@@ -1,9 +1,30 @@
 {
   "filename": "StudentActiveCohort",
   "found": true,
-  "summary": "The documents describe the implementation of a StudentActiveCohort system, which manages student cohort assignments, enrollments, and unassignments within a database. Key functionalities include retrieving and displaying active cohorts for students, managing courses within cohorts, and handling student removal from cohorts.",
-  "purpose": "To manage and track the cohort assignments and course enrollments of students within a system, enabling the retrieval of active cohorts and facilitating database operations related to student cohorts.",
-  "entities": [],
+  "summary": "The content pertains to the 'StudentActiveCohort' class and associated functionality within a data layer, handling operations related to student cohorts - specifically their enrollment, assignment, and removal in cohorts. It involves database operations to retrieve and manipulate cohort data for students, using ADO.NET for data access.",
+  "purpose": "The purpose of the 'StudentActiveCohort' module is to manage and facilitate operations related to student cohorts, including searching for active cohorts, managing enrollments and assignments, and removing students from cohorts.",
+  "entities": [
+    {
+      "name": "StudentActiveCohort",
+      "fields": [
+        "DepartmentID",
+        "DepartmentShortName",
+        "ProgramID",
+        "ProgramShortName",
+        "CohortID",
+        "CohortShortName",
+        "Unstructured",
+        "EnrolledCourses",
+        "AssignedCourses",
+        "UnassignedCourses",
+        "TimetableID",
+        "StudentHasActiveUserID",
+        "TermID",
+        "CourseID",
+        "CourseName"
+      ]
+    }
+  ],
   "fields": [
     "DepartmentID",
     "DepartmentShortName",
@@ -19,50 +40,60 @@
     "StudentHasActiveUserID",
     "TermID",
     "CourseID",
-    "CourseName"
+    "CourseName",
+    "SessionID",
+    "studentID"
   ],
-  "actors": [],
+  "actors": [
+    "HSPnetSession",
+    "SqlDataReader"
+  ],
   "workflows": [
     {
-      "name": "Retrieve Active Cohorts",
+      "name": "StudentSearchActiveCohorts",
       "steps": [
-        "Set stored procedure to StudentSearchActiveCohorts.",
-        "Add parameters for SessionID and StudentID.",
-        "Retrieve data using SqlDataReader.",
-        "Parse each record into a StudentActiveCohort entry.",
-        "Close SqlDataReader.",
-        "Return the list of StudentActiveCohort entries."
+        "Set procedure name 'StudentSearchActiveCohorts'",
+        "Add parameters 'SessionID', 'StudentID'",
+        "Execute stored procedure",
+        "Read and process data, instantiate 'StudentActiveCohort' objects",
+        "Add valid entries to list",
+        "Return list of active cohorts"
       ]
     },
     {
-      "name": "Remove Student From Cohort",
+      "name": "StudentRemoveFromCohort",
       "steps": [
-        "Set stored procedure to StudentRemoveFromCohort.",
-        "Add parameters for SessionID, StudentID, and CohortID.",
-        "Retrieve and process data using SqlDataReader.",
-        "Parse relevant records into StudentActiveCohort entries.",
-        "Close SqlDataReader.",
-        "Return the updated list of StudentActiveCohort entries."
+        "Set procedure name 'StudentRemoveFromCohort'",
+        "Add parameters 'SessionID', 'StudentID', 'CohortID'",
+        "Execute stored procedure",
+        "Process data and return result"
       ]
     }
   ],
-  "business_rules": [],
-  "validations": [],
+  "business_rules": [
+    "Skip all-zero entries",
+    "Students can be removed from a cohort if they meet certain criteria"
+  ],
+  "validations": [
+    "Check for presence of assigned courses and unassigned courses before adding to list"
+  ],
   "calculations": [
-    "UnassignedCourses = EnrolledCourses - AssignedCourses"
+    "entry.UnassignedCourses = entry.EnrolledCourses - entry.AssignedCourses"
   ],
   "conditions": [
-    "Skip all-zero entries for AssignedCourses and UnassignedCourses."
+    "While dr.GetName(0) != 'Course'",
+    "entry.AssignedCourses != 0 || entry.UnassignedCourses != 0"
   ],
   "system_behavior": [
-    "The system utilizes a stored procedure approach to query and manipulate student cohort data.",
-    "Data retrieval is managed through SqlDataReader with parameterized SQL to ensure security and integrity.",
-    "Course data is processed and populated into dedicated StudentActiveCohort objects for further manipulation."
+    "Retrieve cohort data using stored procedures",
+    "Manage student course assignments"
   ],
-  "dependencies": [],
-  "exceptions": [
-    "All-zero entries for AssignedCourses and UnassignedCourses are skipped during processing."
+  "dependencies": [
+    "HSPnet.Framework",
+    "HSPnet.App_GlobalResources",
+    "HSPnet.UI"
   ],
+  "exceptions": [],
   "source_document_ids": [
     "24eaf078-e391-5240-9a2b-f1e669753812",
     "8027c505-01e5-5861-af3d-ec417f2e1383",
