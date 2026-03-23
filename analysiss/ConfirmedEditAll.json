@@ -1,88 +1,87 @@
 {
-    "filename": "ConfirmedEditAll",
-    "found": true,
-    "summary": "The contents of the retrieved documents detail the implementation of the ConfirmedEditAll user control within a web application, which is used for managing enrollment records. It includes methods for setting parameters, handling commands, and validating user input.",
-    "purpose": "The ConfirmedEditAll user control is designed to facilitate the editing and confirmation of enrollments in a grid format within a web-based user interface. It allows users to view, edit, and apply batch actions to enrollment records.",
-    "entities": [],
-    "fields": [
-        "UserSession",
-        "CohortID",
-        "TermID",
-        "CourseID",
-        "ShowAll",
-        "ShowGrad",
-        "ShowInactive",
-        "ShowWaived",
-        "SectionFilter",
-        "ActionFilter",
-        "Sort",
-        "Asc",
-        "keyword",
-        "blnReadOnly",
-        "CampusID",
-        "CommentFilter",
-        "blnStudentMaint",
-        "EnrollmentID",
-        "StartRow",
-        "maximumRows"
-    ],
-    "actors": [
-        "User",
-        "Administrator"
-    ],
-    "workflows": [
-        {
-            "name": "Edit Enrollment",
-            "steps": [
-                "Set up input parameters using UserSession.",
-                "Load enrollment data to be edited.",
-                "Check if the screen is editable based on enrollment data conditions.",
-                "Provide options to cancel or save changes.",
-                "Handle batch editing and saving through grid commands."
-            ]
-        }
-    ],
-    "business_rules": [
-        "Screen is editable if enrollment is not waived, graduated, or inactive unless set to read-only.",
-        "Hide 'Save All' button if in 'Add' or 'Edit' mode.",
-        "Redirect to 'EnrollmentEditAll.aspx' for continuation after saving edits."
-    ],
-    "validations": [
-        "Check if UserSession is available before proceeding with data selection.",
-        "Ensure data fields like Shift Length are correctly set before allowing further actions.",
-        "Limit text input lengths to specified maximums."
-    ],
-    "calculations": [
-        "Calculate shifts based on the duration and shift length."
-    ],
-    "conditions": [
-        "Data row visibility is dependent on the ScreenIsEditable boolean.",
-        "Hide header Save buttons if grid has less than 14 rows or is not in page size limit."
-    ],
-    "system_behavior": [
-        "Disable edit fields if read-only is set.",
-        "Bind data to grid on certain conditions.",
-        "JavaScript functions are set dynamically based on grid state."
-    ],
-    "dependencies": [
-        "Utilizes HSPnet.DataLayer for data operations.",
-        "Employs ASP.NET controls like GridView for UI rendering."
-    ],
-    "exceptions": [
-        "Cancel data selection if UserSession is not set."
-    ],
-    "source_document_ids": [
-        "0755397d-49f2-5a80-a0d6-c84d5befefe0",
-        "34b1ed38-0e13-5881-8c0c-26bd1f44b46b",
-        "513cc50b-05c2-5153-82f8-8d9383c789ef",
-        "59112759-401e-5d1d-9e84-dd6d9689b84b",
-        "8d832e31-1a4d-5e04-9656-eb00f2cd56a1",
-        "b989a689-a654-5f07-8f33-b102b75b1baf",
-        "bafc9285-af0a-5a05-b6e0-eb6e8591b991",
-        "bf3192b3-566f-595d-81dd-781d8bc85e4f",
-        "d401b74f-333a-50e6-bc77-7ce52c48358e",
-        "e2ef249a-91bc-5e2c-8fac-121b02b68443",
-        "e869f95d-1c2a-5a90-8ff0-b80225502383"
-    ],
-    "content_gaps": []
+  "filename": "ConfirmedEditAll",
+  "found": true,
+  "summary": "The ConfirmedEditAll module is a part of the HSPnet system that manages user interactions and data presentation related to enrollments. It involves the configuration and behavior of grid data editing functions, including handling user sessions, input parameters, and command processing for actions like saving and redirecting. The module incorporates validation, state management, and dynamic front-end updates through JavaScript.",
+  "purpose": "To provide functionalities for managing and editing enrollment data in bulk, ensuring data integrity and providing user-friendly interfaces for confirmation and modification of enrollment statuses.",
+  "entities": [],
+  "fields": [
+    "UserSession",
+    "CohortID",
+    "TermID",
+    "CourseID",
+    "ShowGrad",
+    "ShowInactive",
+    "ShowWaived",
+    "SectionFilter",
+    "ActionFilter",
+    "Sort",
+    "Asc",
+    "keyword",
+    "CampusID",
+    "CommentFilter",
+    "EnrollmentID",
+    "StartRow",
+    "gridDataEdit",
+    "pnlHeaderSaveAll",
+    "txtDirty",
+    "txtActualHours",
+    "txtNotes",
+    "txtDurationShifts",
+    "txtShiftLength",
+    "txtViewAllRAs"
+  ],
+  "actors": [
+    "UserSession"
+  ],
+  "workflows": [
+    {
+      "name": "Editing Enrollment Data",
+      "steps": [
+        "Initialize user session and input parameters.",
+        "Check user access and set screen editability.",
+        "Bind grid data on pre-render.",
+        "Handle row commands to save or redirect data.",
+        "Update JavaScript variables for client-side behavior."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Screen is editable if not waived, graduated, or inactive.",
+    "Certain buttons are hidden based on enrollment ID status."
+  ],
+  "validations": [
+    "Validation checks for each field include ensuring non-empty values and correct data types as per inputs.",
+    "Max-length validation for textarea fields like txtNotes."
+  ],
+  "calculations": [
+    "Calculate duration shifts based on actual hours and shift length.",
+    "Handle default or zero values for calculations involving shift codes."
+  ],
+  "conditions": [
+    "If EnrollmentID is 0, certain header and footer buttons are hidden.",
+    "Read-only status impacts visibility and editability of fields."
+  ],
+  "system_behavior": [
+    "Dynamic JavaScript setup for handling field visibility and interactivity.",
+    "Conditional redirects based on command names like cmdSaveAll or cmdSaveEditNext."
+  ],
+  "dependencies": [],
+  "exceptions": [
+    "Data binding failures handled by user session validation.",
+    "Redirection logic for unhandled commands binds grid data."
+  ],
+  "source_document_ids": [
+    "0755397d-49f2-5a80-a0d6-c84d5befefe0",
+    "34b1ed38-0e13-5881-8c0c-26bd1f44b46b",
+    "513cc50b-05c2-5153-82f8-8d9383c789ef",
+    "59112759-401e-5d1d-9e84-dd6d9689b84b",
+    "8d832e31-1a4d-5e04-9656-eb00f2cd56a1",
+    "b989a689-a654-5f07-8f33-b102b75b1baf",
+    "bafc9285-af0a-5a05-b6e0-eb6e8591b991",
+    "bf3192b3-566f-595d-81dd-781d8bc85e4f",
+    "d401b74f-333a-50e6-bc77-7ce52c48358e",
+    "e2ef249a-91bc-5e2c-8fac-121b02b68443",
+    "e869f95d-1c2a-5a90-8ff0-b80225502383"
+  ],
+  "content_gaps": []
 }
