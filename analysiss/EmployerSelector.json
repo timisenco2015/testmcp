@@ -1,111 +1,19 @@
 {
   "filename": "EmployerSelector",
-  "found": true,
-  "summary": "The EmployerSelector is a web control used to handle employment application processes within a web application. It includes functionality for managing saved choices, placements, and provides a UI for searching and selecting employers.",
-  "purpose": "To provide a user interface for managing and selecting employment applications and related data.",
-  "entities": [
-    "EmploymentApplication",
-    "HSPnetSession",
-    "GridViewRow",
-    "UserSession"
-  ],
-  "fields": [
-    "Literal10",
-    "uxCityNameContains",
-    "Literal9",
-    "uxRegion",
-    "cmdSearch",
-    "uxPlacements",
-    "dsSavedChoices",
-    "dsPlacements",
-    "dsRegions",
-    "uxTotalSites",
-    "uxAgencySiteContains"
-  ],
-  "actors": [
-    "UserSession",
-    "StudentID"
-  ],
-  "workflows": [
-    {
-      "name": "Page_Load",
-      "steps": [
-        "Check if the page is not a postback.",
-        "Set uxPlacements visibility to false."
-      ]
-    },
-    {
-      "name": "cmdSearch_Click",
-      "steps": [
-        "Set uxPlacements visibility to true.",
-        "Bind data to uxPlacements."
-      ]
-    },
-    {
-      "name": "uxPlacements_RowCommand",
-      "steps": [
-        "Check the command name.",
-        "If cmdAdd, convert command argument to siteID.",
-        "Add employment application using UserSession, StudentID, and siteID.",
-        "Refresh the control."
-      ]
-    },
-    {
-      "name": "uxSavedChoices_RowCommand",
-      "steps": [
-        "Check the command name.",
-        "If cmdDelete, convert command argument to ID and delete the application.",
-        "If cmdWithdraw, convert command argument to ID and withdraw the application.",
-        "Refresh the control."
-      ]
-    },
-    {
-      "name": "Refresh",
-      "steps": [
-        "Bind data to uxSavedChoices.",
-        "Bind totals.",
-        "Bind data to uxPlacements."
-      ]
-    }
-  ],
-  "business_rules": [
-    "Auto-generated fields should be moved from designer file to code-behind file to modify.",
-    "Links are hidden from students if site recruitment is closed."
-  ],
-  "validations": [
-    "If UserSession is null, cancel selection event."
-  ],
-  "calculations": [
-    "Calculate total sites by counting results from SiteSearchRecruitment."
-  ],
-  "conditions": [
-    "Check if row type is DataRow.",
-    "Check the visibility based on UserSession and SiteRecruitmentClosed status."
-  ],
-  "system_behavior": [
-    "Auto-generated fields are used in various controls.",
-    "Data is bound to controls based on session and student ID."
-  ],
-  "dependencies": [
-    "UserSession",
-    "StudentID",
-    "HSPnet.Framework",
-    "HSPnet.UI",
-    "HSPnet.DataLayer"
-  ],
-  "exceptions": [
-    "If UserSession is null during selection, the event is cancelled."
-  ],
-  "source_document_ids": [
-    "03fb348a-b850-5571-b590-7b855ebd878e",
-    "22b50668-1953-5d21-a511-ac1c39fd49d5",
-    "4bd3a7b4-6445-5cd2-b7fb-62f1c82d630a",
-    "501f8372-1fee-50a1-9587-ca253f9cdadb",
-    "59409830-c777-5159-b7f3-28c8a8d9ada5",
-    "645f0d95-f7e7-53aa-87b0-734768d731f6",
-    "6f553d2c-f923-52c1-97bf-dac2f239f186",
-    "ab95efd6-00ad-5902-a875-0a15ecc3ea9c",
-    "effa0842-dfb4-56ec-a599-fe6f565ba857"
-  ],
-  "content_gaps": []
+  "found": false,
+  "summary": "",
+  "purpose": "",
+  "entities": [],
+  "fields": [],
+  "actors": [],
+  "workflows": [],
+  "business_rules": [],
+  "validations": [],
+  "calculations": [],
+  "conditions": [],
+  "system_behavior": [],
+  "dependencies": [],
+  "exceptions": [],
+  "source_document_ids": [],
+  "content_gaps": ["No related documents found"]
 }
