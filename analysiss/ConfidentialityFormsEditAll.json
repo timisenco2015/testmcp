@@ -1,77 +1,70 @@
 {
-    "filename": "ConfidentialityFormsEditAll",
-    "found": true,
-    "summary": "The ConfidentialityFormsEditAll document is concerned with managing student confidentiality forms within an enrollment system, using a grid interface to edit form details and handle user actions like saving and updating form data.",
-    "purpose": "To provide a user interface and system logic for editing and saving student confidentiality forms within an enrollment process.",
-    "entities": [
-        "DataLayer.StudentConfidentialityForms",
-        "UserSession",
-        "HSPnet.Enrollment",
-        "GridViewRow",
-        "ObjectDataSource"
-    ],
-    "fields": [
-        "agency",
-        "dept",
-        "dateReceived",
-        "formID",
-        "providerTypeCodeID",
-        "txtNotes",
-        "txtDirty"
-    ],
-    "actors": [
-        "User",
-        "DataLayer.StudentConfidentialityForms controller"
-    ],
-    "workflows": [
-        {
-            "name": "Confidentiality Form Edit Workflow",
-            "steps": [
-                "User interacts with ConfidentialityFormsEditAll gridDataEdit.",
-                "User selects save action (cmdSave, cmdSaveAll, cmdSaveEditNext).",
-                "System collects and validates form data.",
-                "Form data is added or updated in the system based on formID.",
-                "Redirect to enrollment page if no messages or errors exist."
-            ]
-        }
-    ],
-    "business_rules": [
-        "If formID is 0 and agency and dateReceived are specified, add new confidentiality form.",
-        "Update existing forms if formID is not 0."
-    ],
-    "validations": [
-        "Check if agency is specified.",
-        "Ensure dateReceived is valid and mandatory."
-    ],
-    "calculations": [],
-    "conditions": [
-        "Proceed with update if isDirty is true.",
-        "Redirect if hasMessage is false and no errors exist."
-    ],
-    "system_behavior": [
-        "Grids and buttons are shown or hidden based on enrollment status.",
-        "JavaScript manages UI interactions and validation messages."
-    ],
-    "dependencies": [
-        "HSPnet.Session",
-        "HSPnet.Enrollment",
-        "System.Web.UI.WebControls.GridView"
-    ],
-    "exceptions": [
-        "Handle missing UserSession in dsMaster_Selecting."
-    ],
-    "source_document_ids": [
-        "0a014b00-82da-52a0-adde-50896fa53dda",
-        "0ec090e0-3460-52bb-a6a8-a25ce33f96d7",
-        "326f4b1a-8bd7-523c-aa51-4fa991595a62",
-        "32c9ada3-adbb-5e33-89da-dce98991b6fc",
-        "465df8e4-4da0-54e2-9a2f-e9cef323bc9d",
-        "8b68d37c-a9bb-5cb2-8e8e-92b775c627e2",
-        "8dc6d1df-c845-58ab-9d75-1d7f5597b6a7",
-        "8f89e0d9-a9e0-5ed8-b5b8-8960ae212279",
-        "d7942410-4d36-5ba8-bebb-3b4eac82ddcc",
-        "dca2c780-920c-5748-8d46-ff12c62a342f",
-        "fb6e725e-7d87-5daf-a752-41c1f07a192c"
-    ],
-    "content_gaps": []
+  "filename": "ConfidentialityFormsEditAll",
+  "found": true,
+  "summary": "The ConfidentialityFormsEditAll system is designed to manage and edit confidentiality forms associated with student enrollments. It includes functionalities for saving, updating, and navigating through enrollment records based on user inputs.",
+  "purpose": "The purpose of the ConfidentialityFormsEditAll system is to facilitate the management and editing of student confidentiality forms within an educational institution's enrollment process.",
+  "entities": [],
+  "fields": [
+    "providerTypeCodeID",
+    "agency",
+    "dept",
+    "dateReceived",
+    "formID",
+    "txtNotes",
+    "txtDateReceived",
+    "txtFormID",
+    "txtStudentID",
+    "txtDirty"
+  ],
+  "actors": [
+    "UserSession",
+    "controller"
+  ],
+  "workflows": [
+    {
+      "name": "ConfidentialityFormSaveWorkflow",
+      "steps": [
+        "Capture agency and department from request form.",
+        "Check if formID is 0; if true, add new form.",
+        "Update existing form if formID is not 0."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Agency must be specified.",
+    "DateReceived must be valid and mandatory."
+  ],
+  "validations": [
+    "Agency must be specified before saving.",
+    "DateReceived must be valid and non-empty."
+  ],
+  "calculations": [],
+  "conditions": [
+    "Redirect if no message and error count is less than 1."
+  ],
+  "system_behavior": [
+    "Redirects to Enrollment.aspx on specific commands.",
+    "Handles Save, SaveAll, SaveEditNext commands with redirection based on conditions."
+  ],
+  "dependencies": [
+    "User session data for operations",
+    "HSPnet.Enrollment filters for navigation"
+  ],
+  "exceptions": [
+    "Cancel operation if UserSession is null in data source selecting."
+  ],
+  "source_document_ids": [
+    "0a014b00-82da-52a0-adde-50896fa53dda",
+    "0ec090e0-3460-52bb-a6a8-a25ce33f96d7",
+    "326f4b1a-8bd7-523c-aa51-4fa991595a62",
+    "32c9ada3-adbb-5e33-89da-dce98991b6fc",
+    "465df8e4-4da0-54e2-9a2f-e9cef323bc9d",
+    "8b68d37c-a9bb-5cb2-8e8e-92b775c627e2",
+    "8dc6d1df-c845-58ab-9d75-1d7f5597b6a7",
+    "8f89e0d9-a9e0-5ed8-b5b8-8960ae212279",
+    "d7942410-4d36-5ba8-bebb-3b4eac82ddcc",
+    "dca2c780-920c-5748-8d46-ff12c62a342f",
+    "fb6e725e-7d87-5daf-a752-41c1f07a192c"
+  ],
+  "content_gaps": []
 }
