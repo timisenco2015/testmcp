@@ -1,0 +1,119 @@
+{
+  "filename": "ProgramDocument",
+  "found": true,
+  "summary": "The ProgramDocument system manages the handling, storage, and retrieval of documents associated with programs. It supports adding, deleting, and searching for documents, and manages document metadata such as file path, size, and type.",
+  "purpose": "To provide functionality for managing program-related documents, including adding new documents, deleting existing ones, and retrieving document information based on program or document IDs.",
+  "entities": [],
+  "fields": [
+    "ID",
+    "ProgramID",
+    "TypeCodeID",
+    "DocumentName",
+    "TypeComments",
+    "FileURL",
+    "FilePath",
+    "FileSize",
+    "FileType",
+    "FileTypeAlt",
+    "Deleted",
+    "UpdateDate",
+    "ByUserId",
+    "LastName",
+    "FirstName",
+    "MiddleName",
+    "TypeCode",
+    "UpdatedDetails",
+    "ProgramLogoCodeID",
+    "Logo",
+    "Code",
+    "AgencyShortName",
+    "AgencyName",
+    "Phone",
+    "Email",
+    "UpdateDateFormatted",
+    "AgencyUserFormatted",
+    "EmailFormatted"
+  ],
+  "actors": ["HSPnetSession", "SqlDataReader"],
+  "workflows": [
+    {
+      "name": "Add Document",
+      "steps": [
+        "Check if the document is valid",
+        "Set the stored procedure name to 'ProgramDocumentAddDoc'",
+        "Add parameters for session ID, program document ID, program ID, type code ID, document name, comments, URL, path, size, and type",
+        "Execute the query",
+        "If the document is a logo, update the logo in the 'ProgramLogos' table"
+      ]
+    },
+    {
+      "name": "Delete Document",
+      "steps": [
+        "Check if the document ID is greater than 0",
+        "Retrieve document details using the document ID",
+        "Delete the file and the containing folder, ignoring exceptions",
+        "Set the stored procedure name to 'ProgramDocumentDelete'",
+        "Add parameters for session ID and document ID",
+        "Execute the query"
+      ]
+    },
+    {
+      "name": "Search By Document ID",
+      "steps": [
+        "Set the stored procedure name to 'ProgramDocumentSearchByID'",
+        "Add parameters for document ID",
+        "Retrieve data using a data reader",
+        "Fill a list with document data",
+        "Close the data reader"
+      ]
+    },
+    {
+      "name": "Get Program Logo Code ID",
+      "steps": [
+        "Retrieve a list of codes by category 'ProgramDocumentType'",
+        "Check each code to see if it matches 'LOGO'",
+        "Return the ID associated with the 'LOGO' code"
+      ]
+    }
+  ],
+  "business_rules": [
+    "File URL is converted to a link if the URL is non-blank and the file exists",
+    "If the document type code is 'OTHER', it is displayed as 'Other'",
+    "When running in alternate language mode, alternate language fields are used"
+  ],
+  "validations": [
+    "Ensure TypeCodeID is not zero before proceeding with document actions"
+  ],
+  "calculations": [],
+  "conditions": [
+    "If the document type is a logo, specific actions are taken",
+    "Use department logo if 'UseDepartmentLogo' is true"
+  ],
+  "system_behavior": [
+    "Documents can be added, deleted, or retrieved",
+    "Document metadata such as file path, type, and size are managed",
+    "Document updates are logged with date and user information"
+  ],
+  "dependencies": [
+    "HSPnetSession",
+    "System.Data.SqlClient",
+    "System.IO",
+    "HSPnet.Framework"
+  ],
+  "exceptions": [
+    "File and directory deletion failures are silently caught",
+    "Database access errors are managed through session messaging"
+  ],
+  "source_document_ids": [
+    "1a0b0c34-45f5-5ca0-a3fc-2f0fff26ae3b",
+    "2c0daec2-0f87-55ad-aef4-100648f0df62",
+    "33d5c925-af8e-52b0-b073-0382a408bbf3",
+    "48e1ff70-8a9e-5beb-91dc-3879521474ca",
+    "833f2f00-6743-52a7-8b65-16562894237e",
+    "97a7f632-3166-5d34-a495-564bd557699a",
+    "9dd4dd0e-53a5-59d8-a1a4-af59119a4581",
+    "c9adad5c-d06d-583a-a3f8-ada73516eac6",
+    "e72f52b8-2ba0-55f3-b719-44c47f1604ad"
+  ],
+  "content_gaps": []
+}
