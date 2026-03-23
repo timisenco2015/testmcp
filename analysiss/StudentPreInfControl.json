@@ -1,102 +1,72 @@
 {
-    "filename": "StudentPreInfControl",
-    "found": true,
-    "summary": "The StudentPreInfControl is a web-based user control designed for managing student prerequisite information related to infection control, particularly focusing on the configuration of N95 mask sizes and fit test dates.",
-    "purpose": "The purpose of the StudentPreInfControl is to facilitate the management and updating of student infection control prerequisites, including N95 mask size selection, fit test dates, and related infection control solutions. It ensures data integrity and compliance through controlled updates and validations.",
-    "entities": [],
-    "fields": [
-        {
-            "name": "updPnlMain",
-            "type": "global::System.Web.UI.UpdatePanel",
-            "description": "Main update panel for the control."
-        },
-        {
-            "name": "txtCalendarPlaceholder",
-            "type": "global::System.Web.UI.WebControls.TextBox",
-            "description": "TextBox for calendar placeholder."
-        },
-        {
-            "name": "calCalendarPlaceholder",
-            "type": "global::AjaxControlToolkit.CalendarExtender",
-            "description": "Calendar extender for date selection."
-        },
-        {
-            "name": "fvmStdPrerequisite",
-            "type": "global::System.Web.UI.WebControls.FormView",
-            "description": "FormView for displaying and editing student prerequisites."
-        },
-        {
-            "name": "dsStdPrerequisite",
-            "type": "global::System.Web.UI.WebControls.ObjectDataSource",
-            "description": "DataSource for student prerequisite information."
-        },
-        {
-            "name": "ValidationSummary1",
-            "type": "global::System.Web.UI.WebControls.ValidationSummary",
-            "description": "Displays a summary of validation errors."
-        },
-        {
-            "name": "uxDetail",
-            "type": "global::System.Web.UI.WebControls.FormView",
-            "description": "FormView for detailed student data entry and updates."
-        },
-        {
-            "name": "dsStdPrerequisiteDetail",
-            "type": "global::System.Web.UI.WebControls.ObjectDataSource",
-            "description": "DataSource for detailed student prerequisite information."
-        },
-        {
-            "name": "pnlPopup",
-            "type": "global::System.Web.UI.WebControls.Panel",
-            "description": "Panel for pop-up windows."
-        }
-    ],
-    "actors": [
-        {
-            "name": "UserSession",
-            "role": "Manages session data and user context."
-        }
-    ],
-    "workflows": [
-        {
-            "name": "Updating Student Data",
-            "steps": [
-                "User selects N95 mask size and fit test date from dropdowns.",
-                "Data validation occurs; if validation fails, the update is canceled.",
-                "Upon successful validation, data is updated in the system.",
-                "After updating, the user is redirected to the Infection Control page."
-            ]
-        }
-    ],
-    "business_rules": [
-        "All updates must pass validation checks before being committed."
-    ],
-    "validations": [
-        "Ensure form data is valid before processing updates.",
-        "N95 Mask Size and Fit Test Date must be selected from provided options."
-    ],
-    "calculations": [],
-    "conditions": [
-        "If UserSession is null, data selection is canceled.",
-        "Screen is editable based on user role and permissions."
-    ],
-    "system_behavior": [
-        "The control manages state through UserSession and handles user interactions via web forms."
-    ],
-    "dependencies": [],
-    "exceptions": [
-        "Null UserSession leads to operation cancellation during data selection."
-    ],
-    "source_document_ids": [
-        "04e9c4ac-7f77-5f3e-bfe5-d536dd31d727",
-        "1ae444a0-0cee-563e-be86-22e725e52b56",
-        "1f927279-8e83-52a0-b9fc-166c681c56f2",
-        "680c0077-b938-56b3-ba5d-6be62f571fc8",
-        "6fa54b48-83ba-581c-bc12-6bc743869ea2",
-        "85e13646-c70b-5b6e-b11a-e421b1750e04",
-        "8b9ecfea-0f28-5193-9388-f81afa65b730",
-        "b0772815-3167-5d6b-9ded-96e4cca329b6",
-        "d4625212-8b62-5355-8519-8cf54815b538"
-    ],
-    "content_gaps": []
+  "filename": "StudentPreInfControl",
+  "found": true,
+  "summary": "This document details the implementation of a web user control named StudentPreInfControl in the HSPnet system, focusing on managing student prerequisites and infection control information.",
+  "purpose": "The purpose of this user control is to facilitate the management and display of student infection control prerequisites, utilizing various UI elements such as forms and dropdowns for data selection and modification.",
+  "entities": [],
+  "fields": [
+    "updPnlMain",
+    "txtCalendarPlaceholder",
+    "calCalendarPlaceholder",
+    "fvmStdPrerequisite",
+    "dsStdPrerequisite",
+    "ValidationSummary1",
+    "uxDetail",
+    "dsStdPrerequisiteDetail",
+    "dsN95MaskSizeCode",
+    "dsN95MaskFitTestDate",
+    "dsInfectionControlSolutions",
+    "pnlPopup",
+    "updPnlPopup",
+    "btnShowPopup",
+    "mdlDetails"
+  ],
+  "actors": [],
+  "workflows": [
+    {
+      "name": "Update Student Prerequisite Details",
+      "steps": [
+        "User triggers an update action on the form.",
+        "System validates form data.",
+        "New values are extracted from dropdowns and text inputs.",
+        "If validation passes, updates are submitted to the database.",
+        "Upon successful update, user is redirected to the Infection Control page."
+      ]
+    }
+  ],
+  "business_rules": [
+    "If the page is not valid, cancel the update operation.",
+    "Use dropdown selections to update specific prerequisite fields."
+  ],
+  "validations": [
+    "Page validity is checked before updating data.",
+    "JavaScript is used to manage dropdown selections and default values."
+  ],
+  "calculations": [],
+  "conditions": [
+    "If the user session is null, cancel data selection operations.",
+    "Determine button visibility based on the screen's editability."
+  ],
+  "system_behavior": [
+    "Redirects user to the Infection Control page upon update completion.",
+    "Caches user session data.",
+    "Disables edit fields and calendar controls if the screen is not editable."
+  ],
+  "dependencies": [
+    "Depends on the HSPnetSession for user session management.",
+    "Utilizes the HSPnet Framework for UI and data operations."
+  ],
+  "exceptions": [],
+  "source_document_ids": [
+    "04e9c4ac-7f77-5f3e-bfe5-d536dd31d727",
+    "1ae444a0-0cee-563e-be86-22e725e52b56",
+    "1f927279-8e83-52a0-b9fc-166c681c56f2",
+    "680c0077-b938-56b3-ba5d-6be62f571fc8",
+    "6fa54b48-83ba-581c-bc12-6bc743869ea2",
+    "85e13646-c70b-5b6e-b11a-e421b1750e04",
+    "8b9ecfea-0f28-5193-9388-f81afa65b730",
+    "b0772815-3167-5d6b-9ded-96e4cca329b6",
+    "d4625212-8b62-5355-8519-8cf54815b538"
+  ],
+  "content_gaps": []
 }
