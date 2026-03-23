@@ -1,0 +1,113 @@
+{
+  "filename": "UserFavLocations",
+  "found": true,
+  "summary": "UserFavLocations is a web-based interface designed to manage and view users' favorite locations within the HSPnet application. It supports viewing, modifying, and saving lists of included and not included locations.",
+  "purpose": "To allow users to manage their list of favorite and non-favorite locations within the system.",
+  "entities": [],
+  "fields": [
+    {
+      "name": "ViewAllMode",
+      "type": "string",
+      "description": "Query string parameter to determine the view mode."
+    },
+    {
+      "name": "StandAloneMode",
+      "type": "string",
+      "description": "Query string parameter to determine if the application is running in standalone mode."
+    },
+    {
+      "name": "lbNotIncluded",
+      "type": "listbox",
+      "description": "List box for agencies not marked as favorites."
+    },
+    {
+      "name": "lbIncluded",
+      "type": "listbox",
+      "description": "List box for agencies marked as favorites."
+    }
+  ],
+  "actors": [
+    {
+      "name": "UserSession",
+      "role": "Represents the current user's session."
+    }
+  ],
+  "workflows": [
+    {
+      "name": "LoadLists",
+      "steps": [
+        "Retrieve agencies not marked as favorites.",
+        "Bind agencies to lbNotIncluded.",
+        "Retrieve agencies marked as favorites.",
+        "Bind agencies to lbIncluded."
+      ]
+    },
+    {
+      "name": "cmdSave_Click",
+      "steps": [
+        "Update user's favorite agencies based on lbIncluded.",
+        "Reload the lists of agencies."
+      ]
+    },
+    {
+      "name": "cmdViewRAQ_Click",
+      "steps": [
+        "Hide pnlViewRAQ.",
+        "Show pnlViewALL.",
+        "Indicate RAQ mode change."
+      ]
+    },
+    {
+      "name": "cmdViewALL_Click",
+      "steps": [
+        "Show pnlViewRAQ.",
+        "Hide pnlViewALL.",
+        "Indicate RAQ mode change."
+      ]
+    }
+  ],
+  "business_rules": [
+    "If StandAloneMode is not '1', it defaults to '0'."
+  ],
+  "validations": [
+    "Ensure that StandAloneMode is either '0' or '1'."
+  ],
+  "calculations": [],
+  "conditions": [
+    "When in standalone mode and ViewAllMode is '1', pnlViewALL is hidden.",
+    "When not in standalone mode, the opposite view panel is hidden."
+  ],
+  "system_behavior": [
+    "Handles page load by setting up the HSPnet page and loading lists.",
+    "Processes page messages on Page_PreRender.",
+    "Updates user's favorite list on save.",
+    "Switches panels on view mode changes."
+  ],
+  "dependencies": [
+    "Framework.Hashing for URL validation.",
+    "HSPnet.DataLayer for data access."
+  ],
+  "exceptions": [],
+  "source_document_ids": [
+    "0e0ce165-1ac6-5b86-9ab8-bee8b49aa587",
+    "0ead2eb4-ca22-5079-a649-abe77331e906",
+    "24bd212a-c081-5ef5-ae5c-02cab4069a5d",
+    "29604d5f-956b-5b21-954f-3c46ab12192e",
+    "39f8dcc6-fbbb-554d-a83e-c72d5b507f6a",
+    "48a09015-b9a9-53fc-a3f6-27734ef6e882",
+    "54d138e9-7478-56c9-8436-4908ed0a6a55",
+    "641c8800-7840-52e1-b83a-f1e166e423d6",
+    "69bd95c0-674c-599b-92aa-0a8e2cce2aff",
+    "7386a75d-c648-5bc7-a3af-4adc01281d99",
+    "a2e4703b-ebf3-5bba-8c70-b816d53aee6a",
+    "aae50061-b06b-5938-a542-4d5a074869d6",
+    "d55ce845-aec4-5064-a2fd-a9d6c0f9b14d",
+    "ea5f2a78-1645-5cfc-ad3b-4adb6165bce8",
+    "ed463e4c-9263-5cf6-ac8f-62bd2efd7c68",
+    "faa7e728-71cc-5378-9924-ee141aed52c1",
+    "fd307450-c534-5c7f-bee0-e2544a6f1a88"
+  ],
+  "content_gaps": [
+    "Detailed error handling is not described."
+  ]
+}
