@@ -1,0 +1,84 @@
+# Module: PrfHomeContacts
+
+## PrfHomeContacts-UC1 — View Home Contact Details
+
+- Primary Actor(s): User
+- Secondary Actor(s): System
+- Trigger: User navigates to the home contacts section.
+- Description: The user views the home contact details within their profile.
+- Preconditions: User must be logged in.
+- Postconditions: Home contact details are displayed.
+- Main Success Scenario:
+  1. User navigates to the home contacts section.
+  2. System retrieves and displays the home contact details.
+- Extensions:
+  - If the user session is invalid, display an error message and redirect to the login page.
+- Exceptions: None
+- Business Rules:
+  - User session must be valid to access details.
+- Assumptions: User has an existing profile with contact details.
+- Open Issues: None
+
+## PrfHomeContacts-UC2 — Edit Home Contact Details
+
+- Primary Actor(s): User
+- Secondary Actor(s): System
+- Trigger: User opts to edit home contact details.
+- Description: The user edits the home contact information such as phone number, area, and country.
+- Preconditions: User is logged in and has access to edit their profile.
+- Postconditions: Updates are saved, and the user is redirected to the profile view.
+- Main Success Scenario:
+  1. User clicks on the edit button for home contacts.
+  2. System displays the editable fields.
+  3. User updates the necessary fields.
+  4. System saves the changes and redirects to the home contact details view.
+- Extensions:
+  - If ScreenIsEditable is false, the edit button is not visible.
+- Exceptions:
+  - If the update fails, an error message is shown and the changes are not saved.
+- Business Rules:
+  - All mandatory fields must be filled before saving.
+- Assumptions: Editable fields are accessible and the session is valid.
+- Open Issues: Handling of simultaneous updates by multiple users.
+
+## PrfHomeContacts-UC3 — Remove Phone Mask
+
+- Primary Actor(s): System
+- Secondary Actor(s): User
+- Trigger: User session indicates that phone masks are not being used.
+- Description: Phone mask settings are disabled for the home contact fields based on user session settings.
+- Preconditions: User session is active and UsePhoneMask is false.
+- Postconditions: Phone fields display raw input without formatting.
+- Main Success Scenario:
+  1. System checks the user session for phone mask preference.
+  2. System removes phone masks from the input fields.
+- Extensions: None
+- Exceptions: If session data is unavailable, default to using phone masks.
+- Business Rules:
+  - User session settings dictate the display of phone masks.
+- Assumptions: Phone mask preferences can be toggled in the session.
+- Open Issues: None
+
+## PrfHomeContacts-UC4 — Update Home Contact Data
+
+- Primary Actor(s): System
+- Secondary Actor(s): User
+- Trigger: User saves edited home contact details.
+- Description: System processes and updates the home contact data in the database.
+- Preconditions: User session is active, and changes have been made to contact details.
+- Postconditions: Changes are saved and reflected on the user’s profile.
+- Main Success Scenario:
+  1. User submits changes to home contact details.
+  2. System validates the input data.
+  3. System updates the database with the new data.
+  4. System displays the updated contact information.
+- Extensions:
+  - Rollback changes if database update fails.
+- Exceptions:
+  - If validation fails, prompt the user to correct the input.
+- Business Rules:
+  - Data must conform to validation rules before being saved.
+- Assumptions: Database connection is available and writable.
+- Open Issues: Error handling for database connectivity issues. 
+
+If no additional use cases emerge from the content, no further use cases can be extracted effectively.
