@@ -1,0 +1,78 @@
+{
+  "filename": "CriminalRecordsCheckEditAll",
+  "found": true,
+  "summary": "The document 'CriminalRecordsCheckEditAll' is a part of the HSPnet system's user controls for handling enrollment, specifically dealing with the editing and management of criminal records checks. It includes various UI elements and logic for displaying, sorting, filtering, and modifying records.",
+  "purpose": "To manage and facilitate the editing of criminal records checks within the HSPnet enrollment system.",
+  "entities": [],
+  "fields": [
+    "ValidationSummary1",
+    "gridDataEdit",
+    "dsCRC",
+    "CohortID",
+    "TermID",
+    "CourseID",
+    "SectionFilter",
+    "ActionFilter",
+    "keyword",
+    "CampusID",
+    "CommentFilter",
+    "UserSession"
+  ],
+  "actors": [
+    "UserSession",
+    "ScriptMgr"
+  ],
+  "workflows": [
+    {
+      "name": "Grid Data Edit and Display",
+      "steps": [
+        "Data is fetched using ObjectDataSource (dsCRC) with user session and various parameters.",
+        "gridDataEdit is populated and sorted based on user interaction.",
+        "ValidationSummary1 is updated based on actions performed.",
+        "UI components are dynamically shown or hidden based on data conditions (e.g., grid row count)."
+      ]
+    }
+  ],
+  "business_rules": [
+    "ShowGrad determines if graduate students are displayed.",
+    "ShowInactive controls inclusion of inactive students.",
+    "ShowWaived allows inclusion of waived students.",
+    "CommentFilter applies a filter based on comments provided.",
+    "Read-only mode restricts editing capabilities."
+  ],
+  "validations": [
+    "Ensure UserSession is active before proceeding with data operations."
+  ],
+  "calculations": [],
+  "conditions": [
+    "Different UI elements are displayed or hidden based on EnrollmentID and row count.",
+    "The grid displays data in edit mode for certain conditions."
+  ],
+  "system_behavior": [
+    "Data is bound to gridDataEdit and UI is refreshed based on user actions.",
+    "JavaScript variables are set and utilized for state management of fields.",
+    "Redirection occurs after save operations based on commands executed and warnings identified."
+  ],
+  "dependencies": [
+    "HSPnet.DataLayer",
+    "HSPnet.Framework",
+    "System.Web",
+    "System.Web.UI",
+    "System.Web.UI.WebControls"
+  ],
+  "exceptions": [
+    "Operations are canceled if UserSession is null during data source selection."
+  ],
+  "source_document_ids": [
+    "03144aa6-93b7-599f-b8e0-5588317ba19b",
+    "48902891-c057-57e5-9068-3b1307b2dffd",
+    "6918cccf-5e9d-514f-b001-797e2af8307f",
+    "b2bd51ac-3047-55c8-af59-4f8eed91961b",
+    "bd4a4fa1-d3ef-5764-b65e-7bf1cb6bbc30",
+    "c5efee46-5e88-55df-947d-7fe86465a805",
+    "d9e68048-669a-5e6a-b9fe-b5fe6ff4416e",
+    "f1a93269-4cd6-5f47-93a1-f9f2e4730224",
+    "f3ce8c3c-3cd0-531b-a85e-f90764dac0e2"
+  ],
+  "content_gaps": []
+}
