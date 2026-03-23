@@ -1,0 +1,64 @@
+```json
+{
+  "filename": "AllowedList",
+  "found": true,
+  "summary": "C# classes for managing allowed lists in a session.",
+  "purpose": "Manage and verify allowed locations within a session.",
+  "entities": [
+    "AllowedList",
+    "AllowedLists"
+  ],
+  "fields": [
+    "Code"
+  ],
+  "actors": [
+    "HSPnetSession",
+    "SqlDataReader"
+  ],
+  "workflows": [
+    {
+      "name": "SessionAllowedLocations",
+      "steps": [
+        "Initialize list",
+        "Set database procedure name",
+        "Add parameters",
+        "Execute and read data",
+        "Populate list",
+        "Return list"
+      ]
+    },
+    {
+      "name": "CheckAllowedList",
+      "steps": [
+        "Initialize return variable",
+        "Iterate over list",
+        "Compare codes",
+        "Set return value",
+        "Return result"
+      ]
+    }
+  ],
+  "business_rules": [
+    "All access if code is 'ALL'"
+  ],
+  "validations": [],
+  "calculations": [],
+  "conditions": [
+    "Code equals 'ALL'",
+    "Code equals ID"
+  ],
+  "system_behavior": [
+    "Closes data reader"
+  ],
+  "dependencies": [
+    "HSPnet.Framework",
+    "HSPnet.App_GlobalResources"
+  ],
+  "exceptions": [],
+  "source_document_ids": [
+    "96082a25-6d2c-5ded-9d45-3212935cf351",
+    "e3cab9e2-95a5-5d34-9f5a-3fa6764592d3"
+  ],
+  "content_gaps": []
+}
+```
