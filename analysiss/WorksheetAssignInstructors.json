@@ -1,127 +1,86 @@
 {
   "filename": "WorksheetAssignInstructors",
   "found": true,
-  "summary": "The 'WorksheetAssignInstructors' content is aimed at managing instructor assignments within a worksheet interface. It includes functionalities for filtering, selecting, editing, and submitting instructor-related data as part of a web application interface. The content provides details on the controls and workflow for managing instructor assignments, including dropdown filters and session variables.",
-  "purpose": "To facilitate the management and assignment of instructors through a web-based worksheet interface, allowing for selection, filtering, and updating of instructor data.",
-  "entities": [],
+  "summary": "This document contains code related to the assignment and management of instructors within a web application, involving various controls and logic to manage dropdowns, handles selections, and redirects based on user inputs.",
+  "purpose": "To manage the assignment of instructors to worksheet items, allowing for selection, filtering, and redirection within a web application. It includes features for selecting instructors and updating worksheet assignments.",
+  "entities": [
+    "Worksheet",
+    "Instructor",
+    "Session",
+    "Dropdown",
+    "Repeater",
+    "Grid"
+  ],
   "fields": [
-    {
-      "name": "ddInstructorFilter",
-      "type": "DropDownList",
-      "remarks": "Control for selecting instructor filters."
-    },
-    {
-      "name": "ddDateFilter",
-      "type": "DropDownList",
-      "remarks": "Control for selecting date filters."
-    },
-    {
-      "name": "ddCityFilter",
-      "type": "DropDownList",
-      "remarks": "Control for selecting city filters."
-    },
-    {
-      "name": "ddGoverningOrganizationFilter",
-      "type": "DropDownList",
-      "remarks": "Control for selecting governing organization filters."
-    },
-    {
-      "name": "ddSiteFilter",
-      "type": "DropDownList",
-      "remarks": "Control for selecting site filters."
-    },
-    {
-      "name": "ddServiceCodeFilter",
-      "type": "DropDownList",
-      "remarks": "Control for selecting service code filters."
-    },
-    {
-      "name": "cmdSubmit",
-      "type": "Button",
-      "remarks": "Button for submitting actions tied to instructor assignments."
-    },
-    {
-      "name": "uxDetail",
-      "type": "FormView",
-      "remarks": "Form view for detailed instructor data items."
-    },
-    {
-      "name": "rprMaster",
-      "type": "Repeater",
-      "remarks": "Repeater control for listing instructor items."
-    },
-    {
-      "name": "Session",
-      "type": "Object",
-      "remarks": "Session object to store variables for user session continuity."
-    }
+    "instructorList",
+    "siteFilter",
+    "serviceCodeFilter",
+    "dateFilter",
+    "cityFilter",
+    "governingOrgFilter",
+    "cohortID",
+    "termID",
+    "courseID",
+    "block",
+    "keyword",
+    "assignmentSortOrder",
+    "agencyID",
+    "siteID",
+    "instructorID",
+    "showUnavailableSpaces",
+    "showConfirmed",
+    "showPreferences",
+    "showSitePrerequisites",
+    "campusID",
+    "section"
   ],
   "actors": [
-    {
-      "name": "UserSession",
-      "role": "Represents the user's session throughout the application, holding relevant session data such as filters and permissions."
-    },
-    {
-      "name": "WorksheetAssignedInstructors",
-      "role": "Controller to manage instructor assignments within the worksheet."
-    },
-    {
-      "name": "DropdownList",
-      "role": "UI component for selecting options from a list, used for various filters."
-    }
+    "UserSession",
+    "Instructor",
+    "Administrator",
+    "Coordinator"
   ],
   "workflows": [
     {
-      "name": "Edit Instructor Assignments",
+      "name": "Assign Instructors to Worksheet",
       "steps": [
-        "Trigger 'cmdEditAll_Click' event.",
-        "Redirect to 'WorksheetAssignInstructorsEditAll.aspx' with relevant query string parameters.",
-        "Initialize controls like dropdown filters and session variables."
-      ]
-    },
-    {
-      "name": "Submit Instructor Action",
-      "steps": [
-        "Trigger 'cmdSubmit_Click' event.",
-        "Execute action depending on the selection, e.g., move offers.",
-        "Redirect user to the appropriate page after processing."
-      ]
-    },
-    {
-      "name": "Toggle Visibility",
-      "steps": [
-        "Evaluate 'ReadOnly' and 'GroupFlag' states.",
-        "Adjust visibility of controls like checkboxes and labels accordingly.",
-        "Bind data sources to UI elements if applicable."
+        "Initialize setup by loading dropdowns and filters.",
+        "Handle selection changes via `cmdSubmit_Click`.",
+        "Redirect based on selection and filter choices."
       ]
     }
   ],
   "business_rules": [
-    "Instructor dropdowns are hidden if a Site Instructor exists or has been requested.",
-    "Read-only mode restricts interaction with certain elements, e.g., disabling checkboxes."
+    "Selection of instructors should respect session variables and user permissions.",
+    "Redirects should include parameters reflecting current filter and sorting choices.",
+    "Show or hide elements based on user roles (e.g., Administrator, Coordinator)."
   ],
   "validations": [
-    "Validate presence of UserSession before proceeding with operations.",
-    "Ensure filters like 'InstructorFilter', 'DateFilter', are set correctly from session variables."
+    "Ensure selected instructor IDs are valid.",
+    "Dropdown selections must be validated before processing actions."
   ],
   "calculations": [
-    "Calculate totals for groups, accepted, assigned, and remaining instructors."
+    {
+      "name": "Calculate Totals",
+      "description": "Sum available totals and filter counts based on active selections."
+    }
   ],
   "conditions": [
-    "Conditionally show/hide elements based on 'GroupFlag' and 'ReadOnly' states.",
-    "Use 'Session' values to determine filter defaults and visibility."
+    "Check `GroupFlag` to determine display mode of elements.",
+    "Verify if session variables like `showConfirmed` or `showPreferences` are active."
   ],
   "system_behavior": [
-    "System manages UI updates through async postbacks via ScriptManager integration.",
-    "On redirection, session variables are stored to maintain state."
+    "System should update data based on user inputs and session variables.",
+    "UI should dynamically adjust visibility and content based on role permissions."
   ],
   "dependencies": [
-    "System.Web.UI.WebControls namespace for UI controls.",
-    "AjaxControlToolkit for modal popups."
+    "HSPnet.UI",
+    "HSPnet.Framework",
+    "AjaxControlToolkit"
   ],
   "exceptions": [
-    "Cancel data selection if 'UserSession' is null.",
-    "Handle navigation redirects cautiously to prevent loss of session state."
+    "Handle cases where user session is null.",
+    "Validate all redirects to avoid empty or invalid query strings."
   ],
   "source_document_ids": [
     "03498d74-e591-5303-bfbb-c0fa1871935f",
@@ -146,10 +105,6 @@
     "917bc4c7-ba3f-5484-9cc6-6574fe4eef38",
     "94e85626-3dbb-53d9-8e51-aa60fd17b70e",
     "97b18293-21ae-5284-8393-7d2946c78b83",
-    "a2ccb033-e7f7-517a-8bff-e86de79eb2f0",
-    "a42637a1-5470-5791-8a7e-1f750d42b4e7",
-    "a52410b7-562e-5f08-8fa2-1877788ad917",
-    "aaf94416-bd42-5139-a9ce-14017bed9a45",
     "abc29e0e-0111-58e2-a905-cffd7a6b5b41",
     "b1b0ed05-6221-5637-81c4-9c9c1c6bc8bb",
     "bc4c531c-a416-579a-a0c7-9d7b7c695bd7",
