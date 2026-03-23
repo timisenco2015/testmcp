@@ -1,65 +1,69 @@
 {
-    "filename": "ProgramProfileHistory",
-    "found": true,
-    "summary": "The ProgramProfileHistory manages records of changes made to program profiles, capturing details such as user actions, affected fields, and agency information.",
-    "purpose": "To track and maintain a history of modifications to program profiles, aiding in audit and verification processes.",
-    "entities": [
-        "ProgramProfileHistory"
-    ],
-    "fields": [
-        "ID",
-        "ActionDate",
-        "ScreenSection",
-        "UserAction",
-        "Fields",
-        "Agency",
-        "AgencyName",
-        "LastName",
-        "FirstName",
-        "MiddleName",
-        "Phone",
-        "ByUserID",
-        "ByOriginalUserID",
-        "ByUserSysAdmin"
-    ],
-    "actors": [
-        "HSPnetSession",
-        "Database",
-        "SqlDataReader"
-    ],
-    "workflows": [
-        {
-            "name": "ProgramProfileHistorySearch",
-            "steps": [
-                "Initialize database session and set procedure name.",
-                "Add parameters for ProgramID and SessionAgencyID.",
-                "Execute data retrieval and process each record.",
-                "Populate ProgramProfileHistory objects and add to list.",
-                "Close database reader when done."
-            ]
-        }
-    ],
-    "business_rules": [
-        "Ensure sessions with UseAltLanguageFields to utilize alternate field names."
-    ],
-    "validations": [
-        "Check if user is a sysadmin or if ByUserID equals ByOriginalUserID."
-    ],
-    "calculations": [],
-    "conditions": [],
-    "system_behavior": [
-        "Returns formatted user details."
-    ],
-    "dependencies": [
-        "HSPnet.Framework",
-        "HSPnet.App_GlobalResources",
-        "HSPnet.UI"
-    ],
-    "exceptions": [],
-    "source_document_ids": [
-        "1dbc43c7-e18d-5184-9183-38e8240b9dc8",
-        "81f19b80-ccd3-5cd8-adeb-01fc76b26c02",
-        "c9d037ef-64b7-5b83-83ca-30e01159035b"
-    ],
-    "content_gaps": []
+  "filename": "ProgramProfileHistory",
+  "found": true,
+  "summary": "The ProgramProfileHistory class is responsible for handling historical records of program profiles. It includes attributes like action date, screen section, user action, fields, agency, and user information. The class also provides methods for retrieving and formatting data related to program profile histories.",
+  "purpose": "To manage and track changes in program profiles over time, including who made those changes and their specific actions, within the HSPnet framework.",
+  "entities": [],
+  "fields": [
+    "ID",
+    "ActionDate",
+    "ScreenSection",
+    "UserAction",
+    "Fields",
+    "Agency",
+    "AgencyName",
+    "LastName",
+    "FirstName",
+    "MiddleName",
+    "Phone",
+    "ByUserID",
+    "ByOriginalUserID",
+    "ByUserSysAdmin"
+  ],
+  "actors": [
+    "Users",
+    "System Administrators"
+  ],
+  "workflows": [
+    {
+      "name": "ProgramProfileHistory Retrieval",
+      "steps": [
+        "Initiate database connection",
+        "Execute stored procedure ProgramProfileHistorySearch with parameters ProgramID and SessionAgencyID",
+        "Fetch and read data using SqlDataReader",
+        "Fill ProgramProfileHistory objects with retrieved data",
+        "Close database reader",
+        "Return list of ProgramProfileHistory objects"
+      ]
+    }
+  ],
+  "business_rules": [
+    "If UseAltLanguageFields is true, use alternative language fields for screen section, user action, and fields.",
+    "If ByUserSysAdmin is false and ByUserID differs from ByOriginalUserID, append support team label to user details."
+  ],
+  "validations": [],
+  "calculations": [],
+  "conditions": [
+    "UseAltLanguageFields",
+    "ByUserID equals (ByOriginalUserID == 0 ? ByUserID : ByOriginalUserID)"
+  ],
+  "system_behavior": [
+    "Format action date using DateFormatter",
+    "Format user details using TooltipDetails method"
+  ],
+  "dependencies": [
+    "HSPnet.Framework",
+    "HSPnet.App_GlobalResources",
+    "HSPnet.UI"
+  ],
+  "exceptions": [
+    "Handle missing optional middle name in formatting",
+    "Manage null or empty strings in phone field"
+  ],
+  "source_document_ids": [
+    "1dbc43c7-e18d-5184-9183-38e8240b9dc8",
+    "81f19b80-ccd3-5cd8-adeb-01fc76b26c02",
+    "c9d037ef-64b7-5b83-83ca-30e01159035b"
+  ],
+  "content_gaps": []
 }
