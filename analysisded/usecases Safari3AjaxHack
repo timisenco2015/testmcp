@@ -1,0 +1,30 @@
+# Module: Safari3AjaxHack
+
+## Safari3AjaxHack-UC1 — Enable Modal Popups in WebKit Browsers
+
+- Primary Actor(s): Web Developer
+- Secondary Actor(s): Web Application Users
+- Trigger: User tries to open a modal popup in a WebKit-based browser (Safari or Chrome).
+- Description: A JavaScript hack is necessary to make modal popups function correctly in WebKit browsers due to compatibility issues with Ajax Toolkit.
+- Preconditions:
+  - The user is using a WebKit-based browser.
+  - The web application utilizes Ajax Toolkit for modal popups.
+- Postconditions:
+  - Modal popups are displayed and function properly in WebKit browsers.
+- Main Success Scenario:
+  1. Detect if the user's browser is WebKit-based by checking the `navigator.userAgent` for 'WebKit/'.
+  2. Assign the WebKit browser details to `Sys.Browser` object.
+  3. Set `Sys.Browser.agent` to `Sys.Browser.WebKit`.
+  4. Set `Sys.Browser.version` using the version captured from the user agent string.
+  5. Set `Sys.Browser.name` as 'WebKit'.
+  6. Enable the modal popups to function properly through the modified browser detection.
+- Extensions:
+  - None
+- Exceptions:
+  - If the user agent string does not include 'WebKit/', the modification is not applied.
+- Business Rules:
+  - Compatibility with WebKit browsers must be maintained without affecting other browsers.
+- Assumptions:
+  - The hack is only needed for WebKit browsers and not others.
+- Open Issues:
+  - Need to test if this hack affects other Ajax Toolkit components besides modal popups.
