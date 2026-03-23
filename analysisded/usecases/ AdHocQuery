@@ -1,0 +1,160 @@
+# Module: AdHocQuery
+
+## AdHocQuery-UC1 — Convert SQL Data to HTML Table
+
+- Primary Actor(s): System
+- Secondary Actor(s): None
+- Trigger: A SQL DataReader object is available for processing.
+- Description: The system converts SQL data into an HTML table representation.
+- Preconditions:
+  - SQL DataReader must contain rows.
+- Postconditions:
+  - HTML string representing the data in table format.
+- Main Success Scenario:
+  1. Check if the DataReader has rows.
+  2. Create the header row from column names.
+  3. Iterate through each row creating a data row.
+  4. Append the footer row and return the HTML string.
+- Extensions:
+  - None
+- Exceptions:
+  - Empty DataReader results in no table creation.
+- Business Rules:
+  - Conversion must accurately reflect the structure and content of the DataReader.
+- Assumptions:
+  - All data types can be converted to string for HTML output.
+- Open Issues:
+  - None
+
+## AdHocQuery-UC2 — Generate HTML Header Row
+
+- Primary Actor(s): System
+- Secondary Actor(s): None
+- Trigger: Initialization of HTML table generation.
+- Description: Generates the header row for the HTML table using the column names from the DataReader.
+- Preconditions:
+  - SQL DataReader with valid columns.
+- Postconditions:
+  - String representing the HTML table header row.
+- Main Success Scenario:
+  1. Iterate through each column name.
+  2. Append column name to HTML string with formatting for table headers.
+- Extensions:
+  - None
+- Exceptions:
+  - None
+- Business Rules:
+  - Columns must be formatted as table headers.
+- Assumptions:
+  - Column names are accurately read from DataReader.
+- Open Issues:
+  - None
+
+## AdHocQuery-UC3 — Generate HTML Data Row
+
+- Primary Actor(s): System
+- Secondary Actor(s): None
+- Trigger: Each row of SQL data is read.
+- Description: Generates an HTML table row from a single row of SQL data.
+- Preconditions:
+  - SQL DataReader with data.
+- Postconditions:
+  - String representing the HTML table data row.
+- Main Success Scenario:
+  1. Begin HTML row.
+  2. Iterate through each field in the row.
+  3. Append each field value to HTML with table cell formatting.
+  4. Close HTML row.
+- Extensions:
+  - None
+- Exceptions:
+  - None
+- Business Rules:
+  - Data must be correctly formatted into HTML table cells.
+- Assumptions:
+  - Each field in the DataReader can be converted to a string.
+- Open Issues:
+  - None
+
+## AdHocQuery-UC4 — Generate HTML Table Footer
+
+- Primary Actor(s): System
+- Secondary Actor(s): None
+- Trigger: Completion of HTML table row generation.
+- Description: Ends the HTML table with a closing tag.
+- Preconditions:
+  - HTML table rows have been generated.
+- Postconditions:
+  - HTML string with table closure.
+- Main Success Scenario:
+  1. Append closing HTML table tag.
+- Extensions:
+  - None
+- Exceptions:
+  - None
+- Business Rules:
+  - Footer must follow the last data row of the table.
+- Assumptions:
+  - The table closure correctly completes the HTML structure.
+- Open Issues:
+  - None
+
+---
+
+# Module: StudentPrerequisites
+
+## StudentPrerequisites-UC1 — Update Student Details with Infection Control Information
+
+- Primary Actor(s): Administrator
+- Secondary Actor(s): None
+- Trigger: Submission of updated infection control information.
+- Description: Updates student details with new infection control information.
+- Preconditions:
+  - Valid infection control data for the student must be provided.
+- Postconditions:
+  - Student details are updated with infection control information.
+- Main Success Scenario:
+  1. Validate infection control data.
+  2. Update database with new infection control parameters.
+  3. Execute database query to save changes.
+- Extensions:
+  - None
+- Exceptions:
+  - Validation failures prevent update.
+- Business Rules:
+  - Data must be accurately and securely updated in the database.
+- Assumptions:
+  - Database connections are properly established.
+- Open Issues:
+  - None
+
+## StudentPrerequisites-UC2 — Update Student OccHealth Requirements
+
+- Primary Actor(s): Administrator
+- Secondary Actor(s): None
+- Trigger: Request to update student occupational health requirements.
+- Description: Updates the student's occupational health records with corresponding requirements.
+- Preconditions:
+  - Valid occupational health data is available.
+- Postconditions:
+  - Occupational health records are updated.
+- Main Success Scenario:
+  1. Validate health data.
+  2. Update the database with new health parameters.
+  3. Execute database query to save changes.
+- Extensions:
+  - None
+- Exceptions:
+  - Validation failures prevent update.
+- Business Rules:
+  - Must comply with health data management policies.
+- Assumptions:
+  - Health data is timely and accurate.
+- Open Issues:
+  - None
+
+---
+
+# Modules: SiteDocument, WelcomeStaffAdmin, ServiceCode, SiteProfileHistory, EmailPopupDocument, ExpenseBatch, CostCentre, TimetableAssessments
+
+No extractable use cases found.
