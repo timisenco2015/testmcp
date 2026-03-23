@@ -1,1 +1,32 @@
-{"3": {"Summary": "Manages service codes using database stored procedures.", "Purpose": "Facilitates retrieval and management of service codes in the system.", "Entities": "SQL stored procedures, HSPnet Framework", "Fields": "ID, CodeCategoryID, ShortName, Name, SortOrder, Notes", "Actor": "HSPnetSession", "Source Document IDs": "94f1b055-348d-508a-ae6e-cf7960a8c6a2, e4ebe4b4-6d14-5c3f-b693-61016f765239, f976b9af-a402-540f-b162-391d578fac7c", "Content Gaps": "Details on how service codes are displayed or used in UI not provided."}}
+{
+  "filename": "ServiceCode",
+  "found": true,
+  "summary": "Defines service codes and retrieval methods.",
+  "purpose": "Manages the service codes used for categorizing and sorting.",
+  "entities": ["ServiceCode", "ServiceCodes"],
+  "fields": ["ID", "CodeCategoryID", "ShortName", "Name", "SortOrder", "Notes", "NameAlt", "NotesAlt"],
+  "actors": [],
+  "workflows": [
+    {
+      "name": "Service Code Retrieval",
+      "steps": [
+        "Initialize database procedure for listing all service codes",
+        "Bind service code data to ServiceCode objects",
+        "Localize if necessary"
+      ]
+    }
+  ],
+  "business_rules": [],
+  "validations": [],
+  "calculations": [],
+  "conditions": [],
+  "system_behavior": ["Localize service codes based on session settings"],
+  "dependencies": [],
+  "exceptions": [],
+  "source_document_ids": [
+    "94f1b055-348d-508a-ae6e-cf7960a8c6a2",
+    "e4ebe4b4-6d14-5c3f-b693-61016f765239",
+    "f976b9af-a402-540f-b162-391d578fac7c"
+  ],
+  "content_gaps": []
+}
