@@ -1,1 +1,47 @@
-{"filename": "AssessmentValidationResult", "found": true, "summary": "AssessmentValidationResult is a sealed class representing the result of validation checks related to assessments. It contains Boolean fields indicating specific validation outcomes.", "purpose": "To encapsulate validation results for assessment-related operations, indicating whether certain conditions or rules have been met during the assessment process.", "entities": ["AssessmentValidationResult"], "fields": [{"name": "InterimWithoutFinal", "type": "bool", "description": "Indicates whether an interim assessment exists without a corresponding final assessment."}, {"name": "InstructorsAndSupervisors", "type": "bool", "description": "Indicates whether all required instructors and supervisors are present for the assessment."}, {"name": "AssessmentMaximumExceeded", "type": "bool", "description": "Indicates whether the assessment has exceeded its maximum allowed limit."}], "actors": [], "workflows": [], "business_rules": [], "validations": [{"name": "InterimWithoutFinal", "description": "Validation to check if an interim assessment exists without a final assessment."}, {"name": "InstructorsAndSupervisors", "description": "Validation to ensure all required instructors and supervisors are present."}, {"name": "AssessmentMaximumExceeded", "description": "Validation to check that assessment maximum is not exceeded."}], "calculations": [], "conditions": [{"condition": "Interim assessment exists without a final assessment."}, {"condition": "All required instructors and supervisors are present."}, {"condition": "Assessment maximum exceeded."}], "system_behavior": ["Returns validation results as Boolean values indicating assessment compliance."], "dependencies": [], "exceptions": [], "source_document_ids": ["e663d100-85dd-5023-9f4c-94982b490159"], "content_gaps": ["No information about actors, workflows, deeper business rules, calculations, dependencies or exceptions beyond field-level validations."]}
+{
+  "filename": "AssessmentValidationResult",
+  "found": true,
+  "summary": "AssessmentValidationResult is a sealed class representing validation outcomes for assessments, with specific boolean indicators for distinct rule checks.",
+  "purpose": "To encapsulate and communicate the results of assessment validations, signalling whether particular validation rules have triggered.",
+  "entities": ["AssessmentValidationResult"],
+  "fields": [
+    "InterimWithoutFinal",
+    "InstructorsAndSupervisors",
+    "AssessmentMaximumExceeded"
+  ],
+  "actors": [],
+  "workflows": [
+    {
+      "name": "Assessment Validation Workflow",
+      "steps": [
+        "Perform assessment validation checks",
+        "Set InterimWithoutFinal if interim assessment exists without final",
+        "Set InstructorsAndSupervisors if instructor/supervisor requirements not met",
+        "Set AssessmentMaximumExceeded if assessment exceeds maximum allowed"
+      ]
+    }
+  ],
+  "business_rules": [
+    "InterimWithoutFinal: Interim assessments should not exist without a corresponding final",
+    "InstructorsAndSupervisors: Instructors and supervisors requirements must be met",
+    "AssessmentMaximumExceeded: Assessments must not exceed the maximum allowed"
+  ],
+  "validations": [
+    "Check for interim assessments without final",
+    "Check instructor/supervisor requirements",
+    "Confirm assessment does not exceed maximum allowed"
+  ],
+  "calculations": [],
+  "conditions": [],
+  "system_behavior": [
+    "Returns boolean flags for each validation rule after assessment checks"
+  ],
+  "dependencies": [],
+  "exceptions": [],
+  "source_document_ids": ["e663d100-85dd-5023-9f4c-94982b490159"],
+  "content_gaps": [
+    "No information about how values are calculated",
+    "No details on exception handling",
+    "No details on interactions with other systems or entities"
+  ]
+}
