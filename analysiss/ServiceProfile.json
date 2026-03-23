@@ -1,0 +1,63 @@
+{
+  "filename": "ServiceProfile",
+  "found": true,
+  "summary": "ServiceProfile is a web user control in HSPnet's system designed to manage service profiles. It includes functionalities for editing, displaying, and updating service profiles, utilizing a web-based interface with ASP.NET controls.",
+  "purpose": "To provide a web interface for managing service profiles, allowing users to view, edit, and update them within the HSPnet application.",
+  "entities": [],
+  "fields": [
+    "UserSession",
+    "ScreenIsEditable",
+    "ServiceID",
+    "ScriptMgr",
+    "updPnlProfile",
+    "fvwProfile",
+    "pnlPopup",
+    "updPnlPopup",
+    "btnShowPopup",
+    "mdlDetails",
+    "ValidationSummary1",
+    "uxDetail",
+    "dsServiceDetail"
+  ],
+  "actors": [
+    "User",
+    "System"
+  ],
+  "workflows": [
+    {
+      "name": "Edit Service Profile",
+      "steps": [
+        "User clicks 'Edit' button.",
+        "The system changes the detail view to edit mode.",
+        "User makes changes and clicks 'Save'.",
+        "The system updates the service profile.",
+        "Updates are cached and user is redirected."
+      ]
+    }
+  ],
+  "business_rules": [],
+  "validations": [
+    "Ensure UserSession is active before selecting service details."
+  ],
+  "calculations": [],
+  "conditions": [
+    "CommandName is 'cmdSave' to trigger save operation.",
+    "CommandName is not 'cmdCancel' to update session and redirect."
+  ],
+  "system_behavior": [
+    "Caches user session when not cancelling.",
+    "Redirects user after saving changes.",
+    "Shows details and prepares view for editing."
+  ],
+  "dependencies": [],
+  "exceptions": [
+    "Cancels operation if UserSession is null."
+  ],
+  "source_document_ids": [
+    "0d224479-87a2-53bd-ba75-3ae156921c6e",
+    "562d9110-948f-5b6a-bb1e-010692b01ab5",
+    "b59f20c1-c687-58eb-8b20-5b3faa57f872",
+    "c429beb7-4398-5398-878c-699614bc3766"
+  ],
+  "content_gaps": []
+}
