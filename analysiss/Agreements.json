@@ -1,0 +1,133 @@
+{
+  "filename": "Agreements",
+  "found": true,
+  "summary": "The retrieved documents describe a framework for handling agreements within a web application using ASP.NET and C#. The documents include details about user interactions with agreements, UI components, and system processes that manage agreements and their templates.",
+  "purpose": "The purpose of the documents is to manage and display agreements and their related templates within an ASP.NET web application. It provides mechanisms to handle user interactions, data binding, and dynamic content display.",
+  "entities": [],
+  "fields": [
+    "Literal1",
+    "Literal2",
+    "Literal3",
+    "Literal4",
+    "Literal5",
+    "Literal6",
+    "Literal7",
+    "Literal8",
+    "Literal9",
+    "chkAgreementNew",
+    "chkAgreementPending",
+    "chkAgreementAwaitingS",
+    "chkAgreementSigned",
+    "chkAgreementReview",
+    "chkAgreementInactive",
+    "ddType",
+    "ddDescription",
+    "ddView",
+    "ddTemplateDisplayDate",
+    "ddAgreementDisplayDate",
+    "ddTemplateAgency",
+    "ddAgreementAgency",
+    "spnTypeFilter",
+    "spnDescriptionFilter",
+    "spnContentAuthorFilter",
+    "trTemplateFilter",
+    "trAgreementFilter",
+    "uxErrorCaption",
+    "uxWarningCaption",
+    "pnlError",
+    "pnlWarning",
+    "pnlCurrentView",
+    "rprTemplates",
+    "dsTemplates"
+  ],
+  "actors": ["UserSession", "User"],
+  "workflows": [
+    {
+      "name": "Load Display Date List",
+      "steps": [
+        "Bind ddTemplateDisplayDate to AgreementController.DisplayDateList(1).",
+        "Bind ddAgreementDisplayDate to AgreementController.DisplayDateList(0)."
+      ]
+    },
+    {
+      "name": "Load Agency List",
+      "steps": [
+        "Set ddTemplateAgency data source to AgreementController.AgreementAgencyList(UserSession).",
+        "Bind ddTemplateAgency.",
+        "Set ddAgreementAgency data source to the same list.",
+        "Bind ddAgreementAgency."
+      ]
+    },
+    {
+      "name": "Load Content Author List",
+      "steps": [
+        "Determine if in 'Templates' or 'Agreements' view.",
+        "Set data source for ddContentAuthor based on selected filters and current IDs.",
+        "Bind ddContentAuthor."
+      ]
+    },
+    {
+      "name": "Setup Filter Visibility",
+      "steps": [
+        "Check ddView.SelectedValue to determine visibility settings.",
+        "Adjust display styles for filters based on the selected value."
+      ]
+    }
+  ],
+  "business_rules": [
+    "UserSession determines access permissions and agency defaults.",
+    "Dropdown lists are bound to data sources dynamically based on the current session and selected view.",
+    "Checkbox states control which records are displayed in lists and templates."
+  ],
+  "validations": [
+    "Ensure UUIDs are valid before casting.",
+    "Validate on selected index change events to refresh data."
+  ],
+  "calculations": [],
+  "conditions": [
+    "If UserSession.CAAgreements is true, insert a default 'ALL' item into dropdowns.",
+    "Apply different display styles depending on the `SelectedValue` of a dropdown."
+  ],
+  "system_behavior": [
+    "Dynamic binding of dropdowns based on user actions.",
+    "Execution of commands like 'cmdCopy', 'cmdDelete', and data refresh on user interaction.",
+    "Startup scripts initialized on page load and pre-render."
+  ],
+  "dependencies": [
+    "AjaxControlToolkit for UI behavior.",
+    "HSPnet.DataLayer for data controllers.",
+    "HSPnet.UI for user interface components."
+  ],
+  "exceptions": [],
+  "source_document_ids": [
+    "00324a25-c291-509e-97be-f6e52d773a56",
+    "0f09ed1a-60a3-5157-a1ae-99150e75ebe4",
+    "17583f26-d713-5c32-aa49-424a40d07444",
+    "17af2849-fc0d-5741-86e6-71314d7486f4",
+    "1fcbe42f-a17b-5261-8903-391151c35071",
+    "239e7368-895a-5696-bcde-c0277055f871",
+    "3352c64d-f68c-59bb-9637-5cca25e20016",
+    "3588a95d-0d5c-55e0-82d0-7a247f0160a7",
+    "384a0357-8f9e-5b75-bfbe-2f8eea2495d7",
+    "497f4ac3-bd4a-50d0-bbee-c9562cc23028",
+    "61feb7b3-75fb-5f6c-8917-af3f49f5c2ad",
+    "63be20f2-0157-5fd6-b8c9-f9458e1a5cc0",
+    "71ac3338-d185-5810-972e-37ba40ec4ca1",
+    "752b9be1-de4c-5c2d-ba18-a4e8060fc919",
+    "77c92f12-64fb-5bd8-8260-c0fad50ca507",
+    "8c92d132-adfe-5b66-9007-bd1c980624aa",
+    "8ebae2ae-803a-5b34-ae1e-8dc8dbcd28a1",
+    "9441358b-dbda-50cd-b493-a612fbd97a21",
+    "ade6c690-5c44-5cab-94e2-9801bf6f862e",
+    "af1f6e37-ad75-5aaa-b082-7302c0ba2410",
+    "b664fe20-aa55-5b55-af28-feda9297f894",
+    "c5486520-7ebb-57c2-bf25-5a8079773fb2",
+    "c555a003-96fe-5dec-b26e-cf4f0c35bc2a",
+    "f350173b-c305-5565-9a79-54e662d9f6ec",
+    "f4634414-41b7-5370-8087-3e0e64b48183",
+    "f5354931-02a5-5a4a-99cf-4673661253e7",
+    "f6b0282d-3b62-58cd-b3d8-e1146a0e45b6",
+    "fdd1ceb8-5db3-5457-9e0c-16cdcd4c225c"
+  ],
+  "content_gaps": []
+}
