@@ -1,56 +1,55 @@
 {
   "filename": "PrfHomeContacts",
   "found": true,
-  "summary": "The PrfHomeContacts user control manages home contact details in a web application, featuring editing and display functionalities.",
-  "purpose": "To handle the display and editing of home contact information within a web application, including integrating with user sessions and phone masking.",
-  "entities": [
-    "UserSession",
-    "StaffID"
-  ],
+  "summary": "The PrfHomeContacts documents pertain to a user control in a web application for managing home contact details within staff profiles. This includes form views for editing and displaying data, pop-up interfaces, data sources, validation summaries, and scripts for handling user interactions and data binding.",
+  "purpose": "To manage and display home contact details for staff members within a web application, allowing for interaction and data manipulation through form views and modal popups.",
+  "entities": [],
   "fields": [
     "ValidationSummary3",
     "fvwEditHomeContacts",
     "dsStaff",
-    "fvwHomeContacts",
     "pnlPopup",
     "btnShowPopup",
     "mdlDetails"
   ],
-  "actors": [],
+  "actors": [
+    "UserSession",
+    "ScriptManager"
+  ],
   "workflows": [
     {
-      "name": "Edit and Save Home Contacts",
+      "name": "Edit Home Contacts",
       "steps": [
-        "Switch to edit mode using cmdEdit button click.",
-        "Show details in modal using mdlDetails.",
-        "Bind data to fvwEditHomeContacts.",
-        "Check if ScreenIsEditable to display cmdSave button.",
-        "Remove phone mask if UserSession.UsePhoneMask is false.",
-        "Setup JavaScript variables using JavaScript.AddJavaScriptVars.",
-        "Bind JavaScript variables conditionally based on async postback."
+        "fvwEditHomeContacts_PreRender",
+        "cmdEdit_Click",
+        "fvwEditHomeContacts_DataBound",
+        "fvwEditHomeContacts_ItemUpdating",
+        "fvwEditHomeContacts_ItemUpdated"
       ]
     }
   ],
-  "business_rules": [],
+  "business_rules": [
+    "ScreenIsEditable determines if the Edit Button is visible.",
+    "UserSession must be present to continue with data selection."
+  ],
   "validations": [
-    "ValidationSummary3 for form validation."
+    "Phone mask validation is conditional upon UserSession.UsePhoneMask."
   ],
   "calculations": [],
   "conditions": [
-    "Check ScreenIsEditable to toggle visibility of cmdSave and cmdEdit buttons.",
-    "Cancel dsStaff_Selecting if UserSession is null.",
-    "Use UserSession.CountryCode if txtCountry.Text is empty."
+    "If UserSession is null, data selection is canceled.",
+    "If fvwEditHomeContacts.Row.RowType is DataRow, the country code is set."
   ],
   "system_behavior": [
-    "Data binding to fvwEditHomeContacts and data source dsStaff.",
-    "JavaScript variable setup for client-side operations."
+    "JavaScript and script managers handle dynamic client-side interactions.",
+    "Data binding is used to refresh and update user interface components."
   ],
   "dependencies": [
-    "AjaxControlToolkit",
-    "System.Web.UI",
-    "HSPnet.UI"
+    "Relies on user session for validation and data retrieval."
   ],
-  "exceptions": [],
+  "exceptions": [
+    "Changes in auto-generated code could be lost upon regeneration."
+  ],
   "source_document_ids": [
     "169e42e3-a079-5bc4-8262-b3fcec116405",
     "6d884025-0d5a-56f9-a8ba-ac4f3ee288e1",
