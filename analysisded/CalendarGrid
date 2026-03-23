@@ -1,0 +1,117 @@
+```json
+{
+    "filename": "CalendarGrid",
+    "found": true,
+    "summary": "The CalendarGrid system appears to handle scheduling, management of shifts, and assignment functionalities within an organizational environment possibly relying on ASP.NET and SQL for backend processes.",
+    "purpose": "Facilitates the scheduling and management of shift-based activities and placements.",
+    "entities": [
+        "Utilization",
+        "PlacementRequestSchedule",
+        "Department",
+        "Dropdown",
+        "Resources",
+        "UserSession",
+        "FormView",
+        "ObjectDataSource",
+        "ModalPopupExtender",
+        "SqlDataReader"
+    ],
+    "fields": [
+        "PRDID",
+        "StartDate",
+        "EndDate",
+        "StartDateBlock2",
+        "EndDateBlock2",
+        "Days",
+        "VariousDays",
+        "ShiftCodeID",
+        "ShiftCode",
+        "StartTime",
+        "EndTime",
+        "VariousTimes",
+        "PlacingAgencyID",
+        "InstructorID",
+        "ReceivingAgency",
+        "Site",
+        "Service",
+        "Destination",
+        "Term",
+        "TermStartDate"
+    ],
+    "actors": [
+        "Instructor",
+        "PlacementCoordinator",
+        "ReceivingCoordinator",
+        "Department"
+    ],
+    "workflows": [
+        {
+            "name": "Handle Placement Request",
+            "steps": [
+                "Load placement request on grid",
+                "Check if user can edit",
+                "Amend or delete shifts",
+                "Save changes to database"
+            ]
+        },
+        {
+            "name": "Conflict Check",
+            "steps": [
+                "Retrieve data using SqlDataReader",
+                "Identify placement request conflicts",
+                "Highlight or exempt conflicts",
+                "Refresh data"
+            ]
+        }
+    ],
+    "business_rules": [
+        "Instructors can view groups within their department",
+        "Students cannot view 'My Groups' unless in instructor mode"
+    ],
+    "validations": [
+        "StartTime must match Resources.Time_ValidationExpression",
+        "Shift codes are validated for length and category"
+    ],
+    "calculations": [
+        "FixNicknames to append unique suffix",
+        "Calculate day, evening, night shift counts"
+    ],
+    "conditions": [
+        "Check if date falls within StartDate and EndDate",
+        "User permissions to edit shift"
+    ],
+    "system_behavior": [
+        "Use ASP.NET controls for UI rendering",
+        "SQL operations for data manipulation",
+        "Shift management with validation and amendments"
+    ],
+    "dependencies": [
+        "HSPnetSession for handling session data",
+        "Database procedures and configurations"
+    ],
+    "exceptions": [
+        "Handle shift deletions and amendments within grid",
+        "Address no conflict exception handling"
+    ],
+    "source_document_ids": [
+        "00a92747-f90c-5f91-bf3f-21bf8a04292d",
+        "01884e35-3480-5fe7-b63e-fc81b9fcc09c",
+        "021c19f3-51c0-51d9-b4ae-1464e1c73ea9",
+        "06f2d63b-f3ed-5c83-a590-52b8890b0174",
+        "0812c76e-9805-57ba-9303-d3b8ee88811c",
+        "09ee7465-ef9d-5820-ba89-c32cdb0d1f34",
+        "0a2ee4b0-7cd7-5d38-98aa-126a8a719d97",
+        "0b412334-ab0f-5d7a-83ed-8b09963adfc5",
+        "12fa9d80-05ff-5011-b87b-5c088c3da42d",
+        "13319337-7fdb-5b5e-9a55-c894ec388429",
+        "13ed9fac-5b2d-532a-9cea-32e4ec4505ee",
+        "17f708e3-55a8-5cb2-b9c1-b08bbc69fa2f",
+        "1968ca05-6caa-5791-87d3-8d01698a0e2b",
+        "1c1e973e-ba79-5762-884e-e7dcef03de11",
+        "208b3edd-b417-5012-82b4-66a7f3ee8eb5"
+    ],
+    "content_gaps": [
+        "No explicit documentation of the front-end interfaces or error handling processes"
+    ]
+}
+```
