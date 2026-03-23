@@ -1,0 +1,149 @@
+{
+  "filename": "RAITProvisioningEditAll",
+  "found": true,
+  "summary": "RAITProvisioningEditAll is a UserControl in the HSPnet enrollment module, intended to administer and edit RAIT Provisioning records for students across entire cohorts, allowing mass update, addition, and review. It provides both single and bulk editing workflows, supports filtering and validation, and is tightly integrated into the broader Enrollment system UI.",
+  "purpose": "To allow administrative users to view, edit, add, and manage RAIT Provisioning records for multiple students in a cohort, including mass editing and single record maintenance, while enforcing necessary validations, business rules, and system behaviors typical of enrollment provisioning actions.",
+  "entities": [
+    "StudentRAITProvisioning",
+    "StudentRAITProvisionings",
+    "Enrollment",
+    "Course",
+    "UserSession"
+  ],
+  "fields": [
+    "CohortID",
+    "TermID",
+    "CourseID",
+    "ShowGrad",
+    "ShowInactive",
+    "ShowWaived",
+    "SectionFilter",
+    "ActionFilter",
+    "keyword",
+    "CampusID",
+    "CommentFilter",
+    "blnReadOnly",
+    "blnStudentMaint",
+    "blnGotoOutbox",
+    "blnGotoGWS",
+    "blnGotoIWS",
+    "CourseLst",
+    "CertificationCodeID",
+    "EnrollmentID",
+    "StartRow",
+    "hdnRAITProvID",
+    "hdnStudentID",
+    "ddAgency",
+    "txtUniqueID",
+    "txtLoginID",
+    "ckEmailRequired",
+    "ckEmployee",
+    "txtEmail"
+  ],
+  "actors": [
+    "Administrative user",
+    "Student",
+    "System/UI components"
+  ],
+  "workflows": [
+    {
+      "name": "Mass Edit and Save RAIT Provisionings",
+      "steps": [
+        "User enters edit mode (single or all) for RAIT Provisionings",
+        "Grid rows are populated with related StudentRAITProvisioning records",
+        "User edits desired fields (agency, unique ID, login ID, email, etc.)",
+        "Dirty flag is tracked per row for updates",
+        "On Save All or Save Edit Next, iterate rows:",
+        "  If row is dirty, update or add StudentRAITProvisioning via StudentRAITProvisionings",
+        "  Validate updates and additions",
+        "If no errors, redirect to Enrollment screen or Edit Next set",
+        "If errors, stay on current screen and display messages"
+      ]
+    },
+    {
+      "name": "Single Record Edit",
+      "steps": [
+        "User enters edit mode for a single record",
+        "Fields are loaded for the StudentRAITProvisioning",
+        "On Save, update or add StudentRAITProvisioning via object methods",
+        "If no errors, redirect; else, display errors"
+      ]
+    },
+    {
+      "name": "Grid UI Filtering and Sorting",
+      "steps": [
+        "Apply filters and sorts via SectionFilter, ActionFilter, etc.",
+        "Bind filtered/sorted data to grid",
+        "Support paged data view via StartRow, PageSize"
+      ]
+    }
+  ],
+  "business_rules": [
+    "Records can only be edited if not in read-only mode (blnReadOnly=false)",
+    "Only dirty rows (changed fields) are candidates for update/add",
+    "If EnrollmentID is non-zero (editing single), hide mass edit controls",
+    "Each save triggers validation via UserSession.Messages",
+    "Agency selection must be made for each row",
+    "EmailRequired and Employee status must be set appropriately",
+    "UniqueID and LoginID are required for new records"
+  ],
+  "validations": [
+    "ValidationSummary UI control used for displaying errors",
+    "UserSession.Messages.GetErrors() determines if operation can redirect",
+    "Value presence checks for UniqueID, LoginID, Agency",
+    "Data binding events validate user session existence"
+  ],
+  "calculations": [
+    "Grid row dirty flag computed for mass edits",
+    "Query string parameters constructed dynamically for redirects"
+  ],
+  "conditions": [
+    "If blnReadOnly is true, all edit fields are disabled",
+    "If StudentRAITPros exists for a student, pre-fill fields",
+    "EnrollmentID > -1 triggers edit state for single record",
+    "Less than 14 rows hides Save All due to no scroll bars"
+  ],
+  "system_behavior": [
+    "Grid disables edit fields when read-only",
+    "Dynamic JavaScript is generated for dirty field tracking",
+    "Redirects occur after successful saves",
+    "UI adapts (shows/hides controls) based on edit mode and row count",
+    "Data binding applies filters, sorting, pagination"
+  ],
+  "dependencies": [
+    "HSPnetSession for user context and error handling",
+    "GridView for UI data editing",
+    "StudentRAITProvisionings for CRUD operations",
+    "ObjectDataSource for RAIT and List data",
+    "QueryString utility for redirect URLs"
+  ],
+  "exceptions": [
+    "Operation is cancelled if user session is missing",
+    "Redirect prevented if errors exist in UserSession.Messages",
+    "Data binding cancelled if user session is null"
+  ],
+  "source_document_ids": [
+    "08785d9f-3b7e-5bec-8715-8eb5805f8a0f",
+    "0a2c041e-9d8b-5a19-a734-d93d582018f4",
+    "109d7efb-4a09-5307-8c08-24dba016379d",
+    "121ef750-3571-53e0-ba69-7f1a28228fc7",
+    "165b92ae-6d5c-5f20-ab0b-942f82580314",
+    "3c5c81d6-67f9-5bee-8764-a9c0a199a4e9",
+    "43a13f05-a444-5ab8-a7b0-62ae3a5e0033",
+    "790287de-0c59-5903-9f92-a7b604c9d507",
+    "9db6c85e-29b2-5eb5-952e-f167673c0688",
+    "a7b4a139-76ab-5ba1-82d7-a61c487080a6",
+    "cef946da-c016-5317-8cf7-2f54eafb9699",
+    "ed0933fd-1fa6-50cb-a982-beef354d8ea5",
+    "f6a869d1-c6f3-5044-a368-2eeb20f5c3cd",
+    "fce37fe9-4e9f-5c1e-bce5-f4ea572a9d66"
+  ],
+  "content_gaps": [
+    "No full UI markup or designer file details.",
+    "Limited explicit field validation logic.",
+    "No details about StudentRAITProvisionings implementation.",
+    "No error message mapping details.",
+    "No external dependencies or API interfaces described.",
+    "No security or permissions rules beyond read-only state."
+  ]
+}
