@@ -1,0 +1,62 @@
+```json
+{
+    "filename": "PlacementRequest",
+    "found": true,
+    "summary": "The PlacementRequest module handles operations related to placement requests, including validation, linking and unlinking requests, and managing request information.",
+    "purpose": "To manage various aspects of placement requests in the HSPnet system, ensuring validity, proper linking, and retrieval of relevant information for decision making.",
+    "entities": ["PlacementRequestDestination", "HSPnetSession"],
+    "fields": ["PRD_ID", "PlcAgencyID", "DepartmentID", "ProgramID", "CourseID", "TypeCodeID", "StartDate", "EndDate", "RcvAgencyID", "SiteID", "ServiceID", "DestinationID", "Discipline", "SubDiscipline"],
+    "actors": ["User (type 1 or 2)", "Non-NIS/IRP receiving user"],
+    "workflows": [
+        {
+            "name": "PlacementRequest validation",
+            "steps": ["Check Site, Service, Destination if user is type 1 or 2", "Invoke PlacementRequestSearch procedure", "Add necessary parameters", "Execute and read results"]
+        },
+        {
+            "name": "Linking Placement Requests",
+            "steps": ["Invoke PlacementRequestLink procedure", "Add SessionID and PRList parameters", "Execute query", "Handle success and error outcomes"]
+        },
+        {
+            "name": "Unlinking Placement Requests",
+            "steps": ["Invoke PlacementRequestUnLink procedure", "Add PR_ID and SessionID parameters", "Execute query"]
+        }
+    ],
+    "business_rules": [
+        "If the user is of type 1 or 2, and not a NIS/IRP agency, check Site, Service and Destination.",
+        "Return true if Cohort is shared in CheckOldRuleCohort procedure."
+    ],
+    "validations": [
+        "Validation of PlacementRequest involves checking site, service, and destination.",
+        "PlacementRequest is valid if ID is found in PlacementRequestSearch."
+    ],
+    "calculations": ["Calculate HSPnet term start and end dates based on the month."],
+    "conditions": [
+        "Return false if Site, Service or Destination checks fail for user type 1 or 2."
+    ],
+    "system_behavior": [
+        "Handles linking and unlinking of placement requests.",
+        "Caches email subject for each session."
+    ],
+    "dependencies": [
+        "PlacementRequestSearch",
+        "PlacementRequestLink",
+        "PlacementRequestUnLink",
+        "PlacementRequestSearchDeleted",
+        "PlacementRequestSearchArchived"
+    ],
+    "exceptions": [
+        "Handle SQLErrorOccured during linking procedure."
+    ],
+    "source_document_ids": [
+        "15235962-0eeb-54d6-9f5b-edaa8346fba6",
+        "2863538b-bf60-5073-9b7e-57f298db10c3",
+        "6f227eaa-3683-5739-afe9-487f394da6a5",
+        "7bf65f3a-18ba-59ea-a095-7c407497e073",
+        "81316798-3a13-5f76-9b1e-b67132235ac3",
+        "997cb356-368b-5cdf-9a5c-0127f4c1a775",
+        "a2e4f80e-043b-5cf1-88a3-43acc007d683",
+        "f9d5bf7f-30f8-5e4e-9b6b-4f26d2988793"
+    ],
+    "content_gaps": []
+}
+```
