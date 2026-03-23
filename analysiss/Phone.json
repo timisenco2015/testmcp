@@ -1,0 +1,55 @@
+{
+  "filename": "Phone",
+  "found": true,
+  "summary": "The documents contain information about handling phone numbers within a system. It includes validation rules, formatting, and masking operations for phone numbers. The phone number consists of an area code, prefix, number, and extension, with specific rules for each segment's length and requirements.",
+  "purpose": "To manage and validate phone numbers in a structured format within a software application.",
+  "entities": [],
+  "fields": [
+    "Area",
+    "Prefix",
+    "Number",
+    "Extension",
+    "UsePhoneMask"
+  ],
+  "actors": [],
+  "workflows": [
+    {
+      "name": "Remove Phone Mask",
+      "steps": [
+        "Hide the area code and dash",
+        "Blank the area code value",
+        "Disable the phone mask",
+        "Make the phone field wider"
+      ]
+    }
+  ],
+  "business_rules": [],
+  "validations": [
+    "Area code must be exactly 3 digits if specified",
+    "Prefix must be exactly 3 digits if specified",
+    "Number must be exactly 4 digits if specified",
+    "If prefix exists, number must too",
+    "If number exists, prefix must too",
+    "If extension exists, both prefix and number must exist"
+  ],
+  "calculations": [],
+  "conditions": [
+    "A number with just an area code is considered valid",
+    "Phone number validation depends on whether phone mask is used"
+  ],
+  "system_behavior": [
+    "If phone mask is not used, the number is stored directly in the Number property without parsing"
+  ],
+  "dependencies": [],
+  "exceptions": [],
+  "source_document_ids": [
+    "78814b0b-f382-540a-b284-ab8b26f74ee2",
+    "7e6dc0cf-3201-5a51-a499-fe283908886e",
+    "891949e5-2e5d-5903-98bb-82928acd95c6",
+    "901cfdfe-d9cb-5e77-ba1b-1bd1b8cb51e8",
+    "976ebafc-4a74-527d-9ba7-1026a87b74b5",
+    "ec5000b8-ebd0-5cf4-87f5-1a6cad223778",
+    "f246b06b-f5a7-5140-beb8-68a1b4db7308"
+  ],
+  "content_gaps": []
+}
