@@ -1,0 +1,28 @@
+# Module: QuestionOption
+
+## QuestionOption-UC1 — Search Question Options by Question
+
+- Primary Actor(s): System
+- Secondary Actor(s): None
+- Trigger: A request to search for question options based on a specific question.
+- Description: The system retrieves a list of question options related to a particular question described by a template code and question text.
+- Preconditions: 
+  - The session (HSPnetSession) is active and valid.
+  - The database has relevant question options entries.
+- Postconditions: 
+  - A list of question options is returned, each with details such as ID, QuestionID, OptionChoiceID, OptionChoiceName, and whether it is a SpecifyChoice.
+- Main Success Scenario:
+  1. The system receives a request with session details, template code, and question text.
+  2. The system executes the stored procedure `QuestionOptionSearchByQuestion`.
+  3. The system retrieves data from the database.
+  4. The system processes the data and constructs a list of `QuestionOption` objects.
+  5. The system returns the list to the requester.
+- Extensions: None
+- Exceptions: 
+  - If the database connection fails, the system will not be able to retrieve data.
+  - If no data is found, an empty list is returned.
+- Business Rules:
+  - The result includes different option names based on the locale settings.
+- Assumptions:
+  - The database procedure and connection are correctly configured.
+- Open Issues: None
