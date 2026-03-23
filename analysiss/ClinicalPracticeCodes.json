@@ -1,0 +1,107 @@
+{
+  "filename": "ClinicalPracticeCodes",
+  "found": true,
+  "summary": "The retrieved content defines a .NET class for managing Clinical Practice Codes within the HSPnet system. It details the structure and behavior of the class, including properties, methods for adding, updating, deleting, and searching Clinical Practice Codes, and interactions with a database using SQL commands.",
+  "purpose": "To provide programmatic management and database operations for Clinical Practice Codes in a healthcare or educational application setting, using C# within the HSPnet framework.",
+  "entities": [],
+  "fields": [
+    {
+      "name": "ID",
+      "type": "int"
+    },
+    {
+      "name": "ProgramID",
+      "type": "int"
+    },
+    {
+      "name": "Name",
+      "type": "string"
+    },
+    {
+      "name": "ShortName",
+      "type": "string"
+    },
+    {
+      "name": "Inactive",
+      "type": "Boolean"
+    }
+  ],
+  "actors": [
+    "HSPnetSession",
+    "SqlDataReader"
+  ],
+  "workflows": [
+    {
+      "name": "Add Clinical Practice Code",
+      "steps": [
+        "Validate input fields (Name and ShortName must not be blank).",
+        "If valid, set database procedure to 'ClinicalPracticeCodeAdd'.",
+        "Add parameters (ProgramID, Name, ShortName) to the database call.",
+        "Execute the database query."
+      ]
+    },
+    {
+      "name": "Update Clinical Practice Code",
+      "steps": [
+        "Check if ID is not zero and input fields are valid.",
+        "Set database procedure to 'ClinicalPracticeCodeUpdate'.",
+        "Add parameters (ID, Name, ShortName) to the database call.",
+        "Execute the database query."
+      ]
+    },
+    {
+      "name": "Delete Clinical Practice Code",
+      "steps": [
+        "Ensure ID is not zero.",
+        "Set database procedure to 'ClinicalPracticeCodeDelete'.",
+        "Add parameter (ID) to the database call.",
+        "Execute the database query."
+      ]
+    },
+    {
+      "name": "Reactivate Clinical Practice Code",
+      "steps": [
+        "Ensure ID is not zero.",
+        "Set database procedure to 'ClinicalPracticeCodeReactivate'.",
+        "Add parameter (ID) to the database call.",
+        "Execute the database query."
+      ]
+    },
+    {
+      "name": "Search Clinical Practice Codes",
+      "steps": [
+        "Set database procedure to 'ClinicalPracticeCodeSearchProgram' or 'ClinicalPracticeCodeSearchStudent'.",
+        "Add necessary parameters (ProgramID, ShowInactive, keyword for programs or StudentID for students) to the database call.",
+        "Execute the database query.",
+        "Read data into ClinicalPracticeCode objects."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Name must be specified and cannot be blank.",
+    "ShortName must be specified and cannot be blank."
+  ],
+  "validations": [
+    "Check if Name is blank.",
+    "Check if ShortName is blank."
+  ],
+  "calculations": [],
+  "conditions": [
+    "ID must not be zero for Update, Delete, and Reactivate operations."
+  ],
+  "system_behavior": [
+    "Interacts with a database to perform CRUD operations using stored procedures.",
+    "Uses a session object to handle database operations and manage messages."
+  ],
+  "dependencies": [
+    "HSPnetSession class",
+    "HSPnet database structure with stored procedures"
+  ],
+  "exceptions": [],
+  "source_document_ids": [
+    "09b8daec-a933-5e6b-b231-4d178784b73f",
+    "8d64c60c-eea5-5a32-8758-268715c5cd97",
+    "a76658a5-bb41-56c9-aa1b-e44948df78bb"
+  ],
+  "content_gaps": []
+}
