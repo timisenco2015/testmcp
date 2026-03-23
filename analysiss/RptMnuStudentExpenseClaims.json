@@ -1,82 +1,48 @@
 {
     "filename": "RptMnuStudentExpenseClaims",
     "found": true,
-    "summary": "The documents describe the web controls and server-side logic for managing student expense claims reports within a web application. This includes validation controls, data input elements, script management, and database procedures for generating reports.",
-    "purpose": "To handle the presentation, user interaction, and backend processing for generating and validating student expense claims reports in a web application.",
+    "summary": "The document outlines components and controls for generating reports related to student expense claims. It includes validators, labels, buttons, and calendar extenders. There is functionality for generating reports in Excel format and displaying report data in HTML.",
+    "purpose": "To provide a user control interface for generating and viewing reports of student expense claims.",
     "entities": [],
     "fields": [
-        "ValidationSummary1",
-        "Label3",
-        "ltlDescription",
-        "Label4",
-        "ltlOptions",
-        "Label7",
         "txtStartDate",
-        "btnStartDate",
-        "CalendarExtender1",
-        "RegularExpressionValidator1",
-        "ltlMandatoryStartDate",
-        "Label8",
         "txtEndDate",
-        "btnEndDate",
-        "CalendarExtender2",
-        "RegularExpressionValidator2",
-        "Literal1",
-        "valEditStartDate",
-        "valEditEndDate",
-        "CustomValidator1",
-        "cmdRunExcel",
-        "lblPleaseWait",
-        "pnlReportHTML",
-        "lblReportHTML"
+        "ltlDescription",
+        "ltlOptions"
     ],
     "actors": [
-        "UserSession",
-        "ScriptMgr",
-        "Page",
-        "ScriptManager",
-        "CodeRecord"
+        "UserSession"
     ],
     "workflows": [
         {
-            "name": "Page Load and PreRender",
+            "name": "Generate Report",
             "steps": [
-                "Page_Load initializes page",
-                "Page_PreRender checks UserSession",
-                "Description and options set based on CodeRecord",
-                "SetupJavaScript is called"
-            ]
-        },
-        {
-            "name": "Export to Excel",
-            "steps": [
-                "cmdExcel_Click sets ProcedureName to ReportExpenseClaims",
-                "Parameters added: SessionID, DateFrom, DateTo",
-                "GetData retrieves data using SqlDataReader",
-                "OutputCSV generates report HTML",
-                "Report HTML displayed if non-empty"
+                "User inputs start and end dates.",
+                "User clicks on the Excel button ('cmdExcel_Click').",
+                "Parameters are set with session ID and date range.",
+                "Stored procedure 'ReportExpenseClaims' is executed.",
+                "Data is read using SqlDataReader.",
+                "Output is formatted as CSV and displayed in the HTML panel."
             ]
         }
     ],
     "business_rules": [
-        "Auto-generated fields should be modified by moving the declaration from designer file to code-behind."
+        "The report generation relies on a valid session ID.",
+        "Date fields must be validated for correct formats."
     ],
     "validations": [
-        "RequiredFieldValidator",
-        "RegularExpressionValidator"
+        "RequiredFieldValidator for start and end dates.",
+        "RegularExpressionValidator for date format."
     ],
     "calculations": [],
     "conditions": [],
     "system_behavior": [
-        "JavaScript setup for client-side interaction.",
-        "Server-side data retrieval and report generation."
+        "JavaScript setup for date fields' client IDs.",
+        "Display of report HTML if generated content is available."
     ],
     "dependencies": [
-        "HSPnet.DataLayer",
-        "HSPnet.App_GlobalResources",
-        "HSPnet.UI",
-        "HSPnet.Framework",
-        "AJAX Control Toolkit"
+        "Uses AjaxControlToolkit for calendar extender.",
+        "Relies on HSPnet database procedures and session management."
     ],
     "exceptions": [],
     "source_document_ids": [
