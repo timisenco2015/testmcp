@@ -1,93 +1,88 @@
 {
-  "filename": "RptMnuEmploymentChanges",
-  "found": true,
-  "summary": "RptMnuEmploymentChanges is a component of the HSPnet.UserControls.ReportMenu namespace used for handling employment change reports within a web application. It includes functionality to generate reports in Excel format based on user input, session data, and employment status.",
-  "purpose": "The purpose of the RptMnuEmploymentChanges control is to facilitate the reporting of employment changes, allowing users to generate detailed reports between specified dates for newly employed, newly resigned, or both categories.",
-  "entities": [],
-  "fields": [
-    {
-      "name": "ValidationSummary1",
-      "type": "global::System.Web.UI.WebControls.ValidationSummary"
-    },
-    {
-      "name": "ltlDescription",
-      "type": "global::System.Web.UI.WebControls.Literal"
-    },
-    {
-      "name": "ltlOptions",
-      "type": "global::System.Web.UI.WebControls.Literal"
-    },
-    {
-      "name": "txtStartDate",
-      "type": "global::System.Web.UI.WebControls.TextBox"
-    },
-    {
-      "name": "txtEndDate",
-      "type": "global::System.Web.UI.WebControls.TextBox"
-    },
-    {
-      "name": "radNewlyEmployed",
-      "type": "global::System.Web.UI.WebControls.RadioButton"
-    },
-    {
-      "name": "radNewlyResigned",
-      "type": "global::System.Web.UI.WebControls.RadioButton"
-    },
-    {
-      "name": "radBoth",
-      "type": "global::System.Web.UI.WebControls.RadioButton"
-    },
-    {
-      "name": "lblReportHTML",
-      "type": "global::System.Web.UI.WebControls.Label"
-    }
-  ],
-  "actors": [
-    "User"
-  ],
-  "workflows": [
-    {
-      "name": "Generate Employment Changes Report",
-      "steps": [
-        "User selects date range using txtStartDate and txtEndDate.",
-        "User selects employment status filter using radNewlyEmployed, radNewlyResigned, or radBoth.",
-        "User clicks cmdRunExcel button to generate report.",
-        "System uses UserSession to determine procedure name and parameters.",
-        "System fetches data using stored procedures ReportEmploymentChangesPA or ReportEmploymentChanges.",
-        "System outputs report as CSV to lblReportHTML."
-      ]
-    }
-  ],
-  "business_rules": [
-    "If UserSession.PlacementCoordinator is true, use ReportEmploymentChangesPA procedure; otherwise, use ReportEmploymentChanges."
-  ],
-  "validations": [
-    "RegularExpressionValidator1 to validate date inputs."
-  ],
-  "calculations": [],
-  "conditions": [
-    "If radNewlyEmployed is checked, set EmployStatus1 to EmployedStart and EmployStatus2 to an empty string.",
-    "If radNewlyResigned is checked, set EmployStatus1 to an empty string and EmployStatus2 to Resigned.",
-    "If neither is checked, set EmployStatus1 to EmployedStart and EmployStatus2 to Resigned."
-  ],
-  "system_behavior": [
-    "The system populates ltlDescription and ltlOptions with report details and notes.",
-    "JavaScript setup is handled in SetupJavaScript method during Page_PreRender."
-  ],
-  "dependencies": [
-    "UserSession",
-    "Database stored procedures: ReportEmploymentChangesPA, ReportEmploymentChanges"
-  ],
-  "exceptions": [],
-  "source_document_ids": [
-    "03560de5-1084-56d7-a9d3-76df8b55572d",
-    "0b60a0a8-a4a3-5722-a72a-85b3a9fef376",
-    "7df86cd4-76e7-5460-b668-f9fb0213ad55",
-    "8835fd25-dfaa-5cdf-b9f9-34dd7f407d32",
-    "afcaa7b2-2aeb-500a-bf2e-099261c89a72",
-    "e220db30-1408-5ca8-afe3-41caaa27a868",
-    "e7c7618a-9a6d-5dcf-a6e1-678f1749919d",
-    "e8b0793a-00a6-5005-8f99-d91bac62666f"
-  ],
-  "content_gaps": []
+    "filename": "RptMnuEmploymentChanges",
+    "found": true,
+    "summary": "The RptMnuEmploymentChanges file contains a class for managing the UI and backend configurations related to reporting employment changes. It is part of an ASP.NET WebForms project, and it handles various controls, including validation, date selection, and report generation functionality.",
+    "purpose": "To facilitate the generation and management of employment change reports, allowing users to select date ranges, employment status, and export the report to Excel.",
+    "entities": [],
+    "fields": [
+        "ValidationSummary1",
+        "Label3",
+        "ltlDescription",
+        "Label4",
+        "ltlOptions",
+        "txtStartDate",
+        "btnStartDate",
+        "txtEndDate",
+        "btnEndDate",
+        "radNewlyEmployed",
+        "radNewlyResigned",
+        "radBoth",
+        "cmdRunExcel",
+        "lblPleaseWait",
+        "pnlReportHTML",
+        "lblReportHTML",
+        "valEditStartDate",
+        "valEditEndDate",
+        "CustomValidator1",
+        "RegularExpressionValidator1",
+        "RegularExpressionValidator2",
+        "CalendarExtender1",
+        "CalendarExtender2"
+    ],
+    "actors": [
+        "UserSession",
+        "ScriptManager"
+    ],
+    "workflows": [
+        {
+            "name": "Generate Employment Change Report",
+            "steps": [
+                "User selects a date range using txtStartDate and txtEndDate.",
+                "User selects employment status filter (Newly Employed, Newly Resigned, or Both).",
+                "User clicks the 'Run Excel' button.",
+                "If the user is a Placement Coordinator, set procedure name to 'ReportEmploymentChangesPA'. Otherwise, set it to 'ReportEmploymentChanges'.",
+                "Add parameters 'SessionID', 'DateFrom', 'DateTo', 'EmployStatus1', 'EmployStatus2' to the database session.",
+                "Retrieve data using UserSession.DB.GetData() and output it as CSV.",
+                "Display the report HTML if not empty."
+            ]
+        }
+    ],
+    "business_rules": [
+        "Procedure name changes based on user role (Placement Coordinator).",
+        "Use different employment status filters based on user selection."
+    ],
+    "validations": [
+        "valEditStartDate",
+        "valEditEndDate",
+        "RegularExpressionValidator1",
+        "RegularExpressionValidator2",
+        "CustomValidator1"
+    ],
+    "calculations": [],
+    "conditions": [
+        "Check if user role is Placement Coordinator.",
+        "Check if the report HTML is not empty before displaying."
+    ],
+    "system_behavior": [
+        "Page loading and pre-render setup includes JavaScript variable declarations.",
+        "Report generation manipulates the database session for data retrieval and display."
+    ],
+    "dependencies": [
+        "HSPnetSession",
+        "HSPnet.DataLayer",
+        "HSPnet.UI",
+        "AjaxControlToolkit"
+    ],
+    "exceptions": [],
+    "source_document_ids": [
+        "03560de5-1084-56d7-a9d3-76df8b55572d",
+        "0b60a0a8-a4a3-5722-a72a-85b3a9fef376",
+        "7df86cd4-76e7-5460-b668-f9fb0213ad55",
+        "8835fd25-dfaa-5cdf-b9f9-34dd7f407d32",
+        "afcaa7b2-2aeb-500a-bf2e-099261c89a72",
+        "e220db30-1408-5ca8-afe3-41caaa27a868",
+        "e7c7618a-9a6d-5dcf-a6e1-678f1749919d",
+        "e8b0793a-00a6-5005-8f99-d91bac62666f"
+    ],
+    "content_gaps": []
 }
