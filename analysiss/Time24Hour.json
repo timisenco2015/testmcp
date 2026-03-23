@@ -1,0 +1,81 @@
+{
+  "filename": "Time24Hour",
+  "found": true,
+  "summary": "The 'Time24Hour' module primarily focuses on handling and validating 24-hour time formats, calculating shift lengths, and determining the appropriate shift based on given start and end times. It includes methods for time validation, time period validation, conversion of 24-hour time to decimal format, and determination of shift lengths and types based on time ranges.",
+  "purpose": "To manage and validate time-related calculations, especially for scenarios involving work shifts that cross different periods of the day and potentially midnight.",
+  "entities": [],
+  "fields": [
+    "StartTime",
+    "EndTime",
+    "ShiftCode",
+    "VariousTimes",
+    "ShiftAmendmentsExist"
+  ],
+  "actors": [],
+  "workflows": [
+    {
+      "name": "Calculate Shift Length",
+      "steps": [
+        "Convert StartTime to decimal.",
+        "Convert EndTime to decimal.",
+        "Calculate difference considering midnight crossing if necessary.",
+        "Return rounded difference."
+      ]
+    },
+    {
+      "name": "Validate Time",
+      "steps": [
+        "Check if time is a 4-digit numeric between 0000 and 2400.",
+        "Ensure the last two digits are between 00 and 59."
+      ]
+    },
+    {
+      "name": "Determine Shift Type",
+      "steps": [
+        "Compare StartTime and EndTime to determine if shift crosses midnight.",
+        "Check various time ranges to determine appropriate shift: Day, Evening, or Night."
+      ]
+    }
+  ],
+  "business_rules": [
+    "A valid time must be 4 digits long and between 0000 and 2400.",
+    "A shift period is valid if StartTime <= EndTime or if shift crosses midnight between 1600 and 0800 and is less than 13 hours."
+  ],
+  "validations": [
+    "Check time format and range for validity.",
+    "Validate if time period is logically correct."
+  ],
+  "calculations": [
+    "Convert 24-hour time to decimal format.",
+    "Calculate shift length in hours."
+  ],
+  "conditions": [
+    "If EndTime is before StartTime, assume shift crosses midnight.",
+    "Validate shifts are not more than 12 hours except if treated as long shifts."
+  ],
+  "system_behavior": [
+    "Returns boolean for time validity checks.",
+    "Determines shift type based on major time span."
+  ],
+  "dependencies": [],
+  "exceptions": [
+    "Invalid time format results in false validity.",
+    "Invalid time period when start is later than end with improper crossing."
+  ],
+  "source_document_ids": [
+    "004643d1-5348-5058-acfd-8e6b91762bd9",
+    "13371c16-d1fb-5542-8302-c6c7b68c0d2e",
+    "22e73e3c-ca27-5724-99bc-911724a1b6a5",
+    "28dd8ac6-d885-5927-8baa-8633ecc5b405",
+    "2c660a0b-a8fa-548c-b45e-8b2b8d1c287a",
+    "51a79298-05c5-5a00-a6ff-7f220012dd67",
+    "79ca524b-36b3-59f1-8e59-972571b3e079",
+    "99a374eb-61e3-5cb2-9111-727987cdd162",
+    "ce1a107b-0311-50ec-9339-aa2fa93d287e",
+    "cf7e85d1-2471-5461-a589-94d01875d456",
+    "ddba0698-21b9-5bc1-a227-3ed3401088a7",
+    "fdd75265-9b4d-5047-a794-9763658954cf",
+    "fdf117d4-2bb3-5b65-b114-76be4925de91"
+  ],
+  "content_gaps": []
+}
