@@ -1,0 +1,29 @@
+# Module: ReportWizardGenerator
+
+## ReportWizardGenerator-UC1 — Generate Report
+
+- Primary Actor(s): Report Generator
+- Secondary Actor(s): None
+- Trigger: A request to generate a report with specific parameters.
+- Description: The Report Generator creates a report based on provided data, report name, headers, and output format.
+- Preconditions:
+  - Valid input parameters are provided (dataFilePath, filePath, reportHeader, reportName, outputFormat, IsUsingDefaultLocale).
+- Postconditions:
+  - A report is successfully generated or an error code is returned.
+- Main Success Scenario:
+  1. System receives the request with all required parameters.
+  2. System validates the parameters.
+  3. System maps column headers for the default and alternate languages.
+  4. System creates a report object with specified parameters.
+  5. System generates the report.
+  6. System returns success code.
+- Extensions:
+  - Alternate flows for different languages based on IsUsingDefaultLocale.
+- Exceptions:
+  - If any parameter is null, the system returns an error code of -1.
+- Business Rules:
+  - Report generation depends on the correctness and presence of parameters.
+- Assumptions:
+  - The system is expected to handle only predefined column headers.
+- Open Issues:
+  - None specified.
