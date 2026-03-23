@@ -1,0 +1,124 @@
+# Module: default
+
+## default-UC1 — User Login
+
+- Primary Actor(s): User
+- Secondary Actor(s): None
+- Trigger: User attempts to log in
+- Description: This use case describes the process of a user logging into the system.
+- Preconditions: User must have valid credentials (UserID and Password).
+- Postconditions: User is logged into the system and redirected to the appropriate start screen.
+- Main Success Scenario:
+  1. User enters UserID and Password.
+  2. User clicks the "Log In" button.
+  3. System validates the credentials.
+  4. If credentials are valid, user is logged in and redirected.
+- Extensions:
+  - 2a. User forgets password:
+    - System provides a link to reset the password.
+  - 3a. Multi-Factor Authentication (MFA) required:
+    - System prompts for an authentication code.
+    - User enters the code.
+    - System validates the code and logs user in.
+- Exceptions:
+  - Invalid credentials provided.
+  - Account locked out or inactive.
+- Business Rules:
+  - System must validate credentials using security protocols.
+- Assumptions:
+  - User requirements for authentication are fulfilled.
+- Open Issues:
+  - None.
+
+## default-UC2 — Multi-Factor Authentication
+
+- Primary Actor(s): User
+- Secondary Actor(s): None
+- Trigger: Successful login requires MFA.
+- Description: This use case handles the scenario where Multi-Factor Authentication is needed.
+- Preconditions: User has initiated a login and MFA is required.
+- Postconditions: User is authenticated and proceeds to the application.
+- Main Success Scenario:
+  1. User is prompted to enter a 6-digit authentication code.
+  2. User enters the code and submits.
+  3. System validates the code.
+  4. On successful validation, user is authenticated.
+- Extensions:
+  - 2a. User enters incorrect code:
+    - System displays an error message.
+    - User is allowed to retry.
+- Exceptions:
+  - Authentication code expired.
+  - Unknown error during code validation.
+- Business Rules:
+  - MFA code must be validated before user access is granted.
+- Assumptions:
+  - User receives authentication codes via a secure channel.
+- Open Issues:
+  - None.
+
+## default-UC3 — Language Preference
+
+- Primary Actor(s): User
+- Secondary Actor(s): None
+- Trigger: User changes language preference.
+- Description: The system adjusts the display language based on user preference.
+- Preconditions: User is accessing a language-switchable part of the system.
+- Postconditions: Display is updated to the selected language.
+- Main Success Scenario:
+  1. User selects English or French as preferred language.
+  2. System reloads the interface in the selected language.
+- Extensions:
+  - None.
+- Exceptions:
+  - Language resource files not found.
+- Business Rules:
+  - System must support both English and French displays.
+- Assumptions:
+  - Language files are available.
+- Open Issues:
+  - None.
+
+## default-UC4 — Archive Countdown Warning
+
+- Primary Actor(s): System
+- Secondary Actor(s): User
+- Trigger: On login, check for archive countdown.
+- Description: Displays a warning if a program is nearing archival.
+- Preconditions: Archive warning conditions met.
+- Postconditions: User is informed of archive status.
+- Main Success Scenario:
+  1. System checks for archival conditions.
+  2. If conditions met, a warning message is displayed to the user.
+- Extensions:
+  - None.
+- Exceptions:
+  - No warning displayed if conditions not met.
+- Business Rules:
+  - Archive warnings are based on days remaining.
+- Assumptions:
+  - Archive conditions are correctly configured.
+- Open Issues:
+  - None.
+
+## default-UC5 — Session Timeout and Reload
+
+- Primary Actor(s): System
+- Secondary Actor(s): User
+- Trigger: Session timeout or cancel action.
+- Description: Manages session timeouts and user-triggered reloads.
+- Preconditions: User session is active.
+- Postconditions: User is redirected to the login page.
+- Main Success Scenario:
+  1. User session times out or user clicks cancel.
+  2. System redirects to the login page.
+- Extensions:
+  - None.
+- Exceptions:
+  - None.
+- Business Rules:
+  - Sessions must timeout after a configured period.
+- Assumptions:
+  - Timeout settings are correctly configured.
+- Open Issues:
+  - None.
