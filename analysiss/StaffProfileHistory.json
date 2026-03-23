@@ -1,0 +1,73 @@
+{
+  "filename": "StaffProfileHistory",
+  "found": true,
+  "summary": "The StaffProfileHistory system is a module within the HSPnet framework designed to manage and display historical data associated with staff profiles. It involves retrieving and displaying data related to staff profile history, including information like user actions, sections, and personal details of the staff members.",
+  "purpose": "To provide a historical view of actions and changes related to staff profiles within the HSPnet framework, aiding users in tracking changes and maintaining data integrity.",
+  "entities": [],
+  "fields": [
+    "ActionDate",
+    "ScreenSection",
+    "UserAction",
+    "Fields",
+    "Agency",
+    "AgencyName",
+    "LastName",
+    "FirstName",
+    "MiddleName",
+    "Phone",
+    "ByUserID",
+    "ByOriginalUserID",
+    "ByUserSysAdmin",
+    "ScreenSectionUntranslated"
+  ],
+  "actors": [
+    "HSPnetSession",
+    "StaffPRHistory",
+    "StaffPRHistoryList"
+  ],
+  "workflows": [
+    {
+      "name": "StaffProfileHistory Retrieval",
+      "steps": [
+        "Initiate StaffProfileHistorySearch with session and StaffID.",
+        "Fill the StaffPRHistoryList with data from the database.",
+        "Filter entries based on consent and screen section.",
+        "Populate StaffPRHistory objects with retrieved data.",
+        "Return the populated list for display."
+      ]
+    }
+  ],
+  "business_rules": [
+    "If FPRE consent is not obtained, exclude certain entries like Orientation, Certifications, Safety & Security, Infection Control, and Occupational Health."
+  ],
+  "validations": [],
+  "calculations": [],
+  "conditions": [],
+  "system_behavior": [
+    "Displays historical actions related to staff profiles.",
+    "Supports alternate language fields for display.",
+    "Errors and warnings are managed through panels and labels."
+  ],
+  "dependencies": [],
+  "exceptions": [],
+  "source_document_ids": [
+    "00fb12a6-eb16-59aa-93ee-d8f6f2a67bbf",
+    "092b505a-e0ba-5d3a-9490-c1bdcfce2eb0",
+    "106a69b9-7477-5275-a1af-52678d266b3b",
+    "16ba35c3-6e80-58f0-bde8-9c605abc3b09",
+    "1dd3244d-e212-5923-a4eb-574efaa60735",
+    "282c6e4e-c3c6-5e3e-96d4-efc7724ae340",
+    "2e766119-d85e-5f94-aeda-d5f5879d8151",
+    "430f6500-8b40-5353-8636-460627087acf",
+    "43beb25f-e110-5c62-9bfd-a0f8e46ef73f",
+    "68097061-e04d-537e-9229-8c3edee0a84c",
+    "744514c2-be07-5c0e-a0e7-276cbaa48324",
+    "8cd916bb-d851-5e49-ae16-7b6838af9474",
+    "d4a754b8-647e-564a-b4ac-fa53049a0a8b",
+    "e2b9bb96-6f34-5731-9c80-6dfeb5ea0635",
+    "ed9b518b-bcd6-5a99-a1c1-609c72bedafc",
+    "f58327e0-e3d2-5a58-b4b0-081cac9ed014",
+    "fc4be3de-b143-5b22-a506-59059c12070d"
+  ],
+  "content_gaps": []
+}
