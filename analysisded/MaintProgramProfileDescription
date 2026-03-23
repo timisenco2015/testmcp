@@ -2,80 +2,61 @@
 {
   "filename": "MaintProgramProfileDescription",
   "found": true,
-  "summary": "The MaintProgramProfileDescription is a user control component in an ASP.NET application that handles the maintenance of program profiles. It manages the display, addition, editing, and deletion of program details in a web interface.",
-  "purpose": "To facilitate the management and manipulation of program profile data within a web application, including displaying program details, handling user inputs, and performing CRUD operations.",
-  "entities": ["ProgramDetail", "HSPnetSession"],
+  "summary": "The MaintProgramProfileDescription is a web user control within the HSPnet application focused on managing program profiles. It facilitates the display, addition, editing, and deletion of program details through a grid and form view interface.",
+  "purpose": "To allow users to view and manage program profiles by displaying, editing, adding, and deleting program details within a web interface.",
+  "entities": ["MaintProgramProfileDescription", "ProgramDetail", "HSPnetSession"],
   "fields": [
-    "UserSession",
-    "ScreenIsEditable",
-    "ProgramID",
-    "ScriptMgr",
-    "GridView gvwProfile",
-    "ObjectDataSource dsProfile",
-    "Panel pnlPopup",
-    "UpdatePanel updPnlPopup",
-    "Button btnShowPopup",
-    "ModalPopupExtender mdlDetails",
-    "ValidationSummary ValidationSummary3",
-    "FormView fvwProfile",
-    "ObjectDataSource dsHeading",
-    "Panel pnlEmptyData",
-    "LinkButton cmdAddEmptyData"
+    "gvwProfile", 
+    "dsProfile",
+    "pnlPopup",
+    "updPnlPopup",
+    "btnShowPopup",
+    "mdlDetails",
+    "ValidationSummary3",
+    "updPnlProfile",
+    "pnlEmptyData",
+    "cmdAddEmptyData",
+    "fvwProfile",
+    "dsHeading"
   ],
-  "actors": [],
+  "actors": ["UserSession"],
   "workflows": [
     {
-      "name": "Profile Display",
+      "name": "Program Profile Management",
       "steps": [
-        "Initialize components and set properties.",
-        "Bind data from data source to GridView.",
-        "Display data in GridView with options for editing and deleting."
-      ]
-    },
-    {
-      "name": "Add/Edit Program Detail",
-      "steps": [
-        "User clicks 'Add' or 'Edit'.",
-        "Switch to appropriate mode in FormView.",
-        "Bind data to FormView.",
-        "User fills in detail and saves.",
-        "Data is validated and stored."
-      ]
-    },
-    {
-      "name": "Delete Program Detail",
-      "steps": [
-        "User clicks 'Delete'.",
-        "Confirm deletion.",
-        "Remove detail from data source.",
-        "Refresh view."
+        "Display program profiles in gvwProfile grid.",
+        "Edit profile details using fvwProfile form view.",
+        "Add new or update existing profile details.",
+        "Delete profile details."
       ]
     }
   ],
-  "business_rules": [],
+  "business_rules": [
+    "Profiles can only be modified if the screen is editable.",
+    "No data add button should be visible when the gridview is empty and the screen is editable."
+  ],
   "validations": [
-    "Ensure required fields are filled before saving.",
-    "Validate data types of entries.",
-    "Check for duplicate entries before adding."
+    "ValidationSummary3 displays validation messages.",
+    "Grid.SetupAddButton, Grid.SetupEditButton, and Grid.SetupDeleteButton manage button states based on conditions."
   ],
   "calculations": [
-    "Calculate sort order if not provided, defaults to -1."
+    "SortOrder is calculated and defaults to -1 if empty.",
+    "ID retrieval from data keys for add or update operations."
   ],
-  "conditions": [],
+  "conditions": [
+    "If gvwProfile is empty and screen is editable, show pnlEmptyData.",
+    "Disable edit fields if ScreenIsEditable is false."
+  ],
   "system_behavior": [
-    "Switches to add or edit mode based on user action.",
-    "Displays popup modals for additional details."
+    "Redirects to MaintProgramProfile page with appropriate query strings on save and delete operations.",
+    "Handles data binding and state management for grid and form view components."
   ],
   "dependencies": [
-    "System.Web",
-    "System.Web.UI",
-    "HSPnet.DataLayer",
-    "HSPnet.Framework",
-    "AjaxControlToolkit"
+    "HSPnet.Framework for session management and query string handling.",
+    "AjaxControlToolkit for modal popup functionality."
   ],
   "exceptions": [
-    "Handle errors in data binding.",
-    "Catch exceptions during CRUD operations."
+    "JavaScript errors related to event validation when using EmptyDataTemplate instead of pnlEmptyData."
   ],
   "source_document_ids": [
     "03243333-f3df-579f-ad44-5ded284d50a1",
