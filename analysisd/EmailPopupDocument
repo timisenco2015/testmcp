@@ -1,0 +1,67 @@
+```json
+{
+  "filename": "EmailPopupDocument",
+  "found": true,
+  "summary": "Handles email data management including searching and deleting email records.",
+  "purpose": "Manage email documents: search and delete.",
+  "entities": [
+    "EmailPopupDocument",
+    "EmailPopupDocuments"
+  ],
+  "fields": [
+    "ID",
+    "FileName",
+    "FilePath",
+    "Checked"
+  ],
+  "actors": [],
+  "workflows": [
+    {
+      "name": "Search Email Documents",
+      "steps": [
+        "Split DataInfo",
+        "Create EmailPopupDocument entries",
+        "Add entries to list",
+        "Return list"
+      ]
+    },
+    {
+      "name": "Delete Email Document",
+      "steps": [
+        "Split DataInfo",
+        "Identify document by ID",
+        "Delete file and folder",
+        "Update return string"
+      ]
+    }
+  ],
+  "business_rules": [
+    "DataInfo should not be empty",
+    "File and folder deletion should be attempted"
+  ],
+  "validations": [
+    "Validate non-empty DataInfo"
+  ],
+  "calculations": [],
+  "conditions": [],
+  "system_behavior": [
+    "Creates instances of EmailPopupDocument",
+    "Adds instances to list for search results"
+  ],
+  "dependencies": [
+    "System.IO",
+    "System.Data.SqlClient",
+    "HSPnet.Framework",
+    "HSPnet.App_GlobalResources"
+  ],
+  "exceptions": [
+    "Catch exceptions during file deletion",
+    "Catch exceptions during folder deletion"
+  ],
+  "source_document_ids": [
+    "7287734e-f13d-550f-9249-4242db620766",
+    "927bc837-5564-5759-9324-27c6d5d7321d"
+  ],
+  "content_gaps": []
+}
+```
