@@ -1,0 +1,86 @@
+# Module: CostCentre
+
+## CostCentre-UC1 — Retrieve Cost Centre Records
+
+- Primary Actor(s):
+  - System
+
+- Secondary Actor(s):
+  - Database
+
+- Trigger:
+  - A request is made to retrieve cost centre records for given parameters.
+
+- Description:
+  - The system retrieves cost centre records from the database for a specified session ID and date range, along with optional filters such as placing agencies, discipline, site, service, and destination.
+
+- Preconditions:
+  - The database is accessible.
+  - Valid session ID and date range are provided.
+  - Optional filters may include valid values if provided.
+
+- Postconditions:
+  - A list of cost centre records is returned.
+
+- Main Success Scenario:
+  1. The system receives a request with the required parameters.
+  2. The system establishes a connection to the database.
+  3. The system executes the stored procedure "PlacementCostCentre" with the provided parameters.
+  4. The system retrieves data from the database.
+  5. The system returns a list of populated `CostCentreRecord` objects.
+
+- Extensions:
+  - None
+
+- Exceptions:
+  - Database connection failure.
+  - Invalid parameters leading to an empty result set.
+
+- Business Rules:
+  - The stored procedure "PlacementCostCentre" must exist in the database.
+
+- Assumptions:
+  - The database schema matches the expected structure for the stored procedure.
+
+- Open Issues:
+  - None
+
+## CostCentre-UC2 — Populate Cost Centre Record
+
+- Primary Actor(s):
+  - System
+
+- Secondary Actor(s):
+  - None
+
+- Trigger:
+  - A data row is read from the database result set.
+
+- Description:
+  - The system populates a `CostCentreRecord` object with data from a database result set.
+
+- Preconditions:
+  - A valid database result set is available.
+
+- Postconditions:
+  - A `CostCentreRecord` object is populated with data from a data row.
+
+- Main Success Scenario:
+  1. The system reads a data row from the result set.
+  2. The system assigns each field in the data row to the corresponding property in the `CostCentreRecord` object.
+  3. The populated `CostCentreRecord` object is added to the collection.
+
+- Extensions:
+  - None
+
+- Exceptions:
+  - Data conversion errors if the data types do not match the expected types.
+
+- Business Rules:
+  - The `CostCentreRecord` object structure must mirror the data schema in the result set.
+
+- Assumptions:
+  - The data types in the result set align with the data types in the `CostCentreRecord`.
+
+- Open Issues:
+  - None
