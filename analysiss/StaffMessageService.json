@@ -1,19 +1,19 @@
 {
   "filename": "StaffMessageService",
   "found": true,
-  "summary": "The StaffMessageService is a web service for retrieving staff messages based on a given StaffMessage ID.",
-  "purpose": "To provide a method for retrieving the text of a staff message using a staff message ID and session hash.",
+  "summary": "The StaffMessageService is a web service designed to retrieve staff messages based on a given StaffMessage ID. It is part of the HSPnet.WebServices namespace and conforms to the WsiProfiles.BasicProfile1_1 standard.",
+  "purpose": "The purpose of the StaffMessageService is to provide a means to retrieve the text of a specific staff message using an ID and session hash, facilitating access to message content in a secure and controlled manner.",
   "entities": [],
   "fields": [
     {
       "name": "sessionHash",
       "type": "string",
-      "description": "The hash representing the session for which the message is being retrieved."
+      "description": "A session hash used to retrieve the session ID."
     },
     {
       "name": "id",
       "type": "int",
-      "description": "The ID of the staff message to retrieve."
+      "description": "The unique identifier for the staff message."
     }
   ],
   "actors": [],
@@ -21,23 +21,22 @@
     {
       "name": "Retrieve Staff Message",
       "steps": [
-        "Accept sessionHash and id as input parameters.",
-        "Convert sessionHash to sessionID using GetSessionIDFromHash.",
-        "Search for staff message using StaffMessagesSearchID with sessionID and id.",
-        "If found, return the message text; otherwise, return an empty string."
+        "Use the session hash to get the session ID.",
+        "Search for the staff message using the session ID and message ID.",
+        "If the message is found, return the message text.",
+        "If no message is found, return an empty string."
       ]
     }
   ],
-  "business_rules": [
-    "The service method gets staff messages only if the session hash and ID are valid."
-  ],
+  "business_rules": [],
   "validations": [],
   "calculations": [],
-  "conditions": [],
+  "conditions": [
+    "If the message is found, return the message text.",
+    "If no message is found, return an empty string."
+  ],
   "system_behavior": [
-    "Uses caching for 60 seconds to optimize performance.",
-    "Buffers response to enhance efficiency.",
-    "Returns an empty string if the message is not found."
+    "Retrieves a staff message text based on provided session hash and message ID."
   ],
   "dependencies": [
     "HSPnet.DataLayer",
