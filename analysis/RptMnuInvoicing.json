@@ -1,39 +1,36 @@
 {
   "filename": "RptMnuInvoicing",
   "found": true,
-  "summary": "RptMnuInvoicing is a report menu user control for generating CSV-based invoicing reports based on user-selected parameters. It gathers report filters, builds context headers, and invokes stored procedures to retrieve and output invoice data. The control supports flexible filtering by agency, department, program, term, cohort/course, placement request type, site, invoice status, and date ranges. The control handles saving and restoring filter states, validates required fields, and adapts UI elements based on user context (receiving/placing mode).",
-  "purpose": "To enable users to generate customized invoicing reports by selecting relevant educational placement parameters, statuses, and date ranges. It streamlines the report creation, validation, and retrieval process for invoicing workflows within an educational placement management system.",
+  "summary": "RptMnuInvoicing is a user control that supports generating invoices and related reports for placements. The control provides a filter-rich UI, involving dropdowns and choosers for agencies, departments, programs, terms, governing organizations, sites, placement request types, cohorts, and courses. It allows users to specify invoice statuses and options for inclusion. The control supports saving/restoring user filters, validating input, and exporting report data (notably to CSV via a stored procedure). It differentiates between 'receiving' and 'placing' modes, affecting available options and field behavior.",
+  "purpose": "To allow users (administrators/staff) to filter, generate, and export invoicing reports for placement requests, with detailed criteria for agencies, organizations, sites, cohorts/courses, placement types, terms/dates, invoice statuses, and to save preferences for future sessions.",
   "entities": [
     "Agency",
     "Department",
     "Program",
     "Term",
-    "Cohort",
-    "Course",
-    "PlacementRequestType",
     "Site",
     "GoverningOrg",
-    "UserSession",
-    "UserReportFilters"
+    "PlacementRequest",
+    "Cohort",
+    "Course"
   ],
   "fields": [
     "PlcAgencyID",
     "DepartmentID",
     "ProgramID",
     "TermID",
-    "CohortCourseIDList",
-    "CohortIDList",
-    "CourseIDList",
-    "PRTypeIDList",
-    "SiteIDList",
-    "AgencyID",
-    "GoverningOrgIDList",
     "startDate",
     "endDate",
-    "termMode",
+    "CohortIDList",
+    "CourseIDList",
     "IncludeOption",
+    "AgencyID",
+    "GoverningOrgIDList",
+    "SiteIDList",
     "showEachStudent",
     "includeQESPA",
+    "PRTypeIDList",
+    "CohortCourseIDList",
     "invoiceStatusNone",
     "invoiceStatusSent",
     "invoiceStatusValidated",
@@ -43,81 +40,75 @@
     "includeEndAfter"
   ],
   "actors": [
-    "User",
-    "System",
-    "Dropdown controls",
-    "Session Manager"
+    "User (Administrator/Staff)",
+    "System (for filter persistence and report execution)"
   ],
   "workflows": [
     {
-      "name": "Invoicing Report Generation",
+      "name": "Prepare and Run Invoice Report",
       "steps": [
-        "Load saved filters and initialize UI controls",
-        "User selects parameters: agency, department, program, term/date, placement type, site, invoice status",
-        "Validate required fields (e.g. start/end date, cohort/course selection)",
-        "Save user filter selections for reuse",
-        "Build report header/context string based on selections",
-        "Invoke stored procedure ReportInvoicingCSV with parameters for term/date, agency, department, program, term, cohort, course, placement type, site, invoice status flags, inclusion options",
-        "Fetch report data and render CSV output",
-        "Display report HTML in UI and allow download/export"
-      ]
-    },
-    {
-      "name": "Filter Saving and Restoration",
-      "steps": [
-        "Save each filter field to UserReportFilters with current values",
-        "On load or pre-render, restore filter states from UserReportFilters and update UI accordingly"
-      ]
-    },
-    {
-      "name": "Dropdown Population",
-      "steps": [
-        "Populate dropdown lists for agencies, departments, programs, terms, sites, placement types, governing orgs based on user session and mode (receiving/placing)",
-        "Select previously saved or default values"
+        "User selects filtering criteria via dropdowns and choosers for agencies, departments, programs, terms, sites, governing orgs, placement request types, cohorts/courses.",
+        "System loads and binds values to dropdowns, respecting mode (receiving/placing) and saved filters.",
+        "If 'term' mode, user must select at least one cohort/course; if 'date' mode, user must specify valid start/end dates.",
+        "User can specify invoice statuses to include.",
+        "User can choose inclusion options: confirmed, accepted, or all except declined/cancelled.",
+        "User can include/exclude QESPA, show details for each student, select placement request types, sites, etc.",
+        "System validates input, showing errors if required fields are missing.",
+        "User clicks to run report; system constructs parameters, calls stored procedure ('ReportInvoicingCSV'), retrieves and outputs report data.",
+        "Report output can be displayed and/or downloaded (CSV), with header/context description generated programmatically.",
+        "System saves filter selections for persistence."
       ]
     }
   ],
   "business_rules": [
-    "Agency, Department, Program, Term dropdowns are populated based on user permissions and selection context",
-    "Receiving mode restricts available agencies to user's own agency",
-    "Placing mode restricts dropdown to user's agency (except for PA dropdown, which may include ALL depending on mode)",
-    "Saved filters are restored on page load for easier repeat report creation",
-    "Term mode requires at least one cohort/course selection; Date mode requires valid start/end dates",
-    "PRType selection: 'All' disables controls and clears ID list",
-    "IncludeOption governs which placement requests are included: 0=confirmed, 1=accepted/confirmed, 2=all except declined/cancelled"
+    "In 'receiving' mode, dropdowns restrict available choices (e.g., only user's agency visible).",
+    "In 'placing' mode, dropdowns differ to show broader options.",
+    "At least one cohort/course is required in 'term' mode.",
+    "Start and end dates are required in 'date' mode.",
+    "Cannot select more than system maximum for cohort/courses.",
+    "Saved filters are used to restore previous selection.",
+    "Invoice statuses are selectable via checkboxes, used as filters.",
+    "Placement request types can be all or partial, controlled via checkbox and selection list.",
+    "Available dropdown options may be subject to system permissions/settings."
   ],
   "validations": [
-    "Start date required in date mode",
-    "End date required in date mode",
-    "At least one cohort/course required in term mode",
-    "PRTypeIDList cannot be empty unless 'All' is checked",
-    "Maximum cohort/courses selected cannot exceed system-defined limit (PrintJobs.MAX_INCLUDE_ITEMS)"
+    "startDate required if not in term mode.",
+    "endDate required if not in term mode.",
+    "cohort/course required if in term mode.",
+    "Selection list size limited by MAX_INCLUDE_ITEMS.",
+    "PRTypeIDList required unless 'All' selected."
   ],
   "calculations": [
-    "Splitting CohortCourseIDList into CohortIDList and CourseIDList for report parameters",
-    "Header context string generation for report"
+    "Splitting CohortCourseIDList into CohortIDList and CourseIDList for report parameterization.",
+    "Header/context description composed dynamically from current selections."
   ],
   "conditions": [
-    "termMode: determines if report is filtered by academic term or by date range",
-    "ReceivingMode: alters filter availability and dropdown content",
-    "IncludeOption: selects scope of included placement requests",
-    "invoiceStatusX flags: filters report by status (None, Sent, Validated, Paid, PaymentReceived)"
+    "ReceivingMode: changes dropdown contents and UI behavior.",
+    "termMode: affects required fields and available options.",
+    "Show details for each student: toggles output granularity.",
+    "IncludeOption: affects which placement requests are included.",
+    "Invoice status checkboxes: toggle corresponding filters.",
+    "IncludeStartBefore/includeEndAfter: affect inclusion of requests based on date range."
   ],
   "system_behavior": [
-    "UI controls dynamically enable/disable and show/hide based on filter context and mode",
-    "Filtered dropdowns and lists update based on dependencies (agency, department, program, term)",
-    "Filters are persisted and restored for consistent user experience",
-    "CSV report is generated server-side and rendered as HTML for download/export"
+    "Dropdowns and choosers are dynamically loaded and data bound.",
+    "Saved filter values are restored, including visual selection of lists.",
+    "JavaScript used for UI manipulation (moving items, toggling controls).",
+    "Report is generated server-side via stored procedure, parameters from UI selections.",
+    "Report output header describes included criteria.",
+    "Errors are shown if validation fails."
   ],
   "dependencies": [
-    "Dropdown population depends on prior filter/selection values and user session context",
-    "Report output depends on stored procedure (ReportInvoicingCSV) and provided parameters",
-    "Filter saving and restoration depend on UserReportFilters subsystem"
+    "UserSession for permissions, saved filters, locale formatting.",
+    "Codes, Agencies, Departments, Programs, Terms, Sites, GoverningOrgs, TimetableEntries for dropdown data.",
+    "UserReportFilters class for persistence.",
+    "ReportMain for CSV output.",
+    "SQL Server stored procedures: ReportInvoicingCSV, ReportInvoicingCSVContext."
   ],
   "exceptions": [
-    "No courses selected in term mode prevents report generation",
-    "Missing start or end date in date mode prevents report generation",
-    "Too many cohort/courses selected triggers error and prevents report"
+    "If required fields are missing (start/end date, cohort/course), report generation is aborted and error message displayed.",
+    "If selection list exceeds maximum allowed, error message is shown.",
+    "If PRTypeIDList is empty and not 'All', error is shown."
   ],
   "source_document_ids": [
     "057bc5e5-28dd-5588-8c7a-0592c332feed",
@@ -164,7 +155,9 @@
     "fdad9901-92b1-5276-8fae-06e8c7b14d51"
   ],
   "content_gaps": [
-    "No business logic details for stored procedures (ReportInvoicingCSV, ReportInvoicingCSVContext)",
-    "Limited description of report output structure and CSV formatting"
+    "No screen mockups or direct description of UI layout; inferred from code and fields.",
+    "Actual SQL stored procedure implementation is not included.",
+    "Business context (e.g., why certain fields/options exist) inferred, not explicitly documented.",
+    "List of possible values for placement types, agencies, sites, not included."
   ]
 }
