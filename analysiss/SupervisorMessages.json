@@ -1,61 +1,77 @@
 {
   "filename": "SupervisorMessages",
   "found": true,
-  "summary": "The `SupervisorMessages` file is a part of a web-based system that manages and displays supervisor messages related to placement requests and assessments. It involves handling user sessions, setting up assessments, capturing changes, and interacting with various UI controls.",
-  "purpose": "To manage and display supervisor messages and assessments within a placement management web application.",
+  "summary": "The SupervisorMessages document appears to include and manage functionality related to supervisor assessments, placement requests, and changes in a web application. It handles interactions with user sessions, data binding on web controls, and outlines session management strategies to manipulate how users interact with the platform.",
+  "purpose": "To manage supervisor messages, assessments, and placement request changes within a web application framework. The document is structured to handle data display and session management associated with supervisors in an educational or placement context.",
   "entities": [],
   "fields": [
-    "UserSession",
-    "StaffID",
-    "ActivatedByAnotherAgency",
-    "ViewState",
-    "SessionConstants",
-    "Dropdown",
-    "PlacementStatisticsDC",
-    "HyperLink",
-    "Label",
-    "Lite",
-    "LinkButton",
-    "ProfileIcon",
-    "fvwChanges",
-    "trHelpText",
-    "hlOverview",
-    "tRecentChangesByOthers"
+    {
+      "name": "UserSession",
+      "description": "Handles the session data for current user interactions"
+    },
+    {
+      "name": "StaffID",
+      "description": "Identifier for the staff member interacting with the system"
+    },
+    {
+      "name": "ViewState",
+      "description": "Web control state data"
+    },
+    {
+      "name": "PlacementRequestAssessments",
+      "description": "Handles data related to placement requests and assessments"
+    }
   ],
-  "actors": ["Supervisor", "UserSession"],
+  "actors": [
+    {
+      "name": "Supervisor",
+      "description": "Acts as the assessor or reviewer in the assessment process"
+    },
+    {
+      "name": "DataLayer",
+      "description": "Provides access to data queries and update operations"
+    }
+  ],
   "workflows": [
     {
-      "name": "Setup Assessments",
+      "name": "SetupAssessments",
       "steps": [
-        "Set data source for assessments",
-        "Bind data to GridView",
-        "Handle row data bound"
+        "Data source for assessments is fetched",
+        "Data binding is performed on GridView",
+        "Session variables are saved"
+      ]
+    },
+    {
+      "name": "SetupChangesMadeByOthers",
+      "steps": [
+        "Set session variables before performing search",
+        "Filter settings saved for preview retrieval"
       ]
     }
   ],
   "business_rules": [
-    "Do not display duplicates of student assessment entries in GridView.",
-    "Highlight the correct row on command execution."
+    "Visible elements depend on session variables and conditions",
+    "Session variables are required to be set for correct functionality"
   ],
   "validations": [
-    "Check if DistributionOpenDate is before LocalDateTime.",
-    "Ensure ViewUntilDaysAfterEnd is within range."
+    "Check for empty HelpText to decide visibility of certain UI components",
+    "Conditions on data fields like AssessorTypeCode to determine control visibility"
   ],
   "calculations": [],
   "conditions": [
-    "If data StatusCode is 'Distributed', check distribution date range.",
-    "If AssessorTypeCode is 'Student', handle view permissions accordingly."
+    "DataRow type in GridViewRow event determines display logic",
+    "Conditions based on session variables and data status codes"
   ],
   "system_behavior": [
-    "Changes various session variables based on the current session and user state.",
-    "Handles events to update the UI elements dynamically based on data bindings and command executions."
+    "The web page reacts to session states and dynamically changes UI components visibility",
+    "Initial setup is performed on first load and later sessions leverage saved states"
   ],
   "dependencies": [
-    "Session management",
-    "Data access layers for help and assessments"
+    "PlacementRequestAssessments object",
+    "Session management via UserSession"
   ],
   "exceptions": [
-    "Hide UI elements if no data is bound to the controls."
+    "Potential crashes on first login if session variables are not initialized"
   ],
   "source_document_ids": [
     "06c76b89-02fa-53bf-aff6-13f52528eace",
