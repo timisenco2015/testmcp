@@ -1,0 +1,96 @@
+{
+  "filename": "DestinationCodeDetails",
+  "found": true,
+  "summary": "The documents provide details on managing destination codes within an HSPnet system. It includes functionalities such as adding, updating, deleting, and searching for Destination Code Details. The operations involve processing responses, sorting orders, and handling alternative descriptions.",
+  "purpose": "The purpose of the documents is to outline the procedures and validations involved in managing Destination Code Details in a system that supports session-driven database operations.",
+  "entities": [
+    "DestinationCodeDetail",
+    "Database",
+    "HSPnetSession",
+    "SqlDataReader"
+  ],
+  "fields": [
+    "ID",
+    "DestinationCodeID",
+    "HeadingID",
+    "Response",
+    "SortOrder",
+    "Description",
+    "DescriptionAlt",
+    "DescriptionFormatted",
+    "SortOrderFormatted",
+    "ResponseFormatted",
+    "HeaderChanged"
+  ],
+  "actors": [
+    "HSPnetSession"
+  ],
+  "workflows": [
+    {
+      "name": "Add Destination Code Detail",
+      "steps": [
+        "Create DestinationCodeDetail object",
+        "Set Response and SortOrderFormatted",
+        "Validate object with IsValid method",
+        "Call database procedure \"DestinationCodeDetailsAdd\"",
+        "Add parameters: DestinationCodeID, HeadingID, Response, SortOrder, SessionID",
+        "Execute database query"
+      ]
+    },
+    {
+      "name": "Update Destination Code Detail",
+      "steps": [
+        "Create DestinationCodeDetail object",
+        "Set Response and SortOrderFormatted",
+        "Validate object with IsValid method",
+        "Call database procedure \"DestinationCodeDetailsUpdate\"",
+        "Add parameters: DestinationCodeDetailID, HeadingID, Response, SortOrder, SessionID",
+        "Execute database query"
+      ]
+    },
+    {
+      "name": "Delete Destination Code Detail",
+      "steps": [
+        "Call database procedure \"DestinationCodeDetailsDelete\"",
+        "Add parameters: DestinationCodeDetailID, SessionID",
+        "Execute database query"
+      ]
+    },
+    {
+      "name": "Search Destination Code Details",
+      "steps": [
+        "Call database procedure \"DestinationCodeDetailsSearch\"",
+        "Add parameter: DestinationCodeID",
+        "Fetch data using SqlDataReader",
+        "Fill list of DestinationCodeDetail objects from data reader",
+        "Close data reader"
+      ]
+    }
+  ],
+  "business_rules": [
+    "Use -1 as the flag for blank sort order.",
+    "Do not repeat header entries unless HeadingID changes."
+  ],
+  "validations": [
+    "Ensure Response is not blank for IsValid method."
+  ],
+  "calculations": [],
+  "conditions": [
+    "Check if Session.UseAltLanguageFields to determine which description to use."
+  ],
+  "system_behavior": [
+    "Translate new lines in response using HTML.translateNewLines."
+  ],
+  "dependencies": [
+    "HSPnetSession for database access and session validation."
+  ],
+  "exceptions": [],
+  "source_document_ids": [
+    "283c3bbd-273c-54a6-b2d9-0a8e5c1b50b1",
+    "b2cc75c3-0ec8-534d-a0cd-388038a8d131",
+    "c38e719c-9f89-5315-aaa8-aa566c3d7237",
+    "ce9cdf3c-2b77-5238-9d2e-e1f6d709f1e8",
+    "dc6dca1d-7ed5-5500-8bf1-5da441204d05"
+  ],
+  "content_gaps": []
+}
