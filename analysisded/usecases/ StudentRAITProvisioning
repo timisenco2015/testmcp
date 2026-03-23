@@ -1,0 +1,87 @@
+# Module: StudentRAITProvisioning
+
+## StudentRAITProvisioning-UC1 — Search Student RAIT Provisioning
+- Primary Actor(s): User
+- Secondary Actor(s): System
+- Trigger: The user initiates a search for RAIT provisioning details.
+- Description: Allows the user to search for student RAIT provisioning details using student ID and staff ID.
+- Preconditions: The user must have a valid session and necessary permissions.
+- Postconditions: The matching RAIT provisioning details are returned.
+- Main Success Scenario:
+  1. User inputs the student ID and staff ID.
+  2. System fetches data from the database using stored procedure `StudentDetailsRAITProvisionSearch`.
+  3. System returns the details to the user.
+- Extensions: None
+- Exceptions: If no records are found, the system returns an empty list.
+- Business Rules: The user must have access to view student details.
+- Assumptions: The database connection is active.
+- Open Issues: None
+
+## StudentRAITProvisioning-UC2 — Add Student RAIT Provisioning
+- Primary Actor(s): Administrator
+- Secondary Actor(s): System
+- Trigger: The administrator adds a new RAIT provisioning entry.
+- Description: Allows an administrator to add new student RAIT provisioning details.
+- Preconditions: The administrator has a valid session and necessary permissions.
+- Postconditions: New RAIT provisioning details are added to the system.
+- Main Success Scenario:
+  1. Administrator inputs new provisioning details.
+  2. System invokes stored procedure `StudentDetailsRAITProvisionAdd`.
+  3. System saves the details to the database.
+- Extensions: None
+- Exceptions: If an error occurs, the entry is not added.
+- Business Rules: Only administrators can add new entries.
+- Assumptions: The database is accessible and ready for write operations.
+- Open Issues: None
+
+## StudentRAITProvisioning-UC3 — Update Student RAIT Provisioning
+- Primary Actor(s): Administrator
+- Secondary Actor(s): System
+- Trigger: The administrator updates existing RAIT provisioning details.
+- Description: Allows an administrator to update RAIT provisioning details.
+- Preconditions: The administrator has a valid session and necessary permissions.
+- Postconditions: The RAIT provisioning details are updated.
+- Main Success Scenario:
+  1. Administrator selects an entry to update.
+  2. Administrator modifies the details.
+  3. System invokes stored procedure `StudentDetailsRAITProvisionUpdate`.
+  4. System updates the details in the database.
+- Extensions: None
+- Exceptions: If an error occurs during update, changes are not saved.
+- Business Rules: Only authorized users can update.
+- Assumptions: The item exists and is valid for update.
+- Open Issues: None
+
+## StudentRAITProvisioning-UC4 — Delete Student RAIT Provisioning
+- Primary Actor(s): Administrator
+- Secondary Actor(s): System
+- Trigger: The administrator deletes a RAIT provisioning entry.
+- Description: Allows an administrator to delete RAIT provisioning details.
+- Preconditions: The administrator has a valid session and necessary permissions.
+- Postconditions: The RAIT provisioning details are removed from the system.
+- Main Success Scenario:
+  1. Administrator selects an entry to delete.
+  2. System invokes stored procedure `StudentDetailsRAITProvisionDelete`.
+  3. System removes the entry from the database.
+- Extensions: None
+- Exceptions: If the entry is not found, the deletion is aborted.
+- Business Rules: Only authorized users can delete entries.
+- Assumptions: The entry is valid and exists.
+- Open Issues: None
+
+## StudentRAITProvisioning-UC5 — Batch Update Student IT Provisioning
+- Primary Actor(s): System
+- Secondary Actor(s): Administrator
+- Trigger: The system processes a batch update request.
+- Description: Allows batch updating of student IT provisioning using a list.
+- Preconditions: The session is active, and the XML list is properly formatted.
+- Postconditions: The IT provisioning entries are updated in bulk.
+- Main Success Scenario:
+  1. Administrator prepares and submits a batch update request.
+  2. System processes the update using stored procedure `StudentDetailsRAITProvisionUpdateBatch`.
+  3. System updates the details in the database.
+- Extensions: None
+- Exceptions: If any entry in the batch fails, that entry is not updated.
+- Business Rules: Batch operations must meet the schema requirements.
+- Assumptions: The XML format is correct.
+- Open Issues: None
