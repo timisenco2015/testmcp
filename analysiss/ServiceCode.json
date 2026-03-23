@@ -1,42 +1,28 @@
 {
     "filename": "ServiceCode",
     "found": true,
-    "summary": "Manages service codes, properties and localization for service codes within HSPnet.",
-    "purpose": "To handle service code data retrieval and localization for both regular and alternative language fields.",
-    "entities": [],
-    "fields": [
-        "ID",
-        "CodeCategoryID",
-        "ShortName",
-        "Name",
-        "SortOrder",
-        "Notes",
-        "NameAlt"
-    ],
+    "summary": "ServiceCode entity represents service codes in the HSPnet system.",
+    "purpose": "To manage and retrieve service codes linked to courses and timetables.",
+    "entities": ["ServiceCode"],
+    "fields": ["ID", "CodeCategoryID", "ShortName", "Name", "SortOrder", "Notes"],
     "actors": [],
     "workflows": [
         {
-            "name": "Service Code Retrieval",
+            "name": "Code Management",
             "steps": [
-                "ProcedureName set to 'ServiceCodeListAll'.",
-                "Add 'SessionID' parameter.",
-                "Retrieve and localize service code data."
+                "Retrieve service codes by course ID.",
+                "Retrieve service codes by timetable ID.",
+                "Localize service codes based on session language settings."
             ]
         }
     ],
     "business_rules": [],
     "validations": [],
     "calculations": [],
-    "conditions": [],
-    "system_behavior": [
-        "Localizes service code data based on session settings."
-    ],
+    "conditions": ["Localization based on session language setting"],
+    "system_behavior": ["Handles retrieval and localization of service codes"],
     "dependencies": [],
     "exceptions": [],
-    "source_document_ids": [
-        "94f1b055-348d-508a-ae6e-cf7960a8c6a2",
-        "e4ebe4b4-6d14-5c3f-b693-61016f765239",
-        "f976b9af-a402-540f-b162-391d578fac7c"
-    ],
+    "source_document_ids": ["94f1b055-348d-508a-ae6e-cf7960a8c6a2", "e4ebe4b4-6d14-5c3f-b693-61016f765239", "f976b9af-a402-540f-b162-391d578fac7c"],
     "content_gaps": []
 }
