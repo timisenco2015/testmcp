@@ -1,0 +1,60 @@
+{
+    "filename": "Discipline",
+    "found": true,
+    "summary": "Discipline management involves handling sub-disciplines and their associated codes within the system. It includes functions for searching and listing disciplines, handling restrictions based on user roles, and interfacing with related databases.",
+    "purpose": "Manage and retrieve discipline and sub-discipline data efficiently while enforcing access rules.",
+    "entities": [
+        "Discipline",
+        "SubDiscipline"
+    ],
+    "fields": [
+        {"name": "GroupingCode", "description": "Code used for grouping sub-disciplines"},
+        {"name": "DisciplineID", "description": "Unique identifier for a discipline"},
+        {"name": "SubDisciplineID", "description": "Unique identifier for a sub-discipline"},
+        {"name": "DisciplineName", "description": "Name of the discipline"},
+        {"name": "SubDisciplineName", "description": "Name of the sub-discipline"},
+        {"name": "UserID", "description": "User ID associated with a discipline"},
+        {"name": "DocumentID", "description": "Document ID related to discipline"}
+    ],
+    "actors": [
+        "SystemAdministrator",
+        "AssignedUserID",
+        "HSPnetSession"
+    ],
+    "workflows": [
+        {
+            "name": "DisciplineSearch",
+            "steps": [
+                "Initiate search using session and discipline ID",
+                "Fetch data using stored procedures",
+                "Validate user access and group codes",
+                "Return list of disciplines"
+            ]
+        }
+    ],
+    "business_rules": [
+        "Non-admin users cannot access sub-disciplines with a code starting with 'XXX' unless granted."
+    ],
+    "validations": [],
+    "calculations": [],
+    "conditions": [],
+    "system_behavior": [
+        "Database interactions for retrieving and processing discipline data",
+        "Handling of user permissions and access restrictions"
+    ],
+    "dependencies": [
+        "Database procedures for accessing discipline data"
+    ],
+    "exceptions": [
+        "Restrict access based on user role and grouping code"
+    ],
+    "source_document_ids": [
+        "178cdac9-9d2c-5fd9-a042-54e7f1b821a1",
+        "2773673c-13f2-5396-852d-9cdb9f63a1dc",
+        "3086236d-f89f-5727-b677-cc617d8cdcc9",
+        "360ceea2-e7b5-5387-b149-eccd296c63c0",
+        "38b02d41-ded5-52cf-b7f2-1841c78ddd4b",
+        "4312f193-4745-53d7-a07e-fe38bdacac3f"
+    ],
+    "content_gaps": []
+}
