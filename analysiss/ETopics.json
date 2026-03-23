@@ -1,0 +1,86 @@
+{
+  "filename": "ETopics",
+  "found": true,
+  "summary": "The ETopics page is a web module used for managing educational topics within an application. It includes functionalities like listing topics, filtering by agencies, and handling user interactions through a user interface that leverages ASP.NET web controls.",
+  "purpose": "The purpose of the ETopics page is to provide a user interface for managing and viewing educational topics, allowing users to filter topics by categories such as agency or course, and perform actions like preview or delete topics.",
+  "entities": [],
+  "fields": [
+    "ETopicID",
+    "CourseID",
+    "TopicName",
+    "CourseName",
+    "Author",
+    "LastUpdatedFormatted",
+    "AgencyAppliedTo",
+    "SiteAppliedTo",
+    "DiscAppliedTo"
+  ],
+  "actors": [
+    "User",
+    "LocalAdministrator"
+  ],
+  "workflows": [
+    {
+      "name": "Load Topic List",
+      "steps": [
+        "Retrieve topic list from data source",
+        "Bind data to the dropdown control 'ddTopic'"
+      ]
+    },
+    {
+      "name": "Filter Topics by Agency",
+      "steps": [
+        "User selects 'Agencies' from the 'ddView' dropdown",
+        "Display 'rprTopicsByAgency' and hide 'rprTemplates'",
+        "Bind data from the agency-specific data source"
+      ]
+    },
+    {
+      "name": "Delete ETopic",
+      "steps": [
+        "User triggers the 'cmdDelete' command",
+        "Execute deletion in the DataLayer",
+        "Refresh the data view"
+      ]
+    }
+  ],
+  "business_rules": [],
+  "validations": [],
+  "calculations": [],
+  "conditions": [
+    "If 'rprTemplates' is visible, bind topics data",
+    "If 'rprTopicsByAgency' is visible, bind agency-specific topics data"
+  ],
+  "system_behavior": [
+    "Display warning and error messages based on user actions",
+    "Toggle visibility of topic details using JavaScript functions"
+  ],
+  "dependencies": [],
+  "exceptions": [
+    "Error handling during data binding",
+    "Exception management for topic deletion"
+  ],
+  "source_document_ids": [
+    "0c6dd326-9eae-5432-b30c-12251a5c111f",
+    "0c8f3bca-eb50-5c42-ad48-774563a2477a",
+    "260c863d-0fe3-5527-af10-a61ab6e482e2",
+    "266292dc-6762-553b-a760-ef1a3fa6dba2",
+    "326568a2-f70d-55c4-ba92-c49ec5d9e7ce",
+    "36b7c8cf-3083-5b8a-9af8-0fe90b84ba4c",
+    "4a4bf0fc-013b-58cf-9ef6-aebbdd233de9",
+    "53c4eb90-6c3a-5d88-8655-58936e1c4d90",
+    "788fd358-62c4-53a4-b577-f5b03bfd817c",
+    "7ad2af42-b2f5-5b59-9d68-25766708c6bd",
+    "7c41a54b-4317-5de3-adaf-03506a1d6b77",
+    "7f1b26e1-6417-54ad-9538-fe18fe832f37",
+    "97beadbd-8aa7-5806-9071-19423cb00ee8",
+    "a7613887-1f56-5ce5-ac49-c8a91de93ad7",
+    "c6e56cc5-825b-5068-bf97-67604987d009",
+    "d6878280-e30e-5119-a2a2-6c5752ee8572",
+    "dbc80dd9-dddb-570e-94ae-b36296e1d13a",
+    "dbf8fd63-08bf-5068-bf1e-898d35f802ee",
+    "f03e98bc-627f-598d-b524-dfb0b9a357d9",
+    "fd0f5b0e-459b-5d36-bbca-543538bb6185"
+  ],
+  "content_gaps": []
+}
