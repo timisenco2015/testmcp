@@ -1,42 +1,58 @@
-{
-  "filename": "SiteProfileHistory",
-  "found": true,
-  "summary": "Describes site profile history entries, tracking actions and associated user data for changes made to site profiles.",
-  "purpose": "Maintain a log of historical changes made to site profiles, including the user responsible and the nature of changes.",
-  "entities": ["SiteProfileHistory"],
-  "fields": [
-    {"name": "ID", "type": "int", "description": "Unique identifier for the history entry"},
-    {"name": "ActionDate", "type": "DateTime", "description": "Date when the action was taken"},
-    {"name": "ScreenSection", "type": "string", "description": "Part of the screen where the action took place"},
-    {"name": "UserAction", "type": "string", "description": "Description of the action taken by the user"},
-    {"name": "Fields", "type": "string", "description": "Fields affected by the action"},
-    {"name": "Agency", "type": "string", "description": "Agency involved in the action"},
-    {"name": "AgencyName", "type": "string", "description": "Formal name of the agency"},
-    {"name": "LastName", "type": "string", "description": "Last name of the user who made changes"},
-    {"name": "FirstName", "type": "string", "description": "First name of the user who made changes"},
-    {"name": "MiddleName", "type": "string", "description": "Middle name of the user who made changes"},
-    {"name": "Phone", "type": "Phone", "description": "Contact phone of the user"},
-    {"name": "ByUserID", "type": "int", "description": "User ID of the person who took the action"},
-    {"name": "ByOriginalUserID", "type": "int", "description": "Original user ID if the user has changed"},
-    {"name": "ByUserSysAdmin", "type": "bool", "description": "Indicates if the action was taken by a system admin"}
-  ],
-  "actors": ["HSPnetSession"],
-  "workflows": [],
-  "business_rules": [
-    {"name": "User Identification", "description": "Identify users based on ID and admin status for logging purposes"}
-  ],
-  "validations": [],
-  "calculations": [],
-  "conditions": [],
-  "system_behavior": [],
-  "dependencies": [],
-  "exceptions": [],
-  "source_document_ids": [
-    "25f89a24-5eda-5a3f-83df-1de69b12b3f1",
-    "26e09292-d304-55c6-94e5-ef3346453c4b",
-    "a8f030c6-90b8-53a1-bb8a-3b7ef33b9488",
-    "7ca6b963-9ae9-5cd3-82d5-f30dcb727ae3",
-    "e806999c-3a39-5720-9b59-303faebc9eb6"
-  ],
-  "content_gaps": []
-}
+[
+    {
+        "filename": "SiteProfileHistory",
+        "found": true,
+        "summary": "SiteProfileHistory tracks changes and actions taken on site profiles, including user actions and agency involvement.",
+        "purpose": "The purpose of SiteProfileHistory is to maintain a history of profile modifications, aiding in auditing and tracking changes over time.",
+        "entities": [
+            {
+                "name": "SiteProfileHistory",
+                "fields": [
+                    "ID",
+                    "ActionDate",
+                    "ScreenSection",
+                    "UserAction",
+                    "Fields",
+                    "Agency",
+                    "AgencyName",
+                    "LastName",
+                    "FirstName",
+                    "MiddleName",
+                    "Phone",
+                    "ByUserID",
+                    "ByOriginalUserID",
+                    "ByUserSysAdmin"
+                ]
+            }
+        ],
+        "fields": [],
+        "actors": [
+            "HSPnetSession"
+        ],
+        "workflows": [
+            {
+                "name": "Profile History Retrieval",
+                "steps": [
+                    "Call stored procedure",
+                    "Map SQL data to SiteProfileHistory objects",
+                    "Perform localization if needed"
+                ]
+            }
+        ],
+        "business_rules": [],
+        "validations": [],
+        "calculations": [],
+        "conditions": [],
+        "system_behavior": [],
+        "dependencies": [],
+        "exceptions": [],
+        "source_document_ids": [
+            "25f89a24-5eda-5a3f-83df-1de69b12b3f1",
+            "26e09292-d304-55c6-94e5-ef3346453c4b",
+            "7ca6b963-9ae9-5cd3-82d5-f30dcb727ae3",
+            "a8f030c6-90b8-53a1-bb8a-3b7ef33b9488",
+            "e806999c-3a39-5720-9b59-303faebc9eb6"
+        ],
+        "content_gaps": []
+    }
+]
