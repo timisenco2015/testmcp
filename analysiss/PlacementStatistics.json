@@ -1,68 +1,56 @@
 {
   "filename": "PlacementStatistics",
   "found": true,
-  "summary": "The PlacementStatistics documents describe the logic and calculations involved in tracking placement request changes within HSPnet. It includes classes and methods related to recording changes such as alerts added, dates changed, supervisor changes, and other modifications to placement requests.",
-  "purpose": "To provide a detailed account of placement request changes by recording specific statistics, and to ensure that only relevant changes are considered based on agency permissions and status criteria.",
+  "summary": "This document describes the logic and system behavior for handling placement request changes in a clinical education management system. It involves tracking different types of changes such as alerts, date changes, duration changes, and supervisor changes associated with Placement Request Documents (PRD).",
+  "purpose": "The purpose of the document is to outline the rules and behavior for managing updates to placement requests, including conditions under which changes are recorded and counted for various statistics.",
   "entities": [],
-  "fields": [
-    "AlertsAdded",
-    "PACancelled",
-    "PADateChanged",
-    "PADurationChanged",
-    "NISDateChanged",
-    "IRPDateChanged",
-    "DateChanged",
-    "PADestAddedChanged",
-    "SupervisorsAddedChanged",
-    "DaysChanged",
-    "GroupSizeChanged",
-    "ReportTagChanged"
-  ],
+  "fields": [],
   "actors": [
-    "HSPnetSession",
-    "PlacementRequestInformation"
+    "NIS_Agency",
+    "IRP_Agency",
+    "PA (Placement Agency)"
   ],
   "workflows": [
     {
-      "name": "Placement Change Statistics Calculation",
+      "name": "Placement Change Tracking",
       "steps": [
-        "Initialize lastPRD_ID dictionary to track last processed PRD_IDs for various statistics.",
-        "Retrieve allowed sites, services, and destinations based on session data.",
-        "Perform search for placement requests with specified criteria.",
-        "Iterate over each PlacementRequestInformation record.",
-        "Skip entries that do not match agency or status criteria.",
-        "Update the appropriate statistics based on conditions met (e.g., AlertsAdded, PADateChanged).",
-        "Return the populated PlacementStatisticsDC object with calculated statistics."
+        "Initialize statistics counters for different change types with Dictionary.",
+        "Retrieve list of allowed sites, services, and destinations.",
+        "Fetch Placement Request Information based on session and agency details.",
+        "Iterate through placement requests and evaluate conditions for skipping or counting entries.",
+        "Update statistics counters based on the current PRD's history comments and conditions."
       ]
     }
   ],
   "business_rules": [
-    "Ignore auto-redirected placement requests still in redirect status during receiving mode.",
-    "Skip entries done by user's agency.",
-    "For specific agency types (NIS/IRP), look at entries with status Sent or later.",
-    "Count changes only if the status allows it (e.g., not New)."
+    "Skip entries if performed by the user's agency.",
+    "Exclude entries with 'SharedAlt' in service short name.",
+    "Ignore changes before PRD was released in certain conditions.",
+    "NIS/IRP view ignores release status for some checks."
   ],
   "validations": [
-    "Check if agency ID matches for processing placement requests.",
-    "Ensure site, service, or destination is in allowed list except for NIS/IRP users."
+    "Check allowed list for site, service, and destination restrictions.",
+    "Ensure PRD is to the selected agency."
   ],
   "calculations": [
-    "DateChanged is the sum of PADateChanged, NISDateChanged, and IRPDateChanged."
+    "DateChanged = PADateChanged + NISDateChanged + IRPDateChanged"
   ],
   "conditions": [
-    "If the placement request contains certain comments (e.g., 'Alert Added'), update respective statistics.",
-    "Check agency type to determine applicable status range for calculating date changes."
+    "Only count destination changes with status not New.",
+    "Count supervisor changes where status is 'AccD', 'AccA', or 'Conf' for NIS/IRP.",
+    "Increment counters if PRD ID has changed from last recorded for each type."
   ],
   "system_behavior": [
-    "Automatically skip certain entries based on predefined conditions and agency checks."
+    "Updates statistics counters based on specific change types found in PR history comments."
   ],
   "dependencies": [
-    "AllowedLists for checking session-based permissions.",
-    "PlacementRequestInfo for retrieving placement request data."
+    "HSPnet.Framework",
+    "HSPnet.App_GlobalResources",
+    "HSPnet.UI",
+    "AllowedLists"
   ],
   "exceptions": [
-    "Excludes changes made by the user's agency unless specifically allowed.",
-    "Ignores changes done before the PRD was released for certain agencies."
+    "For NIS/IRP agencies, certain checks and restrictions are bypassed."
   ],
   "source_document_ids": [
     "3525fb51-4d11-52b1-9e24-1fb7bde184de",
