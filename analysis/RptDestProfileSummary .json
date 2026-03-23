@@ -1,0 +1,89 @@
+{
+  "filename": "RptDestProfileSummary",
+  "found": true,
+  "summary": "RptDestProfileSummary is a web user control for generating destination profile summary reports within the HSPnet application. It manages report creation workflows, user access, and error handling for destination-based report generation. The control ensures proper validation of user actions, destination selection, and system limits before invoking the report generation process.",
+  "purpose": "To allow authorized users to generate destination profile summary reports, validating access, destination selection, and handling exceptions such as exceeding maximum reportable items and insufficient selections.",
+  "entities": [
+    "Destination",
+    "UserSession",
+    "PrintJobs",
+    "HSPnetSession",
+    "cmdRunReport"
+  ],
+  "fields": [
+    "destList",
+    "DestinationCodeID",
+    "MAX_INCLUDE_ITEMS",
+    "UserSession.SupportEmailAddress",
+    "UserSession.ProvinceCode",
+    "UserSession.PageRequested",
+    "UserSession.UserName"
+  ],
+  "actors": [
+    "Authorized user",
+    "Local administrator (with switched view)",
+    "System"
+  ],
+  "workflows": [
+    {
+      "name": "Generate Destination Profile Summary Report",
+      "steps": [
+        "User clicks the 'Run Report' button (cmdRunReport).",
+        "System checks if the user session is in 'SwitchUserViewOnly' mode; if so, disables report generation.",
+        "System retrieves destination access list for the user.",
+        "If no destinations are selected, system displays an error message prompting at least one destination selection.",
+        "If destination count exceeds MAX_INCLUDE_ITEMS, system displays an error message with support contact information.",
+        "If valid destination list is selected, system concatenates DestinationCodeID values into a string.",
+        "System calls PrintJobs.ReportDestinationProfileCreateJob with user session and destination codes to generate the report."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Users must select at least one destination to generate a report.",
+    "Report generation is not permitted when monitoring a user via local admin switched view.",
+    "Maximum number of included destinations is enforced by PrintJobs.MAX_INCLUDE_ITEMS."
+  ],
+  "validations": [
+    "Check if user is in SwitchUserViewOnly mode; if true, disable report generation.",
+    "Verify destination access list is non-empty.",
+    "Validate destination count does not exceed MAX_INCLUDE_ITEMS.",
+    "DestinationCodeID values are correctly concatenated for report generation."
+  ],
+  "calculations": [
+    "Concatenate DestinationCodeID values into a comma-separated string.",
+    "Strip trailing comma from the destination code string."
+  ],
+  "conditions": [
+    "UserSession.SwitchUserViewOnly is true: report generation disabled.",
+    "Destination access list count is zero: error displayed.",
+    "Destination access list count >= MAX_INCLUDE_ITEMS: error and support prompt displayed.",
+    "Destination access list count > 0 and < MAX_INCLUDE_ITEMS: proceed to report generation."
+  ],
+  "system_behavior": [
+    "Disables report button for admin monitoring another user.",
+    "Adds error messages to user session for invalid or excessive destination selection.",
+    "Generates report job when conditions are valid."
+  ],
+  "dependencies": [
+    "Destinations.DestinationAccessList",
+    "PrintJobs.ReportDestinationProfileCreateJob",
+    "UserSession",
+    "cmdRunReport button control"
+  ],
+  "exceptions": [
+    "No destination selected: user prompted to select at least one.",
+    "Destination count exceeds MAX_INCLUDE_ITEMS: user prompted to contact support.",
+    "Switched user view: report functionality hidden."
+  ],
+  "source_document_ids": [
+    "6f855dcf-e226-5d28-8ba1-10a8fb7b86da",
+    "9c1dc009-ccd8-5a43-a130-79d87ab67c1f",
+    "fde9a74f-90bf-5f4c-b081-9fdb52ca1988"
+  ],
+  "content_gaps": [
+    "No detailed field definitions for Destination entity.",
+    "No information on report output structure or its contents.",
+    "No description on PrintJobs.ReportDestinationProfileCreateJob internals.",
+    "Workflow step details for handling asynchronous report job completion, user notification, or error recovery not provided."
+  ]
+}
