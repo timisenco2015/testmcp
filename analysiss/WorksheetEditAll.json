@@ -1,0 +1,124 @@
+{
+  "filename": "WorksheetEditAll",
+  "found": true,
+  "summary": "The 'WorksheetEditAll' feature is part of a web application that manages educational worksheets. It interacts with user sessions to determine aspects such as group, department, program, cohort, term, course, and agency details. The page utilizes various UI components such as literals and panels to display and manage information, including status, site, CFO (Call for Offers), blocks, and warning/error messages. The primary function is to display and edit worksheets for individuals or groups, depending on context.",
+  "purpose": "The purpose of the 'WorksheetEditAll' is to allow users to view and edit educational worksheets, either individually or as a group, based on session and query string parameters.",
+  "entities": [],
+  "fields": [
+    "uxBlock",
+    "uxService",
+    "uxInstructor",
+    "uxDateFilter",
+    "uxCampusFilter",
+    "uxSectionFilter",
+    "uxDepartment",
+    "uxProgram",
+    "uxCohort",
+    "uxTerm",
+    "uxCourse",
+    "uxGoverningOrg",
+    "uxStatus",
+    "uxSiteFilter",
+    "uxCFOFilter",
+    "cmdHideErrorPanel",
+    "cmdHideWarningPanel",
+    "Literal1",
+    "Literal2",
+    "Literal3",
+    "Literal4",
+    "Literal5",
+    "Literal6",
+    "Literal7",
+    "Literal8",
+    "Literal9",
+    "Literal10",
+    "Literal11",
+    "Literal12",
+    "Literal16",
+    "Literal17",
+    "Literal23",
+    "lblErrorCaption",
+    "lblErrorList",
+    "lblWarningCaption",
+    "lblWarningList",
+    "pnlError",
+    "pnlWarning"
+  ],
+  "actors": [
+    "UserSession"
+  ],
+  "workflows": [
+    {
+      "name": "Worksheet Page Load",
+      "steps": [
+        "Initialize page with session variables.",
+        "Register client scripts for JavaScript files.",
+        "Determine group/individual worksheet context based on query parameters.",
+        "Initialize worksheet context and populate UI elements with context data.",
+        "Display warning and error messages as needed."
+      ]
+    },
+    {
+      "name": "Worksheet Search",
+      "steps": [
+        "Set user session values in UCWorksheetResultsEditAll.",
+        "Apply data binding if specified.",
+        "Process any search queries submitted by the user."
+      ]
+    }
+  ],
+  "business_rules": [
+    "If _groupFlag is true, do not display the CFO section.",
+    "If _courseUsesBlocks is true and _block is specified, set uxBlock text appropriately.",
+    "If _useCFO is true, display CFO options based on _cfoMode.",
+    "Determine visibility of blocks and CFO based on group context."
+  ],
+  "validations": [
+    "Check if QueryString parameter values are not null before conversion.",
+    "Ensure _prevStatusCodeList and _statusCodeList contain valid ID formats."
+  ],
+  "calculations": [],
+  "conditions": [
+    "Check if page is not a postback to set titles and session variables.",
+    "Set initial UI elements based on user type and worksheet status.",
+    "Display site filter text based on agency and site conditions."
+  ],
+  "system_behavior": [
+    "Handles loading and unloading of the page to ensure all session data is processed.",
+    "Manages the visibility of UI components such as panels and buttons.",
+    "Updates the UI dynamically based on session and query parameters."
+  ],
+  "dependencies": [
+    "HSPnet.DataLayer",
+    "User session variables",
+    "Query string parameters",
+    "JavaScript resources"
+  ],
+  "exceptions": [
+    "Invalid QueryString values could throw conversion errors.",
+    "Auto-generated fields could cause issues if manually overwritten."
+  ],
+  "source_document_ids": [
+    "01593048-de43-552c-825b-0df266a5d284",
+    "061fa008-3e77-538a-858b-68bbb4590b87",
+    "1136b5e1-c95e-51e7-ac4d-4c7d65973a59",
+    "125a2971-94e9-5984-a71f-f7f121579e11",
+    "1c9d1c1b-9fc5-599d-bd51-1f91fa261220",
+    "1e547692-666b-55ad-abb3-58eb2a6ec115",
+    "37e8f192-ee52-5f8f-82c5-38b128beac77",
+    "40911b05-7375-5704-bd7e-a2afb7ff6123",
+    "4c5a7706-071e-5ba9-add8-1c9dc1ba05ee",
+    "51d59f03-7fbb-5d9e-9863-bbe8ae45d9a4",
+    "52d9d8ed-d467-5442-9c45-fcde8db8d47b",
+    "7169b8b2-6f50-56b2-b0af-a936e18457cf",
+    "84755ed0-2cc9-5e96-90d8-46c3c7c41663",
+    "9c2ef04b-c92d-5671-91b7-0d74ad0ba958",
+    "a9ebb707-c319-5a71-8871-b713ad99ca9f",
+    "aa76f15c-a077-58bd-8521-5cf391188c79",
+    "ba0857d6-7268-59bf-9299-ef96c7d65773",
+    "c105c561-5917-599d-b66b-d28bd18d1c57",
+    "eb21fae9-a068-582f-9423-91cf1e6e7880",
+    "ffe07df6-cd05-5724-ad1e-9e77ce87cb0a"
+  ],
+  "content_gaps": []
+}
