@@ -1,0 +1,54 @@
+{
+    "filename": "MaintCourseDetailsPlacementHistory",
+    "found": true,
+    "summary": "The MaintCourseDetailsPlacementHistory is a user control within the HSPnet framework used to manage the details and history of course placements. The control consists of various components like panels, labels, and grids that display information about course placements. Data is sourced dynamically from the ObjectDataSource based on user sessions and course IDs.",
+    "purpose": "The purpose of the MaintCourseDetailsPlacementHistory user control is to provide a structured interface within a web application for managing and displaying the placement history of courses. It sorts and presents course placement data using the GridView control, sorted by start date.",
+    "entities": [],
+    "fields": [
+        "Panel",
+        "Label",
+        "uxMaster",
+        "dsMaster",
+        "UserSession",
+        "CourseID"
+    ],
+    "actors": [
+        "User"
+    ],
+    "workflows": [
+        {
+            "name": "Page Load",
+            "steps": [
+                "Check if page is not postback",
+                "Sort uxMaster GridView by TTStartDate in descending order"
+            ]
+        },
+        {
+            "name": "Data Source Selecting",
+            "steps": [
+                "Check if UserSession is null",
+                "Cancel event if UserSession is null",
+                "Set input parameters for UserSession and CourseID"
+            ]
+        }
+    ],
+    "business_rules": [],
+    "validations": [],
+    "calculations": [],
+    "conditions": [
+        "Page IsPostBack",
+        "UserSession is null"
+    ],
+    "system_behavior": [],
+    "dependencies": [
+        "HSPnetSession",
+        "ObjectDataSource",
+        "System.Web.UI.WebControls"
+    ],
+    "exceptions": [],
+    "source_document_ids": [
+        "6b468cf5-f5c2-5134-93f6-3d3a23bb37b0",
+        "86cabaa7-c5d5-5565-9fc5-2a42f41498e6"
+    ],
+    "content_gaps": []
+}
