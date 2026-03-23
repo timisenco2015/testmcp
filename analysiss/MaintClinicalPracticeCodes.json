@@ -1,19 +1,68 @@
 {
     "filename": "MaintClinicalPracticeCodes",
-    "found": false,
-    "summary": "",
-    "purpose": "",
-    "entities": [],
-    "fields": [],
-    "actors": [],
-    "workflows": [],
+    "found": true,
+    "summary": "MaintClinicalPracticeCodes facilitates the maintenance of clinical practice code data including adding, editing, and reactivate codes utilizing a web interface for data management.",
+    "purpose": "To manage clinical practice codes for programs, ensuring accurate data entry and maintenance.",
+    "entities": [
+        "ClinicalPracticeCode"
+    ],
+    "fields": [
+        "Name",
+        "ShortName",
+        "ProgramID"
+    ],
+    "actors": [
+        "SystemAdministrator",
+        "LocalAdministrator",
+        "User"
+    ],
+    "workflows": [
+        {
+            "name": "Clinical Practice Code Management",
+            "steps": [
+                "User selects the program and department.",
+                "User adds or edits clinical practice code information.",
+                "Changes are validated and saved."
+            ]
+        }
+    ],
     "business_rules": [],
-    "validations": [],
+    "validations": [
+        "Required fields validation for name and short name.",
+        "Visibility of error messages."
+    ],
     "calculations": [],
     "conditions": [],
-    "system_behavior": [],
-    "dependencies": [],
+    "system_behavior": [
+        "Grid displays codes with add, edit, delete options.",
+        "Screen access checks determine editability."
+    ],
+    "dependencies": [
+        "Database access",
+        "Dropdown controls for selecting departments and programs"
+    ],
     "exceptions": [],
-    "source_document_ids": [],
-    "content_gaps": ["No related documents found"]
+    "source_document_ids": [
+        "1a77e7da-0f92-5a0c-8fae-71056a1a8094",
+        "2459a248-75cd-5726-acb7-2dac9c032ca2",
+        "2ab1fcc0-9f43-53e9-978e-dcb85b0368fd",
+        "36d4cd2b-4173-5197-9ef8-9a9e9696c813",
+        "37466f25-8263-5776-a737-d52f76a046b1",
+        "4639e39b-7c86-556c-a963-f1ebf07e430b",
+        "4f4ab970-b52f-50ad-970a-d15854034368",
+        "66ee2caa-af22-5133-b58c-335f3ff230b3",
+        "73d157d0-8704-5483-ba18-f07f908e37d9",
+        "7504ddba-c6ea-55cb-aa68-ce5b6da217be",
+        "884295cf-808e-5138-a00a-1c5eefd94ac3",
+        "96e1ad39-6796-5cd5-93ba-39eff14ddd5b",
+        "b427c6f5-5ce5-51da-8532-a9a794e7d965",
+        "c612f387-b77d-58d2-989e-f664f6bc89b0",
+        "d8353f31-27ad-5b3f-92ff-904167fdf1f0",
+        "dcb5aa7a-ecd8-5c97-863a-c610eda590af",
+        "e2b74601-147d-56af-9611-3fc5231f8c19",
+        "e68883dd-3062-567f-9a34-df0037ce41d0",
+        "f5d8614c-459e-5bc5-b8e9-e46671dc220b",
+        "fdc8515b-714d-5285-95af-55c30bd0e56a"
+    ],
+    "content_gaps": []
 }
