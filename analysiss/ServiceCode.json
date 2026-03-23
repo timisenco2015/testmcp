@@ -1,21 +1,19 @@
 {
     "filename": "ServiceCode",
     "found": true,
-    "summary": "Handles service codes for categorization and description within the application.",
-    "purpose": "Provides functionality to list and search service codes by various IDs such as CourseID and TimetableID.",
-    "entities": ["ServiceCode"],
-    "fields": [
-        {"name": "ID", "type": "int"},
-        {"name": "CodeCategoryID", "type": "int"},
-        {"name": "ShortName", "type": "string"}
-    ],
+    "summary": "The ServiceCode file defines service codes used for categorizing operations within HSPnet. It includes methods for retrieving service codes by various criteria.",
+    "purpose": "To manage and retrieve service code information for categorizing services within the application.",
+    "entities": ["ServiceCode", "ServiceCodes"],
+    "fields": ["ID", "CodeCategoryID", "ShortName", "Name", "SortOrder", "Notes", "NameAlt"],
     "actors": [],
     "workflows": [
         {
-            "name": "ListAllServiceCodes",
+            "name": "Retrieve Service Codes",
             "steps": [
-                "Call ServiceCodeListAll with session ID.",
-                "Fetch data from DB using 'ServiceCodeListAll' procedure."
+                "Call stored procedures",
+                "Add parameters",
+                "Fetch data",
+                "Localize data"
             ]
         }
     ],
@@ -23,9 +21,9 @@
     "validations": [],
     "calculations": [],
     "conditions": [],
-    "system_behavior": [],
+    "system_behavior": ["Localizes service codes based on session language settings"],
     "dependencies": ["HSPnet.Framework", "HSPnet.App_GlobalResources"],
     "exceptions": [],
-    "source_document_ids": ["e4ebe4b4-6d14-5c3f-b693-61016f765239", "94f1b055-348d-508a-ae6e-cf7960a8c6a2"],
+    "source_document_ids": ["94f1b055-348d-508a-ae6e-cf7960a8c6a2", "e4ebe4b4-6d14-5c3f-b693-61016f765239", "f976b9af-a402-540f-b162-391d578fac7c"],
     "content_gaps": []
 }
