@@ -1,121 +1,36 @@
 {
-    "filename": "MaintProgramProfileDescription",
-    "found": true,
-    "summary": "The MaintProgramProfileDescription user control allows for the management of program profiles. It supports viewing, adding, editing, and deleting program details within a grid view. The control utilizes various ASP.NET Web Forms features such as GridView, FormView, ObjectDataSource, and UpdatePanel to manage the data. It also includes functionality for user session management, UI interaction, and data validation.",
-    "purpose": "To provide a user interface for managing program profiles, including viewing, editing, adding, and deleting program details.",
-    "entities": [],
-    "fields": [
-        {
-            "name": "gvwProfile",
-            "description": "GridView control for displaying program profiles"
-        },
-        {
-            "name": "dsProfile",
-            "description": "Data source for the profile information"
-        },
-        {
-            "name": "pnlPopup",
-            "description": "Panel for displaying pop-up dialogs"
-        },
-        {
-            "name": "updPnlPopup",
-            "description": "UpdatePanel for partial page updates related to pop-ups"
-        },
-        {
-            "name": "btnShowPopup",
-            "description": "Button to trigger the display of pop-up dialogs"
-        },
-        {
-            "name": "mdlDetails",
-            "description": "Modal popup extender for showing details in a modal dialog"
-        },
-        {
-            "name": "ValidationSummary3",
-            "description": "Validation summary for displaying errors"
-        },
-        {
-            "name": "fvwProfile",
-            "description": "FormView control for displaying and editing a single program detail"
-        },
-        {
-            "name": "dsHeading",
-            "description": "Data source for the heading information"
-        },
-        {
-            "name": "pnlEmptyData",
-            "description": "Panel for adding new data when no data is present"
-        },
-        {
-            "name": "cmdAddEmptyData",
-            "description": "Link button for adding data when no data is present"
-        }
-    ],
-    "actors": [
-        {
-            "name": "User",
-            "description": "Interacts with the user control to manage program profiles"
-        },
-        {
-            "name": "System",
-            "description": "Handles server-side operations such as data retrieval and updates"
-        }
-    ],
-    "workflows": [
-        {
-            "name": "Profile Management",
-            "steps": [
-                "User views the profile list in the GridView (gvwProfile)",
-                "User can add a new profile via cmdAddEmptyData if no data present",
-                "User can edit an existing profile by selecting the edit command in the GridView",
-                "User can delete a profile via the delete command in the GridView",
-                "Changes are saved and the system updates the display"
-            ]
-        },
-        {
-            "name": "Popup Display",
-            "steps": [
-                "User initiates a popup via btnShowPopup",
-                "System shows mdlDetails modal popup",
-                "User interacts with the popup content",
-                "System processes any actions and closes the popup"
-            ]
-        }
-    ],
-    "business_rules": [
-        "Profiles must have a SortOrder, defaulting to -1 if not provided.",
-        "Only editable profiles allow adding, editing, and deleting.",
-        "Popups are shown only if specific criteria are met."
-    ],
-    "validations": [
-        "Ensure that all fields are filled correctly before saving changes.",
-        "Validate data formats and required fields in GridView and FormView."
-    ],
-    "calculations": [],
-    "conditions": [
-        "The grid header setup and action buttons depend on whether the screen is editable.",
-        "Row actions in the GridView depend on the row type (header or data row).",
-        "Redirect logic after save action based on whether changes are cancelled."
-    ],
-    "system_behavior": [
-        "Redirect to another page with query string parameters after certain actions.",
-        "Process each row command (edit, add, delete) in the GridView to affect corresponding data.",
-        "Handle session state and caching related to user actions and data display."
-    ],
-    "dependencies": [
-        "ASP.NET Web Forms features (GridView, FormView, etc.)",
-        "HSPnet session management and data layers"
-    ],
-    "exceptions": [
-        "JavaScript errors related to event validation when handling no data templates"
-    ],
-    "source_document_ids": [
-        "03243333-f3df-579f-ad44-5ded284d50a1",
-        "48f3677a-01bd-5710-a3f8-afafe12875d1",
-        "7f195e6b-fcb7-5897-b890-fff56ef4cb54",
-        "928dc17b-7169-5ba0-a6f4-c689fce7ca49",
-        "94ae5bfb-0b66-53f9-b652-bbe29956a6b0",
-        "b2e9809d-c5d7-513c-ae63-d196eb9e2765",
-        "f7b13a6b-513f-55fc-bdbe-90e2121260d0"
-    ],
-    "content_gaps": []
+  "filename": "MaintProgramProfileDescription",
+  "found": true,
+  "summary": "This control manages program profile descriptions, including setup of buttons and data binding for profile details. It interacts with global sessions and database layers for fetching and updating profile data.",
+  "purpose": "To manage and display detailed descriptions within program profiles.",
+  "entities": ["HSPnetSession", "ProgramDetail"],
+  "fields": ["ProgramID", "UserSession", "ScreenIsEditable"],
+  "actors": ["Administrator"],
+  "workflows": [
+    {
+      "name": "Profile Description Management",
+      "steps": [
+        "Select profile data using session parameters",
+        "Bind profile data to UI components",
+        "Handle profile detail updates"
+      ]
+    }
+  ],
+  "business_rules": [],
+  "validations": [],
+  "calculations": [],
+  "conditions": [],
+  "system_behavior": [],
+  "dependencies": [],
+  "exceptions": [],
+  "source_document_ids": [
+    "03243333-f3df-579f-ad44-5ded284d50a1",
+    "48f3677a-01bd-5710-a3f8-afafe12875d1",
+    "7f195e6b-fcb7-5897-b890-fff56ef4cb54",
+    "928dc17b-7169-5ba0-a6f4-c689fce7ca49",
+    "94ae5bfb-0b66-53f9-b652-bbe29956a6b0",
+    "b2e9809d-c5d7-513c-ae63-d196eb9e2765",
+    "f7b13a6b-513f-55fc-bdbe-90e2121260d0"
+  ],
+  "content_gaps": []
 }
