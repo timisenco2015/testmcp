@@ -1,21 +1,18 @@
 {
     "filename": "EmailPopupDocument",
     "found": true,
-    "summary": "Handles email popup documents, including search and deletion based on provided data information.",
-    "purpose": "Manages data related to email popups such as filenames and paths for system operations.",
-    "entities": ["EmailPopupDocument"],
-    "fields": [
-        {"name": "ID", "type": "int"},
-        {"name": "FileName", "type": "string"},
-        {"name": "FilePath", "type": "string"}
-    ],
+    "summary": "The EmailPopupDocument file includes the definition and operations pertaining to email-related documents within the HSPnet system. It helps manage and delete these documents.",
+    "purpose": "To manage creation, listing, and deletion of email popup documents within the system.",
+    "entities": ["EmailPopupDocument", "EmailPopupDocuments"],
+    "fields": ["ID", "FileName", "FilePath", "Checked"],
     "actors": [],
     "workflows": [
         {
-            "name": "SearchEmailPopupDocuments",
+            "name": "Handle Email Popup Documents",
             "steps": [
-                "Split dataInfo string and parse each entry.",
-                "Populate and return list of EmailPopupDocument objects."
+                "Parse email data",
+                "Create document list",
+                "Manage directory deletion"
             ]
         }
     ],
@@ -23,9 +20,9 @@
     "validations": [],
     "calculations": [],
     "conditions": [],
-    "system_behavior": [],
+    "system_behavior": ["Handles file operations for email documents"],
     "dependencies": ["HSPnet.Framework", "HSPnet.App_GlobalResources"],
     "exceptions": [],
-    "source_document_ids": ["927bc837-5564-5759-9324-27c6d5d7321d"],
+    "source_document_ids": ["7287734e-f13d-550f-9249-4242db620766", "927bc837-5564-5759-9324-27c6d5d7321d"],
     "content_gaps": []
 }
