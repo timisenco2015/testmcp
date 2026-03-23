@@ -1,54 +1,61 @@
 {
   "filename": "ReportWizardFunctions",
   "found": true,
-  "summary": "The retrieved content comprises JavaScript and HTML code snippets used for rendering and managing dynamic forms within a web-based report wizard. The code facilitates user interactions with multi-select lists, radio buttons, and checkboxes, and implements form validations and on-the-fly filtering of options within dropdowns. Additionally, it includes mechanisms for tracking selection indices for choice lists across multiple fields, and presents a responsive interface for selecting options across various dimensions like agencies, services, departments, and disciplines.",
-  "purpose": "The primary purpose of the code is to manage user interactions with a dynamic form in a report wizard, including selection controls, validation, and processing of user inputs. The wizard facilitates the selection of specific items from a dataset, allowing for complex interactions such as filtering, validation, and manipulation of lists.",
+  "summary": "The document outlines the structure and behavior of the \"ReportWizardFunctions\" class within the HSPnet.UI namespace. It includes various private and public methods that generate HTML and JavaScript for wizard stages, handling different field types, user interactions, and validations.",
+  "purpose": "The purpose of the ReportWizardFunctions class is to dynamically create and manage the wizard interface for reports by generating HTML and JavaScript for form elements. It also handles data validation and user interactions for different field types and user roles within the application.",
   "entities": [],
-  "fields": [
-    "WizardField",
-    "HSPnetSession"
-  ],
+  "fields": [],
   "actors": [
-    "User",
-    "System"
+    "HSPnetSession",
+    "WizardField",
+    "JavaScript",
+    "HTML",
+    "Radio",
+    "Checkbox",
+    "Select",
+    "MultiSelect",
+    "Picklist",
+    "TermYearDates",
+    "PlacingAgencies",
+    "ReceivingAgencies",
+    "Disciplines",
+    "SubDisciplines",
+    "Caption",
+    "ToggleCheckboxes"
   ],
   "workflows": [
     {
-      "name": "Form Interaction Workflow",
+      "name": "Generate Wizard Form",
       "steps": [
-        "User inputs data into form fields.",
-        "JavaScript functions validate the input.",
-        "Filtered options are updated dynamically based on user selections.",
-        "Data is stored in hidden fields for submission."
+        "Determine field type based on WizardField object.",
+        "For each field, generate corresponding HTML form element.",
+        "Generate JavaScript for field validation and interaction.",
+        "Handle visibility and interactivity based on user role from HSPnetSession.",
+        "Output HTML and JS code for rendering on the client-side."
       ]
     }
   ],
   "business_rules": [
-    "AllowAll radio buttons enable or disable list selectors.",
-    "Field values are split and processed based on delimiter configurations."
+    "Field validations are based on the RequiredFlag property.",
+    "Use English month names for date parsing."
   ],
   "validations": [
-    "JavaScript functions validate required fields before submission.",
-    "Input masks are applied to fields where necessary."
+    "JavaScript error alerts for required fields.",
+    "Validate select and multi-select fields for selection completeness.",
+    "Regular expression validation for text inputs with input masks."
   ],
-  "calculations": [
-    "Calculated index positions for list filtering.",
-    "Dynamic string building for allowed and not allowed lists."
-  ],
+  "calculations": [],
   "conditions": [
-    "Display JavaScript based on field visibility conditions.",
-    "Toggle between two states for radio buttons and checkboxes."
+    "Field generation and validation conditionally based on field type.",
+    "JavaScript processing varies for required and non-required fields."
   ],
   "system_behavior": [
-    "Dynamically updates list items based on user selections.",
-    "Implements client-side validation using JavaScript."
+    "Render dynamic forms using server-provided field definitions.",
+    "Apply front-end validations and interactive elements based on configuration."
   ],
-  "dependencies": [
-    "HSPnet.DataLayer",
-    "System.Web.HttpUtility"
-  ],
+  "dependencies": [],
   "exceptions": [
-    "JavaScript alerts triggered for validation failures."
+    "JavaScript error handling for invalid form states."
   ],
   "source_document_ids": [
     "000075d6-1eda-5607-b910-9b1dd34f8fdc",
@@ -99,7 +106,6 @@
     "6b53ebe9-d86a-517e-a203-cc3bb2fc6c86",
     "7075e4d4-b189-5927-89a8-db64a5bfb136",
     "70d5a9e4-15ae-58fb-9962-4a5abb97d668",
-    "711be943-154a-5d5a-872a-9b93ee717929",
     "72769d24-d046-5f72-85eb-d7fa50ccaf95",
     "74764a0b-c947-568f-8dc7-9bfb4c880164",
     "7921fd76-dea5-5a6b-aad9-5ea0e4cd771c",
