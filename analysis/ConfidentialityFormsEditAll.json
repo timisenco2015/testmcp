@@ -1,0 +1,143 @@
+{
+  "filename": "ConfidentialityFormsEditAll",
+  "found": true,
+  "summary": "The ConfidentialityFormsEditAll user control manages the editing, saving, and validation of student confidentiality forms in a grid-based UI. It supports bulk edits, handling of agency/department assignments, received dates, notes, workflow navigation, and validation messaging for each form entry. It is tightly integrated with session context and business rules, and is intended for use in enrollment scenarios with cohort, term, and course filtering.",
+  "purpose": "Facilitate bulk editing of student confidentiality forms, validate required fields, enforce business rules, and provide workflow actions for save, cancel, and navigation within enrollment processes.",
+  "entities": [
+    "Student",
+    "Agency",
+    "Department",
+    "Confidentiality Form",
+    "UserSession",
+    "Course",
+    "Cohort",
+    "Term"
+  ],
+  "fields": [
+    {
+      "name": "StudentID",
+      "type": "int",
+      "description": "Hidden field, uniquely identifies the student for the record."
+    },
+    {
+      "name": "Agency",
+      "type": "string",
+      "description": "Dropdown selection, must be specified for valid entries."
+    },
+    {
+      "name": "Department",
+      "type": "string",
+      "description": "Dropdown selection, associated with agency."
+    },
+    {
+      "name": "DateReceived",
+      "type": "string",
+      "description": "Textbox input, required and must be a valid date."
+    },
+    {
+      "name": "FormID",
+      "type": "int",
+      "description": "Hidden field, identifies form if editing, 0 for new."
+    },
+    {
+      "name": "ProviderTypeCodeID",
+      "type": "int",
+      "description": "Determined from session and provider type code."
+    },
+    {
+      "name": "Notes",
+      "type": "string",
+      "description": "Textbox input (max 1000 chars), optional notes."
+    },
+    {
+      "name": "txtDirty",
+      "type": "bool",
+      "description": "Hidden field, marks row as edited."
+    }
+  ],
+  "actors": [
+    {
+      "name": "User",
+      "role": "Performs editing, saving, and navigation actions."
+    },
+    {
+      "name": "System",
+      "role": "Performs data binding, validation, and update actions."
+    }
+  ],
+  "workflows": [
+    {
+      "name": "Edit and Save Confidentiality Forms",
+      "steps": [
+        "User edits form fields for multiple students (Agency, Department, DateReceived, Notes).",
+        "System tracks changes using 'txtDirty' field (row marked as edited).",
+        "On Save or SaveAll command, system validates required fields (Agency, DateReceived), checks if formID is 0 (new) or existing.",
+        "If valid and new, system adds form record; else, updates existing record.",
+        "Handles messaging and redirects on success or error.",
+        "On Cancel or Save navigation, system redirects to Enrollment or EnrollmentEditAll view with context parameters."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Agency must be specified for form to be saved.",
+    "DateReceived is mandatory and must be a valid date.",
+    "Notes field accepts up to 1000 characters.",
+    "If formID is 0 and fields are valid, add new form; otherwise, update existing form.",
+    "Only dirty rows (edited) are processed for saving."
+  ],
+  "validations": [
+    "AgencyRequired: Client-side and server validation for agency presence.",
+    "DateReceivedRequired: Client-side and server validation for date received.",
+    "DateReceivedInvalid: Validation for valid date format.",
+    "Notes: Max length 1000 chars enforced on keyup."
+  ],
+  "calculations": [
+    "ProviderTypeCodeID determined via Codes.CodeSearchID based on session and provider type code.",
+    "Agency/Department concatenated for storage."
+  ],
+  "conditions": [
+    "If EnrollmentID > 0, show Save button in footer.",
+    "If EnrollmentID == 0, show SaveAll and SaveEditNext buttons in footer.",
+    "If gridDataEdit.Rows.Count < 14, hide SaveAll button in header for usability.",
+    "If read-only mode, disable edit fields and calendar controls."
+  ],
+  "system_behavior": [
+    "Grid binds data on interaction.",
+    "Save, SaveAll, SaveEditNext, Cancel commands handled for grid rows.",
+    "Redirect to Enrollment views with session and filter parameters on navigation commands.",
+    "Setup and register JavaScript for validation and tracking dirty state.",
+    "Disable controls and editing based on read-only mode."
+  ],
+  "dependencies": [
+    "UserSession (must exist for actions)",
+    "Codes.CodeSearchID for provider type lookup",
+    "DataLayer.StudentConfidentialityForms for add/update",
+    "Resources strings for validation messaging",
+    "GridView/Grid controls for UI interaction",
+    "QueryString utilities for navigation"
+  ],
+  "exceptions": [
+    "If UserSession is null, actions are cancelled.",
+    "If required fields missing or invalid, form not saved and error message displayed.",
+    "Rows not marked as dirty are ignored for saving."
+  ],
+  "source_document_ids": [
+    "0a014b00-82da-52a0-adde-50896fa53dda",
+    "0ec090e0-3460-52bb-a6a8-a25ce33f96d7",
+    "326f4b1a-8bd7-523c-aa51-4fa991595a62",
+    "32c9ada3-adbb-5e33-89da-dce98991b6fc",
+    "465df8e4-4da0-54e2-9a2f-e9cef323bc9d",
+    "8b68d37c-a9bb-5cb2-8e8e-92b775c627e2",
+    "8dc6d1df-c845-58ab-9d75-1d7f5597b6a7",
+    "8f89e0d9-a9e0-5ed8-b5b8-8960ae212279",
+    "d7942410-4d36-5ba8-bebb-3b4eac82ddcc",
+    "dca2c780-920c-5748-8d46-ff12c62a342f",
+    "fb6e725e-7d87-5daf-a752-41c1f07a192c"
+  ],
+  "content_gaps": [
+    "No explicit UI layouts or example data.",
+    "Underlying data model for StudentConfidentialityForms not described in full.",
+    "No description of specific error handling logic or returned error formats.",
+    "Some session and grid utility methods referenced, but not detailed."
+  ]
+}
