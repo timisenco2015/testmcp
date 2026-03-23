@@ -1,76 +1,61 @@
 {
-  "filename": "PRDocuments",
-  "found": true,
-  "summary": "The PRDocuments component is part of the HSPnet application, primarily handling placement request documents. It manages the presentation and interaction of documents related to placement requests in a web UI environment. The component includes controls for file uploads, grid views for listing documents, and functionality for editing and saving document details.",
-  "purpose": "The purpose of the PRDocuments class is to facilitate the management of placement request documents within the HSPnet application. It allows users to upload, view, edit, and delete documents associated with placement requests.",
-  "entities": [
-    "PlacementRequestDocument",
-    "HSPnetSession"
-  ],
-  "fields": [
-    "ltlInstructions",
-    "Literal1",
-    "gvwDocument",
-    "dsDocument",
-    "pnlPopup",
-    "FileName",
-    "FileURL",
-    "FileSize",
-    "FileType",
-    "PRD_ID",
-    "ScreenIsEditable"
-  ],
-  "actors": [
-    "User"
-  ],
-  "workflows": [
-    {
-      "name": "Document Management Workflow",
-      "steps": [
-        "User uploads a document through the FileUpload control.",
-        "The application handles the uploaded file, performing validation and saving to a specified location.",
-        "User can view document details via the GridView and FormView controls.",
-        "User edits document details, if necessary, and saves changes.",
-        "If a document is to be deleted, the application will remove it from the server and update the UI."
-      ]
-    }
-  ],
-  "business_rules": [
-    "Documents must have a valid type code, not equal to 'StudProf'.",
-    "The 'ProfileMode' determines visibility of document type and comments fields.",
-    "Unique folders are created for each uploaded document to avoid conflicts."
-  ],
-  "validations": [
-    "Ensure uploaded file is not null and has a content length greater than zero."
-  ],
-  "calculations": [],
-  "conditions": [
-    "If a document does not exist, certain controls are hidden or disabled.",
-    "If 'ProfileMode' is true, JavaScript is used to hide specific UI elements."
-  ],
-  "system_behavior": [
-    "Auto-generates UI controls based on back-end logic.",
-    "Redirects users to updated pages after document operations.",
-    "Binds document data to controls for display and interaction."
-  ],
-  "dependencies": [
-    "HSPnetSession",
-    "UserSession"
-  ],
-  "exceptions": [
-    "Cancellation of operations if UserSession is null."
-  ],
-  "source_document_ids": [
-    "0b412b93-8664-5be6-805b-1ee2191d9d74",
-    "23b4d3b7-10c4-5d78-b417-25806a3b6a78",
-    "315aa7cb-e2a6-5af5-88f3-e3bceefb450f",
-    "55917466-db99-5182-a2a2-833ec3f8ac73",
-    "69b6a57a-d344-53e2-83c0-1b66e394f75c",
-    "ab5070cc-bed5-5724-81f7-a337463e0b26",
-    "c708b08e-5172-57a5-a019-e21d52674f1d",
-    "e2dbef3b-8922-580e-a47b-155764f78dc8",
-    "ef75673a-9291-5ff8-ac62-566c091feb8f",
-    "f20d0f3f-4573-59af-87eb-f9f110c51931"
-  ],
-  "content_gaps": []
+    "filename": "PRDocuments",
+    "found": true,
+    "summary": "PRDocuments class handles the management of placement request documents within a user control environment. It facilitates document uploads, editing, saving, and deletion processes, and is integrated with grid and form view components for displaying and managing document details.",
+    "purpose": "Manage placement request documents including upload, display, and delete operations in a Web UI context.",
+    "entities": [],
+    "fields": [
+        "ltlInstructions",
+        "Literal1",
+        "gvwDocument",
+        "dsDocument",
+        "pnlPopup",
+        "CustomValidator1",
+        "fvwDocument",
+        "UserSession",
+        "ScreenIsEditable",
+        "PRD_ID"
+    ],
+    "actors": ["UserSession"],
+    "workflows": [
+        {
+            "name": "Document Handling Workflow",
+            "steps": [
+                "HandleUploadedFile is invoked to process file uploads.",
+                "Documents are displayed using gvwDocument grid view.",
+                "FormView fvwDocument is used for editing document details.",
+                "SaveDocument method saves the document details including file data.",
+                "Redirect method is called to refresh the page or redirect after actions."
+            ]
+        }
+    ],
+    "business_rules": [
+        "Documents are stored in a specific directory structure using GUIDs for folder names.",
+        "Only documents with valid file size and type are processed."
+    ],
+    "validations": [
+        "CustomValidator1 is used for custom validation logic.",
+        "JavaScript validations for document type and comments."
+    ],
+    "calculations": [],
+    "conditions": [],
+    "system_behavior": [
+        "Uses AJAX ModalPopupExtender for displaying additional details.",
+        "Utilizes Grid.View for listing documents and FormView for editing."
+    ],
+    "dependencies": [],
+    "exceptions": [],
+    "source_document_ids": [
+        "0b412b93-8664-5be6-805b-1ee2191d9d74",
+        "23b4d3b7-10c4-5d78-b417-25806a3b6a78",
+        "315aa7cb-e2a6-5af5-88f3-e3bceefb450f",
+        "55917466-db99-5182-a2a2-833ec3f8ac73",
+        "69b6a57a-d344-53e2-83c0-1b66e394f75c",
+        "ab5070cc-bed5-5724-81f7-a337463e0b26",
+        "c708b08e-5172-57a5-a019-e21d52674f1d",
+        "e2dbef3b-8922-580e-a47b-155764f78dc8",
+        "ef75673a-9291-5ff8-ac62-566c091feb8f",
+        "f20d0f3f-4573-59af-87eb-f9f110c51931"
+    ],
+    "content_gaps": []
 }
