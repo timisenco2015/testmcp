@@ -1,12 +1,12 @@
 {
   "filename": "DestProfilePrfRequirements",
   "found": true,
-  "summary": "DestProfilePrfRequirements is a user control for managing prerequisite requirements. It allows users to add, edit, filter, and validate requirements associated with a destination profile. The control supports multiple requirement types: standard, document upload, and web link. Sub-disciplines can be restricted and managed using included/excluded lists. The interface is dynamic, supporting editable and read-only modes, and supports sectioning/grouping of requirements by logical sections.",
-  "purpose": "To facilitate the addition, editing, validation, and management of prerequisite requirements (including type, description, associated documents, web links, sub-disciplines, and logical sections) within a destination profile context.",
+  "summary": "DestProfilePrfRequirements manages prerequisite requirements for a destination profile, separating requirements by type (Standard, Document, Link), discipline, and section. The system allows users to add, edit, or delete requirements, filter by discipline, and group requirements by section. Users can specify whether requirements apply to all disciplines or only selected sub-disciplines, with an interactive UI for selection and validation. Uploaded documents are handled securely and stored per requirement.",
+  "purpose": "To provide a user interface and backend logic for managing prerequisite requirements related to a destination profile in a system, supporting workflows for adding, editing, deleting, and grouping requirements, filtering by discipline, and associating requirements with documents or links.",
   "entities": [
     "GenericRequirement",
-    "Codes (CodeRecord)",
     "Discipline",
+    "CodeRecord",
     "UserSession"
   ],
   "fields": [
@@ -15,8 +15,10 @@
     "Website",
     "DocumentName",
     "AllowAllSubDisciplines",
-    "SubDisciplineIDList",
-    "Section"
+    "SubDiscIDList",
+    "Section",
+    "ParentIDName",
+    "ParentID"
   ],
   "actors": [
     "User",
@@ -26,74 +28,82 @@
     {
       "name": "Add/Edit Requirement",
       "steps": [
-        "User clicks Add or Edit for a requirement.",
-        "FormView is displayed in Insert or Edit mode.",
-        "User selects requirement type (Standard, Document, or Link).",
-        "If Document, a file is uploaded and stored in a generated folder.",
-        "If Link, a URL is entered.",
-        "User fills in requirement fields (description, section, optional website, document name).",
-        "If sub-disciplines are enabled, user selects disciplines included/excluded.",
-        "System validates mandatory fields.",
-        "On save, requirement is added/updated via stored procedure.",
-        "FormView is hidden, and the list/grid is refreshed."
-      ]
-    },
-    {
-      "name": "Filter Requirements",
-      "steps": [
-        "User selects requirement or discipline filter.",
-        "System filters and displays requirements based on selection."
+        "User triggers add/edit (FormViewMode.Insert/FormViewMode.Edit)",
+        "User enters/selects requirement type, description, website, document name, section",
+        "User specifies whether applies to all disciplines; if not, selects included/excluded sub-disciplines",
+        "Validation performed for required fields",
+        "If uploading a document, file is processed, stored, and linked",
+        "Requirement is saved or updated in GenericRequirements",
+        "UI refresh/grid reloads and cache is updated"
       ]
     },
     {
       "name": "Delete Requirement",
       "steps": [
-        "User initiates delete.",
-        "System calls delete stored procedure.",
-        "Grid is refreshed to remove the deleted entry."
+        "User triggers delete",
+        "Requirement is deleted via GenericRequirements.Delete",
+        "Session cache is updated and page redirects"
+      ]
+    },
+    {
+      "name": "Filter Requirements",
+      "steps": [
+        "User selects discipline or filter option",
+        "System filters requirements accordingly and updates grid"
+      ]
+    },
+    {
+      "name": "Group Requirements by Section",
+      "steps": [
+        "Requirements grouped in UI by section",
+        "Section headers are dynamically inserted in grid"
+      ]
+    },
+    {
+      "name": "Upload Document",
+      "steps": [
+        "User uploads file via UI",
+        "System validates and saves file in new GUID-named folder under DestDocs",
+        "File URL and metadata linked to requirement"
       ]
     }
   ],
   "business_rules": [
-    "Requirement description is mandatory.",
-    "If all disciplines are included, sub-discipline selection is disabled.",
-    "Only valid (UUID-format) document IDs are considered when linking entities.",
-    "Section names are used for logical grouping; empty sections are treated as no section."
+    "If AllowAllSubDisciplines is selected or no included disciplines, requirement applies to all disciplines.",
+    "Requirement types hidden by codes (HideDocType, HideUrlType) are removed from dropdowns.",
+    "Section grouping supports empty or named sections.",
+    "Requirement description must be provided for non-document/link types.",
+    "Uploaded files must be non-empty and are stored in unique folders."
   ],
   "validations": [
-    "RequiredFieldValidator for requirement selection.",
-    "Custom validation for description field.",
-    "File upload presence and file type validation for document requirements.",
-    "If no sub-disciplines are included (when required), user is notified and all will be allowed."
+    "RequiredFieldValidator_ddRequirement",
+    "CustomValidator for requirement description",
+    "Document file presence and type upon upload"
   ],
   "calculations": [
-    "None explicit, but list building for included/excluded sub-disciplines."
+    "ValueList(ListBox lb) returns comma-separated SubDisciplineIDs",
+    "TextList(ListBox lb) returns comma-separated SubDiscipline names"
   ],
   "conditions": [
-    "If UseSubDisciplines is enabled, display sub-discipline chooser.",
-    "If PrerequisiteOption is Document, file upload and document name fields are shown.",
-    "If PrerequisiteOption is Link, website URL field is shown.",
-    "If PrerequisiteOption is Standard, description only."
+    "UseSubDisciplines determines visibility of discipline selection UI",
+    "RestrictedSubDisciplines disables discipline filter"
   ],
   "system_behavior": [
-    "Initializes and binds dropdowns and lists on page load.",
-    "Dynamically updates UI based on selected requirement type.",
-    "Populates dropdowns with codes, omitting certain types if configured.",
-    "Stores and retrieves user session state (e.g., last filter applied, first load).",
-    "Handles add/edit/delete with backend stored procedures."
+    "Dynamic UI updates for prerequisite type changes",
+    "Modal popup for add/edit operations",
+    "Section headers auto-inserted in grid",
+    "Visibility toggled for discipline-related fields based on session and settings"
   ],
   "dependencies": [
-    "User session for permissions and allowed disciplines.",
-    "Stored procedures for add/update/delete/search.",
-    "Codes data for populating requirement types.",
-    "Disciplines data for sub-discipline selection.",
-    "Grid and FormView ASP.NET controls.",
-    "Server file system for document storage."
+    "Codes for filtering/hiding requirement types",
+    "Disciplines for listing and associating sub-disciplines",
+    "UserSession for permissions and filtering",
+    "GenericRequirements class for CRUD"
   ],
   "exceptions": [
-    "If file upload fails, returns false and does not save requirement.",
-    "If user session is invalid, cancels data operations.",
-    "If code/discipline data is missing or malformed, may suppress or alter controls."
+    "HandleUploadedFile returns false if file upload fails or is empty",
+    "DataSource is cancelled if UserSession is null",
+    "Add/Edit operation notes warning if no included disciplines"
   ],
   "source_document_ids": [
     "00fcca6d-1a9f-5dcd-811b-bf43a2c4d755",
@@ -124,8 +134,8 @@
     "ee57a734-0f58-5a0a-b29d-9c3487a5b897"
   ],
   "content_gaps": [
-    "Details on field types and constraints (e.g., max lengths, allowed file types) are inferred, not explicit.",
-    "No explicit error messages or user feedback details are present.",
-    "Business context and downstream integrations are not described."
+    "Some referenced methods and classes (e.g., GenericRequirements, Codes, Disciplines, DocumentTypeConversion, Resources) are not fully defined in the retrieved content.",
+    "No actual sample data for requirements, disciplines, or code values.",
+    "UI render specifics and JavaScript are partly referenced but not detailed."
   ]
 }
