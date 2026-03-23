@@ -1,0 +1,115 @@
+```json
+{
+  "filename": "TimetableRotation",
+  "found": true,
+  "summary": "The TimetableRotation system involves managing rotations related to timetables, including operations like adding, deleting, updating, and retrieving timetable data. It handles validation of timetable dates and ensures data integrity through business rules.",
+  "purpose": "To manage and maintain timetable rotations, ensuring correct scheduling and adherence to date constraints.",
+  "entities": [
+    "TimetableRotation"
+  ],
+  "fields": [
+    "ID",
+    "Count",
+    "TimetableID",
+    "StartDate",
+    "EndDate",
+    "CohortName",
+    "CohortShortName",
+    "TermName",
+    "TermStart",
+    "TermEnd",
+    "CourseName",
+    "CourseShortName",
+    "TimetableStartDate",
+    "TimetableEndDate",
+    "StartDateFormatted",
+    "EndDateFormatted"
+  ],
+  "actors": [
+    "HSPnetSession"
+  ],
+  "workflows": [
+    {
+      "name": "GetByTimetableID",
+      "steps": [
+        "Set stored procedure name: TimetableRotationSearch",
+        "Add parameter: TimetableID",
+        "Execute query and fill list",
+        "Close reader"
+      ]
+    },
+    {
+      "name": "GetHeaderByTimetableID",
+      "steps": [
+        "Set stored procedure name: TimetableRotationHeader",
+        "Add parameter: TimetableID",
+        "Execute query and process records",
+        "Close reader"
+      ]
+    },
+    {
+      "name": "Add",
+      "steps": [
+        "Validate entry",
+        "Set stored procedure name: TimetableRotationAdd",
+        "Add parameters: TimetableID, StartDate, EndDate",
+        "Execute query"
+      ]
+    },
+    {
+      "name": "Update",
+      "steps": [
+        "Validate entry",
+        "Set stored procedure name: TimetableRotationUpdate",
+        "Add parameters: ID, StartDate, EndDate",
+        "Execute query"
+      ]
+    },
+    {
+      "name": "Delete",
+      "steps": [
+        "Check ID validity",
+        "Set stored procedure name: TimetableRotationDelete",
+        "Add parameter: ID",
+        "Execute query"
+      ]
+    }
+  ],
+  "business_rules": [
+    "Ensure StartDate and EndDate are not null",
+    "Ensure EndDate is after StartDate",
+    "Ensure dates fall within timetable range"
+  ],
+  "validations": [
+    "Check if StartDate is before TimetableStartDate",
+    "Check if EndDate is after TimetableEndDate",
+    "Ensure StartDate and EndDate are not null"
+  ],
+  "calculations": [
+    "Calculate formatted StartDate and EndDate using UI.DateFormatter"
+  ],
+  "conditions": [
+    "Dates must not be before or after the timetable's start and end dates"
+  ],
+  "system_behavior": [
+    "Perform database operations using specified stored procedures and parameters"
+  ],
+  "dependencies": [
+    "HSPnet.Framework",
+    "HSPnet.App_GlobalResources",
+    "System.Data.SqlClient"
+  ],
+  "exceptions": [
+    "AddError if date validations fail"
+  ],
+  "source_document_ids": [
+    "46fb1ff1-1d43-5e8f-a9c1-4001efe45eaf",
+    "90c7c9c6-9236-54ea-b377-83447ca97722",
+    "e5789238-c13a-5d51-ac41-71c9d1c42fcd",
+    "e9bfae10-927e-59d2-855a-5203be6664db",
+    "f3beef69-1a5b-5b46-81d9-ca02affe14dc",
+    "fbf1f45e-8625-5daa-9a44-afd134af6b6d"
+  ],
+  "content_gaps": []
+}
+```
