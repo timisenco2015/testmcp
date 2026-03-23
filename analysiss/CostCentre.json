@@ -1,24 +1,19 @@
 {
-  "filename": "CostCentre",
-  "found": true,
-  "summary": "CostCentre classes manage cost centre data integration, supporting detailed record fetching and storage.",
-  "purpose": "Administers cost center records with detailed agency, service and placement data.",
-  "entities": ["CostCentreRecord", "CostCentreView"],
-  "fields": ["PlacingAgency", "Department", "Program", "Discipline", "SubDiscipline", "ReceivingAgency", "Site", "Portfolio", "Service", "Destination", "CostCentre", "CostCentreDescription", "PRType", "StartDate", "EndDate", "Status", "Course", "ProgramYear", "ReferenceNumber", "CFO", "PRCount", "StudentCount", "PRHours", "StudentHours"],
-  "actors": [],
-  "workflows": [
-    {
-      "name": "FetchCostCentreRecords",
-      "steps": ["Execute PlacementCostCentre stored procedure", "Load data and attach to list"]
-    }
-  ],
-  "business_rules": [],
-  "validations": [],
-  "calculations": [],
-  "conditions": [],
-  "system_behavior": [],
-  "dependencies": [],
-  "exceptions": [],
-  "source_document_ids": ["20ac8054-536e-5203-b33d-7db2b2dc2359", "2c04f259-cf58-5d95-803c-8ebf16840f6c", "97bc3ba9-9fe4-52b1-8847-dce2198e0aee", "dd965b0f-f9cf-57eb-a3f8-32b3b97a6d1a", "e1ac7e41-5e9e-5f16-baa0-29d05a70f976"],
-  "content_gaps": []
+    "filename": "CostCentre",
+    "found": true,
+    "summary": "CostCentre class and its record manage financial information related to placement agencies including dates and cost centers.",
+    "purpose": "To provide detailed financial information related to placements, such as costs centers, dates, and agency information.",
+    "entities": ["CostCentreRecord"],
+    "fields": ["PlacingAgency", "Department", "Program", "Discipline", "SubDiscipline", "ReceivingAgency", "Site", "Portfolio", "Service", "Destination", "CostCentre", "CostCentreDescription", "PRType", "StartDate", "EndDate", "Status", "Course", "ProgramYear", "ReferenceNumber", "CFO", "PRCount", "StudentCount", "PRHours", "StudentHours"],
+    "actors": [],
+    "workflows": [],
+    "business_rules": [],
+    "validations": [],
+    "calculations": [],
+    "conditions": [],
+    "system_behavior": ["Financial data retrieval and formatting"],
+    "dependencies": ["HSPnetSession", "Database"],
+    "exceptions": [],
+    "source_document_ids": ["20ac8054-536e-5203-b33d-7db2b2dc2359", "2c04f259-cf58-5d95-803c-8ebf16840f6c"],
+    "content_gaps": []
 }
