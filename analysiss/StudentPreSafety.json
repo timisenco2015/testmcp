@@ -1,92 +1,70 @@
 {
-  "filename": "StudentPreSafety",
-  "found": true,
-  "summary": "The StudentPreSafety user control is a component within the HSPnet application, designed to handle student prerequisite safety data. It operates by interacting with various controls on a web page, handling data updates, and rendering UI elements appropriately based on user interaction and data conditions.",
-  "purpose": "The purpose of the StudentPreSafety component is to manage and display student safety prerequisite information, handle updates, and ensure that data is correctly processed and displayed in the user interface.",
-  "entities": [],
-  "fields": [
-    "CRCStatus",
-    "IDCard",
-    "WCBWaiverDate",
-    "StudentID",
-    "SessionID",
-    "StaffID",
-    "CRCStatusCodeID",
-    "WCBStatusCodeID"
-  ],
-  "actors": [
-    "UserSession",
-    "ScriptManager"
-  ],
-  "workflows": [
-    {
-      "name": "DataBinding Workflow",
-      "steps": [
-        "Bind data using DataBind()",
-        "Select student prerequisite data based on session and student ID",
-        "Translate display fields based on user session language"
-      ]
-    },
-    {
-      "name": "Item Command Handling",
-      "steps": [
-        "Switch to edit mode if cmdEdit is triggered",
-        "Bind student ID to detail view",
-        "Show detail modal"
-      ]
-    },
-    {
-      "name": "Detail Data Binding",
-      "steps": [
-        "Bind data to controls in the detail view",
-        "Setup drop-down lists using data",
-        "Handle visibility and translation of fields"
-      ]
-    },
-    {
-      "name": "Update Workflow",
-      "steps": [
-        "Validate page before updating",
-        "Get new values from form controls",
-        "Update user session after saving"
-      ]
-    }
-  ],
-  "business_rules": [
-    "Hide save button if screen is not editable",
-    "Only show detail modal for valid student IDs"
-  ],
-  "validations": [
-    "Cancel update if page is not valid"
-  ],
-  "calculations": [],
-  "conditions": [
-    "Check if CRCStatus is not 'Unknown' and not empty to show control",
-    "Toggle visibility of controls based on data status"
-  ],
-  "system_behavior": [
-    "Translate fields if alternative language is selected",
-    "Register JavaScript for asynchronous updates",
-    "Redirect to Safety page after update"
-  ],
-  "dependencies": [
-    "HSPnetSession",
-    "HSPnet.UI",
-    "HSPnet.DataLayer",
-    "AjaxControlToolkit"
-  ],
-  "exceptions": [
-    "Cancel data selection if UserSession is null"
-  ],
-  "source_document_ids": [
-    "432176fc-0da0-53f5-a17f-3b7c5873054c",
-    "44b0862f-f5ca-50c9-91c8-8c8c682f2c81",
-    "77da2834-e430-50d8-ac4a-99f9338cb22e",
-    "a848d7a9-edf6-5cd2-ac31-b1e99f6178bf",
-    "aea7fcfb-293e-5886-beec-5b069f07f25d",
-    "b8f98eab-f789-50c2-b63d-83c140582425",
-    "c425a48a-96f5-5a18-9aca-1d3e945640ef",
-    "d2dbf045-4761-5e11-97ca-617a1ec05d81"
-  ],
-  "content_gaps": []
+    "filename": "StudentPreSafety",
+    "found": true,
+    "summary": "The \"StudentPreSafety\" document involves functionality for managing student prerequisites with respect to safety protocols. This includes actions on user controls, data binding, and handling prerequisite status updates.",
+    "purpose": "To ensure that student safety prerequisites are properly managed, displayed, and editable on the user interface.",
+    "entities": [],
+    "fields": [
+        "CRCStatus",
+        "IDCard",
+        "WCBWaiverDate",
+        "CRCStatusAlt",
+        "WCBStatusCodeDescAlt",
+        "CRCStatusCodeID",
+        "WCBStatusCodeID",
+        "StudentID",
+        "SessionID"
+    ],
+    "actors": [
+        "UserSession",
+        "StudentPrerequisite"
+    ],
+    "workflows": [
+        {
+            "name": "Manage Student Prerequisites",
+            "steps": [
+                "Check if CRCStatus is not 'Unknown' and is not null to make the control visible.",
+                "Check if IDCard is not null to make the control visible.",
+                "Check if WCBWaiverDate is not null to make the control visible.",
+                "Translate fields based on language preference.",
+                "Switch to edit mode upon command.",
+                "Data bind the prerequisite details when details are available.",
+                "Update input parameters when data source is updating.",
+                "Setup JavaScript variables for client-side operations."
+            ]
+        }
+    ],
+    "business_rules": [
+        "Student prerequisites must be displayed only if applicable statuses are not unknown or null.",
+        "Translation of fields should respect alternate language settings."
+    ],
+    "validations": [
+        "Ensure page is valid before proceeding with updates.",
+        "Insert a blank dropdown item for selection convenience."
+    ],
+    "calculations": [],
+    "conditions": [
+        "ScreenIsEditable determines whether the save button is visible.",
+        "Based on the current mode, the command name of the button is set to 'Update' or 'Insert'."
+    ],
+    "system_behavior": [
+        "Caches user session after updates.",
+        "Redirects to the 'Safety' page upon item update completion."
+    ],
+    "dependencies": [
+        "Requires UserSession to select prerequisites.",
+        "JavaScript must be set for async operations if applicable."
+    ],
+    "exceptions": [],
+    "source_document_ids": [
+        "432176fc-0da0-53f5-a17f-3b7c5873054c",
+        "44b0862f-f5ca-50c9-91c8-8c8c682f2c81",
+        "77da2834-e430-50d8-ac4a-99f9338cb22e",
+        "a848d7a9-edf6-5cd2-ac31-b1e99f6178bf",
+        "aea7fcfb-293e-5886-beec-5b069f07f25d",
+        "b8f98eab-f789-50c2-b63d-83c140582425",
+        "c425a48a-96f5-5a18-9aca-1d3e945640ef",
+        "d2dbf045-4761-5e11-97ca-617a1ec05d81"
+    ],
+    "content_gaps": []
 }
