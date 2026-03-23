@@ -2,13 +2,9 @@
 {
   "filename": "Course",
   "found": true,
-  "summary": "The Course component manages course details and operations within the HSPnet system, including creation, updating, deletion, and retrieval of courses.",
-  "purpose": "To handle the management of course-related data and processes in the HSPnet system, facilitating various course-related operations and storage.",
-  "entities": [
-    "Course",
-    "HSPnetSession",
-    "DepartmentRequestType"
-  ],
+  "summary": "Contains methods and properties for managing course-related data, including retrieval, validation, and update operations.",
+  "purpose": "To manage course data in the HSPnet system, including searching, updating, and validating course information.",
+  "entities": ["Course", "DepartmentRequestType"],
   "fields": [
     "ID",
     "DepartmentID",
@@ -54,10 +50,8 @@
     "CampusesExist",
     "PRsAllocatedToCampusOnly",
     "PRsAllocatedToSectionOnly",
-    "RequestType",
-    "PRFormTemplate",
-    "GroupCodeID",
-    "NISTemplateID",
+    "ContactDataExists",
+    "SupervisorCaptionID",
     "AgencyID",
     "AgencyShortName",
     "DepartmentShortName",
@@ -68,55 +62,82 @@
     "ASMDataExists",
     "CorrDataExists",
     "AssessmentDataExists",
-    "ContactDataExists",
     "AllowStudentActivities",
     "StudentActivityCutoffDays",
-    "Group",
+    "GroupCodeID",
+    "NISTemplateID",
     "Use3Prefs",
-    "NISFlag"
+    "NISFlag",
+    "CFOProgramsExist",
+    "SATProgramsExist",
+    "TrackSupervisorWeeks",
+    "HasNISParticipant"
   ],
-  "actors": [
-    "HSPnetSession"
-  ],
+  "actors": ["HSPnetSession"],
   "workflows": [
     {
-      "name": "Course Management",
+      "name": "GetByDepartmentID",
       "steps": [
-        "Create Course",
-        "Update Course",
-        "Delete Course",
-        "Retrieve Course"
+        "ProcedureName set to CourseSearchDepartment",
+        "Parameters: DepartmentID, ShowInactive, keyword, DefaultTypeCodeID, SessionID",
+        "Retrieve data using SqlDataReader",
+        "Close SqlDataReader"
+      ]
+    },
+    {
+      "name": "GetRequestTypeByDepartmentID",
+      "steps": [
+        "ProcedureName set to CourseSearchDepartmentRequestTypeList",
+        "Parameters: DepartmentID, ShowInactive, keyword, SessionID",
+        "Retrieve data using SqlDataReader",
+        "Close SqlDataReader"
+      ]
+    },
+    {
+      "name": "CourseListAgency",
+      "steps": [
+        "ProcedureName set to CourseListAgency",
+        "Parameters: AgencyID, DepartmentID, CourseID, CohortID, OutboxMode, DateFrom, DateTo, ProgramID, SessionID",
+        "Retrieve data using SqlDataReader",
+        "Close SqlDataReader"
+      ]
+    },
+    {
+      "name": "CohortCourses",
+      "steps": [
+        "ProcedureName set to CohortCourses",
+        "Parameters: Filter, CohortID, TermID, CourseID, NameFieldsOnly",
+        "Retrieve data using SqlDataReader",
+        "Close SqlDataReader"
+      ]
+    },
+    {
+      "name": "IsValid",
+      "steps": [
+        "Check if Name is blank",
+        "Check if ShortName is blank",
+        "Check if DefaultTypeCodeID is zero",
+        "Set DurationHours if zero",
+        "Check if StudentActivityCutoffDays is less than -1"
       ]
     }
   ],
   "business_rules": [
-    "Apply business rules before saving.",
-    "Validate course data before operations."
+    "ApplyBusinessRules before saving",
+    "If AllowStudentActivities is false, set StudentActivityCutoffDays to -1"
   ],
   "validations": [
-    "Name and ShortName must be specified.",
-    "DefaultTypeCodeID must be specified.",
-    "DurationHours must not be zero.",
-    "StudentActivityCutoffDays must be valid."
+    "Name must be specified",
+    "ShortName must be specified",
+    "Request_Type_Required",
+    "DurationHoursNotZero",
+    "Student_Activity_Cutoff_Days_Invalid"
   ],
-  "calculations": [
-    "Calculate DurationHours from shifts and shift length if not provided."
-  ],
-  "conditions": [
-    "Course is active if not marked inactive.",
-    "Check for NIS participants in the department."
-  ],
-  "system_behavior": [
-    "Cache data for efficiency.",
-    "Interact with multiple database procedures."
-  ],
-  "dependencies": [
-    "HSPnet database interactions",
-    "Resource strings for messages"
-  ],
-  "exceptions": [
-    "Invalid data entries trigger error messages."
-  ],
+  "calculations": ["StudentActivityCutoffDays from StudentActivityCutoffDaysFormatted"],
+  "conditions": [],
+  "system_behavior": [],
+  "dependencies": ["HSPnetSession", "SqlDataReader"],
+  "exceptions": [],
   "source_document_ids": [
     "113fda5f-b356-500c-b6ba-13a1697099cf",
     "1657a581-8112-53fb-9bf4-2f85b175adbe",
@@ -126,6 +147,7 @@
     "34958587-423a-52a0-9a85-bca13184689b",
     "3bad9a02-3342-505b-a432-9c1890e8609e",
     "4080f062-b582-50fd-b379-e843ecf7eecf",
+    "497f9326-eff8-51eb-a7f7-bb67c07aa185",
     "4da5127c-87fe-54d6-9ece-9e9d45dac9ed",
     "65f5f8d3-3ba2-5529-8089-938acd1bd636",
     "7bad651c-cfd5-5b69-81b5-f442b857734d",
