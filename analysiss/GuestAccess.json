@@ -1,0 +1,58 @@
+{
+  "filename": "GuestAccess",
+  "found": true,
+  "summary": "The GuestAccess system is designed to manage guest logins to the HSPnet platform. It involves security checks, session management, and UI rendering for guests accessing the platform.",
+  "purpose": "To provide secure guest access to the HSPnet platform, ensuring access is only granted to valid, non-expired sessions and handling validation and error messaging.",
+  "entities": ["GuestAccess", "Security", "UserSession", "Resources", "DateFormatter", "QueryString"],
+  "fields": ["sessionHash", "user", "pwHashed", "expiryDate", "provinceCode", "errorMsg", "LastTry", "LockedOut", "Inactivated", "authCode", "Captcha"],
+  "actors": ["Guest User", "System"],
+  "workflows": [
+    {
+      "name": "Guest Login",
+      "steps": [
+        "Retrieve session hash from query string.",
+        "Use session hash to search for guest credentials.",
+        "Check if session has expired.",
+        "If expired, display error message and halt flow.",
+        "Attempt to log in using encrypted credentials.",
+        "If login is successful, redirect to the start screen.",
+        "If login fails and account is inactive, display specific error message."
+      ]
+    }
+  ],
+  "business_rules": [
+    "A session must not be expired to proceed with login.",
+    "Specific error messages are displayed when login attempts fail due to account inactivity."
+  ],
+  "validations": [
+    "Session expiry validation by comparing expiryDate with the current date."
+  ],
+  "calculations": [],
+  "conditions": [
+    "Check if session is expired.",
+    "Check if account is inactive upon login failure."
+  ],
+  "system_behavior": [
+    "Redirects to start screen upon successful login.",
+    "Displays login error messages under certain conditions."
+  ],
+  "dependencies": [
+    "Security.GuestInvitationSearchCredentials",
+    "Security.LoginEncrypted",
+    "Security.GetStartScreen",
+    "DateFormatter.FormatDateShort",
+    "QueryString.AddQueryStringValueToURL"
+  ],
+  "exceptions": [
+    "Guest_Invitation_Expiry_Error displayed for expired sessions.",
+    "Guest_Invitation_Invalid displayed for invalid sessions."
+  ],
+  "source_document_ids": [
+    "5484c8c4-06f4-5581-b86e-16bac58259ef",
+    "8ca9c0d8-07f6-5493-b7b4-b61a79ab8f77",
+    "9a74901d-41d8-5a53-bec7-798d824f83fb",
+    "a27aca24-e32e-5057-8c9e-d1d0c280348b",
+    "e27dce77-7a6f-5e07-a995-4254690c2333"
+  ],
+  "content_gaps": []
+}
