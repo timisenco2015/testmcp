@@ -1,0 +1,110 @@
+# Module: Agreement
+
+## Agreement-UC1 — Template Management
+
+- Primary Actor(s): Template Manager
+- Secondary Actor(s): None
+- Trigger: A user attempts to view, edit, or create an agreement template.
+- Description: This use case describes the management of agreement templates, including viewing existing templates, editing them if permissions allow, and creating new templates if none exists.
+- Preconditions:
+  - User has the necessary permissions to view or edit templates.
+  - The agreement data is loaded successfully.
+- Postconditions:
+  - The template is either displayed, edited, or a new template creation is initiated.
+- Main Success Scenario:
+  1. User navigates to the agreement template section.
+  2. The system checks for the existence of a template.
+  3. If a template exists and the user has edit permissions, the system displays options to view or edit.
+  4. If no template exists, the user is offered the option to create one.
+- Extensions:
+  - If a template exists but the user does not have permissions, only view options are displayed.
+- Exceptions:
+  - Failure to load template data triggers an error message.
+- Business Rules:
+  - Only users with edit permissions can modify templates.
+  - Templates cannot be edited if they are marked as inactive.
+- Assumptions:
+  - Templates are associated uniquely with Agreement IDs.
+- Open Issues:
+  - Handling templates for multiple languages.
+
+## Agreement-UC2 — Agreement Search
+
+- Primary Actor(s): User
+- Secondary Actor(s): None
+- Trigger: A user performs a search query for agreements based on specific criteria.
+- Description: The use case allows users to search for agreements using various filters like status, type, and dates.
+- Preconditions:
+  - User is authenticated and has access to agreement search functionality.
+- Postconditions:
+  - The system displays a list of agreements matching the search criteria.
+- Main Success Scenario:
+  1. User enters search criteria.
+  2. System validates the input parameters.
+  3. System performs a search using the specified filters.
+  4. System returns a list of matching agreements.
+- Extensions:
+  - User might refine search criteria for more accurate results.
+- Exceptions:
+  - No agreements found matching the criteria.
+- Business Rules:
+  - Search is limited to agreements viewable by the user.
+- Assumptions:
+  - Search parameters are effectively mapped to database queries.
+- Open Issues:
+  - Managing performance for extensive search queries.
+
+## Agreement-UC3 — Agreement Update
+
+- Primary Actor(s): Administrator
+- Secondary Actor(s): None
+- Trigger: An administrator initiates an update to an existing agreement.
+- Description: This use case involves updating the details of an existing agreement, such as dates, content, and status.
+- Preconditions:
+  - Agreement exists and is active.
+  - Administrator has edit permissions for agreements.
+- Postconditions:
+  - Agreement details are updated and saved to the database.
+- Main Success Scenario:
+  1. Administrator selects an agreement to update.
+  2. System displays current agreement details.
+  3. Administrator modifies the agreement information.
+  4. System validates and saves the updated information.
+- Extensions:
+  - Administrator may discard changes at any time.
+- Exceptions:
+  - Validation errors occur (e.g., invalid dates), preventing save.
+- Business Rules:
+  - Only authorized administrators can update agreements.
+  - Automatic logging of changes is performed.
+- Assumptions:
+  - There is a consistent format for agreement data.
+- Open Issues:
+  - Real-time collaboration handling on the same agreement.
+
+## Agreement-UC4 — Agreement Deletion
+
+- Primary Actor(s): System Administrator
+- Secondary Actor(s): None
+- Trigger: A system administrator attempts to delete an agreement.
+- Description: Deleting an agreement from the system, ensuring all related data is updated and consistent.
+- Preconditions:
+  - The agreement is not linked to any active processes or dependencies.
+  - Administrator has sufficient permissions to perform deletions.
+- Postconditions:
+  - Agreement is removed from the system database.
+- Main Success Scenario:
+  1. Administrator selects an agreement for deletion.
+  2. System checks for dependencies or linkage.
+  3. Administrator confirms the deletion action.
+  4. System deletes the agreement and updates related records.
+- Extensions:
+  - System may prompt for confirmation if dependencies exist.
+- Exceptions:
+  - Agreement is in use and cannot be deleted.
+- Business Rules:
+  - Deleted agreements are archived and not permanently erased immediately.
+- Assumptions:
+  - Agreements can be restored from an archive if deleted mistakenly.
+- Open Issues:
+  - Handling deletion across distributed databases.
