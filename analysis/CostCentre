@@ -1,0 +1,60 @@
+Based on the retrieved data, here is the structured JSON knowledge artifact for the "CostCentre" file:
+
+```json
+{
+  "filename": "CostCentre",
+  "found": true,
+  "summary": "The CostCentre system is designed to retrieve and manage cost centre records based on various criteria including session ID, date range, and other parameters like placing agencies and disciplines.",
+  "purpose": "To manage and track placement cost centres and associated records based on specific criteria.",
+  "entities": [
+    "CostCentreRecord"
+  ],
+  "fields": [
+    "PlacingAgency", "Department", "Program", "Discipline", "SubDiscipline",
+    "ReceivingAgency", "Site", "Portfolio", "Service", "Destination", "CostCentre",
+    "CostCentreDescription", "PRType", "StartDate", "EndDate", "Status",
+    "Course", "ProgramYear", "ReferenceNumber", "CFO", "PRCount",
+    "StudentCount", "PRHours", "StudentHours"
+  ],
+  "actors": [
+    "Database", "HSPnetSession", "SqlDataReader"
+  ],
+  "workflows": [
+    {
+      "name": "GetCostCentre",
+      "steps": [
+        "Initialize a list of CostCentreRecord",
+        "Set database procedure name to 'PlacementCostCentre'",
+        "Add parameters to database",
+        "Execute database query",
+        "Process SqlDataReader results",
+        "Close database reader",
+        "Return list of CostCentreRecord"
+      ]
+    }
+  ],
+  "business_rules": [
+    "The procedure 'PlacementCostCentre' is used for retrieving cost centre records",
+    "Records are filtered by session ID, start date, end date, and other optional parameters"
+  ],
+  "validations": [],
+  "calculations": [],
+  "conditions": [],
+  "system_behavior": [
+    "Database interaction to retrieve cost centre data",
+    "Handling of SqlDataReader to process data"
+  ],
+  "dependencies": [],
+  "exceptions": [
+    "Handling null SqlDataReader"
+  ],
+  "source_document_ids": [
+    "20ac8054-536e-5203-b33d-7db2b2dc2359",
+    "2c04f259-cf58-5d95-803c-8ebf16840f6c",
+    "97bc3ba9-9fe4-52b1-8847-dce2198e0aee",
+    "dd965b0f-f9cf-57eb-a3f8-32b3b97a6d1a",
+    "e1ac7e41-5e9e-5f16-baa0-29d05a70f976"
+  ],
+  "content_gaps": []
+}
+```
