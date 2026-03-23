@@ -1,142 +1,71 @@
 {
   "filename": "ServiceProfileHistory",
   "found": true,
-  "summary": "The ServiceProfileHistory is a part of the HSPnet application, primarily designed to handle and display historical data related to service profiles. It includes functionalities for data selection, management, and formatting, which are embedded within the application’s user interface components.",
-  "purpose": "The purpose of the ServiceProfileHistory is to track and display historical actions and data changes related to service profiles within the HSPnet system, providing insights and details regarding user interactions and modifications over time.",
+  "summary": "The ServiceProfileHistory is a feature of the HSPnet application, designed to handle and display historical data related to service profiles within the system. It involves user controls and data management for tracking actions performed on service profiles, including user details and modifications.",
+  "purpose": "The purpose of ServiceProfileHistory is to provide a record of actions performed on service profiles, enabling traceability and accountability within the HSPnet system.",
   "entities": [
     "ServiceProfileHistory",
     "HSPnetSession",
-    "Database",
-    "SqlDataReader",
-    "Phone",
-    "NameFormatter",
-    "Resources",
-    "HSPnet.Support_Team"
+    "ServiceProfileHistories"
   ],
   "fields": [
-    {
-      "name": "Button1",
-      "description": "UI control button."
-    },
-    {
-      "name": "Label1",
-      "description": "UI control label."
-    },
-    {
-      "name": "gridData",
-      "description": "Grid view for displaying data."
-    },
-    {
-      "name": "dsServiceProfileHistory",
-      "description": "Object data source for ServiceProfileHistory."
-    },
-    {
-      "name": "ActionDate",
-      "description": "Date when the action was performed."
-    },
-    {
-      "name": "ScreenSection",
-      "description": "Section of the screen involved in the action."
-    },
-    {
-      "name": "UserAction",
-      "description": "Description of the user action."
-    },
-    {
-      "name": "Fields",
-      "description": "Fields involved in the action."
-    },
-    {
-      "name": "Agency",
-      "description": "Agency associated with the action."
-    },
-    {
-      "name": "AgencyName",
-      "description": "Name of the agency."
-    },
-    {
-      "name": "LastName",
-      "description": "Last name of the user."
-    },
-    {
-      "name": "FirstName",
-      "description": "First name of the user."
-    },
-    {
-      "name": "MiddleName",
-      "description": "Middle name of the user."
-    },
-    {
-      "name": "Phone",
-      "description": "Phone number of the user."
-    },
-    {
-      "name": "ByUserID",
-      "description": "User ID of the action performer."
-    },
-    {
-      "name": "ByOriginalUserID",
-      "description": "Original User ID if different from the current user."
-    },
-    {
-      "name": "ByUserSysAdmin",
-      "description": "Indicates if the user is a system administrator."
-    }
+    "ID",
+    "ActionDate",
+    "ScreenSection",
+    "UserAction",
+    "Fields",
+    "Agency",
+    "AgencyName",
+    "LastName",
+    "FirstName",
+    "MiddleName",
+    "Phone",
+    "ByUserID",
+    "ByOriginalUserID",
+    "ByUserSysAdmin"
   ],
   "actors": [
-    "UserSession",
-    "Database",
-    "SqlDataReader",
-    "System Administrator"
+    "User",
+    "Administrator"
   ],
   "workflows": [
     {
-      "name": "ServiceProfileHistory Data Selection",
+      "name": "ServiceProfileHistory Retrieval",
       "steps": [
-        "Initialize database connection and parameters.",
-        "Check for valid user session.",
-        "Set input parameters for service ID and session agency ID.",
-        "Execute data retrieval using SqlDataReader.",
-        "Fill ServiceProfileHistory object with retrieved data.",
-        "Return list of ServiceProfileHistory objects."
+        "Initialize HSPnet session.",
+        "Provide ServiceID and SessionAgencyID.",
+        "Execute ServiceProfileHistorySearch procedure.",
+        "Retrieve data with SqlDataReader."
       ]
     }
   ],
   "business_rules": [
-    "A valid user session must be established to perform data selection.",
-    "User input parameters must include ServiceID and SessionAgencyID."
+    "Only retrieve data if UserSession is active.",
+    "Cancel data selection if UserSession is null.",
+    "Data retrieval parameters must include ServiceID and SessionAgencyID."
   ],
   "validations": [
-    "Ensure UserSession is not null before data selection.",
-    "Validate UUID format for service ID and agency ID."
+    "Check if UserSession is active before allowing data retrieval.",
+    "Validate UUID format for database keys."
   ],
   "calculations": [
-    {
-      "description": "Formatting of action date into a short date format."
-    },
-    {
-      "description": "Concatenation of agency and name initials for display."
-    }
+    "Format ActionDate using DateFormatter.",
+    "Format AgencyUser details with NameFormatter including initial of names."
   ],
   "conditions": [
-    "Check if session is valid before proceeding with data operations.",
-    "Use alternative language fields if UseAltLanguageFields is true."
+    "Use alternative language fields if sess.UseAltLanguageFields is true.",
+    "Ensure ByUserSysAdmin status before formatting user details."
   ],
   "system_behavior": [
-    "Cancels ObjectDataSource selecting event if UserSession is null."
+    "Auto-generate UI controls and fields.",
+    "Dynamic update of UI based on user session and agency information."
   ],
   "dependencies": [
-    {
-      "description": "ServiceProfileHistorySearch procedure depends on correctly setting database parameters."
-    },
-    {
-      "description": "User session object must be correctly initialized for data retrieval."
-    }
+    "HSPnet.Framework for formatting and resources.",
+    "HSPnet.DataLayer for data interaction."
   ],
   "exceptions": [
-    {
-      "description": "Data retrieval is canceled when UserSession is invalid."
-    }
+    "Cancel data selection if UserSession is null."
   ],
   "source_document_ids": [
     "5043ee5c-f3d4-548a-848a-161cffd45a9f",
