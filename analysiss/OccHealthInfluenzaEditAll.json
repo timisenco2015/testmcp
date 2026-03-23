@@ -1,0 +1,24 @@
+{
+  "filename": "OccHealthInfluenzaEditAll",
+  "found": true,
+  "summary": "OccHealthInfluenzaEditAll is a user control for managing influenza immunization records in a GridView environment. It provides functionality to update immunization status and seasonal details, handle grid data operations, and manage JavaScript for client-side interactions.",
+  "purpose": "To facilitate the management and updating of occupational health influenza immunization records.",
+  "entities": ["InfluenzaStatusCodeList", "ImmunFluSeasonList"],
+  "fields": ["txtDirty", "ddInfluenzaStatusCode", "ddImmunFluSeason", "ShowGrad", "ShowInactive", "ShowWaived", "SectionFilter", "ActionFilter", "keyword", "CampusID", "CommentFilter"],
+  "actors": ["UserSession"],
+  "workflows": [
+    {
+      "name": "Influenza Immunization Update",
+      "steps": ["Data retrieval", "Status update", "GridView rendering", "JavaScript setup"]
+    }
+  ],
+  "business_rules": ["Hide buttons when enrollment ID is zero"],
+  "validations": ["ValidationSummary1 control"],
+  "calculations": ["Year calculations based on influenza admin date"],
+  "conditions": ["Check if gridDataEdit row is dirty"],
+  "system_behavior": ["Enable/disable fields based on enrollment state"],
+  "dependencies": ["HSPnetSession", "GridView", "DropDownList"],
+  "exceptions": ["Cancel operation if UserSession is null"],
+  "source_document_ids": ["0d476473-6083-5f51-ba86-86994f8d2005", "1fc2d4a3-13a1-5a93-b0e7-3dbe8577eae0", "3ad241b8-d5da-5077-8e72-14c0dd19a4ca", "4f9ede21-00b0-5e79-a78d-a1cb6db32417", "5127230e-5edc-5e20-8eb4-b402fb0accf8", "5bde432b-bbc5-5f1a-8483-b259a3286565", "731359ca-b860-5846-a8d7-78d1407d0624", "8b2eca1a-596e-54f9-a666-769d9733955d", "91574ad3-0aee-544a-bbf5-981a307edc3d"],
+  "content_gaps": []
+}
