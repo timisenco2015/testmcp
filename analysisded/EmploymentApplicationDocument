@@ -1,0 +1,106 @@
+```json
+{
+  "filename": "EmploymentApplicationDocument",
+  "found": true,
+  "summary": "The content revolves around managing employment application documents, including adding, searching, and deleting documents. It involves handling document types such as anonymous and named resumes, photos, and user-defined documents.",
+  "purpose": "The purpose is to manage employment application documents within a system using specific workflows and validations to ensure proper handling, storage, retrieval, and deletion of document records.",
+  "entities": [
+    "EmploymentApplicationDocument",
+    "HSPnetSession"
+  ],
+  "fields": [
+    "ID",
+    "EmploymentApplicationID",
+    "TypeCodeID",
+    "TypeComments",
+    "FileURL",
+    "FilePath",
+    "FileSize",
+    "FileType",
+    "FileTypeAlt",
+    "UpdateDate",
+    "ByUserID",
+    "LastName",
+    "FirstName",
+    "MiddleName",
+    "Agency",
+    "TypeCode",
+    "UpdatedDetails",
+    "Anonymous",
+    "UploadedByStudent"
+  ],
+  "actors": [
+    "Student",
+    "Administrator",
+    "System"
+  ],
+  "workflows": [
+    {
+      "name": "Add Employment Application Document",
+      "steps": [
+        "Invoke DB procedure EmploymentApplicationDocumentAddDoc",
+        "Set parameters: SessionID, EmploymentApplicationID, StudentDocumentIDList, AddWebPage",
+        "Execute query and retrieve file paths"
+      ]
+    },
+    {
+      "name": "Search Employment Application Document",
+      "steps": [
+        "Invoke DB procedure EmploymentApplicationDocumentSearch",
+        "Set parameters: EmploymentApplicationID, TypeCodeID",
+        "Execute query, fill list, close reader"
+      ]
+    },
+    {
+      "name": "Delete Employment Application Document",
+      "steps": [
+        "Retrieve documents by ID",
+        "Delete files and directories ignoring exceptions",
+        "Invoke DB procedure EmploymentApplicationDocumentDelete",
+        "Set parameter: DocumentID",
+        "Execute query"
+      ]
+    }
+  ],
+  "business_rules": [
+    "Anonymous documents are removed for students by themselves",
+    "If no named resume, create an empty entry"
+  ],
+  "validations": [
+    "FileURL and FilePath must not be blank",
+    "TypeCodeID must be defined"
+  ],
+  "calculations": [
+    "File size in kilobytes"
+  ],
+  "conditions": [
+    "If sess.StaffID equals studentID, remove anonymous docs",
+    "Check for existing entries before adding new documents"
+  ],
+  "system_behavior": [
+    "System handles file and directory deletions with try-catch blocks",
+    "System uses alternate language fields when applicable"
+  ],
+  "dependencies": [
+    "Resources for string constants",
+    "UI and Localization components"
+  ],
+  "exceptions": [
+    "File deletion failures are ignored",
+    "Directory deletion failures are ignored"
+  ],
+  "source_document_ids": [
+    "005a4659-8a78-53ec-90b2-9e784447427e",
+    "0cd7ba9d-79fc-5d40-b5a8-dcd512726a09",
+    "18d07417-6ba6-58a6-b898-eb46d1b06b74",
+    "2d1e2cc1-b01e-5929-aaae-f1dbaf9e80df",
+    "4724fc52-d499-5dec-8239-fff8e3b7fb1b",
+    "6a51a9d9-5ad6-5289-acb4-3addc565d66d",
+    "8eba6cc1-b597-5768-b62a-2a468d67bce2",
+    "d7c3d309-09df-5597-b223-70df5607e08a",
+    "e684f702-de10-5c85-ab50-22c9074b129f",
+    "f01442ad-cafc-5058-af78-bbcc27077ebe"
+  ],
+  "content_gaps": []
+}
+```
