@@ -1,0 +1,102 @@
+{
+  "filename": "StudentActivities",
+  "found": true,
+  "summary": "The 'StudentActivities' procedures manage student activity data within the HSPnet system, supporting functions such as adding, updating, searching, approving, locking, validating, and managing the lifecycle of student activities.",
+  "purpose": "The purpose of 'StudentActivities' is to facilitate the management of student activity records, track their status, and ensure data integrity within the HSPnet system.",
+  "entities": [],
+  "fields": [
+    "ID",
+    "StudentID",
+    "PlacementRequestDestinationID",
+    "ActivityDate",
+    "SupervisorID",
+    "ActivityHours",
+    "ShiftTypeCodeID",
+    "ClinicalPracticeCodeID",
+    "ActivityCodeID",
+    "Comments",
+    "Course",
+    "StartDate",
+    "EndDate",
+    "StudentActivityCutoffDays",
+    "SuperLastName",
+    "SuperMiddleName",
+    "SuperFirstName",
+    "ClinicalPracticeCodeName",
+    "ActivityCodeName",
+    "Term",
+    "Site",
+    "ApprovedAndLocked",
+    "Verified",
+    "Archived"
+  ],
+  "actors": [
+    "HSPnetSession"
+  ],
+  "workflows": [
+    {
+      "name": "StudentActivitiesSearchPRD",
+      "steps": [
+        "Set the procedure name to 'StudentActivitiesSearchPRD'.",
+        "Add parameters: StudentID, PlacementRequestDestinationID, SortColumn, SupervisorID, ActivityDate.",
+        "Execute query and fill results into StudentActivity list.",
+        "Close the data reader."
+      ]
+    },
+    {
+      "name": "StudentActivitiesAdd",
+      "steps": [
+        "Create a StudentActivity instance.",
+        "Populate required fields and validate.",
+        "Set the procedure name to 'StudentActivitiesAdd'.",
+        "Add parameters: StudentID, PlacementRequestDestinationID, ActivityDate, SupervisorID, ActivityHours, ShiftTypeCodeID, ClinicalPracticeCodeID, ActivityCodeID, Comments, SessionID.",
+        "Execute query."
+      ]
+    },
+    {
+      "name": "StudentActivitiesApprovedAndLocked",
+      "steps": [
+        "Set procedure name to 'StudentActivitiesApprovedAndLocked'.",
+        "Add parameters: StudentID, PlacementRequestDestinationID, ApprovedAndLocked.",
+        "Execute query."
+      ]
+    },
+    {
+      "name": "UpdateVerified",
+      "steps": [
+        "Set procedure name to 'StudentActivitiesUpdateVerified'.",
+        "Add parameters: VerifiedIDList, UnverifiedIDList.",
+        "Execute query."
+      ]
+    }
+  ],
+  "business_rules": [],
+  "validations": [
+    "Ensure ActivityDate is not null.",
+    "Ensure ActivityHours is greater than 0.01."
+  ],
+  "calculations": [],
+  "conditions": [
+    "Check if StartDate <= Current Date <= EndDate + StudentActivityCutoffDays.",
+    "Check if ApprovedAndLocked is false."
+  ],
+  "system_behavior": [
+    "Retrieves, manipulates, and stores student activity records.",
+    "Enables activity data operations such as search, add, update, delete, and status checks."
+  ],
+  "dependencies": [],
+  "exceptions": [],
+  "source_document_ids": [
+    "066c602c-83e1-51af-91ec-80e58365e148",
+    "2511a949-bc52-583b-822d-1268ecc89785",
+    "30123615-5cf2-57d6-94b7-ff818c2977f8",
+    "35be53a2-941e-5d0e-9dee-60d6515acdad",
+    "604bd484-a2b3-54e3-9ece-18936f733b51",
+    "82370f00-8f13-59c4-be87-724c4c631314",
+    "ade3ca6b-eeef-5c93-bdfb-ed1795a751e7",
+    "cc6ea0ba-1f68-5b4c-bd67-4878434a57fc",
+    "eb83f612-de37-57b1-87cd-f5641a97c1df",
+    "f92d0f63-6d1a-57ae-bef6-e47b376d1485"
+  ],
+  "content_gaps": []
+}
