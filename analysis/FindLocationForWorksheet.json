@@ -1,1 +1,133 @@
-{"filename":"FindLocationForWorksheet","found":true,"summary":"FindLocationForWorksheet is a web form used to search, filter, select, and create worksheet entries for locations within a system, leveraging multiple lookup fields and workflow actions. It enables users to find destinations for a worksheet using agency, governing organization, site type, service, region, province, discipline, keyword, and more. Selected locations can be grouped and worksheet entries created, subject to validation rules and dynamic behaviors.","purpose":"To allow authorized users to locate, filter, select, and create worksheet entries for destinations based on a variety of criteria, and to manage related reporting and workflow actions for worksheet assignment.","entities":["Agency","GoverningOrg","SiteType","Service","Region","Province","Discipline","Destination","Worksheet"],"fields":[{"name":"txtKeyword","type":"TextBox","maxLength":200,"purpose":"Search keyword for destination name"},{"name":"ddAgency","type":"DropDownList","values":"Agency list","purpose":"Filter by agency"},{"name":"ddGoverningOrg","type":"DropDownList","values":"GoverningOrg list","purpose":"Filter by governing organization"},{"name":"ddSiteType","type":"DropDownList","values":"SiteType list","purpose":"Filter by site type"},{"name":"ddServiceFilter","type":"DropDownList","values":"Service list","purpose":"Filter by service"},{"name":"ddRegion","type":"DropDownList","values":"Region list","purpose":"Filter by region"},{"name":"ddProvinceFilter","type":"DropDownList","values":"Province list","purpose":"Filter by province"},{"name":"ddDisciplineFilter","type":"DropDownList","values":"Discipline/Subdiscipline list","purpose":"Filter by discipline"},{"name":"chkIncludeCity","type":"CheckBox","purpose":"Include city name in search"},{"name":"chkIncludeAddress","type":"CheckBox","purpose":"Include address in search"},{"name":"txtGroupSize","type":"TextBox","maxLength":5,"purpose":"Number of worksheet entries to create"},{"name":"chkUseTemplate","type":"CheckBox","purpose":"Use template for worksheet entries"}],"actors":["UserSession","Authorized User","HSPnetPage (Framework)","HSPnet.DataLayer.Locations","HSPnet.WebServices.ASSDLookups"],"workflows":[{"name":"Search for Locations","steps":["User loads page; query parameters WorksheetID and CFOFlag provided.","Lookup data loaded for dropdown filters.","User enters search keyword and selects filters.","User clicks 'Search' button.","Locations are retrieved and displayed in gridData.","Matches count is shown."]},{"name":"Select and Create Worksheet Entries","steps":["User checks desired rows in gridData (each with Site, Service, Destination ID).","User enters Group Size and selects 'Use Template' if required.","User clicks 'Create' button.","Worksheet entries are created for selected destinations.","ASSD cache is cleared to update worksheet screen."]},{"name":"Report Generation","steps":["User clicks 'Print' button.","Report is generated via HSPnet.Framework.Reporting.RunReport.","HTML is rendered in pnlReportHTML."]},{"name":"Clear Filters","steps":["User clicks 'Clear' button.","Fields are reset; gridData is cleared."]}],"business_rules":["Create function is disabled unless WorksheetID and CFOFlag are supplied.","Group Size defaults to 1 for individual worksheet scenario (IWSFlag).","All dropdowns default to 'ALL' selection when initialized.","Worksheet entries created only for selected rows.","ASSD cache must be cleared after worksheet entry creation."],"validations":["Keyword search must be provided for certain validation groups.","Group Size must be a valid integer and required if creating entries.","Multiple validation summaries manage error/display for both search and create actions.","Custom client and server validations are used for search fields."],"calculations":["Matches count updates as results are bound to gridData.","Group Size value affects number of worksheet entries created."],"conditions":["If Group Size is missing or invalid, defaults to 1.","If filters are not selected, dropdowns default to 'ALL'.","If WorksheetID or CFOFlag are missing, create button is hidden."],"system_behavior":["Page uses hash validation on load for security.","Grid supports paging; too many results triggers a warning message.","JavaScript registers client-side field variables and manages select all/none functions.","User interface dynamically shows/hides elements based on post back or clear action."],"dependencies":["Dropdowns populated from Locations.GetLookupData","Reporting via HSPnet.Framework.Reporting","Worksheet creation via Location.CreateWorksheetEntries","ASSD cache management via HSPnet.WebServices.ASSDLookups.ClearASSDCache"],"exceptions":["Too many search results triggers a warning and help link.","Errors and warnings shown in pnlError and pnlWarning panels.","Validation errors trigger summaries or client messages."],"source_document_ids":["0176c680-d043-50cd-be84-810b9401ca4d","03390d5d-ec3d-55eb-bff3-cba2dbd1b246","053b5717-2acf-59f7-9163-abe991148b67","0dd7cd0d-2cbf-5782-86d1-f2be26bf0bbe","13fa92a9-f429-5cb6-9cbd-3c88732aa5bc","241b58a3-1f5e-5f69-bc89-4fe78108573d","26e28072-71f0-53e1-9791-63f7de682466","45de5522-32eb-5a87-8edc-5d699d153dab","4c55c8aa-4cac-588b-a6fd-a740c81f9808","4faeb7ba-4c89-5e62-a00b-c8a40782f01f","5d250228-2982-5245-80e4-0ce0ab4d04b5","5fcbfe6a-9f61-5170-be0d-16eacc6a7001","6b473dde-bf18-59ee-a5a6-3a8dbe3274a4","7de49aad-0888-574a-9d95-9c3d50c6ffda","80166401-2bc6-5aee-a816-5afefcef1717","810b3899-1eff-5479-be21-638dc4b04ba2","864717f5-e4db-56fc-b7fb-41b7b7f53d54","8ac0b000-856b-52fa-a0cd-d3dc0eb82072","8d730e3e-7cc0-554e-b14d-0f1a09df33f2","a00242d2-3405-5e54-946b-65f3cf6a3ac4","b5eef186-7bdd-59d5-b85d-e05e630f7e9c","cdd03bf2-5f2f-5b34-9a10-1d8d280138e0","cf3d5e55-cee1-5841-b770-5c0d94a350c9","d5f24882-02cb-56ef-b582-1b8adeb57a5c","e1a4ba6c-9dbb-536b-ae95-71d25de835fc","e8b44847-b94c-5b36-86fb-6593c2f83973","e99c8dbf-87b7-5245-ba1d-2cc1c2532ebe","faf4f79b-857c-56c1-898e-40a1ec9716ca","fccc1c70-95f6-5ea8-86ed-eae47887742a"],"content_gaps":["Underlying business logic for Location.CreateWorksheetEntries and reporting utilities is not shown.","Exact structure and options for dropdowns (e.g., agency, site type, service lists) depend on external data.","User authorization process and security checks are referenced but not fully detailed.","Some error handling and validation rules may depend on external resource files or client-side scripts."]}
+{
+  "filename": "FindLocationForWorksheet",
+  "found": true,
+  "summary": "The 'FindLocationForWorksheet' screen in HSPnet provides a user interface and backend logic to search for and select agency sites, services, and destinations for inclusion in a worksheet (used for student placement, likely). It supports multiple filters, search criteria, batch selection, validation, and creation of worksheet entries.",
+  "purpose": "To allow users to search for and filter agency sites, services and destinations, select matching results, and add them to a worksheet. This facilitates the process of finding appropriate locations for student placement workflows.",
+  "entities": [
+    "Worksheet",
+    "Agency",
+    "Governing Organization",
+    "Site Type",
+    "Service",
+    "Region",
+    "Province",
+    "Discipline",
+    "DatabaseLocations",
+    "UserSession"
+  ],
+  "fields": [
+    "txtKeyword",
+    "ddAgency",
+    "ddGoverningOrg",
+    "ddSiteType",
+    "ddServiceFilter",
+    "ddDisciplineFilter",
+    "ddProvinceFilter",
+    "ddRegion",
+    "chkIncludeCity",
+    "chkIncludeAddress",
+    "lblMatches",
+    "txtGroupSize",
+    "chkUseTemplate"
+  ],
+  "actors": [
+    "User"
+  ],
+  "workflows": [
+    {
+      "name": "Search and Select Locations for Worksheet",
+      "steps": [
+        "Page loads; query string parameters WorksheetID, CFOFlag, and GWS are read.",
+        "If not a postback: lookups (Agencies, GoverningOrgs, SiteTypes, Services, Regions, Provinces, Disciplines) are fetched and dropdowns filled. txtKeyword is focused.",
+        "If WorksheetID or CFOFlag are missing, disable Create button.",
+        "Page sets up JavaScript variables for client-side use.",
+        "User fills filter fields and clicks Search.",
+        "System validates required search fields (custom validator).",
+        "System fetches and binds matching locations to gridData GridView. lblMatches updated with count.",
+        "Grid supports paging; on page change, fetches and binds new page of results.",
+        "User may select multiple locations (via checkboxes) or use Select All/None.",
+        "User may fill group size and choose to use template.",
+        "User clicks 'Create': system collects selected SiteID/ServiceID/DestinationID from checked rows, creates worksheet entries (with parameters including group size and template option), and clears related caches.",
+        "User can Print results, Clear the form, or Close the window.",
+        "Error/Warning messages are shown in dedicated panels."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Create button is visible only if both WorksheetID and CFOFlag are present.",
+    "Default value for group size is 1 if not using GWSFlag or if parsing fails.",
+    "If no records are selected, no worksheet entries are created.",
+    "Validation: group size must be a number and must be entered if creating worksheet.",
+    "Keyword is required for searching (CustomValidator enforced)."
+  ],
+  "validations": [
+    "CustomValidator2: Validates that required search fields are filled before search.",
+    "CompareValidator4: Ensures txtGroupSize is an integer.",
+    "RequiredFieldValidator2: Ensures txtGroupSize is entered if creating worksheet.",
+    "ValidationSummary1/2: Summarizes all validation errors."
+  ],
+  "calculations": [
+    "lblMatches displays the total number of matched rows after a search.",
+    "If no keyword entered, default to '%'.",
+    "Group size: parse txtGroupSize as integer or use 1 as fallback."
+  ],
+  "conditions": [
+    "Show/hide Create button based on presence of WorksheetID/CFOFlag.",
+    "Show/hide group size controls based on GWSFlag.",
+    "Show/hide Matches indicator and New Destination form only after search."
+  ],
+  "system_behavior": [
+    "Dropdown filters are dynamically filled from lookup data.",
+    "Grid supports selection, paging, and live count.",
+    "JavaScript hooks for Select All/None and print behaviors.",
+    "Page ensures URL hash is valid (security).",
+    "Cache is cleared after creating worksheet entries.",
+    "AJAX toolkits maintain floating error/warning panels."
+  ],
+  "dependencies": [
+    "HSPnet.DataLayer.Locations",
+    "HSPnet.Framework.Reporting",
+    "HSPnet.WebServices.ASSDLookups.ClearASSDCache",
+    "HSPnet.Framework.Hashing",
+    "HSPnet.Framework.QueryString",
+    "Javascript client scripts and AJAX toolkit"
+  ],
+  "exceptions": [
+    "If invalid WorksheetID or CFOFlag, creation is not permitted.",
+    "If group size is invalid, default is used."
+  ],
+  "source_document_ids": [
+    "0176c680-d043-50cd-be84-810b9401ca4d",
+    "03390d5d-ec3d-55eb-bff3-cba2dbd1b246",
+    "053b5717-2acf-59f7-9163-abe991148b67",
+    "0dd7cd0d-2cbf-5782-86d1-f2be26bf0bbe",
+    "13fa92a9-f429-5cb6-9cbd-3c88732aa5bc",
+    "241b58a3-1f5e-5f69-bc89-4fe78108573d",
+    "26e28072-71f0-53e1-9791-63f7de682466",
+    "45de5522-32eb-5a87-8edc-5d699d153dab",
+    "4c55c8aa-4cac-588b-a6fd-a740c81f9808",
+    "4faeb7ba-4c89-5e62-a00b-c8a40782f01f",
+    "5d250228-2982-5245-80e4-0ce0ab4d04b5",
+    "5fcbfe6a-9f61-5170-be0d-16eacc6a7001",
+    "6b473dde-bf18-59ee-a5a6-3a8dbe3274a4",
+    "7de49aad-0888-574a-9d95-9c3d50c6ffda",
+    "80166401-2bc6-5aee-a816-5afefcef1717",
+    "810b3899-1eff-5479-be21-638dc4b04ba2",
+    "864717f5-e4db-56fc-b7fb-41b7b7f53d54",
+    "8ac0b000-856b-52fa-a0cd-d3dc0eb82072",
+    "8d730e3e-7cc0-554e-b14d-0f1a09df33f2",
+    "a00242d2-3405-5e54-946b-65f3cf6a3ac4",
+    "b5eef186-7bdd-59d5-b85d-e05e630f7e9c",
+    "cdd03bf2-5f2f-5b34-9a10-1d8d280138e0",
+    "cf3d5e55-cee1-5841-b770-5c0d94a350c9",
+    "d5f24882-02cb-56ef-b582-1b8adeb57a5c",
+    "e1a4ba6c-9dbb-536b-ae95-71d25de835fc",
+    "e8b44847-b94c-5b36-86fb-6593c2f83973",
+    "e99c8dbf-87b7-5245-ba1d-2cc1c2532ebe",
+    "faf4f79b-857c-56c1-898e-40a1ec9716ca",
+    "fccc1c70-95f6-5ea8-86ed-eae47887742a"
+  ],
+  "content_gaps": [
+    "Some resource string values and business logic implementation details are referenced but not seen here (e.g., translation of labels, internal structure of Worksheet creation, error handling details, exact format of lookup data, and JavaScript functions)."
+  ]
+}
