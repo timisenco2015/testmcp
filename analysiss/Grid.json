@@ -1,46 +1,74 @@
 {
   "filename": "Grid",
   "found": true,
-  "summary": "The Grid file provides functionalities for managing UI elements, specifically for hiding and showing buttons and other controls based on various conditions. It handles scenarios for enabling/disabling UI components, switching between modes (view, edit, add), and managing controls in different types of views like GridView, DetailsView, FormView, ListView, etc.",
-  "purpose": "The primary purpose of the Grid file is to provide reusable methods for controlling the visibility and functionality of UI components in web applications, particularly for maintaining consistency in user interactions across different views and states of the application.",
+  "summary": "The Grid functionality involves various UI controls and functionalities related to handling button visibility, custom JavaScript confirmations, and mode switching operations such as switching to edit or add mode. It includes specific methods for managing UI elements in ASP.NET applications, handling postback events, and performing validations.",
+  "purpose": "The purpose of the Grid functionality is to provide utility methods to manage UI element visibility and interaction in ASP.NET pages, ensuring proper validation and user interaction based on session settings and control states.",
   "entities": [],
-  "fields": [],
-  "actors": [],
+  "fields": [
+    "ButtonNames",
+    "ScreenIsEditable",
+    "Inactive",
+    "ToolTip",
+    "Resources",
+    "fieldName"
+  ],
+  "actors": [
+    "WebControl",
+    "HyperLink",
+    "Label",
+    "LinkButton",
+    "RepeaterItem",
+    "GridViewRow",
+    "DetailsView",
+    "FormView",
+    "Control"
+  ],
   "workflows": [
     {
-      "name": "Control Visibility Management",
+      "name": "Button Visibility Management",
       "steps": [
-        "Identify the control to manage.",
-        "Determine the current screen state (editable or not).",
-        "Evaluate specific conditions (e.g. button type, control type).",
-        "Apply visibility and style changes based on conditions.",
-        "Repeat for each specified control."
+        "Iterate through specified button names.",
+        "Check the current screen editability status.",
+        "Hide or show buttons based on screen editability and inactive status.",
+        "Specify tooltips and CSS classes for buttons."
+      ]
+    },
+    {
+      "name": "Mode Switching",
+      "steps": [
+        "Switch to add or edit mode based on user actions.",
+        "Update form view header text and mode according to the selected action.",
+        "Bind data elements to UI controls for the current mode."
       ]
     }
   ],
   "business_rules": [
-    "Hide controls if the screen is not editable.",
-    "Buttons in inactive rows should not be shown.",
-    "Display 'no data found' message when applicable."
+    "Buttons are not visible on non-editable screens unless exceptions are handled.",
+    "Certain fields like TextBox are set read-only when not editable.",
+    "JavaScript validation is conditional on session settings like UsePhoneMask."
   ],
-  "validations": [],
+  "validations": [
+    "Phone and fax validation using JavaScript functions.",
+    "Governing organization selection must not be the default option.",
+    "Portfolio selection is required if cost centres are used."
+  ],
   "calculations": [],
   "conditions": [
-    "ScreenIsEditable: Determines if the screen is in an editable state.",
-    "Inactive: Specifies if the row is inactive.",
-    "Graduated: Checks if a specific condition for graduation applies.",
-    "SystemAdmin: Checks admin-specific visibility rules."
+    "Check if the screen is editable before showing edit buttons.",
+    "Determine if a row is inactive to customize button visibility."
   ],
   "system_behavior": [
-    "Switch UI components between different modes depending on user permissions and data state.",
-    "Enable or disable input fields based on the context of their use."
+    "System dynamically adjusts UI elements based on session and screen settings.",
+    "Elements like DropDownLists and CheckBoxes are enabled or disabled contextually."
   ],
   "dependencies": [
-    "AjaxControlToolkit for modal popup management.",
-    "ASP.NET Web UI controls like GridView, FormView, etc."
+    "HSPnet.App_GlobalResources",
+    "HSPnet.UI",
+    "AjaxControlToolkit"
   ],
   "exceptions": [
-    "If a control does not exist or is null, skip the visibility management for that control."
+    "Buttons are hidden on error states or when conditions are not met.",
+    "JavaScript functions handle exceptions regarding field validation and visibility."
   ],
   "source_document_ids": [
     "1fe4071f-e39b-546a-9a6e-29af2721cdef",
