@@ -1,0 +1,78 @@
+```json
+{
+    "filename": "SiteProfileHistory",
+    "found": true,
+    "summary": "The SiteProfileHistory is designed to handle historical data related to site profiles, capturing actions taken by users within the system, along with the associated metadata.",
+    "purpose": "To track and manage history of site profile operations for auditing, management, and user accountability.",
+    "entities": [],
+    "fields": [
+        "ID",
+        "ActionDate",
+        "ScreenSection",
+        "UserAction",
+        "Fields",
+        "Agency",
+        "AgencyName",
+        "LastName",
+        "FirstName",
+        "MiddleName",
+        "Phone",
+        "ByUserID",
+        "ByOriginalUserID",
+        "ByUserSysAdmin"
+    ],
+    "actors": [],
+    "workflows": [
+        {
+            "name": "SiteProfileHistorySearch",
+            "steps": [
+                "Initialize a database connection using the session.",
+                "Set procedure name to 'SiteProfileHistorySearch'.",
+                "Add parameters: SiteID, SessionAgencyID.",
+                "Retrieve data using a SqlDataReader.",
+                "Fill SiteProfileHistory list with retrieved entries.",
+                "Close reader and return the list."
+            ]
+        },
+        {
+            "name": "Selecting Action",
+            "steps": [
+                "Trigger selection event.",
+                "Cancel if UserSession is null.",
+                "Otherwise, set input parameters using SiteID, SessionAgencyID, and UserSession."
+            ]
+        }
+    ],
+    "business_rules": [],
+    "validations": [],
+    "calculations": [
+        "ActionDateFormatted uses DateFormatter to format and parse ActionDate.",
+        "AgencyUserFormatted concatenates agency details and initializes based on user privileges and agency names.",
+        "TooltipDetails formats name and phone details with agency information."
+    ],
+    "conditions": [
+        "Check if ByUserSysAdmin is false.",
+        "Validate ByUserID against ByOriginalUserID."
+    ],
+    "system_behavior": [],
+    "dependencies": [
+        "HSPnetSession",
+        "Database connection",
+        "Resources for text representations",
+        "NameFormatter for name formatting",
+        "DateFormatter for date formatting",
+        "SqlDataReader for data retrieval"
+    ],
+    "exceptions": [
+        "Exception if UserSession is null during object data select event."
+    ],
+    "source_document_ids": [
+        "25f89a24-5eda-5a3f-83df-1de69b12b3f1",
+        "26e09292-d304-55c6-94e5-ef3346453c4b",
+        "7ca6b963-9ae9-5cd3-82d5-f30dcb727ae3",
+        "a8f030c6-90b8-53a1-bb8a-3b7ef33b9488",
+        "e806999c-3a39-5720-9b59-303faebc9eb6"
+    ],
+    "content_gaps": []
+}
+```
