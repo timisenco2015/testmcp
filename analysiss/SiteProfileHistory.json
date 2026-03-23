@@ -1,8 +1,8 @@
 {
     "filename": "SiteProfileHistory",
     "found": true,
-    "summary": "SiteProfileHistory provides historical data regarding site profile changes, capturing user actions, affected fields, and timestamps.",
-    "purpose": "To record and display historical information about site profile changes and user actions within the HSPnet system.",
+    "summary": "SiteProfileHistory is a class for managing the history records of site profiles within the HSPnet application.",
+    "purpose": "Enables tracking and retrieval of site profile changes and actions, providing a detailed history for auditing and review purposes.",
     "entities": [
         "SiteProfileHistory"
     ],
@@ -20,22 +20,15 @@
         "Phone",
         "ByUserID",
         "ByOriginalUserID",
-        "ByUserSysAdmin",
-        "ActionDateFormatted",
-        "AgencyUserFormatted",
-        "AgencyUserDetailsFormatted"
+        "ByUserSysAdmin"
     ],
-    "actors": [
-        "User"
-    ],
+    "actors": [],
     "workflows": [
         {
             "name": "Site Profile History Retrieval",
             "steps": [
-                "Select profiles based on site ID and agency ID",
-                "Retrieve data using stored procedure SiteProfileHistorySearch",
-                "Format names and phone numbers",
-                "Return list of SiteProfileHistory objects"
+                "Execute stored procedures to obtain site profile history.",
+                "Format data based on session language settings."
             ]
         }
     ],
@@ -43,15 +36,8 @@
     "validations": [],
     "calculations": [],
     "conditions": [],
-    "system_behavior": [
-        "Retrieves historical site profile changes using stored procedures",
-        "Formats data based on alternative language settings"
-    ],
-    "dependencies": [
-        "Database",
-        "SqlDataReader",
-        "HSPnetSession"
-    ],
+    "system_behavior": [],
+    "dependencies": [],
     "exceptions": [],
     "source_document_ids": [
         "25f89a24-5eda-5a3f-83df-1de69b12b3f1",
