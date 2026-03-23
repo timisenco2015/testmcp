@@ -1,0 +1,112 @@
+# Module: ExpenseBatch
+
+## ExpenseBatch-UC1 — Search Expense Batches By Department
+
+- Primary Actor(s): System Administrator
+- Secondary Actor(s): None
+- Trigger: A request is made to search for expense batches by department.
+- Description: Searches for all expense batches associated with a specific department within the last year.
+- Preconditions: The department ID must be valid and exist in the system.
+- Postconditions: A list of expense batches matching the criteria is returned.
+- Main Success Scenario:
+  1. User initiates a search for expense batches by department.
+  2. System retrieves the department ID.
+  3. System executes the stored procedure `ExpenseBatchSearch`.
+  4. System retrieves and returns a list of expense batches.
+- Extensions:
+  - If no batches are found, an empty list is returned.
+- Exceptions:
+  - Database connection failure.
+- Business Rules: 
+  - Batches returned are only from the last year.
+- Assumptions:
+  - User has the necessary permissions to perform the search.
+- Open Issues: None
+
+## ExpenseBatch-UC2 — Retrieve Expense Batch by ID
+
+- Primary Actor(s): System Administrator
+- Secondary Actor(s): None
+- Trigger: A request is made to retrieve a specific expense batch using its ID.
+- Description: Retrieves detailed information for a specific expense batch by its ID.
+- Preconditions: The expense batch ID must exist in the system.
+- Postconditions: Details of the specified expense batch are returned.
+- Main Success Scenario:
+  1. User requests details of an expense batch by ID.
+  2. System sets the procedure name to `ExpenseBatchSearchID`.
+  3. System fetches the batch details using the provided ID.
+  4. System returns the details of the expense batch.
+- Extensions: None
+- Exceptions:
+  - If the ID does not exist, return an error message.
+- Business Rules: 
+  - System checks for alternate language fields if necessary.
+- Assumptions:
+  - User has access to view the batch details.
+- Open Issues: None
+
+## ExpenseBatch-UC3 — Add New Expense Batch
+
+- Primary Actor(s): System Administrator
+- Secondary Actor(s): None
+- Trigger: A request is made to add a new expense batch.
+- Description: Adds a new expense batch to the system, assigning it a unique ID.
+- Preconditions: The department ID and initial batch information must be provided.
+- Postconditions: A new expense batch is added, and its ID is returned.
+- Main Success Scenario:
+  1. User submits new expense batch information.
+  2. System sets the procedure name to `ExpenseBatchAdd`.
+  3. System adds the new batch to the database.
+  4. System returns the ID of the newly created batch.
+- Extensions: None
+- Exceptions:
+  - If required parameters are missing, return an error.
+- Business Rules:
+  - Batch descriptions and dates must be valid.
+- Assumptions:
+  - User is authenticated and authorized to add expense batches.
+- Open Issues: None
+
+## ExpenseBatch-UC4 — Update Existing Expense Batch
+
+- Primary Actor(s): System Administrator
+- Secondary Actor(s): None
+- Trigger: A request is made to update an existing expense batch.
+- Description: Updates the details of an existing expense batch using its ID.
+- Preconditions: The expense batch ID must exist, and updated details must be provided.
+- Postconditions: The specified expense batch is updated with new details.
+- Main Success Scenario:
+  1. User submits updated information for an expense batch.
+  2. System sets the procedure name to `ExpenseBatchUpdate`.
+  3. System updates the batch in the database.
+  4. Confirmation of update is returned.
+- Extensions: None
+- Exceptions:
+  - If the ID does not exist, return an error message.
+- Business Rules:
+  - The status code ID must be a valid code.
+- Assumptions:
+  - User has permissions to update batch details.
+- Open Issues: None
+
+## ExpenseBatch-UC5 — Delete Expense Batch
+
+- Primary Actor(s): System Administrator
+- Secondary Actor(s): None
+- Trigger: A request is made to delete an expense batch.
+- Description: Deletes a specified expense batch from the system.
+- Preconditions: The expense batch ID must exist.
+- Postconditions: The specified expense batch is removed from the system.
+- Main Success Scenario:
+  1. User submits a request to delete an expense batch.
+  2. System sets the procedure name to `ExpenseBatchDelete`.
+  3. System deletes the batch from the database.
+  4. Confirmation of deletion is returned.
+- Extensions: None
+- Exceptions:
+  - If the ID does not exist, return an error message.
+- Business Rules:
+  - Deletion is only allowed if certain conditions (like batch status) are met.
+- Assumptions:
+  - User has necessary permissions to delete batches.
+- Open Issues: None
