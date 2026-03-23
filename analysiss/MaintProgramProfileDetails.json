@@ -1,42 +1,57 @@
 {
   "filename": "MaintProgramProfileDetails",
   "found": true,
-  "summary": "MaintProgramProfileDetails is a user control module focused on managing program profiles, including email masking, RAIT provisioning, student access configurations, department address/logo usage, and various consent/security settings.",
-  "purpose": "To manage and display detailed program profile configurations, and handle associated controls for student access, RAIT provisioning, and department-specific settings.",
-  "entities": [],
-  "fields": [
-    "ProgramID",
-    "ScreenIsEditable",
-    "AllowStudentAccess",
-    "UseRAITProvisioning",
-    "EmailMasks",
-    "UsePhoneMask"
-  ],
-  "actors": [
+  "summary": "The file provides functionalities related to the maintenance of program profiles, including setting permissions, handling student access, managing email masks, and updating program-related details.",
+  "purpose": "To maintain and configure details of program profiles within the system.",
+  "entities": [
+    "Program",
     "UserSession"
   ],
-  "workflows": [],
-  "business_rules": [],
-  "validations": [],
+  "fields": [
+    "ProgramID",
+    "EmailMasks",
+    "AllowStudentAccess",
+    "UseRAITProvisioning"
+  ],
+  "actors": [
+    "SysAdmin",
+    "UserSession"
+  ],
+  "workflows": [
+    {
+      "name": "Profile Update Workflow",
+      "steps": [
+        "Bind profile data to form view",
+        "Check student access permissions",
+        "Update profile details on save action"
+      ]
+    }
+  ],
+  "business_rules": [
+    "Show 'YES' if the checkbox is checked, 'No' otherwise",
+    "Hide student access controls if not allowed",
+    "Execute RAIT Provision based on configuration setting"
+  ],
+  "validations": [
+    "Phone validation using UsePhoneMask",
+    "Conditional visibility of email mask controls"
+  ],
   "calculations": [],
-  "conditions": [],
-  "system_behavior": [],
-  "dependencies": [],
+  "conditions": [
+    "If UsePhoneMask is false, remove phone masks",
+    "Visibility of controls based on user role"
+  ],
+  "system_behavior": [
+    "Cache user session on successful profile update"
+  ],
+  "dependencies": [
+    "JavaScript for client-side behaviors"
+  ],
   "exceptions": [],
   "source_document_ids": [
     "00fda0b5-4502-5a86-8e65-68ef5b7471ec",
     "1ee06aa4-7385-5f47-95c8-5b60096554d9",
-    "275910fd-33cf-5963-acac-fe4d146b14d3",
-    "36ef26c4-8f8a-57da-88b1-5376918e78ba",
-    "49962d26-cfdc-55c9-93fe-a4da1853749f",
-    "728c6abb-1942-5b2e-a505-07e5f3262a41",
-    "7a6deaca-0a3d-5220-aeb0-7e7e0dc147cc",
-    "8347f512-cca9-5534-af1a-388d23dbee7d",
-    "90e48d5d-5b74-55d1-991d-ead7c489a5ca",
-    "a565825e-0922-5655-b4ed-73fee3344cb2",
-    "a5ae94a9-163e-5387-9527-4958ddad43b9",
-    "a8a666db-f90a-55c8-aa8e-a44120a04af3",
-    "ebe3732a-40c2-5c04-9193-f2582f7243ff"
+    "36ef26c4-8f8a-57da-88b1-5376918e78ba"
   ],
   "content_gaps": []
 }
