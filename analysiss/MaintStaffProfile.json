@@ -1,0 +1,102 @@
+{
+  "filename": "MaintStaffProfile",
+  "found": true,
+  "summary": "The MaintStaffProfile feature involves managing staff profiles and associated details through a comprehensive UI. It encompasses multiple tabs and views, including Profile, Training, Home Contacts, Portfolio, Email Messages, Assigned Destinations, Documents, Orientation, Prerequisites, Education, Placements, History, Recognition, RAIT Provision, and more. System behavior includes tab navigation, data binding, validation checks, content toggles, and conditional visibility based on user roles.",
+  "purpose": "To provide a structured interface for managing and viewing staff profiles, facilitating updates, education tracking, placement histories, and confidentiality agreements.",
+  "entities": [
+    "Staff",
+    "UserSession",
+    "HSPnet",
+    "Departments",
+    "TabContainer",
+    "Panel",
+    "AjaxControlToolkit"
+  ],
+  "fields": [
+    "StaffID",
+    "AgencyID",
+    "PhoneArea",
+    "PhoneWithoutArea",
+    "Email",
+    "SecureEmail",
+    "DateOfBirth",
+    "ScreenIsEditable",
+    "Inactive",
+    "Disabled",
+    "ReadOnly",
+    "Confidentiality"
+  ],
+  "actors": [
+    "System Administrator",
+    "Staff Admin",
+    "Receiving Coordinator",
+    "Destination Coordinator",
+    "Supervisor",
+    "Instructor",
+    "Local Administrator"
+  ],
+  "workflows": [
+    {
+      "name": "LoadProfile",
+      "steps": [
+        "Set active tab to Profile",
+        "Bind data",
+        "Check session roles for edit permissions",
+        "Display profile information"
+      ]
+    },
+    {
+      "name": "ValidateEmails",
+      "steps": [
+        "Check if secure email is different",
+        "Apply regular expression validation",
+        "Toggle visibility based on user roles"
+      ]
+    },
+    {
+      "name": "CheckTabsAccess",
+      "steps": [
+        "Determine user roles and permissions",
+        "Enable or disable tab visibility",
+        "Set screen editability based on role"
+      ]
+    }
+  ],
+  "business_rules": [
+    "User roles dictate tab visibility and editability.",
+    "Profile fields are editable based on user permissions."
+  ],
+  "validations": [
+    "Email must be securely different.",
+    "Phone formats adhere to specific masks.",
+    "Effective and expiry dates must be valid and logical."
+  ],
+  "calculations": [
+    "Calculate new expiry dates based on provided date and conditions."
+  ],
+  "conditions": [
+    "Visibility of elements depends on user roles (e.g., SysAdmin, Staff Admin, Instructor).",
+    "Tabs are enabled based on session-specific conditions."
+  ],
+  "system_behavior": [
+    "Dynamic tab navigation and activation based on predefined conditions.",
+    "Data binding and UI updates upon specific triggers (e.g., tab click events).",
+    "Conditional rendering of information based on user session attributes."
+  ],
+  "dependencies": [
+    "User session details such as roles and permissions.",
+    "Connected databases providing staff data and settings."
+  ],
+  "exceptions": [
+    "Unauthorized access leads to restricted visibility and edit options."
+  ],
+  "source_document_ids": [
+    "0121ca99-0758-57ac-bc1a-e66d93276982",
+    "0304a837-d69c-55ac-9a49-98aeb58b25c4",
+    "06cfaffc-2d46-55d4-bfe8-7589528a5616",
+    "07ca87a8-7a90-514c-8e57-e93b767aa8a9",
+    "09b0b52e-4b91-51e6-bd3d-0a5c00d0962b",
+    ...
+  ],
+  "content_gaps": ["Complex user access and role management details are abundant and might require additional validation in live scenarios."]
+}
