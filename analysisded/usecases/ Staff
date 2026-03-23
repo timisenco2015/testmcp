@@ -1,0 +1,124 @@
+# Module: Staff
+
+## Staff-UC1 — Manage Staff Information
+
+- Primary Actor(s): System Administrator, Staff Management System
+- Secondary Actor(s): Database
+- Trigger: Request to manage staff information is initiated.
+- Description: This use case describes the process of managing staff information, including personal details, contact information, and professional roles.
+- Preconditions: The staff records must be present in the system.
+- Postconditions: Staff information is updated and saved in the database.
+- Main Success Scenario:
+  1. The system administrator accesses the staff management module.
+  2. The administrator provides the necessary staff information and updates any required fields.
+  3. The system validates the provided information.
+  4. The system updates the staff record in the database.
+- Extensions:
+  - 2a. If information is incomplete, the system prompts the administrator to provide all mandatory data.
+- Exceptions:
+  - E1: Database connection fails.
+  - E2: Staff record not found.
+- Business Rules: None directly indicated.
+- Assumptions: The system has access to necessary external databases.
+- Open Issues: Handling of sensitive information and privacy compliance.
+
+## Staff-UC2 — Staff Role Assignment
+
+- Primary Actor(s): System Administrator
+- Secondary Actor(s): Database
+- Trigger: Staff role assignment request is made.
+- Description: This use case describes assigning roles to staff members, such as Placement Coordinator, Instructor, etc.
+- Preconditions: Staff member exists in the system.
+- Postconditions: Assigned roles are reflected in the staff profile.
+- Main Success Scenario:
+  1. The administrator selects a staff member profile.
+  2. The administrator assigns new roles or updates existing roles.
+  3. The system updates the staff roles in the database.
+- Extensions: None.
+- Exceptions:
+  - E1: Invalid role selection.
+- Business Rules: Role changes must not conflict with existing assignments.
+- Assumptions: Roles are predefined and compatible with each other.
+- Open Issues: Integration with external systems for role validation.
+
+## Staff-UC3 — Staff Search and Retrieval
+
+- Primary Actor(s): System User
+- Secondary Actor(s): Database
+- Trigger: A search query for staff is initiated.
+- Description: This use case facilitates searching and retrieving staff information based on specified criteria.
+- Preconditions: Staff records must exist within the system.
+- Postconditions: Requested staff information is displayed to the user.
+- Main Success Scenario:
+  1. The user inputs search criteria.
+  2. The system executes the search query against the database.
+  3. Search results are displayed to the user.
+- Extensions:
+  - 2a. If no results are found, the system suggests alternative search options.
+- Exceptions:
+  - E1: Query execution fails.
+- Business Rules: Search should be optimized for performance.
+- Assumptions: Search terms are valid and relevant.
+- Open Issues: Enhancements for search relevance or accuracy.
+
+## Staff-UC4 — Staff Profile Update
+
+- Primary Actor(s): Staff Member
+- Secondary Actor(s): System Administrator
+- Trigger: A request to update a staff profile is made.
+- Description: This use case covers updating staff profiles with new personal or professional information.
+- Preconditions: The staff member must be authenticated.
+- Postconditions: Updated information is saved and reflected in the system.
+- Main Success Scenario:
+  1. Staff member logs into the system.
+  2. Staff navigates to their profile settings.
+  3. Changes are made and submitted for update.
+  4. System validates and applies changes.
+- Extensions: None.
+- Exceptions:
+  - E1: Unauthorized changes.
+- Business Rules: Changes must adhere to organizational policies.
+- Assumptions: Staff member has valid credentials.
+- Open Issues: Coordination with HR systems for changes in status.
+
+## Staff-UC5 — Deactivate Staff Account
+
+- Primary Actor(s): System Administrator
+- Secondary Actor(s): Staff Member
+- Trigger: Deactivation request is submitted.
+- Description: This involves deactivating a staff account, preventing future access or role assignments.
+- Preconditions: The staff account must exist and be active.
+- Postconditions: The account is deactivated and marked as such in the database.
+- Main Success Scenario:
+  1. Administrator selects the staff account for deactivation.
+  2. Confirmation of deactivation is received.
+  3. The system deactivates the account and updates the status.
+- Extensions:
+  - 2a. If deactivation is irreversible, administrator is warned.
+- Exceptions:
+  - E1: Account is associated with ongoing tasks.
+- Business Rules: Deactivation should not disrupt ongoing operations.
+- Assumptions: Account deactivation is reversible within a specified period.
+- Open Issues: Procedures for reactivation.
+
+## Staff-UC6 — View Staff Details with Formatting
+
+- Primary Actor(s): System User
+- Secondary Actor(s): None
+- Trigger: A request to view staff details is made.
+- Description: This use case outlines viewing formatted staff details, including phone numbers, emails, and names.
+- Preconditions: Staff information must be correctly formatted in the database.
+- Postconditions: Details are displayed in the user interface.
+- Main Success Scenario:
+  1. User selects a staff member from the search results.
+  2. System retrieves and formats the information.
+  3. Formatted details are displayed to the user.
+- Extensions:
+  - 2a. If details are missing, display an appropriate message.
+- Exceptions:
+  - E1: Formatting fails due to missing data.
+- Business Rules: Formatting must comply with UI standards.
+- Assumptions: All necessary localization resources are available.
+- Open Issues: Variability in formatting based on user locale.
+
+This concludes the current exploration of use cases for the module "Staff." Further refinements may be necessary based on detailed business requirements and system constraints.
