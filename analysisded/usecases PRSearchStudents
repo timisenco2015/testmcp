@@ -1,0 +1,149 @@
+```markdown
+# Module: PRSearchStudents
+
+## PRSearchStudents-UC1 — Search Students by Practice Placement
+- Primary Actor(s): Placement Coordinator
+- Secondary Actor(s): Instructor, Student
+- Trigger: A request to search for student practice placements is initiated.
+- Description: The system allows authorized personnel to search for students associated with practice placements. It checks against allowed lists for sites, services, and destinations, and returns student entries that match the search criteria.
+- Preconditions: 
+  - The user must be authenticated and authorized to perform the search.
+  - Allowed lists must be defined for sites, services, and destinations.
+- Postconditions: 
+  - Matching student entries are retrieved based on placement requests.
+- Main Success Scenario:
+  1. User initiates a search for practice placements.
+  2. The system checks allowed lists for sites, services, and destinations.
+  3. Matching entries are returned, showing student details.
+- Extensions:
+  - User can sort results by StartDate, CourseShortName, Site, or StatusCode.
+- Exceptions:
+  - No matching entries found due to invalid search criteria or restricted access.
+- Business Rules:
+  - Entries must match allowed locations for the current session.
+- Assumptions:
+  - The system has access to the necessary student and placement data.
+- Open Issues:
+  - Handling cases where allowed lists are not properly configured.
+
+## PRSearchStudents-UC2 — Search Practice Placement History by Supervisor
+- Primary Actor(s): Placement Coordinator
+- Secondary Actor(s): Supervisor
+- Trigger: A supervisor requests to view the placement history of students.
+- Description: The system retrieves historical practice placements based on the supervisor's ID. The results can be sorted by various criteria.
+- Preconditions:
+  - The supervisor must be authenticated and have the necessary permissions to view placement history.
+- Postconditions:
+  - Placement history data is displayed based on the supervisor's request.
+- Main Success Scenario:
+  1. Supervisor initiates a search for practice placement history.
+  2. The system retrieves historical data for placements supervised by them.
+  3. Display is sorted based on selected criteria.
+- Extensions:
+  - Sorting can be applied to StartDate, CourseShortName, Site, or StatusCode.
+- Exceptions:
+  - No historical data available for the specified criteria.
+- Business Rules:
+  - Historical data must exclude archived and restricted placements.
+- Assumptions:
+  - Supervisor has authorization to view student data associated with practice placements.
+- Open Issues:
+  - Determining sorting preferences for supervisors.
+
+## PRSearchStudents-UC3 — Validate and Update Student Placement Duration
+- Primary Actor(s): Placement Coordinator
+- Secondary Actor(s): Student
+- Trigger: Coordinator updates the duration of a student's placement.
+- Description: The system allows updating student placement hours if they are valid. It verifies data fields and ensures that durations do not fall below acceptable thresholds.
+- Preconditions:
+  - Student placement request must be confirmed.
+  - Duration hours must be specified.
+- Postconditions:
+  - Student placement duration is updated in the system.
+- Main Success Scenario:
+  1. Coordinator inputs duration hours for a student placement.
+  2. System verifies the validity of these hours.
+  3. If valid, the duration is updated; if invalid, an error message is displayed.
+- Extensions:
+  - System flags any discrepancies between expected and actual duration hours.
+- Exceptions:
+  - Duration hours less than zero are rejected.
+- Business Rules:
+  - Duration hours must meet minimum thresholds and conform to expected course hours.
+- Assumptions:
+  - Coordinators have the correct session information for validation.
+- Open Issues:
+  - Handling duration updates during periods of system maintenance.
+
+## PRSearchStudents-UC4 — Student Search Placement History
+- Primary Actor(s): Student
+- Secondary Actor(s): Placement Coordinator
+- Trigger: A student requests to view their placement history.
+- Description: The system allows students to retrieve and view their placement history, including confirmed and archived placements.
+- Preconditions:
+  - Student must be authenticated and authorized to view placement history.
+- Postconditions:
+  - Student placement history is displayed.
+- Main Success Scenario:
+  1. Student initiates a request to view their placement history.
+  2. System checks entries and retrieves matching placements.
+  3. History is presented in an organized format.
+- Extensions:
+  - Students can filter history based on specific criteria such as course or site.
+- Exceptions:
+  - No placement history is available for the student.
+- Business Rules:
+  - Historical data must exclude placements not related to the student or outside allowed programs.
+- Assumptions:
+  - Students can access their placement data securely.
+- Open Issues:
+  - Addressing privacy concerns in placement history access.
+
+## PRSearchStudents-UC5 — Instructor Search Placement History
+- Primary Actor(s): Instructor
+- Secondary Actor(s): Placement Coordinator
+- Trigger: Instructor requests to view student placement history.
+- Description: The system provides instructors with access to student placement history, subject to allowed locations and disciplines.
+- Preconditions:
+  - Instructor must be authenticated and authorized.
+- Postconditions:
+  - Instructor receives placement history data.
+- Main Success Scenario:
+  1. Instructor initiates a search for student placement history.
+  2. System retrieves entries matching the allowed criteria.
+  3. Results are displayed in a sortable format.
+- Extensions:
+  - History can be filtered or sorted by various parameters.
+- Exceptions:
+  - No history available due to restricted access.
+- Business Rules:
+  - Only placements within allowed locations and disciplines are shown.
+- Assumptions:
+  - Instructor has the necessary permissions to view placements.
+- Open Issues:
+  - Ensuring accurate inclusion of recent placement records.
+
+## PRSearchStudents-UC6 — Destination Search Placement History
+- Primary Actor(s): Placement Coordinator
+- Secondary Actor(s): Students, Instructors
+- Trigger: A request to view placement history by destination code.
+- Description: The system retrieves placement history data based on destination codes and user permissions.
+- Preconditions:
+  - User must be authenticated and authorized to perform the search.
+- Postconditions:
+  - Placement history data is displayed specific to destinations.
+- Main Success Scenario:
+  1. User initiates a search by destination code.
+  2. System performs checks against allowed lists.
+  3. Matching placement history records are returned.
+- Extensions:
+  - Results can be filtered based on location or discipline.
+- Exceptions:
+  - No records found for specified destination code.
+- Business Rules:
+  - Must comply with allowed destination lists for the session.
+- Assumptions:
+  - Destination codes are accurately mapped to placement records.
+- Open Issues:
+  - Verifying destination codes for newly added sites.
+```
