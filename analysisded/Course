@@ -2,11 +2,12 @@
 {
   "filename": "Course",
   "found": true,
-  "summary": "The document outlines the functionality related to course management, including the retrieval, update, and validation processes of course details within a system.",
-  "purpose": "To manage course details and related operations such as retrieving course lists, updating course information, validating course details, and handling various course attributes.",
+  "summary": "The document collection provides detailed information related to the Course entity within the HSPnet system, covering operations for searching, updating, deleting, and managing course information as well as related department requests.",
+  "purpose": "To outline the operations and data management for courses within the HSPnet system, including methods for handling courses by department, agency, and cohort settings.",
   "entities": [
     "Course",
-    "DepartmentRequestType"
+    "DepartmentRequestType",
+    "HSPnetSession"
   ],
   "fields": [
     "ID",
@@ -20,6 +21,7 @@
     "ShiftLength",
     "DefaultTypeCodeID",
     "Inactive",
+    "CreatedByQES",
     "ReportCodeID",
     "UseBlocks",
     "UseIndividualWorksheet",
@@ -29,12 +31,13 @@
     "IncludeRequests",
     "IncludeRequestsWithCFO",
     "IncludeOutOfProvinceCFO",
+    "ExcludeInstructorFromITProvRole",
     "TypeCode",
     "ShortType",
     "PRFormCode",
     "ProfileExists",
     "CourseUsesNISTemplate",
-    "ExcludeInstructorFromITProvRole",
+    "IdleCourse",
     "AgencyID",
     "AgencyShortName",
     "DepartmentShortName",
@@ -65,111 +68,77 @@
     "PRsAllocatedToSectionOnly",
     "ContactDataExists",
     "SupervisorCaptionID",
-    "CreatedByQES",
+    "GroupCodeID",
     "NISTemplateID",
     "Use3Prefs",
     "NISFlag"
   ],
   "actors": [
-    "HSPnetSession",
-    "SqlDataReader",
-    "Database"
+    "Instructor",
+    "Department",
+    "Agency",
+    "Student"
   ],
   "workflows": [
     {
-      "name": "GetByDepartmentID",
+      "name": "CourseSearchDepartment",
       "steps": [
-        "Set procedure name to 'CourseSearchDepartment'",
-        "Add departmentID, showInactive, keyword, defaultTypeCodeID, and sessionID parameters",
-        "Execute query and read data",
-        "Fill list with retrieved courses",
-        "Return list of courses"
+        "Add DepartmentID to DB",
+        "Add ShowInactive to DB",
+        "Add keyword to DB",
+        "Add DefaultTypeCodeID to DB",
+        "Retrieve data using SqlDataReader",
+        "Populate and return list of Courses"
       ]
     },
     {
       "name": "CourseListAgency",
       "steps": [
-        "Check agencyID condition",
-        "Set procedure name to 'CourseListAgency'",
-        "Add parameters such as agencyID, departmentID, courseID, cohortID, outboxMode, dateFrom, dateTo, programID",
-        "Execute query and read data",
-        "Fill list with retrieved courses",
-        "Return list of courses"
+        "Check if AgencyID is not zero",
+        "Add AgencyID to DB",
+        "Add DepartmentID, CourseID, CohortID, OutboxMode, DateFrom, DateTo, ProgramID to DB",
+        "Retrieve data using SqlDataReader",
+        "Populate and return list of Courses"
       ]
     },
     {
       "name": "CohortCourses",
       "steps": [
-        "Set procedure name to 'CohortCourses'",
-        "Add parameters: filter, cohortID, termID, courseID, nameFieldsOnly",
-        "Execute query and read data",
-        "Fill list with retrieved courses",
-        "Return list of courses"
-      ]
-    },
-    {
-      "name": "Add",
-      "steps": [
-        "Create new course object",
-        "Validate the course",
-        "Apply business rules",
-        "Set procedure name to 'CourseAdd'",
-        "Add parameters such as departmentID, name, shortName, typeCode, durationHours, supervisionWeeks and other related fields",
-        "Execute query"
-      ]
-    },
-    {
-      "name": "Update",
-      "steps": [
-        "Create course object with given ID",
-        "Validate the course",
-        "Apply business rules",
-        "Set procedure name to 'CourseUpdate'",
-        "Add parameters such as courseID, name, shortName, duration hours, shift length and other related fields",
-        "Execute query"
-      ]
-    },
-    {
-      "name": "Delete",
-      "steps": [
-        "Set procedure name to 'CourseDelete'",
-        "Add courseID parameter",
-        "Execute query"
+        "Check if CohortID and TermID are not zero",
+        "Add Filter, CohortID, TermID, CourseID to DB",
+        "Retrieve data using SqlDataReader",
+        "Populate list of Courses"
       ]
     }
   ],
   "business_rules": [
-    "InstructorStudentRatio must be formatted correctly.",
-    "Certain fields are required for a valid course.",
-    "Student activity cutoff days should be greater than -1."
+    "Apply business rules before saving a course",
+    "StudentActivityCutoffDays must be greater than -1"
   ],
   "validations": [
-    "Check if the course name is specified.",
-    "Verify short name is provided.",
-    "Ensure default type code ID is not zero.",
-    "Validate duration hours based on shifts and shift length."
+    "Course name must be specified",
+    "ShortName must be specified",
+    "DefaultTypeCodeID cannot be zero",
+    "DurationHours must not be zero",
+    "StudentActivityCutoffDays validity check"
   ],
   "calculations": [
-    "Calculate duration hours from shifts and shift length."
+    "DurationHours derived from DurationShifts and ShiftLength",
+    "StudentActivityCutoffDaysFormatted based on StudentActivityCutoffDays"
   ],
   "conditions": [
-    "If courseID is zero, no query is executed.",
-    "AgencyID must be specified for certain workflows."
+    "AgencyID must be specified for CourseListAgency",
+    "CohortID and TermID must be specified for CohortCourses"
   ],
   "system_behavior": [
-    "Caches course details for improved performance.",
-    "Uses stored procedures for database operations.",
-    "Handles notifications and error messages in session."
+    "Course data can be cached for efficient retrieval",
+    "Parameters are added to DB before executing"
   ],
   "dependencies": [
-    "HSPnet.Framework",
-    "HSPnet.App_GlobalResources",
-    "HSPnet.UI"
+    "HSPnetSession",
+    "SqlDataReader"
   ],
-  "exceptions": [
-    "Course name not specified results in error.",
-    "Invalid InstructorStudentRatio results in abort of operation."
-  ],
+  "exceptions": [],
   "source_document_ids": [
     "113fda5f-b356-500c-b6ba-13a1697099cf",
     "1657a581-8112-53fb-9bf4-2f85b175adbe",
@@ -179,6 +148,7 @@
     "34958587-423a-52a0-9a85-bca13184689b",
     "3bad9a02-3342-505b-a432-9c1890e8609e",
     "4080f062-b582-50fd-b379-e843ecf7eecf",
+    "497f9326-eff8-51eb-a7f7-bb67c07aa185",
     "4da5127c-87fe-54d6-9ece-9e9d45dac9ed",
     "65f5f8d3-3ba2-5529-8089-938acd1bd636",
     "7bad651c-cfd5-5b69-81b5-f442b857734d",
