@@ -1,32 +1,17 @@
 {
   "filename": "SiteProfileHistory",
   "found": true,
-  "summary": "Represents the historical actions performed on site profiles, capturing details of user actions.",
-  "purpose": "To provide a record of actions made on site profiles for auditing and historical tracking.",
-  "entities": [],
-  "fields": [
-    {"name": "ID", "type": "int"},
-    {"name": "ActionDate", "type": "DateTime"},
-    {"name": "ScreenSection", "type": "string"},
-    {"name": "UserAction", "type": "string"},
-    {"name": "Fields", "type": "string"},
-    {"name": "Agency", "type": "string"},
-    {"name": "AgencyName", "type": "string"},
-    {"name": "LastName", "type": "string"},
-    {"name": "FirstName", "type": "string"},
-    {"name": "MiddleName", "type": "string"},
-    {"name": "Phone", "type": "object"},
-    {"name": "ByUserID", "type": "int"},
-    {"name": "ByOriginalUserID", "type": "int"},
-    {"name": "ByUserSysAdmin", "type": "bool"}
-  ],
+  "summary": "SiteProfileHistory tracks changes and actions performed on site profiles, recording user actions and relevant metadata.",
+  "purpose": "Preserve historical data related to site profiles for auditing and user tracking purposes.",
+  "entities": ["SiteProfileHistory"],
+  "fields": ["ID", "ActionDate", "ScreenSection", "UserAction", "Fields", "Agency", "LastName", "FirstName", "MiddleName"],
   "actors": [],
   "workflows": [
     {
-      "name": "Retrieve Site Profile History",
+      "name": "Site Profile History Retrieval",
       "steps": [
-        "Execute SiteProfileHistorySearch procedure using site ID and session agency ID.",
-        "Format and localize historical data based on session preferences."
+        "Execute stored procedure to retrieve history based on site and session agency ID.",
+        "Populate history details from database."
       ]
     }
   ],
@@ -34,10 +19,7 @@
   "validations": [],
   "calculations": [],
   "conditions": [],
-  "system_behavior": [
-    "Uses stored procedure to fetch historical data.",
-    "Formats data based on user and language settings."
-  ],
+  "system_behavior": [],
   "dependencies": [],
   "exceptions": [],
   "source_document_ids": [
