@@ -1,24 +1,22 @@
 {
     "filename": "EmailPopupDocument",
     "found": true,
-    "summary": "The EmailPopupDocument provides a data structure for managing email pop-up documents within the HSPnet application. It includes functions to search and delete email documents based on data information.",
-    "purpose": "To manage email-related documents and user interactions in a pop-up format within the application.",
-    "entities": [
-        "EmailPopupDocument"
-    ],
+    "summary": "The EmailPopupDocument class manages documents for email popups, including operations for searching and deleting files. Each document has an ID, FileName, FilePath, and Checked status.",
+    "purpose": "To represent and manage email popup documents in the HSPnet system.",
+    "entities": [],
     "fields": [
-        "ID",
-        "FileName",
-        "FilePath",
-        "Checked"
+        {"name": "ID", "type": "int"},
+        {"name": "FileName", "type": "string"},
+        {"name": "FilePath", "type": "string"},
+        {"name": "Checked", "type": "Boolean"}
     ],
     "actors": [],
     "workflows": [
         {
-            "name": "Email Document Management",
+            "name": "Document Search",
             "steps": [
-                "Search Email Documents",
-                "Delete Email Document"
+                "Split DataInfo to retrieve individual documents.",
+                "Store each document's details into the EmailPopupDocument list."
             ]
         }
     ],
@@ -26,10 +24,7 @@
     "validations": [],
     "calculations": [],
     "conditions": [],
-    "system_behavior": [
-        "Documents are managed through ID and data information",
-        "Deletion involves removing files and directories"
-    ],
+    "system_behavior": [],
     "dependencies": [],
     "exceptions": [],
     "source_document_ids": [
