@@ -1,0 +1,105 @@
+# Module: MaintCodeCategories
+
+## MaintCodeCategories-UC1 — Add New Code Category
+
+- Primary Actor(s): System Administrator
+- Secondary Actor(s): None
+- Trigger: Administrator wants to add a new code category.
+- Description: Allow administrators to add a new code category by entering necessary details.
+- Preconditions: Administrator must be logged into the system with the appropriate permissions.
+- Postconditions: A new code category is added to the system.
+- Main Success Scenario:
+  1. Administrator clicks on the "Add" button.
+  2. The system switches to Add mode and displays a detail view for data entry.
+  3. Administrator enters the required details including Category, Alternate Category, and Description.
+  4. Administrator clicks "Save."
+  5. The system validates the entries.
+  6. Upon successful validation, the system saves the new category.
+  7. The system refreshes the view to display the updated list of categories.
+- Extensions:
+  - 3a. If fields are left blank:
+    1. The system displays a warning message that all fields are mandatory.
+- Exceptions:
+  - E1: If the system encounters errors during save, it displays an error message and logs the incident.
+- Business Rules:
+  - All fields marked as mandatory must be completed.
+- Assumptions:
+  - System is available and responsive.
+- Open Issues:
+  - None identified.
+
+## MaintCodeCategories-UC2 — Edit Existing Code Category
+
+- Primary Actor(s): System Administrator
+- Secondary Actor(s): None
+- Trigger: Administrator wants to edit an existing code category.
+- Description: Allow administrators to modify details of an existing code category.
+- Preconditions: Administrator must be logged into the system with the appropriate permissions.
+- Postconditions: Updates to the code category are saved and reflected in the system.
+- Main Success Scenario:
+  1. Administrator selects a code category to edit from the list.
+  2. The system enters Edit mode and displays the current details.
+  3. Administrator modifies the details as needed.
+  4. Administrator clicks "Save."
+  5. The system validates the changes.
+  6. Upon successful validation, the system updates the category details.
+  7. The system refreshes the view with updated information.
+- Extensions:
+  - 5a. If validation fails:
+    1. The system displays appropriate error messages.
+- Exceptions:
+  - E1: If the category does not exist, display an error.
+- Business Rules:
+  - Editing should not remove mandatory fields.
+- Assumptions:
+  - Data entered is correct and intentional.
+- Open Issues:
+  - None identified.
+
+## MaintCodeCategories-UC3 — Delete Code Category
+
+- Primary Actor(s): System Administrator
+- Secondary Actor(s): None
+- Trigger: Administrator opts to delete a code category.
+- Description: Allow administrators to remove an existing code category from the system.
+- Preconditions: Administrator must be logged into the system with the appropriate permissions.
+- Postconditions: The selected code category is deleted from the system.
+- Main Success Scenario:
+  1. Administrator selects a code category to delete.
+  2. Administrator clicks the "Delete" button.
+  3. The system prompts for confirmation.
+  4. Administrator confirms the deletion.
+  5. The system permanently removes the category from records.
+- Extensions:
+  - 3a. If the item is linked to other records:
+    1. System prevents deletion and shows linkage information.
+- Exceptions:
+  - E1: Deletion fails due to system error and displays an error message.
+- Business Rules:
+  - Deleted categories cannot be recovered.
+- Assumptions:
+  - Administrator has confirmed deletion is intentional.
+- Open Issues:
+  - Potential for undo functionality for deletions. 
+
+## MaintCodeCategories-UC4 — View Code Categories
+
+- Primary Actor(s): System Administrator
+- Secondary Actor(s): None
+- Trigger: Administrator views the list of all code categories.
+- Description: Display all code categories with options for adding, editing, or deleting.
+- Preconditions: Administrator must be logged into the system with the appropriate permissions.
+- Postconditions: Administrator can see all code categories and take actions as needed.
+- Main Success Scenario:
+  1. Administrator accesses the code categories section.
+  2. The system displays a grid with all existing code categories.
+- Extensions:
+  - None
+- Exceptions:
+  - E1: If the data fails to load, display an error message.
+- Business Rules:
+  - Display should reflect the most recent data.
+- Assumptions:
+  - Administrator has continuous access to the system.
+- Open Issues:
+  - None identified.
