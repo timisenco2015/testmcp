@@ -2,72 +2,68 @@
 {
     "filename": "EOrientation",
     "found": true,
-    "summary": "EOrientation is a web page and user control associated with handling the eOrientation process, likely for a system using HSPnet. It is primarily designed to facilitate actions like redirecting to different guides based on user type (student or instructor), managing course retakes, and printing certificates.",
-    "purpose": "The main purpose of EOrientation is to manage the orientation process on a platform that requires interaction with external systems such as Moodle for course completion and certification.",
-    "entities": [],
+    "summary": "The EOrientation system facilitates course management and e-learning interactions, primarily designed to handle user sessions, course retake permissions, and certificate printing.",
+    "purpose": "To manage user access to courses, facilitate retaking courses, generate completion certificates, and seamlessly integrate with a Moodle system.",
+    "entities": [
+        "UserSession",
+        "HSPnetSession"
+    ],
     "fields": [
         "username",
         "password",
-        "Submit",
-        "hleOpeQRG",
-        "pnlEOpeLink",
-        "pnlPrintCertificate",
-        "btnPrintCertificate",
-        "lblPleaseWait",
-        "pnlReportHTML",
-        "lblReportHTML",
-        "gvwCourses",
-        "dsCourses"
+        "StaffID",
+        "UserSession.CMOrientation",
+        "UserSession.SystemAdministrator",
+        "UserSession.OriginalSessionID",
+        "UserSession.StudentUser"
     ],
     "actors": [
-        "UserSession",
-        "StaffID"
+        "Course Administrator",
+        "Instructor",
+        "Student"
     ],
     "workflows": [
         {
-            "name": "Course Retake",
+            "name": "Retake Course",
             "steps": [
-                "Check if user can retake the course.",
-                "Make retake button visible if conditions match.",
-                "Handle retake command and rebind data."
+                "User clicks retake button",
+                "System checks if the course is retakable",
+                "User is allowed to retake the course if conditions are met"
             ]
         },
         {
-            "name": "Certificate Printing",
+            "name": "Print Certificate",
             "steps": [
-                "Generate report HTML using HSPnet framework.",
-                "Display or hide report panel based on HTML content."
-            ]
-        },
-        {
-            "name": "Orientation Redirect",
-            "steps": [
-                "Set action to Moodle login URL.",
-                "Determine guide text and URL based on referrer.",
-                "Handle form submission based on user session."
+                "User requests certificate",
+                "System generates report",
+                "HTML of the report is displayed to the user"
             ]
         }
     ],
-    "business_rules": [],
+    "business_rules": [
+        "Courses can be retaken if certain user privileges are met."
+    ],
     "validations": [
-        "Ensure UserSession is not null before actions.",
-        "Confirm course status before retake.",
-        "Show warning if course is mandatory and not accessed."
+        "Ensure user session is active before course data retrieval."
     ],
     "calculations": [],
     "conditions": [
-        "User must not be a student to access certain features.",
-        "Form submission is auto-triggered for content managers."
+        "Course is mandatory and not completed if due date warning is shown.",
+        "User with CM orientation sees different UI elements."
     ],
     "system_behavior": [
-        "Auto-generates fields and controls on the web page.",
-        "Manage page actions and events in a web application context."
+        "Dynamic form actions dependent on user type.",
+        "Auto-submit of forms based on session data."
     ],
     "dependencies": [
-        "HSPnet framework for reporting and page management.",
-        "Moodle URL configuration for external course redirection."
+        "HSPnet.Framework",
+        "HSPnet.DataLayer",
+        "HSPnet.UI",
+        "Moodle integration"
     ],
-    "exceptions": [],
+    "exceptions": [
+        "Cancellation of operations if session information is missing"
+    ],
     "source_document_ids": [
         "045f50d5-bc7d-5dc3-b71a-5f0d0a654dd6",
         "1023002b-1958-5d9d-95b2-38eb653d834b",
