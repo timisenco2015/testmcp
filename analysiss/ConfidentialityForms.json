@@ -1,125 +1,105 @@
 {
-    "filename": "ConfidentialityForms",
-    "found": true,
-    "summary": "The 'ConfidentialityForms' component is a part of the HSPnet UserControls for Enrollment functionalities. It is designed to manage the display and operations related to confidentiality forms in a grid view layout. The component supports actions like selecting all, saving, editing, and handling student information within an enrollment context.",
-    "purpose": "To manage and display confidentiality forms related to student enrollments within the HSPnet system, enabling actions such as viewing, editing, saving, and filtering forms.",
-    "entities": ["HSPnet.UserControls.Enrollment", "DataLayer.Enrollment", "DataLayer.StudentConfidentialityForms"],
-    "fields": [
-        "updPnlMain",
-        "gridData",
-        "pnlSelect",
-        "cmdSelectAll",
-        "cmdSelectNone",
-        "pnlPopup",
-        "updPnlPopup",
-        "btnShowPopup",
-        "mdlDetails",
-        "pnlEdit",
-        "ValidationSummary1",
-        "gridDataEdit",
-        "dsMaster",
-        "dsMasterSingle",
-        "CohortID",
-        "TermID",
-        "CourseID",
-        "ShowGrad",
-        "ShowInactive",
-        "ShowWaived",
-        "SectionFilter",
-        "ActionFilter",
-        "keyword",
-        "CampusID",
-        "CommentFilter",
-        "blnReadOnly",
-        "blnStudentMaint",
-        "blnGotoOutbox",
-        "blnGotoGWS",
-        "blnGotoIWS",
-        "CourseLst",
-        "ProviderTypeCode",
-        "ScreenModeDescription",
-        "StartRow",
-        "AllowStudentAccess"
-    ],
-    "actors": [
-        "System.Web.UI.UpdatePanel",
-        "HSPnet.UI.HSPnetGridView",
-        "System.Web.UI.WebControls.Panel",
-        "System.Web.UI.WebControls.Button",
-        "AjaxControlToolkit.ModalPopupExtender",
-        "DataLayer.Enrollment",
-        "DataLayer.StudentConfidentialityForms",
-        "UserSession"
-    ],
-    "workflows": [
-        {
-            "name": "Display Confidentiality Forms",
-            "steps": [
-                "Load page and update panel.",
-                "Populate action dropdown.",
-                "Bind data to grid view.",
-                "Handle row data binding and commands."
-            ]
-        },
-        {
-            "name": "Data Command Operations",
-            "steps": [
-                "Process command events (cmdSave, cmdDelete, etc.).",
-                "Validate and update database records.",
-                "Handle exceptions and update UI components."
-            ]
-        }
-    ],
-    "business_rules": [
-        "Data bound controls are to be hidden or shown based on read-only mode.",
-        "ProviderTypeCode input is adjusted by replacing 'ConfProviderType_' prefix.",
-        "Access to data editing is controlled by user session validity and row status."
-    ],
-    "validations": [
-        "Check if UserSession is null to cancel operations.",
-        "Ensure providerListDept is valid before proceeding with save operations."
-    ],
-    "calculations": [],
-    "conditions": [
-        "Check if enrolled student row is disabled.",
-        "Determine if screen is editable based on waiver and read-only status."
-    ],
-    "system_behavior": [
-        "Update panels and rebind grid data on command execution.",
-        "Set JavaScript variables for client-side operations."
-    ],
-    "dependencies": [
-        "HSPnet.UI",
-        "HSPnet.DataLayer",
-        "HSPnet.Framework",
-        "Resources (localization)"
-    ],
-    "exceptions": [
-        "JavaScript setup exceptions if async postback is not supported.",
-        "SQL errors during cohort deletion are handled by caching user session."
-    ],
-    "source_document_ids": [
-        "04b3b707-c406-54ee-9fb0-6f367bf4280f",
-        "07add73d-9056-5b6f-8966-338c67d260ee",
-        "188e6bf0-d178-592d-8a94-b02d7c5570a9",
-        "35fdb657-a917-5ae9-a411-693c5bb836a8",
-        "3f768817-6acd-57fb-82d2-5e36a4281527",
-        "5a9e22c9-809c-5f35-8aad-e866b2434671",
-        "6a3ef75e-ef9c-5034-9952-7e21e0f11108",
-        "6efe473c-ea44-598f-8422-c89d320d9c1d",
-        "7a94104f-93cb-5d11-824a-b62441c42694",
-        "8f9f9bfc-b77f-5c25-adb9-5e15968ca1b1",
-        "9b634709-a576-5dde-a4d9-64972cdf0eb6",
-        "a239f217-dcca-5b90-a893-498cbcc8b6ea",
-        "a2760509-85fa-55a1-8b28-c7661bdfabe6",
-        "b123d5d1-8ff2-53b4-adfb-291d444a6c59",
-        "b6510a5b-ac47-51f0-9154-aa8931fc72a1",
-        "db0d76ef-00ea-527c-bfdb-ba7249fde7c2",
-        "e380d2f0-d6a7-58c5-85e9-d885fc892d62",
-        "ed932d88-2a2d-530a-9a96-fa75b0655005",
-        "ef37d60c-0648-595c-a201-9652465767ad",
-        "f61c5c54-6651-58f7-97b9-c241a8d7a42b",
-        "f99adc37-3236-5fa7-848a-6c452e8684c9"
-    ],
-    "content_gaps": []
+  "filename": "ConfidentialityForms",
+  "found": true,
+  "summary": "The ConfidentialityForms class handles the management and processing of student confidentiality forms within the HSPnet enrollment system. It includes functionalities for adding, updating, and deleting records, as well as managing UI components for user interaction.",
+  "purpose": "To provide a user interface and backend logic for managing confidentiality form data for students within an enrollment system.",
+  "entities": [],
+  "fields": [
+    "updPnlMain",
+    "gridData",
+    "pnlSelect",
+    "cmdSelectAll",
+    "cmdSelectNone",
+    "pnlPopup",
+    "updPnlPopup",
+    "btnShowPopup",
+    "mdlDetails",
+    "pnlEdit",
+    "ValidationSummary1",
+    "gridDataEdit",
+    "dsMasterSingle",
+    "Course",
+    "EnrollmentID",
+    "RowDisabled",
+    "ActionDisabled",
+    "ScreenIsEditable",
+    "Sorted",
+    "ShowGrad",
+    "ShowInactive",
+    "ShowWaived",
+    "SectionFilter",
+    "ActionFilter",
+    "keyword",
+    "CampusID",
+    "CommentFilter",
+    "blnReadOnly",
+    "blnStudentMaint",
+    "blnGotoOutbox",
+    "blnGotoGWS",
+    "blnGotoIWS",
+    "CourseLst",
+    "ProviderTypeCode",
+    "ScreenModeDescription",
+    "CourseIDLst",
+    "CourseShortNameLst",
+    "StartRow",
+    "AllowStudentAccess"
+  ],
+  "actors": [
+    "UserSession",
+    "DataLayer.Enrollment",
+    "DataLayer.StudentConfidentialityForms"
+  ],
+  "workflows": [
+    {
+      "name": "ManageConfidentialityForms",
+      "steps": [
+        "Initialize UI components on Page_Load",
+        "Handle data selection and population in gridData",
+        "Manage updates and submissions through gridDataEdit",
+        "Perform add or update operations using controller methods",
+        "Bind data changes and update interface elements",
+        "Handle user commands such as Save, Edit, and Delete"
+      ]
+    }
+  ],
+  "business_rules": [],
+  "validations": [],
+  "calculations": [],
+  "conditions": [
+    "If UserSession is null, cancel data operations",
+    "Disable UI controls based on RowDisabled, ActionDisabled, and blnReadOnly flags",
+    "Show or hide buttons based on user permissions and data conditions"
+  ],
+  "system_behavior": [
+    "Update UI components dynamically based on user interaction",
+    "Manage session and user data to control access and actions",
+    "Handle asynchronous postbacks to maintain UI state"
+  ],
+  "dependencies": [],
+  "exceptions": [],
+  "source_document_ids": [
+    "04b3b707-c406-54ee-9fb0-6f367bf4280f",
+    "07add73d-9056-5b6f-8966-338c67d260ee",
+    "188e6bf0-d178-592d-8a94-b02d7c5570a9",
+    "35fdb657-a917-5ae9-a411-693c5bb836a8",
+    "3f768817-6acd-57fb-82d2-5e36a4281527",
+    "5a9e22c9-809c-5f35-8aad-e866b2434671",
+    "6a3ef75e-ef9c-5034-9952-7e21e0f11108",
+    "6efe473c-ea44-598f-8422-c89d320d9c1d",
+    "7a94104f-93cb-5d11-824a-b62441c42694",
+    "8f9f9bfc-b77f-5c25-adb9-5e15968ca1b1",
+    "9b634709-a576-5dde-a4d9-64972cdf0eb6",
+    "a239f217-dcca-5b90-a893-498cbcc8b6ea",
+    "a2760509-85fa-55a1-8b28-c7661bdfabe6",
+    "b123d5d1-8ff2-53b4-adfb-291d444a6c59",
+    "b6510a5b-ac47-51f0-9154-aa8931fc72a1",
+    "db0d76ef-00ea-527c-bfdb-ba7249fde7c2",
+    "e380d2f0-d6a7-58c5-85e9-d885fc892d62",
+    "ed932d88-2a2d-530a-9a96-fa75b0655005",
+    "ef37d60c-0648-595c-a201-9652465767ad",
+    "f61c5c54-6651-58f7-97b9-c241a8d7a42b",
+    "f99adc37-3236-5fa7-848a-6c452e8684c9"
+  ],
+  "content_gaps": []
 }
