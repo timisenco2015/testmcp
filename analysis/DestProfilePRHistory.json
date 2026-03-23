@@ -1,0 +1,85 @@
+{
+  "filename": "DestProfilePRHistory",
+  "found": true,
+  "summary": "DestProfilePRHistory is a web user control in the HSPnet system that displays and manages instructor PR (Performance Record) history for a given destination. It includes user session controls, data binding, row formatting, and detail toggling for archived/non-archived PRs. The control handles business rules like access restriction and provides UI logic for displaying records and details, with fields and workflows tightly linked to session context.",
+  "purpose": "To display, manage, and interact with the instructor Performance Record history within the user's permissions and for a specific destination. It supports showing details, formatting, and conditional access based on user session context.",
+  "entities": [
+    "HSPnetSession",
+    "PRSearchStudent",
+    "Staff",
+    "StaffID"
+  ],
+  "fields": [
+    "UserSession",
+    "DestinationCodeID",
+    "ScreenIsEditable",
+    "ScriptMgr",
+    "CurrentPage",
+    "PrivateMode",
+    "AlternateObservation",
+    "PR_ID",
+    "ParentPRDID",
+    "Archived"
+  ],
+  "actors": [
+    "User (Instructor, Course Leader)",
+    "System (HSPnet)",
+    "Repeater control (rprSrchPRHist)"
+  ],
+  "workflows": [
+    {
+      "name": "PR History Search, Display, and Detail Toggle",
+      "steps": [
+        "Page loads with session and parameters (UserSession, DestinationCodeID, etc.)",
+        "ObjectDataSource dsSrchPRHist selects based on session and destination; access denied if session missing",
+        "Repeater rprSrchPRHist binds data for each PR record",
+        "Rows are formatted for alternating items (ledger classes), details/archive icons are set based on PR status",
+        "Detail icon toggle (cmdDetails) updates visual state for archived/open",
+        "Footer row displays if AlternateObservation found",
+        "Course leader accesses are restricted; detail controls hidden if CourseLeaderOnly"
+      ]
+    }
+  ],
+  "business_rules": [
+    "Only users with valid session can access and view PR history",
+    "Details control only visible for PR_ID > 0 and users who are not Course Leaders only",
+    "Archived PRs show 'detailsarchive icon', active PRs show 'details icon'",
+    "Footer visibility based on AlternateObservation flag"
+  ],
+  "validations": [
+    "Session existence checked before data selection",
+    "Detail icon visibility and state based on PR record properties and session context"
+  ],
+  "calculations": [],
+  "conditions": [
+    "Show/hide controls based on PR_ID, CourseLeaderOnly, Archived, ParentPRDID, and AlternateObservation"
+  ],
+  "system_behavior": [
+    "Cancels data source selection if session is missing",
+    "Binds and formats repeater rows with alternating classes",
+    "Dynamically updates icons for details based on archival status",
+    "Footer row visibility depends on AlternateObservation"
+  ],
+  "dependencies": [
+    "HSPnetSession",
+    "PRSearchStudent",
+    "Repeater (rprSrchPRHist)",
+    "ObjectDataSource (dsSrchPRHist)",
+    "StaffController"
+  ],
+  "exceptions": [
+    "Data selection is cancelled if session is null"
+  ],
+  "source_document_ids": [
+    "50df5d60-d9d8-5a43-9eca-503b5d44d69c",
+    "533ecbc2-3c0f-55aa-afeb-718fdee68645",
+    "73f5867a-76a6-555a-a70f-16c896537229",
+    "8da736b0-8412-53be-8094-d55aaaad6f36",
+    "eb485709-9813-50fb-bf8a-1a972c6a80ed"
+  ],
+  "content_gaps": [
+    "No explicit exception handling or error messages for failed data loads",
+    "No information about reporting functionality or PDF output (commented out)",
+    "No security details for field visibility beyond CourseLeaderOnly logic"
+  ]
+}
