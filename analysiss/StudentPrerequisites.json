@@ -1,1 +1,45 @@
-{"filename": "StudentPrerequisites", "found": true, "summary": "Manages student prerequisites data including various health-related details and updates, validation methods, and data retrieval.", "purpose": "To track and update health-related prerequisites required for students, including immunizations and respiratory mask fit tests.", "entities": [], "fields": ["ID", "StudentID", "CRCStatusCodeID", "IDCard", "WCBWaiver", "ConfidentialityForm", "UseAssessmentModule", "DepartmentUseAssessmentModule", "N95MaskSizeCodeID", "N95MaskAltSizeCodeID", "N95MaskFitTestExpiryDate", "TetanusExpiryDate", "TdapImmunity", "PolioImmunity", "MeaslesStatusCodeID", "Covid19StatusCodeID", "RubellaStatusCodeID", "VaricellaStatusCodeID", "InfluenzaStatusCodeID", "ChestXRayDate", "ChestXRayResultsCodeID", "HepBFirstShotDate", "HepBSecondShotDate", "HepBThirdShotDate", "HepABResultsCodeID", "ImmunizationNotes", "N95MaskFitNotes"], "actors": ["HSPnetSession"], "workflows": [], "business_rules": [], "validations": [], "calculations": [], "conditions": [], "system_behavior": [], "dependencies": [], "exceptions": [], "source_document_ids": ["126148d2-7c46-5bb8-8a4c-606105b702bd", "165b1b6b-fd06-59e5-b7d7-81e87dbeac55", "280408b2-2e1d-5bd7-8feb-59603ff0bb80", "2f8ba20e-ca9a-5fc1-932a-1899a9499417", "3787eddd-1ce0-519f-9959-30c8a913c827", "3c00eec5-f694-53fb-abe6-a8d94038fd60", "3e68c0d0-3ab9-5c14-a221-bf0f7592302c", "430fc305-a57a-53e5-9f01-35e07b707792", "46edf9a0-d978-5197-be20-b4536cae3e91", "4a51cb58-538c-57f2-82ff-13fb4d577aa8", "4abb53e7-107a-535d-a3b7-97b5279e2632", "4c84ad96-eff9-5f59-ad88-b1083437874e", "4fef49f1-918d-5276-9b5d-2394b74edd53", "580b77b9-dd28-5027-bdae-912684d6c0b6", "5829b29d-0fd8-5ba1-98f8-f7195d0f276d", "5847f312-ca34-559d-b351-cdadb289d73c", "58666a42-abe8-54d8-89a0-54666f57461b", "5eaa703a-dd1e-5dee-bb2e-1fb263c75db6", "60564881-fabd-566c-ae55-496631ed07ce", "60fbd355-bf2a-5b34-900c-2d4271e50c18", "61704a31-73c8-510f-a8a5-2f3f90576102", "6326993d-e08e-5e60-9b82-ab09b0ee7aaa", "64b9d3fc-975d-5d39-ab37-dbeff805220f", "6c76048a-8dbd-57f8-a34d-f0474a8066e7", "6f4e2f7e-5afe-5594-b7af-e3164b62cc31", "72969051-b340-56cd-9567-db665fe9963a", "7ad65168-6ffa-588e-8b5e-2c138a0092b6", "7bb40b95-0bb5-5f6d-91ca-bbcb527d60ff", "7afa582c-d2e5-5803-b315-7f8f63d1bc7e", "80ed1288-90d5-5218-87e0-ea7d3f5db104", "80da2e19-0529-5ff8-b271-c7143aa2de8f", "80c6896a-128a-591a-8ca6-2b17198986fb", "92a9a02b-cd4f-5050-9603-a3c1fb695f28", "92f4ca82-b65d-570b-b830-aa1aae296ad4", "97ddf3ed-0086-5903-91ce-adc367f9ec68", "9a9ab264-40f6-5641-bf80-27e1944adffd", "9c001d9f-6b5e-5efb-bae5-beec7494b84c"], "content_gaps": []}
+{
+  "filename": "StudentPrerequisites",
+  "found": true,
+  "summary": "Manages student prerequisites, including immunization and health records, with validation processes.",
+  "purpose": "To track and update student prerequisites and immunization records in compliance with health standards.",
+  "entities": ["StudentPrerequisite"],
+  "fields": [
+    {"name": "ID", "type": "int"},
+    {"name": "StudentID", "type": "int"},
+    {"name": "CRCStatusCodeID", "type": "int"},
+    {"name": "IDCard", "type": "Boolean"},
+    {"name": "WCBWaiver", "type": "Boolean"},
+    {"name": "ConfidentialityForm", "type": "Boolean"},
+    {"name": "UseAssessmentModule", "type": "Boolean"},
+    {"name": "DepartmentUseAssessmentModule", "type": "Boolean"},
+    {"name": "N95MaskSizeCodeID", "type": "int"},
+    {"name": "N95MaskAltSizeCodeID", "type": "int"},
+    {"name": "N95MaskFitTestExpiryDate", "type": "DateTime"},
+    {"name": "TetanusExpiryDate", "type": "DateTime"}
+  ],
+  "actors": [],
+  "workflows": [],
+  "business_rules": [],
+  "validations": [
+    {"name": "PrerequisiteValidation", "description": "Validates student health and immunization records compliance."}
+  ],
+  "calculations": [],
+  "conditions": [],
+  "system_behavior": [],
+  "dependencies": [],
+  "exceptions": [],
+  "source_document_ids": [
+    "126148d2-7c46-5bb8-8a4c-606105b702bd",
+    "165b1b6b-fd06-59e5-b7d7-81e87dbeac55",
+    "280408b2-2e1d-5bd7-8feb-59603ff0bb80",
+    "2f8ba20e-ca9a-5fc1-932a-1899a9499417",
+    "3787eddd-1ce0-519f-9959-30c8a913c827",
+    "3c00eec5-f694-53fb-abe6-a8d94038fd60",
+    "3e68c0d0-3ab9-5c14-a221-bf0f7592302c",
+    "46edf9a0-d978-5197-be20-b4536cae3e91",
+    "4a51cb58-538c-57f2-82ff-13fb4d577aa8",
+    "4abb53e7-107a-535d-a3b7-97b5279e2632"
+  ],
+  "content_gaps": []
+}
