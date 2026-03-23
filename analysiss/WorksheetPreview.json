@@ -1,0 +1,78 @@
+{
+  "filename": "WorksheetPreview",
+  "found": true,
+  "summary": "The retrieved documents describe the \"WorksheetPreview\" module within the HSPnet.DataLayer. This module is responsible for handling data related to educational departments, programs, cohorts, terms, courses, and their associated worksheets. It includes functionalities for retrieving data, as well as setting session-related variables based on conditions applied during the retrieval.",
+  "purpose": "The purpose of \"WorksheetPreview\" is to facilitate the management and retrieval of worksheet-related data, ensuring correct handling of various educational and administrative conditions.",
+  "entities": [
+    "WorksheetPreview",
+    "HSPnetSession",
+    "Sess.DB",
+    "SqlDataReader",
+    "SessionConstants"
+  ],
+  "fields": [
+    "WorksheetID",
+    "DepartmentShortName",
+    "ProgramShortName",
+    "CohortShortName",
+    "TermShortName",
+    "CourseShortname",
+    "Count"
+  ],
+  "actors": [
+    "Database",
+    "Session"
+  ],
+  "workflows": [
+    {
+      "name": "GetByStat",
+      "steps": [
+        "Initialize a list to store WorksheetPreview data",
+        "Set the procedure name to GroupWorksheetListNotProcessed",
+        "Add required parameters including SessionID, ProgramID, PlacCoordID, DateFrom, DateTo, CourseID, and CohortID",
+        "Set GroupFlag based on Stat value",
+        "Execute procedure and retrieve data using SqlDataReader",
+        "Process data, set session variables, and save variables"
+      ]
+    },
+    {
+      "name": "GroupWorksheetGetSearchKeys",
+      "steps": [
+        "Set procedure name to GroupWorksheetGetSearchKeys",
+        "Add WorksheetID and EnrollmentMode parameters",
+        "Retrieve data using SqlDataReader",
+        "Set and save session variables based on Stat value"
+      ]
+    }
+  ],
+  "business_rules": [
+    "Use EnrollmentMode parameter when Stat is STUENROL",
+    "Use GroupFlag based on Stat value (1 for GWS or GWSASSIGN, 0 otherwise)"
+  ],
+  "validations": [
+    "Check if SqlDataReader is not null before reading data",
+    "Ensure Count is not zero before creating a WorksheetPreview entry"
+  ],
+  "calculations": [
+    "Count retrieval is based on different Stat conditions such as GWS, IWSCFO, STUENROL, GWSASSIGN, IWSASSIGN"
+  ],
+  "conditions": [
+    "Stat condition checks for setting parameters and retrieving Count values"
+  ],
+  "system_behavior": [
+    "Sess.DB handles parameter addition and procedure execution",
+    "Sess.SetVariable and Sess.SaveVariables manage session state"
+  ],
+  "dependencies": [
+    "HSPnet.Framework",
+    "HSPnet.App_GlobalResources"
+  ],
+  "exceptions": [],
+  "source_document_ids": [
+    "56a3ad3c-1cab-5955-9fc3-cc1be281a8d8",
+    "5ef08db2-d6d3-5f86-95a6-55d5f2414c8d",
+    "ad20b9cc-8cf9-556a-ab96-e2b174a1f9ef",
+    "e5fe1eb5-ac2d-5b32-985f-7f3495a100da"
+  ],
+  "content_gaps": []
+}
