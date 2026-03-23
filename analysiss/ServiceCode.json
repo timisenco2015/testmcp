@@ -1,33 +1,30 @@
 {
     "filename": "ServiceCode",
     "found": true,
-    "summary": "ServiceCode and ServiceCodes provide data structures and methods for managing service codes.",
-    "purpose": "To enable retrieval and management of service codes linked to courses and timetables.",
+    "summary": "The ServiceCode file defines and manages service codes within the HSPnet framework. It includes methods to retrieve service codes based on course or timetable.",
+    "purpose": "To manage and provide access to service codes necessary for organizing and cataloging services within the HSPnet system.",
     "entities": ["ServiceCode"],
-    "fields": [
-        "ID",
-        "CodeCategoryID",
-        "ShortName",
-        "Name",
-        "SortOrder",
-        "Notes"
-    ],
+    "fields": ["ID", "CodeCategoryID", "ShortName", "Name", "SortOrder", "Notes", "NameAlt"],
     "actors": ["HSPnetSession"],
     "workflows": [
         {
-            "name": "Service Code Retrieval",
+            "name": "Retrieve Service Codes",
             "steps": [
-                "Invoke ServiceCodeListAll",
-                "Invoke ServiceCodeASMOptionByTimetableID",
-                "Invoke ServiceCodeASMOptionByCourseID"
+                "Set procedure name for database operation.",
+                "Add required parameters.",
+                "Execute database query to fetch service codes.",
+                "Localize service codes based on session language settings."
             ]
         }
     ],
-    "business_rules": ["Localized names are used when alt language mode is active."],
+    "business_rules": [],
     "validations": [],
     "calculations": [],
-    "conditions": ["UseAltLanguageFields condition affects name localization."],
-    "system_behavior": [],
+    "conditions": [],
+    "system_behavior": [
+        "Service codes are localized based on session language settings.",
+        "Service codes are fetched using stored procedures."
+    ],
     "dependencies": [],
     "exceptions": [],
     "source_document_ids": [
