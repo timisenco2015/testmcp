@@ -1,0 +1,60 @@
+{
+    "filename": "SupervisorMessages",
+    "found": true,
+    "summary": "The SupervisorMessages file is part of the HSPnet system and involves functionalities related to supervisor assessments, session management, and change tracking. The file contains implementations for managing supervisor assessment views and updating session variables.",
+    "purpose": "To manage the display and functionality of supervisor messages and related assessments within the HSPnet system.",
+    "entities": [],
+    "fields": [
+      "UserSession",
+      "StaffID",
+      "ActivatedByAnotherAgency",
+      "gridRowCount",
+      "assignedHours",
+      "totalHours",
+      "SupervisorCaption",
+      "localSupervisorCaption",
+      "DepartmentUseAssessmentModule"
+    ],
+    "actors": [
+      "Supervisor",
+      "Student",
+      "UserSession"
+    ],
+    "workflows": [
+      {
+        "name": "Setup Supervisor Messages",
+        "steps": [
+          "Initialize session variables for agency, date, and welcome screen.",
+          "Bind assessment data to grid view.",
+          "Update session variables based on user actions."
+        ]
+      }
+    ],
+    "business_rules": [
+      "If the user session lacks certain variables, set defaults.",
+      "Ensure changes are only visible when a supervisor has been added or altered.",
+      "Session changes should be preserved for subsequent operations."
+    ],
+    "validations": [
+      "Verify supervisor message data before display.",
+      "Ensure assessment data is loaded correctly into the view."
+    ],
+    "calculations": [],
+    "conditions": [],
+    "system_behavior": [
+      "Displays supervisor messages and assessments.",
+      "Configures view elements based on session state.",
+      "Manages assessment data binding for supervisor views."
+    ],
+    "dependencies": [],
+    "exceptions": [],
+    "source_document_ids": [
+      "06c76b89-02fa-53bf-aff6-13f52528eace",
+      "228eda21-8657-5ecf-8fef-5e195b0c1f85",
+      "35510d44-1368-568b-933e-d11ce26fa3eb",
+      "57b7311c-d788-52a3-8e40-67ffb6073423",
+      "71290b85-74d0-5f81-929f-cf4c01ad9f01",
+      "7b7a92f2-8f50-5623-8223-7d2f60c2bafe"
+    ],
+    "content_gaps": []
+  }
