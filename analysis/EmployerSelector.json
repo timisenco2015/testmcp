@@ -1,0 +1,135 @@
+{
+    "filename": "EmployerSelector",
+    "found": true,
+    "summary": "The EmployerSelector is a web user control component designed for handling employer selection processes in an employment application system. It manages user interactions related to applications, profile links, and site selections.",
+    "purpose": "Facilitate management and interaction with employment applications, allowing users to view, add, or withdraw applications and manage site selections.",
+    "entities": [],
+    "fields": [
+        {
+            "name": "Literal10",
+            "type": "System.Web.UI.WebControls.Literal"
+        },
+        {
+            "name": "uxCityNameContains",
+            "type": "System.Web.UI.WebControls.TextBox"
+        },
+        {
+            "name": "Literal9",
+            "type": "System.Web.UI.WebControls.Literal"
+        },
+        {
+            "name": "uxRegion",
+            "type": "System.Web.UI.WebControls.DropDownList"
+        },
+        {
+            "name": "cmdSearch",
+            "type": "System.Web.UI.WebControls.Button"
+        },
+        {
+            "name": "uxPlacements",
+            "type": "HSPnet.UI.HSPnetGridView"
+        },
+        {
+            "name": "ValidationSummary2",
+            "type": "System.Web.UI.WebControls.ValidationSummary"
+        },
+        {
+            "name": "Label1",
+            "type": "System.Web.UI.WebControls.Label"
+        },
+        {
+            "name": "Literal5",
+            "type": "System.Web.UI.WebControls.Literal"
+        },
+        {
+            "name": "uxTotalSites",
+            "type": "System.Web.UI.WebControls.Literal"
+        },
+        {
+            "name": "Literal7",
+            "type": "System.Web.UI.WebControls.Literal"
+        },
+        {
+            "name": "uxAgencySiteContains",
+            "type": "System.Web.UI.WebControls.TextBox"
+        },
+        {
+            "name": "uxSavedChoices",
+            "type": "System.Web.UI.WebControls.GridView"
+        },
+        {
+            "name": "pnlSearchArea",
+            "type": "System.Web.UI.WebControls.Panel"
+        },
+        {
+            "name": "dsSavedChoices",
+            "type": "System.Web.UI.WebControls.ObjectDataSource"
+        },
+        {
+            "name": "dsPlacements",
+            "type": "System.Web.UI.WebControls.ObjectDataSource"
+        },
+        {
+            "name": "dsRegions",
+            "type": "System.Web.UI.WebControls.ObjectDataSource"
+        }
+    ],
+    "actors": [
+        {
+            "name": "UserSession",
+            "type": "HSPnetSession"
+        }
+    ],
+    "workflows": [
+        {
+            "name": "Handle Page Load",
+            "steps": [
+                "Check if Page is not a PostBack.",
+                "Set uxPlacements visibility to false."
+            ]
+        },
+        {
+            "name": "Handle Row Data Bound",
+            "steps": [
+                "Setup Profile Links.",
+                "Setup Actions.",
+                "Check for duplicate site entries and grey them out."
+            ]
+        },
+        {
+            "name": "Search Command",
+            "steps": [
+                "Set uxPlacements visibility to true.",
+                "Bind the data to uxPlacements."
+            ]
+        }
+    ],
+    "business_rules": [
+        "User must not be in view-only mode to see certain links and buttons.",
+        "Action links and buttons are hidden if conditions like site recruitment closure are met."
+    ],
+    "validations": [],
+    "calculations": [],
+    "conditions": [
+        "Check if a row type is DataRow before performing operations.",
+        "Visibility of controls like panels depends on the state of data like SubmittedDate."
+    ],
+    "system_behavior": [
+        "Auto-generate field attributes.",
+        "Bind data to controls like GridView based on events."
+    ],
+    "dependencies": [],
+    "exceptions": [],
+    "source_document_ids": [
+        "03fb348a-b850-5571-b590-7b855ebd878e",
+        "22b50668-1953-5d21-a511-ac1c39fd49d5",
+        "4bd3a7b4-6445-5cd2-b7fb-62f1c82d630a",
+        "501f8372-1fee-50a1-9587-ca253f9cdadb",
+        "59409830-c777-5159-b7f3-28c8a8d9ada5",
+        "645f0d95-f7e7-53aa-87b0-734768d731f6",
+        "6f553d2c-f923-52c1-97bf-dac2f239f186",
+        "ab95efd6-00ad-5902-a875-0a15ecc3ea9c",
+        "effa0842-dfb4-56ec-a599-fe6f565ba857"
+    ],
+    "content_gaps": []
+}
