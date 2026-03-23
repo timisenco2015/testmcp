@@ -1,68 +1,65 @@
 {
   "filename": "SiteProfileClosures",
   "found": true,
-  "summary": "The 'SiteProfileClosures' module manages the closure process for various site profiles within the application. It provides user interfaces to add, edit, and manage closures, their associated disciplines, and destinations. The system handles the inclusion and exclusion of certain disciplines and manages destinations related to closures.",
-  "purpose": "To facilitate the management of site profile closures, including their disciplines and destinations, allowing users to add, edit, and delete closures within the application.",
+  "summary": "The SiteProfileClosures functionality manages site closures and the associated disciplines in a web application interface. It consists of multiple UI components for filtering, editing, and applying destinations related to site closures.",
+  "purpose": "To facilitate the management of site closures by allowing users to add, edit, and delete closure records and manage associated destination data.",
   "entities": [],
   "fields": [
-    "ddDisciplineFilter",
-    "pnlEmptyData",
-    "lblEmptyData",
-    "cmdAddEmptyData",
-    "gridData",
-    "dsSiteClosures",
-    "updPnlMain",
-    "Label7",
-    "ddClosureTypeFilter",
-    "divDisciplineFilter",
-    "Label4",
-    "dsSiteClosures",
-    "dsDisciplineFilter",
-    "pnlPopup",
-    "updPnlPopup"
+    {
+      "name": "ClosureID",
+      "type": "int",
+      "description": "Unique identifier for a site closure record."
+    },
+    {
+      "name": "SiteID",
+      "type": "int",
+      "description": "Unique identifier for the site associated with the closure."
+    },
+    {
+      "name": "AppliedDestinations",
+      "type": "string",
+      "description": "Serialized list of destinations applied to a closure."
+    }
   ],
   "actors": [
-    {
-      "name": "GenericClosures",
-      "description": "Manages the loading and saving of closure data and destinations."
-    }
+    "User",
+    "System Administrator"
   ],
   "workflows": [
     {
-      "name": "Manage Site Profile Closures",
+      "name": "Manage Site Closures",
       "steps": [
-        "Initialize view state on page load.",
-        "Load user session-related data.",
-        "Filter disciplines and destinations.",
-        "Handle commands for adding, editing, and deleting closures.",
-        "Manage selected and not selected destinations."
+        "User selects a site closure record from the grid.",
+        "User clicks 'Add' to insert a new closure or 'Edit' to modify an existing one.",
+        "User enters the necessary details and destinations.",
+        "User saves the closure record."
       ]
     }
   ],
   "business_rules": [
-    "ClosureID and SiteID must be greater than zero for operations.",
-    "Selected destinations must not be already applied."
+    "Site closures can only be edited if the screen is editable.",
+    "Destinations must be loaded and verified before being applied to a closure."
   ],
   "validations": [
-    "Check if user session is present before data operations.",
-    "Ensure disciplines and destinations are only added when valid."
+    "Ensure closure ID and site ID are greater than 0 before processing updates.",
+    "Validate input fields before proceeding with data insertion or updating."
   ],
   "calculations": [],
   "conditions": [
-    "ScreenIsEditable determines the visibility and interactivity of UI elements.",
-    "Restrictive sub-disciplines affect visibility of discipline filter."
+    "If the closure ID is nonexistent, disable the edit operations.",
+    "Show or hide destination controls based on user input and closure properties."
   ],
   "system_behavior": [
-    "Auto-generated fields are used for UI controls to ensure consistency.",
-    "Single point of data binding for drop-downs and lists to ensure state preservation."
+    "Automatically serialize and deserialize destination lists for storage and retrieval.",
+    "Redirect users to the current page URL after successful insert or update operations."
   ],
   "dependencies": [
-    "Depends on user session data for operations.",
-    "Relies on specific field controls for updating and displaying closure data."
+    "HSPnetSession for maintaining user sessions and data persistence.",
+    "User interface controls and components such as GridView, ListBox, and DropDownList."
   ],
   "exceptions": [
-    "Cancel data operations if user session is missing.",
-    "Prevent operations if closure or site ID is invalid."
+    "Cancel operations when the user session is null or not valid.",
+    "Prevent actions if mandatory session parameters are missing."
   ],
   "source_document_ids": [
     "020480f8-7a34-5155-8aac-68cdfd924d42",
