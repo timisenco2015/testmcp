@@ -1,0 +1,87 @@
+{
+  "filename": "DestProfilePlcCpIndividual",
+  "found": true,
+  "summary": "The document appears to describe a user control named DestProfilePlcCpIndividual within a web application, specifically focused on managing destination capacity for individual placements. It involves user session management, data retrieval, and user interface updates based on data conditions.",
+  "purpose": "The purpose of the DestProfilePlcCpIndividual is to manage and display information related to individual placement capacities in a user-friendly manner, allowing for interaction and updates based on user roles and data conditions.",
+  "entities": [],
+  "fields": [
+    "UserSession",
+    "DestID",
+    "ScreenIsEditable",
+    "CurrentPage",
+    "ContextDisciplineID",
+    "blnDC",
+    "blnGridReadOnly",
+    "lblCapacityInfo",
+    "htReportWizardAdd",
+    "rprDestCapIndividual",
+    "dsDestCapIndividual"
+  ],
+  "actors": ["UserSession", "SystemAdministrator"],
+  "workflows": [
+    {
+      "name": "ItemDataBound",
+      "steps": [
+        "Check item type for ListItemType.Item or ListItemType.AlternatingItem.",
+        "Retrieve DestinationCapacity data.",
+        "Update lblCapacityInfo based on Resources.Placement_Type_Individual_Placements.",
+        "Update HTML controls based on data properties such as AcceptsNonGroups, AcceptConsecutive, and comments."
+      ]
+    },
+    {
+      "name": "ItemCommand",
+      "steps": [
+        "Switch case on e.CommandName.",
+        "Case 'cmdDelete': execute DestinationCapacityDelete and redirect."
+      ]
+    },
+    {
+      "name": "Selecting",
+      "steps": [
+        "Check if UserSession is null and cancel if true.",
+        "Set input parameters for data source selection.",
+        "Invoke CheckScreenAccess for access control."
+      ]
+    }
+  ],
+  "business_rules": [
+    "SystemAdministrator status influences visibility of controls.",
+    "ScreenIsEditable determines grid editability.",
+    "CheckUserDiscipline is used for user discipline access verification."
+  ],
+  "validations": [
+    "Check if UserSession is null before proceeding with data selections.",
+    "Verify non-empty data properties before updating visibility of controls."
+  ],
+  "calculations": [],
+  "conditions": [
+    "UserSession != null",
+    "SystemAdministrator",
+    "ScreenIsEditable",
+    "blnDC"
+  ],
+  "system_behavior": [
+    "Controls visibility based on user session and role.",
+    "Redirects based on command execution."
+  ],
+  "dependencies": [
+    "DestinationCapacity",
+    "HSPnetSession",
+    "QueryString",
+    "Resources",
+    "Wizards"
+  ],
+  "exceptions": [
+    "Cancellation of data selection if UserSession is null."
+  ],
+  "source_document_ids": [
+    "565b47b5-3c01-5ff2-ac0a-dd9383d2e663",
+    "5aec6b9a-2b88-5152-93cf-b22988722637",
+    "7e62463e-357a-57b5-89c3-fadce8961ffb",
+    "c8ad4323-ca91-57da-b15f-b15f6553762f",
+    "cbe7297e-4071-5d66-8b44-92f196588a3a",
+    "e8854e43-8a7c-5519-a3fc-0862639abfa8",
+    "f4f23eee-7c52-5918-825f-d3e621e9a882"
+  ],
+  "content_gaps": []
+}
