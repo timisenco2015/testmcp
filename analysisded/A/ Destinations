@@ -1,0 +1,153 @@
+```json
+{
+  "filename": "Destinations",
+  "found": true,
+  "summary": "The system manages destinations within HSPnet, including functions to add, update, delete, search, and access destinations based on various criteria and roles.",
+  "purpose": "To manage destination-related data through operations such as searching, updating, and validating destination entities.",
+  "entities": [
+    "Destination",
+    "HSPnetSession",
+    "Database"
+  ],
+  "fields": [
+    "ID",
+    "ServiceID",
+    "Inactive",
+    "DestinationCodeID",
+    "HSPnetUser",
+    "DestinationContactID",
+    "UseAutoRedirect",
+    "CostCentre",
+    "CostCentreDescription",
+    "PortfolioOption",
+    "PortfolioCodeID",
+    "SitePortfolioCodeID",
+    "SitePortfolioCode",
+    "SitePortfolioDescription",
+    "Name",
+    "ShortName",
+    "StaffID",
+    "FirstName",
+    "LastName",
+    "MiddleName",
+    "Email",
+    "SecureEmail",
+    "Phone",
+    "Fax",
+    "IsHSPnetUser",
+    "SiteID",
+    "AgencyID",
+    "DestProfileExists",
+    "SiteShortName",
+    "ServiceShortName",
+    "SiteName",
+    "ServiceName",
+    "DestProfileLastUpdated",
+    "ProfileExists",
+    "ClosuresExists",
+    "StaffingExists",
+    "CapacityExists",
+    "AdditionalContactsExists",
+    "UtilizationExists",
+    "ServiceList",
+    "SiteUseCostCentres",
+    "UserIsAllowedService",
+    "ServiceIsHSPnetUser",
+    "AgencyShortName",
+    "MandatoryTrainingDone",
+    "MandatoryTrainingRefresherRequired"
+  ],
+  "actors": [
+    "sysadmin",
+    "HSPnet users",
+    "staff",
+    "agency users"
+  ],
+  "workflows": [
+    {
+      "name": "Destination Add",
+      "steps": ["Validate destination", "Add staff if necessary", "Execute DestinationAdd procedure", "Handle warnings based on user and contact ID"]
+    },
+    {
+      "name": "Destination Search",
+      "steps": ["Set procedure parameters", "Execute destination search", "Return destination list"]
+    },
+    {
+      "name": "Destination Update",
+      "steps": ["Validate destination", "Set procedure and parameters", "Execute DestinationUpdate procedure", "Handle linked services"]
+    }
+  ],
+  "business_rules": [
+    "Destination must have a valid service ID",
+    "Destination code ID must be specified",
+    "Portfolio can be other, site-specific, or specific"
+  ],
+  "validations": [
+    "Check if service ID is valid",
+    "Verify destination code ID",
+    "Verify user roles and permissions"
+  ],
+  "calculations": [
+    "Format staff names",
+    "Format email and phone data"
+  ],
+  "conditions": [
+    "If DestinationContactID is -1, add staff object",
+    "If HSPnetUser and DestinationContactID is not 0, update rights"
+  ],
+  "system_behavior": [
+    "Uses SQL procedures for data operations",
+    "Handles database connections and queries",
+    "Implements user access control through session checks"
+  ],
+  "dependencies": [
+    "HSPnet.Framework",
+    "HSPnet.App_GlobalResources",
+    "HSPnet.UI",
+    "System.Data.SqlClient"
+  ],
+  "exceptions": [
+    "Session errors",
+    "Invalid destination or service IDs",
+    "Database access issues"
+  ],
+  "source_document_ids": [
+    "27025ff9-30fe-5261-ba86-6ec598a1fcf7",
+    "2db5e639-ce2f-5b31-84fa-c77b5dd8e493",
+    "3340dbd5-842a-5cf2-837d-cae7d1cd3c46",
+    "4e50c817-95fe-5fe9-8e95-e9556c678b00",
+    "50e5008b-6841-5a0f-a9bc-ea1162c957c5",
+    "5a43f8bf-3cc7-58b2-bdc0-59b4f792755e",
+    "5b79b67c-8337-5d58-83b3-dabc8d2cf9ff",
+    "65e5a8bd-3e29-501c-95f5-f8bebc085fc3",
+    "7709dc88-27c1-5954-8154-0a0d3e121251",
+    "7823c178-bc78-5e6d-8ec9-aa68b3e1cfdf",
+    "8175ba49-582e-521a-b2bb-fab409bcf21b",
+    "87441b80-d24f-5a48-84b9-ab3cf3b4beec",
+    "877ba8ca-c535-5b20-8b38-bad69b74280d",
+    "95e47952-4ac7-53e9-8a03-cc16e80fe019",
+    "9b50ea6f-c52d-5e84-87fc-7073b019272a",
+    "9bb15e92-99e6-587e-839f-fe3b79d53b00",
+    "a0267073-1d76-5b96-8d00-9701b22962f6",
+    "a8a64d1c-6360-5817-81eb-40f4c7c64679",
+    "b2b647ab-8f82-5695-bcce-475efe5a7557",
+    "b59203d7-cf44-513b-91e0-14e7a56b8d3b",
+    "bb1bf8f2-f54a-5b60-b01e-0829e054b668",
+    "c271c643-1909-53ea-9271-ff693b85067f",
+    "c3ae9ed1-7812-5077-8232-7ffc2dc6865f",
+    "d3b07f70-acda-5a8a-89a7-d232db8f3e32",
+    "d3e6df94-77a4-5eb3-91f5-abac5c283370",
+    "d5c6c97f-af5f-5963-a8c3-1e89d8e36866",
+    "da340dfe-fab9-5498-9dd3-3e829d18a18d",
+    "e0f34f2c-9560-57ba-abd6-b856db17f420",
+    "e8f92414-7a52-5142-83d3-ce7743634f02",
+    "edf0dc70-06b5-5f41-a3bd-2fb794b58032",
+    "f1dd4e2b-ab80-5465-a4eb-99b09708b2ee",
+    "f55a7481-f937-55f7-b134-3199331845b4",
+    "f5f1697a-946c-5eee-a093-b4598330a207",
+    "f7b0230b-8db3-5158-bbfc-d5822b78ab51",
+    "fe03f68e-c195-57f1-aa25-24d9043e1190"
+  ],
+  "content_gaps": []
+}
+```
