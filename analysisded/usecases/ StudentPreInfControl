@@ -1,0 +1,54 @@
+# Module: StudentPreInfControl
+
+## StudentPreInfControl-UC1 — Manage Student Prerequisite Information
+
+- Primary Actor(s): 
+  - System User
+
+- Secondary Actor(s): 
+  - User Session
+
+- Trigger: 
+  - A user initiates an edit or insert operation on student prerequisite data.
+
+- Description: 
+  - This use case describes the process by which a system user manages student prerequisite information, specifically regarding infection control measures and N95 mask specifications.
+
+- Preconditions: 
+  - The user session is active.
+  - User has necessary permissions to edit or view the records.
+
+- Postconditions: 
+  - The system stores updated or new student prerequisite information.
+
+- Main Success Scenario:
+  1. User accesses the student prerequisite information page.
+  2. User selects a student record to edit or insert new information.
+  3. System retrieves current prerequisite details for the student.
+  4. User updates fields such as N95 mask size, alternative mask size, fit test date, and selects infection control solutions.
+  5. User saves changes.
+  6. System validates input and processes the update.
+  7. System redirects user back to a confirmation or updated view page.
+
+- Extensions:
+  - If the N95 mask size is unknown:
+    1. The system sets a default value using the "Unknown" code.
+  - If the update operation is encountered with validation issues:
+    1. User is prompted to correct errors before proceeding.
+
+- Exceptions:
+  - User session is inactive or expired, prompting re-authentication.
+  - Page is in read-only mode, preventing any edits.
+
+- Business Rules:
+  - Information provided must pass all client-side validation checks.
+  - User must have appropriate roles to edit student details.
+  - Language settings might affect display, requiring translation of fields.
+
+- Assumptions:
+  - System users are trained and familiar with the interface.
+  - Dropdown selections are assumed to be correctly populated based on system configuration.
+
+- Open Issues:
+  - Handling of multi-language support for resource files during dropdown selection.
+  - Improving user experience for handling unknown or unclear data entries (N95 mask size code).
