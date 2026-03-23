@@ -1,9 +1,11 @@
 {
     "filename": "ExpenseBatch",
     "found": true,
-    "summary": "Handles the creation, search, and management of expense batches within departments.",
-    "purpose": "To manage financial batching operations, including creation, updating, and retrieval of status and descriptions.",
-    "entities": [],
+    "summary": "The ExpenseBatch document provides methods for managing expense batches within the application. It includes methods for adding, updating, deleting, and retrieving expense data.",
+    "purpose": "To manage financial batches related to expenses, enabling various CRUD operations within the application.",
+    "entities": [
+        "ExpenseBatch"
+    ],
     "fields": [
         "ID",
         "DepartmentID",
@@ -18,19 +20,12 @@
     "actors": [],
     "workflows": [
         {
-            "name": "Search Expense Batches",
+            "name": "Expense Batch Management",
             "steps": [
-                "Set procedure name to 'ExpenseBatchSearch'.",
-                "Add departmentID as a parameter.",
-                "Retrieve batch data and construct ExpenseBatch objects."
-            ]
-        },
-        {
-            "name": "Add Expense Batch",
-            "steps": [
-                "Set procedure name to 'ExpenseBatchAdd'.",
-                "Add relevant parameters including session and department IDs.",
-                "Execute procedure to add new batch."
+                "Add Expense Batch",
+                "Update Expense Batch",
+                "Delete Expense Batch",
+                "Retrieve Expense Batch"
             ]
         }
     ],
@@ -39,8 +34,7 @@
     "calculations": [],
     "conditions": [],
     "system_behavior": [
-        "Formats batch numbers for display using ID and status description.",
-        "Handles database operations for expense batches including insert and update."
+        "Database queries use batch and session IDs"
     ],
     "dependencies": [],
     "exceptions": [],
