@@ -1,0 +1,121 @@
+{
+  "filename": "MaintUserStudent",
+  "found": true,
+  "summary": "The 'MaintUserStudent' files are designed to manage student user accounts within the HSPnet system. It includes functionality for creating and updating student user profiles, handling Single Sign-On (SSO) configurations, sending emails for account actions, password management, and user support comments.",
+  "purpose": "To facilitate management of student user accounts, including creation, updates, and password changes, with support for SSO and email notifications.",
+  "entities": [],
+  "fields": [
+    "UserName",
+    "Email",
+    "active",
+    "uxLastLoginDate",
+    "chkIssueUIDPwdEmail",
+    "NewPassword",
+    "ConfirmPassword",
+    "uxSupportComment",
+    "uxSupportCommentDate"
+  ],
+  "actors": [
+    "UserSession",
+    "Users",
+    "StudentDL",
+    "FirstStudent",
+    "Framework.Security",
+    "Programs",
+    "Departments",
+    "SsoSettingsActions"
+  ],
+  "workflows": [
+    {
+      "name": "Create or Update Student User",
+      "steps": [
+        "Check for duplicate user using UserName.",
+        "If no duplicate, generate new password.",
+        "Create or update user profile with UserName, Email, and other attributes.",
+        "Handle SSO configurations.",
+        "Send email notification if applicable."
+      ]
+    },
+    {
+      "name": "Change Password",
+      "steps": [
+        "Validate new password input.",
+        "Update password if validation is successful.",
+        "Send email notification if applicable."
+      ]
+    },
+    {
+      "name": "Handle User Support Comments",
+      "steps": [
+        "Display modal for user support comments.",
+        "Update support comment upon user interaction."
+      ]
+    }
+  ],
+  "business_rules": [
+    "User cannot be created if a duplicate user exists.",
+    "Password must meet strength criteria.",
+    "SSO settings affect visibility of certain fields and controls.",
+    "Email notifications are conditional based on SSO and checkbox selections."
+  ],
+  "validations": [
+    "Email field must match a regular expression to validate format.",
+    "UserName is required.",
+    "NewPassword must contain a combination of letters, digits, symbols, and meet length criteria.",
+    "NewPassword and ConfirmPassword must match."
+  ],
+  "calculations": [
+    "Generate new password with 12 characters using Framework.Security."
+  ],
+  "conditions": [],
+  "system_behavior": [
+    "Display warning and error panels based on operation results.",
+    "Disable certain buttons based on user account state and SSO settings.",
+    "Automatically focus on fields in forms upon interaction events."
+  ],
+  "dependencies": [
+    "Framework.Security for password generation.",
+    "HSPnet.Email for sending notifications.",
+    "UserSession for current session data management."
+  ],
+  "exceptions": [
+    "Handle email sending failure.",
+    "Handle SSO certificate absence by modifying UI visibility."
+  ],
+  "source_document_ids": [
+    "13904179-d5bb-55e5-9d43-9fef1611b632",
+    "224f728f-3ae6-53bd-b95b-01fd101bdfe1",
+    "30248b28-9842-5c89-8b64-3e674d6908b9",
+    "43c702a2-3d68-5b86-bf4e-3b5087b0afb3",
+    "5703b7da-43af-5893-846b-e32538180b65",
+    "5957d5d4-983a-57ee-a317-833304ff5c89",
+    "68609d13-6af5-530c-b2e7-3ac55c05f4e9",
+    "6ab17ca5-55da-57e8-b68d-a8bcc7df2b7d",
+    "74297a68-a5ad-5989-8278-2c4ea6854d4e",
+    "75e090f0-fb15-5a38-8bb0-e856f0bd000e",
+    "76c063a8-5dba-5343-bf19-bb2cd62eb6c7",
+    "813fa68a-f310-5f73-8487-82c5cb9a1874",
+    "8537e2d2-0388-5db7-b7e9-c952d685194c",
+    "8730c522-94d1-5f0b-b214-752f0edf9dd2",
+    "8a03c14f-bd98-5852-b4c2-b42e98c359ee",
+    "8c115e6a-464e-5023-bdcc-2dfa2763abbc",
+    "902a156f-44f3-5957-a786-d35501fed86a",
+    "918a1d06-0e67-57c3-9221-76e0919b2dac",
+    "929bdb04-c9a4-5945-9958-bca0be11ffe4",
+    "92d59647-893b-5737-8171-30314019c75a",
+    "9fb37fe8-1b5f-50fd-971e-e10bacb82beb",
+    "a569e5b8-f252-5b51-a590-f0bc568e0edd",
+    "a5e5d162-977e-5f05-857b-cc82559fbc3a",
+    "b0d6eaeb-35e2-53f4-adea-8ff6ba87316d",
+    "b9e9ac5e-f783-56bc-b49a-ee38077e1465",
+    "bde62aab-a9ef-56ae-9cad-6d2dca2510ca",
+    "bf971e77-15db-5db1-aab6-671964188ab3",
+    "c02ec1e6-1f43-554c-8e20-5335f7f28cbe",
+    "cc86480f-4063-5d24-8d97-deaeedc50020",
+    "d3874c34-5b8e-5715-b795-989c80025c4c",
+    "efb41c90-de10-5643-8d0c-5d250fc6b860"
+  ],
+  "content_gaps": [
+    "Details about the specific implementation of email templates are not provided."
+  ]
+}
