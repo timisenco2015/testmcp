@@ -1,0 +1,101 @@
+# Module: CallForOffers
+
+## CallForOffers-UC1 — Create Placement Request Offer
+
+- Primary Actor(s): User (e.g., Placement Coordinator)
+- Secondary Actor(s): System
+- Trigger: User initiates the creation of a placement request offer.
+- Description: The user creates a new placement request offer by entering necessary details such as site, service, destination, start date, end date, number of students, and supervisors.
+- Preconditions: User is logged in and has access to create placement offers.
+- Postconditions: A new placement request offer is stored in the system.
+- Main Success Scenario:
+  1. User fills out the new placement offer form.
+  2. User specifies start and end dates.
+  3. User enters the number of students.
+  4. User selects supervisors from dropdown lists.
+  5. User submits the form.
+  6. System validates the input data.
+  7. System stores the new placement request offer.
+- Extensions:
+  - 2a. Invalid Dates: Display error and request correction.
+  - 3a. Invalid Number: Display error if the number of students is not within allowed range.
+- Exceptions:
+  - E1. Database Error: Display error message if saving fails.
+- Business Rules:
+  - BR1. Dates must be within the allowable timetable range.
+  - BR2. Number of students must be between 1 and 99.
+- Assumptions:
+  - User has permissions to create offers.
+- Open Issues:
+  - How to handle offers for destinations with no available services.
+
+## CallForOffers-UC2 — Update Placement Request Offer
+
+- Primary Actor(s): User (e.g., Placement Coordinator)
+- Secondary Actor(s): System
+- Trigger: User selects to update an existing placement request offer.
+- Description: The user updates details of an existing placement request offer.
+- Preconditions: User is logged in and existing placement request offers are available.
+- Postconditions: The selected placement request offer is updated in the system.
+- Main Success Scenario:
+  1. User selects an offer to update.
+  2. User modifies required fields (e.g., dates, supervisors).
+  3. User submits the updated details.
+  4. System validates and stores the updated information.
+- Extensions:
+  - 2a. Invalid Update: Display error and request correct entry.
+- Exceptions:
+  - E1. Concurrent Modification: Inform user if the offer was changed by another process.
+- Business Rules:
+  - BR1. Updated dates must not conflict with existing rotations.
+- Assumptions:
+  - The offer is not yet finalized.
+- Open Issues:
+  - None identified.
+
+## CallForOffers-UC3 — Accept Offers
+
+- Primary Actor(s): Receiving Coordinator
+- Secondary Actor(s): System
+- Trigger: Receiving coordinator decides to accept offers for placement requests.
+- Description: The receiving coordinator processes the acceptance of offers for placement.
+- Preconditions: Offers are pending acceptance.
+- Postconditions: Selected offers are marked as accepted.
+- Main Success Scenario:
+  1. Receiving coordinator logs in.
+  2. Coordinator reviews pending offers.
+  3. Coordinator selects offer(s) to accept.
+  4. System confirms acceptance and updates status.
+- Extensions:
+  - 2a. Invalid Offer: Display error if offer cannot be processed.
+- Exceptions:
+  - E1. Authorization Failure: Inform if the user lacks permission.
+- Business Rules:
+  - BR1. Only pending offers can be accepted.
+- Assumptions:
+  - Coordinator knows all relevant offer details.
+- Open Issues:
+  - Clarification needed on integration with external validation processes.
+
+## CallForOffers-UC4 — Delete Placement Request Offer
+
+- Primary Actor(s): User (e.g., Placement Coordinator)
+- Secondary Actor(s): System
+- Trigger: User opts to delete an existing offer.
+- Description: The user deletes a placement request offer from the system.
+- Preconditions: User is logged in and is allowed to delete offers.
+- Postconditions: The selected offer is removed from the system.
+- Main Success Scenario:
+  1. User selects offer to delete.
+  2. User confirms deletion.
+  3. System removes offer from records.
+- Extensions:
+  - 2a. Cancellation: User cancels the deletion process.
+- Exceptions:
+  - E1. System Constraint: Show error if the offer cannot be deleted due to system constraints.
+- Business Rules:
+  - BR1. Only offers not yet finalized can be deleted.
+- Assumptions:
+  - Offer is not part of a locked schedule.
+- Open Issues:
+  - Guidelines on restoring mistakenly deleted offers.
