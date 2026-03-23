@@ -1,8 +1,8 @@
 {
   "filename": "StudentPreInfControl",
   "found": true,
-  "summary": "This document details the implementation of a web user control named StudentPreInfControl in the HSPnet system, focusing on managing student prerequisites and infection control information.",
-  "purpose": "The purpose of this user control is to facilitate the management and display of student infection control prerequisites, utilizing various UI elements such as forms and dropdowns for data selection and modification.",
+  "summary": "The StudentPreInfControl is a user control in the HSPnet system, dealing with infection control and prerequisites. It involves various controls for handling student data and infection control measures.",
+  "purpose": "The purpose of the StudentPreInfControl is to manage student prerequisites and infection control measures, including handling N95 mask fitting tests and infection control solutions.",
   "entities": [],
   "fields": [
     "updPnlMain",
@@ -10,53 +10,51 @@
     "calCalendarPlaceholder",
     "fvmStdPrerequisite",
     "dsStdPrerequisite",
-    "ValidationSummary1",
     "uxDetail",
     "dsStdPrerequisiteDetail",
+    "ValidationSummary1",
     "dsN95MaskSizeCode",
     "dsN95MaskFitTestDate",
-    "dsInfectionControlSolutions",
-    "pnlPopup",
-    "updPnlPopup",
-    "btnShowPopup",
-    "mdlDetails"
+    "dsInfectionControlSolutions"
   ],
-  "actors": [],
+  "actors": ["UserSession", "StudentID", "ScriptManager"],
   "workflows": [
     {
-      "name": "Update Student Prerequisite Details",
+      "name": "Item Updating Workflow",
       "steps": [
-        "User triggers an update action on the form.",
-        "System validates form data.",
-        "New values are extracted from dropdowns and text inputs.",
-        "If validation passes, updates are submitted to the database.",
-        "Upon successful update, user is redirected to the Infection Control page."
+        "Validate form data",
+        "Update N95 mask size code",
+        "Update infection control solution",
+        "Redirect to the infection control page"
       ]
     }
   ],
   "business_rules": [
-    "If the page is not valid, cancel the update operation.",
-    "Use dropdown selections to update specific prerequisite fields."
+    "Page must be valid before updating.",
+    "Redirect after item update."
   ],
   "validations": [
-    "Page validity is checked before updating data.",
-    "JavaScript is used to manage dropdown selections and default values."
+    "ValidationSummary1",
+    "Custom validation for N95MaskFitTestExpiryDate"
   ],
-  "calculations": [],
+  "calculations": [
+    "Max date calculation based on current date."
+  ],
   "conditions": [
-    "If the user session is null, cancel data selection operations.",
-    "Determine button visibility based on the screen's editability."
+    "Condition to check if the page is valid."
   ],
   "system_behavior": [
-    "Redirects user to the Infection Control page upon update completion.",
-    "Caches user session data.",
-    "Disables edit fields and calendar controls if the screen is not editable."
+    "Translate fields based on user session language settings.",
+    "JavaScript setup for client-side functionality."
   ],
   "dependencies": [
-    "Depends on the HSPnetSession for user session management.",
-    "Utilizes the HSPnet Framework for UI and data operations."
+    "HSPnet.Session",
+    "HSPnet.Framework",
+    "AjaxControlToolkit"
   ],
-  "exceptions": [],
+  "exceptions": [
+    "Cancel update if the page is not valid."
+  ],
   "source_document_ids": [
     "04e9c4ac-7f77-5f3e-bfe5-d536dd31d727",
     "1ae444a0-0cee-563e-be86-22e725e52b56",
