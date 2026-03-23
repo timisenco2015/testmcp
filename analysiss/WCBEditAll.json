@@ -1,90 +1,114 @@
 {
   "filename": "WCBEditAll",
   "found": true,
-  "summary": "The WCBEditAll component is primarily responsible for handling the editing and saving of enrollment data within a grid interface. It processes enrollment details, manages grid behaviors such as sorting and pagination, and handles user input validations.",
-  "purpose": "To facilitate the editing and management of enrollment-related data through a grid interface, with capabilities for filtering, sorting, and processing user actions.",
-  "entities": [
-    "CodeRecord",
-    "Service",
-    "UserSession",
-    "GridViewRow",
-    "Panel",
-    "Control",
-    "DropDownList",
-    "HiddenField",
-    "ListItem"
-  ],
+  "summary": "The WCBEditAll module is a user control in the HSPnet system designed to handle enrollment data, particularly focusing on WorkSafeBC (WCB) status updates. It allows users to filter and edit enrollment records based on various criteria such as CohortID, TermID, CourseID, and campus-related details. The control handles both single and batch editing operations and interacts with the user session for access and permissions.",
+  "purpose": "To facilitate the editing and management of WCB status information within enrollment records in the HSPnet system.",
+  "entities": [],
   "fields": [
-    "CohortID",
-    "TermID",
-    "CourseID",
-    "ShowGrad",
-    "ShowInactive",
-    "ShowWaived",
-    "SectionFilter",
-    "ActionFilter",
-    "keyword",
-    "CampusID",
-    "CommentFilter",
-    "blnReadOnly",
-    "blnStudentMaint",
-    "EnrollmentID",
-    "StartRow",
-    "gridDataEdit",
-    "WCBStatusesList",
-    "ValidationSummary1",
-    "dsCRC"
+    {
+      "name": "CohortID",
+      "type": "integer"
+    },
+    {
+      "name": "TermID",
+      "type": "integer"
+    },
+    {
+      "name": "CourseID",
+      "type": "integer"
+    },
+    {
+      "name": "ShowGrad",
+      "type": "boolean"
+    },
+    {
+      "name": "ShowInactive",
+      "type": "boolean"
+    },
+    {
+      "name": "ShowWaived",
+      "type": "boolean"
+    },
+    {
+      "name": "SectionFilter",
+      "type": "string"
+    },
+    {
+      "name": "ActionFilter",
+      "type": "string"
+    },
+    {
+      "name": "keyword",
+      "type": "string"
+    },
+    {
+      "name": "CampusID",
+      "type": "integer"
+    },
+    {
+      "name": "CommentFilter",
+      "type": "string"
+    },
+    {
+      "name": "blnReadOnly",
+      "type": "boolean"
+    },
+    {
+      "name": "blnStudentMaint",
+      "type": "boolean"
+    },
+    {
+      "name": "EnrollmentID",
+      "type": "integer"
+    },
+    {
+      "name": "StartRow",
+      "type": "integer"
+    }
   ],
   "actors": [
     {
-      "name": "User",
-      "role": "Interacts with the enrollment grid to view, edit, and save data."
-    },
-    {
-      "name": "System",
-      "role": "Handles data processing, validations, and interface updates based on user actions."
+      "name": "UserSession",
+      "role": "Manages user context and permissions"
     }
   ],
   "workflows": [
     {
-      "name": "Enrollment Data Editing",
+      "name": "WCB Status Update",
       "steps": [
-        "User views enrollment data through the grid interface.",
-        "User applies filters such as CohortID, TermID, SectionFilter, etc.",
-        "User edits enrollment data inline.",
-        "System validates changes and may display validation messages.",
-        "User saves changes, triggering server-side processing."
+        "Initialize InputParameters with session data",
+        "Search code records for WCB statuses",
+        "Bind data to grid view",
+        "Handle row data binding for header and footer visibility",
+        "Enable data manipulation based on row type",
+        "Execute command operations (save, cancel, edit next)"
       ]
     }
   ],
   "business_rules": [
-    "WCBStatuses are fetched via a code search using UserSession and displayed in a dropdown.",
-    "Save actions are dependent on whether the EnrollmentID is zero or greater."
+    "Hide Save All button in header when EnrollmentID is not zero",
+    "Show Save button in footer when EnrollmentID is not zero",
+    "Bind dropdown list with WCB statuses",
+    "Disable calendar controls if read-only"
   ],
   "validations": [
-    "Validation is applied to ensure UserSession is available before processing data selection.",
-    "Input fields are validated for proper data types and required values."
+    "Validate session existence before selecting data"
   ],
-  "calculations": [
-    "Sorts grid data based on gridDataEdit.SortExpression and SortDirection.",
-    "Calculates and adjusts grid pagination using StartRow and gridDataEdit.PageSize."
-  ],
+  "calculations": [],
   "conditions": [
-    "Visibility of certain UI panels is conditional on the number of rows in the grid and the EnrollmentID value.",
-    "User actions such as 'cmdSave' and 'cmdSaveAll' trigger different data processing based on conditions like 'isDirty'."
+    "Check if gridDataEdit rows count is less than page size for button visibility adjustments",
+    "Determine redirect based on warnings count"
   ],
   "system_behavior": [
-    "Hides or shows UI buttons based on the 'blnReadOnly' property.",
-    "Handles asynchronous postbacks and client-side script registrations."
+    "Manage visibility of control buttons based on user permissions and data state",
+    "Update JavaScript variables asynchronously"
   ],
   "dependencies": [
-    "HSPnet.DataLayer",
-    "HSPnet.UI",
-    "HSPnet.Framework"
+    "Depends on HSPnet session for user context",
+    "Interacts with code search for WCB statuses",
+    "Utilizes data layer for enrollment data binding"
   ],
-  "exceptions": [
-    "Redirects are triggered in case warnings are returned during user actions."
-  ],
+  "exceptions": [],
   "source_document_ids": [
     "04bbe570-1e68-580a-82d5-cb4f52b7154d",
     "37783754-1a27-56cc-a1fd-f7e76c9cdf5b",
@@ -96,8 +120,5 @@
     "ec24234e-0fd7-59e8-8399-ef54c758fe87",
     "fa0346af-3657-5f0d-9dde-5ba563cf52c5"
   ],
-  "content_gaps": [
-    "Detailed explanations of exception handling are limited.",
-    "Some workflows may lack clear and complete descriptions of steps."
-  ]
+  "content_gaps": []
 }
