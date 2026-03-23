@@ -1,0 +1,97 @@
+{
+  "filename": "MaintAgencyProfile",
+  "found": true,
+  "summary": "The MaintAgencyProfile document contains the user interface and functionality for managing agency profiles within the HSPnet application. It includes controls for managing documents, requirements, history, closures, security settings, and agency information.",
+  "purpose": "To provide an interface for users to manage and view various aspects of agency profiles, including documents, requirements, history, closures, security settings, and general agency information.",
+  "entities": [],
+  "fields": [
+    "lblErrorList",
+    "cmdHideErrorPanel",
+    "pnlWarning",
+    "lblWarningCaption",
+    "lblWarningList",
+    "cmdHideWarningPanel",
+    "hdnReadOnly",
+    "fvwAgencyProfileHeader",
+    "lblPleaseWait",
+    "pnlReportHTML",
+    "lblReportHTML",
+    "updPnlMain"
+  ],
+  "actors": [
+    "UserSession",
+    "AgencyID"
+  ],
+  "workflows": [
+    {
+      "name": "Manage Agency Profile",
+      "steps": [
+        "Validate URL hash using UserSession",
+        "Load agency profile data from database",
+        "Configure tabs based on agency data availability",
+        "Enable or disable tabs based on user permissions and configurations",
+        "Set agency profile properties and bind data to controls",
+        "Handle UI interactions and events such as tab changes, form submissions, and validations"
+      ]
+    }
+  ],
+  "business_rules": [
+    "Tabs are enabled or disabled based on user permissions and configuration settings",
+    "Agency profile data is loaded from the database using the agency ID",
+    "Profile data fields are conditionally displayed based on their content",
+    "User sessions determine the visibility and editability of the profile tabs"
+  ],
+  "validations": [
+    "Validate document and closure sub-disciplines",
+    "Ensure the requirement description is provided when required",
+    "Check start and end dates for max values",
+    "Validate that start date is less than or equal to end date"
+  ],
+  "calculations": [],
+  "conditions": [
+    "UsingAlternateDatabase condition affects tab availability",
+    "ReadOnly setting affects screen editability"
+  ],
+  "system_behavior": [
+    "The system allows users to switch between tabs (Documents, Requirements, History, Closures) based on the current page state",
+    "Page client scripts are registered for additional functionalities",
+    "Tabs dynamically update headers to reflect the existence of data for particular categories"
+  ],
+  "dependencies": [
+    "User session and permissions",
+    "Database configuration",
+    "Resources for UI text and labels"
+  ],
+  "exceptions": [
+    "Handling empty or null fields when binding data to controls",
+    "Security checks when enabling profile tabs"
+  ],
+  "source_document_ids": [
+    "0d54d5ab-8937-5764-bff9-ceffdf2f11ed",
+    "190804d3-94c4-5553-a104-a23e14484934",
+    "1d3340bb-b315-54ca-912f-91f480629952",
+    "1eae7a7a-b0ad-5280-9102-db91a9342a23",
+    "26d85a29-80a3-50fa-b71b-1c608b403291",
+    "29d94aa3-2be4-588b-802a-72eaf36ab577",
+    "2d180c80-aa86-5310-989a-aad2f046de50",
+    "3253e74c-cf66-5722-b093-8f5cf0c5a944",
+    "36f1bb93-48ae-567c-a632-f00d9b0582c9",
+    "4516abf4-0416-5533-8947-1b860dc1e849",
+    "4893d027-7f53-5531-b477-c1fe072db23d",
+    "4c2fd43d-2da8-5233-9c67-23d682bcbb6a",
+    "510b9a38-d736-56f0-966d-2fc54f0306ee",
+    "53c9721e-fc35-5143-9f2c-794c6c17426e",
+    "54fbe2c7-512b-581a-acb9-210d3744e157",
+    "660a17b9-3fc3-52b7-b238-b85920d268cf",
+    "69928b57-a827-5dd7-bd9c-b31f656ab3ec",
+    "6b0686d8-e51f-5a72-8d80-e64322e6426f",
+    "864e75e9-f37f-5ccd-83d2-6da3510dfb91",
+    "8befa1b2-6738-5173-be5b-bc80b3f8eea9",
+    "901043c2-761c-5050-8edc-118ee94c151d",
+    "919814b6-3836-5056-9ad2-a0f7d0e135a1",
+    "a27e6136-7e70-53bc-846a-266fa967b44d",
+    "df0314eb-52c0-5d9a-92a1-16058a435393",
+    "f962ee33-11f8-5120-bfc6-a4e79c9f07e6"
+  ],
+  "content_gaps": []
+}
