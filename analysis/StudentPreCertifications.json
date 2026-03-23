@@ -1,0 +1,86 @@
+{
+  "filename": "StudentPreCertifications",
+  "found": true,
+  "summary": "The StudentPreCertifications system is a web-based interface designed to manage student certifications, allowing users to view, add, edit, and delete certification records. It is implemented using ASP.NET with various controls such as GridView, FormView, and ObjectDataSource to interact with the database. The system features user role-based permissions to control access to different functionalities.",
+  "purpose": "The purpose of the StudentPreCertifications system is to facilitate the management of student certification records, including functionalities for inserting, updating, and deleting records. It is intended for use by administrators and possibly academic staff to manage certification data effectively.",
+  "entities": [],
+  "fields": [
+    "CertificationCodeID",
+    "StatusCodeID",
+    "ID",
+    "StudentID",
+    "SessionID"
+  ],
+  "actors": [
+    "UserSession",
+    "StudentUser",
+    "PlacingUser",
+    "StudentMaint",
+    "ITProvisioning"
+  ],
+  "workflows": [
+    {
+      "name": "Insert Certification",
+      "steps": [
+        "User selects to add a new certification.",
+        "System initializes FormView in Insert mode.",
+        "User inputs certification details.",
+        "Form is validated; if valid, input values are saved to the database."
+      ]
+    },
+    {
+      "name": "Edit Certification",
+      "steps": [
+        "User selects a certification to edit.",
+        "System loads details into FormView in Edit mode.",
+        "User modifies certification details.",
+        "Form is validated; if valid, updated values are saved to the database."
+      ]
+    },
+    {
+      "name": "Delete Certification",
+      "steps": [
+        "User selects a certification to delete.",
+        "System requests confirmation.",
+        "Upon confirmation, certification is deleted from the database."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Insert and update operations require user permissions.",
+    "Add button setup based on user editability and permissions."
+  ],
+  "validations": [
+    "Check if page is valid before inserting or updating records."
+  ],
+  "calculations": [
+    "Future expiry dates are calculated using a maximum future years limit."
+  ],
+  "conditions": [
+    "Permissions checks to determine access to insert, edit, delete functionalities."
+  ],
+  "system_behavior": [
+    "Redirects to certifications page after insert, update, and delete operations.",
+    "Hides UI elements based on user permissions."
+  ],
+  "dependencies": [
+    "HSPnetSession for user session management.",
+    "ScriptManager for asynchronous postback handling."
+  ],
+  "exceptions": [
+    "Cancel insert or update operations if form is not valid.",
+    "Cancel data source selecting operations if user session is null."
+  ],
+  "source_document_ids": [
+    "1c096ee0-30c7-5ade-8080-86ff9953b982",
+    "4de42f24-da61-5d24-806a-6189d1372af2",
+    "660fbdae-94f0-550f-8327-309a329a996e",
+    "8bcbad5d-7fad-535a-b1db-5074da0d0458",
+    "a377d73c-22d6-5d64-9144-d6c7367e9437",
+    "ac79af56-4f34-5c4f-83a7-2faaffcf8961",
+    "de0024ce-a9b7-5bb6-a782-9bb66f3a7aa2",
+    "eadd81d1-5894-569a-a084-0e0fd290bab4",
+    "ed016384-d421-58fb-b1dd-bd16bf463fff"
+  ],
+  "content_gaps": []
+}
