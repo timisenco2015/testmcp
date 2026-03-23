@@ -1,14 +1,106 @@
 {
-  "filenames": [
-    "SiteDocument",
-    "WelcomeStaffAdmin",
-    "ServiceCode",
-    "SiteProfileHistory",
-    "EmailPopupDocument",
-    "CostCentre",
-    "ExpenseBatch",
-    "TimetableAssessments",
-    "AdHocQuery",
-    "StudentPrerequisites"
-  ]
+
+1. **SiteDocument**
+   - **Summary**: The `SiteDocument` class is defined within the HSPnet.DataLayer namespace and appears to involve handling site documents with properties for ID and SiteID.
+   - **Purpose**: To handle and manage site document data within the system.
+   - **Entities**: `SiteDocument`
+   - **Fields**: `ID`, `SiteID`
+   - **Actors**: Not explicitly mentioned.
+   - **Workflows**: Not explicitly detailed.
+   - **Business Rules**: Not stated.
+   - **Validations**: Not described.
+   - **Calculations**: Not indicated.
+   - **Conditions**: Not specified.
+   - **System Behavior**: Defined within a sealed class suggesting limited inheritance and specific functionality.
+   - **Dependencies**: Utilizes namespaces: `System`, `System.Data.SqlClient`, `System.Collections.Generic`, and HSPnet specific libraries.
+   - **Exceptions**: Not detailed.
+   - **Source Document IDs**: ["a2967f17-a924-5e9c-8b15-d1f7bd028b32"]
+   - **Content Gaps**: Details of specific methods or functionality within `SiteDocument` are not provided.
+
+2. **WelcomeStaffAdmin**
+   - **Summary**: This document primarily contains UI element definitions, script management, and page event handling specific to the staff administration view.
+   - **Purpose**: To manage UI components and interactions on the staff admin page.
+   - **Entities**: Not specifically applicable.
+   - **Fields**: Various UI controls like `valEndDate`, `txtEndDate`, `btnEndDateCalendar`.
+   - **Actors**: Users interacting with the staff admin UI.
+   - **Workflows**: Includes event handling for page rendering and data binding (`Page_PreRender`, `gvwApplications_DataBound`).
+   - **Business Rules**: Not detailed.
+   - **Validations**: Includes use of RequiredFieldValidators and CustomValidators.
+   - **Calculations**: Not specified.
+   - **Conditions**: Utilizes UI control states for conditions.
+   - **System Behavior**: Defines behaviors for UI rendering and interaction.
+   - **Dependencies**: Relies on ASP.NET Web Forms controls and AJAX Control Toolkit.
+   - **Exceptions**: Not mentioned.
+   - **Source Document IDs**: ["05db31e4-e8b6-53ee-a6fb-812c106f0134", "100d5925-a5f8-53db-8493-02cddd563eb7", "3c84bade-9671-5fbf-acce-3c87a835e9b4", "4c4b97b8-d242-5261-a515-767a3f7d7a49", "52b5066f-23f6-5d82-96cd-5d51dad3de79", "5bb85da3-f5b4-5753-b07c-9bb2a04eeb89", "5d9b92ea-7c12-5070-8603-977cf14d0e04", "6701b153-5288-59e5-8de9-61b68a1fc292", "6eca1317-c0b2-5225-a9af-f034a722d924", "871df91b-7ba0-558f-83ea-d5be1b0dc8db", "8cea5c3a-2fbf-5206-a0c0-9425a5e14511", "964a48c9-231c-5d58-a44d-3675d949a453", "966ed8d3-a5af-567f-b092-936217777551", "a0c3da28-32a5-5fce-91b2-17274efa016e", "afbb4ec5-43c8-5281-ad2c-4b6cfd23a48e", "b8e79322-9a0e-5fe7-8953-3d05e231f923", "bf423a80-93db-572d-8cb8-c79f04214a93", "ca71b077-cc26-5979-a44f-59700a41316b", "d278278f-d4ec-5f4a-9f29-a02b66773bb9", "db9b35e9-53ca-5eaf-9d75-4f3a72131bc7", "e249a878-c837-5d1c-9a3d-5167df2614fb"]
+   - **Content Gaps**: Specific logic behind certain ID references and UI control interactions are not fully described.
+
+3. **ServiceCode**
+   - **Summary**: The `ServiceCode` document handles service code data with properties like ID, CodeCategoryID, ShortName, and others.
+   - **Purpose**: To manage and query service codes within the system.
+   - **Entities**: `ServiceCode`, `ServiceCodes`
+   - **Fields**: `ID`, `CodeCategoryID`, `ShortName`, `Name`, `SortOrder`, `Notes`, `NameAlt`, `NotesAlt`
+   - **Actors**: Not explicitly mentioned.
+   - **Workflows**: Procedures for listing and accessing service codes through methods in `ServiceCodes`.
+   - **Business Rules**: Localizes data if running in alternate language mode.
+   - **Validations**: Not directly stated.
+   - **Calculations**: Not specified.
+   - **Conditions**: Handling of language-specific fields.
+   - **System Behavior**: Provides static methods to retrieve service code data.
+   - **Dependencies**: SQL data operations via `SqlDataReader`.
+   - **Exceptions**: Not noted.
+   - **Source Document IDs**: ["94f1b055-348d-508a-ae6e-cf7960a8c6a2", "e4ebe4b4-6d14-5c3f-b693-61016f765239", "f976b9af-a402-540f-b162-391d578fac7c"]
+   - **Content Gaps**: Lack of detailed explanation on alternative handling logic and error management.
+
+4. **SiteProfileHistory**
+   - **Summary**: Manages historical records of site profiles, tracking actions, system properties, and user interactions.
+   - **Purpose**: To maintain an audit trail and history for site profile changes.
+   - **Entities**: `SiteProfileHistory`
+   - **Fields**: `ID`, `ActionDate`, `ScreenSection`, `UserAction`, `Fields`, `Agency`, `AgencyName`, `LastName`, `FirstName`, `MiddleName`, `Phone`, `ByUserID`, `ByOriginalUserID`, `ByUserSysAdmin`
+   - **Actors**: Users who modify site profiles.
+   - **Workflows**: Retrieval and display of historical data via methods in `SiteProfileHistory`.
+   - **Business Rules**: Formats data when displaying, especially in tooltips.
+   - **Validations**: Checks for user session validity.
+   - **Calculations**: Formats action dates and user details.
+   - **Conditions**: Uses alternate fields if specified.
+   - **System Behavior**: Provides data search and retrieval processes.
+   - **Dependencies**: SQL data operations using `SqlDataReader`.
+   - **Exceptions**: Not documented.
+   - **Source Document IDs**: ["25f89a24-5eda-5a3f-83df-1de69b12b3f1", "26e09292-d304-55c6-94e5-ef3346453c4b", "7ca6b963-9ae9-5cd3-82d5-f30dcb727ae3", "a8f030c6-90b8-53a1-bb8a-3b7ef33b9488", "e806999c-3a39-5720-9b59-303faebc9eb6"]
+   - **Content Gaps**: Specific user actions and screen sections are not fully elaborated.
+
+5. **EmailPopupDocument**
+   - **Summary**: Handles document popups related to email functionalities with attributes like ID, FileName, FilePath.
+   - **Purpose**: To manage email popup document entries and operations.
+   - **Entities**: `EmailPopupDocument`, `EmailPopupDocuments`
+   - **Fields**: `ID`, `FileName`, `FilePath`, `Checked`
+   - **Actors**: Not specified.
+   - **Workflows**: Document searching and deletion functionalities.
+   - **Business Rules**: Not explicitly detailed.
+   - **Validations**: Checks for valid data information before processing.
+   - **Calculations**: Not mentioned.
+   - **Conditions**: Handles file deletions.
+   - **System Behavior**: Provides static methods for searching and deleting documents.
+   - **Dependencies**: File handling operations using `System.IO`.
+   - **Exceptions**: Basic exception handling for file operations.
+   - **Source Document IDs**: ["7287734e-f13d-550f-9249-4242db620766", "927bc837-5564-5759-9324-27c6d5d7321d"]
+   - **Content Gaps**: Details on error handling strategies are sparse.
+
+6. **CostCentre**
+   - **Summary**: Deals with the retrieval of cost center related data using several parameters defined under `CostCentreView` and `CostCentreRecord`.
+   - **Purpose**: To handle and record cost center data for placements.
+   - **Entities**: `CostCentreRecord`, `CostCentreView`
+   - **Fields**: Various fields including `PlacingAgency`, `Department`, `ProgramYear`, `CFO`.
+   - **Actors**: Not explicitly stated.
+   - **Workflows**: Acquisition and storage of cost centre records.
+   - **Business Rules**: Encodes various parameters for specific record retrieval.
+   - **Validations**: Not fully specified.
+   - **Calculations**: Not mentioned.
+   - **Conditions**: Uses specific parameters for database queries.
+   - **System Behavior**: Describes data retrieval and management functions.
+   - **Dependencies**: Utilizes HSPnet framework and database structures.
+   - **Exceptions**: Not detailed.
+   - **Source Document IDs**: ["20ac8054-536e-5203-b33d-7db2b2dc2359", "2c04f259-cf58-5d95-803c-8ebf16840f6c", "97bc3ba9-9fe4-52b1-8847-dce2198e0aee", "dd965b0f-f9cf-57eb-a3f8-32b3b97a6d1a", "e1ac7e41-5e9e-5f16-baa0-29d05a70f976"]
+   - **Content Gaps**: Missing specifics on record filtering and calculations.
+
+This analysis is based purely on the retrieved content, and content gaps exist where specific logic or system interactions are not described fully.
 }
