@@ -1,0 +1,124 @@
+```json
+{
+  "filename": "CourseAssessment",
+  "found": true,
+  "summary": "The CourseAssessment document outlines procedures for managing course assessments, including creation, update, deletion, validation, and retrieval of assessment details.",
+  "purpose": "To manage and execute database operations related to course assessments in the system.",
+  "entities": [
+    "CourseAssessment",
+    "AssessmentValidationResult"
+  ],
+  "fields": [
+    "ID",
+    "CourseID",
+    "AssessmentTemplateCodeID",
+    "AssessorTypeCodeID",
+    "SubjectTypeCodeID",
+    "AssessmentTypeCodeID",
+    "AssessorCanViewSubjectsAnswers",
+    "OpenDaysAfterStart",
+    "CloseDaysAfterEnd",
+    "SubjectCanViewAssessorAnswers",
+    "ViewUntilDaysAfterEnd",
+    "AssessorTypeCode",
+    "AssessorTypeDescription",
+    "SubjectTypeCode",
+    "SubjectTypeDescription",
+    "AssessmentTypeCode",
+    "AssessmentTypeDescription",
+    "AssessmentTemplateCode",
+    "AssessmentTemplateDescription",
+    "SubjectTypeDescriptionFormatted",
+    "OpenDaysAfterStartFormatted",
+    "CloseDaysAfterEndFormatted",
+    "ViewUntilDaysAfterEndFormatted",
+    "OptionAppliedAssessorTypeCodeID"
+  ],
+  "actors": [
+    "HSPnetSession"
+  ],
+  "workflows": [
+    {
+      "name": "CourseAssessmentAdd",
+      "steps": [
+        "ProcedureName set to CourseAssessmentAdd",
+        "Add parameters: SessionID, CourseID, AssessorTypeCodeID, SubjectTypeCodeID, AssessmentTypeCodeID, AssessmentTemplateCodeID, OpenDaysAfterStart, CloseDaysAfterEnd, AssessorCanViewSubjectsAnswers, SubjectCanViewAssessorAnswers, ViewUntilDaysAfterEnd, OptionAppliedAssessorTypeCodeID",
+        "Execute query"
+      ]
+    },
+    {
+      "name": "CourseAssessmentUpdate",
+      "steps": [
+        "ProcedureName set to CourseAssessmentUpdate",
+        "Add parameters: SessionID, ID, AssessorTypeCodeID, SubjectTypeCodeID, AssessmentTypeCodeID, AssessmentTemplateCodeID, OpenDaysAfterStart, CloseDaysAfterEnd, AssessorCanViewSubjectsAnswers, SubjectCanViewAssessorAnswers, ViewUntilDaysAfterEnd, OptionAppliedAssessorTypeCodeID",
+        "Execute query"
+      ]
+    },
+    {
+      "name": "CourseAssessmentDelete",
+      "steps": [
+        "ProcedureName set to CourseAssessmentDelete",
+        "Add parameters: SessionID, ID",
+        "Execute query"
+      ]
+    },
+    {
+      "name": "CourseAssessmentSearchID",
+      "steps": [
+        "ProcedureName set to CourseAssessmentSearchID",
+        "Add parameters: SessionID, ID",
+        "Execute query and read data if available",
+        "Populate CourseAssessment fields from data reader"
+      ]
+    },
+    {
+      "name": "CourseAssessmentSearch",
+      "steps": [
+        "ProcedureName set to CourseAssessmentSearch",
+        "Add parameters: SessionID, CourseID",
+        "Execute query and read data in loop if available",
+        "Populate CourseAssessment fields from data reader"
+      ]
+    },
+    {
+      "name": "CourseAssessmentValidation",
+      "steps": [
+        "ProcedureName set to CourseAssessmentValidation",
+        "Add parameters: SessionID, CourseID",
+        "Execute query and read data if available",
+        "Populate AssessmentValidationResult fields from data reader"
+      ]
+    }
+  ],
+  "business_rules": [],
+  "validations": [
+    "AssessmentValidationResult contains fields: InterimWithoutFinal, InstructorsAndSupervisors, AssessmentMaximumExceeded"
+  ],
+  "calculations": [],
+  "conditions": [
+    "Check if sess.IsUsingDefaultLocale to determine which description fields to populate",
+    "Format SubjectTypeDescription based on AssessorTypeCode",
+    "Format OpenDaysAfterStart and CloseDaysAfterEnd based on comparison with zero"
+  ],
+  "system_behavior": [],
+  "dependencies": [
+    "SqlDataReader for database operations",
+    "HSPnet.Framework",
+    "HSPnet.App_GlobalResources",
+    "HSPnet.UI"
+  ],
+  "exceptions": [],
+  "source_document_ids": [
+    "0c1ddf30-f1e7-51b9-88fc-4ecde3e29648",
+    "211455c7-0731-54d5-ae7f-428ae36f5adf",
+    "2868ba8f-8517-54cb-9965-af3056f02a8d",
+    "441804ae-233d-55f1-bf17-b2afda55fcdf",
+    "7908e8fe-0105-5fbd-a397-ad9c92ca4b5d",
+    "a0d9506b-0c33-5d13-8abf-7c577500d0a3",
+    "b607dc1c-b566-5d8a-b423-eefab6a14ea9",
+    "c8475c24-cc6e-5838-9754-82e7420a0328",
+    "e8acf69f-fa26-5173-8966-b5722ce94765"
+  ],
+  "content_gaps": []
+}
+```
