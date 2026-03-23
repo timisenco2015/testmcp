@@ -2,85 +2,88 @@
 {
   "filename": "CriminalRecordsCheckEditAll",
   "found": true,
-  "summary": "The document pertains to the CriminalRecordsCheckEditAll user control used in the HSPnet enrollment system, enabling users to edit criminal records checks for student enrollments.",
-  "purpose": "To provide an interface for managing and editing criminal records check information for student enrollment within the HSPnet system.",
+  "summary": "The CriminalRecordsCheckEditAll component is part of the HSPnet system used for managing and editing criminal record checks within enrollments. It facilitates displaying, editing, and saving records and statuses through various UI controls and workflows.",
+  "purpose": "To manage and edit criminal record checks within the enrollment process using user interface controls, workflows, and validations.",
   "entities": [
-    "UserSession",
-    "GridView",
-    "Enrollment",
-    "CRCStatus",
-    "StudentPrerequisites",
-    "DataLayer"
+    "HSPnet.UserControls.Enrollment",
+    "HSPnetSession",
+    "StudentPrerequisites"
   ],
   "fields": [
     "ValidationSummary1",
     "gridDataEdit",
     "dsCRC",
-    "EnrollmentID",
-    "CourseID",
-    "CohortID",
-    "TermID",
+    "SectionFilter",
+    "ActionFilter",
+    "CampusID",
+    "keyword",
     "ShowGrad",
     "ShowInactive",
     "ShowWaived",
-    "SectionFilter",
-    "ActionFilter",
-    "keyword",
-    "CampusID",
     "CommentFilter",
+    "CohortID",
+    "TermID",
+    "CourseID",
+    "EnrollmentID",
     "StartRow",
-    "txtDirty",
-    "txtStudentID",
-    "ddCRCStatus",
-    "txtCRCStatusDate",
-    "txtCRCStatusNotes"
+    "CRCStatus"
   ],
   "actors": [
-    "User",
-    "Administrator"
+    "UserSession",
+    "ScriptMgr"
   ],
   "workflows": [
     {
-      "name": "Edit Criminal Records",
+      "name": "Grid Row Processing",
       "steps": [
-        "Load gridDataEdit with student enrollment data.",
-        "Filter records based on conditions like ShowGrad, ShowInactive, etc.",
-        "Modify CRCStatus, CRCStatusDate, and CRCStatusNotes for selected students.",
-        "Use JavaScript to manage dirty fields and interactions.",
-        "Process commands like cmdSaveAll, cmdSave, and cmdSaveEditNext."
+        "Bind data to gridDataEdit",
+        "Hide buttons based on row count",
+        "Setup JavaScript variables",
+        "Execute Save commands"
+      ]
+    },
+    {
+      "name": "Data Source Selecting",
+      "steps": [
+        "Validate UserSession",
+        "Set input parameters for data selection",
+        "Fetch CRCStatusList"
+      ]
+    },
+    {
+      "name": "Row Command Execution",
+      "steps": [
+        "Determine if redirect is required",
+        "Update student CRC details",
+        "Handle save and cancel commands"
       ]
     }
   ],
   "business_rules": [
-    "Only administrators can edit CRC information.",
-    "Records must be marked dirty before they can be saved.",
-    "Ensure valid entries in CRCStatus dropdown."
+    "Grid.HideButtons based on enrollment state",
+    "Redirect conditional on message warnings"
   ],
   "validations": [
-    "ValidationSummary1 ensures required fields are provided.",
-    "Check for valid session object before any data operation."
+    "UserSession existence check",
+    "JavaScript variable setup for async postback"
   ],
-  "calculations": [
-    "Determine sort direction based on gridDataEdit.SortDirection."
-  ],
+  "calculations": [],
   "conditions": [
-    "UserSession must be active.",
-    "EnrollmentID > 0 to display certain controls.",
-    "Hide buttons depending on ReadOnly status."
+    "EnrollmentID check for button visibility",
+    "Data row type check for field assignments"
   ],
   "system_behavior": [
-    "Generate URIs based on filter criteria.",
-    "Redirect responses based on command execution results.",
-    "Set grid to ReadOnly depending on user access."
+    "RowState set to Edit based on EnrollmentID",
+    "GridView column visibility managed dynamically",
+    "Button visibility toggled per grid state"
   ],
   "dependencies": [
     "HSPnet.DataLayer",
-    "HSPnet.UI",
-    "HSPnet.Framework"
+    "HSPnet.UI.Calendar",
+    "Codes.CodeSearch"
   ],
   "exceptions": [
-    "Cancel operation if UserSession is null.",
-    "Handle warnings through UserSession.Messages."
+    "Cancel data source selection if UserSession is null"
   ],
   "source_document_ids": [
     "03144aa6-93b7-599f-b8e0-5588317ba19b",
@@ -93,8 +96,6 @@
     "f1a93269-4cd6-5f47-93a1-f9f2e4730224",
     "f3ce8c3c-3cd0-531b-a85e-f90764dac0e2"
   ],
-  "content_gaps": [
-    "No detailed user permissions or additional business rules."
-  ]
+  "content_gaps": []
 }
 ```
