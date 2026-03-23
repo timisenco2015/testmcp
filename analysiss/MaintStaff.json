@@ -1,0 +1,92 @@
+{
+    "filename": "MaintStaff",
+    "found": true,
+    "summary": "MaintStaff is part of a web application that handles staff management, including creation, editing, and deactivation of staff records.",
+    "purpose": "The purpose of MaintStaff is to manage staff records within an organization. This includes allowing users to add, edit, deactivate, and manage roles and permissions for staff members.",
+    "entities": [],
+    "fields": [
+        "FirstName",
+        "MiddleName",
+        "LastName",
+        "Address1",
+        "Address2",
+        "City",
+        "Province",
+        "Country",
+        "Phone",
+        "AltPhone",
+        "Email",
+        "SecureEmail",
+        "Fax",
+        "EmployeeNumber",
+        "Title",
+        "Department",
+        "DOB",
+        "Designation",
+        "SalutationCodeID",
+        "DayMonthOfBirth"
+    ],
+    "actors": [
+        "SystemAdministrator",
+        "LocalAdministrator",
+        "StaffAdmin",
+        "PlacementCoordinator",
+        "ReceivingCoordinator",
+        "Instructor",
+        "StudentMaint",
+        "GroupInstructor",
+        "CourseLeader",
+        "DestinationCoordinator",
+        "Supervisor"
+    ],
+    "workflows": [
+        {
+            "name": "Staff Management",
+            "steps": [
+                "Search for staff using search criteria.",
+                "Select staff from the list for actions.",
+                "Add new staff by filling in details and saving.",
+                "Edit existing staff details and save changes.",
+                "Deactivate staff with reason and comments.",
+                "Move staff to a different department."
+            ]
+        }
+    ],
+    "business_rules": [
+        "System administrators have full access to all functionalities.",
+        "Local administrators can manage staff within their department.",
+        "Staff cannot be edited if they are not within the user's allowed departments.",
+        "Mandatory fields must be filled before saving a record."
+    ],
+    "validations": [
+        "Email is validated against a regex pattern.",
+        "Phone and Fax numbers are validated using masked input.",
+        "Secure email must be different from the regular email."
+    ],
+    "calculations": [
+        "DayMonthOfBirth is appended with year 1904 if only day and month are provided."
+    ],
+    "conditions": [
+        "Only SystemAdministrators can edit staff when the staff is inactive.",
+        "Email fields are required if the department mandates email for staff."
+    ],
+    "system_behavior": [
+        "Handles showing and hiding UI elements based on user roles and system settings.",
+        "Triggers AJAX updates for partial page refreshes."
+    ],
+    "dependencies": [
+        "HSPnet.DataLayer for database operations.",
+        "HSPnet.UI for front-end components."
+    ],
+    "exceptions": [
+        "Duplicate staff names trigger display of a duplicate name panel.",
+        "Invalid email or phone entries trigger error panels."
+    ],
+    "source_document_ids": [
+        "000e31ba-c090-5f69-98fa-6044bde25c7d",
+        "014e46b3-392b-5f80-825d-5fd621666360",
+        "01ccd47d-7ed7-5458-89ef-d508f7acfaef",
+        "01d54606-26e2-5fdb-ae1d-d9c0ec4b87a4"
+    ],
+    "content_gaps": ["Detailed roles and permissions for StaffAdmin are not fully described."]
+}
