@@ -1,0 +1,66 @@
+{
+  "filename": "UserHistory",
+  "found": true,
+  "summary": "The UserHistory class and UserHistoryController in the system manage user actions and history, including adding, changing, and retrieving user history entries.",
+  "purpose": "To keep track of user actions within the system, storing details such as action date, authorized person, comments, and related identifiers.",
+  "entities": [],
+  "fields": [
+    "ID",
+    "UserID",
+    "ActionDate",
+    "AuthorizedBy",
+    "ReasonCodeID",
+    "Comments",
+    "AuthorizedByContactID",
+    "Description",
+    "FirstName",
+    "MiddleName",
+    "LastName",
+    "AuthorizedByFirstName",
+    "AuthorizedByMiddleName",
+    "AuthorizedByLastName",
+    "NameFormatted",
+    "AuthorizedByNameFormatted",
+    "ActionDateFormatted"
+  ],
+  "actors": [
+    "UserHistoryController",
+    "HSPnetSession"
+  ],
+  "workflows": [
+    {
+      "name": "AddChanged",
+      "steps": [
+        "Initiate database procedure UserHistoryAddChanged",
+        "Add parameters: SessionID, UserID, ActionDate, AuthorizedBy, ReasonCodeID, Comments, ViewOnly, HideStudentNames, RoleID, Disabled, AuthorizedByContactID",
+        "Execute query to update user history"
+      ]
+    },
+    {
+      "name": "GetByUser",
+      "steps": [
+        "Initiate UserHistorySearch",
+        "Add parameter: UserID",
+        "Retrieve data using SqlDataReader",
+        "Map retrieved data to UserHistory entity fields"
+      ]
+    }
+  ],
+  "business_rules": [],
+  "validations": [],
+  "calculations": [],
+  "conditions": [],
+  "system_behavior": [
+    "Maintains user action history by storing records with specified fields",
+    "Provides method to search and retrieve user history by user ID",
+    "Formats names and dates for presentation"
+  ],
+  "dependencies": [],
+  "exceptions": [],
+  "source_document_ids": [
+    "26448301-75ec-55a1-bcac-075303f08a12",
+    "4d0e7773-7610-5e67-873a-19fcb4ac259d",
+    "b76f3b45-3643-504d-a9d6-3386fd84ebd0"
+  ],
+  "content_gaps": []
+}
