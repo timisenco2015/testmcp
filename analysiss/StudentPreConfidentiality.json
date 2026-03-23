@@ -1,0 +1,85 @@
+{
+  "filename": "StudentPreConfidentiality",
+  "found": true,
+  "summary": "The document outlines the system behavior and user interactions regarding the management of student confidentiality consent, including UI elements, data binding, and event handling within a web application.",
+  "purpose": "To implement functionality for managing student confidentiality consent forms, including UI controls, data updates, and user session handling.",
+  "entities": [],
+  "fields": [
+    "ConsentProgramID",
+    "ConsentObtainedDate",
+    "UnExpireConsent",
+    "ExpireConsent",
+    "ExpireReasonCodeID",
+    "ProviderListDept",
+    "ProviderTypeCodeID"
+  ],
+  "actors": [
+    "UserSession",
+    "Student"
+  ],
+  "workflows": [
+    {
+      "name": "Consent Management",
+      "steps": [
+        "LoadStudent() to retrieve student details.",
+        "Page_Load() initializes the page.",
+        "Data binding via DataBind() to load student prerequisites.",
+        "Handling consent form events such as inserting, updating, and deleting.",
+        "Pre-rendering UI components based on user session and screen editability."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Consent forms are editable based on user session roles.",
+    "Certain controls are visible only if conditions like consent expiration are met."
+  ],
+  "validations": [
+    "FormViewInsertEventArgs and FormViewUpdateEventArgs are used to check if the page is valid before proceeding with insert or update operations."
+  ],
+  "calculations": [],
+  "conditions": [
+    "Consent forms are editable if (UserSession.LocalAdministrator and UserSession.ReceivingCoordinator) or UserSession.SystemAdministrator."
+  ],
+  "system_behavior": [
+    "Updating or inserting consent details redirects the user to a specific URL.",
+    "Controls visibility is adjusted dynamically based on the user's session role and consent states."
+  ],
+  "dependencies": [
+    "HSPnet.Framework",
+    "HSPnet.DataLayer"
+  ],
+  "exceptions": [],
+  "source_document_ids": [
+    "0a181249-76ec-5478-9eb8-6ea3a3881e39",
+    "0fa0483e-98b5-5570-9240-ee321e454ff8",
+    "12e06506-3ca1-5a90-a430-86900c4f7494",
+    "19a9b724-4b2a-5d57-a8ed-a1aa3c6ebd7b",
+    "2b09b3c6-762a-5dc3-ac76-33d36d450991",
+    "37e0cfe6-5150-5dc0-9b49-84648486ea4c",
+    "488bbcd6-faad-543a-be57-2e0a862eb699",
+    "5017eda8-75e9-55b5-b05d-11e546d795e2",
+    "5a4a2197-6160-5605-9964-b58f8288e1ad",
+    "5c5cc441-ecb4-547f-a2b2-f48f09d29ea4",
+    "64f05e11-677f-593c-b92b-304650d4f186",
+    "6605638c-6b82-5361-a51b-ab420006d585",
+    "69e772b6-f73f-51ee-9fb1-2588d9cbe68a",
+    "6c7a7d2e-4bf9-50cb-a79e-24d811244535",
+    "77f52330-f5f2-5270-86c8-487f1cc608a1",
+    "7fef7ef6-7026-5b1e-affe-2641801ed422",
+    "84062b57-5834-5094-964e-0d35fcb4a608",
+    "858d9333-c565-5391-b8ca-82d17565efff",
+    "a93dd751-6e63-55ea-a94f-4e1a3eff2096",
+    "b3ea55dd-d727-5697-88df-261a648f50d3",
+    "b3f7bbec-70da-5f70-a8fa-bd4fe15f1509",
+    "b60d9ade-47f9-5d57-bea0-fdceeebbd527",
+    "b87750e5-29ab-5226-8add-7115de9b0b3f",
+    "ba530f59-2902-5c66-bd49-f3f53d82cbc4",
+    "c0b7716f-ed18-52ba-8364-fbec99657e2f",
+    "dbe73dd2-f912-5dcc-9195-fbec3415ec35",
+    "e024f6f4-5ae7-5aaf-bd61-d0c7c00e630e",
+    "e48442b7-e2c6-5e67-8b40-9934392cfa74",
+    "f4c2964a-24e0-5582-9dbe-54851add13e7",
+    "ff7f6d20-15d7-58f5-86d3-93f7038590a8"
+  ],
+  "content_gaps": []
+}
