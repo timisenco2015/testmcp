@@ -1,78 +1,61 @@
 {
-    "filename": "RptMnuReport_Wizards",
-    "found": true,
-    "summary": "RptMnuReport_Wizards is a user control in the HSPnet application that manages the functionality related to report wizards. It interacts with a GridView and a data source to manage and display wizard-related data.",
-    "purpose": "The purpose of the RptMnuReport_Wizards control is to facilitate the display and selection of report wizards available to the user, allowing them to navigate to specific wizard interfaces for report generation.",
-    "entities": [],
-    "fields": [
-        {
-            "name": "gridData",
-            "type": "GridView",
-            "description": "A web control for displaying wizard information."
-        },
-        {
-            "name": "dsWizards",
-            "type": "ObjectDataSource",
-            "description": "A data source control to manage the retrieval of wizard data."
-        },
-        {
-            "name": "UserSession",
-            "type": "HSPnetSession",
-            "description": "Stores the session information of the current user."
-        },
-        {
-            "name": "blnPlacingUser",
-            "type": "Boolean",
-            "description": "Indicates if the session user is a placing user."
-        },
-        {
-            "name": "blnReceivingUser",
-            "type": "Boolean",
-            "description": "Indicates if the session user is a receiving user."
-        }
-    ],
-    "actors": [
-        {
-            "name": "UserSession",
-            "description": "Represents the current user's session interacting with the report wizards."
-        }
-    ],
-    "workflows": [
-        {
-            "name": "Data Selection",
-            "steps": [
-                "Check if UserSession is null.",
-                "If null, cancel the data selection operation.",
-                "If not null, set input parameters for session and user types into the data selection event."
-            ]
-        },
-        {
-            "name": "Row Command Execution",
-            "steps": [
-                "Capture the command name from the GridView control.",
-                "If the command is 'cmdWizards', cache the current user session.",
-                "Redirect the user to the 'ReportWizardMenu.aspx' page with the appropriate session query string and Wizard ID."
-            ]
-        }
-    ],
-    "business_rules": [],
-    "validations": [],
-    "calculations": [],
-    "conditions": [],
-    "system_behavior": [
-        "The control cancels data operations if no user session is found.",
-        "Allows navigation to wizard-specific pages if a command is executed on the grid."
-    ],
-    "dependencies": [
-        "HSPnetSession for session management.",
-        "GridView and ObjectDataSource for data presentation and manipulation."
-    ],
-    "exceptions": [
-        "Operations are canceled if UserSession is not available."
-    ],
-    "source_document_ids": [
-        "94607353-a6e5-5e55-b792-5de3aec82d07",
-        "c016b78d-cf14-54d9-af1d-295551f3c6b4"
-    ],
-    "content_gaps": []
+  "filename": "RptMnuReport_Wizards",
+  "found": true,
+  "summary": "RptMnuReport_Wizards is a partial class within the HSPnet.UserControls.ReportMenu namespace, responsible for handling report wizards in a web application. It includes a GridView for displaying data and an ObjectDataSource for data operations.",
+  "purpose": "The class is designed to facilitate the display and management of report wizards through a web interface, handling operations and events related to user sessions and wizard selection.",
+  "entities": [],
+  "fields": [
+    {
+      "name": "gridData",
+      "type": "System.Web.UI.WebControls.GridView",
+      "description": "A GridView control for displaying wizard data, automatically generated and requires modifications in the code-behind file."
+    },
+    {
+      "name": "dsWizards",
+      "type": "System.Web.UI.WebControls.ObjectDataSource",
+      "description": "An ObjectDataSource control to manage data operations for the wizard, automatically generated and requires modifications in the code-behind file."
+    }
+  ],
+  "actors": [
+    "UserSession"
+  ],
+  "workflows": [
+    {
+      "name": "Data Selection",
+      "steps": [
+        "Check if UserSession is null.",
+        "If null, cancel the data selection operation.",
+        "If not null, set input parameters for session and user status (PlacingUser and ReceivingUser)."
+      ]
+    },
+    {
+      "name": "Row Command Execution",
+      "steps": [
+        "On command 'cmdWizards', cache the current user session.",
+        "Redirect to ReportWizardMenu.aspx with appended session query string and WizardID."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Data operations are cancelled if UserSession is not active."
+  ],
+  "validations": [],
+  "calculations": [],
+  "conditions": [],
+  "system_behavior": [
+    "Handles the selection and row command events for report wizards.",
+    "Manages user session data caching and page redirections based on command inputs."
+  ],
+  "dependencies": [
+    "HSPnetSession for managing user sessions.",
+    "QueryString utility class for URL manipulations."
+  ],
+  "exceptions": [
+    "Cancellation of data operations if UserSession is invalid or null."
+  ],
+  "source_document_ids": [
+    "94607353-a6e5-5e55-b792-5de3aec82d07",
+    "c016b78d-cf14-54d9-af1d-295551f3c6b4"
+  ],
+  "content_gaps": []
 }
