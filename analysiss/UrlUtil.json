@@ -1,0 +1,64 @@
+{
+  "filename": "UrlUtil",
+  "found": true,
+  "summary": "The UrlUtil class provides utility methods for handling URLs and HTML content in a web application framework. It includes methods for replacing characters in strings, adding CSS links to HTML headers, creating HTML anchor elements for popup windows, and generating popup anchors for staff profile pages.",
+  "purpose": "The purpose of the UrlUtil class is to facilitate web development tasks such as URL manipulation, CSS inclusion, and creating popup elements in a consistent manner within the framework.",
+  "entities": [],
+  "fields": [],
+  "actors": [],
+  "workflows": [
+    {
+      "name": "ReplacePound",
+      "steps": [
+        "Check if the input string is null.",
+        "If not null, replace all occurrences of '#' with 'No'.",
+        "Return the updated string."
+      ]
+    },
+    {
+      "name": "AddCssLink",
+      "steps": [
+        "Check if the HtmlHead object 'header' is not null.",
+        "Create a new HtmlLink object.",
+        "Set the Href attribute of HtmlLink to the CSS path with a version query parameter.",
+        "Add 'type' and 'rel' attributes to the HtmlLink.",
+        "Add the HtmlLink to the header controls."
+      ]
+    },
+    {
+      "name": "PopupAnchor",
+      "steps": [
+        "Check if pageFileName is null.",
+        "If not null, create a StringBuilder object 'stringToHash' and append the pageFileName.",
+        "If parameters are provided, iterate over each key-value pair, ensuring keys and values are not empty, and append them to 'stringToHash'.",
+        "Remove the trailing ampersand.",
+        "Create a new StringBuilder 'finalString'.",
+        "Append HTML anchor tag with JavaScript popup behavior using a hashed URL.",
+        "Set the return value based on 'shouldPostback'.",
+        "Append provided content or an empty string.",
+        "Return the constructed HTML string."
+      ]
+    },
+    {
+      "name": "MaintStaffProfilePopup",
+      "steps": [
+        "Check if the HSPnetSession object 'sess' is null.",
+        "If not null, create a dictionary of parameters including SessionID, StaffID, and ReadOnly.",
+        "Optionally add 'DefaultTab' to parameters if provided.",
+        "Call PopupAnchor with 'MaintStaffProfile.aspx', the parameters, and content."
+      ]
+    }
+  ],
+  "business_rules": [],
+  "validations": [],
+  "calculations": [],
+  "conditions": [],
+  "system_behavior": [],
+  "dependencies": [],
+  "exceptions": [],
+  "source_document_ids": [
+    "017a74a7-ce03-5d8f-9bea-77f345fffab8",
+    "711a11f0-be35-5585-b048-c24bede82b01"
+  ],
+  "content_gaps": []
+}
