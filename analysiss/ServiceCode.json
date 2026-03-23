@@ -1,48 +1,65 @@
 {
-    "filename": "ServiceCode",
-    "found": true,
-    "summary": "ServiceCode maintains the list and attributes of service codes, handling localization based on session preferences.",
-    "purpose": "To manage service codes and their attributes including descriptions, sort order, and notes.",
-    "entities": [
-      "ServiceCode",
-      "ServiceCodes"
-    ],
-    "fields": [
-      "ID",
-      "CodeCategoryID",
-      "ShortName",
-      "Name",
-      "SortOrder",
-      "Notes",
-      "NameAlt"
-    ],
-    "actors": [],
-    "workflows": [
-      {
-        "name": "Retrieve Service Codes",
-        "steps": [
-          "Setup database procedure name",
-          "Add session and code parameters",
-          "Fetch and localize service code data",
-          "Close the data reader"
-        ]
-      }
-    ],
-    "business_rules": [
-      "Use alternative language fields if session preference is set"
-    ],
-    "validations": [],
-    "calculations": [],
-    "conditions": [],
-    "system_behavior": [],
-    "dependencies": [
-      "Session language preference handling"
-    ],
-    "exceptions": [],
-    "source_document_ids": [
-      "94f1b055-348d-508a-ae6e-cf7960a8c6a2",
-      "e4ebe4b4-6d14-5c3f-b693-61016f765239",
-      "f976b9af-a402-540f-b162-391d578fac7c"
-    ],
-    "content_gaps": []
-  }
+  "filename": "ServiceCode",
+  "found": true,
+  "summary": "Manages service codes and related data for courses and timetables.",
+  "purpose": "To handle all service code operations including retrieval by course ID and timetable ID.",
+  "entities": [
+    {
+      "name": "ServiceCode",
+      "attributes": [
+        "ID",
+        "CodeCategoryID",
+        "ShortName",
+        "Name",
+        "SortOrder",
+        "Notes",
+        "NameAlt",
+        "NotesAlt"
+      ]
+    }
+  ],
+  "fields": [
+    "CodeCategoryID",
+    "ShortName",
+    "Name",
+    "SortOrder",
+    "Notes"
+  ],
+  "actors": ["HSPnetSession"],
+  "workflows": [
+    {
+      "name": "Retrieve Service Codes By Course ID",
+      "steps": [
+        "Set procedure name to ServiceCodeASMOptionByCourseID",
+        "Add parameters SessionID, CourseID",
+        "Execute query and return results"
+      ]
+    },
+    {
+      "name": "Retrieve Service Codes By Timetable ID",
+      "steps": [
+        "Set procedure name to ServiceCodeASMOptionByTimetableID",
+        "Add parameters SessionID, TimetableID",
+        "Execute query and return results"
+      ]
+    }
+  ],
+  "business_rules": [
+    {
+      "name": "Localization Rule",
+      "description": "Use alternative language fields if session setting is enabled."
+    }
+  ],
+  "validations": [],
+  "calculations": [],
+  "conditions": [],
+  "system_behavior": [],
+  "dependencies": [],
+  "exceptions": [],
+  "source_document_ids": [
+    "94f1b055-348d-508a-ae6e-cf7960a8c6a2",
+    "e4ebe4b4-6d14-5c3f-b693-61016f765239",
+    "f976b9af-a402-540f-b162-391d578fac7c"
+  ],
+  "content_gaps": []
+}
