@@ -1,28 +1,42 @@
 {
   "filename": "StudentPrerequisites",
   "found": true,
-  "summary": "Manages student prerequisites, including immunization and health records, with validation processes.",
-  "purpose": "To track and update student prerequisites and immunization records in compliance with health standards.",
+  "summary": "Defines and manages student prerequisites in terms of medical and confidentiality forms, tracking their statuses and update functionalities.",
+  "purpose": "To maintain and update student prerequisite information related to health and safety compliance.",
   "entities": ["StudentPrerequisite"],
   "fields": [
-    {"name": "ID", "type": "int"},
-    {"name": "StudentID", "type": "int"},
-    {"name": "CRCStatusCodeID", "type": "int"},
-    {"name": "IDCard", "type": "Boolean"},
-    {"name": "WCBWaiver", "type": "Boolean"},
-    {"name": "ConfidentialityForm", "type": "Boolean"},
-    {"name": "UseAssessmentModule", "type": "Boolean"},
-    {"name": "DepartmentUseAssessmentModule", "type": "Boolean"},
-    {"name": "N95MaskSizeCodeID", "type": "int"},
-    {"name": "N95MaskAltSizeCodeID", "type": "int"},
-    {"name": "N95MaskFitTestExpiryDate", "type": "DateTime"},
-    {"name": "TetanusExpiryDate", "type": "DateTime"}
+    {"name": "ID", "type": "int", "description": "Unique identifier for the prerequisite record"},
+    {"name": "StudentID", "type": "int", "description": "Identifier for the student"},
+    {"name": "CRCStatusCodeID", "type": "int", "description": "Criminal Records Check status code"},
+    {"name": "IDCard", "type": "Boolean", "description": "Indicates issuance of ID card"},
+    {"name": "WCBWaiver", "type": "Boolean", "description": "Indicates waiver of WCB"},
+    {"name": "ConfidentialityForm", "type": "Boolean", "description": "Indicates receipt of confidentiality form"},
+    {"name": "UseAssessmentModule", "type": "Boolean", "description": "Indicates if assessment module is used"},
+    {"name": "DepartmentUseAssessmentModule", "type": "Boolean", "description": "Department-level usage of assessment module"},
+    {"name": "N95MaskSizeCodeID", "type": "int", "description": "Code ID for the size of the N95 mask"},
+    {"name": "N95MaskFitNotes", "type": "string", "description": "Notes regarding N95 mask fit test"},
+    {"name": "ImmunReqMetDate", "type": "DateTime", "description": "Date when immunization requirements were met"},
+    {"name": "ImmunReqMetNotes", "type": "string", "description": "Notes about immunization requirement meeting"},
+    {"name": "MedicalCompleted", "type": "Boolean", "description": "Indicates completion of medical requirements"},
+    {"name": "MedicalCompletedDate", "type": "DateTime", "description": "Date of medical requirement completion"},
+    {"name": "ImmunizationFeePaid", "type": "Boolean", "description": "Indicates if immunization fee is paid"},
+    {"name": "ImmunizationFeePaidDate", "type": "DateTime", "description": "Date when immunization fee was paid"}
   ],
-  "actors": [],
-  "workflows": [],
-  "business_rules": [],
+  "actors": ["HSPnetSession"],
+  "workflows": [
+    {
+      "name": "Prerequisite Management",
+      "steps": [
+        "Search and retrieve student prerequisite data",
+        "Update student prerequisite information"
+      ]
+    }
+  ],
+  "business_rules": [
+    {"name": "Validations", "description": "Ensure dates and statuses are within acceptable ranges or values"}
+  ],
   "validations": [
-    {"name": "PrerequisiteValidation", "description": "Validates student health and immunization records compliance."}
+    {"name": "Date Validation", "description": "Validates that dates are not more than 5 years old"}
   ],
   "calculations": [],
   "conditions": [],
@@ -31,15 +45,15 @@
   "exceptions": [],
   "source_document_ids": [
     "126148d2-7c46-5bb8-8a4c-606105b702bd",
-    "165b1b6b-fd06-59e5-b7d7-81e87dbeac55",
-    "280408b2-2e1d-5bd7-8feb-59603ff0bb80",
-    "2f8ba20e-ca9a-5fc1-932a-1899a9499417",
     "3787eddd-1ce0-519f-9959-30c8a913c827",
     "3c00eec5-f694-53fb-abe6-a8d94038fd60",
-    "3e68c0d0-3ab9-5c14-a221-bf0f7592302c",
+    "32c2993d-e08e-5e60-9b82-ab09b0ee7aaa",
     "46edf9a0-d978-5197-be20-b4536cae3e91",
-    "4a51cb58-538c-57f2-82ff-13fb4d577aa8",
-    "4abb53e7-107a-535d-a3b7-97b5279e2632"
+    "430fc305-a57a-53e5-9f01-35e07b707792",
+    "5829b29d-0fd8-5ba1-98f8-f7195d0f276d",
+    "60564881-fabd-566c-ae55-496631ed07ce",
+    "d0eb0cc2-a4a7-55d8-8468-1d6ae5eefb35",
+    "ec8c8c16-1482-5149-87fd-34c4724af0a2"
   ],
   "content_gaps": []
 }
