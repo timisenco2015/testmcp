@@ -1,8 +1,8 @@
 {
   "filename": "ProgramProfileHistory",
   "found": true,
-  "summary": "The ProgramProfileHistory class is responsible for handling historical records of program profiles. It includes attributes like action date, screen section, user action, fields, agency, and user information. The class also provides methods for retrieving and formatting data related to program profile histories.",
-  "purpose": "To manage and track changes in program profiles over time, including who made those changes and their specific actions, within the HSPnet framework.",
+  "summary": "The ProgramProfileHistory handles the representation and retrieval of historical actions performed on program profiles, detailing user actions and profile changes.",
+  "purpose": "The primary purpose of ProgramProfileHistory is to serve as a log of changes or actions made on program profiles, capturing user actions, the sections of the program affected, and contextual information such as the agency and user details.",
   "entities": [],
   "fields": [
     "ID",
@@ -21,45 +21,28 @@
     "ByUserSysAdmin"
   ],
   "actors": [
-    "Users",
-    "System Administrators"
+    "ByUserID",
+    "ByOriginalUserID",
+    "ByUserSysAdmin"
   ],
   "workflows": [
     {
       "name": "ProgramProfileHistory Retrieval",
       "steps": [
-        "Initiate database connection",
-        "Execute stored procedure ProgramProfileHistorySearch with parameters ProgramID and SessionAgencyID",
-        "Fetch and read data using SqlDataReader",
-        "Fill ProgramProfileHistory objects with retrieved data",
-        "Close database reader",
-        "Return list of ProgramProfileHistory objects"
+        "Initiate ProgramProfileHistorySearch with ProgramID and SessionAgencyID.",
+        "Execute stored procedure 'ProgramProfileHistorySearch' with appropriate parameters.",
+        "Iterate through SqlDataReader to construct ProgramProfileHistory entries.",
+        "Close SqlDataReader and return list of ProgramProfileHistory entries."
       ]
     }
   ],
-  "business_rules": [
-    "If UseAltLanguageFields is true, use alternative language fields for screen section, user action, and fields.",
-    "If ByUserSysAdmin is false and ByUserID differs from ByOriginalUserID, append support team label to user details."
-  ],
+  "business_rules": [],
   "validations": [],
   "calculations": [],
-  "conditions": [
-    "UseAltLanguageFields",
-    "ByUserID equals (ByOriginalUserID == 0 ? ByUserID : ByOriginalUserID)"
-  ],
-  "system_behavior": [
-    "Format action date using DateFormatter",
-    "Format user details using TooltipDetails method"
-  ],
-  "dependencies": [
-    "HSPnet.Framework",
-    "HSPnet.App_GlobalResources",
-    "HSPnet.UI"
-  ],
-  "exceptions": [
-    "Handle missing optional middle name in formatting",
-    "Manage null or empty strings in phone field"
-  ],
+  "conditions": [],
+  "system_behavior": [],
+  "dependencies": [],
+  "exceptions": [],
   "source_document_ids": [
     "1dbc43c7-e18d-5184-9183-38e8240b9dc8",
     "81f19b80-ccd3-5cd8-adeb-01fc76b26c02",
