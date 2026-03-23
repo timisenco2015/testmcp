@@ -1,0 +1,98 @@
+{
+  "filename": "StringUtil",
+  "found": true,
+  "summary": "The StringUtil file provides various utility methods for string manipulation and validation within the HSPnet framework. It includes methods for truncating strings, validating emails and names, checking if a string is blank, and determining if a string is an integer.",
+  "purpose": "To offer utility functions for handling and validating strings in an application, ensuring data follows specific patterns and constraints.",
+  "entities": [],
+  "fields": [
+    {
+      "name": "ELLIPSIS",
+      "type": "string",
+      "value": "…"
+    },
+    {
+      "name": "MAX_NAME_LENGTH",
+      "type": "int",
+      "value": 8
+    },
+    {
+      "name": "COMMENT_LENGTH",
+      "type": "int",
+      "value": 200
+    }
+  ],
+  "actors": [],
+  "workflows": [
+    {
+      "name": "TruncateString",
+      "steps": [
+        "Check if the input string is null or empty; return empty string if true.",
+        "Check if trimmed input string length exceeds maxLength; truncate and append ellipsis if true.",
+        "Return original string if none of the above conditions are met."
+      ]
+    },
+    {
+      "name": "IsBlank",
+      "steps": [
+        "Check if the input value is null or empty.",
+        "Return true if value is null or its trimmed length is 0."
+      ]
+    },
+    {
+      "name": "IsValidEmail",
+      "steps": [
+        "Create a regex pattern using a predefined email validation expression.",
+        "Check if the email matches the pattern and does not contain spaces.",
+        "Return true if both conditions are satisfied."
+      ]
+    },
+    {
+      "name": "IsValidName",
+      "steps": [
+        "Create a regex pattern using a predefined name validation expression.",
+        "Check if the name matches the pattern.",
+        "Return true if the condition is satisfied."
+      ]
+    },
+    {
+      "name": "IsInteger",
+      "steps": [
+        "Attempt to parse the string data into an integer.",
+        "Check if parsing was successful and if the integer is non-negative.",
+        "Return true if both conditions are met."
+      ]
+    },
+    {
+      "name": "BeautifyTruncate",
+      "steps": [
+        "Check if the value is null; return the value if true.",
+        "If length is less than or equal to 3, return the original value or a truncated version with ellipsis.",
+        "Otherwise, return a truncated version of the value with ellipsis."
+      ]
+    }
+  ],
+  "business_rules": [],
+  "validations": [
+    "Emails must match the predefined email validation expression and not contain spaces.",
+    "Names must match the predefined name validation expression."
+  ],
+  "calculations": [],
+  "conditions": [
+    "Checks if the input string is null or empty.",
+    "Checks if the input string length exceeds a specified maximum length.",
+    "Checks if a string contains only integer values and is non-negative."
+  ],
+  "system_behavior": [
+    "Automatically truncates strings and appends ellipses if they exceed certain lengths.",
+    "Validates email and name strings based on regex patterns."
+  ],
+  "dependencies": [
+    "HSPnet.App_GlobalResources for resource-based regular expressions."
+  ],
+  "exceptions": [],
+  "source_document_ids": [
+    "6d0e46c7-273a-5ad4-8769-87a016150fd3",
+    "8b2efa68-7eb0-5bbf-bd4a-404d98fec649"
+  ],
+  "content_gaps": []
+}
