@@ -1,1 +1,93 @@
-{"filename":"WelcomeStaffAdmin","found":true,"summary":"Covers UI controls and event handling for the Welcome Staff Admin page in the HSPnet system.","purpose":"Facilitate the user interface and data management for staff administration functionalities.","entities":[],"fields":[],"actors":[],"workflows":[{"name":"Page Load Workflow","steps":[{"step":"Load page data and setup initial UI state."},{"step":"Handle user inputs and data updates."}]}],"business_rules":[],"validations":[{"field":"EndDate","rule":"Cannot be before the StartDate"}],"calculations":[],"conditions":[],"system_behavior":[],"dependencies":[],"exceptions":[],"source_document_ids":["05db31e4-e8b6-53ee-a6fb-812c106f0134","100d5925-a5f8-53db-8493-02cddd563eb7","3c84bade-9671-5fbf-acce-3c87a835e9b4","4c4b97b8-d242-5261-a515-767a3f7d7a49","52b5066f-23f6-5d82-96cd-5d51dad3de79","5bb85da3-f5b4-5753-b07c-9bb2a04eeb89","5d9b92ea-7c12-5070-8603-977cf14d0e04","54244516-0707-581e-a8ba-9c041ea38366","6eca1317-c0b2-5225-a9af-f034a722d924","6701b153-5288-59e5-8de9-61b68a1fc292","871df91b-7ba0-558f-83ea-d5be1b0dc8db","8cea5c3a-2fbf-5206-a0c0-9425a5e14511","964a48c9-231c-5d58-a44d-3675d949a453","966ed8d3-a5af-567f-b092-936217777551","a0c3da28-32a5-5fce-91b2-17274efa016e","afbb4ec5-43c8-5281-ad2c-4b6cfd23a48e","b8e79322-9a0e-5fe7-8953-3d05e231f923","bf423a80-93db-572d-8cb8-c79f04214a93","ca71b077-cc26-5979-a44f-59700a41316b","d278278f-d4ec-5f4a-9f29-a02b66773bb9","db9b35e9-53ca-5eaf-9d75-4f3a72131bc7","e249a878-c837-5d1c-9a3d-5167df2614fb"],"content_gaps":[]}
+{
+    "filename": "WelcomeStaffAdmin",
+    "found": true,
+    "summary": "The WelcomeStaffAdmin page is an ASP.NET web page used for managing staff-related functionalities within the HSPnet system. It includes several web controls such as panels, textboxes, dropdown lists, link buttons, validators, and AJAX control extenders. The page is designed to display and filter employment applications by site, discipline, and date range, and includes features to handle errors and warnings.",
+    "purpose": "The purpose of the WelcomeStaffAdmin page is to facilitate staff administration tasks, enabling users to view and manage employment applications by filtering them based on various criteria like site, discipline, and date range. The page also aims to provide a seamless user experience with JavaScript enhancements and validation.",
+    "entities": [],
+    "fields": [
+        { "name": "txtEndDate", "type": "TextBox" },
+        { "name": "txtStartDate", "type": "TextBox" },
+        { "name": "valStartDate", "type": "RequiredFieldValidator" },
+        { "name": "valEndDate", "type": "RequiredFieldValidator" },
+        { "name": "RegularExpressionValidator1", "type": "RegularExpressionValidator" },
+        { "name": "CalendarExtender1", "type": "CalendarExtender" },
+        { "name": "CalendarExtender2", "type": "CalendarExtender" },
+        { "name": "cvrEndDateAfter", "type": "CustomValidator" },
+        { "name": "chkShowWithdrawn", "type": "CheckBox" },
+        { "name": "cmdRefreshView", "type": "Button" },
+        { "name": "gvwApplications", "type": "HSPnetGridView" },
+        { "name": "dsEmploymentApplications", "type": "ObjectDataSource" },
+        { "name": "lblErrorList", "type": "Label" },
+        { "name": "lblWarningList", "type": "Label" },
+        { "name": "ddSite", "type": "DropDownList" },
+        { "name": "ddDiscipline", "type": "DropDownList" }
+    ],
+    "actors": ["User"],
+    "workflows": [
+        {
+            "name": "Page Load",
+            "steps": [
+                "Setup HSPnet Page with Master and FooterLabel",
+                "Register JavaScript includes for StaffAdmin and DateFunctions",
+                "Set lblTitle with User's Preferred Name",
+                "Display last login information",
+                "Fill dropdowns for site and discipline",
+                "Set default start and end dates",
+                "Bind and refresh data on page load unless postback"
+            ]
+        },
+        {
+            "name": "Dropdown Change Events",
+            "steps": [
+                "Handle selection changes for site and discipline dropdowns",
+                "Refresh data when dropdown selection changes"
+            ]
+        },
+        {
+            "name": "Refresh View",
+            "steps": [
+                "Rebind data to the applications grid view on command button click"
+            ]
+        }
+    ],
+    "business_rules": [],
+    "validations": [
+        "Start and End Date fields are required",
+        "Start Date must be before End Date"
+    ],
+    "calculations": [],
+    "conditions": [],
+    "system_behavior": [
+        "Auto-bind data to grid view on page load and button actions",
+        "Validate date fields using custom JavaScript and server-side validators",
+        "Manage visibility of error and warning panels based on conditions",
+        "Setup JavaScript variables and register them for use in client scripts"
+    ],
+    "dependencies": [],
+    "exceptions": [],
+    "source_document_ids": [
+        "05db31e4-e8b6-53ee-a6fb-812c106f0134",
+        "100d5925-a5f8-53db-8493-02cddd563eb7",
+        "3c84bade-9671-5fbf-acce-3c87a835e9b4",
+        "4c4b97b8-d242-5261-a515-767a3f7d7a49",
+        "52b5066f-23f6-5d82-96cd-5d51dad3de79",
+        "54244516-0707-581e-a8ba-9c041ea38366",
+        "5bb85da3-f5b4-5753-b07c-9bb2a04eeb89",
+        "5d9b92ea-7c12-5070-8603-977cf14d0e04",
+        "6701b153-5288-59e5-8de9-61b68a1fc292",
+        "6eca1317-c0b2-5225-a9af-f034a722d924",
+        "871df91b-7ba0-558f-83ea-d5be1b0dc8db",
+        "8cea5c3a-2fbf-5206-a0c0-9425a5e14511",
+        "964a48c9-231c-5d58-a44d-3675d949a453",
+        "966ed8d3-a5af-567f-b092-936217777551",
+        "a0c3da28-32a5-5fce-91b2-17274efa016e",
+        "afbb4ec5-43c8-5281-ad2c-4b6cfd23a48e",
+        "b8e79322-9a0e-5fe7-8953-3d05e231f923",
+        "bf423a80-93db-572d-8cb8-c79f04214a93",
+        "ca71b077-cc26-5979-a44f-59700a41316b",
+        "d278278f-d4ec-5f4a-9f29-a02b66773bb9",
+        "db9b35e9-53ca-5eaf-9d75-4f3a72131bc7",
+        "e249a878-c837-5d1c-9a3d-5167df2614fb"
+    ],
+    "content_gaps": []
+}
