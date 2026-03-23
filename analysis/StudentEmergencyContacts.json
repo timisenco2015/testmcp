@@ -1,0 +1,104 @@
+{
+  "filename": "StudentEmergencyContacts",
+  "found": true,
+  "summary": "StudentEmergencyContacts is a user control in a web application for managing emergency contact information for students. It comprises UI controls, validation mechanisms, business logic for creating and updating records, and handles session-based permissions. Emergency contact details are entered, validated, and maintained using a modal popup/dialog, FormView controls, and data sources, with special handling for phone fields and edit permissions.",
+  "purpose": "To allow users (likely school staff or administrators) to view, add, and update emergency contact details for students in a structured and validated way, ensuring that only authorized users can make changes.",
+  "entities": [
+    "StudentEmergencyContacts",
+    "Student",
+    "EmergencyContact"
+  ],
+  "fields": [
+    "studentID",
+    "id",
+    "PhoneArea",
+    "Phone",
+    "AltPhoneArea",
+    "AltPhone",
+    "UseMobileDeviceCheckbox",
+    "UsePhoneMask"
+  ],
+  "actors": [
+    "UserSession",
+    "ScreenIsEditable",
+    "ReadOnly",
+    "ScriptMgr"
+  ],
+  "workflows": [
+    {
+      "name": "View Emergency Contacts",
+      "steps": [
+        "User navigates to StudentEmergencyContacts view.",
+        "System checks UserSession for permission.",
+        "Details shown in FormView.",
+        "Edit button visibility and state determined by ScreenIsEditable and ReadOnly."
+      ]
+    },
+    {
+      "name": "Edit/Add Emergency Contact",
+      "steps": [
+        "User clicks Edit (cmdEdit_Click event).",
+        "If no record exists (DataKey == 0), switches to Insert mode.",
+        "Shows modal popup for detail entry.",
+        "Details shown in FormView for edit/insert.",
+        "User enters/edits values.",
+        "If Save (cmdSave) is clicked, event handler sets command name to Update or Insert depending on mode.",
+        "Data is validated (including phone mask if enabled).",
+        "On insert/update, necessary values and session parameters are assigned.",
+        "On successful update, redirect to Demographics page and cache session."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Phone fields are masked only if UsePhoneMask is enabled in UserSession.",
+    "Mobile device checkboxes (chkPhoneIsMobile/chkAltPhoneIsMobile) are only visible if UseMobileDeviceCheckbox is enabled.",
+    "Edit/Add buttons are visible based on ScreenIsEditable or ReadOnly properties.",
+    "UserSession must be present for data operations."
+  ],
+  "validations": [
+    "CustomValidator10",
+    "CustomValidator4",
+    "ValidationSummary3",
+    "Phone mask validation is applied conditionally based on UserSession.UsePhoneMask."
+  ],
+  "calculations": [],
+  "conditions": [
+    "If UserSession == null, detail selection is canceled.",
+    "If fvwEmergencyContacts.DataKey.Value == '0', switch to Insert mode (add new record).",
+    "If ScreenIsEditable is true, allow edits."
+  ],
+  "system_behavior": [
+    "Redirects to Demographics page after successful update.",
+    "Caches UserSession after changes.",
+    "Shows/hides fields based on session and edit properties.",
+    "Registers JavaScript variables and startup scripts for UI behavior.",
+    "Removes phone mask dynamically if not enabled.",
+    "Disables edit fields if screen is not editable."
+  ],
+  "dependencies": [
+    "HSPnetSession",
+    "FormView controls",
+    "ScriptManager",
+    "AjaxControlToolkit.ModalPopupExtender",
+    "ObjectDataSource"
+  ],
+  "exceptions": [
+    "If UserSession is null, cancel selection.",
+    "If no record exists, switches to insert mode."
+  ],
+  "source_document_ids": [
+    "3290d5eb-3115-55ad-8bda-a171b0f84bd9",
+    "6ff919fa-e342-5d4a-9b51-c3f32bb7fbba",
+    "b8e870e7-7682-51d4-b096-de48593d73d0",
+    "c068bff9-c8a0-594e-ab99-d1a16440eff3",
+    "c9bb1aac-db5d-54a9-857c-023786edd6e1",
+    "e57794fd-5375-51f2-8ef2-02e6c0cdb3ac"
+  ],
+  "content_gaps": [
+    "No explicit schema for EmergencyContact data structure found.",
+    "UI templates (edit/insert) are referenced but not defined.",
+    "No explicit description of fields within EmergencyContact (e.g. relationship, address, etc.).",
+    "Underlying storage or database schema not found.",
+    "Validation error messages and logic not specified."
+  ]
+}
