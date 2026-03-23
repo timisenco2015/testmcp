@@ -1,147 +1,82 @@
 {
   "filename": "Agreement",
   "found": true,
-  "summary": "This content primarily involves the management of agreements within a system, comprising functionalities to add, update, delete, and search agreements. It details the procedures, methods, and properties associated with handling agreement templates, status, navigation, and database interactions.",
-  "purpose": "The purpose of this content is to outline the backend functionalities for managing agreements in a system, including actions such as adding, updating, searching, and interacting with agreements and their templates.",
+  "summary": "The dataset contains information and functionalities related to the Agreement module in a system, which involves template and history management, agreement adding, updating, searching, and content handling.",
+  "purpose": "To manage agreements, including adding new agreements, updating existing ones, displaying them based on different criteria, and handling their templates and history.",
   "entities": [
-    "Agreement",
-    "HSPnetSession",
-    "ItemList",
-    "CodeRecord"
+    {
+      "name": "Agreement",
+      "description": "Represents an agreement within the system, containing various attributes like ID, TypeID, DescriptionCodeID, TemplateID, etc."
+    },
+    {
+      "name": "HSPnetSession",
+      "description": "Session object used to interact with the database, handle parameters, and execute stored procedures."
+    }
   ],
   "fields": [
     "ID",
     "DescriptionCodeID",
     "TemplateID",
-    "StatusCodeID",
-    "NextSteps",
-    "SourceIsTemplate",
-    "TemplateUnchanged",
-    "OtherSourceCodeID",
-    "LastUpdated",
-    "LastReview",
-    "NextReview",
-    "ContentUserID1",
-    "ContentUserID2",
-    "ContentUserID3",
-    "StatusChangeText",
-    "AppliedAllDepartments",
-    "AppliedAllPrograms",
-    "AppliedAllSites",
-    "AppliedAllServices",
-    "AppliedAllDestinations",
-    "StatusComments",
-    "PRDID",
-    "Printed",
-    "Deleted",
-    "ExpiryDate",
-    "PRComments",
-    "InsertPRComments",
-    "Ref",
     "TypeID",
-    "RAPAID",
-    "Type",
-    "AADescription",
-    "AgencyAppliedTo",
-    "SiteAppliedTo",
-    "ProgAppliedTo",
-    "StatusDescription",
-    "IsStatusSubscriber",
+    "LastUpdated",
+    "NextReview",
     "AgreementExists",
     "Inactive",
-    "SiteListing",
-    "OtherSourceDescription",
-    "AppliedAllDepartmentsFormatted",
-    "AppliedAllProgramsFormatted",
-    "AppliedAllSitesFormatted",
-    "AppliedAllServicesFormatted",
-    "AppliedAllDestinationsFormatted",
-    "LastUpdatedFormatted",
-    "LastReviewFormatted",
-    "NextReviewFormatted",
-    "ExpiryDateFormatted",
+    "SourceIsTemplate",
+    "TemplateUnchanged",
+    "StatusDescription",
     "TemplateNavigateUrl",
     "TemplateImageUrl",
     "TemplateToolTip",
-    "HistoryNavigateUrl",
-    "HistoryImageUrl",
-    "HistoryToolTip",
-    "StatusSubscriberImageUrl",
-    "StatusSubscriberToolTip",
-    "btnToggleClientClick",
-    "ShowMinus",
-    "DetailType",
-    "Detail"
+    "HistoryNavigateUrl"
   ],
   "actors": [
-    "System",
-    "User",
-    "Database"
+    {
+      "name": "User",
+      "roles": ["Can view or edit agreements depending on permissions"]
+    },
+    {
+      "name": "System",
+      "roles": [
+        "Manages agreement templates",
+        "Handles agreement history",
+        "Executes stored procedures for adding, updating, deleting agreements"
+      ]
+    }
   ],
   "workflows": [
     {
-      "name": "Agreement Search",
+      "name": "Agreement Management",
       "steps": [
-        "Set procedure to AgreementSearchTemplate.",
-        "Add necessary parameters (SessionID, New, Pending, etc.).",
-        "Execute database call to fetch data.",
-        "Iterate through reader and populate Agreement objects.",
-        "Return the list of agreements."
-      ]
-    },
-    {
-      "name": "Agreement Add",
-      "steps": [
-        "Set procedure to AgreementAdd.",
-        "Add necessary parameters (SessionID, DescriptionID, etc.).",
-        "Execute procedure and read returned data.",
-        "Return new Agreement ID."
-      ]
-    },
-    {
-      "name": "Agreement Update",
-      "steps": [
-        "Set procedure to AgreementUpdate.",
-        "Add necessary parameters (AgreementID, NextReview, etc.).",
-        "Execute update procedure."
-      ]
-    },
-    {
-      "name": "Agreement Delete",
-      "steps": [
-        "Set procedure to AgreementDelete.",
-        "Add AgreementID parameter.",
-        "Execute delete procedure."
+        "User interacts with the agreement interface.",
+        "System checks user permissions and agreement existence.",
+        "System provides template and history URLs based on agreement status.",
+        "User can add, update, or delete agreements if permissions allow."
       ]
     }
   ],
   "business_rules": [
-    "Only CA users can list other Agencies.",
-    "Template exists if AgreementExists is true.",
-    "Templates are not displayed if user does not have edit rights."
+    "Agreements can only be viewed or edited by users with appropriate permissions.",
+    "Templates are displayed or hidden based on agreement existence and user permissions."
   ],
   "validations": [
-    "Verify if AgreementID exists before update.",
-    "Ensure valid dates for LastUpdated and ExpiryDate.",
-    "Validate user permissions for editing templates."
+    "Validating agreement existence before displaying or editing templates.",
+    "Checking user permissions for editing agreements."
   ],
   "calculations": [],
   "conditions": [
-    "Check if AgreementExists to display or edit templates.",
-    "Check user permissions (canEdit) to grant actions on templates."
+    "If agreement exists, show template and history tools.",
+    "If user can edit, provide navigation URLs to edit agreements."
   ],
   "system_behavior": [
-    "Fetch and list agreements based on search criteria.",
-    "Add new agreements through stored procedures.",
-    "Update or delete agreements with verification of existence."
+    "System executes stored procedures for managing agreements and their details.",
+    "Provides visual indicators for agreement status and subscription."
   ],
-  "dependencies": [
-    "AgreementAdd",
-    "AgreementSearchTemplate",
-    "AgreementUpdate",
-    "AgreementDelete"
+  "dependencies": [],
+  "exceptions": [
+    "Template records may not exist initially.",
+    "Inactive templates are managed separately."
   ],
-  "exceptions": [],
   "source_document_ids": [
     "1ba6c2bc-e058-582c-85e1-da0f1117a1a5",
     "47f70ad1-b18e-5473-8ebf-54139a777c97",
@@ -155,7 +90,7 @@
     "b13ec003-a70a-5232-87ba-00c851d73e6c",
     "be77c228-d99c-596b-9485-d9da1c6f0f77",
     "de2a08e8-d6bc-5ab3-9c82-2e440b60d63b",
-    "e6c1f06f-4f8d-5387-9611-c0fc85c6d4a3",
+    "e6c1f06f-4f8d-538b-9611-c0fc85c6d4a3",
     "efeb4660-bca5-57e3-b5c9-03c0e3a96fd6"
   ],
   "content_gaps": []
