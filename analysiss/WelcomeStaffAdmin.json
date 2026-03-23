@@ -1,28 +1,47 @@
 {
-    "filename": "WelcomeStaffAdmin",
-    "found": true,
-    "summary": "WelcomeStaffAdmin is a user interface segment for staff administration functionalities, including calendar controls and validation elements.",
-    "purpose": "To provide administrative tools for staff management and interaction within the web interface.",
-    "entities": [],
-    "fields": [],
-    "actors": [],
-    "workflows": [],
-    "business_rules": [],
-    "validations": [
-        "RequiredFieldValidator to ensure fields are filled",
-        "RegularExpressionValidator to confirm date formats",
-        "CustomValidator to ensure end date logic"
-    ],
-    "calculations": [],
-    "conditions": [],
-    "system_behavior": [
-        "Interactive calendar controls for date selection",
-        "Postback actions for form interactions"
-    ],
-    "dependencies": [],
-    "exceptions": [],
-    "source_document_ids": [
-        "05db31e4-e8b6-53ee-a6fb-812c106f0134"
-    ],
-    "content_gaps": []
+  "filename": "WelcomeStaffAdmin",
+  "found": true,
+  "summary": "The WelcomeStaffAdmin page is designed to integrate various controls and display resources according to the user session.",
+  "purpose": "Serves as an administrative interface for welcoming staff within the HSPnet system.",
+  "entities": ["WelcomeStaffAdmin"],
+  "fields": ["valEndDate", "txtEndDate", "btnEndDateCalendar", "CalendarExtender2", "RegularExpressionValidator2", "cvrEndDateAfter", "chkShowWithdrawn"],
+  "actors": [],
+  "workflows": [],
+  "business_rules": [],
+  "validations": [
+    {
+      "field": "txtEndDate",
+      "type": "RegularExpressionValidator",
+      "expression": "<%$ Resources:Resources, Date_ValidationExpression %>",
+      "errorMessage": "<%$ Resources:Resources, End_Date_Invalid %>"
+    },
+    {
+      "field": "txtStartDate",
+      "type": "RequiredFieldValidator",
+      "errorMessage": "<%$ Resources:Resources, Start_Date_Required %>"
+    }
+  ],
+  "calculations": [],
+  "conditions": [
+    {
+      "condition": "StartDate > EndDate",
+      "validator": "checkStartEnd"
+    }
+  ],
+  "system_behavior": [],
+  "dependencies": [],
+  "exceptions": [],
+  "source_document_ids": [
+    "05db31e4-e8b6-53ee-a6fb-812c106f0134",
+    "100d5925-a5f8-53db-8493-02cddd563eb7",
+    "3c84bade-9671-5fbf-acce-3c87a835e9b4",
+    "4c4b97b8-d242-5261-a515-767a3f7d7a49",
+    "52b5066f-23f6-5d82-96cd-5d51dad3de79",
+    "5bb85da3-f5b4-5753-b07c-9bb2a04eeb89",
+    "5d9b92ea-7c12-5070-8603-977cf14d0e04",
+    "54244516-0707-581e-a8ba-9c041ea38366",
+    "5bb85da3-f5b4-5753-b07c-9bb2a04eeb89",
+    "b8e79322-9a0e-5fe7-8953-3d05e231f923"
+  ],
+  "content_gaps": []
 }
