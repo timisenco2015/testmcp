@@ -1,32 +1,29 @@
 {
     "filename": "SiteProfileHistory",
     "found": true,
-    "summary": "Captures and provides access to the history of changes made to site profiles.",
-    "purpose": "Allows searching and detailing of historical changes to a site's profile.",
-    "entities": ["SiteProfileHistory"],
-    "fields": [
-        {"name": "ID", "type": "int"},
-        {"name": "ActionDate", "type": "DateTime"},
-        {"name": "ScreenSection", "type": "string"}
-    ],
+    "summary": "The SiteProfileHistory file handles logging and retrieving changes made to site profiles within the system, including user actions and site details.",
+    "purpose": "To track and record user interactions and modifications to site profiles, providing a history of actions and changes.",
+    "entities": ["SiteProfileHistory", "SiteProfileHistories"],
+    "fields": ["ID", "ActionDate", "ScreenSection", "UserAction", "Fields", "Agency", "AgencyName", "LastName", "FirstName", "MiddleName", "Phone", "ByUserID", "ByOriginalUserID", "ByUserSysAdmin"],
     "actors": [],
     "workflows": [
         {
-            "name": "SearchSiteProfileHistory",
+            "name": "Search Site Profile History",
             "steps": [
-                "Invoke SiteProfileHistorySearch with SiteID and SessionAgencyID.",
-                "Execute stored procedure 'SiteProfileHistorySearch'.",
-                "Return populated list of SiteProfileHistory entries."
+                "Connect to database",
+                "Execute stored procedure",
+                "Retrieve and format data",
+                "Generate history list"
             ]
         }
     ],
     "business_rules": [],
     "validations": [],
-    "calculations": [],
+    "calculations": ["Format action dates"],
     "conditions": [],
-    "system_behavior": [],
+    "system_behavior": ["Provides tooltip details for user actions"],
     "dependencies": ["HSPnet.Framework", "HSPnet.App_GlobalResources"],
     "exceptions": [],
-    "source_document_ids": ["25f89a24-5eda-5a3f-83df-1de69b12b3f1", "26e09292-d304-55c6-94e5-ef3346453c4b"],
+    "source_document_ids": ["25f89a24-5eda-5a3f-83df-1de69b12b3f1", "26e09292-d304-55c6-94e5-ef3346453c4b", "7ca6b963-9ae9-5cd3-82d5-f30dcb727ae3", "a8f030c6-90b8-53a1-bb8a-3b7ef33b9488", "e806999c-3a39-5720-9b59-303faebc9eb6"],
     "content_gaps": []
 }
