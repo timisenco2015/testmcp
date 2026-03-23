@@ -2,9 +2,10 @@
 {
   "filename": "PlacementRequest",
   "found": true,
-  "summary": "The PlacementRequest module in HSPnet involves the management, validation, and processing of placement requests. It includes procedures to check user site and service access, determine request validity, and manage the linking and unlinking of requests.",
-  "purpose": "To manage and process placement requests within the HSPnet system, providing functionalities for validation, linking, unlinking, email notifications, and checking shared cohorts.",
+  "summary": "The documents detail the implementation and logic behind handling placement requests within the HSPnet system. This includes database operations, conditions for validating and linking requests, and caching mechanisms for email subjects related to requests.",
+  "purpose": "To manage and process placement requests efficiently, ensuring proper validation, linkage, and email notifications within the HSPnet framework.",
   "entities": [
+    "PlacementRequest",
     "PlacementRequestDestination",
     "HSPnetSession",
     "Database"
@@ -24,59 +25,65 @@
     "DestinationID"
   ],
   "actors": [
-    "User",
-    "Database Administrator"
+    "Database Manager",
+    "Session Handler",
+    "System User"
   ],
   "workflows": [
     {
-      "name": "Validate Placement Request",
+      "name": "Placement Request Validation",
       "steps": [
-        "Check user site access",
-        "Check service access",
-        "Check destination access",
-        "Execute PlacementRequestSearch procedure"
+        "Check if Site, Service, and Destination IDs are valid.",
+        "Ensure user has access to specified site, service, and destination.",
+        "Execute placement request search procedure with parameters.",
+        "Determine if placement request is valid based on query results."
       ]
     },
     {
-      "name": "Manage Placement Request Link",
+      "name": "Placement Request Linking",
       "steps": [
-        "Execute PlacementRequestLink procedure",
-        "Check for SQL errors",
-        "Return link status"
+        "Set procedure name to 'PlacementRequestLink'.",
+        "Add session and placement request list as parameters.",
+        "Execute the database query.",
+        "Check for SQL errors and handle them.",
+        "Return success or warning message."
       ]
     },
     {
-      "name": "Get Key Information",
+      "name": "Email Subject Caching",
       "steps": [
-        "Execute PlacementRequestKeyInfo procedure",
-        "Retrieve key information fields"
+        "Check if cached subject exists.",
+        "If not, generate new subject based on placement request details.",
+        "Cache the generated subject for future use."
       ]
     }
   ],
   "business_rules": [
-    "UserType check determines access",
-    "Non-accessible sites/services return false"
+    "Users of type 1 or 2 must validate site, service, and destination access.",
+    "Placement requests must have valid agency, department, program, and course IDs."
   ],
   "validations": [
-    "IsValidForMe checks user type and access"
+    "Check existence of PlacementRequest ID in returned data.",
+    "Ensure user access to specified site, service, and destination."
   ],
   "calculations": [
-    "Determine HSPnet term start and end dates"
+    "Determine the start and end date of HSPnet terms based on input date."
   ],
   "conditions": [
-    "OnlyNISUnreleased and OnlyIRPUnreleased control filtering"
+    "User type and agency specifics determine validation logic pathways.",
+    "Request must not be deleted or archived for processing."
   ],
   "system_behavior": [
-    "Caches email subject for session",
-    "Uses stored procedures for data operations"
+    "Caches email subject to avoid redundant computation.",
+    "Uses database procedures for efficient data retrieval and updates."
   ],
   "dependencies": [
     "HSPnet.Framework",
-    "App_GlobalResources"
+    "HSPnet.App_GlobalResources"
   ],
   "exceptions": [
-    "SQL error during linking",
-    "Failed procedure execution"
+    "SQL error occurrence during request linking.",
+    "Invalid site, service, or destination access attempts."
   ],
   "source_document_ids": [
     "15235962-0eeb-54d6-9f5b-edaa8346fba6",
