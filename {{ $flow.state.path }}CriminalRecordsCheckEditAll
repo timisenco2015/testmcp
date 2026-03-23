@@ -1,0 +1,121 @@
+```json
+{
+    "filename": "CriminalRecordsCheckEditAll",
+    "found": true,
+    "summary": "The CriminalRecordsCheckEditAll control is a part of the HSPnet.UserControls.Enrollment namespace. It involves managing criminal records checks for enrollment processes through a web interface using ASP.NET Web Forms.",
+    "purpose": "To facilitate the editing and management of criminal records checks within the enrollment processes of HSPnet.",
+    "entities": [
+        "CriminalRecordsCheckEditAll",
+        "UserSession",
+        "GridDataEdit",
+        "DataLayer.Enrollment",
+        "Panel",
+        "DropDownList",
+        "ValidationSummary",
+        "ObjectDataSource",
+        "CodeRecord",
+        "GridViewRow",
+        "StudentPrerequisites"
+    ],
+    "fields": [
+        "ValidationSummary1",
+        "gridDataEdit",
+        "dsCRC",
+        "EnrollmentID",
+        "CohortID",
+        "TermID",
+        "CourseID",
+        "ShowGrad",
+        "ShowInactive",
+        "ShowWaived",
+        "SectionFilter",
+        "ActionFilter",
+        "keyword",
+        "CampusID",
+        "CommentFilter",
+        "blnReadOnly",
+        "blnStudentMaint",
+        "StartRow"
+    ],
+    "actors": [
+        "UserSession",
+        "ScriptMgr",
+        "Page",
+        "Response"
+    ],
+    "workflows": [
+        {
+            "name": "Data Binding Workflow",
+            "steps": [
+                "Check User Session",
+                "Select Data Source",
+                "Bind Data to GridView"
+            ]
+        },
+        {
+            "name": "GridView Data Management",
+            "steps": [
+                "DataBinding",
+                "PreRender",
+                "RowCommand Handling",
+                "RowDataBound Handling"
+            ]
+        },
+        {
+            "name": "JavaScript Setup",
+            "steps": [
+                "Initialize JavaScript Variables",
+                "Register Startup Script"
+            ]
+        },
+        {
+            "name": "Save Record Workflow",
+            "steps": [
+                "Determine Dirty Rows",
+                "Update Safety CRC Status",
+                "Redirect if No Warnings"
+            ]
+        }
+    ],
+    "business_rules": [
+        "Show the Save and Cancel buttons only when there are more than 14 rows.",
+        "Hide buttons conditionally based on read-only status."
+    ],
+    "validations": [
+        "Check UserSession for null and cancel data selection if so.",
+        "Check for dirty rows before updating CRC status."
+    ],
+    "calculations": [
+        "Determine sort direction based on gridDataEdit.SortDirection.",
+        "Calculate StartRow for pagination."
+    ],
+    "conditions": [
+        "EnrollmentID > 0 to allow edit mode.",
+        "EnrollmentID == 0 for adding or single edit mode."
+    ],
+    "system_behavior": [
+        "Auto-generated fields should not be manually modified.",
+        "Bind data to grid when not in async postback.",
+        "Disable edit fields in read-only mode."
+    ],
+    "dependencies": [
+        "Depends on the HSPnet session for user-specific operations.",
+        "Uses ObjectDataSource for data operations."
+    ],
+    "exceptions": [
+        "Cancel data selection if UserSession is null."
+    ],
+    "source_document_ids": [
+        "03144aa6-93b7-599f-b8e0-5588317ba19b",
+        "48902891-c057-57e5-9068-3b1307b2dffd",
+        "6918cccf-5e9d-514f-b001-797e2af8307f",
+        "b2bd51ac-3047-55c8-af59-4f8eed91961b",
+        "bd4a4fa1-d3ef-5764-b65e-7bf1cb6bbc30",
+        "c5efee46-5e88-55df-947d-7fe86465a805",
+        "d9e68048-669a-5e6a-b9fe-b5fe6ff4416e",
+        "f1a93269-4cd6-5f47-93a1-f9f2e4730224",
+        "f3ce8c3c-3cd0-531b-a85e-f90764dac0e2"
+    ],
+    "content_gaps": []
+}
+```
