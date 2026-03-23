@@ -1,79 +1,83 @@
 ```json
 {
-  "filename": "SiteProfileHistory",
-  "found": true,
-  "summary": "The SiteProfileHistory is part of the HSPnet system, used for managing site profile changes and logs related to various actions performed by users within the system.",
-  "purpose": "To track and document changes made to site profiles, capturing user actions and details for auditing and management purposes.",
-  "entities": [
-    "SiteProfileHistory",
-    "SiteProfileHistories",
-    "HSPnetSession",
-    "Database",
-    "UserControl"
-  ],
-  "fields": [
-    "ID",
-    "ActionDate",
-    "ScreenSection",
-    "UserAction",
-    "Fields",
-    "Agency",
-    "AgencyName",
-    "LastName",
-    "FirstName",
-    "MiddleName",
-    "Phone",
-    "ByUserID",
-    "ByOriginalUserID",
-    "ByUserSysAdmin"
-  ],
-  "actors": [
-    "User",
-    "SysAdmin"
-  ],
-  "workflows": [
-    {
-      "name": "SiteProfileHistorySearch",
-      "steps": [
-        "Initiate database connection",
-        "Execute stored procedure SiteProfileHistorySearch with parameters",
-        "Read data from SqlDataReader",
-        "Fill SiteProfileHistory list",
-        "Close reader and return list"
-      ]
-    }
-  ],
-  "business_rules": [
-    "Format phone numbers using PhoneMask if available",
-    "Use alternative language fields if UseAltLanguageFields is true"
-  ],
-  "validations": [
-    "Cancel selection if UserSession is null"
-  ],
-  "calculations": [
-    "Format ActionDate as short date",
-    "Generate formatted user details"
-  ],
-  "conditions": [
-    "UseSysAdmin details if user is not original user"
-  ],
-  "system_behavior": [
-    "Auto-generate fields using designer tools",
-    "Toggle selection based on UserSession validity"
-  ],
-  "dependencies": [
-    "HSPnet.Framework",
-    "HSPnet.App_GlobalResources",
-    "System.Web.UI"
-  ],
-  "exceptions": [],
-  "source_document_ids": [
-    "25f89a24-5eda-5a3f-83df-1de69b12b3f1",
-    "26e09292-d304-55c6-94e5-ef3346453c4b",
-    "7ca6b963-9ae9-5cd3-82d5-f30dcb727ae3",
-    "a8f030c6-90b8-53a1-bb8a-3b7ef33b9488",
-    "e806999c-3a39-5720-9b59-303faebc9eb6"
-  ],
-  "content_gaps": []
+    "filename": "SiteProfileHistory",
+    "found": true,
+    "summary": "The SiteProfileHistory component is responsible for managing historical data related to site profiles within a web application. This includes tracking changes, user actions, and formatting user details for display.",
+    "purpose": "To store and manage site profile history data, track user actions, and provide formatted details about agency users involved in these actions.",
+    "entities": [
+        "SiteProfileHistory",
+        "SiteProfileHistories"
+    ],
+    "fields": [
+        "ID",
+        "ActionDate",
+        "ScreenSection",
+        "UserAction",
+        "Fields",
+        "Agency",
+        "AgencyName",
+        "LastName",
+        "FirstName",
+        "MiddleName",
+        "Phone",
+        "ByUserID",
+        "ByOriginalUserID",
+        "ByUserSysAdmin",
+        "ActionDateFormatted",
+        "AgencyUserFormatted",
+        "AgencyUserDetailsFormatted"
+    ],
+    "actors": [
+        "HSPnetSession",
+        "UserSession"
+    ],
+    "workflows": [
+        {
+            "name": "SiteProfileHistorySearch",
+            "steps": [
+                "Initialize database connection",
+                "Set procedure name to 'SiteProfileHistorySearch'",
+                "Add parameters SiteID and SessionAgencyID",
+                "Execute procedure to retrieve data",
+                "Read data using SqlDataReader",
+                "Fill SiteProfileHistory list"
+            ]
+        }
+    ],
+    "business_rules": [
+        "If session uses alternate language fields, retrieve alternate field values.",
+        "Format user details based on admin status and IDs."
+    ],
+    "validations": [
+        "Check if UserSession is null before proceeding",
+        "Ensure non-empty agency name for formatting"
+    ],
+    "calculations": [
+        "ActionDateFormatted uses DateFormatter to format date"
+    ],
+    "conditions": [
+        "Alternate language fields are used if session specifies",
+        "AgencyUserDetailsFormatted includes phone details if available"
+    ],
+    "system_behavior": [
+        "Auto-generated code files may lose changes if regenerated"
+    ],
+    "dependencies": [
+        "HSPnet.Framework",
+        "HSPnet.App_GlobalResources",
+        "HSPnet.DataLayer",
+        "HSPnet.UI"
+    ],
+    "exceptions": [
+        "Cancel data selection if UserSession is null"
+    ],
+    "source_document_ids": [
+        "25f89a24-5eda-5a3f-83df-1de69b12b3f1",
+        "26e09292-d304-55c6-94e5-ef3346453c4b",
+        "7ca6b963-9ae9-5cd3-82d5-f30dcb727ae3",
+        "a8f030c6-90b8-53a1-bb8a-3b7ef33b9488",
+        "e806999c-3a39-5720-9b59-303faebc9eb6"
+    ],
+    "content_gaps": []
 }
 ```
