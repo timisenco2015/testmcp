@@ -1,0 +1,88 @@
+```json
+{
+  "filename": "TimetableAssessments",
+  "found": true,
+  "summary": "The TimetableAssessments documents provide the structure and workflow for handling assessments in a timetable system, using ASP.NET technologies.",
+  "purpose": "Manage and handle assessments related to timetables, providing a user interface for administrators and users to view and modify assessment details.",
+  "entities": [
+    "TimetableAssessment",
+    "UserSession",
+    "AssessmentTemplate",
+    "AssessmentType",
+    "CodeRecord",
+    "AssessmentSection",
+    "GridView",
+    "FormView"
+  ],
+  "fields": [
+    "ID",
+    "AssessorTypeCodeID",
+    "SubjectTypeCodeID",
+    "AssessmentTypeCodeID",
+    "AssessmentTemplateCodeID",
+    "OpenDaysAfterStart",
+    "CloseDaysAfterEnd",
+    "AssessorCanViewSubjectsAnswers",
+    "SubjectsCanViewAssessorAnswers",
+    "ViewUntilDaysAfterEnd",
+    "OptionAppliedAssessorTypeCodeID"
+  ],
+  "actors": [
+    "Administrator",
+    "PlacementCoordinator",
+    "LocalAdministrator"
+  ],
+  "workflows": [
+    {
+      "name": "Assessment Management Workflow",
+      "steps": [
+        "Admin views assessment list via GridView.",
+        "Admin adds or edits assessments using FormView.",
+        "Admin confirms the save, triggering validations.",
+        "Use of JavaScript functions for dynamic updates on UI elements and validations."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Assessors can view subjects' answers if the assessor type is not 'Student'.",
+    "Subjects can view assessor answers based on specific conditions."
+  ],
+  "validations": [
+    "Check if interim assessments exist without a final assessment.",
+    "Validate if close days and open days are numbers.",
+    "Ensure mandatory fields are filled."
+  ],
+  "calculations": [],
+  "conditions": [
+    "Display error messages if certain conditions like exceeding maximum assessments occur.",
+    "Panels show based on session roles and editable states."
+  ],
+  "system_behavior": [
+    "Dynamic updating of UI elements based on JavaScript event handlers.",
+    "Handling of asynchronous postbacks and data binding for real-time updates."
+  ],
+  "dependencies": [
+    "Resources for string localization",
+    "HSPnet.DataLayer for database interactions",
+    "ASP.NET Web Forms controls like GridView and FormView",
+    "JavaScriptSerializer for serializing objects into JavaScript variables"
+  ],
+  "exceptions": [
+    "Cancel data operations if UserSession is null during data retrieval.",
+    "Display error and warning panels for specific validation errors."
+  ],
+  "source_document_ids": [
+    "0d330d29-e0a7-5f88-8c71-d32f88b252b0",
+    "0ea3e178-f11b-5ee8-afc8-441e55e2d2f4",
+    "14ec7368-e312-5de7-b00e-188a6d5310ef",
+    "1807e536-2914-59f1-a538-b9e127d25f77",
+    "345a2e51-fcf0-5df0-b1f6-b535c4b757c6",
+    "50cbdfe8-4a64-5c51-ba1e-e88fb00ca8fc",
+    "61fa5351-3118-588b-a4f0-3147cd92841a",
+    "6f04742e-ad06-58cf-af37-b3ae7ebe39cc",
+    "7a89081a-a4a0-569f-8bc4-676ec99f7dcb",
+    "9ff99ed6-d3d2-55bd-a19b-ea38ec6c20be"
+  ],
+  "content_gaps": []
+}
+```
