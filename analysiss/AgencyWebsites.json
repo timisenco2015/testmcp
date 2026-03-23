@@ -1,0 +1,86 @@
+{
+    "filename": "AgencyWebsites",
+    "found": true,
+    "summary": "The document details the implementation of the AgencyWebsites user control, which is part of an agency profile management system. It includes various UI components and logic to handle the display, addition, editing, and deletion of website entries linked to an agency. Functionality such as data binding, event handling, and conditional elements display based on user permissions are also covered.",
+    "purpose": "To provide a user interface for managing website entries associated with an agency, allowing operations like viewing, adding, editing, and deleting website information while ensuring proper data handling and user permissions.",
+    "entities": [
+        "AgencyWebsites"
+    ],
+    "fields": [
+        "UpdatePanel updPnlProfile",
+        "Panel pnlEmptyData",
+        "Label Label1",
+        "Label lblEmptyData",
+        "LinkButton cmdAddEmptyData",
+        "GridView gvwWebsites",
+        "ObjectDataSource dsWebsites",
+        "Panel pnlPopup",
+        "UpdatePanel updPnlPopup",
+        "Button btnShowPopup",
+        "ModalPopupExtender mdlDetails",
+        "ValidationSummary ValidationSummary3",
+        "FormView fvwWebsite"
+    ],
+    "actors": [
+        "UserSession",
+        "AgencyID"
+    ],
+    "workflows": [
+        {
+            "name": "Add or Edit Website Entry",
+            "steps": [
+                "Trigger cmdAdd or cmdEdit command.",
+                "Switch form view to Add or Edit mode.",
+                "Bind form with existing data or new entry template.",
+                "Display form view for user input.",
+                "Save changes using cmdSave command."
+            ]
+        },
+        {
+            "name": "Delete Website Entry",
+            "steps": [
+                "Trigger cmdDelete command.",
+                "Execute AgencyWebsiteDelete method with relevant ID.",
+                "Redirect to updated page view."
+            ]
+        }
+    ],
+    "business_rules": [
+        "Data entries should be bound and unbound based on user session validity.",
+        "Addition or editing forms are only accessible if the screen is editable.",
+        "Redirect after any modification to ensure updated view."
+    ],
+    "validations": [
+        "Event cancellation if UserSession is null during ObjectDataSource selecting.",
+        "Visibility of EmptyData panel based on GridView rows count and editability.",
+        "JavaScript errors are avoided by custom logic instead of EmptyDataTemplate."
+    ],
+    "calculations": [],
+    "conditions": [
+        "Display pnlEmptyData when there are no rows and the screen is editable.",
+        "Edit buttons are set up based on ScreenIsEditable status.",
+        "Switch to AddMode or EditMode as per command received."
+    ],
+    "system_behavior": [
+        "Handles page load without specific logic.",
+        "Switches between different UI states for adding/editing websites.",
+        "Controls redirection logic post data modifications."
+    ],
+    "dependencies": [
+        "HSPnet.DataLayer",
+        "HSPnet.Framework",
+        "HSPnet.UI"
+    ],
+    "exceptions": [
+        "JavaScript errors related to event validation have specific handling."
+    ],
+    "source_document_ids": [
+        "3bc6d105-ab67-5629-9be9-e3e1c6988245",
+        "3d6e1397-58e5-5698-ab34-86a52d6d1cf2",
+        "485898c3-dbae-54c4-bce7-5c942cf57a52",
+        "7869e860-55c7-51db-972f-3bddbd0e66c3",
+        "a6e38c6d-acaa-5226-ba5a-0d66f2798365",
+        "cc547396-bb91-5274-a668-fc24c3cc4118"
+    ],
+    "content_gaps": []
+}
