@@ -1,103 +1,73 @@
 {
   "filename": "ITProvisionRole",
   "found": true,
-  "summary": "The ITProvisionRole class is used to manage roles related to IT provisioning within the HSPnet system. It provides functionality for adding, updating, deleting, searching, and reactivating roles. It features methods for interacting with the database, such as executing stored procedures and validating entries before database operations.",
-  "purpose": "Manage and operate on IT provisioning roles within the system, including database CRUD operations and search functionalities.",
+  "summary": "The ITProvisionRole module handles CRUD operations and search functionalities related to IT roles within an agency. It includes methods to add, update, delete, and reactivate ITProvisionRole entries and provides search capabilities for placement requests.",
+  "purpose": "To manage IT roles within an agency, including adding new roles, updating existing ones, and providing search functionality for placement requests.",
   "entities": [
     "ITProvisionRole",
     "ITProvisionRoles"
   ],
   "fields": [
-    {
-      "name": "ID",
-      "type": "int"
-    },
-    {
-      "name": "AgencyID",
-      "type": "int"
-    },
-    {
-      "name": "PlacementRequestDestinationID",
-      "type": "int"
-    },
-    {
-      "name": "Name",
-      "type": "string"
-    },
-    {
-      "name": "ShortName",
-      "type": "string"
-    },
-    {
-      "name": "Inactive",
-      "type": "Boolean"
-    }
+    "ID",
+    "AgencyID",
+    "PlacementRequestDestinationID",
+    "Name",
+    "ShortName",
+    "Inactive"
   ],
   "actors": [
-    "HSPnetSession",
-    "SqlDataReader"
+    "HSPnetSession"
   ],
   "workflows": [
     {
-      "name": "Add IT Provision Role",
+      "name": "ITProvisionRole Search",
       "steps": [
-        "Validate role details using IsValid method.",
-        "Add role to database using ITProvRoleAdd procedure."
+        "Set procedure name to ITProvRoleSearch or ITProvRoleSearchPlacementRequest.",
+        "Add parameters including AgencyID, ShowInactive, PlacementRequestDestinationID, and keyword.",
+        "Execute query and retrieve data.",
+        "Fill list of ITProvisionRole using retrieved data.",
+        "Close data reader."
       ]
     },
     {
-      "name": "Search IT Provision Roles",
+      "name": "ITProvisionRole CRUD Operations",
       "steps": [
-        "Execute ITProvRoleSearchPlacementRequest or ITProvRoleSearch procedure.",
-        "Fetch data using SqlDataReader.",
-        "Populate list using FillList method."
-      ]
-    },
-    {
-      "name": "Update IT Provision Role",
-      "steps": [
-        "Validate role using IsValid method.",
-        "Update details in database if role is valid."
-      ]
-    },
-    {
-      "name": "Delete IT Provision Role",
-      "steps": [
-        "Execute ITProvRoleDelete procedure.",
-        "Pass SessionID and ID parameters for deletion."
-      ]
-    },
-    {
-      "name": "Reactivate IT Provision Role",
-      "steps": [
-        "Execute ITProvRoleReactivate procedure.",
-        "Pass SessionID and ID parameters for reactivation."
+        "Validate entry fields for Name and ShortName.",
+        "Set procedure name to ITProvRoleAdd, ITProvRoleUpdate, ITProvRoleDelete, or ITProvRoleReactivate.",
+        "Add necessary parameters such as SessionID, AgencyID, and entry fields.",
+        "Execute respective procedure."
       ]
     }
   ],
-  "business_rules": [
-    "Role name and short name must be specified to be valid.",
-    "Inactive roles can be filtered in search operations."
-  ],
+  "business_rules": [],
   "validations": [
-    "Check if Name is blank.",
-    "Check if ShortName is blank."
+    {
+      "condition": "Name must be specified",
+      "result": "Add error message to session."
+    },
+    {
+      "condition": "ShortName must be specified",
+      "result": "Add error message to session."
+    }
   ],
   "calculations": [],
   "conditions": [
-    "ID must not be zero for update, delete, or reactivate operations."
+    {
+      "name": "IsValid",
+      "details": "Validates that Name and ShortName are not blank."
+    }
   ],
   "system_behavior": [
-    "Interaction with database through stored procedures.",
-    "Role details are used to populate dropdowns and maintenance screens."
+    "Adds, updates, deletes, and reactivates ITProvisionRole entries based on session parameters.",
+    "Searches for ITProvisionRole entries based on agency and placement request details."
   ],
   "dependencies": [
     "HSPnet.Framework",
-    "HSPnet.App_GlobalResources"
+    "HSPnet.App_GlobalResources",
+    "HSPnet.DataLayer",
+    "System.Data.SqlClient"
   ],
-  "exceptions": [
-    "Invalid parameters lead to error messages within session."
-  ],
+  "exceptions": [],
   "source_document_ids": [
     "1a10d8d9-795a-59ae-8ada-9d790c448b53",
     "1e007376-8ab6-5f88-8dfb-6abfcd6614d0",
