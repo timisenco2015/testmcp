@@ -1,148 +1,85 @@
 {
-  "filename": "AssessmentSection",
-  "found": true,
-  "summary": "The AssessmentSection documents provide structured information on managing and retrieving assessment section data within the HSPnet system. It involves database operations for fetching, listing, and interacting with assessment sections using stored procedures.",
-  "purpose": "To manage assessment sections related to placement requests, including retrieving, listing, and ensuring proper database interactions for managing assessment data.",
-  "entities": [],
-  "fields": [
-    {
-      "name": "ID",
-      "type": "int",
-      "description": "Unique identifier for the AssessmentSection."
-    },
-    {
-      "name": "TemplateCodeID",
-      "type": "int",
-      "description": "Identifier for the template code related to the section."
-    },
-    {
-      "name": "AssessmentHeaderID",
-      "type": "int",
-      "description": "Identifier for the assessment header associated with the section."
-    },
-    {
-      "name": "SectionName",
-      "type": "string",
-      "description": "Name of the assessment section."
-    },
-    {
-      "name": "SectionNameAlt",
-      "type": "string",
-      "description": "Alternate name for the assessment section."
-    },
-    {
-      "name": "SectionTitle",
-      "type": "string",
-      "description": "Title of the assessment section."
-    },
-    {
-      "name": "SectionTitleAlt",
-      "type": "string",
-      "description": "Alternate title for the assessment section."
-    },
-    {
-      "name": "SectionSubHeading",
-      "type": "string",
-      "description": "Sub-heading of the assessment section."
-    },
-    {
-      "name": "SectionSubHeadingAlt",
-      "type": "string",
-      "description": "Alternate sub-heading for the assessment section."
-    },
-    {
-      "name": "SortOrder",
-      "type": "int",
-      "description": "Order in which sections are sorted."
-    },
-    {
-      "name": "AppliedAssessorTypeCodeID",
-      "type": "int",
-      "description": "Code identifier for the type of assessor applied."
-    },
-    {
-      "name": "AppliedAssessmentTypeCodeID",
-      "type": "int",
-      "description": "Code identifier for the type of assessment applied."
-    },
-    {
-      "name": "AssessAssessmentSubjectCodeID",
-      "type": "int",
-      "description": "Code identifier for the subject of the assessment."
-    },
-    {
-      "name": "RequiredAnswerMissing",
-      "type": "bool",
-      "description": "Indicates if a required answer is missing."
-    },
-    {
-      "name": "HasQuestion",
-      "type": "bool",
-      "description": "Indicates if the section has a question."
-    },
-    {
-      "name": "Optional",
-      "type": "bool",
-      "description": "Indicates if the section is optional."
-    }
-  ],
-  "actors": [
-    {
-      "name": "HSPnetSession",
-      "role": "Session handler for database operations."
-    }
-  ],
-  "workflows": [
-    {
-      "name": "Retrieve Assessment Sections",
-      "steps": [
-        "Initialize HSPnetSession.",
-        "Set procedure for 'PlacementRequestAssessmentSections'.",
-        "Add parameters: SessionID, PlacementRequestAssessmentID.",
-        "Execute stored procedure and read results.",
-        "Close reader after processing."
-      ]
-    },
-    {
-      "name": "Search Assessment Section by Template",
-      "steps": [
-        "Initialize HSPnetSession.",
-        "Set procedure for 'AssessmentSectionSearchByTemplate'.",
-        "Add parameters: SessionID, TemplateCode, OptionalOnly.",
-        "Execute stored procedure and read results.",
-        "Close reader after processing."
-      ]
-    }
-  ],
-  "business_rules": [
-    "Assessment sections must have unique IDs.",
-    "Sections can be optional or required."
-  ],
-  "validations": [
-    "Check if required answers are missing.",
-    "Validate section names and titles."
-  ],
-  "calculations": [],
-  "conditions": [],
-  "system_behavior": [
-    "Fetches and processes assessment section data using defined stored procedures.",
-    "Supports alternate section names and titles based on locale."
-  ],
-  "dependencies": [
-    "SQL Server for stored procedure execution.",
-    "HSPnet database connectivity."
-  ],
-  "exceptions": [
-    "Handle database connection errors.",
-    "Handle data conversion errors."
-  ],
-  "source_document_ids": [
-    "12829377-323e-5201-92f6-9dd6121c41b5",
-    "1fad974b-0542-5bf6-95b3-62f38b35534d",
-    "42b5c7b0-b2b6-56a1-bf42-ad4ac12326fe",
-    "703a60e8-c91f-57c4-a59f-8aa3d597a3ed",
-    "b9658191-1656-58c7-8163-c8fb411cfd47",
-    "e5734b7a-dd59-506b-bcf7-adc663cdd8db"
-  ],
-  "content_gaps": []
+    "filename": "AssessmentSection",
+    "found": true,
+    "summary": "The AssessmentSection is a structured component within a system that handles and manages data related to assessment sections. It provides functionalities to perform various operations like searching assessment sections by template or name, and handling placement request assessment sections.",
+    "purpose": "The purpose of AssessmentSection is to manage and operate various functions related to assessment sections within the system, including fetching, updating, and organizing assessment data.",
+    "entities": [],
+    "fields": [
+        "ID",
+        "TemplateCodeID",
+        "AssessmentHeaderID",
+        "SectionName",
+        "SectionNameAlt",
+        "SectionTitle",
+        "SectionTitleAlt",
+        "SectionSubHeading",
+        "SectionSubHeadingAlt",
+        "SortOrder",
+        "AppliedAssessorTypeCodeID",
+        "AppliedAssessmentTypeCodeID",
+        "AssessAssessmentSubjectCodeID",
+        "RequiredAnswerMissing",
+        "HasQuestion",
+        "Optional"
+    ],
+    "actors": [],
+    "workflows": [
+        {
+            "name": "PlacementRequestAssessmentSectionsCombinedView",
+            "steps": [
+                "Initialize a list of AssessmentSection.",
+                "Set the procedure name as 'PlacementRequestAssessmentSectionsCombinedView'.",
+                "Add parameters: SessionID and PlacementRequestAssessmentID.",
+                "Execute the procedure and retrieve data.",
+                "For each record, create an AssessmentSection entry with retrieved data.",
+                "Add each entry to the list.",
+                "Return the list."
+            ]
+        },
+        {
+            "name": "AssessmentSectionSearchByTemplate",
+            "steps": [
+                "Initialize a list of AssessmentSection.",
+                "Set the procedure name as 'AssessmentSectionSearchByTemplate'.",
+                "Add parameters: SessionID, TemplateCode, OptionalOnly.",
+                "Execute the procedure and retrieve data.",
+                "For each record, create an AssessmentSection entry with retrieved data.",
+                "Add each entry to the list.",
+                "Return the list."
+            ]
+        },
+        {
+            "name": "AssessmentSectionSearchByName",
+            "steps": [
+                "Initialize an AssessmentSection entry.",
+                "Set the procedure name as 'AssessmentSectionSearchByName'.",
+                "Add parameters: SessionID, TemplateCode, SectionName.",
+                "Execute the procedure and retrieve data.",
+                "If a record is found, populate the entry with retrieved data.",
+                "Return the entry."
+            ]
+        }
+    ],
+    "business_rules": [],
+    "validations": [
+        "Ensure TemplateCode is provided when searching by template.",
+        "Ensure SectionName is provided when searching by name."
+    ],
+    "calculations": [],
+    "conditions": [],
+    "system_behavior": [
+        "Fetches and processes assessment section data based on provided parameters.",
+        "Handles optional and required fields in assessments."
+    ],
+    "dependencies": [],
+    "exceptions": [],
+    "source_document_ids": [
+        "12829377-323e-5201-92f6-9dd6121c41b5",
+        "1fad974b-0542-5bf6-95b3-62f38b35534d",
+        "42b5c7b0-b2b6-56a1-bf42-ad4ac12326fe",
+        "703a60e8-c91f-57c4-a59f-8aa3d597a3ed",
+        "b9658191-1656-58c7-8163-c8fb411cfd47",
+        "e5734b7a-dd59-506b-bcf7-adc663cdd8db"
+    ],
+    "content_gaps": []
 }
