@@ -1,19 +1,73 @@
 {
-  "filename": "ExpenseBatch",
-  "found": true,
-  "summary": "Manages expense batches related to departmental financial transactions.",
-  "purpose": "Provides methods for retrieving, adding, updating, and deleting expense batches.",
-  "entities": ["ExpenseBatch"],
-  "fields": ["ID", "DepartmentID", "BatchDescription", "BatchDate", "StatusCodeID", "StatusCode", "StatusDescription", "ClosedDate", "BatchNumberFormatted"],
-  "actors": [],
-  "workflows": [],
-  "business_rules": [],
-  "validations": [],
-  "calculations": ["BatchNumberFormatted"],
-  "conditions": [],
-  "system_behavior": [],
-  "dependencies": [],
-  "exceptions": [],
-  "source_document_ids": ["060e08d3-49ca-5e40-bea0-849f4e6173e1", "3559737f-0154-520e-be2b-d3dd2c3de539", "b2216e58-a144-55cb-8b87-3da9787fc1d7"],
-  "content_gaps": []
+    "filename": "ExpenseBatch",
+    "found": true,
+    "summary": "The ExpenseBatch entities manage department expense batches, including addition, retrieval, and update operations within the HSPnet system.",
+    "purpose": "Handle organizational expense batches with options for addition, searching, updating, and deletion.",
+    "entities": [
+        "ExpenseBatch",
+        "ExpenseBatches"
+    ],
+    "fields": [
+        {
+            "name": "ID",
+            "type": "int"
+        },
+        {
+            "name": "DepartmentID",
+            "type": "int"
+        },
+        {
+            "name": "BatchDescription",
+            "type": "string"
+        },
+        {
+            "name": "BatchDate",
+            "type": "DateTime"
+        },
+        {
+            "name": "StatusCodeID",
+            "type": "int"
+        },
+        {
+            "name": "StatusCode",
+            "type": "string"
+        },
+        {
+            "name": "StatusDescription",
+            "type": "string"
+        },
+        {
+            "name": "ClosedDate",
+            "type": "DateTime"
+        },
+        {
+            "name": "BatchNumberFormatted",
+            "type": "string"
+        }
+    ],
+    "actors": [],
+    "workflows": [
+        {
+            "name": "Expense Batch Management",
+            "steps": [
+                "Add a new expense batch.",
+                "Search for existing batches.",
+                "Update batch details.",
+                "Delete an expense batch."
+            ]
+        }
+    ],
+    "business_rules": [],
+    "validations": [],
+    "calculations": [],
+    "conditions": [],
+    "system_behavior": [],
+    "dependencies": [],
+    "exceptions": [],
+    "source_document_ids": [
+        "060e08d3-49ca-5e40-bea0-849f4e6173e1",
+        "3559737f-0154-520e-be2b-d3dd2c3de539",
+        "b2216e58-a144-55cb-8b87-3da9787fc1d7"
+    ],
+    "content_gaps": []
 }
