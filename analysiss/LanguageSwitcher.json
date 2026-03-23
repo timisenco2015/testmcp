@@ -1,54 +1,60 @@
 {
   "filename": "LanguageSwitcher",
   "found": true,
-  "summary": "The 'LanguageSwitcher' is a user control that allows toggling between different language locales on a webpage. It modifies the URL's locale parameter to switch between default and alternative locales.",
-  "purpose": "To provide the functionality of switching between different language locales on a webpage by modifying the URL parameters.",
+  "summary": "The LanguageSwitcher is a user control component implemented for handling language switching functionality in a web application. It leverages ASP.NET web controls to toggle between locales and update the page URL accordingly.",
+  "purpose": "To manage language switching by toggling between different locale settings on a web page and redirecting users with the updated locale in the URL.",
   "entities": [],
   "fields": [
     {
       "name": "UserSession",
-      "description": "HSPnetSession object holding user's session data including locale information.",
-      "type": "HSPnetSession"
+      "type": "HSPnetSession",
+      "description": "Stores session-related information including locale details."
     },
     {
       "name": "lbLanguageSwitcher",
-      "description": "LinkButton used to trigger the language switch event.",
-      "type": "WebControl"
+      "type": "LinkButton",
+      "description": "A web control that initiates the language change event."
     }
   ],
-  "actors": [
-    {
-      "name": "User",
-      "description": "A user interacting with the language switcher control to change the language of the webpage."
-    }
-  ],
+  "actors": [],
   "workflows": [
     {
-      "name": "Language Locale Switching",
+      "name": "Language Switch",
       "steps": [
-        "User clicks the lbLanguageSwitcher button.",
-        "The current URL and locale parameter are retrieved.",
-        "If locale parameter is absent, it is appended with the current UserSession locale.",
-        "Locale is toggled between default and alternative settings.",
-        "If applicable, URL hash is added.",
-        "Page is redirected to the new URL."
+        "User clicks the language switcher link button.",
+        "Check if the current locale is available in the URL; if not, append the current locale.",
+        "Toggle the locale parameter to the alternate locale.",
+        "If the page requested is not 'DEFAULT', add a URL hash for security.",
+        "Redirect to the updated URL with the new locale."
       ]
     }
   ],
   "business_rules": [
-    "Locale parameter should be appended to the URL if not present.",
-    "Locale is toggled between default and alternative values."
+    {
+      "description": "If the locale is not present in the URL, it will default to the session's current locale."
+    }
   ],
   "validations": [],
   "calculations": [],
   "conditions": [
-    "If no locale parameter is present, use UserSession's current locale.",
-    "Toggle from default to alternative locale based on UserSession's `IsUsingDefaultLocale`."
+    {
+      "description": "Check if the locale in the URL is empty to append the current locale."
+    },
+    {
+      "description": "Determine which locale to toggle based on the session's current state."
+    }
   ],
   "system_behavior": [
-    "Redirects the user to a URL with the updated locale parameter."
+    "Redirects the user to the same page with an updated locale query string parameter."
   ],
-  "dependencies": [],
+  "dependencies": [
+    {
+      "description": "Uses HSPnetSession for managing session data such as locale."
+    },
+    {
+      "description": "Utilizes Hashing.AddURLHash to ensure URL integrity."
+    }
+  ],
   "exceptions": [],
   "source_document_ids": [
     "1e887c45-972c-596d-a016-fb3d9160d62f",
