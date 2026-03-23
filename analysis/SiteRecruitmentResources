@@ -1,0 +1,499 @@
+```json
+[
+  {
+    "filename": "SiteRecruitmentResources",
+    "found": true,
+    "summary": "The SiteRecruitmentResources pertains to the management of recruitment resources. It includes a user control for handling the recruitment details on web pages, managing sessions, and updating recruitment resources.",
+    "purpose": "To facilitate the management and update of recruitment resources for sites using a web interface.",
+    "entities": [],
+    "fields": [
+      "recruitmentRefNo",
+      "recruitmentClosed"
+    ],
+    "actors": [
+      "UserSession"
+    ],
+    "workflows": [
+      {
+        "name": "Update Recruitment Resources",
+        "steps": [
+          "Retrieve recruitment reference number from the text box.",
+          "Check if recruitment is closed from the checkbox.",
+          "Call UpdateRecruitmentResources with session, ID, webPage, reference number, and closed status."
+        ]
+      },
+      {
+        "name": "Cache User Session",
+        "steps": [
+          "Cache the current user session.",
+          "Redirect to MaintSiteProfile with session and site details."
+        ]
+      }
+    ],
+    "business_rules": [],
+    "validations": [],
+    "calculations": [],
+    "conditions": [],
+    "system_behavior": [
+      "Updates recruitment resources by interacting with web forms.",
+      "Caches user sessions for later use."
+    ],
+    "dependencies": [],
+    "exceptions": [],
+    "source_document_ids": [
+      "2d4e39aa-3711-5891-9efb-c1e9d0379093",
+      "456dd6b9-b89b-5a65-b681-2aa917a399a8",
+      "a61db9ae-f959-5975-ac27-4e818c75be32",
+      "cb4e80a6-37e6-5555-bfe5-d164c8ef5f87"
+    ],
+    "content_gaps": []
+  },
+  {
+    "filename": "WelcomeStaffAdmin",
+    "found": true,
+    "summary": "WelcomeStaffAdmin provides functionalities for staff administration, including viewing and editing personal settings and last login information, using web controls and session management.",
+    "purpose": "To facilitate staff administration through a web interface, allowing for viewing and updating personal settings.",
+    "entities": [],
+    "fields": [
+      "txtStartDate",
+      "txtEndDate"
+    ],
+    "actors": [
+      "UserSession"
+    ],
+    "workflows": [
+      {
+        "name": "Load Welcome Staff Page",
+        "steps": [
+          "Setup the page with the user's session.",
+          "Register necessary JavaScript includes.",
+          "Retrieve last login information and display it."
+        ]
+      },
+      {
+        "name": "Handle Data Selection",
+        "steps": [
+          "Retrieve and bind data based on user input parameters.",
+          "Display results in a grid view."
+        ]
+      }
+    ],
+    "business_rules": [],
+    "validations": [],
+    "calculations": [],
+    "conditions": [],
+    "system_behavior": [
+      "Displays and updates staff administration settings.",
+      "Manages data display and retrieval for staff-related information."
+    ],
+    "dependencies": [],
+    "exceptions": [],
+    "source_document_ids": [
+      "05db31e4-e8b6-53ee-a6fb-812c106f0134",
+      "100d5925-a5f8-53db-8493-02cddd563eb7",
+      "3c84bade-9671-5fbf-acce-3c87a835e9b4",
+      "4c4b97b8-d242-5261-a515-767a3f7d7a49",
+      "52b5066f-23f6-5d82-96cd-5d51dad3de79"
+    ],
+    "content_gaps": []
+  },
+  {
+    "filename": "ServiceCode",
+    "found": true,
+    "summary": "The ServiceCode file details the structure and methods for managing service codes, including listing, retrieving by CourseID and TimetableID, and localization support for alternate languages.",
+    "purpose": "To manage service codes used across various modules of the system, enabling retrieval and localization based on user session.",
+    "entities": [
+      "ServiceCode"
+    ],
+    "fields": [
+      "ID",
+      "CodeCategoryID",
+      "ShortName",
+      "Name",
+      "SortOrder",
+      "Notes",
+      "NameAlt",
+      "NotesAlt"
+    ],
+    "actors": [
+      "HSPnetSession"
+    ],
+    "workflows": [
+      {
+        "name": "Retrieve All Service Codes",
+        "steps": [
+          "Setup database procedure for retrieving all service codes.",
+          "Read data using a data reader.",
+          "Add each service code to a list for return."
+        ]
+      },
+      {
+        "name": "Retrieve Service Code by CourseID",
+        "steps": [
+          "Setup database procedure for retrieving service codes by CourseID.",
+          "Read data and add to list."
+        ]
+      }
+    ],
+    "business_rules": [],
+    "validations": [],
+    "calculations": [],
+    "conditions": [],
+    "system_behavior": [
+      "Retrieves service codes and localizes them if alternate language mode is active."
+    ],
+    "dependencies": [],
+    "exceptions": [],
+    "source_document_ids": [
+      "94f1b055-348d-508a-ae6e-cf7960a8c6a2",
+      "e4ebe4b4-6d14-5c3f-b693-61016f765239",
+      "f976b9af-a402-540f-b162-391d578fac7c"
+    ],
+    "content_gaps": []
+  },
+  {
+    "filename": "SiteProfileHistory",
+    "found": true,
+    "summary": "SiteProfileHistory tracks changes to site profiles, including user actions, fields affected, and formatted details for display.",
+    "purpose": "To record and manage historical changes to site profiles for audit and reference purposes.",
+    "entities": [
+      "SiteProfileHistory"
+    ],
+    "fields": [
+      "ID",
+      "ActionDate",
+      "ScreenSection",
+      "UserAction",
+      "Fields",
+      "Agency",
+      "AgencyName",
+      "LastName",
+      "FirstName",
+      "MiddleName",
+      "Phone",
+      "ByUserID",
+      "ByOriginalUserID",
+      "ByUserSysAdmin"
+    ],
+    "actors": [
+      "HSPnetSession"
+    ],
+    "workflows": [
+      {
+        "name": "Search Site Profile History",
+        "steps": [
+          "Setup database procedure for retrieving site profile history by SiteID.",
+          "Read and return results."
+        ]
+      }
+    ],
+    "business_rules": [],
+    "validations": [],
+    "calculations": [],
+    "conditions": [],
+    "system_behavior": [
+      "Maintains historical changes to site profiles, formatted for display."
+    ],
+    "dependencies": [],
+    "exceptions": [],
+    "source_document_ids": [
+      "25f89a24-5eda-5a3f-83df-1de69b12b3f1",
+      "26e09292-d304-55c6-94e5-ef3346453c4b",
+      "7ca6b963-9ae9-5cd3-82d5-f30dcb727ae3",
+      "a8f030c6-90b8-53a1-bb8a-3b7ef33b9488",
+      "e806999c-3a39-5720-9b59-303faebc9eb6"
+    ],
+    "content_gaps": []
+  },
+  {
+    "filename": "EmailPopupDocument",
+    "found": true,
+    "summary": "EmailPopupDocument manages email popup documents, including search, retrieval, addition, and deletion operations.",
+    "purpose": "To handle operations related to email popup documents, such as listing, searching, and managing their lifecycle.",
+    "entities": [
+      "EmailPopupDocument"
+    ],
+    "fields": [
+      "ID",
+      "FileName",
+      "FilePath",
+      "Checked"
+    ],
+    "actors": [],
+    "workflows": [
+      {
+        "name": "Search Email Popup Documents",
+        "steps": [
+          "Split data information to retrieve email document details.",
+          "Add each document to a list for return."
+        ]
+      },
+      {
+        "name": "Delete Email Popup Document",
+        "steps": [
+          "Locate document by ID and delete its file and directory if existing."
+        ]
+      }
+    ],
+    "business_rules": [],
+    "validations": [],
+    "calculations": [],
+    "conditions": [],
+    "system_behavior": [
+      "Manages email popup documents by providing search and delete functionalities."
+    ],
+    "dependencies": [],
+    "exceptions": [],
+    "source_document_ids": [
+      "7287734e-f13d-550f-9249-4242db620766",
+      "927bc837-5564-5759-9324-27c6d5d7321d"
+    ],
+    "content_gaps": []
+  },
+  {
+    "filename": "CostCentre",
+    "found": true,
+    "summary": "CostCentre manages records related to placement costs, supporting retrieval by various parameters and XML serialization.",
+    "purpose": "To facilitate cost centre management in placements, providing data access and XML serialization.",
+    "entities": [
+      "CostCentreRecord"
+    ],
+    "fields": [
+      "PlacingAgency",
+      "Department",
+      "Program",
+      "Discipline",
+      "SubDiscipline",
+      "ReceivingAgency",
+      "Site",
+      "Portfolio",
+      "Service",
+      "Destination",
+      "CostCentre",
+      "CostCentreDescription",
+      "PRType",
+      "StartDate",
+      "EndDate",
+      "Status",
+      "Course",
+      "ProgramYear",
+      "ReferenceNumber",
+      "CFO",
+      "PRCount",
+      "StudentCount",
+      "PRHours",
+      "StudentHours"
+    ],
+    "actors": [],
+    "workflows": [
+      {
+        "name": "Retrieve Cost Centre Records",
+        "steps": [
+          "Setup database procedure for retrieving cost centre records.",
+          "Read data and populate list of records."
+        ]
+      }
+    ],
+    "business_rules": [],
+    "validations": [],
+    "calculations": [],
+    "conditions": [],
+    "system_behavior": [
+      "Retrieves and manages cost centre records with support for XML serialization."
+    ],
+    "dependencies": [],
+    "exceptions": [],
+    "source_document_ids": [
+      "20ac8054-536e-5203-b33d-7db2b2dc2359",
+      "2c04f259-cf58-5d95-803c-8ebf16840f6c",
+      "97bc3ba9-9fe4-52b1-8847-dce2198e0aee",
+      "dd965b0f-f9cf-57eb-a3f8-32b3b97a6d1a",
+      "e1ac7e41-5e9e-5f16-baa0-29d05a70f976"
+    ],
+    "content_gaps": []
+  },
+  {
+    "filename": "ExpenseBatch",
+    "found": true,
+    "summary": "ExpenseBatch handles the management of expense batches, including CRUD operations, and formatted output for batch numbers.",
+    "purpose": "To manage expense batches with creation, retrieval, update and deletion operations, including batch number formatting.",
+    "entities": [
+      "ExpenseBatch"
+    ],
+    "fields": [
+      "ID",
+      "DepartmentID",
+      "BatchDescription",
+      "BatchDate",
+      "StatusCodeID",
+      "StatusCode",
+      "StatusDescription",
+      "ClosedDate",
+      "BatchNumberFormatted"
+    ],
+    "actors": [],
+    "workflows": [
+      {
+        "name": "Retrieve Expense Batches",
+        "steps": [
+          "Retrieve list of expense batches for a department."
+        ]
+      },
+      {
+        "name": "Add Expense Batch",
+        "steps": [
+          "Use stored procedure to add a new expense batch."
+        ]
+      },
+      {
+        "name": "Update Expense Batch",
+        "steps": [
+          "Use stored procedure to update an existing expense batch."
+        ]
+      },
+      {
+        "name": "Delete Expense Batch",
+        "steps": [
+          "Use stored procedure to delete an existing expense batch."
+        ]
+      }
+    ],
+    "business_rules": [],
+    "validations": [],
+    "calculations": [],
+    "conditions": [],
+    "system_behavior": [
+      "Handles CRUD operations on expense batches and formats batch numbers for output."
+    ],
+    "dependencies": [],
+    "exceptions": [],
+    "source_document_ids": [
+      "060e08d3-49ca-5e40-bea0-849f4e6173e1",
+      "3559737f-0154-520e-be2b-d3dd2c3de539",
+      "b2216e58-a144-55cb-8b87-3da9787fc1d7"
+    ],
+    "content_gaps": []
+  },
+  {
+    "filename": "TimetableAssessments",
+    "found": true,
+    "summary": "TimetableAssessments manages assessment templates and operations related to timetable-based assessments including JavaScript variable setup and validation checks.",
+    "purpose": "To manage timetable assessments including setup operations, validation checks, and assessment record management through a web interface.",
+    "entities": [
+      "TimetableAssessment"
+    ],
+    "fields": [
+      "AssessorTypeDescription",
+      "AssessmentTypeDescription",
+      "AssessmentTemplateDescription",
+      "OpenDaysAfterStart",
+      "CloseDaysAfterEnd",
+      "ViewUntilDaysAfterEnd"
+    ],
+    "actors": [
+      "UserSession"
+    ],
+    "workflows": [
+      {
+        "name": "Load Assessments",
+        "steps": [
+          "Setup assessment page with user session.",
+          "Load necessary data and templates."
+        ]
+      },
+      {
+        "name": "Validate and Bind Data",
+        "steps": [
+          "Perform validation and display errors if any.",
+          "Bind data to grid view."
+        ]
+      }
+    ],
+    "business_rules": [],
+    "validations": [],
+    "calculations": [],
+    "conditions": [],
+    "system_behavior": [
+      "Manages timetable-based assessments, handling data operations, template management and validation checks."
+    ],
+    "dependencies": [],
+    "exceptions": [],
+    "source_document_ids": [
+      "0781696d-dec4-5dfc-aa58-80ddd173c0ae",
+      "0d330d29-e0a7-5f88-8c71-d32f88b252b0",
+      "0ea3e178-f11b-5ee8-afc8-441e55e2d2f4",
+      "135455cd-1a34-5b2d-b8cc-298a1d98c47e"
+    ],
+    "content_gaps": []
+  },
+  {
+    "filename": "AdHocQuery",
+    "found": true,
+    "summary": "AdHocQuery provides functionality to convert SQL DataReader results into HTML tables for web display.",
+    "purpose": "To facilitate displaying database query results as HTML tables on the web.",
+    "entities": [],
+    "fields": [],
+    "actors": [],
+    "workflows": [
+      {
+        "name": "Convert DataReader to HTML",
+        "steps": [
+          "Append header row to HTML.",
+          "Iterate through DataReader rows, append to HTML as table rows.",
+          "Return the completed HTML string."
+        ]
+      }
+    ],
+    "business_rules": [],
+    "validations": [],
+    "calculations": [],
+    "conditions": [],
+    "system_behavior": [
+      "Converts query results into HTML tables for display on web pages."
+    ],
+    "dependencies": [],
+    "exceptions": [],
+    "source_document_ids": [
+      "20140dcf-7d8e-51f1-86ab-4b5a291db2b2",
+      "2878adb2-c26b-5d41-a6a4-d9f5a2c2c782"
+    ],
+    "content_gaps": []
+  },
+  {
+    "filename": "StudentPrerequisites",
+    "found": true,
+    "summary": "Handles operations related to student prerequisites including updates for Immunization, OccHealth, Infection Control, and Safety.",
+    "purpose": "To manage prerequisite records for students, encompassing processes for various health and safety updates.",
+    "entities": [
+      "StudentPrerequisite"
+    ],
+    "fields": [
+      "MeaslesStatusCodeDescFormattedAlt",
+      "MeaslesAdminDateFormatted",
+      "HepBStatusCodeDesc",
+      "Covid19AdminDateFormatted",
+      "InfluenzaStatusCodeID"
+    ],
+    "actors": [
+      "HSPnetSession"
+    ],
+    "workflows": [],
+    "business_rules": [],
+    "validations": [],
+    "calculations": [],
+    "conditions": [],
+    "system_behavior": [
+      "Updates student prerequisite records across health and safety domains."
+    ],
+    "dependencies": [],
+    "exceptions": [],
+    "source_document_ids": [
+      "126148d2-7c46-5bb8-8a4c-606105b702bd",
+      "165b1b6b-fd06-59e5-b7d7-81e87dbeac55",
+      "280408b2-2e1d-5bd7-8feb-59603ff0bb80",
+      "2f8ba20e-ca9a-5fc1-932a-1899a9499417"
+    ],
+    "content_gaps": []
+  }
+]
+```
