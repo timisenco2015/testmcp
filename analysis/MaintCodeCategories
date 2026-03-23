@@ -1,0 +1,105 @@
+```json
+{
+  "filename": "MaintCodeCategories",
+  "found": true,
+  "summary": "The document describes the ASP.NET web management interface for maintaining code categories such as adding, editing, deleting, and managing code categories in a system. It includes details of various user interface elements like panels, buttons, textboxes, gridview, and validators.",
+  "purpose": "To manage code categories within the application including the ability to add, edit, delete, and display code categories with associated details.",
+  "entities": [
+    "CodeCategory",
+    "CodeCategories",
+    "UserSession"
+  ],
+  "fields": [
+    {
+      "name": "ID",
+      "type": "uuid"
+    },
+    {
+      "name": "Category",
+      "type": "string",
+      "maxLength": 50
+    },
+    {
+      "name": "CategoryAlt",
+      "type": "string",
+      "maxLength": 50
+    },
+    {
+      "name": "Description",
+      "type": "string",
+      "maxLength": 200
+    }
+  ],
+  "actors": [
+    "User"
+  ],
+  "workflows": [
+    {
+      "name": "Manage Code Categories",
+      "steps": [
+        "User logs into the maintenance screen.",
+        "User can add a new code category by clicking the 'Add' button.",
+        "User can edit an existing code category by clicking the 'Edit' button next to the desired category.",
+        "User can delete a code category by clicking the 'Delete' button next to the desired category.",
+        "User can view code categories in a grid view.",
+        "User can save changes or cancel operations using 'Save' or 'Cancel' buttons respectively."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Category and Alt_Locale fields are mandatory for each code category entry."
+  ],
+  "validations": [
+    {
+      "field": "Category",
+      "type": "RequiredFieldValidator",
+      "errorMessage": "Category must be specified"
+    },
+    {
+      "field": "CategoryAlt",
+      "type": "RequiredFieldValidator",
+      "errorMessage": "Category must be specified"
+    }
+  ],
+  "calculations": [],
+  "conditions": [
+    "If e.CommandName is 'cmdAdd', switch to add mode and show details.",
+    "If e.CommandName is 'cmdEdit', switch to edit mode and show details of selected ID.",
+    "If e.CommandName is 'cmdDelete', delete the selected code category ID.",
+    "Only proceed with saving if Page.IsValid."
+  ],
+  "system_behavior": [
+    "The GridView displays the list of code categories.",
+    "DetailsView provides a form for adding or editing code categories.",
+    "Error and warning panels display messages to the user.",
+    "Data refresh occurs after operations on code categories.",
+    "Page defaults to the 'Refresh View' button on form submit."
+  ],
+  "dependencies": [
+    "HSPnet.DataLayer",
+    "HSPnet.UI",
+    "HSPnet.App_GlobalResources"
+  ],
+  "exceptions": [
+    "User is shown error message if mandatory fields are not filled."
+  ],
+  "source_document_ids": [
+    "035aec77-d332-5086-82ba-a828e38a423b",
+    "1b953ab5-2d2e-5b66-9cdc-9e3b82bbd0a1",
+    "2cfa22df-94c8-5664-b787-4c14373a6e99",
+    "3151d303-95e6-5a5c-b06a-d78bc878e104",
+    "5dd7905c-e042-51eb-b7de-986e6a967649",
+    "6261088e-e9b7-5eeb-8bd5-db012d12f2fc",
+    "62f01a02-a69a-5e05-b939-617906b7af9b",
+    "72fe7f23-aab3-534e-a189-ed715d3f49b6",
+    "8668378a-0e53-59a9-b21d-07eb719e312c",
+    "942e0d85-cf2e-5c7d-b962-d85c66581cfa",
+    "958dbf2f-3444-5e50-8856-5d5d81cfc55d",
+    "b71b4a22-19ba-5328-9252-bf6cf176d62e",
+    "cdd45be7-8a76-5261-9bf4-1bb07ff4d239",
+    "d0949140-e426-5320-a880-f6f5316f6145",
+    "db86dc91-6af6-57a7-9d74-adaae7cadc9e"
+  ],
+  "content_gaps": []
+}
+```
