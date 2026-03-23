@@ -1,0 +1,80 @@
+```json
+{
+  "filename": "CostCentre",
+  "found": true,
+  "summary": "The CostCentre system is designed to manage and retrieve records of cost centers associated with different agencies and programs within a specified timeframe.",
+  "purpose": "To retrieve and manage cost center records for placement activities within various agencies, disciplines, and sites, and to facilitate financial and placement reporting.",
+  "entities": [
+    "CostCentreView",
+    "CostCentreRecord",
+    "Database"
+  ],
+  "fields": [
+    "PlacingAgency",
+    "Department",
+    "Program",
+    "Discipline",
+    "SubDiscipline",
+    "ReceivingAgency",
+    "Site",
+    "Portfolio",
+    "Service",
+    "Destination",
+    "CostCentre",
+    "CostCentreDescription",
+    "PRType",
+    "StartDate",
+    "EndDate",
+    "Status",
+    "Course",
+    "ProgramYear",
+    "ReferenceNumber",
+    "CFO",
+    "PRCount",
+    "StudentCount",
+    "PRHours",
+    "StudentHours"
+  ],
+  "actors": [
+    "Database",
+    "HSPnetSession"
+  ],
+  "workflows": [
+    {
+      "name": "GetCostCentre",
+      "steps": [
+        "Initialize an empty list of CostCentreRecord.",
+        "Set procedure name to 'PlacementCostCentre'.",
+        "Add parameters: SessionID, StartDate, EndDate, PlacingAgencies, Discipline, SubDiscipline, Site, Service, Destination, PRStatus.",
+        "Execute the procedure and retrieve data using SqlDataReader.",
+        "Iterate over the data reader and populate CostCentreRecord fields.",
+        "Add each populated CostCentreRecord to the list.",
+        "Return the list of CostCentreRecord."
+      ]
+    }
+  ],
+  "business_rules": [],
+  "validations": [],
+  "calculations": [],
+  "conditions": [],
+  "system_behavior": [
+    "The system retrieves cost centre data using a stored procedure.",
+    "Data is fetched and mapped to CostCentreRecord fields.",
+    "Records are aggregated into a list for further use."
+  ],
+  "dependencies": [
+    "HSPnet.DataLayer",
+    "HSPnet.Framework",
+    "HSPnet.UI"
+  ],
+  "exceptions": [],
+  "source_document_ids": [
+    "20ac8054-536e-5203-b33d-7db2b2dc2359",
+    "2c04f259-cf58-5d95-803c-8ebf16840f6c",
+    "97bc3ba9-9fe4-52b1-8847-dce2198e0aee",
+    "dd965b0f-f9cf-57eb-a3f8-32b3b97a6d1a",
+    "e1ac7e41-5e9e-5f16-baa0-29d05a70f976"
+  ],
+  "content_gaps": []
+}
+```
