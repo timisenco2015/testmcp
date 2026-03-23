@@ -1,0 +1,98 @@
+# Module: SiteOpportunity
+
+## SiteOpportunity-UC1 — Retrieve Site Opportunities By Site ID
+
+- Primary Actor(s): System
+- Secondary Actor(s): None
+- Trigger: Request to retrieve site opportunities by a specific site ID.
+- Description: This use case retrieves a list of site opportunities associated with a given site ID.
+- Preconditions: A valid site ID exists in the database.
+- Postconditions: A list of site opportunities is returned to the requester.
+- Main Success Scenario:
+  1. The system receives a request with a site ID.
+  2. The system sets the SQL procedure to `SiteOpportunitiesSearch`.
+  3. The system adds the site ID as a parameter.
+  4. The system executes the query and retrieves the data.
+  5. The data is processed and a list of site opportunities is compiled.
+- Extensions: None
+- Exceptions: Database connection issues could prevent retrieval.
+- Business Rules: None
+- Assumptions: The site ID provided is valid and exists in the database.
+- Open Issues: None
+
+## SiteOpportunity-UC2 — Retrieve Site Opportunities By Opportunity ID
+
+- Primary Actor(s): System
+- Secondary Actor(s): None
+- Trigger: Request to retrieve site opportunities by a specific opportunity ID.
+- Description: This use case retrieves a site opportunity associated with a given opportunity ID.
+- Preconditions: A valid opportunity ID exists in the database.
+- Postconditions: A site opportunity is returned to the requester.
+- Main Success Scenario:
+  1. The system receives a request with an opportunity ID.
+  2. The system sets the SQL procedure to `SiteOpportunitiesSearchID`.
+  3. The system adds the opportunity ID as a parameter.
+  4. The system executes the query and retrieves the data.
+  5. The data is processed and a site opportunity is returned.
+- Extensions: None
+- Exceptions: Database connection issues could prevent retrieval.
+- Business Rules: None
+- Assumptions: The opportunity ID provided is valid and exists in the database.
+- Open Issues: None
+
+## SiteOpportunity-UC3 — Add Site Opportunity
+
+- Primary Actor(s): System
+- Secondary Actor(s): None
+- Trigger: Instruction to add a new site opportunity.
+- Description: This use case adds a new site opportunity to the database.
+- Preconditions: Required fields for the site opportunity are valid and not blank.
+- Postconditions: A new site opportunity is added to the database.
+- Main Success Scenario:
+  1. The system validates the required fields (e.g., Response).
+  2. The system sets the SQL procedure to `SiteOpportunitiesAdd`.
+  3. The system adds necessary parameters (SiteID, HeadingID, Response).
+  4. The system executes the query to add the opportunity to the database.
+- Extensions: None
+- Exceptions: A validation failure if required fields are blank.
+- Business Rules: None
+- Assumptions: The system will handle blank values using a default (-1) for SortOrder.
+- Open Issues: None
+
+## SiteOpportunity-UC4 — Update Site Opportunity
+
+- Primary Actor(s): System
+- Secondary Actor(s): None
+- Trigger: Instruction to update an existing site opportunity.
+- Description: This use case updates the details of an existing site opportunity.
+- Preconditions: Opportunity ID exists and changes are valid.
+- Postconditions: The site opportunity is updated in the database.
+- Main Success Scenario:
+  1. The system validates the required fields (e.g., Response).
+  2. The system sets the SQL procedure to `SiteOpportunitiesUpdate`.
+  3. The system adds necessary parameters (SiteOpportunitiesID, HeadingID, Response).
+  4. The system executes the query to update the opportunity in the database.
+- Extensions: None
+- Exceptions: A validation failure if required fields are blank.
+- Business Rules: None
+- Assumptions: The opportunity ID provided is valid and exists in the database.
+- Open Issues: None
+
+## SiteOpportunity-UC5 — Delete Site Opportunity
+
+- Primary Actor(s): System
+- Secondary Actor(s): None
+- Trigger: Instruction to delete an existing site opportunity.
+- Description: This use case deletes an existing site opportunity from the database.
+- Preconditions: Opportunity ID exists in the database.
+- Postconditions: The site opportunity is deleted from the database.
+- Main Success Scenario:
+  1. The system verifies the existence of the opportunity ID.
+  2. The system sets the SQL procedure to `SiteOpportunitiesDelete`.
+  3. The system adds the opportunity ID as a parameter.
+  4. The system executes the query to delete the opportunity from the database.
+- Extensions: None
+- Exceptions: The deletion cannot be performed if the opportunity ID is invalid.
+- Business Rules: None
+- Assumptions: The opportunity ID provided is valid and exists in the database.
+- Open Issues: None
