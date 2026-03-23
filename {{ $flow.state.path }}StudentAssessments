@@ -1,0 +1,98 @@
+```json
+{
+  "filename": "StudentAssessments",
+  "found": true,
+  "summary": "The 'StudentAssessments' user control in the HSPnet application manages student assessment functionalities, including data display, assessment generation, and report downloading.",
+  "purpose": "To facilitate the management and processing of student assessments within the HSPnet system, allowing for user-specific views, report generation, and data-binding capabilities.",
+  "entities": ["StudentAssessments", "PlacementRequestAssessment", "AssessmentTemplate"],
+  "fields": ["StudentID", "StudentFirstName", "StudentLastName", "StudentNumber", "ScreenIsEditable", "UserSession"],
+  "actors": ["System.Web.UI.UserControl", "HSPnetSession", "ScriptManager"],
+  "workflows": [
+    {
+      "name": "Refresh",
+      "steps": [
+        "Check if UserSession is null.",
+        "Set visibility of btnGenerateReport based on ScreenIsEditable.",
+        "Fill course and assessment template dropdowns.",
+        "Set visibility of hlCombinedView based on user and course selections."
+      ]
+    },
+    {
+      "name": "FillCourseDropdown",
+      "steps": [
+        "Search for student assessments via PlacementRequestAssessmentStudentSearchPRD.",
+        "Bind data to ddCourse dropdown.",
+        "Insert default item if conditions are met."
+      ]
+    },
+    {
+      "name": "FillAssessmentTemplateDropdown",
+      "steps": [
+        "Get all templates related to student.",
+        "Bind data to ddAssessmentTemplateFilter dropdown.",
+        "Insert 'All' option as default."
+      ]
+    },
+    {
+      "name": "DisplayGrid",
+      "steps": [
+        "Check dataBind parameter.",
+        "Bind data to gridData if true."
+      ]
+    },
+    {
+      "name": "btnGenerateReport_Click",
+      "steps": [
+        "Initialize variables for context and report description.",
+        "Generate CSV report using OutputCSV method.",
+        "Display or download the report based on successful generation."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Set btnGenerateReport visibility based on ScreenIsEditable flag.",
+    "Allow hlCombinedView display only for student users with assessments submitted."
+  ],
+  "validations": [
+    "Check UserSession is not null before proceeding.",
+    "Ensure student assessments are filtered by course and template selection."
+  ],
+  "calculations": [
+    "Combine classes for data row display based on alternating state.",
+    "Generate report file name for CSV based on student and course information."
+  ],
+  "conditions": [
+    "If UserSession is null, cancel data selection.",
+    "If ViewState['FirstDataLoad'] equals '1', refresh data."
+  ],
+  "system_behavior": [
+    "Page_Load initializes ViewState and refreshes data if not postback.",
+    "GridData's SortExpression defines its sorting behavior upon binding."
+  ],
+  "dependencies": [
+    "HSPnet.DataLayer",
+    "HSPnet.Framework",
+    "System.Web.UI.WebControls"
+  ],
+  "exceptions": [
+    "Potential error handling for null UserSession during data operations."
+  ],
+  "source_document_ids": [
+    "152ea2b5-0e47-54c6-8fb4-1a593694fcc8",
+    "18975034-34fd-5ada-aa15-e50aa6f01e3e",
+    "36f2e201-e23a-5fe0-9463-2e5a123b82a0",
+    "3c098c58-04d7-5414-a6d4-a1ba81476378",
+    "4d41ad30-7063-547a-9863-14aebb19422d",
+    "69831e90-452c-5743-bfaa-01f63b4ad32f",
+    "7ede13bb-194a-50e2-a7de-6226265ab73c",
+    "90af7c25-e487-5a6c-a1e6-4933afcd9bcc",
+    "98dd668c-090d-5b92-9788-74e88e707c80",
+    "b28d3385-e44b-58d2-84ae-9e419d465d40",
+    "c2f8b2a8-5360-55a2-bde9-e69d2d6fb8ab",
+    "c37b919e-11d5-5a05-bc71-2f3d96c4f0c3",
+    "f4bf0152-9368-52ef-933c-c706b30572ac",
+    "fffbac8e-91eb-58e2-8bd4-87894276ec1b"
+  ],
+  "content_gaps": []
+}
+```
