@@ -1,64 +1,71 @@
 {
-  "filename": "CorrespondenceOptions",
-  "found": true,
-  "summary": "The CorrespondenceOptions file covers the management and update of various settings related to correspondence options in the HSPnet system. It handles operations like updating correspondence parameters such as instructor names, phone numbers, and course-related information.",
-  "purpose": "To manage correspondence settings within the HSPnet system.",
-  "entities": [
-    "CorrespondenceOption"
-  ],
-  "fields": [
-    "CorrespondenceID",
-    "PlacingAgency",
-    "Course",
-    "CourseFocusStatement",
-    "ReceivingAgency",
-    "Term",
-    "StartEndDates",
-    "Shifts",
-    "PRHours",
-    "PRRefNum",
-    "Comment",
-    "Alert",
-    "StudentName",
-    "InstructorName",
-    "InstructorPhoneEmail",
-    "CourseLeaderName",
-    "CourseLeaderPhoneEmail",
-    "PRSplit",
-    "PRLinked",
-    "PRType",
-    "PRDays",
-    "SupervisorName",
-    "SupervisorPhoneEmail"
-  ],
-  "actors": [
-    "HSPnetSession"
-  ],
-  "workflows": [
-    {
-      "name": "CorrespondenceOptionsUpdate",
-      "steps": [
-        "Check if CorrespondenceID > 0",
-        "Set procedure name to CorrespondenceOptionsUpdate",
-        "Add session and correspondence parameters",
-        "Execute database query"
-      ]
-    }
-  ],
-  "business_rules": [],
-  "validations": [],
-  "calculations": [],
-  "conditions": [],
-  "system_behavior": [
-    "Updates correspondence settings based on user input."
-  ],
-  "dependencies": [],
-  "exceptions": [],
-  "source_document_ids": [
-    "474f2ac9-3913-55fb-82b8-f111b0342aa8",
-    "5bb68ab9-8956-565d-9cb5-0d65d439f766",
-    "691729a0-c3b3-56c9-a27d-baa18d4a0e1d",
-    "8896459a-dc9b-5a0b-8ee3-03769e4f6ab1"
-  ],
-  "content_gaps": []
+    "filename": "CorrespondenceOptions",
+    "found": true,
+    "summary": "Provides functionalities for managing correspondence options with various parameters like PlacingAgency, Course, etc.",
+    "purpose": "To configure correspondence options for different entities involved in a course.",
+    "entities": [
+        "CorrespondenceOption"
+    ],
+    "fields": [
+        "CorrespondenceID",
+        "PlacingAgency",
+        "Course",
+        "CourseFocusStatement",
+        "ReceivingAgency",
+        "Term",
+        "StartEndDates",
+        "Shifts",
+        "PRHours",
+        "PRRefNum",
+        "Comment",
+        "Alert",
+        "StudentName",
+        "InstructorName",
+        "InstructorPhoneEmail",
+        "CourseLeaderName",
+        "CourseLeaderPhoneEmail",
+        "PRSplit",
+        "PRLinked",
+        "PRType",
+        "PRDays",
+        "SupervisorName",
+        "SupervisorPhoneEmail"
+    ],
+    "actors": [
+        "HSPnetSession"
+    ],
+    "workflows": [
+        {
+            "name": "CorrespondenceOptionsUpdate",
+            "steps": [
+                "Check if CorrespondenceID > 0",
+                "Set ProcedureName to CorrespondenceOptionsUpdate",
+                "Add parameters to session",
+                "Execute the query"
+            ]
+        },
+        {
+            "name": "CorrespondenceOptionsSearch",
+            "steps": [
+                "Set ProcedureName to CorrespondenceOptionsSearch",
+                "Add CorrespondenceID parameter",
+                "Execute query to get data",
+                "Fill list with CorrespondenceOption data"
+            ]
+        }
+    ],
+    "business_rules": [],
+    "validations": [],
+    "calculations": [],
+    "conditions": [],
+    "system_behavior": [],
+    "dependencies": [],
+    "exceptions": [],
+    "source_document_ids": [
+        "474f2ac9-3913-55fb-82b8-f111b0342aa8",
+        "5bb68ab9-8956-565d-9cb5-0d65d439f766",
+        "691729a0-c3b3-56c9-a27d-baa18d4a0e1d",
+        "8896459a-dc9b-5a0b-8ee3-03769e4f6ab1"
+    ],
+    "content_gaps": []
 }
