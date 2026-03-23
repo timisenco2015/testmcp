@@ -1,65 +1,61 @@
 {
   "filename": "SiteProfileClosures",
   "found": true,
-  "summary": "The SiteProfileClosures functionality manages site closures and the associated disciplines in a web application interface. It consists of multiple UI components for filtering, editing, and applying destinations related to site closures.",
-  "purpose": "To facilitate the management of site closures by allowing users to add, edit, and delete closure records and manage associated destination data.",
+  "summary": "The SiteProfileClosures module manages the closure process of site profiles, involving destination management and discipline processing. It handles the addition, update, and deletion of closures and their associated destinations, with support for both selected and applied destinations.",
+  "purpose": "The purpose of the SiteProfileClosures module is to manage the lifecycle of site closures, including the selection and management of destinations and disciplines associated with those closures. This includes operations like adding, editing, deleting closures, and managing applied destinations.",
   "entities": [],
   "fields": [
-    {
-      "name": "ClosureID",
-      "type": "int",
-      "description": "Unique identifier for a site closure record."
-    },
-    {
-      "name": "SiteID",
-      "type": "int",
-      "description": "Unique identifier for the site associated with the closure."
-    },
-    {
-      "name": "AppliedDestinations",
-      "type": "string",
-      "description": "Serialized list of destinations applied to a closure."
-    }
+    "closureID",
+    "siteID",
+    "sessionID",
+    "closureCodeID",
+    "startDate",
+    "endDate",
+    "comment",
+    "subDiscIDList",
+    "appliedDestinations",
+    "isAppliedAllDestinations"
   ],
   "actors": [
     "User",
-    "System Administrator"
+    "Administrator"
   ],
   "workflows": [
     {
-      "name": "Manage Site Closures",
+      "name": "Closure Management",
       "steps": [
-        "User selects a site closure record from the grid.",
-        "User clicks 'Add' to insert a new closure or 'Edit' to modify an existing one.",
-        "User enters the necessary details and destinations.",
-        "User saves the closure record."
+        "Load site closures and filter by discipline.",
+        "Handle add, edit, and delete operations on closures.",
+        "Manage applied destinations for selected closures.",
+        "Save changes and update destinations accordingly."
       ]
     }
   ],
   "business_rules": [
-    "Site closures can only be edited if the screen is editable.",
-    "Destinations must be loaded and verified before being applied to a closure."
+    "Only edit operations are allowed if the screen is editable.",
+    "Destinations are filtered to exclude already applied ones."
   ],
   "validations": [
-    "Ensure closure ID and site ID are greater than 0 before processing updates.",
-    "Validate input fields before proceeding with data insertion or updating."
+    "Ensure user session is active before operations.",
+    "Validate data binding and control visibility based on role and session."
   ],
   "calculations": [],
   "conditions": [
-    "If the closure ID is nonexistent, disable the edit operations.",
-    "Show or hide destination controls based on user input and closure properties."
+    "Check if closure ID and site ID are greater than 0 to proceed.",
+    "Determine if all sub-disciplines are allowed or specific ones are selected."
   ],
   "system_behavior": [
-    "Automatically serialize and deserialize destination lists for storage and retrieval.",
-    "Redirect users to the current page URL after successful insert or update operations."
+    "Modifies ViewState to track applied destinations and current closure settings.",
+    "Redirects and updates UI components based on user actions and data changes."
   ],
   "dependencies": [
-    "HSPnetSession for maintaining user sessions and data persistence.",
-    "User interface controls and components such as GridView, ListBox, and DropDownList."
+    "HSPnetSession",
+    "GenericClosures",
+    "Disciplines"
   ],
   "exceptions": [
-    "Cancel operations when the user session is null or not valid.",
-    "Prevent actions if mandatory session parameters are missing."
+    "Cancel operations if user session is not available.",
+    "Handle empty or malformed destination data gracefully."
   ],
   "source_document_ids": [
     "020480f8-7a34-5155-8aac-68cdfd924d42",
