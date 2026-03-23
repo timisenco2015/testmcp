@@ -1,0 +1,62 @@
+```markdown
+# Module: TimetableAssessments
+
+## TimetableAssessments-UC1 — Manage Timetable Assessments
+
+- Primary Actor(s): User (System Administrator, Placement Coordinator, Local Administrator)
+- Secondary Actor(s): None
+- Trigger: User needs to manage assessments for a timetable.
+- Description: This use case allows authorized users to add, edit, or delete timetable assessments, configure assessment details, and ensure all assessments are validated and meet set criteria.
+- Preconditions:
+  - User must be logged in with appropriate permissions.
+  - The timetable must exist.
+- Postconditions:
+  - The assessments are correctly added, edited, or deleted from the timetable.
+  - All validation rules are checked and errors displayed if necessary.
+- Main Success Scenario:
+  1. User accesses the timetable assessments page.
+  2. User selects an action: Add, Edit, or Delete.
+  3. User inputs or modifies the assessment details.
+  4. System validates the input and shows errors if any.
+  5. System saves the changes and displays updated assessments.
+- Extensions:
+  - 2a. If no assessments exist, the page shows an "Add" button.
+  - 3a. If editing an assessment, existing details are pre-populated.
+- Exceptions:
+  - If input validation fails, errors are displayed, and changes are not saved.
+- Business Rules:
+  - Assessments must have a valid type and template.
+  - Open and close days relative to the placement start and end dates must be valid numbers.
+  - Interim assessments cannot exist without final assessments.
+  - Maximum number of assessments must not be exceeded.
+- Assumptions:
+  - User has basic knowledge of the system.
+- Open Issues:
+  - None identified.
+
+## TimetableAssessments-UC2 — View Assessment Details
+
+- Primary Actor(s): User (System Administrator, Placement Coordinator, Local Administrator)
+- Secondary Actor(s): None
+- Trigger: User wants to view detailed information about a specific assessment.
+- Description: Authorized users can view details of existing assessments, including configuration settings and validation results.
+- Preconditions:
+  - User must be logged in with appropriate permissions.
+  - The timetable and assessments must exist.
+- Postconditions:
+  - Assessment details are displayed to the user.
+- Main Success Scenario:
+  1. User accesses the timetable assessments page.
+  2. User selects an assessment from the list.
+  3. System displays the details of the selected assessment in a popup or new page.
+- Extensions:
+  - None.
+- Exceptions:
+  - If the assessment ID is invalid, an error is shown.
+- Business Rules:
+  - Only authorized users can view detailed assessment data.
+- Assumptions:
+  - User has access to valid assessment IDs.
+- Open Issues:
+  - None identified.
+```
