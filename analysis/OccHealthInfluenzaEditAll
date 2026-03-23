@@ -1,103 +1,105 @@
 ```json
 {
-  "filename": "OccHealthInfluenzaEditAll",
-  "found": true,
-  "summary": "The document 'OccHealthInfluenzaEditAll' pertains to a web user control component related to enrollment management where influenza vaccination status is tracked and managed for students. It includes scripts, dropdown lists, validation summaries, grid view for data editing, and various methods to handle data operations such as binding, saving, and rendering of influenza-related information.",
-  "purpose": "To manage and update influenza vaccination status for students within an enrollment system.",
-  "entities": [],
-  "fields": [
-    "txtDirty",
-    "ddInfluenzaStatusCode",
-    "ddImmunFluSeason",
-    "InfluenzaAdminDateDDFormatted",
-    "InfluenzaAdminDateDDFormatted2",
-    "CohortID",
-    "TermID",
-    "CourseID",
-    "SectionFilter",
-    "ActionFilter",
-    "CampusID",
-    "keyword",
-    "CommentFilter",
-    "ShowGrad",
-    "ShowInactive",
-    "ShowWaived",
-    "StartRow",
-    "ShowAllRecords",
-    "InfluenzaStatusCodeList",
-    "ImmunFluSeasonList"
-  ],
-  "actors": [
-    "UserSession",
-    "gridDataEdit",
-    "ScriptMgr"
-  ],
-  "workflows": [
-    {
-      "name": "Influenza Status Update",
-      "steps": [
-        "Check if gridDataEdit has rows.",
-        "For each row, check if it is a data row.",
-        "Find and update hidden field and dropdown list controls.",
-        "Prepare JavaScript variables for asynchronous postback updates.",
-        "Register startup scripts for client-side interactions.",
-        "Handle influenza administration date list additions."
-      ]
-    },
-    {
-      "name": "Grid Data Binding",
-      "steps": [
-        "Bind gridDataEdit datasource.",
-        "Setup JavaScript variables for data rows.",
-        "Hide buttons based on conditions and enrollment ID.",
-        "Perform data binding operations for influenza statuses and flu seasons."
-      ]
-    }
-  ],
-  "business_rules": [
-    "Hide save and cancel buttons in the header if less than 14 rows.",
-    "Sort gridDataEdit based on sort expression and direction.",
-    "Redirect based on session warnings or command name."
-  ],
-  "validations": [
-    "Ensure UserSession is not null before data source selection.",
-    "Hide buttons in grid view rows based on enrollment conditions."
-  ],
-  "calculations": [
-    "Calculate new influenza administration date by adding one year.",
-    "Determine sort direction based on GridView's SortDirection attribute."
-  ],
-  "conditions": [
-    "If isDirty flag is true, update immunization status.",
-    "If EnrollmentID is greater than zero, row is editable.",
-    "Determine screen mode based on H1N1 flag."
-  ],
-  "system_behavior": [
-    "Enable or disable grid view fields based on blnReadOnly flag.",
-    "Update student records for influenza immunization when dirty flag is set.",
-    "Bind data sources to dropdown lists for influenza status and seasons."
-  ],
-  "dependencies": [
-    "InfluenzaStatusCodeList depends on UserSession.",
-    "ImmunFluSeasonList fetched from static method FluSeasonList."
-  ],
-  "exceptions": [
-    "Cancel data source selection if UserSession is null.",
-    "Redirect if warnings exist within UserSession.Messages."
-  ],
-  "source_document_ids": [
-    "0d476473-6083-5f51-ba86-86994f8d2005",
-    "1fc2d4a3-13a1-5a93-b0e7-3dbe8577eae0",
-    "3ad241b8-d5da-5077-8e72-14c0dd19a4ca",
-    "4f9ede21-00b0-5e79-a78d-a1cb6db32417",
-    "5127230e-5edc-5e20-8eb4-b402fb0accf8",
-    "5bde432b-bbc5-5f1a-8483-b259a3286565",
-    "731359ca-b860-5846-a8d7-78d1407d0624",
-    "8b2eca1a-596e-54f9-a666-769d9733955d",
-    "91574ad3-0aee-544a-bbf5-981a307edc3d",
-    "9592a93f-9975-5c09-9744-cbd341298017",
-    "a49ab0c1-e5ed-53e8-a380-021afe551cd6"
-  ],
-  "content_gaps": []
+    "filename": "OccHealthInfluenzaEditAll",
+    "found": true,
+    "summary": "The OccHealthInfluenzaEditAll file appears to be related to handling influenza immunization data within a grid view setup in a web application. It encompasses functionalities for handling user interactions such as drop-down selections, saving, and updating data.",
+    "purpose": "To manage influenza immunization data and provide functionalities for editing and saving influenza health records in a web interface.",
+    "entities": [
+        "HSPnetSession",
+        "GridViewRow",
+        "DropDownList",
+        "HiddenField",
+        "ListItem",
+        "Panel",
+        "Literal",
+        "DataLayer.Enrollment",
+        "CodeRecord",
+        "Service",
+        "TotalYearType.TotalYearData"
+    ],
+    "fields": [
+        "CohortID",
+        "TermID",
+        "CourseID",
+        "ShowGrad",
+        "ShowInactive",
+        "ShowWaived",
+        "SectionFilter",
+        "ActionFilter",
+        "keyword",
+        "CampusID",
+        "CommentFilter",
+        "blnReadOnly",
+        "blnStudentMaint",
+        "H1N1",
+        "EnrollmentID",
+        "StartRow",
+        "sort",
+        "Asc"
+    ],
+    "actors": [
+        "UserSession",
+        "ScriptManager"
+    ],
+    "workflows": [
+        {
+            "name": "Dropdown Change Handling",
+            "steps": [
+                "Loop through each row in gridDataEdit.",
+                "For each row, find the HiddenField and DropDownList controls.",
+                "Update JavaScript variables accordingly.",
+                "Use ScriptManager or ClientScript to register startup scripts."
+            ]
+        },
+        {
+            "name": "Influenza Status Code Update",
+            "steps": [
+                "Iterate over each row to check if data is marked as dirty.",
+                "If dirty, update student details with the new influenza status code.",
+                "Redirect based on warning messages count."
+            ]
+        }
+    ],
+    "business_rules": [
+        "Influenza status codes and immunization seasons are fetched and set dynamically based on user session and data layer inputs.",
+        "If EnrollmentID is 0 and less than 14 rows are shown, hide certain action buttons."
+    ],
+    "validations": [
+        "A validation summary is used to cluster validation messages.",
+        "Data bound to dropdown lists must match predefined format and existing records."
+    ],
+    "calculations": [
+        "Admin date formatting, adding a year based on current year calculations.",
+        "Sort direction calculation based on user selection."
+    ],
+    "conditions": [
+        "Hide buttons if EnrollmentID is 0 and less than 14 rows are presented.",
+        "Different influenza seasons are displayed based on current date."
+    ],
+    "system_behavior": [
+        "The system registers JavaScript startup scripts depending on postback state.",
+        "Dropdown lists are dynamically populated based on the session and database entries."
+    ],
+    "dependencies": [
+        "UserSession must be valid for data operations.",
+        "DataLayer must have corresponding entries for operations."
+    ],
+    "exceptions": [
+        "Input validation and handling when user session is null."
+    ],
+    "source_document_ids": [
+        "0d476473-6083-5f51-ba86-86994f8d2005",
+        "1fc2d4a3-13a1-5a93-b0e7-3dbe8577eae0",
+        "3ad241b8-d5da-5077-8e72-14c0dd19a4ca",
+        "4f9ede21-00b0-5e79-a78d-a1cb6db32417",
+        "5127230e-5edc-5e20-8eb4-b402fb0accf8",
+        "5bde432b-bbc5-5f1a-8483-b259a3286565",
+        "731359ca-b860-5846-a8d7-78d1407d0624",
+        "8b2eca1a-596e-54f9-a666-769d9733955d",
+        "91574ad3-0aee-544a-bbf5-981a307edc3d",
+        "9592a93f-9975-5c09-9744-cbd341298017",
+        "a49ab0c1-e5ed-53e8-a380-021afe551cd6"
+    ],
+    "content_gaps": []
 }
 ```
