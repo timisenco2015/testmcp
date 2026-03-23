@@ -1,1 +1,135 @@
-{"clarification":"Do you want all files in the grouped_related_files table analyzed, or is there a specific list? Should I perform the analysis for every filename found in grouped_related_files, or only for GenericClosures? Once you confirm, I will: 1. Retrieve all filenames from grouped_related_files. 2. Analyze each file using the process you specified. 3. Provide the structured JSON output for each file, ready for upload to GitHub. Let me know how you want to proceed!"}
+{
+  "filename": "GenericClosures",
+  "found": true,
+  "summary": "GenericClosures manages closure entities for Agencies, Sites, and Destinations in the HSPnet system. It provides search, add, update, delete, and validation operations for closures, supports workflows for applying closures to destinations, and enforces business rules around closure dates, codes, disciplines, and subdisciplines.",
+  "purpose": "The purpose of GenericClosures is to enable administrative closure operations (such as restricting access or marking periods as inactive) at the Agency, Site, or Destination level. It ensures closures are valid, appropriately associated with entities, and manages their lifecycle including application to subdisciplines and destinations.",
+  "entities": [
+    "GenericClosure",
+    "Agency",
+    "Site",
+    "DestinationCode",
+    "HSPnetSession"
+  ],
+  "fields": [
+    "ID",
+    "ParentID",
+    "ClosureCodeID",
+    "StartDate",
+    "EndDate",
+    "AllowAllSubDisciplines",
+    "Comments",
+    "SubDisciplineIDList",
+    "AppliedAllDestinations",
+    "ClosureCode",
+    "SourceLevel (Agency, Site, Destination)",
+    "StartDateFormatted",
+    "EndDateFormatted"
+  ],
+  "actors": [
+    "System Administrator",
+    "Database",
+    "HSPnetSession"
+  ],
+  "workflows": [
+    {
+      "name": "Closure Search",
+      "steps": [
+        "Receive parameters: Session, ParentID, SourceLevel, ClosureCodeID, RestrictedSubDisciplineIDList, DisciplineSubDisciplineID",
+        "Determine stored procedure and ID field based on SourceLevel",
+        "Parse Discipline/SubDiscipline if provided",
+        "Query database and fill list of GenericClosure objects"
+      ]
+    },
+    {
+      "name": "Closure Add",
+      "steps": [
+        "Validate SourceLevel",
+        "Determine procedure and parent ID field",
+        "Parse and format dates",
+        "Validate closure details using IsValid",
+        "Add closure via stored procedure",
+        "Parameters include SessionID, ParentID, ClosureCodeID, Start/End Dates, Comments, AllowAllSubDisciplines, SubDisciplineIDList"
+      ]
+    },
+    {
+      "name": "Closure Update",
+      "steps": [
+        "Validate SourceLevel",
+        "Determine procedure and ID field",
+        "Parse and format dates",
+        "Check validity using IsValid",
+        "Update closure in database"
+      ]
+    },
+    {
+      "name": "Closure Delete",
+      "steps": [
+        "Validate SourceLevel",
+        "Determine procedure and ID field",
+        "Delete closure entry from database"
+      ]
+    },
+    {
+      "name": "Apply Closure to Destinations",
+      "steps": [
+        "Load list of destinations for a Site or Agency",
+        "Apply closure to destinations using procedure (Agency/Site ClosureAppliedDestinationsUpdate)",
+        "Save destination list associated with closure"
+      ]
+    }
+  ],
+  "business_rules": [
+    "ClosureCodeID must be provided",
+    "StartDate must be provided",
+    "EndDate must be provided",
+    "StartDate and EndDate cannot exceed MaxDate (now + Max_Future_Years)",
+    "StartDate must not be after EndDate",
+    "SourceLevel must be valid (not Invalid)",
+    "Discipline and SubDiscipline IDs parsed and handled if included"
+  ],
+  "validations": [
+    "IsValid checks closureCodeID, startDate, endDate, date ranges",
+    "Error messages added to session if validation fails",
+    "Fields checked: ClosureCodeID, StartDate, EndDate, StartDate <= EndDate, StartDate/EndDate <= MaxDate"
+  ],
+  "calculations": [
+    "DateFormatter used to parse and format dates",
+    "MaxDate calculated as today's date + system-defined maximum years"
+  ],
+  "conditions": [
+    "If SourceLevel == Invalid, operations abort and return early",
+    "If Agency/Site/Destination ID not provided, operation aborts",
+    "ClosureCodeID, StartDate, EndDate must be valid for Add/Update/Delete"
+  ],
+  "system_behavior": [
+    "Uses stored procedures for search, add, update, delete, and destination application",
+    "Automatically formats and parses dates for database operations",
+    "Session-based error handling for validation failures",
+    "Supports alternate language fields for closure codes"
+  ],
+  "dependencies": [
+    "DateFormatter (for dates)",
+    "HSPnetSession (for session context and database access)",
+    "Database (for stored procedures and data access)",
+    "Resources (for error messages)"
+  ],
+  "exceptions": [
+    "Operations abort if SourceLevel is Invalid",
+    "Validation errors if mandatory fields are missing or dates exceed allowed range",
+    "Null or empty lists returned for invalid conditions"
+  ],
+  "source_document_ids": [
+    "0abc3c11-26e4-5a20-84e1-8ed3a15da6e6",
+    "11191c78-1880-520f-9695-22ea4b6e0853",
+    "29473404-102a-56c6-aaab-590c5364bebf",
+    "36e6120d-36c8-5ec9-974c-844af63ec5c0",
+    "37f07719-987b-5b5d-bd86-4852aada303e",
+    "38a96476-a736-5909-aa56-d9d396569161",
+    "3b0a8df5-29d9-5874-b08c-d6d1c99d8bbc",
+    "62020f9e-2770-5fdc-9b27-e28f041f7bff",
+    "a871532f-3200-522e-a9c8-ae363c308773",
+    "ccb50612-8104-5e8b-ae61-47e1c0c1dbe4",
+    "fd619c04-4890-52ca-9ce3-46624b1eff59"
+  ],
+  "content_gaps": []
+}
