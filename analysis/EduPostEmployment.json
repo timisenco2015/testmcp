@@ -1,0 +1,134 @@
+{
+  "filename": "EduPostEmployment",
+  "found": true,
+  "summary": "EduPostEmployment is a user control for managing staff education records post-employment within the HSPnet system. It handles displaying, adding, editing, deleting, and validating education items for staff, with support for different education fields, delivery methods, graduation confirmation, and term/year selection. The system is tightly integrated with ASP.NET controls and utilizes modal popups, form views, grid views, and object data sources for its operations.",
+  "purpose": "To facilitate the management, insertion, update, and deletion of staff education records post-employment, ensuring accurate data entry, business rule enforcement, and proper UI feedback.",
+  "entities": [
+    "StaffPostEducation",
+    "UserSession",
+    "HSPnetSession",
+    "GridView",
+    "FormView"
+  ],
+  "fields": [
+    "ID",
+    "ProgramID",
+    "GraduationConfirmed",
+    "DeliveryMethodCodeID",
+    "TermCodeID",
+    "TermYear",
+    "EducationID",
+    "UserSession",
+    "StaffID",
+    "Category",
+    "CurrentPage",
+    "ScreenIsEditable"
+  ],
+  "actors": [
+    "Staff",
+    "System User (with edit permissions)",
+    "Data Entry/Administrator"
+  ],
+  "workflows": [
+    {
+      "name": "Add Staff Education Entry",
+      "steps": [
+        "User initiates add via cmdAdd or empty data button.",
+        "Grid switches to add mode and shows details modal.",
+        "FormView validates input with dropdowns for Program, Delivery Method, Term, Term Year, Graduation Confirmed.",
+        "On insert, values are extracted from form controls and cast appropriately.",
+        "If input is valid, entry is inserted to StaffPostEducation.",
+        "Session cached, UI redirected to current page."
+      ]
+    },
+    {
+      "name": "Edit Staff Education Entry",
+      "steps": [
+        "User initiates edit via cmdEdit.",
+        "Grid switches to edit mode and shows details modal.",
+        "FormView pre-populates dropdowns with existing values.",
+        "Changes are made and validated.",
+        "On update, values are extracted and cast.",
+        "If input is valid, entry is updated.",
+        "Session cached, UI redirected to current page."
+      ]
+    },
+    {
+      "name": "Delete Staff Education Entry",
+      "steps": [
+        "User triggers delete via cmdDelete.",
+        "System calls StaffPostEducations.StaffPostEducationDelete with session and EducationID.",
+        "Session cached, UI redirected to current page."
+      ]
+    },
+    {
+      "name": "Validate and Select Data",
+      "steps": [
+        "Data source (ObjectDataSource) events supply UserSession and StaffID parameters.",
+        "On selection, checks for valid session; cancels if not present."
+      ]
+    },
+    {
+      "name": "UI Rendering",
+      "steps": [
+        "GridView binds rows, configures edit, delete, add buttons based on ScreenIsEditable.",
+        "FormView manages modal display, dropdown pre-selection, calendar, and waitlist action.",
+        "JavaScript variables and startup scripts set up for async postbacks and client display."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Entry cannot be inserted or updated if the page is not valid.",
+    "GraduationConfirmed is set based on dropdown selection (0 or 1).",
+    "Dropdowns for Program, DeliveryMethod, Term, TermYear must have valid selections (converted to int, with default 0 if no selection).",
+    "Session must be present for data operations; else, operation cancels."
+  ],
+  "validations": [
+    "Page.IsValid must be true for insert/update.",
+    "Dropdown values must be convertible to integer; if not, default to 0.",
+    "Session presence is validated on selecting and updating operations.",
+    "GraduationConfirmed dropdown: only '0' (false) or '1' (true) accepted."
+  ],
+  "calculations": [],
+  "conditions": [
+    "ScreenIsEditable governs visibility and availability of controls.",
+    "If no rows and editable, show add button.",
+    "If UserSession is null, cancel data operations.",
+    "GraduationConfirmed dropdown changes text and value based on boolean."
+  ],
+  "system_behavior": [
+    "Grid switches between add, edit, and view modes.",
+    "Modal popup shown for details entry/editing.",
+    "Controls are dynamically enabled/disabled based on ScreenIsEditable.",
+    "Session caching after operations.",
+    "Page is redirected after insert, update, or delete."
+  ],
+  "dependencies": [
+    "HSPnetSession caching",
+    "StaffPostEducations deletion",
+    "JavaScript and ScriptManager for client interactivity",
+    "ASP.NET FormView, GridView, UpdatePanel, ModalPopupExtender"
+  ],
+  "exceptions": [
+    "Operation cancelled if session is invalid.",
+    "Validation errors prevent insert/update."
+  ],
+  "source_document_ids": [
+    "0de18e68-3a02-5154-9cd3-094f777dead7",
+    "11182ff6-98d7-5bef-abba-fd72dc89ee05",
+    "5669055b-1b3f-5e43-9ff7-ed4e8a757413",
+    "60ada732-c0e0-55b5-aebc-cf4b26639765",
+    "6703a628-2c7c-599e-846e-6174f49b70fa",
+    "6876c498-0808-595d-9200-a95732c6ecd8",
+    "a20203c6-dfa7-5255-8fb8-04a6c76faa0f",
+    "b5df2d93-a6ff-507d-b70c-0e8d0036f245",
+    "e59f03bb-3ddd-527e-8ffd-b834efc2a184",
+    "f59fcad1-0356-5355-a7d6-1d0fb79b5f75",
+    "f5e05898-eff9-5c72-a154-997b8c8bb4ba"
+  ],
+  "content_gaps": [
+    "Underlying database schema for StaffPostEducation not fully specified.",
+    "Business rules for ProgramID, DeliveryMethodCodeID, TermCodeID, TermYear validation beyond dropdown conversion not specified.",
+    "Details regarding waitlist actions, costs, and additional user permissions are referenced but not described."
+  ]
+}
