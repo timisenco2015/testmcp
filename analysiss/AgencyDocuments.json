@@ -1,105 +1,78 @@
 {
   "filename": "AgencyDocuments",
   "found": true,
-  "summary": "The AgencyDocuments system manages documents and associated sub-disciplines, sites, and destinations within the HSPnet framework. It facilitates document editing, creation, and deletion, along with handling user permissions and settings for disciplines and destinations.",
-  "purpose": "To manage document operations including creation, editing, deleting, and applying specific disciplines, sites, and destinations related to agency profiles.",
-  "entities": [],
+  "summary": "The documents related to 'AgencyDocuments' include various web control definitions, event handlers, data-binding processes, and logic for managing documents and associated sites and disciplines within the HSPnet platform. The documents detail the implementation of user controls, modal popups, drop-down lists, and list boxes, alongside handling file uploads.",
+  "purpose": "The purpose of the documents is to provide code and structure for managing agency documents in a web environment. This includes logic for document display, interaction, and management actions such as adding, editing, or removing documents, and ensuring users can filter and select related disciplines and sites.",
+  "entities": [
+    "GridView",
+    "FormView",
+    "UserSession",
+    "GenericDocument",
+    "Site",
+    "Discipline",
+    "DestinationCode"
+  ],
   "fields": [
-    "btnShowPopupAppliedChildren",
-    "mdlAppliedChildren",
-    "divHeaderAppliedChildren",
-    "lblHeaderAppliedChildren",
-    "fvwAppliedChildren",
-    "hdnSectionAdded",
-    "hdnAllSections",
-    "uxSubDisciplineHeading",
-    "lblHeader",
-    "pnlUploadNote",
-    "FileUploadNote",
-    "ddTypeCodeID",
-    "FileUpload",
-    "lbIncluded",
-    "lbNotIncludedSites",
-    "lbIncludedSites",
-    "ddSiteFilter",
-    "ValidationSummary3",
-    "cmdAddEmptyData",
-    "hdnSection",
-    "dsDisciplineFilter",
-    "dsDocument",
-    "pnlPopup",
-    "btnShowPopup",
-    "mdlDetails",
-    "lblEmptyData",
-    "ddTypeFilter",
-    "ddDisciplineFilter",
-    "divDisciplineNote",
-    "uxDisciplineNote",
-    "pnlEmptyData"
+    {
+      "name": "DocumentName",
+      "description": "Stores the name of the document."
+    },
+    {
+      "name": "Section",
+      "description": "Identifies the section of the document."
+    },
+    {
+      "name": "FileSize",
+      "description": "Represents the size of the uploaded file."
+    },
+    {
+      "name": "FileType",
+      "description": "Indicates the type of the uploaded file."
+    },
+    {
+      "name": "SubDisciplineID",
+      "description": "ID for the sub-discipline associated with a document."
+    }
   ],
   "actors": [
-    "UserSession",
-    "GridView",
-    "GridViewRow",
-    "ListBox",
-    "Panel",
-    "DropDownList",
-    "RadioButtonList",
-    "GenericDocument",
-    "Codes",
-    "Discipline",
-    "DestinationCode",
-    "Site"
+    "User",
+    "Admin"
   ],
   "workflows": [
     {
       "name": "Document Management",
       "steps": [
-        "Load document details and settings from user session and database.",
-        "Setup sites and destinations based on user permissions and selections.",
-        "Modify or add document details using forms and data fields.",
-        "Handle file uploads and assign corresponding settings."
-      ]
-    },
-    {
-      "name": "Sub-discipline Management",
-      "steps": [
-        "Setup the list of allowed disciplines based on user permissions.",
-        "Assign document sub-disciplines and validate entries.",
-        "Manage sub-discipline filters and visibility settings."
+        "Page_Load: Initializes page and ViewState.",
+        "HandleAdd: Triggers document add logic.",
+        "SetupDisciplines: Configures discipline selections.",
+        "fvwDocument_ItemCommand: Handles insert, edit, and save commands for documents.",
+        "SetupSites: Configures site selections for documents."
       ]
     }
   ],
   "business_rules": [
-    "Documents must adhere to the user's discipline permissions.",
-    "Sections must be updated dynamically based on data changes.",
-    "Document types can be restricted based on predefined omission codes."
+    "Documents can be added, edited, or deleted if the UserSession is active.",
+    "Discipline filter visibility depends on user permissions and configuration settings."
   ],
   "validations": [
-    "RequiredFieldValidator to ensure discipline selection.",
-    "Validation for file upload to ensure non-empty file content."
+    "FileUpload not empty before attempting to save.",
+    "Site selections correspond to allowed sites for the document."
   ],
-  "calculations": [
-    "SetupDisciplines function calculates allowance based on available disciplines.",
-    "ValueList converts ListBox items to a comma-separated list of values."
-  ],
+  "calculations": [],
   "conditions": [
-    "Check if a document is editable or not before displaying controls.",
-    "Determine section changes based on hidden fields and document data."
+    "UseSubDisciplines flag affects visibility and data binding of discipline controls.",
+    "ScreenIsEditable flag influences button visibility and interaction modes."
   ],
   "system_behavior": [
-    "Auto-hide panels that do not have valid data or conditions.",
-    "Recompute visibility and settings based on user selections and session status.",
-    "Redirect users after save/delete operations to update views correctly."
+    "Auto-generated fields are updated from designer files to code-behind files as needed.",
+    "JavaScript is used for dynamic client-side operations."
   ],
   "dependencies": [
-    "HSPnetSession for user authentication and session management.",
-    "DataLayer for database operations related to documents.",
-    "AjaxControlToolkit for modal popup management."
+    "HSPnet.DataLayer",
+    "HSPnet.Framework"
   ],
   "exceptions": [
-    "HandleUploadedFile function handles empty file scenarios gracefully.",
-    "Session null checks to cancel data operations if the user session is not active."
+    "Null or empty values in session cause operation cancellation."
   ],
   "source_document_ids": [
     "0082e615-f9e3-5dcc-9917-ddc013ba52d1",
@@ -108,11 +81,14 @@
     "1758fed5-29d5-5933-a40e-fcdfac92fa05",
     "1e0bb34b-e3e1-5aea-8fba-f614b5103b3f",
     "26b9e812-7d8d-58c2-bafc-fb2329bee94b",
+    "2cb3c5c8-d751-5e35-990a-8665fafe2345",
     "34b76b52-521c-536e-b6d6-b1a56f7934ab",
     "357e7f05-121d-56d2-962c-d55506153715",
     "3780d37a-57f8-5027-8e7f-8aa6016e2766",
     "49caaaf6-0519-5626-a444-2fd166f640b0",
     "4fe78297-00a1-5c70-933a-a3f4c2571b33",
+    "5002259d-ec0c-5078-8783-5019492d6017",
+    "544cdd26-e1e2-5d1d-89c3-31aea1bc5ce5",
     "5922bd0b-b4ee-54d8-af87-423972fd86b1",
     "5d08e0bf-2e3e-5ba6-853f-e111e50e070e",
     "5f741b58-e9a0-512e-ab20-c2a78459af22",
