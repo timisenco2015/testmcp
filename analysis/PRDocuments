@@ -2,56 +2,55 @@
 {
     "filename": "PRDocuments",
     "found": true,
-    "summary": "The PRDocuments functionality is part of the HSPnet system, specifically dealing with the management of document uploads within the placement request details. It provides capabilities for uploading, saving, editing, and deleting documents associated with placement requests.",
-    "purpose": "To manage the lifecycle of documents related to placement requests in the HSPnet system, allowing users to upload, edit, and delete documents while maintaining structured data and session handling.",
-    "entities": [],
-    "fields": [
-        "ltlInstructions",
-        "Literal1",
-        "gvwDocument",
-        "dsDocument",
-        "pnlPopup",
-        "btnShowPopup",
-        "mdlDetails",
-        "ValidationSummary3",
-        "CustomValidator1",
-        "fvwDocument"
-    ],
+    "summary": "The document provides functionalities for managing document upload, editing, and deletion related to placement requests within the HSPnet system. It includes features for handling file uploads, managing document metadata, and user session controls.",
+    "purpose": "To manage document upload and handling for placement requests, ensuring proper file handling, user session management, and document metadata upkeep.",
+    "entities": ["PlacementRequestDocument", "HSPnetSession"],
+    "fields": ["ltlInstructions", "Literal1", "gvwDocument", "dsDocument", "pnlPopup", "btnShowPopup", "mdlDetails", "ValidationSummary3", "CustomValidator1", "fvwDocument"],
     "actors": ["UserSession"],
     "workflows": [
         {
+            "name": "Document Upload",
+            "steps": [
+                "File is uploaded through FileUpload control.",
+                "File details are processed including name, URL, size, and type.",
+                "File is saved to a unique folder and metadata is stored."
+            ]
+        },
+        {
             "name": "Document Management",
             "steps": [
-                "User uploads document using FileUpload control.",
-                "System saves the document to a unique folder and creates a new document entry.",
-                "User can edit document details via a FormView interface.",
-                "User can delete a document, which is then removed from the file system.",
-                "System redirects user post operations using session and query strings."
+                "Document metadata is retrieved and displayed in GridView.",
+                "Users can edit or delete documents depending on permissions.",
+                "Changes in document types or updates trigger client-side scripts for UI adjustments."
             ]
         }
     ],
     "business_rules": [
-        "Documents must be uploaded to a specific directory following naming conventions.",
-        "User session must be active for operations to proceed.",
-        "Documents are associated with specific Placement Request IDs."
+        "Files must be uploaded under 'Upload/PRDocs/' directory.",
+        "Certain document types are excluded from listings, such as 'StudProf'."
     ],
     "validations": [
-        "Ensure uploaded file is not empty before processing.",
-        "Hide update details if they are blank.",
-        "Validate user session presence before selecting data source."
+        "CustomValidator1 to ensure file and field constraints.",
+        "ValidationSummary3 to display validation messages."
     ],
-    "calculations": [],
+    "calculations": [
+        "Calculate and update file size and type upon upload."
+    ],
     "conditions": [
-        "Document existence is determined by non-zero TypeCodeID.",
-        "Check if document ID is -1 or matches specific code for profile management."
+        "If CommandName is 'cmdSave', handle file saving.",
+        "If CommandName is 'cmdDelete', delete the document."
     ],
     "system_behavior": [
-        "Uses GridView for document representation and management.",
-        "Handles redirects based on current session and operation outcomes.",
-        "Generates JavaScript variables for client-side management of document types."
+        "Redirect users after successful operations.",
+        "Bind data to controls based on user session and document ID."
     ],
-    "dependencies": [],
-    "exceptions": [],
+    "dependencies": [
+        "Depends on HSPnet.DataLayer for document data operations.",
+        "Uses HSPnet.Framework for application-wide constants and utilities."
+    ],
+    "exceptions": [
+        "If UserSession is null, cancel data operations."
+    ],
     "source_document_ids": [
         "0b412b93-8664-5be6-805b-1ee2191d9d74",
         "23b4d3b7-10c4-5d78-b417-25806a3b6a78",
