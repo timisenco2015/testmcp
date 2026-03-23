@@ -1,0 +1,72 @@
+{
+    "filename": "SiteRecruitmentOpportunities",
+    "found": true,
+    "summary": "The SiteRecruitmentOpportunities document is part of the HSPnet system, focusing on managing and displaying site recruitment opportunities. It includes web controls for handling data binding, command execution, and profile views.",
+    "purpose": "To manage and display recruitment opportunities at various sites within the HSPnet system, facilitating user interaction through a web interface.",
+    "entities": [
+        "SiteOpportunity",
+        "HSPnetSession"
+    ],
+    "fields": [
+        "HeadingID",
+        "SortOrder",
+        "Response",
+        "SiteID"
+    ],
+    "actors": [
+        "User"
+    ],
+    "workflows": [
+        {
+            "name": "HandleAdd",
+            "steps": [
+                "Switch to add mode",
+                "Bind the profile control to data",
+                "Show profile details in a modal"
+            ]
+        },
+        {
+            "name": "fvwProfile_ItemCommand",
+            "steps": [
+                "Retrieve ID from data key",
+                "Get HeadingID, SortOrder, and Response from form",
+                "Add or update SiteOpportunity based on ID",
+                "Hide details and redirect unless cancelled"
+            ]
+        }
+    ],
+    "business_rules": [
+        "Do not repeat the header on subsequent rows for the same header",
+        "Display 'no data found' button if no rows and screen is editable"
+    ],
+    "validations": [
+        "Ensure SortOrder is not empty; default to '-1'"
+    ],
+    "calculations": [],
+    "conditions": [
+        "If SiteOpportunity is a webpage, use hyperlink for response",
+        "If no data found and screen is editable, show empty data panel"
+    ],
+    "system_behavior": [
+        "Use FormView for profile management",
+        "Control visibility of web controls based on data"
+    ],
+    "dependencies": [
+        "HSPnet.UI.Links",
+        "HSPnet.Framework.Hashing"
+    ],
+    "exceptions": [
+        "JavaScript errors related to event validation in grid view"
+    ],
+    "source_document_ids": [
+        "1160bcde-be67-524f-a347-62d0054f0c5c",
+        "3c176a0d-a3df-5f6f-9265-098f12769cc0",
+        "3cbf6bb6-39aa-5f60-bf59-9f1619cda350",
+        "4662c773-ef3d-558a-94f5-b8113308a372",
+        "9bd2e3d1-7feb-55b6-86bb-1682eb696639",
+        "e26f85aa-c5da-5964-a198-860c31217004",
+        "e7a4f655-5d12-5929-9942-1e89bd5f1e11",
+        "fef06c5f-8224-5b3d-8150-1b2afd82facc"
+    ],
+    "content_gaps": []
+}
