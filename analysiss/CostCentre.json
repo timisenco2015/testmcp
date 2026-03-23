@@ -1,9 +1,11 @@
 {
     "filename": "CostCentre",
     "found": true,
-    "summary": "Manages cost centre data retrieval, handling financial information across various parameters.",
-    "purpose": "To retrieve and manage financial and placement data through cost-centre views.",
-    "entities": [],
+    "summary": "The CostCentre document provides functionality for managing cost center records within the HSPnet application. It includes methods to retrieve cost centers based on session parameters and encompasses various cost-related fields.",
+    "purpose": "To retrieve and manage cost center information related to placement within the application.",
+    "entities": [
+        "CostCentreRecord"
+    ],
     "fields": [
         "PlacingAgency",
         "Department",
@@ -33,11 +35,10 @@
     "actors": [],
     "workflows": [
         {
-            "name": "Get Cost Centre Data",
+            "name": "Cost Centre Retrieval",
             "steps": [
-                "Invoke 'PlacementCostCentre' procedure with session details.",
-                "Fetch data for various financial and educational metrics.",
-                "Construct and return list of CostCentreRecord objects."
+                "Query Cost Centres",
+                "Format Cost Centre Data"
             ]
         }
     ],
@@ -46,15 +47,14 @@
     "calculations": [],
     "conditions": [],
     "system_behavior": [
-        "Processes and formats extensive financial data across educational entities."
+        "Queries use session, time, and agency information",
+        "Results formatted for user display"
     ],
     "dependencies": [],
     "exceptions": [],
     "source_document_ids": [
         "20ac8054-536e-5203-b33d-7db2b2dc2359",
         "2c04f259-cf58-5d95-803c-8ebf16840f6c",
-        "97bc3ba9-9fe4-52b1-8847-dce2198e0aee",
-        "dd965b0f-f9cf-57eb-a3f8-32b3b97a6d1a",
         "e1ac7e41-5e9e-5f16-baa0-29d05a70f976"
     ],
     "content_gaps": []
