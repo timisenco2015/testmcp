@@ -1,57 +1,44 @@
 {
   "filename": "MaintProgramProfileDetails",
   "found": true,
-  "summary": "The file provides functionalities related to the maintenance of program profiles, including setting permissions, handling student access, managing email masks, and updating program-related details.",
-  "purpose": "To maintain and configure details of program profiles within the system.",
-  "entities": [
-    "Program",
-    "UserSession"
-  ],
-  "fields": [
-    "ProgramID",
-    "EmailMasks",
-    "AllowStudentAccess",
-    "UseRAITProvisioning"
-  ],
-  "actors": [
-    "SysAdmin",
-    "UserSession"
-  ],
+  "summary": "This user control manages details of program profiles, including access permissions and attribute settings based on session data.",
+  "purpose": "To configure detailed settings of program profiles including access and attribute permissions.",
+  "entities": ["HSPnetSession", "Program"],
+  "fields": ["ProgramID", "UserSession", "AllowStudentAccess"],
+  "actors": ["Administrator"],
   "workflows": [
     {
-      "name": "Profile Update Workflow",
+      "name": "Program Profile Detail Configuration",
       "steps": [
-        "Bind profile data to form view",
-        "Check student access permissions",
-        "Update profile details on save action"
+        "Select program detail using session parameters",
+        "Configure permissions based on session and attributes",
+        "Update program profile with new settings"
       ]
     }
   ],
-  "business_rules": [
-    "Show 'YES' if the checkbox is checked, 'No' otherwise",
-    "Hide student access controls if not allowed",
-    "Execute RAIT Provision based on configuration setting"
-  ],
-  "validations": [
-    "Phone validation using UsePhoneMask",
-    "Conditional visibility of email mask controls"
-  ],
+  "business_rules": [],
+  "validations": [],
   "calculations": [],
-  "conditions": [
-    "If UsePhoneMask is false, remove phone masks",
-    "Visibility of controls based on user role"
-  ],
+  "conditions": [],
   "system_behavior": [
-    "Cache user session on successful profile update"
+    "Configure program profile settings",
+    "Manage student access permissions"
   ],
-  "dependencies": [
-    "JavaScript for client-side behaviors"
-  ],
+  "dependencies": [],
   "exceptions": [],
   "source_document_ids": [
     "00fda0b5-4502-5a86-8e65-68ef5b7471ec",
     "1ee06aa4-7385-5f47-95c8-5b60096554d9",
-    "36ef26c4-8f8a-57da-88b1-5376918e78ba"
+    "275910fd-33cf-5963-acac-fe4d146b14d3",
+    "36ef26c4-8f8a-57da-88b1-5376918e78ba",
+    "49962d26-cfdc-55c9-93fe-a4da1853749f",
+    "728c6abb-1942-5b2e-a505-07e5f3262a41",
+    "7a6deaca-0a3d-5220-aeb0-7e7e0dc147cc",
+    "8347f512-cca9-5534-af1a-388d23dbee7d",
+    "90e48d5d-5b74-55d1-991d-ead7c489a5ca",
+    "a565825e-0922-5655-b4ed-73fee3344cb2",
+    "a8a666db-f90a-55c8-aa8e-a44120a04af3",
+    "ebe3732a-40c2-5c04-9193-f2582f7243ff"
   ],
   "content_gaps": []
 }
