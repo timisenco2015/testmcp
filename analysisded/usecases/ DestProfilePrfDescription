@@ -1,0 +1,73 @@
+# Module: DestProfilePrfDescription
+
+## DestProfilePrfDescription-UC1 — Manage Destination Codes
+
+- Primary Actor(s): System Administrator
+- Secondary Actor(s): None
+- Trigger: The administrator wants to manage destination codes.
+- Description: This use case allows system administrators to add, edit, and delete destination codes in the system.
+- Preconditions: The user must be logged in with administrator privileges.
+- Postconditions: The destination codes are updated in the system.
+- Main Success Scenario:
+  1. Administrator accesses the destination code management screen.
+  2. System displays the list of current destination codes.
+  3. Administrator chooses to add, edit, or delete a destination code.
+  4. System performs the requested operation and updates the display.
+- Extensions:
+  - 3a. If adding a code:
+    1. Administrator enters details for the new destination code.
+    2. System validates and saves the new code data.
+  - 3b. If editing a code:
+    1. Administrator modifies details of an existing destination code.
+    2. System validates and updates the code data.
+  - 3c. If deleting a code:
+    1. Administrator confirms deletion.
+    2. System removes the destination code.
+- Exceptions:
+  - If the user session is invalid, prevent data operations.
+  - If an error occurs during database updates, show an error message.
+- Business Rules: Only administrators with appropriate permissions can manage destination codes.
+- Assumptions: Destination codes are essential for categorizing data and are managed centrally.
+- Open Issues: Determine if there are additional roles that need access to manage destination codes.
+
+## DestProfilePrfDescription-UC2 — Screen Display with Editable Fields
+
+- Primary Actor(s): System User
+- Secondary Actor(s): None
+- Trigger: The user views a screen with destination code details.
+- Description: The system displays destination code details, allowing edits if the screen is marked editable.
+- Preconditions: The user must have access to view the destination code details screen.
+- Postconditions: The screen displays the appropriate details and fields based on edit permissions.
+- Main Success Scenario:
+  1. User navigates to the destination code details screen.
+  2. System checks edit permissions for the user.
+  3. System shows the screen with editable fields if permissions allow.
+- Extensions:
+  - If the screen is not editable, all input fields are disabled.
+- Exceptions:
+  - Display errors if user session is null during data access.
+- Business Rules: Editable fields are conditioned by user permissions and session validity.
+- Assumptions: The screen should ideally guide users on their permissions.
+- Open Issues: Clarify the conditions under which screens may be non-editable for certain users.
+
+## DestProfilePrfDescription-UC3 — Data Binding and Validation
+
+- Primary Actor(s): System
+- Secondary Actor(s): None
+- Trigger: System needs to bind data to UI components.
+- Description: The system binds data to the user interface and enforces validation rules.
+- Preconditions: Data must be available for binding.
+- Postconditions: UI displays bound data and validation feedback.
+- Main Success Scenario:
+  1. System retrieves destination code data from the database.
+  2. System binds data to grid or form controls on the UI.
+  3. System validates input and provides feedback to the user.
+- Extensions:
+  - Validation summary displays errors if any input is invalid.
+- Exceptions:
+  - Cancel data operations if session is invalid or data retrieval fails.
+- Business Rules: Data must adhere to predefined validation rules before submission.
+- Assumptions: All necessary data is fetched from a valid session.
+- Open Issues: Define error handling strategies for data binding errors.
+
+No other extractable use cases found.
