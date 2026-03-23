@@ -1,19 +1,76 @@
 {
   "filename": "RptDestPlcSchedule",
-  "found": false,
-  "summary": "",
-  "purpose": "",
+  "found": true,
+  "summary": "RptDestPlcSchedule is a .NET UserControl used for generating reports related to destination placement schedules. It includes user interface elements like radio buttons, checkboxes, date pickers, and validators to collect user inputs for generating reports within the HSPnet system. The control manages user sessions, JavaScript setup, and ensures only authorized report generation.",
+  "purpose": "The purpose of RptDestPlcSchedule is to facilitate the creation of destination placement schedule reports within the HSPnet system, allowing users to specify criteria, such as date ranges and inclusion options, and generate PDF reports for selected destinations.",
   "entities": [],
-  "fields": [],
-  "actors": [],
-  "workflows": [],
-  "business_rules": [],
-  "validations": [],
+  "fields": [
+    "Label1",
+    "Label5",
+    "Label6",
+    "Label7",
+    "txtStartDate",
+    "txtEndDate",
+    "ddTerm",
+    "radConfirmedRequests",
+    "radAcceptedConfirmed",
+    "radPendRedirAcceptedConfirmed",
+    "chkIndividualPDF",
+    "chkAppendSchedule",
+    "ValidationSummary1",
+    "RegularExpressionValidator1",
+    "RegularExpressionValidator2",
+    "CustomValidator1",
+    "btnStartDate",
+    "btnEndDate",
+    "cmdRunReport"
+  ],
+  "actors": [
+    "UserSession"
+  ],
+  "workflows": [
+    {
+      "name": "Generate Report",
+      "steps": [
+        "User selects date range using txtStartDate and txtEndDate.",
+        "User chooses inclusion options using radio buttons for confirmed, accepted, or pending requests.",
+        "User may select additional options like individual PDFs and appending schedules.",
+        "User runs the report using cmdRunReport, triggering a server-side process that creates the report based on selected options."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Reports cannot be generated when monitoring a user with view-only permissions.",
+    "Each report must include at least one destination.",
+    "The number of destinations included cannot exceed a defined maximum, PrintJobs.MAX_INCLUDE_ITEMS."
+  ],
+  "validations": [
+    "RegularExpressionValidator1 validates txtStartDate format.",
+    "RegularExpressionValidator2 validates txtEndDate format.",
+    "CustomValidator1 enforces custom validation rules."
+  ],
   "calculations": [],
-  "conditions": [],
-  "system_behavior": [],
+  "conditions": [
+    "IncludeOption is set based on selected radio button: 0 for confirmed, 1 for accepted, and 2 for pending requests."
+  ],
+  "system_behavior": [
+    "Displays an error message if no destinations are selected.",
+    "Displays an error message if the maximum number of include items is exceeded.",
+    "Registers JavaScript variables for client-side use."
+  ],
   "dependencies": [],
-  "exceptions": [],
-  "source_document_ids": [],
-  "content_gaps": ["No related documents found"]
+  "exceptions": [
+    "Error displayed when no destinations are selected or when max include items are exceeded."
+  ],
+  "source_document_ids": [
+    "127d1857-7e18-5c21-bad2-c89a790d923c",
+    "1ed0d909-7c46-53f6-9525-b518a5c023b8",
+    "46893fc0-7ee2-5cd1-8edb-3385b45b61f1",
+    "49fdedf4-9096-576c-b12b-50004f577808",
+    "993054ea-3e6d-5cfe-b2ab-87fd6f3b8d8f",
+    "ab0f3e47-1b09-5353-9b0b-05007fb72a1d",
+    "b86777a9-7a96-543d-ab46-1a2299b52937",
+    "f574a7e5-f39c-5734-89d1-484bbb379ec6"
+  ],
+  "content_gaps": []
 }
