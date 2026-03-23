@@ -1,79 +1,74 @@
 {
-    "filename": "CourseDetail",
-    "found": true,
-    "summary": "The CourseDetail system manages detailed course-related information, including adding, updating, copying, and deleting course details using SQL procedures. It features functionality to validate entries and manage numbering and formatting codes.",
-    "purpose": "To manage and manipulate course details within a database using various CRUD operations.",
-    "entities": [],
-    "fields": [
-        "ID",
-        "CourseID",
-        "HeadingID",
-        "Response",
-        "SortOrder",
-        "NumberingCodeID",
-        "Description",
-        "DescriptionAlt",
-        "DescriptionFormatted",
-        "NumberingCode",
-        "SortOrderFormatted",
-        "WebPage",
-        "NumberCharacter",
-        "NumberingIndentLevel",
-        "HeaderChanged"
-    ],
-    "actors": [],
-    "workflows": [
-        {
-            "name": "Add CourseDetail",
-            "steps": ["Check if IsValid", "Set ProcedureName to CourseDetailsAdd", "Add necessary parameters", "Execute query"]
-        },
-        {
-            "name": "Update CourseDetail",
-            "steps": ["Check if ID is not 0 and IsValid", "Set ProcedureName to CourseDetailsUpdate", "Add necessary parameters", "Execute query"]
-        },
-        {
-            "name": "Delete CourseDetail",
-            "steps": ["Check if ID is not 0", "Set ProcedureName to CourseDetailsDelete", "Add necessary parameters", "Execute query"]
-        },
-        {
-            "name": "Copy CourseDetail",
-            "steps": ["Check if ID is not 0", "Set ProcedureName to CourseDetailsCopy", "Add necessary parameters", "Execute query"]
-        },
-        {
-            "name": "Retrieve by CourseID",
-            "steps": ["Set ProcedureName to CourseDetailsSearch", "Add necessary parameters", "Execute getData", "FillList", "Close data reader"]
-        },
-        {
-            "name": "Retrieve by ID",
-            "steps": ["Set ProcedureName to CourseDetailsSearchID", "Add necessary parameters", "Execute getData", "FillList", "Close data reader"]
-        }
-    ],
-    "business_rules": [],
-    "validations": [
-        "Check if Response is blank and add error message if true",
-        "Returns true if valid"
-    ],
-    "calculations": [
-        "ResetCounts for numbering",
-        "SetNumberingCharacter based on codes and levels",
-        "Format SortOrder",
-        "Determine if entry is a Web Page entry"
-    ],
-    "conditions": [],
-    "system_behavior": [
-        "Stores and formats course details",
-        "Retrieves data using SQL stored procedures",
-        "Handles alternative language descriptions"
-    ],
-    "dependencies": [],
-    "exceptions": [],
-    "source_document_ids": [
-        "4c927f86-38fd-569d-993c-ecb14b1c2eb8",
-        "4f923d1d-c9d2-5122-97b1-feb4c28153ef",
-        "59b7e9a9-48a6-5f88-b4d2-105956914870",
-        "9e7b6283-3788-5d6b-83aa-7f42e837c370",
-        "a1693e76-d88a-589c-9fe4-35a74ee97c98",
-        "c3c2e46d-57db-5b24-9020-c8a557b23022"
-    ],
-    "content_gaps": []
+  "filename": "CourseDetail",
+  "found": true,
+  "summary": "This document describes the CourseDetail class and its various methods and properties used for manipulating course details within the HSPnet system.",
+  "purpose": "To manage course details including adding, updating, copying, and deleting entries in the HSPnet system.",
+  "entities": [
+    "CourseDetail"
+  ],
+  "fields": [
+    "ID",
+    "CourseID",
+    "HeadingID",
+    "Response",
+    "SortOrder",
+    "NumberingCodeID",
+    "Description",
+    "DescriptionAlt",
+    "DescriptionFormatted",
+    "NumberingCode",
+    "SortOrderFormatted",
+    "WebPage",
+    "NumberCharacter",
+    "NumberingIndentLevel",
+    "ResponseFormatted",
+    "HeaderChanged"
+  ],
+  "actors": [
+    "HSPnetSession"
+  ],
+  "workflows": [
+    {
+      "name": "Managing Course Details",
+      "steps": [
+        "Add course detail using Add method",
+        "Update course detail using Update method",
+        "Delete course detail using Delete method",
+        "Copy course detail using Copy method",
+        "Retrieve course detail by CourseID with GetByCourseID method",
+        "Retrieve course detail by ID with GetByID method"
+      ]
+    }
+  ],
+  "business_rules": [
+    "Ensure Response is not blank before proceeding with operations",
+    "Use DescriptionAlt for formatted descriptions if UseAltLanguageFields is true"
+  ],
+  "validations": [
+    "Check if Response is blank"
+  ],
+  "calculations": [
+    "Determine the numbering character and indent level based on NumberingCode"
+  ],
+  "conditions": [
+    "HeaderChanged when HeadingID changes"
+  ],
+  "system_behavior": [
+    "Uses stored SQL procedures like CourseDetailsAdd, CourseDetailsUpdate, CourseDetailsDelete, CourseDetailsCopy",
+    "Formats Response with HTML.translateNewLines function"
+  ],
+  "dependencies": [
+    "HSPnet.UI.NumberingCodes",
+    "HSPnet.Framework.StringUtil"
+  ],
+  "exceptions": [],
+  "source_document_ids": [
+    "4c927f86-38fd-569d-993c-ecb14b1c2eb8",
+    "4f923d1d-c9d2-5122-97b1-feb4c28153ef",
+    "59b7e9a9-48a6-5f88-b4d2-105956914870",
+    "9e7b6283-3788-5d6b-83aa-7f42e837c370",
+    "a1693e76-d88a-589c-9fe4-35a74ee97c98",
+    "c3c2e46d-57db-5b24-9020-c8a557b23022"
+  ],
+  "content_gaps": []
 }
