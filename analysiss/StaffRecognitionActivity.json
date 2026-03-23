@@ -1,19 +1,77 @@
 {
     "filename": "StaffRecognitionActivity",
-    "found": false,
-    "summary": "",
-    "purpose": "",
+    "found": true,
+    "summary": "The StaffRecognitionActivity system manages staff recognition activities within an organization. It supports adding, updating, deleting, and searching for recognition activities associated with specific staff members.",
+    "purpose": "Manage the life cycle of staff recognition activities, including creation, modification, retrieval, and deletion.",
     "entities": [],
-    "fields": [],
+    "fields": [
+        "ID",
+        "StaffID",
+        "ActivityTypeCodeID",
+        "AcademicAppointmentTypeCodeID",
+        "ActivityTypeComments",
+        "ActivityDate",
+        "ExpiryDate",
+        "DepartmentID",
+        "ProgramID",
+        "CanEdit",
+        "ActivityTypeDescription",
+        "AcademicAppointmentTypeDescription",
+        "DepartmentShortName",
+        "ProgramShortName"
+    ],
     "actors": [],
-    "workflows": [],
+    "workflows": [
+        {
+            "name": "Add Staff Recognition Activity",
+            "steps": [
+                "Select the Add option.",
+                "Enter Staff ID, Activity Type Code ID, Academic Appointment Type Code ID, Activity Type Comments, Activity Date, Expiry Date, Department ID, and Program ID.",
+                "Submit the data for processing."
+            ]
+        },
+        {
+            "name": "Update Staff Recognition Activity",
+            "steps": [
+                "Select the activity to update.",
+                "Modify the necessary fields.",
+                "Submit the updated data."
+            ]
+        },
+        {
+            "name": "Delete Staff Recognition Activity",
+            "steps": [
+                "Select the activity to delete.",
+                "Confirm the deletion action.",
+                "System deletes the activity entry."
+            ]
+        },
+        {
+            "name": "Search Staff Recognition Activity by Staff ID",
+            "steps": [
+                "Submit Staff ID for search.",
+                "System retrieves and returns matching entries."
+            ]
+        }
+    ],
     "business_rules": [],
     "validations": [],
     "calculations": [],
-    "conditions": [],
-    "system_behavior": [],
+    "conditions": [
+        "Use alternate language fields if available when retrieving descriptions."
+    ],
+    "system_behavior": [
+        "The system retrieves details from the database when adding or updating activities.",
+        "The system executes stored procedures for database operations."
+    ],
     "dependencies": [],
     "exceptions": [],
-    "source_document_ids": [],
-    "content_gaps": ["No related documents found"]
+    "source_document_ids": [
+        "042dde0c-0d13-5233-86a2-a68c949aa4af",
+        "758e4598-c6e3-5221-84ff-ac28110536a4",
+        "a0d189c0-1fc2-5671-96a9-613674bdb64d",
+        "a48f8727-09ca-514b-a0f3-fc0607295621",
+        "ad562122-4374-5559-8d5a-396c9d447627"
+    ],
+    "content_gaps": []
 }
