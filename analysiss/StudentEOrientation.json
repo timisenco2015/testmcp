@@ -1,70 +1,79 @@
 {
-    "filename": "StudentEOrientation",
-    "found": true,
-    "summary": "StudentEOrientation is a portal for student engagement in orientation activities, providing course retake opportunities and certificate printing.",
-    "purpose": "Engage students with orientation courses, offering retake options and certification functionalities.",
-    "entities": [],
-    "fields": [
-        "pnlEOpeLink",
-        "pnlPrintCertificate",
-        "btnPrintCertificate",
-        "lblPleaseWait",
-        "pnlReportHTML",
-        "lblReportHTML",
-        "gvwCourses",
-        "dsCourses"
-    ],
-    "actors": [
-        "UserSession",
-        "StudentID"
-    ],
-    "workflows": [
-        {
-            "name": "Retake Course",
-            "steps": [
-                "Evaluate course completion.",
-                "Display retake button if criteria met.",
-                "Bind data on retake action."
-            ]
-        },
-        {
-            "name": "Print Completion Certificate",
-            "steps": [
-                "Run certificate report.",
-                "Display as HTML if generated."
-            ]
-        }
-    ],
-    "business_rules": [
-        "Retake is allowed if course is completed and criteria are met.",
-        "Switch visibility settings based on UserSession attributes."
-    ],
-    "validations": [],
-    "calculations": [],
-    "conditions": [
-        "UserSession is valid.",
-        "StudentID matches the UserSession criteria.",
-        "Status equals ETopicStatus.Completed."
-    ],
-    "system_behavior": [
-        "Page manages visibility of orientation links based on role and session attributes.",
-        "Data binding triggers on command execution."
-    ],
-    "dependencies": [
-        "HTPnet.DataLayer",
-        "HTPnet.App_GlobalResources",
-        "CodeLookup for MoodleURL"
-    ],
-    "exceptions": [
-        "Cancel data selection if session null."
-    ],
-    "source_document_ids": [
-        "1d551419-67cd-5f43-8011-83999159acc3",
-        "352b4554-fa18-59fe-9d11-cd72472ece6f",
-        "5a3fa64d-1a3b-55f2-9b05-c5ebc28ed4f2",
-        "bae687f4-b9a7-5d79-90ae-9e7f13f530db",
-        "d2c9c987-3374-57c1-a05e-ef991253412d",
-        "f38de7e2-d269-5b8b-993d-efc67802180c"
-    ],
-    "content_gaps": []
+  "filename": "StudentEOrientation",
+  "found": true,
+  "summary": "The StudentEOrientation is a user interface component that manages the student e-orientation process. It includes functionality for course management, retaking courses, generating completion certificates, and interacting with an external site for e-learning.",
+  "purpose": "To facilitate and manage the electronic orientation process for students, providing options for course retakes and certificate generation.",
+  "entities": [],
+  "fields": [
+    "EOrientationSource",
+    "UserSession",
+    "StudentID",
+    "_completeFound",
+    "btnRetake",
+    "pnlEOpeLink",
+    "pnlPrintCertificate",
+    "lblPleaseWait",
+    "pnlReportHTML",
+    "lblReportHTML",
+    "gvwCourses",
+    "dsCourses"
+  ],
+  "actors": ["Student", "SystemAdministrator"],
+  "workflows": [
+    {
+      "name": "Course Retake Workflow",
+      "steps": [
+        "Check if course is completed and if retake is allowed",
+        "Display retake option if applicable",
+        "Handle retake button click event",
+        "Confirm retake action with user",
+        "Execute retake logic and update interface"
+      ]
+    },
+    {
+      "name": "Certificate Generation Workflow",
+      "steps": [
+        "User requests certificate print",
+        "Generate certificate using reporting framework",
+        "Display generated certificate if available"
+      ]
+    }
+  ],
+  "business_rules": [
+    "Course retakes are allowed only if the course is completed and certain conditions are met.",
+    "A certificate of completion is available only when the student has completed the orientation."
+  ],
+  "validations": [
+    "Check if UserSession is valid before allowing actions",
+    "Confirm the retake action with the user before proceeding"
+  ],
+  "calculations": [
+    "Comparison of course status and other date-related conditions for retake eligibility"
+  ],
+  "conditions": [
+    "Course status must be 'completed' to show retake button",
+    "PRDEndDate should be valid for displaying retake option"
+  ],
+  "system_behavior": [
+    "Display interface components based on user session and course completion status",
+    "Open external e-learning site for course access"
+  ],
+  "dependencies": [
+    "HSPnet.Framework.Reporting",
+    "HSPnet.DataLayer",
+    "System.Web.UI"
+  ],
+  "exceptions": [
+    "Actions are cancelled if UserSession is null",
+    "No retake option if PRDEndDate is invalid or course isn't fully completed"
+  ],
+  "source_document_ids": [
+    "1d551419-67cd-5f43-8011-83999159acc3",
+    "352b4554-fa18-59fe-9d11-cd72472ece6f",
+    "5a3fa64d-1a3b-55f2-9b05-c5ebc28ed4f2",
+    "bae687f4-b9a7-5d79-90ae-9e7f13f530db",
+    "d2c9c987-3374-57c1-a05e-ef991253412d",
+    "f38de7e2-d269-5b8b-993d-efc67802180c"
+  ],
+  "content_gaps": []
 }
