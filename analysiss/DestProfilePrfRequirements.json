@@ -1,0 +1,83 @@
+{
+  "filename": "DestProfilePrfRequirements",
+  "found": true,
+  "summary": "The retrieved documents describe the implementation of the 'DestProfilePrfRequirements' user control in a web application. This control is part of a larger system for managing requirements related to disciplines and prerequisites within the HSPnet framework. The documents outline the structure, data handling, and interface elements of the control, including various UI components and their interactions.",
+  "purpose": "The purpose of 'DestProfilePrfRequirements' is to manage prerequisites and requirements associated with different disciplines in the HSPnet system. It provides users with functionality to add, edit, and display these requirements via a web-based user interface.",
+  "entities": [],
+  "fields": [
+    "ddRequirement",
+    "txtRequirementDescription",
+    "txtWebsite",
+    "txtDocumentName",
+    "txtSection",
+    "uxAllowAllDisciplines",
+    "lbIncluded",
+    "lbNotIncluded",
+    "hdnPrereqOption",
+    "RequiredFieldValidator_ddRequirement"
+  ],
+  "actors": [
+    "UserSession"
+  ],
+  "workflows": [
+    {
+      "name": "Add or Edit Requirement",
+      "steps": [
+        "User selects a requirement type from ddRequirement.",
+        "User inputs a description, website, and document name, if applicable.",
+        "User selects disciplines involved using lbIncluded and lbNotIncluded.",
+        "On save, data is validated and processed according to the selected PrerequisiteOption."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Requirement codes are fetched from a predefined list excluding certain omitted codes.",
+    "If 'Allow All Disciplines' is selected, all sub-disciplines are applied.",
+    "If no sub-discipline is included, a warning is issued and all disciplines are applied by default."
+  ],
+  "validations": [
+    "CustomValidator checks the requirement description.",
+    "RequiredFieldValidator ensures ddRequirement is selected."
+  ],
+  "calculations": [],
+  "conditions": [
+    "The appearance of certain fields depends on the selected PrerequisiteOption."
+  ],
+  "system_behavior": [
+    "FormView controls switch modes between Insert, Edit, and Normal.",
+    "JavaScript variables and methods are used to handle dynamic changes in the form."
+  ],
+  "dependencies": [],
+  "exceptions": [
+    "If a UserSession is null during data operations, the process is canceled."
+  ],
+  "source_document_ids": [
+    "00fcca6d-1a9f-5dcd-811b-bf43a2c4d755",
+    "0fed9d78-58d5-5197-992e-44aad34a7e3a",
+    "15d5150d-6aab-582b-b897-b6fb18904e70",
+    "16d6abeb-02f7-5d60-97bb-990b0d496b41",
+    "24d2c23b-f935-5751-b76a-32538323aec7",
+    "2641ef88-3108-55f9-be52-499c2e858551",
+    "27ee8817-6841-5740-bf42-67e94d1eba4b",
+    "40b15b64-a6a7-5da9-ac85-58c8cba0dd6e",
+    "4d243d1d-e4b4-563c-b06b-14d82a0090cd",
+    "611160fe-eb65-5824-b405-3d7cf1d19bde",
+    "6c18214a-5b05-573b-be95-7919c943e084",
+    "70c2cd1a-dcbc-53b9-aaa5-cc7267552a7d",
+    "793b43f3-8560-5351-9a1d-db81fb46aa70",
+    "8216e9f8-5561-5fb6-9cf2-a499c8a82036",
+    "82f7801a-1076-5d4f-a5fa-104bdb1d2bb7",
+    "8343e5a3-7e3f-5ab5-916e-ecb22f9121ec",
+    "905633fb-d456-5af6-a772-0a7dd6a85436",
+    "b6862f10-bb5a-5a46-a823-a10da47e0c1f",
+    "c4b3ab13-c0dc-564c-b3d6-e39555f4b4c4",
+    "d3da1b10-2e92-5e99-84ac-28d5b8ea0f71",
+    "dae1438a-0b7c-538b-9530-3ca738cd458d",
+    "db0696b1-e2c2-5b95-8b56-f57e38316e26",
+    "e1e57236-cea3-5af4-b570-ee728c162cf5",
+    "e301f790-95d3-57f5-b56b-3522ff9753b4",
+    "ea7e740a-3500-523f-a4c0-8c40b362c7af",
+    "ee57a734-0f58-5a0a-b29d-9c3487a5b897"
+  ],
+  "content_gaps": []
+}
