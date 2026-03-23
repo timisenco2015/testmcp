@@ -1,0 +1,65 @@
+{
+    "filename": "ErrorOccurred",
+    "found": true,
+    "summary": "The ErrorOccurred page in the HSPnet application serves as an error message handler with localization support. It displays error messages based on configuration settings and user locale.",
+    "purpose": "To manage and present error messages with localization, and provide user instructions for contacting support.",
+    "entities": [],
+    "fields": [
+        {
+            "name": "ErrorEmail",
+            "type": "string",
+            "source": "ConfigurationSettings"
+        },
+        {
+            "name": "Locale",
+            "type": "string",
+            "source": "QueryString"
+        },
+        {
+            "name": "HttpRequestValidationException",
+            "type": "string",
+            "source": "QueryString"
+        }
+    ],
+    "actors": [],
+    "workflows": [
+        {
+            "name": "Error Message Display",
+            "steps": [
+                "Determine if using default locale based on QueryString 'Locale'.",
+                "Set visibility of HeaderEN or HeaderFR based on locale.",
+                "Retrieve ErrorEmail from configuration settings based on locale.",
+                "Set error message text using localized resources and ErrorEmail."
+            ]
+        }
+    ],
+    "business_rules": [
+        "Error email addresses are stored in configuration and vary by locale.",
+        "Locale defaults to 'en-US' if not specified."
+    ],
+    "validations": [
+        "Validate Locale QueryString to ensure correct cultural settings."
+    ],
+    "calculations": [],
+    "conditions": [
+        "Locale is 'en-US' or not specified."
+    ],
+    "system_behavior": [
+        "Renders error message page with localized content and appropriate contact information.",
+        "Adjusts UI culture settings based on locale query."
+    ],
+    "dependencies": [
+        "System.Configuration for retrieving configuration settings.",
+        "System.Globalization for locale settings."
+    ],
+    "exceptions": [
+        "Handle HttpRequestValidationException by displaying a specific message."
+    ],
+    "source_document_ids": [
+        "061d570b-3af2-5dc8-9639-8df86256fbfd",
+        "745fd8a6-9d74-5b61-a2f4-678706f9e330",
+        "b91b73c2-09c1-55dc-8f24-5033abbc7c12",
+        "b9f61ea8-4e71-5ce8-9493-99a77994d0b6"
+    ],
+    "content_gaps": []
+}
