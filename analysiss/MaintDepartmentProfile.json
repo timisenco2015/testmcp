@@ -1,19 +1,101 @@
 {
-        "filename": "MaintDepartmentProfile",
-        "found": false,
-        "summary": "",
-        "purpose": "",
-        "entities": [],
-        "fields": [],
-        "actors": [],
-        "workflows": [],
-        "business_rules": [],
-        "validations": [],
-        "calculations": [],
-        "conditions": [],
-        "system_behavior": [],
-        "dependencies": [],
-        "exceptions": [],
-        "source_document_ids": [],
-        "content_gaps": ["No related documents found"]
+  "filename": "MaintDepartmentProfile",
+  "found": true,
+  "summary": "The MaintDepartmentProfile document is designed to manage and update department profiles, including handling documents, logos, and consent forms for departmental activities.",
+  "purpose": "To provide a mechanism for maintaining department-related documents, including displaying and updating profile information, handling file uploads, and managing security settings.",
+  "entities": [],
+  "fields": [
+    "DepartmentID",
+    "ReadOnly",
+    "profileupdate",
+    "link",
+    "lblDepartment",
+    "lblPhone",
+    "lblFax",
+    "lblHSPnetConsent",
+    "HSPnetConsentUpdate",
+    "HSPnetConsentLink"
+  ],
+  "actors": [
+    "UserSession",
+    "SystemAdministrator",
+    "LocalAdministrator"
+  ],
+  "workflows": [
+    {
+      "name": "RefreshPage",
+      "steps": [
+        "Retrieve department details using DepartmentSearchID.",
+        "Setup exist flags for document and profile data.",
+        "Enable or disable SSO and Advanced Security based on configurations."
+      ]
+    },
+    {
+      "name": "Save Document",
+      "steps": [
+        "Check if file is to be uploaded.",
+        "Validate file type and content.",
+        "Save file to server and update document details in database.",
+        "Display or hide delete options based on permissions."
+      ]
     }
+  ],
+  "business_rules": [
+    "SSO and Advanced Security panels are enabled only for system administrators or specific local administrators if corresponding configurations are set to true.",
+    "Department documents are retrieved, and logos are included based on stored flags."
+  ],
+  "validations": [
+    "Regular expression validation for file uploads.",
+    "Required field validation for certain uploads."
+  ],
+  "calculations": [],
+  "conditions": [
+    "SSOEnabled == '1'",
+    "AdvSecurityEnabled == '1'"
+  ],
+  "system_behavior": [
+    "Documents and consent forms are displayed based on existence flags.",
+    "Panels for documents and history are dynamically displayed or hidden based on user actions and permissions."
+  ],
+  "dependencies": [
+    "DepartmentDocumentType codes for file types.",
+    "UserSession for managing user permissions and actions."
+  ],
+  "exceptions": [],
+  "source_document_ids": [
+    "07b024f2-3dd2-5ac9-a56f-10f4b8776fa1",
+    "27f69b06-b41d-55d2-a85c-50379b53c9de",
+    "28f57b1d-6665-556a-ac1d-13496f7061b2",
+    "3058d978-9ff7-57d3-9534-e5b576ae170f",
+    "31f2c0b5-c5ab-5fde-8448-8c8233d0ccd4",
+    "327491e8-2d0a-5733-9cc8-f45151a2c498",
+    "33eb0e64-772a-5f36-a13c-0000531b27a1",
+    "42ddfe49-204e-5da7-9645-305ea7f4b1c4",
+    "4b9d2f77-5ef3-568d-9386-b3336e5b0856",
+    "517af110-fb4a-5e42-9e65-52fd629802d5",
+    "63c81ea1-682b-50a2-9ff5-d9c6e81ad393",
+    "68c397ab-c7e6-5ce9-8732-8586a6b5d8b2",
+    "6991a6e0-4ccb-5aaf-be75-7be29a45cf23",
+    "69bba21b-8dd5-5426-bdd4-28614bbffcd4",
+    "7068a3c6-cba4-5563-8110-a39a79c7a66a",
+    "7c71418b-8553-54be-8bdb-935b8c07af91",
+    "7e07c492-9cf8-5c9e-b2b6-e3df66d0a2e7",
+    "945e95a1-858e-5a11-b3c8-d723f1f64b47",
+    "980710ef-4296-5629-a9ec-21c200ceaf1d",
+    "9cf525d6-1a67-5810-9bba-6578cebeb760",
+    "a4f03b4b-44a1-5d9e-b411-3f854d4556af",
+    "aa6c70b4-dd94-5755-8f7f-c626c402fbd3",
+    "b5c1134e-5966-552f-9291-87fddd2e6e32",
+    "b6c0b971-97a6-5b6a-8dde-0985b45f474b",
+    "b7bc61a2-f2f2-508c-9a94-22cb323edb64",
+    "b8e9f516-5b4d-5e93-bdff-f1c9a7e99b40",
+    "b9e9b824-ff62-57c6-b732-9ffe5fe8b488",
+    "bdb1eec8-f12f-55b7-bb81-a0f2bd6cffa3",
+    "c102bf1f-4de2-51ca-b62a-8cd41039cbbc",
+    "c29c3574-fe87-5e00-a494-6b30f3316f6a",
+    "cf1875ed-4674-5e6a-be05-d563afa37da8",
+    "e85d0675-0257-50a0-87fc-c27eb4f608de",
+    "f556a299-b23c-5cb5-b7c5-cf80c9bc3cc6"
+  ],
+  "content_gaps": []
+}
