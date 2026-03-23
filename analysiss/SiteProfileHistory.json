@@ -1,73 +1,54 @@
 {
     "filename": "SiteProfileHistory",
     "found": true,
-    "summary": "SiteProfileHistory manages records of changes and actions associated with site profiles, providing detailed user and action history.",
-    "purpose": "To track and store historical changes made to site profiles, including user actions and associated details.",
+    "summary": "SiteProfileHistory logs and manages changes to site profiles, including user actions and formatted data outputs.",
+    "purpose": "To track and display the history of changes made to site profiles along with user information.",
     "entities": [
-        {
-            "name": "SiteProfileHistory",
-            "attributes": [
-                "ID",
-                "ActionDate",
-                "ScreenSection",
-                "UserAction",
-                "Fields",
-                "Agency",
-                "AgencyName",
-                "LastName",
-                "FirstName",
-                "MiddleName",
-                "Phone",
-                "ByUserID",
-                "ByOriginalUserID",
-                "ByUserSysAdmin"
-            ]
-        }
+      "SiteProfileHistory"
     ],
     "fields": [
-        "ID",
-        "ActionDate",
-        "ScreenSection",
-        "UserAction",
-        "Fields",
-        "Agency",
-        "AgencyName",
-        "LastName",
-        "FirstName",
-        "MiddleName",
-        "Phone"
+      "ActionDate",
+      "ScreenSection",
+      "UserAction",
+      "Fields",
+      "Agency",
+      "LastName",
+      "FirstName",
+      "MiddleName",
+      "Phone"
     ],
-    "actors": [],
+    "actors": [
+      "DataLayer"
+    ],
     "workflows": [
-        {
-            "name": "Site Profile History Retrieval",
-            "steps": [
-                "Query database for historical records based on SiteID and SessionAgencyID.",
-                "Fill list with retrieved records and return to caller."
-            ]
-        }
+      {
+        "name": "Track Site Profile Changes",
+        "steps": [
+          "Setup SqlDataReader",
+          "Read site profile history data",
+          "Fill history list entry",
+          "Close data reader"
+        ]
+      }
     ],
-    "business_rules": [],
+    "business_rules": [
+      "Use alternative language fields based on session preferences"
+    ],
     "validations": [],
     "calculations": [],
-    "conditions": [
-        {
-            "name": "User Action Filtering",
-            "description": "Use alternate language fields if session indicates alternate language usage."
-        }
+    "conditions": [],
+    "system_behavior": [],
+    "dependencies": [
+      "User session handling",
+      "Name formatting"
     ],
-    "system_behavior": [
-        "Retrieves and formats site profile history records.",
-        "Provides detailed formatting for user actions and agency details."
-    ],
-    "dependencies": [],
     "exceptions": [],
     "source_document_ids": [
-        "25f89a24-5eda-5a3f-83df-1de69b12b3f1",
-        "26e09292-d304-55c6-94e5-ef3346453c4b",
-        "7ca6b963-9ae9-5cd3-82d5-f30dcb727ae3",
-        "a8f030c6-90b8-53a1-bb8a-3b7ef33b9488",
-        "e806999c-3a39-5720-9b59-303faebc9eb6"
+      "25f89a24-5eda-5a3f-83df-1de69b12b3f1",
+      "26e09292-d304-55c6-94e5-ef3346453c4b",
+      "7ca6b963-9ae9-5cd3-82d5-f30dcb727ae3",
+      "a8f030c6-90b8-53a1-bb8a-3b7ef33b9488",
+      "e806999c-3a39-5720-9b59-303faebc9eb6"
     ],
     "content_gaps": []
-}
+  }
