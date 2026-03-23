@@ -1,0 +1,60 @@
+```json
+{
+  "filename": "StudentPreInfControl",
+  "found": true,
+  "summary": "The StudentPreInfControl is a web control designed for managing student prerequisites related to infection control, including fields for N95 mask size and fit test dates.",
+  "purpose": "To manage and track student infection control prerequisites within a web-based environment, supporting data retrieval and updates.",
+  "entities": ["StudentPreInfControl", "UserSession", "StudentPrerequisite"],
+  "fields": [
+    "updPnlMain",
+    "txtCalendarPlaceholder",
+    "calCalendarPlaceholder",
+    "fvmStdPrerequisite",
+    "dsStdPrerequisite",
+    "ValidationSummary1",
+    "uxDetail",
+    "dsStdPrerequisiteDetail",
+    "dsN95MaskSizeCode",
+    "dsN95MaskFitTestDate",
+    "dsInfectionControlSolutions",
+    "pnlPopup",
+    "updPnlPopup",
+    "btnShowPopup",
+    "mdlDetails"
+  ],
+  "actors": ["ScriptManager", "UserSession"],
+  "workflows": [
+    {
+      "name": "Update Student Prerequisites",
+      "steps": [
+        "Validate page.",
+        "Retrieve input values from dropdowns.",
+        "Cancel update if page is not valid.",
+        "Redirect to 'InfectionControl' page after update."
+      ]
+    }
+  ],
+  "business_rules": [],
+  "validations": ["Page.IsValid"],
+  "calculations": [],
+  "conditions": [],
+  "system_behavior": [
+    "Disable fields if screen is not editable.",
+    "Ensure dropdown values are set correctly post .Net 4.8 upgrade."
+  ],
+  "dependencies": ["HSPnetSession", "HSPnet.DataLayer", "HSPnet.UI"],
+  "exceptions": [],
+  "source_document_ids": [
+    "04e9c4ac-7f77-5f3e-bfe5-d536dd31d727",
+    "1ae444a0-0cee-563e-be86-22e725e52b56",
+    "1f927279-8e83-52a0-b9fc-166c681c56f2",
+    "680c0077-b938-56b3-ba5d-6be62f571fc8",
+    "6fa54b48-83ba-581c-bc12-6bc743869ea2",
+    "85e13646-c70b-5b6e-b11a-e421b1750e04",
+    "8b9ecfea-0f28-5193-9388-f81afa65b730",
+    "b0772815-3167-5d6b-9ded-96e4cca329b6",
+    "d4625212-8b62-5355-8519-8cf54815b538"
+  ],
+  "content_gaps": []
+}
+```
