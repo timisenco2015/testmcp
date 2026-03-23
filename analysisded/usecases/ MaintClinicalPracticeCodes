@@ -1,0 +1,99 @@
+```markdown
+# Module: MaintClinicalPracticeCodes
+
+## MaintClinicalPracticeCodes-UC1 — Add New Clinical Practice Code
+
+- Primary Actor(s): System Administrator, Local Administrator
+- Secondary Actor(s): None
+- Trigger: User selects "Add" button in the interface.
+- Description: This use case allows administrators to add a new clinical practice code to the system.
+- Preconditions: The user must have administrative access, and department/program dropdowns must not be empty.
+- Postconditions: The new clinical practice code is saved and displayed in the grid view.
+- Main Success Scenario:
+  1. User selects "Add" button.
+  2. System switches to add mode and displays detail view.
+  3. User enters valid Name and Short Name.
+  4. User clicks "Save".
+  5. System saves the new clinical practice code and refreshes the grid.
+- Extensions:
+  - If Name or Short Name is not provided, display validation error.
+- Exceptions:
+  - Database errors during save operation.
+- Business Rules:
+  - Name and Short Name fields are mandatory.
+- Assumptions:
+  - User session is active and properly authenticated.
+- Open Issues:
+  - None
+
+## MaintClinicalPracticeCodes-UC2 — Edit Existing Clinical Practice Code
+
+- Primary Actor(s): System Administrator, Local Administrator
+- Secondary Actor(s): None
+- Trigger: User selects "Edit" button for a grid item.
+- Description: This use case allows administrators to edit an existing clinical practice code.
+- Preconditions: The user must have administrative access.
+- Postconditions: The clinical practice code is updated in the database.
+- Main Success Scenario:
+  1. User selects "Edit" button for a specific clinical practice code.
+  2. System switches to edit mode and displays detail view.
+  3. User modifies Name and/or Short Name.
+  4. User clicks "Save".
+  5. System updates the clinical practice code in the database and refreshes the grid.
+- Extensions:
+  - If fields are not valid, display validation error.
+- Exceptions:
+  - Database errors during update operation.
+- Business Rules:
+  - Name and Short Name fields are mandatory.
+- Assumptions:
+  - User session is active and properly authenticated.
+- Open Issues:
+  - None
+
+## MaintClinicalPracticeCodes-UC3 — Delete Clinical Practice Code
+
+- Primary Actor(s): System Administrator
+- Secondary Actor(s): None
+- Trigger: User selects "Delete" button for a grid item.
+- Description: This use case allows administrators to deactivate a clinical practice code.
+- Preconditions: The user must have system administrator access.
+- Postconditions: The clinical practice code is marked as inactive in the database.
+- Main Success Scenario:
+  1. User selects "Delete" button for a specific clinical practice code.
+  2. System marks the code as inactive.
+  3. System refreshes the grid to reflect changes.
+- Extensions:
+  - User confirms deletion via a confirmation dialog.
+- Exceptions:
+  - Database errors during delete operation.
+- Business Rules:
+  - Only system administrators can deactivate codes.
+- Assumptions:
+  - User session is active and properly authenticated.
+- Open Issues:
+  - None
+
+## MaintClinicalPracticeCodes-UC4 — Reactivate Clinical Practice Code
+
+- Primary Actor(s): System Administrator
+- Secondary Actor(s): None
+- Trigger: User selects "Reactivate" button for an inactive code.
+- Description: This use case allows administrators to reactivate a previously inactive clinical practice code.
+- Preconditions: The user must have system administrator access.
+- Postconditions: The clinical practice code is activated in the database.
+- Main Success Scenario:
+  1. User selects "Reactivate" button for a specific clinical practice code.
+  2. System changes the code status to active.
+  3. System refreshes the grid to reflect changes.
+- Extensions:
+  - None
+- Exceptions:
+  - Database errors during reactivation operation.
+- Business Rules:
+  - Only system administrators can reactivate codes.
+- Assumptions:
+  - User session is active and properly authenticated.
+- Open Issues:
+  - None
+```
