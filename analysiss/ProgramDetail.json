@@ -1,8 +1,8 @@
 {
   "filename": "ProgramDetail",
   "found": true,
-  "summary": "The ProgramDetail module handles operations related to program details, including retrieval, addition, update, and deletion of program detail records. It interacts with the database using stored procedures and manages data integrity through validation checks.",
-  "purpose": "To manage and process program details within the HSPnet system, ensuring accurate data manipulation and retrieval via a structured API.",
+  "summary": "The ProgramDetail module is responsible for handling the details and operations related to program entities within an HSPnet session. It includes functionality to add, update, delete, and retrieve program details.",
+  "purpose": "To manage program details including their creation, update, deletion, and retrieval within a database context using HSPnet framework.",
   "entities": [],
   "fields": [
     "ID",
@@ -18,80 +18,64 @@
     "HeaderChanged"
   ],
   "actors": [
-    "HSPnetSession",
-    "Database",
-    "SqlDataReader"
+    "HSPnetSession"
   ],
   "workflows": [
     {
-      "name": "GetByID",
+      "name": "GetProgramDetailsByID",
       "steps": [
-        "Check if ProgramDetailsID is not zero.",
-        "Initialize Database instance.",
-        "Set procedure name to 'ProgramDetailsSearchID'.",
-        "Add 'ID' parameter.",
-        "Fetch data using GetData method with reader.",
-        "Fill list using FillList method.",
-        "Close reader."
+        "Check if ProgramDetailsID is not 0",
+        "Retrieve the database using HSPnetSession.GetDatabase",
+        "Set ProcedureName to 'ProgramDetailsSearchID'",
+        "Add parameter 'ID' with ProgramDetailsID",
+        "Execute GetData with SqlDataReader",
+        "Fill list with details from SqlDataReader",
+        "Close the SqlDataReader"
       ]
     },
     {
-      "name": "GetByProgramID",
+      "name": "AddProgramDetail",
       "steps": [
-        "Check if ProgramID is not zero.",
-        "Initialize Database instance.",
-        "Set procedure name to 'ProgramDetailsSearch'.",
-        "Add 'ProgramID' parameter.",
-        "Fetch data using GetData method.",
-        "Fill list using FillList method.",
-        "Close reader."
+        "Validate ProgramDetail using IsValid method",
+        "If valid, set ProcedureName to 'ProgramDetailsAdd'",
+        "Add parameters for ProgramID, HeadingID, Response, SortOrder",
+        "Execute the query"
       ]
     },
     {
-      "name": "Add",
+      "name": "UpdateProgramDetail",
       "steps": [
-        "Validate if data is valid using IsValid method.",
-        "Set procedure name to 'ProgramDetailsAdd'.",
-        "Add necessary parameters: 'ProgramID', 'HeadingID', 'Response', 'SortOrder'.",
-        "Execute query."
+        "Check if ID is not 0 and validate using IsValid",
+        "If valid, set ProcedureName to 'ProgramDetailsUpdate'",
+        "Add parameters for ProgramDetailID, HeadingID, Response, SortOrder",
+        "Execute the query"
       ]
     },
     {
-      "name": "Update",
+      "name": "DeleteProgramDetail",
       "steps": [
-        "Check if ID is not zero and data is valid.",
-        "Set procedure name to 'ProgramDetailsUpdate'.",
-        "Add necessary parameters: 'ProgramDetailID', 'HeadingID', 'Response', 'SortOrder'.",
-        "Execute query."
-      ]
-    },
-    {
-      "name": "Delete",
-      "steps": [
-        "Check if ID is not zero.",
-        "Set procedure name to 'ProgramDetailsDelete'.",
-        "Add 'ProgramDetailID' parameter.",
-        "Execute query."
+        "Check if ID is not 0",
+        "Set ProcedureName to 'ProgramDetailsDelete'",
+        "Add parameter 'ProgramDetailID'",
+        "Execute the query"
       ]
     }
   ],
   "business_rules": [],
   "validations": [
-    "Response field cannot be blank. If blank, add error message and return false."
+    {
+      "condition": "Response field cannot be blank",
+      "action": "Add error message to sess.Messages"
+    }
   ],
   "calculations": [],
-  "conditions": [
-    "If ProgramDetailsID is zero, operation is skipped.",
-    "If ProgramID is zero, operation is skipped."
-  ],
+  "conditions": [],
   "system_behavior": [
-    "Utilizes stored procedures for database operations.",
-    "Formats certain fields for display, especially in alternate languages."
+    "Uses HSPnetSession to interact with the database.",
+    "Formats fields for display based on session settings.",
+    "Checks header changes based on HeadingID."
   ],
-  "dependencies": [
-    "HSPnetSession",
-    "StringUtil"
-  ],
+  "dependencies": [],
   "exceptions": [],
   "source_document_ids": [
     "7816c56d-7511-5cb3-b78a-8d45a20f8200",
