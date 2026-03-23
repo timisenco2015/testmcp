@@ -1,1 +1,61 @@
-{"filename":"ServiceCode","found":true,"summary":"The ServiceCode class represents service codes, offering details such as name, description, and associated category.","purpose":"To manage service code information, including localized details for international users.","entities":[{"name":"ServiceCode","properties":["ID","CodeCategoryID","ShortName","Name","SortOrder","Notes","NameAlt","NotesAlt"]}],"fields":[],"actors":[],"workflows":[],"business_rules":["Utilize alternative language fields when in alt language mode."],"validations":[],"calculations":[],"conditions":[],"system_behavior":[],"dependencies":["HSPnet.DataLayer","HSPnet.Framework"],"exceptions":[],"source_document_ids":["e4ebe4b4-6d14-5c3f-b693-61016f765239","94f1b055-348d-508a-ae6e-cf7960a8c6a2"],"content_gaps":[]}
+{
+  "filename": "ServiceCode",
+  "found": true,
+  "summary": "ServiceCode is a structure used to store and manage codes related to services within HSPnet.",
+  "purpose": "To categorize and manage service codes and their descriptions for organizational purposes.",
+  "entities": [
+    {
+      "name": "ServiceCode",
+      "attributes": [
+        "ID",
+        "CodeCategoryID",
+        "ShortName",
+        "Name",
+        "SortOrder",
+        "Notes",
+        "NameAlt",
+        "NotesAlt"
+      ]
+    }
+  ],
+  "fields": [
+    {
+      "name": "CourseID",
+      "type": "int"
+    },
+    {
+      "name": "TimetableID",
+      "type": "int"
+    }
+  ],
+  "actors": [],
+  "workflows": [
+    {
+      "name": "Service Code Listing",
+      "steps": [
+        "Initialize database procedure for service code listing",
+        "Retrieve service codes using SqlDataReader",
+        "Localize service codes based on session settings",
+        "Return list of service codes"
+      ]
+    }
+  ],
+  "business_rules": [
+    "Service codes must be categorized.",
+    "Descriptions may differ based on language settings."
+  ],
+  "validations": [],
+  "calculations": [],
+  "conditions": [],
+  "system_behavior": [],
+  "dependencies": [
+    "Session must be initialized with appropriate settings"
+  ],
+  "exceptions": [],
+  "source_document_ids": [
+    "94f1b055-348d-508a-ae6e-cf7960a8c6a2",
+    "e4ebe4b4-6d14-5c3f-b693-61016f765239",
+    "f976b9af-a402-540f-b162-391d578fac7c"
+  ],
+  "content_gaps": ["No explicit error handling defined."]
+}
