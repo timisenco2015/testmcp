@@ -1,64 +1,76 @@
 {
-    "filename": "PrqConfidentiality",
-    "found": true,
-    "summary": "This document involves the management of confidentiality settings for staff members within the HSPnet application. It includes setting up, editing, and deleting confidentiality records, handling prerequisites, and managing user sessions.",
-    "purpose": "To manage confidentiality settings and prerequisites related to staff profiles in the HSPnet system.",
-    "entities": [],
-    "fields": [
-        "StaffID",
-        "UserSession",
-        "ConfOtherScreenIsEditable",
-        "ReadOnly"
-    ],
-    "actors": [
-        "UserSession",
-        "Staff"
-    ],
-    "workflows": [
-        {
-            "name": "Confidentiality Management",
-            "steps": [
-                "Check user session validity.",
-                "Handle row data bound events for displaying the edit, add, or delete buttons.",
-                "Manage item commands like add, edit, delete.",
-                "Redirect to the current page after modifying records."
-            ]
-        }
-    ],
-    "business_rules": [
-        "Confidentiality settings can only be edited if the screen is not read-only.",
-        "No data message is displayed if the confidentiality grid is empty."
-    ],
-    "validations": [
-        "Ensure user session is active before proceeding with data selection.",
-        "Validate form inputs before inserting or updating records."
-    ],
-    "calculations": [],
-    "conditions": [
-        "If the user session is null, cancel the operation."
-    ],
-    "system_behavior": [
-        "Hide or show edit controls based on the 'ReadOnly' flag.",
-        "Cache user session after updates."
-    ],
-    "dependencies": [],
-    "exceptions": [
-        "Cancel operations if the user session is null."
-    ],
-    "source_document_ids": [
-        "0d4e87ce-2e16-5c73-84e0-09c65d8fc606",
-        "174d9d0f-ce2e-5960-8ae4-9cb7cea2b69c",
-        "394cf0db-34a1-5c0d-8c95-e9a869be8474",
-        "53c676b1-3666-531c-99d8-07286415ae44",
-        "5d945a78-3a22-57dc-b784-12b93fe18fa6",
-        "760bb462-8bc1-5511-b952-66bdb50b8808",
-        "7efb356a-8088-5921-925a-52b238f52a90",
-        "8ccb4372-39b7-5df4-98bf-412d765c1706",
-        "ae311fd0-c1ae-5a84-9986-101a7bf00625",
-        "bd3c9440-fc84-508e-b6cb-264a233ad0b9",
-        "ee41efa9-58a0-5aa3-8b98-4ba6013c1503",
-        "fce69528-fdc6-5f52-a776-71ea295ff9b2",
-        "fdb7707a-363b-572f-8aee-438d2b3c1096"
-    ],
-    "content_gaps": []
+  "filename": "PrqConfidentiality",
+  "found": true,
+  "summary": "The `PrqConfidentiality` module manages confidentiality-related functionalities within the system, focusing on staff consents and confidentiality forms. It includes features for managing student prerequisites, consent forms, and various interactions with user sessions.",
+  "purpose": "To handle staff confidentiality forms and manage related operational controls, ensuring proper session management and user interaction through ASP.NET UI elements.",
+  "entities": [],
+  "fields": [
+    "ID",
+    "ProviderListDept",
+    "ProviderTypeCodeID",
+    "StaffID",
+    "UserSession",
+    "ScreenIsEditable",
+    "Disabled",
+    "Inactive",
+    "ConfOtherScreenIsEditable",
+    "CurrentPage"
+  ],
+  "actors": [
+    "Staff",
+    "Students",
+    "System Administrators"
+  ],
+  "workflows": [
+    {
+      "name": "Confidentiality Form Management",
+      "steps": [
+        "Initialize user session and retrieve staff ID",
+        "Display student prerequisites if applicable",
+        "Allow editing of confidentiality details based on screen permissions",
+        "Select, insert, update, or delete confidentiality data based on user commands",
+        "Refresh session and redirect to updated page after operations"
+      ]
+    }
+  ],
+  "business_rules": [
+    "Operations are only allowed if the user session is valid.",
+    "Edit operations require the screen to be editable and not disabled."
+  ],
+  "validations": [
+    "Check if the page is valid before processing insert or update events.",
+    "Ensure the grid view row type matches the expected type before binding data or executing commands."
+  ],
+  "calculations": [],
+  "conditions": [
+    "The screen is editable only if 'ScreenIsEditable' and 'ConfOtherScreenIsEditable' are true.",
+    "The operation is canceled if the user session is null."
+  ],
+  "system_behavior": [
+    "The system hides edit buttons and disables fields if the screen is not editable or is disabled.",
+    "Redirects to the current page with updated query parameters after completing database operations."
+  ],
+  "dependencies": [
+    "HSPnetSession for managing user sessions and caching",
+    "Database interaction through ObjectDataSource controls"
+  ],
+  "exceptions": [
+    "Operations are canceled if the session is invalid or page validation fails."
+  ],
+  "source_document_ids": [
+    "0d4e87ce-2e16-5c73-84e0-09c65d8fc606",
+    "174d9d0f-ce2e-5960-8ae4-9cb7cea2b69c",
+    "394cf0db-34a1-5c0d-8c95-e9a869be8474",
+    "53c676b1-3666-531c-99d8-07286415ae44",
+    "5d945a78-3a22-57dc-b784-12b93fe18fa6",
+    "760bb462-8bc1-5511-b952-66bdb50b8808",
+    "7efb356a-8088-5921-925a-52b238f52a90",
+    "8ccb4372-39b7-5df4-98bf-412d765c1706",
+    "ae311fd0-c1ae-5a84-9986-101a7bf00625",
+    "bd3c9440-fc84-508e-b6cb-264a233ad0b9",
+    "ee41efa9-58a0-5aa3-8b98-4ba6013c1503",
+    "fce69528-fdc6-5f52-a776-71ea295ff9b2",
+    "fdb7707a-363b-572f-8aee-438d2b3c1096"
+  ],
+  "content_gaps": []
 }
