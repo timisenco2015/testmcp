@@ -1,0 +1,72 @@
+{
+  "filename": "PagingSessionUserControl",
+  "found": true,
+  "summary": "The HSPnetPagingSessionUserControl class is a .NET user control designed for handling paging functionality within a web application. It manages the page size settings through session variables and integrates with components like HSPnetGridView and HSPnetPager.",
+  "purpose": "To provide paging control functionality by managing page sizes and storing these settings in session variables.",
+  "entities": [],
+  "fields": [
+    "UserSession",
+    "TopPager",
+    "BottomPager",
+    "GridView",
+    "DefaultPageSize",
+    "MaxPageSize"
+  ],
+  "actors": [],
+  "workflows": [
+    {
+      "name": "Setup Paging",
+      "steps": [
+        "Set up paging when UserSession is assigned."
+      ]
+    },
+    {
+      "name": "Save Paging Session Variable",
+      "steps": [
+        "Store page size settings in session variables using TopPager, BottomPager, and GridView."
+      ]
+    },
+    {
+      "name": "Toggle Paging",
+      "steps": [
+        "Toggle paging settings using DefaultPageSize and MaxPageSize."
+      ]
+    },
+    {
+      "name": "Init Paging From Session Variable",
+      "steps": [
+        "Initialize paging settings from session variables and validate page sizes."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Ensure defaultPageSize and maxPageSize are positive and defaultPageSize is less than or equal to maxPageSize."
+  ],
+  "validations": [
+    "Check that defaultPageSize and maxPageSize are greater than zero and that defaultPageSize is not greater than maxPageSize."
+  ],
+  "calculations": [],
+  "conditions": [
+    "If pageSize is greater than or equal to MaxPageSize, set to MaxPageSize.",
+    "Else if pageSize is less than MaxPageSize, set to DefaultPageSize."
+  ],
+  "system_behavior": [
+    "Updates paging settings based on session variables.",
+    "Registers pager and grid view components for paging control."
+  ],
+  "dependencies": [
+    "HSPnet.UI",
+    "HSPnetSession",
+    "HSPnetPager",
+    "HSPnetGridView",
+    "SessionConstants"
+  ],
+  "exceptions": [],
+  "source_document_ids": [
+    "0687ef17-12d9-5404-b884-bf55d035320f",
+    "76a49b6e-9b52-53d9-93b9-930526214f94",
+    "a3fc1177-9ace-55eb-b57b-a9fd3f5cce9a",
+    "df93770d-cb87-5999-8d9a-173bec5495db"
+  ],
+  "content_gaps": []
+}
