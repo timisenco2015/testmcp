@@ -1,512 +1,159 @@
-[
 {
-  "filename": "SiteDocument",
+  "filename": "DestinationClosures",
   "found": true,
-  "summary": "Defines the SiteDocument entity, a simple data class for linking documents to a site.",
-  "purpose": "Represents documents associated with a site for tracking, referencing, or attachment.",
-  "entities": ["SiteDocument"],
-  "fields": [
-    {"name": "ID", "type": "int"},
-    {"name": "SiteID", "type": "int"}
+  "summary": "The DestinationClosures module manages closures associated with destinations by providing CRUD operations, validations, and retrievals. It handles business rules for closure codes, dates, and ensures proper system behavior and data integrity.",
+  "purpose": "To allow authorized actors to create, update, delete, and query destination closures, enforcing business rules regarding closure types and date ranges, and supporting multi-language fields.",
+  "entities": [
+    {
+      "name": "DestinationClosure",
+      "fields": [
+        "ID",
+        "DestinationCodeID",
+        "ClosureCodeID",
+        "StartDate",
+        "EndDate",
+        "ClosureCode",
+        "StartDateFormatted",
+        "EndDateFormatted"
+      ]
+    }
   ],
-  "actors": [],
-  "workflows": [],
-  "business_rules": [],
-  "validations": [],
-  "calculations": [],
-  "conditions": [],
-  "system_behavior": [],
-  "dependencies": [],
-  "exceptions": [],
-  "source_document_ids": ["a2967f17-a924-5e9c-8b15-d1f7bd028b32"],
-  "content_gaps": ["No business rules or workflows described."]
-},
-{
-  "filename": "WelcomeStaffAdmin",
-  "found": true,
-  "summary": "ASP.NET page for welcoming staff administrators, showing last login, site selection, error/warning panels, and employment applications grid.",
-  "purpose": "Serves as a landing/dashboard page for staff admin users, allowing them to filter and view submitted employment applications.",
-  "entities": [],
   "fields": [
-    {"name": "lblTitle", "type": "Label"},
-    {"name": "ltlLastLogin", "type": "Literal"},
-    {"name": "ddSite", "type": "DropDownList"},
-    {"name": "ddDiscipline", "type": "DropDownList"},
-    {"name": "txtStartDate", "type": "TextBox"},
-    {"name": "txtEndDate", "type": "TextBox"},
-    {"name": "gvwApplications", "type": "GridView"},
-    {"name": "dsEmploymentApplications", "type": "ObjectDataSource"}
+    {
+      "name": "ID",
+      "type": "int",
+      "description": "Unique identifier for the closure entry."
+    },
+    {
+      "name": "DestinationCodeID",
+      "type": "int",
+      "description": "References the destination associated with the closure."
+    },
+    {
+      "name": "ClosureCodeID",
+      "type": "int",
+      "description": "References the type of closure."
+    },
+    {
+      "name": "StartDate",
+      "type": "DateTime",
+      "description": "The start date for the closure period."
+    },
+    {
+      "name": "EndDate",
+      "type": "DateTime",
+      "description": "The end date for the closure period."
+    },
+    {
+      "name": "ClosureCode",
+      "type": "string",
+      "description": "The code or label for the closure, including multi-language support."
+    },
+    {
+      "name": "StartDateFormatted",
+      "type": "string",
+      "description": "Short formatted representation of StartDate."
+    },
+    {
+      "name": "EndDateFormatted",
+      "type": "string",
+      "description": "Short formatted representation of EndDate."
+    }
   ],
-  "actors": ["StaffAdmin"],
+  "actors": [
+    {
+      "name": "HSPnetSession",
+      "description": "Represents a user session, providing access to database and system messages."
+    }
+  ],
   "workflows": [
     {
-      "name": "View Employment Applications",
+      "name": "Add DestinationClosure",
       "steps": [
-        "StaffAdmin logs in and sees a welcome page with last login info.",
-        "Selects site and discipline filters.",
-        "Enters date range.",
-        "Views filtered list of employment applications.",
-        "Can click to open details, email student, see status/withdrawn."
+        "Instantiate DestinationClosure object.",
+        "Set ClosureCodeID, StartDateFormatted, EndDateFormatted.",
+        "Validate closure via IsValid(Sess).",
+        "If valid, prepare database procedure 'DestinationClosureAdd'.",
+        "Add parameters: SessionID, DestinationCodeID, ClosureCodeID, StartDate, EndDate.",
+        "Execute query to add closure."
+      ]
+    },
+    {
+      "name": "Update DestinationClosure",
+      "steps": [
+        "Instantiate DestinationClosure object.",
+        "Set ClosureCodeID, StartDateFormatted, EndDateFormatted.",
+        "Validate closure via IsValid(Sess).",
+        "If valid, prepare database procedure 'DestinationClosureUpdate'.",
+        "Add parameters: SessionID, DestinationClosureID, ClosureCodeID, StartDate, EndDate.",
+        "Execute query to update closure."
+      ]
+    },
+    {
+      "name": "Delete DestinationClosure",
+      "steps": [
+        "Check if id > 0.",
+        "Prepare database procedure 'DestinationClosureDelete'.",
+        "Add parameters: SessionID, DestinationClosureID.",
+        "Execute query to delete closure."
+      ]
+    },
+    {
+      "name": "Search DestinationClosures",
+      "steps": [
+        "Prepare database procedure 'DestinationClosureSearch' with DestinationCodeID.",
+        "Fetch results, build DestinationClosure list using FillList.",
+        "Handle alternate language fields if session uses them."
+      ]
+    },
+    {
+      "name": "Search DestinationClosure by ID",
+      "steps": [
+        "Prepare database procedure 'DestinationClosureSearchID' with ID.",
+        "Fetch results, build DestinationClosure list using FillList."
       ]
     }
   ],
   "business_rules": [
-    "Start and End date fields required.",
-    "Dates validated via RegularExpressionValidator.",
-    "Withdrawn applications are shown/hidden by checkbox.",
-    "Applications with WithdrawnDate display different status."
+    "ClosureCodeID is mandatory.",
+    "StartDate is mandatory.",
+    "StartDate must not be more than 5 years in the future.",
+    "EndDate is mandatory.",
+    "EndDate must not be more than 5 years in the future.",
+    "StartDate must not be after EndDate."
   ],
   "validations": [
-    "RequiredFieldValidator for Start/End dates.",
-    "RegularExpressionValidator for date format.",
-    "CustomValidator: EndDate must be after StartDate."
+    "IsValid(Sess) must be true for add/update operations.",
+    "Session messages are used to provide user feedback on errors."
   ],
-  "calculations": [],
-  "conditions": [
-    "Show withdrawn applications if checkbox is checked.",
-    "Display warning/error panels as required."
-  ],
-  "system_behavior": [
-    "Page loads with preselected dates and dropdowns filled from user session.",
-    "GridView auto-generates columns and binds data.",
-    "Filter changes cause data to refresh."
-  ],
-  "dependencies": [
-    "UserSession properties for filtering and display.",
-    "HSPnetGridView, AjaxControlToolkit, DataLayer for applications."
-  ],
-  "exceptions": [],
-  "source_document_ids": [
-    "05db31e4-e8b6-53ee-a6fb-812c106f0134",
-    "100d5925-a5f8-53db-8493-02cddd563eb7",
-    "3c84bade-9671-5fbf-acce-3c87a835e9b4",
-    "4c4b97b8-d242-5261-a515-767a3f7d7a49",
-    "52b5066f-23f6-5d82-96cd-5d51dad3de79",
-    "54244516-0707-581e-a8ba-9c041ea38366",
-    "5bb85da3-f5b4-5753-b07c-9bb2a04eeb89",
-    "5d9b92ea-7c12-5070-8603-977cf14d0e04",
-    "6701b153-5288-59e5-8de9-61b68a1fc292",
-    "871df91b-7ba0-558f-83ea-d5be1b0dc8db",
-    "8cea5c3a-2fbf-5206-a0c0-9425a5e14511",
-    "964a48c9-231c-5d58-a44d-3675d949a453",
-    "966ed8d3-a5af-567f-b092-936217777551",
-    "a0c3da28-32a5-5fce-91b2-17274efa016e",
-    "afbb4ec5-43c8-5281-ad2c-4b6cfd23a48e",
-    "b8e79322-9a0e-5fe7-8953-3d05e231f923",
-    "bf423a80-93db-572d-8cb8-c79f04214a93",
-    "ca71b077-cc26-5979-a44f-59700a41316b",
-    "d278278f-d4ec-5f4a-9f29-a02b66773bb9",
-    "db9b35e9-53ca-5eaf-9d75-4f3a72131bc7",
-    "e249a878-c837-5d1c-9a3d-5167df2614fb"
-  ],
-  "content_gaps": ["Some auto-generated field details and UI specifics not included in analysis."]
-},
-{
-  "filename": "ServiceCode",
-  "found": true,
-  "summary": "ServiceCode entity models service offerings, with multilingual fields; includes retrieval methods for course/timetable options.",
-  "purpose": "Manages service codes for courses and timetable entities, supporting localization.",
-  "entities": ["ServiceCode"],
-  "fields": [
-    {"name": "ID", "type": "int"},
-    {"name": "CodeCategoryID", "type": "int"},
-    {"name": "ShortName", "type": "string"},
-    {"name": "Name", "type": "string"},
-    {"name": "SortOrder", "type": "int"},
-    {"name": "Notes", "type": "string"},
-    {"name": "NameAlt", "type": "string"},
-    {"name": "NotesAlt", "type": "string"}
-  ],
-  "actors": [],
-  "workflows": [
-    {
-      "name": "Retrieve Service Codes for Course",
-      "steps": [
-        "Call ServiceCodeASMOptionByCourseID with course ID.",
-        "Return filtered service codes for that course."
-      ]
-    },
-    {
-      "name": "Retrieve Service Codes for Timetable",
-      "steps": [
-        "Call ServiceCodeASMOptionByTimetableID with timetable ID.",
-        "Return filtered service codes for that timetable."
-      ]
-    }
-  ],
-  "business_rules": [
-    "Use alt language fields if session is in alt language mode."
-  ],
-  "validations": [],
-  "calculations": [],
-  "conditions": [],
-  "system_behavior": [
-    "Localization switches description fields.",
-    "Procedures used to retrieve lists."
-  ],
-  "dependencies": [
-    "HSPnetSession for localization.",
-    "CodeCategory entity."
-  ],
-  "exceptions": [],
-  "source_document_ids": [
-    "94f1b055-348d-508a-ae6e-cf7960a8c6a2",
-    "e4ebe4b4-6d14-5c3f-b693-61016f765239",
-    "f976b9af-a402-540f-b162-391d578fac7c"
-  ],
-  "content_gaps": ["No UI or business workflow details."],
-},
-{
-  "filename": "SiteProfileHistory",
-  "found": true,
-  "summary": "Models change history for site profiles. Tracks actions, dates, fields changed, agency/user info, and formatted outputs.",
-  "purpose": "Records historical changes to site profiles for auditing and tracking purposes.",
-  "entities": ["SiteProfileHistory", "SiteProfileHistories"],
-  "fields": [
-    {"name": "ID", "type": "int"},
-    {"name": "ActionDate", "type": "DateTime"},
-    {"name": "ScreenSection", "type": "string"},
-    {"name": "UserAction", "type": "string"},
-    {"name": "Fields", "type": "string"},
-    {"name": "Agency", "type": "string"},
-    {"name": "AgencyName", "type": "string"},
-    {"name": "LastName", "type": "string"},
-    {"name": "FirstName", "type": "string"},
-    {"name": "MiddleName", "type": "string"},
-    {"name": "Phone", "type": "Phone"},
-    {"name": "ByUserID", "type": "int"},
-    {"name": "ByOriginalUserID", "type": "int"},
-    {"name": "ByUserSysAdmin", "type": "bool"},
-    {"name": "ActionDateFormatted", "type": "string"},
-    {"name": "AgencyUserFormatted", "type": "string"},
-    {"name": "AgencyUserDetailsFormatted", "type": "string"}
-  ],
-  "actors": ["SysAdmin", "AgencyUser"],
-  "workflows": [
-    {
-      "name": "Search Site Profile History",
-      "steps": [
-        "Input SiteID and SessionAgencyID.",
-        "Retrieve all history records for the site.",
-        "Fill fields with localized/standard text.",
-        "Output formatted results for audit display."
-      ]
-    }
-  ],
-  "business_rules": [
-    "Localization: Use ScreenSectionAlt/UserActionAlt/FieldsAlt if alt language active.",
-    "User formatting rules for displaying agency/user."
-  ],
-  "validations": [],
-  "calculations": [],
-  "conditions": [],
-  "system_behavior": [
-    "TooltipDetails for user/agency info.",
-    "DataObject attribute for search routines."
-  ],
-  "dependencies": [
-    "Phone, NameFormatter, DateFormatter.",
-    "HSPnetSession for localization."
-  ],
-  "exceptions": [],
-  "source_document_ids": [
-    "25f89a24-5eda-5a3f-83df-1de69b12b3f1",
-    "26e09292-d304-55c6-94e5-ef3346453c4b",
-    "7ca6b963-9ae9-5cd3-82d5-f30dcb727ae3",
-    "a8f030c6-90b8-53a1-bb8a-3b7ef33b9488",
-    "e806999c-3a39-5720-9b59-303faebc9eb6"
-  ],
-  "content_gaps": ["No information on the UI or how history is presented."]
-},
-{
-  "filename": "EmailPopupDocument",
-  "found": true,
-  "summary": "Entity for managing documents in email popups. Includes CRUD routines for searching/deleting documents by ID and file path.",
-  "purpose": "Allows users to search, select, and remove documents from email popup workflows.",
-  "entities": ["EmailPopupDocument", "EmailPopupDocuments"],
-  "fields": [
-    {"name": "ID", "type": "int"},
-    {"name": "FileName", "type": "string"},
-    {"name": "FilePath", "type": "string"},
-    {"name": "Checked", "type": "Boolean"}
-  ],
-  "actors": [],
-  "workflows": [
-    {
-      "name": "Search Email Popup Documents",
-      "steps": [
-        "Parse DataInfo string to extract documents.",
-        "Populate EmailPopupDocument instances with ID, filename, path.",
-        "Return list for display in popup."
-      ]
-    },
-    {
-      "name": "Delete Email Popup Document",
-      "steps": [
-        "Find document by ID.",
-        "Delete file from path.",
-        "Remove folder if possible.",
-        "Return new DataInfo string with item removed."
-      ]
-    }
-  ],
-  "business_rules": [
-    "Only delete file/folder if path exists.",
-    "DataInfo parsing logic to handle multiple documents."
-  ],
-  "validations": [],
-  "calculations": [],
-  "conditions": [],
-  "system_behavior": [
-    "Serializable attribute for document entity.",
-    "Handles exceptions silently for file/folder deletion."
-  ],
-  "dependencies": ["System.IO for file operations"],
-  "exceptions": [],
-  "source_document_ids": [
-    "7287734e-f13d-550f-9249-4242db620766",
-    "927bc837-5564-5759-9324-27c6d5d7321d"
-  ],
-  "content_gaps": ["No information about UI interaction or usage."]
-},
-{
-  "filename": "ExpenseBatch",
-  "found": true,
-  "summary": "Defines ExpenseBatch entity and routines for searching, adding, updating, deleting batches by department and batch ID.",
-  "purpose": "Manages batches of expenses, with tracking of status and department associations.",
-  "entities": ["ExpenseBatch", "ExpenseBatches"],
-  "fields": [
-    {"name": "ID", "type": "int"},
-    {"name": "DepartmentID", "type": "int"},
-    {"name": "BatchDescription", "type": "string"},
-    {"name": "BatchDate", "type": "DateTime"},
-    {"name": "StatusCodeID", "type": "int"},
-    {"name": "StatusCode", "type": "string"},
-    {"name": "StatusDescription", "type": "string"},
-    {"name": "ClosedDate", "type": "DateTime"},
-    {"name": "BatchNumberFormatted", "type": "string"}
-  ],
-  "actors": ["ExpenseAdmin"],
-  "workflows": [
-    {
-      "name": "Search Expense Batches",
-      "steps": [
-        "Select department.",
-        "Retrieve batches for department.",
-        "Populate data grid."
-      ]
-    },
-    {
-      "name": "Add Expense Batch",
-      "steps": [
-        "Submit department ID, batch description, date.",
-        "Procedure returns new batch ID."
-      ]
-    },
-    {
-      "name": "Update Expense Batch",
-      "steps": [
-        "Submit changed fields.",
-        "Update in database."
-      ]
-    },
-    {
-      "name": "Delete Expense Batch",
-      "steps": [
-        "Submit batch ID.",
-        "Delete from database."
-      ]
-    }
-  ],
-  "business_rules": [
-    "StatusDescription field localization if session in alt language."
-  ],
-  "validations": [],
   "calculations": [
-    "BatchNumberFormatted = ID + ' - ' + StatusDescription"
+    "StartDateFormatted and EndDateFormatted are short formatted representations used for display and input.",
+    "MaxDate is calculated as current date plus maximum allowed future years."
   ],
-  "conditions": [],
-  "system_behavior": [
-    "Attribute-based methods for insert/update/delete."
-  ],
-  "dependencies": [],
-  "exceptions": [],
-  "source_document_ids": [
-    "060e08d3-49ca-5e40-bea0-849f4e6173e1",
-    "3559737f-0154-520e-be2b-d3dd2c3de539",
-    "b2216e58-a144-55cb-8b87-3da9787fc1d7"
-  ],
-  "content_gaps": ["No field validation or error handling details."]
-},
-{
-  "filename": "CostCentre",
-  "found": true,
-  "summary": "Data access routines and entity definition for CostCentre reporting, tracking placements and costs by agency, site, discipline, and various metrics.",
-  "purpose": "Provides detailed reporting of placement cost centre statistics for agencies and departments over time.",
-  "entities": ["CostCentreView", "CostCentreRecord"],
-  "fields": [
-    {"name": "PlacingAgency", "type": "string"},
-    {"name": "Department", "type": "string"},
-    {"name": "Program", "type": "string"},
-    {"name": "Discipline", "type": "string"},
-    {"name": "SubDiscipline", "type": "string"},
-    {"name": "ReceivingAgency", "type": "string"},
-    {"name": "Site", "type": "string"},
-    {"name": "Portfolio", "type": "string"},
-    {"name": "Service", "type": "string"},
-    {"name": "Destination", "type": "string"},
-    {"name": "CostCentre", "type": "string"},
-    {"name": "CostCentreDescription", "type": "string"},
-    {"name": "PRType", "type": "string"},
-    {"name": "StartDate", "type": "DateTime"},
-    {"name": "EndDate", "type": "DateTime"},
-    {"name": "Status", "type": "string"},
-    {"name": "Course", "type": "string"},
-    {"name": "ProgramYear", "type": "int"},
-    {"name": "ReferenceNumber", "type": "int"},
-    {"name": "CFO", "type": "string"},
-    {"name": "PRCount", "type": "int"},
-    {"name": "StudentCount", "type": "int"},
-    {"name": "PRHours", "type": "decimal"},
-    {"name": "StudentHours", "type": "decimal"}
-  ],
-  "actors": ["ReportingAdmin"],
-  "workflows": [
-    {
-      "name": "Get Cost Centre Report",
-      "steps": [
-        "Input filters (dates, agencies, discipline, site, etc.).",
-        "Run PlacementCostCentre procedure.",
-        "Return detailed CostCentreRecords."
-      ]
-    }
-  ],
-  "business_rules": [],
-  "validations": [],
-  "calculations": [],
-  "conditions": [],
-  "system_behavior": [
-    "Database procedure returns records; fields filled from DB reader."
-  ],
-  "dependencies": [],
-  "exceptions": [],
-  "source_document_ids": [
-    "20ac8054-536e-5203-b33d-7db2b2dc2359",
-    "2c04f259-cf58-5d95-803c-8ebf16840f6c",
-    "97bc3ba9-9fe4-52b1-8847-dce2198e0aee",
-    "dd965b0f-f9cf-57eb-a3f8-32b3b97a6d1a",
-    "e1ac7e41-5e9e-5f16-baa0-29d05a70f976"
-  ],
-  "content_gaps": ["No UI description."]
-},
-{
-  "filename": "TimetableAssessments",
-  "found": true,
-  "summary": "ASP.NET page and code for managing student assessments related to timetables; supports adding/editing/deleting, validation, linking assessors/subjects/templates, and user access control.",
-  "purpose": "Provides interface and backend for managing assessment entries for student placements based on timetable.",
-  "entities": [],
-  "fields": [
-    {"name": "gvwMaster", "type": "GridView"},
-    {"name": "dsMaster", "type": "ObjectDataSource"},
-    {"name": "fvwDetail", "type": "FormView"},
-    {"name": "mdlDetails", "type": "ModalPopupExtender"},
-    {"name": "cmdAdd", "type": "LinkButton"},
-    {"name": "cmdEdit", "type": "LinkButton"},
-    {"name": "cmdDelete", "type": "LinkButton"},
-    {"name": "ddAssessor", "type": "DropDownList"},
-    {"name": "ddSubject", "type": "DropDownList"},
-    {"name": "ddAssessmentType", "type": "DropDownList"},
-    {"name": "ddAssessmentTemplate", "type": "DropDownList"},
-    {"name": "txtOpenDaysAfterStart", "type": "TextBox"},
-    {"name": "txtCloseDaysAfterEnd", "type": "TextBox"},
-    {"name": "chkAssessorCanViewSubjectsAnswers", "type": "CheckBox"},
-    {"name": "chkSubjectsCanViewAssessorAnswers", "type": "CheckBox"},
-    {"name": "txtViewUntilDaysAfterEnd", "type": "TextBox"},
-    {"name": "ddOptionalSectionAssessor", "type": "DropDownList"}
-  ],
-  "actors": ["Admin", "SysAdmin", "PlacementCoordinator", "LocalAdministrator"],
-  "workflows": [
-    {
-      "name": "Manage Timetable Assessments",
-      "steps": [
-        "Admin accesses page, grid auto-binds assessments.",
-        "Admin adds, edits, or deletes assessment entries.",
-        "Populates dropdowns with codes/templates.",
-        "Validates fields on save.",
-        "Assessors and subjects are mapped to each assessment.",
-        "Assessors may view subject answers depending on checkbox.",
-        "Subjects may view assessors' answers depending on type/checkbox.",
-        "Errors and warnings shown for validation results."
-      ]
-    }
-  ],
-  "business_rules": [
-    "Certain fields required (assessor, subject, type, template, open/close days).",
-    "Assessor/Subject dropdown values filled from code lists.",
-    "Validation: Open/Close days must be numbers, template must be specified.",
-    "View permissions set based on type and choices."
-  ],
-  "validations": [
-    "RequiredFieldValidator, CompareValidator, CustomValidator for fields.",
-    "checkCloseDays (JS/client): close days must be valid relative to placement dates."
-  ],
-  "calculations": [],
   "conditions": [
-    "ScreenIsEditable property controls add/edit/delete visibility.",
-    "Error messages shown if validation failures occur."
+    "ClosureCode field switches to alternate language if session specifies UseAltLanguageFields."
   ],
   "system_behavior": [
-    "FormView Edit/Insert mode switching.",
-    "Popup/modal for editing details.",
-    "AJAX for async postbacks.",
-    "Assessment grid supports paging.",
-    "AssessmentMaximumExceeded triggers error."
+    "Procedures are called for each operation (add, update, delete, search).",
+    "Errors and validation messages are raised via session's Messages collection."
   ],
   "dependencies": [
-    "AssessmentTypes, AssessmentTemplates, CodeRecord, CourseAssessment, TimetableEntries, UserSession."
+    "HSPnetSession required for database access and validation.",
+    "DateFormatter and Resources for formatting dates and error messages.",
+    "Database procedures for CRUD operations."
   ],
   "exceptions": [
-    "InterimWithoutFinal triggers error.",
-    "Instructor and supervisor assessment conflicts trigger warning."
+    "Validation failures on mandatory fields or date ranges result in error messages and operation abort.",
+    "Delete operates only if numeric id is > 0."
   ],
   "source_document_ids": [
-    "0781696d-dec4-5dfc-aa58-80ddd173c0ae",
-    "0d330d29-e0a7-5f88-8c71-d32f88b252b0",
-    "0ea3e178-f11b-5ee8-afc8-441e55e2d2f4",
-    "135455cd-1a34-5b2d-b8cc-298a1d98c47e",
-    "14ec7368-e312-5de7-b00e-188a6d5310ef",
-    "1807e536-2914-59f1-a538-b9e127d25f77",
-    "1d7ea219-2359-5da1-9c7b-79cbd696c770",
-    "345a2e51-fcf0-5df0-b1f6-b535c4b757c6",
-    "447b10a9-0558-5d06-9fac-926c94892393",
-    "50cbdfe8-4a64-5c51-ba1e-e88fb00ca8fc",
-    "528d9fc6-cb63-5c52-9327-f323552f37e3",
-    "61fa5351-3118-588b-a4f0-3147cd92841a",
-    "6f04742e-ad06-58cf-af37-b3ae7ebe39cc",
-    "6f1aa10e-0697-5c9e-8e0a-182b597a2d3e",
-    "707335b9-f19a-5366-959c-4872a99363e8",
-    "727a0287-de95-52fe-a841-7f49f9958884",
-    "734dd83e-2a57-578d-9891-96f90686f95e",
-    "7a89081a-a4a0-569f-8bc4-676ec99f7dcb",
-    "7ab03f3d-3b63-594e-a3ac-ea304249c66a",
-    "7afa582c-d2e5-5803-b315-7f8f63d1bc7e",
-    "7bb40b95-0bb5-5f6d-91ca-bbcb527d60ff",
-    "824387dc-2c7b-5cca-96a6-bfab53dbaeee",
-    "96eaf83a-27cc-5e53-b93a-4835addb1ab6",
-    "9ff99ed6-d3d2-55bd-a19b-ea38ec6c20be",
-    "a1b432d1-2597-591b-a1a7-80d7b39db2b7",
-    "a7c42983-f1a4-5f7f-8487-6a59e89d7502",
-    "b0600110-1773-5335-a423-4e456e7b615b",
-    "b66763e8-1cd7-5741-9b81-95c511b8cf64",
-    "c55e37c8-0668-52c9-8860-02706d05d1c5",
-    "c8e37d14-9d6e-5d5f-a710-581fe5dfd958",
-    "dd0997ef-5454-5014-9d78-fa20aed967eb",
-    "e506841f-d914-5482-b64c-7deca11f392a",
-    "ed5d2f45-0dea-5606-bc98-3a7d2c634bf5",
-    "ede3c463-e1b7-551c-bad2-e5db6d44165e",
-    "f0d967b2-325c-584a-a002-fd27615e3c62",
-    "f34f81c5-ea44-558f-a144-dc0a4d5a65ac"
+    "aa8d27a9-5cee-5cd1-afa5-840df056ca94",
+    "77c92348-2955-510a-b53f-2c87bd55c242",
+    "716bc77b-6ab7-525b-810b-77568cd366de",
+    "3fc0b795-fe6a-5242-9abb-3e37af6fdb80"
   ],
-  "content_gaps": ["Some field/label details omitted; the actual grid columns and templates may have further metadata."]
+  "content_gaps": [
+    "No details found regarding user interface behavior, authorization, or specific error codes.",
+    "No information about concurrency and audit logging."
+  ]
 }
-]
