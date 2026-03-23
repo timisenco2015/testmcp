@@ -1,0 +1,83 @@
+{
+  "filename": "ETraining",
+  "found": true,
+  "summary": "The ETraining page is a part of the HSPnet system that manages user sessions and facilitates login redirection to a Moodle training environment. It includes a form with hidden fields for username and password, which are pre-filled based on user session data.",
+  "purpose": "To provide an interface for users to be redirected to the Moodle training platform using their session credentials.",
+  "entities": [],
+  "fields": [
+    {
+      "name": "form1",
+      "type": "HtmlForm",
+      "description": "Main form for user data submission to the Moodle platform."
+    },
+    {
+      "name": "username",
+      "type": "HiddenField",
+      "description": "Stores the concatenated province code and user ID."
+    },
+    {
+      "name": "password",
+      "type": "HiddenField",
+      "description": "Stores the session ID as the password."
+    },
+    {
+      "name": "Submit",
+      "type": "HtmlInputSubmit",
+      "description": "Submit button to send the form data."
+    }
+  ],
+  "actors": [
+    {
+      "role": "User",
+      "description": "Interacts with the ETraining page to access the Moodle training platform."
+    },
+    {
+      "role": "System",
+      "description": "Handles user session validation and builds the form action URL based on configuration."
+    }
+  ],
+  "workflows": [
+    {
+      "name": "Login Redirection",
+      "steps": [
+        "User visits ETraining page.",
+        "System checks if user session is active.",
+        "If active, the form action is set to Moodle login URL.",
+        "Hidden fields 'username' and 'password' are set with session details.",
+        "User submits the form to be redirected to Moodle.",
+        "If session is inactive, redirects to Timedout page."
+      ]
+    }
+  ],
+  "business_rules": [
+    "User session ID must be greater than 0 for Moodle redirection.",
+    "Redirect to Timedout page if session is invalid."
+  ],
+  "validations": [],
+  "calculations": [],
+  "conditions": [
+    {
+      "description": "Check if UserSession.SessionID > 0 to proceed with Moodle redirection."
+    },
+    {
+      "description": "Appends language parameter to URL if user's locale is French (fr-CA)."
+    }
+  ],
+  "system_behavior": [
+    "Redirects user to Moodle login page with pre-filled credentials if session is valid.",
+    "Redirects to Timedout page if session is invalid."
+  ],
+  "dependencies": [
+    "HSPnet.DataLayer for session management and configurations.",
+    "MoodleTrainingURL configuration for determining destination URL."
+  ],
+  "exceptions": [
+    "User is redirected to Timedout.aspx if session validation fails."
+  ],
+  "source_document_ids": [
+    "5ef1e716-cd8e-5025-9a17-a96a7e9dd470",
+    "86cd53c5-70bf-5e02-8226-8ad1950f1227",
+    "ab6b4918-dda1-5bb1-967a-0888f7105486"
+  ],
+  "content_gaps": []
+}
