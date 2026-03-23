@@ -1,87 +1,68 @@
 {
-    "filename": "TimetableRotation",
-    "found": true,
-    "summary": "The TimetableRotation functionality involves managing timetable rotations with fields like ID, TimetableID, StartDate, and EndDate, alongside related attributes such as CohortName, TermName, and related course information. The system provides methods for adding, deleting, updating, and retrieving rotations through various stored procedures with validation checks on date constraints.",
-    "purpose": "The purpose is to manage the lifecycle of timetable rotations, ensuring proper start and end dates in relation to course schedules and cohort terms.",
-    "entities": [
-        "TimetableRotation",
-        "HSPnetSession"
-    ],
-    "fields": [
-        "ID",
-        "Count",
-        "TimetableID",
-        "StartDate",
-        "EndDate",
-        "CohortName",
-        "CohortShortName",
-        "TermName",
-        "TermStart",
-        "TermEnd",
-        "CourseName",
-        "CourseShortName",
-        "TimetableStartDate",
-        "TimetableEndDate",
-        "StartDateFormatted",
-        "EndDateFormatted"
-    ],
-    "actors": [
-        "System",
-        "User",
-        "HSPnetSession"
-    ],
-    "workflows": [
-        {
-            "name": "Manage Timetable Rotation",
-            "steps": [
-                "Initialize TimetableRotation with basic fields.",
-                "Add rotation using Add method, with date validation.",
-                "Update rotation using Update method, ensuring validation of dates.",
-                "Delete rotation using Delete method if ID is valid.",
-                "Retrieve rotations using GetByTimetableID and GetHeaderByTimetableID methods.",
-                "Perform a group count using GroupWorksheetRotationCount method."
-            ]
-        }
-    ],
-    "business_rules": [
-        "StartDate and EndDate must be within TimetableStartDate and TimetableEndDate.",
-        "EndDate cannot be before StartDate.",
-        "StartDate and EndDate must not be null."
-    ],
-    "validations": [
-        "Check for null StartDate and EndDate.",
-        "Verify StartDate is not after EndDate.",
-        "Ensure rotation dates are within timetable range."
-    ],
-    "calculations": [
-        "Format StartDate and EndDate to short date strings for display."
-    ],
-    "conditions": [
-        "If StartDate < TimetableStartDate, reject with error.",
-        "If EndDate < TimetableStartDate, reject with error.",
-        "If StartDate > TimetableEndDate, reject with error.",
-        "If EndDate > TimetableEndDate, reject with error."
-    ],
-    "system_behavior": [
-        "Uses SQL procedures for data manipulation.",
-        "Handles session-based error messaging.",
-        "Provides formatted dates for UI consistency."
-    ],
-    "dependencies": [
-        "HSPnet.Framework",
-        "HSPnet.App_GlobalResources"
-    ],
-    "exceptions": [
-        "Dates not within valid range trigger error messages.",
-        "Missing TimetableID raises an error."
-    ],
-    "source_document_ids": [
-        "46fb1ff1-1d43-5e8f-a9c1-4001efe45eaf",
-        "90c7c9c6-9236-54ea-b377-83447ca97722",
-        "e5789238-c13a-5d51-ac41-71c9d1c42fcd",
-        "e9bfae10-927e-59d2-855a-5203be6664db",
-        "f3beef69-1a5b-5b46-81d9-ca02affe14dc",
-        "fbf1f45e-8625-5daa-9a44-afd134af6b6d"
-    ],
-    "content_gaps": []
+  "filename": "TimetableRotation",
+  "found": true,
+  "summary": "The TimetableRotation entity manages timetable entries, including start and end dates for specific rotations. It supports operations like adding, updating, and validating rotations, ensuring dates fall within allowable ranges.",
+  "purpose": "To manage timetable rotations, ensuring proper scheduling within defined date ranges and providing facilities for adding, updating, and deleting rotation entries.",
+  "entities": [],
+  "fields": [
+    "ID",
+    "Count",
+    "TimetableID",
+    "StartDate",
+    "EndDate",
+    "CohortName",
+    "CohortShortName",
+    "TermName",
+    "TermStart",
+    "TermEnd",
+    "CourseName",
+    "CourseShortName",
+    "TimetableStartDate",
+    "TimetableEndDate",
+    "StartDateFormatted",
+    "EndDateFormatted"
+  ],
+  "actors": [],
+  "workflows": [
+    {
+      "name": "TimetableRotation Management",
+      "steps": [
+        "Initialize TimetableRotation with applicable attributes.",
+        "Validate that StartDate and EndDate are within the Timetable range.",
+        "Insert or update the TimetableRotation entry if valid.",
+        "Delete TimetableRotation entry if an ID is provided."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Start and End dates must be within the timetable range.",
+    "StartDate must not be after EndDate."
+  ],
+  "validations": [
+    "Ensure StartDate and EndDate are not null.",
+    "Check if StartDate is before EndDate."
+  ],
+  "calculations": [
+    "StartDateFormatted",
+    "EndDateFormatted"
+  ],
+  "conditions": [],
+  "system_behavior": [
+    "Facilitates adding, updating, and deleting timetable rotations.",
+    "Ensures rotation dates are valid."
+  ],
+  "dependencies": [],
+  "exceptions": [
+    "Throws error if StartDate or EndDate are outside the timetable bounds.",
+    "Throws error if StartDate is after EndDate."
+  ],
+  "source_document_ids": [
+    "46fb1ff1-1d43-5e8f-a9c1-4001efe45eaf",
+    "90c7c9c6-9236-54ea-b377-83447ca97722",
+    "e5789238-c13a-5d51-ac41-71c9d1c42fcd",
+    "e9bfae10-927e-59d2-855a-5203be6664db",
+    "f3beef69-1a5b-5b46-81d9-ca02affe14dc",
+    "fbf1f45e-8625-5daa-9a44-afd134af6b6d"
+  ],
+  "content_gaps": []
 }
