@@ -1,63 +1,63 @@
 {
     "filename": "Reporting",
     "found": true,
-    "summary": "The documents related to the 'Reporting' filename provide a detailed overview of the system's reporting functionality, utilizing Crystal Reports and MigraDoc/PDFSharp for generating different report formats. The content includes methods for setting up report parameters, handling different languages, and managing connection settings for report generation, alongside various error handling and validation scenarios.",
-    "purpose": "To define and manage the reporting functionalities in the system, facilitating report generation in various formats while ensuring accurate and secure connections to data sources.",
+    "summary": "The Reporting module manages the generation and export of report documents using various formats like PDF and RTF. It handles the opening of report files, parameter settings, and connecting to databases.",
+    "purpose": "The purpose of the Reporting module is to produce formal reports from templates, manage database connections, handle errors during report generation, and export the reports to specified formats.",
     "entities": [],
     "fields": [
         "OutputType",
         "ReportName",
         "ReportDescription",
         "LinkText",
-        "Parameters",
-        "ReportFile",
-        "AltReportFile",
         "CreatedFile",
-        "CreatedFileFullPath"
+        "CreatedFileFullPath",
+        "templateFileName",
+        "templateFileFullPath"
     ],
-    "actors": [
-        "HSPnetSession"
-    ],
+    "actors": [],
     "workflows": [
         {
-            "name": "Run Report",
+            "name": "RunReport",
             "steps": [
-                "Determine report file name and path, considering language and locale settings.",
-                "Setup connection information using the session data.",
-                "Load the report file and apply connection settings.",
-                "Open any subreports and apply connection settings.",
-                "Set report parameters from the provided parameters list.",
-                "Export report to desired output format.",
-                "Return HTML response indicating success or specific error."
+                "Set the report filename and path.",
+                "Check for alternative language template.",
+                "Apply database logon and connectivity settings.",
+                "Open report and subreport files.",
+                "Set report parameters.",
+                "Generate unique file name for output.",
+                "Export report to specified format: PDF or RTF.",
+                "Handle exceptions and return status."
             ]
         }
     ],
     "business_rules": [
-        "Use alternative language fields if session indicates such.",
-        "Always check for existence of template files before attempting to load."
+        "Use alternative language templates where applicable.",
+        "Save generated reports to the 'Reports' folder.",
+        "Generate report filenames using a hash function."
     ],
     "validations": [
-        "Check connectivity for each table within the report.",
-        "Ensure template files exist before usage."
+        "Check if template files exist.",
+        "Test database connectivity."
     ],
     "calculations": [],
     "conditions": [
-        "If using an alternate language, check for corresponding template file before defaulting to English.",
-        "Switch output format handling based on OutputType."
+        "Use alternative template if 'UseAltLanguageFields' is true.",
+        "Select export format based on 'OutputType'."
     ],
     "system_behavior": [
-        "System attempts to load report templates based on current locale and settings.",
-        "System generates and exports reports in specified formats based on input parameters."
+        "Reports are exported as PDF by default if no other format is specified.",
+        "The system attempts to connect to the database using provided logon information.",
+        "Exceptions during export result in error messaging."
     ],
     "dependencies": [
-        "CrystalDecisions.CrystalReports.Engine",
-        "MigraDocXML",
-        "PdfSharp.Fonts"
+        "MigraDocXML library for XML to PDF conversion.",
+        "CrystalDecisions libraries for report document handling."
     ],
     "exceptions": [
-        "Report cannot open due to missing file.",
-        "Invalid parameter handling during report generation.",
-        "Failure to connect to database or report tables."
+        "Cannot open report file.",
+        "Cannot connect to database.",
+        "Cannot export report.",
+        "Invalid parameter values."
     ],
     "source_document_ids": [
         "12ed470b-15a2-5de3-a98e-f17b59078c07",
