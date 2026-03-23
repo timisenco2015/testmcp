@@ -1,8 +1,8 @@
 {
   "filename": "AssessmentTemplate",
   "found": true,
-  "summary": "The AssessmentTemplate system is designed to handle templates related to various assessments within an educational context. It allows for searches by different identifiers including TemplateCodeID, TimeTableID, CourseID, StudentID, and CohortAndCourseID. The system manages data retrieval through stored procedures and utilizes a HSPnetSession for database connections.",
-  "purpose": "The primary purpose of the AssessmentTemplate system is to provide a structured way to manage and retrieve assessment template information using various identifiers within the educational domain, enabling organized data handling and retrieval.",
+  "summary": "The AssessmentTemplate is a component of the HSPnet.DataLayer responsible for managing templates for assessments. It includes fields such as ID, CodeCategoryID, Name, Description, SortOrder, Notes, and alternative descriptions. The template provides methods to search for assessment templates using various identifiers such as TemplateCodeID, TimeTableID, CourseID, StudentID, and combinations of CohortID and CourseID. The system utilizes a SQL database connection to retrieve data and populate instances of AssessmentTemplate.",
+  "purpose": "The purpose of the AssessmentTemplate is to facilitate the management and retrieval of assessment-related information within a system, allowing for search and retrieval based on specific criteria and identifiers.",
   "entities": [],
   "fields": [
     "ID",
@@ -14,68 +14,73 @@
     "DescriptionAlt",
     "NotesAlt"
   ],
-  "actors": ["HSPnetSession"],
+  "actors": [
+    "HSPnetSession"
+  ],
   "workflows": [
     {
       "name": "AssessmentTemplateSearchByTemplateCodeID",
       "steps": [
-        "Prepare database procedure AssessmentTemplateSearchByTemplateCodeID.",
-        "Add parameters: SessionID and TemplateCodeID.",
-        "Execute procedure and read data.",
-        "Map database fields to AssessmentTemplate object."
+        "Set procedure name to 'AssessmentTemplateSearchByTemplateCodeID'.",
+        "Add session ID and TemplateCodeID as parameters.",
+        "Execute stored procedure and read results.",
+        "Populate AssessmentTemplate instance with data.",
+        "Return populated instance."
       ]
     },
     {
       "name": "AssessmentTemplateSearchByTimeTableID",
       "steps": [
-        "Prepare database procedure AssessmentTemplateSearchByTimeTableID.",
-        "Add parameters: SessionID and TimeTableID.",
-        "Execute procedure and iterate results.",
-        "Append results to a list of AssessmentTemplate objects."
+        "Set procedure name to 'AssessmentTemplateSearchByTimeTableID'.",
+        "Add session ID and TimeTableID as parameters.",
+        "Execute stored procedure and read results.",
+        "Populate a list of AssessmentTemplate instances with data.",
+        "Return list."
       ]
     },
     {
       "name": "AssessmentTemplateSearchByCourseID",
       "steps": [
-        "Prepare database procedure AssessmentTemplateSearchByCourseID.",
-        "Add parameters: SessionID and CourseID.",
-        "Execute procedure and iterate results.",
-        "Append results to a list of AssessmentTemplate objects."
+        "Set procedure name to 'AssessmentTemplateSearchByCourseID'.",
+        "Add session ID and CourseID as parameters.",
+        "Execute stored procedure and read results.",
+        "Populate a list of AssessmentTemplate instances with data.",
+        "Return list."
       ]
     },
     {
       "name": "AssessmentTemplateSearchByStudentID",
       "steps": [
-        "Prepare database procedure AssessmentTemplateSearchByStudentID.",
-        "Add parameters: SessionID and StudentID.",
-        "Execute procedure and iterate results.",
-        "Append results to a list of AssessmentTemplate objects."
+        "Set procedure name to 'AssessmentTemplateSearchByStudentID'.",
+        "Add session ID and StudentID as parameters.",
+        "Execute stored procedure and read results.",
+        "Populate a list of AssessmentTemplate instances with data.",
+        "Return list."
       ]
     },
     {
       "name": "AssessmentTemplateSearchByCohortAndCourseID",
       "steps": [
-        "Prepare database procedure AssessmentTemplateSearchByCohortAndCourseID.",
-        "Add parameters: SessionID, CohortID, and CourseID.",
-        "Execute procedure and iterate results.",
-        "Append results to a list of AssessmentTemplate objects."
+        "Set procedure name to 'AssessmentTemplateSearchByCohortAndCourseID'.",
+        "Add session ID, CohortID, and CourseID as parameters.",
+        "Execute stored procedure and read results.",
+        "Populate a list of AssessmentTemplate instances with data.",
+        "Return list."
       ]
     }
   ],
-  "business_rules": [
-    "Each search function utilizes a stored procedure associated with the search identifier."
-  ],
+  "business_rules": [],
   "validations": [],
   "calculations": [],
   "conditions": [],
   "system_behavior": [
-    "Utilizes stored procedures for data retrieval.",
-    "Relies on session-based database connections.",
-    "Maps retrieved data to AssessmentTemplate objects."
+    "The system uses stored procedures to retrieve data from a SQL database.",
+    "Data is returned as instances of the AssessmentTemplate class."
   ],
   "dependencies": [
-    "System.Data.SqlClient for SQL connections",
-    "HSPnet.Framework for session management"
+    "HSPnet.Framework",
+    "HSPnet.App_GlobalResources",
+    "HSPnet.UI"
   ],
   "exceptions": [],
   "source_document_ids": [
