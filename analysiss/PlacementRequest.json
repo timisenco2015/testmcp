@@ -1,0 +1,104 @@
+{
+  "filename": "PlacementRequest",
+  "found": true,
+  "summary": "The 'PlacementRequest' system is designed to manage and facilitate the placement and linking of requests within the HSPnet framework. It involves various operations such as validating, linking, and unlinking placement requests. The system supports users with different roles and provides functionality to manage shared cohorts and archived or deleted requests.",
+  "purpose": "To manage placement requests for agencies and ensure proper validation, linking, and archiving within the HSPnet framework, facilitating the placement of students or professionals.",
+  "entities": [],
+  "fields": [
+    "PRD_ID",
+    "PlcAgencyID",
+    "DepartmentID",
+    "ProgramID",
+    "CourseID",
+    "TypeCodeID",
+    "StartDate",
+    "EndDate",
+    "RcvAgencyID",
+    "SiteID",
+    "ServiceID",
+    "DestinationID",
+    "RcvAgencyName",
+    "SiteShortName",
+    "ServiceShortName",
+    "DestinationShortName",
+    "Discipline",
+    "SubDiscipline"
+  ],
+  "actors": [
+    "HSPnetSession",
+    "Database",
+    "PlacementRequestDestination"
+  ],
+  "workflows": [
+    {
+      "name": "PlacementRequest Validation",
+      "steps": [
+        "Check user type and agency",
+        "Validate site, service, and destination access",
+        "Call 'PlacementRequestSearch' procedure",
+        "Validate against database for existing request"
+      ]
+    },
+    {
+      "name": "PlacementRequest Linking",
+      "steps": [
+        "Set procedure to 'PlacementRequestLink'",
+        "Execute query with session and PR list",
+        "Check for SQL errors and log warnings or errors"
+      ]
+    },
+    {
+      "name": "PlacementRequest Unlinking",
+      "steps": [
+        "Set procedure to 'PlacementRequestUnLink'",
+        "Execute query with session and PR ID"
+      ]
+    },
+    {
+      "name": "Check Shared Cohort",
+      "steps": [
+        "Set procedure to 'QESCheckOldRuleCohort'",
+        "Check database for 'SharedCohort' value"
+      ]
+    }
+  ],
+  "business_rules": [
+    "Placement requests must pass validation checks for user type and associated agencies",
+    "Site, service, and destination must not be blank for access validations",
+    "Linking and unlinking operations should handle SQL errors gracefully"
+  ],
+  "validations": [
+    "Validate site access if user type is 1 or 2",
+    "Validate service access if user type is 1 or 2",
+    "Validate destination access if user type is 1 or 2"
+  ],
+  "calculations": [
+    "Determine HSPnet term start and end dates based on month"
+  ],
+  "conditions": [
+    "UserType condition for validation",
+    "Check if ‘SharedCohort’ is not zero"
+  ],
+  "system_behavior": [
+    "Caches email subjects to ensure consistency across session",
+    "Uses stored procedures for database interactions"
+  ],
+  "dependencies": [
+    "Requires HSPnet framework and resources",
+    "Depends on database stored procedures for operation"
+  ],
+  "exceptions": [
+    "Handle SQL errors during linking and provide appropriate error messages"
+  ],
+  "source_document_ids": [
+    "15235962-0eeb-54d6-9f5b-edaa8346fba6",
+    "2863538b-bf60-5073-9b7e-57f298db10c3",
+    "6f227eaa-3683-5739-afe9-487f394da6a5",
+    "7bf65f3a-18ba-59ea-a095-7c407497e073",
+    "81316798-3a13-5f76-9b1e-b67132235ac3",
+    "997cb356-368b-5cdf-9a5c-0127f4c1a775",
+    "a2e4f80e-043b-5cf1-88a3-43acc007d683",
+    "f9d5bf7f-30f8-5e4e-9b6b-4f26d2988793"
+  ],
+  "content_gaps": []
+}
