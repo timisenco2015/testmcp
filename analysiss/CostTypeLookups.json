@@ -1,19 +1,70 @@
 {
-  "filename": "CostTypeLookups",
-  "found": false,
-  "summary": "",
-  "purpose": "",
-  "entities": [],
-  "fields": [],
-  "actors": [],
-  "workflows": [],
-  "business_rules": [],
-  "validations": [],
-  "calculations": [],
-  "conditions": [],
-  "system_behavior": [],
-  "dependencies": [],
-  "exceptions": [],
-  "source_document_ids": [],
-  "content_gaps": ["No related documents found"]
+    "filename": "CostTypeLookups",
+    "found": true,
+    "summary": "The CostTypeLookups document provides web services for retrieving cost type categories and codes using AJAX Toolkit cascading dropdowns.",
+    "purpose": "To enable AJAX Toolkit cascading dropdowns with cost type categories and descriptions in web applications.",
+    "entities": [
+        {
+            "name": "CostTypeLookups",
+            "description": "Web service for cost type lookup operations",
+            "methods": [
+                {
+                    "name": "GetCostTypes",
+                    "description": "Retrieves cost type categories for dropdowns",
+                    "parameters": [
+                        "knownCategoryValues",
+                        "category",
+                        "contextKey"
+                    ]
+                },
+                {
+                    "name": "GetCostTypeCode",
+                    "description": "Retrieves cost type code description by category ID",
+                    "parameters": [
+                        "knownCategoryValues",
+                        "category",
+                        "contextKey"
+                    ]
+                }
+            ]
+        }
+    ],
+    "fields": [
+        {
+            "name": "knownCategoryValues",
+            "description": "String containing session ID, discipline, and code category ID"
+        },
+        {
+            "name": "category",
+            "description": "String containing session hash and discipline"
+        },
+        {
+            "name": "contextKey",
+            "description": "String context key for determining dropdown selection"
+        }
+    ],
+    "actors": [],
+    "workflows": [
+        {
+            "name": "Cost Type Retrieval",
+            "steps": [
+                "Parse knownCategoryValues for session ID and code category ID.",
+                "Generate list of cascading dropdown values based on code category ID.",
+                "Return dropdown values."
+            ]
+        }
+    ],
+    "business_rules": [],
+    "validations": [],
+    "calculations": [],
+    "conditions": [],
+    "system_behavior": [],
+    "dependencies": [],
+    "exceptions": [],
+    "source_document_ids": [
+        "71389b80-c70b-5d29-8cd7-540999b063e0",
+        "8730c2f2-344d-58c3-b006-26c8a3b24120",
+        "b4084eb8-27bd-57df-8549-a89a19274ae0"
+    ],
+    "content_gaps": []
 }
