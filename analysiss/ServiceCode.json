@@ -1,32 +1,18 @@
 {
     "filename": "ServiceCode",
     "found": true,
-    "summary": "ServiceCode represents a code entity within HSPnet with properties for category, name, and order, used in service code listing and retrieval operations across various modules.",
-    "purpose": "To provide a structured definition and access methods for service codes in the HSPnet system.",
-    "entities": [
-        {
-            "name": "ServiceCode",
-            "properties": [
-                "ID",
-                "CodeCategoryID",
-                "ShortName",
-                "Name",
-                "SortOrder",
-                "Notes",
-                "NameAlt",
-                "NotesAlt"
-            ]
-        }
-    ],
-    "fields": [],
+    "summary": "Definitions for the ServiceCode class and related operations within HSPnet, including methods for listing and retrieving specific service codes.",
+    "purpose": "To manage Service Codes in the HSPnet system by listing and retrieving them based on various parameters.",
+    "entities": [],
+    "fields": ["ID", "CodeCategoryID", "ShortName", "Name", "SortOrder", "Notes", "NameAlt"],
     "actors": [],
     "workflows": [
         {
-            "name": "ServiceCode Retrieval",
+            "name": "Retrieve Service Codes",
             "steps": [
-                "Invoke database procedures to fetch service codes.",
-                "Localize service code names based on session language settings.",
-                "Return list of service codes for use in modules."
+                "Initiate service code retrieval by session ID.",
+                "Execute stored procedure based on session context.",
+                "Return and localize service code list."
             ]
         }
     ],
@@ -34,10 +20,7 @@
     "validations": [],
     "calculations": [],
     "conditions": [],
-    "system_behavior": [
-        "Service code operations utilize stored procedures for data retrieval.",
-        "Localization of service code names based on session setting."
-    ],
+    "system_behavior": ["Service code data retrieval and localization based on session language preferences."],
     "dependencies": [],
     "exceptions": [],
     "source_document_ids": [
