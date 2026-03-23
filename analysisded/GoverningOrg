@@ -1,0 +1,121 @@
+```json
+{
+  "filename": "GoverningOrg",
+  "found": true,
+  "summary": "The documents provide a detailed implementation of the GoverningOrg class within the HSPnet framework, including its properties, behaviors, and database interactions.",
+  "purpose": "To handle the representation and management of governing organizations within the HSPnet system, including storing and manipulating their data.",
+  "entities": [
+    "GoverningOrg",
+    "GoverningOrgs",
+    "HSPnetSession",
+    "Phone"
+  ],
+  "fields": [
+    "ID",
+    "Name",
+    "ShortName",
+    "Inactive",
+    "PreviousName",
+    "PreviousNameEffectiveDate",
+    "Address1",
+    "Address2",
+    "City",
+    "Province",
+    "Country",
+    "PostalCode",
+    "Phone",
+    "Fax"
+  ],
+  "actors": [
+    "HSPnetSession"
+  ],
+  "workflows": [
+    {
+      "name": "Add GoverningOrg",
+      "steps": [
+        "Check if organization data is valid",
+        "Execute stored procedure 'GoverningOrgAdd' with organization details",
+        "Add necessary parameters",
+        "Execute query"
+      ]
+    },
+    {
+      "name": "Update GoverningOrg",
+      "steps": [
+        "Check if organization ID is not zero and data is valid",
+        "Execute stored procedure 'GoverningOrgUpdate' with organization details",
+        "Add necessary parameters",
+        "Execute query"
+      ]
+    },
+    {
+      "name": "Delete GoverningOrg",
+      "steps": [
+        "Check if organization ID is not zero",
+        "Execute stored procedure 'GoverningOrgDelete'",
+        "Add necessary parameters",
+        "Fetch and check deletion result"
+      ]
+    },
+    {
+      "name": "Reactivate GoverningOrg",
+      "steps": [
+        "Check if organization ID is not zero",
+        "Execute stored procedure 'GoverningOrgReactivate'",
+        "Add necessary parameters",
+        "Execute query"
+      ]
+    },
+    {
+      "name": "List All GoverningOrgs",
+      "steps": [
+        "Execute stored procedure 'GoverningOrgListAll'",
+        "Add parameters for filtering",
+        "Fetch data and fill list"
+      ]
+    }
+  ],
+  "business_rules": [
+    "Name must be specified",
+    "ShortName must be specified",
+    "Phone number must be valid",
+    "Fax must be valid"
+  ],
+  "validations": [
+    "IsValid function checks if mandatory fields are filled and valid",
+    "Ensures validity during 'Add' and 'Update' operations"
+  ],
+  "calculations": [
+    "PhoneArea calculation",
+    "PhoneWithoutArea calculation",
+    "FaxArea calculation",
+    "FaxWithoutArea calculation",
+    "Formatted previous name effective date"
+  ],
+  "conditions": [
+    "Inactive status for organizations",
+    "Check if ID is not zero for operations"
+  ],
+  "system_behavior": [
+    "Interact with the database using stored procedures",
+    "Manage the state and properties of governing organizations"
+  ],
+  "dependencies": [
+    "HSPnet Framework",
+    "System.Data.SqlClient"
+  ],
+  "exceptions": [
+    "Invalid phone or fax numbers",
+    "Missing mandatory fields such as Name or ShortName"
+  ],
+  "source_document_ids": [
+    "23325fed-2aa1-53eb-9199-140e4fc68022",
+    "31df21c6-06a1-5058-bd0f-d25c0ee95385",
+    "44232c8a-41bb-5dc9-96f3-430674500476",
+    "4d00388c-b752-5b5d-99ef-86abbec075ee",
+    "4eb1fc9a-4c26-5337-ad13-f9828f1fd78d",
+    "6169bb98-ff12-5a4e-8ba3-336a8f7d0da0"
+  ],
+  "content_gaps": []
+}
+```
