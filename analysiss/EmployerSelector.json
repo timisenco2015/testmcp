@@ -1,19 +1,106 @@
 {
   "filename": "EmployerSelector",
-  "found": false,
-  "summary": "",
-  "purpose": "",
+  "found": true,
+  "summary": "EmployerSelector is a user control component for managing employment applications within the HSPnet framework. It includes UI components for searching, displaying, and interacting with employment applications.",
+  "purpose": "The purpose of the EmployerSelector is to facilitate the management and interaction with employment applications, allowing users to view, add, and withdraw applications as well as manage their profiles.",
   "entities": [],
-  "fields": [],
-  "actors": [],
-  "workflows": [],
-  "business_rules": [],
-  "validations": [],
-  "calculations": [],
-  "conditions": [],
-  "system_behavior": [],
-  "dependencies": [],
-  "exceptions": [],
-  "source_document_ids": [],
-  "content_gaps": ["No related documents found"]
+  "fields": [
+    "Literal10",
+    "uxCityNameContains",
+    "Literal9",
+    "uxRegion",
+    "cmdSearch",
+    "uxPlacements",
+    "ValidationSummary2",
+    "Label1",
+    "Literal5",
+    "uxTotalSites",
+    "Literal7",
+    "uxAgencySiteContains",
+    "dsSavedChoices",
+    "dsPlacements",
+    "dsRegions",
+    "uxSavedChoices",
+    "pnlSearchArea"
+  ],
+  "actors": [
+    "User",
+    "System",
+    "DataLayer"
+  ],
+  "workflows": [
+    {
+      "name": "Search Employment Applications",
+      "steps": [
+        "User enters search criteria in the search fields.",
+        "User clicks the 'Search' button.",
+        "system displays the results in the 'uxPlacements' GridView."
+      ]
+    },
+    {
+      "name": "Add Employment Application",
+      "steps": [
+        "User identifies a site and clicks the 'Add' button.",
+        "System adds the application to the user's saved choices.",
+        "system refreshes the data displays."
+      ]
+    },
+    {
+      "name": "Withdraw Employment Application",
+      "steps": [
+        "User selects an application and clicks the 'Withdraw' button.",
+        "System updates the application status to withdrawn.",
+        "system refreshes the data displays."
+      ]
+    },
+    {
+      "name": "Delete Employment Application",
+      "steps": [
+        "User selects an application and clicks the 'Delete' button.",
+        "System confirms with the user before deletion.",
+        "Upon confirmation, system deletes the application.",
+        "System refreshes the data displays."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Auto-generated fields should be modified in the code-behind file.",
+    "User session must be active for data operations.",
+    "Applications are hidden if the site's recruitment is closed."
+  ],
+  "validations": [
+    "Ensure user session is active before selecting data.",
+    "Verify if the application already exists before adding."
+  ],
+  "calculations": [
+    "Total number of sites is calculated using the user's session data and displayed in 'uxTotalSites'."
+  ],
+  "conditions": [
+    "Show 'Add' button only if application does not already exist.",
+    "'Withdraw' button is visible only if application is submitted but not withdrawn."
+  ],
+  "system_behavior": [
+    "System binds data to display components upon certain actions.",
+    "System manages session-based user interactions."
+  ],
+  "dependencies": [
+    "HSPnet.DataLayer",
+    "HSPnet.Framework",
+    "HSPnet.UI"
+  ],
+  "exceptions": [
+    "Operation canceled if user session is null during data retrieval."
+  ],
+  "source_document_ids": [
+    "03fb348a-b850-5571-b590-7b855ebd878e",
+    "22b50668-1953-5d21-a511-ac1c39fd49d5",
+    "4bd3a7b4-6445-5cd2-b7fb-62f1c82d630a",
+    "501f8372-1fee-50a1-9587-ca253f9cdadb",
+    "59409830-c777-5159-b7f3-28c8a8d9ada5",
+    "645f0d95-f7e7-53aa-87b0-734768d731f6",
+    "6f553d2c-f923-52c1-97bf-dac2f239f186",
+    "ab95efd6-00ad-5902-a875-0a15ecc3ea9c",
+    "effa0842-dfb4-56ec-a599-fe6f565ba857"
+  ],
+  "content_gaps": []
 }
