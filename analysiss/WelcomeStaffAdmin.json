@@ -1,28 +1,49 @@
 {
-    "filename": "WelcomeStaffAdmin",
-    "found": true,
-    "summary": "The WelcomeStaffAdmin file handles UI components and validations for staff administration within the HSPnet system.",
-    "purpose": "To facilitate the UI presentation and validation for staff administration, including employment applications and various screens.",
-    "entities": ["HSPnet.WelcomeStaffAdmin"],
-    "fields": ["lblErrorList", "cmdHideErrorPanel", "pnlWarning", "lblWarningCaption", "lblWarningList", "cmdHideWarningPanel"],
-    "actors": [],
-    "workflows": [
-        {
-            "name": "EmploymentApplicationSubmission",
-            "steps": ["FillSiteDropdown", "FillDisciplineDropdown", "RefreshData"]
-        }
-    ],
-    "business_rules": [],
-    "validations": [
-        "RequiredFieldValidator",
-        "RegularExpressionValidator",
-        "CustomValidator"
-    ],
-    "calculations": [],
-    "conditions": [],
-    "system_behavior": [],
-    "dependencies": [],
-    "exceptions": [],
-    "source_document_ids": ["05db31e4-e8b6-53ee-a6fb-812c106f0134", "100d5925-a5f8-53db-8493-02cddd563eb7", "3c84bade-9671-5fbf-acce-3c87a835e9b4"],
-    "content_gaps": []
+  "filename": "WelcomeStaffAdmin",
+  "found": true,
+  "summary": "Provides an administrative interface for staff with various form controls and validations for managing employment applications.",
+  "purpose": "Allow staff administrators to manage employment applications and view related data.",
+  "entities": [],
+  "fields": [
+    "txtStartDate",
+    "txtEndDate",
+    "chkShowWithdrawn"
+  ],
+  "actors": [
+    {
+      "name": "Staff Administrators",
+      "description": "Administrators managing staff-related data through the interface."
+    }
+  ],
+  "workflows": [
+    {
+      "name": "Manage Employment Applications",
+      "steps": [
+        "Set default date range for applications.",
+        "Select site and discipline from dropdown lists.",
+        "View and update employment applications."
+      ]
+    }
+  ],
+  "business_rules": [],
+  "validations": [
+    "Date must be in valid format using RegularExpressionValidator."
+  ],
+  "calculations": [],
+  "conditions": [],
+  "system_behavior": [],
+  "dependencies": [],
+  "exceptions": [],
+  "source_document_ids": [
+    "05db31e4-e8b6-53ee-a6fb-812c106f0134",
+    "100d5925-a5f8-53db-8493-02cddd563eb7",
+    "3c84bade-9671-5fbf-acce-3c87a835e9b4",
+    "4c4b97b8-d242-5261-a515-767a3f7d7a49",
+    "52b5066f-23f6-5d82-96cd-5d51dad3de79",
+    "5bb85da3-f5b4-5753-b07c-9bb2a04eeb89",
+    "5d9b92ea-7c12-5070-8603-977cf14d0e04",
+    "54244516-0707-581e-a8ba-9c041ea38366",
+    "6701b153-5288-59e5-8de9-61b68a1fc292"
+  ],
+  "content_gaps": []
 }
