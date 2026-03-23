@@ -1,121 +1,109 @@
 {
-  "filename": "MaintITProvisionRole",
-  "found": true,
-  "summary": "This system handles the management of IT Provision roles, including adding, editing, deleting, and reactivating roles. It integrates with a grid view for data presentation and utilizes session-based access control.",
-  "purpose": "The primary purpose of this system is to provide administrators with a tool to manage IT Provision roles within an organization. It facilitates role operations such as addition, modification, deletion, reactivation, and viewing.",
-  "entities": [
-    "ITProvisionRole"
-  ],
-  "fields": [
-    {
-      "name": "Name",
-      "type": "string",
-      "required": true
-    },
-    {
-      "name": "ShortName",
-      "type": "string",
-      "required": true
-    },
-    {
-      "name": "AgencyID",
-      "type": "int",
-      "required": true
-    },
-    {
-      "name": "Inactive",
-      "type": "boolean",
-      "required": false
-    }
-  ],
-  "actors": [
-    "SystemAdministrator",
-    "LocalAdministrator",
-    "User"
-  ],
-  "workflows": [
-    {
-      "name": "Adding a New IT Provision Role",
-      "steps": [
-        "Navigate to the IT Provision Role management page.",
-        "Select 'Add' to initiate a new entry.",
-        "Fill in required fields: Name, ShortName.",
-        "Select relevant Agency.",
-        "Submit the form to create a new role."
-      ]
-    },
-    {
-      "name": "Editing an IT Provision Role",
-      "steps": [
-        "Select a role from the grid to edit.",
-        "Modify the necessary fields.",
-        "Save the changes to update the role entry."
-      ]
-    },
-    {
-      "name": "Deleting an IT Provision Role",
-      "steps": [
-        "Select the role to be deleted.",
-        "Confirm the deletion action.",
-        "The role is marked as inactive."
-      ]
-    },
-    {
-      "name": "Reactivating an IT Provision Role",
-      "steps": [
-        "Select an inactive role.",
-        "Choose the 'Reactivate' option.",
-        "The role is reactivated for use."
-      ]
-    }
-  ],
-  "business_rules": [
-    "Only SystemAdministrators and LocalAdministrators can modify roles.",
-    "Roles cannot be modified if they belong to a different agency than the user's session agency.",
-    "Agency dropdown list is generated based on the user's session agency and role."
-  ],
-  "validations": [
-    "Name must be specified and not empty.",
-    "ShortName must be specified and not empty.",
-    "AgencyID must be selected from the dropdown."
-  ],
-  "calculations": [],
-  "conditions": [
-    "ScreenIsEditable is true if the user session is a SystemAdministrator or LocalAdministrator and the agency matches.",
-    "IsEditDisabled is true if the role cannot be edited by the current user."
-  ],
-  "system_behavior": [
-    "RefreshData binds data to the grid for display.",
-    "CheckScreenAccess checks user permissions before allowing edits.",
-    "PopulateDetails binds data to details view for a specific role."
-  ],
-  "dependencies": [
-    "UserSession for access control and permissions.",
-    "Agency dropdown for agency affiliation."
-  ],
-  "exceptions": [
-    "Functionality is restricted if dropdown lists are empty."
-  ],
-  "source_document_ids": [
-    "02f12492-5aff-53f0-ab55-03330727f5ab",
-    "08570973-6786-5524-89a6-8f6f9f478bb0",
-    "24eed113-0767-5d06-9160-09992e31aed5",
-    "27137234-80a5-565f-bc66-0945c5b07606",
-    "27885b38-fc5e-5ca4-ab30-d3fa77abedbc",
-    "2d218ffc-396f-59c7-bba5-6fc90db424c2",
-    "652b3b8b-413d-5d96-b0ba-ec7305cecc47",
-    "7220896d-6b79-51fe-9cd3-f8a9ec3bd412",
-    "73d71265-a76c-5e25-85c7-80439170df50",
-    "7a814c4c-2cb6-5825-8922-47b36674fb22",
-    "7d0e148c-c165-5cc3-8806-c7d43f5d276e",
-    "80f28bd6-4728-55f6-ac2d-6c30cd8f13f5",
-    "82835f7a-7c7b-5f7b-92a5-d34a580a018d",
-    "84d104af-73cb-5cd4-951a-9eef007d404d",
-    "952300e3-43ef-5473-b008-b60ade9d11e9",
-    "c346f6be-528a-54ee-8cb9-eb97d63ea0ff",
-    "d2182c46-f632-52a6-9add-c7e6da7f54e8",
-    "ea645720-e61e-5423-8321-2e4ade801d19",
-    "ec93a723-0264-5f6d-a1ef-ecfefa240e95"
-  ],
-  "content_gaps": []
+    "filename": "MaintITProvisionRole",
+    "found": true,
+    "summary": "The MaintITProvisionRole file pertains to the maintenance and management of IT Provisioning roles within the HSPnet application.",
+    "purpose": "To facilitate the management, addition, update, deactivation, and reactivation of IT Provisioning roles within an organization through a web-based interface.",
+    "entities": [],
+    "fields": [
+        {
+            "name": "ID",
+            "description": "Primary identifier for IT Provision Role entries."
+        },
+        {
+            "name": "Name",
+            "description": "The name of the IT Provision Role."
+        },
+        {
+            "name": "ShortName",
+            "description": "A shorter version or abbreviation of the IT Provision Role name."
+        },
+        {
+            "name": "AgencyID",
+            "description": "Identifier for the associated agency."
+        }
+    ],
+    "actors": [
+        {
+            "name": "UserSession",
+            "role": "Represents the current user session and contains permissions and settings."
+        },
+        {
+            "name": "SystemAdministrator",
+            "role": "User with overall administrative control."
+        },
+        {
+            "name": "LocalAdministrator",
+            "role": "User with administrative control at a local level."
+        }
+    ],
+    "workflows": [
+        {
+            "name": "IT Provision Role Management",
+            "steps": [
+                "Load IT Provision Role page.",
+                "Check user access levels.",
+                "Display current IT Provision Roles.",
+                "Allow addition, update, and deletion of roles based on access.",
+                "Reactivate deactivated roles.",
+                "Persist changes to the database."
+            ]
+        }
+    ],
+    "business_rules": [
+        "Only users with SystemAdministrator or LocalAdministrator rights can modify IT Provision Roles.",
+        "ITProvisionRoleID determines if a role is being added or updated.",
+        "Agencies must be populated and selectable; if empty, editing is disabled."
+    ],
+    "validations": [
+        {
+            "field": "Name",
+            "rule": "Cannot be empty."
+        },
+        {
+            "field": "ShortName",
+            "rule": "Cannot be empty."
+        }
+    ],
+    "calculations": [],
+    "conditions": [
+        "Screen is editable if the user is a SystemAdministrator or LocalAdministrator and current agency is not empty.",
+        "Edit buttons are enabled based on role activeness and user permissions."
+    ],
+    "system_behavior": [
+        "IT Provision Roles can be created, updated, deleted, and reactivated through UI commands.",
+        "User interface dynamically changes to reflect user permissions and actions."
+    ],
+    "dependencies": [
+        "HSPnet.DataLayer for data operations.",
+        "System.Web.UI for web controls."
+    ],
+    "exceptions": [
+        "If no agency is selected, editing functionalities are disabled.",
+        "Roles cannot be deleted if access is restricted."
+    ],
+    "source_document_ids": [
+        "02f12492-5aff-53f0-ab55-03330727f5ab",
+        "08570973-6786-5524-89a6-8f6f9f478bb0",
+        "24eed113-0767-5d06-9160-09992e31aed5",
+        "27137234-80a5-565f-bc66-0945c5b07606",
+        "27885b38-fc5e-5ca4-ab30-d3fa77abedbc",
+        "2d218ffc-396f-59c7-bba5-6fc90db424c2",
+        "652b3b8b-413d-5d96-b0ba-ec7305cecc47",
+        "7220896d-6b79-51fe-9cd3-f8a9ec3bd412",
+        "73d71265-a76c-5e25-85c7-80439170df50",
+        "7a814c4c-2cb6-5825-8922-47b36674fb22",
+        "7d0e148c-c165-5cc3-8806-c7d43f5d276e",
+        "80f28bd6-4728-55f6-ac2d-6c30cd8f13f5",
+        "82835f7a-7c7b-5f7b-92a5-d34a580a018d",
+        "84d104af-73cb-5cd4-951a-9eef007d404d",
+        "952300e3-43ef-5473-b008-b60ade9d11e9",
+        "c346f6be-528a-54ee-8cb9-eb97d63ea0ff",
+        "d2182c46-f632-52a6-9add-c7e6da7f54e8",
+        "ea645720-e61e-5423-8321-2e4ade801d19",
+        "ec93a723-0264-5f6d-a1ef-ecfefa240e95"
+    ],
+    "content_gaps": [
+        "Detailed error handling mechanisms are not fully described.",
+        "No explicit description of database structure or relationships."
+    ]
 }
