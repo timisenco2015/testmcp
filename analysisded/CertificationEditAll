@@ -1,0 +1,65 @@
+```json
+{
+  "filename": "CertificationEditAll",
+  "found": true,
+  "summary": "The 'CertificationEditAll' control manages certification details for students in an enrollment system. It includes functionalities for updating, saving, and navigating certification data.",
+  "purpose": "To allow users to manage and edit multiple student certifications through a web interface.",
+  "entities": ["StudentCertification", "Service", "Course"],
+  "fields": ["UserSession", "CohortID", "TermID", "CourseID", "ShowGrad", "ShowInactive", "ShowWaived", "SectionFilter", "ActionFilter", "keyword", "CampusID", "CommentFilter", "CertificationCodeID", "EnrollmentID", "StartRow", "blnReadOnly", "blnStudentMaint", "blnGotoOutbox", "blnGotoGWS", "blnGotoIWS"],
+  "actors": [],
+  "workflows": [
+    {
+      "name": "Student Certification Update",
+      "steps": [
+        "Retrieve student certification data.",
+        "Update certification fields with user input.",
+        "Validate and save updates.",
+        "Redirect to relevant page based on command."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Redirect only if no messages and no errors.",
+    "Cancel data source selection if user session is null.",
+    "Hide save buttons when in read-only mode."
+  ],
+  "validations": [
+    "Ensure effective date is valid.",
+    "Ensure expiry date is valid and after effective date.",
+    "Check for unsaved changes via 'isDirty' flag."
+  ],
+  "calculations": [],
+  "conditions": [
+    "Show or hide controls based on enrollment ID and read-only status."
+  ],
+  "system_behavior": [
+    "Use GridView to display and edit certification data.",
+    "JavaScript is used to manage client-side validations and UI updates."
+  ],
+  "dependencies": [
+    "HSPnet.Session",
+    "HSPnet.DataLayer",
+    "HSPnet.Framework",
+    "HSPnet.UI"
+  ],
+  "exceptions": [
+    "Handle cancellation of data operations if user session is invalid.",
+    "Hide UI elements based on configuration and user access."
+  ],
+  "source_document_ids": [
+    "1222fbc3-250e-55b4-b8b4-60d60de320ec",
+    "3bb5ea2e-d0be-52b1-b4a7-ed18748f42ee",
+    "3f5aab61-d0b2-52ae-8e24-51a67d881587",
+    "4cc31364-0b64-55f1-883f-a2943ea20c0b",
+    "54b85faf-2d00-5472-a3a0-c1fe681fdc76",
+    "7d7cc830-39b1-5d9d-b489-4575e70780f4",
+    "7f9eb089-a320-5302-9cd0-07bb5ab02b2f",
+    "9b726ecc-2937-5117-b396-fc2a8c916cd5",
+    "9f544382-0164-5431-b438-4d0d8cff18ee",
+    "ab8f2c0f-45fb-5935-b2f8-8684e2c47a4d",
+    "ba60038f-dcfe-595c-8656-14bc8d91cf7a",
+    "fd91bd44-a983-5f4f-899f-9f5aa39bc870"
+  ],
+  "content_gaps": []
+}
+```
