@@ -1,54 +1,89 @@
 {
-  "filename": "SiteProfile",
-  "found": true,
-  "summary": "SiteProfile control manages site profiles, allowing users to edit details associated with a site. It includes functionality for changing web page details and viewing associated profiles.",
-  "purpose": "To manage and maintain site profiles.",
-  "entities": [],
-  "fields": [
-    "updPnlProfile",
-    "fvwProfile",
-    "pnlPopup",
-    "updPnlPopup",
-    "btnShowPopup",
-    "mdlDetails",
-    "ValidationSummary1",
-    "uxDetail",
-    "dsSiteDetail"
-  ],
-  "actors": ["UserSession"],
-  "workflows": [
-    {
-      "name": "Manage Site Profile",
-      "steps": [
-        "Select site profile from list",
-        "Enter edit mode to change details",
-        "Submit and save changes",
-        "Display updated profile information"
-      ]
-    }
-  ],
-  "business_rules": [
-    "Site profiles can be modified only when ScreenIsEditable is true"
-  ],
-  "validations": [
-    "Ensure the UserSession is active before data operations",
-    "Validation on site profile inputs"
-  ],
-  "calculations": [],
-  "conditions": [
-    "Screen must be editable to modify data"
-  ],
-  "system_behavior": [
-    "Displays site profile data",
-    "Allows interaction via form view"
-  ],
-  "dependencies": [],
-  "exceptions": [],
-  "source_document_ids": [
-    "6fe7ab2b-c4e0-588e-9b6d-d4f7359f39f9",
-    "76170fdd-ffd3-5bca-824f-2ef6d2101ca2",
-    "8e61dc36-fced-5eaf-8cf5-88546e6dc67d",
-    "8fcc1d7b-2ff0-5d4f-a249-d333ab8c0fa5"
-  ],
-  "content_gaps": []
+    "filename": "SiteProfile",
+    "found": true,
+    "summary": "The SiteProfile module is responsible for managing site profiles within a web application. It includes functionalities for updating profiles, editing entries, and handling the data presentation on the UI.",
+    "purpose": "To manage and update the site profiles within the application, including handling view and edit operations based on user permissions.",
+    "entities": [],
+    "fields": [
+        {
+            "name": "updPnlProfile",
+            "type": "System.Web.UI.UpdatePanel",
+            "description": "Update panel for the profile section."
+        },
+        {
+            "name": "fvwProfile",
+            "type": "System.Web.UI.WebControls.FormView",
+            "description": "Form view control for displaying profile data."
+        },
+        {
+            "name": "pnlPopup",
+            "type": "System.Web.UI.WebControls.Panel",
+            "description": "Panel for displaying pop-up information."
+        },
+        {
+            "name": "updPnlPopup",
+            "type": "System.Web.UI.UpdatePanel",
+            "description": "Update panel for managing pop-up updates."
+        },
+        {
+            "name": "btnShowPopup",
+            "type": "System.Web.UI.WebControls.Button",
+            "description": "Button to trigger showing the popup."
+        },
+        {
+            "name": "ValidationSummary1",
+            "type": "System.Web.UI.WebControls.ValidationSummary",
+            "description": "Validation summary for displaying validation messages."
+        }
+    ],
+    "actors": [
+        {
+            "name": "UserSession",
+            "role": "Provides session context for the current user."
+        },
+        {
+            "name": "ScriptMgr",
+            "role": "Manages script related operations on the page."
+        }
+    ],
+    "workflows": [
+        {
+            "name": "Profile Update Workflow",
+            "steps": [
+                "User initiates a profile update.",
+                "The system retrieves current profile data.",
+                "User edits the profile details.",
+                "System validates the inputs.",
+                "System updates the profile in the database.",
+                "System reloads the updated profile view."
+            ]
+        }
+    ],
+    "business_rules": [
+        "Profile information must be validated before saving.",
+        "Users can only edit profiles they have permissions for."
+    ],
+    "validations": [
+        "Check if UserSession is active before allowing edits.",
+        "Ensure all required fields are filled before submission."
+    ],
+    "calculations": [],
+    "conditions": [
+        "Profile is editable if the user has proper permissions and the session is active."
+    ],
+    "system_behavior": [
+        "The update panel does partial page updates without full page reload.",
+        "Profile save operation redirects to the updated profile view."
+    ],
+    "dependencies": [],
+    "exceptions": [
+        "Cancel operation that restores the profile view to its original state if the edit is canceled."
+    ],
+    "source_document_ids": [
+        "6fe7ab2b-c4e0-588e-9b6d-d4f7359f39f9",
+        "76170fdd-ffd3-5bca-824f-2ef6d2101ca2",
+        "8e61dc36-fced-5eaf-8cf5-88546e6dc67d",
+        "8fcc1d7b-2ff0-5d4f-a249-d333ab8c0fa5"
+    ],
+    "content_gaps": []
 }
