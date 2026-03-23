@@ -1,0 +1,130 @@
+{
+    "filename": "MaintETopic",
+    "found": true,
+    "summary": "MaintETopic is a system module within the HSPnet framework responsible for managing educational topics and their related applications and history. It provides functionality for displaying and interacting with summaries, applications, status history, and application history through a user-friendly interface with multiple tabs and controls.",
+    "purpose": "The purpose of the MaintETopic module is to facilitate the management and maintenance of topics within an educational system. It allows users to view, edit, and manage topics, their related applications, and historical data in a structured manner, ensuring that educational records are accurately maintained.",
+    "entities": [],
+    "fields": [
+        {
+            "name": "txtETopicID",
+            "type": "HiddenField",
+            "description": "Stores the ID of the eTopic."
+        },
+        {
+            "name": "uxTopic",
+            "type": "Literal",
+            "description": "Displays the topic name."
+        },
+        {
+            "name": "uxCourse",
+            "type": "Literal",
+            "description": "Displays the course name associated with the topic."
+        },
+        {
+            "name": "uxRef",
+            "type": "Literal",
+            "description": "Displays the reference information for the topic."
+        },
+        {
+            "name": "uxSitesAppliedTo",
+            "type": "Literal",
+            "description": "Lists the sites the topic is applied to."
+        },
+        {
+            "name": "uxDisciplinesAppliedTo",
+            "type": "Literal",
+            "description": "Lists the disciplines the topic is applied to."
+        }
+    ],
+    "actors": [
+        {
+            "name": "User",
+            "role": "Interacts with the MaintETopic module to manage topics."
+        },
+        {
+            "name": "ScriptManager",
+            "role": "Handles client-side scripting for dynamic functionalities."
+        }
+    ],
+    "workflows": [
+        {
+            "name": "Page Load Workflow",
+            "steps": [
+                "Validate URL hash using Hashing.ValidateURLHash.",
+                "Setup the HSPnet page and register necessary scripts.",
+                "Determine the current page from the query string or default to SUMMARY.",
+                "Load the course and eTopic IDs from the query string."
+            ]
+        },
+        {
+            "name": "LoadSummary Workflow",
+            "steps": [
+                "Retrieve eTopic information if not already loaded.",
+                "Setup the UCSummary control with the current UserSession and eTopic.",
+                "Set the view to visible and bind data if required."
+            ]
+        },
+        {
+            "name": "LoadApplication Workflow",
+            "steps": [
+                "Retrieve eTopic information if not already loaded.",
+                "Setup the UCApplication control with the current UserSession and eTopic.",
+                "Set the view to visible and bind data if required."
+            ]
+        },
+        {
+            "name": "Tab History Click Workflow",
+            "steps": [
+                "Determine the active tab and load the appropriate history view.",
+                "Bind data to the history controls if needed."
+            ]
+        }
+    ],
+    "business_rules": [
+        "If courseID and eTopicID are zero and txtETopicID is empty, display an error and hide the eTopic info panel.",
+        "Set TabPanel headers to include existence flags if the corresponding status or application exists."
+    ],
+    "validations": [],
+    "calculations": [],
+    "conditions": [
+        "Check if the eTopic is null before accessing its properties.",
+        "Verify UserSession permissions to determine screen editability."
+    ],
+    "system_behavior": [
+        "Displays different views based on the active tab in the TabContainer.",
+        "Loads topic-related data based on the provided eTopic and course IDs from the query string."
+    ],
+    "dependencies": [
+        "DataLayer.ETopics for accessing topic information.",
+        "UserSession for session-based data management."
+    ],
+    "exceptions": [
+        "If no CourseID is provided for an eTopic, an error message is generated."
+    ],
+    "source_document_ids": [
+        "01137285-ad84-5978-a781-9292657a75e2",
+        "01a41286-20b2-5b46-be41-d0da32d82cf5",
+        "0b39173d-3285-55d1-ab01-969d9f8f33b8",
+        "0c93c44a-3932-577b-b583-81f83a47e0be",
+        "2a192151-c8ff-5548-89b8-64a4c63b86d6",
+        "36ca406f-fc95-5e67-b69e-ce4a81113107",
+        "3cb332ee-7ecc-55b3-8952-11771fed3c87",
+        "60c02817-81c1-5a11-8713-e16aae331b07",
+        "699f7e67-523e-5e4f-aee1-47f296630850",
+        "75baf221-1e8f-5455-867b-ee0c3aaf7efa",
+        "8ffb3beb-5546-55cd-a5d3-dd3a660fd78d",
+        "9962ee8f-9846-5d28-ae48-5840bea10bf0",
+        "9be71b19-9830-5a17-8c70-63022a371191",
+        "ab3712e2-666b-59cf-870a-7c9ccf3058a8",
+        "b9c511d3-d580-5d56-b8a1-819ea68b264a",
+        "c89e32ad-af1e-5e92-b7f5-047091804a5f",
+        "cd30bdcb-4b58-5e41-9ade-de1370896270",
+        "d329e846-a1b8-5680-95a2-99217ebfb25b",
+        "d36fe8c5-bcf7-5ac3-ba82-04828b4b6dd7",
+        "d561c3b3-bc4f-52ad-8803-031b03a5e5f0",
+        "e6ee9752-549a-5368-8405-6f7cb460569d",
+        "ee1ec47b-5760-54c4-8d00-06b2ad942575",
+        "f7a6b819-ee29-5ae6-b83e-0e6232c6052c"
+    ],
+    "content_gaps": []
+}
