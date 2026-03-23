@@ -1,0 +1,125 @@
+{
+    "filename": "WorksheetResultsEditAll",
+    "found": true,
+    "summary": "The `WorksheetResultsEditAll` user control is a part of the HSPnet system, designed to facilitate the editing of worksheet results. It encompasses functionality related to user sessions, data editing, instructors, courses, and scheduling.",
+    "purpose": "To provide a detailed editing interface for worksheet results that includes instructor assignment, schedule management, and resource handling within the HSPnet environment.",
+    "entities": [
+        {
+            "name": "WorksheetGroup",
+            "description": "Represents a group of worksheet entries being edited."
+        },
+        {
+            "name": "WorksheetTotal",
+            "description": "Stores totals and counts related to worksheet entries, used for pagination and display."
+        },
+        {
+            "name": "Timetable",
+            "description": "Represents scheduling information for courses and instructors."
+        }
+    ],
+    "fields": [
+        {
+            "name": "StartRow",
+            "type": "int",
+            "usage": "Determines the starting row for data fetching and display."
+        },
+        {
+            "name": "UserSession",
+            "type": "HSPnetSession",
+            "usage": "Holds user session data, used for authentication and data access control."
+        },
+        {
+            "name": "InstructorID",
+            "type": "int",
+            "usage": "Identifies the primary instructor for a worksheet entry."
+        }
+    ],
+    "actors": [
+        {
+            "name": "User",
+            "role": "Interacts with the worksheet editing interface."
+        },
+        {
+            "name": "System Administrator",
+            "role": "Manages system configurations and has elevated access."
+        },
+        {
+            "name": "Placement Coordinator",
+            "role": "Handles assignment and placement of resources."
+        }
+    ],
+    "workflows": [
+        {
+            "name": "Edit Worksheet Results",
+            "steps": [
+                "Load user session and initialize page.",
+                "Bind data to grid for editing worksheet entries.",
+                "Allow user to edit fields such as instructors, schedules, and comments.",
+                "Validate data input for consistency and correctness.",
+                "Save updates and handle navigation to next worksheet batch."
+            ]
+        }
+    ],
+    "business_rules": [
+        "Users with appropriate roles can edit worksheet entries.",
+        "Certain fields are disabled based on user role and data state."
+    ],
+    "validations": [
+        "Ensure date fields are valid and within allowed ranges.",
+        "Instructors must be selected if required.",
+        "Check input values for shifts and times for correctness."
+    ],
+    "calculations": [
+        "Calculate worksheet totals and update display accordingly."
+    ],
+    "conditions": [
+        "Fields are enabled or disabled based on user role and worksheet state.",
+        "Certain changes trigger automatic recalculations or refreshes."
+    ],
+    "system_behavior": [
+        "GridView controls are used for data display and editing.",
+        "JavaScript is used for dynamic UI updates and validations."
+    ],
+    "dependencies": [
+        "Relies on HSPnet framework for session and data handling.",
+        "DropDownList and other UI controls required for functionality."
+    ],
+    "exceptions": [
+        "Handle cases where data sources are unavailable or misconfigured.",
+        "UI should degrade gracefully with missing or partial data."
+    ],
+    "source_document_ids": [
+        "06311d3a-2ca8-595e-bf8e-abbe0a6115cc",
+        "0b55577c-89a1-58e3-ba41-6ef755652113",
+        "10fab83b-c48f-518c-838c-1e8b0c980811",
+        "1774a3e4-0786-59cc-ba88-2fa36060448b",
+        "1fafc8c4-e411-5da4-8a11-7b48517631bc",
+        "23b7d24e-9ace-54b6-8f04-7b4168854cac",
+        "2c3d43da-4af9-5503-99aa-cee76e32e733",
+        "3d564d0e-da76-51f7-a163-638c17a422ea",
+        "55f22d50-d0c3-51f5-954d-3bf5f884a714",
+        "58e2cfab-0112-51f9-b075-75c43985cc2c",
+        "612ac591-b43a-5ee0-a1c7-44867cdb4ce1",
+        "6ae42546-2182-5432-a426-e0d2e45e55e2",
+        "81fc44c8-58e1-54de-b414-2cc279c791c1",
+        "85a3cd82-f6ef-5b3e-a200-d80198241ed1",
+        "996a98fa-9fb2-5e5d-8d97-a423b246ed91",
+        "9ea0dbf3-6bad-56a6-b3fc-08cb91e1dde8",
+        "b531ed15-cbf1-51a1-9d8d-1e4d38b23d14",
+        "b6250af4-1ded-5fac-a0b7-8f23d9dec50a",
+        "b686fd26-f783-59e6-a074-ba4d21bf3276",
+        "b87d0f85-02f7-59db-a116-5c0c0b6163e4",
+        "b87fe956-8df5-5be0-b4e0-72b8381b9004",
+        "b9848380-fff7-5c7b-a2cf-6b5df1965749",
+        "bba3f88e-8595-5c6a-840e-75011929f6dd",
+        "bdbaddfd-27b3-55ce-9b95-e80f3597a532",
+        "c4683ba0-090b-582c-805a-e6cbd0f097a5",
+        "c5457763-d33e-586f-b243-dcac980fece9",
+        "c6aaa10d-d54b-5e76-932b-607eab243989",
+        "ce110e9f-38c9-5c90-9509-e6ce0f5018ea",
+        "d1ea842a-51d8-517b-8349-f9c5b79f08aa",
+        "e64a4337-0cd8-55e9-be3e-f2fbcc99523a",
+        "fa15b0da-49af-589c-a728-0f3667ff9da2"
+    ],
+    "content_gaps": []
+}
