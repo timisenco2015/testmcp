@@ -1,0 +1,168 @@
+# Module: Cohort
+
+## Cohort-UC1 — Add Cohort
+
+- Primary Actor(s): Administrator
+- Secondary Actor(s): None
+- Trigger: Administrator initiates the addition of a new cohort.
+- Description: This use case allows an administrator to add a new cohort with specified details such as name, short name, description, and structured status.
+- Preconditions:
+  - Administrator must be logged in.
+- Postconditions:
+  - A new cohort entry is added to the system.
+- Main Success Scenario:
+  1. Administrator enters cohort details.
+  2. Administrator submits the form.
+  3. System validates the details.
+  4. System adds the cohort entry to the database.
+  5. Administrator receives confirmation of successful addition.
+- Extensions:
+  - None
+- Exceptions:
+  - Invalid or incomplete cohort details.
+- Business Rules:
+  - Cohort name and short name must not be blank.
+- Assumptions:
+  - Administrator understands the cohort details required.
+- Open Issues:
+  - None
+
+## Cohort-UC2 — Update Cohort
+
+- Primary Actor(s): Administrator
+- Secondary Actor(s): None
+- Trigger: Administrator initiates an update to an existing cohort's information.
+- Description: This use case allows an administrator to update the details of an existing cohort.
+- Preconditions:
+  - Administrator must be logged in.
+  - Cohort must exist in the system.
+- Postconditions:
+  - Cohort details are updated in the system.
+- Main Success Scenario:
+  1. Administrator selects a cohort to edit.
+  2. Administrator modifies cohort details.
+  3. System validates the updated details.
+  4. System updates the cohort information in the database.
+  5. Administrator receives confirmation of successful update.
+- Extensions:
+  - None
+- Exceptions:
+  - Invalid or incomplete updates to cohort details.
+- Business Rules:
+  - Cohort name and short name must not be blank.
+- Assumptions:
+  - Administrator has access to edit cohorts.
+- Open Issues:
+  - None
+
+## Cohort-UC3 — Delete Cohort
+
+- Primary Actor(s): Administrator
+- Secondary Actor(s): None
+- Trigger: Administrator initiates the deletion of a cohort.
+- Description: This use case allows an administrator to delete a cohort from the system.
+- Preconditions:
+  - Administrator must be logged in.
+  - Cohort must exist in the system.
+- Postconditions:
+  - Cohort is removed from the system.
+- Main Success Scenario:
+  1. Administrator selects a cohort to delete.
+  2. System confirms the deletion action.
+  3. Administrator confirms deletion.
+  4. System deletes the cohort from the database.
+  5. Administrator receives confirmation of successful deletion.
+- Extensions:
+  - None
+- Exceptions:
+  - Cohort does not exist.
+- Business Rules:
+  - Must confirm deletion action.
+- Assumptions:
+  - Administrator has permission to delete cohorts.
+- Open Issues:
+  - None
+
+## Cohort-UC4 — Archive Cohort
+
+- Primary Actor(s): Administrator
+- Secondary Actor(s): None
+- Trigger: Administrator chooses to archive a cohort.
+- Description: This use case allows an administrator to hide or archive a cohort's courses, thus removing them from active view.
+- Preconditions:
+  - Administrator must be logged in.
+  - Cohort must exist in the system.
+- Postconditions:
+  - Cohort's courses are not visible in active views.
+- Main Success Scenario:
+  1. Administrator selects a cohort to archive.
+  2. System confirms the archive action.
+  3. Administrator confirms archiving.
+  4. System changes cohort status to archived.
+  5. Administrator receives confirmation of successful archiving.
+- Extensions:
+  - None
+- Exceptions:
+  - Cohort does not exist.
+- Business Rules:
+  - Archiving should not affect enrolled students.
+- Assumptions:
+  - Archiving is reversible.
+- Open Issues:
+  - None
+
+## Cohort-UC5 — Unarchive Cohort
+
+- Primary Actor(s): Administrator
+- Secondary Actor(s): None
+- Trigger: Administrator chooses to unarchive a cohort.
+- Description: This use case allows an administrator to make a previously archived cohort visible in the system.
+- Preconditions:
+  - Administrator must be logged in.
+  - Cohort must be archived in the system.
+- Postconditions:
+  - Cohort's courses are visible in active views.
+- Main Success Scenario:
+  1. Administrator selects a cohort to unarchive.
+  2. System confirms the unarchive action.
+  3. Administrator confirms unarchiving.
+  4. System changes cohort status to active.
+  5. Administrator receives confirmation of successful unarchiving.
+- Extensions:
+  - None
+- Exceptions:
+  - Cohort does not exist.
+- Business Rules:
+  - Unarchiving should not affect enrolled students.
+- Assumptions:
+  - Administrator has permission to unarchive cohorts.
+- Open Issues:
+  - None
+
+## Cohort-UC6 — Copy Cohort
+
+- Primary Actor(s): Administrator
+- Secondary Actor(s): None
+- Trigger: Administrator initiates the copying of a cohort to another term.
+- Description: This use case allows an administrator to duplicate cohort details into a new term for reuse.
+- Preconditions:
+  - Administrator must be logged in.
+  - Cohort must exist in the system.
+- Postconditions:
+  - Cohort is copied to a new term.
+- Main Success Scenario:
+  1. Administrator selects a cohort to copy.
+  2. Administrator specifies target term.
+  3. System validates cohort and term details.
+  4. System copies cohort details to the specified term.
+  5. Administrator receives confirmation of successful copy.
+- Extensions:
+  - None
+- Exceptions:
+  - Invalid target term.
+- Business Rules:
+  - Copying should not duplicate enrollments.
+- Assumptions:
+  - Administrator has permission to copy cohorts.
+- Open Issues:
+  - None
