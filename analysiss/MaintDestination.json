@@ -1,105 +1,78 @@
 {
   "filename": "MaintDestination",
   "found": true,
-  "summary": "The MaintDestination module manages various aspects of destinations within the HSPnet system. It offers functionalities for managing destination contacts, viewing and editing details, and handling user permissions related to destination management.",
-  "purpose": "This module is designed to facilitate the management of destination data, including viewing, editing, and maintaining contacts, and ensuring compliance with data standards and user permissions for system administrators and local administrators.",
+  "summary": "The MaintDestination component appears to handle the management of destination records within the HSPnet application. It includes functionality for adding, editing, and reactivating destinations, as well as various validations for input fields.",
+  "purpose": "To manage destination records, providing capabilities to add, edit, view, and deactivate/reactivate destinations within HSPnet.",
   "entities": [],
   "fields": [
+    "txtPhoneArea",
     "txtPhone",
     "txtFaxArea",
     "txtFax",
-    "ValidationSummary1",
-    "uxDetail",
-    "dsDestinations",
-    "dsDestination",
-    "updPnlMain",
-    "Label1",
-    "hlDataStandards",
-    "ltlNewFeature",
-    "pnlError",
-    "lblErrorCaption",
-    "lblErrorList",
-    "cmdHideErrorPanel",
-    "pnlWarning",
-    "lblWarningCaption",
-    "lblWarningList",
-    "cmdHideWarningPanel",
-    "txtDefaultAreaCode",
-    "CurrentViewLabel",
-    "pnlCurrentView",
-    "Literal1",
-    "ddAgency",
-    "Literal2",
-    "ddSite",
-    "Literal3",
-    "ddService",
-    "Literal4",
+    "txtEmail",
+    "txtTitle",
+    "txtLastName",
+    "txtFirstName",
+    "txtMiddleName",
+    "ddDestCode",
+    "ddDestContact",
+    "ddDepartment",
     "txtKeyword",
-    "chkShowInactive",
-    "cmdRefreshView",
-    "Panel1",
-    "lblnon_HSP_net_user",
-    "gridData"
+    "chkShowInactive"
   ],
   "actors": [
-    "UserSession",
-    "ScreenIsEditable",
-    "blnCanEditDest"
+    "System Administrator",
+    "Local Administrator",
+    "Placing User",
+    "Receiving User"
   ],
   "workflows": [
     {
-      "name": "Page Load",
+      "name": "Destination Management",
       "steps": [
-        "Setup HSPnet Page",
-        "Register Client Script",
-        "Check Screen Access",
-        "Fill agency, site, and service dropdowns"
-      ]
-    },
-    {
-      "name": "Refresh Data",
-      "steps": [
-        "Check Screen Access",
-        "Rebind data to grid",
-        "Update user session variables"
-      ]
-    },
-    {
-      "name": "Form View Command",
-      "steps": [
-        "Handle different command names and execute corresponding actions",
-        "Add, edit, reactivate, or delete destination records"
+        "Load page and register scripts.",
+        "Fill agency and site dropdowns based on session or query parameters.",
+        "Validate inputs such as phone and email.",
+        "Use event handlers for dropdown changes to refresh data.",
+        "On form submission, validate page; then save or update destination records.",
+        "Provide client script validation for fields like phone and fax."
       ]
     }
   ],
-  "business_rules": [],
+  "business_rules": [
+    "If user is System Administrator and is in their own agency, the screen is editable.",
+    "Local Administrators can edit based on service access.",
+    "Users cannot edit destinations in their own agency unless they are a System Administrator or a Receiving User."
+  ],
   "validations": [
-    {
-      "name": "Phone Validation",
-      "details": "Ensures that the phone number is valid and formatted correctly based on the area code and number."
-    },
-    {
-      "name": "Department Validation",
-      "details": "Checks if the department is specified when adding a new contact."
-    },
-    "First and last name must be specified for a new contact."
+    "Phone number must be valid.",
+    "Fax number must be valid.",
+    "First and last names must not be empty when adding a new contact."
   ],
   "calculations": [],
-  "conditions": [],
-  "system_behavior": [
-    "Handles user permissions based on system and local administrator statuses.",
-    "Displays appropriate content based on user session data and permissions.",
-    "Manages visibility and interactivity of UI components based on conditions."
+  "conditions": [
+    "Form fields are validated only if the relevant selection in dropdowns suggests it's required.",
+    "If the contact dropdown is set to a specific value, additional fields become visible and required."
   ],
-  "dependencies": [],
+  "system_behavior": [
+    "Page load and refresh scripts manage dropdowns and validation.",
+    "Data refreshes upon dropdown changes or form submissions.",
+    "Error and warning panels handle user feedback."
+  ],
+  "dependencies": [
+    "JavaScript resources for client-side validation.",
+    "HSPnet DataLayer for data operations."
+  ],
   "exceptions": [
-    "If the query parameters for site or service are empty, use default user session values."
+    "If no service or site is selected, the dropdowns attempt to select defaults based on user session.",
+    "Hiding fields if user doesn't have edit permissions."
   ],
   "source_document_ids": [
     "00ff3bd5-c5de-5c26-b05e-892ba2ec3103",
     "07e5d9e9-a580-5d41-872e-147b94fcac27",
     "09fabe12-f0fd-5b18-990d-4937d55878aa",
     "0e0f78cf-3dad-5687-adaa-02942efd37b1",
+    "11b3f20c-9296-5132-b559-999f4c25e90c",
     "121101cf-ddc9-5ed6-ad71-6d90756f6c23",
     "2020f3e4-ea1c-5e41-afcd-d89463d33330",
     "209c3c7b-c2cb-5565-8d6b-34eb41496def",
@@ -123,8 +96,6 @@
     "9b4ece80-4d76-554b-a673-fb48760b3db3",
     "a1a4d5e7-cac0-5ccc-93fa-6293c96b5f0f",
     "adf9ecad-2bc3-5fd7-bcda-5b7bdbb8b6d4",
-    "b7328b3b-fcd8-55df-a7ad-072dca694164",
-    "b94a81a4-b755-5677-80f1-65416761f31b",
     "cd081abc-cee2-5f49-a9e9-aeb968829a72",
     "d45039d6-9f3e-5535-825f-6765a752c67d",
     "d7f0b4d7-06b4-52ad-bb17-5cc7b95183c4",
