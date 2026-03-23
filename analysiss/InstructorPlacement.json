@@ -1,19 +1,96 @@
 {
-        "filename": "InstructorPlacement",
-        "found": false,
-        "summary": "",
-        "purpose": "",
-        "entities": [],
-        "fields": [],
-        "actors": [],
-        "workflows": [],
-        "business_rules": [],
-        "validations": [],
-        "calculations": [],
-        "conditions": [],
-        "system_behavior": [],
-        "dependencies": [],
-        "exceptions": [],
-        "source_document_ids": [],
-        "content_gaps": ["No related documents found"]
-    }
+    "filename": "InstructorPlacement",
+    "found": true,
+    "summary": "The InstructorPlacement functionality is involved with managing and displaying placement details for instructors. It handles various attributes of a placement such as the service, destination, agencies involved, program details, rotations, document uploads, and student information. The system accommodates changes in supervisors, destinations, and dates and reflects these through alerts and tooltips. It also manages consent expiry for students, hiding their personal information if required.",
+    "purpose": "To manage and display information related to instructor placements, including handling changes and alerts for various aspects of placements and student consent status.",
+    "entities": [],
+    "fields": [
+        "Service",
+        "Destination",
+        "DestinationCodeID",
+        "RcvAgencyFull",
+        "SiteProfileExists",
+        "PlcAgency",
+        "Program",
+        "Rotations",
+        "DocumentUploaded",
+        "RequestName",
+        "DestinationDetails",
+        "StudentID",
+        "StudentLastName",
+        "StudentFirstName",
+        "StudentMiddleName",
+        "StudentPhone",
+        "StudentEmail",
+        "StudentHiddenConsentExpired",
+        "ConditionCodeID",
+        "ConditionDescription",
+        "ShowConditionAlert",
+        "Comments",
+        "ShowCommentAlert",
+        "UrgentAlert",
+        "MultipleSupNames",
+        "MultipleSupIDs",
+        "MultipleSupPhones",
+        "MultipleSupEmails",
+        "Sort1",
+        "Sort2",
+        "Sort3",
+        "Sort4",
+        "SupervisorChanged",
+        "DestinationChanged",
+        "DateChanged",
+        "UpdatedToolTip",
+        "ETopicExists",
+        "AmendmentExists",
+        "ShowUrgentAlert"
+    ],
+    "actors": ["Instructor", "Student", "Supervisor", "System Administrator"],
+    "workflows": [
+        {
+            "name": "Instructor Welcome Search",
+            "steps": [
+                "Set DB procedure name as 'InstructorWelcomeSearch'.",
+                "Add parameters including SessionID, StaffID, CourseID, IncludeUnconfirmed, DateFrom, DateTo, Sort.",
+                "Retrieve data using SqlDataReader.",
+                "For each data row retrieved, populate InstructorPlacement entry with relevant information."
+            ]
+        }
+    ],
+    "business_rules": [
+        "If User is not System Administrator and consent is expired, student's personal data must be hidden.",
+        "Display alert if supervisor, destination, or date fields have changed since the last login."
+    ],
+    "validations": [
+        "Check if the consent is actually expired using 'IsConsentActuallyExpired'."
+    ],
+    "calculations": [
+        "ShiftLength is calculated as the number after the first character of ShiftCode.",
+        "ShiftType is calculated from AmendmentExists, VariousTimes, and ShiftCode."
+    ],
+    "conditions": [
+        "Use alternative language fields if UseAltLanguageFields is true."
+    ],
+    "system_behavior": [
+        "Load InstructorPlacement data from the database.",
+        "Manage visibility of student data based on consent status.",
+        "Update tooltips and alerts based on changes in supervisor, destination, and date fields."
+    ],
+    "dependencies": [],
+    "exceptions": [
+        "Handle null SqlDataReader cases by closing the reader and returning empty data."
+    ],
+    "source_document_ids": [
+        "2a0c947a-71ee-55b8-80d8-f1dbbd0c75e9",
+        "54cc06b1-bacc-5433-a6ad-8141a912ca0d",
+        "5b46716c-c23d-555a-b1e0-beb4f4bb0272",
+        "5c748891-1cb7-5727-aad0-c546e2666f85",
+        "5d26bcc3-4165-53e6-8319-04880f120ad2",
+        "60de88d3-5399-55b7-a31c-677195779f88",
+        "71aee11e-0232-532a-9afe-11ed2741c13d",
+        "b014a050-47b0-5531-97b9-aecbe1e437f7",
+        "f7fabdca-4b77-5917-8988-93b87f21d87d",
+        "fec16c9d-55ef-5982-81a4-409cae78faad"
+    ],
+    "content_gaps": []
+}
