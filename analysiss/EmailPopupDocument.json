@@ -1,25 +1,37 @@
 {
   "filename": "EmailPopupDocument",
   "found": true,
-  "summary": "Manages email-related document records within the HSPNet system.",
-  "purpose": "To deal with email attachments and related operations.",
+  "summary": "Defines an email popup document which consists of file metadata and handling methods.",
+  "purpose": "To manage email documents in a popup context, handling operations like search and delete.",
   "entities": [
     "EmailPopupDocument",
     "EmailPopupDocuments"
   ],
   "fields": [
-    "ID",
-    "FileName",
-    "FilePath",
-    "Checked"
+    {
+      "name": "ID",
+      "type": "int"
+    },
+    {
+      "name": "FileName",
+      "type": "string"
+    },
+    {
+      "name": "FilePath",
+      "type": "string"
+    },
+    {
+      "name": "Checked",
+      "type": "Boolean"
+    }
   ],
   "actors": [],
   "workflows": [
     {
-      "name": "Email Document Management",
+      "name": "Email Document Handling",
       "steps": [
-        "Search for email documents",
-        "Delete email documents"
+        "Search for the email popup document",
+        "Delete the specified document"
       ]
     }
   ],
@@ -27,7 +39,9 @@
   "validations": [],
   "calculations": [],
   "conditions": [],
-  "system_behavior": [],
+  "system_behavior": [
+    "Handles searches and deletions of email documents based on specified criteria."
+  ],
   "dependencies": [],
   "exceptions": [],
   "source_document_ids": [
