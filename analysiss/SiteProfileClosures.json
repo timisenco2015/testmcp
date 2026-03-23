@@ -1,0 +1,97 @@
+{
+  "filename": "SiteProfileClosures",
+  "found": true,
+  "summary": "The 'SiteProfileClosures' module manages the closure process for various site profiles within the application. It provides user interfaces to add, edit, and manage closures, their associated disciplines, and destinations. The system handles the inclusion and exclusion of certain disciplines and manages destinations related to closures.",
+  "purpose": "To facilitate the management of site profile closures, including their disciplines and destinations, allowing users to add, edit, and delete closures within the application.",
+  "entities": [],
+  "fields": [
+    "ddDisciplineFilter",
+    "pnlEmptyData",
+    "lblEmptyData",
+    "cmdAddEmptyData",
+    "gridData",
+    "dsSiteClosures",
+    "updPnlMain",
+    "Label7",
+    "ddClosureTypeFilter",
+    "divDisciplineFilter",
+    "Label4",
+    "dsSiteClosures",
+    "dsDisciplineFilter",
+    "pnlPopup",
+    "updPnlPopup"
+  ],
+  "actors": [
+    {
+      "name": "GenericClosures",
+      "description": "Manages the loading and saving of closure data and destinations."
+    }
+  ],
+  "workflows": [
+    {
+      "name": "Manage Site Profile Closures",
+      "steps": [
+        "Initialize view state on page load.",
+        "Load user session-related data.",
+        "Filter disciplines and destinations.",
+        "Handle commands for adding, editing, and deleting closures.",
+        "Manage selected and not selected destinations."
+      ]
+    }
+  ],
+  "business_rules": [
+    "ClosureID and SiteID must be greater than zero for operations.",
+    "Selected destinations must not be already applied."
+  ],
+  "validations": [
+    "Check if user session is present before data operations.",
+    "Ensure disciplines and destinations are only added when valid."
+  ],
+  "calculations": [],
+  "conditions": [
+    "ScreenIsEditable determines the visibility and interactivity of UI elements.",
+    "Restrictive sub-disciplines affect visibility of discipline filter."
+  ],
+  "system_behavior": [
+    "Auto-generated fields are used for UI controls to ensure consistency.",
+    "Single point of data binding for drop-downs and lists to ensure state preservation."
+  ],
+  "dependencies": [
+    "Depends on user session data for operations.",
+    "Relies on specific field controls for updating and displaying closure data."
+  ],
+  "exceptions": [
+    "Cancel data operations if user session is missing.",
+    "Prevent operations if closure or site ID is invalid."
+  ],
+  "source_document_ids": [
+    "020480f8-7a34-5155-8aac-68cdfd924d42",
+    "04536e8b-6998-5225-a413-4b3d1db8328b",
+    "09061d91-cb57-5924-a3bd-5bd6bbb94fbd",
+    "20381965-9820-554a-b0ec-2e153e0a2270",
+    "248206ac-9afd-5f8e-9fbb-65d480c1a5a8",
+    "2d3f8cd8-f47f-5422-b473-40cb3ffd6a3a",
+    "30e1aa69-54ac-577b-b17e-0a8c7fac690f",
+    "3926d84c-4ebb-5345-947c-3fd7c56a7dc7",
+    "392b34b5-b8dc-5b2e-b1cb-f923ffa3f997",
+    "3cecb4df-9fae-553b-bfb8-dec082b293a9",
+    "3fbe383d-135b-5ea0-aed7-1f868bf33092",
+    "599dd23f-eb63-5bc5-998b-2aefb9c369d1",
+    "80c5308b-e9c0-59f8-803d-79e2c8dc02c0",
+    "871d7567-8db1-5c72-8537-4b268ef59559",
+    "9c3e05de-0e6c-5963-831f-140e57222aee",
+    "9f6e7dfc-ca65-5d5b-8be1-ccc9e3164541",
+    "a33ddd49-fece-5bee-9bbe-e689ad414705",
+    "a581da45-c608-5a1f-9cae-fafd47e7409b",
+    "a65e19d1-10d2-5e2f-919a-24070d9117ad",
+    "ae727797-b0c7-5973-a1fa-0fb29d84a872",
+    "b68ffa85-2b61-5a6a-a0f5-519bbdd5dbee",
+    "c42542ce-bf28-5918-b720-7d947a2306da",
+    "c5604708-2362-5096-b137-4b92bcd8414d",
+    "cc07f05a-5713-541f-84a1-4683d61e3555",
+    "d1129e0f-1921-54c7-a962-fe46d45fb257",
+    "d5380fd4-6d06-50e3-95ce-08cde14369fc",
+    "f7529e7b-17bb-5290-9b07-fa985e112445"
+  ],
+  "content_gaps": []
+}
