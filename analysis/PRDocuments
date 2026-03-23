@@ -1,0 +1,69 @@
+```json
+{
+    "filename": "PRDocuments",
+    "found": true,
+    "summary": "The PRDocuments functionality is part of the HSPnet system, specifically dealing with the management of document uploads within the placement request details. It provides capabilities for uploading, saving, editing, and deleting documents associated with placement requests.",
+    "purpose": "To manage the lifecycle of documents related to placement requests in the HSPnet system, allowing users to upload, edit, and delete documents while maintaining structured data and session handling.",
+    "entities": [],
+    "fields": [
+        "ltlInstructions",
+        "Literal1",
+        "gvwDocument",
+        "dsDocument",
+        "pnlPopup",
+        "btnShowPopup",
+        "mdlDetails",
+        "ValidationSummary3",
+        "CustomValidator1",
+        "fvwDocument"
+    ],
+    "actors": ["UserSession"],
+    "workflows": [
+        {
+            "name": "Document Management",
+            "steps": [
+                "User uploads document using FileUpload control.",
+                "System saves the document to a unique folder and creates a new document entry.",
+                "User can edit document details via a FormView interface.",
+                "User can delete a document, which is then removed from the file system.",
+                "System redirects user post operations using session and query strings."
+            ]
+        }
+    ],
+    "business_rules": [
+        "Documents must be uploaded to a specific directory following naming conventions.",
+        "User session must be active for operations to proceed.",
+        "Documents are associated with specific Placement Request IDs."
+    ],
+    "validations": [
+        "Ensure uploaded file is not empty before processing.",
+        "Hide update details if they are blank.",
+        "Validate user session presence before selecting data source."
+    ],
+    "calculations": [],
+    "conditions": [
+        "Document existence is determined by non-zero TypeCodeID.",
+        "Check if document ID is -1 or matches specific code for profile management."
+    ],
+    "system_behavior": [
+        "Uses GridView for document representation and management.",
+        "Handles redirects based on current session and operation outcomes.",
+        "Generates JavaScript variables for client-side management of document types."
+    ],
+    "dependencies": [],
+    "exceptions": [],
+    "source_document_ids": [
+        "0b412b93-8664-5be6-805b-1ee2191d9d74",
+        "23b4d3b7-10c4-5d78-b417-25806a3b6a78",
+        "315aa7cb-e2a6-5af5-88f3-e3bceefb450f",
+        "55917466-db99-5182-a2a2-833ec3f8ac73",
+        "69b6a57a-d344-53e2-83c0-1b66e394f75c",
+        "ab5070cc-bed5-5724-81f7-a337463e0b26",
+        "c708b08e-5172-57a5-a019-e21d52674f1d",
+        "e2dbef3b-8922-580e-a47b-155764f78dc8",
+        "ef75673a-9291-5ff8-ac62-566c091feb8f",
+        "f20d0f3f-4573-59af-87eb-f9f110c51931"
+    ],
+    "content_gaps": []
+}
+```
