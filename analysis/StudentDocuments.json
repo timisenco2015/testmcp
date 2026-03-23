@@ -1,0 +1,173 @@
+{
+  "filename": "StudentDocuments",
+  "found": true,
+  "summary": "StudentDocuments manages student-uploaded documents in a web application, supporting workflows for adding, editing, deleting, and withholding documents. It enforces document type restrictions, anonymizes uploaded files, and provides business rules around document visibility, retention, and profile information.",
+  "purpose": "To facilitate students and authorized staff in uploading, managing, viewing, and deleting documents tied to student profiles, including resumes (named/anonymous), photos, and other documents, with privacy, anonymity, retention, and consent controls.",
+  "entities": [
+    "StudentDocument",
+    "Student",
+    "Program",
+    "UserSession",
+    "CodeRecord"
+  ],
+  "fields": [
+    "DocumentName",
+    "FilePath",
+    "FileURL",
+    "FileSize",
+    "FileType",
+    "DeleteAfterDate",
+    "TypeCodeID",
+    "TypeCodeCode",
+    "TypeComments",
+    "InternalOnly",
+    "Anonymous",
+    "Withhold",
+    "StudentID",
+    "ConsentProgramID",
+    "StaffID",
+    "WebPage"
+  ],
+  "actors": [
+    "Student",
+    "PlacementCoordinator",
+    "CourseLeader",
+    "Instructor",
+    "StudentMaint",
+    "PlacingUser",
+    "Staff"
+  ],
+  "workflows": [
+    {
+      "name": "Upload Student Document",
+      "steps": [
+        "User selects document type from available codes (excluding special types based on conditions).",
+        "User provides document details (name, comments, delete-after date, anonymity).",
+        "Document name is anonymized using student ID and timestamp.",
+        "File is uploaded and saved to a uniquely named folder.",
+        "Document metadata is created and saved.",
+        "If editing, previous document file is deleted."
+      ]
+    },
+    {
+      "name": "Edit Student Document",
+      "steps": [
+        "User selects document from GridView.",
+        "FormView switches to Edit mode with populated details.",
+        "User updates fields and saves.",
+        "Type restrictions enforced (special types disabled).",
+        "Document metadata and file updated."
+      ]
+    },
+    {
+      "name": "Delete Student Document",
+      "steps": [
+        "User triggers delete from UI.",
+        "Document metadata and file deleted.",
+        "UI updates to reflect removal."
+      ]
+    },
+    {
+      "name": "Withhold Document",
+      "steps": [
+        "User triggers withhold.",
+        "Document is marked withhold in metadata.",
+        "Withheld indicator is shown in GridView."
+      ]
+    },
+    {
+      "name": "Release Withhold",
+      "steps": [
+        "User triggers release.",
+        "Withhold flag removed from metadata.",
+        "UI updates indicator."
+      ]
+    },
+    {
+      "name": "Student Profile Management",
+      "steps": [
+        "User edits/deletes web page information for profile.",
+        "Profile changes saved and rebound to UI."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Photo documents are not shown/uploaded if user is the student (unless in Student Welcome mode), or if a photo already exists.",
+    "Resume-named and resume-anon codes are restricted based on what already exists.",
+    "Document names are anonymized to remove student identity.",
+    "Delete-after date is required only if certain radio buttons checked.",
+    "Special document types cannot be changed once set.",
+    "Document visibility depends on user role and program consent.",
+    "Instructor/Course Leader document visibility depends on program settings."
+  ],
+  "validations": [
+    "Document upload regex validation for allowed file types.",
+    "Photo upload regex validation.",
+    "Required field validator for uploads.",
+    "Checks for valid delete-after dates.",
+    "Checks for non-null fields when editing certain fields."
+  ],
+  "calculations": [
+    "Anonymized file name generation: 'HSPnet' + StudentID + '-' + timestamp.",
+    "File size determined from uploaded file."
+  ],
+  "conditions": [
+    "Show internal documents if FromStudentWelcome or allowed by role and program.",
+    "Hide photo upload if student is uploading or photo already exists.",
+    "Hide resume upload if already exists.",
+    "Show delete-after fields only for certain roles or checked radio buttons.",
+    "Enable or disable document type dropdown based on current type."
+  ],
+  "system_behavior": [
+    "Dynamic UI updates based on user session, document existence, and edit mode.",
+    "Startup scripts and JavaScript variables injected based on session and role.",
+    "GridView and FormView controls switch modes and update datasource dynamically.",
+    "Handles async and regular postbacks for UI updates."
+  ],
+  "dependencies": [
+    "UserSession determines access, available codes, and visible fields.",
+    "CodeRecord collection determines allowed document types.",
+    "Program consent settings affect visibility for staff roles."
+  ],
+  "exceptions": [
+    "Administrative setup errors if code cannot be found.",
+    "Null exceptions for checkbox evaluations in markup for Insert mode.",
+    "File upload errors handled and flagged through UI validators."
+  ],
+  "source_document_ids": [
+    "0082c427-47d0-54cf-81b9-9d6bb5f40cce",
+    "029cc5c1-f445-5b4f-ae19-a8d72fd796f1",
+    "188535ff-ab16-5610-951e-bfb668317ebc",
+    "31352f3e-16e4-533f-ac2d-6fd32a220e06",
+    "3161c828-85e2-5c01-ad78-62321ea8a04d",
+    "3da6ca55-5875-5448-b396-b209e1e5b1d1",
+    "46b351a6-d10b-52ab-b99d-f40960e6d0c3",
+    "46ee8ccf-fbb3-5572-bfb7-1eff82539274",
+    "4945150a-a72f-5d3b-a3c3-55895b3537b2",
+    "4fcad530-c1e9-5df1-b542-c3dede66354f",
+    "540b7e2f-6e70-5368-8c71-2e61d8dfe86d",
+    "65fea4f0-a970-5a30-bb4c-8147db44a0b6",
+    "6ef5af6b-ea75-57a5-8cc2-a1ed1c6490ac",
+    "86473d23-c6f9-542e-8113-bb64ffe6a216",
+    "921e5573-fca9-52c9-b072-12c70c83ce01",
+    "928fa093-8e96-5f6c-a6e5-121ee6ca06c7",
+    "99ddd6b2-4bd4-555a-adf6-bc5ece663eed",
+    "9f11d8c9-a5ec-58f2-8840-2acb1abc6c25",
+    "a22cdb1f-a48b-57f3-88a9-14a0019b6225",
+    "a546829e-16df-5e90-9f96-4e750b3ec96b",
+    "bd14b6fd-1a08-51b8-82dd-a25ece9ccccf",
+    "be74a746-7308-5bc7-8918-0185ba9c2a35",
+    "e40f7b97-b4e7-523d-98f5-c9c663a50a59",
+    "e49c264f-0d8e-5c1c-974c-8e1fe704bfbe",
+    "e55753e4-2fa5-519b-8251-dec9e1424f9e",
+    "ec28be0b-90b2-512f-acb3-76fc027a2b0a",
+    "f1451b0b-d431-5ec9-87f5-06994defc0d1",
+    "fde6ea0b-57a6-578a-aae3-86cfe7243d27"
+  ],
+  "content_gaps": [
+    "There may be gaps in business rules around document retention and privacy not fully described in fragments.",
+    "Details of concrete error handling or UI feedback for failed actions are partially implied.",
+    "Actual file extension validation criteria not fully documented in visible fragments.",
+    "Consent program rules for instructor visibility are mentioned but not exhaustively detailed."
+  ]
+}
