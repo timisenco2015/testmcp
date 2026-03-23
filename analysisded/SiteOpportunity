@@ -1,0 +1,104 @@
+```json
+{
+  "filename": "SiteOpportunity",
+  "found": true,
+  "summary": "The 'SiteOpportunity' manages data operations related to site opportunities, including queries, updates, deletions, and formatting responses. It involves managing headers, sorting orders, and distinguishing web page entries.",
+  "purpose": "To manage site opportunities through database operations and maintain organized data for display and processing.",
+  "entities": [
+    "SiteOpportunity",
+    "HSPnetSession"
+  ],
+  "fields": [
+    "ID",
+    "SiteID",
+    "HeadingID",
+    "Response",
+    "SortOrder",
+    "Description",
+    "DescriptionAlt",
+    "DescriptionFormatted",
+    "SortOrderFormatted",
+    "WebPage",
+    "HeaderChanged"
+  ],
+  "actors": [
+    "System",
+    "SqlDataReader"
+  ],
+  "workflows": [
+    {
+      "name": "GetByID",
+      "steps": [
+        "Set procedure to 'SiteOpportunitiesSearchID'",
+        "Add parameter 'ID'",
+        "Execute data retrieval",
+        "Fill list and return"
+      ]
+    },
+    {
+      "name": "GetBySiteID",
+      "steps": [
+        "Set procedure to 'SiteOpportunitiesSearch'",
+        "Add parameter 'SiteID'",
+        "Execute data retrieval",
+        "Fill list and return"
+      ]
+    },
+    {
+      "name": "Update",
+      "steps": [
+        "Check if ID is not zero and is valid",
+        "Set procedure to 'SiteOpportunitiesUpdate'",
+        "Add parameters",
+        "Execute update"
+      ]
+    },
+    {
+      "name": "Delete",
+      "steps": [
+        "Check if ID is not zero",
+        "Set procedure to 'SiteOpportunitiesDelete'",
+        "Add parameter 'SiteOpportunitiesID'",
+        "Execute deletion"
+      ]
+    },
+    {
+      "name": "Add",
+      "steps": [
+        "Check if valid",
+        "Set procedure to 'SiteOpportunitiesAdd'",
+        "Add parameters",
+        "Execute addition"
+      ]
+    }
+  ],
+  "business_rules": [
+    "Reset header entry levels on change",
+    "Use alternative language fields if applicable"
+  ],
+  "validations": [
+    "Ensure 'Response' is not blank"
+  ],
+  "calculations": [],
+  "conditions": [
+    "Check if 'SortOrder' is -1 to display as blank",
+    "Determine if entry is a Web Page entry based on description"
+  ],
+  "system_behavior": [
+    "Translate new lines in responses for HTML display"
+  ],
+  "dependencies": [
+    "HSPnet.UI.HTML",
+    "HSPnet.Framework"
+  ],
+  "exceptions": [],
+  "source_document_ids": [
+    "148590b2-a5c1-5ba2-9f76-5946671326da",
+    "18839216-0ce2-5da0-8629-43191022355e",
+    "2e24ba24-238e-539a-9060-ae9c5b2ef73d",
+    "430d8e05-df1d-5100-81dd-8c604142a057",
+    "64109c98-7c33-509c-9bd9-15bb43722cb7"
+  ],
+  "content_gaps": []
+}
+```
