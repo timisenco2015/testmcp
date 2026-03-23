@@ -1,0 +1,120 @@
+{
+    "filename": "TimetableAssessments",
+    "found": true,
+    "summary": "The TimetableAssessments page manages the display, editing, and validation of timetable assessments within an HSPnet application. The page includes various UI components such as grid views, form views and update panels, and relies on JavaScript for client-side interactivity and validation. It connects to a backend data layer for retrieving and manipulating assessment data.",
+    "purpose": "To manage and display timetable assessments, allowing users to create, edit, and validate assessment details, while providing necessary error, warning, and status messages.",
+    "entities": [],
+    "fields": [
+        {"name": "ID", "description": "Unique identifier for an assessment"},
+        {"name": "AssessorTypeCodeID", "description": "Identifier for the type of assessor"},
+        {"name": "SubjectTypeCodeID", "description": "Identifier for the type of subject"},
+        {"name": "AssessmentTypeCodeID", "description": "Identifier for the type of assessment"},
+        {"name": "AssessmentTemplateCodeID", "description": "Identifier for the assessment template"},
+        {"name": "OpenDaysAfterStart", "description": "Number of days after the start date when the assessment opens"},
+        {"name": "CloseDaysAfterEnd", "description": "Number of days after the end date when the assessment closes"},
+        {"name": "AssessorCanViewSubjectsAnswers", "description": "Flag indicating if assessor can view student's answers"},
+        {"name": "SubjectsCanViewAssessorAnswers", "description": "Flag indicating if subjects can view assessor's answers"},
+        {"name": "ViewUntilDaysAfterEnd", "description": "Number of days after the end date when the assessment can be viewed"},
+        {"name": "OptionAppliedAssessorTypeCodeID", "description": "Code ID for optional assessor type"}
+    ],
+    "actors": [
+        {"name": "UserSession", "role": "Holds user session details to control access and actions"},
+        {"name": "SystemAdministrator", "role": "Has overall control over system functions"},
+        {"name": "PlacementCoordinator", "role": "Coordinates placements and related assessments"},
+        {"name": "LocalAdministrator", "role": "Manages local administrative tasks within the system"}
+    ],
+    "workflows": [
+        {
+            "name": "Add Assessment",
+            "steps": [
+                "User clicks 'Add' button",
+                "Form switches to add mode",
+                "User enters assessment details",
+                "Form data is validated",
+                "Assessment is saved to database"
+            ]
+        },
+        {
+            "name": "Edit Assessment",
+            "steps": [
+                "User clicks 'Edit' button for an assessment",
+                "Form switches to edit mode",
+                "User modifies assessment details",
+                "Form data is validated",
+                "Updated assessment is saved to database"
+            ]
+        }
+    ],
+    "business_rules": [
+        "Assessments must have a valid template and type.",
+        "Assessments must not exceed the maximum allowed number.",
+        "Interim assessments require a corresponding final assessment."
+    ],
+    "validations": [
+        "Open and close dates for assessments must be numeric.",
+        "Assessment type and template must be specified.",
+        "Check close days against the current date to ensure validity."
+    ],
+    "calculations": [
+        "Calculate effective end date based on close days after end.",
+        "Determine visibility duration based on view until days after end."
+    ],
+    "conditions": [
+        "Final assessments allow subject viewing when checked.",
+        "Assessor can view answers only if not a student type."
+    ],
+    "system_behavior": [
+        "The page loads and retrieves timetable assessments based on user session and timetable ID.",
+        "The system dynamically builds JavaScript variables for client-side operations.",
+        "Error and warning panels display based on validation results and user actions.",
+        "The grid view updates dynamically after data operations like add, edit, or delete are carried out."
+    ],
+    "dependencies": [
+        "HSPnet.DataLayer for data operations",
+        "User session management for access control",
+        "JavaScript and AJAX for client-side interaction"
+    ],
+    "exceptions": [
+        "Cancel action reverts any unsaved changes.",
+        "Data layer operations fail silently if user session is invalid."
+    ],
+    "source_document_ids": [
+        "0781696d-dec4-5dfc-aa58-80ddd173c0ae",
+        "0d330d29-e0a7-5f88-8c71-d32f88b252b0",
+        "0ea3e178-f11b-5ee8-afc8-441e55e2d2f4",
+        "135455cd-1a34-5b2d-b8cc-298a1d98c47e",
+        "14ec7368-e312-5de7-b00e-188a6d5310ef",
+        "1807e536-2914-59f1-a538-b9e127d25f77",
+        "1d7ea219-2359-5da1-9c7b-79cbd696c770",
+        "345a2e51-fcf0-5df0-b1f6-b535c4b757c6",
+        "447b10a9-0558-5d06-9fac-926c94892393",
+        "50cbdfe8-4a64-5c51-ba1e-e88fb00ca8fc",
+        "528d9fc6-cb63-5c52-9327-f323552f37e3",
+        "61fa5351-3118-588b-a4f0-3147cd92841a",
+        "6f04742e-ad06-58cf-af37-b3ae7ebe39cc",
+        "6f1aa10e-0697-5c9e-8e0a-182b597a2d3e",
+        "707335b9-f19a-5366-959c-4872a99363e8",
+        "727a0287-de95-52fe-a841-7f49f9958884",
+        "734dd83e-2a57-578d-9891-96f90686f95e",
+        "7a89081a-a4a0-569f-8bc4-676ec99f7dcb",
+        "7ab03f3d-3b63-594e-a3ac-ea304249c66a",
+        "7afa582c-d2e5-5803-b315-7f8f63d1bc7e",
+        "7bb40b95-0bb5-5f6d-91ca-bbcb527d60ff",
+        "824387dc-2c7b-5cca-96a6-bfab53dbaeee",
+        "96eaf83a-27cc-5e53-b93a-4835addb1ab6",
+        "9ff99ed6-d3d2-55bd-a19b-ea38ec6c20be",
+        "a1b432d1-2597-591b-a1a7-80d7b39db2b7",
+        "a7c42983-f1a4-5f7f-8487-6a59e89d7502",
+        "b0600110-1773-5335-a423-4e456e7b615b",
+        "b66763e8-1cd7-5741-9b81-95c511b8cf64",
+        "c55e37c8-0668-52c9-8860-02706d05d1c5",
+        "c8e37d14-9d6e-5d5f-a710-581fe5dfd958",
+        "dd0997ef-5454-5014-9d78-fa20aed967eb",
+        "e506841f-d914-5482-b64c-7deca11f392a",
+        "ed5d2f45-0dea-5606-bc98-3a7d2c634bf5",
+        "ede3c463-e1b7-551c-bad2-e5db6d44165e",
+        "f0d967b2-325c-584a-a002-fd27615e3c62",
+        "f34f81c5-ea44-558f-a144-dc0a4d5a65ac"
+    ],
+    "content_gaps": []
+}
