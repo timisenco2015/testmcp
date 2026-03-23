@@ -1,143 +1,105 @@
 {
-    "filename": "StudentPayHistory",
-    "found": true,
-    "summary": "The documents provide the structure and behavior of the StudentPayHistory system in HSPnet, focusing on the roles and responsibilities of handling student pay history within the application.",
-    "purpose": "To manage and document the pay history of students in the HSPnet system, including adding, updating, and retrieving student pay history data.",
-    "entities": [],
-    "fields": [
-        {
-            "name": "ID",
-            "type": "int",
-            "description": "Unique identifier for the StudentPayHistory entry."
-        },
-        {
-            "name": "StudentID",
-            "type": "int",
-            "description": "Identifier for the student associated with the pay history entry."
-        },
-        {
-            "name": "CreatedByUserID",
-            "type": "int",
-            "description": "Identifier of the user who created the entry."
-        },
-        {
-            "name": "EffectiveDate",
-            "type": "DateTime",
-            "description": "The date from which the pay history is effective."
-        },
-        {
-            "name": "EmploymentClassCodeID",
-            "type": "int",
-            "description": "Code representing the employment class of the student."
-        },
-        {
-            "name": "DesignationCodeID",
-            "type": "int",
-            "description": "Code representing the designation of the student."
-        },
-        {
-            "name": "StatusCodeID",
-            "type": "int",
-            "description": "Code representing the status of the student."
-        },
-        {
-            "name": "StatusReasonCodeID",
-            "type": "int",
-            "description": "Code representing the reason for the status of the student."
-        },
-        {
-            "name": "PayLevelCodeID",
-            "type": "int",
-            "description": "Code representing the pay level of the student."
-        },
-        {
-            "name": "PayLevelReasonCodeID",
-            "type": "int",
-            "description": "Code representing the reason for the pay level of the student."
-        },
-        {
-            "name": "YearCodeID",
-            "type": "int",
-            "description": "Code representing the year of the pay history entry."
-        },
-        {
-            "name": "FixedTermAppointmentCodeID",
-            "type": "int",
-            "description": "Code representing fixed term appointment status."
-        },
-        {
-            "name": "FixedTermAppointmentNotes",
-            "type": "string",
-            "description": "Notes related to the fixed term appointment."
-        }
-    ],
-    "actors": [
-        {
-            "name": "HSPnetSession",
-            "description": "Session object used to interact with the database for student pay history operations."
-        }
-    ],
-    "workflows": [
-        {
-            "name": "AddStudentPayHistory",
-            "steps": [
-                "Initialize HSPnetSession and set procedure name to 'StudentDetailsPayHistoryAdd'.",
-                "Add parameters to the session for session ID, student ID, created by user ID, effective date, employment class code ID, designation code ID, status code ID, status reason code ID, pay level code ID, pay level reason code ID, year code ID, fixed term appointment code ID, and fixed term appointment notes.",
-                "Execute the query."
-            ]
-        },
-        {
-            "name": "UpdateStudentPayHistory",
-            "steps": [
-                "Initialize HSPnetSession and set procedure name to 'StudentDetailsPayHistoryUpdate'.",
-                "Add parameters to the session for session ID, ID, effective date, employment class code ID, designation code ID, status code ID, status reason code ID, pay level code ID, pay level reason code ID, year code ID, fixed term appointment code ID, and fixed term appointment notes.",
-                "Execute the query."
-            ]
-        },
-        {
-            "name": "DeleteStudentPayHistory",
-            "steps": [
-                "Initialize HSPnetSession and set procedure name to 'StudentPayHistoryDelete'.",
-                "Add parameters to the session for session ID and ID.",
-                "Execute the query."
-            ]
-        },
-        {
-            "name": "SearchStudentPayHistory",
-            "steps": [
-                "Initialize HSPnetSession and set procedure name to 'StudentDetailsPayHistorySearch'.",
-                "Add parameters to the session for student ID and session ID.",
-                "Retrieve data using SqlDataReader and fill the entry with the data from the reader.",
-                "Close the data reader and return the list of StudentPayHistory entries."
-            ]
-        }
-    ],
-    "business_rules": [],
-    "validations": [],
-    "calculations": [],
-    "conditions": [],
-    "system_behavior": [
-        {
-            "description": "The system allows for adding, updating, searching, and deleting student pay history entries."
-        },
-        {
-            "description": "System automatically defaults certain fields if no recent entry is found during data retrieval."
-        }
-    ],
-    "dependencies": [],
-    "exceptions": [
-        {
-            "description": "If no data is returned during a search, the system initializes default values for fields."
-        }
-    ],
-    "source_document_ids": [
-        "12549b42-cfff-56ce-8694-a42806d84a22",
-        "15447d6a-7962-5621-897b-73c7b7bef4e9",
-        "3065877d-a9e0-5eb2-a6f7-070a1a5c63f6",
-        "82a1c5f2-1661-5918-a92d-c9596f6f4a5d",
-        "ca09209d-8b98-5556-bde4-4d65ffca8331",
-        "d8425d60-2000-55f5-9e75-d6934d0ef545",
-        "e6e0cd55-384d-5d52-90d3-27f6ce935968"
-    ],
-    "content_gaps": []
+  "filename": "StudentPayHistory",
+  "found": true,
+  "summary": "The StudentPayHistory manages the pay history records for students, including adding, updating, deleting, and searching pay history details.",
+  "purpose": "To maintain a detailed pay history for students, allowing for updates and retrieval of historical pay data.",
+  "entities": [],
+  "fields": [
+    "ID",
+    "StudentID",
+    "CreatedByUserID",
+    "CreatedByUserFirstName",
+    "CreatedByUserLastName",
+    "EffectiveDate",
+    "EmploymentClassCodeID",
+    "EmploymentClass",
+    "DesignationCodeID",
+    "Designation",
+    "StatusCodeID",
+    "Status",
+    "StatusReasonCodeID",
+    "StatusReason",
+    "PayLevelCodeID",
+    "PayLevel",
+    "PayLevelReasonCodeID",
+    "PayLevelReason",
+    "YearCodeID",
+    "Year",
+    "FixedTermAppointmentCodeID",
+    "FixedTermAppointment",
+    "FixedTermAppointmentNotes",
+    "EffectiveDateFormatted",
+    "FixedTermAppointmentFormatted",
+    "StatusOrPayLevelReason"
+  ],
+  "actors": [
+    "HSPnetSession",
+    "SqlDataReader"
+  ],
+  "workflows": [
+    {
+      "name": "Add Pay History",
+      "steps": [
+        "Set ProcedureName to 'StudentDetailsPayHistoryAdd'",
+        "Add parameters including SessionID, StudentID, CreatedByUserID, EffectiveDate, and others",
+        "Execute the query"
+      ]
+    },
+    {
+      "name": "Update Pay History",
+      "steps": [
+        "Set ProcedureName to 'StudentDetailsPayHistoryUpdate'",
+        "Add parameters including SessionID, ID, EffectiveDate, and others",
+        "Execute the query"
+      ]
+    },
+    {
+      "name": "Delete Pay History",
+      "steps": [
+        "Set ProcedureName to 'StudentPayHistoryDelete'",
+        "Add parameters including SessionID and ID",
+        "Execute the query"
+      ]
+    },
+    {
+      "name": "Search Pay History By Student ID",
+      "steps": [
+        "Set ProcedureName to 'StudentDetailsPayHistorySearch'",
+        "Add parameters including StudentID and SessionID",
+        "Retrieve data using SqlDataReader",
+        "Iterate through data, filling entries with student pay history details"
+      ]
+    },
+    {
+      "name": "Search Most Recent Pay History By Student ID",
+      "steps": [
+        "Set ProcedureName to 'StudentDetailsPayHistorySearchMostRecent'",
+        "Add parameter StudentID",
+        "Retrieve data using SqlDataReader",
+        "Fill entry with the most recent student pay history details"
+      ]
+    }
+  ],
+  "business_rules": [],
+  "validations": [],
+  "calculations": [],
+  "conditions": [],
+  "system_behavior": [
+    "Utilizes stored procedures for database operations",
+    "Handles both main and alternate language fields for various attributes",
+    "Provides different formats for displaying effective dates and fixed-term appointments",
+    "Fallback to default values when no recent pay history entry is found"
+  ],
+  "dependencies": [],
+  "exceptions": [],
+  "source_document_ids": [
+    "12549b42-cfff-56ce-8694-a42806d84a22",
+    "15447d6a-7962-5621-897b-73c7b7bef4e9",
+    "3065877d-a9e0-5eb2-a6f7-070a1a5c63f6",
+    "82a1c5f2-1661-5918-a92d-c9596f6f4a5d",
+    "ca09209d-8b98-5556-bde4-4d65ffca8331",
+    "d8425d60-2000-55f5-9e75-d6934d0ef545",
+    "e6e0cd55-384d-5d52-90d3-27f6ce935968"
+  ],
+  "content_gaps": []
 }
