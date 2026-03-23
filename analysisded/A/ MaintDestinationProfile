@@ -1,0 +1,110 @@
+```json
+{
+    "filename": "MaintDestinationProfile",
+    "found": true,
+    "summary": "The MaintDestinationProfile is an ASP.NET web application designed to manage and maintain destination profiles, including capacity, contacts, documents, and prerequisite requirements for various destinations within an organization.",
+    "purpose": "The purpose of the MaintDestinationProfile is to provide a web-based platform for managing destination profiles, which include details on capacity, contacts, documents, and requirements within an organization. It supports role-based access and integrates with an alternate database for broader data management.",
+    "entities": [
+        "DestinationProfile",
+        "UserSession",
+        "Service",
+        "Site",
+        "Agency"
+    ],
+    "fields": [
+        "DestID",
+        "ReadOnly",
+        "StudentMode",
+        "InstructorMode",
+        "ContextGroupFlag",
+        "ContextService",
+        "ContextDateFrom",
+        "ContextDisciplineID",
+        "AgencyID",
+        "AlternateDatabase"
+    ],
+    "actors": [
+        "SystemAdministrator",
+        "PlacementCoordinator",
+        "ReceivingUser",
+        "LocalAdministrator",
+        "DestinationCoordinator",
+        "Agency Administrator"
+    ],
+    "workflows": [
+        {
+            "name": "Load Profile Sections",
+            "steps": [
+                "Check user access permissions",
+                "Load relevant profile sections based on user role and settings",
+                "Display sections like Profile, Description, Closures, Staffing"
+            ]
+        },
+        {
+            "name": "Load Documents",
+            "steps": [
+                "Set current page as Documents",
+                "Bind documents to grids based on user session",
+                "Enforce sub-discipline restrictions if applicable"
+            ]
+        },
+        {
+            "name": "Placement Capacity Management",
+            "steps": [
+                "Toggle between Individual and Group capacity views",
+                "Load and display capacity details",
+                "Enable add/edit/delete features based on permissions"
+            ]
+        },
+        {
+            "name": "History Management",
+            "steps": [
+                "Switch to History tab",
+                "Load general and placement history for the destination",
+                "Bind historical data to views"
+            ]
+        }
+    ],
+    "business_rules": [
+        "Access to edit is restricted based on role and user session settings",
+        "User must belong to the agency to make certain edits",
+        "Document sub-disciplines are restricted based on user role and permissions"
+    ],
+    "validations": [
+        "Validate phone number format using IsValidPhone",
+        "Ensure time period is valid using IsValidTimePeriod",
+        "Check if start date is before end date in date validations",
+        "Role-based validations on user actions in the UI"
+    ],
+    "calculations": [
+        "Calculate whether user can edit based on role and restrictions",
+        "Determine visibility of certain features based on session variables"
+    ],
+    "conditions": [
+        "Students have restricted view access",
+        "Using alternate database limits certain functionalities",
+        "ReadOnly mode conditionally enforced based on agency data"
+    ],
+    "system_behavior": [
+        "Dynamic JavaScript includes for client-side validations",
+        "Database interactions via stored procedures for data retrieval and updates"
+    ],
+    "dependencies": [
+        "Alternate database for cross-instance data access",
+        "User session handling for maintaining role-based access",
+        "ASP.NET WebForms controls for UI rendering"
+    ],
+    "exceptions": [
+        "Exceptions in role-based access leading to restricted view",
+        "Alternate database mode exceptions limiting features"
+    ],
+    "source_document_ids": [
+        "057db98b-a3f8-542c-b892-4bd86f536a1b",
+        "08955e25-d7de-58a2-b3d4-52bf3d473818",
+        "736bae2d-eef9-58b1-baba-9c143f579d15",
+        "c5509b4e-0311-5715-82ac-2b608f721e13",
+        "d2495ed6-bccc-5499-b4ea-2de204751f7c"
+    ],
+    "content_gaps": []
+}
+```
