@@ -1,70 +1,19 @@
 {
     "filename": "WelcomeStaffAdmin",
     "found": true,
-    "summary": "The 'WelcomeStaffAdmin' file contains definitions for UI elements and interactions on a staff admin welcome page, including dropdowns for site and discipline selection, date range fields, and validation controls.",
-    "purpose": "To facilitate staff administrative functions, providing interfaces for filtering and refreshing views based on site and discipline criteria.",
-    "entities": [],
-    "fields": [
-        "txtStartDate",
-        "txtEndDate",
-        "ddSite",
-        "ddDiscipline"
-    ],
-    "actors": ["StaffAdmin"],
-    "workflows": [
-        {
-            "name": "RefreshView",
-            "steps": [
-                "Select site and discipline",
-                "Set date range",
-                "Click refresh button",
-                "Data is reloaded and displayed"
-            ]
-        }
-    ],
+    "summary": "This document manages the Welcome Staff Admin page, including the display of last login information and dynamic content rendering.",
+    "purpose": "Provides a welcome interface for staff with administrative functions and session-based content rendering.",
+    "entities": ["WelcomeStaffAdmin"],
+    "fields": ["LastLogin", "Title"],
+    "actors": ["Staff", "Admin"],
+    "workflows": [],
     "business_rules": [],
-    "validations": [
-        {
-            "control": "txtStartDate",
-            "type": "RequiredFieldValidator",
-            "errorMessage": "Start Date Required"
-        },
-        {
-            "control": "txtEndDate",
-            "type": "RequiredFieldValidator",
-            "errorMessage": "End Date Required"
-        }
-    ],
-    "calculations": [],
-    "conditions": [],
-    "system_behavior": [
-        "Loads initial data on page load",
-        "Refreshes data when criteria changes"
-    ],
-    "dependencies": [],
+    "validations": [],
+    "calculations": ["Combines user first name with title for display."],
+    "conditions": ["Display LastLogin panel only if LastLogin text is not empty."],
+    "system_behavior": ["Dynamically registers JavaScript files and manages session-based content."],
+    "dependencies": ["HSPnet.Framework", "JavaScript"],
     "exceptions": [],
-    "source_document_ids": [
-        "05db31e4-e8b6-53ee-a6fb-812c106f0134",
-        "100d5925-a5f8-53db-8493-02cddd563eb7",
-        "3c84bade-9671-5fbf-acce-3c87a835e9b4",
-        "4c4b97b8-d242-5261-a515-767a3f7d7a49",
-        "52b5066f-23f6-5d82-96cd-5d51dad3de79",
-        "5bb85da3-f5b4-5753-b07c-9bb2a04eeb89",
-        "5d9b92ea-7c12-5070-8603-977cf14d0e04",
-        "54244516-0707-581e-a8ba-9c041ea38366",
-        "6eca1317-c0b2-5225-a9af-f034a722d924",
-        "6701b153-5288-59e5-8de9-61b68a1fc292",
-        "871df91b-7ba0-558f-83ea-d5be1b0dc8db",
-        "8cea5c3a-2fbf-5206-a0c0-9425a5e14511",
-        "964a48c9-231c-5d58-a44d-3675d949a453",
-        "966ed8d3-a5af-567f-b092-936217777551",
-        "a0c3da28-32a5-5fce-91b2-17274efa016e",
-        "afbb4ec5-43c8-5281-ad2c-4b6cfd23a48e",
-        "b8e79322-9a0e-5fe7-8953-3d05e231f923",
-        "bf423a80-93db-572d-8cb8-c79f04214a93",
-        "d278278f-d4ec-5f4a-9f29-a02b66773bb9",
-        "db9b35e9-53ca-5eaf-9d75-4f3a72131bc7",
-        "e249a878-c837-5d1c-9a3d-5167df2614fb"
-    ],
+    "source_document_ids": ["bf423a80-93db-572d-8cb8-c79f04214a93", "e249a878-c837-5d1c-9a3d-5167df2614fb", "ca71b077-cc26-5979-a44f-59700a41316b"],
     "content_gaps": []
 }
