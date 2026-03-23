@@ -1,0 +1,74 @@
+```json
+{
+  "filename": "PrfHomeContacts",
+  "found": true,
+  "summary": "PrfHomeContacts is a web user control involved in managing and displaying contact information for staff profiles. It includes functionalities for data binding, displaying, editing, updating, and validation of contact data.",
+  "purpose": "Manage home contact information within staff profiles, allowing for data manipulation and validation.",
+  "entities": [
+    "PrfHomeContacts",
+    "HSPnetSession",
+    "StaffID",
+    "AreaCode",
+    "ScriptManager",
+    "CurrentPage"
+  ],
+  "fields": [
+    "ValidationSummary3",
+    "fvwEditHomeContacts",
+    "dsStaff",
+    "fvwHomeContacts",
+    "pnlPopup",
+    "btnShowPopup",
+    "mdlDetails"
+  ],
+  "actors": [
+    "UserSession"
+  ],
+  "workflows": [
+    {
+      "name": "Edit Home Contacts",
+      "steps": [
+        "Show details using Grid.ShowDetails.",
+        "Data bind using fvwEditHomeContacts.DataBind.",
+        "Handle pre-render event with condition to show or hide 'cmdSave' button.",
+        "Remove phone mask if UserSession.UsePhoneMask is false.",
+        "Setup JavaScript for client-side scripting."
+      ]
+    }
+  ],
+  "business_rules": [
+    "ScreenIsEditable determines visibility of edit button and fields.",
+    "UserSession presence required for data selection in dsStaff."
+  ],
+  "validations": [
+    "Phone validation based on UserSession.UsePhoneMask.",
+    "Required fields checks during FormView updates."
+  ],
+  "calculations": [],
+  "conditions": [
+    "Check if ScreenIsEditable to toggle edit functionalities.",
+    "Cancel data selection if UserSession is null."
+  ],
+  "system_behavior": [
+    "Switch to edit mode using Grid.SwitchToEditMode.",
+    "JavaScript setup for client-side variable declarations."
+  ],
+  "dependencies": [
+    "AjaxControlToolkit.ModalPopupExtender",
+    "System.Web.UI.WebControls",
+    "HSPnet.DataLayer",
+    "HSPnet.Framework"
+  ],
+  "exceptions": [
+    "Exception if UserSession is null during data selection."
+  ],
+  "source_document_ids": [
+    "169e42e3-a079-5bc4-8262-b3fcec116405",
+    "6d884025-0d5a-56f9-a8ba-ac4f3ee288e1",
+    "82a46566-dafc-5110-8250-43643e741a28",
+    "9bd9c665-faa3-59cd-84ec-bc758083d4b0",
+    "f57a5d86-0ad7-5057-b87f-75763f1cc336"
+  ],
+  "content_gaps": []
+}
+```
