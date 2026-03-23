@@ -1,19 +1,71 @@
 {
   "filename": "EmailPopupDocument",
-  "found": false,
-  "summary": "",
-  "purpose": "",
+  "found": true,
+  "summary": "The EmailPopupDocument system manages email files and their directories. It provides functionalities to search and delete email documents based on the folder and file path.",
+  "purpose": "To manage the storage and deletion of email-related documents, ensuring files and their containing directories are properly handled.",
   "entities": [],
-  "fields": [],
+  "fields": [
+    {
+      "name": "ID",
+      "type": "int",
+      "description": "Unique identifier for the EmailPopupDocument."
+    },
+    {
+      "name": "FileName",
+      "type": "string",
+      "description": "Name of the email file."
+    },
+    {
+      "name": "FilePath",
+      "type": "string",
+      "description": "Path where the email file is stored."
+    },
+    {
+      "name": "Checked",
+      "type": "Boolean",
+      "description": "Indicates if an EmailPopupDocument has been checked."
+    }
+  ],
   "actors": [],
-  "workflows": [],
+  "workflows": [
+    {
+      "name": "Search Email Documents",
+      "steps": [
+        "Input DataInfo string.",
+        "Split DataInfo into individual emailData segments using '|' as delimiter.",
+        "For each emailData: split it further using '>' to extract FileName and FilePath.",
+        "Create EmailPopupDocument objects for each valid emailData and add them to the list."
+      ]
+    },
+    {
+      "name": "Delete Email Document",
+      "steps": [
+        "Input DataInfo string and ID to be deleted.",
+        "Split DataInfo into individual parts.",
+        "Identify the emailData segment corresponding to the provided ID.",
+        "Extract folderName from FilePath, attempt to delete the file and folder."
+      ]
+    }
+  ],
   "business_rules": [],
-  "validations": [],
+  "validations": [
+    "Check if DataInfo is not null or empty before processing."
+  ],
   "calculations": [],
-  "conditions": [],
-  "system_behavior": [],
+  "conditions": [
+    "If emailData length is 2, proceed with processing; otherwise, ignore."
+  ],
+  "system_behavior": [
+    "Deletes specific email files and their directories when requested.",
+    "Handles and skips non-existent files or directories during deletion."
+  ],
   "dependencies": [],
-  "exceptions": [],
-  "source_document_ids": [],
-  "content_gaps": ["No related documents found"]
+  "exceptions": [
+    "Try-catch blocks are used to handle exceptions during file and directory deletion without breaking the process."
+  ],
+  "source_document_ids": [
+    "7287734e-f13d-550f-9249-4242db620766",
+    "927bc837-5564-5759-9324-27c6d5d7321d"
+  ],
+  "content_gaps": []
 }
