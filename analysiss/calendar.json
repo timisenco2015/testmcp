@@ -1,0 +1,163 @@
+{
+  "filename": "calendar",
+  "found": true,
+  "summary": "The documents outline a JavaScript-based calendar popup system, providing functions for displaying, interacting with, and managing calendar objects in both DIV and window formats. It includes functionalities for navigating by month, quarter, and year, supporting dropdowns for quick selection, and enables customization through CSS styles, date formats, and disabled date ranges.",
+  "purpose": "Enable users to select dates through a JavaScript-driven calendar interface, which can be integrated into web pages for various applications requiring date inputs.",
+  "entities": [],
+  "fields": [
+    {
+      "name": "currentDate",
+      "description": "The currently selected date in the calendar."
+    },
+    {
+      "name": "monthNames",
+      "description": "An array of month names used in the calendar display."
+    },
+    {
+      "name": "monthAbbreviations",
+      "description": "An array of month abbreviations used in the calendar display."
+    },
+    {
+      "name": "dayHeaders",
+      "description": "Headers for days of the week on the calendar, customizable by the user."
+    },
+    {
+      "name": "displayType",
+      "description": "The type of calendar view: date, month, quarter, or year."
+    },
+    {
+      "name": "disabledWeekDays",
+      "description": "Object defining weekdays that are not selectable in the calendar."
+    },
+    {
+      "name": "disabledDatesExpression",
+      "description": "Logical expression for dates that are disabled in the calendar."
+    },
+    {
+      "name": "todayText",
+      "description": "Text for the link displaying today's date on the calendar."
+    }
+  ],
+  "actors": [
+    {
+      "name": "User",
+      "description": "Interacts with the calendar to select dates."
+    },
+    {
+      "name": "Web Developer",
+      "description": "Integrates and configures the calendar into web applications."
+    }
+  ],
+  "workflows": [
+    {
+      "name": "Show Calendar",
+      "steps": [
+        "Trigger calendar display with showCalendar() relative to an anchor.",
+        "Use getAnchorPosition() or getAnchorWindowPosition() to determine display coordinates.",
+        "Render the calendar using the current or specified date."
+      ]
+    },
+    {
+      "name": "Select Date",
+      "steps": [
+        "User clicks a date on the calendar.",
+        "run setReturnFunction() to pass the selected date to a specified function.",
+        "Update input field if linked using CP_select()."
+      ]
+    },
+    {
+      "name": "Navigate Calendar",
+      "steps": [
+        "Use month or year navigation links or dropdowns to change the calendar view.",
+        "Refresh calendar view using CP_refreshCalendar with new month/year values."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Calendar should only display selectable dates unless specified otherwise by disabledWeekDays or addDisabledDates().",
+    "Dropdowns or input boxes can be used for navigation if enabled by showNavigationDropdowns() or showYearNavigationInput()."
+  ],
+  "validations": [
+    {
+      "rule": "Ensure date inputs are valid using isDate() before processing.",
+      "detail": "Leverage getDateFromFormat() to parse and validate date strings."
+    }
+  ],
+  "calculations": [
+    {
+      "name": "Leap Year Calculation",
+      "description": "Adjust February days based on leap year status."
+    }
+  ],
+  "conditions": [
+    {
+      "condition": "Calendar visibility",
+      "description": "Determined by user interactions such as clicking outside to auto-hide."
+    }
+  ],
+  "system_behavior": [
+    {
+      "behavior": "Auto-hide calendar on mouse click outside the element.",
+      "description": "Enabled through PopupWindow_autoHide()."
+    }
+  ],
+  "dependencies": [
+    {
+      "dependency": "AnchorPosition.js",
+      "description": "Required for positioning the calendar relative to page or window."
+    },
+    {
+      "dependency": "date.js",
+      "description": "Required for parsing and formatting date strings."
+    }
+  ],
+  "exceptions": [
+    {
+      "exception": "Invalid Date Format",
+      "resolution": "Return 0 from getDateFromFormat() if date does not match expected format."
+    }
+  ],
+  "source_document_ids": [
+    "012354d8-7dc0-5892-866f-fe75c1bdb03b",
+    "03157119-8d35-59a2-a75f-fae9c1667a2e",
+    "037ca1ea-f3d1-500a-a3b4-44523bcd1835",
+    "08ff6ed2-4f44-590a-a523-db432665a211",
+    "08ffd893-fc87-5bd4-8519-515891a770ed",
+    "0df77625-df55-5e5f-a040-2dee0758e1f7",
+    "30a44815-3e5c-54b4-bd3b-21d9d35a5f5b",
+    "348521bb-ddbb-5fa3-8598-cfba5d7bb3fc",
+    "3841497d-e38d-5213-87fe-f03a55cf0b2a",
+    "3ac121d0-14ca-56f0-a989-4a25e8513202",
+    "3b281f7d-9950-55a8-887a-b88ee3a0f7f9",
+    "3d7c5610-634f-5429-a69d-8909081737b3",
+    "447e6321-d74b-5c0c-a440-a2e9ac2b677a",
+    "45285246-8f33-5cca-a81f-6f7302de1f44",
+    "56e9be1e-d6a3-5541-8694-03fe516a571e",
+    "72784a86-9abd-5515-9910-c59f06f5cec0",
+    "72accbac-5775-55b9-b134-aa2e46be1aa9",
+    "72ec6f71-a5b8-54ca-ae0e-edb8519e7945",
+    "74fa4e27-9fa9-50ca-8d93-0a28d5a5f8fe",
+    "75f14156-6683-5e86-b1ba-cb7ec708575d",
+    "75fffe57-8fe2-56ec-b6ae-ec16e571caff",
+    "799f6ba8-0cda-52d9-b539-ac322f384e3e",
+    "856f27ef-4c18-57cc-92ab-85dde9f0e026",
+    "88cc8d48-aa2c-5dc0-a58a-f2b2761f6807",
+    "897cf100-7840-5937-8793-aba0e4f5125c",
+    "8e5d609c-0161-5426-b386-7acf3c837d73",
+    "98148ba2-847d-5e18-be93-b4293786cbe2",
+    "9c0546b8-08cf-5086-a145-7e2dde114c16",
+    "a0766a4e-55e0-58f3-8a40-4a4d003d53e2",
+    "ab5a09d1-be30-5f6c-8dab-ffe214ed4d17",
+    "bdb8dcf4-fdbd-5a7d-88b5-7d78693dbb5f",
+    "cd54c475-1211-58b9-98bf-31242b291fcb",
+    "d2dbaf41-b731-564e-b932-626addacb7ba",
+    "d7a7e072-e9a5-54a1-8db5-3498eaf22ce5",
+    "db51d5b1-ccf9-5e5b-adbe-b7756a9a350a",
+    "e3cbb96e-3902-5737-b7d8-b06ce48df321",
+    "e4d0a2c7-e86c-53cb-9be1-ef54c7bddf6b",
+    "ef2b87c8-c424-5bc1-8896-cc0b93b8bbb2",
+    "efe42381-bc40-5baf-ba33-2ddac21e9004",
+    "f01ed25a-71b8-57a8-9d22-0e8e3b51eeac"
+  ],
+  "content_gaps": []
+}
