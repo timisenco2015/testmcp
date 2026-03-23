@@ -1,0 +1,39 @@
+{
+  "filename": "ConnectionFailed",
+  "found": true,
+  "summary": "The ConnectionFailed component provides an interface to display error messages when connections fail, catering to both English and French locales. It uses ASP.NET technologies and controls such as panels and labels to show localized content.",
+  "purpose": "To present a user interface for connection failure messages, accommodating language preferences for better user experience.",
+  "entities": ["ConnectionFailed", "HeaderEN", "HeaderFR", "uxErrorMessage"],
+  "fields": ["HeaderEN", "HeaderFR", "uxErrorMessage"],
+  "actors": [],
+  "workflows": [
+    {
+      "name": "Page Load",
+      "steps": [
+        "Determine locale from query string.",
+        "Set visibility of Header panels based on locale."
+      ]
+    },
+    {
+      "name": "Initialize Culture",
+      "steps": [
+        "Fetch locale from query string.",
+        "Set thread culture and UI culture."
+      ]
+    }
+  ],
+  "business_rules": [],
+  "validations": [],
+  "calculations": [],
+  "conditions": ["HeaderEN.Visible = Request.QueryString["Locale"] == "en-US" || String.IsNullOrEmpty(Request.QueryString["Locale"])", "HeaderFR.Visible = Request.QueryString["Locale"] == "fr-CA""],
+  "system_behavior": ["Localizes content based on user locale.", "Adjusts error message display between English and French."],
+  "dependencies": ["System.Web.UI", "CultureInfo", "Thread"],
+  "exceptions": [],
+  "source_document_ids": [
+    "1b519992-db1d-5f57-b018-a0e1befe8491",
+    "5ba21fbf-7905-59e7-90cb-c18e7f0bb6fb",
+    "83674888-1068-5d79-8a82-659f9547d3c0",
+    "8aaa6f24-0523-5c88-a8bb-fc0af3303321"
+  ],
+  "content_gaps": []
+}
