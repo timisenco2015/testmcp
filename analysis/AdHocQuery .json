@@ -1,0 +1,361 @@
+[
+  {
+    "filename": "SiteDocument",
+    "found": true,
+    "summary": "SiteDocument is a data entity representing documents associated with a site in the HSPnet system.",
+    "purpose": "To model and store site-related documents, linking them to specific SiteID values.",
+    "entities": ["SiteDocument"],
+    "fields": [
+      {"name": "ID", "type": "int", "description": "Unique identifier for the document"},
+      {"name": "SiteID", "type": "int", "description": "Identifier of the site associated with the document"}
+    ],
+    "actors": [],
+    "workflows": [],
+    "business_rules": [],
+    "validations": [],
+    "calculations": [],
+    "conditions": [],
+    "system_behavior": [],
+    "dependencies": [],
+    "exceptions": [],
+    "source_document_ids": ["a2967f17-a924-5e9c-8b15-d1f7bd028b32"],
+    "content_gaps": []
+  },
+  {
+    "filename": "WelcomeStaffAdmin",
+    "found": true,
+    "summary": "WelcomeStaffAdmin is a web page which displays a welcome view for staff administrators, including last login information, site and discipline filters, application viewing and filtering, and management of warnings and errors.",
+    "purpose": "To facilitate staff administrators in viewing and managing employment applications submitted to sites, filtered by date, site, discipline, and application status.",
+    "entities": [
+      "EmploymentApplication",
+      "Site",
+      "Discipline",
+      "UserSession"
+    ],
+    "fields": [
+      {"name": "SiteID", "type": "int", "description": "Identifier of the site"},
+      {"name": "DisciplineID", "type": "int", "description": "Identifier of discipline"},
+      {"name": "SubDisciplineID", "type": "int", "description": "Identifier of subdiscipline"},
+      {"name": "StartDate", "type": "date", "description": "Filter start date"},
+      {"name": "EndDate", "type": "date", "description": "Filter end date"},
+      {"name": "IncludeWithdrawn", "type": "boolean", "description": "Whether to include withdrawn applications"},
+      {"name": "Status", "type": "string", "description": "Status of the application"},
+      {"name": "WithdrawnDate", "type": "date", "description": "Date withdrawn"},
+      {"name": "SubmittedDate", "type": "date", "description": "Date submitted"}
+    ],
+    "actors": [
+      {"name": "StaffAdmin", "role": "Manages and views submitted employment applications"},
+      {"name": "System", "role": "Displays filters, manages data binding, handles warnings and errors"}
+    ],
+    "workflows": [
+      {
+        "name": "View Employment Applications",
+        "steps": [
+          "Page loads and initializes filter controls",
+          "User selects site and discipline (with dropdowns)",
+          "User sets start and end dates",
+          "User chooses whether to include withdrawn applications",
+          "User clicks refresh to view applications grid",
+          "System binds and displays employment applications matching filters",
+          "Application status and withdrawn date are displayed; name is linked"
+        ]
+      }
+    ],
+    "business_rules": [
+      "Withdrawn applications are shown only if 'IncludeWithdrawn' is checked",
+      "Dates must validate: StartDate <= EndDate",
+      "Applications filtered according to selected site, discipline, date range"
+    ],
+    "validations": [
+      "Required fields: StartDate, EndDate",
+      "Date format validation (RegularExpressionValidator)",
+      "Custom validation to ensure StartDate is not after EndDate"
+    ],
+    "calculations": [],
+    "conditions": [
+      "Show withdrawn applications when checkbox is checked",
+      "Show last login panel only if user has last login"
+    ],
+    "system_behavior": [
+      "Default button is set to refresh control",
+      "Error and warning panels can be hidden",
+      "Data grid supports paging (page size 50)"
+    ],
+    "dependencies": [
+      "Datasource: EmploymentApplications",
+      "Disciplines.DisciplineList for discipline dropdown",
+      "Sites.GetByAgencyID for site dropdown"
+    ],
+    "exceptions": [
+      "No data: Show 'No Data' label in grid",
+      "Invalid date: Validation prevents refresh"
+    ],
+    "source_document_ids": [
+      "05db31e4-e8b6-53ee-a6fb-812c106f0134",
+      "100d5925-a5f8-53db-8493-02cddd563eb7",
+      "3c84bade-9671-5fbf-acce-3c87a835e9b4",
+      "4c4b97b8-d242-5261-a515-767a3f7d7a49",
+      "52b5066f-23f6-5d82-96cd-5d51dad3de79",
+      "5bb85da3-f5b4-5753-b07c-9bb2a04eeb89",
+      "5d9b92ea-7c12-5070-8603-977cf14d0e04",
+      "6701b153-5288-59e5-8de9-61b68a1fc292",
+      "6eca1317-c0b2-5225-a9af-f034a722d924",
+      "871df91b-7ba0-558f-83ea-d5be1b0dc8db",
+      "8cea5c3a-2fbf-5206-a0c0-9425a5e14511",
+      "964a48c9-231c-5d58-a44d-3675d949a453",
+      "966ed8d3-a5af-567f-b092-936217777551",
+      "a0c3da28-32a5-5fce-91b2-17274efa016e",
+      "afbb4ec5-43c8-5281-ad2c-4b6cfd23a48e",
+      "b8e79322-9a0e-5fe7-8953-3d05e231f923",
+      "bf423a80-93db-572d-8cb8-c79f04214a93",
+      "ca71b077-cc26-5979-a44f-59700a41316b",
+      "d278278f-d4ec-5f4a-9f29-a02b66773bb9",
+      "db9b35e9-53ca-5eaf-9d75-4f3a72131bc7",
+      "e249a878-c837-5d1c-9a3d-5167df2614fb"
+    ],
+    "content_gaps": ["Actual business logic for filtering and actions is mainly UI and not backend; job is mostly interface and data binding."]
+  },
+  {
+    "filename": "ServiceCode",
+    "found": true,
+    "summary": "ServiceCode represents service codes, categorized and described, used for course and timetable options in HSPnet.",
+    "purpose": "To provide a list and details of service codes that can be associated with courses, timetables, and other entities.",
+    "entities": ["ServiceCode"],
+    "fields": [
+      {"name": "ID", "type": "int", "description": "Unique identifier for the service code"},
+      {"name": "CodeCategoryID", "type": "int", "description": "Category identifier for the code"},
+      {"name": "ShortName", "type": "string", "description": "Short name or code"},
+      {"name": "Name", "type": "string", "description": "Full descriptive name"},
+      {"name": "SortOrder", "type": "int", "description": "Ordering integer"},
+      {"name": "Notes", "type": "string", "description": "Notes"},
+      {"name": "NameAlt", "type": "string", "description": "Alternative name (for alt language)"},
+      {"name": "NotesAlt", "type": "string", "description": "Alternative notes (for alt language)"}
+    ],
+    "actors": [],
+    "workflows": [
+      {
+        "name": "List All Service Codes",
+        "steps": [
+          "Call ServiceCodeListAll stored procedure with session ID",
+          "Iterate SQL results into ServiceCode entities",
+          "Localize fields based on session language setting"
+        ]
+      },
+      {
+        "name": "List Course Service Codes",
+        "steps": [
+          "Call ServiceCodeASMOptionByCourseID procedure with session ID and CourseID",
+          "Iterate SQL results into ServiceCode entities",
+          "Localize fields based on language setting"
+        ]
+      },
+      {
+        "name": "List Timetable Service Codes",
+        "steps": [
+          "Call ServiceCodeASMOptionByTimetableID with session ID and TimetableID",
+          "Iterate results, localize entries"
+        ]
+      }
+    ],
+    "business_rules": [
+      "When UseAltLanguageFields is true, display alt language fields for Name and Notes"
+    ],
+    "validations": [],
+    "calculations": [],
+    "conditions": ["Language mode (alt language) determines field values"],
+    "system_behavior": [],
+    "dependencies": ["HSPnetSession", "SqlDataReader", "Stored Procedures (ServiceCodeListAll, ServiceCodeASMOptionByCourseID, ServiceCodeASMOptionByTimetableID)"],
+    "exceptions": [],
+    "source_document_ids": [
+      "94f1b055-348d-508a-ae6e-cf7960a8c6a2",
+      "e4ebe4b4-6d14-5c3f-b693-61016f765239",
+      "f976b9af-a402-540f-b162-391d578fac7c"
+    ],
+    "content_gaps": []
+  },
+  {
+    "filename": "SiteProfileHistory",
+    "found": true,
+    "summary": "SiteProfileHistory tracks actions and changes on site profiles, logging user actions, dates, fields, and agency/user information.",
+    "purpose": "To maintain a historical record of changes made to site profiles, including who made the change, when, what section/fields, and the agency context.",
+    "entities": ["SiteProfileHistory"],
+    "fields": [
+      {"name": "ID", "type": "int", "description": "Unique identifier"},
+      {"name": "ActionDate", "type": "datetime", "description": "Date of the action"},
+      {"name": "ScreenSection", "type": "string", "description": "Section of the site profile affected"},
+      {"name": "UserAction", "type": "string", "description": "Type of user action"},
+      {"name": "Fields", "type": "string", "description": "Fields affected"},
+      {"name": "Agency", "type": "string", "description": "Short agency reference"},
+      {"name": "AgencyName", "type": "string", "description": "Full agency name"},
+      {"name": "LastName", "type": "string", "description": "User last name"},
+      {"name": "FirstName", "type": "string", "description": "User first name"},
+      {"name": "MiddleName", "type": "string", "description": "User middle name"},
+      {"name": "Phone", "type": "Phone", "description": "Phone number"},
+      {"name": "ByUserID", "type": "int", "description": "ID of user making the change"},
+      {"name": "ByOriginalUserID", "type": "int", "description": "Original user ID"},
+      {"name": "ByUserSysAdmin", "type": "boolean", "description": "Was the user a sysadmin"}
+    ],
+    "actors": [
+      {"name": "User", "role": "Makes changes to site profile"},
+      {"name": "SysAdmin", "role": "May make changes as support"}
+    ],
+    "workflows": [
+      {
+        "name": "Search Site Profile History",
+        "steps": [
+          "Call SiteProfileHistorySearch with SiteID, SessionAgencyID, and session",
+          "Iterate results",
+          "For each change, log action details"
+        ]
+      }
+    ],
+    "business_rules": [
+      "If ByUserSysAdmin is false and user ID does not match original, display support team message in formatted output"
+    ],
+    "validations": [],
+    "calculations": [
+      "ActionDateFormatted uses DateFormatter",
+      "AgencyUserFormatted and AgencyUserDetailsFormatted provide display formats for user info"
+    ],
+    "conditions": [
+      "Alt language fields used if session requests"
+    ],
+    "system_behavior": [],
+    "dependencies": [
+      "Phone formatter",
+      "NameFormatter",
+      "SiteProfileHistorySearch stored procedure"
+    ],
+    "exceptions": [],
+    "source_document_ids": [
+      "25f89a24-5eda-5a3f-83df-1de69b12b3f1",
+      "26e09292-d304-55c6-94e5-ef3346453c4b",
+      "7ca6b963-9ae9-5cd3-82d5-f30dcb727ae3",
+      "a8f030c6-90b8-53a1-bb8a-3b7ef33b9488",
+      "e806999c-3a39-5720-9b59-303faebc9eb6"
+    ],
+    "content_gaps": []
+  },
+  {
+    "filename": "EmailPopupDocument",
+    "found": true,
+    "summary": "EmailPopupDocument represents files used for email popups, with search and delete operations for managing email-related files.",
+    "purpose": "To model popup email documents, provide searching and deletion functions for files stored in the system.",
+    "entities": ["EmailPopupDocument"],
+    "fields": [
+      {"name": "ID", "type": "int", "description": "File/document identifier"},
+      {"name": "FileName", "type": "string", "description": "File name"},
+      {"name": "FilePath", "type": "string", "description": "Path to the file"},
+      {"name": "Checked", "type": "boolean", "description": "If the popup document is checked/selected"}
+    ],
+    "actors": [],
+    "workflows": [
+      {
+        "name": "Search Email Popup Documents",
+        "steps": [
+          "Split DataInfo string into email entries",
+          "For each entry, parse FileName and FilePath",
+          "Create EmailPopupDocument instance",
+          "Add to list"
+        ]
+      },
+      {
+        "name": "Delete Email Popup Document",
+        "steps": [
+          "Find document by ID in DataInfo",
+          "Delete file and directory (if possible)",
+          "Return updated DataInfo"
+        ]
+      }
+    ],
+    "business_rules": [],
+    "validations": [],
+    "calculations": [],
+    "conditions": [
+      "If DataInfo is empty, return empty list or string"
+    ],
+    "system_behavior": [],
+    "dependencies": [
+      "File and Directory operations",
+      "DataInfo string parser"
+    ],
+    "exceptions": [
+      "Try/catch on file and directory deletion"
+    ],
+    "source_document_ids": [
+      "7287734e-f13d-550f-9249-4242db620766",
+      "927bc837-5564-5759-9324-27c6d5d7321d"
+    ],
+    "content_gaps": []
+  },
+  {
+    "filename": "ExpenseBatch",
+    "found": true,
+    "summary": "ExpenseBatch models batches of expenses for departments; supporting search, add, update, delete, and detailed view operations.",
+    "purpose": "To track and manage batches of expense claims within departments, including batch number, status, dates, and associated department.",
+    "entities": ["ExpenseBatch"],
+    "fields": [
+      {"name": "ID", "type": "int", "description": "Batch identifier"},
+      {"name": "DepartmentID", "type": "int", "description": "Associated department"},
+      {"name": "BatchDescription", "type": "string", "description": "Description of batch"},
+      {"name": "BatchDate", "type": "datetime", "description": "Batch date"},
+      {"name": "StatusCodeID", "type": "int", "description": "Status code identifier"},
+      {"name": "StatusCode", "type": "string", "description": "Status code"},
+      {"name": "StatusDescription", "type": "string", "description": "Status description"},
+      {"name": "ClosedDate", "type": "datetime", "description": "Date batch was closed"},
+      {"name": "BatchNumberFormatted", "type": "string", "description": "Formatted batch number"}
+    ],
+    "actors": [],
+    "workflows": [
+      {
+        "name": "Search Expense Batch",
+        "steps": [
+          "Call ExpenseBatchSearch with department ID",
+          "Iterate results: for each, create ExpenseBatch entity with status and description",
+          "Format BatchNumber"
+        ]
+      },
+      {
+        "name": "Add Expense Batch",
+        "steps": [
+          "Call ExpenseBatchAdd with session, department ID, description, and date",
+          "Retrieve new ID"
+        ]
+      },
+      {
+        "name": "Update Expense Batch",
+        "steps": [
+          "Call ExpenseBatchUpdate with ID and updated fields",
+          "Execute database update"
+        ]
+      },
+      {
+        "name": "Delete Expense Batch",
+        "steps": [
+          "Call ExpenseBatchDelete with session and ID",
+          "Database executes deletion"
+        ]
+      }
+    ],
+    "business_rules": [],
+    "validations": [],
+    "calculations": [
+      "BatchNumberFormatted = ID + ' - ' + StatusDescription"
+    ],
+    "conditions": [
+      "Alt language fields for StatusDescription when session requests"
+    ],
+    "system_behavior": [],
+    "dependencies": [
+      "ExpenseBatchSearch stored procedure",
+      "ExpenseBatchAdd, Update, Delete"
+    ],
+    "exceptions": [],
+    "source_document_ids": [
+      "060e08d3-49ca-5e40-bea0-849f4e6173e1",
+      "3559737f-0154-520e-be2b-d3dd2c3de539",
+      "b2216e58-a144-55cb-8b87-3da9787fc1d7"
+    ],
+    "content_gaps": []
+  }
+]
