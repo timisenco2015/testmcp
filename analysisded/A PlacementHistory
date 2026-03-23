@@ -1,0 +1,92 @@
+```json
+{
+  "filename": "PlacementHistory",
+  "found": true,
+  "summary": "The PlacementHistory user control manages the history of staff placements within the system, including sorting, displaying, and printing placement history records.",
+  "purpose": "To provide a user interface for viewing, sorting, and managing the placement history of staff members.",
+  "entities": [
+    "PlacementHistory",
+    "UserSession",
+    "Staff",
+    "StaffController",
+    "PRSearchStudent"
+  ],
+  "fields": [
+    "UserSession",
+    "StaffID",
+    "ScreenIsEditable",
+    "ScriptMgr",
+    "CurrentPage",
+    "PRHistoryOnly",
+    "SortExpression",
+    "AlternateObservation",
+    "lblSupervisorCaption",
+    "spnPrintButton",
+    "pnlReportHTML",
+    "lblReportHTML",
+    "rprSprvrSrchPRHist",
+    "dsSprvrSrchPRHist"
+  ],
+  "actors": [
+    "User",
+    "Supervisor",
+    "Course Leader"
+  ],
+  "workflows": [
+    {
+      "name": "View Placement History",
+      "steps": [
+        "Load page and initialize controls.",
+        "Fetch and display placement data.",
+        "Allow sorting of data by different parameters.",
+        "Render placement history report when requested."
+      ]
+    },
+    {
+      "name": "Print History Report",
+      "steps": [
+        "User clicks print.",
+        "Generate PDF report of placement history.",
+        "Display report in UI."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Placement history is only editable when certain conditions are met (e.g., not a Course Leader).",
+    "Display controls based on user roles and permissions."
+  ],
+  "validations": [
+    "Ensure UserSession is not null before performing actions.",
+    "Check if the placement record is editable before displaying certain UI elements."
+  ],
+  "calculations": [
+    "SortExpression determines the order of displayed history based on user input."
+  ],
+  "conditions": [
+    "PRHistoryOnly flag determines if only history is shown.",
+    "AlternateObservation flag affects visibility of certain UI elements."
+  ],
+  "system_behavior": [
+    "Controls visibility and CSS classes of UI elements based on data properties (e.g., archived status).",
+    "Generates reports in PDF format using the system's reporting framework."
+  ],
+  "dependencies": [
+    "HSPnet.Framework.Reporting",
+    "HSPnet.DataLayer",
+    "HSPnet.UI",
+    "System.Web.UI"
+  ],
+  "exceptions": [
+    "Cancel data selection if UserSession is null."
+  ],
+  "source_document_ids": [
+    "038f5c7c-b9e1-515c-8df7-e0ea45a4cd54",
+    "175e6272-074c-5229-9c6b-4e2e273c56b7",
+    "1f73fd38-29b5-5084-97ae-d9b115cb1f07",
+    "4756e290-e7b8-581b-b359-eaaca10e987e",
+    "54b6952c-2e88-5de5-8009-1af71a987456",
+    "79c8c0b6-05fb-50c4-95eb-592fb1ab085e"
+  ],
+  "content_gaps": []
+}
+```
