@@ -1,0 +1,66 @@
+{
+  "filename": "Localization",
+  "found": true,
+  "summary": "The Localization module provides functionality for translating UI elements, file types, and date strings based on the user's language settings. It aims to support multi-language environments by dynamically altering text and other display data.",
+  "purpose": "To facilitate translation and localization within the application, allowing users to view content in their preferred language.",
+  "entities": [],
+  "fields": [
+    "fields",
+    "newValues",
+    "UseAltLanguageFields",
+    "FileType",
+    "FileTypeAlt",
+    "LastLogin"
+  ],
+  "actors": [
+    "User",
+    "HSPnetSession"
+  ],
+  "workflows": [
+    {
+      "name": "Translate UI Elements",
+      "steps": [
+        "Check if alternative language fields should be used.",
+        "Iterate over UI elements and associated translated values.",
+        "Update Literal or Label text with translated values."
+      ]
+    },
+    {
+      "name": "Translate File Type",
+      "steps": [
+        "Determine if alternative language fields should be used.",
+        "Return either the default or alternative file type based on language settings."
+      ]
+    },
+    {
+      "name": "Translate Last Login Date",
+      "steps": [
+        "Replace month abbreviations in the date string with their translated equivalents if alternative language fields are used."
+      ]
+    }
+  ],
+  "business_rules": [
+    "UI elements are translated at runtime if the alternative language is enabled.",
+    "File types are determined by the user's session language settings.",
+    "Date strings are adjusted to reflect the user's language preferences."
+  ],
+  "validations": [
+    "Ensure fields and newValues arrays are of the same size before translation."
+  ],
+  "calculations": [],
+  "conditions": [
+    "UseAltLanguageFields determines which language setting to apply."
+  ],
+  "system_behavior": [
+    "Translates text for UI elements dynamically based on session settings.",
+    "Modifies file type strings according to language preferences.",
+    "Adjusts the display format of dates based on the user's locale."
+  ],
+  "dependencies": [],
+  "exceptions": [],
+  "source_document_ids": [
+    "091e1f17-7a04-5c15-84aa-fe3989a1c114",
+    "d455ebdd-4f2d-5324-b3c7-aad9a078d149"
+  ],
+  "content_gaps": []
+}
