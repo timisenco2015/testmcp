@@ -1,0 +1,99 @@
+{
+  "filename": "ExpenseReceiptHistory",
+  "found": true,
+  "summary": "ExpenseReceiptHistory involves managing and retrieving historical receipt data for student expenses. The system interfaces with a SQL database to perform queries and return formatted data.",
+  "purpose": "Provide a structured history of student expense receipts including details such as batch date, status, type, receipt description, gross amount, and tax.",
+  "entities": [
+    "ExpenseReceiptHistory",
+    "ExpenseReceiptHistoryController",
+    "HSPnetSession"
+  ],
+  "fields": [
+    {
+      "name": "ID",
+      "type": "int"
+    },
+    {
+      "name": "ExpenseBatchID",
+      "type": "int"
+    },
+    {
+      "name": "BatchDate",
+      "type": "DateTime"
+    },
+    {
+      "name": "StatusDescription",
+      "type": "string"
+    },
+    {
+      "name": "TypeDescription",
+      "type": "string"
+    },
+    {
+      "name": "ReceiptDescription",
+      "type": "string"
+    },
+    {
+      "name": "GrossAmount",
+      "type": "decimal"
+    },
+    {
+      "name": "Tax",
+      "type": "decimal"
+    },
+    {
+      "name": "BatchDateFormatted",
+      "type": "string"
+    },
+    {
+      "name": "GrossAmountFormatted",
+      "type": "string"
+    },
+    {
+      "name": "TaxFormatted",
+      "type": "string"
+    }
+  ],
+  "actors": [
+    "HSPnetSession"
+  ],
+  "workflows": [
+    {
+      "name": "ExpenseReceiptSearchStudent",
+      "steps": [
+        "Initialize list of ExpenseReceiptHistory",
+        "Set procedure name to ExpenseReceiptSearchStudent",
+        "Add SessionID parameter",
+        "Add StudentID parameter",
+        "Execute database procedure to retrieve data",
+        "Read data from SqlDataReader",
+        "Create ExpenseReceiptHistory entry for each record",
+        "Add entry to list",
+        "Return list of entries"
+      ]
+    }
+  ],
+  "business_rules": [
+    "Use alternative language fields if specified."
+  ],
+  "validations": [
+    "Check if SqlDataReader is not null before proceeding"
+  ],
+  "calculations": [],
+  "conditions": [],
+  "system_behavior": [
+    "Formats numbers according to current culture settings with specific number formats."
+  ],
+  "dependencies": [
+    "HSPnetSession",
+    "DateFormatter"
+  ],
+  "exceptions": [
+    "Handle null SqlDataReader condition gracefully."
+  ],
+  "source_document_ids": [
+    "1e89effa-ebb6-54c8-8532-a3c227d115a1",
+    "c4dcd521-9de7-57f4-9fb1-08ce1d639d5b"
+  ],
+  "content_gaps": []
+}
