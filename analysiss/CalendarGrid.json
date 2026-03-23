@@ -1,78 +1,70 @@
 {
     "filename": "CalendarGrid",
     "found": true,
-    "summary": "The CalendarGrid module is a complex scheduling and management system used within an educational or organizational environment to manage placements and shifts for staff and students. It involves intricate management of placement requests (PR), scheduling shifts, handling conflicts, and providing detailed views and functions for administrators and coordinators.",
-    "purpose": "The primary purpose of the CalendarGrid module is to facilitate the scheduling of placements, manage conflicts, and provide an interactive interface for coordinators and instructors to manage shifts, view details, and print reports.",
+    "summary": "The CalendarGrid is a complex system for managing placement requests (PR) and scheduling within a grid format, allowing for various levels of interaction and data presentation for different user roles such as instructors, coordinators, and students. It supports filtering by PR, viewing, editing, and managing shifts, handling conflicts, and displaying detailed information.",
+    "purpose": "The purpose of the CalendarGrid is to facilitate the scheduling and management of placement requests through an interactive grid interface, supporting various user roles, conflict management, and detailed PR information handling.",
     "entities": [],
     "fields": [
         "PRDID",
         "StartDate",
         "EndDate",
-        "Nickname",
-        "Shift",
-        "Days",
-        "DisplayedHours",
-        "InstructorName",
-        "Course",
+        "VariousDays",
         "ShiftCode",
-        "ConflictComments",
-        "UrgentAlert"
+        "StartTime",
+        "EndTime",
+        "InstructorName"
     ],
     "actors": [
         "UserSession",
-        "Instructor",
-        "PlacementCoordinator",
-        "ReceivingCoordinator",
-        "StudentUser"
+        "Dropdown",
+        "ScriptManager"
     ],
     "workflows": [
         {
-            "name": "Shift Management",
+            "name": "View PR",
             "steps": [
-                "Load shift data.",
-                "Allow editing shifts if the user has permission.",
-                "Manage shift conflicts.",
-                "Display shifts on a calendar grid."
+                "Filter PR using dropdown uxPRFilter.",
+                "Display PR details based on filter.",
+                "Render grid based on filtered data."
             ]
         },
         {
-            "name": "Placement Request Handling",
+            "name": "Edit PR",
             "steps": [
-                "Retrieve placement request details.",
-                "Manage amendments to shift schedules.",
-                "Handle conflicts associated with placement requests."
+                "Select PR to edit.",
+                "Open form with current PR details.",
+                "Modify required fields and save.",
+                "Refresh grid and validate changes."
             ]
         }
     ],
     "business_rules": [
-        "User can only edit shifts if they have appropriate permissions.",
-        "Conflicts are flagged automatically based on certain criteria.",
-        "Shift details can only be modified if not in 'read-only' mode."
+        "Conflicts must be flagged automatically if enabled.",
+        "Only users with edit permissions can modify PR data.",
+        "PR display is limited by user permissions and view filters."
     ],
     "validations": [
-        "Start time and end time must follow specified validation expressions.",
-        "Date fields must adhere to the correct format."
+        "Start and end times must adhere to specified formats.",
+        "Date fields are validated using regular expressions."
     ],
     "calculations": [
-        "Calculate displayed hours based on shift details.",
-        "Adjust hours if amendments are present."
+        "Displayed hours for PR are calculated daily based on shifts."
     ],
     "conditions": [
-        "Allow editing if user has 'Instructor' or 'Coordinator' roles.",
-        "Display additional options if user is a system administrator."
+        "User roles determine the visibility of certain grid features.",
+        "PRDID 0 indicates viewing all available PRs."
     ],
     "system_behavior": [
-        "Dynamically generate grid based on placements and shifts.",
-        "Update grid and visual elements based on user interactions."
+        "Responsive grid updates with user interactions.",
+        "Shift details are dynamically loaded based on selection."
     ],
     "dependencies": [
-        "HSPnetSession",
-        "Resources",
-        "Database connection for retrieving and updating PR details."
+        "Session information is critical for permission checks.",
+        "Resource strings for localization."
     ],
     "exceptions": [
-        "Handle situations where data cannot be retrieved from the database.",
-        "Manage conflicts in scheduling by alerting the user."
+        "Conflicts in shift times must be resolved before proceeding.",
+        "User actions are restricted based on role-specific permissions."
     ],
     "source_document_ids": [
         "00a92747-f90c-5f91-bf3f-21bf8a04292d",
@@ -173,8 +165,8 @@
         "f5abaf95-80b7-56ca-b61e-e7903085902f",
         "fa1d8771-e6f3-5362-a5db-5fbcab64a4fe",
         "fabe5507-89dc-587a-8bf4-60923a3822b6",
-        "fac3e69a-d94a-5b0f-b077-444b4d2288cd",
-        "fbd7f871-8c54-5673-b836-0a40174f9f8c"
+        "fbd7f871-8c54-5673-b836-0a40174f9f8c",
+        "fac3e69a-d94a-5b0f-b077-444b4d2288cd"
     ],
     "content_gaps": []
 }
