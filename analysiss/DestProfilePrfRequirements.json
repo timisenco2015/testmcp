@@ -1,55 +1,72 @@
 {
   "filename": "DestProfilePrfRequirements",
   "found": true,
-  "summary": "The retrieved documents describe the implementation of the 'DestProfilePrfRequirements' user control in a web application. This control is part of a larger system for managing requirements related to disciplines and prerequisites within the HSPnet framework. The documents outline the structure, data handling, and interface elements of the control, including various UI components and their interactions.",
-  "purpose": "The purpose of 'DestProfilePrfRequirements' is to manage prerequisites and requirements associated with different disciplines in the HSPnet system. It provides users with functionality to add, edit, and display these requirements via a web-based user interface.",
+  "summary": "The DestProfilePrfRequirements file focuses on managing requirements associated with destination profiles, particularly prerequisites. It supports adding, editing, and managing prerequisite options such as Standard, Document, and Link types with validation and dynamic UI adjustments.",
+  "purpose": "To enable the management of destination profile requirements by providing mechanisms to add, edit, and delete requirements while ensuring prerequisite options are handled properly.",
   "entities": [],
   "fields": [
-    "ddRequirement",
-    "txtRequirementDescription",
-    "txtWebsite",
-    "txtDocumentName",
-    "txtSection",
-    "uxAllowAllDisciplines",
-    "lbIncluded",
-    "lbNotIncluded",
-    "hdnPrereqOption",
-    "RequiredFieldValidator_ddRequirement"
+    "PrerequisiteOption",
+    "ParentID",
+    "ParentIDName",
+    "CurrentPage",
+    "ScreenIsEditable"
   ],
   "actors": [
     "UserSession"
   ],
   "workflows": [
     {
-      "name": "Add or Edit Requirement",
+      "name": "Add New Requirement",
       "steps": [
-        "User selects a requirement type from ddRequirement.",
-        "User inputs a description, website, and document name, if applicable.",
-        "User selects disciplines involved using lbIncluded and lbNotIncluded.",
-        "On save, data is validated and processed according to the selected PrerequisiteOption."
+        "User clicks 'Add New Requirement'.",
+        "Form switches to Insert mode.",
+        "User selects Prerequisite Option.",
+        "User fills in required fields.",
+        "User saves the new requirement."
+      ]
+    },
+    {
+      "name": "Edit Requirement",
+      "steps": [
+        "User clicks 'Edit' on a requirement.",
+        "Form switches to Edit mode.",
+        "User updates fields as needed.",
+        "User saves changes."
+      ]
+    },
+    {
+      "name": "Delete Requirement",
+      "steps": [
+        "User clicks 'Delete' on a requirement.",
+        "Requirement is removed from the system."
       ]
     }
   ],
   "business_rules": [
-    "Requirement codes are fetched from a predefined list excluding certain omitted codes.",
-    "If 'Allow All Disciplines' is selected, all sub-disciplines are applied.",
-    "If no sub-discipline is included, a warning is issued and all disciplines are applied by default."
+    "Only standard, document, and link types are allowed for prerequisites.",
+    "Hidden items and omitted codes are filtered out from requirement lists.",
+    "If no sub-disciplines are selected, apply prerequisites to all disciplines."
   ],
   "validations": [
-    "CustomValidator checks the requirement description.",
-    "RequiredFieldValidator ensures ddRequirement is selected."
+    "Ensure fields are not left empty before submission.",
+    "Validate prerequisite type selection.",
+    "Confirm file uploads meet specified criteria for Document type."
   ],
   "calculations": [],
   "conditions": [
-    "The appearance of certain fields depends on the selected PrerequisiteOption."
+    "Different behaviors for Standard, Document, and Link prerequisite options."
   ],
   "system_behavior": [
-    "FormView controls switch modes between Insert, Edit, and Normal.",
-    "JavaScript variables and methods are used to handle dynamic changes in the form."
+    "Dynamically adjust form fields based on prerequisite option selected.",
+    "Display warnings if required selections are missing.",
+    "Handle file uploads for Document prerequisite option."
   ],
-  "dependencies": [],
+  "dependencies": [
+    "Disciplines module for managing sub-discipline selections."
+  ],
   "exceptions": [
-    "If a UserSession is null during data operations, the process is canceled."
+    "Cancel operation if user session is not available.",
+    "Raise exceptions if necessary prerequisite criteria are not met."
   ],
   "source_document_ids": [
     "00fcca6d-1a9f-5dcd-811b-bf43a2c4d755",
@@ -75,7 +92,6 @@
     "dae1438a-0b7c-538b-9530-3ca738cd458d",
     "db0696b1-e2c2-5b95-8b56-f57e38316e26",
     "e1e57236-cea3-5af4-b570-ee728c162cf5",
-    "e301f790-95d3-57f5-b56b-3522ff9753b4",
     "ea7e740a-3500-523f-a4c0-8c40b362c7af",
     "ee57a734-0f58-5a0a-b29d-9c3487a5b897"
   ],
