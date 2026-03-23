@@ -1,0 +1,48 @@
+{
+  "filename": "DocumentsAndRequirements",
+  "found": true,
+  "summary": "The retrieved documents detail the implementation of a web service named DocumentsAndRequirements, which facilitates sorting operations for documents and requirements across different entities such as Agencies, Sites, and Destinations.",
+  "purpose": "To manage and update the sort order for documents and requirements through a web service interface, ensuring correct handling of changes related to various entity types.",
+  "entities": ["Agency", "Site", "Destination"],
+  "fields": ["ParentIDName", "uiOrder", "sessionHash", "ParentID", "ActiveTab"],
+  "actors": ["System", "Database Administrator", "User"],
+  "workflows": [
+    {
+      "name": "PostUISortOrder",
+      "steps": [
+        "Validate session using sessionHash",
+        "Convert ParentID to integer based on ParentIDName",
+        "Determine ActiveTab (Requirement or Document)",
+        "Execute corresponding stored procedure to update sort order based on entity type and uiOrder",
+        "Handle exceptions and return empty response if error occurs"
+      ]
+    }
+  ],
+  "business_rules": [
+    "Stored procedures differ based on entity type and active tab",
+    "Order updates are conditional based on entity type like Agency, Site, or Destination"
+  ],
+  "validations": [
+    "Session validity checked through SessionIsValid procedure"
+  ],
+  "calculations": [],
+  "conditions": [
+    "Different procedures called based on ParentIDName and ActiveTab values"
+  ],
+  "system_behavior": [
+    "Updates database sort order based on parameters",
+    "Responds with empty array on exceptions"
+  ],
+  "dependencies": [
+    "HSPnetSession for database connection"
+  ],
+  "exceptions": [
+    "Returns empty JSON array on query execution failure"
+  ],
+  "source_document_ids": [
+    "37bdabcd-9f7d-52cf-8017-de42b921f190",
+    "63c95a50-6966-5f51-b560-ebd7452199d0",
+    "7b11b5bd-eef4-58ce-98df-fbec9ec799db"
+  ],
+  "content_gaps": []
+}
