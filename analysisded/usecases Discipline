@@ -1,0 +1,93 @@
+# Module: Discipline
+
+## Discipline-UC1 — Search Sub-Discipline by ID
+
+- Primary Actor(s): User
+- Secondary Actor(s): System Administrator
+- Trigger: User requests to search for a sub-discipline by ID.
+- Description: This use case involves searching for a sub-discipline using its ID through the system.
+- Preconditions: The user must be logged into the system.
+- Postconditions: The requested sub-discipline details are returned.
+- Main Success Scenario:
+  1. User enters sub-discipline ID.
+  2. System retrieves sub-discipline details.
+  3. System displays sub-discipline details to the user.
+- Extensions:
+  - 1a. If an alternate database is specified, the system retrieves from the specified database.
+- Exceptions:
+  - 3a. If sub-discipline is not found, an error message is displayed.
+- Business Rules:
+  - Only authorized users can search sub-disciplines.
+- Assumptions:
+  - Sub-discipline IDs are unique.
+- Open Issues:
+  - None identified.
+
+## Discipline-UC2 — ETopic Discipline Search
+
+- Primary Actor(s): User
+- Secondary Actor(s): System Administrator
+- Trigger: User requests to search disciplines associated with an ETopic.
+- Description: This use case allows the user to search for disciplines related to a specific ETopic.
+- Preconditions: The user must be logged into the system with appropriate permissions.
+- Postconditions: A list of related disciplines is returned.
+- Main Success Scenario:
+  1. User enters the ETopic ID.
+  2. System retrieves disciplines related to the given ETopic.
+  3. System displays the list of related disciplines.
+- Extensions:
+  - None.
+- Exceptions:
+  - 3a. If no related disciplines are found, an informative message is displayed.
+- Business Rules:
+  - For non-system administrators, disciplines starting with "XXX" are skipped unless explicitly allowed.
+- Assumptions:
+  - ETopic IDs are unique and correctly mapped to disciplines.
+- Open Issues:
+  - None identified.
+
+## Discipline-UC3 — User Allowed Program Sub-Discipline List
+
+- Primary Actor(s): User
+- Secondary Actor(s): System Administrator
+- Trigger: Request to retrieve a list of allowed sub-disciplines for a user’s program.
+- Description: The use case involves fetching a list of sub-disciplines that a user is permitted to access based on their program.
+- Preconditions: The user must be logged in and associated with a program.
+- Postconditions: A list of sub-disciplines is presented to the user.
+- Main Success Scenario:
+  1. System retrieves the user’s program details.
+  2. System fetches the sub-disciplines associated with the user's allowed programs.
+  3. The list of allowed sub-disciplines is displayed to the user.
+- Extensions:
+  - None.
+- Exceptions:
+  - 3a. If the user has no associated programs, an error message is displayed.
+- Business Rules:
+  - Access is restricted based on the user’s program.
+- Assumptions:
+  - The user is linked to one or more programs.
+- Open Issues:
+  - None identified.
+
+## Discipline-UC4 — Closure Sub-Discipline List
+
+- Primary Actor(s): User
+- Secondary Actor(s): System Administrator
+- Trigger: Request to list sub-disciplines associated with a closure.
+- Description: This use case involves listing sub-disciplines that are linked to a specific closure.
+- Preconditions: The user must be authenticated and have access to closure data.
+- Postconditions: The system displays the list of sub-disciplines for the given closure.
+- Main Success Scenario:
+  1. User enters closure ID.
+  2. System retrieves sub-disciplines related to the closure ID.
+  3. System presents the list to the user.
+- Extensions:
+  - None.
+- Exceptions:
+  - 3a. If no sub-disciplines are found, a message indicating this is shown.
+- Business Rules:
+  - Non-system administrators must have explicit permissions for sub-disciplines with specific codes.
+- Assumptions:
+  - Closure IDs accurately map to respective sub-disciplines.
+- Open Issues:
+  - None identified.
