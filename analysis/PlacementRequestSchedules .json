@@ -1,0 +1,299 @@
+{
+  "files": [
+    {
+      "filename": "SiteDocument",
+      "analysis": {
+        "found": true,
+        "summary": "Defines SiteDocument entity for associating documents with sites. Used in .NET HSPnet.DataLayer.",
+        "purpose": "To represent documents attached to specific sites, holding SiteID and document ID.",
+        "entities": [{"name": "SiteDocument", "type": "entity", "fields": ["ID", "SiteID"]}],
+        "fields": ["ID", "SiteID"],
+        "actors": [],
+        "workflows": [],
+        "business_rules": [],
+        "validations": [],
+        "calculations": [],
+        "conditions": [],
+        "system_behavior": ["Simple data container for a site document"],
+        "dependencies": ["HSPnet.Framework", "System.Data.SqlClient", "System.Collections.Generic"],
+        "exceptions": [],
+        "source_document_ids": ["a2967f17-a924-5e9c-8b15-d1f7bd028b32"],
+        "content_gaps": []
+      }
+    },
+    {
+      "filename": "WelcomeStaffAdmin",
+      "analysis": {
+        "found": true,
+        "summary": "Implements .NET Web UI for staff admin welcome screen, including date filtering, validation, and status/error display panels.",
+        "purpose": "To allow staff administrators to view filtered employment applications, see login info, and handle errors/warnings.",
+        "entities": [],
+        "fields": [
+          "txtStartDate",
+          "txtEndDate",
+          "ddSite",
+          "ddDiscipline",
+          "chkShowWithdrawn",
+          "gvwApplications"
+        ],
+        "actors": ["StaffAdmin user (with session context)"],
+        "workflows": [
+          {
+            "name": "Employment Application Filter Workflow",
+            "steps": [
+              "User loads page (triggers Page_Load)",
+              "Site and discipline dropdowns filled",
+              "Start/end dates default to 3 months ago/today",
+              "Refresh or filter triggers RefreshData (DataBind on grid)",
+              "Grid row binds links for applicant name, email, shows status/withdrawal",
+              "Validation: Start date & end date required, end after start, correct format"
+            ]
+          }
+        ],
+        "business_rules": [
+          "Show last login if present",
+          "Hide or show withdrawn applications using checkbox",
+          "Support localization via resource strings"
+        ],
+        "validations": [
+          "RequiredFieldValidator for start and end dates",
+          "RegularExpressionValidator for date formats",
+          "CustomValidator to check end date after start date"
+        ],
+        "calculations": [],
+        "conditions": [
+          "If SiteID query string param set, prefill site filter",
+          "Grid hides or shows rows/columns based on withdrawn status"
+        ],
+        "system_behavior": [
+          "Panels to show errors and warnings",
+          "Client-side and server-side validation enforced",
+          "Paging supported for application list",
+          "Localization supported for labels and messages",
+          "Script references for custom JS"
+        ],
+        "dependencies": [
+          "HSPnet.Framework",
+          "HSPnet.DataLayer.EmploymentApplications",
+          "AjaxControlToolkit",
+          "HSPnet.App_GlobalResources",
+          "HSPnet.UI"
+        ],
+        "exceptions": [],
+        "source_document_ids": [
+          "05db31e4-e8b6-53ee-a6fb-812c106f0134",
+          "100d5925-a5f8-53db-8493-02cddd563eb7",
+          "3c84bade-9671-5fbf-acce-3c87a835e9b4",
+          "4c4b97b8-d242-5261-a515-767a3f7d7a49",
+          "52b5066f-23f6-5d82-96cd-5d51dad3de79",
+          "54244516-0707-581e-a8ba-9c041ea38366",
+          "5bb85da3-f5b4-5753-b07c-9bb2a04eeb89",
+          "5d9b92ea-7c12-5070-8603-977cf14d0e04",
+          "6701b153-5288-59e5-8de9-61b68a1fc292",
+          "871df91b-7ba0-558f-83ea-d5be1b0dc8db",
+          "8cea5c3a-2fbf-5206-a0c0-9425a5e14511",
+          "964a48c9-231c-5d58-a44d-3675d949a453",
+          "966ed8d3-a5af-567f-b092-936217777551",
+          "a0c3da28-32a5-5fce-91b2-17274efa016e",
+          "afbb4ec5-43c8-5281-ad2c-4b6cfd23a48e",
+          "b8e79322-9a0e-5fe7-8953-3d05e231f923",
+          "bf423a80-93db-572d-8cb8-c79f04214a93",
+          "ca71b077-cc26-5979-a44f-59700a41316b",
+          "d278278f-d4ec-5f4a-9f29-a02b66773bb9",
+          "db9b35e9-53ca-5eaf-9d75-4f3a72131bc7",
+          "e249a878-c837-5d1c-9a3d-5167df2614fb"
+        ],
+        "content_gaps": []
+      }
+    },
+    {
+      "filename": "ServiceCode",
+      "analysis": {
+        "found": true,
+        "summary": "Defines ServiceCode entity and provides data access/business logic methods for listing and localizing service codes.",
+        "purpose": "To retrieve, manage, and localize service code entities used throughout the application.",
+        "entities": [
+          {"name": "ServiceCode", "fields": ["ID", "CodeCategoryID", "ShortName", "Name", "SortOrder", "Notes", "NameAlt", "NotesAlt"]}
+        ],
+        "fields": ["ID", "CodeCategoryID", "ShortName", "Name", "SortOrder", "Notes", "NameAlt", "NotesAlt"],
+        "actors": [],
+        "workflows": [
+          {
+            "name": "ServiceCode List Workflow",
+            "steps": [
+              "Call ServiceCodeListAll to list codes (using session credentials)",
+              "For each code, localize if alternate language is used",
+              "Return to caller"
+            ]
+          },
+          {
+            "name": "ASM Option By Course or Timetable",
+            "steps": [
+              "Call ServiceCodeASMOptionByCourseID or ServiceCodeASMOptionByTimetableID",
+              "Get codes for the given course or timetable",
+              "Localize as needed"
+            ]
+          }
+        ],
+        "business_rules": [
+          "Localize if UseAltLanguageFields is set on session"
+        ],
+        "validations": [],
+        "calculations": [],
+        "conditions": [
+          "If UseAltLanguageFields, override Name with NameAlt"
+        ],
+        "system_behavior": [
+          "Accesses DB procedures for list and ASM option methods"
+        ],
+        "dependencies": [
+          "HSPnet.Framework",
+          "System.Data.SqlClient",
+          "HSPnet.App_GlobalResources"
+        ],
+        "exceptions": [],
+        "source_document_ids": [
+          "94f1b055-348d-508a-ae6e-cf7960a8c6a2",
+          "e4ebe4b4-6d14-5c3f-b693-61016f765239",
+          "f976b9af-a402-540f-b162-391d578fac7c"
+        ],
+        "content_gaps": []
+      }
+    },
+    {
+      "filename": "SiteProfileHistory",
+      "analysis": {
+        "found": true,
+        "summary": "Tracks historical changes to Site profiles, including what fields were changed, who made the change, when, and in what section.",
+        "purpose": "To provide a searchable history of all modifications to a Site's profile for audit and traceability.",
+        "entities": [
+          {
+            "name": "SiteProfileHistory",
+            "fields": [
+              "ID",
+              "ActionDate",
+              "ScreenSection",
+              "UserAction",
+              "Fields",
+              "Agency",
+              "AgencyName",
+              "LastName",
+              "FirstName",
+              "MiddleName",
+              "Phone",
+              "ByUserID",
+              "ByOriginalUserID",
+              "ByUserSysAdmin"
+            ]
+          }
+        ],
+        "fields": [
+          "ID",
+          "ActionDate",
+          "ScreenSection",
+          "UserAction",
+          "Fields",
+          "Agency",
+          "AgencyName",
+          "LastName",
+          "FirstName",
+          "MiddleName",
+          "Phone",
+          "ByUserID",
+          "ByOriginalUserID",
+          "ByUserSysAdmin"
+        ],
+        "actors": [],
+        "workflows": [
+          {
+            "name": "SiteProfileHistory Search",
+            "steps": [
+              "User triggers search with SiteID and SessionAgencyID",
+              "Stored procedure executed to fetch all history entries",
+              "Entries are presented with formatted user and agency details"
+            ]
+          }
+        ],
+        "business_rules": [
+          "If UseAltLanguageFields is set, use alternate language for field labels and actions",
+          "Show Support Team as user if sys admin is involved or user is not the original"
+        ],
+        "validations": [],
+        "calculations": [],
+        "conditions": [
+          "If UseAltLanguageFields, override field labels"
+        ],
+        "system_behavior": [
+          "Formats user details for audit",
+          "Provides grid UI for history display"
+        ],
+        "dependencies": [
+          "HSPnet.Framework",
+          "System.Data.SqlClient",
+          "HSPnet.App_GlobalResources"
+        ],
+        "exceptions": [],
+        "source_document_ids": [
+          "25f89a24-5eda-5a3f-83df-1de69b12b3f1",
+          "26e09292-d304-55c6-94e5-ef3346453c4b",
+          "7ca6b963-9ae9-5cd3-82d5-f30dcb727ae3",
+          "a8f030c6-90b8-53a1-bb8a-3b7ef33b9488",
+          "e806999c-3a39-5720-9b59-303faebc9eb6"
+        ],
+        "content_gaps": []
+      }
+    },
+    {
+      "filename": "EmailPopupDocument",
+      "analysis": {
+        "found": true,
+        "summary": "Manages temporary email documents for popup selection/sending, including file deletion and search.",
+        "purpose": "To hold details for email attachments presented in popups and allow deletion of selected files.",
+        "entities": [
+          {
+            "name": "EmailPopupDocument",
+            "fields": [
+              "ID",
+              "FileName",
+              "FilePath",
+              "Checked"
+            ]
+          }
+        ],
+        "fields": ["ID", "FileName", "FilePath", "Checked"],
+        "actors": [],
+        "workflows": [
+          {
+            "name": "Popup List and Delete Workflow",
+            "steps": [
+              "Call Search to generate attachment list from delimited string",
+              "Call Delete to remove a file and its folder if needed, based on index"
+            ]
+          }
+        ],
+        "business_rules": [
+          "If DataInfo is empty, return empty list",
+          "Only delete file/folder if file path present"
+        ],
+        "validations": [],
+        "calculations": [],
+        "conditions": [],
+        "system_behavior": [
+          "Handles file system deletes with try/catch",
+          "Serializes/deserializes attachment lists to strings"
+        ],
+        "dependencies": [
+          "System.IO",
+          "System.Data.SqlClient",
+          "HSPnet.Framework"
+        ],
+        "exceptions": ["Catches and ignores errors in file/folder delete operations"],
+        "source_document_ids": [
+          "7287734e-f13d-550f-9249-4242db620766",
+          "927bc837-5564-5759-9324-27c6d5d7321d"
+        ],
+        "content_gaps": []
+      }
+    }
+  ]
+}
