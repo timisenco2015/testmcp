@@ -1,117 +1,119 @@
 {
-  "filename": "Reminder",
-  "found": true,
-  "summary": "This document details the implementation of a Reminder functionality within the HSPnet system. The Reminder allows users to schedule, send, and manage email reminders with specific dates, priorities, and messages.",
-  "purpose": "The main purpose of the Reminder system is to enable users to send scheduled email reminders with customizable content and settings.",
-  "entities": [],
-  "fields": [
-    {
-      "name": "txtSendOn",
-      "type": "TextBox",
-      "description": "Input field for the date to send the reminder.",
-      "validations": [
+    "filename": "Reminder",
+    "found": true,
+    "summary": "The Reminder system is a part of a web application that allows users to schedule and manage reminder emails. It supports functionalities like scheduling reminders, editing existing reminders, and configuring reminder properties such as send date, priority, subject, message, and whether it should be shared.",
+    "purpose": "The system is designed to facilitate the scheduling and management of reminders via email for placement requests, supporting user interactions to edit, send, and cancel reminders within the application.",
+    "entities": [
+        "Reminder",
+        "PlacementRequestReminder",
+        "UserSession",
+        "Staff"
+    ],
+    "fields": [
+        {"name": "txtSendOn", "type": "Date"},
+        {"name": "txtEmailSubject", "type": "Text"},
+        {"name": "txtEmailBody", "type": "Text"},
+        {"name": "rblPriority", "type": "RadioButtonList"},
+        {"name": "chkShareReminder", "type": "CheckBox"},
+        {"name": "dpEmailFrom", "type": "DropDownList"}
+    ],
+    "actors": [
+        "User",
+        "Staff"
+    ],
+    "workflows": [
         {
-          "type": "RequiredFieldValidator",
-          "errorMessage": "Send On Date is required."
+            "name": "Schedule a Reminder",
+            "steps": [
+                "User selects a date for the reminder using txtSendOn.",
+                "User enters the subject in txtEmailSubject.",
+                "User provides the message content in txtEmailBody.",
+                "User selects priority using rblPriority.",
+                "User decides if the reminder should be shared by checking chkShareReminder.",
+                "User selects the email address from dpEmailFrom or adds a new one.",
+                "User clicks on the btnScheduleReminder to save the reminder."
+            ]
         },
         {
-          "type": "RegularExpressionValidator",
-          "expression": "Resources: Date_ValidationExpression",
-          "errorMessage": "Send On Date is invalid."
-        }
-      ]
-    },
-    {
-      "name": "txtEmailSubject",
-      "type": "TextBox",
-      "description": "Input field for the subject of the email reminder.",
-      "validations": [
+            "name": "Edit a Reminder",
+            "steps": [
+                "System checks for existing reminders and sets editMode if user's reminder is found.",
+                "User modifies any fields as necessary while editMode is true."
+            ]
+        },
         {
-          "type": "RequiredFieldValidator",
-          "errorMessage": "Subject is required."
+            "name": "Cancel a Reminder",
+            "steps": [
+                "User clicks cmdCancel to remove the reminder associated with the current session.",
+                "System disables the relevant controls and updates the reminder list."
+            ]
         }
-      ]
-    },
-    {
-      "name": "txtEmailBody",
-      "type": "TextBox",
-      "description": "Input field for the body of the email reminder.",
-      "validations": [
+    ],
+    "business_rules": [
+        "A reminder can be scheduled to be sent on a future date.",
+        "The send date must be tomorrow or later.",
+        "Reminders can be shared based on the user’s choice."
+    ],
+    "validations": [
         {
-          "type": "RequiredFieldValidator",
-          "errorMessage": "Message is required."
+            "field": "txtSendOn",
+            "type": "RequiredFieldValidator",
+            "message": "Send On Date is required."
+        },
+        {
+            "field": "txtSendOn",
+            "type": "RegularExpressionValidator",
+            "message": "Invalid date format."
+        },
+        {
+            "field": "txtEmailSubject",
+            "type": "RequiredFieldValidator",
+            "message": "Subject is required."
+        },
+        {
+            "field": "txtEmailBody",
+            "type": "RequiredFieldValidator",
+            "message": "Message is required."
         }
-      ]
-    },
-    {
-      "name": "rblPriority",
-      "type": "RadioButtonList",
-      "description": "Selector for the priority of the reminder.",
-      "options": ["High", "Normal", "Low"]
-    }
-  ],
-  "actors": [
-    "User",
-    "Staff"
-  ],
-  "workflows": [
-    {
-      "name": "Schedule a Reminder",
-      "steps": [
-        "User selects 'From' email using dropdown.",
-        "User fills 'Send On' date.",
-        "User enters email subject and message.",
-        "User selects priority.",
-        "User can choose to share the reminder.",
-        "User clicks 'Schedule Reminder' button."
-      ]
-    }
-  ],
-  "business_rules": [
-    "Reminders can only be scheduled for tomorrow or later."
-  ],
-  "validations": [
-    "Send On date must be a valid date format.",
-    "Send On date cannot be in the past."
-  ],
-  "calculations": [],
-  "conditions": [
-    "If the user is in edit mode, fields are populated with existing reminder data."
-  ],
-  "system_behavior": [
-    "The system disables editing controls if the reminder is not editable by the user."
-  ],
-  "dependencies": [
-    "HSPnet Framework",
-    "AjaxControlToolkit",
-    "UserSession for managing user-specific operations"
-  ],
-  "exceptions": [
-    "If Send On date is invalid or in the past, an error message is displayed."
-  ],
-  "source_document_ids": [
-    "1758a0f8-0c44-51a9-a65b-a8cee02bf230",
-    "1c570558-1b59-5694-8bba-15fae2e28d71",
-    "2e0f5fab-fd52-56b1-908c-0cf472db31df",
-    "332f7c98-ed5f-5040-b002-4b055293cffc",
-    "408bbb34-e359-527c-84fe-857724423043",
-    "4be74d7d-d0d1-525f-8128-a80302467bd1",
-    "4d8a7313-7f9e-5044-92b3-9d1971e1c509",
-    "4eda96df-6d91-5e45-8d90-c1b03b3806c4",
-    "54d92080-c699-5073-9262-e642c517f085",
-    "6ae1b8f2-666c-5834-9a2d-82c26291699a",
-    "89d90e0f-5650-57ea-a100-f4efaccab7e5",
-    "8a1da3a2-e9c3-5f14-abe4-e8e69395fc1c",
-    "b0900149-50a1-52c1-8f7b-34663cdc6e8f",
-    "b9963179-f933-51fd-aa8a-85c9457f28ae",
-    "bc5769e5-a1a8-5059-96d8-57242d86824d",
-    "cbcf35e7-7972-5bd8-b5fc-9acddd899c2b",
-    "cf1d3c04-b3f7-5c15-8c7f-736e35cb0549",
-    "df7ff82d-84dc-5372-9340-8bf0a74be3dd",
-    "e6e18be8-7421-5baf-8b69-0bd04d5037b4",
-    "f6f3ad35-3eaf-5bf5-9616-4b168a0bd469",
-    "f75ad2f8-b503-5c0b-b0c7-d6f3465b80c9",
-    "fab6a7a4-e2c9-52ee-ab20-eb2bdf9295ec"
-  ],
-  "content_gaps": []
+    ],
+    "calculations": [],
+    "conditions": [
+        "if (string.IsNullOrEmpty(PRDIDList)) then _PRDs = null."
+    ],
+    "system_behavior": [
+        "System disables controls when editing is not allowed.",
+        "System enables controls for editing when a matching user reminder is found."
+    ],
+    "dependencies": [
+        "Requires Email and User management modules.",
+        "Utilizes ASP.NET Web Form controls and AJAX Toolkit."
+    ],
+    "exceptions": [
+        "User session issues or invalid inputs trigger error panels."
+    ],
+    "source_document_ids": [
+        "1758a0f8-0c44-51a9-a65b-a8cee02bf230",
+        "1c570558-1b59-5694-8bba-15fae2e28d71",
+        "2e0f5fab-fd52-56b1-908c-0cf472db31df",
+        "332f7c98-ed5f-5040-b002-4b055293cffc",
+        "408bbb34-e359-527c-84fe-857724423043",
+        "4be74d7d-d0d1-525f-8128-a80302467bd1",
+        "4d8a7313-7f9e-5044-92b3-9d1971e1c509",
+        "4eda96df-6d91-5e45-8d90-c1b03b3806c4",
+        "54d92080-c699-5073-9262-e642c517f085",
+        "6ae1b8f2-666c-5834-9a2d-82c26291699a",
+        "89d90e0f-5650-57ea-a100-f4efaccab7e5",
+        "8a1da3a2-e9c3-5f14-abe4-e8e69395fc1c",
+        "b0900149-50a1-52c1-8f7b-34663cdc6e8f",
+        "b9963179-f933-51fd-aa8a-85c9457f28ae",
+        "bc5769e5-a1a8-5059-96d8-57242d86824d",
+        "cbcf35e7-7972-5bd8-b5fc-9acddd899c2b",
+        "cf1d3c04-b3f7-5c15-8c7f-736e35cb0549",
+        "df7ff82d-84dc-5372-9340-8bf0a74be3dd",
+        "e6e18be8-7421-5baf-8b69-0bd04d5037b4",
+        "f6f3ad35-3eaf-5bf5-9616-4b168a0bd469",
+        "f75ad2f8-b503-5c0b-b0c7-d6f3465b80c9",
+        "fab6a7a4-e2c9-52ee-ab20-eb2bdf9295ec"
+    ],
+    "content_gaps": []
 }
