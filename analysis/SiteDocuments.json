@@ -1,133 +1,109 @@
 {
   "filename": "SiteDocuments",
   "found": true,
-  "summary": "SiteDocuments is a web user control for managing documents, including uploading, editing, filtering, assigning destinations and disciplines, and handling workflow actions for site-related documents. The control enables administrators and users to add, edit, delete, sort, and categorize documents by type, section, discipline, and allowed destinations. It supports granular access via disciplines/subdisciplines and implements validations, business rules, and dynamic UI behavior.",
-  "purpose": "To provide an interactive interface for managing site-specific documents, allowing users to upload files, select document types and disciplines, assign destinations, and maintain metadata. It supports granular access restrictions, file handling, categorization, and workflow-based operations such as saving, canceling, and assigning applied children.",
+  "summary": "SiteDocuments is a web user control managing site-level documents, including upload, edit, delete, sorting, discipline filtering, and destination assignment with extensive UI and business logic for documents and their associated disciplines/destinations.",
+  "purpose": "Provide a user interface and backend logic for managing documents associated with a site, including uploading documents, filtering by type and discipline, assigning destinations, and handling business rules related to discipline and destination selection. Supports dynamic add/edit/delete operations, validation, workflow for document creation, and discipline/destination assignment.",
   "entities": [
     "GenericDocument",
-    "DestinationCode",
     "Discipline",
+    "DestinationCode",
     "Codes",
     "UserSession"
   ],
   "fields": [
     "DocumentName",
-    "TypeCodeID",
     "Section",
+    "TypeCodeID",
     "TypeComments",
     "FileURL",
     "FilePath",
     "FileSize",
     "FileType",
     "ParentID",
-    "DisciplineSubDisciplineID",
     "SubDisciplineIDList",
     "AllowAllSubDisciplines",
-    "AllowedDestinations"
+    "DisciplineListingAll"
   ],
   "actors": [
-    "UserSession (authenticated user)",
-    "Administrators (screen editable)",
-    "System for auto-generated fields and file handling"
+    "UserSession (user context)",
+    "HSPnetSession (system context)",
+    "Web UI Controls (FormView, GridView, DropDownList, ListBox, etc.)"
   ],
   "workflows": [
     {
-      "name": "Upload and Save Document",
+      "name": "Document Management Workflow",
       "steps": [
-        "User initiates upload via FormView control.",
-        "FileUpload control captures file and metadata.",
-        "HandleUploadedFile creates unique folder, saves file, and sets file attributes.",
-        "SaveDocument assigns document fields (type, name, section, discipline, comments, file info).",
-        "If a previous file exists, it is deleted.",
-        "Document saved to database; UI redirects to current page."
+        "User accesses SiteDocuments control with editable permissions.",
+        "User can add a new document (HandleAdd).",
+        "On adding/editing (fvwDocument_DataBound), setup discipline filters, type selection, upload note.",
+        "If inserting/editing, show upload panel, allow type/disciplines selection, handle validations.",
+        "On 'cmdSave', uploaded file is handled, saved to unique folder, meta fields set (HandleUploadedFile, SaveDocument).",
+        "Discipline assignment: Allow all or select specific disciplines via list box/radio button logic (SetupDisciplines, AllowAll_SelectedIndexChanged).",
+        "Destination assignment: ListBox controls allow moving destinations between included/not included, reflecting document's allowed destinations (SetupDestinations).",
+        "After save, UI refreshes, user session cache updated, optionally redirects to current page.",
+        "Editing/deleting documents handled via grid row commands.",
+        "Document types and discipline filters dynamically populated and validated."
       ]
     },
     {
-      "name": "Edit Document",
+      "name": "Destination Assignment Workflow",
       "steps": [
-        "User clicks Edit; FormView loads document data.",
-        "Dropdowns pre-fill types; disciplines populated.",
-        "User modifies fields; saves or cancels changes."
-      ]
-    },
-    {
-      "name": "Assign Destinations",
-      "steps": [
-        "User manages ListBox controls for included/not-included destinations.",
-        "DocumentAppliedDestinationsAssign persists allowed destinations.",
-        "UI updates visibility and lists."
-      ]
-    },
-    {
-      "name": "Assign Disciplines",
-      "steps": [
-        "RadioButtonList toggles allow-all or specific subdisciplines.",
-        "ListBox controls for included/not-included disciplines.",
-        "DocumentSubDisciplineList populates options.",
-        "UI visibility and binding based on selection."
-      ]
-    },
-    {
-      "name": "Row Command Workflow",
-      "steps": [
-        "GridViewCommand events for Add, Edit, Delete, Sort, EditAppliedChildren.",
-        "HandleAdd, SetupEditButton, SetupDeleteButton, HideDetails, ShowDetails manage UI and state."
+        "User edits or adds applied children (documents).",
+        "SetupDestinations loads possible destination codes from backend.",
+        "List boxes show included and not-included destinations.",
+        "User moves destinations using AddRight_Click, AddLeft_Click, AddAll_Click, RemoveAll_Click.",
+        "Selected destinations are saved and assigned via backend call when document is saved."
       ]
     }
   ],
   "business_rules": [
-    "Only users with editable screen can add/edit/delete documents.",
-    "DocumentType codes are filtered by OmitTypeCodes.",
-    "If a previous document exists, its file is deleted before upload.",
-    "Disciplines and destinations are assigned only if allowed and not restricted.",
-    "All disciplines option triggers clearing ListBox values.",
-    "If no included discipline is selected, all disciplines are automatically allowed.",
-    "If uploading, file must not be empty."
+    "Documents must be associated with a ParentID (e.g., SiteID).",
+    "TypeCodes can be omitted based on configuration (OmitTypeCodes).",
+    "Disciplines can be restricted (RestrictedSubDisciplines) and filtered by user/session.",
+    "Subdisciplines can be applied to documents, either all or selected.",
+    "Destination assignment requires selecting from allowed list; no destinations, means all allowed.",
+    "Document file uploads are saved in unique folders, must have valid file type and size.",
+    "If no discipline is selected, all disciplines are automatically applied and a warning is shown."
   ],
   "validations": [
-    "FileUpload not empty before saving.",
-    "RequiredFieldValidator enforced for mandatory fields; disabled in Edit mode.",
-    "DropDownList TypeCodeID must be filled.",
-    "Discipline selection logic (included/not-included).",
-    "UserSession presence checked for most actions; cancels operation if null.",
-    "SubDiscipline selection handled by RadioButtonList logic."
+    "Required fields on document type, name, discipline (if UseSubDisciplines).",
+    "File upload must be present and valid.",
+    "UserSession must be active for document management.",
+    "DropDownList and ListBox values must be correctly populated and selected.",
+    "If UserSession is null, ObjectDataSource selection is cancelled."
   ],
   "calculations": [
-    "FileSize from uploaded file ContentLength.",
-    "FileType via DocumentTypeConversion based on content type.",
-    "Section string assignment for grouping."
+    "FileSize calculation from uploaded file.",
+    "Section assignment and grouping logic in GridView row processing.",
+    "Dynamic sorting of documents by field as per ViewState[\"Sort\"]",
+    "Dynamic discipline list creation and filtering based on document and session."
   ],
   "conditions": [
-    "If UseSubDisciplines: discipline filters and assignment enabled.",
-    "If RestrictedSubDisciplines: filtering and note in UI.",
-    "If fileURL is empty: no file delete operation.",
-    "If included discipline ListBox is empty: AllowAllSubDisciplines true.",
-    "FormViewMode Insert/Edit controls UI visibility and binding."
+    "ScreenIsEditable controls visibility and access.",
+    "UseSubDisciplines toggles discipline UI and filtering logic.",
+    "RestrictedSubDisciplines controls discipline filtering and visibility for user.",
+    "If inserting a document and no discipline selected, auto-apply all disciplines."
   ],
   "system_behavior": [
-    "Auto-generate fields and controls from designer file.",
-    "Dynamic UI elements based on Mode (Insert/Edit/Display).",
-    "Section headers and CSS classes for grouping rows.",
-    "AJAX ModalPopupExtender for detail dialogs.",
-    "Redirect after Save/Delete for UI update.",
-    "Show/hide upload note panel based on FileUploadNote.",
-    "Dynamic JavaScript setup for details and discipline logic."
+    "Auto-generated fields in partial class for UI controls.",
+    "Dynamic binding and refresh of data sources for disciplines, documents, destinations.",
+    "UI visibility toggles based on user/session state and editing mode.",
+    "Cache user session after data modification.",
+    "Redirect on document change for UI feedback."
   ],
   "dependencies": [
-    "DataLayer.GenericDocuments for saving, deleting, searching.",
-    "Disciplines.DocumentSubDisciplineList for discipline options.",
-    "DestinationCodes.SiteDocumentDestinationCodeList for destination options.",
-    "Codes for document type code category.",
-    "Grid and FormView controls for UI and data binding.",
-    "UserSession for access and warnings/messages.",
-    "Resources for UI text and labels."
+    "DataLayer.GenericDocuments methods (GetByID, SiteDocumentAppliedDestinationsAssign, Delete, etc.)",
+    "Disciplines methods for searching and filtering discipline/subdiscipline lists.",
+    "Codes for document type management.",
+    "HSPnetSession for session caching.",
+    "Grid utility methods for UI and value management."
   ],
   "exceptions": [
-    "UserSession null: operation canceled.",
-    "Invalid file upload: no save performed.",
-    "Discipline/restricted subdisciplines not present: disabled UI elements.",
-    "Omitted type codes: document type code removed from dropdown.",
-    "No documents present: pnlEmptyData shown."
+    "HandleUploadedFile returns false if upload fails.",
+    "DataSource selection cancelled if UserSession is null.",
+    "Document delete is called but may fail silently if file URL is empty.",
+    "If discipline list is empty, forces all disciplines and warns user.",
+    "Try-catch or error handling not clearly shown, may rely on UI and control default behaviors."
   ],
   "source_document_ids": [
     "036431e4-342c-5d86-8ac2-f132fb704e07",
@@ -159,10 +135,10 @@
     "fb28383f-c821-5c12-b13b-0edb19a04d1c"
   ],
   "content_gaps": [
-    "Exact field validation logic (regex, format) not present.",
-    "No explicit error handling code for failed directory creation or file save.",
-    "UI-specific behaviors (style, accessibility) not documented.",
-    "Details about GenericDocument, DestinationCode, Discipline class definitions are not fully included.",
-    "Specific business exceptions and warnings are inferred, not all explicitly listed."
+    "No explicit error handling logic shown; exceptions may be implicitly managed.",
+    "Details on discipline and destination code objects and their structure are not fully described.",
+    "UI rendering details (ASP.NET markup, JavaScript integration) not included.",
+    "Backend stored procedure details (SPNameAdd, SPNameDelete, etc.) are referenced but not described.",
+    "Full business process for document approval, versioning, or audit not found in the content."
   ]
 }
