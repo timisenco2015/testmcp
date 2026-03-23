@@ -1,0 +1,85 @@
+{
+  "filename": "RptMnuEmploymentChanges",
+  "found": true,
+  "summary": "RptMnuEmploymentChanges is a partial class in the HSPnet.UserControls.ReportMenu namespace, which is part of an ASP.NET Web Forms application. It handles the generation of a report regarding employment changes, allowing users to export data in CSV format.",
+  "purpose": "The purpose of RptMnuEmploymentChanges is to facilitate the generation and display of employment change reports within the application, providing options for filters and exporting results.",
+  "entities": [],
+  "fields": [
+    "ValidationSummary1",
+    "Label3",
+    "ltlDescription",
+    "Label4",
+    "ltlOptions",
+    "txtStartDate",
+    "btnStartDate",
+    "CalendarExtender1",
+    "RegularExpressionValidator1",
+    "ltlMandatoryStartDate",
+    "Label8",
+    "txtEndDate",
+    "btnEndDate",
+    "CalendarExtender2",
+    "RegularExpressionValidator2",
+    "valEditStartDate",
+    "valEditEndDate",
+    "CustomValidator1",
+    "radNewlyEmployed",
+    "radNewlyResigned",
+    "radBoth",
+    "cmdRunExcel",
+    "lblPleaseWait",
+    "pnlReportHTML",
+    "lblReportHTML"
+  ],
+  "actors": [
+    "UserSession",
+    "ScriptMgr"
+  ],
+  "workflows": [
+    {
+      "name": "Generate Employment Changes Report",
+      "steps": [
+        "User specifies start and end dates.",
+        "User selects employment status options: Newly Employed, Newly Resigned, or Both.",
+        "User clicks 'Run Excel' to generate the report.",
+        "System sets appropriate stored procedure based on user role.",
+        "System adds parameters to database call.",
+        "System executes stored procedure and retrieves data.",
+        "Data is formatted into CSV.",
+        "CSV is displayed in lblReportHTML if generated successfully."
+      ]
+    }
+  ],
+  "business_rules": [
+    "If UserSession.PlacementCoordinator is true, use 'ReportEmploymentChangesPA' procedure; otherwise, use 'ReportEmploymentChanges'.",
+    "Parameters 'EmployStatus1' and 'EmployStatus2' are set based on selected radio buttons for employment status."
+  ],
+  "validations": [
+    "RegularExpressionValidator1 ensures the date format is correct for txtStartDate.",
+    "valEditStartDate and valEditEndDate are required field validators for start and end dates."
+  ],
+  "calculations": [],
+  "conditions": [
+    "If UserSession is not null, retrieve report details and options from Codes.CodeLookupCodes."
+  ],
+  "system_behavior": [
+    "Sets up JavaScript declarations for client-side manipulation.",
+    "Displays report as HTML in pnlReportHTML when data retrieval and CSV generation are successful."
+  ],
+  "dependencies": [
+    "HSPnet.DataLayer for database interactions",
+    "HSPnet.UI for user interface components"
+  ],
+  "exceptions": [],
+  "source_document_ids": [
+    "03560de5-1084-56d7-a9d3-76df8b55572d",
+    "0b60a0a8-a4a3-5722-a72a-85b3a9fef376",
+    "7df86cd4-76e7-5460-b668-f9fb0213ad55",
+    "8835fd25-dfaa-5cdf-b9f9-34dd7f407d32",
+    "afcaa7b2-2aeb-500a-bf2e-099261c89a72",
+    "e220db30-1408-5ca8-afe3-41caaa27a868",
+    "e7c7618a-9a6d-5dcf-a6e1-678f1749919d",
+    "e8b0793a-00a6-5005-8f99-d91bac62666f"
+  ],
+  "content_gaps": []
+}
