@@ -1,78 +1,76 @@
 {
     "filename": "SwitchUser",
     "found": true,
-    "summary": "The SwitchUser functionality enables users to switch between different user roles or identities within the HSPnet application. This includes the capability to change sessions, reset or maintain user settings, and modify the StartScreen based on user roles.",
-    "purpose": "The purpose of the SwitchUser function is to facilitate user role transition within the HSPnet system, allowing users to switch identities for various operational needs without logging out or creating new sessions.",
+    "summary": "The SwitchUser functionality manages user login switching within the HSPnet system. It involves switching sessions, determining start screens, handling user roles, and maintaining security cookies.",
+    "purpose": "To allow users to switch between different user profiles or roles within the HSPnet system while maintaining session integrity and security.",
     "entities": [
-        {
-            "name": "AltUser",
-            "fields": [
-                "StaffID",
-                "FullName",
-                "FullNameWithAgency",
-                "Original"
-            ]
-        }
+        "HSPnetSession",
+        "AltUser"
     ],
     "fields": [
         "SessionID",
         "OriginalSessionID",
         "NewLoginID",
-        "ViewOnly"
+        "ViewOnly",
+        "StartScreen",
+        "SystemAdministrator",
+        "SwitchUserViewOnly"
     ],
     "actors": [
-        "SystemAdministrator",
-        "GroupInstructor",
-        "Instructor",
-        "PlacementCoordinator",
-        "StudentMaint",
-        "ReceivingCoordinator",
-        "DestinationCoordinator",
-        "Supervisor"
+        "sysadmin",
+        "normal user"
     ],
     "workflows": [
         {
-            "name": "Switch User Login",
+            "name": "Switch Login",
             "steps": [
-                "Call 'SessionSwitch' stored procedure with SessionID and NewLoginID.",
-                "Read session information from the database.",
-                "Set the StartScreen based on user role and session data.",
-                "Save security cookies if necessary.",
-                "Return the StartScreen URL."
+                "Determine the session procedure based on user role (sysadmin or normal user).",
+                "Add session parameters including SessionID and OriginalSessionID.",
+                "Execute the session switch stored procedure.",
+                "Retrieve the resulting data to update the session and determine the start screen.",
+                "Save the security cookie with new session details."
             ]
         },
         {
-            "name": "Go Back to Primary ID",
+            "name": "Get Start Screen",
             "steps": [
-                "Call SwitchLogin with OriginalUserID.",
-                "Redirect to new screen if applicable."
+                "Check calling screen and determine the appropriate start screen.",
+                "For sysadmin, bypass start screen procedure to maintain user-specific preferences.",
+                "Handle start screen redirection based on role and original calling screen."
+            ]
+        },
+        {
+            "name": "Go Back To Primary ID",
+            "steps": [
+                "Switch back to the original user ID using the stored procedure.",
+                "Redirect to the new screen if determined."
             ]
         }
     ],
     "business_rules": [
-        "If the current user is a sysadmin, do not reset the target user’s Welcome filters when switching roles.",
-        "Different StartScreens are returned based on whether the user is a Group Instructor, Instructor, PALOnly, or Supervisor."
+        "Sysadmin does not use the start screen procedure to maintain target user's preferences.",
+        "Switching from a normal user allows treating alternate user ID as a normal login."
     ],
     "validations": [
-        "StartScreen URL is updated from .asp to .aspx dynamically.",
-        "Boolean checks are used to determine user roles like PALOnly, SupervisorOnly, StudentMaintOnly."
+        "Check for null or valid session IDs before proceeding with login switching."
     ],
-    "calculations": [],
+    "calculations": [
+        "Determine Boolean flags for roles like StudentMaintOnly, GroupInstructorOnly, and SupervisorOnly based on database boolean checks."
+    ],
     "conditions": [
-        "If OriginalSessionID is 0, add a null parameter for OriginalSessionID.",
-        "Different StartScreens are assigned based on specific role flags."
+        "If sysadmin, bypass start screen.",
+        "Determine start screen based on presence of roles and original calling page."
     ],
     "system_behavior": [
-        "Retrieve session data using stored procedures.",
-        "Switch user roles without needing full log-outs.",
-        "Update StartScreen based on role and session data."
+        "Switch user login maintains session integrity and updates security settings.",
+        "Ensure redirection to updated ASPX pages from older ASP pages."
     ],
     "dependencies": [
-        "Session user information retrieval relies on 'SessionUserInfo' stored procedure.",
-        "Login switching depends on 'SessionSwitch' stored procedure."
+        "HSPnet Data Layer",
+        "System.Web"
     ],
     "exceptions": [
-        "If the switch is made by a sysadmin, avoid using database stored procedures for the StartScreen."
+        "Handle null or invalid session data gracefully during session read operations."
     ],
     "source_document_ids": [
         "17dcfa4c-08cd-5f34-a025-c22db6d65ad9",
