@@ -1,0 +1,71 @@
+{
+    "filename": "CourseAssessment",
+    "found": true,
+    "summary": "The 'CourseAssessment' documents contain several procedures for managing course assessments, including adding, updating, deleting, searching by ID, and validating course assessments. It also involves reading and writing details of assessments through various parameters and database operations.",
+    "purpose": "The purpose of the 'CourseAssessment' functionality is to manage the lifecycle of course assessments within the system, ensuring proper setup, execution, and validation according to specific business rules and configurations.",
+    "entities": [],
+    "fields": [
+        "SessionID",
+        "CourseID",
+        "AssessorTypeCodeID",
+        "SubjectTypeCodeID",
+        "AssessmentTypeCodeID",
+        "AssessmentTemplateCodeID",
+        "OpenDaysAfterStart",
+        "CloseDaysAfterEnd",
+        "AssessorCanViewSubjectsAnswers",
+        "SubjectCanViewAssessorAnswers",
+        "ViewUntilDaysAfterEnd",
+        "OptionAppliedAssessorTypeCodeID",
+        "AssessorTypeCode",
+        "AssessorTypeDescription",
+        "SubjectTypeCode",
+        "SubjectTypeDescription",
+        "AssessmentTypeCode",
+        "AssessmentTypeDescription",
+        "AssessmentTemplateCode",
+        "AssessmentTemplateDescription",
+        "SubjectTypeDescriptionFormatted",
+        "OpenDaysAfterStartFormatted",
+        "CloseDaysAfterEndFormatted",
+        "ViewUntilDaysAfterEndFormatted",
+        "ID"
+    ],
+    "actors": [],
+    "workflows": [
+        {
+            "name": "Course Assessment Management",
+            "steps": [
+                "Set procedure name for the action (Add, Update, Delete, SearchID, Validation)",
+                "Add parameters relevant to the action",
+                "Execute query or retrieve data using SqlDataReader",
+                "Process and populate the CourseAssessment object based on retrieved data",
+                "Format descriptions and open/close days based on conditions"
+            ]
+        }
+    ],
+    "business_rules": [],
+    "validations": [
+        "CourseAssessmentValidation checks conditions like InterimWithoutFinal, InstructorsAndSupervisors, and AssessmentMaximumExceeded."
+    ],
+    "calculations": [],
+    "conditions": [
+        "Check if using default locale to determine description fields",
+        "Format Open/CloseDays based on whether they are greater, less than, or equal to zero"
+    ],
+    "system_behavior": [],
+    "dependencies": [],
+    "exceptions": [],
+    "source_document_ids": [
+        "0c1ddf30-f1e7-51b9-88fc-4ecde3e29648",
+        "211455c7-0731-54d5-ae7f-428ae36f5adf",
+        "2868ba8f-8517-54cb-9965-af3056f02a8d",
+        "441804ae-233d-55f1-bf17-b2afda55fcdf",
+        "7908e8fe-0105-5fbd-a397-ad9c92ca4b5d",
+        "a0d9506b-0c33-5d13-8abf-7c577500d0a3",
+        "b607dc1c-b566-5d8a-b423-eefab6a14ea9",
+        "c8475c24-cc6e-5838-9754-82e7420a0328",
+        "e8acf69f-fa26-5173-8966-b5722ce94765"
+    ],
+    "content_gaps": []
+}
