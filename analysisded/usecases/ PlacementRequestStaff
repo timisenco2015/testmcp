@@ -1,0 +1,96 @@
+# Module: PlacementRequestStaff
+
+## PlacementRequestStaff-UC1 — Add Staff to Placement Request
+
+- Primary Actor(s): System Administrator
+- Secondary Actor(s): None
+- Trigger: Administrator initiates the process to add staff to a placement request.
+- Description: This use case facilitates the addition of a staff member to a specific placement request.
+- Preconditions: The placement request ID (PRD_ID) and staff details must be available.
+- Postconditions: The staff member is added to the placement request, and the database is updated accordingly.
+- Main Success Scenario:
+  1. Administrator accesses the system and navigates to the placement request.
+  2. The system collects staff details, including department ID, names, contact information, and designation.
+  3. The system executes stored procedures to add the staff as a destination contact or supervisor.
+  4. The system confirms the staff addition and updates the placement request details.
+- Extensions: None
+- Exceptions: If the database connection fails, the system should log the error and notify the administrator.
+- Business Rules: Only authorized users can add staff to placement requests.
+- Assumptions: The staff details provided are accurate and complete.
+- Open Issues: None
+
+## PlacementRequestStaff-UC2 — Update Placement Staff Information
+
+- Primary Actor(s): System Administrator
+- Secondary Actor(s): None
+- Trigger: Administrator initiates an update for a staff member's details in a placement request.
+- Description: This use case describes updating existing placement staff data.
+- Preconditions: The existing placement staff details must be retrievable.
+- Postconditions: The staff information is updated in the system.
+- Main Success Scenario:
+  1. Administrator selects the staff member to update.
+  2. The system retrieves current details and displays them.
+  3. Administrator edits the necessary details and submits the changes.
+  4. The system executes the update procedure in the database.
+  5. The system confirms the update's success.
+- Extensions: None
+- Exceptions: Database update failures should prompt rollback and error notification.
+- Business Rules: Only authorized personnel can update staff details.
+- Assumptions: Changes are reviewed for accuracy before submission.
+- Open Issues: None
+
+## PlacementRequestStaff-UC3 — Check for Staff Schedule Overlaps
+
+- Primary Actor(s): System
+- Secondary Actor(s): Administrator
+- Trigger: Periodic check or administrator request to validate potential schedule overlaps.
+- Description: This use case checks if the same staff member has schedule overlaps in different placement requests.
+- Preconditions: Staff assignments are in place for comparison.
+- Postconditions: Any overlaps are identified and reported.
+- Main Success Scenario:
+  1. The system triggers a check for schedule overlaps.
+  2. The system compares scheduled hours of staff across different placement requests.
+  3. If overlaps exist, the system logs a warning.
+  4. Administrator is notified of potential overlaps.
+- Extensions: None
+- Exceptions: None
+- Business Rules: Overlapping schedules must be addressed promptly to ensure proper staff allocation.
+- Assumptions: Scheduling data is current and accurate.
+- Open Issues: None
+
+## PlacementRequestStaff-UC4 — Delete Staff from Placement Request
+
+- Primary Actor(s): System Administrator
+- Secondary Actor(s): None
+- Trigger: Administrator decides to remove a staff member from a placement request.
+- Description: This use case handles the deletion of a staff entry from a placement request.
+- Preconditions: The staff entry must be present in the system.
+- Postconditions: The staff entry is removed, and placement request details are updated.
+- Main Success Scenario:
+  1. Administrator selects the staff entry to be removed.
+  2. The system confirms the deletion operation with the administrator.
+  3. The system executes the deletion in the database.
+  4. The system updates the placement request to reflect the change.
+- Extensions: None
+- Exceptions: If the deletion fails, an error message is displayed, and a rollback is executed.
+- Business Rules: Only authorized users can delete staff from requests.
+- Assumptions: The deletion process will not affect other system functions.
+- Open Issues: None
+
+## PlacementRequestStaff-UC5 — Distribute Staff Hours
+
+- Primary Actor(s): System
+- Secondary Actor(s): None
+- Trigger: System or administrator distributes total hours among assigned staff.
+- Description: This use case describes the allocation of total working hours among all staff members tied to a placement request.
+- Preconditions: A list of staff assigned to a placement request must exist.
+- Postconditions: Hours are distributed evenly or according to specific rules.
+- Main Success Scenario:
+  1. The system identifies the total hours available for distribution.
+  2. The system calculates the hours to be assigned to each staff member.
+  3. The system updates each staff's record with the allocated hours.
+- Extensions: None
+- Exceptions: In case of calculation errors, a warning is issued, and distribution is halted.
+- Business Rules: Hours are distributed using a declining balance algorithm to avoid rounding errors.
+- Assumptions: Total hours are known and agreed upon by all stakeholders.
+- Open Issues: None
