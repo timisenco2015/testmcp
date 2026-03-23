@@ -1,50 +1,97 @@
 {
   "filename": "MaintAccountCode",
   "found": true,
-  "summary": "This file covers the maintenance of account codes, including functionalities for adding, editing, and deleting these codes, while ensuring input validations.",
-  "purpose": "To ensure efficient management of account codes tied to user agencies within the system.",
-  "entities": [
-    "AccountCodeRecord"
-  ],
+  "summary": "The MaintAccountCode module is responsible for managing account codes within an application. It includes a web interface for viewing, adding, editing, and deleting account codes, which are characterized by a code, description, and sort order.",
+  "purpose": "To provide a user interface for managing account codes, allowing users with adequate permissions to view and modify these codes.",
+  "entities": [],
   "fields": [
-    "Code",
-    "Description",
-    "ID",
-    "SortOrder"
+    {
+      "name": "ID",
+      "type": "UUID",
+      "description": "Unique identifier for each account code."
+    },
+    {
+      "name": "Code",
+      "type": "String",
+      "description": "The code for the account, input by the user."
+    },
+    {
+      "name": "Description",
+      "type": "String",
+      "description": "A description of the account code, input by the user."
+    },
+    {
+      "name": "SortOrder",
+      "type": "Integer",
+      "description": "Order of the account code in listings, input by the user."
+    }
   ],
   "actors": [
-    "UserSession",
-    "SystemAdministrator"
+    {
+      "role": "System Administrator",
+      "description": "Can view and edit all account codes and access all agencies."
+    },
+    {
+      "role": "Local Administrator",
+      "description": "Can view and edit account codes for their own agency."
+    }
   ],
   "workflows": [
     {
-      "name": "Account Code Management",
+      "name": "Manage Account Codes",
       "steps": [
-        "Select account code to manage",
-        "Validate input",
-        "Update or remove code as required"
+        "User selects an agency from the dropdown if permissions allow.",
+        "User selects an account code type from the dropdown.",
+        "User can view the list of account codes associated with the selected agency and type.",
+        "User can add a new account code by clicking the add button, filling in details, and saving.",
+        "User can edit an existing account code by selecting it, modifying details, and saving.",
+        "User can delete an account code by selecting it and confirming deletion."
       ]
     }
   ],
   "business_rules": [
-    "Ensure all mandatory fields are specified before saving"
+    "Only System Administrators can access all agencies.",
+    "Local Administrators can only access account codes for their own agency."
   ],
   "validations": [
-    "Required and compare field validators for numeric fields"
+    "All fields (Code, Description, SortOrder) must be specified when adding or editing an account code.",
+    "SortOrder must be a numeric value."
   ],
   "calculations": [],
-  "conditions": [],
+  "conditions": [
+    "Screen is editable only if the user is a System Administrator or a Local Administrator with access to the current agency."
+  ],
   "system_behavior": [
-    "Bind data to grid for display and edit"
+    "The grid displays account codes based on selected filters and user permissions.",
+    "The system checks user permissions to determine if the screen is editable."
   ],
   "dependencies": [
-    "ASP.NET Web Controls"
+    "Uses HSPnet.DataLayer for data access.",
+    "Uses HSPnet.App_GlobalResources for resource management.",
+    "Uses HSPnet.UI for user interface components."
   ],
-  "exceptions": [],
+  "exceptions": [
+    "If a user without adequate permissions attempts to access restricted functionalities, the option to edit will not be available."
+  ],
   "source_document_ids": [
     "187e7e90-6af2-57d4-ac0a-dffa21eba0d6",
+    "1994f226-b4b3-5f02-a86c-601c45f270cf",
+    "1d26994a-bff8-5fc2-97b7-3034e90a2af0",
+    "34dd438c-7016-500d-8cf9-f8e50df86aa0",
+    "475e8271-b3b8-59f9-ac9a-53b1203cdf4e",
+    "4d4cd631-dc61-533b-8792-1a4e231190d2",
     "53f4025b-8f4f-5149-b270-71819ba63c59",
-    "5c5daa2b-ad99-56a9-a72c-1dce50456b08"
+    "5c5daa2b-ad99-56a9-a72c-1dce50456b08",
+    "71f97b89-5cf9-5712-8023-313727e4b93b",
+    "784c2c34-59cb-528f-afb9-be8f232bc365",
+    "82ba1f0f-7ea4-5933-8971-d2f103c2bdac",
+    "8cebbe37-cbfc-5c3e-a94a-0ec7993a1c49",
+    "bc6e2175-8b8a-5fa9-b0fb-f4bb48cbc53f",
+    "ccfdc808-1b8d-5063-a3e2-9ecd3c5dd0ae",
+    "ce2cdb6e-0ed3-536e-8056-de1ce4fc7651",
+    "d09c1c47-de80-5cb7-a67d-292aae0827c5",
+    "d0c0234d-971f-5d0f-adaa-4102ff23c7bb",
+    "e2427c2c-f8a7-5a10-ad6a-3ce2c7795672"
   ],
   "content_gaps": []
 }
