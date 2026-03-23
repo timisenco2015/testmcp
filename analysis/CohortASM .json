@@ -1,0 +1,145 @@
+{
+  "filename": "CohortASM",
+  "found": true,
+  "summary": "CohortASM is a web page and code module for managing student placement selection rules, options, and behaviors in a placement/timetable system. It provides configurable parameters for how students can select placements (PRs), including maximum selections, allowed services, allocation constraints, and permissions for viewing and entering data related to placements. The system incorporates business logic, UI components, validation mechanisms, and workflow for both administrators and students.",
+  "purpose": "To enable administrators to configure how students select placements (PRs), constrain and validate these selections, and provide options for duplicate selection, destination allocation, service inclusion, and control over visibility and entry permissions. The system's form and workflow govern entry, validation, update, and display of these configuration options.",
+  "entities": [
+    "Timetable",
+    "ServiceCode",
+    "UserSession"
+  ],
+  "fields": [
+    "MaxStudentPRSelections",
+    "SpecifyDuplicatePRs",
+    "RankWithheldPRs",
+    "ViewClassmateStats",
+    "AllowAnyDestInSite",
+    "AllowAnySiteDestInService",
+    "AllowedServiceCodeList",
+    "PRSelectorStartDate",
+    "PRSelectorEndDate",
+    "SearchableStatusCodeID",
+    "StudentsViewPRStatus",
+    "StudentsViewDestinations",
+    "AllowDuplicateDestinations",
+    "StudentsViewAgency",
+    "StudentsViewService",
+    "EnterSpecialConsiderations",
+    "PRsAllocatedToCampusOnly",
+    "PRsAllocatedToSectionOnly"
+  ],
+  "actors": [
+    "System Administrator",
+    "Placement Coordinator",
+    "Local Administrator",
+    "Student"
+  ],
+  "workflows": [
+    {
+      "name": "Configure CohortASM",
+      "steps": [
+        "Administrator loads page with TimetableID",
+        "Configure maximum selections per student (dropdown and custom input)",
+        "Specify duplicate PR selection, rank withheld PRs, and view classmate stats (checkboxes)",
+        "Configure allowed services: select and move between included and not included lists",
+        "Set allocation constraints: campus-only or section-only",
+        "Set visibility and entry permissions for students (various checkboxes)",
+        "Set selection period with start and end date/time (calendar extenders and text boxes)",
+        "Validate input via UI validators and custom client/server logic",
+        "On save, values are updated and validated",
+        "Error and warning panels display validation messages"
+      ]
+    },
+    {
+      "name": "Student Selection",
+      "steps": [
+        "Student selects PRs based on system configuration",
+        "Selection options limited by maximum, service inclusion, and allocation constraints",
+        "Access and view permissions enforced",
+        "Validation ensures selections are within allowed values and periods"
+      ]
+    }
+  ],
+  "business_rules": [
+    "MaxStudentPRSelections must be between 1-40 or specific allowed values",
+    "Custom selection input must be validated for range (1-40)",
+    "Start and end dates must be valid and conform to format; start must not be after end",
+    "If maximum selections is 0, selection period dates/times are cleared",
+    "If allowed service selection is enabled, at least one service must be included",
+    "Duplicate PRs and destinations may be allowed or disallowed per checkbox setting",
+    "Students may only view or enter data as permitted by admin configuration"
+  ],
+  "validations": [
+    "CustomValidator: Saved choices exist dates cannot be blank",
+    "CustomValidator: Dates exist max selections not N/A",
+    "RegularExpressionValidator: Start/end date must match date format",
+    "RegularExpressionValidator: Start/end time must match time format",
+    "CustomValidator: Close selector date required with open selector date",
+    "CustomValidator: Close selector date must be after open selector date",
+    "CustomValidator: Time period must be valid",
+    "Client-side JavaScript validates range and required fields"
+  ],
+  "calculations": [
+    "If allowed services are enabled and selected, join IDs to comma-separated list",
+    "Calculate start/end datetime from text and time fields, default time handling",
+    "Sort included and not included services alphabetically",
+    "Checkbox helper logic determines value display (YES/NO)"
+  ],
+  "conditions": [
+    "Selection fields enabled only if screen is editable and user is authorized",
+    "Campus allocation constraint only visible if campuses exist",
+    "Section allocation constraint always visible",
+    "Service selection list visibility toggles based on checkbox"
+  ],
+  "system_behavior": [
+    "Loads relevant JavaScript and validation logic",
+    "Handles asynchronous postback for form updates",
+    "Displays errors and warnings in panels",
+    "Controls visibility of edit buttons based on user role",
+    "Updates form data on save with validation"
+  ],
+  "dependencies": [
+    "HSPnetPage framework",
+    "AJAX Control Toolkit for UI components",
+    "UserSession object for permissions and context",
+    "TimetableEntries data layer",
+    "ServiceCodes module for service options",
+    "Resource localization for UI text"
+  ],
+  "exceptions": [
+    "Invalid custom selection value outside 1-40",
+    "Start/end date or time invalid format",
+    "Start date after end date",
+    "Past date/time selection",
+    "No services selected when required"
+  ],
+  "source_document_ids": [
+    "a3cb8768-cefa-56d2-8a19-ca97d6cd5dd1",
+    "3d0500d6-fc64-5cfc-a7f2-32c18a954f63",
+    "be9fb989-6290-5845-83a4-6c6c50605976",
+    "c694759e-d464-59f1-bf7a-ca5ee4857dbd",
+    "dedfa5e9-97db-5377-99be-c7308a199328",
+    "a58da238-1e22-5c81-b22b-74f3c319bd7e",
+    "186f5961-3106-58d7-bced-7b2c064062f7",
+    "88570ba1-38d3-5e8c-9ee4-a964fcdcbad8",
+    "89afc57a-5d80-5435-b1f9-ad7e409311e8",
+    "1a285cac-c9e9-5025-aabe-24c9915aee9c",
+    "0935ad43-cfac-57b2-8f03-26e7f1523736",
+    "70ee5981-9ef0-5c14-895e-ea523aa2bb88",
+    "b95160c5-98f8-5a41-8d41-68adc73216c8",
+    "d53bb078-ba5f-50ec-a3f3-6a62c0b66bab",
+    "5b4e6128-a0f4-5586-a849-e303eccd537a",
+    "c17df321-d6fb-5981-bf8f-606dc262004e",
+    "16f16ec7-7720-5348-8f56-7f8207c5e5d1",
+    "9580c36c-9a8b-56f4-9c69-71c685081155",
+    "82e5b50a-7387-59e2-a37f-a573c97f031f",
+    "ffada0dd-39bc-51fb-b6a5-a9b6403bab0c"
+  ],
+  "content_gaps": [
+    "No detailed database table schema for Timetable or ServiceCode",
+    "No sample data for fields",
+    "No explicit UI screenshots or wireframes",
+    "Resource localization (text) not fully listed",
+    "No business rules for edge scenarios documented"
+  ]
+}
