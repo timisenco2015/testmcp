@@ -1,0 +1,121 @@
+# Module: TimetableRotation
+
+## TimetableRotation-UC1 — Retrieve Timetable Rotations by Timetable ID
+
+- Primary Actor(s): User
+- Secondary Actor(s): System
+- Trigger: User requests to view timetable rotations for a specific timetable ID.
+- Description: Retrieve timetable rotation details for a given timetable ID.
+- Preconditions: Valid session and timetable ID.
+- Postconditions: List of timetable rotations is displayed.
+- Main Success Scenario:
+  1. User inputs a valid timetable ID.
+  2. System executes stored procedure `TimetableRotationSearch`.
+  3. System returns and displays the list of rotations.
+- Extensions:
+  - None
+- Exceptions:
+  - Invalid timetable ID results in no data returned.
+- Business Rules:
+  - Use stored procedure `TimetableRotationSearch`.
+- Assumptions:
+  - The procedure completes without errors.
+- Open Issues:
+  - None
+  
+## TimetableRotation-UC2 — Add Timetable Rotation
+
+- Primary Actor(s): Administrator
+- Secondary Actor(s): System
+- Trigger: Administrator requests to add a new timetable rotation.
+- Description: Add a new rotation entry to the timetable.
+- Preconditions: Valid session, timetable ID, start date, and end date.
+- Postconditions: New timetable rotation is added.
+- Main Success Scenario:
+  1. Administrator inputs timetable details.
+  2. System validates the data.
+  3. System executes stored procedure `TimetableRotationAdd`.
+  4. System confirms the addition.
+- Extensions:
+  - None
+- Exceptions:
+  - Validation errors (e.g., missing dates, invalid date range).
+- Business Rules:
+  - Dates must be valid and within the timetable start and end dates.
+- Assumptions:
+  - Database operations succeed.
+- Open Issues:
+  - None
+  
+## TimetableRotation-UC3 — Update Timetable Rotation
+
+- Primary Actor(s): Administrator
+- Secondary Actor(s): System
+- Trigger: Administrator requests to update an existing timetable rotation.
+- Description: Update the details of an existing timetable rotation.
+- Preconditions: Valid session, existing rotation ID, new start date, and end date.
+- Postconditions: Timetable rotation details are updated.
+- Main Success Scenario:
+  1. Administrator selects a rotation entry.
+  2. Administrator updates rotation details.
+  3. System validates the updated data.
+  4. System executes stored procedure `TimetableRotationUpdate`.
+  5. System confirms the update.
+- Extensions:
+  - None
+- Exceptions:
+  - Validation errors (e.g., invalid date range).
+- Business Rules:
+  - Dates must be valid and within the timetable start and end dates.
+- Assumptions:
+  - The entry exists and database operations succeed.
+- Open Issues:
+  - None
+  
+## TimetableRotation-UC4 — Delete Timetable Rotation
+
+- Primary Actor(s): Administrator
+- Secondary Actor(s): System
+- Trigger: Administrator requests to delete a timetable rotation.
+- Description: Delete an existing timetable rotation.
+- Preconditions: Valid session and existing rotation ID.
+- Postconditions: Timetable rotation is deleted.
+- Main Success Scenario:
+  1. Administrator selects a rotation entry to delete.
+  2. System executes stored procedure `TimetableRotationDelete`.
+  3. System confirms deletion.
+- Extensions:
+  - None
+- Exceptions:
+  - Attempt to delete a non-existent entry.
+- Business Rules:
+  - Deletion requires a valid rotation ID.
+- Assumptions:
+  - Administrator privileges and database operations succeed.
+- Open Issues:
+  - None
+  
+## TimetableRotation-UC5 — Validate Timetable Rotation Dates
+
+- Primary Actor(s): System
+- Secondary Actor(s): Administrator
+- Trigger: System needs to validate date inputs for rotation.
+- Description: Ensure rotation dates are valid and within the allowable timetable range.
+- Preconditions: Rotation start and end dates are provided.
+- Postconditions: Validation result is either success or an error message.
+- Main Success Scenario:
+  1. System receives start and end dates.
+  2. System checks if dates fall within timetable start and end range.
+  3. Validation passes with success.
+- Extensions:
+  - None
+- Exceptions:
+  - Start date is after end date.
+  - Dates are outside timetable range.
+- Business Rules:
+  - Dates cannot be null.
+  - Start date must precede or be equal to end date.
+- Assumptions:
+  - Valid timetable start and end dates are set.
+- Open Issues:
+  - None
