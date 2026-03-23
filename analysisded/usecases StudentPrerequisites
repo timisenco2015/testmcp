@@ -1,0 +1,151 @@
+```markdown
+# Module: StudentPrerequisites
+
+## StudentPrerequisites-UC1 — Update Student Infection Details
+
+- Primary Actor(s): System
+- Secondary Actor(s): Staff
+- Trigger: System needs to update the student's infection details.
+- Description: This use case handles the update of student infection-related information such as N95 mask size, fit test dates, and infection control solutions.
+- Preconditions:
+  - The student ID and session must be valid.
+- Postconditions:
+  - Updated student infection records in the database reflect the new data.
+- Main Success Scenario:
+  1. Validate the session and student information.
+  2. Prepare the database procedure for updating infection details.
+  3. Execute the update with provided parameters.
+- Extensions:
+  - N/A
+- Exceptions:
+  - If the session or student information is invalid, the update is aborted.
+- Business Rules:
+  - Use specific database procedures for updates.
+- Assumptions:
+  - Database and session management systems are operational.
+- Open Issues:
+  - None
+
+## StudentPrerequisites-UC2 — Update Student Occupational Health Summary
+
+- Primary Actor(s): System
+- Secondary Actor(s): Staff
+- Trigger: System needs to update the student's occupational health summary.
+- Description: This use case deals with updating occupational health-related data, including immunization dates and completion status.
+- Preconditions:
+  - A valid session and student ID must be available.
+- Postconditions:
+  - Occupational health summary for the student is updated in the database.
+- Main Success Scenario:
+  1. Validate the session and student details.
+  2. Set the parameters for occupational health summary update.
+  3. Execute the update procedure.
+- Extensions:
+  - N/A
+- Exceptions:
+  - Invalid session or student data results in a failed update.
+- Business Rules:
+  - Must comply with procedures for occupational health updates.
+- Assumptions:
+  - All required data is accurate and complete.
+- Open Issues:
+  - None
+
+## StudentPrerequisites-UC3 — Validate Student Prerequisite Completion
+
+- Primary Actor(s): System
+- Secondary Actor(s): None
+- Trigger: Validation is required for completed prerequisites.
+- Description: This use case validates whether the student has met the necessary prerequisites, considering expiry dates and statuses.
+- Preconditions:
+  - Prerequisite records must exist for the student.
+- Postconditions:
+  - The system logs any validation errors.
+- Main Success Scenario:
+  1. Compare current dates with prerequisite expiry dates.
+  2. Log messages if any prerequisites are outdated by more than five years.
+  3. Return validation results.
+- Extensions:
+  - N/A
+- Exceptions:
+  - Prerequisites with missing or invalid data are flagged.
+- Business Rules:
+  - Expiry validations must adhere to a five-year threshold.
+- Assumptions:
+  - The date format is consistent and parsable.
+- Open Issues:
+  - None
+
+## StudentPrerequisites-UC4 — Update Confidentiality Form Status
+
+- Primary Actor(s): System
+- Secondary Actor(s): Staff
+- Trigger: A confidentiality form update is required.
+- Description: This use case updates the status and notes related to confidentiality forms submitted by students.
+- Preconditions:
+  - A valid session, student ID, and confidentiality form data must be available.
+- Postconditions:
+  - The confidentiality form data is updated in the database.
+- Main Success Scenario:
+  1. Validate session and student information.
+  2. Update confidentiality form details in the database.
+  3. Execute the update query.
+- Extensions:
+  - N/A
+- Exceptions:
+  - Invalid session data results in aborting the update.
+- Business Rules:
+  - Confidentiality updates must be logged with date and notes.
+- Assumptions:
+  - The form data is provided in the correct format.
+- Open Issues:
+  - None
+
+## StudentPrerequisites-UC5 — Immunization and Health Update
+
+- Primary Actor(s): System
+- Secondary Actor(s): Staff
+- Trigger: Updates required for student immunization and health records.
+- Description: This use case manages updates to immunization records, including vaccination dates and status.
+- Preconditions:
+  - Valid session and student ID must be provided.
+- Postconditions:
+  - Immunization records are updated, reflecting new health data.
+- Main Success Scenario:
+  1. Ensure the session and student information is valid.
+  2. Prepare and execute the immunization update procedure.
+- Extensions:
+  - N/A
+- Exceptions:
+  - Failure to validate session or student data results in aborting updates.
+- Business Rules:
+  - Update procedures must be followed for all health records.
+- Assumptions:
+  - All necessary health data is complete and accurate.
+- Open Issues:
+  - None
+
+## StudentPrerequisites-UC6 — Respiratory Mask Update
+
+- Primary Actor(s): System
+- Secondary Actor(s): Staff
+- Trigger: Updates required for student respiratory mask details.
+- Description: This use case focuses on updating details related to respiratory masks, such as size codes and fit test dates.
+- Preconditions:
+  - A valid session and student information must be available.
+- Postconditions:
+  - Database records for respiratory mask details are updated.
+- Main Success Scenario:
+  1. Validate the session and student details.
+  2. Execute the respiratory mask update procedure with provided parameters.
+- Extensions:
+  - N/A
+- Exceptions:
+  - Invalid session or student data results in a failed update.
+- Business Rules:
+  - Respiratory mask updates require specific procedural adherence.
+- Assumptions:
+  - Mask data is supplied in the correct format.
+- Open Issues:
+  - None
+```
