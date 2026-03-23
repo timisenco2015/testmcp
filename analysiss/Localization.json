@@ -1,69 +1,67 @@
 {
-    "filename": "Localization",
-    "found": true,
-    "summary": "The Localization module provides functionality for translating UI elements based on alternative language settings. It includes functions to translate field text, file types, and date/time strings depending on the locale.",
-    "purpose": "This module facilitates the localization of user interface elements by translating field labels and strings into alternate languages, accommodating users who require language-specific content.",
-    "entities": [],
-    "fields": [
-        {
-            "name": "UseAltLanguageFields",
-            "type": "Boolean",
-            "description": "Determines whether alternative language fields are used."
-        },
-        {
-            "name": "fields",
-            "type": "Control[]",
-            "description": "Array of UI controls to be translated."
-        },
-        {
-            "name": "newValues",
-            "type": "string[]",
-            "description": "Array of new translated values for the controls."
-        }
-    ],
-    "actors": [
-        {
-            "name": "HSPnetSession",
-            "description": "Represents a user session, including language settings."
-        }
-    ],
-    "workflows": [
-        {
-            "name": "Translate Fields",
-            "steps": [
-                "Check if alternative language fields should be used.",
-                "Iterate through each field to be translated.",
-                "Update the field's text to its corresponding translated value if applicable."
-            ]
-        },
-        {
-            "name": "Translate File Type",
-            "steps": [
-                "Check session for alternative language usage.",
-                "Return the appropriate file type string based on the language setting."
-            ]
-        },
-        {
-            "name": "Translate Last Login",
-            "steps": [
-                "Check session for alternative language usage.",
-                "Replace English month abbreviations with their alternative language equivalent in the LastLogin string."
-            ]
-        }
-    ],
-    "business_rules": [],
-    "validations": [],
-    "calculations": [],
-    "conditions": [],
-    "system_behavior": [
-        "Updates field text and returns language-appropriate file types and date strings.",
-        "Ensures that localization can be applied dynamically at runtime based on settings."
-    ],
-    "dependencies": [],
-    "exceptions": [],
-    "source_document_ids": [
-        "091e1f17-7a04-5c15-84aa-fe3989a1c114",
-        "d455ebdd-4f2d-5324-b3c7-aad9a078d149"
-    ],
-    "content_gaps": []
+  "filename": "Localization",
+  "found": true,
+  "summary": "The document contains methods for facilitating the localization of UI components within the HSPnet application. It specifically enables the translation of fields and file types and manages the language settings for user sessions.",
+  "purpose": "To provide functionality for translating UI elements and handling different language settings based on user session configurations, allowing for alternate language representations in the HSPnet UI.",
+  "entities": [
+    "HSPnetSession",
+    "Control",
+    "Literal",
+    "Label"
+  ],
+  "fields": [
+    "UseAltLanguageFields",
+    "FileType",
+    "FileTypeAlt",
+    "LastLogin"
+  ],
+  "actors": [],
+  "workflows": [
+    {
+      "name": "Translate Fields",
+      "steps": [
+        "Check if alternate language fields are to be used.",
+        "Iterate over each field and corresponding new value pair.",
+        "Determine if the field is a Literal or Label and update its text."
+      ]
+    },
+    {
+      "name": "Translate File Type",
+      "steps": [
+        "Check if session object is provided.",
+        "Determine language setting from the session.",
+        "Return the alternate file type if using alternate language fields."
+      ]
+    },
+    {
+      "name": "Translate Last Login",
+      "steps": [
+        "Check if alternate language fields are to be used.",
+        "Replace month names in the last login string with their alternate language equivalents."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Fields and newValues arrays must be of the same size for translation.",
+    "If the session object is null, default to using English fields."
+  ],
+  "validations": [],
+  "calculations": [],
+  "conditions": [
+    "UseAltLanguageFields is true for translations to proceed.",
+    "Control element is not null before attempting to update its text."
+  ],
+  "system_behavior": [
+    "Updates field texts to translated versions depending on the language setting."
+  ],
+  "dependencies": [
+    "HSPnetSession for language setting determination.",
+    "System.Web.UI for Control, Literal, and Label classes."
+  ],
+  "exceptions": [],
+  "source_document_ids": [
+    "091e1f17-7a04-5c15-84aa-fe3989a1c114",
+    "d455ebdd-4f2d-5324-b3c7-aad9a078d149"
+  ],
+  "content_gaps": []
 }
