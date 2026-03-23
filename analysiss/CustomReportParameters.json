@@ -1,0 +1,65 @@
+{
+    "filename": "CustomReportParameters",
+    "found": true,
+    "summary": "The documents detail the implementation and retrieval of custom report parameters within the HSPnet system. The CustomReportParameter class defines the structure and properties of a report parameter, while the CustomReportParameters class provides the method for retrieving a list of these parameters from the database.",
+    "purpose": "To provide a structure for handling custom report parameters and a method for retrieving them from the database for reporting purposes.",
+    "entities": [],
+    "fields": [
+        "START_DATE",
+        "END_DATE",
+        "PROGRAM_ID_LIST",
+        "OTHER_PROGRAMS",
+        "SITE_ID_LIST",
+        "OTHER_SITES",
+        "STATUS_CODE_ID_LIST",
+        "NIS_RELEASED",
+        "IRP_RELEASED",
+        "COHORT_ID",
+        "COURSE_ID",
+        "TERM_ID",
+        "DEPARTMENT_ID_LIST",
+        "SERVICE_ID_LIST",
+        "AGENCY_ID_LIST",
+        "DATA_FIELD_LIST",
+        "STUDENT_INFO_LIST",
+        "STUDENT_AUTHORIZATION",
+        "STUDENT_AUTHORIZATION_UPLOAD_FILE",
+        "ID",
+        "CustomReportID",
+        "ParamName",
+        "ParamValue",
+        "Details"
+    ],
+    "actors": [
+        "HSPnetSession"
+    ],
+    "workflows": [
+        {
+            "name": "GetParameters",
+            "steps": [
+                "Initialize a list to store CustomReportParameter objects.",
+                "Set the database procedure name to 'CustomReportGetParameters'.",
+                "Add the parameter 'CustomReportID' to the database command.",
+                "Execute the database command to retrieve data.",
+                "For each record returned, create a new CustomReportParameter object, set its properties, and add it to the list.",
+                "Close the data reader.",
+                "Return the list of CustomReportParameter objects."
+            ]
+        }
+    ],
+    "business_rules": [],
+    "validations": [],
+    "calculations": [],
+    "conditions": [],
+    "system_behavior": [
+        "Defines a set of constant strings representing parameter names.",
+        "Provides a method to interact with the HSPnet database to retrieve parameters based on a report ID."
+    ],
+    "dependencies": [],
+    "exceptions": [],
+    "source_document_ids": [
+        "0e536447-5235-58b7-a74f-a82a88ac0ad2",
+        "6ea68d0f-503d-5b19-9e3e-7d9892fa71f1"
+    ],
+    "content_gaps": []
+}
