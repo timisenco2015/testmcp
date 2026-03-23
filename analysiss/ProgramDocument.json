@@ -1,9 +1,11 @@
 {
   "filename": "ProgramDocument",
   "found": true,
-  "summary": "The ProgramDocument system manages the handling, storage, and retrieval of documents associated with programs. It supports adding, deleting, and searching for documents, and manages document metadata such as file path, size, and type.",
-  "purpose": "To provide functionality for managing program-related documents, including adding new documents, deleting existing ones, and retrieving document information based on program or document IDs.",
-  "entities": [],
+  "summary": "The ProgramDocument system involves the management and manipulation of documents in a programmatic way, including adding, deleting, and retrieving documents.",
+  "purpose": "To facilitate the management of program documents, including their storage, retrieval, and deletion within the system.",
+  "entities": [
+    "ProgramDocument"
+  ],
   "fields": [
     "ID",
     "ProgramID",
@@ -29,80 +31,58 @@
     "AgencyShortName",
     "AgencyName",
     "Phone",
-    "Email",
-    "UpdateDateFormatted",
-    "AgencyUserFormatted",
-    "EmailFormatted"
+    "Email"
   ],
-  "actors": ["HSPnetSession", "SqlDataReader"],
+  "actors": [
+    "HSPnetSession"
+  ],
   "workflows": [
     {
-      "name": "Add Document",
+      "name": "Add Program Document",
       "steps": [
-        "Check if the document is valid",
-        "Set the stored procedure name to 'ProgramDocumentAddDoc'",
-        "Add parameters for session ID, program document ID, program ID, type code ID, document name, comments, URL, path, size, and type",
-        "Execute the query",
-        "If the document is a logo, update the logo in the 'ProgramLogos' table"
+        "Validate the program document.",
+        "Add parameters such as SessionID, ProgramDocumentID, and other relevant fields.",
+        "Execute the query to add the document."
       ]
     },
     {
-      "name": "Delete Document",
+      "name": "Delete Program Document",
       "steps": [
-        "Check if the document ID is greater than 0",
-        "Retrieve document details using the document ID",
-        "Delete the file and the containing folder, ignoring exceptions",
-        "Set the stored procedure name to 'ProgramDocumentDelete'",
-        "Add parameters for session ID and document ID",
-        "Execute the query"
+        "Retrieve document list by ID.",
+        "Attempt to delete file and containing folder, catching exceptions.",
+        "Execute database query to delete the document record."
       ]
     },
     {
-      "name": "Search By Document ID",
+      "name": "Get Program Document by ID",
       "steps": [
-        "Set the stored procedure name to 'ProgramDocumentSearchByID'",
-        "Add parameters for document ID",
-        "Retrieve data using a data reader",
-        "Fill a list with document data",
-        "Close the data reader"
-      ]
-    },
-    {
-      "name": "Get Program Logo Code ID",
-      "steps": [
-        "Retrieve a list of codes by category 'ProgramDocumentType'",
-        "Check each code to see if it matches 'LOGO'",
-        "Return the ID associated with the 'LOGO' code"
+        "Set procedure name to ProgramDocumentSearchByID.",
+        "Add parameter ID.",
+        "Retrieve data and fill list.",
+        "Return the list of documents."
       ]
     }
   ],
   "business_rules": [
-    "File URL is converted to a link if the URL is non-blank and the file exists",
-    "If the document type code is 'OTHER', it is displayed as 'Other'",
-    "When running in alternate language mode, alternate language fields are used"
+    "ProgramLogoCodeID is used to identify logo documents."
   ],
   "validations": [
-    "Ensure TypeCodeID is not zero before proceeding with document actions"
+    "TypeCodeID must be greater than 0."
   ],
   "calculations": [],
   "conditions": [
-    "If the document type is a logo, specific actions are taken",
-    "Use department logo if 'UseDepartmentLogo' is true"
+    "LogoOnly flag determines if only logo documents are retrieved.",
+    "If file does not exist, set URL to 'Document_Not_Found' or 'no_Logo_available'."
   ],
   "system_behavior": [
-    "Documents can be added, deleted, or retrieved",
-    "Document metadata such as file path, type, and size are managed",
-    "Document updates are logged with date and user information"
+    "ProgramDocument operations include add, delete, and retrieve functionalities.",
+    "Document fields are retrieved and set using database operations."
   ],
   "dependencies": [
-    "HSPnetSession",
-    "System.Data.SqlClient",
-    "System.IO",
-    "HSPnet.Framework"
+    "Database operations depend on stored procedures like ProgramDocumentSearch and ProgramDocumentAddDoc."
   ],
   "exceptions": [
-    "File and directory deletion failures are silently caught",
-    "Database access errors are managed through session messaging"
+    "File deletion exceptions are ignored during deletion workflow."
   ],
   "source_document_ids": [
     "1a0b0c34-45f5-5ca0-a3fc-2f0fff26ae3b",
