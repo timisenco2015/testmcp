@@ -1,18 +1,34 @@
 {
     "filename": "ServiceCode",
     "found": true,
-    "summary": "ServiceCode class and database retrieval for managing service codes within HSPnet.",
-    "purpose": "Handles service code information and retrieval from the database for HSPnet sessions.",
-    "entities": ["ServiceCode"],
-    "fields": ["ID", "CodeCategoryID", "ShortName", "Name", "SortOrder", "Notes", "NameAlt", "NotesAlt"],
-    "actors": ["Database Administrator", "HSPnet Session"],
+    "summary": "ServiceCode class defines service codes with properties like ID, name, description, and alternate languages.",
+    "purpose": "To manage and process service codes, including alternate language descriptions.",
+    "entities": [
+        "ServiceCode"
+    ],
+    "fields": [
+        "ID",
+        "CodeCategoryID",
+        "ShortName",
+        "Name",
+        "Notes"
+    ],
+    "actors": [],
     "workflows": [
         {
-            "name": "Service Code Retrieval",
-            "steps": ["Procedure execution", "Data mapping", "Return list"]
+            "name": "ServiceCodeListAll",
+            "steps": [
+                "Initialize database procedure",
+                "Add session parameter",
+                "Retrieve data",
+                "Process data into ServiceCode objects",
+                "Close reader and return list"
+            ]
         }
     ],
-    "business_rules": [],
+    "business_rules": [
+        "Use alt-language data if session is running in alt language mode"
+    ],
     "validations": [],
     "calculations": [],
     "conditions": [],
