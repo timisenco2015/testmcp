@@ -1,54 +1,58 @@
 {
     "filename": "ErrorOccurred",
     "found": true,
-    "summary": "The ErrorOccurred page is part of the HSPnet web application. It displays error messages when a user encounters an error on the site. The page supports both English and French locales, dynamically customizing content based on the user's language preference. It retrieves configuration settings for email addresses and displays specific error messages.",
-    "purpose": "To display error messages and provide support information to users who encounter errors on the HSPnet platform.",
+    "summary": "The page handles error occurrences, displaying error messages based on locale settings and configuration. It utilizes ASP.NET to structure its layout and define server-side logic.",
+    "purpose": "To display error messages in a web application, tailored according to user locale and specific error conditions.",
     "entities": [],
     "fields": [
         {
             "name": "HeaderEN",
-            "description": "Panel control for displaying the header in English."
+            "type": "Panel",
+            "description": "Control to display the English header."
         },
         {
             "name": "HeaderFR",
-            "description": "Panel control for displaying the header in French."
+            "type": "Panel",
+            "description": "Control to display the French header."
         },
         {
             "name": "uxErrorMessage",
-            "description": "Label control for displaying error messages."
+            "type": "Label",
+            "description": "Label to display error messages."
         }
     ],
     "actors": [],
     "workflows": [
         {
-            "name": "Display Error Page",
+            "name": "Page Load Workflow",
             "steps": [
-                "User accesses the ErrorOccurred page.",
-                "The page checks the 'Locale' query parameter to determine the user's language preference.",
-                "The appropriate header (English or French) is displayed based on the locale.",
-                "The page retrieves the configured error email address from the web.config file.",
-                "The page checks if a 'HttpRequestValidationException' has occurred.",
-                "A specific error message is displayed depending on the presence of 'HttpRequestValidationException'."
+                "Check if the locale is set to 'en-US' or not set at all.",
+                "Based on the locale, display the corresponding header (English or French).",
+                "Fetch the error email address from configuration settings.",
+                "Determine the subject from the database configuration.",
+                "Check if there is a HttpRequestValidationException query parameter set to '1'.",
+                "Display the appropriate error message formatted with the email and subject."
             ]
         }
     ],
     "business_rules": [
-        "Error email address is retrieved from configuration settings (web.config) and can be customized.",
-        "Locale defaults to 'en-US' if not provided or invalid."
+        "Email address for error messages is obtained from web.config settings.",
+        "Specific error messages are shown based on the HttpRequestValidationException query parameter."
     ],
     "validations": [
-        "If 'HttpRequestValidationException' is present in the query string, a specific validation exception message is shown."
+        "Locale query parameter is validated and used to set the current culture."
     ],
     "calculations": [],
     "conditions": [
-        "The visibility of HeaderEN and HeaderFR panels depends on the 'Locale' value in the query string."
+        "If the locale is 'en-US' or not set, the default locale is used.",
+        "If HttpRequestValidationException equals '1', a specific error message is displayed."
     ],
     "system_behavior": [
-        "The system dynamically changes the UI culture based on the user's locale preference."
+        "Switches between English and French headers based on locale.",
+        "Displays specific error messages based on query parameters and configuration."
     ],
     "dependencies": [
-        "Resources available in HSPnet.App_GlobalResources.",
-        "Configuration settings for email and database name."
+        "Locale and error email configurations are dependent on web.config settings."
     ],
     "exceptions": [],
     "source_document_ids": [
