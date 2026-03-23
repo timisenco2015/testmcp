@@ -1,108 +1,115 @@
 # Module: ExpenseBatch
 
-## ExpenseBatch-UC1 — Search Expense Batch by ID
+## ExpenseBatch-UC1 — Search for Expense Batches by Department
 
-- Primary Actor(s): System Administrator
+- Primary Actor(s): HSPnetSession
 - Secondary Actor(s): None
-- Trigger: A search is initiated to find an expense batch by its ID.
-- Description: This use case describes the process of retrieving an expense batch's details using its unique ID.
+- Trigger: A request to search for expense batches by department ID.
+- Description: This use case allows users to retrieve a list of expense batches for a specific department from the database.
 - Preconditions:
-  - The system is online and accessible.
-  - The expense batch ID exists in the system.
+  - A valid department ID must be provided.
+  - The database connection must be established.
 - Postconditions:
-  - The details of the expense batch are displayed to the user.
+  - A list of expense batches for the specified department is returned.
 - Main Success Scenario:
-  1. The system receives a request to search for an expense batch by ID.
-  2. The system queries the database using the provided ID.
-  3. The system retrieves the batch details.
-  4. The system displays the expense batch details to the user.
+  1. The system sets the stored procedure to `ExpenseBatchSearch`.
+  2. The system adds the department ID as a parameter.
+  3. The system executes the stored procedure to retrieve data.
+  4. The system reads through the retrieved data, creating ExpenseBatch objects.
+  5. The system returns a list of ExpenseBatch objects.
 - Extensions:
-  - None
+  - If alternate language fields are available, these are used for the status description.
 - Exceptions:
-  - If the provided ID does not exist, an error is returned.
+  - If the database connection fails, the operation is aborted.
+  - If the department ID does not exist, an empty list is returned.
 - Business Rules:
-  - The ID must be a valid integer.
+  - Only batches from the last year are retrieved.
 - Assumptions:
-  - Users have the necessary permissions to view batch details.
+  - The department ID is valid.
+  - The database contains relevant batch data.
 - Open Issues:
-  - None
+  - Handling of network interruptions.
 
-## ExpenseBatch-UC2 — Add New Expense Batch
+## ExpenseBatch-UC2 — Add a New Expense Batch
 
-- Primary Actor(s): System Administrator
+- Primary Actor(s): HSPnetSession
 - Secondary Actor(s): None
-- Trigger: A user initiates the process to add a new expense batch.
-- Description: This use case involves adding a new expense batch to the system with necessary details such as department ID, description, and date.
+- Trigger: A request to add a new expense batch.
+- Description: This use case allows users to add a new expense batch for a department.
 - Preconditions:
-  - The user is authenticated and has permissions to add new batches.
+  - Valid department ID, batch description, and batch date must be provided.
+  - The database must be accessible.
 - Postconditions:
-  - A new expense batch is created with a unique ID and stored in the system.
+  - A new expense batch is inserted into the database.
+  - The ID of the newly created batch is returned.
 - Main Success Scenario:
-  1. The user provides the department ID, batch description, and date.
-  2. The system assigns a unique ID to the new batch.
-  3. The system stores the new expense batch in the database.
-  4. The system confirms the addition of the new batch to the user.
+  1. The system sets the stored procedure to `ExpenseBatchAdd`.
+  2. The system adds parameters including session ID, department ID, batch description, and batch date.
+  3. The system executes the procedure to add the batch.
+  4. The system retrieves the ID of the new batch.
+  5. The system closes the data reader and returns the new batch ID.
 - Extensions:
-  - None
+  - None.
 - Exceptions:
-  - If any required information is missing, the system prompts the user to provide it.
+  - If any parameter is invalid, the operation fails.
+  - If the database operation fails, an error is returned.
 - Business Rules:
-  - Department ID must be associated with an existing department.
+  - Batches are department-specific.
 - Assumptions:
-  - There are no constraints on the number of batches that can be created.
+  - The department ID exists in the system.
 - Open Issues:
-  - None
+  - Validation of input parameters.
 
-## ExpenseBatch-UC3 — Update Existing Expense Batch
+## ExpenseBatch-UC3 — Update an Existing Expense Batch
 
-- Primary Actor(s): System Administrator
+- Primary Actor(s): HSPnetSession
 - Secondary Actor(s): None
-- Trigger: A request is made to update the details of an existing expense batch.
-- Description: This use case covers updating an existing expense batch's description, date, or status.
+- Trigger: A request to update an existing expense batch.
+- Description: This use case updates details of an existing expense batch.
 - Preconditions:
-  - The user has permissions to update batch details.
-  - The batch exists in the system.
+  - Valid batch ID, description, date, and status code ID must be provided.
+  - The batch must exist in the database.
 - Postconditions:
-  - The expense batch details are updated in the database.
+  - The specified expense batch is updated in the database.
 - Main Success Scenario:
-  1. The user specifies the batch ID to update.
-  2. The user provides new values for the batch description, date, and status code.
-  3. The system updates the expense batch information in the database.
-  4. The system confirms the update to the user.
+  1. The system sets the stored procedure to `ExpenseBatchUpdate`.
+  2. The system adds parameters including session ID, batch ID, batch description, batch date, and status code ID.
+  3. The system executes the update query.
 - Extensions:
-  - None
+  - None.
 - Exceptions:
-  - If the batch ID is invalid, an error is returned.
+  - If the batch ID does not exist, the update fails.
+  - If the database update fails, an error is returned.
 - Business Rules:
-  - Batch date must be a valid date.
+  - Status code updates must follow business regulations.
 - Assumptions:
-  - All users understand the impact of changing batch status.
+  - Batch ID is valid and corresponds to an existing batch.
 - Open Issues:
-  - None
+  - None.
 
-## ExpenseBatch-UC4 — Delete Expense Batch
+## ExpenseBatch-UC4 — Delete an Expense Batch
 
-- Primary Actor(s): System Administrator
+- Primary Actor(s): HSPnetSession
 - Secondary Actor(s): None
-- Trigger: A request is made to delete an existing expense batch.
-- Description: This use case involves removing an expense batch from the system permanently.
+- Trigger: A request to delete an expense batch.
+- Description: This use case allows users to delete an existing expense batch from the database.
 - Preconditions:
-  - The batch ID exists in the system.
-  - The user has permissions to delete batches.
+  - A valid batch ID must be provided.
+  - The batch must exist in the database.
 - Postconditions:
-  - The expense batch is removed from the system.
+  - The specified expense batch is removed from the database.
 - Main Success Scenario:
-  1. The user specifies the batch ID to be deleted.
-  2. The system confirms the deletion requirement.
-  3. The system deletes the batch from the database.
-  4. The system confirms the deletion to the user.
+  1. The system sets the stored procedure to `ExpenseBatchDelete`.
+  2. The system adds the batch ID and session ID as parameters.
+  3. The system executes the deletion query.
 - Extensions:
-  - None
+  - None.
 - Exceptions:
-  - If the batch ID is invalid or associated with incomplete processes, an error is returned.
+  - If the batch ID does not exist, the deletion fails.
+  - If the database deletion operation fails, an error is returned.
 - Business Rules:
-  - Deletion is final and cannot be reversed.
+  - Deleted batches cannot be recovered.
 - Assumptions:
-  - Users are aware of the consequences of deleting a batch.
+  - The batch ID is correct and the user has permission to delete.
 - Open Issues:
-  - None
+  - Handling cascade deletes if necessary.
