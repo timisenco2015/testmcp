@@ -1,0 +1,420 @@
+```json
+{
+    "filename": "AdHocQuery",
+    "found": true,
+    "summary": "The AdHocQuery is a system functionality designed to convert data obtained from a SQL data reader into an HTML table format. This involves iterating through the rows and columns of the data reader and assembling them into HTML formatted strings.",
+    "purpose": "To convert data queried from a database into an HTML table format for display purposes.",
+    "entities": [],
+    "fields": [
+        {
+            "name": "HeaderRow",
+            "type": "function",
+            "description": "Generates the header row for the HTML table using column names from the data reader."
+        },
+        {
+            "name": "DataRow",
+            "type": "function",
+            "description": "Generates each data row for the HTML table."
+        },
+        {
+            "name": "FooterRow",
+            "type": "function",
+            "description": "Returns the closing tag for the HTML table."
+        }
+    ],
+    "actors": [],
+    "workflows": [
+        {
+            "name": "Convert DataReader to HTML Table",
+            "steps": [
+                "Check if the data reader has rows.",
+                "Invoke HeaderRow to create table headers.",
+                "Iterate through each row of the data reader and use DataRow to convert data into table rows.",
+                "Add FooterRow to close the table."
+            ]
+        }
+    ],
+    "business_rules": [],
+    "validations": [],
+    "calculations": [],
+    "conditions": [
+        {
+            "condition": "dr.HasRows",
+            "description": "Only process if the data reader contains rows."
+        }
+    ],
+    "system_behavior": [
+        "The system reads data from a SQL data reader and dynamically constructs an HTML table."
+    ],
+    "dependencies": [],
+    "exceptions": [],
+    "source_document_ids": [
+        "20140dcf-7d8e-51f1-86ab-4b5a291db2b2",
+        "2878adb2-c26b-5d41-a6a4-d9f5a2c2c782"
+    ],
+    "content_gaps": []
+}
+```
+```json
+{
+    "filename": "SiteDocument",
+    "found": true,
+    "summary": "The SiteDocument class is part of the HSPnet.DataLayer namespace and represents documents related to a specific site within the application.",
+    "purpose": "To store and manage details of documents associated with sites in the HSPnet application.",
+    "entities": [
+        {
+            "name": "SiteDocument",
+            "fields": [
+                "ID",
+                "SiteID"
+            ]
+        }
+    ],
+    "fields": [
+        {
+            "name": "ID",
+            "type": "int",
+            "description": "The unique identifier of the document."
+        },
+        {
+            "name": "SiteID",
+            "type": "int",
+            "description": "The ID of the site to which the document is related."
+        }
+    ],
+    "actors": [],
+    "workflows": [],
+    "business_rules": [],
+    "validations": [],
+    "calculations": [],
+    "conditions": [],
+    "system_behavior": [],
+    "dependencies": [],
+    "exceptions": [],
+    "source_document_ids": [
+        "a2967f17-a924-5e9c-8b15-d1f7bd028b32"
+    ],
+    "content_gaps": []
+}
+```
+```json
+{
+    "filename": "WelcomeStaffAdmin",
+    "found": true,
+    "summary": "WelcomeStaffAdmin is a web component that provides a user interface for staff administrators. It includes features for viewing and managing staff-related data, including employment applications and site selections.",
+    "purpose": "Facilitate staff administrators in managing staff information, with features like site and discipline selection, date filtering, and application status tracking.",
+    "entities": [],
+    "fields": [
+        {
+            "name": "txtStartDate",
+            "type": "TextBox",
+            "description": "Textbox for entering the start date."
+        },
+        {
+            "name": "txtEndDate",
+            "type": "TextBox",
+            "description": "Textbox for entering the end date."
+        },
+        {
+            "name": "ddSite",
+            "type": "DropDownList",
+            "description": "Dropdown for selecting the site."
+        },
+        {
+            "name": "ddDiscipline",
+            "type": "DropDownList",
+            "description": "Dropdown for selecting discipline."
+        }
+    ],
+    "actors": [],
+    "workflows": [
+        {
+            "name": "Date Selection and Data Filtering",
+            "steps": [
+                "User selects a site and discipline from dropdowns.",
+                "User enters start and end dates.",
+                "User clicks 'Refresh View' button to filter data based on inputs."
+            ]
+        }
+    ],
+    "business_rules": [],
+    "validations": [
+        {
+            "name": "checkStartEnd",
+            "description": "Validates that the StartDate is not later than the EndDate."
+        },
+        {
+            "name": "RegularExpressionValidator1",
+            "description": "Validates the StartDate format using a regular expression."
+        },
+        {
+            "name": "RegularExpressionValidator2",
+            "description": "Validates the EndDate format using a regular expression."
+        }
+    ],
+    "calculations": [],
+    "conditions": [],
+    "system_behavior": [
+        "Uses AJAX for dynamic updating of page elements without requiring a full page reload."
+    ],
+    "dependencies": [],
+    "exceptions": [],
+    "source_document_ids": [
+        "05db31e4-e8b6-53ee-a6fb-812c106f0134",
+        "100d5925-a5f8-53db-8493-02cddd563eb7",
+        "3c84bade-9671-5fbf-acce-3c87a835e9b4",
+        "4c4b97b8-d242-5261-a515-767a3f7d7a49",
+        "52b5066f-23f6-5d82-96cd-5d51dad3de79",
+        "5bb85da3-f5b4-5753-b07c-9bb2a04eeb89",
+        "5d9b92ea-7c12-5070-8603-977cf14d0e04",
+        "6701b153-5288-59e5-8de9-61b68a1fc292",
+        "6eca1317-c0b2-5225-a9af-f034a722d924",
+        "871df91b-7ba0-558f-83ea-d5be1b0dc8db",
+        "8cea5c3a-2fbf-5206-a0c0-9425a5e14511",
+        "964a48c9-231c-5d58-a44d-3675d949a453",
+        "966ed8d3-a5af-567f-b092-936217777551",
+        "a0c3da28-32a5-5fce-91b2-17274efa016e",
+        "afbb4ec5-43c8-5281-ad2c-4b6cfd23a48e",
+        "bf423a80-93db-572d-8cb8-c79f04214a93",
+        "ca71b077-cc26-5979-a44f-59700a41316b",
+        "d278278f-d4ec-5f4a-9f29-a02b66773bb9",
+        "db9b35e9-53ca-5eaf-9d75-4f3a72131bc7",
+        "e249a878-c837-5d1c-9a3d-5167df2614fb"
+    ],
+    "content_gaps": []
+}
+```
+```json
+{
+    "filename": "ServiceCode",
+    "found": true,
+    "summary": "The ServiceCode is a data structure within the HSPnet application, used to represent and manage service codes and their associated metadata.",
+    "purpose": "To define and manage service-related codes and their properties within the HSPnet framework.",
+    "entities": [
+        {
+            "name": "ServiceCode",
+            "fields": [
+                "ID",
+                "CodeCategoryID",
+                "ShortName",
+                "Name",
+                "SortOrder",
+                "Notes",
+                "NameAlt",
+                "NotesAlt"
+            ]
+        }
+    ],
+    "fields": [
+        {
+            "name": "ID",
+            "type": "int",
+            "description": "Unique identifier for the service code."
+        },
+        {
+            "name": "CodeCategoryID",
+            "type": "int",
+            "description": "Identifier for the category to which the code belongs."
+        },
+        {
+            "name": "ShortName",
+            "type": "string",
+            "description": "Short name of the service code."
+        },
+        {
+            "name": "Name",
+            "type": "string",
+            "description": "Full name of the service code."
+        },
+        {
+            "name": "SortOrder",
+            "type": "int",
+            "description": "Determines the order of display."
+        },
+        {
+            "name": "Notes",
+            "type": "string",
+            "description": "Additional information or notes about the service code."
+        },
+        {
+            "name": "NameAlt",
+            "type": "string",
+            "description": "Alternative name of the service code for different language settings."
+        },
+        {
+            "name": "NotesAlt",
+            "type": "string",
+            "description": "Alternative notes for the service code in different languages."
+        }
+    ],
+    "actors": [],
+    "workflows": [
+        {
+            "name": "Retrieve Service Codes",
+            "steps": [
+                "Configure and execute the stored procedure 'ServiceCodeListAll'.",
+                "Iterate through result set to populate list of service code objects."
+            ]
+        }
+    ],
+    "business_rules": [
+        {
+            "rule": "UseAltLanguageFields",
+            "description": "Use alternative language fields if the session is set to use an alternate language."
+        }
+    ],
+    "validations": [],
+    "calculations": [],
+    "conditions": [],
+    "system_behavior": [
+        "Interacts with the database to execute stored procedures.",
+        "Converts database entries into ServiceCode objects."
+    ],
+    "dependencies": [],
+    "exceptions": [],
+    "source_document_ids": [
+        "94f1b055-348d-508a-ae6e-cf7960a8c6a2",
+        "e4ebe4b4-6d14-5c3f-b693-61016f765239",
+        "f976b9af-a402-540f-b162-391d578fac7c"
+    ],
+    "content_gaps": []
+}
+```
+```json
+{
+    "filename": "SiteProfileHistory",
+    "found": true,
+    "summary": "SiteProfileHistory tracks changes and actions taken at a specific site, including details about user actions, sections affected, and personnel involved.",
+    "purpose": "To maintain a history of actions and changes made to a site's profile, with relevant details about the changes.",
+    "entities": [
+        {
+            "name": "SiteProfileHistory",
+            "fields": [
+                "ID",
+                "ActionDate",
+                "ScreenSection",
+                "UserAction",
+                "Fields",
+                "Agency",
+                "AgencyName",
+                "LastName",
+                "FirstName",
+                "MiddleName",
+                "Phone",
+                "ByUserID",
+                "ByOriginalUserID",
+                "ByUserSysAdmin"
+            ]
+        }
+    ],
+    "fields": [
+        {
+            "name": "ID",
+            "type": "int",
+            "description": "Unique identifier for the history record."
+        },
+        {
+            "name": "ActionDate",
+            "type": "DateTime",
+            "description": "Date and time when the action occurred."
+        },
+        {
+            "name": "ScreenSection",
+            "type": "string",
+            "description": "The section of the screen where the action took place."
+        },
+        {
+            "name": "UserAction",
+            "type": "string",
+            "description": "Description of the action performed by the user."
+        },
+        {
+            "name": "Fields",
+            "type": "string",
+            "description": "Fields affected by the action."
+        },
+        {
+            "name": "Agency",
+            "type": "string",
+            "description": "Agency associated with the action."
+        },
+        {
+            "name": "AgencyName",
+            "type": "string",
+            "description": "Name of the agency involved."
+        },
+        {
+            "name": "LastName",
+            "type": "string",
+            "description": "Last name of the user involved in the action."
+        },
+        {
+            "name": "FirstName",
+            "type": "string",
+            "description": "First name of the user involved in the action."
+        },
+        {
+            "name": "MiddleName",
+            "type": "string",
+            "description": "Middle name of the user involved in the action."
+        },
+        {
+            "name": "Phone",
+            "type": "Phone",
+            "description": "Phone details formatted based on user session settings."
+        },
+        {
+            "name": "ByUserID",
+            "type": "int",
+            "description": "User ID who performed the action."
+        },
+        {
+            "name": "ByOriginalUserID",
+            "type": "int",
+            "description": "Original user ID if different from the acting user."
+        },
+        {
+            "name": "ByUserSysAdmin",
+            "type": "bool",
+            "description": "Indicates if the action was performed by a system administrator."
+        }
+    ],
+    "actors": [],
+    "workflows": [
+        {
+            "name": "Track Site Profile Changes",
+            "steps": [
+                "User performs actions on a site profile.",
+                "System records the action details, user information, and affected fields."
+            ]
+        }
+    ],
+    "business_rules": [],
+    "validations": [],
+    "calculations": [
+        {
+            "name": "AgencyUserFormatted",
+            "description": "Formats the user agency details for display."
+        },
+        {
+            "name": "TooltipDetails",
+            "description": "Formats user and agency details for tooltip display."
+        }
+    ],
+    "conditions": [],
+    "system_behavior": [
+        "Uses database procedures to retrieve and store history data.",
+        "Formats data based on user session settings, including language and phone formatting."
+    ],
+    "dependencies": [],
+    "exceptions": [],
+    "source_document_ids": [
+        "25f89a24-5eda-5a3f-83df-1de69b12b3f1",
+        "26e09292-d304-55c6-94e5-ef3346453c4b",
+        "7ca6b963-9ae9-5cd3-82d5-f30dcb727ae3",
+        "a8f030c6-90b8-53a1-bb8a-3b7ef33b9488",
+        "e806999c-3a39-5720-9b59-303faebc9eb6"
+    ],
+    "content_gaps": []
+}
+```
