@@ -1,132 +1,153 @@
 {
-  "filename": "ASMStatistics",
-  "found": true,
-  "summary": "ASMStatistics document details the automated matching summary results, calculations for match precision, handling of various student choice data, and the functionalities for saving and displaying the results.",
-  "purpose": "To manage automated student matching processes and track statistics for ASM iterations.",
-  "entities": [
-    "ASMStatistic"
-  ],
-  "fields": [
-    "Choice1",
-    "Choice2",
-    "Choice3",
-    "Choice4",
-    "Choice5",
-    "Choice6",
-    "Choice7",
-    "Choice8",
-    "Choice9",
-    "Choice10",
-    "Choice11",
-    "Choice12",
-    "Choice13",
-    "Choice14",
-    "Choice15",
-    "Choice16",
-    "Choice17",
-    "Choice18",
-    "Choice19",
-    "Choice20",
-    "ChoiceXX",
-    "BestMatch",
-    "TotalAutoMatches",
-    "UnmatchedStudents",
-    "StudentsExcluded",
-    "TotalStudents",
-    "MaxStudentPRSelections",
-    "StudentsIncluded"
-  ],
-  "actors": [
-    "HSPnetSession",
-    "DataLayer"
-  ],
-  "workflows": [
-    {
-      "name": "WorksheetAssignASMResults",
-      "steps": [
-        "Retrieve timetable data",
-        "Process worksheet assignment results",
-        "Bind data to controls"
-      ]
-    }
-  ],
-  "business_rules": [
-    "Sort by choice precision values."
-  ],
-  "validations": [
-    "Check for existing matches and include only confirmed results."
-  ],
-  "calculations": [
-    {
-      "field": "BestMatchPrec",
-      "formula": "(BestMatch / StudentsIncluded) * 100"
-    }
-  ],
-  "conditions": [
-    "Display results in read-only mode for course leaders."
-  ],
-  "system_behavior": [
-    "Calculates and displays student match statistics.",
-    "Handles CSV export and report generation."
-  ],
-  "dependencies": [
-    "HSPnet.Framework"
-  ],
-  "exceptions": [
-    "Handle temporary and confirmed results separately."
-  ],
-  "source_document_ids": [
-    "0437b4f7-242a-531a-87bc-7712a843cef3",
-    "074f2b99-7dac-5ba2-a2d9-3cba1d7d4e68",
-    "08e7f9f9-3122-5d11-a61d-c3dc12d5423e",
-    "0f39dd6d-3095-58d4-b815-a532a00a6ebc",
-    "15379904-850f-5b26-bb35-8afefaaff4f2",
-    "17bfca4d-ec19-530b-a20a-67bcc8803a10",
-    "1a37cbdd-ae81-56bb-a2d5-0d83134c4f00",
-    "24291415-3948-529d-9348-b5be961a01e7",
-    "274d85db-e0fc-5051-adef-9d760c4fde96",
-    "2947fa22-2117-5642-ae18-d88ec190f14c",
-    "2c02a146-4f4c-5fea-b371-0b2af93677bd",
-    "2e48c986-8ac6-5f83-981b-0ee53444f1ae",
-    "2f24a338-9aa3-542c-88a9-3d123725c844",
-    "302d59f3-5332-57d1-a8c4-2fe2115bba72",
-    "3605625c-fefa-5183-a7c5-4f25d83c7ad4",
-    "38289965-0ef8-5dee-83be-5cd37e00b91b",
-    "3836c65f-ff4d-5b0d-986f-92221efcf3e1",
-    "44859d3b-8892-5577-bb77-62dc42bb51b0",
-    "4e8e4bb5-9627-5f33-ba30-fcf6eafb7b04",
-    "51aa753c-cbb2-54f6-95b3-858fb879ca46",
-    "51f4abc0-1974-55b8-8478-e33f72d70aee",
-    "65d463b6-236c-556e-b6de-1bb820fdc6fb",
-    "70c5439b-792f-5e8e-ae50-48edb662db95",
-    "75cb2e78-6802-5967-8807-a74ce73abac1",
-    "7776fbe5-caa1-53ad-88bd-4f1446d4ff1a",
-    "7bd6f55f-e031-59bd-90ee-f0457a3b8400",
-    "83c79f1a-5eff-57a5-b8ea-07590cd3cc66",
-    "8507d7fa-302b-55e6-b475-6d00bc716dcf",
-    "8eae30ff-0c52-5a2e-82ee-80dcab7ff5b4",
-    "9dcebf03-d275-5a21-a4ce-da1691918f35",
-    "9e87277c-faba-5784-bb4d-57c28dbb3db5",
-    "a40ec921-24cf-542e-8bb5-e0741129d7d4",
-    "a804809d-c296-5744-b90f-2d7f30124bd5",
-    "a82d2bd4-e0d8-5f5f-b75b-a3af14f61af6",
-    "aaf8452f-b9c2-5495-a098-de835d7bac26",
-    "bbb106e8-2863-5dab-b962-b221afd988a1",
-    "bbbad8aa-05c7-5338-819d-c89c1316db26",
-    "bcab8fb3-aabc-540f-93b0-14b17b551379",
-    "c1d2854a-d310-5f15-9948-0f86447e7c89",
-    "c41983e4-0561-504e-a384-ea67c2da1f09",
-    "d05c447d-4b75-555f-8016-79416fee8119",
-    "d42164c6-4ec5-565d-922d-71f87d35e1cc",
-    "d63bd748-9a32-5c1d-9d08-46bdb5351ddf",
-    "d93962e1-705a-51df-8f86-b9cdd58c3ec7",
-    "e13e29f0-c2b3-54c8-b541-a9073b4dd123",
-    "ecae64c2-08a1-57e6-84e4-9eb816ef2a9c",
-    "f1a8d070-9668-5b28-8a6a-a711b3186f3b",
-    "f28da0f6-6bde-58c8-a16a-3c274d9fdf10",
-    "f4eb9f8e-cbe1-5cd7-9c5a-8035ef386f79",
-    "f65f5100-0d47-5ff8-b09e-e6c935fa54a0",
-    "f9f1c76b-caf3-567a-9eee-4ca1d9efd065"
-  ],
-  "content_gaps": []
+    "filename": "ASMStatistics",
+    "found": true,
+    "summary": "The retrieved documents pertain to the ASMStatistics module which is part of a web-based application. The application appears to deal with automated matching of students to various choices within a context of schedules or assignments.",
+    "purpose": "The ASMStatistics module is designed to collect and present statistical data related to student preferences and their assignment results. It facilitates recording, calculating, and displaying statistical outcomes related to student choices in a structured format.",
+    "entities": [
+        "ASMStatistics",
+        "ASMStatistic"
+    ],
+    "fields": [
+        "Choice1",
+        "Choice2",
+        "Choice3",
+        "Choice4",
+        "Choice5",
+        "Choice6",
+        "Choice7",
+        "Choice8",
+        "Choice9",
+        "Choice10",
+        "Choice11",
+        "Choice12",
+        "Choice13",
+        "Choice14",
+        "Choice15",
+        "Choice16",
+        "Choice17",
+        "Choice18",
+        "Choice19",
+        "Choice20",
+        "ChoiceXX",
+        "BestMatch",
+        "TotalAutoMatches",
+        "UnmatchedStudents",
+        "StudentsExcluded",
+        "TotalStudents",
+        "MaxStudentPRSelections",
+        "StudentsIncluded"
+    ],
+    "actors": [
+        "UserSession",
+        "HSPnetSession",
+        "SqlDataReader"
+    ],
+    "workflows": [
+        {
+            "name": "WorksheetAssignASMResults",
+            "steps": [
+                "Get database connection from HSPnetSession.",
+                "Determine target procedure name based on whether temp flag is true.",
+                "Execute stored procedure with provided parameters.",
+                "Iterate over SqlDataReader results to construct a list of ASMStatistic objects.",
+                "Return the list of ASMStatistic objects."
+            ]
+        },
+        {
+            "name": "WorksheetAssignUndoASM",
+            "steps": [
+                "Set procedure name based on temp flag.",
+                "Add parameters to database session.",
+                "Execute query to undo assignments.",
+                "Return success status based on SQL error occurrence."
+            ]
+        }
+    ],
+    "business_rules": [
+        "If StudentsIncluded is greater than 0, calculate percentage fields using Math.Round with MidpointRounding.AwayFromZero.",
+        "If ASMIteration is 0, certain UI elements are visible or editable."
+    ],
+    "validations": [
+        "If StudentsIncluded is zero, percentage calculations default to zero."
+    ],
+    "calculations": [
+        "Choice1Prec = Math.Round((Choice1 / StudentsIncluded) * 100, MidpointRounding.AwayFromZero)",
+        "Choice2Prec = Math.Round((Choice2 / StudentsIncluded) * 100, MidpointRounding.AwayFromZero)",
+        "BestMatchPrec = Math.Round((BestMatch / StudentsIncluded) * 100, MidpointRounding.AwayFromZero)"
+    ],
+    "conditions": [
+        "temp flag determines which stored procedure to execute.",
+        "ASMIteration affects the visibility of certain UI components."
+    ],
+    "system_behavior": [
+        "OnDataBound events trigger data binding operations for FormViews.",
+        "User interface elements' visibility and text are dynamically adjusted based on user session data and page state."
+    ],
+    "dependencies": [
+        "HSPnet.Framework",
+        "HSPnet.App_GlobalResources",
+        "HSPnet.UI",
+        "System.Data.SqlClient"
+    ],
+    "exceptions": [
+        "Handle SqlDataReader null scenario to prevent null reference exceptions.",
+        "SQL errors are detected post query execution to determine success of undo operations."
+    ],
+    "source_document_ids": [
+        "0437b4f7-242a-531a-87bc-7712a843cef3",
+        "074f2b99-7dac-5ba2-a2d9-3cba1d7d4e68",
+        "08e7f9f9-3122-5d11-a61d-c3dc12d5423e",
+        "0f39dd6d-3095-58d4-b815-a532a00a6ebc",
+        "15379904-850f-5b26-bb35-8afefaaff4f2",
+        "17bfca4d-ec19-530b-a20a-67bcc8803a10",
+        "1a37cbdd-ae81-56bb-a2d5-0d83134c4f00",
+        "1c4e27d3-08f7-5339-a08c-eb75ac5a8e74",
+        "1c7d6e8d-a44b-545c-9b6b-7a7a2b539408",
+        "24291415-3948-529d-9348-b5be961a01e7",
+        "274d85db-e0fc-5051-adef-9d760c4fde96",
+        "2947fa22-2117-5642-ae18-d88ec190f14c",
+        "2c02a146-4f4c-5fea-b371-0b2af93677bd",
+        "2e48c986-8ac6-5f83-981b-0ee53444f1ae",
+        "2f24a338-9aa3-542c-88a9-3d123725c844",
+        "302d59f3-5332-57d1-a8c4-2fe2115bba72",
+        "3605625c-fefa-5183-a7c5-4f25d83c7ad4",
+        "38289965-0ef8-5dee-83be-5cd37e00b91b",
+        "3836c65f-ff4d-5b0d-986f-92221efcf3e1",
+        "3ace3f88-7c6f-5b8b-b1dd-cc70a9d34e93",
+        "44859d3b-8892-5577-bb77-62dc42bb51b0",
+        "4e8e4bb5-9627-5f33-ba30-fcf6eafb7b04",
+        "51aa753c-cbb2-54f6-95b3-858fb879ca46",
+        "51f4abc0-1974-55b8-8478-e33f72d70aee",
+        "65d463b6-236c-556e-b6de-1bb820fdc6fb",
+        "70c5439b-792f-5e8e-ae50-48edb662db95",
+        "75cb2e78-6802-5967-8807-a74ce73abac1",
+        "7776fbe5-caa1-53ad-88bd-4f1446d4ff1a",
+        "7bd6f55f-e031-59bd-90ee-f0457a3b8400",
+        "83c79f1a-5eff-57a5-b8ea-07590cd3cc66",
+        "8507d7fa-302b-55e6-b475-6d00bc716dcf",
+        "8eae30ff-0c52-5a2e-82ee-80dcab7ff5b4",
+        "9dcebf03-d275-5a21-a4ce-da1691918f35",
+        "9e87277c-faba-5784-bb4d-57c28dbb3db5",
+        "a40ec921-24cf-542e-8bb5-e0741129d7d4",
+        "a804809d-c296-5744-b90f-2d7f30124bd5",
+        "a82d2bd4-e0d8-5f5f-b75b-a3af14f61af6",
+        "aaf8452f-b9c2-5495-a098-de835d7bac26",
+        "bbb106e8-2863-5dab-b962-b221afd988a1",
+        "bbbad8aa-05c7-5338-819d-c89c1316db26",
+        "bcab8fb3-aabc-540f-93b0-14b17b551379",
+        "c1d2854a-d310-5f15-9948-0f86447e7c89",
+        "c41983e4-0561-504e-a384-ea67c2da1f09",
+        "d05c447d-4b75-555f-8016-79416fee8119",
+        "d42164c6-4ec5-565d-922d-71f87d35e1cc",
+        "d63bd748-9a32-5c1d-9d08-46bdb5351ddf",
+        "d93962e1-705a-51df-8f86-b9cdd58c3ec7",
+        "e13e29f0-c2b3-54c8-b541-a9073b4dd123",
+        "ecae64c2-08a1-57e6-84e4-9eb816ef2a9c",
+        "f1a8d070-9668-5b28-8a6a-a711b3186f3b",
+        "f28da0f6-6bde-58c8-a16a-3c274d9fdf10",
+        "f4eb9f8e-cbe1-5cd7-9c5a-8035ef386f79",
+        "f65f5100-0d47-5ff8-b09e-e6c935fa54a0",
+        "f9f1c76b-caf3-567a-9eee-4ca1d9efd065"
+    ],
+    "content_gaps": []
 }
