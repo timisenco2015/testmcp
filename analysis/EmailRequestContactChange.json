@@ -1,0 +1,150 @@
+{
+  "filename": "EmailRequestContactChange",
+  "found": true,
+  "summary": "The 'EmailRequestContactChange' is a web page in the HSPnet system that facilitates the sending of email requests to change contact details. It includes functionalities for email composition, validation, attachment management, and sending.",
+  "purpose": "To allow users to send a request for contact change via email, including supportive documentation attachments.",
+  "entities": [],
+  "fields": [
+    {
+      "name": "ltlExistingDC",
+      "type": "Literal",
+      "description": "Displays the existing destination contact"
+    },
+    {
+      "name": "txtEmailTo",
+      "type": "TextBox",
+      "description": "Input field for recipient email address"
+    },
+    {
+      "name": "ltlEmailTo",
+      "type": "Literal",
+      "description": "Displays formatted recipient email"
+    },
+    {
+      "name": "txtEmail",
+      "type": "HiddenField",
+      "description": "Hidden field storing email address"
+    },
+    {
+      "name": "hdnUserName",
+      "type": "HiddenField",
+      "description": "Stores user name"
+    },
+    {
+      "name": "hdnASSD",
+      "type": "HiddenField",
+      "description": "Stores agency, site, service, destination data"
+    },
+    {
+      "name": "hdnDDCName",
+      "type": "HiddenField",
+      "description": "Stores destination contact name"
+    },
+    {
+      "name": "txtEmailCc",
+      "type": "TextBox",
+      "description": "Input field for CC email addresses"
+    },
+    {
+      "name": "txtEmailBcc",
+      "type": "TextBox",
+      "description": "Input field for BCC email addresses"
+    },
+    {
+      "name": "ltlEmailSubject",
+      "type": "Literal",
+      "description": "Displays email subject"
+    },
+    {
+      "name": "txtEmailBody",
+      "type": "TextBox",
+      "description": "Input for email body content"
+    },
+    {
+      "name": "txtSignature",
+      "type": "TextBox",
+      "description": "Signature field for the email"
+    },
+    {
+      "name": "txtAttachFile",
+      "type": "HiddenField",
+      "description": "Stores attachment file name and path"
+    },
+    {
+      "name": "upldAddFile",
+      "type": "FileUpload",
+      "description": "File upload control for attachments"
+    }
+  ],
+  "actors": [],
+  "workflows": [
+    {
+      "name": "Email Sending",
+      "steps": [
+        "Compose email using the interface",
+        "Validate email fields and attachments",
+        "Send email via SMTP server"
+      ]
+    },
+    {
+      "name": "Attachment Handling",
+      "steps": [
+        "Upload file using FileUpload control",
+        "Store file in designated directory",
+        "Associate file path with email"
+      ]
+    }
+  ],
+  "business_rules": [
+    "EmailSubject must be specified.",
+    "EmailBody must be specified.",
+    "No email will be sent if no recipients are specified."
+  ],
+  "validations": [
+    "Email addresses must conform to Email_ValidationExpression.",
+    "PreventInvalidEmailCharacter removes <> characters from fields."
+  ],
+  "calculations": [],
+  "conditions": [
+    "ShowTo is determined by query string value.",
+    "ShowCc and ShowBcc visibility are controlled by query string parameters."
+  ],
+  "system_behavior": [
+    "Automatically populates email fields based on query parameters and user session data.",
+    "Displays error and warning messages for invalid input or system issues."
+  ],
+  "dependencies": [],
+  "exceptions": [
+    "HandleUploadedFile function returns false if uploading fails.",
+    "CheckIsValid function returns false if validation fails."
+  ],
+  "source_document_ids": [
+    "00da2927-1cf9-5b2d-9916-87d63acf55c6",
+    "11c780bb-9f04-5b53-a38a-b4be8977a602",
+    "28d3fcfb-445d-502c-9ffe-44fb42fd9913",
+    "2ded6dd3-59bd-5ebb-89f8-20234daaad5b",
+    "31c6b8c0-1270-53b9-b295-980e39d23ff6",
+    "56e920d4-e743-556a-8543-3af1518fe82d",
+    "5b1b3af1-8cfe-58bb-b334-cc5092184997",
+    "62628f40-d7b9-5c5f-a83b-98c323087a6d",
+    "655c4214-d60f-5081-9186-0efa797fe115",
+    "6dd4bf96-f0ce-5b47-ae53-cea067fcd855",
+    "6e7d7f42-a9c3-5f4b-88c8-0205ef8ccd33",
+    "7224a57d-c639-5dcb-9426-08412cfd0ee5",
+    "7a2dc3b1-1451-5408-b0e7-f8b5c1ebee60",
+    "7e889202-141c-590f-8aed-150d32a161ea",
+    "868409ef-7018-5ea4-a160-a98d4aa9c259",
+    "8d491627-78d1-5c7c-a8bf-6902d8a82663",
+    "943561ee-9a7f-560a-9c62-13bec506fd3c",
+    "9586e847-26cb-5081-b86d-eac745262a2b",
+    "980a26f2-be94-595d-9280-62037b7d812d",
+    "bbf94926-95b8-5003-b2f5-3789c65e48ce",
+    "caf9b3b5-1c6c-5b99-926f-f227e109750d",
+    "e298db5f-658f-5fb6-b9f7-a4297d846829",
+    "e44d9918-2199-589e-af3f-9a54d69ed717",
+    "e796c0d4-1b4e-5521-8cf9-a072024aa15a",
+    "fa1764cc-1564-5428-89c6-46fb50366002",
+    "fe3f633e-2dd6-514e-b2e0-9f6dc1b20fe3"
+  ],
+  "content_gaps": []
+}
