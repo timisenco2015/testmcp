@@ -2,25 +2,41 @@
 {
     "filename": "FindLocationForWorksheet",
     "found": true,
-    "summary": "The document outlines the code and structure for a webpage used to find locations for worksheets within the HSPnet system. It includes controls and workflows for searching, creating, and managing worksheet-related data.",
-    "purpose": "To provide a user interface for managing and locating worksheet entries based on various criteria such as agency, service, and site type.",
+    "summary": "The "FindLocationForWorksheet" is a web page component that provides functionalities for searching and selecting locations based on various filters. It includes features like creating worksheets, printing forms, and managing user interactions with a grid of location data.",
+    "purpose": "The purpose of the "FindLocationForWorksheet" is to facilitate the search and selection of locations for worksheets. It allows users to filter locations by agency, site type, governing organization, service, and region, among others, and create worksheets based on these selections.",
     "entities": [],
     "fields": [
         "WorksheetID",
         "CFOFlag",
         "GWSFlag",
+        "Agencies",
+        "GoverningOrgs",
+        "SiteTypes",
+        "Services",
+        "DatabaseLocs",
+        "Regions",
+        "Provinces",
+        "Disciplines",
+        "gridData",
         "txtKeyword",
         "ddAgency",
         "ddGoverningOrg",
         "ddSiteType",
+        "ddServiceFilter",
+        "ddRegion",
         "ddProvinceFilter",
         "ddDisciplineFilter",
-        "ddRegion",
         "chkIncludeCity",
         "chkIncludeAddress",
+        "cmdSearch",
+        "cmdClear",
+        "cmdCreate",
+        "cmdPrint",
         "lblMatches",
-        "lblErrorList",
-        "lblWarningList"
+        "lblPleaseWait",
+        "pnlError",
+        "pnlWarning",
+        "spnMatches"
     ],
     "actors": [
         "User",
@@ -30,48 +46,52 @@
         {
             "name": "Search Locations",
             "steps": [
-                "User enters search criteria in text boxes and drop-down lists.",
-                "The system validates the input and performs a search using the criteria.",
-                "Results are displayed in a grid view.",
-                "User selects locations from the grid to include in a worksheet."
+                "User enters search criteria in the provided fields.",
+                "User clicks on the 'Search' button.",
+                "System retrieves matching locations based on the criteria and displays them in a grid."
             ]
         },
         {
             "name": "Create Worksheet",
             "steps": [
-                "User selects the 'Create' button after selecting search results.",
-                "The system validates selections and creates worksheet entries.",
-                "The system refreshes the screen and updates the display with new entries."
+                "User selects one or more locations from the grid.",
+                "User clicks on the 'Create' button.",
+                "System validates inputs and creates the worksheet entries.",
+                "System clears the cache and refreshes the displayed data."
+            ]
+        },
+        {
+            "name": "Clear Search",
+            "steps": [
+                "User clicks on the 'Clear' button.",
+                "System clears all entered data in the search fields and refreshes the grid."
             ]
         }
     ],
     "business_rules": [
-        "Worksheet and CFO flag must be present to create new entries.",
-        "The field 'txtGroupSize' must contain a number if GWSFlag is true."
+        "The worksheet screen requires a Worksheet ID and CFO flag to enable the Create function.",
+        "The GWSFlag determines the visibility and default value of the group size input."
     ],
     "validations": [
-        "Ensure 'txtKeyword' is not empty before search.",
-        "Validate that 'txtGroupSize' is a valid integer.",
-        "Cross-check start and end dates to ensure logical sequence."
+        "CustomValidator2 - checks for required search fields.",
+        "ValidationSummary1 - displays search validation messages.",
+        "CompareValidator4 - checks the group size input is a number.",
+        "RequiredFieldValidator2 - ensures group size is entered."
     ],
     "calculations": [],
-    "conditions": [
-        "GWSFlag determines visibility of certain UI components.",
-        "CFOFlag affects functionality for creating worksheets."
-    ],
+    "conditions": [],
     "system_behavior": [
-        "Fetches and populates dropdown values from data sources.",
-        "Validates URL hash on page load to ensure secure access.",
-        "Displays error and warning panels based on validation results."
+        "When the page loads, it initializes dropdown lists and sets default values.",
+        "It validates the URL hash for security purposes.",
+        "The 'Search' button triggers a location data query and binds the results to the grid.",
+        "The 'Create' button triggers the creation of worksheet entries and cache clearing."
     ],
     "dependencies": [
-        "HSPnet Framework",
-        "DataLayer Methods"
+        "HSPnet.Framework.HSPnetPage",
+        "HSPnet.DataLayer",
+        "HSPnet.WebServices.ASSDLookups"
     ],
-    "exceptions": [
-        "Display an error if the worksheet ID or CFOFlag is missing on page load.",
-        "Handle JavaScript validation errors to guide users."
-    ],
+    "exceptions": [],
     "source_document_ids": [
         "0176c680-d043-50cd-be84-810b9401ca4d",
         "03390d5d-ec3d-55eb-bff3-cba2dbd1b246",
@@ -87,7 +107,6 @@
         "5fcbfe6a-9f61-5170-be0d-16eacc6a7001",
         "6b473dde-bf18-59ee-a5a6-3a8dbe3274a4",
         "7de49aad-0888-574a-9d95-9c3d50c6ffda",
-        "80166401-2bc6-5aee-a816-5afefcef1717",
         "810b3899-1eff-5479-be21-638dc4b04ba2",
         "864717f5-e4db-56fc-b7fb-41b7b7f53d54",
         "8ac0b000-856b-52fa-a0cd-d3dc0eb82072",
@@ -96,9 +115,7 @@
         "b5eef186-7bdd-59d5-b85d-e05e630f7e9c",
         "cdd03bf2-5f2f-5b34-9a10-1d8d280138e0",
         "cf3d5e55-cee1-5841-b770-5c0d94a350c9",
-        "d5f24882-02cb-56ef-b582-1b8adeb57a5c",
         "e1a4ba6c-9dbb-536b-ae95-71d25de835fc",
-        "e8b44847-b94c-5b36-86fb-6593c2f83973",
         "e99c8dbf-87b7-5245-ba1d-2cc1c2532ebe",
         "faf4f79b-857c-56c1-898e-40a1ec9716ca",
         "fccc1c70-95f6-5ea8-86ed-eae47887742a"
