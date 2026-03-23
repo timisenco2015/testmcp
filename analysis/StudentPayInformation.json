@@ -1,0 +1,142 @@
+{
+  "filename": "StudentPayInformation",
+  "found": true,
+  "summary": "StudentPayInformation manages student payroll details, including annual increment date, union membership, bank account information, and provides UI for display, insert, and update. It involves form controls, data binding, validation, and database procedures for CRUD operations.",
+  "purpose": "To capture and maintain student pay information such as increment date, union membership, and banking details, with business logic for validation and user interface workflows for editing and displaying information.",
+  "entities": [
+    "StudentPayInformation",
+    "StudentPayInformationController",
+    "HSPnetSession"
+  ],
+  "fields": [
+    {
+      "name": "ID",
+      "type": "int",
+      "description": "Unique identifier"
+    },
+    {
+      "name": "StudentID",
+      "type": "int",
+      "description": "Student's unique identifier"
+    },
+    {
+      "name": "AnnualIncrementDate",
+      "type": "DateTime",
+      "description": "Date for annual pay increment"
+    },
+    {
+      "name": "UnionMembershipCodeID",
+      "type": "int",
+      "description": "ID for the union membership"
+    },
+    {
+      "name": "UnionMembershipDescription",
+      "type": "string",
+      "description": "Description of union membership"
+    },
+    {
+      "name": "BankAccountName",
+      "type": "string",
+      "description": "Name on the bank account"
+    },
+    {
+      "name": "AccountNumber",
+      "type": "string",
+      "description": "Bank account number"
+    },
+    {
+      "name": "AnnualIncrementDateFormatted",
+      "type": "string",
+      "description": "Formatted annual increment date"
+    }
+  ],
+  "actors": [
+    "Student",
+    "System User",
+    "HSPnetSession",
+    "Data Layer"
+  ],
+  "workflows": [
+    {
+      "name": "Display Student Pay Information",
+      "steps": [
+        "Page loads UserControl.",
+        "DataBind called, binds FormView controls.",
+        "ObjectDataSource queries database via StudentPayInformationController.Search.",
+        "FormView displays student pay info, disables/enables edit based on ScreenIsEditable and ReadOnly."
+      ]
+    },
+    {
+      "name": "Add Student Pay Information",
+      "steps": [
+        "User initiates Insert mode in the FormView.",
+        "Form fields entered: AnnualIncrementDate, UnionMembershipCodeID, BankAccountName, AccountNumber.",
+        "Validates AnnualIncrementDate (cannot be Feb 29).",
+        "Calls Add method in StudentPayInformationController.",
+        "Executes StudentDetailsPayInformationAdd stored procedure."
+      ]
+    },
+    {
+      "name": "Edit Student Pay Information",
+      "steps": [
+        "User initiates Edit mode in FormView.",
+        "Displays edit fields for pay information.",
+        "Validates AnnualIncrementDate (cannot be Feb 29).",
+        "Calls Update method in StudentPayInformationController.",
+        "Executes StudentDetailsPayinformationUpdate stored procedure."
+      ]
+    },
+    {
+      "name": "Union Membership DropDown Binding",
+      "steps": [
+        "On DataBound, UnionMembership dropdown is populated via Codes.CodeSearch.",
+        "Dropdown value and description mapped via ID and Description fields."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Annual increment date cannot be a leap year day (Feb 29).",
+    "Union membership must be selected from allowed codes.",
+    "If no pay information found, creates a stub record for the student."
+  ],
+  "validations": [
+    "AnnualIncrementDate is checked for null and not being Feb 29.",
+    "Bank account name and number provided before update/insert."
+  ],
+  "calculations": [
+    "AnnualIncrementDateFormatted is generated from AnnualIncrementDate using DateFormatter.FormatDateMonthDay."
+  ],
+  "conditions": [
+    "Screen is editable if ScreenIsEditable is true.",
+    "ReadOnly disables edit controls.",
+    "UnionMembership dropdown binds only if control found."
+  ],
+  "system_behavior": [
+    "Hides or shows edit and save buttons based on ScreenIsEditable and ReadOnly.",
+    "Disables edit fields if screen not editable."
+  ],
+  "dependencies": [
+    "Database stored procedures: StudentDetailsPayInformationSearch, StudentDetailsPayInformationAdd, StudentDetailsPayInformationUpdate.",
+    "HSPnetSession for session state and DB access.",
+    "Codes.CodeSearch for union memberships."
+  ],
+  "exceptions": [
+    "AnnualIncrementDate is leap day; error message shown.",
+    "UserSession is null; selection cancelled."
+  ],
+  "source_document_ids": [
+    "038d1edd-313e-5c17-8779-5c738f6f71b0",
+    "23bcadf8-b06c-52c5-9b0e-2881afb3ce5d",
+    "31accb44-f136-54a6-a2b0-abebc7ffe0c8",
+    "4f07d9e5-6076-5a72-800b-4860f4a54df8",
+    "751fcefd-6955-53be-b13b-4d46373d63fe",
+    "8a70f26b-c16b-57b9-9de9-6d778e76465a",
+    "8fd13fce-25a8-57a8-a816-e05339b65896",
+    "c6ddc664-ab21-5719-bb62-ff37d7a70ca6",
+    "d16acbe1-b87e-51d7-bb24-451cc0b21fc2"
+  ],
+  "content_gaps": [
+    "Detailed UI layout, error handling, and security validation for bank account fields not fully described.",
+    "Stored procedure implementation details not available."
+  ]
+}
