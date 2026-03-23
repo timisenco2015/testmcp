@@ -1,115 +1,87 @@
 # Module: CriminalRecordsCheckEditAll
 
-## CriminalRecordsCheckEditAll-UC1 — Display and Edit Records
+## CriminalRecordsCheckEditAll-UC1 — Edit Criminal Records
 
-- Primary Actor(s): User
-- Secondary Actor(s): System
-- Trigger: User accesses the Criminal Records Check Edit All page.
-- Description: User can view, edit, and update criminal record checks for multiple students at once using a grid interface.
+- Primary Actor(s): Enrollment Administrator
+- Secondary Actor(s): Student
+- Trigger: Administrator initiates a criminal record check update for a student.
+- Description: Allows an enrollment administrator to edit and update the criminal records check details of students within a grid view.
 - Preconditions:
-  - User must be authenticated.
-  - User must have sufficient permissions to edit student records.
+  - The system must have valid session data.
+  - The administrator must be logged in.
+  - Student records with criminal records must exist.
 - Postconditions:
-  - Records are updated and saved.
-  - Page displays updates or error messages if any validation fails.
+  - The criminal records check information is updated and saved in the system.
 - Main Success Scenario:
-  1. User navigates to the Criminal Records Check Edit All page.
-  2. System displays a grid with student records.
-  3. User edits records directly in the grid.
-  4. User saves changes.
-  5. System updates the database and reloads the grid with the new data.
+  1. Navigate to the CriminalRecordsCheckEditAll page.
+  2. Select a student from the gridDataEdit.
+  3. Edit the criminal records status using a DropdownList (ddCRCStatus).
+  4. Save changes using the 'cmdSave' or 'cmdSaveAll' button.
+  5. System validates and updates the database with new criminal records status. 
+  6. Redirects back to the updated summary page.
 - Extensions:
-  - If user selects sorting options, grid is sorted accordingly.
-  - Filters can be applied to show specific records.
+  - If in Add or Edit mode, the 'Save All' button in the header is hidden.
+  - If less than 14 rows, 'Save All' and 'Cancel' buttons in header are hidden.
 - Exceptions:
-  - If user session is invalid, data fetching is canceled.
-  - Validation errors prevent saving changes.
+  - Session data is missing.
+  - Invalid data input.
 - Business Rules:
-  - Only users with editing permissions can modify records.
+  - The page size and sorted order affect the display in the grid.
+  - Dirty check is required before saving changes.
 - Assumptions:
-  - User understands how to interact with grid controls.
+  - Users know how to use the system's web interface.
+  - The grid supports sorting and paging through user commands.
 - Open Issues:
   - None identified.
 
-## CriminalRecordsCheckEditAll-UC2 — Batch Save Records
+## CriminalRecordsCheckEditAll-UC2 — Display and Sort Records
 
-- Primary Actor(s): User
-- Secondary Actor(s): System
-- Trigger: User clicks 'Save All' button.
-- Description: User attempts to save all changes made to student records at once.
+- Primary Actor(s): Enrollment Administrator
+- Secondary Actor(s): None
+- Trigger: System loads the Criminal Records Check page.
+- Description: Presents the criminal records in a sorted and paginated grid for administrative review.
 - Preconditions:
-  - User must have edited at least one student record.
-  - User session must be active.
+  - Valid session and enrollment data parameters.
 - Postconditions:
-  - All edited records are saved.
-  - The user is redirected or notified based on success or failure.
+  - Records are displayed according to sorting and filter conditions.
 - Main Success Scenario:
-  1. User edits multiple student records in the grid.
-  2. User clicks 'Save All'.
-  3. System validates entries.
-  4. System updates each record in the database.
-  5. System provides feedback to the user.
+  1. Load CriminalRecordsCheckEditAll page.
+  2. Filter records based on different conditions (ShowGrad, ShowInactive, ShowWaived).
+  3. Sort records by selected criteria.
+  4. Display records in grid for review.
 - Extensions:
-  - If redirect condition met, user is redirected to another page.
+  - Sorting by multiple columns and ascending/descending order.
 - Exceptions:
-  - Validation issues with individual records prevent batch saving.
-  - Warning messages may require user attention before completing save.
+  - Data retrieval errors.
 - Business Rules:
-  - Saving is contingent on validation checks.
+  - 'gridDataEdit' uses ObjectDataSource (dsCRC) for binding.
+  - Paging depends on page size defined in grid settings.
 - Assumptions:
-  - Batch operations are permitted based on user permissions.
+  - Users understand sorting and paging functionalities.
 - Open Issues:
-  - None identified.
+  - Performance improvement for large datasets.
 
-## CriminalRecordsCheckEditAll-UC3 — Handle Dirty Records
+## CriminalRecordsCheckEditAll-UC3 — Handling User Input
 
-- Primary Actor(s): System
-- Secondary Actor(s): User
-- Trigger: System identifies changes to student records.
-- Description: System tracks edited records and manages state between page interactions.
+- Primary Actor(s): Enrollment Administrator
+- Secondary Actor(s): None
+- Trigger: Administrator interacts with grid controls.
+- Description: Manages user inputs for editing grid data using Javascript variables for async postbacks.
 - Preconditions:
-  - Grid must be loaded with editable records.
+  - Page loaded with grid and controls bound.
 - Postconditions:
-  - System correctly tracks and saves the state of edited records.
+  - JavaScript setup for managing dirty state and asynchronous postbacks.
 - Main Success Scenario:
-  1. User edits a record in the grid.
-  2. System marks record as 'dirty'.
-  3. System binds changes to the JavaScript context.
-  4. Changes are retained across postbacks.
+  1. User selects or edits a record.
+  2. 'SetupJavaScript' function initializes JavaScript variables for async updates.
+  3. Registers JavaScript with ScriptManager for postbacks.
 - Extensions:
-  - System can handle asynchronous postbacks similarly.
+  - JavaScript conditions to identify changes.
 - Exceptions:
-  - Failures in JavaScript execution prevent tracking.
+  - Script errors or client-side validation issues.
 - Business Rules:
-  - System must efficiently track and manage state without conflicts.
+  - Changes must be tracked using hidden field 'txtDirty'.
 - Assumptions:
-  - JavaScript is enabled in the user’s browser.
+  - Client-side scripting is enabled.
 - Open Issues:
-  - None identified. 
-
-## CriminalRecordsCheckEditAll-UC4 — Filter Records
-
-- Primary Actor(s): User
-- Secondary Actor(s): System
-- Trigger: User applies filters.
-- Description: User filters records based on specific criteria like status, cohort, or comments.
-- Preconditions:
-  - Records are loaded into the grid.
-- Postconditions:
-  - Filtered records are displayed.
-- Main Success Scenario:
-  1. User specifies filter criteria.
-  2. System updates the grid to reflect filtered data.
-  3. User views and interacts with filtered records.
-- Extensions:
-  - Filters can be combined for refined search results.
-- Exceptions:
-  - Invalid filter criteria can result in no data being displayed.
-- Business Rules:
-  - User must have valid session to apply filters.
-- Assumptions:
-  - Filter options are intuitive and clear to the user.
-- Open Issues:
-  - None identified.
-
-No further extractable use cases found.
+  - Cross-browser compatibility for JavaScript code.
