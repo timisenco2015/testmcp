@@ -1,0 +1,113 @@
+{
+  "filename": "DestProfilePrfDocuments",
+  "found": true,
+  "summary": "The DestProfilePrfDocuments module is a user control in the HSPnet application for managing documents. It handles document display, addition, deletion, editing, and sorting within a grid interface. The module also supports the management of document sub-disciplines and file uploads.",
+  "purpose": "To manage and maintain documents within the HSPnet application, including operations like adding, deleting, editing, and sorting documents, as well as handling document sub-disciplines and file uploads.",
+  "entities": [
+    "GenericDocument",
+    "DocumentOptions"
+  ],
+  "fields": [
+    "UserSession",
+    "ScreenIsEditable",
+    "ScriptMgr",
+    "ParentID",
+    "ParentIDName",
+    "DocumentTypeCodeCategoryName",
+    "SPNameAdd",
+    "SPNameDelete",
+    "SPNameSearch",
+    "SPNameSearchByID",
+    "UploadFolderName",
+    "SPNameSubDisciplineSearch",
+    "UseSubDisciplines",
+    "FileUploadNote",
+    "OmitTypeCodes",
+    "CurrentPage",
+    "DisciplineSubDisciplineID",
+    "RestrictedSubDisciplines",
+    "AlternateDatabase",
+    "ViewState",
+    "hdnSection",
+    "hdnSectionAdded",
+    "hdnAllSections"
+  ],
+  "actors": [
+    "User",
+    "System"
+  ],
+  "workflows": [
+    {
+      "name": "Document Management",
+      "steps": [
+        "Display documents in a grid view.",
+        "Allow adding new documents using the 'Add' button.",
+        "Edit existing documents using the 'Edit' command.",
+        "Delete documents using the 'Delete' command.",
+        "Sort documents using the 'Sort' command.",
+        "Handle uploads of document files to a specified directory."
+      ]
+    },
+    {
+      "name": "Sub-Discipline Management",
+      "steps": [
+        "Display and manage sub-disciplines linked to documents.",
+        "Use radio buttons to allow or restrict sub-discipline access.",
+        "Select sub-disciplines from a list box for inclusion."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Documents can be either of type 'Document' or 'Link'.",
+    "Sub-disciplines can be restricted based on user session settings."
+  ],
+  "validations": [
+    "File upload validations for content length and type.",
+    "Required fields validation on document forms."
+  ],
+  "calculations": [],
+  "conditions": [
+    "Sub-discipline visibility based on the 'UseSubDisciplines' flag.",
+    "Display the discipline filter based on restrictions and user session."
+  ],
+  "system_behavior": [
+    "The document grid resizes based on the number of documents.",
+    "The system maintains view state to manage sort order and first load status."
+  ],
+  "dependencies": [
+    "HSPnet.DataLayer",
+    "HSPnet.UI",
+    "HSPnet.Framework"
+  ],
+  "exceptions": [
+    "Handle errors during file uploads.",
+    "Manage null references in document data binding."
+  ],
+  "source_document_ids": [
+    "0c07c4b4-833a-5669-81d8-91c54075765d",
+    "1c1f8b30-a905-58ce-9302-64add765caf4",
+    "2eddb424-54eb-57b3-8a15-0c702d793478",
+    "2f603740-de69-55d2-857c-b38ee9112666",
+    "3561b73c-80d6-565f-b3aa-8b636ae4d407",
+    "471432df-1380-5c5e-8bda-5772683c37c9",
+    "501aff8a-203c-5ed0-8d3a-91266ac23a9d",
+    "534f2d84-91dc-59f2-ae5e-05146cb99af1",
+    "5ecdf4e6-b51c-5850-8d0d-4ec983f1e125",
+    "6567d57b-c4fa-5627-a6cb-01d5e10263b9",
+    "656df37a-de78-54f4-b116-30cfc8fffadf",
+    "6dcbd64d-83f6-524a-8a2f-360bc39531f7",
+    "823cec36-7bb1-5de5-94f4-67cafb572858",
+    "9017ab7d-41a5-5db5-8cbc-db2915e3cde4",
+    "a64b86aa-c0c5-51aa-8974-8b1ba1ecff49",
+    "b271e4a2-1323-53b4-963f-a717ac3ba282",
+    "b40fd119-e0da-5aaf-b651-a0d0ddec2709",
+    "b8c7f171-5bb4-52b8-81a4-667c61ba133f",
+    "c121df58-1959-51a3-a2b0-4bd8c094e89e",
+    "c64019a7-58b9-509e-895f-77c0ca5e3f31",
+    "c71a3ddd-b65c-5414-a487-55de8e2cadff",
+    "e3597c36-5118-50e0-9e17-fc75d4ec4357",
+    "e60121ed-84c5-5deb-87ee-1d0a24d39dd0",
+    "ff9e3248-e432-50f9-8e40-511ed9e17c15"
+  ],
+  "content_gaps": []
+}
