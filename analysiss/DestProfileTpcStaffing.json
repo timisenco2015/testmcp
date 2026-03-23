@@ -1,0 +1,72 @@
+{
+    "filename": "DestProfileTpcStaffing",
+    "found": true,
+    "summary": "The 'DestProfileTpcStaffing' document appears to be a user control for managing destination staffing details within an ASP.NET application. The control facilitates various operations such as inserting, updating, deleting, and displaying staffing details. It interacts with user sessions, handles events, and manages user interface elements for the staffing profiles.",
+    "purpose": "This user control is designed to manage the destination staffing profiles, allowing users to view, edit, and maintain staffing data within the application framework.",
+    "entities": [],
+    "fields": [
+        "SessionHash",
+        "sess",
+        "DestID",
+        "ScreenIsEditable",
+        "CurrentPage",
+        "DestinationCodeID",
+        "DisciplineID",
+        "StudentLevelCodeID",
+        "PrereqCodeID1",
+        "PrereqCodeID2",
+        "PrereqCodeID3",
+        "MaxGroupSize"
+    ],
+    "actors": [
+        "UserSession",
+        "ScriptMgr",
+        "Grid"
+    ],
+    "workflows": [
+        {
+            "name": "Destination Staffing Operations",
+            "steps": [
+                "Add New Staffing: Switch to add mode, set templates, and show details.",
+                "Edit Staffing: Switch to edit mode, set parameters, and show details.",
+                "Delete Staffing: Delete the record and refresh the page.",
+                "Data Bound Operations: Manage checkboxes and dropdown selections based on mode.",
+                "Insert Item: Validate data and set values from dropdowns before inserting.",
+                "Update Item: Validate data and set new values from dropdowns before updating."
+            ]
+        }
+    ],
+    "business_rules": [
+        "System administrators have visibility over certain control elements.",
+        "Screen must be editable for certain operations to be visible.",
+        "Staffing operations are contingent on user session validity."
+    ],
+    "validations": [
+        "Page validation must pass for inserting or updating data."
+    ],
+    "calculations": [],
+    "conditions": [
+        "User session must not be null to continue data operations.",
+        "Session type affects visibility and mode of elements."
+    ],
+    "system_behavior": [
+        "Caches user sessions periodically.",
+        "Redirects on certain operations to maintain state.",
+        "JavaScript is dynamically set up based on control state."
+    ],
+    "dependencies": [],
+    "exceptions": [],
+    "source_document_ids": [
+        "0bd358df-2048-5de5-acd0-e72f0d5c8ac4",
+        "18376b3e-56c8-5a34-a4c0-87e7ab8cfd7f",
+        "31d8a9b8-e599-5488-8497-2421557cb968",
+        "717fd4cd-1ce8-5ce8-9ff1-0c73b25e629b",
+        "814bcb64-e832-5a5b-aefd-44018f4e105a",
+        "8e7c5b79-050c-5ca6-a975-94da45547daa",
+        "96a47e9e-9b8f-5176-9481-1ac64434f6da",
+        "9f53a02c-d140-5dc5-8704-c811acf552cc",
+        "b7676ec0-48c4-5691-9c9f-b15f2b2b24e2",
+        "dc75a9fc-9eb7-5dd3-add7-aff7a813b7cc"
+    ],
+    "content_gaps": []
+}
