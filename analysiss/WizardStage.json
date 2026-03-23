@@ -1,0 +1,57 @@
+{
+    "filename": "WizardStage",
+    "found": true,
+    "summary": "The WizardStage system is responsible for handling the stages within a wizard interface. It allows navigation through stages based on user actions, such as 'Next' and 'Previous', and manages the history of stages visited. The system retrieves stages from a database and can dynamically adjust navigation paths using stored procedures and SQL queries.",
+    "purpose": "To manage and navigate through different stages within a wizard in a structured manner, using database-driven stage configurations and user actions.",
+    "entities": [],
+    "fields": [
+        "ID",
+        "WizardID",
+        "SourceWizardStageID",
+        "CopyWizardStageID",
+        "StageNumber",
+        "Title",
+        "Instructions",
+        "OrderFunction",
+        "FirstStageFlag",
+        "LastStageFlag",
+        "ButtonPlacement"
+    ],
+    "actors": [],
+    "workflows": [
+        {
+            "name": "Navigate Wizard Stages",
+            "steps": [
+                "Check the action requested ('Next', 'Previous', 'GotoStage').",
+                "If 'Next', determine the next stage using the OrderFunction and update stage history.",
+                "If 'Previous', retrieve the last stage from stage history and adjust history.",
+                "If 'GotoStage', set the next stage directly and adjust history to simulate sequential navigation.",
+                "Retrieve the list of all stages using ReportWizardStageList for navigation verification."
+            ]
+        }
+    ],
+    "business_rules": [
+        "Stages must be navigated in order determined by the OrderFunction.",
+        "Stage history is maintained for backtracking capabilities.",
+        "Stages can be accessed directly using GotoStage action."
+    ],
+    "validations": [],
+    "calculations": [],
+    "conditions": [],
+    "system_behavior": [
+        "Uses SQL procedures to retrieve stages and navigate through them.",
+        "Modifies stage history based on user actions to reflect navigation path."
+    ],
+    "dependencies": [
+        "Database connection and access to SQL procedures for stage retrieval."
+    ],
+    "exceptions": [],
+    "source_document_ids": [
+        "01aea0b5-4c47-5c09-8ac8-0b1f38d200e0",
+        "3c122198-943f-5e13-a936-91dff51d9ac2",
+        "56499a0e-c68e-53b9-8084-9da41043331f",
+        "da48a802-c7ad-5b73-9c1e-a966f42bcfa9",
+        "eac38a74-0a64-5dbd-8ad3-d9e4497e7131"
+    ],
+    "content_gaps": []
+}
