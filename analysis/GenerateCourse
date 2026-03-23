@@ -2,97 +2,73 @@
 {
   "filename": "GenerateCourse",
   "found": true,
-  "summary": "The GenerateCourse functionality is designed to manage and generate correspondence documents based on user input and selections within a web application. It includes controls and workflows for managing department, program, term, and course selections, as well as configuring document format and content customization.",
-  "purpose": "To generate formatted correspondence for courses and cohorts, allowing users to customize the content and format based on selected criteria and roles.",
-  "entities": [
-    "UserSession",
-    "CorrespondenceID",
-    "ProgramID",
-    "Term",
-    "Department",
-    "CohortID",
-    "CourseID",
-    "CorrespondenceDetails",
-    "CorrespondenceRecipients",
-    "CorrespondenceRunVariables"
-  ],
+  "summary": "The GenerateCourse functionality is designed to generate correspondence documents, with various configurations for recipients, formats, and content customization.",
+  "purpose": "To manage and generate correspondence for courses and cohorts, ensuring correct formatting, scheduling, and recipient inclusion.",
+  "entities": ["UserSession", "CorrespondenceID", "ProgramID", "OutputFormat", "Department"],
   "fields": [
     "txtRequestDestID",
-    "OutputFormat",
-    "Filters",
-    "CorDate",
+    "cklStatus",
     "txtCorDate",
+    "OutputFormat",
+    "CorrespondenceRecipientsPopup",
+    "DefaultSignatory",
     "ddDepartment",
     "ddProgram",
     "ddTerm",
+    "ddDateSource",
     "txtOrderSC",
     "txtOrderDC",
     "txtOrderPre",
     "txtOrderInstr",
     "txtOrderCourseLeader",
-    "txtOrderStudent",
-    "SignatoryID"
+    "txtOrderStudent"
   ],
-  "actors": [
-    "SystemAdministrator",
-    "LocalAdministrator",
-    "PlacementCoordinator",
-    "ReceivingCoordinator",
-    "DestinationCoordinator",
-    "StudentMaint",
-    "Instructor",
-    "Supervisor"
-  ],
+  "actors": ["SystemAdministrator", "LocalAdministrator", "PlacementCoordinator", "ReceivingCoordinator", "DestinationCoordinator"],
   "workflows": [
     {
-      "name": "Generate Correspondence",
+      "name": "GenerateCourse",
       "steps": [
-        "Page Load: Initialize page elements based on query strings (CohortID, CourseID).",
-        "Pre Render: Set up JavaScript and update UI states.",
-        "Generate: Validate inputs, save run variables, and execute correspondence generation with selected format."
-      ]
-    },
-    {
-      "name": "Dropdown Management",
-      "steps": [
-        "FillDepartmentDropdown: Populate department list based on user session.",
-        "FillProgramDropdown: Populate program list conditional on department changes.",
-        "FillTermDropdown: Populate term list based on program selection."
+        "Initialize UserSession and CorrespondenceID",
+        "Set output format based on user selection",
+        "Validate recipient data and apply filters",
+        "Bind department, program, and term dropdowns",
+        "Set default and custom signatory",
+        "Prepare correspondence data and execute generation process"
       ]
     }
   ],
   "business_rules": [
-    "Correspondence is generated only if errors are not found.",
-    "Department dropdown is populated based on user session permissions.",
-    "Output format must be selected via specific radio buttons.",
-    "User roles determine visibility and permissions of certain features."
+    "Recipients list is mandatory for outbox.",
+    "Filters are applied based on selected status items.",
+    "ProgramID and TermID are required if not in outbox.",
+    "Correspondence date defaults to today if not specified."
   ],
   "validations": [
-    "Ensure RawData is not empty or '-1' when Outbox is active.",
-    "Validate date formats and ensure non-null values.",
-    "Ensure signature image staff ID is set when not a formal letter."
+    "Recipient list must not be empty.",
+    "Correspondence date must be valid.",
+    "Selection of status filters is required."
   ],
   "calculations": [
-    "Determine correspondence output format (PDF, MultiPDF, RTF, XLS, TXT, LABEL).",
-    "Calculate start and end dates for correspondence period if applicable."
+    "Start and end dates for correspondence generation based on current settings.",
+    "Determining role based on user session attributes."
   ],
   "conditions": [
-    "User must have specific roles to access email visibility.",
-    "Dropdown items are enabled based on query string presence and postback status."
+    "If outbox is true, special actions are required.",
+    "Visibility of email span depends on user roles.",
+    "Department dropdown enabled state is dependent on query string parameters."
   ],
   "system_behavior": [
-    "Displays or hides UI components based on user roles and query parameters.",
-    "Registers JavaScript for dynamic field variable handling.",
-    "Binds data sources and updates UI with relevant options."
+    "Data binding of dropdowns based on user session and agency settings.",
+    "Visibility control for various UI elements based on user roles."
   ],
   "dependencies": [
-    "UserSession for context and permissions.",
-    "Dropdown handling for department, program, and term selection.",
-    "External resources for error messages and format parsing."
+    "UserSession object for session management.",
+    "Database connection for date manipulation and correspondence data storage.",
+    "Dropdowns for department, program, and term selection."
   ],
   "exceptions": [
-    "Errors in run variable saving prevent correspondence generation.",
-    "Invalid date entries trigger error messages."
+    "Error messages for validation failures.",
+    "Handling of missing recipient data."
   ],
   "source_document_ids": [
     "02e09e81-5a82-5c62-bb4c-751a99905bb1",
