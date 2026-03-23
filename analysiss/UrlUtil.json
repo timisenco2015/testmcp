@@ -1,62 +1,70 @@
 {
-    "filename": "UrlUtil",
-    "found": true,
-    "summary": "The 'UrlUtil' class provides utility functions for handling URLs in a web application, including replacing characters, adding CSS links, and creating popup anchors.",
-    "purpose": "To offer utility functions for URL manipulation and web resource management in a web application environment.",
-    "entities": [],
-    "fields": [],
-    "actors": [],
-    "workflows": [
-        {
-            "name": "Replace Pound",
-            "steps": [
-                "Check if input is null.",
-                "If not, replace '#' with 'No' in the input string."
-            ]
-        },
-        {
-            "name": "Add CSS Link",
-            "steps": [
-                "Check if header is not null.",
-                "Create a HTML link with the provided CSS file and version number.",
-                "Add the link to the header's control collection."
-            ]
-        },
-        {
-            "name": "Popup Anchor",
-            "steps": [
-                "Check if pageFileName is null.",
-                "Initialize StringBuilder with pageFileName.",
-                "If parameters exist, append them to the StringBuilder.",
-                "Construct final anchor HTML string with JavaScript for popup.",
-                "Return the constructed HTML string."
-            ]
-        },
-        {
-            "name": "Maint Staff Profile Popup",
-            "steps": [
-                "Check if session is null.",
-                "Prepare parameters with session ID, staff ID, and read-only flag.",
-                "Include default tab if specified.",
-                "Return popup anchor for 'MaintStaffProfile.aspx' with parameters."
-            ]
-        }
-    ],
-    "business_rules": [],
-    "validations": [],
-    "calculations": [],
-    "conditions": [],
-    "system_behavior": [
-        "Replaces '#' characters with 'No' in input strings.",
-        "Adds a CSS link to the HTML head with versioning.",
-        "Creates a popup link with JavaScript based on parameters.",
-        "Generates a staff profile popup URL with session-specific parameters."
-    ],
-    "dependencies": [],
-    "exceptions": [],
-    "source_document_ids": [
-        "017a74a7-ce03-5d8f-9bea-77f345fffab8",
-        "711a11f0-be35-5585-b048-c24bede82b01"
-    ],
-    "content_gaps": []
+  "filename": "UrlUtil",
+  "found": true,
+  "summary": "The UrlUtil class provides utility functions to manipulate URLs and HTML components, with methods for replacing hashtags, adding CSS links, and creating dynamic popup anchors.",
+  "purpose": "To provide utility methods for URL manipulation and HTML link management in the HSPnet framework.",
+  "entities": [],
+  "fields": [],
+  "actors": [],
+  "workflows": [
+    {
+      "name": "Replace Pound Sign in String",
+      "steps": [
+        "Check if input is null.",
+        "If null, return null.",
+        "Replace '#' with 'No'.",
+        "Return the modified string."
+      ]
+    },
+    {
+      "name": "Add CSS Link to HTML Header",
+      "steps": [
+        "Check if HtmlHead header is not null.",
+        "Create a new HtmlLink object.",
+        "Set the Href attribute with version number appended.",
+        "Set type attribute to 'text/css'.",
+        "Set rel attribute to 'stylesheet'.",
+        "Add HtmlLink to header controls."
+      ]
+    },
+    {
+      "name": "Create Popup Anchor",
+      "steps": [
+        "Check if pageFileName is null; if so, return null.",
+        "Append pageFileName and parameters to a string builder.",
+        "Remove trailing '&' from parameters.",
+        "Create final anchor string with JavaScript call to newWindow.",
+        "Return final anchor string."
+      ]
+    },
+    {
+      "name": "Create Maint Staff Profile Popup",
+      "steps": [
+        "Check if session is null; if so, return null.",
+        "Initialize parameters with SessionID, StaffID, and ReadOnly.",
+        "Optionally add DefaultTab parameter.",
+        "Return popup anchor with parameters."
+      ]
+    }
+  ],
+  "business_rules": [],
+  "validations": [
+    "Check for null input in ReplacePound method.",
+    "Check for null HtmlHead in AddCssLink method.",
+    "Check for null pageFileName in PopupAnchor method.",
+    "Check for null session in MaintStaffProfilePopup method."
+  ],
+  "calculations": [],
+  "conditions": [
+    "shouldPostback determines JavaScript return value in popup anchors.",
+    "Add DefaultTab only if it is not null in MaintStaffProfilePopup."
+  ],
+  "system_behavior": [],
+  "dependencies": [],
+  "exceptions": [],
+  "source_document_ids": [
+    "017a74a7-ce03-5d8f-9bea-77f345fffab8",
+    "711a11f0-be35-5585-b048-c24bede82b01"
+  ],
+  "content_gaps": []
 }
