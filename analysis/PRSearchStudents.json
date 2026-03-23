@@ -1,0 +1,162 @@
+{
+  "filename": "PRSearchStudents",
+  "found": true,
+  "summary": "The PRSearchStudents system manages placement requests for students, involving various entities and workflows such as searching placement history, managing requests, and handling exceptions. It includes validations, business rules, and specific conditions for managing student placements across different sites and services.",
+  "purpose": "To efficiently handle and manage student placement requests and histories, ensuring accurate and comprehensive tracking of placements, changes, and validations within educational and clinical settings.",
+  "entities": [
+    "PRSearchStudent",
+    "HSPnetSession",
+    "AllowedLists",
+    "SqlDataReader",
+    "Resources",
+    "UI"
+  ],
+  "fields": [
+    "PR_ID",
+    "PRD_ID",
+    "ParentPRDID",
+    "StartDate",
+    "EndDate",
+    "DurationHours",
+    "ExpectedDurationHours",
+    "Site",
+    "Service",
+    "Destination",
+    "InstructorNameFormatted",
+    "StudentNameFormatted",
+    "TypeCodeFormatted",
+    "StatusCode",
+    "GroupFlag",
+    "ScreenIsEditable",
+    "ShowDetails",
+    "Archived"
+  ],
+  "actors": [
+    "PlacementCoordinator",
+    "Instructor",
+    "Student",
+    "Supervisor",
+    "SiteInstructor",
+    "GroupInstructor",
+    "DB Administrator"
+  ],
+  "workflows": [
+    {
+      "name": "Student Placement Request History",
+      "steps": [
+        "Initialize a new PRSearchStudent instance.",
+        "Retrieve session data using HSPnetSession.",
+        "Execute stored procedure 'StudentSearchPRHistory'.",
+        "Read data using SqlDataReader.",
+        "Populate PRSearchStudent fields with session data.",
+        "Format field outputs using UI and Resources.",
+        "Determine visibility based on user permissions and status codes.",
+        "Return formatted list of PRSearchStudent instances."
+      ]
+    },
+    {
+      "name": "Instructor Placement Request History",
+      "steps": [
+        "Execute stored procedure 'InstructorSearchPRHistory'.",
+        "Read data using SqlDataReader.",
+        "Check private mode settings.",
+        "Filter data by AllowedLists session locations.",
+        "Populate and return PRSearchStudent list with formatted data."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Ensure PR_ID and PRD_ID are greater than 0 for valid entries.",
+    "Hide specifics when status codes show non-confirmed entries for student users.",
+    "Use AllowedLists to manage location-based access and visibility.",
+    "Handle consent expiration to control information access."
+  ],
+  "validations": [
+    "Duration hours cannot be less than zero unless marked as -99.",
+    "Check user type to determine read-only status of entries.",
+    "Verify agency matches to determine detail visibility.",
+    "Highlight discrepancies in duration hours between actual and expected.",
+    "Evaluate consent expiration status."
+  ],
+  "calculations": [
+    "Group and calculate total hours including alternate observations.",
+    "Format duration hours based on TotalYearType format.",
+    "Calculate expected hours per student based on group size."
+  ],
+  "conditions": [
+    "Private mode alters visibility and detail display.",
+    "Status codes dictate entry display logic and formatting.",
+    "Site, Service, and Destination IDs must match allowed lists for visibility."
+  ],
+  "system_behavior": [
+    "Dynamic configuration of display formats based on user and session attributes.",
+    "Conditional entry visibility tied to user permissions and agency associations.",
+    "Read and write operations based on stored procedures and session states."
+  ],
+  "dependencies": [
+    "UI for name and date formatting.",
+    "Resources for localization and tooltips.",
+    "HSPnetSession for session data retrieval and management."
+  ],
+  "exceptions": [
+    "Entries with non-confirmed status for student users are hidden unless released to temp student.",
+    "Consent expiration impacts student data visibility.",
+    "Private mode influences entry filtering and display logic."
+  ],
+  "source_document_ids": [
+    "00c558d6-3cb8-5cac-b6d6-77d2bdd190ac",
+    "02d8b2bf-8f3c-5ef5-9cb2-434dd731b2ad",
+    "0523cc6f-9192-5759-aa6f-86090e2b7e72",
+    "06c02e05-c8e7-577d-ad5c-dcdf6a30b9db",
+    "0caf69ae-55cf-56d7-9111-bb9b62149b26",
+    "2438714e-0dfd-5c78-add5-ded65ca3f3ec",
+    "2581e24b-4e82-518d-955e-16f48a3ecf55",
+    "2da0ca60-faa0-5306-82ba-86d0a17118c4",
+    "33f21ae8-5d35-5c01-bdd8-976e1265f3eb",
+    "3eaccef2-5ab9-5dd9-9123-ce844e1bc871",
+    "3f5d0bf9-7e53-549e-adbf-52c7047dc5f4",
+    "40b75937-77d8-5191-93f0-f168c464e1bb",
+    "42c7bb02-07af-5c97-ab57-9a7b03a2ae51",
+    "4c4c4757-00d2-52c6-840f-0b5a31a1f72d",
+    "4d774d12-1dce-560c-990d-b991bf9c3ab2",
+    "500be28a-b88d-525a-9063-dedb8686951a",
+    "532536cd-9686-51a0-9240-f6e895456047",
+    "57212c7c-aec1-5f1b-ab2f-adc5e8ae18ec",
+    "594f46a6-4243-5758-8ed5-8abf8831788c",
+    "640346d4-628c-5503-ae92-ecd2f74c3c66",
+    "6b3916ca-ee24-565f-bb7b-fcd7cb66e6fd",
+    "7235f612-63f9-5d1f-bdc3-33f718a9a9d1",
+    "7dc8168f-d743-594d-ad6f-a3dd51419e92",
+    "7e596901-7be2-556f-b0e4-9639c8715420",
+    "7f775bb7-74d2-54d3-825e-4e87a7751432",
+    "837fe075-9946-5454-ae92-ed23bc11a476",
+    "884a9d21-d5dc-55e5-9f45-baecf4a640fa",
+    "8a36dd6e-143c-50de-afd3-f3af7a4994c7",
+    "8dd64499-930f-5166-910f-1877daea337e",
+    "910d8e44-639e-5a35-9b29-0dd68b62e52e",
+    "97c11a04-a72a-59f5-9efd-b1499497f748",
+    "99e91197-a504-561e-824f-d612dc79f6fe",
+    "9fa6acbf-9234-574b-8daf-583051d8c736",
+    "a25f4fea-0456-55d7-b895-db29b6c9cb60",
+    "a28358e6-d1ec-5004-8a9d-34396ded811d",
+    "a671b2c3-4879-5a04-a4ad-b1ec3ce306ac",
+    "a77b5a04-24cc-5d36-a95a-f094570490f6",
+    "adb49846-7450-568e-b406-62d4e84a77a7",
+    "b456c3fd-737a-5e1c-b8cf-9c8362bbbac0",
+    "bfa44007-4e8f-5b77-b6c4-24e319cffcc2",
+    "c14a2546-e23b-5e72-9c17-44da57457511",
+    "c56ee5a0-0f41-568a-881f-2b9fad040eeb",
+    "ca62da68-a950-5714-9ee6-e6d078a631dc",
+    "d5b4870b-e156-569d-bfb1-bb1ad7eec7f0",
+    "da6237dd-563a-5d94-a421-2e14eaeee011",
+    "da707f93-092d-5671-a4e6-616d0e4623e6",
+    "dcc0c611-563a-57ce-942b-a4034c942c74",
+    "e457ff52-2fd1-57ea-a44b-eaae86ccb02d",
+    "e5beed04-c440-5a12-9531-2aa791b57b6d",
+    "efd05936-d3ad-5e2a-ae04-489dd348a07c",
+    "f455feef-cbab-541b-89a1-5aaabf5d13c1",
+    "f5d24cc9-9686-54be-82c8-dbad6168a0cd",
+    "f932c5b4-9dce-59f4-a349-2574eb6fba73"
+  ],
+  "content_gaps": []
+}
