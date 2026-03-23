@@ -1,0 +1,76 @@
+{
+  "filename": "ConnectionFailed",
+  "found": true,
+  "summary": "The documents related to 'ConnectionFailed' describe a web page and its associated code for handling connection failure scenarios. The page includes headers and error messages in both English and French, and the handling of culture-specific settings based on query parameters.",
+  "purpose": "The purpose of the 'ConnectionFailed' files is to provide a user interface and functionality for displaying connection failure messages based on user locale settings.",
+  "entities": [],
+  "fields": [
+    {
+      "name": "HeaderEN",
+      "description": "Panel control for displaying the English header section.",
+      "type": "Panel"
+    },
+    {
+      "name": "HeaderFR",
+      "description": "Panel control for displaying the French header section.",
+      "type": "Panel"
+    },
+    {
+      "name": "uxErrorMessage",
+      "description": "Label control for displaying the error message.",
+      "type": "Label"
+    }
+  ],
+  "actors": [
+    {
+      "name": "User",
+      "description": "The user encountering the connection failure."
+    }
+  ],
+  "workflows": [
+    {
+      "name": "Display Connection Failure",
+      "steps": [
+        "User requests a page which results in a connection failure.",
+        "System checks the 'Locale' query parameter in the request.",
+        "System sets the visibility of 'HeaderEN' or 'HeaderFR' based on the locale.",
+        "System initializes culture settings based on the 'Locale' query parameter.",
+        "System displays the connection failure message through 'uxErrorMessage'."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Display English header if 'Locale' is 'en-US' or not specified.",
+    "Display French header if 'Locale' is 'fr-CA'."
+  ],
+  "validations": [],
+  "calculations": [],
+  "conditions": [
+    {
+      "condition": "Query parameter 'Locale' is 'en-US'",
+      "result": "Display English header (HeaderEN)."
+    },
+    {
+      "condition": "Query parameter 'Locale' is 'fr-CA'",
+      "result": "Display French header (HeaderFR)."
+    }
+  ],
+  "system_behavior": [
+    "The system dynamically displays content based on user locale settings.",
+    "The system uses query parameters to determine the user's language preference.",
+    "The system overrides default culture settings during page initialization."
+  ],
+  "dependencies": [
+    "ASP.NET environment for page rendering and control management."
+  ],
+  "exceptions": [
+    "Localization may fail if an unsupported 'Locale' value is provided."
+  ],
+  "source_document_ids": [
+    "1b519992-db1d-5f57-b018-a0e1befe8491",
+    "5ba21fbf-7905-59e7-90cb-c18e7f0bb6fb",
+    "83674888-1068-5d79-8a82-659f9547d3c0",
+    "8aaa6f24-0523-5c88-a8bb-fc0af3303321"
+  ],
+  "content_gaps": []
+}
