@@ -1,39 +1,59 @@
 {
-  "filename": "ConnectionFailed",
-  "found": true,
-  "summary": "The ConnectionFailed documents contain HTML and C# code for a webpage that handles connection failures in the HSPnet system. It features localization for English and French users, displaying a different header and message depending on the language settings.",
-  "purpose": "The purpose of the ConnectionFailed documents is to present a user interface for when a connection error occurs in the HSPnet system, providing user guidance and contact options in both English and French.",
-  "entities": [],
-  "fields": [],
-  "actors": [],
-  "workflows": [
-    {
-      "name": "Display Connection Failed Page",
-      "steps": [
-        "Detect the user's language setting via the Locale query string parameter.",
-        "Display the corresponding header and message based on the language setting (English or French).",
-        "Provide links to contact support, glossary, feedback, and home page in the selected language."
-      ]
-    }
-  ],
-  "business_rules": [],
-  "validations": [],
-  "calculations": [],
-  "conditions": [
-    "HeaderEN is visible when Locale is 'en-US' or if the Locale query string is empty.",
-    "HeaderFR is visible when Locale is 'fr-CA'."
-  ],
-  "system_behavior": [
-    "The page decides which header and message to display based on the 'Locale' query string parameter.",
-    "The system initializes culture settings for the thread based on the Locale parameter to localize the display text."
-  ],
-  "dependencies": [],
-  "exceptions": [],
-  "source_document_ids": [
-    "1b519992-db1d-5f57-b018-a0e1befe8491",
-    "5ba21fbf-7905-59e7-90cb-c18e7f0bb6fb",
-    "83674888-1068-5d79-8a82-659f9547d3c0",
-    "8aaa6f24-0523-5c88-a8bb-fc0af3303321"
-  ],
-  "content_gaps": []
+    "filename": "ConnectionFailed",
+    "found": true,
+    "summary": "The ConnectionFailed feature handles the display of a user interface when a connection failure occurs. It manages localization for English and French, controls page layout and navigational elements, and displays error messages.",
+    "purpose": "To provide a user-friendly interface for users encountering a connection failure, with support for English and French languages.",
+    "entities": [],
+    "fields": [
+        {
+            "name": "HeaderEN",
+            "description": "Panel control for English language interface",
+            "type": "System.Web.UI.WebControls.Panel"
+        },
+        {
+            "name": "HeaderFR",
+            "description": "Panel control for French language interface",
+            "type": "System.Web.UI.WebControls.Panel"
+        },
+        {
+            "name": "uxErrorMessage",
+            "description": "Label control for displaying the connection failed message",
+            "type": "System.Web.UI.WebControls.Label"
+        }
+    ],
+    "actors": [],
+    "workflows": [
+        {
+            "name": "Connection Failure Display",
+            "steps": [
+                "User encounters a connection failure.",
+                "The system checks the 'Locale' query parameter to determine language.",
+                "HeaderEN is made visible if the locale is 'en-US' or is not specified.",
+                "HeaderFR is made visible if the locale is 'fr-CA'.",
+                "The appropriate error message is displayed using the uxErrorMessage label."
+            ]
+        }
+    ],
+    "business_rules": [
+        "Display HeaderEN panel when locale is 'en-US' or unspecified.",
+        "Display HeaderFR panel when locale is 'fr-CA'."
+    ],
+    "validations": [],
+    "calculations": [],
+    "conditions": [
+        "Locale query parameter is checked to determine language preference."
+    ],
+    "system_behavior": [
+        "The system dynamically adjusts the user interface language based on the locale.",
+        "Error message display is controlled via resource localization."
+    ],
+    "dependencies": [],
+    "exceptions": [],
+    "source_document_ids": [
+        "1b519992-db1d-5f57-b018-a0e1befe8491",
+        "5ba21fbf-7905-59e7-90cb-c18e7f0bb6fb",
+        "83674888-1068-5d79-8a82-659f9547d3c0",
+        "8aaa6f24-0523-5c88-a8bb-fc0af3303321"
+    ],
+    "content_gaps": []
 }
