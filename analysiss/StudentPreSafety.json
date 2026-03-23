@@ -1,73 +1,82 @@
 {
   "filename": "StudentPreSafety",
   "found": true,
-  "summary": "The 'StudentPreSafety' user control manages student prerequisite data, allowing for the display, update, and validation of prerequisite statuses such as CRCStatus, IDCard, and WCBWaiverDate. It includes functionality for handling user sessions, displaying data in a form view, and managing user interactions through commands and data updates.",
-  "purpose": "The purpose of the 'StudentPreSafety' control is to manage the safety prerequisites for students in an educational context, providing interfaces for displaying, editing, and validating prerequisite status data.",
-  "entities": [
-    "StudentPrerequisite",
-    "HSPnetSession",
-    "UserSession"
-  ],
+  "summary": "The StudentPreSafety user control is a component within the HSPnet application, designed to handle student prerequisite safety data. It operates by interacting with various controls on a web page, handling data updates, and rendering UI elements appropriately based on user interaction and data conditions.",
+  "purpose": "The purpose of the StudentPreSafety component is to manage and display student safety prerequisite information, handle updates, and ensure that data is correctly processed and displayed in the user interface.",
+  "entities": [],
   "fields": [
     "CRCStatus",
     "IDCard",
     "WCBWaiverDate",
     "StudentID",
-    "ScreenIsEditable",
-    "ReadOnly"
+    "SessionID",
+    "StaffID",
+    "CRCStatusCodeID",
+    "WCBStatusCodeID"
   ],
   "actors": [
-    "User (with a session)",
-    "System (managing data display and updates)"
+    "UserSession",
+    "ScriptManager"
   ],
   "workflows": [
     {
-      "name": "Display Prerequisite Data",
+      "name": "DataBinding Workflow",
       "steps": [
-        "Check if user session exists; if not, cancel operation.",
-        "Use session and student ID to fetch prerequisite data.",
-        "Display data in FormView, binding appropriate values."
+        "Bind data using DataBind()",
+        "Select student prerequisite data based on session and student ID",
+        "Translate display fields based on user session language"
       ]
     },
     {
-      "name": "Update Prerequisite Data",
+      "name": "Item Command Handling",
       "steps": [
-        "Initiate update process when page is valid.",
-        "Retrieve new values from DropDownList controls.",
-        "Cache user session and redirect to the updated view."
+        "Switch to edit mode if cmdEdit is triggered",
+        "Bind student ID to detail view",
+        "Show detail modal"
       ]
     },
     {
-      "name": "Execute Item Commands",
+      "name": "Detail Data Binding",
       "steps": [
-        "Switch to edit mode on receiving 'cmdEdit'.",
-        "Enable or disable controls based on editability."
+        "Bind data to controls in the detail view",
+        "Setup drop-down lists using data",
+        "Handle visibility and translation of fields"
+      ]
+    },
+    {
+      "name": "Update Workflow",
+      "steps": [
+        "Validate page before updating",
+        "Get new values from form controls",
+        "Update user session after saving"
       ]
     }
   ],
   "business_rules": [
-    "Visible conditions based on CRCStatus and WCBWaiverDate",
-    "Editable conditions based on ScreenIsEditable and ReadOnly"
+    "Hide save button if screen is not editable",
+    "Only show detail modal for valid student IDs"
   ],
   "validations": [
-    "Page must be valid before updating data.",
-    "Dropdown values must be converted to integer before use."
+    "Cancel update if page is not valid"
   ],
   "calculations": [],
   "conditions": [
-    "Data display contingent on non-null session.",
-    "Visibility of fields dependent on data conditions."
+    "Check if CRCStatus is not 'Unknown' and not empty to show control",
+    "Toggle visibility of controls based on data status"
   ],
   "system_behavior": [
-    "JavaScript setup for client-side management of controls.",
-    "FormView's mode determines command behavior (Edit or Insert)."
+    "Translate fields if alternative language is selected",
+    "Register JavaScript for asynchronous updates",
+    "Redirect to Safety page after update"
   ],
   "dependencies": [
-    "Server-side controls and data sources such as FormView and ObjectDataSources",
-    "Session management and user authentication"
+    "HSPnetSession",
+    "HSPnet.UI",
+    "HSPnet.DataLayer",
+    "AjaxControlToolkit"
   ],
   "exceptions": [
-    "Operation cancelled if user session is not initialized."
+    "Cancel data selection if UserSession is null"
   ],
   "source_document_ids": [
     "432176fc-0da0-53f5-a17f-3b7c5873054c",
