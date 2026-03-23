@@ -1,19 +1,81 @@
 {
     "filename": "StudentPrerequisites",
-    "found": false,
-    "summary": "",
-    "purpose": "",
-    "entities": [],
-    "fields": [],
-    "actors": [],
-    "workflows": [],
+    "found": true,
+    "summary": "StudentPrerequisites handles medical and safety requirements for students, including immunization, mask fitting, and confidentiality forms. It captures and updates student's health status and prerequisite completion.",
+    "purpose": "To maintain and update student health and safety data, ensuring the completion of required prerequisites for their roles.",
+    "entities": [
+        "StudentPrerequisite"
+    ],
+    "fields": [
+        "N95MaskSizeCodeID",
+        "N95MaskFitTestDate",
+        "ImmunizationFeePaidDate",
+        "MedicalCompleted",
+        "CRCStatusDate",
+        "WCBWaiverDate"
+    ],
+    "actors": [
+        "Student",
+        "Staff"
+    ],
+    "workflows": [
+        {
+            "name": "Prerequisite Update Workflow",
+            "steps": [
+                "Collect student health data.",
+                "Validate data and check for completeness.",
+                "Update status and expiration dates if necessary."
+            ]
+        }
+    ],
     "business_rules": [],
-    "validations": [],
+    "validations": [
+        "Date comparisons for expiration.",
+        "Completeness checks for prerequisite status."
+    ],
     "calculations": [],
     "conditions": [],
-    "system_behavior": [],
-    "dependencies": [],
+    "system_behavior": [
+        "Updates student's prerequisite statuses in the database.",
+        "Validates dates against maximum allowed future years."
+    ],
+    "dependencies": [
+        "Database access",
+        "DateFormatter utility"
+    ],
     "exceptions": [],
-    "source_document_ids": [],
-    "content_gaps": ["No related documents found"]
+    "source_document_ids": [
+        "126148d2-7c46-5bb8-8a4c-606105b702bd",
+        "165b1b6b-fd06-59e5-b7d7-81e87dbeac55",
+        "280408b2-2e1d-5bd7-8feb-59603ff0bb80",
+        "3787eddd-1ce0-519f-9959-30c8a913c827",
+        "3c00eec5-f694-53fb-abe6-a8d94038fd60",
+        "3e68c0d0-3ab9-5c14-a221-bf0f7592302c",
+        "430fc305-a57a-53e5-9f01-35e07b707792",
+        "46edf9a0-d978-5197-be20-b4536cae3e91",
+        "4a51cb58-538c-57f2-82ff-13fb4d577aa8",
+        "4abb53e7-107a-535d-a3b7-97b5279e2632",
+        "4c84ad96-eff9-5f59-ad88-b1083437874e",
+        "4fef49f1-918d-5276-9b5d-2394b74edd53",
+        "580b77b9-dd28-5027-bdae-912684d6c0b6",
+        "5eaa703a-dd1e-5dee-bb2e-1fb263c75db6",
+        "60564881-fabd-566c-ae55-496631ed07ce",
+        "61704a31-73c8-510f-a8a5-2f3f90576102",
+        "64b9d3fc-975d-5d39-ab37-dbeff805220f",
+        "6c76048a-8dbd-57f8-a34d-f0474a8066e7",
+        "72969051-b340-56cd-9567-db665fe9963a",
+        "7ad65168-6ffa-588e-8b5e-2c138a0092b6",
+        "812c66d2-bc1a-5ced-a6c2-fafa49e2bcb9",
+        "8325c58d-21a0-55d5-a8e9-e1479ebd011f",
+        "8b00efe5-209e-55a9-84be-d06aaf4abd1a",
+        "9096371b-8c7b-5c4b-81f4-7d9582776926",
+        "92a9a02b-cd4f-5050-9603-a3c1fb695f28",
+        "a9be8e45-83d9-54f8-baf7-de5e6c16d394",
+        "dadce6a1-e08f-5117-9767-bb9b5e83fef7",
+        "d29d4c69-472b-5cdc-8324-d8b31f86cb75",
+        "d65fc939-7e93-5874-a3e2-934f23808835",
+        "e9656b6a-7fa3-53ad-8e91-5ea186dd35de",
+        "eedb6500-7e63-5aba-b652-8cfbbf9b798d"
+    ],
+    "content_gaps": []
 }
