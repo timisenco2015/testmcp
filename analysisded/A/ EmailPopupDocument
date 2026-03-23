@@ -1,0 +1,62 @@
+```json
+{
+  "filename": "EmailPopupDocument",
+  "found": true,
+  "summary": "The documents define a class structure and methods for managing email popup documents, including searching and deleting entries based on given data.",
+  "purpose": "To manage email popup documents by providing functionality to search and delete document entries based on specific information.",
+  "entities": [
+    "EmailPopupDocument",
+    "EmailPopupDocuments"
+  ],
+  "fields": [
+    "ID",
+    "FileName",
+    "FilePath",
+    "Checked"
+  ],
+  "actors": [],
+  "workflows": [
+    {
+      "name": "Search",
+      "steps": [
+        "Parse input string DataInfo.",
+        "Split DataInfo by '|'.",
+        "For each split entry, further split by '>'.",
+        "Create new document entry for each valid split and add it to the list."
+      ]
+    },
+    {
+      "name": "Delete",
+      "steps": [
+        "Parse input string DataInfo.",
+        "Split DataInfo by '|'.",
+        "Identify entry by comparing IDs.",
+        "Extract file path and folder name from entry.",
+        "Attempt deletion of file and directory."
+      ]
+    }
+  ],
+  "business_rules": [],
+  "validations": [
+    "Ensure DataInfo is not null or empty before processing.",
+    "Check the length of the split result to be exactly 2 before processing."
+  ],
+  "calculations": [],
+  "conditions": [],
+  "system_behavior": [
+    "Delete specified file and directory if they exist."
+  ],
+  "dependencies": [
+    "System.IO",
+    "System.Data.SqlClient"
+  ],
+  "exceptions": [
+    "Silent catch on file and directory deletion errors."
+  ],
+  "source_document_ids": [
+    "7287734e-f13d-550f-9249-4242db620766",
+    "927bc837-5564-5759-9324-27c6d5d7321d"
+  ],
+  "content_gaps": []
+}
+```
