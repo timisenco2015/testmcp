@@ -1,33 +1,33 @@
 {
-    "filename": "Safari3AjaxHack",
-    "found": true,
-    "summary": "The document contains a JavaScript hack to ensure modal popups and potentially other Ajax Toolkit elements function correctly in WebKit-based browsers such as Safari 3 and Chrome.",
-    "purpose": "To implement compatibility between Ajax Toolkit features and WebKit-based browsers by identifying the WebKit user agent and adjusting the browser detection logic in JavaScript.",
-    "entities": [],
-    "fields": [],
-    "actors": [],
-    "workflows": [
-        {
-            "name": "Apply WebKit Compatibility Hack",
-            "steps": [
-                "Identify if the user agent string contains 'WebKit/'.",
-                "Set Sys.Browser.agent to Sys.Browser.WebKit if the condition is true.",
-                "Extract the version of WebKit from the user agent string and assign it to Sys.Browser.version.",
-                "Set Sys.Browser.name to 'WebKit'."
-            ]
-        }
-    ],
-    "business_rules": [],
-    "validations": [],
-    "calculations": [],
-    "conditions": [
-        "navigator.userAgent.indexOf('WebKit/') > -1"
-    ],
-    "system_behavior": [
-        "Modifies the Sys.Browser object properties based on the user agent string to ensure compatibility with WebKit-based browsers."
-    ],
-    "dependencies": [],
-    "exceptions": [],
-    "source_document_ids": ["30d7e416-f425-577d-9586-65f99864695b"],
-    "content_gaps": []
+  "filename": "Safari3AjaxHack",
+  "found": true,
+  "summary": "The document outlines a hack to make modal popups and potentially other Ajax Toolkit functionalities work in Google Chrome by treating Safari 3 as a WebKit browser.",
+  "purpose": "The purpose is to ensure compatibility of Ajax components, such as modal popups, with the Google Chrome browser by using a workaround that identifies Safari 3 as a WebKit browser.",
+  "entities": [],
+  "fields": [],
+  "actors": [],
+  "workflows": [
+    {
+      "name": "Make Ajax functionality work in Chrome",
+      "steps": [
+        "Identify if the browser is Safari 3 by checking for 'WebKit/' in the userAgent.",
+        "Set Sys.Browser.agent to Sys.Browser.WebKit.",
+        "Parse the version from the userAgent and assign it to Sys.Browser.version.",
+        "Set the Sys.Browser.name to 'WebKit'."
+      ]
+    }
+  ],
+  "business_rules": [],
+  "validations": [],
+  "calculations": [],
+  "conditions": [],
+  "system_behavior": [
+    "The system identifies Safari 3 and potentially other WebKit-based browsers to apply a specific set of browser properties to ensure Ajax functionalities work correctly."
+  ],
+  "dependencies": [],
+  "exceptions": [],
+  "source_document_ids": [
+    "30d7e416-f425-577d-9586-65f99864695b"
+  ],
+  "content_gaps": []
 }
