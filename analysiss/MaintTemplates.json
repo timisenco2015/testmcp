@@ -1,60 +1,59 @@
 {
     "filename": "MaintTemplates",
     "found": true,
-    "summary": "The MaintTemplates page is an ASP.NET web page designed to manage templates. It includes functionalities for viewing, adding, editing, and deleting templates. The page utilizes ASP.NET controls and Ajax toolkit to enhance user experience and facilitate template management.",
-    "purpose": "To provide a web interface for managing templates, allowing users to add, edit, and delete templates as needed.",
+    "summary": "The MaintTemplates ASP.NET web page is designed for managing templates in the HSPnet system. It involves displaying, adding, editing, and deleting template entries using a grid-based interface.",
+    "purpose": "The file serves as a user interface for maintaining templates, allowing users to perform CRUD operations (Create, Read, Update, Delete) on template data within the HSPnet application.",
     "entities": [],
     "fields": [
-        "Name",
-        "Template",
-        "TemplateAlt",
-        "ID",
-        "Keyword"
+        "txtName",
+        "txtTemplate",
+        "txtTemplateAlt",
+        "txtKeyword",
+        "gridData"
     ],
     "actors": [
-        "User"
+        "UserSession"
     ],
     "workflows": [
         {
-            "name": "Manage Templates",
+            "name": "Handling Template Records",
             "steps": [
-                "Load the page and refresh data.",
-                "Enter a keyword to filter templates.",
-                "Click 'Refresh View' to update the list of templates.",
-                "Select a template to edit or delete.",
-                "Use 'Add' button to create a new template.",
-                "Edit details in the modal popup and save changes.",
-                "Delete a template by confirming the action."
+                "Load the page and initialize the UserSession.",
+                "If the page is accessed for the first time, refresh data and set focus on the txtKeyword field.",
+                "Allow users to add a new template through the cmdAdd command.",
+                "Enable editing of templates through the cmdEdit command, populating details for editing.",
+                "Enable deletion of templates through the cmdDelete command.",
+                "Save changes to templates using the cmdSave command; if the ID is zero, add a new record, otherwise update the existing record.",
+                "Hide details and refresh the grid data after operations."
             ]
         }
     ],
-    "business_rules": [
-        "Templates must have a Name, Template, and TemplateAlt.",
-        "ID is auto-generated and used as a primary key.",
-        "Keyword is used for filtering the template list."
-    ],
+    "business_rules": [],
     "validations": [
-        "Name must be specified.",
-        "Template must be specified.",
-        "TemplateAlt must be specified."
+        {
+            "field": "txtName",
+            "validator": "RequiredFieldValidator",
+            "error_message": "Name must be specified"
+        },
+        {
+            "field": "txtTemplate",
+            "validator": "RequiredFieldValidator",
+            "error_message": "Template must be specified"
+        },
+        {
+            "field": "txtTemplateAlt",
+            "validator": "RequiredFieldValidator",
+            "error_message": "Template must be specified"
+        }
     ],
     "calculations": [],
-    "conditions": [
-        "If keyword is not specified, default to '%'.",
-        "If the page is not a postback, initialize and refresh data."
-    ],
+    "conditions": [],
     "system_behavior": [
-        "Page refreshes data on load and when commanded.",
-        "Modal popup is used for editing and adding templates.",
-        "Errors and warnings are displayed in respective panels."
+        "Uses ASP.NET controls and AjaxControlToolkit for user interaction and UI updates.",
+        "Refreshes data whenever the cmdRefreshView button is clicked."
     ],
-    "dependencies": [
-        "HSPnet Framework",
-        "ASP.NET Ajax Toolkit"
-    ],
-    "exceptions": [
-        "Handle errors with displaying appropriate error or warning messages."
-    ],
+    "dependencies": [],
+    "exceptions": [],
     "source_document_ids": [
         "14e0e280-2c2d-50b0-8735-fac94445af98",
         "15a2499c-b36f-5cb5-a0af-39dcef6a2bab",
