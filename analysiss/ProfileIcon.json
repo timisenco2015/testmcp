@@ -1,45 +1,26 @@
 {
   "filename": "ProfileIcon",
   "found": true,
-  "summary": "The ProfileIcon component manages the state and appearance of profile and detail icons within a grid view or repeater interface in a web application. It highlights the last clicked icon, clears previous highlights, and relies on ViewState for state management.",
-  "purpose": "To manage the highlighting of profile and detail icons in a web-based grid or repeater interface, ensuring that user interactions are visually acknowledged and state is properly managed.",
+  "summary": "The ProfileIcon module handles the visual representation and state management of profile and details icons within a web UI.",
+  "purpose": "To manage the highlighting and state changes of profile and details icons dynamically within a GridView or Repeater control on a web page.",
   "entities": [],
-  "fields": [
-    "PROFILE_KEY",
-    "DETAILS_KEY"
-  ],
+  "fields": [],
   "actors": [],
   "workflows": [
     {
-      "name": "Clear Last Profile Highlight",
+      "name": "Profile Icon Highlighting",
       "steps": [
-        "Iterate over gridData rows.",
-        "Find imgProfile control.",
-        "If img has profileopen or profileexistsopen class, reset to default class."
+        "Clear any highlighted profile icons back to their default state.",
+        "Identify and highlight the last-clicked profile icon by changing its CSS class.",
+        "Store the clicked icon's database ID in the ViewState for reference."
       ]
     },
     {
-      "name": "Highlight Profile Icon",
+      "name": "Details Icon Highlighting",
       "steps": [
-        "Check gridData data keys and ViewState PROFILE_KEY.",
-        "Iterate over gridData rows to find matched ID.",
-        "Change imgProfile class to profileopen or profileexistsopen."
-      ]
-    },
-    {
-      "name": "Clear Last Details Highlight",
-      "steps": [
-        "Iterate over gridData rows.",
-        "Find imgDetails control.",
-        "If img has detailsopen class, reset to default class."
-      ]
-    },
-    {
-      "name": "Highlight Details Icon",
-      "steps": [
-        "Check gridData data keys and ViewState DETAILS_KEY.",
-        "Iterate over gridData rows to find matched ID.",
-        "Change imgDetails class to detailsopen."
+        "Clear any highlighted details icons back to their default state.",
+        "Identify and highlight the last-clicked details icon by changing its CSS class.",
+        "Store the clicked icon's database ID in the ViewState for reference."
       ]
     }
   ],
@@ -48,13 +29,11 @@
   "calculations": [],
   "conditions": [],
   "system_behavior": [
-    "Uses ViewState to store and retrieve the last-profile state.",
-    "Changes CSS class of icons based on interaction state."
+    "Changes the CSS class of icons to reflect their current state (highlighted or not).",
+    "Stores the state of clicked icons in a ViewState for session persistence."
   ],
   "dependencies": [],
-  "exceptions": [
-    "Ensure the icon control (imgLabel or LinkButton) exists in the UI before attempting to change its class."
-  ],
+  "exceptions": [],
   "source_document_ids": [
     "41ae6694-3fff-5d72-84e4-f0e1ab5dfcd5",
     "452439c3-531d-5982-9b69-1f19ce3af20b",
