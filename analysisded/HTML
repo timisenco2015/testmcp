@@ -1,0 +1,50 @@
+```json
+{
+  "filename": "HTML",
+  "found": true,
+  "summary": "The content primarily deals with generating HTML elements for a web application using C# methods. These methods focus on generating HTML link components with optional parameters, managing user roles, session details, and handling UI elements like images and text spans.",
+  "purpose": "To provide functions for creating HTML components dynamically in a web application, including managing user roles and session details.",
+  "entities": ["HSPnetSession", "PlacementRequestID", "PRD_ID", "Role", "ReadOnly", "imgName", "imgTitle", "DestID", "UserType", "HideStudents", "Locale", "CurrentPage", "GroupShiftSchedule", "StartDate", "EndDate", "EndDateBlock2", "AmendmentExists"],
+  "fields": ["SessionID", "PRD_ID", "FilterDateFrom", "FilterDateTo", "UserType"],
+  "actors": ["RoleConstants.PC", "RoleConstants.RC", "RoleConstants.DC"],
+  "workflows": [
+    {
+      "name": "Generate HTML Link",
+      "steps": [
+        "Create a newWindow() JavaScript call.",
+        "Add session hash to the URL.",
+        "Iterate through optional parameters and append them if not empty.",
+        "Add image if imgName is not empty."
+      ]
+    },
+    {
+      "name": "Translate New Lines",
+      "steps": [
+        "Check if text is empty.",
+        "Replace newline characters with HTML <br /> tags."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Consider user role for displaying appropriate details.",
+    "Display different icons based on group shift schedule and amendments."
+  ],
+  "validations": [
+    "Validate non-empty parameters before appending them to the URL.",
+    "Check if CurrentPage is empty before adding to URL."
+  ],
+  "calculations": ["Calculate link positions from index values for URL manipulation."],
+  "conditions": [
+    "Role-based behavior using RoleConstants.",
+    "Conditional URL hashing based on CurrentPage parameter."
+  ],
+  "system_behavior": [
+    "Generate dynamic HTML link elements with session management.",
+    "Handle icon display based on user roles and amendments."
+  ],
+  "dependencies": ["Environment.NewLine handling.", "Hashing function for URL hash generation."],
+  "exceptions": ["Empty text results in no newline translation.", "Invalid indices result if URL substrings are incorrect."],
+  "source_document_ids": ["a1f24300-f7a9-5ecd-b319-6a94054049c9", "afb15ce9-0886-5985-8724-48b326dd5b8c", "c5121e7e-427e-54b4-9afb-9a0244b33504", "fd01b28f-b2a0-50a6-853a-ff007b7ac8eb"],
+  "content_gaps": []
+}
+```
