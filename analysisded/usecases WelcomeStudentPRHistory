@@ -1,0 +1,81 @@
+# Module: WelcomeStudentPRHistory
+
+## WelcomeStudentPRHistory-UC1 — View Student PR History
+
+- Primary Actor(s): Student
+- Secondary Actor(s): System
+- Trigger: Student accesses their placement record history.
+- Description: This use case describes how a student can view their placement record history, including both confirmed and not confirmed records.
+- Preconditions: 
+  - Student must be logged into the system with an active session.
+  - The system must have the student's placement records.
+- Postconditions: 
+  - Student is able to view a list of their placement record history.
+- Main Success Scenario:
+  1. Student logs into the system and navigates to the PR history page.
+  2. System retrieves the student's placement history from the database.
+  3. If the student has confirmed placements, these are displayed in a confirmed list.
+  4. If future or not confirmed placements exist, these are displayed in a separate list.
+  5. Student views the placement history.
+- Extensions:
+  - If there are no future placements, the future placements list is hidden.
+- Exceptions:
+  - If the student session is inactive, access to the PR history is denied.
+- Business Rules:
+  - Confirmed records are displayed only if the status code is "Conf" or if released to a temporarily assigned student.
+- Assumptions:
+  - The student has permission to view the PR history.
+- Open Issues:
+  - None identified.
+
+## WelcomeStudentPRHistory-UC2 — Sort Placement Records
+
+- Primary Actor(s): Student
+- Secondary Actor(s): System
+- Trigger: Student chooses to sort their placement records by a certain criterion.
+- Description: This use case allows students to sort their placement records by fields such as Start Date, Course Short Name, or Status Code.
+- Preconditions:
+  - Student is viewing their placement record history.
+- Postconditions:
+  - Placement records are displayed in the chosen order.
+- Main Success Scenario:
+  1. Student selects a sort criterion from the available fields.
+  2. System retrieves and sorts the records based on the selected criterion.
+  3. The sorted list is displayed to the student.
+- Extensions:
+  - Different sorting approaches (ascending or descending) are applied based on the student's selection.
+- Exceptions:
+  - If no sort criterion is selected, the default order is maintained.
+- Business Rules:
+  - Sorting can include Start Date, PRD_ID, Course Short Name, and Status Code.
+- Assumptions:
+  - Sort functionality is available for all displayed records.
+- Open Issues:
+  - None identified.
+
+## WelcomeStudentPRHistory-UC3 — Print Placement History
+
+- Primary Actor(s): Student
+- Secondary Actor(s): System
+- Trigger: Student chooses to print their placement history.
+- Description: This use case covers the process of generating a printable report of the student's placement history.
+- Preconditions:
+  - Student is viewing their placement record history.
+- Postconditions:
+  - A printable report is generated and displayed on the screen.
+- Main Success Scenario:
+  1. Student clicks the print button.
+  2. System generates a report in PDF format using the current view.
+  3. The report is displayed on the screen, and the student can print it.
+- Extensions:
+  - None.
+- Exceptions:
+  - If the report generation fails, an appropriate error message is displayed.
+- Business Rules:
+  - The report generation should only include accessible records per the student's session.
+- Assumptions:
+  - Student has access to a printer.
+- Open Issues:
+  - None identified.
+
+These use cases have been derived from the functionality available within the WelcomeStudentPRHistory component based on the provided document content.
