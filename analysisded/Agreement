@@ -1,0 +1,160 @@
+```json
+{
+    "filename": "Agreement",
+    "found": true,
+    "summary": "The Agreement documents involve handling agreements, templates, and related entities within a system, primarily utilizing data access and manipulation through stored procedures.",
+    "purpose": "To manage agreement records, templates, and associated entities with functionalities for search, update, insert, and delete operations.",
+    "entities": [
+        "Agreement",
+        "Template",
+        "HSPnetSession",
+        "ItemList",
+        "CodeRecord"
+    ],
+    "fields": [
+        "ID",
+        "DescriptionCodeID",
+        "TemplateID",
+        "StatusCodeID",
+        "NextSteps",
+        "SourceIsTemplate",
+        "TemplateUnchanged",
+        "OtherSourceCodeID",
+        "LastUpdated",
+        "LastReview",
+        "NextReview",
+        "ContentUserID1",
+        "ContentUserID2",
+        "ContentUserID3",
+        "StatusChangeText",
+        "AppliedAllDepartments",
+        "AppliedAllPrograms",
+        "AppliedAllSites",
+        "AppliedAllServices",
+        "AppliedAllDestinations",
+        "StatusComments",
+        "PRDID",
+        "Printed",
+        "Deleted",
+        "ExpiryDate",
+        "PRComments",
+        "InsertPRComments",
+        "Ref",
+        "TypeID",
+        "RAPAID",
+        "Type",
+        "AADescription",
+        "AgencyAppliedTo",
+        "SiteAppliedTo",
+        "ProgAppliedTo",
+        "StatusDescription",
+        "IsStatusSubscriber",
+        "AgreementExists",
+        "Inactive",
+        "SiteListing",
+        "OtherSourceDescription",
+        "AppliedAllDepartmentsFormatted",
+        "AppliedAllProgramsFormatted",
+        "AppliedAllSitesFormatted",
+        "AppliedAllServicesFormatted",
+        "AppliedAllDestinationsFormatted",
+        "LastUpdatedFormatted",
+        "LastReviewFormatted",
+        "NextReviewFormatted",
+        "ExpiryDateFormatted",
+        "TemplateNavigateUrl",
+        "TemplateImageUrl",
+        "TemplateToolTip",
+        "HistoryNavigateUrl",
+        "HistoryImageUrl",
+        "HistoryToolTip",
+        "StatusSubscriberImageUrl",
+        "StatusSubscriberToolTip",
+        "btnToggleClientClick",
+        "ShowMinus",
+        "DetailType",
+        "Detail"
+    ],
+    "actors": [
+        "sess",
+        "SqlDataReader"
+    ],
+    "workflows": [
+        {
+            "name": "Agreement Search",
+            "steps": [
+                "Initialize stored procedure 'AgreementSearchTemplate'",
+                "Add parameters (SessionID, filter options)",
+                "Execute and read data",
+                "Add entries based on conditions",
+                "Close data reader"
+            ]
+        },
+        {
+            "name": "Agreement Insert",
+            "steps": [
+                "Initialize stored procedure 'AgreementAdd'",
+                "Add parameters (SessionID, DescriptionID, IsTemplate, SrcAgreementID)",
+                "Execute and read data",
+                "Retrieve AgreementID",
+                "Close data reader"
+            ]
+        },
+        {
+            "name": "Agreement Update",
+            "steps": [
+                "Initialize stored procedure 'AgreementUpdate'",
+                "Add parameters (SessionID, AgreementID, NextReview, NextSteps, etc.)",
+                "Execute query"
+            ]
+        },
+        {
+            "name": "Agreement Delete",
+            "steps": [
+                "Initialize stored procedure 'AgreementDelete'",
+                "Add parameter ID",
+                "Execute query"
+            ]
+        }
+    ],
+    "business_rules": [
+        "Agreement can be searched, inserted, updated, and deleted based on conditions."
+    ],
+    "validations": [
+        "Ensure AgreementID is valid before update and delete operations.",
+        "Check if Agreement exists and if the user has editing permissions."
+    ],
+    "calculations": [],
+    "conditions": [
+        "AgreementExists determines actions on template management.",
+        "CanEdit flag determines user's ability to modify agreement",
+        "Inactive status affects display logic."
+    ],
+    "system_behavior": [
+        "Dynamic URL generation based on AgreementID and session parameters.",
+        "Display template and agreement information conditionally based on status."
+    ],
+    "dependencies": [
+        "Stored procedures for data manipulation.",
+        "HSPnetSession for session management and SQL execution."
+    ],
+    "exceptions": [],
+    "source_document_ids": [
+        "1ba6c2bc-e058-582c-85e1-da0f1117a1a5",
+        "47f70ad1-b18e-5473-8ebf-54139a777c97",
+        "4d0ef014-7317-5b4c-a4f6-587459047fa7",
+        "5b6a46c1-b06a-50b1-a02a-47ae2ae590b6",
+        "70cf9f1b-b2d9-528b-bb1e-c5103c91e4cb",
+        "869ab082-89f6-570e-95e1-6c4d91e50e5f",
+        "a27a9ba0-0123-5e16-89fb-06298cc5e3c7",
+        "ab02f0fe-64a1-50ae-9817-49e2ea01f820",
+        "af126836-92db-5d5d-85b8-1923b5b2c2b3",
+        "b13ec003-a70a-5232-87ba-00c851d73e6c",
+        "be77c228-d99c-596b-9485-d9da1c6f0f77",
+        "de2a08e8-d6bc-5ab3-9c82-2e440b60d63b",
+        "e6c1f06f-4f8d-5387-9611-c0fc85c6d4a3",
+        "efeb4660-bca5-57e3-b5c9-03c0e3a96fd6"
+    ],
+    "content_gaps": []
+}
+```
