@@ -1,60 +1,76 @@
 {
     "filename": "ErrorOccurred",
     "found": true,
-    "summary": "The page handles error occurrences, displaying error messages based on locale settings and configuration. It utilizes ASP.NET to structure its layout and define server-side logic.",
-    "purpose": "To display error messages in a web application, tailored according to user locale and specific error conditions.",
+    "summary": "The 'ErrorOccurred' page is an ASP.NET web page designed to display error messages to users. It handles localization and customizes error messages based on request parameters and configurations set in the web.config file.",
+    "purpose": "To provide users with informative error messages and assist in troubleshooting by directing errors to a configured email address.",
     "entities": [],
     "fields": [
         {
-            "name": "HeaderEN",
-            "type": "Panel",
-            "description": "Control to display the English header."
+            "name": "ErrorEmail",
+            "type": "string",
+            "description": "Email address used in error messages, retrieved from web.config based on locale."
         },
         {
-            "name": "HeaderFR",
-            "type": "Panel",
-            "description": "Control to display the French header."
+            "name": "Locale",
+            "type": "string",
+            "description": "Locale parameter from the query string that determines language and culture settings."
         },
         {
-            "name": "uxErrorMessage",
-            "type": "Label",
-            "description": "Label to display error messages."
+            "name": "subject",
+            "type": "string",
+            "description": "Subject retrieved from the configuration for personalized error messages."
+        },
+        {
+            "name": "HttpRequestValidationException",
+            "type": "string",
+            "description": "Query string parameter to determine if the specific validation exception message is shown."
         }
     ],
-    "actors": [],
+    "actors": ["System.Web.UI.Page", "ConfigurationManager", "Request"],
     "workflows": [
         {
-            "name": "Page Load Workflow",
+            "name": "Page Load and Error Display",
             "steps": [
-                "Check if the locale is set to 'en-US' or not set at all.",
-                "Based on the locale, display the corresponding header (English or French).",
-                "Fetch the error email address from configuration settings.",
-                "Determine the subject from the database configuration.",
-                "Check if there is a HttpRequestValidationException query parameter set to '1'.",
-                "Display the appropriate error message formatted with the email and subject."
+                "Detect the locale from the query string and set culture accordingly.",
+                "Determine the visibility of HeaderEN or HeaderFR based on the locale.",
+                "Retrieve the ErrorEmail from configuration based on locale.",
+                "Check if HttpRequestValidationException is set in the query string.",
+                "Set the error message text based on the exception type using resources."
             ]
         }
     ],
     "business_rules": [
-        "Email address for error messages is obtained from web.config settings.",
-        "Specific error messages are shown based on the HttpRequestValidationException query parameter."
+        "If Locale is 'en-US' or empty, use the default English locale settings.",
+        "The email address in the error message is configurable via web.config.",
+        "Different email addresses can be set for English and alternative locales."
     ],
     "validations": [
-        "Locale query parameter is validated and used to set the current culture."
+        "Check if the locale parameter is valid before setting culture.",
+        "Ensure HttpRequestValidationException is a recognized query string value."
     ],
     "calculations": [],
     "conditions": [
-        "If the locale is 'en-US' or not set, the default locale is used.",
-        "If HttpRequestValidationException equals '1', a specific error message is displayed."
+        {
+            "condition": "Locale is 'en-US' or empty",
+            "action": "Display English header and use ERROR_EMAIL"
+        },
+        {
+            "condition": "Locale is not 'en-US'",
+            "action": "Display French header and use ERROR_EMAIL_ALT"
+        }
     ],
     "system_behavior": [
-        "Switches between English and French headers based on locale.",
-        "Displays specific error messages based on query parameters and configuration."
+        "The page initializes culture settings based on the specified or default locale.",
+        "The page uses ASP.NET web form controls to display headers and error messages."
     ],
     "dependencies": [
-        "Locale and error email configurations are dependent on web.config settings."
+        "Resources for localized strings",
+        "ConfigurationManager for retrieving application settings",
+        "ASP.NET Framework for page lifecycle and controls"
     ],
-    "exceptions": [],
+    "exceptions": [
+        "HttpRequestValidationException handling if specified in query string"
+    ],
     "source_document_ids": [
         "061d570b-3af2-5dc8-9639-8df86256fbfd",
         "745fd8a6-9d74-5b61-a2f4-678706f9e330",
