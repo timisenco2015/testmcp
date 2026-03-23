@@ -1,0 +1,133 @@
+{
+    "filename": "StudentPreOcclHealth",
+    "found": true,
+    "summary": "The documents outline various controls and data fields related to occupational health prerequisites for students. These include immunization status codes, administration dates for vaccines, and other health-related information. The data is used to track the fulfillment of health requirements for students.",
+    "purpose": "To manage and track student compliance with occupational health prerequisites, including immunization and health status updates.",
+    "entities": [
+        "StudentPrerequisite"
+    ],
+    "fields": [
+        "TetanusStatusCodeID",
+        "TdapStatusCodeID",
+        "PolioStatusCodeID",
+        "MeaslesStatusCodeID",
+        "RubellaStatusCodeID",
+        "MumpsStatusCodeID",
+        "VaricellaStatusCodeID",
+        "InfluenzaStatusCodeID",
+        "Covid19StatusCodeID",
+        "HepBStatusCodeID",
+        "HepABResultsCodeID",
+        "HepAGResultsCodeID",
+        "Step1StatusCodeID",
+        "Step2StatusCodeID",
+        "ChestXRayResultsCodeID"
+    ],
+    "actors": [
+        "UserSession"
+    ],
+    "workflows": [
+        {
+            "name": "Student Immunization Data Update",
+            "steps": [
+                "Fetch current immunization data for the student.",
+                "Allow edits if the screen is editable.",
+                "Validate updated information.",
+                "Update database with new values.",
+                "Redirect upon successful update."
+            ]
+        }
+    ],
+    "business_rules": [
+        "If a dropdown list item is not selected, reset related date fields."
+    ],
+    "validations": [
+        "Ensure date fields are valid when updating student immunization details.",
+        "Validate immunization status codes before update."
+    ],
+    "calculations": [],
+    "conditions": [
+        "If UserSession is in alt language mode, use alternate language fields."
+    ],
+    "system_behavior": [
+        "Hide or display fields based on immunization status and checkbox states.",
+        "Script changes triggered by status code updates."
+    ],
+    "dependencies": [
+        "UserSession for accessing session data and user preferences."
+    ],
+    "exceptions": [
+        "Cancel update if Page is not valid during item update."
+    ],
+    "source_document_ids": [
+        "0ec51f15-a39f-504f-8157-bea663c18409",
+        "0f61436d-acd6-550a-9ffc-60423caca251",
+        "15c9559f-30b6-594d-b9fd-a8e2caa83691",
+        "19a039b2-f53b-5828-9c46-195654e985bb",
+        "1c7f4b97-0129-5461-8c97-77a7b2e0ff55",
+        "20a1d500-fb80-5ab7-9323-f03ce30b8f2e",
+        "2269567f-071c-53e9-97f8-27076c5e9ac6",
+        "248cd202-c4aa-50f2-b911-8d1117574587",
+        "27f9b92f-8bb3-54f9-9a12-9444ca074808",
+        "28ecdec3-4c89-5b5d-b41e-a82cc7089d1d",
+        "2906611e-8d74-5058-9985-003085597734",
+        "31b79ef7-bc67-512c-8f88-cbcb8d010bcd",
+        "3633673c-8968-59fe-b48d-29064cfd812f",
+        "36434c82-1ac2-5e72-af8f-4a1a3f5a27a5",
+        "494e3f8d-9138-5799-8343-f2cbcfbe2288",
+        "49d333d6-20d3-5955-8631-057d6d86d3f3",
+        "4c13d8c5-85e3-5ea0-8898-327ce9611d3e",
+        "4fa19143-c1e7-5282-9c78-f2d417f4d62f",
+        "516ec3b5-e7a7-5192-9c38-daf594870bb0",
+        "580a9a32-d4c8-5c7e-bf5b-f8e93081a083",
+        "606897c6-d852-57c2-aa27-eaa83c0a71af",
+        "656b75cb-c1b5-5e54-b5d7-ae7ac317d19f",
+        "6737d35f-37ca-5a74-ab52-833743180dfe",
+        "686f7e51-de20-533a-b689-a2037d65569d",
+        "69651b72-e391-546a-a14b-8068e07c99e5",
+        "6fb7031b-803e-5976-8ad8-3ed3d89457ec",
+        "7078601b-2a3e-5366-b1f6-0a97e331d917",
+        "752655e4-160e-5dee-a81b-973d372bbdd6",
+        "7bb42378-b0dd-584d-9fdd-99fcf9cf0141",
+        "7c676207-2f54-55a4-9965-4e3c0538739b",
+        "818fb075-ec81-5f78-bf73-3450a8a20928",
+        "86768dd2-78c3-5bfa-a5f2-cb8b45f60e52",
+        "8d78ea82-cdb2-5a2d-9f7e-ccbccda92969",
+        "907bef55-bcd2-5cf4-9710-8bfb5025f8cf",
+        "9786dccb-b6d0-578a-8587-defabdffd962",
+        "98585701-bd71-5943-a392-7678103b0666",
+        "9c5d0046-5f44-591d-b1ec-fa8a7131d7c1",
+        "9e4c4ae0-86af-5418-8bac-980979747196",
+        "a1d8fe66-f36e-56ed-b48c-582144365d4e",
+        "a69e3b41-544b-5ef6-b5b3-ce1bf8c52b59",
+        "a811079b-8bba-5dc1-800c-b4f31b9701e9",
+        "a8d42b80-7f0f-584d-8188-3c53dfc087a9",
+        "a94952d4-965c-56aa-9d1b-b2630d1ae654",
+        "ac1b7433-372a-59d7-9021-570f56e040b0",
+        "b3306f4e-da3f-554e-9ba1-f7cf3ea49345",
+        "b5a87d39-74a8-50ee-979b-df28b6bf3078",
+        "bb29dca6-c739-5668-a6ee-20f311c1ebf1",
+        "bfcb6e3b-6514-50fe-bb6f-c7fefd530d92",
+        "c78f050f-2ef1-51a1-a0e3-24686cd2a74a",
+        "ccd80fb0-21bb-5ad9-bb8e-d8977ba8a456",
+        "cf7d0d08-adf4-5f8a-a62b-60896c175d29",
+        "d04507e7-1966-5ff9-9cc9-a3d15d1ff1c5",
+        "d7b2c238-14a2-5d3b-b063-c6d994caf209",
+        "d9f3adc6-8ec7-511e-add1-86538bd1cc58",
+        "e18a330f-2664-57c4-926f-4649fb78eff0",
+        "e95956b3-81a0-5de1-98fc-1dd896f548f1",
+        "e967cc0e-0bc8-5658-93cd-a434749ae26f",
+        "ec594843-ec7b-5f45-a56e-b27e1cb7e3a8",
+        "f1d4fe04-7773-553a-8362-069b7c7f8bca",
+        "f5f45400-c68a-5703-8b90-9e7ed3c3b788",
+        "f72d28f3-4fac-5827-8fa0-7206fa27f740",
+        "f89a914a-b3ec-5b5a-bfc4-d679ce283d63",
+        "f982bd5c-36be-545f-b10f-5186f66bcca6",
+        "fac25279-3ac9-50eb-9de3-71101eb9efab",
+        "fb078056-e7ab-59b7-a068-184de7c73214",
+        "fb36a6a1-992d-56d4-a3a3-a21feac4ee98",
+        "fc4c56a1-8c41-511c-a8a1-1e06686ed540",
+        "ff8a1202-3f77-5d0d-967e-9da3c257c5f5"
+    ],
+    "content_gaps": []
+}
