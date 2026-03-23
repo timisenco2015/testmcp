@@ -1,0 +1,123 @@
+# Module: AgencyRequirements
+
+## AgencyRequirements-UC1 — Manage Prerequisite Options
+
+- Primary Actor(s): System Administrator
+- Secondary Actor(s): User
+- Trigger: System administrator accesses the requirement management page.
+- Description: This use case allows administrators to manage prerequisite options for agencies.
+- Preconditions: The system must be in an editable state, and the user must have appropriate access rights.
+- Postconditions: Prerequisite settings are updated and saved.
+- Main Success Scenario:
+  1. Administrator selects the requirement management page.
+  2. Administrator chooses an existing requirement or adds a new one.
+  3. Administrator selects the prerequisite option - Standard, Document, or Link.
+  4. Administrator enters the necessary details based on the selected prerequisite option.
+  5. Administrator saves the changes.
+- Extensions:
+  - 3a. If the administrator decides to change the requirement type, the system prompts for any additional information needed.
+- Exceptions:
+  - E1: If there are validation errors in the form entries, the system highlights the fields in error and prevents saving.
+- Business Rules:
+  - BR1: The system must validate all input data fields before saving.
+  - BR2: Only users with administrative privileges can alter prerequisite options.
+- Assumptions:
+  - It is assumed that the prerequisite options are limited to Standard, Document, and Link.
+- Open Issues:
+  - None noted.
+
+## AgencyRequirements-UC2 — Assign Sites to Requirements
+
+- Primary Actor(s): System Administrator
+- Secondary Actor(s): None
+- Trigger: User decides to assign sites to a requirement.
+- Description: This use case handles the assignment of specific sites to a requirement.
+- Preconditions: Requirement must exist in the system.
+- Postconditions: Selected sites are successfully associated with the requirement.
+- Main Success Scenario:
+  1. Administrator accesses the requirement details page.
+  2. Administrator views the list of available sites.
+  3. Administrator selects sites from the list to include them in the requirement.
+  4. Administrator saves the assignment.
+- Extensions:
+  - 3a. Administrator decides to include all sites, and the system automatically selects all available sites.
+- Exceptions:
+  - E1: If there is an error during the save operation, the system logs the error and notifies the administrator.
+- Business Rules:
+  - BR1: The administrator can only assign sites that exist in the database.
+- Assumptions:
+  - It is assumed that site data is up-to-date and accurate.
+- Open Issues:
+  - How often should site data be synchronized with the requirement system?
+
+## AgencyRequirements-UC3 — Manage Sub-Disciplines
+
+- Primary Actor(s): System Administrator
+- Secondary Actor(s): None
+- Trigger: Requirement involves sub-disciplines.
+- Description: Administrators manage sub-discipline details associated with agency requirements.
+- Preconditions: Sub-disciplines must be configured in the system.
+- Postconditions: Sub-discipline settings are saved successfully.
+- Main Success Scenario:
+  1. Administrator selects a requirement involving sub-disciplines.
+  2. Administrator views available sub-disciplines.
+  3. Administrator assigns or removes sub-disciplines.
+  4. Administrator saves changes.
+- Extensions:
+  - 2a. Administrator opts to allow all sub-disciplines, bypassing manual selection.
+- Exceptions:
+  - E1: System notifies the administrator if there are changes in sub-discipline data.
+- Business Rules:
+  - BR1: Changes to sub-disciplines should not affect historical requirement data.
+- Assumptions:
+  - Sub-discipline data is accurate and current.
+- Open Issues:
+  - Handling of historical data when sub-disciplines are reassigned.
+
+## AgencyRequirements-UC4 — Upload and Manage Required Documents
+
+- Primary Actor(s): System Administrator
+- Secondary Actor(s): None
+- Trigger: Requirement necessitates document upload.
+- Description: Allows administrators to upload and manage documents related to requirements.
+- Preconditions: The document must comply with specified formats and sizes.
+- Postconditions: Documents are uploaded and associated with the requirement.
+- Main Success Scenario:
+  1. Administrator opens the document management section of a requirement.
+  2. Administrator selects a document file to upload.
+  3. System validates the document's type and size.
+  4. Administrator confirms and uploads the document.
+  5. Document is stored and associated with the requirement.
+- Extensions:
+  - 2a. Administrator provides a URL instead of a file, setting the prerequisite option to Link.
+- Exceptions:
+  - E1: File exceeds allowed size; system rejects the upload and notifies the user.
+- Business Rules:
+  - BR1: Accepted file formats are predefined in the system settings.
+- Assumptions:
+  - The document storage system is secure and accessible.
+- Open Issues:
+  - Consideration for integrating document versioning.
+
+## AgencyRequirements-UC5 — Filter Management for Requirements
+
+- Primary Actor(s): System Administrator
+- Secondary Actor(s): None
+- Trigger: Administrator wants to filter requirements by different criteria.
+- Description: Enables filtering of requirements based on criteria like discipline and sub-discipline.
+- Preconditions: Filter criteria are predefined and available in the system.
+- Postconditions: Filtered results are displayed based on selected criteria.
+- Main Success Scenario:
+  1. Administrator selects the filter option on the requirements page.
+  2. Administrator chooses criteria for filtering (e.g., discipline).
+  3. Filter is applied, and the results are displayed.
+- Extensions:
+  - 2a. Multiple criteria are selected for advanced filtering.
+- Exceptions:
+  - E1: If no data matches the criteria, the system shows a 'no data' message.
+- Business Rules:
+  - BR1: Only applicable criteria should be available for filtering certain requirement types.
+- Assumptions:
+  - Filter functionality is responsive and can handle large datasets.
+- Open Issues:
+  - Performance implications of complex filtering scenarios.
