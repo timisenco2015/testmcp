@@ -1,0 +1,106 @@
+{
+  "filename": "QuickEntryStudentList",
+  "found": true,
+  "summary": "The QuickEntryStudentList is a web-based application within the HSPnet framework designed to facilitate the management and assignment of students. It includes functionalities for searching, selecting, and assigning students through a user interface supported by ASP.NET controls. The system utilizes a grid view for displaying student data and allows actions such as assigning students to programs and managing errors and warnings.",
+  "purpose": "The purpose of the QuickEntryStudentList is to provide an interface for users to efficiently manage student enrollments, including searching for students, handling assignments, and processing errors or notifications within the HSPnet environment.",
+  "entities": [],
+  "fields": [
+    "frmMain",
+    "ScriptMgr",
+    "Label1",
+    "AlwaysVisibleControlExtender1",
+    "AlwaysVisibleControlExtender2",
+    "uxMaster",
+    "dsMaster",
+    "pnlSelect",
+    "spnSelect",
+    "lblMatches",
+    "cmdSelectAll",
+    "cmdSelectNone",
+    "cmdAssignStudents",
+    "cmdClose",
+    "lblErrorList",
+    "lblWarningList",
+    "txtLast",
+    "txtFirst",
+    "txtStudentNumber",
+    "txtStudentIDs",
+    "gridData",
+    "dsAssignedStudents",
+    "lblAssigned",
+    "lblFooter",
+    "ValidationSummary1",
+    "pnlError",
+    "pnlWarning",
+    "CurrentViewLabel",
+    "CustomValidator1",
+    "Button1",
+    "Button2",
+    "cmdCloseTop",
+    "Label6",
+    "Label7"
+  ],
+  "actors": [
+    "UserSession"
+  ],
+  "workflows": [
+    {
+      "name": "Student Search and Assignment",
+      "steps": [
+        "User inputs search criteria into the fields (txtLast, txtFirst, txtStudentNumber).",
+        "User clicks the 'Search' button (Button1) to initiate a student search.",
+        "The system validates input and executes search using the grid view (uxMaster).",
+        "Search results are displayed with options to select students using checkboxes.",
+        "User can select all or none using 'Select All' (cmdSelectAll) and 'Select None' (cmdSelectNone) buttons.",
+        "User assigns selected students using the 'Assign Selected Students' button (cmdAssignStudents).",
+        "System updates the gridData and displays assignments and possible errors or warnings."
+      ]
+    }
+  ],
+  "business_rules": [],
+  "validations": [
+    "ValidateSearch: Ensures that one of the search fields (txtLast, txtFirst, txtStudentNumber) is not empty before conducting a search."
+  ],
+  "calculations": [],
+  "conditions": [],
+  "system_behavior": [
+    "Page_Load: Initializes the page and sets focus on the last name input field if not a postback.",
+    "Page_PreRender: Processes potential error or warning messages for display.",
+    "Page_UnLoad: Finalizes page session using FinishHSPnetPage.",
+    "cmdSearch_Click: Binds data to the grid view for search results.",
+    "gridData_RowCommand: Handles row commands such as deletion of student assignments.",
+    "dsMaster_Selecting: Sets input parameters for data selection from user session."
+  ],
+  "dependencies": [
+    "HSPnet Framework",
+    "ASP.NET",
+    "JavaScript for client-side operations",
+    "Resources for multilingual support"
+  ],
+  "exceptions": [],
+  "source_document_ids": [
+    "10c5b03c-6015-5036-9f9d-dbfe929b211f",
+    "2adf01ca-9e36-5211-8519-59741783a5f4",
+    "3777d338-4a3d-5159-be03-234c85f61d89",
+    "3a051d0a-7c16-5a3d-a70e-bc756ba6de92",
+    "3a154de1-0f96-5c1e-9a13-a073b6cf4f05",
+    "3b64dfe7-80b2-5acc-a35e-738857892efa",
+    "3e0dbc0e-bc18-5b42-b98c-6706474b7e3d",
+    "4d57dd33-e997-5d29-b71c-b8e4cb7ff53a",
+    "56dc4074-93a7-5d7c-a459-b8855e7da99e",
+    "6b9dd110-be2a-52b9-94a6-ab581f8e5626",
+    "78bf4f54-a6c9-5784-af59-eaf26d7d57f2",
+    "7bad78fa-03e7-5e76-bb75-58d735261344",
+    "82ac5103-64aa-5746-9543-50b28eee9b1e",
+    "85df373b-9fbc-5c35-b986-1d01ff628852",
+    "915f6ef5-8ae2-517e-88d1-8393a82b4579",
+    "940eacf5-4776-55d9-b05a-45958d74d7e4",
+    "9f3c2bdb-9f3f-5489-831c-bf38d8ee5531",
+    "b81d587e-5b78-5494-860e-afb9f2180268",
+    "ca892c8d-1bfa-52cb-8986-25bde7f0da40",
+    "d1213368-ff15-5105-8d17-d671a4092cc6",
+    "f18d676b-ac37-5834-b889-c2736b92278a"
+  ],
+  "content_gaps": []
+}
+
