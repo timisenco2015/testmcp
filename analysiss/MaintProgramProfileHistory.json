@@ -1,52 +1,32 @@
 {
   "filename": "MaintProgramProfileHistory",
   "found": true,
-  "summary": "The MaintProgramProfileHistory component is part of the HSPnet application. It involves a user control that manages the selection and display of program profile history data through a grid interface. It relies on user session data for accurate retrieval of program profiles.",
-  "purpose": "To display and manage the history of program profiles using a web interface.",
+  "summary": "The document contains definitions and setup for the MaintProgramProfileHistory user control used in web applications. It includes event handling for data selection and user session validation.",
+  "purpose": "To manage the maintenance and history of program profiles within a web application.",
   "entities": [],
   "fields": [
-    {
-      "name": "Label1",
-      "description": "A label control auto-generated for the interface."
-    },
-    {
-      "name": "gridData",
-      "description": "A grid view control for displaying program profile data."
-    },
-    {
-      "name": "dsProgramProfileHistory",
-      "description": "An object data source for selecting program profile history."
-    }
+    "Label1",
+    "gridData",
+    "dsProgramProfileHistory"
   ],
   "actors": [
-    {
-      "name": "UserSession",
-      "description": "Manages user session details and agency information."
-    }
+    "UserSession"
   ],
   "workflows": [
     {
-      "name": "Program Profile History Selection",
+      "name": "ProgramProfileHistory Selection",
       "steps": [
         "Check if UserSession is null.",
-        "Cancel selection if UserSession is null.",
-        "Set InputParameters for ProgramID, SessionAgencyID, and sess if UserSession is available."
+        "Cancel operation if UserSession is null.",
+        "Set input parameters for selection if UserSession is valid."
       ]
     }
   ],
   "business_rules": [],
-  "validations": [
-    {
-      "condition": "UserSession is null",
-      "action": "Cancel the selection process."
-    }
-  ],
+  "validations": [],
   "calculations": [],
   "conditions": [],
-  "system_behavior": [
-    "Auto-generated fields can be modified by moving declarations from designer file to code-behind file.",
-    "ProgramID and session-related data are utilized for data selection."
-  ],
+  "system_behavior": [],
   "dependencies": [],
   "exceptions": [],
   "source_document_ids": [
