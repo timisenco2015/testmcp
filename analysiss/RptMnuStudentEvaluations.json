@@ -1,15 +1,12 @@
 {
   "filename": "RptMnuStudentEvaluations",
   "found": true,
-  "summary": "RptMnuStudentEvaluations is a part of the HSPnet.UserControls.ReportMenu namespace, designed to handle student evaluations through web controls and dynamic dropdowns, leveraging AJAX and validation mechanisms.",
-  "purpose": "The purpose of RptMnuStudentEvaluations is to facilitate the generation and display of student evaluation reports by managing department and program selection, handling date inputs, and processing data retrieval for report generation.",
+  "summary": "The RptMnuStudentEvaluations control is used for generating reports on student evaluations. It allows users to specify department and program, and provides validation for input fields.",
+  "purpose": "To provide a user interface for generating student evaluation reports.",
   "entities": [],
   "fields": [
-    "ValidationSummary1",
-    "Label3",
-    "ltlDescription",
-    "Label4",
-    "ltlOptions",
+    "valEditEndDate",
+    "CustomValidator1",
     "LabelA",
     "ddDepartment",
     "LabelB",
@@ -18,98 +15,49 @@
     "lblPleaseWait",
     "pnlReportHTML",
     "lblReportHTML",
+    "ValidationSummary1",
+    "ltlDescription",
+    "ltlOptions",
+    "ltlMandatoryStartDate",
+    "txtEndDate",
     "btnEndDate",
     "CalendarExtender2",
     "RegularExpressionValidator2",
     "Literal1",
     "valEditStartDate",
-    "valEditEndDate",
-    "CustomValidator1",
-    "CalendarExtender1",
-    "RegularExpressionValidator1",
-    "ltlMandatoryStartDate",
-    "Label8",
-    "txtEndDate",
-    "btnEndDate",
     "txtStartDate",
-    "btnStartDate"
+    "btnStartDate",
+    "CalendarExtender1",
+    "RegularExpressionValidator1"
   ],
-  "actors": [
-    "UserSession",
-    "ScriptMgr"
-  ],
+  "actors": ["UserSession"],
   "workflows": [
     {
-      "name": "Page_Load",
+      "name": "Generate Student Evaluations Report",
       "steps": [
-        "Initialize page components and load data as needed"
-      ]
-    },
-    {
-      "name": "Page_PreRender",
-      "steps": [
-        "Check if UserSession is not null",
-        "Lookup code for 'ReportDetails' and 'Student Evaluations'",
-        "Set ltlDescription and ltlOptions",
-        "Setup JavaScript",
-        "FillDepartmentDropdown",
-        "FillProgramDropdown"
-      ]
-    },
-    {
-      "name": "ddDepartment_Change",
-      "steps": [
-        "Trigger FillProgramDropdown"
-      ]
-    },
-    {
-      "name": "cmdExcel_Click",
-      "steps": [
-        "Set procedure name to 'ReportStudentEvaluations'",
-        "Add parameters: SessionID, DepartmentID, ProgramID",
-        "Retrieve and process data for report generation"
+        "User specifies department and program",
+        "Click cmdRunExcel to generate CSV report",
+        "Displayed report in pnlReportHTML"
       ]
     }
   ],
   "business_rules": [
-    {
-      "description": "Departments are loaded depending on user permissions",
-      "implication": "Department dropdown is populated with allowed values"
-    },
-    {
-      "description": "Programs are dependent on selected department",
-      "implication": "Automatically update programs based on department selection"
-    }
+    "The report is generated based on selected parameters: department and program."
   ],
   "validations": [
-    "RequiredFieldValidator for StartDate",
-    "RequiredFieldValidator for EndDate",
-    "Custom validation for EndDate",
+    "RequiredFieldValidator for start and end dates",
     "RegularExpressionValidator for date format"
   ],
   "calculations": [],
   "conditions": [
-    "UserSession must not be null for dropdowns to fill",
-    "ScriptMgr's IsInAsyncPostBack impacts JavaScript registration"
+    "UserSession must be active for generating reports"
   ],
   "system_behavior": [
-    "Displays report after successful data retrieval",
-    "Handles dynamic dropdown data binding",
-    "Utilizes AJAX for calendar extenders"
+    "Displays report in HTML format",
+    "Generates CSV output for download"
   ],
-  "dependencies": [
-    "HSPnetSession",
-    "JsClientScriptManager",
-    "Dropdown utilities",
-    "AjaxControlToolkit",
-    "SQL Data access"
-  ],
-  "exceptions": [
-    {
-      "description": "Invalid date format",
-      "handling": "Notify user through validator feedback"
-    }
-  ],
+  "dependencies": [],
+  "exceptions": [],
   "source_document_ids": [
     "3bda989e-aee9-5cb0-a91b-23b5c507dcce",
     "61fb9721-4ba7-52db-970a-f961984a3da4",
