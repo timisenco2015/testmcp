@@ -1,107 +1,69 @@
 {
   "filename": "OccHealthEditAll",
   "found": true,
-  "summary": "OccHealthEditAll is part of the HSPnet application, used for managing occupational health data in an educational setting. It involves data entry and update functionalities for student immunization and health requirements.",
-  "purpose": "The purpose of OccHealthEditAll is to provide a user interface for managing student occupational health data, including immunization records and other health-related requirements.",
+  "summary": "The 'OccHealthEditAll' component involves managing and updating records related to student's prerequisites for occupational health, including immunization and health requirements. It utilizes a grid interface for data management and redirects based on user actions and validation outcomes.",
+  "purpose": "To facilitate the management of student occupational health records within the application, ensuring updates and validations are conducted efficiently through a web interface.",
   "entities": [],
   "fields": [
-    {
-      "name": "CohortID",
-      "type": "int"
-    },
-    {
-      "name": "TermID",
-      "type": "int"
-    },
-    {
-      "name": "CourseID",
-      "type": "int"
-    },
-    {
-      "name": "ShowGrad",
-      "type": "Boolean"
-    },
-    {
-      "name": "ShowInactive",
-      "type": "Boolean"
-    },
-    {
-      "name": "ShowWaived",
-      "type": "Boolean"
-    },
-    {
-      "name": "SectionFilter",
-      "type": "string"
-    },
-    {
-      "name": "ActionFilter",
-      "type": "string"
-    },
-    {
-      "name": "keyword",
-      "type": "string"
-    },
-    {
-      "name": "CampusID",
-      "type": "int"
-    },
-    {
-      "name": "CommentFilter",
-      "type": "string"
-    },
-    {
-      "name": "EnrollmentID",
-      "type": "int"
-    },
-    {
-      "name": "StartRow",
-      "type": "int"
-    },
-    {
-      "name": "blnReadOnly",
-      "type": "Boolean"
-    },
-    {
-      "name": "blnStudentMaint",
-      "type": "Boolean"
-    }
+    "Page.ClientScript",
+    "UserSession",
+    "EnrollmentID",
+    "CohortID",
+    "TermID",
+    "CourseID",
+    "SectionFilter",
+    "ActionFilter",
+    "CampusID",
+    "CommentFilter",
+    "StartRow",
+    "ShowGrad",
+    "ShowInactive",
+    "ShowWaived",
+    "blnReadOnly",
+    "blnStudentMaint"
   ],
   "actors": [
-    "UserSession",
-    "ScriptMgr"
+    "UserSession"
   ],
   "workflows": [
     {
-      "name": "Data Entry",
+      "name": "Occupational Health Records Update",
       "steps": [
-        "User interacts with gridDataEdit for data entry.",
-        "Data is validated using JavaScript for dirty fields.",
-        "Submissions are handled through commands like cmdSaveAll and cmdSaveEditNext."
+        "Initialize JavaScript for async postback.",
+        "Selecting data source with UserSession.",
+        "Insert blank entry in dropdown.",
+        "Set grid row as dirty to track changes.",
+        "Handling grid prerender event for readonly settings.",
+        "Validate and update records upon command execution.",
+        "Data bind grid for display updates."
       ]
     }
   ],
   "business_rules": [
-    "If EnrollmentID is 0, hide certain buttons in the header.",
-    "If gridDataEdit contains fewer than 14 rows, hide buttons to prevent scrolling."
+    "Cancel data selection if UserSession is null.",
+    "Hide buttons based on readonly mode.",
+    "Redirect upon certain command executions."
   ],
   "validations": [
-    "Ensure textarea input does not exceed 1000 characters using onKeyUp event."
+    "Check if UserSession is not null before selecting.",
+    "Ensure page row count meets scroll/visibility criteria."
   ],
   "calculations": [],
   "conditions": [
-    "Check if a UserSession exists before proceeding with data operations."
+    "Check EnrollmentID to hide or show UI components.",
+    "Conditionally redirect based on command names and validation."
   ],
   "system_behavior": [
-    "Page scripts and JavaScript variables are dynamically registered depending on postbacks.",
-    "GridDataEdit allows sorting and pagination.",
-    "Validation and processing of health data occurs upon command execution."
+    "Manage web page scripts for updates.",
+    "Bind data to grid based on session and parameters."
   ],
   "dependencies": [
-    "UserSession for maintaining user-specific session information.",
-    "ScriptManager for handling asynchronous postbacks."
+    "HSPnet.Session",
+    "HSPnet.DataLayer",
+    "System.Web.UI.WebControls"
   ],
   "exceptions": [
-    "Cancel data operations if UserSession is null."
+    "Throw error if UserSession is null during data select."
   ],
   "source_document_ids": [
     "421982c1-f1ad-5dd5-846c-665fe66c3bdb",
@@ -115,5 +77,7 @@
     "c8228c24-0f9c-5f99-8523-b23808eb9bda",
     "d14c2ad0-d5c9-5ccd-b6fb-33415293cf86"
   ],
-  "content_gaps": []
+  "content_gaps": [
+    "Specific details on field content and usage."
+  ]
 }
