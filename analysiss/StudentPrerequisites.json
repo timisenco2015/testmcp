@@ -1,79 +1,68 @@
 {
-  "filename": "StudentPrerequisites",
-  "found": true,
-  "summary": "This document addresses the tracking and handling of various student prerequisites related to health and safety requirements.",
-  "purpose": "To manage and update student prerequisites information including health records, immunity statuses, and other safety requirements.",
-  "entities": [
-    {
-      "name": "StudentPrerequisite",
-      "description": "The central class used for managing student prerequisite information."
-    }
-  ],
-  "fields": [
-    {
-      "name": "N95MaskFitTestDate",
-      "description": "The date of the student's N95 mask fit test."
-    },
-    {
-      "name": "N95MaskFitTestExpiryDate",
-      "description": "The expiry date for the N95 mask fit test."
-    }
-  ],
-  "actors": [
-    {
-      "name": "HSPnetSession",
-      "role": "Handles database interactions within a session."
-    }
-  ],
-  "workflows": [
-    {
-      "name": "Update Student Details",
-      "steps": [
-        "Validate student details.",
-        "Update necessary fields in the database.",
-        "Execute the corresponding SQL query for data persistence."
-      ]
-    }
-  ],
-  "business_rules": [
-    {
-      "description": "N95 mask fit test date must be provided if a mask size is specified and does not equal 'Unknown'."
-    }
-  ],
-  "validations": [
-    {
-      "description": "Check for valid dates and adjust year formatting for dates with potential for ambiguity."
-    }
-  ],
-  "calculations": [],
-  "conditions": [
-    {
-      "description": "Check if confidentiality form date received is non-null before updating."
-    }
-  ],
-  "system_behavior": [
-    {
-      "description": "On detecting an expired mask fit test date, prompt an error message."
-    }
-  ],
-  "dependencies": [
-    {
-      "description": "Relies on external database procedures for data updates and validation."
-    }
-  ],
-  "exceptions": [
-    {
-      "description": "Handles exceptions related to missed prerequisites, such as overdue or incomplete tests."
-    }
-  ],
-  "source_document_ids": [
-    "126148d2-7c46-5bb8-8a4c-606105b702bd",
-    "165b1b6b-fd06-59e5-b7d7-81e87dbeac55",
-    "280408b2-2e1d-5bd7-8feb-59603ff0bb80",
-    "2f8ba20e-ca9a-5fc1-932a-1899a9499417",
-    "3787eddd-1ce0-519f-9959-30c8a913c827"
-  ],
-  "content_gaps": [
-    "Lacks detailed error handling for individual field updates."
-  ]
+    "filename": "StudentPrerequisites",
+    "found": true,
+    "summary": "Handles prerequisites for student immunizations and health checks.",
+    "purpose": "To manage and update prerequisites such as immunization statuses, health checks, and safety updates for students.",
+    "entities": ["StudentPrerequisite"],
+    "fields": [
+        "ID",
+        "StudentID",
+        "CRCStatusCodeID",
+        "IDCard",
+        "WCBWaiver",
+        "ConfidentialityForm",
+        "UseAssessmentModule",
+        "DepartmentUseAssessmentModule",
+        "N95MaskSizeCodeID",
+        "N95MaskAltSizeCodeID",
+        "N95MaskFitTestExpiryDate",
+        "TetanusExpiryDate",
+        "TdapImmunity",
+        "PolioImmunity",
+        "MeaslesStatusCodeID",
+        "Covid19StatusCodeID",
+        "RubellaStatusCodeID",
+        "VaricellaStatusCodeID",
+        "InfluenzaStatusCodeID",
+        "ChestXRayDate",
+        "ChestXRayResultsCodeID",
+        "HepBFirstShotDate",
+        "HepBSecondShotDate",
+        "HepBThirdShotDate",
+        "HepABResultsCodeID",
+        "ImmunizationNotes",
+        "InfectionControlSolutionID",
+        "N95MaskFitNotes"
+    ],
+    "actors": ["Student", "Staff"],
+    "workflows": [
+        {
+            "name": "Student Health Update Workflow",
+            "steps": [
+                "Retrieve prerequisite data",
+                "Validate prerequisites",
+                "Update health records"
+            ]
+        }
+    ],
+    "business_rules": [
+        "Test expiry date validation",
+        "Consent form validation"
+    ],
+    "validations": [],
+    "calculations": [],
+    "conditions": [],
+    "system_behavior": [
+        "Update immunization records",
+        "Validate prerequisite data"
+    ],
+    "dependencies": [],
+    "exceptions": [],
+    "source_document_ids": [
+        "126148d2-7c46-5bb8-8a4c-606105b702bd",
+        "3787eddd-1ce0-519f-9959-30c8a913c827",
+        "9dc9edf7-a95e-57c9-ae8e-a04ecdfa88be",
+        "dadce6a1-e08f-5117-9767-bb9b5e83fef7"
+    ],
+    "content_gaps": []
 }
