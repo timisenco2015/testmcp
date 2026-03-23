@@ -1,0 +1,78 @@
+{
+  "filename": "StudentActiveCohort",
+  "found": true,
+  "summary": "The `StudentActiveCohort` system is designed to manage the association of students with active cohorts, including managing course assignments and cohort details.",
+  "purpose": "To facilitate the assignment and management of active courses and cohorts for students within the system.",
+  "entities": [
+    "StudentActiveCohort",
+    "StudentActiveCohorts"
+  ],
+  "fields": [
+    "DepartmentID",
+    "DepartmentShortName",
+    "ProgramID",
+    "ProgramShortName",
+    "CohortID",
+    "CohortShortName",
+    "Unstructured",
+    "EnrolledCourses",
+    "AssignedCourses",
+    "UnassignedCourses",
+    "TimetableID",
+    "StudentHasActiveUserID",
+    "TermID",
+    "CourseID",
+    "CourseName"
+  ],
+  "actors": [
+    "HSPnetSession"
+  ],
+  "workflows": [
+    {
+      "name": "StudentSearchActiveCohorts",
+      "steps": [
+        "Initialize a list to store StudentActiveCohort entries.",
+        "Set database procedure name to 'StudentSearchActiveCohorts'.",
+        "Add SessionID and StudentID parameters to the database.",
+        "Retrieve data using a SqlDataReader.",
+        "For each record in the result set, create a StudentActiveCohort entry and populate its fields.",
+        "Add entries with non-zero AssignedCourses or UnassignedCourses to the list.",
+        "Close the database reader and return the list."
+      ]
+    },
+    {
+      "name": "StudentRemoveFromCohort",
+      "steps": [
+        "Initialize a list to store StudentActiveCohort entries.",
+        "Set database procedure name to 'StudentRemoveFromCohort'.",
+        "Add SessionID, StudentID, and CohortID parameters to the database.",
+        "Retrieve data using a SqlDataReader.",
+        "Process the data if available.",
+        "Close the database reader and return the list."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Skip past all record sets that don't pertain to courses when retrieving data.",
+    "Only add entries to the list if AssignedCourses or UnassignedCourses are non-zero."
+  ],
+  "validations": [],
+  "calculations": [
+    "UnassignedCourses = EnrolledCourses - AssignedCourses"
+  ],
+  "conditions": [
+    "Only entries with AssignedCourses or UnassignedCourses not equal to zero are added to the list."
+  ],
+  "system_behavior": [
+    "Able to search and manage student active cohort assignments.",
+    "Facilitates removal of students from cohorts."
+  ],
+  "dependencies": [],
+  "exceptions": [],
+  "source_document_ids": [
+    "24eaf078-e391-5240-9a2b-f1e669753812",
+    "8027c505-01e5-5861-af3d-ec417f2e1383",
+    "ebe839ba-3287-52fb-84f5-416ae2b6ec35"
+  ],
+  "content_gaps": []
+}
