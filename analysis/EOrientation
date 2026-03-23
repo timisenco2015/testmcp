@@ -1,80 +1,95 @@
-Here is the JSON output for the filename "EOrientation":
-
 ```json
 {
   "filename": "EOrientation",
   "found": true,
-  "summary": "The document includes details related to student immunization, confidentiality, and various health mandates with statuses, dates, and related code IDs.",
-  "purpose": "To manage student prerequisites and health requirements.",
+  "summary": "The EOrientation component is a web-based interface for managing courses and staff interactions within an educational platform. It includes functionalities for course management, certificate printing, and user session handling.",
+  "purpose": "To provide an interface for staff to manage their orientation courses, print certificates upon completion, and navigate educational resources.",
   "entities": [],
   "fields": [
-    "VaricellaStatusCodeDesc",
-    "FluStatusCodeDesc",
-    "ChestXRayStatusCodeDesc",
-    "HepAGResultsCodeDesc",
-    "Step1StatusCodeDesc",
-    "Step2StatusCodeDesc",
-    "InfluenzaAdminDateDD",
-    "HepBFirstShotDate",
-    "HepBSecondShotDate",
-    "HepBThirdShotDate",
-    "HepABTestDate",
-    "PolioReinforcingDoseDate",
-    "MeaslesAdminDate",
-    "RubellaAdminDate",
-    "MumpsAdminDate",
-    "TetanusAdminDate",
-    "N95MaskFitTestDate"
+    "username",
+    "password",
+    "Submit",
+    "hleOpeQRG",
+    "lblPleaseWait",
+    "pnlReportHTML",
+    "lblReportHTML",
+    "gvwCourses",
+    "dsCourses",
+    "pnlEOpeLink",
+    "pnlPrintCertificate",
+    "btnPrintCertificate"
   ],
   "actors": [
-    "Student",
-    "Staff",
-    "HSPnetSession"
+    {
+      "name": "Staff",
+      "description": "Interacts with the EOrientation system to manage orientation courses."
+    },
+    {
+      "name": "System Administrator",
+      "description": "Has elevated permissions within the EOrientation system."
+    }
   ],
   "workflows": [
     {
-      "name": "StudentDetailsSafetyUpdate",
+      "name": "Retake Course",
       "steps": [
-        "Validate prerequisite information.",
-        "Update database with safety details.",
-        "Execute query."
+        "User clicks the 'Retake' button.",
+        "System confirms the retake action.",
+        "Course is marked for retake and processed."
+      ]
+    },
+    {
+      "name": "Print Certificate",
+      "steps": [
+        "User clicks 'Print Certificate'.",
+        "System generates the certificate report in PDF format.",
+        "Certificate is displayed if generation is successful."
+      ]
+    },
+    {
+      "name": "Moodle Login",
+      "steps": [
+        "Page loaded with post action to Moodle.",
+        "User form submitted automatically if conditions are met."
       ]
     }
   ],
   "business_rules": [
-    "If the N95 mask size is specified, the fit test date must be provided.",
-    "Expiry date must be specified if expiry years are given.",
-    "Health status code entails completion of related data and tests."
+    "A staff member can retake a course only if the course is marked as completed.",
+    "Certificate printing is available upon course completion."
   ],
   "validations": [
-    "Check for date validity and completeness for various health requirements.",
-    "Ensure expiry dates are on or after complete dates."
+    "Ensure user session is active before selecting course data.",
+    "Confirm retake course action via user prompt."
   ],
   "calculations": [],
   "conditions": [
-    "If COVID-19 status code is encountered, corresponding data must be checked.",
-    "Dates exceeding five years must be flagged."
+    "If UserSession is null, the course data selection is cancelled.",
+    "Only staff with content management permission can disable link visibility."
   ],
-  "system_behavior": [],
+  "system_behavior": [
+    "Automatically submit form to Moodle if user session indicates content management permissions.",
+    "Display warning messages based on course requirement and due dates."
+  ],
   "dependencies": [
-    "Database connection for data retrieval and update.",
-    "Valid session management."
+    "UserSession data",
+    "Moodle platform for authentication"
   ],
   "exceptions": [
-    "Invalid date formats will raise errors.",
-    "Missing required fields will halt processing."
+    "Cancelled course selection due to inactive user session."
   ],
   "source_document_ids": [
-    "f1337cc9-2c22-570f-8028-6d6cf3d3f36d",
-    "9dc9edf7-a95e-57c9-ae8e-a04ecdfa88be",
-    "dadce6a1-e08f-5117-9767-bb9b5e83fef7",
-    "9c001d9f-6b5e-5efb-bae5-beec7494b84c",
-    "b017c1aa-ba9e-5224-b66a-42e4768ed23b",
-    "ebc8c8c16-1482-5149-87fd-34c4724af0a2",
-    "eldb6500-7e63-5aba-b652-8cfbbf9b798d"
+    "045f50d5-bc7d-5dc3-b71a-5f0d0a654dd6",
+    "1023002b-1958-5d9d-95b2-38eb653d834b",
+    "5353e25b-9830-571d-9621-939fad53a107",
+    "54382e60-cab6-55f2-a803-beb37a508fd1",
+    "a3cfdda2-5219-5ee7-a854-1214eb2593d6",
+    "b386f4d0-6c5f-5a3d-ad85-06de7fe0ffbd",
+    "e4f560be-8b14-5d5a-9a69-3a4da94be598",
+    "ec16eb3b-dc9b-59d2-81c5-c2f27f498c15",
+    "ef86ad80-0450-519f-a3d5-d4480d6af2ec",
+    "f9173bda-e816-5f0d-8903-80e1bd38a493"
   ],
   "content_gaps": []
 }
 ```
-
-If additional files need to be processed similarly, please specify the filename or let me know how you would like to proceed.
