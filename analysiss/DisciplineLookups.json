@@ -1,0 +1,58 @@
+{
+    "filename": "DisciplineLookups",
+    "found": true,
+    "summary": "The DisciplineLookups service is a web service that provides discipline lookups for AJAX Toolkit cascading dropdowns. It facilitates the retrieval of codes and descriptions for discipline categories and their sub-disciplines.",
+    "purpose": "To provide discipline lookups for AJAX Toolkit cascading dropdowns, allowing users to retrieve and display discipline categories and sub-disciplines in a hierarchical selection interface.",
+    "entities": [],
+    "fields": [
+        {
+            "name": "knownCategoryValues",
+            "type": "string",
+            "description": "A string passed to the web service containing known category values."
+        },
+        {
+            "name": "category",
+            "type": "string",
+            "description": "A string that includes the session hash and discipline category."
+        },
+        {
+            "name": "contextKey",
+            "type": "string",
+            "description": "An optional context key used in the discipline lookup process."
+        }
+    ],
+    "actors": [],
+    "workflows": [
+        {
+            "name": "GetDisciplines",
+            "steps": [
+                "Split the 'category' parameter to extract the session hash.",
+                "Retrieve the session ID from the hash.",
+                "Fetch code categories list based on the session ID and 'Disciplines%'",
+                "Return list of CascadingDropDownNameValue objects with categories and IDs."
+            ]
+        }
+    ],
+    "business_rules": [],
+    "validations": [],
+    "calculations": [],
+    "conditions": [],
+    "system_behavior": [
+        "Caches the response for 60 seconds.",
+        "Processes category in the format 'SessionHash:Discipline%'"
+    ],
+    "dependencies": [],
+    "exceptions": [
+        {
+            "type": "ValidationException",
+            "description": "Occurs if the knownCategoryValues string does not contain a valid code category ID."
+        }
+    ],
+    "source_document_ids": [
+        "d16ac2ff-c19d-542a-8364-5cdb1d5d798d",
+        "d1ee33fe-6db7-5178-b99c-8339efec0c37",
+        "d2fd1e15-c7d6-5bfe-bfda-8f96ca11d468",
+        "f891c037-ec1e-5c29-a0cb-607cb70c825d"
+    ],
+    "content_gaps": []
+}
