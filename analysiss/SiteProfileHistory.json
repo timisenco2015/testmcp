@@ -1,80 +1,49 @@
 {
-  "filename": "SiteProfileHistory",
-  "found": true,
-  "summary": "SiteProfileHistory maintains records of changes to site profiles.",
-  "purpose": "To track historical changes and actions performed on site profiles.",
-  "entities": [
-    "SiteProfileHistory",
-    "Site",
-    "Agency",
-    "User",
-    "Phone"
-  ],
-  "fields": [
-    "ID",
-    "ActionDate",
-    "ScreenSection",
-    "UserAction",
-    "Fields",
-    "Agency",
-    "AgencyName",
-    "LastName",
-    "FirstName",
-    "MiddleName",
-    "Phone",
-    "ByUserID",
-    "ByOriginalUserID",
-    "ByUserSysAdmin"
-  ],
-  "actors": [],
-  "workflows": [
-    {
-      "name": "Site Profile History Retrieval",
-      "steps": [
-        "Validate user session",
-        "Prepare and set input parameters",
-        "Execute stored procedure to fetch site profile history",
-        "Populate and return list of site profile entries"
-      ]
-    }
-  ],
-  "business_rules": [
-    "Cancel retrieval if user session is invalid"
-  ],
-  "validations": [
-    "Check that SiteID and UserSession parameters are set"
-  ],
-  "calculations": [
-    {
-      "description": "Format action date",
-      "data_points": [
-        "ActionDate"
-      ]
-    }
-  ],
-  "conditions": [
-    {
-      "description": "Cancel selection if UserSession is null",
-      "logic": "UserSession == null"
-    }
-  ],
-  "system_behavior": [
-    "Records changes in site profiles and retrieves historical data"
-  ],
-  "dependencies": [
-    "HSPnetSession",
-    "Database",
-    "Resources"
-  ],
-  "exceptions": [
-    "Null UserSession leads to procedure cancellation"
-  ],
-  "source_document_ids": [
-    "25f89a24-5eda-5a3f-83df-1de69b12b3f1",
-    "26e09292-d304-55c6-94e5-ef3346453c4b",
-    "7ca6b963-9ae9-5cd3-82d5-f30dcb727ae3",
-    "a8f030c6-90b8-53a1-bb8a-3b7ef33b9488",
-    "e806999c-3a39-5720-9b59-303faebc9eb6"
-  ],
-  "content_gaps": []
+    "filename": "SiteProfileHistory",
+    "found": true,
+    "summary": "The SiteProfileHistory module maintains logs of changes to site profiles, capturing details such as action date, user activity, and agency information.",
+    "purpose": "To track and display the history of changes made to site profiles within the HSPnet system.",
+    "entities": [
+        "SiteProfileHistory",
+        "SiteProfileHistories"
+    ],
+    "fields": [
+        "ActionDate",
+        "ScreenSection",
+        "UserAction",
+        "Fields",
+        "Agency",
+        "AgencyName",
+        "LastName",
+        "FirstName",
+        "MiddleName",
+        "Phone"
+    ],
+    "actors": [
+        "User"
+    ],
+    "workflows": [],
+    "business_rules": [],
+    "validations": [],
+    "calculations": [],
+    "conditions": [
+        "If UserSession is null, cancel data source selection"
+    ],
+    "system_behavior": [
+        "Use ObjectDataSource for selecting profile history",
+        "Format date fields for display"
+    ],
+    "dependencies": [
+        "HSPnet.DataLayer",
+        "DateFormatter"
+    ],
+    "exceptions": [],
+    "source_document_ids": [
+        "25f89a24-5eda-5a3f-83df-1de69b12b3f1",
+        "26e09292-d304-55c6-94e5-ef3346453c4b",
+        "7ca6b963-9ae9-5cd3-82d5-f30dcb727ae3",
+        "a8f030c6-90b8-53a1-bb8a-3b7ef33b9488",
+        "e806999c-3a39-5720-9b59-303faebc9eb6"
+    ],
+    "content_gaps": []
 }
