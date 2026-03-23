@@ -1,54 +1,57 @@
 {
   "filename": "StudentProfileHistory",
   "found": true,
-  "summary": "The StudentProfileHistory manages the history of student profiles, differentiating between cohort and non-cohort views. It involves database operations to retrieve and display profile history entries. It includes UI components for managing and displaying profile sections, and controls for user interactions such as refreshing views and handling errors.",
-  "purpose": "The purpose of the StudentProfileHistory is to maintain and display the history of changes made to student profiles, with functionalities for user interaction and administrative controls.",
+  "summary": "The StudentProfileHistory file handles the display and management of student profile history. It supports different modes including cohort and non-cohort views and includes functionality for filtering and displaying different types of records such as evaluations, HR information, and enrollment details.",
+  "purpose": "To manage and display the history of student profiles, including cohort and non-cohort information.",
   "entities": [],
   "fields": [
-    "ActionDate",
-    "ScreenSection",
-    "ScreenSectionUntranslated",
-    "UserAction",
-    "Fields",
-    "Agency",
-    "AgencyName",
-    "LastName",
-    "FirstName",
-    "MiddleName",
-    "Phone",
-    "StudentUser",
-    "TimetableID",
-    "ByUserID",
-    "ByOriginalUserID",
-    "ByUserSysAdmin"
+    {"name": "ActionDate", "type": "string"},
+    {"name": "ScreenSection", "type": "string"},
+    {"name": "UserAction", "type": "string"},
+    {"name": "Fields", "type": "string"},
+    {"name": "Agency", "type": "string"},
+    {"name": "AgencyName", "type": "string"},
+    {"name": "LastName", "type": "string"},
+    {"name": "FirstName", "type": "string"},
+    {"name": "MiddleName", "type": "string"},
+    {"name": "Phone", "type": "string"},
+    {"name": "StudentUser", "type": "boolean"},
+    {"name": "TimetableID", "type": "integer"},
+    {"name": "ByUserID", "type": "integer"},
+    {"name": "ByOriginalUserID", "type": "integer"},
+    {"name": "ByUserSysAdmin", "type": "boolean"}
   ],
-  "actors": [],
+  "actors": ["Student", "System Administrator", "User"],
   "workflows": [
     {
-      "name": "Student Profile Loading",
+      "name": "Student Profile History Management",
       "steps": [
-        "Initialize the page and setup for the StudentProfileHistory.",
-        "Check the cohort history flag and adjust the UI accordingly.",
-        "Retrieve student details using StudentID.",
-        "Bind data to UI components for display."
+        "Load student profile history page.",
+        "Determine mode based on cohort history flag.",
+        "Display data sections based on screen section and user permissions.",
+        "Provide interactivity for enrollment details navigation."
       ]
     }
   ],
   "business_rules": [
-    "If HR Information tab is visible, show all entries; otherwise, show all entries except HR."
+    "Display all entries if HR information is visible, otherwise exclude HR entries."
   ],
-  "validations": [],
+  "validations": [
+    {"field": "StudentID", "rule": "Must be a positive integer"},
+    {"field": "TimetableID", "rule": "Must be a positive integer"}
+  ],
   "calculations": [],
   "conditions": [
-    "CohortHistory determines if only enrollment entries are shown.",
-    "ScreenSection selection determines which entries are displayed."
+    {"condition": "If cohort history is enabled", "action": "Show only enrollment entries"}
   ],
   "system_behavior": [
-    "Form submission and button click events trigger data refresh and specific actions.",
-    "UI components visually hide or show sections based on conditions."
+    "Filters entries based on user permissions and selected screen section.",
+    "Formats user details for display."
   ],
   "dependencies": [],
-  "exceptions": [],
+  "exceptions": [
+    "No data available for the selected filters results in a 'No Data' message display."
+  ],
   "source_document_ids": [
     "00a748ca-1c82-5ded-8892-163aaea8c680",
     "1f845a9e-7f7a-51b9-b55e-74d3f01d96ad",
@@ -71,7 +74,6 @@
     "bf441800-6e7d-5da1-a443-241d4719337a",
     "c2fc2bc7-3b33-5c16-b550-e332b0b82839",
     "c9a4c2d2-368d-5142-b7fa-f4402057bc9d",
-    "cbd33bb2-73b6-5d75-bbb0-8ba89f2fb457",
     "ccd2c10e-29ee-5cec-bc8b-ff177b8d121f",
     "d8425419-c112-5483-82f4-224df1fa80bc",
     "f86a19bd-acf2-50c0-8b34-f2e88b878170",
