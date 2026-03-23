@@ -1,0 +1,104 @@
+# Module: PlacementRequestInformation
+
+## PlacementRequestInformation-UC1 — Placement Request Status Filtering
+
+- Primary Actor(s): Session User
+- Secondary Actor(s): Database
+- Trigger: User initiates a search for placement requests.
+- Description: This use case describes how placement requests are filtered based on their status codes and user roles.
+- Preconditions:
+  - User is authenticated and has the necessary permissions.
+  - Placement requests exist in the system.
+- Postconditions:
+  - User receives a filtered list of placement requests.
+- Main Success Scenario:
+  1. User selects filters for placement request status.
+  2. System applies filters to exclude non-matching requests.
+  3. System retrieves and displays the filtered list to the user.
+- Extensions:
+  - User can change filters and apply them again for a different result set.
+- Exceptions:
+  - Database errors could prevent retrieval of requests.
+  - User permissions could restrict access to certain requests.
+- Business Rules: 
+  - Status codes like "ACCA", "RELEASED", "DECLINED", and others dictate filtering logic.
+  - Requests from the user's agency may be excluded based on role.
+- Assumptions: 
+  - Status codes are properly defined and stored in the database.
+- Open Issues: 
+  - none identified
+
+## PlacementRequestInformation-UC2 — Student Assignment Verification
+
+- Primary Actor(s): System
+- Secondary Actor(s): User
+- Trigger: Verification of student assignments in placement requests.
+- Description: This use case checks if a placement request has a student assigned and whether assignments are valid.
+- Preconditions:
+  - Placement requests with statuses "ACCA" or "CONF" exist.
+- Postconditions:
+  - Requests are marked based on student assignment status.
+- Main Success Scenario:
+  1. System checks each request for student assignment.
+  2. Requests are flagged if no student is assigned.
+  3. Additional checks for group assignments are performed.
+- Extensions:
+  - For group requests, system also checks for child entry assignments.
+- Exceptions:
+  - Incomplete or missing data could lead to incorrect flagging.
+- Business Rules: 
+  - Requests should have students assigned unless marked as placeholder.
+  - Group requests require verification of child entry assignments.
+- Assumptions: 
+  - Data on student assignments is current and accurate.
+- Open Issues: 
+  - none identified
+
+## PlacementRequestInformation-UC3 — Conflict and Alerts Management
+
+- Primary Actor(s): System
+- Secondary Actor(s): User
+- Trigger: Triggered when placement requests have alerts or conflicts.
+- Description: This use case manages how alerts or conflicts are added to placement requests.
+- Preconditions:
+  - Alerts or conflicts exist for certain placement requests.
+- Postconditions:
+  - Alerts or conflicts are displayed to users.
+- Main Success Scenario:
+  1. System identifies requests with alerts or conflicts.
+  2. Alerts or conflicts are highlighted in the request details.
+- Extensions:
+  - Alerts can be dismissed or managed by users if permissions allow.
+- Exceptions:
+  - Database errors could prevent alert display.
+- Business Rules: 
+  - System must display a clear visual indication of alerts or conflicts.
+- Assumptions: 
+  - Alerts are properly configured in the system.
+- Open Issues: 
+  - none identified
+
+## PlacementRequestInformation-UC4 — Assignment Status Update
+
+- Primary Actor(s): System 
+- Secondary Actor(s): N/A
+- Trigger: Changes in the assignment status of placement requests.
+- Description: This use case tracks changes in the status of assignments linked to placement requests.
+- Preconditions:
+  - Requests have assignments that are subject to change.
+- Postconditions:
+  - System records and displays updated assignment statuses.
+- Main Success Scenario:
+  1. Assignment status of a request changes.
+  2. System logs the status change.
+  3. System updates the display to reflect new status.
+- Extensions:
+  - Historical changes can be reviewed if necessary.
+- Exceptions:
+  - Errors in logging may cause status tracking failure.
+- Business Rules: 
+  - All assignment changes must be recorded with timestamps.
+- Assumptions: 
+  - Status changes are communicated to the system in real-time.
+- Open Issues: 
+  - none identified
