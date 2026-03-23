@@ -1,50 +1,65 @@
 {
   "filename": "Loggedout",
   "found": true,
-  "summary": "The 'Loggedout' file is a VBScript ASP file that disables session state, sets response buffering and expiration, defines a screen name variable as 'LoggedOut', and includes the '/HSPnet/DoScreen.asp' script.",
-  "purpose": "To display a logged-out screen or handle user logout processes in the web application, ensuring no session state remains active and using a shared script for screen rendering.",
+  "summary": "The 'Loggedout' file is a server-side script that defines a screen named 'LoggedOut' and handles user sessions with session state disabled. It includes shared logic for screen rendering.",
+  "purpose": "To display the 'LoggedOut' screen when a user has logged out or is no longer authenticated, without enabling session state.",
   "entities": [],
   "fields": [
     {
       "name": "strScreenName",
-      "type": "string",
-      "description": "Indicates the screen context (set to 'LoggedOut')."
+      "description": "Set to 'LoggedOut' to identify the purpose of this screen."
     }
   ],
-  "actors": [],
+  "actors": [
+    {
+      "type": "user",
+      "role": "Web application user",
+      "description": "A user who has logged out and is presented with the 'LoggedOut' screen."
+    }
+  ],
   "workflows": [
     {
-      "name": "Logout Screen Workflow",
+      "name": "Show LoggedOut Screen",
       "steps": [
-        "Disable session state for the page.",
-        "Enable response buffering.",
-        "Set response to expire immediately.",
-        "Set screen name to 'LoggedOut'.",
-        "Include and execute the shared DoScreen.asp script."
+        "User accesses the application after logging out or session ends.",
+        "The script disables session state and sets response buffering and expiration.",
+        "strScreenName is set to 'LoggedOut'.",
+        "Shared screen logic is included and executed."
       ]
     }
   ],
   "business_rules": [
-    "Session state must be disabled on logout screens.",
-    "Response should expire so content is not cached."
+    "Session state must be disabled for this screen.",
+    "Screen must be identified as 'LoggedOut'.",
+    "Response should not be cached (expires immediately)."
   ],
-  "validations": [],
+  "validations": [
+    "Session is not active for this screen."
+  ],
   "calculations": [],
   "conditions": [
-    "Page only displayed when logout action is performed."
+    "User must be logged out or session must have ended."
   ],
   "system_behavior": [
-    "Clears session and presents logged-out information."
+    "Response is buffered and set to expire immediately to prevent caching.",
+    "Shared screen logic is included via 'DoScreen.asp'."
   ],
   "dependencies": [
-    "/HSPnet/DoScreen.asp"
+    {
+      "type": "include",
+      "target": "/HSPnet/DoScreen.asp",
+      "description": "Shared ASP logic for rendering the screen."
+    }
   ],
-  "exceptions": [],
+  "exceptions": [
+    "If user is not logged out, screen may not be shown."
+  ],
   "source_document_ids": [
     "df20c79d-72b0-5bb6-b8a7-548448c286d3"
   ],
   "content_gaps": [
-    "No details provided on the contents or processing within 'DoScreen.asp'.",
-    "No description of user interface, visual elements, or error handling."
+    "No information about what 'DoScreen.asp' does.",
+    "No field or entity definitions beyond screen name.",
+    "No details about post-logout options or navigation."
   ]
 }
