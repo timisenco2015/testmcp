@@ -1,0 +1,93 @@
+{
+    "filename": "CustomReportRequest",
+    "found": true,
+    "summary": "The CustomReportRequest system is designed to manage the creation and processing of custom report requests within an organization. The system involves multiple user roles, including staff and system administrators, to request, process, and approve custom reports. It integrates various controls and validation mechanisms to ensure data integrity and user requirements.",
+    "purpose": "To facilitate the creation, management, and approval of custom reports requested by various departments within an organization.",
+    "entities": [],
+    "fields": [
+        "txtStartDate",
+        "txtEndDate",
+        "txtRequestedDate",
+        "txtPurpose",
+        "txtAudience",
+        "txtComments",
+        "txtStudentDataFields",
+        "txtStudentInformation",
+        "txtStudentAuthorization",
+        "txtSitesIncluded",
+        "txtProgramsIncluded"
+    ],
+    "actors": [
+        "UserSession",
+        "Staff",
+        "SystemAdministrator"
+    ],
+    "workflows": [
+        {
+            "name": "Custom Report Request Workflow",
+            "steps": [
+                "User logs in and accesses the custom report request page.",
+                "User selects a report type from a dropdown list.",
+                "User fills out necessary fields such as start date, end date, requested date, purpose, audience, and comments.",
+                "User specifies additional details like student data fields, information, and authorization if applicable.",
+                "User can upload files related to the report request.",
+                "User submits the request which is processed based on validations.",
+                "The system records the request and provides feedback for any errors or missing fields."
+            ]
+        }
+    ],
+    "business_rules": [
+        "Only system administrators can finalize a report request.",
+        "Report requests must have a specified purpose and audience.",
+        "Dates must be valid and cannot be in the past unless specified by system rules.",
+        "At least one data field is required for each report type."
+    ],
+    "validations": [
+        {
+            "field": "txtStartDate",
+            "type": "RequiredFieldValidator"
+        },
+        {
+            "field": "txtEndDate",
+            "type": "RegularExpressionValidator"
+        },
+        {
+            "field": "txtRequestedDate",
+            "type": "CustomValidator"
+        },
+        {
+            "field": "txtPurpose",
+            "type": "RequiredFieldValidator"
+        },
+        {
+            "field": "txtAudience",
+            "type": "RequiredFieldValidator"
+        }
+    ],
+    "calculations": [],
+    "conditions": [
+        "Dates must be selected and valid based on the user's role and system settings.",
+        "Certain fields are mandatory depending on the selected report type."
+    ],
+    "system_behavior": [
+        "The system handles file uploads and validates their type and size.",
+        "The system dynamically adjusts fields and views based on selected options.",
+        "JavaScript is utilized to enhance interactivity and validation on the client-side."
+    ],
+    "dependencies": [
+        "User session management is critical to maintain user data and permissions.",
+        "JavaScript functions for client-side validation are integrated."
+    ],
+    "exceptions": [
+        "Invalid date inputs return error messages.",
+        "Missing mandatory fields trigger validation errors."
+    ],
+    "source_document_ids": [
+        "00aebfc5-778a-5e93-93a2-b6ef20e08d92",
+        "02c69d05-da41-5b68-a303-7131d9dc32d9",
+        "0aad0add-12d9-580c-9fbb-e8dbef303802",
+        "0d74d503-fa57-5afa-9554-3278848c6be4",
+        "13f4dfc6-fc65-5c96-b008-e82ed6f2df16"
+    ],
+    "content_gaps": []
+}
