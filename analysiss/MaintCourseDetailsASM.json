@@ -1,19 +1,63 @@
 {
-    "filename": "MaintCourseDetailsASM",
-    "found": false,
-    "summary": "",
-    "purpose": "",
-    "entities": [],
-    "fields": [],
-    "actors": [],
-    "workflows": [],
-    "business_rules": [],
-    "validations": [],
-    "calculations": [],
-    "conditions": [],
-    "system_behavior": [],
-    "dependencies": [],
-    "exceptions": [],
-    "source_document_ids": [],
-    "content_gaps": ["No related documents found"]
+  "filename": "MaintCourseDetailsASM",
+  "found": true,
+  "summary": "MaintCourseDetailsASM control is used for maintaining course details. It includes functionality for editing course details, selecting associated services, and handling permissions for viewing and editing course information.",
+  "purpose": "To maintain course details and associated service settings.",
+  "entities": [],
+  "fields": [
+    "fvwASM",
+    "pnlPopup",
+    "btnShowPopup",
+    "mdlDetails",
+    "divHeaderpnlPopup",
+    "ltlEditEntry",
+    "fvwDetails",
+    "dsCourse",
+    "dsSearchableStatus"
+  ],
+  "actors": ["UserSession"],
+  "workflows": [
+    {
+      "name": "Maintain Course Details",
+      "steps": [
+        "Select course from list",
+        "Enter edit mode to modify course",
+        "Change associated services",
+        "Submit and save changes"
+      ]
+    }
+  ],
+  "business_rules": [
+    "Course details can be modified only when ScreenIsEditable is true"
+  ],
+  "validations": [
+    "Ensure the UserSession is active before data operations",
+    "Validation on course detail inputs"
+  ],
+  "calculations": [],
+  "conditions": [
+    "Screen must be editable to modify data"
+  ],
+  "system_behavior": [
+    "Displays course data and associated services",
+    "Allows interaction via form view"
+  ],
+  "dependencies": [],
+  "exceptions": [],
+  "source_document_ids": [
+    "19ba5b49-43f5-5856-9092-d98ec3a45a3d",
+    "20afbbdf-fb36-59e6-ba6d-f0bb3fb3f366",
+    "276f4239-c023-5c91-b800-c2c59dde6d26",
+    "38195de2-0797-5696-bacf-a90a1f022647",
+    "3ed7c95c-8e32-5c5f-80bd-c9c7aa41e63c",
+    "7d90f175-631e-5dcd-a5bb-3bbd77df0029",
+    "9901d22f-c5d7-565d-8933-aa2302643811",
+    "a00fefd5-5d8c-56b4-b409-d5343029c0c5",
+    "ac07fe7c-0519-5ddc-b58a-bd9d0cdbc64b",
+    "d973d89d-0564-5a76-a5f3-503c9a69d325",
+    "e66e2440-1be9-5475-ad84-56928b565a62",
+    "f36fd996-0be8-5cc9-b7fb-84aa593af72f",
+    "f9ed376a-9105-5493-901f-860a57734594"
+  ],
+  "content_gaps": []
 }
