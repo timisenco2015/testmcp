@@ -1,0 +1,124 @@
+{
+  "filename": "OccHealthCovid19",
+  "found": true,
+  "summary": "The OccHealthCovid19 system handles the management of student data related to COVID-19 health records, including data display, editing, saving, sorting, and filtering within a web application. It uses a grid interface to manage student enrollments and related data, providing functionalities to edit COVID-19 related status and dates, sort by different fields, filter records, and save changes either individually or in bulk.",
+  "purpose": "The main purpose of the OccHealthCovid19 system is to facilitate the management and editing of student enrollments with respect to COVID-19 health records, providing a user interface to edit, save, sort and filter data related to COVID-19 immunization statuses and administration dates within an educational context.",
+  "entities": [],
+  "fields": [
+    "CohortID",
+    "TermID",
+    "CourseID",
+    "ShowGrad",
+    "ShowInactive",
+    "ShowWaived",
+    "SectionFilter",
+    "ActionFilter",
+    "keyword",
+    "CampusID",
+    "CommentFilter",
+    "blnReadOnly",
+    "blnStudentMaint",
+    "blnGotoOutbox",
+    "blnGotoGWS",
+    "blnGotoIWS",
+    "H1N1",
+    "CourseLst",
+    "CourseIDLst",
+    "CourseShortNameLst",
+    "StartRow",
+    "AllowStudentAccess"
+  ],
+  "actors": ["UserSession"],
+  "workflows": [
+    {
+      "name": "RowDataBound Processing",
+      "steps": [
+        "Check row type",
+        "Handle header row: Hide Save All button if in Add or Edit mode, set Covid19 literal text",
+        "Handle footer row: Show appropriate save panels",
+        "Handle data row: Update row state based on enrollment ID, configure buttons and controls"
+      ]
+    },
+    {
+      "name": "Page Load Initialization",
+      "steps": [
+        "Check if page is loading for the first time",
+        "Fill action dropdown",
+        "Sort grid data"
+      ]
+    },
+    {
+      "name": "Data Sorting",
+      "steps": ["Sort grid using provided sort expression and direction"]
+    },
+    {
+      "name": "Dropdown Action",
+      "steps": [
+        "Clear dropdown items",
+        "Add default and email action items to dropdown"
+      ]
+    },
+    {
+      "name": "Save All Action",
+      "steps": [
+        "Iterate over grid rows",
+        "Check if row is dirty",
+        "Update student details for COVID-19 using inputs from grid"
+      ]
+    }
+  ],
+  "business_rules": [
+    "Hide Save All button if EnrollmentID is not zero",
+    "Disable edit fields if readonly",
+    "Toggle visibility of controls based on row state and permissions"
+  ],
+  "validations": [
+    "Cancel selection if UserSession is null",
+    "Verify valid UUID format in keys"
+  ],
+  "calculations": [],
+  "conditions": [
+    "Check if page is not postback",
+    "Row state changes based on EnrollmentID",
+    "Action availability based on student access configuration"
+  ],
+  "system_behavior": [
+    "Toggle paging based on current pagination state",
+    "Update grid data and associated panels on command execution",
+    "Setup JavaScript variables dynamically based on backend state"
+  ],
+  "dependencies": [
+    "HSPnet.DataLayer",
+    "HSPnet.UI",
+    "Resources"
+  ],
+  "exceptions": [
+    "Invalid user session results in action cancellation",
+    "Database errors redirect user to enrollment page retaining query parameters"
+  ],
+  "source_document_ids": [
+    "06b709da-6fce-5be4-88ea-83cee61ded3a",
+    "1363e524-8c81-51e3-8bfc-f13930c8de85",
+    "14ee60ed-b784-5851-94c3-bc116c539e98",
+    "199b01c3-a579-51c6-ad6e-de4012298e63",
+    "201420b4-025d-5668-b060-7f9e8a924baa",
+    "3d23304f-561c-5e12-b1fe-b75786a27fab",
+    "5717ec24-2e9b-5d39-9c0d-e4bfb5be9eaa",
+    "71637f0c-cb61-57da-8079-b0c251aa78de",
+    "731cdd0e-d6e1-5215-a5fd-572d8a56ab21",
+    "790ff48c-245d-5974-b02b-d921025491a8",
+    "893e3c57-59ea-51ba-bd95-f2ed10a505a8",
+    "9019bee2-19c8-55aa-933f-73e0beb2d460",
+    "9033b79d-0ae7-5cb3-90e2-c2f11a3c24ed",
+    "a2818e0a-bef7-5c85-b095-b28a33d6cdb3",
+    "a4e73b28-0635-536b-b1f5-d3a199016b05",
+    "b022fc23-5893-5329-a4cb-3e7d290f12bf",
+    "bb99a5d5-cb02-5a0a-9605-99cfa385afd2",
+    "cc7a2444-3b23-5166-96dd-518cba6dd5bb",
+    "cd9ac863-db45-5890-b8b9-82151ec16d8b",
+    "e8ae5dd4-0606-5cd2-85d1-a198236d602f",
+    "ecb37091-4a03-5d84-86c9-7cea0b3406e5",
+    "f1f06ff8-afca-520f-bfac-cd8efea5f79a"
+  ],
+  "content_gaps": []
+}
