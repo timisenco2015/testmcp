@@ -1,0 +1,69 @@
+{
+    "filename": "Localization",
+    "found": true,
+    "summary": "The Localization module provides functionality for translating UI elements based on alternative language settings. It includes functions to translate field text, file types, and date/time strings depending on the locale.",
+    "purpose": "This module facilitates the localization of user interface elements by translating field labels and strings into alternate languages, accommodating users who require language-specific content.",
+    "entities": [],
+    "fields": [
+        {
+            "name": "UseAltLanguageFields",
+            "type": "Boolean",
+            "description": "Determines whether alternative language fields are used."
+        },
+        {
+            "name": "fields",
+            "type": "Control[]",
+            "description": "Array of UI controls to be translated."
+        },
+        {
+            "name": "newValues",
+            "type": "string[]",
+            "description": "Array of new translated values for the controls."
+        }
+    ],
+    "actors": [
+        {
+            "name": "HSPnetSession",
+            "description": "Represents a user session, including language settings."
+        }
+    ],
+    "workflows": [
+        {
+            "name": "Translate Fields",
+            "steps": [
+                "Check if alternative language fields should be used.",
+                "Iterate through each field to be translated.",
+                "Update the field's text to its corresponding translated value if applicable."
+            ]
+        },
+        {
+            "name": "Translate File Type",
+            "steps": [
+                "Check session for alternative language usage.",
+                "Return the appropriate file type string based on the language setting."
+            ]
+        },
+        {
+            "name": "Translate Last Login",
+            "steps": [
+                "Check session for alternative language usage.",
+                "Replace English month abbreviations with their alternative language equivalent in the LastLogin string."
+            ]
+        }
+    ],
+    "business_rules": [],
+    "validations": [],
+    "calculations": [],
+    "conditions": [],
+    "system_behavior": [
+        "Updates field text and returns language-appropriate file types and date strings.",
+        "Ensures that localization can be applied dynamically at runtime based on settings."
+    ],
+    "dependencies": [],
+    "exceptions": [],
+    "source_document_ids": [
+        "091e1f17-7a04-5c15-84aa-fe3989a1c114",
+        "d455ebdd-4f2d-5324-b3c7-aad9a078d149"
+    ],
+    "content_gaps": []
+}
