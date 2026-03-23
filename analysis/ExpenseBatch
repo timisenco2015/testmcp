@@ -1,21 +1,134 @@
 ```json
 {
   "filename": "ExpenseBatch",
-  "found": false,
-  "summary": "",
-  "purpose": "",
-  "entities": [],
-  "fields": [],
-  "actors": [],
-  "workflows": [],
-  "business_rules": [],
-  "validations": [],
-  "calculations": [],
-  "conditions": [],
-  "system_behavior": [],
-  "dependencies": [],
-  "exceptions": [],
-  "source_document_ids": [],
-  "content_gaps": ["No related documents found"]
+  "found": true,
+  "summary": "The ExpenseBatch system manages batches related to department expenses, including creation, retrieval, updating, and deletion based on batch ID. It handles batch formatting and status descriptions.",
+  "purpose": "To manage and track department expense batches, providing functionalities for batch creation, search, update, and deletion.",
+  "entities": [
+    {
+      "name": "ExpenseBatch",
+      "description": "Represents a batch of expenses, including ID, department ID, description, date, status, and formatted batch number."
+    }
+  ],
+  "fields": [
+    {
+      "name": "ID",
+      "type": "int",
+      "description": "Unique identifier for the expense batch."
+    },
+    {
+      "name": "DepartmentID",
+      "type": "int",
+      "description": "Identifier for the department associated with the batch."
+    },
+    {
+      "name": "BatchDescription",
+      "type": "string",
+      "description": "Description of the expense batch."
+    },
+    {
+      "name": "BatchDate",
+      "type": "DateTime",
+      "description": "Date of the expense batch."
+    },
+    {
+      "name": "StatusCodeID",
+      "type": "int",
+      "description": "Identifier for the status code of the batch."
+    },
+    {
+      "name": "StatusCode",
+      "type": "string",
+      "description": "Status code of the expense batch."
+    },
+    {
+      "name": "StatusDescription",
+      "type": "string",
+      "description": "Description of the expense batch status."
+    },
+    {
+      "name": "ClosedDate",
+      "type": "DateTime",
+      "description": "Date when the batch is closed."
+    },
+    {
+      "name": "BatchNumberFormatted",
+      "type": "string",
+      "description": "Formatted batch number for display purposes."
+    }
+  ],
+  "actors": [
+    {
+      "name": "HSPnetSession",
+      "description": "Represents an active session interacting with the expense batch system."
+    }
+  ],
+  "workflows": [
+    {
+      "name": "Search ExpenseBatch by Department",
+      "steps": [
+        "Initiate search with departmentID.",
+        "Execute stored procedure 'ExpenseBatchSearch'.",
+        "Retrieve batch details from database.",
+        "Format and return batch information."
+      ]
+    },
+    {
+      "name": "Add ExpenseBatch",
+      "steps": [
+        "Provide departmentID, batchDescription, batchDate.",
+        "Execute stored procedure 'ExpenseBatchAdd'.",
+        "Retrieve and return new batch ID."
+      ]
+    },
+    {
+      "name": "Update ExpenseBatch",
+      "steps": [
+        "Provide batch ID, batchDescription, batchDate, statusCodeID.",
+        "Execute stored procedure 'ExpenseBatchUpdate'."
+      ]
+    },
+    {
+      "name": "Delete ExpenseBatch",
+      "steps": [
+        "Provide batch ID.",
+        "Execute stored procedure 'ExpenseBatchDelete'."
+      ]
+    }
+  ],
+  "business_rules": [
+    "BatchNumberFormatted combines ID and StatusDescription.",
+    "StatusDescription can use alternate language fields based on session settings."
+  ],
+  "validations": [
+    "Validate BatchDate as a DateTime object.",
+    "Ensure StatusCodeID is non-negative."
+  ],
+  "calculations": [
+    {
+      "description": "BatchNumberFormatted = ID + ' - ' + StatusDescription"
+    }
+  ],
+  "conditions": [
+    "Alternate language fields are used if session.UseAltLanguageFields is true."
+  ],
+  "system_behavior": [
+    "Automated retrieval of batch details via stored procedures.",
+    "Formatted batch numbers for user-friendly display."
+  ],
+  "dependencies": [
+    "Relies on SQL stored procedures for database interaction."
+  ],
+  "exceptions": [
+    {
+      "description": "Handle null or invalid data returns from database queries."
+    }
+  ],
+  "source_document_ids": [
+    "060e08d3-49ca-5e40-bea0-849f4e6173e1",
+    "3559737f-0154-520e-be2b-d3dd2c3de539",
+    "b2216e58-a144-55cb-8b87-3da9787fc1d7"
+  ],
+  "content_gaps": []
 }
 ```
