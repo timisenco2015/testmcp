@@ -1,0 +1,115 @@
+{
+    "filename": "StudentTrainingPrograms",
+    "found": true,
+    "summary": "The StudentTrainingPrograms system is designed to manage records of student training programs, including functionalities for adding, updating, inactivating, and searching program entries. It leverages object data sources and form views within a web application framework to facilitate interactive data management and user control.",
+    "purpose": "To manage and maintain student training program details including creation, updating, and searching functionalities for user interactions through web form controls.",
+    "entities": [
+        "StudentTrainingProgram",
+        "HSPnetSession"
+    ],
+    "fields": [
+        "ID",
+        "StudentID",
+        "ProgramID",
+        "DepartmentShortName",
+        "ProgramShortName",
+        "StageCodeID",
+        "StageDescription",
+        "AgencyID",
+        "AgencyShortName",
+        "StartDate",
+        "EndDate",
+        "Comments",
+        "Inactive",
+        "StartDateFormatted",
+        "EndDateFormatted",
+        "ProgramNameFormatted"
+    ],
+    "actors": [
+        "UserSession"
+    ],
+    "workflows": [
+        {
+            "name": "Add Student Training Program",
+            "steps": [
+                "Initialize HSPnetSession",
+                "Set procedure name to StudentDetailsTrainingProgramAdd",
+                "Add parameters: SessionID, StudentID, ProgramID, StageCodeID, AgencyID, StartDate, EndDate, Comments",
+                "Execute database query"
+            ]
+        },
+        {
+            "name": "Update Student Training Program",
+            "steps": [
+                "Initialize HSPnetSession",
+                "Set procedure name to StudentDetailsTrainingProgramUpdate",
+                "Add parameters: SessionID, ID, ProgramID, StageCodeID, AgencyID, StartDate, EndDate, Comments",
+                "Execute database query"
+            ]
+        },
+        {
+            "name": "Inactivate Student Training Program",
+            "steps": [
+                "Initialize HSPnetSession",
+                "Set procedure name to StudentDetailsTrainingProgramInactivate",
+                "Add parameters: SessionID, ID, Inactivate",
+                "Execute database query"
+            ]
+        },
+        {
+            "name": "Search Student Training Program by ID",
+            "steps": [
+                "Initialize HSPnetSession",
+                "Set procedure name to StudentDetailsTrainingProgramSearchID",
+                "Add parameter ID",
+                "Execute database query",
+                "Process data reader results"
+            ]
+        }
+    ],
+    "business_rules": [
+        "ID is unique and auto-incrementing.",
+        "Inactive programs can still be retrieved for historical data."
+    ],
+    "validations": [
+        "DateIsNull used to check if StartDate or EndDate is null.",
+        "Comments field limited to 1000 characters."
+    ],
+    "calculations": [
+        "StartDateFormatted and EndDateFormatted use short date format.",
+        "ProgramNameFormatted combines DepartmentShortName and ProgramShortName."
+    ],
+    "conditions": [
+        "UseAltLanguageFields checked to decide language for StageDescription."
+    ],
+    "system_behavior": [
+        "Automatic redirection after insert or update operations.",
+        "Handles data-bound events to customize control behavior based on mode (e.g., Insert, Edit)."
+    ],
+    "dependencies": [
+        "HSPnet Framework",
+        "SqlDataReader for database operations",
+        "AjaxControlToolkit for modal popup"
+    ],
+    "exceptions": [
+        "Redirects if UserSession is null during selection.",
+        "Cancels operation if page validation fails."
+    ],
+    "source_document_ids": [
+        "0278f2e1-15e1-52a6-99a7-f338f943183e",
+        "05b14484-f473-554e-9329-5cd197d38538",
+        "094a255c-158e-5673-8035-49c3b8079045",
+        "2fb139b8-0210-50a6-828e-fa15412ab2af",
+        "4e4c7fe5-d241-55f0-8891-b5d1a1f0eb5c",
+        "5cea2d81-d05c-5e38-b063-5a61480d3ddc",
+        "6d23c568-767a-5d73-9902-2960157889ee",
+        "6fd4dd72-e302-5556-b966-7ec54d109472",
+        "7c178050-5e50-5ab3-b00e-2b86e7608f3b",
+        "aa5bf129-3c5f-592b-916d-25fefa436a58",
+        "c0e203b7-40a3-5fc8-a207-6b367df9d40e",
+        "f17f9152-f9ac-5e33-83b8-670178cb8f58",
+        "f1f0d3cc-fb97-524b-a5db-24f7339be1de",
+        "f598e46d-3a3a-509d-b28e-2ef02bc8fa36"
+    ],
+    "content_gaps": []
+}
