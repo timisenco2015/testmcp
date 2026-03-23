@@ -1,83 +1,106 @@
 {
   "filename": "GenerateCourse",
   "found": true,
-  "summary": "The GenerateCourse functionality involves the creation of a correspondence list, configuring settings like the output format and correspondence criteria, and managing user sessions and dropdown selections.",
-  "purpose": "To generate and manage correspondence lists for courses and cohorts based on user sessions and selected options.",
+  "summary": "The GenerateCourse module handles correspondence generation for courses and cohorts, allowing customization of outputs and managing recipient lists.",
+  "purpose": "To generate course correspondence with customizable parameters for different user roles and scenarios.",
   "entities": [
-    "Department",
-    "Program",
-    "Term",
+    "UserSession",
     "CorrespondenceDetail",
-    "UserSession"
+    "CorrespondenceRunVariables",
+    "Departments",
+    "Programs",
+    "Terms",
+    "CorrespondenceCohortSchedule"
   ],
   "fields": [
     "txtRequestDestID",
-    "OutputFormat",
-    "CorrespondenceFor",
-    "StatusFilters",
-    "UseBlankAddressee",
-    "AddresseeContactInfo",
-    "UseDisciplineContact",
-    "SignatoryID",
-    "DefaultSignature",
-    "SignatorySignature",
-    "UseDeptAddress",
-    "SeparateStudentPages",
-    "ProgramsIncluded",
-    "CohortID",
-    "CourseID",
-    "ScheduledCorrespondence",
-    "CorrespondenceDate"
+    "chkSeparateStudentPages",
+    "CustomValidator1",
+    "cmdGerenate",
+    "Panel1",
+    "lblCohortsCourses",
+    "UCchoosers",
+    "ddDepartment",
+    "ddProgram",
+    "ddTerm",
+    "ddSignatory",
+    "ddDateSource",
+    "txtCorDate",
+    "cklStatus",
+    "chkAddresseeContactInfo",
+    "chkUseDisciplineContact",
+    "chkIncludeLogo",
+    "chkIncludeDeptAddress",
+    "chkSignatorySignature",
+    "chkUseDeptAddress",
+    "txtOrderSC",
+    "txtOrderDC",
+    "txtOrderPre",
+    "txtOrderInstr",
+    "txtOrderCourseLeader",
+    "txtOrderStudent"
   ],
   "actors": [
-    "SystemAdministrator",
-    "LocalAdministrator",
-    "PlacementCoordinator",
-    "ReceivingCoordinator",
-    "DestinationCoordinator",
-    "UserSession"
+    "System Administrator",
+    "Local Administrator",
+    "Placement Coordinator",
+    "Receiving Coordinator",
+    "Destination Coordinator",
+    "Staff",
+    "Student"
   ],
   "workflows": [
     {
       "name": "Generate Correspondence",
       "steps": [
-        "User selects department, program, and term.",
-        "User specifies correspondence criteria.",
-        "System validates input data.",
-        "System saves correspondence settings.",
-        "Correspondence list is generated based on selections."
+        "Load page with initial settings based on request parameters.",
+        "Setup JavaScript variables for UI interactions.",
+        "Bind data to dropdowns for department, program, term, and date source.",
+        "Handle correspondence generation via cmdGerenate_Click event, adjusting settings based on user roles and selections."
+      ]
+    },
+    {
+      "name": "Dropdown Data Binding",
+      "steps": [
+        "Fill departments based on agency.",
+        "Fill programs based on department.",
+        "Fill terms based on program selection.",
+        "Bind choosers with timetable course data."
       ]
     }
   ],
   "business_rules": [
-    "OutputFormat is set based on selected radio buttons.",
-    "Email visibility is determined by user roles.",
-    "UseBlankAddressee flag impacts correspondence content inclusion."
+    "Outbox and FormalLetter settings influence recipient list creation and output format options.",
+    "System and local administrators control visibility and email functionality.",
+    "Dates for correspondence can be customized or based on scheduled cohort dates."
   ],
   "validations": [
-    "Date validation for correspondence date.",
-    "Raw data checks for correspondence recipients."
+    "Ensure valid selection of correspondence recipients.",
+    "Validate date formats for correspondence scheduling.",
+    "Check permissions for email visibility based on user roles."
   ],
   "calculations": [
-    "Date calculations for correspondence scheduling.",
-    "Dropdown selections transformed into string identifiers."
+    "Set correspondence date based on cohort schedule or user input.",
+    "Determine output format based on radio button selection."
   ],
   "conditions": [
-    "If Outbox is true, specific settings and validations apply.",
-    "User session roles determine available options and controls."
+    "Outbox mode affects PR selection and recipient list restrictions.",
+    "FormalLetter influences signature and contact info inclusion.",
+    "Department, program, and term selections control data binding."
   ],
   "system_behavior": [
-    "JavaScript setup for dynamic client-side interactions.",
-    "Loading and binding of dropdown data based on user session.",
-    "Visibility and availability of email options based on user roles."
+    "JavaScript setup is triggered pre-render for client-side interactions.",
+    "Data binding occurs during page load and dropdown change events.",
+    "Correspondence generation triggers popup for recipient selection."
   ],
   "dependencies": [
-    "User session data for role determinations.",
-    "Dropdown controls for department, program, term selection."
+    "HSPnetSession for user context and role management.",
+    "Database for date and correspondence information retrieval.",
+    "ASP.NET Web Controls for UI elements."
   ],
   "exceptions": [
-    "Errors if correspondence recipients are not correctly selected.",
-    "Database date null checks for correspondence scheduling."
+    "No recipient list generation when PR is not selected in Outbox mode.",
+    "Error messages are added to UserSession when validation fails."
   ],
   "source_document_ids": [
     "02e09e81-5a82-5c62-bb4c-751a99905bb1",
