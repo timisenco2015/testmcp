@@ -1,0 +1,125 @@
+```markdown
+# Module: WorksheetResults
+
+## WorksheetResults-UC1 — Manage Worksheet Group
+
+- Primary Actor(s): User
+- Secondary Actor(s): System
+- Trigger: User requests to manage a worksheet group.
+- Description: The use case involves creating, updating, or deleting a worksheet group, which includes setting up instructors, dates, and various other parameters.
+- Preconditions: User must have access to the worksheet management interface.
+- Postconditions: The worksheet group is added, updated, or deleted in the system.
+- Main Success Scenario:
+  1. User accesses the worksheet management screen.
+  2. User chooses to add, edit, or delete a worksheet group.
+  3. User fills in or modifies the required details such as instructors, dates, and times.
+  4. User submits the form.
+  5. System processes the request, saving changes to the database.
+  6. User is notified of the success of the operation.
+- Extensions:
+  - While editing, the system shows current data for modification.
+- Exceptions:
+  - Data validation fails (e.g., incorrect date formats).
+  - System errors during database update.
+- Business Rules:
+  - User must have appropriate permissions.
+  - Valid dates must be provided.
+- Assumptions:
+  - User is familiar with the interface.
+- Open Issues:
+  - Error handling needs enhancing for data validation feedback.
+
+## WorksheetResults-UC2 — View Worksheet Totals
+
+- Primary Actor(s): User
+- Secondary Actor(s): System
+- Trigger: User requests to view worksheet totals.
+- Description: Allows the user to view totals of worksheets including counts of requests, creations, and confirmations.
+- Preconditions: Worksheets must exist in the system.
+- Postconditions: Totals are correctly displayed to the user.
+- Main Success Scenario:
+  1. User navigates to the worksheet totals view.
+  2. System retrieves total counts from the database.
+  3. Totals are displayed to the user for review.
+- Extensions:
+  - Display detailed breakdown by group if available.
+- Exceptions:
+  - Data retrieval error from the database.
+- Business Rules:
+  - Data must be current and accurately reflect the database.
+- Assumptions:
+  - Database connection is stable.
+- Open Issues:
+  - None identified.
+
+## WorksheetResults-UC3 — JavaScript Variable Management
+
+- Primary Actor(s): System
+- Secondary Actor(s): None
+- Trigger: System needs to render JavaScript variables for client-side operations.
+- Description: The system manages JavaScript variables to support client-side interactions like dropdown updates and data validations.
+- Preconditions: User is interacting with UI elements that require dynamic JavaScript.
+- Postconditions: JavaScript is correctly generated and executed on the client's browser.
+- Main Success Scenario:
+  1. System detects a need for JavaScript update (e.g., dropdown selection changes).
+  2. JavaScript variables are prepared based on user selections/data.
+  3. Variables are sent to the client-side for execution.
+- Extensions:
+  - Handle asynchronous post-back scenarios.
+- Exceptions:
+  - JavaScript errors on execution on the client-side.
+- Business Rules:
+  - Variables must be valid and contextually correct for the UI state.
+- Assumptions:
+  - User's browser supports JavaScript.
+- Open Issues:
+  - Compatibility checks for different browsers not fully detailed.
+
+## WorksheetResults-UC4 — Handle Rotations and Schedules
+
+- Primary Actor(s): User
+- Secondary Actor(s): System
+- Trigger: User manages rotations and schedules for worksheets.
+- Description: Users can define and modify rotation schedules within worksheets, affecting start/end times and days of the week.
+- Preconditions: Rotations must be a feature for the given worksheet.
+- Postconditions: Rotation schedules are updated correctly.
+- Main Success Scenario:
+  1. User selects worksheet for rotations and schedules.
+  2. User modifies rotation details such as start/end dates.
+  3. User submits changes.
+  4. System updates the rotations in the database.
+- Extensions:
+  - Allow various time and day selections.
+- Exceptions:
+  - Invalid date/time entries.
+- Business Rules:
+  - Valid date ranges must be respected.
+- Assumptions:
+  - User has appropriate permissions for modifications.
+- Open Issues:
+  - None identified.
+
+## WorksheetResults-UC5 — Session and State Management
+
+- Primary Actor(s): System
+- Secondary Actor(s): User
+- Trigger: User actions require session and state updates.
+- Description: Manages user session data and system states between page interactions to ensure data consistency.
+- Preconditions: User must have an active session.
+- Postconditions: Correct session data is maintained.
+- Main Success Scenario:
+  1. User interacts with a page requiring session data.
+  2. System updates session variables as actions occur.
+  3. System redirects or refreshes pages based on user actions.
+  4. Session data is used to reload page states accurately.
+- Extensions:
+  - Include session caching for frequent actions.
+- Exceptions:
+  - Session timeout or loss of session data.
+- Business Rules:
+  - Session data must be securely managed.
+- Assumptions:
+  - User will complete tasks within session timeout limits.
+- Open Issues:
+  - Session management for large data volumes yet to be optimized.
+```
