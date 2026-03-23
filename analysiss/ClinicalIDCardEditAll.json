@@ -1,82 +1,107 @@
 {
-    "filename": "ClinicalIDCardEditAll",
-    "found": true,
-    "summary": "The ClinicalIDCardEditAll is a part of the HSPnet system responsible for managing clinical ID cards within the enrollment module. It consists of functionalities for editing, saving, and managing ID card data for students, controlled through web forms with grid views.",
-    "purpose": "To manage and edit clinical ID cards within the enrollment user control of the HSPnet application.",
-    "entities": [],
-    "fields": [
-        "CohortID",
-        "TermID",
-        "CourseID",
-        "ShowGrad",
-        "ShowInactive",
-        "ShowWaived",
-        "SectionFilter",
-        "ActionFilter",
-        "keyword",
-        "CampusID",
-        "CommentFilter",
-        "blnReadOnly",
-        "blnStudentMaint",
-        "EnrollmentID",
-        "StartRow"
-    ],
-    "actors": ["UserSession"],
-    "workflows": [
-        {
-            "name": "Grid Data Management",
-            "steps": [
-                "Check read-only status and disable edit fields in the grid if necessary.",
-                "Setup JavaScript variables for client-side validation.",
-                "Bind data to the grid and apply field-level controls based on enrollment state.",
-                "Execute row command actions such as save or cancel."
-            ]
-        },
-        {
-            "name": "Data Redirect and Query Building",
-            "steps": [
-                "Build query string based on filter parameters.",
-                "Redirect to appropriate URL based on command type (e.g., SaveAll, SaveEditNext)."
-            ]
-        }
-    ],
-    "business_rules": [],
-    "validations": [
-        "Ensure UserSession is available before allowing data selection."
-    ],
-    "calculations": [],
-    "conditions": [
-        "EnrollmentID check to determine edit mode.",
-        "Visibility toggles based on row counts and pagination."
-    ],
-    "system_behavior": [
-        "JavaScript functions are registered at page load to handle dynamic UI updates.",
-        "Panels and buttons visibility is controlled based on user interaction and data state.",
-        "Grid rows are dynamically set to edit state based on enrollment ID."
-    ],
-    "dependencies": [
-        {
-            "component": "HSPnet.DataLayer",
-            "description": "Handles data interactions for enrollment."
-        },
-        {
-            "component": "HSPnet.UI",
-            "description": "Manages UI components and interactions."
-        }
-    ],
-    "exceptions": [
-        "Cancellation of data selection when UserSession is null."
-    ],
-    "source_document_ids": [
-        "033e5130-f29f-5a53-835a-a8120f31091d",
-        "034dc1ab-1c57-5e49-b5e9-64d1a3b2120e",
-        "21877b8b-6df6-5c55-94ec-e74122a90273",
-        "71330c6d-c82c-50c0-9e0a-d6054c1f602e",
-        "78593881-9f9e-5ffd-a1b4-4b2300ecc2a9",
-        "7951c292-532f-5f0d-a309-b406520dbf78",
-        "79ec2075-0da9-56ea-849f-70f5ad0aef9b",
-        "88c25a0e-791c-5150-9e4c-69e955128859",
-        "c0ed251d-2d4f-5a77-a9b7-40989209213d"
-    ],
-    "content_gaps": []
+  "filename": "ClinicalIDCardEditAll",
+  "found": true,
+  "summary": "The document pertains to the maintenance and update of clinical ID cards for students, including status updates, expiry checks, and related medical and confidentiality records.",
+  "purpose": "To manage and update various details related to student clinical ID cards, including associated health and safety prerequisites.",
+  "entities": [],
+  "fields": [
+    "CRCStatusDate",
+    "IDCardDate",
+    "WCBWaiverDate",
+    "ConfidentialityFormDateReceived",
+    "N95MaskFitTestExpiryDate",
+    "MedicalCompletedDate",
+    "ImmunizationFeePaidDate"
+  ],
+  "actors": [
+    "Student",
+    "Staff",
+    "HSPnetSession"
+  ],
+  "workflows": [
+    {
+      "name": "Update Student Details",
+      "steps": [
+        "Validate session and prerequisites.",
+        "Collect necessary data for updates.",
+        "Update safety and ID card details in the database.",
+        "Check for errors related to expiry and requirement satisfaction."
+      ]
+    }
+  ],
+  "business_rules": [
+    "ID Card must be updated if there are changes in prerequisites.",
+    "Confidentiality form receipt date is mandatory if confidentiality is to be updated."
+  ],
+  "validations": [
+    "Dates cannot exceed the maximum allowed future date (MaxDate).",
+    "Expiry dates must be on or after the completed date for fit tests."
+  ],
+  "calculations": [
+    "Expiry date calculation for N95 mask fit tests and ID cards."
+  ],
+  "conditions": [
+    "If a prerequisite is marked as met, the corresponding requirement updates.",
+    "Automatic disqualification if certain date constraints are violated."
+  ],
+  "system_behavior": [
+    "The system automatically updates the status codes based on inputs provided.",
+    "Generates warnings for non-compliance regarding expiry dates."
+  ],
+  "dependencies": [
+    "Database updates reflect changes in student and staff records.",
+    "Validation uses current system settings for maximum dates."
+  ],
+  "exceptions": [
+    "Errors occur if prerequisites are not met or dates are invalid.",
+    "Inaccurate data leads to process halts pending corrections."
+  ],
+  "source_document_ids": [
+    "126148d2-7c46-5bb8-8a4c-606105b702bd",
+    "165b1b6b-fd06-59e5-b7d7-81e87dbeac55",
+    "280408b2-2e1d-5bd7-8feb-59603ff0bb80",
+    "2f8ba20e-ca9a-5fc1-932a-1899a9499417",
+    "3787eddd-1ce0-519f-9959-30c8a913c827",
+    "3c00eec5-f694-53fb-abe6-a8d94038fd60",
+    "3e68c0d0-3ab9-5c14-a221-bf0f7592302c",
+    "430fc305-a57a-53e5-9f01-35e07b707792",
+    "46edf9a0-d978-5197-be20-b4536cae3e91",
+    "4a51cb58-538c-57f2-82ff-13fb4d577aa8",
+    "4abb53e7-107a-535d-a3b7-97b5279e2632",
+    "4c84ad96-eff9-5f59-ad88-b1083437874e",
+    "4fef49f1-918d-5276-9b5d-2394b74edd53",
+    "580b77b9-dd28-5027-bdae-912684d6c0b6",
+    "5829b29d-0fd8-5ba1-98f8-f7195d0f276d",
+    "5847f312-ca34-559d-b351-cdadb289d73c",
+    "58666a42-abe8-54d8-89a0-54666f57461b",
+    "5eaa703a-dd1e-5dee-bb2e-1fb263c75db6",
+    "60564881-fabd-566c-ae55-496631ed07ce",
+    "60fbd355-bf2a-5b34-900c-2d4271e50c18",
+    "61704a31-73c8-510f-a8a5-2f3f90576102",
+    "6326993d-e08e-5e60-9b82-ab09b0ee7aaa",
+    "64b9d3fc-975d-5d39-ab37-dbeff805220f",
+    "6c76048a-8dbd-57f8-a34d-f0474a8066e7",
+    "6f4e2f7e-5afe-5594-b7af-e3164b62cc31",
+    "72969051-b340-56cd-9567-db665fe9963a",
+    "7ad65168-6ffa-588e-8b5e-2c138a0092b6",
+    "80c6896a-128a-591a-8ca6-2b17198986fb",
+    "80da2e19-0529-5ff8-b271-c7143aa2de8f",
+    "80ed1288-90d5-5218-87e0-ea7d3f5db104",
+    "812c66d2-bc1a-5ced-a6c2-fafa49e2bcb9",
+    "8325c58d-21a0-55d5-a8e9-e1479ebd011f",
+    "8b00efe5-209e-55a9-84be-d06aaf4abd1a",
+    "9096371b-8c7b-5c4b-81f4-7d9582776926",
+    "92a9a02b-cd4f-5050-9603-a3c1fb695f28",
+    "97ddf3ed-0086-5903-91ce-adc367f9ec68",
+    "9a9ab264-40f6-5641-bf80-27e1944adffd",
+    "9c001d9f-6b5e-5efb-bae5-beec7494b84c",
+    "9dc9edf7-a95e-57c9-ae8e-a04ecdfa88be",
+    "a9be8e45-83d9-54f8-baf7-de5e6c16d394",
+    "dadce6a1-e08f-5117-9767-bb9b5e83fef7",
+    "ea26e640-45be-5fed-9d03-b18363a3b120",
+    "ec8c8c16-1482-5149-87fd-34c4724af0a2",
+    "eedb6500-7e63-5aba-b652-8cfbbf9b798d",
+    "eedb6500-7e63-5aba-b652-8cfbbf9b798d"
+  ],
+  "content_gaps": []
 }
