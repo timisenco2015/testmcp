@@ -1,0 +1,79 @@
+# Module: Hashing
+
+## Hashing-UC1 — Add Hash to Embedded URL
+
+- Primary Actor(s): System
+- Secondary Actor(s): None
+- Trigger: A request to process a string with embedded URLs.
+- Description: This use case handles the addition of a URLHash parameter to every URL within a string that has been delimited by specific markers.
+- Preconditions: The input string contains at least one URL delimited by `<||` and `||>`.
+- Postconditions: Each URL in the string will have a URLHash parameter added.
+- Main Success Scenario:
+  1. Identify the start and end delimiters for URLs within the string.
+  2. Extract the URLs from the string.
+  3. Generate a hash for each URL.
+  4. Replace each delimited URL with its hashed version.
+- Extensions: None
+- Exceptions: None
+- Business Rules: The System must correctly identify delimiters and process URLs in sequence.
+- Assumptions: Delimiters are correctly placed, and URLs are valid.
+- Open Issues: Handling badly formatted URLs.
+
+## Hashing-UC2 — Validate URL Hash
+
+- Primary Actor(s): System
+- Secondary Actor(s): None
+- Trigger: A user attempts to access a web page.
+- Description: This use case validates the URLHash parameter of a given HttpRequest to prevent unauthorized or altered access.
+- Preconditions: The HttpRequest includes a URLHash parameter.
+- Postconditions: The request is validated or redirected to a timeout page.
+- Main Success Scenario:
+  1. Retrieve the full URL from the HttpRequest.
+  2. Check for an existing URLHash parameter.
+  3. Generate a new URLHash from the current URL.
+  4. Compare the generated URLHash with the existing one.
+  5. Confirm access if hashes match; otherwise, trigger a timeout.
+- Extensions: Validate against URL modifications such as characters encoded as plus signs.
+- Exceptions: Timeout due to hash mismatch or absence.
+- Business Rules: The integrity of the URLHash must be maintained.
+- Assumptions: URL structure is consistent.
+- Open Issues: Handling additional encodings beyond standard URL encoding.
+
+## Hashing-UC3 — URL Redirection with Hash Validation
+
+- Primary Actor(s): System
+- Secondary Actor(s): None
+- Trigger: A rebuilt URL requires redirection.
+- Description: This use case handles the redirection of URLs after they have been validated and potentially modified.
+- Preconditions: The URL has been successfully rebuilt and validated.
+- Postconditions: User is redirected to the intended page with a correct URL structure.
+- Main Success Scenario:
+  1. Strip the domain and any pre-existing URLHash from the HttpRequest.
+  2. Rebuild the URL with necessary query strings and salt for hash computation.
+  3. Redirect using the original domain combined with the rebuilt URL.
+- Extensions: Handle different URL formats and configurations.
+- Exceptions: Redirection fails if URL is not valid post-validation.
+- Business Rules: URL integrity and security must be maintained during redirection.
+- Assumptions: Domain configurations are consistent across requests.
+- Open Issues: Compatibility with different web browsers and encoded URL parameters.
+
+## Hashing-UC4 — Hash Generation and Application
+
+- Primary Actor(s): System
+- Secondary Actor(s): None
+- Trigger: Generation of a new URLHash is required.
+- Description: This use case involves generating a hash using SHA1 algorithm with specific salt and applying it to URLs.
+- Preconditions: The base URL does not contain a valid URLHash or requires re-generation.
+- Postconditions: A valid, salted URLHash is appended to the base URL.
+- Main Success Scenario:
+  1. Check for existing URLHash in the base URL.
+  2. If regeneration is requested, strip existing URLHash.
+  3. Generate a new hash using specified salt.
+  4. Append the new hash to the base URL.
+- Extensions: Regenerate hash based on URL changes or conditions.
+- Exceptions: Hash generation fails if URL integrity is compromised.
+- Business Rules: Salt must be consistently applied; hash changes must be authorized.
+- Assumptions: URL structure and parameters are consistent.
+- Open Issues: Investigate alternative hashing algorithms for enhanced security.
+
+If additional details are needed, please retrieve more documents related to "Hashing".
