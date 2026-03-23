@@ -1,0 +1,32 @@
+# Module: EmailPopupDocument
+
+## EmailPopupDocument-UC1 — Manage Email Documents
+
+- Primary Actor(s): User
+- Secondary Actor(s): System
+- Trigger: User initiates document search or deletion.
+- Description: The module manages email document entries by allowing users to search for documents based on given data and delete specific documents.
+- Preconditions: User must have access to the system and provide valid input data.
+- Postconditions: Document lists are retrieved or specific documents are deleted from the system.
+- Main Success Scenario:
+  1. User provides valid DataInfo input.
+  2. System splits DataInfo into individual records.
+  3. System parses each record into email document entries.
+  4. System returns a list of EmailPopupDocuments.
+  5. For deletion, user specifies an ID.
+  6. System identifies the document by ID.
+  7. System deletes the specified document file and its folder.
+- Extensions:
+  - If any document cannot be deleted, a cleanup process is attempted.
+- Exceptions:
+  - Invalid DataInfo format provided.
+  - Deletion fails if file/folder does not exist.
+- Business Rules:
+  - A document can only be deleted if it exists in the specified path.
+  - The system must return the list of documents for valid search input.
+- Assumptions:
+  - User is authorized to perform search and delete operations.
+  - Documents are stored in accessible paths.
+- Open Issues:
+  - Error handling for partial file deletions.
+  - Validation rules for DataInfo formatting.
