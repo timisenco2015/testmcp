@@ -1,0 +1,103 @@
+{
+  "filename": "StaffDocuments",
+  "found": true,
+  "summary": "The StaffDocuments module handles the management of staff-related documents within the system. It includes functionalities for adding, searching, validating, and deleting staff documents.",
+  "purpose": "To manage staff documents, ensuring they are stored, retrieved, and manipulated effectively within the organization's system.",
+  "entities": [],
+  "fields": [
+    "ID",
+    "StaffID",
+    "TypeCodeID",
+    "TypeComments",
+    "FileURL",
+    "FilePath",
+    "FileSize",
+    "FileType",
+    "FileTypeAlt",
+    "Deleted",
+    "UpdateDate",
+    "ByUserID",
+    "InternalOnly",
+    "LastName",
+    "FirstName",
+    "MiddleName",
+    "AgencyShortName",
+    "TypeCode",
+    "Code",
+    "UpdatedDetails",
+    "HRPurposes",
+    "OtherCodeID",
+    "DocumentName",
+    "AgencyName",
+    "Phone",
+    "Email",
+    "UpdateDateFormatted",
+    "AgencyUserFormatted",
+    "AgencyUserDetailsFormatted",
+    "EmailFormatted",
+    "DocumentTypeFormatted"
+  ],
+  "actors": [
+    "HSPnetSession",
+    "SqlDataReader",
+    "StaffDocument"
+  ],
+  "workflows": [
+    {
+      "name": "Adding a Document",
+      "steps": [
+        "Check if the document is valid.",
+        "If valid, set procedure name 'StaffDocumentAdd'.",
+        "Add necessary parameters (SessionID, DocumentID, etc.).",
+        "Execute query to add the document."
+      ]
+    },
+    {
+      "name": "Searching Documents by ID",
+      "steps": [
+        "Set procedure name 'StaffDocumentSearchID'.",
+        "Add ID parameter.",
+        "Execute query and read results.",
+        "Fill the result list with documents."
+      ]
+    },
+    {
+      "name": "Deleting a Document",
+      "steps": [
+        "Check if document ID is greater than 0.",
+        "Delete the file and folder if they exist, ignore errors.",
+        "Set procedure name 'StaffDocumentDelete'.",
+        "Add necessary parameters.",
+        "Execute query to delete the document."
+      ]
+    }
+  ],
+  "business_rules": [],
+  "validations": [
+    "Document Name is required if TypeCodeID equals OtherCodeID.",
+    "Document Type is required if TypeCodeID is 0."
+  ],
+  "calculations": [],
+  "conditions": [
+    "If entry is internal only, format DocumentType with internal staff use note.",
+    "Convert FileURL to a link if it's non-blank and file exists."
+  ],
+  "system_behavior": [
+    "Staff documents are stored with specified details such as TypeCode, FileType, and HR purposes.",
+    "Internal documents' types are formatted differently for display."
+  ],
+  "dependencies": [],
+  "exceptions": [
+    "Ignore exceptions if file or directory can't be deleted."
+  ],
+  "source_document_ids": [
+    "30536307-1ead-5f98-b19f-905f1b344f97",
+    "5093b52a-0b6e-550a-8d1d-5790b534dd11",
+    "7e5bf0c6-7125-5b3b-af3f-1cb91352c9fc",
+    "7f96f6b7-8ec4-5673-855f-61ded088b499",
+    "9862240a-24bc-51a3-9029-2bf085f0ba9c",
+    "a716eb59-d953-5180-8584-88298b2021e4",
+    "dfa45af5-8e3b-5204-be8a-233419f83b9a"
+  ],
+  "content_gaps": []
+}
