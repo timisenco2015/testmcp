@@ -2,28 +2,49 @@
 {
   "filename": "EOrientation",
   "found": true,
-  "summary": "EOrientation page guides users through eOrientation processes, including course retake and certificate printing.",
-  "purpose": "Facilitate eOrientation process and interaction with Moodle site.",
-  "entities": ["ETopicCourse", "HSPnet", "UserSession"],
-  "fields": ["CssClass", "Status", "CourseID", "StaffID", "sess", "username", "password"],
-  "actors": ["UserSession", "StaffID"],
+  "summary": "EOrientation provides an interface for staff and students to interact with eOrientation features, including course retake and certificate printing.",
+  "purpose": "To facilitate staff and student interactions with eOrientation courses and resources.",
+  "entities": ["EOrientation", "ETopicCourse"],
+  "fields": ["username", "password", "Submit", "hleOpeQRG", "gvwCourses", "dsCourses", "pnlReportHTML", "lblReportHTML"],
+  "actors": ["UserSession", "StaffID", "SystemAdministrator"],
   "workflows": [
     {
       "name": "Course Retake",
-      "steps": ["Check course status", "Confirm retake eligibility", "Execute retake command"]
+      "steps": [
+        "Check if course is completed",
+        "Allow retake if course is completed",
+        "Confirm retake action"
+      ]
     },
     {
       "name": "Print Certificate",
-      "steps": ["Run report", "Display HTML to user"]
+      "steps": [
+        "Generate certificate in PDF",
+        "Display certificate HTML if available"
+      ]
     }
   ],
-  "business_rules": ["Staff with CMOrientation permission affects visibility"],
-  "validations": ["Check if UserSession is null", "Verify course status before retake"],
-  "calculations": ["Calculate and set CssClass dynamically"],
-  "conditions": ["User is SystemAdministrator", "UserSession not null"],
-  "system_behavior": ["Course list binding", "Form submission handling"],
-  "dependencies": ["Moodle site interaction", "HSPnet framework"],
-  "exceptions": ["UserSession is null cancels data source selection"],
+  "business_rules": [
+    "Courses can be retaken if completed.",
+    "Certificate only shown if report HTML is not empty."
+  ],
+  "validations": [
+    "UserSession must not be null.",
+    "StaffID must match the session."
+  ],
+  "calculations": [],
+  "conditions": [
+    "Page is not a postback.",
+    "UserSession permits access."
+  ],
+  "system_behavior": [
+    "Shows warning for mandatory courses not accessed.",
+    "Submits form to Moodle URL with credentials."
+  ],
+  "dependencies": ["HSPnet.DataLayer", "HSPnet.Framework"],
+  "exceptions": [
+    "Cancel data selection if UserSession is null."
+  ],
   "source_document_ids": [
     "045f50d5-bc7d-5dc3-b71a-5f0d0a654dd6",
     "1023002b-1958-5d9d-95b2-38eb653d834b",
