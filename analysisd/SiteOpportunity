@@ -1,0 +1,100 @@
+```json
+{
+    "filename": "SiteOpportunity",
+    "found": true,
+    "summary": "The document details methods and properties for managing `SiteOpportunity` entries, focusing on database operations such as adding, updating, selecting, and deleting records within a session.",
+    "purpose": "To manage the lifecycle of `SiteOpportunity` entries in a database, ensuring proper handling through various operations.",
+    "entities": [
+        "SiteOpportunity"
+    ],
+    "fields": [
+        "ID",
+        "SiteID",
+        "HeadingID",
+        "Response",
+        "SortOrder",
+        "Description",
+        "DescriptionAlt",
+        "DescriptionFormatted",
+        "SortOrderFormatted",
+        "WebPage",
+        "HeaderChanged"
+    ],
+    "actors": [
+        "HSPnetSession"
+    ],
+    "workflows": [
+        {
+            "name": "Add SiteOpportunity",
+            "steps": [
+                "Check if valid",
+                "Set procedure to SiteOpportunitiesAdd",
+                "Add parameters: SiteID, HeadingID, Response, SortOrder",
+                "Execute query"
+            ]
+        },
+        {
+            "name": "Update SiteOpportunity",
+            "steps": [
+                "Check if ID is not 0 and valid",
+                "Set procedure to SiteOpportunitiesUpdate",
+                "Add parameters: SiteOpportunitiesID, HeadingID, Response, SortOrder",
+                "Execute query"
+            ]
+        },
+        {
+            "name": "Delete SiteOpportunity",
+            "steps": [
+                "Check if ID is not 0",
+                "Set procedure to SiteOpportunitiesDelete",
+                "Add parameter: SiteOpportunitiesID",
+                "Execute query"
+            ]
+        },
+        {
+            "name": "Select SiteOpportunity by ID",
+            "steps": [
+                "Set procedure to SiteOpportunitiesSearchID",
+                "Add parameter: ID",
+                "Execute query",
+                "Fill list with results"
+            ]
+        },
+        {
+            "name": "Select SiteOpportunity by SiteID",
+            "steps": [
+                "Set procedure to SiteOpportunitiesSearch",
+                "Add parameter: SiteID",
+                "Execute query",
+                "Fill list with results"
+            ]
+        }
+    ],
+    "business_rules": [
+        "Don't repeat header entries",
+        "Display 0 as blank",
+        "Set flag if entry is a Web Page"
+    ],
+    "validations": [
+        "Response cannot be blank"
+    ],
+    "calculations": [],
+    "conditions": [
+        "UseAltLanguageFields: use alternative language fields if true."
+    ],
+    "system_behavior": [
+        "Translate new lines in Response",
+        "Reset level counts on new header"
+    ],
+    "dependencies": [],
+    "exceptions": [],
+    "source_document_ids": [
+        "148590b2-a5c1-5ba2-9f76-5946671326da",
+        "18839216-0ce2-5da0-8629-43191022355e",
+        "2e24ba24-238e-539a-9060-ae9c5b2ef73d",
+        "430d8e05-df1d-5100-81dd-8c604142a057",
+        "64109c98-7c33-509c-9bd9-15bb43722cb7"
+    ],
+    "content_gaps": []
+}
+```
