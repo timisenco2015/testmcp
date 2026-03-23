@@ -2,11 +2,10 @@
 {
   "filename": "ExpenseBatch",
   "found": true,
-  "summary": "The ExpenseBatch class and its related procedures manage the creation, retrieval, updating, and deletion of expense batches within a department.",
-  "purpose": "To facilitate the management of expense batches within a department, including operations such as search, add, update, and delete.",
+  "summary": "The ExpenseBatch system manages expense batch records, including their creation, retrieval, update, and deletion.",
+  "purpose": "To manage expense batch records for a department including searching, adding, updating, and deleting operations.",
   "entities": [
-    "ExpenseBatch",
-    "ExpenseBatches"
+    "ExpenseBatch"
   ],
   "fields": [
     "ID",
@@ -24,44 +23,37 @@
   ],
   "workflows": [
     {
-      "name": "Search",
-      "steps": [
-        "Set procedure name to 'ExpenseBatchSearch'.",
-        "Add parameter 'DepartmentID'.",
-        "Execute stored procedure and retrieve data.",
-        "Map data to ExpenseBatch entities."
-      ]
-    },
-    {
-      "name": "SearchID",
+      "name": "Search ExpenseBatch by ID",
       "steps": [
         "Set procedure name to 'ExpenseBatchSearchID'.",
-        "Add parameter 'ID'.",
-        "Execute stored procedure and retrieve data.",
-        "Map data to a single ExpenseBatch entity."
+        "Add ID parameter.",
+        "Get data with 'GetData'.",
+        "Read and map results to ExpenseBatch fields.",
+        "Close reader and return entry."
       ]
     },
     {
-      "name": "Add",
+      "name": "Add ExpenseBatch",
       "steps": [
         "Set procedure name to 'ExpenseBatchAdd'.",
-        "Add parameters 'SessionID', 'DepartmentID', 'BatchDescription', and 'BatchDate'.",
-        "Execute stored procedure and retrieve new ID."
+        "Add parameters for SessionID, DepartmentID, BatchDescription, BatchDate.",
+        "Execute and read returned ID.",
+        "Close reader and return ID."
       ]
     },
     {
-      "name": "Update",
+      "name": "Update ExpenseBatch",
       "steps": [
         "Set procedure name to 'ExpenseBatchUpdate'.",
-        "Add parameters 'SessionID', 'ID', 'BatchDescription', 'BatchDate', and 'StatusCodeID'.",
+        "Add parameters for SessionID, ID, BatchDescription, BatchDate, StatusCodeID.",
         "Execute update query."
       ]
     },
     {
-      "name": "Delete",
+      "name": "Delete ExpenseBatch",
       "steps": [
         "Set procedure name to 'ExpenseBatchDelete'.",
-        "Add parameters 'SessionID' and 'ID'.",
+        "Add parameters for SessionID, ID.",
         "Execute delete query."
       ]
     }
@@ -71,11 +63,17 @@
   "calculations": [
     "BatchNumberFormatted = ID + ' - ' + StatusDescription"
   ],
-  "conditions": [
-    "UseAltLanguageFields determines if alternative language fields are used."
+  "conditions": [],
+  "system_behavior": [
+    "Reads and writes data to SQL database using stored procedures.",
+    "Formats batch numbers for presentation using a combination of ID and StatusDescription."
   ],
-  "system_behavior": [],
-  "dependencies": [],
+  "dependencies": [
+    "System.Data.SqlClient",
+    "HSPnet.Framework",
+    "HSPnet.App_GlobalResources",
+    "HSPnet.UI"
+  ],
   "exceptions": [],
   "source_document_ids": [
     "060e08d3-49ca-5e40-bea0-849f4e6173e1",
