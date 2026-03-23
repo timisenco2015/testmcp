@@ -1,1 +1,78 @@
-{"filename":"StudentPRPreferences","found":true,"summary":"The StudentPRPreferences class manages student placement preferences, including adding, updating, and deleting preferences, as well as retrieving statistics related to placements.","purpose":"To handle operations related to student placement preferences, such as adding, updating, deleting preferences, and retrieving placement statistics.","entities":["StudentPRPreferences","StudentPRPreferenceStats"],"fields":["TotalPlacementsAvailable","NewPlacementsSinceLastLogin","SessionID","StudentID","PRD_ID","ID","Ranking","AnyDestInSite","AnySiteDestInService"],"actors":["HSPnetSession"],"workflows":[{"name":"Add Student Preference","steps":["ProcedureName = StudentPRPReferencesAdd","Add student ID and PRD ID as parameters","Execute query","Handle SQL errors"]},{"name":"Update Student Preference","steps":["ProcedureName = StudentPRPReferencesUpdate","Add preference ID and ranking as parameters","Execute query"]},{"name":"Delete Student Preference","steps":["ProcedureName = StudentPRPReferencesDelete","Add preference ID as parameter","Execute query"]},{"name":"Get Student Preference Statistics","steps":["ProcedureName = StudentPRPReferenceStats","Add timetable ID and student ID as parameters","Retrieve and parse data reader"]}],"business_rules":["Preferences cannot exceed a maximum number","Duplicate destinations are not allowed"],"validations":[],"calculations":[],"conditions":[],"system_behavior":["Adds, updates, deletes preferences via stored procedures","Retrieves statistics using a data reader"],"dependencies":[],"exceptions":["Number of Preferences exceeds maximum","Duplicate destination"],"source_document_ids":["19000f67-a744-5bc5-bc45-6b83a7af2d22","abafd207-b9a9-5f35-b785-05a7a3cdafe0"],"content_gaps":[]}
+{
+  "filename": "StudentPRPreferences",
+  "found": true,
+  "summary": "The 'StudentPRPreferences' module handles operations related to student placement request preferences, including adding, updating, deleting preferences, and obtaining statistics about preferences.",
+  "purpose": "To manage student placement request preferences for a specific session, including tracking statistics and handling exceptions related to preference limits and duplicate entries.",
+  "entities": [],
+  "fields": [
+    "SessionID",
+    "StudentID",
+    "PRD_ID",
+    "ID",
+    "Ranking",
+    "AnyDestInSite",
+    "AnySiteDestInService",
+    "TotalPlacementsAvailable",
+    "NewPlacementsSinceLastLogin"
+  ],
+  "actors": [
+    "HSPnetSession"
+  ],
+  "workflows": [
+    {
+      "name": "Add Student Preference",
+      "steps": [
+        "Set procedure name to 'StudentPRPReferencesAdd'",
+        "Add parameters: SessionID, StudentID, PRD_ID",
+        "Execute query",
+        "Check and handle SQL errors for exceeding maximum preferences and duplicate destinations"
+      ]
+    },
+    {
+      "name": "Update Student Preference",
+      "steps": [
+        "Set procedure name to 'StudentPRPReferencesUpdate'",
+        "Add parameters: SessionID, ID, Ranking, AnyDestInSite, AnySiteDestInService",
+        "Execute query"
+      ]
+    },
+    {
+      "name": "Delete Student Preference",
+      "steps": [
+        "Set procedure name to 'StudentPRPReferencesDelete'",
+        "Add parameters: SessionID, ID",
+        "Execute query"
+      ]
+    },
+    {
+      "name": "Get Preference Statistics",
+      "steps": [
+        "Set procedure name to 'StudentPRPReferenceStats'",
+        "Add parameters: SessionID, TimetableID, StudentID",
+        "Execute query",
+        "Read data and populate TotalPlacementsAvailable and NewPlacementsSinceLastLogin"
+      ]
+    }
+  ],
+  "business_rules": [
+    "Number of preferences cannot exceed maximum limit.",
+    "Duplicate destinations are not allowed."
+  ],
+  "validations": [],
+  "calculations": [],
+  "conditions": [],
+  "system_behavior": [
+    "SQL errors are checked after executing queries.",
+    "Error messages are replaced based on specific conditions encountered."
+  ],
+  "dependencies": [],
+  "exceptions": [
+    "Number of Preferences exceeds maximum",
+    "Duplicate destination"
+  ],
+  "source_document_ids": [
+    "19000f67-a744-5bc5-bc45-6b83a7af2d22",
+    "abafd207-b9a9-5f35-b785-05a7a3cdafe0"
+  ],
+  "content_gaps": []
+}
