@@ -1,0 +1,126 @@
+{
+    "filename": "GenerateAgency",
+    "found": true,
+    "summary": "The \"GenerateAgency\" feature is part of the HSPnet.UserControls.MaintCorrespondence module, designed to manage correspondence generation with options for output formats, recipient management, and customizable settings.",
+    "purpose": "To facilitate the generation and management of agency correspondence, providing options for selecting recipients, defining formats, and including additional information such as logos or contact details.",
+    "entities": [],
+    "fields": [
+        "chkCCCourseLeader",
+        "chkCCPlacementCoord",
+        "Label9",
+        "radPDF",
+        "radMultiPDF",
+        "radRTF",
+        "radXLS",
+        "dsSignatory",
+        "chkUseDeptAddress",
+        "chkSignatorySignature",
+        "chkCCServiceContact",
+        "chkCCDestContact",
+        "txtOrderInstr",
+        "txtOrderCourseLeader",
+        "txtOrderPC",
+        "txtRequestDestID",
+        "hlGlossary",
+        "chkAddresseeContactInfo",
+        "chkUseDisciplineContact",
+        "chkIncludeLogo",
+        "chkIncludeDeptAddress",
+        "lblAgencies",
+        "UCchoosers",
+        "ddSignatory",
+        "radNameOnly",
+        "radIncludeContact",
+        "radUseCustomSignature",
+        "dsStatus",
+        "cklStatus",
+        "txtEndDate",
+        "btnEndDate",
+        "chkSeparateStudentPages",
+        "cmdGerenate",
+        "txtCorDate",
+        "btnCorDate",
+        "ddTerm",
+        "txtStartDate",
+        "btnStartDate"
+    ],
+    "actors": [
+        "UserSession",
+        "CorrespondenceDetail",
+        "Page",
+        "ScriptMgr",
+        "Dropdown"
+    ],
+    "workflows": [
+        {
+            "name": "Correspondence Generation",
+            "steps": [
+                "User configures settings such as recipients, contact information, formats, and additional options.",
+                "User can select specific recipients from choosers and dropdowns.",
+                "Output formats like PDF, MultiPDF, RTF, XLS, TXT, and LABEL can be selected.",
+                "User clicks the generate button to create correspondence based on configured settings.",
+                "System validates inputs and prepares data using helper methods and resources."
+            ]
+        }
+    ],
+    "business_rules": [
+        "If chkUseBlankAddressee is checked, recipient-specific fields are ignored.",
+        "If Outbox is true and no recipient is specified, an error message is shown."
+    ],
+    "validations": [
+        "Date entered in txtCorDate is validated for correctness.",
+        "Selection validation for checkboxes such as chkCCInstructor and chkIncludeLogo."
+    ],
+    "calculations": [
+        "CorDate is parsed and formatted based on user language settings."
+    ],
+    "conditions": [
+        "Visibility and options within the interface depend on user roles and permissions, such as SystemAdministrator and LocalAdministrator."
+    ],
+    "system_behavior": [
+        "Dropdown and choosers are populated based on session data.",
+        "JavaScript is dynamically set up to interact with user controls and maintain state.",
+        "Additional settings like IncludeLogo and SeparateStudentPages affect correspondence output."
+    ],
+    "dependencies": [
+        "HSPnet.App_GlobalResources",
+        "HSPnet.DataLayer",
+        "HSPnet.UI",
+        "HSPnet.Framework",
+        "AjaxControlToolkit"
+    ],
+    "exceptions": [
+        "Error messages may be added to UserSession.Messages when validation fails."
+    ],
+    "source_document_ids": [
+        "1306ed67-5fc5-5f89-a221-48235beca936",
+        "31e8da7d-ebe3-56de-9bb2-55cd0245f3cb",
+        "3860df01-badb-5b79-b881-7c828a88cad6",
+        "49975730-95fa-5b18-9eff-c2f9a1db1d82",
+        "53fde7e2-732f-5fd9-baf5-06866b79b05a",
+        "63cdd381-9f02-5f7a-b160-164e5f02221d",
+        "693626e1-81c8-550c-82ca-51e996571e85",
+        "69fceacc-1e91-571e-ae12-01c7b5c1491d",
+        "6f6f82a1-30c3-5091-a407-69ad4d7546e8",
+        "7fd06db9-5784-5226-96d7-fdd13d407820",
+        "84a447f5-0317-559f-9e83-daa8559eafd0",
+        "8855a682-d698-51cd-af9d-204a2a955885",
+        "8c271622-d9a5-5d50-a8fa-eab6ed2c3fdd",
+        "90f5812c-c1b9-5615-bd6a-e04d2516c3fc",
+        "9e3a006c-911d-583a-9efd-24d34695da26",
+        "9eb2c5b6-ec18-567a-9e21-943d98a428b5",
+        "ac46d2cb-5ae8-5a29-ab18-741d06fbd2f4",
+        "b36f6683-dc13-5c8b-a517-c7c093068bc4",
+        "b3e38d52-3321-5604-bce6-af74b1572214",
+        "b9b7d05c-559e-5f5d-9acc-3062cd1b914f",
+        "bfd449c5-791f-58f4-93ca-0e245169897b",
+        "c0111adf-c07c-551d-9f1d-0c2cc592fa17",
+        "ceb217ea-69ae-50ed-ba5d-75f2285f6293",
+        "cedec2f1-6c50-5c48-bfd0-50e705980924",
+        "d7292d69-6750-530f-b163-2cef43541802",
+        "e1128df7-d5b1-59af-a0f9-b4b8633489c2",
+        "e4bbdfcb-81a3-5373-bde6-719cab4355b9",
+        "eac245e5-e2e9-55a4-92c0-cb4a6562ed9b"
+    ],
+    "content_gaps": []
+}
