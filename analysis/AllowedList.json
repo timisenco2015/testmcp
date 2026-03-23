@@ -1,0 +1,78 @@
+{
+  "filename": "AllowedList",
+  "found": true,
+  "summary": "The AllowedList functionality is part of the HSPnet framework, designed to manage and verify allowed locations within sessions. It offers methods to retrieve allowed locations and check if a particular location is within the allowed list using session parameters.",
+  "purpose": "The purpose of AllowedList is to define and verify access to certain locations based on session parameters within the framework, ensuring that only designated locations are permissible.",
+  "entities": [
+    {
+      "name": "AllowedList",
+      "description": "Represents a location code that is allowed within a session."
+    },
+    {
+      "name": "HSPnetSession",
+      "description": "Session object containing database connection and session ID."
+    }
+  ],
+  "fields": [
+    {
+      "name": "Code",
+      "type": "string",
+      "description": "The code representing an allowed location."
+    }
+  ],
+  "actors": [
+    {
+      "name": "System",
+      "description": "Acts on the database to retrieve allowed locations."
+    }
+  ],
+  "workflows": [
+    {
+      "name": "Retrieve Allowed Locations",
+      "steps": [
+        "Initialize the session and set procedure name to 'SessionAllowedLocations'.",
+        "Add parameters 'LocType' and 'SessionID' to the session database call.",
+        "Execute database procedure and retrieve data using a SqlDataReader.",
+        "Iterate through the data reader, creating AllowedList objects for each record.",
+        "Add an AllowedList entry with a code if a matching ID is found or if it equals '-1'.",
+        "Close the data reader and return the list of allowed entries."
+      ]
+    },
+    {
+      "name": "Check Allowed List",
+      "steps": [
+        "Iterate through the list of AllowedList entries.",
+        "Check if the current entry's code equals 'ALL' or matches the provided ID.",
+        "Return true if a match is found, otherwise continue checking.",
+        "Return false if no matches are found after the iteration."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Location codes are checked against the allowed list.",
+    "A code of 'ALL' signifies universal access to all locations."
+  ],
+  "validations": [
+    "Ensure IDs are valid integers before casting to strings for comparison."
+  ],
+  "calculations": [],
+  "conditions": [
+    "Check if the data reader object is not null before processing.",
+    "Validate if the code equals 'ALL' or matches the ID for access approval."
+  ],
+  "system_behavior": [
+    "Runs procedure 'SessionAllowedLocations' in the database.",
+    "Retrieves data and processes it to form allowed location list."
+  ],
+  "dependencies": [
+    "Relies on a valid HSPnetSession to access database and run procedures."
+  ],
+  "exceptions": [
+    "Break the loop and return if 'ALL' code is encountered in the list."
+  ],
+  "source_document_ids": [
+    "96082a25-6d2c-5ded-9d45-3212935cf351",
+    "e3cab9e2-95a5-5d34-9f5a-3fa6764592d3"
+  ],
+  "content_gaps": []
+}
