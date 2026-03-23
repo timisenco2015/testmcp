@@ -1,93 +1,82 @@
 {
-  "filename": "WorksheetSummary",
-  "found": true,
-  "summary": "The WorksheetSummary content provides a detailed overview of how worksheet summaries are managed, including counts and assignments related to group and individual worksheets not sent, remaining enrollments, and assignments with unused spaces. It describes various entities and fields involved in these operations, such as counts and session details.",
-  "purpose": "To summarize the processing and status of worksheets related to groups and individual workflows within the HSPnet system.",
-  "entities": [
-    "WorksheetSummary",
-    "WorksheetSummaries"
-  ],
-  "fields": [
-    "GWSNotSent",
-    "IWSnonCFONotSent",
-    "IWSCFONotSent",
-    "GWSNotSentWorksheet",
-    "IWSnonCFONotSentWorksheet",
-    "IWSCFONotSentWorksheet",
-    "StudentsRemainingInEnrollment",
-    "EnrollmentsWithRemainingStudents",
-    "GWSAWithRemainingSpaces",
-    "GWSARemainingSpaces",
-    "IWSAWithRemainingSpaces",
-    "IWSARemainingSpaces",
-    "GWS1",
-    "GWS2",
-    "IWSnonCFO1",
-    "IWSnonCFO2",
-    "IWSCFO1",
-    "IWSCFO2",
-    "StudentEnrollment1",
-    "StudentEnrollment2",
-    "GWS_Assignment1",
-    "GWS_Assignment2",
-    "IWS_Assignment1",
-    "IWS_Assignment2"
-  ],
-  "actors": [
-    "HSPnetSession",
-    "Resources",
-    "HTML",
-    "Hashing"
-  ],
-  "workflows": [
-    {
-      "name": "GroupWorksheetCountNotProcessed",
-      "steps": [
-        "Add session and program parameters",
-        "Execute database procedure",
-        "Read results",
-        "Calculate counts for worksheets",
-        "Determine assignment spaces",
-        "Process results for UI consumption"
-      ]
-    }
-  ],
-  "business_rules": [
-    "Sessions must provide session ID and locale for URL hashing.",
-    "If session hides student names, certain fields are set empty.",
-    "Assignments are disabled when respective counts are zero."
-  ],
-  "validations": [
-    "Check if GWS assignment spaces are available.",
-    "Check if IWSnonCFO counts are greater than zero for enabling links."
-  ],
-  "calculations": [
-    "Convert counts to strings.",
-    "Format resources strings using counts."
-  ],
-  "conditions": [
-    "hasLink is true if count is greater than zero.",
-    "disabled is true if respective NotSent count is zero."
-  ],
-  "system_behavior": [
-    "Generates URLs with session data appended through hashing.",
-    "Links are formatted as JavaScript new windows."
-  ],
-  "dependencies": [
-    "Sess.DB for database procedures and data retrieval.",
-    "Resources for text formatting."
-  ],
-  "exceptions": [
-    "If counts are zero, elements are disabled."
-  ],
-  "source_document_ids": [
-    "0d0d4a25-01d9-5532-85de-c995a74c5771",
-    "427552d8-870f-54ba-89b0-818729aebdc5",
-    "4a307bc0-2073-5538-bd4a-d8df9906ce01",
-    "5bfb04ce-7e2b-5498-9b05-721a52f98908",
-    "868f72c2-e067-5f5c-93ac-88f4a901f2b0",
-    "9f1a6366-8b7f-59e9-8d74-987581d519a2",
-    "d26a66cc-9736-5023-86e4-d26f7b628fce"
-  ],
-  "content_gaps": []
+    "filename": "WorksheetSummary",
+    "found": true,
+    "summary": "The WorksheetSummary system appears to handle the processing and display of various worksheet summaries, including Group Worksheets (GWS), Individual Worksheets (IWS), and Enrollment Worksheets. It utilizes a session-based approach for data retrieval and display. The system has functions to create hyperlinks for viewing worksheet summaries and provides mechanisms to disable elements when conditions are met.",
+    "purpose": "Manage and display summaries of worksheets related to groups, individuals, and enrollments within an educational management system.",
+    "entities": [
+        "WorksheetSummary",
+        "WorksheetSummaries"
+    ],
+    "fields": [
+        "GWSNotSent",
+        "IWSnonCFONotSent",
+        "IWSCFONotSent",
+        "GWSNotSentWorksheet",
+        "IWSnonCFONotSentWorksheet",
+        "IWSCFONotSentWorksheet",
+        "StudentsRemainingInEnrollment",
+        "EnrollmentsWithRemainingStudents",
+        "GWSAWithRemainingSpaces",
+        "GWSARemainingSpaces",
+        "IWSAWithRemainingSpaces",
+        "IWSARemainingSpaces",
+        "GWS1",
+        "GWS2",
+        "IWSnonCFO1",
+        "IWSnonCFO2",
+        "IWSCFO1",
+        "IWSCFO2",
+        "StudentEnrollment1",
+        "StudentEnrollment2",
+        "GWS_Assignment1",
+        "GWS_Assignment2",
+        "IWS_Assignment1",
+        "IWS_Assignment2"
+    ],
+    "actors": [
+        "HSPnetSession"
+    ],
+    "workflows": [
+        {
+            "name": "GroupWorksheetCountNotProcessed",
+            "steps": [
+                "Set procedure name 'GroupWorksheetCountNotProcessed'.",
+                "Add parameters: SessionID, ProgramID, PlacCoordID, DateFrom, DateTo, CourseID.",
+                "Execute procedure and retrieve data.",
+                "Process GWS count and worksheet data.",
+                "Process IWS (non-CFO and CFO) count and worksheet data.",
+                "Process Enrollment data and prepare for UI consumption."
+            ]
+        }
+    ],
+    "business_rules": [],
+    "validations": [
+        "Check if 'disabled' state based on worksheet count values.",
+        "Check if 'hasLink' state based on worksheet count values."
+    ],
+    "calculations": [],
+    "conditions": [
+        "If hide student names, clear assignment fields.",
+        "If worksheet counts are zero, disable related elements."
+    ],
+    "system_behavior": [
+        "Generates links for worksheet summary pages based on session data.",
+        "Creates HTML formatted strings for UI rendering based on current processing state."
+    ],
+    "dependencies": [
+        "HSPnet.Framework",
+        "HSPnet.App_GlobalResources",
+        "HSPnet.UI"
+    ],
+    "exceptions": [],
+    "source_document_ids": [
+        "0d0d4a25-01d9-5532-85de-c995a74c5771",
+        "427552d8-870f-54ba-89b0-818729aebdc5",
+        "4a307bc0-2073-5538-bd4a-d8df9906ce01",
+        "5bfb04ce-7e2b-5498-9b05-721a52f98908",
+        "868f72c2-e067-5f5c-93ac-88f4a901f2b0",
+        "9f1a6366-8b7f-59e9-8d74-987581d519a2",
+        "d26a66cc-9736-5023-86e4-d26f7b628fce"
+    ],
+    "content_gaps": []
 }
