@@ -1,26 +1,18 @@
 {
   "filename": "SiteProfileHistory",
   "found": true,
-  "summary": "Tracks history of site profiles and user actions within the system.",
-  "purpose": "To capture and present data on changes to site profiles over time and actions performed by users.",
+  "summary": "Tracks historical actions and changes made to site profiles in HSPnet.",
+  "purpose": "Provide historical data and user actions for site profiles.",
   "entities": ["SiteProfileHistory"],
-  "fields": ["ID", "ActionDate", "ScreenSection", "UserAction", "Fields", "Agency", "AgencyName", "LastName", "FirstName", "MiddleName", "Phone"],
+  "fields": ["ID", "ActionDate", "ScreenSection", "UserAction", "Fields", "Agency", "AgencyName", "LastName", "FirstName", "MiddleName", "Phone", "ByUserID", "ByOriginalUserID", "ByUserSysAdmin"],
   "actors": [],
-  "workflows": [
-    {
-      "name": "History Search",
-      "steps": [
-        "API call to retrieve history",
-        "Format history for presentation"
-      ]
-    }
-  ],
+  "workflows": [],
   "business_rules": [],
   "validations": [],
-  "calculations": [],
+  "calculations": ["ActionDateFormatted", "AgencyUserFormatted", "AgencyUserDetailsFormatted"],
   "conditions": [],
-  "system_behavior": ["Database interaction for retrieving site profile changes"],
-  "dependencies": ["SQL, HSPnetSession"],
+  "system_behavior": [],
+  "dependencies": ["DateFormatter"],
   "exceptions": [],
   "source_document_ids": ["25f89a24-5eda-5a3f-83df-1de69b12b3f1", "26e09292-d304-55c6-94e5-ef3346453c4b", "7ca6b963-9ae9-5cd3-82d5-f30dcb727ae3", "a8f030c6-90b8-53a1-bb8a-3b7ef33b9488", "e806999c-3a39-5720-9b59-303faebc9eb6"],
   "content_gaps": []
