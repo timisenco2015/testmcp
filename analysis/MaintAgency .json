@@ -1,0 +1,182 @@
+{
+  "filename": "MaintAgency",
+  "found": true,
+  "summary": "MaintAgency is the Agency maintenance module in HSPnet, responsible for viewing, editing, adding, and deleting agency records. It handles agency details, membership, contact information, content roles, and links to associated Departments and Sites. Access and editing are controlled by user session permissions, with dynamic validation and conditional UI behaviors.",
+  "purpose": "To maintain agency records, including their details, roles, membership status, contact info, and associations with content, programs, departments, and sites. It supports workflows for add, edit, delete, and reactivate, and ensures data integrity through field-level validation and business rules.",
+  "entities": [
+    "Agency",
+    "UserSession",
+    "Department",
+    "Site",
+    "Program",
+    "Staff"
+  ],
+  "fields": [
+    "Name",
+    "ShortName",
+    "PreviousName",
+    "PreviousNameEffectiveDate",
+    "AreaCode",
+    "ReceivingAgency",
+    "PlacingAgency",
+    "HSPnetMember",
+    "ContentAuthor",
+    "ContentManager",
+    "AllowPAL",
+    "UmbrellaAgency",
+    "UmbrellaDescription",
+    "Address1",
+    "Address2",
+    "City",
+    "Province",
+    "PostalCode",
+    "PhoneArea",
+    "Phone",
+    "FaxArea",
+    "Fax",
+    "Inactive"
+  ],
+  "actors": [
+    "System Administrator",
+    "Agency user",
+    "Content Author",
+    "Content Manager"
+  ],
+  "workflows": [
+    {
+      "name": "Add Agency",
+      "steps": [
+        "User clicks 'Add' button.",
+        "Screen switches to Add mode.",
+        "User enters mandatory fields: Name, ShortName.",
+        "Optional fields and checkboxes are enabled/disabled based on HSPnetMember status.",
+        "User completes remaining fields.",
+        "Validation runs on required fields and phone/fax formats.",
+        "User clicks 'Save'.",
+        "Agency is created and stored.",
+        "Grid refreshes to show new entry."
+      ]
+    },
+    {
+      "name": "Edit Agency",
+      "steps": [
+        "User clicks 'Edit' on an agency row.",
+        "Screen switches to Edit mode with current data populated.",
+        "User modifies fields.",
+        "Validation runs as above.",
+        "User clicks 'Save'.",
+        "Agency is updated.",
+        "Grid refreshes."
+      ]
+    },
+    {
+      "name": "Delete Agency",
+      "steps": [
+        "User clicks 'Delete' on an agency row.",
+        "Confirmation dialog appears.",
+        "Agency is inactivated if no active Sites, Programs, or Staff exist.",
+        "Grid refreshes."
+      ]
+    },
+    {
+      "name": "Reactivate Agency",
+      "steps": [
+        "User clicks 'Reactivate' on an agency row.",
+        "Agency is reactivated.",
+        "Grid refreshes."
+      ]
+    },
+    {
+      "name": "Profile and Department Navigation",
+      "steps": [
+        "User clicks profile icon or department link.",
+        "Profile or department screen opens in a new window."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Name and ShortName are mandatory for every agency.",
+    "UmbrellaAgency requires UmbrellaDescription.",
+    "An agency cannot be both inactive and have active Sites, Programs, or Staff.",
+    "ReceivingAgency and PlacingAgency must be selected.",
+    "Phone and Fax fields must match the masking format if UsePhoneMask is enabled.",
+    "ContentAuthor and ContentManager checkboxes enabled only when HSPnetMember is checked.",
+    "If not using PhoneMask, AreaCode field hidden."
+  ],
+  "validations": [
+    "RequiredFieldValidator for Name and ShortName.",
+    "RegularExpressionValidator for EffectiveDate and phone/fax fields.",
+    "CustomValidator for Phone, Fax, and Agency role overlap.",
+    "UmbrellaAgency checkbox triggers enabling/disabling of UmbrellaDescription field.",
+    "CheckPhone and CheckFax JS functions for area/phone format.",
+    "CheckAgencies JS ensures at least one of ReceivingAgency or PlacingAgency is checked."
+  ],
+  "calculations": [
+    "New feature icon shown for help records updated within the last 30 days.",
+    "UmbrellaAgency tooltip includes UmbrellaDescription if provided."
+  ],
+  "conditions": [
+    "ScreenIsEditable: determined by System Administrator status and ViewOnly property.",
+    "Fields and checkboxes are enabled/disabled based on HSPnetMember status.",
+    "Grid buttons are conditionally shown based on editability and data status."
+  ],
+  "system_behavior": [
+    "Loads client-side scripts for MemberCheckBox and Phone validation.",
+    "Refreshes grid data after add, edit, delete, and reactivate operations.",
+    "Displays/hides error and warning panels as needed.",
+    "Highights profile icons for interaction feedback.",
+    "Navigates to Help and Profile screens in new windows."
+  ],
+  "dependencies": [
+    "UserSession data for access control and masking.",
+    "Help records for agency data standards.",
+    "Grid and DetailsView controls for data binding.",
+    "AjaxControlToolkit for modal popups and masked edit extenders.",
+    "HSPnet.Framework and HSPnet.DataLayer libraries."
+  ],
+  "exceptions": [
+    "Validation errors shown for required fields and invalid phone/fax formats.",
+    "Add/Edit disabled if ScreenIsEditable is false.",
+    "Delete disabled if active dependencies exist."
+  ],
+  "source_document_ids": [
+    "00ec5cb3-a3dd-53cb-9fa9-8d07e4f006b3",
+    "0e632aa7-655e-543b-8f47-0840911d51d7",
+    "15460aec-5b15-5e89-a50c-8d99228e2efd",
+    "1c33a9f1-ecf8-5654-8e6e-cc8a92ddb739",
+    "2533eaf3-fadd-5d05-9ca7-41b293700245",
+    "2a3bdfa1-f264-58c5-95b0-d746ee239db5",
+    "2cacb6cc-d5b3-5603-9530-92ccf064266f",
+    "2d06f9cb-6a06-565d-b8db-6c1b9f89828c",
+    "2d88d0e1-9f79-52ca-8dd2-e2fbfc99d4dc",
+    "3564fbf6-e9f9-51f9-a991-fcb4e1ac5cea",
+    "4014ebbf-5d91-50d7-b875-2fa0cb83e10a",
+    "40474778-bbae-57ce-85d4-84c0c62b8116",
+    "4c95cb48-2ec4-5bdf-816b-462f5bc84b4b",
+    "51931559-b52b-5465-9920-f10f88125f12",
+    "53edb692-5c5b-502e-94b8-315ac3d1679b",
+    "78eed937-e261-5c7d-b097-13e197d718b8",
+    "8689ac57-d410-56da-aad2-c5b73a9467ec",
+    "8f9d2fb7-4cef-5929-a79e-d1f43aae5bd4",
+    "97479364-3f60-571f-8ce9-de203c92eaa9",
+    "9bf80c03-bb13-5962-a117-f9c09f2bd372",
+    "9e31c139-f08c-5950-a115-98ddf9c3c35b",
+    "9efa0685-7f25-5385-9fe3-8128462665c1",
+    "b18faeba-2cb9-5832-ac03-9a8a132911cb",
+    "b37adb34-eba2-5e37-a76d-cf173c930cf4",
+    "b46dbd65-8473-5f64-b54b-a49ae17b49e5",
+    "c64a195b-f89f-5c93-8e30-e5c4be4de9ce",
+    "cb4ef19f-c4a2-50ef-836f-35c4ec1678e2",
+    "d301d832-cc7c-5c82-a78d-5273aa1cd4e8",
+    "dfd04d69-9eeb-5bc3-bd90-2c842d36e1d5",
+    "f98f3c61-500e-558a-ae5a-df3c35568bab",
+    "fb3e5e5e-ee05-5e51-8236-dbdaad56a664",
+    "fef5e4e2-9379-58d8-a68f-16ec37819f13"
+  ],
+  "content_gaps": [
+    "No explicit database schema for the Agency entity fields; inferred from UI and code.",
+    "No explicit description of error/warning handling logic.",
+    "No sample data or explicit REST API details for Agencies.",
+    "No field-level permission breakdown for roles other than HSPnetMember/content roles."
+  ]
+}
