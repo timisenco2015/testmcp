@@ -1,0 +1,64 @@
+{
+  "filename": "CoursePlacementHistory",
+  "found": true,
+  "summary": "The CoursePlacementHistory functionality retrieves and processes historical data related to course placements within the system, including agency, site, service, destination details, and the timetable start date.",
+  "purpose": "To manage and retrieve historical data of course placements including relevant agency, site, and service details.",
+  "entities": [
+    "CoursePlacementHistory",
+    "CoursePlacementHistoryController"
+  ],
+  "fields": [
+    "PRD_ID",
+    "AgencyShortName",
+    "SiteShortName",
+    "ServiceShortName",
+    "DestinationShortName",
+    "TimetableStartDate",
+    "CohortShortName",
+    "TimetableStartDateFormatted"
+  ],
+  "actors": [
+    "HSPnetSession",
+    "Database Connection"
+  ],
+  "workflows": [
+    {
+      "name": "CourseSearchPRHistory",
+      "steps": [
+        "Define procedure name as CourseSearchPRHistory.",
+        "Add parameters: SessionID, CourseID, SortColumn, and SortOrder.",
+        "Fetch data using SqlDataReader.",
+        "Iterate through the data reader to populate CoursePlacementHistory objects.",
+        "Close data reader and return the list of CoursePlacementHistory."
+      ]
+    }
+  ],
+  "business_rules": [
+    "SortExpression handling for sort column and order.",
+    "Parameter specification for database procedure calls."
+  ],
+  "validations": [
+    "SortExpression must have a valid column name; SortOrder defaults to ASC if not provided."
+  ],
+  "calculations": [
+    "TimetableStartDateFormatted generates a formatted date string from TimetableStartDate."
+  ],
+  "conditions": [],
+  "system_behavior": [
+    "Database procedure execution using predefined names and parameters.",
+    "Data retrieval and iteration over SqlDataReader."
+  ],
+  "dependencies": [
+    "HSPnet.Framework",
+    "HSPnet.App_GlobalResources",
+    "HSPnet.UI"
+  ],
+  "exceptions": [
+    "Handle null SqlDataReader scenario."
+  ],
+  "source_document_ids": [
+    "0104569d-fc05-5003-afc4-9b079532b73a",
+    "4809ff09-a281-504a-b536-87fe8d8e923a"
+  ],
+  "content_gaps": []
+}
