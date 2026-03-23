@@ -1,0 +1,77 @@
+{
+  "filename": "RptStaffList",
+  "found": true,
+  "summary": "The RptStaffList document is a web user control for generating staff reports in an application. It includes functionalities for handling page events, executing a report generation command, and setting up JavaScript for the front-end interaction.",
+  "purpose": "The purpose of RptStaffList is to provide a user interface for generating staff reports based on selected department criteria.",
+  "entities": [
+    "HSPnetSession",
+    "ScriptManager",
+    "Department"
+  ],
+  "fields": [
+    "UserSession",
+    "ScriptMgr",
+    "DC",
+    "Supervisor",
+    "ddDepartment",
+    "cmdRunReport",
+    "ValidationSummary1",
+    "Label1"
+  ],
+  "actors": [
+    "User"
+  ],
+  "workflows": [
+    {
+      "name": "Page Load and Initialization",
+      "steps": [
+        "Check if it's not a postback or first load.",
+        "Retrieve departments based on user's session and agency ID.",
+        "Setup JavaScript for department dropdown.",
+        "Bind department data to the dropdown on first load."
+      ]
+    },
+    {
+      "name": "Run Report Command",
+      "steps": [
+        "Check user roles (DC and Supervisor).",
+        "Add error message if no roles are selected.",
+        "Create a job to generate the staff report with selected options."
+      ]
+    },
+    {
+      "name": "Pre Render Page",
+      "steps": [
+        "Disable report generation if viewing as a different user."
+      ]
+    }
+  ],
+  "business_rules": [
+    "User must have at least one staff role selected to run reports."
+  ],
+  "validations": [
+    "ValidationSummary1"
+  ],
+  "calculations": [],
+  "conditions": [
+    "IsPostBack check for page load.",
+    "User role checks for report generation."
+  ],
+  "system_behavior": [
+    "Configures JavaScript for UI elements during async postbacks or full page loads.",
+    "Controls visibility of the report generation button when in user view mode."
+  ],
+  "dependencies": [
+    "Departments data retrieval based on user's permissions.",
+    "Dropdown component for department selection."
+  ],
+  "exceptions": [
+    "No roles selected exception prevents report generation."
+  ],
+  "source_document_ids": [
+    "9a00fba8-1697-5d5f-a0b5-ffed948731b9",
+    "d5dc2908-b09d-5fef-bc4e-80351b638c25",
+    "fa4eb94b-bf61-5061-91dd-0b12f34db062"
+  ],
+  "content_gaps": []
+}
