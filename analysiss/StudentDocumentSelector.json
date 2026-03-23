@@ -1,0 +1,84 @@
+{
+    "filename": "StudentDocumentSelector",
+    "found": true,
+    "summary": "The StudentDocumentSelector is a user control designed for managing student documents within employment applications. It includes functionality for viewing, editing, saving, and deleting documents. The control integrates with various UI components and data sources to support document selection, upload, and validation.",
+    "purpose": "To manage student documents related to employment applications, including viewing, editing, uploading, and deleting of documents.",
+    "entities": [
+        "StudentDocument",
+        "HSPnetSession",
+        "Codes"
+    ],
+    "fields": [
+        "StudentID",
+        "Anonymous",
+        "Private",
+        "ScreenIsEditable"
+    ],
+    "actors": [
+        "User",
+        "Administrator"
+    ],
+    "workflows": [
+        {
+            "name": "Document Handling Workflow",
+            "steps": [
+                "User initiates document upload.",
+                "System checks for special document types and hides relevant fields.",
+                "User selects document from dropdown list.",
+                "File upload is processed and saved to server.",
+                "User opts to view or edit document.",
+                "System updates document details and bindings."
+            ]
+        }
+    ],
+    "business_rules": [
+        "Special documents such as 'RESUME-ANON', 'RESUME-NAMED', 'PHOTO' have specific handling requirements.",
+        "Document type ID -1 is used for special documents when no document is uploaded.",
+        "Documents must be saved within specific directories based on type."
+    ],
+    "validations": [
+        "Document type and comments fields visibility based on document type ID.",
+        "Check for valid document before allowing edits.",
+        "Prevent webpage addition if blank."
+    ],
+    "calculations": [
+        "Determine unique folder path for document upload using GUID.",
+        "File type conversion for friendly document display."
+    ],
+    "conditions": [
+        "Visibility of document controls based on user session and document existence.",
+        "Check if document is anonymous for control display."
+    ],
+    "system_behavior": [
+        "Updates database entries when documents are saved or deleted.",
+        "Displays help information based on session and document type."
+    ],
+    "dependencies": [
+        "AjaxControlToolkit",
+        "System.Web.UI",
+        "HSPnet.DataLayer"
+    ],
+    "exceptions": [
+        "Administrative setup errors when special document type codes are missing.",
+        "File not found errors during document processing."
+    ],
+    "source_document_ids": [
+        "179b9c61-3b1f-59e6-8faf-022a92529d1f",
+        "17f298f6-6e2c-5bc1-8efa-99fd9090a19e",
+        "183569d6-186a-558f-9806-482a30b6f321",
+        "1f82ef1d-69ff-5934-a7b9-58d1c29bfefd",
+        "25e38e68-84fa-5b38-be99-e2fc97531f5f",
+        "30d8c5f1-8025-5795-82cd-84d0a5b1c00f",
+        "3abbd9e1-1f6c-5333-bdb2-89a6a28c5b3d",
+        "3af22e6f-508b-5f08-8e6b-3fb41d49ec70",
+        "48e0539c-1be7-5055-a4c3-d2557ac3072b",
+        "5376fbf3-759f-553e-9bef-7cf93a36caac",
+        "7ae07414-a2c2-5b0c-af10-66defd703c0a",
+        "b3a5dfba-10a0-5f77-b14b-29a1d3344abe",
+        "d1192824-2870-5d86-899f-d9aff14030ef",
+        "eab29dc6-30f9-5d2d-8e5f-2a4983245612",
+        "f4b54945-d337-53a4-a3b9-cad80748ce3f",
+        "f696ca69-0ecd-54cd-8311-42d8f7d23f48"
+    ],
+    "content_gaps": []
+}
