@@ -1,53 +1,27 @@
 {
     "filename": "SiteProfileHistory",
     "found": true,
-    "summary": "The 'SiteProfileHistory' file outlines the structure and management of historical data regarding site profiles, including user actions and agency details.",
-    "purpose": "To track and manage historical record data for site profiles in the HSPnet system, allowing for retrieval and formatting of history entries.",
+    "summary": "SiteProfileHistory handles the historical data of site profiles, with support for formatted user details and search functionality.",
+    "purpose": "Tracks changes and activities on site profiles with user-specific and session-context data.",
     "entities": ["SiteProfileHistory"],
-    "fields": [
-        "ID",
-        "ActionDate",
-        "ScreenSection",
-        "UserAction",
-        "Fields",
-        "Agency",
-        "AgencyName",
-        "LastName",
-        "FirstName",
-        "MiddleName",
-        "Phone",
-        "ByUserID",
-        "ByOriginalUserID",
-        "ByUserSysAdmin"
-    ],
-    "actors": [],
+    "fields": ["ID", "ActionDate", "ScreenSection", "UserAction", "Fields", "Agency", "AgencyName", "LastName", "FirstName", "MiddleName", "Phone", "ByUserID", "ByOriginalUserID", "ByUserSysAdmin"],
+    "actors": ["User", "System Administrator"],
     "workflows": [
         {
-            "name": "SearchSiteProfileHistory",
+            "name": "SiteProfileHistory Search",
             "steps": [
-                "Define search parameters",
-                "Execute stored procedure",
-                "Read and parse data",
-                "Return list of entries"
+                "Perform database procedure to search history by SiteID and SessionAgencyID.",
+                "Fill entity list from database reader."
             ]
         }
     ],
     "business_rules": [],
     "validations": [],
-    "calculations": [],
-    "conditions": [],
-    "system_behavior": [
-        "Formats historical action dates",
-        "Formats agency user details"
-    ],
-    "dependencies": [],
+    "calculations": ["Formats action date and user details for display."],
+    "conditions": ["Use alt language fields if session requires."],
+    "system_behavior": ["Fetches and formats historical site profile data."],
+    "dependencies": ["HSPnet.Framework", "HSPnet.DataLayer"],
     "exceptions": [],
-    "source_document_ids": [
-        "25f89a24-5eda-5a3f-83df-1de69b12b3f1",
-        "26e09292-d304-55c6-94e5-ef3346453c4b",
-        "7ca6b963-9ae9-5cd3-82d5-f30dcb727ae3",
-        "a8f030c6-90b8-53a1-bb8a-3b7ef33b9488",
-        "e806999c-3a39-5720-9b59-303faebc9eb6"
-    ],
+    "source_document_ids": ["25f89a24-5eda-5a3f-83df-1de69b12b3f1", "26e09292-d304-55c6-94e5-ef3346453c4b", "7ca6b963-9ae9-5cd3-82d5-f30dcb727ae3", "a8f030c6-90b8-53a1-bb8a-3b7ef33b9488", "e806999c-3a39-5720-9b59-303faebc9eb6"],
     "content_gaps": []
 }
