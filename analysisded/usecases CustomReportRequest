@@ -1,86 +1,111 @@
 # Module: CustomReportRequest
 
-## CustomReportRequest-UC1 — Create Custom Report Request
+## CustomReportRequest-UC1 — Create New Custom Report Request
 
-- Primary Actor(s): User (Staff)
+- Primary Actor(s): Staff Member
 - Secondary Actor(s): System Administrator
-- Trigger: User needs to create a custom report request.
-- Description: This use case allows users to create a custom report request specifying various parameters such as report type, department, program, and site information.
-- Preconditions: User is logged in and has the necessary permissions to request custom reports.
-- Postconditions: A new custom report request is created and stored in the system.
+- Trigger: A staff member needs to create a custom report request.
+- Description: This use case describes the process of creating a new custom report request, including inputting necessary parameters and saving the request.
+- Preconditions: 
+  - The user must be logged into the system.
+  - The staff member's agency and department must be available.
+- Postconditions: A new custom report request is created and saved in the system.
 - Main Success Scenario:
-  1. User selects the report type from a dropdown.
-  2. User enters required information such as purpose, audience, and requested date.
-  3. User selects programs, cohorts, and terms if applicable.
-  4. User selects sites or services from a list.
-  5. User reviews and submits the report request.
-  6. System validates inputs and stores the request.
+  1. The staff member logs into the system.
+  2. The staff member navigates to the "Custom Report Request" page.
+  3. The system auto-fills staff member information (name, email, agency, department).
+  4. The staff member selects the report type from the dropdown menu.
+  5. The system displays the appropriate input fields based on the selected report type.
+  6. The staff member fills out the form fields including any required parameters such as dates, data fields, etc.
+  7. The staff member clicks the "Submit" button.
+  8. The system validates the inputs and saves the new custom report request.
 - Extensions:
-  - 4a. If user selects "Other" for programs/sites, enters text manually.
-  - 4b. If required fields are missing, system shows validation messages.
+  - If an error occurs during input validation, the system displays an error message and highlights the incorrect fields.
+  - Alternate flows for choosing different report types based on user requirements.
 - Exceptions:
-  - E1: System validation fails due to incorrect or missing inputs.
-  - E2: User does not have permission to create requests.
+  - If mandatory fields are not completed, the system prompts the user to fill them.
+  - If the user does not have permission, an error message is displayed.
 - Business Rules:
-  - BR1: Only users with appropriate permissions can request custom reports.
-  - BR2: Required fields must be filled before submission.
+  - The staff member can only request reports for which they have permission.
+  - System Administrator can override and modify any request.
 - Assumptions:
-  - User is familiar with the report parameters and options.
+  - The user interface is intuitive and guides the user in filling out necessary fields.
+  - The system has predefined report type codes that dictate the data collection form.
 - Open Issues:
   - None identified.
 
-## CustomReportRequest-UC2 — Edit Custom Report Request
+## CustomReportRequest-UC2 — Edit Existing Custom Report Request
 
-- Primary Actor(s): User (Staff)
+- Primary Actor(s): Staff Member
 - Secondary Actor(s): System Administrator
-- Trigger: User needs to edit an existing custom report request.
-- Description: This use case allows users to modify details of a custom report request they previously created.
-- Preconditions: User has an existing report request saved.
-- Postconditions: The updated report request is stored in the system.
+- Trigger: A staff member needs to edit an existing custom report request.
+- Description: This use case outlines the steps for editing an existing custom report request.
+- Preconditions: 
+  - The report request must exist in the system.
+- Postconditions: The selected report request is updated with the new information.
 - Main Success Scenario:
-  1. User navigates to the existing custom report request.
-  2. User edits the parameters such as purpose, audience, and requested date.
-  3. User updates selected programs, sites, or services.
-  4. User reviews changes and submits the updates.
-  5. System validates inputs and updates the request.
+  1. The staff member logs into the system.
+  2. The staff member selects an existing report request to edit.
+  3. The system displays the current details of the report request.
+  4. The staff member updates the necessary fields.
+  5. The staff member clicks the "Submit" button to save changes.
+  6. The system validates the inputs and updates the report request.
 - Extensions:
-  - 3a. User selects a different report type or additional parameters.
-  - 3b. If required fields are missing, system shows validation messages.
+  - If an error occurs during input validation, the system displays an error message and highlights the incorrect fields.
 - Exceptions:
-  - E1: System validation fails due to incorrect or missing changes.
-  - E2: User does not have permission to edit requests.
+  - If the report is in a 'Pending' status, only the requesting user or a system administrator can edit it.
 - Business Rules:
-  - BR1: Only users with appropriate permissions can edit requests.
-  - BR2: Required fields must be valid upon editing.
+  - Only editable fields can be changed once a report request is submitted.
 - Assumptions:
-  - User is aware of the changes needed.
+  - The system provides feedback on which fields are editable based on the request status.
+- Open Issues:
+  - Handling changes in permissions after a report request is edited but before it is finalized.
+
+## CustomReportRequest-UC3 — Submit Custom Report Parameters
+
+- Primary Actor(s): Staff Member
+- Secondary Actor(s): None
+- Trigger: User submits the parameters for a custom report.
+- Description: This use case involves the submission of parameters necessary for generating a custom report.
+- Preconditions: 
+  - All required parameters are filled.
+- Postconditions: Parameters are saved and linked to the report request.
+- Main Success Scenario:
+  1. The staff member selects parameters such as department, program, cohort, etc.
+  2. The system ensures all mandatory fields are filled.
+  3. The staff member submits the parameters.
+  4. The system processes and saves the parameters.
+- Extensions:
+  - The system suggests default values based on previously submitted reports.
+- Exceptions:
+  - If required fields are missing, the system prevents submission and prompts the user.
+- Business Rules:
+  - Validations are applied based on the selected report type.
+- Assumptions:
+  - The system guides the user with suggestions and error messages for invalid data.
 - Open Issues:
   - None identified.
 
-## CustomReportRequest-UC3 — Validate Report Request Data
+## CustomReportRequest-UC4 — Handle File Upload for Student Authorization
 
-- Primary Actor(s): System
-- Secondary Actor(s): User (Staff)
-- Trigger: System needs to validate data entered by the user during report request creation or editing.
-- Description: This use case involves system validation of the report request data to ensure accuracy and completeness.
-- Preconditions: User has entered data for a report request.
-- Postconditions: Data is validated and errors are returned if any.
+- Primary Actor(s): Staff Member
+- Secondary Actor(s): System Administrator
+- Trigger: User needs to upload a file for student authorization.
+- Description: This use case handles uploading files related to student authorization.
+- Preconditions: 
+  - File must be in an allowable format (e.g., PDF).
+- Postconditions: The file is uploaded and linked to the report request.
 - Main Success Scenario:
-  1. System checks all required fields are filled.
-  2. System validates date formats and mandatory fields.
-  3. System checks file uploads for required formats.
-  4. System ensures that all selected values correspond to valid options.
-  5. If validation passes, system allows request submission.
+  1. The staff member selects a file to upload for student authorization.
+  2. The system checks the file format and size.
+  3. The staff member clicks "Upload", and the file is saved to the server.
 - Extensions:
-  - 3a. If a file upload is required and not present, system shows a message.
+  - If the file does not meet criteria, the system rejects it with a relevant message.
 - Exceptions:
-  - E1: Date format is incorrect.
-  - E2: Required fields are not filled.
-  - E3: File type is not allowed.
+  - If the server fails to save the file, an error message is displayed.
 - Business Rules:
-  - BR1: Dates must be in a valid format.
-  - BR2: Mandatory fields must be completed before submission.
+  - Files must be securely stored and linked to the request.
 - Assumptions:
-  - Validation rules are up-to-date with the current requirements.
+  - The user has the necessary permissions to upload files.
 - Open Issues:
   - None identified.
