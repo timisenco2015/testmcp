@@ -1,46 +1,41 @@
 {
   "filename": "WelcomeStaffAdmin",
   "found": true,
-  "summary": "The WelcomeStaffAdmin page handles the interface for staff administration, including controls for date input and a grid view for employment applications.",
-  "purpose": "To provide an administrative interface for staff to manage employment applications and other related tasks.",
+  "summary": "The WelcomeStaffAdmin document sets up a page for welcoming staff administrators with content controls and update panels.",
+  "purpose": "Provide an interface for staff administrators within the web application, including session management and UI controls.",
   "entities": [
-    {
-      "name": "WelcomeStaffAdmin",
-      "type": "page"
-    }
+    "WelcomeStaffAdmin"
   ],
   "fields": [
-    {
-      "name": "txtStartDate",
-      "type": "TextBox"
-    },
-    {
-      "name": "txtEndDate",
-      "type": "TextBox"
-    },
-    {
-      "name": "chkShowWithdrawn",
-      "type": "CheckBox"
-    }
+    "lblTitle",
+    "pnlLastLogin",
+    "ltlLastLogin"
   ],
   "actors": [
-    "Staff"
+    "UserSession"
   ],
-  "workflows": [],
-  "business_rules": [],
-  "validations": [
+  "workflows": [
     {
-      "name": "Date validation",
-      "rules": "Validates start and end date fields."
+      "name": "Page Load Workflow",
+      "steps": [
+        "Setup HSPnet page.",
+        "Register client scripts.",
+        "Fill site dropdown and discipline dropdown.",
+        "Refresh data.",
+        "Set default button."
+      ]
     }
   ],
+  "business_rules": [],
+  "validations": [],
   "calculations": [],
   "conditions": [],
-  "system_behavior": [
-    "Handles page render events and data binding for grid views."
-  ],
+  "system_behavior": [],
   "dependencies": [],
   "exceptions": [],
-  "source_document_ids": ["05db31e4-e8b6-53ee-a6fb-812c106f0134", "100d5925-a5f8-53db-8493-02cddd563eb7", "3c84bade-9671-5fbf-acce-3c87a835e9b4", "4c4b97b8-d242-5261-a515-767a3f7d7a49", "52b5066f-23f6-5d82-96cd-5d51dad3de79", "5bb85da3-f5b4-5753-b07c-9bb2a04eeb89", "5d9b92ea-7c12-5070-8603-977cf14d0e04", "54244516-0707-581e-a8ba-9c041ea38366", "b8e79322-9a0e-5fe7-8953-3d05e231f923", "871df91b-7ba0-558f-83ea-d5be1b0dc8db", "db9b35e9-53ca-5eaf-9d75-4f3a72131bc7"],
+  "source_document_ids": [
+    "bf423a80-93db-572d-8cb8-c79f04214a93",
+    "e249a878-c837-5d1c-9a3d-5167df2614fb"
+  ],
   "content_gaps": []
 }
