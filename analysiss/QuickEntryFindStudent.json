@@ -1,0 +1,84 @@
+{
+  "filename": "QuickEntryFindStudent",
+  "found": true,
+  "summary": "The QuickEntryFindStudent page is used to search and select students for placement. It involves various controls and scripts to handle search operations, data display, and user interactions.",
+  "purpose": "To facilitate the search and selection of students for placement based on certain criteria like last name, first name, student number, and consent program.",
+  "entities": [],
+  "fields": [
+    "txtLast",
+    "txtFirst",
+    "txtStudentNumber",
+    "txtStudentIDs",
+    "ddConsentProgram",
+    "uxMaster"
+  ],
+  "actors": [
+    "User",
+    "System"
+  ],
+  "workflows": [
+    {
+      "name": "Search Students",
+      "steps": [
+        "User enters search criteria (last name, first name, student number).",
+        "User clicks the search button.",
+        "The system validates the input.",
+        "The system performs a search based on input criteria.",
+        "The system displays matching student records."
+      ]
+    },
+    {
+      "name": "Select Students",
+      "steps": [
+        "User views the list of students.",
+        "User selects students using checkboxes.",
+        "User clicks the add selected students button.",
+        "Selected student IDs and names are added to a list."
+      ]
+    }
+  ],
+  "business_rules": [
+    "ProgramID should be initialized based on QueryString, and defaults to passed-in program on first load.",
+    "Warning is displayed if program filter does not match the expected program ID."
+  ],
+  "validations": [
+    "Search criteria must include at least one of last name, first name, or student number."
+  ],
+  "calculations": [],
+  "conditions": [
+    "Panel visibility based on the presence of student matches.",
+    "Warning visibility if program filter does not match expected program."
+  ],
+  "system_behavior": [
+    "Supports search with pagination and sorting.",
+    "Registers and utilizes client-side and server-side scripts for user interaction.",
+    "Handles page states for search and selection operations."
+  ],
+  "dependencies": [],
+  "exceptions": [],
+  "source_document_ids": [
+    "01d99b2e-d6b0-501a-8bb0-109b783ac11c",
+    "0c8363ba-053e-53b3-896d-9aba77642500",
+    "0f657513-7bcf-541f-8b98-6448709c46e3",
+    "26788522-a48e-507b-9b19-8391b2d8e03a",
+    "2ae41156-0dca-5a07-bae1-7371cb8f15f8",
+    "2ca56c79-586a-5eeb-9716-fde649fbb59a",
+    "35d26976-2d69-5fcc-9eb2-07f725e2fd1b",
+    "59740e71-0487-52a2-a92d-261c598d023d",
+    "68796744-45f0-5cb9-ba29-6234ab239eb5",
+    "7479007d-1b7f-5e57-bd84-a1c6d893aac7",
+    "abad950a-ed80-5da3-b8b8-2ee952b33b29",
+    "aebb76a5-dde6-5d7f-ad33-e7cacc82b86a",
+    "b202faa3-cc4a-5523-9298-06667eed49cf",
+    "bc97eab2-2f3e-5003-b6b5-2f396b5da1d5",
+    "c1b133b8-7412-5af2-94c2-e272a4a485e7",
+    "c55f40f5-4e22-5672-8d01-c749082dc0cf",
+    "ca20aaf5-14d0-500a-8e97-3fc45b9223b0",
+    "d0fcf541-2f7f-5785-a3e9-47d542f5d3bc",
+    "d5490e6a-c917-5f42-a20f-412362ca5e4c",
+    "e0d1b837-5ad4-5f15-a9aa-57380752b6e6",
+    "e50431b0-476c-55b3-b77c-851201770331",
+    "fb15b5ed-5317-533f-8b74-f81dce144736"
+  ],
+  "content_gaps": []
+}
