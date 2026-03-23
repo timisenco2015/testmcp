@@ -1,73 +1,192 @@
 ```json
-{
-  "filename": "SiteOpportunity",
-  "found": true,
-  "summary": "The documents describe the implementation of a SiteOpportunity entity in a .NET application, involving database operations for adding, retrieving, updating, and deleting records. The implementation includes several fields related to site opportunities and has dedicated methods for handling data operations via stored procedures.",
-  "purpose": "To manage site opportunities within the HSPnet application, allowing for CRUD operations and ensuring data integrity.",
-  "entities": [
-    "SiteOpportunity",
-    "SiteOpportunities"
-  ],
-  "fields": [
-    "ID",
-    "SiteID",
-    "HeadingID",
-    "Response",
-    "SortOrder",
-    "Description",
-    "DescriptionAlt",
-    "DescriptionFormatted",
-    "SortOrderFormatted",
-    "WebPage",
-    "HeaderChanged"
-  ],
-  "actors": [
-    "HSPnetSession"
-  ],
-  "workflows": [
-    {
-      "name": "CRUD Operations",
-      "steps": [
-        "Add method to insert a new site opportunity using stored procedure 'SiteOpportunitiesAdd'.",
-        "GetByID method retrieves a site opportunity by ID using stored procedure 'SiteOpportunitiesSearchID'.",
-        "GetBySiteID method retrieves site opportunities by site ID using stored procedure 'SiteOpportunitiesSearch'.",
-        "Update method updates an existing site opportunity using stored procedure 'SiteOpportunitiesUpdate'.",
-        "Delete method removes a site opportunity using stored procedure 'SiteOpportunitiesDelete'."
-      ]
-    }
-  ],
-  "business_rules": [
-    "Site opportunities are managed through stored procedures to ensure data consistency and integrity."
-  ],
-  "validations": [
-    "Ensure Response is not blank before performing updates or additions.",
-    "ID must be non-zero for update and delete operations."
-  ],
-  "calculations": [
-    "Uses -1 as a flag for a blank SortOrder in data operations."
-  ],
-  "conditions": [
-    "Response is validated to not be blank to proceed with updates or additions."
-  ],
-  "system_behavior": [
-    "CRUD operations utilize stored procedures for database interaction.",
-    "System sets HeaderChanged based on HeadingID changes."
-  ],
-  "dependencies": [
-    "Depends on HSPnetSession for database connections and operations."
-  ],
-  "exceptions": [
-    "If Response is blank, an error message is added to the session and operation is not performed."
-  ],
-  "source_document_ids": [
-    "148590b2-a5c1-5ba2-9f76-5946671326da",
-    "18839216-0ce2-5da0-8629-43191022355e",
-    "2e24ba24-238e-539a-9060-ae9c5b2ef73d",
-    "430d8e05-df1d-5100-81dd-8c604142a057",
-    "64109c98-7c33-509c-9bd9-15bb43722cb7"
-  ],
-  "content_gaps": [
-    "No detailed user interface or user interaction processes."
-  ]
-}
+[
+  {
+    "filename": "SiteDocument",
+    "found": true,
+    "summary": "The SiteDocument file defines a sealed class 'SiteDocument' with properties 'ID' and 'SiteID'.",
+    "purpose": "Defines the structure for site-related documents with specific IDs.",
+    "entities": [],
+    "fields": ["ID", "SiteID"],
+    "actors": [],
+    "workflows": [],
+    "business_rules": [],
+    "validations": [],
+    "calculations": [],
+    "conditions": [],
+    "system_behavior": [],
+    "dependencies": [],
+    "exceptions": [],
+    "source_document_ids": ["a2967f17-a924-5e9c-8b15-d1f7bd028b32"],
+    "content_gaps": []
+  },
+  {
+    "filename": "WelcomeStaffAdmin",
+    "found": true,
+    "summary": "The WelcomeStaffAdmin file contains webform controls and validation for a staff admin webpage.",
+    "purpose": "Manage staff administration through a web interface with controls for validation and display.",
+    "entities": [],
+    "fields": ["valEndDate", "txtEndDate", "btnEndDateCalendar", "CalendarExtender2", "RegularExpressionValidator2", "cvrEndDateAfter", "chkShowWithdrawn"],
+    "actors": [],
+    "workflows": [],
+    "business_rules": [],
+    "validations": ["RequiredFieldValidator", "RegularExpressionValidator", "CustomValidator"],
+    "calculations": [],
+    "conditions": [],
+    "system_behavior": [],
+    "dependencies": [],
+    "exceptions": [],
+    "source_document_ids": ["05db31e4-e8b6-53ee-a6fb-812c106f0134", "100d5925-a5f8-53db-8493-02cddd563eb7", "3c84bade-9671-5fbf-acce-3c87a835e9b4", "4c4b97b8-d242-5261-a515-767a3f7d7a49", "52b5066f-23f6-5d82-96cd-5d51dad3de79", "5bb85da3-f5b4-5753-b07c-9bb2a04eeb89", "5d9b92ea-7c12-5070-8603-977cf14d0e04", "54244516-0707-581e-a8ba-9c041ea38366", "6701b153-5288-59e5-8de9-61b68a1fc292", "6eca1317-c0b2-5225-a9af-f034a722d924", "871df91b-7ba0-558f-83ea-d5be1b0dc8db", "8cea5c3a-2fbf-5206-a0c0-9425a5e14511", "964a48c9-231c-5d58-a44d-3675d949a453", "966ed8d3-a5af-567f-b092-936217777551", "a0c3da28-32a5-5fce-91b2-17274efa016e", "afbb4ec5-43c8-5281-ad2c-4b6cfd23a48e", "b8e79322-9a0e-5fe7-8953-3d05e231f923", "bf423a80-93db-572d-8cb8-c79f04214a93", "ca71b077-cc26-5979-a44f-59700a41316b", "d278278f-d4ec-5f4a-9f29-a02b66773bb9", "db9b35e9-53ca-5eaf-9d75-4f3a72131bc7"],
+    "content_gaps": []
+  },
+  {
+    "filename": "ServiceCode",
+    "found": true,
+    "summary": "Defines service codes and their retrieval based on various parameters.",
+    "purpose": "To manage service codes used within the system, allowing for retrieval and localization.",
+    "entities": ["ServiceCode", "ServiceCodes"],
+    "fields": ["ID", "CodeCategoryID", "ShortName", "Name", "SortOrder", "Notes", "NameAlt", "NotesAlt"],
+    "actors": [],
+    "workflows": [],
+    "business_rules": [],
+    "validations": [],
+    "calculations": [],
+    "conditions": [],
+    "system_behavior": [],
+    "dependencies": [],
+    "exceptions": [],
+    "source_document_ids": ["94f1b055-348d-508a-ae6e-cf7960a8c6a2", "f976b9af-a402-540f-b162-391d578fac7c", "e4ebe4b4-6d14-5c3f-b693-61016f765239"],
+    "content_gaps": []
+  },
+  {
+    "filename": "SiteProfileHistory",
+    "found": true,
+    "summary": "Handles site profile history records updating and retrieval for audit tracking.",
+    "purpose": "To track changes and updates to site profiles for audit purposes.",
+    "entities": ["SiteProfileHistory", "SiteProfileHistories"],
+    "fields": ["ID", "ActionDate", "ScreenSection", "UserAction", "Fields", "Agency", "AgencyName", "LastName", "FirstName", "MiddleName", "Phone", "ByUserID", "ByOriginalUserID", "ByUserSysAdmin"],
+    "actors": [],
+    "workflows": [],
+    "business_rules": [],
+    "validations": [],
+    "calculations": [],
+    "conditions": [],
+    "system_behavior": [],
+    "dependencies": [],
+    "exceptions": [],
+    "source_document_ids": ["25f89a24-5eda-5a3f-83df-1de69b12b3f1", "26e09292-d304-55c6-94e5-ef3346453c4b", "7ca6b963-9ae9-5cd3-82d5-f30dcb727ae3", "a8f030c6-90b8-53a1-bb8a-3b7ef33b9488", "e806999c-3a39-5720-9b59-303faebc9eb6"],
+    "content_gaps": []
+  },
+  {
+    "filename": "EmailPopupDocument",
+    "found": true,
+    "summary": "Manages email popup documents with functionalities for search and deletion.",
+    "purpose": "To handle documents that are part of email operations, allowing for file management within popups.",
+    "entities": ["EmailPopupDocument", "EmailPopupDocuments"],
+    "fields": ["ID", "FileName", "FilePath", "Checked"],
+    "actors": [],
+    "workflows": [],
+    "business_rules": [],
+    "validations": [],
+    "calculations": [],
+    "conditions": [],
+    "system_behavior": [],
+    "dependencies": [],
+    "exceptions": [],
+    "source_document_ids": ["7287734e-f13d-550f-9249-4242db620766", "927bc837-5564-5759-9324-27c6d5d7321d"],
+    "content_gaps": []
+  },
+  {
+    "filename": "ExpenseBatch",
+    "found": true,
+    "summary": "Handles operations related to expense batches including search, add, update, and delete.",
+    "purpose": "To manage and track expense batches within departments, facilitating financial operations.",
+    "entities": ["ExpenseBatch", "ExpenseBatches"],
+    "fields": ["ID", "DepartmentID", "BatchDescription", "BatchDate", "StatusCodeID", "StatusCode", "StatusDescription", "ClosedDate", "BatchNumberFormatted"],
+    "actors": [],
+    "workflows": [],
+    "business_rules": [],
+    "validations": [],
+    "calculations": [],
+    "conditions": [],
+    "system_behavior": [],
+    "dependencies": [],
+    "exceptions": [],
+    "source_document_ids": ["060e08d3-49ca-5e40-bea0-849f4e6173e1", "3559737f-0154-520e-be2b-d3dd2c3de539", "b2216e58-a144-55cb-8b87-3da9787fc1d7"],
+    "content_gaps": []
+  },
+  {
+    "filename": "CostCentre",
+    "found": true,
+    "summary": "Manages cost center records, allowing for retrieval and display of financial data related to placements.",
+    "purpose": "To provide detailed cost center information for budgeting and financial analysis related to placements.",
+    "entities": ["CostCentreRecord", "CostCentreView"],
+    "fields": ["PlacingAgency", "Department", "Program", "Discipline", "SubDiscipline", "ReceivingAgency", "Site", "Portfolio", "Service", "Destination", "CostCentre", "CostCentreDescription", "PRType", "StartDate", "EndDate", "Status", "Course", "ProgramYear", "ReferenceNumber", "CFO", "PRCount", "StudentCount", "PRHours", "StudentHours"],
+    "actors": [],
+    "workflows": [],
+    "business_rules": [],
+    "validations": [],
+    "calculations": [],
+    "conditions": [],
+    "system_behavior": [],
+    "dependencies": [],
+    "exceptions": [],
+    "source_document_ids": ["20ac8054-536e-5203-b33d-7db2b2dc2359", "2c04f259-cf58-5d95-803c-8ebf16840f6c", "97bc3ba9-9fe4-52b1-8847-dce2198e0aee", "dd965b0f-f9cf-57eb-a3f8-32b3b97a6d1a", "e1ac7e41-5e9e-5f16-baa0-29d05a70f976"],
+    "content_gaps": []
+  },
+  {
+    "filename": "TimetableAssessments",
+    "found": true,
+    "summary": "Handles timetable assessments, including configuration, validation, and management.",
+    "purpose": "To manage student assessments tied to specific timetables, ensuring compliance with academic standards.",
+    "entities": [],
+    "fields": ["ddAssessor", "ddSubject", "ddAssessmentType", "ddAssessmentTemplate", "chkAssessorCanViewSubjectsAnswers", "chkSubjectsCanViewAssessorAnswers", "txtViewUntilDaysAfterEnd", "trViewUntilDaysAfterEnd", "cmdAddEmptyData", "cmdEdit", "cmdDelete"],
+    "actors": [],
+    "workflows": [],
+    "business_rules": [],
+    "validations": ["RequiredFieldValidator", "CompareValidator"],
+    "calculations": [],
+    "conditions": [],
+    "system_behavior": [],
+    "dependencies": [],
+    "exceptions": [],
+    "source_document_ids": ["0781696d-dec4-5dfc-aa58-80ddd173c0ae", "0d330d29-e0a7-5f88-8c71-d32f88b252b0", "0ea3e178-f11b-5ee8-afc8-441e55e2d2f4", "135455cd-1a34-5b2d-b8cc-298a1d98c47e", "14ec7368-e312-5de7-b00e-188a6d5310ef", "1807e536-2914-59f1-a538-b9e127d25f77", "1d7ea219-2359-5da1-9c7b-79cbd696c770", "345a2e51-fcf0-5df0-b1f6-b535c4b757c6", "447b10a9-0558-5d06-9fac-926c94892393", "50cbdfe8-4a64-5c51-ba1e-e88fb00ca8fc", "528d9fc6-cb63-5c52-9327-f323552f37e3", "61fa5351-3118-588b-a4f0-3147cd92841a", "6f04742e-ad06-58cf-af37-b3ae7ebe39cc", "6f1aa10e-0697-5c9e-8e0a-182b597a2d3e", "707335b9-f19a-5366-959c-4872a99363e8", "727a0287-de95-52fe-a841-7f49f9958884", "734dd83e-2a57-578d-9891-96f90686f95e", "7ab03f3d-3b63-594e-a3ac-ea304249c66a", "7a89081a-a4a0-569f-8bc4-676ec99f7dcb", "b0600110-1773-5335-a423-4e456e7b615b", "b66763e8-1cd7-5741-9b81-95c511b8cf64", "c8e37d14-9d6e-5d5f-a710-581fe5dfd958", "c55e37c8-0668-52c9-8860-02706d05d1c5", "b66763e8-1cd7-5741-9b81-95c511b8cf64"], "content_gaps": []
+  },
+  {
+    "filename": "AdHocQuery",
+    "found": true,
+    "summary": "Provides functionality to convert SQL data into HTML tables for display in ad-hoc reports.",
+    "purpose": "To enable dynamic generation of HTML tables from query results for ad-hoc reporting needs.",
+    "entities": [],
+    "fields": [],
+    "actors": [],
+    "workflows": [],
+    "business_rules": [],
+    "validations": [],
+    "calculations": [],
+    "conditions": [],
+    "system_behavior": [],
+    "dependencies": [],
+    "exceptions": [],
+    "source_document_ids": ["20140dcf-7d8e-51f1-86ab-4b5a291db2b2", "2878adb2-c26b-5d41-a6a4-d9f5a2c2c782"],
+    "content_gaps": []
+  },
+  {
+    "filename": "StudentPrerequisites",
+    "found": true,
+    "summary": "Manages student prerequisite data, including health records and other required documentation.",
+    "purpose": "To keep track of student prerequisites for various academic and health requirements, ensuring compliance.",
+    "entities": ["StudentPrerequisite", "StudentPrerequisites"],
+    "fields": ["ID", "StudentID", "CRCStatusCodeID", "IDCard", "WCBWaiver", "ConfidentialityForm", "UseAssessmentModule", "DepartmentUseAssessmentModule", "N95MaskSizeCodeID", "N95MaskAltSizeCodeID", "N95MaskFitTestExpiryDate", "TetanusExpiryDate", "TdapImmunity", "PolioImmunity", "MeaslesStatusCodeID", "Covid19StatusCodeID", "RubellaStatusCodeID", "VaricellaStatusCodeID", "InfluenzaStatusCodeID"],
+    "actors": [],
+    "workflows": [],
+    "business_rules": [],
+    "validations": [],
+    "calculations": [],
+    "conditions": [],
+    "system_behavior": [],
+    "dependencies": [],
+    "exceptions": [],
+    "source_document_ids": ["126148d2-7c46-5bb8-8a4c-606105b702bd", "165b1b6b-fd06-59e5-b7d7-81e87dbeac55", "280408b2-2e1d-5bd7-8feb-59603ff0bb80", "2f8ba20e-ca9a-5fc1-932a-1899a9499417", "3787eddd-1ce0-519f-9959-30c8a913c827", "3c00eec5-f694-53fb-abe6-a8d94038fd60", "3e68c0d0-3ab9-5c14-a221-bf0f7592302c", "430fc305-a57a-53e5-9f01-35e07b707792", "46edf9a0-d978-5197-be20-b4536cae3e91", "4a51cb58-538c-57f2-82ff-13fb4d577aa8", "4abb53e7-107a-535d-a3b7-97b5279e2632", "4c84ad96-eff9-5f59-ad88-b1083437874e", "4fef49f1-918d-5276-9b5d-2394b74edd53", "580b77b9-dd28-5027-bdae-912684d6c0b6", "5829b29d-0fd8-5ba1-98f8-f7195d0f276d", "58666a42-abe8-54d8-89a0-54666f57461b", "5eaa703a-dd1e-5dee-bb2e-1fb263c75db6", "60564881-fabd-566c-ae55-496631ed07ce", "60fbd355-bf2a-5b34-900c-2d4271e50c18", "61704a31-73c8-510f-a8a5-2f3f90576102", "64b9d3fc-975d-5d39-ab37-dbeff805220f", "6c76048a-8dbd-57f8-a34d-f0474a8066e7", "6f4e2f7e-5afe-5594-b7af-e3164b62cc31", "72969051-b340-56cd-9567-db665fe9963a", "7ad65168-6ffa-588e-8b5e-2c138a0092b6", "812c66d2-bc1a-5ced-a6c2-fafa49e2bcb9", "8325c58d-21a0-55d5-a8e9-e1479ebd011f", "8b00efe5-209e-55a9-84be-d06aaf4abd1a", "9096371b-8c7b-5c4b-81f4-7d9582776926", "92a9a02b-cd4f-5050-9603-a3c1fb695f28", "92f4ca82-b65d-570b-b830-aa1aae296ad4", "97ddf3ed-0086-5903-91ce-adc367f9ec68", "9a9ab264-40f6-5641-bf80-27e1944adffd", "9c001d9f-6b5e-5efb-bae5-beec7494b84c", "9dc9edf7-a95e-57c9-ae8e-a04ecdfa88be", "a9be8e45-83d9-54f8-baf7-de5e6c16d394", "b017c1aa-ba9e-5224-b66a-42e4768ed23b", "b5ab106e-c17a-5125-84ac-e4f9d60a842e", "c2b792da-41a1-54e8-9415-795065348574", "c44b7954-91d6-5eaa-b033-a765cc18d949", "c5635bb5-13a4-5707-a628-269e77e4ede2", "d0eb0cc2-a4a7-55d8-8468-1d6ae5eefb35", "d29d4c69-472b-5cdc-8324-d8b31f86cb75", "d65fc939-7e93-5874-a3e2-934f23808835", "dadce6a1-e08f-5117-9767-bb9b5e83fef7", "ea26e640-45be-5fed-9d03-b18363a3b120", "ec8c8c16-1482-5149-87fd-34c4724af0a2", "eedb6500-7e63-5aba-b652-8cfbbf9b798d", "eedb6500-7e63-5aba-b652-8cfbbf9b798d", "a9be8e45-83d9-54f8-baf7-de5e6c16d394"], "content_gaps": []
+  }
+]
 ```
