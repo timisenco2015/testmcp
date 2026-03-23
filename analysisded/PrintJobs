@@ -1,0 +1,164 @@
+```json
+{
+  "filename": "PrintJobs",
+  "found": true,
+  "summary": "The document outlines the structure and operations related to managing print jobs within the HSPnet application. It includes definitions for PrintJob entities, methods for creating and managing reports, and validations related to report generation processes.",
+  "purpose": "To provide a detailed framework for handling print jobs, including creation, modification, validation, and execution within the HSPnet application system.",
+  "entities": [
+    "PrintJob",
+    "HSPnetSession"
+  ],
+  "fields": [
+    "ID",
+    "UserID",
+    "JobDate",
+    "JobName",
+    "ParamsReady",
+    "ReportReady",
+    "ReportViewed",
+    "OutputFileName",
+    "ReportSent",
+    "URLBase",
+    "SentDate",
+    "Details",
+    "Category",
+    "Status",
+    "StatusDisplay",
+    "StatusDisplayFormatted",
+    "PRD_ID",
+    "PRD_COUNT",
+    "StaffEmail",
+    "PRDLIST_SINGLE",
+    "RecipientID",
+    "RecipientName",
+    "RecipientEmail",
+    "DueDate",
+    "URLBase",
+    "URLOutputFileFormatted",
+    "EmailClientClick"
+  ],
+  "actors": [
+    "Sess",
+    "Resources",
+    "SqlDataReader"
+  ],
+  "workflows": [
+    {
+      "name": "ReportStaffListCreateJob",
+      "steps": [
+        "Check staff roles",
+        "Add procedure and parameters",
+        "Execute query",
+        "Add warning message if no SQL error"
+      ]
+    },
+    {
+      "name": "ReportNISCreateJob",
+      "steps": [
+        "Validate start and end dates",
+        "Set variables",
+        "Add procedure and parameters",
+        "Execute query",
+        "Add warning message if no SQL error"
+      ]
+    },
+    {
+      "name": "ReportPlacementScheduleCreateJob",
+      "steps": [
+        "Validate destination list and date range",
+        "Add procedure and parameters",
+        "Execute query"
+      ]
+    },
+    {
+      "name": "ReportConflictCreateJob",
+      "steps": [
+        "Validate agency lists and date range",
+        "Add procedure and parameters",
+        "Execute query"
+      ]
+    },
+    {
+      "name": "ReportStudentPlacementScheduleCreateJob",
+      "steps": [
+        "Validate term course ID list",
+        "Adjust student contact info",
+        "Add procedure and parameters",
+        "Execute query"
+      ]
+    }
+  ],
+  "business_rules": [
+    "At least one staff role must be selected",
+    "Maximum include items for lists is 50",
+    "Ensure date validation for start and end dates"
+  ],
+  "validations": [
+    "ValidStartEndDate",
+    "Non-empty cohort or course list",
+    "Non-empty agency or destination list"
+  ],
+  "calculations": [
+    "Format Date",
+    "Format Time",
+    "Calculate Group Index"
+  ],
+  "conditions": [
+    "If TermIndex == 5, set custom date variables",
+    "If PRD_COUNT == 1, set subject for EmailClientClick"
+  ],
+  "system_behavior": [
+    "Format and display ready status in red",
+    "Translate job names in alt language mode",
+    "Generate email client click URLs"
+  ],
+  "dependencies": [
+    "HSPnetSession",
+    "DateFormatter",
+    "StatusCodeFormatter",
+    "NameFormatter"
+  ],
+  "exceptions": [
+    "AddError if no roles are selected",
+    "AddWarning if report added to queue",
+    "No report created if no valid destinations/agencies"
+  ],
+  "source_document_ids": [
+    "bcdf09c3-a54d-5066-858c-0e9798259f41",
+    "c3f794aa-5886-5d59-b809-c9f0e79547c9",
+    "92dc8063-9adb-5edf-a21d-c80089616b39",
+    "55b721e0-e3c3-57ca-bc5b-e73fbac45b27",
+    "2b60976f-e321-55ea-8f5d-3fafff8ff090",
+    "1a553aff-8362-50ff-ac48-fcc9edd606b4",
+    "6ede39b3-4c67-58e1-a164-8ad0769f2124",
+    "1881216b-5ff7-5273-84cb-3cf61993dad0",
+    "cd4ccf09-b970-5f1b-bc44-81cb69bd18ff",
+    "ee9639f7-c2b3-56b6-8be9-699177535f6b",
+    "323bd332-2ef0-53f9-8636-fdddd292e6d0",
+    "bac8b1a7-500b-510e-b7da-51fb87d03234",
+    "855eb02a-40e1-54de-b0b7-a766aec8bfbb",
+    "343a2831-bc35-5f70-9c3a-3df49fd887dc",
+    "43f1424a-a288-5473-8deb-d061c2bfe017",
+    "02b8c9b7-0198-5b6e-b82d-364ac42ccd25",
+    "0439b504-a8c2-5b8d-88b8-c17ae20c1c08",
+    "f0e87828-b60b-53f4-8885-46ccaf20634a",
+    "e1da26f7-b8da-55b3-a18b-4f7b41a66590",
+    "e4b6255e-850c-529c-9832-74fc0c444bae",
+    "ec577460-73c0-5305-ac94-639029835e51",
+    "12dd920c-d8e7-59fd-bd44-aad168149f93",
+    "e79fe64a-0af6-5e1c-a1ec-9bc69daaf82b",
+    "fba7db30-fd03-55a5-88fb-db0f4c39f149",
+    "93a10cb2-2ba8-595b-9055-4615890d1461",
+    "87bdd11d-fb03-5409-b5a2-62c23bf96de3",
+    "30a59770-6401-5d7b-bdde-e8fe726ac4cf",
+    "76cc9be4-b39b-58ea-a054-ac2544c5bc43",
+    "9252ec14-aab4-54a4-915b-7870ade9a71f",
+    "bbc00f3d-b36c-5690-be17-b4a8cb083f40",
+    "67d6b52e-34e6-5656-ae4f-f437466d856d",
+    "00cfa3ca-6039-5a65-9880-9d6f386533c6",
+    "21403eeb-e5d8-5b3f-80f3-882b0cac919d",
+    "fd81ec4d-f88b-5d27-bcb7-d4ce8b6b14bc"
+  ],
+  "content_gaps": []
+}
+```
