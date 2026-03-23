@@ -1,0 +1,131 @@
+{
+  "filename": "AssessmentTemplate",
+  "found": true,
+  "summary": "The retrieved content consists of C# classes and methods related to the management of Assessment Templates within the HSPnet system. The main class, AssessmentTemplate, encapsulates the properties of an assessment template, while several methods perform searches and data retrieval based on various IDs such as TemplateCodeID, TimeTableID, CourseID, StudentID, and CohortID.",
+  "purpose": "To define and manage assessment templates, including facilitating searches by different parameters (e.g., time table, course, student) within the HSPnet system.",
+  "entities": [],
+  "fields": [
+    {
+      "name": "ID",
+      "type": "int",
+      "description": "The unique identifier for the assessment template."
+    },
+    {
+      "name": "CodeCategoryID",
+      "type": "int",
+      "description": "The category ID associated with the template."
+    },
+    {
+      "name": "Name",
+      "type": "string",
+      "description": "The name or code of the template."
+    },
+    {
+      "name": "Description",
+      "type": "string",
+      "description": "A description of the assessment template."
+    },
+    {
+      "name": "SortOrder",
+      "type": "int",
+      "description": "The order in which the template appears."
+    },
+    {
+      "name": "Notes",
+      "type": "string",
+      "description": "Additional notes regarding the template."
+    },
+    {
+      "name": "DescriptionAlt",
+      "type": "string",
+      "description": "Alternative description for the template."
+    },
+    {
+      "name": "NotesAlt",
+      "type": "string",
+      "description": "Alternative notes for the template."
+    }
+  ],
+  "actors": [
+    "HSPnetSession"
+  ],
+  "workflows": [
+    {
+      "name": "AssessmentTemplateSearchByTemplateCodeID",
+      "steps": [
+        "Initialize AssessmentTemplate object.",
+        "Set stored procedure to AssessmentTemplateSearchByTemplateCodeID.",
+        "Add SessionID and TemplateCodeID as parameters.",
+        "Execute the stored procedure.",
+        "Read SQLDataReader, mapping data to AssessmentTemplate properties.",
+        "Close reader and return AssessmentTemplate object."
+      ]
+    },
+    {
+      "name": "AssessmentTemplateSearchByTimeTableID",
+      "steps": [
+        "Initialize List of AssessmentTemplate objects.",
+        "Set stored procedure to AssessmentTemplateSearchByTimeTableID.",
+        "Add SessionID and TimeTableID as parameters.",
+        "Execute the stored procedure.",
+        "Read SQLDataReader, creating and populating AssessmentTemplate objects.",
+        "Close reader and return list of AssessmentTemplates."
+      ]
+    },
+    {
+      "name": "AssessmentTemplateSearchByCourseID",
+      "steps": [
+        "Initialize List of AssessmentTemplate objects.",
+        "Set stored procedure to AssessmentTemplateSearchByCourseID.",
+        "Add SessionID and CourseID as parameters.",
+        "Execute the stored procedure.",
+        "Read SQLDataReader, creating and populating AssessmentTemplate objects.",
+        "Close reader and return list of AssessmentTemplates."
+      ]
+    },
+    {
+      "name": "AssessmentTemplateSearchByStudentID",
+      "steps": [
+        "Initialize List of AssessmentTemplate objects.",
+        "Set stored procedure to AssessmentTemplateSearchByStudentID.",
+        "Add SessionID and StudentID as parameters.",
+        "Execute the stored procedure.",
+        "Read SQLDataReader, creating and populating AssessmentTemplate objects.",
+        "Close reader and return list of AssessmentTemplates."
+      ]
+    },
+    {
+      "name": "AssessmentTemplateSearchByCohortAndCourseID",
+      "steps": [
+        "Initialize List of AssessmentTemplate objects.",
+        "Set stored procedure to AssessmentTemplateSearchByCohortAndCourseID.",
+        "Add SessionID, CohortID, and CourseID as parameters.",
+        "Execute the stored procedure.",
+        "Read SQLDataReader, creating and populating AssessmentTemplate objects.",
+        "Close reader and return list of AssessmentTemplates."
+      ]
+    }
+  ],
+  "business_rules": [],
+  "validations": [],
+  "calculations": [],
+  "conditions": [],
+  "system_behavior": [
+    "Uses stored procedures for database operations.",
+    "Maps database fields to object properties."
+  ],
+  "dependencies": [
+    "System.Data.SqlClient",
+    "HSPnet.Framework",
+    "HSPnet.App_GlobalResources",
+    "HSPnet.UI"
+  ],
+  "exceptions": [],
+  "source_document_ids": [
+    "1056bec9-1d89-5c4a-bc4f-896741801c26",
+    "16e7f3cb-7e25-5bb3-abd6-03d9fc81eaeb",
+    "2a7975fc-84c8-59e3-9e38-b52d7a4b777b",
+    "95a59fcd-c527-5308-b995-ae0473d085a2"
+  ],
+  "content_gaps": []
+}
