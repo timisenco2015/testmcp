@@ -1,0 +1,107 @@
+```json
+{
+  "filename": "TimetableRotation",
+  "found": true,
+  "summary": "The TimetableRotation module manages rotation schedules for cohorts, terms, and courses within an academic timetable. It provides functionalities to select, add, update, and delete timetable rotations, ensuring date validations and constraints are met.",
+  "purpose": "To handle the scheduling and management of timetable rotations including validation and CRUD operations.",
+  "entities": [
+    "TimetableRotation"
+  ],
+  "fields": [
+    "ID",
+    "Count",
+    "TimetableID",
+    "StartDate",
+    "EndDate",
+    "CohortName",
+    "CohortShortName",
+    "TermName",
+    "TermStart",
+    "TermEnd",
+    "CourseName",
+    "CourseShortName",
+    "TimetableStartDate",
+    "TimetableEndDate",
+    "StartDateFormatted",
+    "EndDateFormatted"
+  ],
+  "actors": [
+    "HSPnetSession"
+  ],
+  "workflows": [
+    {
+      "name": "GetByTimetableID",
+      "steps": [
+        "Set procedure to TimetableRotationSearch",
+        "Add TimetableID parameter",
+        "Execute query and read data",
+        "Fill list with TimetableRotation objects"
+      ]
+    },
+    {
+      "name": "Add",
+      "steps": [
+        "Validate data",
+        "Set procedure to TimetableRotationAdd",
+        "Add necessary parameters",
+        "Execute query"
+      ]
+    },
+    {
+      "name": "Update",
+      "steps": [
+        "Validate data",
+        "Set procedure to TimetableRotationUpdate",
+        "Add necessary parameters",
+        "Execute query"
+      ]
+    },
+    {
+      "name": "Delete",
+      "steps": [
+        "Set procedure to TimetableRotationDelete",
+        "Add ID parameter",
+        "Execute query"
+      ]
+    }
+  ],
+  "business_rules": [
+    "Ensure start and end dates are within timetable start and end dates",
+    "Start date must be before end date"
+  ],
+  "validations": [
+    "Start date is required",
+    "End date is required",
+    "Start date cannot be after end date",
+    "Dates must be within timetable range"
+  ],
+  "calculations": [
+    "Format start and end dates to short format"
+  ],
+  "conditions": [
+    "Timetable rotation dates must not be before course start date",
+    "Timetable rotation dates must not be after course end date"
+  ],
+  "system_behavior": [
+    "Execute stored procedures for CRUD operations",
+    "Handle date formatting and validations",
+    "Add error messages for invalid conditions"
+  ],
+  "dependencies": [
+    "SqlDataReader",
+    "Database operations"
+  ],
+  "exceptions": [
+    "Missing or invalid start or end date results in error messages"
+  ],
+  "source_document_ids": [
+    "46fb1ff1-1d43-5e8f-a9c1-4001efe45eaf",
+    "90c7c9c6-9236-54ea-b377-83447ca97722",
+    "e5789238-c13a-5d51-ac41-71c9d1c42fcd",
+    "e9bfae10-927e-59d2-855a-5203be6664db",
+    "f3beef69-1a5b-5b46-81d9-ca02affe14dc",
+    "fbf1f45e-8625-5daa-9a44-afd134af6b6d"
+  ],
+  "content_gaps": []
+}
+```
