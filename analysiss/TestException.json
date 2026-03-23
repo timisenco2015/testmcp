@@ -1,39 +1,36 @@
 {
-  "filename": "TestException",
-  "found": true,
-  "summary": "The TestException class is designed to demonstrate exception handling within the HSPnet framework by either triggering a connection exception or a null reference exception based on the input type.",
-  "purpose": "The purpose of the TestException class is to simulate and handle specific exceptions for testing the framework’s error handling capabilities.",
-  "entities": [],
-  "fields": [],
-  "actors": [],
-  "workflows": [
-    {
-      "name": "ThrowException",
-      "steps": [
-        "Invoke ThrowException with a parameter 'type' which determines the method to execute.",
-        "If the type is 'Connection', call TestConnectionException to throw a HSPnetConnectionException.",
-        "If the type is not 'Connection', call TestNullReferenceException with a null object to trigger a null reference exception."
-      ]
-    }
-  ],
-  "business_rules": [],
-  "validations": [],
-  "calculations": [],
-  "conditions": [
-    "type == 'Connection': Call TestConnectionException.",
-    "type != 'Connection': Call TestNullReferenceException with a null object."
-  ],
-  "system_behavior": [
-    "Throws a HSPnetConnectionException when the type is 'Connection'.",
-    "Throws a NullReferenceException when the type is not 'Connection'."
-  ],
-  "dependencies": [],
-  "exceptions": [
-    "HSPnetConnectionException: Thrown for connection-related issues.",
-    "NullReferenceException: Thrown when a method is called on a null object."
-  ],
-  "source_document_ids": [
-    "a2167b56-3b9d-5f37-9bd9-f0134b98c766"
-  ],
-  "content_gaps": []
+    "filename": "TestException",
+    "found": true,
+    "summary": "The document details a TestException class in the HSPnet.Framework namespace, which is designed to trigger specific exceptions for testing purposes.",
+    "purpose": "The purpose of the TestException class is to simulate and handle exceptions within the HSPnet framework, specifically connection exceptions and null reference exceptions.",
+    "entities": [],
+    "fields": [],
+    "actors": [],
+    "workflows": [
+        {
+            "name": "ThrowException",
+            "steps": [
+                "Take a string 'type' as input.",
+                "If 'type' is 'Connection', call TestConnectionException.",
+                "For any other 'type', call TestNullReferenceException with null as the argument."
+            ]
+        }
+    ],
+    "business_rules": [],
+    "validations": [],
+    "calculations": [],
+    "conditions": [
+        "If the 'type' parameter is 'Connection'.",
+        "If the 'type' parameter is anything other than 'Connection'."
+    ],
+    "system_behavior": [
+        "Throws specific exceptions based on the input type."
+    ],
+    "dependencies": [],
+    "exceptions": [
+        "HSPnetConnectionException is thrown by calling TestConnectionException.",
+        "A null reference exception occurs when TestNullReferenceException is called with a null object."
+    ],
+    "source_document_ids": ["a2167b56-3b9d-5f37-9bd9-f0134b98c766"],
+    "content_gaps": []
 }
