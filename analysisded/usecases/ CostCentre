@@ -1,0 +1,55 @@
+# Module: CostCentre
+
+## CostCentre-UC1 — Retrieve Cost Centre Records
+
+- Primary Actor(s): Database Administrator
+- Secondary Actor(s): Application User
+- Trigger: User requests Cost Centre data for a specific session and date range.
+- Description: This use case describes how to retrieve a list of Cost Centre records based on parameters like session ID, start date, end date, and optional filters such as placing agencies, discipline, site, service, and destination.
+- Preconditions:
+  - The database connection must be established.
+  - Valid session ID and date range must be provided.
+- Postconditions:
+  - A list of Cost Centre records is returned to the user.
+- Main Success Scenario:
+  1. User inputs session ID and date range.
+  2. User optionally inputs filters like placing agencies and discipline.
+  3. Database executes the stored procedure `PlacementCostCentre`.
+  4. System retrieves and constructs Cost Centre records.
+  5. System returns the list of records to the user.
+- Extensions:
+  - 3a. If optional filters are provided, they are included in the database query.
+- Exceptions:
+  - If the database connection fails, an error is returned.
+  - If the provided session ID or date range is invalid, an empty result set is returned.
+- Business Rules:
+  - Records are filtered and returned based on the provided parameters.
+- Assumptions:
+  - The stored procedure `PlacementCostCentre` is correctly implemented and optimized for performance.
+- Open Issues:
+  - Clarification on handling potential data discrepancies between source and retrieved data needs consideration.
+
+## CostCentre-UC2 — Define Cost Centre Data Structure
+
+- Primary Actor(s): System Developer
+- Secondary Actor(s): Database Administrator
+- Trigger: System needs to define or update the structure of Cost Centre data records.
+- Description: This use case describes the definition and serialization of a Cost Centre record structure that includes details such as placing agency, department, program, cost centre, and associated costs.
+- Preconditions:
+  - Development environment must be set up with access to data models.
+- Postconditions:
+  - Cost Centre record structure is defined and available for data manipulation.
+- Main Success Scenario:
+  1. Developer defines the `CostCentreRecord` class structure with necessary fields.
+  2. Developer implements serialization attributes for compatibility with XML.
+  3. The record structure is compiled and integrated into the system.
+- Extensions:
+  - Additional fields may be defined based on future data requirements.
+- Exceptions:
+  - None identified at this stage.
+- Business Rules:
+  - All fields must comply with data integrity and serialization standards.
+- Assumptions:
+  - XML serialization is required for data exchange.
+- Open Issues:
+  - None identified at this stage.
