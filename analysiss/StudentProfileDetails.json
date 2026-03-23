@@ -1,12 +1,10 @@
 {
   "filename": "StudentProfileDetails",
   "found": true,
-  "summary": "The 'StudentProfileDetails' document describes the implementation of a web user control designed to handle student profile details in an ASP.NET environment. It includes functionality for displaying, editing, and managing student profiles using a GridView and FormView interface. The control supports operations like adding, editing, and deleting student details while ensuring user sessions are managed and validations are performed.",
-  "purpose": "To manage student profile details, including adding, viewing, and editing student information through a web interface.",
+  "summary": "The StudentProfileDetails component handles the display and management of student profile details within the HSPnet web application. It involves user controls, data binding, and user session management.",
+  "purpose": "To manage the display, addition, editing, and deletion of student profiles within a web interface while ensuring proper data binding and user session control.",
   "entities": [],
   "fields": [
-    "lblProfilePrivacy",
-    "pnlEmptyData",
     "lblEmptyData",
     "cmdAddEmptyData",
     "gvwProfile",
@@ -17,57 +15,62 @@
     "mdlDetails",
     "ValidationSummary3",
     "fvwProfile",
-    "ddHeadingID",
-    "ddNumberingCodeID",
-    "lblResponse",
-    "lblNumber"
+    "lblProfilePrivacy",
+    "pnlEmptyData",
+    "lblResponse"
   ],
   "actors": [
-    {
-      "name": "User",
-      "description": "A person interacting with the student profile details interface."
-    }
+    "UserSession",
+    "StudentDetail",
+    "GridViewRow",
+    "GridView",
+    "FormView",
+    "DropDownList",
+    "Codes"
   ],
   "workflows": [
     {
-      "name": "Managing Student Profile Details",
+      "name": "Profile Management",
       "steps": [
-        "User accesses the student profile details interface.",
-        "User can add, edit, or delete student information as needed.",
-        "On adding, a new student profile is created with provided details.",
-        "On editing, existing profile details are updated.",
-        "On deletion, the student profile is removed.",
-        "Session management ensures only authorized users can make changes.",
-        "Validation ensures data integrity and correctness."
+        "Check if header has changed to control visibility of panels.",
+        "Set hyperlink visibility for web page entries.",
+        "Indent labels based on numbering level.",
+        "Handle data binding and redirect actions on page load and commands.",
+        "Setup header and data row buttons for editing, deleting, and adding.",
+        "Handle row command actions and corresponding data operations.",
+        "Display appropriate modals or controls based on data bound state."
       ]
     }
   ],
   "business_rules": [
-    "Profiles can only be modified by users with appropriate session credentials."
+    "Headers should not repeat on subsequent rows if unchanged.",
+    "Empty data template should trigger JavaScript validation for events.",
+    "Only editable screens can display 'no data found' add button."
   ],
   "validations": [
-    "Ensure number fields are formatted correctly.",
-    "Ensure profile details are not repeated unnecessarily.",
-    "Ensure all form fields are populated correctly before submission."
+    "Check for non-empty sorting order values or set default.",
+    "Ensure dropdown selections are properly populated and selected.",
+    "Validate session existence before performing data operations."
   ],
-  "calculations": [
-    "Indent labels according to the numbering indent level."
-  ],
+  "calculations": [],
   "conditions": [
-    "Show 'no data found' message only if the grid has no rows and the screen is editable."
+    "Check if screen is editable before adding buttons.",
+    "Verify if the data row or header type to execute appropriate setup.",
+    "Detect if data item count is greater than zero or in insert mode."
   ],
   "system_behavior": [
-    "The system hides or shows certain panels based on the data header state.",
-    "A hyperlink is used for web page entries when the profile has a URL.",
-    "The screen allows adding, editing, or deleting profiles based on session state."
+    "Automatically redirect user to the profile page after operations.",
+    "Caches user session data to maintain session state.",
+    "Hides detail panels if not in edit mode."
   ],
   "dependencies": [
-    "HSPnet.UI.Links",
-    "HSPnet.UI.NumberingCodes",
-    "HSPnetSession"
+    "HSPnet.UI",
+    "HSPnet.Framework",
+    "HSPnet.App_GlobalResources",
+    "HSPnet.DataLayer"
   ],
   "exceptions": [
-    "JavaScript errors related to event validation when using an EmptyDataTemplate."
+    "Cancel selection if user session is null."
   ],
   "source_document_ids": [
     "0886e342-e286-540c-a284-e8064601ab20",
