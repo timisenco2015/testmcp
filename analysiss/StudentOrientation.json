@@ -1,0 +1,125 @@
+{
+    "filename": "StudentOrientation",
+    "found": true,
+    "summary": "The StudentOrientation module manages details associated with student orientations including creation, updating, and searching procedures for orientation records.",
+    "purpose": "To facilitate the management and retrieval of student orientation details in the HSPnet system.",
+    "entities": [
+        {
+            "name": "StudentOrientation",
+            "attributes": [
+                "ID",
+                "StudentID",
+                "ProviderID",
+                "ProviderTypeCodeID",
+                "ContentSource",
+                "Location",
+                "OrientationDate",
+                "Comments",
+                "ProviderTypeDescription",
+                "AgencyID",
+                "SiteID",
+                "StaffID",
+                "Agency",
+                "Site",
+                "AgencyLongName",
+                "SiteLongName",
+                "ProviderType",
+                "ProviderTypeCode",
+                "CreatedByAgencyID",
+                "RCAllowedEdit"
+            ]
+        }
+    ],
+    "fields": [
+        "OrientationDate",
+        "Comments",
+        "ProviderTypeDescription",
+        "AgencyID",
+        "SiteID",
+        "ProviderTypeCodeID",
+        "ContentSource",
+        "Location",
+        "SessionID",
+        "StudentID",
+        "StaffID"
+    ],
+    "actors": [
+        "HSPnetSession"
+    ],
+    "workflows": [
+        {
+            "name": "Add Student Orientation",
+            "steps": [
+                "Parse agencySiteID to get agencyID and siteID.",
+                "Set procedure name to 'StudentDetailsOrientationAdd'.",
+                "Add parameters: SessionID, StudentID, AgencyID, SiteID, ProviderTypeCodeID, ContentSource, Location, OrientationDate, Comments, ProviderTypeDescription, StaffID.",
+                "Execute query."
+            ]
+        },
+        {
+            "name": "Update Student Orientation",
+            "steps": [
+                "Parse agencySiteID to get agencyID and siteID.",
+                "If agencyID is 0, add warning and set hasMessage to true.",
+                "If noError is true, proceed with update.",
+                "Set procedure name to 'StudentDetailsOrientationUpdate'.",
+                "Add parameters: SessionID, ID, AgencyID, SiteID, ProviderTypeCodeID, ContentSource, Location, OrientationDate, Comments, ProviderTypeDescription.",
+                "Execute query."
+            ]
+        },
+        {
+            "name": "Delete Student Orientation",
+            "steps": [
+                "Set procedure name to 'StudentDetailsOrientationDelete'.",
+                "Add parameters: ID, SessionID.",
+                "Execute query."
+            ]
+        },
+        {
+            "name": "Search Student Orientation by ID",
+            "steps": [
+                "Set procedure name to 'StudentDetailsOrientationSearchID'.",
+                "Add parameters: ID, SessionID.",
+                "Get data using SqlDataReader.",
+                "Fill list with data from reader.",
+                "Return list."
+            ]
+        }
+    ],
+    "business_rules": [
+        "Do not run query in StudentDetailsOrientationSearchID if ID is not greater than 0."
+    ],
+    "validations": [
+        "Validate agencySiteID format before parsing."
+    ],
+    "calculations": [
+        "Truncate Comments to 20 characters for CommentsTruncated field."
+    ],
+    "conditions": [
+        "If agencyID is 0 during update, raise warning and flag as message."
+    ],
+    "system_behavior": [
+        "Use session to execute queries.",
+        "Override min date with null if returned in OrientationDate."
+    ],
+    "dependencies": [
+        "Database",
+        "SqlDataReader",
+        "HSPnet.Framework",
+        "HSPnet.App_GlobalResources",
+        "HSPnet.UI"
+    ],
+    "exceptions": [
+        "No update on students with blank Provider."
+    ],
+    "source_document_ids": [
+        "0ca0e5a1-aa94-54ba-bd74-9d62a905c60a",
+        "2939c72a-b065-53e7-902a-db0c267871d4",
+        "374de14c-673f-5e6c-9d66-5b7ee7b7a531",
+        "49e0426d-35cb-5e25-a5ae-c283b629cf85",
+        "61dc2ccd-3e51-597a-91a3-45de47d5e47b",
+        "c10e6389-d7af-53a3-8410-ffe873d9691d",
+        "f90f8e0a-2719-5ea8-95ee-13cf88796604"
+    ],
+    "content_gaps": []
+}
