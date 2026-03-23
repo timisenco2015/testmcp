@@ -1,100 +1,88 @@
 ```json
 {
-    "filename": "PlacementHistory",
-    "found": true,
-    "summary": "The PlacementHistory is a user control module intended to manage and display staff placement data within a web application. It operates within the HSPnet framework and interacts with user sessions and staff IDs to retrieve and display history data.",
-    "purpose": "The purpose of PlacementHistory is to enable the viewing, sorting, and printing of placement histories for staff members in the application, primarily for supervisors.",
-    "entities": [
-        "UserSession",
-        "Staff",
-        "PlacementHistory",
-        "PRSearchStudent"
-    ],
-    "fields": [
-        "UserSession.SupervisorCaption",
-        "StaffID",
-        "ScreenIsEditable",
-        "CurrentPage",
-        "PRHistoryOnly",
-        "SortExpression",
-        "AlternateObservation"
-    ],
-    "actors": [
-        "User",
-        "Supervisor"
-    ],
-    "workflows": [
-        {
-            "name": "Page Load",
-            "steps": [
-                "Set pnlReportHTML visibility to false",
-                "Check PRHistoryOnly to set spnPrintButton visibility",
-                "Load staff data based on StaffID",
-                "Set supervisor caption if UserSession is available"
-            ]
-        },
-        {
-            "name": "Page PreRender",
-            "steps": [
-                "Verify UserSession availability",
-                "Fetch staff details and render SupervisorCaption"
-            ]
-        },
-        {
-            "name": "Data Source Selecting",
-            "steps": [
-                "Verify UserSession availability",
-                "Set input parameters for the data source"
-            ]
-        },
-        {
-            "name": "Print Command",
-            "steps": [
-                "Run report generation if UserSession is available",
-                "Display the report in lblReportHTML"
-            ]
-        },
-        {
-            "name": "Item Data Bound",
-            "steps": [
-                "Handle visibility and class assignments for row controls",
-                "Update button classes based on item data"
-            ]
-        }
-    ],
-    "business_rules": [
-        "cmdDetails button class toggles between 'detailsarchive' and 'detailsopen'",
-        "AlternateObservation visibility is controlled by data.ParentPRDID"
-    ],
-    "validations": [
-        "Ensure UserSession is not null before proceeding with operations"
-    ],
-    "calculations": [],
-    "conditions": [
-        "data.PR_ID > 0",
-        "ScreenIsEditable = true",
-        "UserSession.CourseLeaderOnly = false"
-    ],
-    "system_behavior": [
-        "Controls button visibility based on data and session values",
-        "Executes report generation and display based on session and staff data"
-    ],
-    "dependencies": [
-        "HSPnet.Framework.Reporting",
-        "HSPnet.DataLayer",
-        "HSPnet.UI"
-    ],
-    "exceptions": [
-        "UserSession null causes cancellation of data selection"
-    ],
-    "source_document_ids": [
-        "038f5c7c-b9e1-515c-8df7-e0ea45a4cd54",
-        "175e6272-074c-5229-9c6b-4e2e273c56b7",
-        "1f73fd38-29b5-5084-97ae-d9b115cb1f07",
-        "4756e290-e7b8-581b-b359-eaaca10e987e",
-        "54b6952c-2e88-5de5-8009-1af71a987456",
-        "79c8c0b6-05fb-50c4-95eb-592fb1ab085e"
-    ],
-    "content_gaps": []
+  "filename": "PlacementHistory",
+  "found": true,
+  "summary": "The PlacementHistory module is part of a web application, responsible for managing and displaying historical data related to supervisor placements. It includes functionality for user interaction, data retrieval, and report generation.",
+  "purpose": "To display placement history for supervisors, including interactions, report generation, and user-specific controls.",
+  "entities": [
+    "HSPnetSession",
+    "Staff",
+    "PlacementHistory"
+  ],
+  "fields": [
+    "UserSession",
+    "StaffID",
+    "ScreenIsEditable",
+    "CurrentPage",
+    "PRHistoryOnly",
+    "SortExpression",
+    "AlternateObservation"
+  ],
+  "actors": [
+    "User",
+    "StaffController"
+  ],
+  "workflows": [
+    {
+      "name": "Page Load",
+      "steps": [
+        "Initialize visibility settings for panels and buttons based on PRHistoryOnly."
+      ]
+    },
+    {
+      "name": "Page PreRender",
+      "steps": [
+        "Load staff details using StaffController and update UI with supervisor information."
+      ]
+    },
+    {
+      "name": "Item Data Bound",
+      "steps": [
+        "Determine visibility and styling of row elements based on data properties."
+      ]
+    },
+    {
+      "name": "Print Command",
+      "steps": [
+        "Generate report if UserSession is available and display report HTML."
+      ]
+    },
+    {
+      "name": "Item Command",
+      "steps": [
+        "Handle sorting and detail view toggle based on command arguments."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Visibility of certain controls is dependent on PRHistoryOnly and ScreenIsEditable properties."
+  ],
+  "validations": [
+    "Cancel data selection if UserSession is null."
+  ],
+  "calculations": [
+    "Generate SortExpression dynamically based on ViewState."
+  ],
+  "conditions": [
+    "Check if UserSession is not null before certain operations."
+  ],
+  "system_behavior": [
+    "UI elements dynamically change class and visibility based on data and user session properties."
+  ],
+  "dependencies": [
+    "HSPnet.Framework",
+    "HSPnet.DataLayer",
+    "HSPnet.App_GlobalResources"
+  ],
+  "exceptions": [],
+  "source_document_ids": [
+    "038f5c7c-b9e1-515c-8df7-e0ea45a4cd54",
+    "175e6272-074c-5229-9c6b-4e2e273c56b7",
+    "1f73fd38-29b5-5084-97ae-d9b115cb1f07",
+    "4756e290-e7b8-581b-b359-eaaca10e987e",
+    "54b6952c-2e88-5de5-8009-1af71a987456",
+    "79c8c0b6-05fb-50c4-95eb-592fb1ab085e"
+  ],
+  "content_gaps": []
 }
 ```
