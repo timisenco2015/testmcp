@@ -1,21 +1,44 @@
 {
     "filename": "EmailPopupDocument",
     "found": true,
-    "summary": "EmailPopupDocument and associated classes manage email popup documents, including file handling within the system.",
-    "purpose": "To handle email document data, file paths, and deletion operations within the system.",
-    "entities": ["EmailPopupDocument", "EmailPopupDocuments"],
-    "fields": ["ID", "FileName", "FilePath", "Checked"],
-    "actors": [],
-    "workflows": [],
-    "business_rules": [
-        "Delete operation removes files and directories associated with the document"
+    "summary": "Manages email popup documents, allowing for searching and deletion. Handles file and folder operations for email data.",
+    "purpose": "To manage and manipulate email popup documents within the system, including file handling and validation tasks.",
+    "entities": [
+        "EmailPopupDocument",
+        "EmailPopupDocuments"
     ],
+    "fields": [
+        "ID",
+        "FileName",
+        "FilePath",
+        "Checked"
+    ],
+    "actors": [],
+    "workflows": [
+        {
+            "name": "Search Email Popup Documents",
+            "steps": [
+                "Split DataInfo into individual email entries.",
+                "Create EmailPopupDocument objects for valid entries.",
+                "Return list of email popup documents."
+            ]
+        }
+    ],
+    "business_rules": [],
     "validations": [],
     "calculations": [],
     "conditions": [],
-    "system_behavior": ["Managing document files and directories"],
-    "dependencies": ["Path", "File", "Directory"],
-    "exceptions": ["File deletion errors"],
-    "source_document_ids": ["727a0287-de95-52fe-a841-7f49f9958884", "927bc837-5564-5759-9324-27c6d5d7321d"],
+    "system_behavior": [
+        "Manage file and directory operations for email data."
+    ],
+    "dependencies": [
+        "HSPnet.Framework",
+        "System.IO"
+    ],
+    "exceptions": [],
+    "source_document_ids": [
+        "7287734e-f13d-550f-9249-4242db620766",
+        "927bc837-5564-5759-9324-27c6d5d7321d"
+    ],
     "content_gaps": []
 }
