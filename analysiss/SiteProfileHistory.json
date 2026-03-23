@@ -1,50 +1,53 @@
 {
-    "filename": "SiteProfileHistory",
-    "found": true,
-    "summary": "Handles the historical changes made to site profiles, detailing actions, user information, and changes made to fields.",
-    "purpose": "Track and manage the historical changes and user actions performed on site profiles.",
-    "entities": [],
-    "fields": [
-        "ID",
-        "ActionDate",
-        "ScreenSection",
-        "UserAction",
-        "Fields",
-        "Agency",
-        "AgencyName",
-        "LastName",
-        "FirstName",
-        "MiddleName",
-        "Phone",
-        "ByUserID",
-        "ByOriginalUserID",
-        "ByUserSysAdmin"
-    ],
-    "actors": ["HSPnetSession"],
-    "workflows": [
-        {
-            "name": "History Management Workflow",
-            "steps": [
-                "SiteProfileHistorySearch retrieves historical records for a specific site.",
-                "FillList method populates a SiteProfileHistory object with data from the database."
-            ]
-        }
-    ],
-    "business_rules": [],
-    "validations": [],
-    "calculations": [],
-    "conditions": [],
-    "system_behavior": [
-        "Handle different languages by using alt language fields if applicable."
-    ],
-    "dependencies": [],
-    "exceptions": [],
-    "source_document_ids": [
-        "25f89a24-5eda-5a3f-83df-1de69b12b3f1",
-        "26e09292-d304-55c6-94e5-ef3346453c4b",
-        "7ca6b963-9ae9-5cd3-82d5-f30dcb727ae3",
-        "a8f030c6-90b8-53a1-bb8a-3b7ef33b9488",
-        "e806999c-3a39-5720-9b59-303faebc9eb6"
-    ],
-    "content_gaps": []
+  "filename": "SiteProfileHistory",
+  "found": true,
+  "summary": "Handles historical data management for site profiles within the HSPnet system.",
+  "purpose": "To track changes made to site profiles over time.",
+  "entities": [
+    "SiteProfileHistory",
+    "SiteProfileHistories"
+  ],
+  "fields": [
+    "ID",
+    "ActionDate",
+    "ScreenSection",
+    "UserAction",
+    "Fields",
+    "Agency",
+    "AgencyName",
+    "LastName",
+    "FirstName",
+    "MiddleName",
+    "Phone",
+    "ByUserID",
+    "ByOriginalUserID",
+    "ByUserSysAdmin"
+  ],
+  "actors": [],
+  "workflows": [
+    {
+      "name": "Site Profile History Search",
+      "steps": [
+        "Initiate search procedure",
+        "Retrieve and format site profile history data"
+      ]
+    }
+  ],
+  "business_rules": [
+    "Format name and user actions based on system settings"
+  ],
+  "validations": [],
+  "calculations": [],
+  "conditions": [],
+  "system_behavior": [],
+  "dependencies": [],
+  "exceptions": [],
+  "source_document_ids": [
+    "25f89a24-5eda-5a3f-83df-1de69b12b3f1",
+    "26e09292-d304-55c6-94e5-ef3346453c4b",
+    "7ca6b963-9ae9-5cd3-82d5-f30dcb727ae3",
+    "a8f030c6-90b8-53a1-bb8a-3b7ef33b9488",
+    "e806999c-3a39-5720-9b59-303faebc9eb6"
+  ],
+  "content_gaps": []
 }
