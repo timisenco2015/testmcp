@@ -1,1 +1,64 @@
-{"8": {"Summary": "Manages timetable assessment operations with ASP.NET components.", "Purpose": "Provides a user interface for managing and displaying assessment schedules and details.", "Entities": "ASP.NET WebControls, AjaxControlToolkit", "Fields": "ddAssessor, ddAssessmentType, txtOpenDaysAfterStart", "Actor": "ASP.NET Framework Controls", "Source Document IDs": "7afa582c-d2e5-5803-b315-7f8f63d1bc7e, 7bb40b95-0bb5-5f6d-91ca-bbcb527d60ff, 824387dc-2c7b-5cca-96a6-bfab53dbaeee", "Content Gaps": "Limited explanation of assessment type mappings."}}
+{
+    "filename": "TimetableAssessments",
+    "found": true,
+    "summary": "Management and presentation of assessments related to timetables.",
+    "purpose": "To facilitate the assignment, modification, and validation of assessments tied to specific timetables within educational programs.",
+    "entities": [],
+    "fields": [
+        "AssessmentTypeCodeID",
+        "AssessmentTemplateCodeID",
+        "AssessorTypeCodeID",
+        "SubjectTypeCodeID",
+        "OpenDaysAfterStart",
+        "CloseDaysAfterEnd",
+        "AssessorCanViewSubjectsAnswers",
+        "SubjectsCanViewAssessorAnswers",
+        "ViewUntilDaysAfterEnd",
+        "OptionAppliedAssessorTypeCodeID"
+    ],
+    "actors": [
+        "Assessor",
+        "Subject",
+        "Student"
+    ],
+    "workflows": [
+        {
+            "name": "Assessment Workflow",
+            "steps": [
+                "Load assessment details",
+                "Modify assessment parameters",
+                "Validation and save"
+            ]
+        }
+    ],
+    "business_rules": [
+        "Interim assessment without final check",
+        "Maximum assessments exceeded"
+    ],
+    "validations": [
+        "RequiredFieldValidator",
+        "CompareValidator"
+    ],
+    "calculations": [],
+    "conditions": [
+        "Screen is editable",
+        "Assessment type change"
+    ],
+    "system_behavior": [
+        "Setup JavaScript variables",
+        "Bind grid data",
+        "Handle row commands"
+    ],
+    "dependencies": [],
+    "exceptions": [],
+    "source_document_ids": [
+        "0d330d29-e0a7-5f88-8c71-d32f88b252b0",
+        "0ea3e178-f11b-5ee8-afc8-441e55e2d2f4",
+        "135455cd-1a34-5b2d-b8cc-298a1d98c47e",
+        "61fa5351-3118-588b-a4f0-3147cd92841a",
+        "7ab03f3d-3b63-594e-a3ac-ea304249c66a",
+        "96eaf83a-27cc-5e53-b93a-4835addb1ab6",
+        "9ff99ed6-d3d2-55bd-a19b-ea38ec6c20be"
+    ],
+    "content_gaps": []
+}
