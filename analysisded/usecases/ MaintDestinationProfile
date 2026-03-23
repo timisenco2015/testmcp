@@ -1,0 +1,77 @@
+# Module: MaintDestinationProfile
+
+## MaintDestinationProfile-UC1 — Search and Bind Sub-Disciplines
+
+- Primary Actor(s): System Administrator, Student User, Receiving User
+- Secondary Actor(s): N/A
+- Trigger: User requests to search for requirements based on sub-disciplines.
+- Description: The system allows users to search for destination requirements using sub-discipline filtering. It displays results in a grid view which binds retrieved data.
+- Preconditions: User must be logged in. Session must be active.
+- Postconditions: Search results are displayed based on the filtered sub-disciplines.
+- Main Success Scenario:
+  1. User navigates to the requirements page.
+  2. User inputs sub-discipline ID.
+  3. System validates input and processes search.
+  4. The system replaces underscores with slashes in the discipline ID.
+  5. System retrieves and displays relevant requirements.
+- Extensions:
+  - 3a. If input is invalid, the system prompts the user to correct it.
+- Exceptions:
+  - The system does not return results if no matches are found.
+- Business Rules:
+  - Use sub-disciplines unless the user is a Student User or Receiving User without System Admin privileges.
+- Assumptions:
+  - Subdiscipline IDs are well-formed.
+- Open Issues:
+  - None identified.
+
+## MaintDestinationProfile-UC2 — Edit Destination Documents
+
+- Primary Actor(s): System Administrator
+- Secondary Actor(s): Placement Coordinator, Destination Coordinator
+- Trigger: User attempts to add or edit destination documents.
+- Description: The system manages documents related to destination profiles, including adding and deleting functionalities based on user permissions.
+- Preconditions: User has necessary permissions. Destination profile exists.
+- Postconditions: Changes to documents are reflected in the system.
+- Main Success Scenario:
+  1. User accesses the documents section.
+  2. User attempts to add or delete a document.
+  3. System validates user permissions.
+  4. System performs the requested action (add/delete).
+  5. System updates the document list.
+- Extensions:
+  - 3a. If user lacks permissions, the system restricts editing capabilities.
+- Exceptions:
+  - System rejects add/delete action when document type is invalid.
+- Business Rules:
+  - Document editing is restricted based on user roles and session information.
+- Assumptions:
+  - Users understand document type codes and requirements.
+- Open Issues:
+  - Clarification on document type validation.
+
+## MaintDestinationProfile-UC3 — Determine Read-Only Access
+
+- Primary Actor(s): Destination Coordinator, System Administrator
+- Secondary Actor(s): Local Administrators, Placement Coordinator
+- Trigger: User accesses a profile that might have restricted access.
+- Description: The system determines if the current session should be in read-only mode based on user roles and associations.
+- Preconditions: User session active. Profile exists.
+- Postconditions: User interacts with the profile in either read-only or editable mode.
+- Main Success Scenario:
+  1. User navigates to the destination profile.
+  2. System checks user session and associated roles.
+  3. System determines access level.
+  4. System applies read-only mode if necessary.
+- Extensions:
+  - 4a. If exceptions are met, override read-only status.
+- Exceptions:
+  - None applicable.
+- Business Rules:
+  - Read-only mode applies if the user is a Placement Coordinator without HSPnet access.
+- Assumptions:
+  - User sessions accurately reflect roles and permissions.
+- Open Issues:
+  - None identified.
+
+No additional meaningful use cases were extractable from the provided content.
