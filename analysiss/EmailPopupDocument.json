@@ -1,1 +1,48 @@
-{"filename":"EmailPopupDocument","found":true,"summary":"EmailPopupDocument is responsible for handling email pop-up document information, including file paths and deletion operations.","purpose":"To manage email popup document files within the system, including searching and deletion tasks.","entities":[],"fields":["ID","FileName","FilePath","Checked"],"actors":[],"workflows":[],"business_rules":[],"validations":[],"calculations":[],"conditions":[],"system_behavior":[],"dependencies":[],"exceptions":[],"source_document_ids":["7287734e-f13d-550f-9249-4242db620766","927bc837-5564-5759-9324-27c6d5d7321d"],"content_gaps":[]}
+{
+    "filename": "EmailPopupDocument",
+    "found": true,
+    "summary": "EmailPopupDocument is a class that handles attachments related to pop-up emails, including searching and deleting files based on provided metadata.",
+    "purpose": "To manage attachment metadata for email popups within the HSPnet application.",
+    "entities": [
+        "EmailPopupDocument"
+    ],
+    "fields": [
+        "ID",
+        "FileName",
+        "FilePath",
+        "Checked"
+    ],
+    "actors": [],
+    "workflows": [
+        {
+            "name": "Email Attachment Management",
+            "steps": [
+                "Search attachment metadata using Search method",
+                "Delete attachments using Delete method",
+                "Manage directory and file cleanup"
+            ]
+        }
+    ],
+    "business_rules": [
+        "Ensure attachments are correctly deleted and directories cleaned"
+    ],
+    "validations": [],
+    "calculations": [],
+    "conditions": [],
+    "system_behavior": [
+        "Manages email attachment metadata and file operations"
+    ],
+    "dependencies": [
+        "System.IO",
+        "EmailPopupDocuments"
+    ],
+    "exceptions": [
+        "File deletion errors",
+        "Directory deletion errors"
+    ],
+    "source_document_ids": [
+        "7287734e-f13d-550f-9249-4242db620766",
+        "927bc837-5564-5759-9324-27c6d5d7321d"
+    ],
+    "content_gaps": []
+}
