@@ -1,94 +1,84 @@
 {
     "filename": "WorksheetResults",
     "found": true,
-    "summary": "The documents pertain to the handling of worksheet results within a system, detailing various operations and configurations associated with worksheet management.",
-    "purpose": "These documents describe the functionalities, operations, and settings related to managing worksheet results in an educational or training program context.",
+    "summary": "The content revolves around managing and processing worksheet groups within an application, with functionalities related to adding, editing, and deleting worksheet entries while handling various parameters like start date, end date, instructors, and various configuration settings.",
+    "purpose": "To provide a functional framework for managing worksheet groups, allowing users to create, update, and manage worksheet-related data within a system, including handling configurations, validations, and user interactions.",
     "entities": [],
     "fields": [
         "txtViewAllRAs",
         "txtOverCapacityEntryFound",
-        "updPnlMain",
         "uxWorksheetCount",
-        "pagerTop",
-        "rprMaster",
-        "pnlEmptyData",
-        "lblEmptyData",
-        "cmdAddEmptyData",
-        "Label3",
         "ddAction",
-        "cmdSubmit",
-        "pnlSendToRec",
-        "Label2",
-        "hplViewReportTemplate",
-        "Literal21",
-        "ddPrintType",
-        "chkPrintIndividualPDFs",
-        "chkAppendSchedule",
-        "Literal22",
+        "ddInstructor",
+        "ddInstructor2",
+        "ddInstructor3",
         "txtReplyByDate",
-        "btnReplyByDate",
-        "CalendarExtender1",
-        "hlReplyByDate",
-        "Literal23",
-        "ddAltReplyTo",
-        "txtOtherID",
-        "dsMaster",
-        "pnlPopup",
-        "updPnlPopup",
-        "btnShowPopup",
-        "mdlDetails",
-        "txtRotationDates",
-        "ValidationSummary1",
-        "uxDetail",
-        "dsWorksheetGroupID"
+        "txtStartDate",
+        "txtEndDate",
+        "txtStartTime",
+        "txtEndTime",
+        "chkVariousDays",
+        "chkVariousTimes",
+        "chkMonday",
+        "chkTuesday",
+        "chkWednesday",
+        "chkThursday",
+        "chkFriday",
+        "chkSaturday",
+        "chkSunday"
     ],
     "actors": [
         "UserSession",
         "ScriptMgr",
-        "WorksheetGroups",
-        "PlacementRequestDestinations",
-        "Grid",
-        "DateFormatter",
-        "Dropdown",
-        "QueryString",
-        "HSPnetSession",
-        "HSPnet.Framework",
-        "AjaxControlToolkit",
-        "Database",
-        "Resources"
+        "Instructor",
+        "Administrator",
+        "PlacementCoordinator",
+        "LocalAdministrator",
+        "SystemAdministrator"
     ],
     "workflows": [
         {
-            "name": "Worksheet Management",
+            "name": "Manage Worksheet Groups",
             "steps": [
-                "Initialize session and script manager.",
-                "Bind and configure data controls.",
-                "Handle user interactions and events.",
-                "Persist worksheet data and handle updates."
+                "Load user session and resources.",
+                "Initialize input parameters for worksheet group.",
+                "Setup and bind dropdown lists for instructors and shift codes.",
+                "Configure JavaScript variables for UI interactions.",
+                "Handle actions: Save, Cancel, Delete, Copy, Exclude, Include.",
+                "Render UI components based on session and mode settings.",
+                "Validate inputs and set session variables before processing actions.",
+                "Redirect or refresh page based on actions."
             ]
         }
     ],
-    "business_rules": [],
+    "business_rules": [
+        "Shared rotations do not apply to IWS.",
+        "If a placement request (PR) exists, restrict editing to certain roles.",
+        "Options for actions differ based on user roles and configurations (NIS vs non-NIS).",
+        "Certain fields are disabled when user roles and conditions match specific criteria."
+    ],
     "validations": [
-        "Ensure date formats are correct.",
-        "Validate required fields before submitting data.",
-        "Enforce specific dropdown selections."
+        "Ensure start date and end date are within valid ranges.",
+        "Validate dropdown selections and checkbox states before submission.",
+        "Check for over capacity warnings and configure UI feedback accordingly.",
+        "Validate instructor selections based on role and session settings."
     ],
-    "calculations": [
-        "Calculate worksheet counts and totals.",
-        "Determine group and individual totals."
-    ],
+    "calculations": [],
     "conditions": [
-        "If GroupFlag is set, enable group-specific features.",
-        "Check for ReadOnly mode to disable editing."
+        "ReadOnly mode affects visibility and enabled state of controls.",
+        "GroupFlag determines whether group-related UI elements are visible.",
+        "UseCFO flag influences visibility and default state of CFO-related controls."
     ],
     "system_behavior": [
-        "System enforces user session for accessing worksheet functionalities.",
-        "Client-side scripts are used to manage dynamic UI updates."
+        "JavaScript events control UI behavior for dropdowns and checkboxes.",
+        "Session variables are cached to maintain state between page reloads.",
+        "AJAX is used to update parts of the page asynchronously based on interactions.",
+        "Redirections occur to ensure the latest data state is reflected after operations."
     ],
     "dependencies": [],
     "exceptions": [
-        "Handle session null exceptions during data operations."
+        "Ensure user session is valid before proceeding with data operations.",
+        "Handle cases where no worksheet groups are available or valid."
     ],
     "source_document_ids": [
         "00b9a51d-78fa-5b6d-9d9a-560b80257b11",
@@ -102,7 +92,6 @@
         "2c4fbc38-0d0f-57e9-9f1b-843a117d201e",
         "2da37de9-88b5-5b83-bde6-5705b1251fb7",
         "372adc6f-c26a-555c-9fea-f3f0d18aed39",
-        "38e9df01-2a6f-5649-8cb2-9bdd9ea01983",
         "39847680-9547-5eaf-93c0-491519a46fb4",
         "3a1fd7c5-971a-5bc0-8a04-5f8a6f7c70d9",
         "3a21b83d-c1bd-5098-b59b-ef1cbfa1c9c9",
@@ -139,12 +128,12 @@
         "bdfcaa04-70fb-5c93-b666-d051a57f3bc9",
         "ca47c1de-50f4-5378-b830-1c96a9e43857",
         "cd6c1aa0-0a43-5eca-943c-b4971e1edbe1",
+        "d910f3e8-826f-5cfd-9a74-269b5ddf1abf",
+        "d9f82b13-8960-5b5c-a838-019ec7291aae",
         "db01d458-8509-51fd-a903-0a91a1f32121",
         "dd4572bc-6cd3-5ab5-8310-86c403efb9f1",
         "dde55ffb-6109-5efc-98fc-9d952943fc5e",
         "def81582-5a78-5ccf-9935-8222f9471805",
-        "d910f3e8-826f-5cfd-9a74-269b5ddf1abf",
-        "d9f82b13-8960-5b5c-a838-019ec7291aae",
         "e4f7c201-e26a-51d8-801b-e32536c7ca30",
         "e5c19c5c-2417-52c9-9904-f69a7b345d4e",
         "e878cc26-40d8-5aa3-91c5-1b1c3677339d",
