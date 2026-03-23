@@ -1,49 +1,60 @@
 {
   "filename": "SCF",
   "found": true,
-  "summary": "The SCF model represents a report generation system in the HSPnet framework, handling report metadata and processing report requests with specific parameters.",
-  "purpose": "To facilitate the structured generation of reports, including handling of program metadata and logos, using specified parameters.",
-  "entities": [
-    "HSPnet.ReportModel.SCF"
-  ],
+  "summary": "The SCF class and the GenerateReport_SCF function are part of the HSPnet.ReportModel namespace, used to generate reports based on specific parameters like ProgramID and Logo details. The system ensures that logos are only included if they exist and handles report generation through a defined process.",
+  "purpose": "The purpose of the SCF file is to define a model and a process for generating reports in the HSPnet application, focusing on parameters such as logos and program identifiers.",
+  "entities": [],
   "fields": [
-    "Name",
-    "Logo",
-    "LogoHeight"
+    {
+      "name": "Name",
+      "type": "string",
+      "description": "The name of the SCF report"
+    },
+    {
+      "name": "Logo",
+      "type": "string",
+      "description": "The path to the logo file"
+    },
+    {
+      "name": "LogoHeight",
+      "type": "string",
+      "description": "The specified maximum height for the logo"
+    }
   ],
   "actors": [],
   "workflows": [
     {
-      "name": "GenerateReport_SCF.RunReport",
+      "name": "Generate Report",
       "steps": [
-        "Parse input parameters for ProgramID, Logo, LogoWidth, and LogoHeight.",
-        "Check if Logo file exists; discard if not.",
-        "Validate ProgramID.",
-        "Retrieve Program Name using ProgramID.",
-        "Initialize SCF report model with retrieved data.",
-        "Run report using Reporting.MigraDoc_RunReport."
+        "Parse input parameters including ProgramID and logo information.",
+        "Verify if the logo file exists before including it.",
+        "Ensure the ProgramID is valid and obtain the program name.",
+        "Create an instance of the SCF model with parsed data.",
+        "Execute the MigraDoc reporting function with the model data."
       ]
     }
   ],
   "business_rules": [
-    "If Logo file does not exist on the system, it should not be used in the report."
+    "A logo file must exist in the file system to be used in the report.",
+    "ProgramID must be successfully parsed; otherwise, the report is not generated."
   ],
   "validations": [
-    "Ensure ProgramID is successfully parsed."
+    "Check if the logo file exists in the system.",
+    "Verify the successful parsing of the ProgramID."
   ],
   "calculations": [],
   "conditions": [
-    "If ProgramID is zero after parsing, return an error message."
+    "Logo is only included if the file path exists.",
+    "ProgramID must not be zero for report generation."
   ],
   "system_behavior": [
-    "Handles report generation by processing input parameters and executing the report through an external reporting engine."
+    "Generates a report only if all parameters are valid.",
+    "Handles missing logo files by omitting them from the report."
   ],
-  "dependencies": [
-    "Programs.ProgramSearchID",
-    "Reporting.MigraDoc_RunReport",
-    "System.IO.File.Exists"
+  "dependencies": [],
+  "exceptions": [
+    "Returns an invalid parameter error if parsing fails."
   ],
-  "exceptions": [],
   "source_document_ids": [
     "05250fd1-ea7e-5991-8c0c-9a115049850e",
     "8742a6ea-0147-5f76-9272-e268d98add48",
