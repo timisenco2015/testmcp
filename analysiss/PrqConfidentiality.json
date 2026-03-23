@@ -1,76 +1,76 @@
 {
-  "filename": "PrqConfidentiality",
-  "found": true,
-  "summary": "The `PrqConfidentiality` module manages confidentiality-related functionalities within the system, focusing on staff consents and confidentiality forms. It includes features for managing student prerequisites, consent forms, and various interactions with user sessions.",
-  "purpose": "To handle staff confidentiality forms and manage related operational controls, ensuring proper session management and user interaction through ASP.NET UI elements.",
-  "entities": [],
-  "fields": [
-    "ID",
-    "ProviderListDept",
-    "ProviderTypeCodeID",
-    "StaffID",
-    "UserSession",
-    "ScreenIsEditable",
-    "Disabled",
-    "Inactive",
-    "ConfOtherScreenIsEditable",
-    "CurrentPage"
-  ],
-  "actors": [
-    "Staff",
-    "Students",
-    "System Administrators"
-  ],
-  "workflows": [
-    {
-      "name": "Confidentiality Form Management",
-      "steps": [
-        "Initialize user session and retrieve staff ID",
-        "Display student prerequisites if applicable",
-        "Allow editing of confidentiality details based on screen permissions",
-        "Select, insert, update, or delete confidentiality data based on user commands",
-        "Refresh session and redirect to updated page after operations"
-      ]
-    }
-  ],
-  "business_rules": [
-    "Operations are only allowed if the user session is valid.",
-    "Edit operations require the screen to be editable and not disabled."
-  ],
-  "validations": [
-    "Check if the page is valid before processing insert or update events.",
-    "Ensure the grid view row type matches the expected type before binding data or executing commands."
-  ],
-  "calculations": [],
-  "conditions": [
-    "The screen is editable only if 'ScreenIsEditable' and 'ConfOtherScreenIsEditable' are true.",
-    "The operation is canceled if the user session is null."
-  ],
-  "system_behavior": [
-    "The system hides edit buttons and disables fields if the screen is not editable or is disabled.",
-    "Redirects to the current page with updated query parameters after completing database operations."
-  ],
-  "dependencies": [
-    "HSPnetSession for managing user sessions and caching",
-    "Database interaction through ObjectDataSource controls"
-  ],
-  "exceptions": [
-    "Operations are canceled if the session is invalid or page validation fails."
-  ],
-  "source_document_ids": [
-    "0d4e87ce-2e16-5c73-84e0-09c65d8fc606",
-    "174d9d0f-ce2e-5960-8ae4-9cb7cea2b69c",
-    "394cf0db-34a1-5c0d-8c95-e9a869be8474",
-    "53c676b1-3666-531c-99d8-07286415ae44",
-    "5d945a78-3a22-57dc-b784-12b93fe18fa6",
-    "760bb462-8bc1-5511-b952-66bdb50b8808",
-    "7efb356a-8088-5921-925a-52b238f52a90",
-    "8ccb4372-39b7-5df4-98bf-412d765c1706",
-    "ae311fd0-c1ae-5a84-9986-101a7bf00625",
-    "bd3c9440-fc84-508e-b6cb-264a233ad0b9",
-    "ee41efa9-58a0-5aa3-8b98-4ba6013c1503",
-    "fce69528-fdc6-5f52-a776-71ea295ff9b2",
-    "fdb7707a-363b-572f-8aee-438d2b3c1096"
-  ],
-  "content_gaps": []
+    "filename": "PrqConfidentiality",
+    "found": true,
+    "summary": "The PrqConfidentiality user control is a part of the HSPnet system dealing with staff profile management, particularly around confidentiality agreements. It includes several UI components such as grid views, form views, buttons, and update panels for handling consent forms and prerequisites for staff members. The functionality supports adding, editing, deleting, and displaying confidentiality agreements and related data.",
+    "purpose": "The purpose of the PrqConfidentiality user control is to manage staff confidentiality forms and prerequisites within the HSPnet system, facilitating the handling of staff consent and related agreements.",
+    "entities": [
+        "HSPnetSession",
+        "StaffConsentForms",
+        "StaffPrerequisite",
+        "StaffConsentForm"
+    ],
+    "fields": [
+        {
+            "name": "StaffID",
+            "type": "int"
+        },
+        {
+            "name": "UserSession",
+            "type": "HSPnetSession"
+        }
+    ],
+    "actors": [
+        "User"
+    ],
+    "workflows": [
+        {
+            "name": "Manage Confidentiality Forms",
+            "steps": [
+                "Add new confidentiality form",
+                "Edit existing confidentiality form",
+                "Delete confidentiality form",
+                "Display confidentiality form details"
+            ]
+        }
+    ],
+    "business_rules": [
+        "Only users with permission can edit or delete confidentiality forms.",
+        "If the user session is null, operations are canceled."
+    ],
+    "validations": [
+        "Page must be valid before inserting or updating operations.",
+        "Ensure user session is active before selecting data."
+    ],
+    "calculations": [],
+    "conditions": [
+        "If ScreenIsEditable is true, enable edit buttons.",
+        "Disable edit fields if Disabled or ScreenIsEditable is false."
+    ],
+    "system_behavior": [
+        "The system caches the user session after data modifications.",
+        "Page redirects are performed after insert, update, or delete operations."
+    ],
+    "dependencies": [
+        "HSPnet Framework",
+        "AjaxControlToolkit"
+    ],
+    "exceptions": [
+        "Operations are canceled if the user session is null."
+    ],
+    "source_document_ids": [
+        "0d4e87ce-2e16-5c73-84e0-09c65d8fc606",
+        "174d9d0f-ce2e-5960-8ae4-9cb7cea2b69c",
+        "394cf0db-34a1-5c0d-8c95-e9a869be8474",
+        "53c676b1-3666-531c-99d8-07286415ae44",
+        "5d945a78-3a22-57dc-b784-12b93fe18fa6",
+        "760bb462-8bc1-5511-b952-66bdb50b8808",
+        "7efb356a-8088-5921-925a-52b238f52a90",
+        "8ccb4372-39b7-5df4-98bf-412d765c1706",
+        "ae311fd0-c1ae-5a84-9986-101a7bf00625",
+        "bd3c9440-fc84-508e-b6cb-264a233ad0b9",
+        "ee41efa9-58a0-5aa3-8b98-4ba6013c1503",
+        "fce69528-fdc6-5f52-a776-71ea295ff9b2",
+        "fdb7707a-363b-572f-8aee-438d2b3c1096"
+    ],
+    "content_gaps": []
 }
