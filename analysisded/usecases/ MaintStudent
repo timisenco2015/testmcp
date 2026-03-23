@@ -1,0 +1,128 @@
+# Module: MaintStudent
+
+## MaintStudent-UC1 — Search for Student
+
+- Primary Actor(s): User
+- Secondary Actor(s): System
+- Trigger: User initiates a search for students.
+- Description: Allows users to search for students based on various criteria such as Last Name, First Name, or Student Number.
+- Preconditions: User must be logged into the system.
+- Postconditions: A list of students matching the search criteria is displayed.
+- Main Success Scenario:
+  1. User enters search criteria.
+  2. User clicks the "Search" button.
+  3. System processes the search query.
+  4. System displays matching entries.
+- Extensions:
+  - User can include or exclude QES (Queue for Educational Students) users from the search.
+- Exceptions:
+  - If no criteria are entered, the user is prompted to provide at least one search parameter.
+  - If the user is not a system administrator, wildcard-only searches are disallowed.
+- Business Rules:
+  - Users must enter at least one search criteria.
+- Assumptions:
+  - User has proper permissions to search for students.
+- Open Issues:
+  - None
+
+## MaintStudent-UC2 — Insert New Student
+
+- Primary Actor(s): User
+- Secondary Actor(s): System
+- Trigger: User chooses to add a new student.
+- Description: Allows users to insert new student details while checking for duplicate names.
+- Preconditions: User must have permissions to add new students.
+- Postconditions: New student record is created and stored.
+- Main Success Scenario:
+  1. User selects "Add New Student."
+  2. User enters student details.
+  3. System checks for duplicate names.
+  4. System saves the new student details if no duplicates are found.
+  5. System updates the student list.
+- Extensions:
+  - Duplicate names prompt the user with options to proceed or cancel.
+- Exceptions:
+  - Duplicate name check fails and prompts the user with existing records.
+- Business Rules:
+  - All mandatory fields must be completed before submission.
+  - Duplicate checks must pass for successful insertions.
+- Assumptions:
+  - Users will follow on-screen instructions for mandatory fields and validations.
+- Open Issues:
+  - None
+
+## MaintStudent-UC3 — Edit Student Details
+
+- Primary Actor(s): User
+- Secondary Actor(s): System
+- Trigger: User opts to edit student details.
+- Description: Enables the user to modify student information and update records.
+- Preconditions: User must have permissions to edit student records.
+- Postconditions: Student record is updated with new information.
+- Main Success Scenario:
+  1. User selects a student from the list.
+  2. User clicks on "Edit."
+  3. User modifies the details as necessary.
+  4. User saves changes.
+  5. System updates the student record.
+- Extensions:
+  - Users may encounter warnings for fields not matching validation rules.
+- Exceptions:
+  - Validation errors prompt the user to correct inputs before saving.
+- Business Rules:
+  - User cannot edit student numbers unless they are a System Administrator.
+  - Email changes require confirmation of correct format.
+- Assumptions:
+  - Users have been trained on how to use editing interfaces.
+- Open Issues:
+  - None
+
+## MaintStudent-UC4 — Delete Student
+
+- Primary Actor(s): User
+- Secondary Actor(s): System
+- Trigger: User decides to delete a student record.
+- Description: Allows users to delete a student's information from the system.
+- Preconditions: User has delete permissions.
+- Postconditions: The selected student record is permanently removed.
+- Main Success Scenario:
+  1. User selects a student.
+  2. User initiates the delete action.
+  3. System asks for confirmation.
+  4. User confirms the deletion.
+  5. System deletes the record.
+- Extensions:
+  - Confirmation messages ensure accidental deletions are minimized.
+- Exceptions:
+  - Deletion is canceled if user decides not to proceed.
+- Business Rules:
+  - Delete action should only be available to certain user roles.
+- Assumptions:
+  - Users are aware of deletion consequences.
+- Open Issues:
+  - None
+
+## MaintStudent-UC5 — Student Profile Management
+
+- Primary Actor(s): User
+- Secondary Actor(s): System
+- Trigger: User accesses student profile options.
+- Description: Facilitates detailed management of student profiles including viewing and updating consent information.
+- Preconditions: User must have access to student profile management.
+- Postconditions: Student profile is viewed or updated as required.
+- Main Success Scenario:
+  1. User selects a student profile to view or edit.
+  2. User navigates the student profile sections.
+  3. User can make changes to profile details.
+  4. User saves the profile updates.
+  5. The system reflects changes in the profile.
+- Extensions:
+  - Consent expiry triggers alert for necessary updates.
+- Exceptions:
+  - Restricted fields depending on user role, such as consent modifications for non-admins.
+- Business Rules:
+  - Consent programs should be updated periodically.
+- Assumptions:
+  - User roles determine access to specific profile functions.
+- Open Issues:
+  - None
