@@ -1,0 +1,91 @@
+```json
+{
+    "filename": "MaintServiceProfile",
+    "found": true,
+    "summary": "The MaintServiceProfile manages the display and interaction with service profiles, positions, and history in a web application.",
+    "purpose": "To provide a user interface for managing service information, including profiles, positions, and history, allowing users to view, edit, and interact with the data based on their permissions.",
+    "entities": [
+        "Service",
+        "UserSession",
+        "ServiceProfile",
+        "ServicePositions",
+        "ServiceProfileHistory"
+    ],
+    "fields": [
+        "ServiceID",
+        "ReadOnly",
+        "ProfileExists",
+        "PositionExists",
+        "SiteUsesPositions",
+        "ServiceAgencyID",
+        "currentPage"
+    ],
+    "actors": [
+        "User",
+        "SystemAdministrator",
+        "StaffAdmin"
+    ],
+    "workflows": [
+        {
+            "name": "Load Service Info",
+            "steps": [
+                "Retrieve ServiceID from query parameters",
+                "Fetch service data using ServiceSearchID",
+                "Check if Profile or Position exists",
+                "Setup page header information"
+            ]
+        },
+        {
+            "name": "Render Tabs",
+            "steps": [
+                "Determine active tab based on currentPage",
+                "Enable or disable positions tab based on SiteUsesPositions",
+                "Bind service data to tab contents"
+            ]
+        }
+    ],
+    "business_rules": [
+        "Profile and Position existence determine tab header flags",
+        "Tabs are enabled or disabled based on SiteUsesPositions"
+    ],
+    "validations": [
+        "Ensure effective date is provided when pay scales are selected",
+        "Check if default pay scale is selected before allowing a secondary pay scale"
+    ],
+    "calculations": [],
+    "conditions": [
+        "Screen should be read-only if ReadOnly is true",
+        "Screen is editable if user is a SystemAdministrator or matches ServiceAgencyID"
+    ],
+    "system_behavior": [
+        "ActiveTab is switched based on user navigation and currentPage",
+        "Panels are visible based on the corresponding tab being active"
+    ],
+    "dependencies": [
+        "HSPnet.Framework",
+        "HSPnet.DataLayer",
+        "AjaxControlToolkit"
+    ],
+    "exceptions": [],
+    "source_document_ids": [
+        "1f19b0b9-67fe-5001-aeae-ab20bd4e6832",
+        "2bfc8a55-0a29-5b95-9c14-c3ea5ce529fe",
+        "2cb4b8be-662c-509f-b47a-b338b7640294",
+        "37a66989-6e79-514c-9b64-380169bb37fa",
+        "45df54e6-b646-50f5-bf73-bfa295199e1e",
+        "654e5aa9-c069-5a87-bdc8-e3587a2093f4",
+        "6efd8c09-b990-567b-a75e-57cf6220a3be",
+        "71f9601b-b79f-5367-9907-8d85cef353a7",
+        "903e25bc-328a-5070-a44b-d1ef4b51e3c2",
+        "932fee38-0be4-5847-9d0f-9edb2cc496c0",
+        "9b4a881e-f22d-5a23-b1ca-1277998be1c7",
+        "9d9d5537-54ee-5ce5-97fd-e732cfcaab1c",
+        "a33bae59-cf55-5a2c-a073-5d480d5904c6",
+        "b05388c9-978e-5b9c-ace4-832528074d44",
+        "d0fe04b1-52be-58c7-ae0b-10fc87d352fb",
+        "d27c1e48-22d6-554f-aff7-d214e76450fb",
+        "f38314d9-b14c-5369-b8d2-e5b362f3db11"
+    ],
+    "content_gaps": []
+}
+```
