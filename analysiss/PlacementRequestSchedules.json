@@ -1,0 +1,119 @@
+{
+  "filename": "PlacementRequestSchedules",
+  "found": true,
+  "summary": "The PlacementRequestSchedules file includes functionalities for handling shift schedules, amendments, and validations for placement requests. It primarily deals with managing shifts across various patterns and conditions and includes methods for adding, updating, and deleting shifts.",
+  "purpose": "To manage placement request schedules, including shifts and amendments, ensuring proper validation and application of scheduling rules.",
+  "entities": [
+    "PlacementRequestSchedule",
+    "Utilization",
+    "PlacementRequestDestination",
+    "CodeRecord"
+  ],
+  "fields": [
+    "ID",
+    "PlacementRequestDestinationID",
+    "ShiftDate",
+    "StartTime",
+    "EndTime",
+    "ShiftCodeID",
+    "ShiftDeleted",
+    "ShiftTypeCodeID",
+    "ShiftTypeCode",
+    "IncludeInCourseHours",
+    "SupervisorID",
+    "SupervisorLastName",
+    "SupervisorFirstName",
+    "IncludeInConflictCheck",
+    "PABreak",
+    "ShiftCode",
+    "PRDEndDate",
+    "ShiftLength",
+    "ShiftDetail"
+  ],
+  "actors": [
+    "HSPnetSession"
+  ],
+  "workflows": [
+    {
+      "name": "Add Shift Pattern",
+      "steps": [
+        "Validate time and shift codes",
+        "Add shift pattern using provided parameters",
+        "Execute SQL procedure for adding shifts"
+      ]
+    },
+    {
+      "name": "Update Shift Pattern",
+      "steps": [
+        "Validate time and shift codes",
+        "Check for date change applicability",
+        "Execute SQL procedure for updating shifts"
+      ]
+    },
+    {
+      "name": "Delete Shift",
+      "steps": [
+        "Execute SQL procedure for deleting a shift"
+      ]
+    },
+    {
+      "name": "Get Calendar Grid Amendments",
+      "steps": [
+        "Initialize amendment list",
+        "Query amendments using PRD ID list",
+        "Store amendments in corresponding utilization entries"
+      ]
+    }
+  ],
+  "business_rules": [
+    "Shift codes must be valid and correctly formatted",
+    "Amendments cannot use 'No Shift' with schedule patterns",
+    "Shifts must be in 24-hour format"
+  ],
+  "validations": [
+    "Validate start and end time format",
+    "Ensure time period between start and end is valid",
+    "Ensure shift codes are not empty unless shifts are used"
+  ],
+  "calculations": [
+    "Shift length calculated from shift code and times",
+    "Night shift start time calculated by adding 12 hours to day shift start time"
+  ],
+  "conditions": [
+    "MonFri pattern adds shifts for weekdays only",
+    "Pattern index increments and resets based on length"
+  ],
+  "system_behavior": [
+    "Batch execution of SQL for shift addition and deletion",
+    "Message additions for error and warnings during operations"
+  ],
+  "dependencies": [
+    "Session ID required for database operations",
+    "Shift codes lookup using session context"
+  ],
+  "exceptions": [
+    "Invalid shift codes result in immediate termination of process",
+    "Cannot change shift date over entire week results in error message"
+  ],
+  "source_document_ids": [
+    "10cda7cd-3d73-5f5a-8744-0105f3ab9766",
+    "1102c145-6462-5d37-b096-e098ff228b51",
+    "2c0309c2-5838-5bb2-a60c-ae98fe5996d2",
+    "3e47969c-ca61-5695-8c18-e4490ee3a8ee",
+    "476a18dc-f785-583b-aa0d-bd57e0b81706",
+    "4f0d4d3a-497f-57ef-9926-4b9084380f76",
+    "5a8abb28-7a50-5f2e-99ae-27e1a3927495",
+    "678c0494-a81a-5a69-8ff2-1e020be198a4",
+    "6ce58fa7-5903-59d0-afd0-fa8bcf9dcbf8",
+    "82a8f610-6c74-5354-9dea-6f2bb903e89f",
+    "9abce669-e4c1-57db-bc27-a3d57a58a7fa",
+    "ad0c8019-046b-501a-9f68-ebfbf9006cc6",
+    "ad29b7b3-328b-5858-a177-7617fe21ac59",
+    "ad3c0d35-baa3-5aad-9809-85429bd77239",
+    "d0b57f98-6364-52e7-8ad3-02a7418694c6",
+    "d641c796-8037-543d-995e-a37cb061ccbb",
+    "e3006b70-d648-5fef-b657-ef2f8ff87fba",
+    "e6c4fb21-59e9-5e73-a09a-7bf9654b8d67"
+  ],
+  "content_gaps": []
+}
