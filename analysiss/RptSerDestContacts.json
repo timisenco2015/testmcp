@@ -1,0 +1,59 @@
+{
+  "filename": "RptSerDestContacts",
+  "found": true,
+  "summary": "The RptSerDestContacts component is responsible for generating a report of the destination contacts in an application. It is a partial class in the HSPnet.UserControls.WelcomeDC namespace and involves running a report generation routine for sites accessible to the user.",
+  "purpose": "To generate a report of contacts associated with service destinations, allowing users with appropriate permissions to create report jobs for the users' accessible sites.",
+  "entities": [],
+  "fields": [
+    {
+      "name": "cmdRunReport",
+      "description": "A button control used to trigger the report generation."
+    }
+  ],
+  "actors": [
+    {
+      "name": "User",
+      "role": "Triggers report generation and can view error messages when no sites are selected."
+    }
+  ],
+  "workflows": [
+    {
+      "name": "Generate Destination Contacts Report",
+      "steps": [
+        "User clicks the cmdRunReport button.",
+        "System checks if the user is switched to a view-only administrator.",
+        "If so, cmdRunReport is hidden.",
+        "If not, a list of sites for which the user has permission is retrieved.",
+        "For each allowed site, a report generation job is created.",
+        "A success message is displayed once."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Users in switch user view-only mode cannot run reports."
+  ],
+  "validations": [
+    "Ensure the user has permissions for at least one site to run the report."
+  ],
+  "calculations": [],
+  "conditions": [
+    "User session status is used to determine access levels and permissions, especially in switch user mode."
+  ],
+  "system_behavior": [
+    "Hides the cmdRunReport button when the user is in switch user view-only mode.",
+    "Creates report jobs for each site where the user has permission."
+  ],
+  "dependencies": [
+    "HSPnet.DataLayer.Site.IsAllowed for determining site permissions.",
+    "User session information for checking and notifying the user."
+  ],
+  "exceptions": [
+    "Displays an error message if no sites are selected."
+  ],
+  "source_document_ids": [
+    "5c13c0eb-5549-52e1-98e1-5b0074c027b1",
+    "818c0eaf-d30a-590c-b93c-fbfc4c151fd9",
+    "a2f6561a-f676-5fef-818d-268f51fe92d7"
+  ],
+  "content_gaps": []
+}
