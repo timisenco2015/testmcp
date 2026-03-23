@@ -1,0 +1,83 @@
+{
+  "filename": "PlacementHistoryInstructor",
+  "found": true,
+  "summary": "The PlacementHistoryInstructor component is a web-based user control part of the HSPnet application, designed to manage and display the placement history of instructors. It allows users to view and manage instructor-related placement requests, generate reports, and control UI elements based on user permissions.",
+  "purpose": "To manage and display instructor placement history, offering functionality for report generation and interface customization based on user access levels.",
+  "entities": [],
+  "fields": [
+    "UserSession",
+    "StaffID",
+    "ScreenIsEditable",
+    "ScriptMgr",
+    "CurrentPage",
+    "PrivateMode",
+    "SortExpression",
+    "AlternateObservation"
+  ],
+  "actors": [
+    "User",
+    "Instructor",
+    "Course Leader"
+  ],
+  "workflows": [
+    {
+      "name": "Page Load",
+      "steps": [
+        "Initialize user session.",
+        "Hide pnlReportHTML."
+      ]
+    },
+    {
+      "name": "Page Pre-Render",
+      "steps": [
+        "Check if the user session is active.",
+        "Retrieve staff details and display the instructor name."
+      ]
+    },
+    {
+      "name": "Data Source Selecting",
+      "steps": [
+        "Verify user session.",
+        "Set input parameters for data retrieval based on user session and instructor details."
+      ]
+    },
+    {
+      "name": "Print Command Click",
+      "steps": [
+        "Generate PDF report if the user session is active.",
+        "Display the report in the HTML panel if report generation is successful."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Report generation is only possible if the user session is active.",
+    "UI elements are adjusted based on user role and permissions."
+  ],
+  "validations": [
+    "Check if user session is active before proceeding with report generation or data source access."
+  ],
+  "calculations": [],
+  "conditions": [
+    "Visibility of certain UI elements depends on the user role and data properties like 'Archived'."
+  ],
+  "system_behavior": [
+    "Renders instructor placement history details with options for sorting and report generation.",
+    "Dynamically manages visibility and styling of UI components based on data properties and user session state."
+  ],
+  "dependencies": [
+    "HSPnet Framework",
+    "HSPnet.DataLayer"
+  ],
+  "exceptions": [
+    "If user session is null, cancel data source selection."
+  ],
+  "source_document_ids": [
+    "82ea8189-36bf-5c33-9c8f-8fefbf3c1359",
+    "89452bd1-7ce0-556e-acae-e4c71ea616ee",
+    "a43bc421-0a50-525c-9e9f-164688f6bdcd",
+    "bf9e28cf-9247-52bc-b2e3-ff7c95fc582f",
+    "c84a36a8-43a9-5bb9-9f52-e3aed3f1aae4",
+    "d70ebf13-6ace-5d43-883d-16e6285cb1f2"
+  ],
+  "content_gaps": []
+}
