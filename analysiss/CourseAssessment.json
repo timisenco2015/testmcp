@@ -1,8 +1,8 @@
 {
   "filename": "CourseAssessment",
   "found": true,
-  "summary": "The CourseAssessment module handles course assessments through operations such as adding, updating, deleting, and validating assessments, using stored procedures with parameters from sessions.",
-  "purpose": "To manage the life cycle of course assessments including creation, modification, retrieval, and validation.",
+  "summary": "The CourseAssessment module provides functionality for managing course assessments within the HSPnet system. It includes procedures for adding, updating, deleting, and searching course assessments, as well as validating assessment data.",
+  "purpose": "To manage and facilitate various operations related to course assessments in an educational context, ensuring accurate, efficient, and secure handling of assessment data.",
   "entities": [
     "CourseAssessment",
     "AssessmentValidationResult"
@@ -20,18 +20,18 @@
     "SubjectCanViewAssessorAnswers",
     "ViewUntilDaysAfterEnd",
     "AssessorTypeCode",
-    "AssessorTypeDescription",
     "SubjectTypeCode",
-    "SubjectTypeDescription",
     "AssessmentTypeCode",
-    "AssessmentTypeDescription",
     "AssessmentTemplateCode",
+    "OptionAppliedAssessorTypeCodeID",
+    "AssessorTypeDescription",
+    "SubjectTypeDescription",
+    "AssessmentTypeDescription",
     "AssessmentTemplateDescription",
     "SubjectTypeDescriptionFormatted",
     "OpenDaysAfterStartFormatted",
     "CloseDaysAfterEndFormatted",
-    "ViewUntilDaysAfterEndFormatted",
-    "OptionAppliedAssessorTypeCodeID"
+    "ViewUntilDaysAfterEndFormatted"
   ],
   "actors": [
     "HSPnetSession"
@@ -40,67 +40,64 @@
     {
       "name": "CourseAssessmentAdd",
       "steps": [
-        "Set ProcedureName to 'CourseAssessmentAdd'",
-        "Add parameters: SessionID, CourseID, AssessorTypeCodeID, SubjectTypeCodeID, AssessmentTypeCodeID, AssessmentTemplateCodeID, OpenDaysAfterStart, CloseDaysAfterEnd, AssessorCanViewSubjectsAnswers, SubjectCanViewAssessorAnswers, ViewUntilDaysAfterEnd, OptionAppliedAssessorTypeCodeID",
-        "Execute query"
+        "Set procedure name to 'CourseAssessmentAdd'.",
+        "Add parameters: SessionID, CourseID, AssessorTypeCodeID, SubjectTypeCodeID, AssessmentTypeCodeID, AssessmentTemplateCodeID, OpenDaysAfterStart, CloseDaysAfterEnd, AssessorCanViewSubjectsAnswers, SubjectCanViewAssessorAnswers, ViewUntilDaysAfterEnd, OptionAppliedAssessorTypeCodeID.",
+        "Execute the query to add a course assessment."
       ]
     },
     {
       "name": "CourseAssessmentUpdate",
       "steps": [
-        "Set ProcedureName to 'CourseAssessmentUpdate'",
-        "Add parameters: SessionID, ID, AssessorTypeCodeID, SubjectTypeCodeID, AssessmentTypeCodeID, AssessmentTemplateCodeID, OpenDaysAfterStart, CloseDaysAfterEnd, AssessorCanViewSubjectsAnswers, SubjectCanViewAssessorAnswers, ViewUntilDaysAfterEnd, OptionAppliedAssessorTypeCodeID",
-        "Execute query"
-      ]
-    },
-    {
-      "name": "CourseAssessmentSearchID",
-      "steps": [
-        "Set ProcedureName to 'CourseAssessmentSearchID'",
-        "Add parameters: SessionID, ID",
-        "Retrieve data and populate CourseAssessment object"
-      ]
-    },
-    {
-      "name": "CourseAssessmentSearch",
-      "steps": [
-        "Set ProcedureName to 'CourseAssessmentSearch'",
-        "Add parameters: SessionID, CourseID",
-        "Retrieve data and populate list of CourseAssessment objects"
+        "Set procedure name to 'CourseAssessmentUpdate'.",
+        "Add parameters: SessionID, ID, AssessorTypeCodeID, SubjectTypeCodeID, AssessmentTypeCodeID, AssessmentTemplateCodeID, OpenDaysAfterStart, CloseDaysAfterEnd, AssessorCanViewSubjectsAnswers, SubjectCanViewAssessorAnswers, ViewUntilDaysAfterEnd, OptionAppliedAssessorTypeCodeID.",
+        "Execute the query to update a course assessment."
       ]
     },
     {
       "name": "CourseAssessmentDelete",
       "steps": [
-        "Set ProcedureName to 'CourseAssessmentDelete'",
-        "Add parameters: SessionID, ID",
-        "Execute query"
+        "Set procedure name to 'CourseAssessmentDelete'.",
+        "Add parameters: SessionID, ID.",
+        "Execute the query to delete a course assessment."
       ]
     },
     {
-      "name": "CourseAssessmentValidation",
+      "name": "CourseAssessmentSearchID",
       "steps": [
-        "Set ProcedureName to 'CourseAssessmentValidation'",
-        "Add parameters: SessionID, CourseID",
-        "Retrieve data and populate AssessmentValidationResult object"
+        "Set procedure name to 'CourseAssessmentSearchID'.",
+        "Add parameters: SessionID, ID.",
+        "Retrieve data and populate CourseAssessment fields.",
+        "Return the list of course assessments."
+      ]
+    },
+    {
+      "name": "CourseAssessmentSearch",
+      "steps": [
+        "Set procedure name to 'CourseAssessmentSearch'.",
+        "Add parameters: SessionID, CourseID.",
+        "Retrieve data and populate CourseAssessment fields.",
+        "Return the list of course assessments."
       ]
     }
   ],
   "business_rules": [],
   "validations": [
-    "CourseAssessmentValidation checks for 'InterimWithoutFinal', 'InstructorsAndSupervisors', and 'AssessmentMaximumExceeded'"
+    {
+      "name": "CourseAssessmentValidation",
+      "steps": [
+        "Set procedure name to 'CourseAssessmentValidation'.",
+        "Add parameters: SessionID, CourseID.",
+        "Retrieve validation results."
+      ]
+    }
   ],
   "calculations": [],
-  "conditions": [
-    "If using default locale, descriptions use default fields, otherwise, alternate fields are utilized for localized descriptions"
-  ],
+  "conditions": [],
   "system_behavior": [
-    "Executes stored procedures for managing course assessments"
+    "The system uses stored procedures to handle CRUD operations for course assessments.",
+    "Data retrieval utilizes SQL data readers to populate fields."
   ],
-  "dependencies": [
-    "HSPnetSession",
-    "Resources for localization"
-  ],
+  "dependencies": [],
   "exceptions": [],
   "source_document_ids": [
     "0c1ddf30-f1e7-51b9-88fc-4ecde3e29648",
