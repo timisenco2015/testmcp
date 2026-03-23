@@ -1,0 +1,134 @@
+{
+    "filename": "WorksheetGroups",
+    "found": true,
+    "summary": "The content revolves around managing and manipulating worksheet groups within a system, focusing on the interaction with databases to create, update, copy, delete, and retrieve group data. The system uses stored procedures and database calls extensively to manage worksheet groups, with a focus on various fields related to site, service, and instructional assignments.",
+    "purpose": "To manage worksheet groups effectively by interacting with a database to handle various operations like creation, update, deletion, and retrieval of worksheet groups, ensuring data consistency and supporting detailed configurations and reporting functionalities.",
+    "entities": [
+        "WorksheetGroup",
+        "WorksheetGroupStats"
+    ],
+    "fields": [
+        "ID",
+        "WorksheetID",
+        "GroupName",
+        "SiteID",
+        "ServiceID",
+        "DestinationID",
+        "InstructorID",
+        "StartDate",
+        "EndDate",
+        "Requested",
+        "Sent",
+        "PRStatus",
+        "RotationIndicator",
+        "CFOAcceptedCount",
+        "CFOConfirmedCount",
+        "StartTime",
+        "EndTime"
+    ],
+    "actors": [
+        "HSPnetSession",
+        "SqlDataReader"
+    ],
+    "workflows": [
+        {
+            "name": "GroupWorksheetAccepted",
+            "steps": [
+                "Initiate list and set procedure name.",
+                "Add parameters for filtering.",
+                "Execute database stored procedure.",
+                "Read data reader and populate objects."
+            ]
+        },
+        {
+            "name": "GroupWorksheetSearch",
+            "steps": [
+                "Initialize variables and objects.",
+                "Set procedure name and add parameters.",
+                "Fetch cohort terms and set defaults.",
+                "Execute search and process data reader."
+            ]
+        }
+    ],
+    "business_rules": [
+        "Use '-1' to signify no campus or no instructor, depending on context.",
+        "Check if the group is over max capacity using MaxSpaces."
+    ],
+    "validations": [
+        "Ensure UUIDs before operations.",
+        "Check if StatusCodeFilter is 'MULT' for multiple parameters."
+    ],
+    "calculations": [
+        "Calculate totals in WorksheetGroupStats for requests, creations, acceptances, and rotations.",
+        "Format date and name fields for display using specific formatters."
+    ],
+    "conditions": [
+        "If groupFlag is true, use group-based procedures.",
+        "Handle CFO entries separately based on specific conditions."
+    ],
+    "system_behavior": [
+        "Use stored procedures for database operations.",
+        "Format outputs using various formatters for consistent display."
+    ],
+    "dependencies": [
+        "Relies on stored procedures in the database for operations.",
+        "Depends on session object for context and execution."
+    ],
+    "exceptions": [
+        "Handling null or zero entries in procedure results.",
+        "Manage database operation failures with default responses."
+    ],
+    "source_document_ids": [
+        "00ab77b7-5c9f-5483-b04e-f9d65413f50e",
+        "05fbd01f-a624-52bd-a944-06b3ddce4e1f",
+        "097c4473-50b5-528b-bfb8-da969bdd3eaa",
+        "1267276c-ffbe-5aa4-9195-27b4ba011429",
+        "19702688-196b-557f-a568-5b07c2c19db2",
+        "2a2a87e4-f7f4-587d-bcd5-82aa92b1d5a5",
+        "3123e526-8eb6-57b8-a220-3ad5937d76a6",
+        "3afc2894-6746-501b-b8d3-ad88852a6651",
+        "3c5a0e69-fcb7-5044-95dd-7248366686f1",
+        "3c64da8f-fb33-542b-8c86-a8d1ed2e229c",
+        "3eab2337-f6c3-5669-8b49-eeb691d62e31",
+        "422b374a-1b80-5d1a-ae60-ed6b40a1f52c",
+        "44523e36-098e-5174-bf01-06f961ec75a4",
+        "49b9eea1-1c01-5272-8820-d800b7829cdc",
+        "4fbac628-cf0b-518d-8bfa-4134634cb768",
+        "567add16-c9e2-56eb-b75b-8b201b9d66bc",
+        "5e9d9860-9be1-5859-bdd1-1ac7d018dcb7",
+        "614db3d1-4135-5bab-90e9-4a5e160d0674",
+        "62ab8c21-07f1-59b9-b1eb-a27551f5dc29",
+        "6544a6c1-8387-544b-88c1-992d1fb16d11",
+        "66160d06-5e14-546c-900d-8067b1bc7e87",
+        "70ce5ab9-9d2d-56c0-90cd-7547c506e815",
+        "74c9f158-d269-572b-94e0-dfe95bb64e8f",
+        "8496093b-08fd-5fc1-a7de-096c8606db13",
+        "89a12a58-f0d4-5bda-bbfc-c788c9edad34",
+        "9354f79f-17b6-56be-a6f5-86c9e13c80ba",
+        "99bdbbb2-75b1-5643-a5ae-76fd8bbf8844",
+        "9c0dc840-db1c-561e-8d81-7cb992ec3f1d",
+        "9dd02f36-de23-5052-bfa6-9cdc9116b7e5",
+        "9ed57699-70db-5742-ad2b-918c7def79c9",
+        "a278f758-f03d-5aec-8cf2-aaab8720e784",
+        "a5f5957c-543e-55b1-b7a1-3bb55908b8e8",
+        "ad44c5d8-4892-5866-816e-a2d4a8d90cf4",
+        "aebc6869-e659-5466-8fe6-7aa36755d2aa",
+        "b0d2fa92-1983-58db-a713-e24185e30e2b",
+        "b1a43180-922d-571d-bc3d-34c6ef83de30",
+        "b3d94c55-0210-52db-b3fa-8dde227b20a3",
+        "bec51093-10c8-58d9-ad56-ea72233ac584",
+        "cbceb52e-9bad-5882-829d-0c4e747f75a4",
+        "ce0ad639-23ab-5608-98b4-5b1997817845",
+        "d0f219f3-6766-5067-9dd5-7740e1818dfc",
+        "d581587a-6481-574d-b310-00b67ba25d83",
+        "db920590-39a4-54ad-ac80-f125506d746a",
+        "dd59b94b-3900-55ef-9eeb-a569af8920a4",
+        "dfb5885f-799c-5cdf-8dfc-df4b50aea772",
+        "e158ae54-7f19-5a48-9046-be793548a89d",
+        "eecab862-830f-5168-9298-4f57d53549e3",
+        "f5e7a0b9-cafc-50fe-b03c-e2034daa6fa7",
+        "f82dfcad-8e7e-5ae3-bf41-9c52580d1f24",
+        "fe1086b4-20b1-5a89-ae55-15c88b7b9a6b"
+    ],
+    "content_gaps": []
+}
