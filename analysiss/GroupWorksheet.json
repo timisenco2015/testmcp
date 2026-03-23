@@ -1,0 +1,119 @@
+{
+    "filename": "GroupWorksheet",
+    "found": true,
+    "summary": "The GroupWorksheet system in HSPnet is a web-based interface designed to manage educational programs' scheduling and enrolment processes, emphasizing group assignments and worksheet management.",
+    "purpose": "To facilitate the management of educational program details, including scheduling, enrolment, and organization of group worksheets, using web controls and backend data operations.",
+    "entities": [],
+    "fields": [
+        "trGoverningOrg",
+        "Literal16",
+        "ddGoverningOrg",
+        "Literal23",
+        "chkDraftFilter",
+        "cklStatus",
+        "CurrentViewLabel",
+        "Literal1",
+        "Literal2",
+        "Literal3",
+        "Literal4",
+        "Literal5",
+        "ddDepartment",
+        "ddProgram",
+        "ddCohort",
+        "ddTerm",
+        "ddCourse",
+        "ddServiceCodeFilter",
+        "ddInstructorFilter",
+        "ddDateFilter",
+        "ddCampusFilter",
+        "ddSectionFilter"
+    ],
+    "actors": [
+        "UserSession",
+        "Dropdown",
+        "Program",
+        "TimetableEntries",
+        "Worksheets",
+        "HSPnetSession",
+        "Resources"
+    ],
+    "workflows": [
+        {
+            "name": "CheckGoToAccess",
+            "steps": [
+                "Check whether user can access specific parts of the system based on session variables and current selections."
+            ]
+        },
+        {
+            "name": "SearchWorksheet",
+            "steps": [
+                "Use session and dropdown values to filter and display worksheet details."
+            ]
+        },
+        {
+            "name": "FillWorksheetFilters",
+            "steps": [
+                "Load data into dropdowns for sites, services, instructors, dates, campuses, and sections."
+            ]
+        }
+    ],
+    "business_rules": [
+        "Auto-generated fields should not be modified directly.",
+        "Session variables dictate user access and view settings."
+    ],
+    "validations": [
+        "Ensure all status filters are checked for certain operations.",
+        "Dropdowns must be populated with valid data."
+    ],
+    "calculations": [
+        "Determine EnrolledStudentCount based on worksheet details."
+    ],
+    "conditions": [
+        "Visibility of controls is dependent on session variables and user status."
+    ],
+    "system_behavior": [
+        "The worksheet page dynamically loads and refreshes data based on user interactions and session data."
+    ],
+    "dependencies": [
+        "User session management is critical for page operations.",
+        "Dropdowns are dependent on valid data sources for accurate display."
+    ],
+    "exceptions": [
+        "No available data should safely hide dropdowns and related content."
+    ],
+    "source_document_ids": [
+        "005f3a17-275b-5867-bd79-88cbfb3ebd70",
+        "08317f06-d2e5-5e5c-8b50-64268ee726f9",
+        "092e27cb-d4f1-5262-81b0-4bdd7ba49dcd",
+        "14592671-aade-54f5-936f-5068f9ffd8a8",
+        "1caad56b-b379-5317-97ce-851ea7b7057a",
+        "263ddc66-6df0-5496-88db-787e5bd05730",
+        "4525b349-1d23-59ec-8852-582f064d9159",
+        "482e4199-c522-5de4-8c64-3158eb9c4b97",
+        "4faf001d-1e4c-50df-8456-b54b192b013b",
+        "5222b943-4124-5842-9a40-4419fa7533f2",
+        "553ef9cb-a30b-553e-bb92-55807d006507",
+        "564737b1-b16a-5530-81de-69bddbc78e57",
+        "5659e57d-4809-5c82-97e5-d4f9e01df399",
+        "57b3bc9b-95e0-5ec5-a4b7-cdc36f352b37",
+        "6dedf9ad-aa04-5819-a373-a1bd5701be5e",
+        "7386c513-1c42-52f6-8521-9abe9f1a58ac",
+        "79b1069c-242b-5860-b9e9-f78e334f4644",
+        "7f2030a3-5e3f-54ba-8701-9b0e5bb6d60a",
+        "82b78f8e-161e-5948-a766-e812e9e26e3a",
+        "86e3c6a3-c558-5bd7-912d-b8733f17aca2",
+        "906638d3-6c10-545f-89a7-7c83899e1531",
+        "9158d3f3-d3f5-53c4-b388-a34b0d64b3ce",
+        "9b926ee2-389b-5d01-804e-89cd90c27790",
+        "9db4b7b6-06f6-5a16-abf8-b7e05b42f6ca",
+        "a0650193-482f-5acb-964a-a5710f92529c",
+        "a9d7d5a4-9754-58a2-9523-f4232658edfd",
+        "acb7195e-02d0-5073-9d9b-3275fd18399b",
+        "c1099d8e-fc97-565c-b465-547281ccdaa6",
+        "c9b28749-afb8-5bd7-884b-e44188d9b5fb",
+        "e0c34a33-673d-5010-b5e5-4c36c4a7e68c",
+        "eb47d58b-d432-5cfc-96c6-9bf86b277ece",
+        "fc65de2f-8f53-51f2-964e-8e2dd2f68323"
+    ],
+    "content_gaps": []
+}
