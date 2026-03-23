@@ -1,0 +1,142 @@
+```json
+[
+  {
+    "filename": "SiteDocument",
+    "found": true,
+    "summary": "The document defines a C# class named 'SiteDocument', representing a site document entity in HSPnet. It includes properties for ID and SiteID and uses namespaces for SQL operations and global resources.",
+    "purpose": "To represent and manage site documents within HSPnet using C# class structures.",
+    "entities": ["SiteDocument"],
+    "fields": [
+      {"name": "ID", "type": "int"},
+      {"name": "SiteID", "type": "int"}
+    ],
+    "actors": [],
+    "workflows": [],
+    "business_rules": [],
+    "validations": [],
+    "calculations": [],
+    "conditions": [],
+    "system_behavior": [
+      "The SiteDocument class is part of the HSPnet.DataLayer namespace and uses external resources and SQL operations."
+    ],
+    "dependencies": [
+      "System.Data.SqlClient",
+      "HSPnet.Framework",
+      "HSPnet.App_GlobalResources"
+    ],
+    "exceptions": [],
+    "source_document_ids": ["a2967f17-a924-5e9c-8b15-d1f7bd028b32"],
+    "content_gaps": []
+  },
+  {
+    "filename": "WelcomeStaffAdmin",
+    "found": true,
+    "summary": "This document outlines the structure and controls for the Welcome Staff Admin page in HSPnet. It includes elements for date pickers, validation controls, and a grid view for managing applications. The page utilizes ASP.NET components and connects to a database for data population.",
+    "purpose": "The purpose is to provide a user interface in HSPnet for staff administrators to view and manage employment applications through a web form.",
+    "entities": ["WelcomeStaffAdmin"],
+    "fields": [
+      {"name": "valEndDate", "type": "RequiredFieldValidator"},
+      {"name": "txtEndDate", "type": "TextBox"},
+      {"name": "btnEndDateCalendar", "type": "LinkButton"},
+      {"name": "CalendarExtender2", "type": "CalendarExtender"},
+      {"name": "RegularExpressionValidator2", "type": "RegularExpressionValidator"},
+      {"name": "cvrEndDateAfter", "type": "CustomValidator"},
+      {"name": "chkShowWithdrawn", "type": "CheckBox"}
+    ],
+    "actors": [],
+    "workflows": [
+      {
+        "name": "Manage Employment Applications",
+        "steps": [
+          "Load Welcome Staff Admin Page",
+          "Input Date Range",
+          "Click Refresh to load applications",
+          "Validate inputs and check conditions",
+          "Display results in grid view"
+        ]
+      }
+    ],
+    "business_rules": [],
+    "validations": [
+      "RequiredFieldValidator ensures end date is provided.",
+      "RegularExpressionValidator validates date format.",
+      "CustomValidation checks if start date is before end date."
+    ],
+    "calculations": [],
+    "conditions": [],
+    "system_behavior": [
+      "Uses ASP.NET controls for displaying and managing UI elements.",
+      "Employs validators to maintain correct input data.",
+      "Utilizes AJAX toolkit for enhanced user interaction."
+    ],
+    "dependencies": [
+      "System.Web.UI.WebControls",
+      "HSPnet.App_GlobalResources",
+      "AjaxControlToolkit"
+    ],
+    "exceptions": [],
+    "source_document_ids": [
+      "05db31e4-e8b6-53ee-a6fb-812c106f0134",
+      "100d5925-a5f8-53db-8493-02cddd563eb7",
+      "3c84bade-9671-5fbf-acce-3c87a835e9b4",
+      "4c4b97b8-d242-5261-a515-767a3f7d7a49",
+      "5bb85da3-f5b4-5753-b07c-9bb2a04eeb89",
+      "54244516-0707-581e-a8ba-9c041ea38366",
+      "52b5066f-23f6-5d82-96cd-5d51dad3de79",
+      "5d9b92ea-7c12-5070-8603-977cf14d0e04",
+      "8cea5c3a-2fbf-5206-a0c0-9425a5e14511",
+      "6eca1317-c0b2-5225-a9af-f034a722d924",
+      "871df91b-7ba0-558f-83ea-d5be1b0dc8db",
+      "966ed8d3-a5af-567f-b092-936217777551",
+      "a0c3da28-32a5-5fce-91b2-17274efa016e",
+      "afbb4ec5-43c8-5281-ad2c-4b6cfd23a48e",
+      "d278278f-d4ec-5f4a-9f29-a02b66773bb9",
+      "bf423a80-93db-572d-8cb8-c79f04214a93",
+      "964a48c9-231c-5d58-a44d-3675d949a453",
+      "db9b35e9-53ca-5eaf-9d75-4f3a72131bc7",
+      "b8e79322-9a0e-5fe7-8953-3d05e231f923",
+      "ca71b077-cc26-5979-a44f-59700a41316b"
+    ],
+    "content_gaps": []
+  },
+  {
+    "filename": "ServiceCode",
+    "found": true,
+    "summary": "The document defines a C# class named 'ServiceCode' for managing service codes within HSPnet. It provides methods for retrieving lists of service codes based on various criteria, such as course ID or timetable ID.",
+    "purpose": "To handle service code data retrieval and management within the HSPnet system.",
+    "entities": ["ServiceCode", "ServiceCodes"],
+    "fields": [
+      {"name": "ID", "type": "int"},
+      {"name": "CodeCategoryID", "type": "int"},
+      {"name": "ShortName", "type": "string"},
+      {"name": "Name", "type": "string"},
+      {"name": "SortOrder", "type": "int"},
+      {"name": "Notes", "type": "string"},
+      {"name": "NameAlt", "type": "string"},
+      {"name": "NotesAlt", "type": "string"}
+    ],
+    "actors": [],
+    "workflows": [],
+    "business_rules": [],
+    "validations": [],
+    "calculations": [],
+    "conditions": [],
+    "system_behavior": [
+      "Provides methods to retrieve all service codes or filtered by criteria like course or timetable ID.",
+      "Supports alternative name fields when in alt-language mode."
+    ],
+    "dependencies": [
+      "System.Data.SqlClient",
+      "HSPnet.Framework",
+      "HSPnet.App_GlobalResources"
+    ],
+    "exceptions": [],
+    "source_document_ids": [
+      "94f1b055-348d-508a-ae6e-cf7960a8c6a2",
+      "e4ebe4b4-6d14-5c3f-b693-61016f765239",
+      "f976b9af-a402-540f-b162-391d578fac7c"
+    ],
+    "content_gaps": []
+  }
+]
+```
