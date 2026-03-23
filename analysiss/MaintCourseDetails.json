@@ -1,0 +1,162 @@
+{
+  "filename": "MaintCourseDetails",
+  "found": true,
+  "summary": "The MaintCourseDetails system is responsible for managing the details of courses within the HSPnet framework. This includes handling tabs for various aspects like course profiles, documents, competencies, student PR selection (ASM), correspondence, assessments, contact information, and history.",
+  "purpose": "To provide a comprehensive interface for maintaining and accessing course details within an educational or professional development framework.",
+  "entities": [],
+  "fields": [
+    {
+      "name": "CourseID",
+      "type": "string",
+      "description": "The unique identifier for a course."
+    },
+    {
+      "name": "CourseAgencyID",
+      "type": "int",
+      "description": "The ID of the agency associated with the course."
+    },
+    {
+      "name": "CourseDepartmentID",
+      "type": "int",
+      "description": "The ID of the department associated with the course."
+    },
+    {
+      "name": "ProfileExists",
+      "type": "Boolean",
+      "description": "Indicates if the profile data exists for the course."
+    },
+    {
+      "name": "DocumentExists",
+      "type": "Boolean",
+      "description": "Indicates if the document data exists for the course."
+    },
+    {
+      "name": "CompetencyExists",
+      "type": "Boolean",
+      "description": "Indicates if the competency data exists for the course."
+    },
+    {
+      "name": "ASMExists",
+      "type": "Boolean",
+      "description": "Indicates if the ASM data exists for the course."
+    },
+    {
+      "name": "CorrExists",
+      "type": "Boolean",
+      "description": "Indicates if the correspondence data exists for the course."
+    },
+    {
+      "name": "AssessmentExists",
+      "type": "Boolean",
+      "description": "Indicates if the assessment data exists for the course."
+    },
+    {
+      "name": "ContactDataExists",
+      "type": "Boolean",
+      "description": "Indicates if the contact data exists for the course."
+    },
+    {
+      "name": "ReadOnly",
+      "type": "Boolean",
+      "description": "Indicates if the screen should be read-only."
+    },
+    {
+      "name": "QES",
+      "type": "Boolean",
+      "description": "Indicates if the course is a QES course, which is editable."
+    }
+  ],
+  "actors": [
+    {
+      "name": "UserSession",
+      "role": "The session object representing the current user interacting with the system."
+    },
+    {
+      "name": "SystemAdministrator",
+      "role": "A user role with full access to all system functions."
+    },
+    {
+      "name": "LocalAdministrator",
+      "role": "A user role with access to functions within the local system domain."
+    },
+    {
+      "name": "PlacementCoordinator",
+      "role": "A user responsible for coordinating course placements."
+    },
+    {
+      "name": "Instructor",
+      "role": "A user role representing an instructor."
+    },
+    {
+      "name": "StudentUser",
+      "role": "A user role representing a student."
+    }
+  ],
+  "workflows": [
+    {
+      "name": "Tab Setup Workflow",
+      "steps": [
+        "Initialize the tabs based on the course department settings and user permissions.",
+        "Enable or disable tabs like ASM, Correspondence, and Assessment depending on department settings.",
+        "Set up the visibility of each tab based on user roles like SystemAdministrator or Instructor."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Tabs are only enabled if the user has the appropriate access rights and data exists for the tab category.",
+    "ASM tab is hidden from student and instructor-only users.",
+    "System administrators can always view all tabs."
+  ],
+  "validations": [
+    "Check if the CourseID is present before loading course details.",
+    "Validations for document names and types when adding or editing documents."
+  ],
+  "calculations": [
+    "Calculate the visibility and enablement of tabs based on user session and department configurations."
+  ],
+  "conditions": [
+    "Enable the Contact tab if the user is not a student.",
+    "Hide the History tab if the department is not in the user's rights."
+  ],
+  "system_behavior": [
+    "The system registers scripts and sets up the user interface based on the user session and course details.",
+    "Automatically switches the active tab based on query parameters or user actions."
+  ],
+  "dependencies": [],
+  "exceptions": [
+    "When data for tabs like Competencies, Documents, or Assessments does not exist, those tabs are disabled."
+  ],
+  "source_document_ids": [
+    "0784db6c-98aa-5ee3-b61b-29e7793203f6",
+    "19951f05-ba80-5036-8917-62c685af55aa",
+    "1fae3d6c-00d0-58d2-bba5-4f90e4024c4b",
+    "29e1bf8f-db42-58e8-9fa3-998d7a4f4dc9",
+    "32c5b73f-d8b7-525e-a58e-d3884f7baa0c",
+    "334bbe35-12f4-5010-9e15-6d2477465d17",
+    "3baede8c-ec6f-5786-aeff-fc6018c84158",
+    "446c3cf3-5343-5643-ae4f-8a8e37424eeb",
+    "54674622-171e-5b15-83bb-7e66d389bea8",
+    "55193ae8-64aa-5988-8d29-68fa9357f72b",
+    "55da7647-fe10-59cb-bdd9-7a31e963cb2f",
+    "6b66bd3e-1975-5773-b81d-f54899ec5248",
+    "6b672f3d-a796-5541-84bf-7031113d50e2",
+    "6d4a25b9-ffea-5b63-9dcd-b733848c7c3b",
+    "721de01e-78a3-541b-97c3-0850530d3d1a",
+    "7e8135d8-dc5b-56f7-b0cf-786fd3543bf8",
+    "909e6883-2430-5ae6-bde1-6a1ad947f6dc",
+    "a217f98a-abcc-5c14-8f76-43d6d83ca469",
+    "a915ea47-5c82-5115-b1af-985f88d9e769",
+    "ac6d69f1-7a3e-5c62-8391-ccf5ef12f7cc",
+    "c624feb8-e358-53ef-ac52-c40ef609ed58",
+    "ccc229de-3351-569e-ac02-c3719895d905",
+    "d003f009-4290-5882-96cd-0b774384479c",
+    "e0e19efa-1920-51f9-9aa8-56c9d6392338",
+    "e19ce04f-3a58-55c0-847d-82e5420ba639",
+    "e783f454-d7f0-5864-8841-695c60aa8437",
+    "ea0878ba-0c77-58a5-8c85-a6ede6326547",
+    "efb0e6c2-3ab3-593b-8d77-cb2809716c0e",
+    "f454b760-075b-566d-865e-b68ea6d94922",
+    "fefcc6ef-9483-5197-adaf-56b49c449130"
+  ],
+  "content_gaps": []
+}
