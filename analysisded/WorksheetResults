@@ -2,75 +2,86 @@
 {
     "filename": "WorksheetResults",
     "found": true,
-    "summary": "The documents primarily focus on managing WorksheetResults in a web application environment, detailing various system interactions, user controls, and form handling techniques.",
-    "purpose": "To handle and manage worksheet data, interactions, and presentation in a web-based educational system.",
+    "summary": "WorksheetResults is a user control for managing worksheet-related operations within the HSPnet framework. It includes functionalities for handling user interactions, data bindings, session management, and form operations.",
+    "purpose": "To facilitate the display, manipulation, and management of worksheet data in an educational or administrative context.",
     "entities": [
-        "WorksheetResults",
+        "HSPnetSession",
         "UserSession",
-        "WorksheetGroups",
-        "PlacementRequestDestinations"
+        "WorksheetGroup",
+        "WorksheetTotal",
+        "Timetable",
+        "Program"
     ],
     "fields": [
-        "txtViewAllRAs",
-        "txtOverCapacityEntryFound",
-        "ddInstructor",
-        "ddShiftCode",
-        "txtStartDate",
-        "txtEndDate",
-        "chkVariousDays",
-        "chkVariousTimes"
+        "CohortID",
+        "TermID",
+        "CourseID",
+        "SiteID",
+        "InstructorID",
+        "StartDate",
+        "ServiceID",
+        "CampusID",
+        "Section",
+        "GroupFlag",
+        "ReadOnly",
+        "UseCFO",
+        "CFOMode",
+        "ProgramUseSiteInstructor",
+        "ProgramNISParticipant"
     ],
     "actors": [
-        "UserSession",
-        "ScriptMgr",
-        "HSPnetSession"
+        "User",
+        "Administrator",
+        "PlacementCoordinator"
     ],
     "workflows": [
         {
-            "name": "SaveWorksheetGroup",
+            "name": "Worksheet Management",
             "steps": [
-                "Initialize variables",
-                "Retrieve form values",
-                "Validate inputs",
-                "Save or update worksheet data"
+                "Initialize Session Variables",
+                "Bind Data to Controls",
+                "Handle User Inputs",
+                "Update Records",
+                "Redirect Based on Actions"
             ]
         },
         {
-            "name": "SetupJavaScript",
+            "name": "JavaScript Setup",
             "steps": [
-                "Initialize JavaScript variables",
-                "Add JavaScript strings and booleans",
-                "Register startup scripts"
+                "Define JavaScript Variables",
+                "Setup Event Handlers",
+                "Register Scripts with Page"
             ]
         }
     ],
     "business_rules": [
-        "Shared rotations do not apply to IWS",
-        "Only draw edit button if no PR's exist against the group or user has specific admin rights"
+        "Only sysadmins can globally change dates.",
+        "Placement coordinators can edit instructors if PR exists.",
+        "Group worksheet updates or additions require specific field values."
     ],
     "validations": [
-        "Validate various days and times checkboxes",
-        "Ensure all input fields are formatted correctly"
+        "Check if user session is valid.",
+        "Ensure dates are formatted correctly.",
+        "Validate mandatory fields based on group or individual settings."
     ],
-    "calculations": [
-        "Calculate the number of worksheets based on group and individual counts",
-        "Calculate totals for WorksheetGroups"
-    ],
+    "calculations": [],
     "conditions": [
-        "If group flag is set, hide individual-specific fields",
-        "Toggle site instructor visibility based on selections"
+        "If GroupFlag is true, apply group-specific logic.",
+        "If ReadOnly is true, disable editing capabilities."
     ],
     "system_behavior": [
-        "Disable form fields based on user permissions",
-        "Use session variables to manage state across page loads"
+        "Handles data binding for repeater controls.",
+        "Manages session variables for continuity between page loads.",
+        "Displays data based on user roles and permissions."
     ],
     "dependencies": [
-        "JavaScript for client-side interactivity",
-        "ASP.NET controls for dynamic page rendering"
+        "HSPnet Framework",
+        "AjaxControlToolkit",
+        "Resources for localization"
     ],
     "exceptions": [
-        "Redirect to original page if update or delete fails",
-        "Prevent actions if the user session is null"
+        "Handle missing session gracefully.",
+        "Redirect on invalid or unsaved data access."
     ],
     "source_document_ids": [
         "00b9a51d-78fa-5b6d-9d9a-560b80257b11",
@@ -82,6 +93,7 @@
         "106a8be0-0263-5a0a-8180-ac9da00a2a38",
         "2a4c8967-5552-5cfd-865a-69126487f348",
         "2c4fbc38-0d0f-57e9-9f1b-843a117d201e",
+        "2da37de9-88b5-5b83-bde6-5705b1251fb7",
         "372adc6f-c26a-555c-9fea-f3f0d18aed39",
         "38e9df01-2a6f-5649-8cb2-9bdd9ea01983",
         "39847680-9547-5eaf-93c0-491519a46fb4",
@@ -95,24 +107,46 @@
         "559dedfc-eced-52fd-a4e5-45827911f50e",
         "574f6730-f34d-54a5-884c-5664ee57ef8a",
         "5c1d5ee7-0e1f-5392-9b57-f1ce659acaee",
+        "61752c15-b54e-540f-a407-fb62434188e9",
+        "643a862a-21db-5c8b-b687-18f396250dae",
         "6653f325-566d-538f-acf1-603bfeac74fe",
         "6d80739d-166c-5c15-b735-d772253407af",
         "70798b50-1d44-5daf-be69-5aebb9fccb1c",
         "722e4694-f249-528d-90e1-ab6596a1bd8e",
         "7714e8a5-8491-5d4f-a0aa-3da426b8cf9b",
+        "779ead76-d553-5ed6-ae64-e95d66a108c7",
         "7962e1f5-c8df-5921-ab74-0d0ed8ace415",
+        "7d028371-d32f-5685-b9c5-7f12bc04c28e",
         "7ec87a3f-0125-5db8-83ef-ec596674a6eb",
+        "7fe09e3c-f14f-5cdf-9359-ad168dedad59",
+        "818f6a53-a3d4-5dd9-b60e-99a3cbd70324",
+        "86c713d7-195f-55de-8f54-7ffbdcf1b395",
         "8b95d4d9-8644-59d8-869a-a858c0d8e2dd",
         "a4ca3c7f-4885-5ca6-bff6-ef18802c85e2",
+        "a6398944-12ad-5939-bb6e-2b39cd57d3b3",
+        "abc037c2-7827-5111-b616-434cc0c0b9be",
         "b798d896-8c3b-5cdd-ba87-e000f5ec3ff9",
+        "b83d662d-f742-53d4-b396-08e6c4b5c5cd",
+        "b8468d66-65ed-522e-8431-01242b8b698f",
+        "bd266d7d-64bc-596d-affe-c35bfd618638",
+        "bdfcaa04-70fb-5c93-b666-d051a57f3bc9",
         "ca47c1de-50f4-5378-b830-1c96a9e43857",
         "cd6c1aa0-0a43-5eca-943c-b4971e1edbe1",
+        "d910f3e8-826f-5cfd-9a74-269b5ddf1abf",
+        "d9f82b13-8960-5b5c-a838-019ec7291aae",
+        "db01d458-8509-51fd-a903-0a91a1f32121",
+        "dd4572bc-6cd3-5ab5-8310-86c403efb9f1",
         "dde55ffb-6109-5efc-98fc-9d952943fc5e",
         "def81582-5a78-5ccf-9935-8222f9471805",
         "e4f7c201-e26a-51d8-801b-e32536c7ca30",
+        "e5c19c5c-2417-52c9-9904-f69a7b345d4e",
+        "e878cc26-40d8-5aa3-91c5-1b1c3677339d",
+        "e9f571b1-786a-5260-94d1-0be14686a675",
+        "eb257180-3237-54fb-9d5a-439e856bc72a",
         "ec7dad0f-c44a-5276-8eb1-3611b53e765d",
         "f0163a01-fca8-5f67-886b-96d39d5b4fd0",
-        "f4905504-80cf-5d53-ab48-84c07e2cd8c7"
+        "f4905504-80cf-5d53-ab48-84c07e2cd8c7",
+        "f689efd7-42d6-52e9-aa83-af47269140eb"
     ],
     "content_gaps": []
 }
