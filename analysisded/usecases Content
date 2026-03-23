@@ -1,0 +1,193 @@
+# Module: SiteDocument
+
+No extractable use cases found.
+
+# Module: WelcomeStaffAdmin
+
+## WelcomeStaffAdmin-UC1 — Initialize Welcome Staff Admin Page
+
+- Primary Actor(s): Staff Administrator
+- Secondary Actor(s): None
+- Trigger: Staff Administrator accesses the Welcome Staff Admin interface.
+- Description: Initializes the Welcome Staff Admin page with required settings and data.
+- Preconditions:
+  - Staff Administrator is logged in.
+  - Valid session data is available.
+- Postconditions:
+  - The Welcome Staff Admin page is displayed with correct settings.
+- Main Success Scenario:
+  1. Load the Welcome Staff Admin page.
+  2. Initialize JavaScript settings for the page.
+  3. Populate site and discipline dropdowns with relevant data.
+  4. Display last login information.
+  5. Set default start and end dates for data filtering.
+  6. Bind application grid view with employment application data.
+  7. Setup page default button for form submission.
+- Extensions:
+  - None.
+- Exceptions:
+  - If session data is invalid, the page may not load properly.
+- Business Rules:
+  - Use session variables to personalize the page content.
+- Assumptions:
+  - User session is active and contains valid data.
+- Open Issues:
+  - None.
+
+## WelcomeStaffAdmin-UC2 — Filter Employment Applications
+
+- Primary Actor(s): Staff Administrator
+- Secondary Actor(s): None
+- Trigger: Staff Administrator applies a filter to the employment applications.
+- Description: Filters the application data based on user-selected criteria.
+- Preconditions:
+  - Employment applications are displayed in the grid view.
+- Postconditions:
+  - Employment application data is filtered and displayed according to selected criteria.
+- Main Success Scenario:
+  1. Staff Administrator selects criteria such as site, discipline, or date range.
+  2. Clicks the "Refresh View" button.
+  3. The system validates the date inputs.
+  4. Filtered results are displayed in the application grid view.
+- Extensions:
+  - None.
+- Exceptions:
+  - Invalid date inputs trigger validation error.
+- Business Rules:
+  - Date range must be valid.
+- Assumptions:
+  - The filters are properly configured in the system.
+- Open Issues:
+  - None.
+
+## WelcomeStaffAdmin-UC3 — View Employment Application Details
+
+- Primary Actor(s): Staff Administrator
+- Secondary Actor(s): None
+- Trigger: Staff Administrator clicks on an applicant's name.
+- Description: Allows viewing detailed information of a selected employment application.
+- Preconditions:
+  - Employment applications are displayed in the grid view.
+- Postconditions:
+  - Detailed information of the selected application is displayed.
+- Main Success Scenario:
+  1. Staff Administrator clicks on the hyperlinked name of an applicant.
+  2. The system opens a new window with detailed application information.
+- Extensions:
+  - None.
+- Exceptions:
+  - None.
+- Business Rules:
+  - Data integrity and display rules must be maintained.
+- Assumptions:
+  - Application details are stored in the database.
+- Open Issues:
+  - None.
+
+# Module: ServiceCode
+
+## ServiceCode-UC1 — Retrieve Service Codes by Course
+
+- Primary Actor(s): System
+- Secondary Actor(s): None
+- Trigger: System needs to retrieve service codes for a specific course.
+- Description: Retrieves a list of service codes associated with a given course ID.
+- Preconditions:
+  - A valid course ID is supplied.
+- Postconditions:
+  - A list of service codes related to the course is retrieved.
+- Main Success Scenario:
+  1. Invoke a database stored procedure `ServiceCodeASMOptionByCourseID`.
+  2. Retrieve service code data from the database.
+  3. Return the list of service codes.
+- Extensions:
+  - None.
+- Exceptions:
+  - Database connection failure.
+- Business Rules:
+  - Use localized data if in alternate language mode.
+- Assumptions:
+  - Database contains valid service code data.
+- Open Issues:
+  - None.
+
+# Module: SiteProfileHistory
+
+## SiteProfileHistory-UC1 — Search Site Profile History
+
+- Primary Actor(s): System
+- Secondary Actor(s): None
+- Trigger: System initiates a search for site profile history.
+- Description: Searches and retrieves site profile history records based on a site ID.
+- Preconditions:
+  - A valid site ID and session agency ID are provided.
+- Postconditions:
+  - A list of site profile history records is retrieved.
+- Main Success Scenario:
+  1. Invoke stored procedure `SiteProfileHistorySearch`.
+  2. Retrieve records from the database.
+  3. Return the list of site profile history entries.
+- Extensions:
+  - None.
+- Exceptions:
+  - Database errors during retrieval.
+- Business Rules:
+  - None.
+- Assumptions:
+  - Site profile data is available in the database.
+- Open Issues:
+  - None.
+
+# Module: EmailPopupDocument
+
+## EmailPopupDocument-UC1 — Manage Email Popup Documents
+
+- Primary Actor(s): System
+- Secondary Actor(s): None
+- Trigger: System processes email popup documents.
+- Description: Handles searching and deleting of email popup documents.
+- Preconditions:
+  - A valid data string with email document information is provided.
+- Postconditions:
+  - A list of email documents is processed.
+- Main Success Scenario:
+  1. Parse the provided data string to extract email document information.
+  2. Construct a list of EmailPopupDocument objects.
+  3. If deletion is required, delete the specified document.
+- Extensions:
+  - None.
+- Exceptions:
+  - File or directory deletion errors are ignored.
+- Business Rules:
+  - None.
+- Assumptions:
+  - Data string format is consistent and correct.
+- Open Issues:
+  - None.
+
+# Module: CostCentre
+
+## CostCentre-UC1 — Retrieve Cost Centre Data
+
+- Primary Actor(s): System
+- Secondary Actor(s): None
+- Trigger: System requests cost center data for specific criteria.
+- Description: Retrieves cost center information based on various filters like date, agency, discipline, etc.
+- Preconditions:
+  - Valid session ID and date range are provided.
+- Postconditions:
+  - A list of cost center records is retrieved.
+- Main Success Scenario:
+  1. Invoke stored procedure `PlacementCostCentre`.
+  2. Apply input filters such as start date, end date, placing agencies, etc.
+  3. Retrieve and return cost center records from the database.
+- Extensions:
+  - None.
+- Exceptions:
+  - Database connection or retrieval errors.
+- Business Rules:
+  - None.
+- Assumptions:
+  - Cost center data is available and correctly formatted in the database.
+- Open Issues:
+  - None.
