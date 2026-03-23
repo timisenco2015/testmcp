@@ -1,1 +1,49 @@
-{"filename":"ServiceCode","found":true,"summary":"ServiceCode defines a service code object with properties such as ID, CodeCategoryID, ShortName, Name, SortOrder, and Notes.","purpose":"To manage service code details within the HSPnet framework.","entities":[],"fields":["ID","CodeCategoryID","ShortName","Name","SortOrder","Notes","NameAlt","NotesAlt"],"actors":[],"workflows":[],"business_rules":[],"validations":[],"calculations":[],"conditions":[],"system_behavior":[],"dependencies":[],"exceptions":[],"source_document_ids":["94f1b055-348d-508a-ae6e-cf7960a8c6a2","e4ebe4b4-6d14-5c3f-b693-61016f765239","f976b9af-a402-540f-b162-391d578fac7c"],"content_gaps":[]}
+{
+    "filename": "ServiceCode",
+    "found": true,
+    "summary": "ServiceCode is a class within HSPnet's data layer designed to manage service code information, including retrieval by course or timetable ID and localization based on session preferences.",
+    "purpose": "To manage and provide access to service code information based on course or timetable criteria.",
+    "entities": [
+        "ServiceCode"
+    ],
+    "fields": [
+        "ID",
+        "CodeCategoryID",
+        "ShortName",
+        "Name",
+        "SortOrder",
+        "Notes",
+        "NameAlt",
+        "NotesAlt"
+    ],
+    "actors": [],
+    "workflows": [
+        {
+            "name": "Service Code Retrieval",
+            "steps": [
+                "Call ServiceCodeListAll to retrieve all service codes",
+                "Optionally call ServiceCodeASMOptionByCourseID or ServiceCodeASMOptionByTimetableID for filtered results",
+                "Localize based on session preferences"
+            ]
+        }
+    ],
+    "business_rules": [],
+    "validations": [],
+    "calculations": [],
+    "conditions": [],
+    "system_behavior": [
+        "Uses specific stored procedures to retrieve service code data",
+        "Localizes service code names based on session preferences"
+    ],
+    "dependencies": [
+        "HSPnetSession",
+        "SqlDataReader"
+    ],
+    "exceptions": [],
+    "source_document_ids": [
+        "94f1b055-348d-508a-ae6e-cf7960a8c6a2",
+        "e4ebe4b4-6d14-5c3f-b693-61016f765239",
+        "f976b9af-a402-540f-b162-391d578fac7c"
+    ],
+    "content_gaps": []
+}
