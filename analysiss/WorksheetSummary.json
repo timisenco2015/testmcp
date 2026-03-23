@@ -1,11 +1,11 @@
 {
   "filename": "WorksheetSummary",
   "found": true,
-  "summary": "The WorksheetSummary handles the processing and display of worksheet statistics in different categories including group worksheets, individual worksheets without CFO involvement, and individual worksheets with CFO involvement.",
-  "purpose": "To provide a structured overview of worksheets including those not sent, remaining enrollments, and assignments, assisting in managing and tracking worksheet processing.",
+  "summary": "The WorksheetSummary content provides a detailed overview of how worksheet summaries are managed, including counts and assignments related to group and individual worksheets not sent, remaining enrollments, and assignments with unused spaces. It describes various entities and fields involved in these operations, such as counts and session details.",
+  "purpose": "To summarize the processing and status of worksheets related to groups and individual workflows within the HSPnet system.",
   "entities": [
     "WorksheetSummary",
-    "HSPnetSession"
+    "WorksheetSummaries"
   ],
   "fields": [
     "GWSNotSent",
@@ -19,46 +19,66 @@
     "GWSAWithRemainingSpaces",
     "GWSARemainingSpaces",
     "IWSAWithRemainingSpaces",
-    "IWSARemainingSpaces"
+    "IWSARemainingSpaces",
+    "GWS1",
+    "GWS2",
+    "IWSnonCFO1",
+    "IWSnonCFO2",
+    "IWSCFO1",
+    "IWSCFO2",
+    "StudentEnrollment1",
+    "StudentEnrollment2",
+    "GWS_Assignment1",
+    "GWS_Assignment2",
+    "IWS_Assignment1",
+    "IWS_Assignment2"
   ],
   "actors": [
-    "sess"
+    "HSPnetSession",
+    "Resources",
+    "HTML",
+    "Hashing"
   ],
   "workflows": [
     {
-      "name": "Group Worksheet Processing",
+      "name": "GroupWorksheetCountNotProcessed",
       "steps": [
-        "Retrieve session and parameters.",
-        "Process database records for worksheet counts.",
-        "Iterate through result sets for specific worksheet statistics.",
-        "Generate URLs and controls for displaying results."
+        "Add session and program parameters",
+        "Execute database procedure",
+        "Read results",
+        "Calculate counts for worksheets",
+        "Determine assignment spaces",
+        "Process results for UI consumption"
       ]
     }
   ],
   "business_rules": [
-    "Worksheets are processed based on session parameters and course ID when specified.",
-    "Links and UI controls are enabled or disabled based on worksheet counts."
+    "Sessions must provide session ID and locale for URL hashing.",
+    "If session hides student names, certain fields are set empty.",
+    "Assignments are disabled when respective counts are zero."
   ],
   "validations": [
-    "Check worksheet counts to determine link availability."
+    "Check if GWS assignment spaces are available.",
+    "Check if IWSnonCFO counts are greater than zero for enabling links."
   ],
   "calculations": [
-    "Count of worksheets not sent (GWS, IWS non-CFO, IWS CFO)."
+    "Convert counts to strings.",
+    "Format resources strings using counts."
   ],
   "conditions": [
-    "Links are created only if worksheet counts are greater than zero."
+    "hasLink is true if count is greater than zero.",
+    "disabled is true if respective NotSent count is zero."
   ],
   "system_behavior": [
-    "UI elements are disabled if there are no remaining worksheet spaces."
+    "Generates URLs with session data appended through hashing.",
+    "Links are formatted as JavaScript new windows."
   ],
   "dependencies": [
-    "Session ID",
-    "Program ID",
-    "Placement Coordinator ID",
-    "Date range"
+    "Sess.DB for database procedures and data retrieval.",
+    "Resources for text formatting."
   ],
   "exceptions": [
-    "If session data or database connection fails, processing cannot occur."
+    "If counts are zero, elements are disabled."
   ],
   "source_document_ids": [
     "0d0d4a25-01d9-5532-85de-c995a74c5771",
