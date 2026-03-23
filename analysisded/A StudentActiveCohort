@@ -1,0 +1,76 @@
+```json
+{
+    "filename": "StudentActiveCohort",
+    "found": true,
+    "summary": "The StudentActiveCohort documents handle the retrieval and management of active cohort data for students, specifically in university settings, involving operations like searching and removal from cohorts.",
+    "purpose": "To manage and retrieve data related to students' active cohorts, including details on courses and department affiliations.",
+    "entities": [
+        "StudentActiveCohort",
+        "StudentActiveCohorts"
+    ],
+    "fields": [
+        "DepartmentID",
+        "DepartmentShortName",
+        "ProgramID",
+        "ProgramShortName",
+        "CohortID",
+        "CohortShortName",
+        "Unstructured",
+        "EnrolledCourses",
+        "AssignedCourses",
+        "UnassignedCourses",
+        "TimetableID",
+        "StudentHasActiveUserID",
+        "TermID",
+        "CourseID",
+        "CourseName"
+    ],
+    "actors": [
+        "HSPnetSession"
+    ],
+    "workflows": [
+        {
+            "name": "StudentSearchActiveCohorts",
+            "steps": [
+                "Set stored procedure name to 'StudentSearchActiveCohorts'",
+                "Add session and student ID as parameters",
+                "Retrieve data using SqlDataReader",
+                "Loop through results and populate StudentActiveCohort entities",
+                "Close data reader and return the list"
+            ]
+        },
+        {
+            "name": "StudentRemoveFromCohort",
+            "steps": [
+                "Set stored procedure name to 'StudentRemoveFromCohort'",
+                "Add session, student, and cohort ID as parameters",
+                "Retrieve data using SqlDataReader",
+                "Process removal logic",
+                "Close data reader and return the updated list"
+            ]
+        }
+    ],
+    "business_rules": [
+        "Skip all-zero entries for AssignedCourses and UnassignedCourses"
+    ],
+    "validations": [],
+    "calculations": [
+        "UnassignedCourses = EnrolledCourses - AssignedCourses"
+    ],
+    "conditions": [],
+    "system_behavior": [],
+    "dependencies": [
+        "System.Data.SqlClient",
+        "HSPnet.Framework",
+        "HSPnet.App_GlobalResources",
+        "HSPnet.UI"
+    ],
+    "exceptions": [],
+    "source_document_ids": [
+        "24eaf078-e391-5240-9a2b-f1e669753812",
+        "8027c505-01e5-5861-af3d-ec417f2e1383",
+        "ebe839ba-3287-52fb-84f5-416ae2b6ec35"
+    ],
+    "content_gaps": []
+}
+```
