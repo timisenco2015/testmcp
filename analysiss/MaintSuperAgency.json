@@ -1,70 +1,58 @@
 {
   "filename": "MaintSuperAgency",
   "found": true,
-  "summary": "The documents related to MaintSuperAgency describe a web application for managing SuperAgency data, with functionalities for adding, editing, deleting, and reactivating agency records. The system supports data binding, user interface interactions like pop-ups, error handling, and form validations.",
-  "purpose": "The purpose of the application is to manage SuperAgency records within a web environment, providing functionalities for data manipulation and user interaction.",
+  "summary": "MaintSuperAgency provides user interface elements for managing SuperAgency entries, including data binding and event handling.",
+  "purpose": "To facilitate the management of SuperAgency entities through a web-based interface.",
   "entities": [
-    "SuperAgency",
-    "UserSession",
-    "Agency"
+    "SuperAgency"
   ],
   "fields": [
-    "ID",
-    "Name",
-    "ShortName",
-    "Description",
-    "AgencyList",
-    "Inactive",
-    "ScreenIsEditable",
-    "UserSession.SystemAdministrator",
-    "UserSession.LocalAdministrator"
+    "cmdRefreshView",
+    "gridData",
+    "pnlPopup",
+    "btnShowPopup",
+    "mdlDetails",
+    "ValidationSummary1"
   ],
   "actors": [
-    "User",
-    "ScreenIsEditable",
-    "SystemAdministrator",
-    "LocalAdministrator"
+    "UserSession",
+    "GridViewRow"
   ],
   "workflows": [
     {
-      "name": "Manage SuperAgency",
+      "name": "Page_Load",
       "steps": [
-        "Page_Load: Setup page and initialize data if not postback.",
-        "cmdRefreshView_Click: Refresh and bind data to grid.",
-        "gridData_RowCommand: Handle commands for adding, editing, deleting, and reactivating rows.",
-        "uxDetail_ItemCommand: Save or cancel changes to details view."
+        "Setup HSPnetPage.",
+        "Check IsPostBack condition.",
+        "RefreshData if required."
+      ]
+    },
+    {
+      "name": "cmdRefreshView_Click",
+      "steps": [
+        "Trigger RefreshData."
+      ]
+    },
+    {
+      "name": "gridData_RowCommand",
+      "steps": [
+        "Switch on command name.",
+        "Handle cmdAdd, cmdEdit, cmdDelete, cmdReactivate."
       ]
     }
   ],
   "business_rules": [
-    "Only System Administrators can edit the screen.",
-    "If department or program dropdown is empty, the screen is view-only.",
-    "SuperAgency records should have mandatory fields like name and short name."
+    "Screen is editable for System Administrator only."
   ],
-  "validations": [
-    "RequiredFieldValidator for Name.",
-    "RequiredFieldValidator for ShortName.",
-    "ValidationSummary1 control for displaying validation messages."
-  ],
+  "validations": [],
   "calculations": [],
-  "conditions": [
-    "ScreenIsEditable: Only editable if UserSession is admin and dropdown values are not empty.",
-    "Inactive: Determines visibility and availability of edit, delete, and reactivate buttons."
-  ],
+  "conditions": [],
   "system_behavior": [
-    "Bind data to grid on refresh.",
-    "Display error and warning messages using panels.",
-    "Show and hide modals for detail editing."
+    "UI elements for agency data management",
+    "Client-server interaction through postback"
   ],
-  "dependencies": [
-    "HSPnet.DataLayer",
-    "HSPnet.UI",
-    "AjaxControlToolkit"
-  ],
-  "exceptions": [
-    "No data found message if grid is empty in read-only mode.",
-    "Error handling through panels for displaying error messages."
-  ],
+  "dependencies": [],
+  "exceptions": [],
   "source_document_ids": [
     "03813234-97d5-5a58-b938-d384191c1240",
     "0eaa2a6f-c70d-5ba7-b682-d3ff14e81ea2",
@@ -77,15 +65,9 @@
     "9594d1a4-5695-5df1-a59f-ff9ca4f62c2d",
     "a5a82e57-a57c-5f4a-81be-19e6bc4bb247",
     "ad2feff4-9a6a-5606-9985-668556f8c7c6",
+    "adaad06f-2914-5644-8464-fbef9782a6ca",
     "b02e7370-401b-59e1-84c0-0a75512e71e0",
-    "baa648f2-5c7e-57b5-8e42-df7dc03bac2d",
-    "be1a6328-d7a4-5edf-b316-e606354ccab6",
-    "c28c8b1b-eddb-52ed-8af2-f271794a6df8",
-    "cdd7d325-5e86-5642-bb78-0b6739933ddc",
-    "d66c0a3d-4f56-555e-a470-ba5726397842",
-    "e062da29-fdfa-5d03-871e-9f282de3a435",
-    "e682f45f-07b5-54ac-95bf-afb8f710a2b1",
-    "fd77fa24-6448-5818-8f0f-0b75c419b0f4"
+    "baa648f2-5c7e-57b5-8e42-df7dc03bac2d"
   ],
   "content_gaps": []
 }
