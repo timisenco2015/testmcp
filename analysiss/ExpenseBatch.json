@@ -1,35 +1,46 @@
-[
-    {
-        "filename": "ExpenseBatch",
-        "found": true,
-        "summary": "Handles operations related to expense batches, including retrieval, addition, update, and deletion.",
-        "purpose": "To manage financial batches related to departmental expenses, providing CRUD operations.",
-        "entities": [],
-        "fields": [
-            {"name": "ID", "type": "int"},
-            {"name": "DepartmentID", "type": "int"},
-            {"name": "BatchDescription", "type": "string"},
-            {"name": "BatchDate", "type": "DateTime"},
-            {"name": "StatusCodeID", "type": "int"},
-            {"name": "StatusCode", "type": "string"},
-            {"name": "StatusDescription", "type": "string"},
-            {"name": "ClosedDate", "type": "DateTime"},
-            {"name": "BatchNumberFormatted", "type": "string"}
-        ],
-        "actors": [],
-        "workflows": [],
-        "business_rules": [],
-        "validations": [],
-        "calculations": [],
-        "conditions": [],
-        "system_behavior": [],
-        "dependencies": [],
-        "exceptions": [],
-        "source_document_ids": [
-            "060e08d3-49ca-5e40-bea0-849f4e6173e1",
-            "3559737f-0154-520e-be2b-d3dd2c3de539",
-            "b2216e58-a144-55cb-8b87-3da9787fc1d7"
-        ],
-        "content_gaps": []
-    }
-]
+{
+    "filename": "ExpenseBatch",
+    "found": true,
+    "summary": "ExpenseBatch class manages batch records for expenses within departments.",
+    "purpose": "To allow departments to track batches of expenses with related metadata.",
+    "entities": ["ExpenseBatch"],
+    "fields": [
+        {"name": "ID", "type": "int"},
+        {"name": "DepartmentID", "type": "int"},
+        {"name": "BatchDescription", "type": "string"},
+        {"name": "BatchDate", "type": "DateTime"},
+        {"name": "StatusCodeID", "type": "int"},
+        {"name": "StatusCode", "type": "string"},
+        {"name": "StatusDescription", "type": "string"},
+        {"name": "ClosedDate", "type": "DateTime"},
+        {"name": "BatchNumberFormatted", "type": "string"}
+    ],
+    "actors": ["ExpenseManager"],
+    "workflows": [
+        {
+            "name": "Batch Management",
+            "steps": [
+                "Search batches by department.",
+                "Add new batch.",
+                "Update batch details.",
+                "Delete batch."
+            ]
+        }
+    ],
+    "business_rules": [],
+    "validations": [],
+    "calculations": [],
+    "conditions": [],
+    "system_behavior": [
+        "Batch number is formatted with ID and status description.",
+        "Alternate language fields are used when applicable."
+    ],
+    "dependencies": [],
+    "exceptions": [],
+    "source_document_ids": [
+        "060e08d3-49ca-5e40-bea0-849f4e6173e1",
+        "3559737f-0154-520e-be2b-d3dd2c3de539",
+        "b2216e58-a144-55cb-8b87-3da9787fc1d7"
+    ],
+    "content_gaps": []
+}
