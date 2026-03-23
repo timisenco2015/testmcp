@@ -1,55 +1,32 @@
 {
     "filename": "StudentPrerequisites",
     "found": true,
-    "summary": "Handles operations for the StudentPrerequisite class, which includes managing health records and immunization data.",
-    "purpose": "To maintain and update student health and prerequisite records for compliance and safety.",
+    "summary": "The StudentPrerequisites class manages medical and safety information required for students, including fields for COVID-19, influenza, hepatitis, and more. It supports operations like updating and validating prerequisite records.",
+    "purpose": "To maintain prerequisite health and safety records for students involved in HSPnet programs.",
     "entities": [],
     "fields": [
-        "ID",
-        "StudentID",
-        "CRCStatusCodeID",
-        "IDCard",
-        "WCBWaiver",
-        "ConfidentialityForm",
-        "UseAssessmentModule",
-        "DepartmentUseAssessmentModule",
-        "N95MaskSizeCodeID",
-        "N95MaskAltSizeCodeID",
-        "N95MaskFitTestExpiryDate",
-        "TetanusExpiryDate",
-        "TdapImmunity",
-        "PolioImmunity",
-        "MeaslesStatusCodeID",
-        "Covid19StatusCodeID",
-        "RubellaStatusCodeID",
-        "VaricellaStatusCodeID",
-        "InfluenzaStatusCodeID",
-        "ChestXRayDate",
-        "ChestXRayResultsCodeID",
-        "HepBFirstShotDate",
-        "HepBSecondShotDate",
-        "HepBThirdShotDate",
-        "HepABResultsCodeID",
-        "ImmunizationNotes",
-        "InfectionControlSolutionID",
-        "N95MaskFitNotes"
+        {"name": "MeaslesAdminDate", "type": "DateTime"},
+        {"name": "Covid19AdminDate", "type": "DateTime"},
+        {"name": "RubellaAdminDate", "type": "DateTime"},
+        {"name": "MumpsAdminDate", "type": "DateTime"},
+        {"name": "VaricellaAdminDate", "type": "DateTime"},
+        {"name": "InfluenzaAdminDate", "type": "DateTime"},
+        {"name": "HepBFirstShotDate", "type": "DateTime"},
+        {"name": "PolioAdminDate", "type": "DateTime"}
     ],
     "actors": [],
     "workflows": [
         {
-            "name": "Student Prerequisite Search",
+            "name": "Update Student Health Data",
             "steps": [
-                "Call stored procedure 'StudentDetailsPrerequisitesSearch'.",
-                "Retrieve and fill StudentPrerequisite objects with data from SqlDataReader.",
-                "Return a list of filled StudentPrerequisite objects."
+                "Gather updated health data for student.",
+                "Validate data, ensuring all required fields are filled.",
+                "Commit updates to database using appropriate procedures."
             ]
         }
     ],
     "business_rules": [],
-    "validations": [
-        "Verifies if N95 mask fit test date is required based on mask size.",
-        "Checks date fields to ensure they fall within valid ranges."
-    ],
+    "validations": [],
     "calculations": [],
     "conditions": [],
     "system_behavior": [],
@@ -59,13 +36,8 @@
         "126148d2-7c46-5bb8-8a4c-606105b702bd",
         "165b1b6b-fd06-59e5-b7d7-81e87dbeac55",
         "280408b2-2e1d-5bd7-8feb-59603ff0bb80",
-        "2f8ba20e-ca9a-5fc1-932a-1899a9499417",
         "3787eddd-1ce0-519f-9959-30c8a913c827",
-        "3c00eec5-f694-53fb-abe6-a8d94038fd60",
-        "3e68c0d0-3ab9-5c14-a221-bf0f7592302c",
-        "430fc305-a57a-53e5-9f01-35e07b707792",
-        "46edf9a0-d978-5197-be20-b4536cae3e91",
-        "4a51cb58-538c-57f2-82ff-13fb4d577aa8"
+        "3c00eec5-f694-53fb-abe6-a8d94038fd60"
     ],
     "content_gaps": []
 }
