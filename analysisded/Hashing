@@ -2,78 +2,60 @@
 {
   "filename": "Hashing",
   "found": true,
-  "summary": "The documents contain information on handling URL hashing within the HSPnet framework. They cover adding, validating, and regenerating URL hashes, removing pre-existing hash parameters from URLs, and handling URL encoding issues, especially with French characters.",
-  "purpose": "To manage URL hashing within the HSPnet framework, ensuring secure and consistent hash generation and validation processes.",
-  "entities": ["HttpRequest", "HttpResponse", "HSPnetSession"],
-  "fields": ["URLHash", "SessionID", "Locale", "baseURL", "query"],
-  "actors": ["Security", "HttpUtility"],
+  "summary": "The documents provide detailed information on hashing mechanisms used in URL validation, encoding and decoding processes, and error handling within the application. The focus is primarily on adding, validating, and removing URL hashes in URLs, using static methods, handling encoded characters, and addressing validation issues related to hash parameters.",
+  "purpose": "To ensure secure and accurate URL handling by adding, validating, and managing URL hashes within a web application.",
+  "entities": [],
+  "fields": [],
+  "actors": [],
   "workflows": [
     {
       "name": "AddHashToEmbeddedURL",
       "steps": [
-        "Identify URLs delimited by <|| and ||>",
-        "Replace each URL with a new URL including a URLHash parameter"
-      ]
-    },
-    {
-      "name": "AddURLHash",
-      "steps": [
-        "Check if URL already contains URLHash",
-        "Generate new hash if regenerating",
-        "Return URL with URLHash"
-      ]
-    },
-    {
-      "name": "ValidateURLHash",
-      "steps": [
-        "Generate hash from current URL",
-        "Compare with stored hash",
-        "Mark page valid or timeout user"
+        "Parse URLs delimited by <||||> in a given string.",
+        "Replace old URLs with new URLs that have a URLHash parameter added."
       ]
     },
     {
       "name": "HttpRequestRebuildURL",
       "steps": [
-        "Strip domain and pre-existing URLHash",
-        "Return page and query string"
+        "Remove domain and existing URLHash from original request.",
+        "Return query string and page."
       ]
     },
     {
-      "name": "HttpRequestRedirectURL",
+      "name": "ValidateURLHash",
       "steps": [
-        "Combine domain from original request with rebuilt URL",
-        "Return full URL for redirection"
+        "Check if hash of current URL matches stored hash.",
+        "Log timeout and redirect if invalid."
       ]
     }
   ],
   "business_rules": [
-    "A new URLHash is generated only if reGenerate is true",
-    "Validation fails if URLHash is missing"
+    "Use full URL (including domain and pre-existing URLHash) to generate URLHash.",
+    "Validate using shorter URL (without domain and pre-existing URLHash)."
   ],
   "validations": [
-    "Ensure new hash matches old hash",
-    "Validate URL with spaces translated from plus signs"
+    "Verify if the hash of the current URL matches the stored hash.",
+    "Check encoded query lengths for validation."
   ],
   "calculations": [
-    "Hash generated using SHA1 with salt",
-    "URLHash value calculated from URL"
+    "Hashing involves appending URLHash parameters using a random salt.",
+    "Handle URL encoding/decoding for special characters."
   ],
   "conditions": [
-    "Hash index found in baseURL indicates presence of URLHash",
-    "URL is considered invalid without a URLHash"
+    "If hash validation fails, process timeout and logout.",
+    "Hash is missing; consider URL invalid."
   ],
   "system_behavior": [
-    "Logout user if validation fails",
-    "Redirect to Timedout page on timeout"
+    "Timeout user if hash validation fails.",
+    "Remove encoded French characters and special characters."
   ],
   "dependencies": [
     "System.Security.Cryptography",
-    "System.Web",
-    "HSPnet.Framework"
+    "System.Web"
   ],
   "exceptions": [
-    "Timeout on validation failure",
-    "Encoding issues with French characters"
+    "Validation fails when URLHash in the request doesn't match hash calculation."
   ],
   "source_document_ids": [
     "23395986-e98e-570c-8095-485b7fd028a0",
