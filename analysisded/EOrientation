@@ -1,0 +1,61 @@
+```json
+{
+  "filename": "EOrientation",
+  "found": true,
+  "summary": "EOrientation is a web application module integrated with HSPnet, primarily used for managing and facilitating online course orientations.",
+  "purpose": "The purpose of EOrientation is to facilitate the online learning environment by allowing users, primarily staff and instructors, to access course materials, retake courses, and print certificates upon completion.",
+  "entities": ["ETopicCourses", "ETopicCourse", "UserSession", "StaffID"],
+  "fields": ["username", "password", "Submit", "hleOpeQRG", "lblPleaseWait", "pnlReportHTML", "lblReportHTML", "gvwCourses", "dsCourses", "form1"],
+  "actors": ["User", "Staff", "Instructor"],
+  "workflows": [
+    {
+      "name": "Course Retake",
+      "steps": ["Check user session", "Ensure user has retake permissions", "Bind course data", "Allow retake and confirm"]
+    },
+    {
+      "name": "Print Certificate",
+      "steps": ["Trigger certificate generation", "Run report", "Display HTML report"]
+    }
+  ],
+  "business_rules": [
+    "Users must have a valid session to access courses.",
+    "Only completed courses may trigger certificate generation."
+  ],
+  "validations": [
+    "Ensure UserSession is not null.",
+    "Validate user permissions before allowing course retake."
+  ],
+  "calculations": [],
+  "conditions": [
+    "data.Required == Resources.Mandatory2 && data.DateAccessedFormatted == Resources.Never",
+    "data.Status != ETopicStatus.Completed && data.DueDate <= DateTime.Today.AddDays(ETopicCourse.DAYS_BEFORE_TO_SHOW_WARNNING)"
+  ],
+  "system_behavior": [
+    "The page does not submit until all validation conditions are satisfied.",
+    "The form redirects to an external learning platform for login actions."
+  ],
+  "dependencies": [
+    "HSPnet.Framework",
+    "HSPnet.DataLayer",
+    "HSPnet.App_GlobalResources"
+  ],
+  "exceptions": [
+    "Session data is null",
+    "Invalid user role for requested action"
+  ],
+  "source_document_ids": [
+    "045f50d5-bc7d-5dc3-b71a-5f0d0a654dd6",
+    "1023002b-1958-5d9d-95b2-38eb653d834b",
+    "5353e25b-9830-571d-9621-939fad53a107",
+    "54382e60-cab6-55f2-a803-beb37a508fd1",
+    "a3cfdda2-5219-5ee7-a854-1214eb2593d6",
+    "b386f4d0-6c5f-5a3d-ad85-06de7fe0ffbd",
+    "e4f560be-8b14-5d5a-9a69-3a4da94be598",
+    "e62c27d1-070f-59be-b3c1-7d44f6a232e9",
+    "ec16eb3b-dc9b-59d2-81c5-c2f27f498c15",
+    "ef86ad80-0450-519f-a3d5-d4480d6af2ec",
+    "f9173bda-e816-5f0d-8903-80e1bd38a493"
+  ],
+  "content_gaps": []
+}
+```
