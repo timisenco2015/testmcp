@@ -1,0 +1,81 @@
+{
+    "filename": "Certification",
+    "found": true,
+    "summary": "The Certification document involves the management and update of student certifications, including functions for handling updates, sorting, paging, data binding, user session checks, and JavaScript setup.",
+    "purpose": "To manage and update student certification details such as effective dates, expiry dates, certification numbers, and statuses.",
+    "entities": [
+      "StudentCertification",
+      "Enrollment",
+      "UserSession"
+    ],
+    "fields": [
+      "EffectiveDate",
+      "ExpiryDate",
+      "CertificationNumber",
+      "StatusCode"
+    ],
+    "actors": [
+      "UserSession",
+      "DataLayer.Enrollment"
+    ],
+    "workflows": [
+      {
+        "name": "Update Certification Data",
+        "steps": [
+          "Check session validity",
+          "Bind data to grid",
+          "Handle row commands for saving or updating certifications",
+          "Update panel and view state"
+        ]
+      }
+    ],
+    "business_rules": [
+      "Hide edit options if student has graduated or is inactive",
+      "Fetch certification data based on student ID"
+    ],
+    "validations": [
+      "Ensure effective date is before expiry date",
+      "Check user session before processing updates"
+    ],
+    "calculations": [],
+    "conditions": [
+      "User session must be active",
+      "Check if student record is dirty before saving"
+    ],
+    "system_behavior": [
+      "Enable or disable controls based on user access rights",
+      "Provide JavaScript variables for client-side execution"
+    ],
+    "dependencies": [
+      "UserSession handling",
+      "Grid data binding mechanism"
+    ],
+    "exceptions": [
+      "Cancellation of operations if session is invalid"
+    ],
+    "source_document_ids": [
+      "0b6c1fb2-e22c-597e-a6f4-8f5c8ed509ba",
+      "1f166565-7d2c-5efe-bffc-555502bc291e",
+      "2c5521fb-9cce-53b6-85ee-c530915ffdae",
+      "482d8825-40b8-5076-b359-3126e55a5315",
+      "5f57bb23-1301-5d4f-8b02-7edea8c4f120",
+      "635c4054-4af8-56b2-a570-f93c6f618bd2",
+      "661fe366-cc0f-5099-873e-9a7c221b1253",
+      "72653c75-1e96-5a3f-953d-eff0b9a28ddb",
+      "7aed8d77-5858-580a-b065-5648a7bbdcd1",
+      "7c4b0483-9c19-5402-a5c8-07b0a479f0aa",
+      "7f22a5f8-51d9-578b-b522-7db41312f762",
+      "89c0c87c-4ae1-517d-9c05-5545cc5684e2",
+      "ac64d0ea-e6c3-5d6e-b132-41ee4b907d6c",
+      "be3bdf77-ae6f-52ad-8f1a-ae132681a947",
+      "c08d1211-fc9e-5ff5-9b9b-787cb51d5952",
+      "c90283b8-0de1-59a0-819b-d2bd261b06eb",
+      "ce96ef3c-9f64-5255-adfb-c1be4993969b",
+      "d0f786f8-c45c-5c35-9d51-525bbed2aee2",
+      "d99bff9e-80b4-5b44-bb7d-4b2d774e5e1b",
+      "dc3f6c8e-ace9-58d5-a2c2-4e27444fe214",
+      "f1a59f6d-e8fb-566d-a597-80e950e2a7da",
+      "f86a614b-b017-5360-90e9-8c476e9369ac"
+    ],
+    "content_gaps": []
+  }
