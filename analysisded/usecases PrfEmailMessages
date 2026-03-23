@@ -1,0 +1,30 @@
+# Module: PrfEmailMessages
+
+## PrfEmailMessages-UC1 — Manage Staff Messages
+
+- Primary Actor(s): Staff Member
+- Secondary Actor(s): System Admin
+- Trigger: Staff member decides to view, add, edit, or delete messages.
+- Description: Staff members can manage their messages by viewing, adding new messages, editing existing ones, or deleting messages.
+- Preconditions: The staff member must be logged into the system with appropriate permissions and must have an active session.
+- Postconditions: Messages are displayed, added, edited, or deleted as requested.
+- Main Success Scenario:
+  1. Staff member logs into the system.
+  2. Staff member navigates to the messages section.
+  3. Staff member views existing messages.
+  4. Staff member chooses to add/edit/delete a message.
+  5. System applies changes and updates the session cache.
+  6. System redirects staff to the updated messages view.
+- Extensions:
+  - If there are no messages and the screen is editable, display an "add new message" button.
+- Exceptions:
+  - If the user session is null, cancel the action and do not perform any database operations.
+  - If the page is not valid during inserting or updating, cancel the operation.
+- Business Rules:
+  - Messages can only be edited or deleted if screen permissions allow.
+  - Message type must be selected from a predefined list.
+- Assumptions: 
+  - User session and permissions are accurately maintained.
+  - ScreenIsEditable flag accurately reflects user permissions.
+- Open Issues:
+  - Determine the exact cause of JavaScript errors during event validation related to EmptyDataTemplate.
