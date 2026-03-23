@@ -1,24 +1,52 @@
 {
     "filename": "ServiceCode",
     "found": true,
-    "summary": "The ServiceCode class manages service code entries, which includes properties for IDs, names, and descriptions.",
-    "purpose": "To handle and retrieve service code information within the system.",
-    "entities": ["ServiceCode"],
+    "summary": "Manages service codes, including their retrieval and localization.",
+    "purpose": "To manage different service codes and their localization within the HSPnet system.",
+    "entities": [
+        "HSPnet.Framework",
+        "ServiceCode"
+    ],
     "fields": [
-        "ID", "CodeCategoryID", "ShortName", "Name", "SortOrder", "Notes", "NameAlt", "NotesAlt"
+        {
+            "name": "ID",
+            "type": "int"
+        },
+        {
+            "name": "CodeCategoryID",
+            "type": "int"
+        },
+        {
+            "name": "ShortName",
+            "type": "string"
+        }
     ],
     "actors": [],
-    "workflows": [],
+    "workflows": [
+        {
+            "name": "ServiceCodeListAll",
+            "steps": [
+                "Retrieve all service codes",
+                "Localize based on session settings",
+                "Return the list"
+            ]
+        }
+    ],
     "business_rules": [],
     "validations": [],
     "calculations": [],
     "conditions": [],
-    "system_behavior": [],
-    "dependencies": [],
+    "system_behavior": [
+        "Enables service code retrieval and localization.",
+        "Supports operations for listing service codes by course or timetable."
+    ],
+    "dependencies": [
+        "System.Data.SqlClient"
+    ],
     "exceptions": [],
     "source_document_ids": [
-        "94f1b055-348d-508a-ae6e-cf7960a8c6a2",
         "e4ebe4b4-6d14-5c3f-b693-61016f765239",
+        "94f1b055-348d-508a-ae6e-cf7960a8c6a2",
         "f976b9af-a402-540f-b162-391d578fac7c"
     ],
     "content_gaps": []
