@@ -2,13 +2,13 @@
 {
   "filename": "PrfHomeContacts",
   "found": true,
-  "summary": "PrfHomeContacts is a web user control involved in managing and displaying contact information for staff profiles. It includes functionalities for data binding, displaying, editing, updating, and validation of contact data.",
-  "purpose": "Manage home contact information within staff profiles, allowing for data manipulation and validation.",
+  "summary": "PrfHomeContacts is a user control within the HSPnet application designed to manage and display home contact information for staff profiles. It includes functionality for editing, displaying details, and handling form validation.",
+  "purpose": "The purpose of PrfHomeContacts is to provide a user-friendly interface for viewing and editing home contact information of staff members within the HSPnet system.",
   "entities": [
-    "PrfHomeContacts",
     "HSPnetSession",
     "StaffID",
     "AreaCode",
+    "ScreenIsEditable",
     "ScriptManager",
     "CurrentPage"
   ],
@@ -28,39 +28,41 @@
     {
       "name": "Edit Home Contacts",
       "steps": [
-        "Show details using Grid.ShowDetails.",
-        "Data bind using fvwEditHomeContacts.DataBind.",
-        "Handle pre-render event with condition to show or hide 'cmdSave' button.",
-        "Remove phone mask if UserSession.UsePhoneMask is false.",
-        "Setup JavaScript for client-side scripting."
+        "Switch page to edit mode.",
+        "Bind data to form view.",
+        "Show modal details if necessary."
+      ]
+    },
+    {
+      "name": "Setup JavaScript",
+      "steps": [
+        "Add JavaScript variables related to phone fields.",
+        "Register startup scripts for async postback or client scripts."
       ]
     }
   ],
   "business_rules": [
-    "ScreenIsEditable determines visibility of edit button and fields.",
-    "UserSession presence required for data selection in dsStaff."
+    "ScreenIsEditable controls the visibility of certain controls.",
+    "Disable edit fields if ScreenIsEditable is false."
   ],
   "validations": [
-    "Phone validation based on UserSession.UsePhoneMask.",
-    "Required fields checks during FormView updates."
+    "Phone number mask validation is enabled based on UserSession.UsePhoneMask.",
+    "Validate fields on form update using ObjectDataSource."
   ],
   "calculations": [],
   "conditions": [
-    "Check if ScreenIsEditable to toggle edit functionalities.",
+    "Check if ScreenIsEditable to enable or disable controls.",
     "Cancel data selection if UserSession is null."
   ],
   "system_behavior": [
-    "Switch to edit mode using Grid.SwitchToEditMode.",
-    "JavaScript setup for client-side variable declarations."
+    "Data is bound to form view components.",
+    "Phone masks are dynamically removed or applied based on user session settings."
   ],
   "dependencies": [
-    "AjaxControlToolkit.ModalPopupExtender",
-    "System.Web.UI.WebControls",
-    "HSPnet.DataLayer",
-    "HSPnet.Framework"
+    "JavaScript for dynamic client-side behavior."
   ],
   "exceptions": [
-    "Exception if UserSession is null during data selection."
+    "Cancel data selection if UserSession is null."
   ],
   "source_document_ids": [
     "169e42e3-a079-5bc4-8262-b3fcec116405",
