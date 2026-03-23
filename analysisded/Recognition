@@ -2,93 +2,69 @@
 {
   "filename": "Recognition",
   "found": true,
-  "summary": "The Recognition module is a user control within the HSPnet application, tasked with handling staff profile recognition activities. It involves displaying, adding, editing, and deleting recognition activities for staff members.",
-  "purpose": "To manage recognition activities related to staff profiles, allowing for tracking and modification of various types of recognition such as academic appointments and other activity types.",
+  "summary": "The Recognition module is part of the HSPnet application, which handles staff recognition activities and their associated data management within user controls. It provides functionalities to manage staff recognition activities by allowing users to add, edit, and delete records.",
+  "purpose": "To facilitate the management and display of staff recognition activities within the HSPnet application.",
   "entities": [
-    "Recognition",
     "HSPnetSession",
     "CodeRecord",
     "StaffRecognitionActivity"
   ],
   "fields": [
-    "updPnlMain",
-    "pnlEmptyData",
-    "lblEmptyData",
-    "cmdAddEmptyData",
-    "txtCalendarPlaceholder",
-    "calCalendarPlaceholder",
-    "gridData",
-    "dsMaster",
-    "pnlPopup",
-    "updPnlPopup",
-    "btnShowPopup",
-    "mdlDetails",
-    "ValidationSummary1",
-    "uxDetail",
-    "dsDetail",
-    "dsAcademicAppointment"
+    "UserSession",
+    "StaffID",
+    "ScreenIsEditable",
+    "ScriptMgr",
+    "CurrentPage",
+    "ActivityTypeCodeID",
+    "AcademicAppointmentTypeCodeID",
+    "ActivityTypeComments",
+    "ActivityDate",
+    "ExpiryDate",
+    "DepartmentID",
+    "ProgramID"
   ],
   "actors": [
-    "User",
-    "System.Web.UI",
-    "AjaxControlToolkit"
+    "User"
   ],
   "workflows": [
     {
-      "name": "Page Load",
+      "name": "Manage Staff Recognition Activity",
       "steps": [
-        "Load user session",
-        "Retrieve recognition activity types",
-        "Identify specific code IDs (OTHER, ACAD)"
-      ]
-    },
-    {
-      "name": "Item Command",
-      "steps": [
-        "Handle Save Command",
-        "Validate input fields",
-        "Parse activity date and expiry date",
-        "Add or update activity",
-        "Redirect to the current page"
-      ]
-    },
-    {
-      "name": "Row Command",
-      "steps": [
-        "Handle Add Command",
-        "Switch to edit mode",
-        "Show details"
+        "Load page and initialize user session data.",
+        "Select and display staff recognition activity types using dropdowns.",
+        "Handle form commands such as save, cancel, add, edit, and delete.",
+        "Manage data-bound events to dynamically show/hide controls based on user session and agency."
       ]
     }
   ],
   "business_rules": [
-    "Access requires valid user session",
-    "Screen should be editable",
-    "Certain button visibility based on edit permissions"
+    "Hide 'Program' column if user is not a Placing Agency.",
+    "Disable data manipulation commands if the user cannot edit."
   ],
   "validations": [
-    "Ensure date fields are correctly parsed",
-    "Check if session is available before data operations"
+    "User session must be active for data selection.",
+    "Ensure valid date formats for activity date input."
   ],
   "calculations": [
-    "Determining code IDs based on recognition activity types"
+    "Convert dropdown selections to integer IDs for activity types.",
+    "Parse date strings to DateTime format."
   ],
   "conditions": [
-    "ScreenIsEditable determines control visibility",
-    "Check user session status for data operations"
+    "Check if the screen is editable before allowing data actions.",
+    "Determine activity type and comments based on dropdown selection."
   ],
   "system_behavior": [
-    "JavaScript initialization for client-side interactions",
-    "Handling asynchronous postback script registrations"
+    "JavaScript manages client-side interactions and form validations.",
+    "GridView displays and binds recognition activity data dynamically."
   ],
   "dependencies": [
-    "System.Web.UI",
-    "AjaxControlToolkit",
-    "HSPnet.DataLayer"
+    "HSPnet.DataLayer",
+    "HSPnet.Framework",
+    "AjaxControlToolkit"
   ],
   "exceptions": [
-    "Cancel operations if user session is null",
-    "Hide specific rows based on user agency"
+    "Cancel data selection if user session is inactive.",
+    "Hide edit and delete buttons if data item cannot be edited."
   ],
   "source_document_ids": [
     "0a0a7e51-eb8c-5a38-882e-41f4f84bff9a",
