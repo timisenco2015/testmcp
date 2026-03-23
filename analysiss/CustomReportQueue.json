@@ -1,216 +1,114 @@
 {
-    "filename": "CustomReportQueue",
-    "found": true,
-    "summary": "The CustomReportQueue handles custom report management within the HSPnet system, including viewing, editing, and processing report requests.",
-    "purpose": "To manage and process custom report requests.",
-    "entities": [],
-    "fields": [
-        {
-            "name": "radModePending",
-            "type": "RadioButton",
-            "description": "Control for selecting pending mode."
-        },
-        {
-            "name": "radModeCompleted",
-            "type": "RadioButton",
-            "description": "Control for selecting completed mode."
-        },
-        {
-            "name": "chkShowDetails",
-            "type": "CheckBox",
-            "description": "Control for showing details."
-        },
-        {
-            "name": "Literal9",
-            "type": "Literal",
-            "description": "Literal control."
-        },
-        {
-            "name": "ddCreated",
-            "type": "DropDownList",
-            "description": "Dropdown for date created."
-        },
-        {
-            "name": "cmdRefreshView",
-            "type": "Button",
-            "description": "Button to refresh the view."
-        },
-        {
-            "name": "CurrentViewLabel",
-            "type": "Label",
-            "description": "Label for the current view."
-        },
-        {
-            "name": "pnlCurrentView",
-            "type": "Panel",
-            "description": "Panel for the current view."
-        },
-        {
-            "name": "ddAgency",
-            "type": "DropDownList",
-            "description": "Dropdown for agency selection."
-        },
-        {
-            "name": "ddDepartment",
-            "type": "DropDownList",
-            "description": "Dropdown for department selection."
-        },
-        {
-            "name": "ddUser",
-            "type": "DropDownList",
-            "description": "Dropdown for user selection."
-        },
-        {
-            "name": "rprCustomReport",
-            "type": "Repeater",
-            "description": "Repeater for custom reports."
-        },
-        {
-            "name": "pnlPopup",
-            "type": "Panel",
-            "description": "Panel for popup display."
-        },
-        {
-            "name": "btnShowPopup",
-            "type": "Button",
-            "description": "Button to show popup."
-        },
-        {
-            "name": "mdlDetails",
-            "type": "ModalPopupExtender",
-            "description": "Modal popup extender for details."
-        },
-        {
-            "name": "ValidationSummary3",
-            "type": "ValidationSummary",
-            "description": "Validation summary control."
-        },
-        {
-            "name": "fvwDocument",
-            "type": "FormView",
-            "description": "Form view for document display."
-        },
-        {
-            "name": "dsAgency",
-            "type": "ObjectDataSource",
-            "description": "Data source for agency."
-        },
-        {
-            "name": "dsDepartment",
-            "type": "ObjectDataSource",
-            "description": "Data source for department."
-        },
-        {
-            "name": "dsUser",
-            "type": "ObjectDataSource",
-            "description": "Data source for user."
-        },
-        {
-            "name": "dsCustomReport",
-            "type": "ObjectDataSource",
-            "description": "Data source for custom report."
-        }
-    ],
-    "actors": [
-        "UserSession",
-        "System.Web.UI.WebControls",
-        "ObjectDataSourceSelectingEventArgs",
-        "RepeaterItemEventArgs",
-        "RepeaterCommandEventArgs",
-        "FormViewCommandEventArgs",
-        "HtmlTableRow",
-        "FileUpload",
-        "ActionEventArgs"
-    ],
-    "workflows": [
-        {
-            "name": "Page Load",
-            "steps": [
-                "Check if Page is not a PostBack.",
-                "Set ViewState['FirstLoad'] to '1'.",
-                "Bind data sources if UserSession exists."
-            ]
-        },
-        {
-            "name": "Page PreRender",
-            "steps": [
-                "Check if UserSession is not null.",
-                "Set ViewState['FirstLoad'] to '0'."
-            ]
-        },
-        {
-            "name": "Data Selecting",
-            "steps": [
-                "Assign UserSession to InputParameters['sess']."
-            ]
-        },
-        {
-            "name": "Item DataBound",
-            "steps": [
-                "Handle different item types.",
-                "Format email and phone links."
-            ]
-        },
-        {
-            "name": "Item Command",
-            "steps": [
-                "Handle different command names.",
-                "Switch to edit mode and bind data as necessary.",
-                "Call custom report actions: Refuse, Complete, Cancel."
-            ]
-        },
-        {
-            "name": "File Upload",
-            "steps": [
-                "Check if file is uploaded.",
-                "Create a new folder and save the file.",
-                "Update file details in custom reports."
-            ]
-        }
-    ],
-    "business_rules": [
-        "Auto-generated fields should be modified in code-behind files.",
-        "Check if item count is greater than 1 before adding blank entry in dropdowns.",
-        "SystemAdministrator and LocalAdministrator have additional dropdown options."
-    ],
-    "validations": [
-        "Ensure UserSession is not null before processing.",
-        "Check ContentLength of uploaded files."
-    ],
-    "calculations": [],
-    "conditions": [
-        "ViewState['FirstLoad'] condition for initial page load.",
-        "Condition to add blank entries if item count is greater than one.",
-        "Check for administrator roles before adding dropdown options."
-    ],
-    "system_behavior": [
-        "The system manages and processes custom report requests based on user actions.",
-        "User interactions and data selections are handled via event-driven methods."
-    ],
-    "dependencies": [
-        "HSPnetSession for user session management.",
-        "Web controls such as RadioButton, CheckBox, DropDownList, and others for UI interactions.",
-        "ASP.NET framework for page lifecycle and data binding."
-    ],
-    "exceptions": [
-        "Handle file not uploaded scenario.",
-        "Ensure ViewState and UserSession are properly checked to avoid null reference errors."
-    ],
-    "source_document_ids": [
-        "065fbc13-294e-5802-8862-5eeee1e293c4",
-        "06673988-c0e1-567b-8e5e-6f7d10ad50f7",
-        "272b27a8-86a2-54d3-848f-122354d493b0",
-        "44f2b574-24db-5c77-bfac-e398c3e03f66",
-        "4a0eefa9-782b-5738-ae9d-61aaa33b65f9",
-        "6f3e30c7-6486-5332-96a9-c3d68207c376",
-        "723416ea-321b-5391-a8c6-a9e6dba4e56e",
-        "780c9195-9780-5849-b2fc-0b934fdd83c7",
-        "9de91c08-26c4-5167-95f1-7aa271077b75",
-        "a8d7e60d-8732-5c60-9c47-06ec00b1a95b",
-        "af753a9f-2d1b-5d8a-9197-7f3f4b9346e6",
-        "b44bfebd-b2aa-5370-94e5-e506fae93724",
-        "cb9f6f4b-fe7c-5342-b9b2-b8dd36b32d4c",
-        "e37e6caa-a235-5e9a-9262-ce42a18e5898"
-    ],
-    "content_gaps": []
+  "filename": "CustomReportQueue",
+  "found": true,
+  "summary": "The CustomReportQueue system handles the management of custom report requests, including their creation, processing, and status management.",
+  "purpose": "To facilitate the creation, management, and processing of custom report requests in an organizational setting.",
+  "entities": [],
+  "fields": [
+    {
+      "name": "radModePending",
+      "type": "RadioButton",
+      "description": "Radio button to toggle the pending mode."
+    },
+    {
+      "name": "radModeCompleted",
+      "type": "RadioButton",
+      "description": "Radio button to toggle the completed mode."
+    },
+    {
+      "name": "chkShowDetails",
+      "type": "CheckBox",
+      "description": "Checkbox to toggle display of details."
+    },
+    {
+      "name": "ddCreated",
+      "type": "DropDownList",
+      "description": "Drop-down list for creation date filtering."
+    },
+    {
+      "name": "cmdRefreshView",
+      "type": "Button",
+      "description": "Button to refresh the view."
+    },
+    {
+      "name": "CurrentViewLabel",
+      "type": "Label",
+      "description": "Label displaying current view information."
+    },
+    {
+      "name": "pnlCurrentView",
+      "type": "Panel",
+      "description": "Panel containing current view information."
+    },
+    {
+      "name": "ddAgency",
+      "type": "DropDownList",
+      "description": "Drop-down list for selecting an agency."
+    },
+    {
+      "name": "ddDepartment",
+      "type": "DropDownList",
+      "description": "Drop-down list for selecting a department."
+    },
+    {
+      "name": "ddUser",
+      "type": "DropDownList",
+      "description": "Drop-down list for selecting a user."
+    }
+  ],
+  "actors": [
+    "UserSession",
+    "SystemAdministrator",
+    "LocalAdministrator"
+  ],
+  "workflows": [
+    {
+      "name": "Custom Report Request Management",
+      "steps": [
+        "User initializes the CustomReportQueue.",
+        "System binds data to drop-down lists and components on first load.",
+        "User can refresh view using cmdRefreshView.",
+        "System updates and re-binds data according to user selections.",
+        "Users with adequate permissions can perform actions (e.g., cancel, refuse, complete requests) on pending reports.",
+        "ViewState is used to manage sorting and state of dropdowns."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Drop-down lists are aggregated from available agencies, departments, and users.",
+    "Reports can be in 'Pending' or 'Completed' mode.",
+    "Only users with System or Local Administrator privileges can view all options and manipulate report requests."
+  ],
+  "validations": [
+    "User session must be valid for operations.",
+    "Drop down lists must have at least one item before additional entries or operations are conducted."
+  ],
+  "calculations": [],
+  "conditions": [
+    "If ViewState['FirstLoad'] is 1, initial data binding is performed.",
+    "Buttons such as cmdCancelRequest and cmdRefuseRequest are hidden if the report status is not 'Pending'."
+  ],
+  "system_behavior": [
+    "Auto-generate fields are customizable by moving declarations to the code-behind.",
+    "The system provides feedback prompts for cancellation and refusal actions using JavaScript."
+  ],
+  "dependencies": [],
+  "exceptions": [],
+  "source_document_ids": [
+    "065fbc13-294e-5802-8862-5eeee1e293c4",
+    "06673988-c0e1-567b-8e5e-6f7d10ad50f7",
+    "272b27a8-86a2-54d3-848f-122354d493b0",
+    "44f2b574-24db-5c77-bfac-e398c3e03f66",
+    "4a0eefa9-782b-5738-ae9d-61aaa33b65f9",
+    "6f3e30c7-6486-5332-96a9-c3d68207c376",
+    "723416ea-321b-5391-a8c6-a9e6dba4e56e",
+    "780c9195-9780-5849-b2fc-0b934fdd83c7",
+    "9de91c08-26c4-5167-95f1-7aa271077b75",
+    "a8d7e60d-8732-5c60-9c47-06ec00b1a95b",
+    "af753a9f-2d1b-5d8a-9197-7f3f4b9346e6",
+    "b44bfebd-b2aa-5370-94e5-e506fae93724",
+    "cb9f6f4b-fe7c-5342-b9b2-b8dd36b32d4c",
+    "e37e6caa-a235-5e9a-9262-ce42a18e5898"
+  ],
+  "content_gaps": []
 }
