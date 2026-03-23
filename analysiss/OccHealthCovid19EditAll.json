@@ -1,110 +1,70 @@
 {
   "filename": "OccHealthCovid19EditAll",
   "found": true,
-  "summary": "The document represents a web user control for managing COVID-19 immunization status within a health enrollment application. It provides functionality for editing, saving, and managing COVID-19 related data for student records.",
-  "purpose": "To facilitate the management and update of COVID-19 immunization status for students through a web-based interface.",
+  "summary": "OccHealthCovid19EditAll is a system control that manages COVID-19 immunization status updates for students within the enrollment system. The module handles data rendering, user interaction, and submission workflow related to COVID-19 immunization statuses. It includes functionality for marking data as dirty, updating immunization records, and redirecting users based on warning messages.",
+  "purpose": "To facilitate the management and update of COVID-19 immunization records for students within the enrollment system, ensuring proper tracking and administration of health details.",
   "entities": [],
   "fields": [
-    {
-      "name": "CohortID",
-      "description": "Identifier for the cohort."
-    },
-    {
-      "name": "TermID",
-      "description": "Identifier for the term of study."
-    },
-    {
-      "name": "CourseID",
-      "description": "Identifier for the course."
-    },
-    {
-      "name": "CampusID",
-      "description": "Identifier for the campus."
-    },
-    {
-      "name": "SectionFilter",
-      "description": "Filter applied for section."
-    },
-    {
-      "name": "ActionFilter",
-      "description": "Filter for action types."
-    },
-    {
-      "name": "keyword",
-      "description": "Keyword used in search."
-    },
-    {
-      "name": "CommentFilter",
-      "description": "Filter applied to comments."
-    },
-    {
-      "name": "Covid19StatusCode",
-      "description": "Status code related to COVID-19 immunization."
-    },
-    {
-      "name": "StartRow",
-      "description": "Row to start pagination from."
-    }
+    "txtStudentID",
+    "ddCovid19StatusCode",
+    "txtCovid19AdminDate",
+    "txtCovid19AdminDate2",
+    "txtCovid19AdminDate3",
+    "CohortID",
+    "TermID",
+    "CourseID",
+    "SectionFilter",
+    "ActionFilter",
+    "CampusID",
+    "keyword",
+    "CommentFilter",
+    "StartRow",
+    "blnReadOnly"
   ],
   "actors": [
-    {
-      "name": "User",
-      "description": "Interacts with the web control to manage student immunization records."
-    },
-    {
-      "name": "System",
-      "description": "Facilitates data binding, updates, and redirects based on user actions."
-    }
+    "UserSession",
+    "Grid",
+    "ScriptManager"
   ],
   "workflows": [
     {
-      "name": "Editing COVID-19 Immunizations",
+      "name": "Updating COVID-19 Immunization Status",
       "steps": [
-        "User accesses the edit page for managing COVID-19 immunizations.",
-        "User selects a student record to edit.",
-        "User updates COVID-19 status code and administration dates.",
-        "User saves changes, which triggers the update function.",
-        "System validates changes and provides warnings if necessary.",
-        "User confirms update and redirects to applicable page based on selection."
+        "Attach functions to fields and dropdowns to track changes.",
+        "Check row data for changes and mark as dirty if modified.",
+        "Save changed data using StudentPrerequisites.StudentDetailsImmunizationOccHealthCovid19Update method.",
+        "Redirect based on warning messages."
       ]
     }
   ],
   "business_rules": [
-    "Only users with appropriate session rights can proceed with editing."
+    "Only update records marked as dirty.",
+    "Redirect user if there are warning messages after saving data.",
+    "Use dropdown lists for selecting COVID-19 status codes."
   ],
   "validations": [
-    "Ensure that the user session is active before performing operations.",
-    "Check if COVID-19 status codes are properly loaded and bound to the dropdown."
+    "Ensure data bound to controls matches expected formats and types.",
+    "Check for null sessions and cancel data source operations if not valid."
   ],
   "calculations": [
-    "Determine sort direction and expression based on user settings."
+    "Sort data based on provided sort expressions and directions."
   ],
   "conditions": [
-    "Redirect occurs only if there are no warnings."
+    "Check enrollment ID to determine panel visibility for saving options.",
+    "Determine if user session has messages and warnings that affect redirection."
   ],
   "system_behavior": [
-    "Page binds data and controls visibility of buttons based on data row type.",
-    "Grid control updates are conditional based on user edits and status codes.",
-    "JavaScript is registered for client-side handling of dropdown changes."
+    "Disable editing fields if read-only mode is active.",
+    "Register JavaScript functions for handling field changes asynchronously."
   ],
   "dependencies": [
-    "Relies on HSPnet session for user identification and filter parameters."
+    "HSPnet enrollment system",
+    "Grid component for data operations",
+    "User session management for context and security"
   ],
   "exceptions": [
-    "Cancel operation triggered upon session failure or specific user actions."
+    "Redirect failures if warnings exist during immunization updates."
   ],
-  "source_document_ids": [
-    "06e2e9ed-ebdd-5547-9a0c-219b584c48ae",
-    "143fdc7a-d898-5a9b-8dbd-b47fad5d0b00",
-    "18eaa6ad-6eed-5cb5-865f-e5eec73c04e9",
-    "366016b8-f724-57c1-b741-5d9efdcc3e33",
-    "4598f494-d843-5f0f-b2de-16515df02cae",
-    "46ee21a0-e72d-5c1f-a281-3dfee91fc2bc",
-    "6e2a90ee-eb68-5337-b5a2-27c7f3e073d3",
-    "7dbe6d0f-2ed4-5ea8-9917-4e5340974f3b",
-    "8c02040d-79a4-5397-9623-15b26dd614dd",
-    "8dc4641e-f5cc-519d-912d-d898aeabffd0",
-    "d8c9fbc6-4afb-5409-a674-d18cf91e4c29"
-  ],
+  "source_document_ids": ["06e2e9ed-ebdd-5547-9a0c-219b584c48ae", "143fdc7a-d898-5a9b-8dbd-b47fad5d0b00", "18eaa6ad-6eed-5cb5-865f-e5eec73c04e9", "366016b8-f724-57c1-b741-5d9efdcc3e33", "4598f494-d843-5f0f-b2de-16515df02cae", "46ee21a0-e72d-5c1f-a281-3dfee91fc2bc", "6e2a90ee-eb68-5337-b5a2-27c7f3e073d3", "7dbe6d0f-2ed4-5ea8-9917-4e5340974f3b", "8c02040d-79a4-5397-9623-15b26dd614dd", "8dc4641e-f5cc-519d-912d-d898aeabffd0", "d8c9fbc6-4afb-5409-a674-d18cf91e4c29"],
   "content_gaps": []
 }
