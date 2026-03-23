@@ -1,0 +1,88 @@
+{
+  "filename": "InactiveUsers",
+  "found": true,
+  "summary": "The InactiveUsers module is designed to manage and process inactive user accounts within the HSPnet system. It provides functionalities to view and inactivate old user accounts through web-based interactions.",
+  "purpose": "To manage inactive user accounts by providing functionality to view all inactive accounts and inactivate old accounts.",
+  "entities": [
+    "InactiveUsers",
+    "UserSession",
+    "SqlDataReader",
+    "Templates",
+    "ReportHTML",
+    "tblResults"
+  ],
+  "fields": [
+    "lblResults",
+    "pnlRunQuery",
+    "ltlRow",
+    "pnlError",
+    "lblErrorCaption",
+    "lblErrorList",
+    "cmdHideErrorPanel",
+    "pnlWarning",
+    "lblWarningCaption",
+    "lblWarningList",
+    "cmdHideWarningPanel",
+    "AlwaysVisibleControlExtender1",
+    "AlwaysVisibleControlExtender2"
+  ],
+  "actors": [
+    "UserSession"
+  ],
+  "workflows": [
+    {
+      "name": "Inactivate Old User Accounts",
+      "steps": [
+        "User clicks 'Inactivate All Old User Accounts' button.",
+        "RunQuery is executed with UserSession.SessionID.",
+        "Templates are checked for email components.",
+        "SQL execution for inactivation with session ID.",
+        "Output results are processed and displayed."
+      ]
+    },
+    {
+      "name": "View All Inactive User Accounts",
+      "steps": [
+        "User clicks 'View All Inactivated Users Accounts' button.",
+        "RunQuery is executed without session ID.",
+        "SQL execution for viewing inactive accounts.",
+        "Output results are processed and displayed."
+      ]
+    }
+  ],
+  "business_rules": [
+    "RunQuery handles both inactivation and view operations.",
+    "Email templates are used for notifications during inactivation."
+  ],
+  "validations": [],
+  "calculations": [],
+  "conditions": [
+    "If SQL execution returns data, display results and rows count.",
+    "If SQL execution returns no data, display appropriate message."
+  ],
+  "system_behavior": [
+    "The system inactivates user accounts based on session ID execution.",
+    "System visibility toggles based on operation results."
+  ],
+  "dependencies": [
+    "HSPnet.Framework.HSPnetPage",
+    "HSPnet.DataLayer",
+    "HSPnet.UI",
+    "HSPnet.App_GlobalResources"
+  ],
+  "exceptions": [
+    "No data found during inactivation or view operations triggers message display."
+  ],
+  "source_document_ids": [
+    "0d4f91ad-f7b1-53c0-aedd-f708ea677fa3",
+    "0eec0d15-e5cc-5ad9-ab67-26307665bc4c",
+    "3c465be8-731a-594f-a120-c02dc7c9aea3",
+    "4a1be2cd-6c13-5652-83c3-4ce14971aec8",
+    "4e4a7d08-8e45-50ed-9e6e-5e03332b80c7",
+    "aa88602a-0992-53dc-ba99-9a2399d10b77",
+    "e7d43d17-6bb7-53ba-a5f2-224eb36845a8",
+    "e82f7977-75cd-5ee7-9dc9-b61eedec638e",
+    "f20d7c09-b052-5ca6-b322-67cefdd91e6c"
+  ],
+  "content_gaps": []
+}
