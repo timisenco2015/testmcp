@@ -1,0 +1,179 @@
+{
+  "filename": "AgencyDocuments",
+  "found": true,
+  "summary": "AgencyDocuments component handles the management of agency-level documents, including uploading, editing, deleting, and assigning related disciplines, sites, and destination codes. It enables users to apply discipline filters, manage applied sites and destinations, and configure document metadata and permissions. The UI consists of grid views, modal popups, and form views for detailed interactions.",
+  "purpose": "To allow agencies to manage their documents, including adding, editing, deleting, filtering by disciplines, assigning sites and destinations, and uploading files, all within a user interface that respects business rules and validation requirements.",
+  "entities": [
+    "GenericDocument",
+    "Site",
+    "Discipline",
+    "DestinationCode",
+    "Codes"
+  ],
+  "fields": [
+    "DocumentName",
+    "TypeCodeID",
+    "Section",
+    "SubDisciplineIDList",
+    "TypeComments",
+    "FileURL",
+    "FilePath",
+    "FileSize",
+    "FileType",
+    "ParentID",
+    "ParentIDName",
+    "AllowAllSubDisciplines"
+  ],
+  "actors": [
+    "User",
+    "HSPnetSession",
+    "Grid",
+    "ScriptManager",
+    "DataLayer.GenericDocuments",
+    "Codes",
+    "Sites",
+    "Disciplines",
+    "DestinationCodes"
+  ],
+  "workflows": [
+    {
+      "name": "Add Document",
+      "steps": [
+        "User clicks add button.",
+        "FormView switches to insert mode.",
+        "User enters document details.",
+        "Optionally uploads file.",
+        "Selects document type, section, comments, and discipline(s).",
+        "Applies site(s) and destination(s) if required.",
+        "Submits form.",
+        "Document information saved and file uploaded if present."
+      ]
+    },
+    {
+      "name": "Edit Document",
+      "steps": [
+        "User clicks edit button on a document entry.",
+        "FormView switches to edit mode and is populated with document data.",
+        "User modifies document fields and/or uploads new file.",
+        "Adjusts disciplines, sites, destinations.",
+        "Submits changes.",
+        "Document information updated accordingly."
+      ]
+    },
+    {
+      "name": "Delete Document",
+      "steps": [
+        "User clicks delete button.",
+        "Document file (if any) is deleted.",
+        "Document record is deleted from system.",
+        "User session cache updated."
+      ]
+    },
+    {
+      "name": "Filter/View Documents",
+      "steps": [
+        "User selects filters (by type, discipline, etc.).",
+        "GridView displays filtered documents.",
+        "Documents grouped by section, discipline, etc."
+      ]
+    },
+    {
+      "name": "Assign Applied Children",
+      "steps": [
+        "User opens applied children popup.",
+        "Documents for applied children are displayed.",
+        "User assigns sites, destinations, disciplines to applied documents.",
+        "Saved and reflected in UI."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Documents must have a name, type, and section.",
+    "If 'Allow All SubDisciplines' is selected, discipline selection controls are disabled.",
+    "If no disciplines are selected when 'Allow All SubDisciplines' is false, system defaults to allow all.",
+    "Restricted sub-discipline users only see documents relevant to their allowed disciplines.",
+    "Omitted type codes are removed from the selectable type codes for a document.",
+    "File uploads are stored in a uniquely named folder using a GUID to avoid collisions.",
+    "Editing or deleting documents updates the user session cache.",
+    "Removing all included disciplines/sites/destinations will shift them back to not included lists."
+  ],
+  "validations": [
+    "Required fields: DocumentName, TypeCodeID",
+    "If FileUploadNote is empty, upload note panel is hidden.",
+    "Discipline filter visibility depends on restriction flags and user session.",
+    "Site filter enabled only if not 'Allow All Destinations'.",
+    "Type code dropdown is validated for omitted codes.",
+    "Section headers and sorting updated in grid views."
+  ],
+  "calculations": [
+    "Section header row index calculated by incrementing hdnSectionAdded.",
+    "FileSize calculated from uploaded file content length.",
+    "Document grouping in GridView by section and discipline."
+  ],
+  "conditions": [
+    "If UserSession is null, ObjectDataSourceSelecting event is canceled.",
+    "If UseSubDisciplines is true, discipline filter is visible and relevant parameters are set.",
+    "If document mode is insert/edit, display relevant panels and fields.",
+    "If 'Allow All' radio selected, included/not included lists are cleared.",
+    "GridView disables edit/delete functions if ScreenIsEditable is false."
+  ],
+  "system_behavior": [
+    "Auto-generates UI elements for fields based on designer/code-behind files.",
+    "Caches user session after save/delete operations.",
+    "Redirects user after document save/delete for UI feedback.",
+    "Handles file upload, folder creation, and cleanup.",
+    "Shows/hides modal popups for document details and applied children."
+  ],
+  "dependencies": [
+    "User session required for document operations.",
+    "Codes and Disciplines fetched via session and specific search stored procedures.",
+    "Sites and Destinations assignments depend on document ID and parent entity.",
+    "Modal popups and form views depend on ASP.NET UI infrastructure (AjaxControlToolkit, WebControls)."
+  ],
+  "exceptions": [
+    "Failure to upload file disables relevant upload fields.",
+    "Invalid document type or session cancels ObjectDataSource selection.",
+    "Empty discipline/site/destination lists handled gracefully; default to 'all' if needed.",
+    "File deletion performed safely; ignored if file does not exist."
+  ],
+  "source_document_ids": [
+    "0082e615-f9e3-5dcc-9917-ddc013ba52d1",
+    "018cda9b-e4cc-5bd7-9549-012c489753bb",
+    "0567e87a-4e33-515f-bbf4-978e56428d92",
+    "1758fed5-29d5-5933-a40e-fcdfac92fa05",
+    "1e0bb34b-e3e1-5aea-8fba-f614b5103b3f",
+    "26b9e812-7d8d-58c2-bafc-fb2329bee94b",
+    "2cb3c5c8-d751-5e35-990a-8665fafe2345",
+    "34b76b52-521c-536e-b6d6-b1a56f7934ab",
+    "357e7f05-121d-56d2-962c-d55506153715",
+    "3780d37a-57f8-5027-8e7f-8aa6016e2766",
+    "49caaaf6-0519-5626-a444-2fd166f640b0",
+    "4fe78297-00a1-5c70-933a-a3f4c2571b33",
+    "5002259d-ec0c-5078-8783-5019492d6017",
+    "544cdd26-e1e2-5d1d-89c3-31aea1bc5ce5",
+    "5922bd0b-b4ee-54d8-af87-423972fd86b1",
+    "5d08e0bf-2e3e-5ba6-853f-e111e50e070e",
+    "5f741b58-e9a0-512e-ab20-c2a78459af22",
+    "63d1887f-b7b7-53fb-bea9-34facdb3fba4",
+    "65421086-8a15-538d-bd84-173777d4fcf8",
+    "702be41e-2143-5a58-b754-33baf48fc42b",
+    "72f4284c-b3d6-5b26-a2b4-484ad5f47353",
+    "73471504-497a-5230-9bf9-ddee5abc13ba",
+    "922a6fbb-e839-5478-a859-7149e708b824",
+    "9488eeeb-13ba-55f4-9e73-4c66d4428900",
+    "9f951fe1-8432-59b2-b72a-93ea3f095c90",
+    "aaf16e66-a36b-5e81-bc48-57dc2cfc296e",
+    "c6878d3c-52c1-51a6-a162-6ca50377b501",
+    "d54cd840-5428-53dc-9f93-862a46ac140e",
+    "d883be8b-aebd-584a-8f8c-8cf18b289ab5",
+    "ebbdf35c-b5e9-53e5-8b26-95a585fe6944",
+    "f62b19cd-3d9d-5e36-92de-36d86236add6",
+    "f80e2249-4b2f-51d5-b362-aa9f3b1e4ebe"
+  ],
+  "content_gaps": [
+    "No explicit field definitions, data types, or UI layout for all referenced controls (e.g., actual FormView templates, grid columns).",
+    "Source code for business logic classes (Codes, GenericDocument, Sites, Disciplines, DestinationCodes) is not included.",
+    "Error handling and logging details are not provided.",
+    "Some workflow and actor details inferred from control and method names rather than explicit documentation."
+  ]
+}
