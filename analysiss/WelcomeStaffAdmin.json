@@ -1,1 +1,80 @@
-{"filename":"WelcomeStaffAdmin","found":true,"summary":"WelcomeStaffAdmin manages the welcome interface for staff administration, including date management and employment applications.","purpose":"To facilitate staff administration tasks including the display of relevant data and employment application management.","entities":["EmploymentApplication"],"fields":[{"name":"txtEndDate","type":"TextBox","description":"Textbox for entering end date."},{"name":"txtStartDate","type":"TextBox","description":"Textbox for entering start date."}],"actors":["UserSession"],"workflows":[{"name":"RefreshData","steps":["Bind data to gvwApplications GridView.","Handle post-back events to update information dynamically."]}],"business_rules":["Employment applications are filtered based on date range and site selection."],"validations":["Date inputs are validated using RegularExpressionValidators."],"calculations":[],"conditions":["End date must be after start date."],"system_behavior":["Updates site and discipline dropdowns based on agency ID."],"dependencies":[],"exceptions":[],"source_document_ids":["05db31e4-e8b6-53ee-a6fb-812c106f0134","100d5925-a5f8-53db-8493-02cddd563eb7","3c84bade-9671-5fbf-acce-3c87a835e9b4","...","db9b35e9-53ca-5eaf-9d75-4f3a72131bc7","e249a878-c837-5d1c-9a3d-5167df2614fb"],"content_gaps":[]}
+{
+  "filename": "WelcomeStaffAdmin",
+  "found": true,
+  "summary": "WelcomeStaffAdmin page is for staff administrators to manage and view employment applications and other administrative tasks related to staff.",
+  "purpose": "To provide staff administrators with a user interface for managing employment applications and related activities.",
+  "entities": [],
+  "fields": [
+    "txtEndDate",
+    "valEndDate",
+    "btnEndDateCalendar",
+    "CalendarExtender2",
+    "RegularExpressionValidator2",
+    "cvrEndDateAfter",
+    "chkShowWithdrawn",
+    "ddSite",
+    "ddDiscipline",
+    "txtStartDate",
+    "valStartDate",
+    "cmdRefreshView",
+    "lblErrorList",
+    "pnlWarning",
+    "lblWarningCaption",
+    "lblWarningList",
+    "ltlLastLogin",
+    "AlwaysVisibleControlExtender1",
+    "AlwaysVisibleControlExtender2",
+    "pnlError",
+    "lblErrorCaption",
+    "ValidationSummary1",
+    "CurrentViewLabel",
+    "updPnlMain",
+    "lblTitle",
+    "pnlLastLogin",
+    "Literal5",
+    "ltlLastLogin"
+  ],
+  "actors": [],
+  "workflows": [
+    {
+      "name": "Data Refresh",
+      "steps": [
+        "User triggers data refresh via cmdRefreshView.",
+        "System refreshes data, binding new values to gvwApplications."
+      ]
+    }
+  ],
+  "business_rules": [],
+  "validations": [
+    "Date validation for txtEndDate using RegularExpressionValidator2.",
+    "EndDate must be after StartDate validated by cvrEndDateAfter."
+  ],
+  "calculations": [],
+  "conditions": [
+    "Check if withdrawn date is null to set application status."
+  ],
+  "system_behavior": [],
+  "dependencies": [],
+  "exceptions": [],
+  "source_document_ids": [
+    "05db31e4-e8b6-53ee-a6fb-812c106f0134",
+    "100d5925-a5f8-53db-8493-02cddd563eb7",
+    "3c84bade-9671-5fbf-acce-3c87a835e9b4",
+    "4c4b97b8-d242-5261-a515-767a3f7d7a49",
+    "52b5066f-23f6-5d82-96cd-5d51dad3de79",
+    "5bb85da3-f5b4-5753-b07c-9bb2a04eeb89",
+    "5d9b92ea-7c12-5070-8603-977cf14d0e04",
+    "54244516-0707-581e-a8ba-9c041ea38366",
+    "6eca1317-c0b2-5225-a9af-f034a722d924",
+    "6701b153-5288-59e5-8de9-61b68a1fc292",
+    "964a48c9-231c-5d58-a44d-3675d949a453",
+    "871df91b-7ba0-558f-83ea-d5be1b0dc8db",
+    "db9b35e9-53ca-5eaf-9d75-4f3a72131bc7",
+    "b8e79322-9a0e-5fe7-8953-3d05e231f923",
+    "afbb4ec5-43c8-5281-ad2c-4b6cfd23a48e",
+    "ca71b077-cc26-5979-a44f-59700a41316b",
+    "e249a878-c837-5d1c-9a3d-5167df2614fb",
+    "d278278f-d4ec-5f4a-9f29-a02b66773bb9"
+  ],
+  "content_gaps": []
+}
