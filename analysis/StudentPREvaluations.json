@@ -1,0 +1,84 @@
+{
+  "filename": "StudentPREvaluations",
+  "found": true,
+  "summary": "Operations for managing student pre-evaluations in HSPnet, including adding, updating, deleting, and searching records.",
+  "purpose": "The StudentPREvaluations functionalities manage student placement request evaluations, recording their requirements, statuses, and comments for operational and reporting purposes.",
+  "entities": [],
+  "fields": [
+    "ID",
+    "StudentID",
+    "PlacementRequestDestinationID",
+    "RequirementCodeID",
+    "RequirementCode",
+    "Requirement",
+    "StatusCodeID",
+    "StatusCode",
+    "Status",
+    "EvaluationDate",
+    "Comment",
+    "EvaluationDateFormatted"
+  ],
+  "actors": [
+    "HSPnetSession"
+  ],
+  "workflows": [
+    {
+      "name": "Add StudentPREvaluation",
+      "steps": [
+        "Check if PlacementRequestDestinationID is not 0.",
+        "Set procedure name to 'StudentPREvaluationAdd'.",
+        "Add parameters: SessionID, StudentID, PlacementRequestDestinationID, RequirementCodeID, StatusCodeID, EvaluationDate, Comment.",
+        "Execute query."
+      ]
+    },
+    {
+      "name": "Update StudentPREvaluation",
+      "steps": [
+        "Set procedure name to 'StudentPREvaluationUpdate'.",
+        "Add parameters: SessionID, ID, RequirementCodeID, StatusCodeID, EvaluationDate, Comment.",
+        "Execute query."
+      ]
+    },
+    {
+      "name": "Delete StudentPREvaluation",
+      "steps": [
+        "Set procedure name to 'StudentPREvaluationDelete'.",
+        "Add parameters: SessionID, ID.",
+        "Execute query."
+      ]
+    },
+    {
+      "name": "Search StudentPREvaluation by ID",
+      "steps": [
+        "Check if ID is not 0.",
+        "Set procedure name to 'StudentPREvaluationSearchID'.",
+        "Add parameters: ID.",
+        "Get data and fill list.",
+        "Close data reader."
+      ]
+    },
+    {
+      "name": "Search StudentPREvaluation",
+      "steps": [
+        "Set procedure name to 'StudentPREvaluationSearch'.",
+        "Add parameters: StudentID, PRD_ID, SessionID.",
+        "Get data and fill list.",
+        "Close data reader."
+      ]
+    }
+  ],
+  "business_rules": [],
+  "validations": [],
+  "calculations": [],
+  "conditions": [],
+  "system_behavior": [],
+  "dependencies": [],
+  "exceptions": [],
+  "source_document_ids": [
+    "01cd3571-7cb0-59a2-9dc9-3cfe59c70c16",
+    "56d84a2a-569d-54a7-b5f6-1218e1c8e2a2",
+    "5b81fdfd-afce-5e3f-b9d3-8e9c3aa67b6b",
+    "67156d01-61ca-579d-95d2-6630f61eb16f"
+  ],
+  "content_gaps": []
+}
