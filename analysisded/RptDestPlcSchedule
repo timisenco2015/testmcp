@@ -1,0 +1,67 @@
+```json
+{
+  "filename": "RptDestPlcSchedule",
+  "found": true,
+  "summary": "RptDestPlcSchedule is a user control for generating destination placement schedule reports in HSPnet. It includes various web controls and interactions to specify report parameters and handle validation.",
+  "purpose": "To facilitate the creation and customization of destination placement schedule reports for users, utilizing web controls for input and validation.",
+  "entities": ["RptDestPlcSchedule", "Destination", "HSPnetSession", "UserSession", "ScriptMgr"],
+  "fields": [
+    "Label1", "Label6", "Label7", "Label5", "txtStartDate", "txtEndDate", "ddTerm",
+    "radConfirmedRequests", "radAcceptedConfirmed", "radPendRedirAcceptedConfirmed",
+    "chkIndividualPDF", "chkAppendSchedule", "cmdRunReport"
+  ],
+  "actors": ["UserSession", "ScriptManager"],
+  "workflows": [
+    {
+      "name": "Report Generation",
+      "steps": [
+        "Load page and initialize controls",
+        "Set up JavaScript for front-end manipulation",
+        "Handle command execution via cmdRunReport",
+        "Perform validations and generate report",
+        "Provide feedback or errors based on session data and report outcome"
+      ]
+    }
+  ],
+  "business_rules": ["Max destinations in report: PrintJobs.MAX_INCLUDE_ITEMS"],
+  "validations": [
+    "RegularExpressionValidator1", "RegularExpressionValidator2",
+    "ValidationSummary1", "CustomValidator1"
+  ],
+  "calculations": [],
+  "conditions": [
+    "Only confirmed requests can be included if radConfirmedRequests is checked",
+    "Include accepted if radAcceptedConfirmed is checked",
+    "Include pending if radPendRedirAcceptedConfirmed is checked",
+    "Report cannot run if UserSession.SwitchUserViewOnly is true"
+  ],
+  "system_behavior": [
+    "JavaScript variables are set for client-side operations",
+    "Report command visibility is controlled based on session state"
+  ],
+  "dependencies": [
+    "HSPnet.App_GlobalResources", "HSPnet.DataLayer", "HSPnet.UI", "HSPnet.Framework"
+  ],
+  "exceptions": [
+    {
+      "condition": "No destination selected",
+      "message": "Please select at least one Destination"
+    },
+    {
+      "condition": "Maximum destinations exceeded",
+      "message": "The report has not been created because the maximum number of destinations was exceeded"
+    }
+  ],
+  "source_document_ids": [
+    "127d1857-7e18-5c21-bad2-c89a790d923c",
+    "1ed0d909-7c46-53f6-9525-b518a5c023b8",
+    "46893fc0-7ee2-5cd1-8edb-3385b45b61f1",
+    "49fdedf4-9096-576c-b12b-50004f577808",
+    "993054ea-3e6d-5cfe-b2ab-87fd6f3b8d8f",
+    "ab0f3e47-1b09-5353-9b0b-05007fb72a1d",
+    "b86777a9-7a96-543d-ab46-1a2299b52937",
+    "f574a7e5-f39c-5734-89d1-484bbb379ec6"
+  ],
+  "content_gaps": []
+}
+```
