@@ -1,82 +1,69 @@
 ```json
 {
-    "filename": "EmailPopupDocument",
-    "found": true,
-    "summary": "The retrieved content pertains to the management of a class called EmailPopupDocument, including its properties, construction, searching, and deletion logic.",
-    "purpose": "To handle email popup documents, including their instantiation, searching by data, and deletion from a list.",
-    "entities": [
-        "EmailPopupDocument",
-        "EmailPopupDocuments"
-    ],
-    "fields": [
-        {
-            "name": "ID",
-            "type": "int",
-            "description": "The unique identifier for each email popup document."
-        },
-        {
-            "name": "FileName",
-            "type": "string",
-            "description": "The name of the file."
-        },
-        {
-            "name": "FilePath",
-            "type": "string",
-            "description": "The path to the file."
-        },
-        {
-            "name": "Checked",
-            "type": "Boolean",
-            "description": "Status flag, presumably if the document has been checked or not."
-        }
-    ],
-    "actors": [],
-    "workflows": [
-        {
-            "name": "Search for email popup documents",
-            "steps": [
-                "Receive input string DataInfo with document details.",
-                "Split DataInfo by '|' to obtain individual document data.",
-                "For each email data string, split by '>' to extract FileName and FilePath.",
-                "Instantiate EmailPopupDocument with extracted FileName, FilePath, and assign ID.",
-                "Add the instantiated object to a list of EmailPopupDocuments.",
-                "Return the list."
-            ]
-        },
-        {
-            "name": "Delete an email popup document",
-            "steps": [
-                "Receive input string DataInfo and integer ID to identify the document to delete.",
-                "Verify if DataInfo is not empty.",
-                "Split DataInfo by '|' to iterate over email documents.",
-                "For the document at position ID, split its data to get FilePath.",
-                "Attempt to delete the file and its directory.",
-                "Concatenate remaining documents into a result string and return."
-            ]
-        }
-    ],
-    "business_rules": [],
-    "validations": [
-        "Check if DataInfo string is not empty before processing."
-    ],
-    "calculations": [],
-    "conditions": [],
-    "system_behavior": [
-        "If a document is identified for deletion, attempts are made to remove both the file and the folder it resides in."
-    ],
-    "dependencies": [
-        "System",
-        "System.Data.SqlClient",
-        "System.Collections.Generic",
-        "HSPnet.Framework",
-        "HSPnet.App_GlobalResources",
-        "System.IO"
-    ],
-    "exceptions": [],
-    "source_document_ids": [
-        "7287734e-f13d-550f-9249-4242db620766",
-        "927bc837-5564-5759-9324-27c6d5d7321d"
-    ],
-    "content_gaps": []
+  "filename": "EmailPopupDocument",
+  "found": true,
+  "summary": "The EmailPopupDocument entity is responsible for managing email-related document information, such as retrieving and deleting document records.",
+  "purpose": "To manage and manipulate email document data including searching and deleting document entries by ID.",
+  "entities": [],
+  "fields": [
+    {
+      "name": "ID",
+      "type": "int",
+      "description": "Unique identifier for the EmailPopupDocument."
+    },
+    {
+      "name": "FileName",
+      "type": "string",
+      "description": "The name of the email file."
+    },
+    {
+      "name": "FilePath",
+      "type": "string",
+      "description": "The file path of the email document."
+    },
+    {
+      "name": "Checked",
+      "type": "Boolean",
+      "description": "Flag to indicate if the document has been checked."
+    }
+  ],
+  "actors": [],
+  "workflows": [
+    {
+      "name": "Search Email Documents",
+      "steps": [
+        "Initialize an empty list of EmailPopupDocument.",
+        "Split DataInfo string into an array using '|' as a delimiter.",
+        "Iterate through each email entry, splitting each entry into emailData by '>'.",
+        "If there are two elements in emailData, create an EmailPopupDocument instance with current ID, FileName, and FilePath.",
+        "Add each EmailPopupDocument instance to the list."
+      ]
+    },
+    {
+      "name": "Delete Email Document",
+      "steps": [
+        "Initialize a return string.",
+        "Split DataInfo string into an array using '|' as a delimiter.",
+        "Iterate through the dataInfo array, comparing each index with the given ID.",
+        "If index matches ID, split the entry into emailData by '>' and attempt to delete the file and its directory.",
+        "If index does not match, append the data to the return string."
+      ]
+    }
+  ],
+  "business_rules": [],
+  "validations": [],
+  "calculations": [],
+  "conditions": [],
+  "system_behavior": [
+    "Search Email Documents - Retrieves a list of email document information based on a provided data string.",
+    "Delete Email Document - Deletes a specified email document and its directory based on the given ID."
+  ],
+  "dependencies": [],
+  "exceptions": [],
+  "source_document_ids": [
+    "7287734e-f13d-550f-9249-4242db620766",
+    "927bc837-5564-5759-9324-27c6d5d7321d"
+  ],
+  "content_gaps": []
 }
 ```
