@@ -1,0 +1,46 @@
+```markdown
+# Module: Reporting
+
+## Reporting-UC1 — Generate Report
+
+- Primary Actor(s): System Administrator
+- Secondary Actor(s): None
+- Trigger: Request to generate a report.
+- Description: Generate various types of reports using Crystal Reports and MigraDoc.
+- Preconditions: Report templates must be available in the system. User must have permission to generate reports.
+- Postconditions: Report file is created and stored in the defined location.
+- Main Success Scenario:
+  1. System checks the availability of the report template.
+  2. System prepares login details for database connection.
+  3. System applies logon info to tables and tests connectivity.
+  4. System loads the report file.
+  5. System sets parameters for the report.
+  6. System exports the report to disk in specified format (RTF, PDF).
+  7. If successful, system returns success and link to the generated report.
+- Extensions:
+  - If French report template is available, it is used instead of English.
+- Exceptions:
+  - Report template does not exist, cannot open, cannot connect, or parameters are invalid.
+- Business Rules: Report can be generated in different formats depending on requirement (RTF, PDF).
+- Assumptions: System has necessary permissions set for accessing files and databases.
+- Open Issues: Handling of various languages in templates needs clarification.
+
+## Reporting-UC2 — Handle Report Errors
+
+- Primary Actor(s): System Administrator
+- Secondary Actor(s): None
+- Trigger: Error occurs during report generation.
+- Description: Handle errors that occur due to various issues (e.g., missing templates, invalid parameters).
+- Preconditions: A report generation request has been initiated.
+- Postconditions: Appropriate error message is returned.
+- Main Success Scenario:
+  1. System identifies the type of error.
+  2. System returns HTML containing the error message to the user.
+- Extensions: None
+- Exceptions: None
+- Business Rules: Error handling must provide clear and actionable feedback.
+- Assumptions: Error resources are correctly configured.
+- Open Issues: Extending error messages to include potential resolutions.
+
+No additional use cases found.
+```
