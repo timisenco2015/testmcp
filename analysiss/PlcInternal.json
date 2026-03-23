@@ -1,0 +1,86 @@
+{
+    "filename": "PlcInternal",
+    "found": true,
+    "summary": "The 'PlcInternal' document set relates to the implementation details of a web control, which appears to be a part of a staffing profile application within the HSPnet system. It details the handling of UI controls, event handling, data binding, and user sessions.",
+    "purpose": "The purpose of 'PlcInternal' is to facilitate the display and management of staff profiles, by providing controls and logic for user interaction, data display, and behavior based on user roles.",
+    "entities": [
+        "HSPnet.UserControls.StaffProfile.PlcInternal",
+        "HSPnetSession",
+        "PRSearchStudent"
+    ],
+    "fields": [
+        "UserSession",
+        "StaffID",
+        "ScreenIsEditable",
+        "ScriptMgr",
+        "CurrentPage",
+        "AlternateObservation"
+    ],
+    "actors": [
+        "UserSession",
+        "Control",
+        "Repeater",
+        "ObjectDataSource",
+        "LinkButton",
+        "HtmlTableRow",
+        "Literal"
+    ],
+    "workflows": [
+        {
+            "name": "ItemCommand Handling",
+            "steps": [
+                "Determine which command was triggered via CommandName.",
+                "Find and configure the control associated with the command, such as setting CSS classes."
+            ]
+        },
+        {
+            "name": "ItemDataBound Handling",
+            "steps": [
+                "Check item type.",
+                "Set properties on controls based on data.",
+                "Handle visibility and CSS classes based on conditions."
+            ]
+        },
+        {
+            "name": "DataSource Selecting",
+            "steps": [
+                "Verify presence of UserSession.",
+                "Pass UserSession and StaffID as input parameters if available."
+            ]
+        }
+    ],
+    "business_rules": [
+        "Cancel data selection if UserSession is null.",
+        "Set control visibility based on data properties and session information."
+    ],
+    "validations": [],
+    "calculations": [],
+    "conditions": [
+        "data.PlcAgencyID != UserSession.AgencyID",
+        "data.ParentPRDID > 0",
+        "data.ShowDetails",
+        "ScreenIsEditable",
+        "e.Item.ItemType == ListItemType.AlternatingItem",
+        "AlternateObservation"
+    ],
+    "system_behavior": [
+        "UI controls are dynamically modified based on data and session state.",
+        "Commands are handled by adjusting control properties."
+    ],
+    "dependencies": [
+        "HSPnet.App_GlobalResources",
+        "HSPnet.DataLayer",
+        "HSPnet.UI",
+        "HSPnet.Framework"
+    ],
+    "exceptions": [
+        "User session is required for data operations."
+    ],
+    "source_document_ids": [
+        "13502df8-f52d-56d8-96da-349cb63f7481",
+        "4c4a6614-ebc9-5cb1-ae50-0dc4b3b6ff0f",
+        "b187c21c-0040-55b5-ad9e-71a5a1e3a848",
+        "bb53c38b-9ec0-5d0a-93ff-cc76a3cb2830"
+    ],
+    "content_gaps": []
+}
