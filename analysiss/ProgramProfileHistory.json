@@ -1,0 +1,65 @@
+{
+    "filename": "ProgramProfileHistory",
+    "found": true,
+    "summary": "The ProgramProfileHistory manages records of changes made to program profiles, capturing details such as user actions, affected fields, and agency information.",
+    "purpose": "To track and maintain a history of modifications to program profiles, aiding in audit and verification processes.",
+    "entities": [
+        "ProgramProfileHistory"
+    ],
+    "fields": [
+        "ID",
+        "ActionDate",
+        "ScreenSection",
+        "UserAction",
+        "Fields",
+        "Agency",
+        "AgencyName",
+        "LastName",
+        "FirstName",
+        "MiddleName",
+        "Phone",
+        "ByUserID",
+        "ByOriginalUserID",
+        "ByUserSysAdmin"
+    ],
+    "actors": [
+        "HSPnetSession",
+        "Database",
+        "SqlDataReader"
+    ],
+    "workflows": [
+        {
+            "name": "ProgramProfileHistorySearch",
+            "steps": [
+                "Initialize database session and set procedure name.",
+                "Add parameters for ProgramID and SessionAgencyID.",
+                "Execute data retrieval and process each record.",
+                "Populate ProgramProfileHistory objects and add to list.",
+                "Close database reader when done."
+            ]
+        }
+    ],
+    "business_rules": [
+        "Ensure sessions with UseAltLanguageFields to utilize alternate field names."
+    ],
+    "validations": [
+        "Check if user is a sysadmin or if ByUserID equals ByOriginalUserID."
+    ],
+    "calculations": [],
+    "conditions": [],
+    "system_behavior": [
+        "Returns formatted user details."
+    ],
+    "dependencies": [
+        "HSPnet.Framework",
+        "HSPnet.App_GlobalResources",
+        "HSPnet.UI"
+    ],
+    "exceptions": [],
+    "source_document_ids": [
+        "1dbc43c7-e18d-5184-9183-38e8240b9dc8",
+        "81f19b80-ccd3-5cd8-adeb-01fc76b26c02",
+        "c9d037ef-64b7-5b83-83ca-30e01159035b"
+    ],
+    "content_gaps": []
+}
