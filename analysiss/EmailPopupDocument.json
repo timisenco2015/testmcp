@@ -1,39 +1,37 @@
 {
   "filename": "EmailPopupDocument",
   "found": true,
-  "summary": "Defines the EmailPopupDocument class for managing email popup documents.",
-  "purpose": "To handle email documents with functionalities for searching and deleting.",
+  "summary": "Defines the EmailPopupDocument class for handling documents related to email popups within the application.",
+  "purpose": "Manage and delete email popup documents as part of the application's data layer operations.",
   "entities": [
-    {
-      "name": "EmailPopupDocument",
-      "type": "class"
-    }
+    "EmailPopupDocument"
   ],
   "fields": [
-    {
-      "name": "ID",
-      "type": "int"
-    },
-    {
-      "name": "FileName",
-      "type": "string"
-    },
-    {
-      "name": "FilePath",
-      "type": "string"
-    }
+    "ID",
+    "FileName",
+    "FilePath",
+    "Checked"
   ],
   "actors": [],
-  "workflows": [],
+  "workflows": [
+    {
+      "name": "Delete Workflow",
+      "steps": [
+        "Split DataInfo to get folder and file paths.",
+        "Delete file and directory."
+      ]
+    }
+  ],
   "business_rules": [],
   "validations": [],
   "calculations": [],
   "conditions": [],
-  "system_behavior": [
-    "Handles file operations like deletion."
-  ],
+  "system_behavior": [],
   "dependencies": [],
   "exceptions": [],
-  "source_document_ids": ["7287734e-f13d-550f-9249-4242db620766", "927bc837-5564-5759-9324-27c6d5d7321d"],
+  "source_document_ids": [
+    "7287734e-f13d-550f-9249-4242db620766",
+    "927bc837-5564-5759-9324-27c6d5d7321d"
+  ],
   "content_gaps": []
 }
