@@ -1,0 +1,83 @@
+{
+  "filename": "ConfirmedEditAll",
+  "found": true,
+  "summary": "The ConfirmedEditAll user control is part of the HSPnet application, focused on managing enrollment data. It involves functionalities like displaying and editing enrollment information within a grid view, handling data filtering, sorting, and saving. The control allows users to toggle between viewing all entries or specific states like graduated, inactive, or waived. It supports operations like adding, editing, saving, and canceling changes made to enrollment records.",
+  "purpose": "To manage and edit enrollment records efficiently by providing a detailed interface for filtering, sorting, and saving enrollment data, with specific controls for modifying record details.",
+  "entities": [],
+  "fields": [
+    "UserSession",
+    "CohortID",
+    "TermID",
+    "CourseID",
+    "ShowGrad",
+    "ShowInactive",
+    "ShowWaived",
+    "SectionFilter",
+    "ActionFilter",
+    "Sort",
+    "Asc",
+    "keyword",
+    "CampusID",
+    "StudentMaint",
+    "StartRow",
+    "CommentFilter",
+    "EnrollmentID",
+    "ActualHours"
+  ],
+  "actors": [
+    "User",
+    "ScriptManager"
+  ],
+  "workflows": [
+    {
+      "name": "Edit and Save Enrollment Data",
+      "steps": [
+        "User interacts with gridDataEdit to modify enrollment records.",
+        "Changes are detected and marked as 'dirty' using hidden fields.",
+        "User initiates save action using 'Save' or 'Save All' commands.",
+        "Validation checks are performed and changes are processed.",
+        "On successful validation, changes are persisted; otherwise, warnings are displayed."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Screen is editable only if the record is not waived, graduated, or inactive.",
+    "Save actions are only enabled when changes are detected (isDirty)."
+  ],
+  "validations": [
+    "Ensure that changes to records are only saved if validation passes with no warnings."
+  ],
+  "calculations": [
+    "Calculate duration shifts using shift length if applicable.",
+    "Set default values for shift length and duration if not available."
+  ],
+  "conditions": [
+    "If CohortID, TermID, or CourseID are not set, selection is canceled.",
+    "Hide the Save All button if fewer than 14 rows are displayed without scroll bars."
+  ],
+  "system_behavior": [
+    "Grid data is bound and refreshed based on user actions.",
+    "JavaScript setups are implemented to manage async postbacks and UI state."
+  ],
+  "dependencies": [
+    "HSPnet.DataLayer",
+    "HSPnet.Enrollment"
+  ],
+  "exceptions": [
+    "If UserSession is null, data selection operations are canceled."
+  ],
+  "source_document_ids": [
+    "0755397d-49f2-5a80-a0d6-c84d5befefe0",
+    "34b1ed38-0e13-5881-8c0c-26bd1f44b46b",
+    "513cc50b-05c2-5153-82f8-8d9383c789ef",
+    "59112759-401e-5d1d-9e84-dd6d9689b84b",
+    "8d832e31-1a4d-5e04-9656-eb00f2cd56a1",
+    "b989a689-a654-5f07-8f33-b102b75b1baf",
+    "bafc9285-af0a-5a05-b6e0-eb6e8591b991",
+    "bf3192b3-566f-595d-81dd-781d8bc85e4f",
+    "d401b74f-333a-50e6-bc77-7ce52c48358e",
+    "e2ef249a-91bc-5e2c-8fac-121b02b68443",
+    "e869f95d-1c2a-5a90-8ff0-b80225502383"
+  ],
+  "content_gaps": []
+}
