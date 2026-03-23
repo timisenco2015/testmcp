@@ -1,0 +1,96 @@
+```json
+{
+  "filename": "ExpenseBatch",
+  "found": true,
+  "summary": "A class and related methods for managing expense batches.",
+  "purpose": "To handle expense batch operations such as searching, adding, updating, and deleting.",
+  "entities": [
+    "ExpenseBatch",
+    "ExpenseBatches"
+  ],
+  "fields": [
+    "ID",
+    "DepartmentID",
+    "BatchDescription",
+    "BatchDate",
+    "StatusCodeID",
+    "StatusCode",
+    "StatusDescription",
+    "ClosedDate",
+    "BatchNumberFormatted"
+  ],
+  "actors": [
+    "HSPnetSession"
+  ],
+  "workflows": [
+    {
+      "name": "Search",
+      "steps": [
+        "Set procedure name to 'ExpenseBatchSearch'",
+        "Execute query with DepartmentID parameter",
+        "Read results and populate ExpenseBatch list"
+      ]
+    },
+    {
+      "name": "SearchID",
+      "steps": [
+        "Set procedure name to 'ExpenseBatchSearchID'",
+        "Execute query with ID parameter",
+        "Read result and populate ExpenseBatch instance"
+      ]
+    },
+    {
+      "name": "Add",
+      "steps": [
+        "Set procedure name to 'ExpenseBatchAdd'",
+        "Execute query with session, department, and batch parameters",
+        "Read result to get new ID"
+      ]
+    },
+    {
+      "name": "Update",
+      "steps": [
+        "Set procedure name to 'ExpenseBatchUpdate'",
+        "Execute update with session and batch parameters"
+      ]
+    },
+    {
+      "name": "Delete",
+      "steps": [
+        "Set procedure name to 'ExpenseBatchDelete'",
+        "Execute delete with ID parameter"
+      ]
+    }
+  ],
+  "business_rules": [],
+  "validations": [
+    "Check if SqlDataReader is not null",
+    "Check if SqlDataReader can read data"
+  ],
+  "calculations": [
+    "BatchNumberFormatted as ID + ' - ' + StatusDescription"
+  ],
+  "conditions": [
+    "Use alternative language fields if available"
+  ],
+  "system_behavior": [
+    "Reads from database",
+    "Formats batch number",
+    "Handles null reader exception"
+  ],
+  "dependencies": [
+    "System.Data.SqlClient",
+    "HSPnet.Framework",
+    "HSPnet.UI"
+  ],
+  "exceptions": [
+    "Null SqlDataReader"
+  ],
+  "source_document_ids": [
+    "060e08d3-49ca-5e40-bea0-849f4e6173e1",
+    "3559737f-0154-520e-be2b-d3dd2c3de539",
+    "b2216e58-a144-55cb-8b87-3da9787fc1d7"
+  ],
+  "content_gaps": []
+}
+```
