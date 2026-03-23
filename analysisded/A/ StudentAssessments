@@ -1,0 +1,107 @@
+```json
+{
+  "filename": "StudentAssessments",
+  "found": true,
+  "summary": "The StudentAssessments system component is responsible for managing and displaying student assessment data, including handling user sessions, refreshing data, and generating reports.",
+  "purpose": "To facilitate the management, display, and reporting of student assessments in an educational setup.",
+  "entities": [
+    "UserSession",
+    "StudentID",
+    "StudentFirstName",
+    "StudentLastName",
+    "StudentNumber",
+    "PlacementRequestAssessment",
+    "AssessmentTemplate"
+  ],
+  "fields": [
+    "StudentID",
+    "StudentFirstName",
+    "StudentLastName",
+    "StudentNumber",
+    "ScreenIsEditable"
+  ],
+  "actors": [
+    "Student",
+    "Assessor",
+    "Supervisor"
+  ],
+  "workflows": [
+    {
+      "name": "Page Load",
+      "steps": [
+        "Check if page is post back",
+        "Initialize ViewState",
+        "Refresh data if UserSession is available"
+      ]
+    },
+    {
+      "name": "Refresh",
+      "steps": [
+        "Check if UserSession is available",
+        "Toggle report button visibility",
+        "Fill dropdowns for courses and assessment templates",
+        "Set visibility for combined view link"
+      ]
+    },
+    {
+      "name": "Generate Report",
+      "steps": [
+        "Create report file name",
+        "Download report file"
+      ]
+    },
+    {
+      "name": "Grid Data Binding",
+      "steps": [
+        "Configure grid data sorting",
+        "Display grid content"
+      ]
+    }
+  ],
+  "business_rules": [
+    "Report is visible only if the screen is editable",
+    "Combined view is available based on assessment status"
+  ],
+  "validations": [
+    "Check for valid UserSession",
+    "Ensure correct dropdown ID selection"
+  ],
+  "calculations": [],
+  "conditions": [
+    "Check if the page is post back",
+    "Assess if UserSession is available",
+    "Determine visibility of report based on editability"
+  ],
+  "system_behavior": [
+    "Data is refreshed on page load if conditions are met",
+    "Dropdowns are populated dynamically",
+    "Assessments can be sorted and filtered"
+  ],
+  "dependencies": [
+    "HSPnet.DataLayer",
+    "HSPnet.Framework",
+    "HSPnet.UI"
+  ],
+  "exceptions": [
+    "Handle null UserSession gracefully",
+    "Cancel grid data selection if UserSession is unavailable"
+  ],
+  "source_document_ids": [
+    "152ea2b5-0e47-54c6-8fb4-1a593694fcc8",
+    "18975034-34fd-5ada-aa15-e50aa6f01e3e",
+    "36f2e201-e23a-5fe0-9463-2e5a123b82a0",
+    "3c098c58-04d7-5414-a6d4-a1ba81476378",
+    "4d41ad30-7063-547a-9863-14aebb19422d",
+    "69831e90-452c-5743-bfaa-01f63b4ad32f",
+    "7ede13bb-194a-50e2-a7de-6226265ab73c",
+    "90af7c25-e487-5a6c-a1e6-4933afcd9bcc",
+    "98dd668c-090d-5b92-9788-74e88e707c80",
+    "b28d3385-e44b-58d2-84ae-9e419d465d40",
+    "c2f8b2a8-5360-55a2-bde9-e69d2d6fb8ab",
+    "c37b919e-11d5-5a05-bc71-2f3d96c4f0c3",
+    "f4bf0152-9368-52ef-933c-c706b30572ac",
+    "fffbac8e-91eb-58e2-8bd4-87894276ec1b"
+  ],
+  "content_gaps": []
+}
+```
