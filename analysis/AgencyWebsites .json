@@ -1,0 +1,85 @@
+{
+  "filename": "AgencyWebsites",
+  "found": true,
+  "summary": "The AgencyWebsites module is an ASP.NET Web UserControl for displaying and managing a collection of agency website URLs within an agency profile. It supports adding, editing, and deleting website records, handling empty states, popup details, and integrating with the data access layer. The control adapts its behavior based on user session and screen editability.",
+  "purpose": "To allow users (with suitable permissions) to manage websites associated with an agency profile, including adding, editing, and deleting web links and related information within a web-based administrative system.",
+  "entities": [
+    "AgencyWebsite",
+    "UserSession",
+    "AgencyID"
+  ],
+  "fields": [
+    "URL",
+    "Name",
+    "Comment",
+    "id"
+  ],
+  "actors": [
+    "User (with edit permissions)",
+    "System (background, data binding, redirecting)"
+  ],
+  "workflows": [
+    {
+      "name": "Manage Agency Websites",
+      "steps": [
+        "Page load; check if user session exists.",
+        "On data selection, input session, agency ID, and alternate database into data source if session is valid.",
+        "Display websites in a GridView. Configure add, edit, and delete buttons based on editability.",
+        "If no data, show 'no data found' panel and add button if editable.",
+        "Handle GridView row commands: edit (load website data into a details form), add (switch to add mode with empty input), delete (call delete method and redirect).",
+        "Show popup details modal when adding/editing.",
+        "On save (FormView command), extract website fields from UI, and either add a new record or update existing, then close details modal and redirect.",
+        "Redirect returns to the profile page, updating the display."
+      ]
+    }
+  ],
+  "business_rules": [
+    "User session must exist for any data operations.",
+    "Screen editability restricts add/edit/delete actions.",
+    "Only users with editable access can modify the list of agency websites.",
+    "Add and edit use the same form and template for website entry.",
+    "A website can be added or updated based on whether an id exists."
+  ],
+  "validations": [
+    "Session existence check prior to data source selection.",
+    "Command execution depends on the presence of session and correct permissions.",
+    "Proper input extraction and conversion for id, URL, name, and comment fields."
+  ],
+  "calculations": [
+    "Determine new vs existing record creation by checking if id == 0."
+  ],
+  "conditions": [
+    "If GridView has no rows and the screen is editable, show the empty data panel.",
+    "If command is 'cmdEdit', load website data for editing.",
+    "If command is 'cmdAdd', switch to add mode.",
+    "If command is 'cmdDelete', delete the record.",
+    "On FormView command, if 'cmdSave', add or update based on id."
+  ],
+  "system_behavior": [
+    "Auto-generated fields are managed by the designer, and should only be edited in code-behind if necessary.",
+    "Redirect after actions to reload data and reflect changes.",
+    "Show/hide modal popups for editing or adding.",
+    "Cache user session state before redirect."
+  ],
+  "dependencies": [
+    "WebForms GridView, FormView, Panels, UpdatePanel, ModalPopupExtender",
+    "HSPnet.DataLayer.Websites methods: AgencyWebsiteSearchID, AgencyWebsiteAdd, AgencyWebsiteUpdate, AgencyWebsiteDelete"
+  ],
+  "exceptions": [
+    "If no user session, data operations are cancelled.",
+    "If JavaScript errors occur in EmptyDataTemplate, fallback logic hides affected panels."
+  ],
+  "source_document_ids": [
+    "3bc6d105-ab67-5629-9be9-e3e1c6988245",
+    "3d6e1397-58e5-5698-ab34-86a52d6d1cf2",
+    "485898c3-dbae-54c4-bce7-5c942cf57a52",
+    "7869e860-55c7-51db-972f-3bddbd0e66c3",
+    "a6e38c6d-acaa-5226-ba5a-0d66f2798365",
+    "cc547396-bb91-5274-a668-fc24c3cc4118"
+  ],
+  "content_gaps": [
+    "No detailed information about field validation (e.g., URL format, required fields).",
+    "No UI layout or field data type information.",
+    "No explicit user permission model beyond referenced ScreenIsEditable."
+  ]
+}
