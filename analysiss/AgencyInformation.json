@@ -1,0 +1,62 @@
+{
+  "filename": "AgencyInformation",
+  "found": true,
+  "summary": "The retrieved content revolves around a web user control named AgencyInformation, which is part of the HSPnet.UserControls.AgencyProfile namespace. This control handles the display and editing of agency profiles in a system. It uses ASP.NET WebForms, with functionalities for binding agency data to form views, handling postbacks, and enabling data editing and saving.",
+  "purpose": "The purpose of the AgencyInformation control is to manage and display agency profile information, allowing for both viewing and editing capabilities depending on user permissions.",
+  "entities": [
+    "Agency",
+    "UserSession",
+    "HSPnetSession"
+  ],
+  "fields": [
+    "UserSession",
+    "ScreenIsEditable",
+    "AgencyID",
+    "AlternateDatabase",
+    "uxDetail"
+  ],
+  "actors": [
+    "System.Web.UI.Page",
+    "System.Web.UI.WebControls.FormViewCommandEventArgs"
+  ],
+  "workflows": [
+    {
+      "name": "Agency Profile Management",
+      "steps": [
+        "Load page content on Page_Load event.",
+        "Check if the page is being loaded for the first time using ViewState.",
+        "Bind agency data to uxDetail control if it is the first load.",
+        "Handle uxDetail_DataBound event based on current mode (ReadOnly or Edit).",
+        "Handle commands in uxDetail_ItemCommand event for edit, cancel, and save actions."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Control visibility of cmdEdit based on ScreenIsEditable flag in ReadOnly mode."
+  ],
+  "validations": [
+    "Ensure Page.IsValid before executing save command in uxDetail_ItemCommand.",
+    "Use textareaMaxLength to enforce a 200 character limit in text boxes."
+  ],
+  "calculations": [],
+  "conditions": [
+    "If page is not a postback, set ViewState[\"FirstLoad\"] to \"1\".",
+    "If ViewState[\"FirstLoad\"] is \"1\", bind data to uxDetail and reset ViewState."
+  ],
+  "system_behavior": [
+    "Switching between ReadOnly and Edit modes based on user action.",
+    "Redirect to MaintAgencyProfile page with query parameters after saving."
+  ],
+  "dependencies": [
+    "HSPnet.DataLayer",
+    "HSPnet.Framework",
+    "HSPnet.App_GlobalResources"
+  ],
+  "exceptions": [],
+  "source_document_ids": [
+    "492b0378-1126-5ea6-89ec-d1261a4767a4",
+    "abaf57eb-9577-5bf8-99f0-81963acd5926",
+    "fbd6644d-979c-5f0f-bc07-d575e1e920c5"
+  ],
+  "content_gaps": []
+}
