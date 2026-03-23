@@ -1,43 +1,63 @@
 {
   "filename": "DocumentsAndRequirements",
   "found": true,
-  "summary": "The retrieved documents detail the implementation of a web service named DocumentsAndRequirements, which facilitates sorting operations for documents and requirements across different entities such as Agencies, Sites, and Destinations.",
-  "purpose": "To manage and update the sort order for documents and requirements through a web service interface, ensuring correct handling of changes related to various entity types.",
-  "entities": ["Agency", "Site", "Destination"],
-  "fields": ["ParentIDName", "uiOrder", "sessionHash", "ParentID", "ActiveTab"],
-  "actors": ["System", "Database Administrator", "User"],
+  "summary": "The DocumentsAndRequirements web service handles the sorting and updating of document and requirement orders for entities such as agencies, sites, and destinations.",
+  "purpose": "To provide functionality for updating and sorting orders of documents and requirements based on entity type and active tab.",
+  "entities": [
+    "Agency",
+    "Site",
+    "Destination"
+  ],
+  "fields": [
+    "ParentIDName",
+    "ParentID",
+    "ActiveTab",
+    "uiOrder",
+    "sessionHash"
+  ],
+  "actors": [
+    "Database",
+    "HSPnetSession",
+    "SqlDataReader"
+  ],
   "workflows": [
     {
       "name": "PostUISortOrder",
       "steps": [
-        "Validate session using sessionHash",
-        "Convert ParentID to integer based on ParentIDName",
-        "Determine ActiveTab (Requirement or Document)",
-        "Execute corresponding stored procedure to update sort order based on entity type and uiOrder",
-        "Handle exceptions and return empty response if error occurs"
+        "Retrieve session ID using session hash.",
+        "Validate session using session ID.",
+        "Convert ParentID to integer.",
+        "Determine entity type (Agency, Site, Destination) based on ParentIDName.",
+        "Determine active tab (Requirement, Document).",
+        "Execute appropriate database procedure to update sort order."
       ]
     }
   ],
   "business_rules": [
-    "Stored procedures differ based on entity type and active tab",
-    "Order updates are conditional based on entity type like Agency, Site, or Destination"
+    "Only update sort order if session is valid.",
+    "Procedure name depends on ParentIDName and ActiveTab."
   ],
   "validations": [
-    "Session validity checked through SessionIsValid procedure"
+    "Session must be valid before updating sort order.",
+    "ParentID must be convertible to an integer."
   ],
-  "calculations": [],
+  "calculations": [
+    "Convert ParentID to integer."
+  ],
   "conditions": [
-    "Different procedures called based on ParentIDName and ActiveTab values"
+    "If ParentIDName is 'Agency', update Agency sort order.",
+    "If ParentIDName is 'Site', update Site sort order.",
+    "If ParentIDName is 'Destination', update Destination sort order."
   ],
   "system_behavior": [
-    "Updates database sort order based on parameters",
-    "Responds with empty array on exceptions"
+    "Executes database procedures to update sort order based on inputs."
   ],
   "dependencies": [
-    "HSPnetSession for database connection"
+    "HSPnetSession for session validation.",
+    "Database procedures for executing sort order updates."
   ],
   "exceptions": [
-    "Returns empty JSON array on query execution failure"
+    "Response writes an empty array on exception."
   ],
   "source_document_ids": [
     "37bdabcd-9f7d-52cf-8017-de42b921f190",
