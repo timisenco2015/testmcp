@@ -1,65 +1,106 @@
 {
-    "filename": "RptMnuPlcSch_DestPlcSchedule",
-    "found": true,
-    "summary": "RptMnuPlcSch_DestPlcSchedule manages report generation settings for placement schedules.",
-    "purpose": "It allows users to configure and generate reports related to placement schedules with specific criteria.",
-    "entities": ["HSPnetSession", "PrintJobs"],
-    "fields": [
-        "txtStartDate",
-        "txtEndDate",
-        "ddTerm",
-        "IncludeOption",
-        "btnStartDate",
-        "btnEndDate",
-        "chkIndividualPDF",
-        "chkAppendSchedule"
-    ],
-    "actors": ["UserSession"],
-    "workflows": [
-        {
-            "name": "Generate Report",
-            "steps": [
-                "Set Start and End Dates",
-                "Choose Term",
-                "Select Include Option",
-                "Prepare JavaScript for UI",
-                "Run Report or CSV Export"
-            ]
-        }
-    ],
-    "business_rules": [
-        "IncludeOption determines report inclusion type: confirmed only (0), accepted (1), or pending (2)."
-    ],
-    "validations": [
-        {
-            "field": "txtStartDate",
-            "type": "RegularExpressionValidator"
-        },
-        {
-            "field": "txtEndDate",
-            "type": "RegularExpressionValidator"
-        }
-    ],
-    "calculations": [],
-    "conditions": [
-        "If ScriptMgr is in AsyncPostBack, use ScriptManager to register JavaScript, otherwise use Page.ClientScript."
-    ],
-    "system_behavior": [
-        "Auto-generated fields can be modified by moving declarations from designer file to code-behind file."
-    ],
-    "dependencies": ["Resources"],
-    "exceptions": [],
-    "source_document_ids": [
-        "13cf279e-62e6-545c-8a12-fc48a40e27f6",
-        "3cc740a6-9cec-5953-b9cb-e47f5aecf053",
-        "4c2f67a8-e04f-5fa1-a938-348ddd90604f",
-        "4d4702f7-bafc-5040-a24c-352ef3e6d6ef",
-        "7619a28b-1d12-5c51-801b-98d6ae1962af",
-        "8bdb4f19-7058-5814-a483-79ad80a4b1de",
-        "a7fe4526-a44a-5bf2-b474-0385038873bb",
-        "acda6667-ef7b-52e9-a3f8-8a67a68dcb20",
-        "ca44ee34-6649-5ffd-8db8-1b1918ce611f",
-        "d599e8e2-3556-5256-90a9-400615b9720c"
-    ],
-    "content_gaps": []
+  "filename": "RptMnuPlcSch_DestPlcSchedule",
+  "found": true,
+  "summary": "The document contains code related to the 'RptMnuPlcSch_DestPlcSchedule', which is part of the HSPnet user controls report menu and involves functionalities for creating and exporting placement schedule reports.",
+  "purpose": "To allow users to create, manage, and export reports for destination placement scheduling within the HSPnet system.",
+  "entities": [],
+  "fields": [
+    "btnStartDate",
+    "CalendarExtender1",
+    "RegularExpressionValidator1",
+    "Label7",
+    "txtEndDate",
+    "btnEndDate",
+    "CalendarExtender2",
+    "RegularExpressionValidator2",
+    "Label1",
+    "radConfirmedRequests",
+    "radAcceptedConfirmed",
+    "radPendRedirAcceptedConfirmed",
+    "Label2",
+    "UCchoosers",
+    "chkIndividualPDF",
+    "chkAppendSchedule",
+    "CustomValidator1",
+    "CustomValidator2",
+    "CustomValidator3",
+    "cmdRunReport",
+    "cmdRunExcel",
+    "ValidationSummary1",
+    "Label3",
+    "ltlDescription",
+    "Label4",
+    "ltlOptions",
+    "Label5",
+    "ddTerm",
+    "Label6",
+    "txtStartDate"
+  ],
+  "actors": [
+    "UserSession",
+    "ScriptMgr",
+    "UCchoosers"
+  ],
+  "workflows": [
+    {
+      "name": "Run Report",
+      "steps": [
+        "Setup JavaScript variables for the client.",
+        "Adjust report settings based on user input.",
+        "Bind data to controls like UCchoosers.",
+        "Upon cmdRunReport_Click, create a placement schedule job with PrintJobs.ReportPlacementScheduleCreateJob using user session details and input parameters."
+      ]
+    },
+    {
+      "name": "Export to CSV",
+      "steps": [
+        "Validate start and end date.",
+        "Prepare SQL procedure 'ReportPlacementScheduleCSV' with session and destination IDs.",
+        "Execute the SQL and retrieve results.",
+        "Generate CSV output using ReportMain.OutputCSV based on retrieved data."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Including options for report generation: 0 for confirmed only, 1 for including accepted, 2 for including pending.",
+    "Validation of start and end dates is essential before report creation."
+  ],
+  "validations": [
+    "CustomValidator3: Error message setup for maximum inclusion items surpassed.",
+    "RegularExpressionValidator1 and RegularExpressionValidator2: Ensure correct format for dates."
+  ],
+  "calculations": [],
+  "conditions": [
+    "If radConfirmedRequests is checked, include only confirmed requests in the report.",
+    "If radAcceptedConfirmed is checked, include accepted and confirmed requests.",
+    "If radPendRedirAcceptedConfirmed is checked, include pending redirection requests along with accepted and confirmed."
+  ],
+  "system_behavior": [
+    "Data binding occurs for the controls on initial page load.",
+    "JavaScript is set up to handle client-side interactions based on async postback status.",
+    "Report creation and CSV export uses database procedures for data retrieval and formatting."
+  ],
+  "dependencies": [
+    "HSPnetSession for user session management.",
+    "PrintJobs.ReportPlacementScheduleCreateJob for job creation.",
+    "TotalYearType.TermFull for term data source.",
+    "Destinations.DestinationAccessList for available destinations.",
+    "Resources for localized strings and messages."
+  ],
+  "exceptions": [
+    "If no data found after SQL query execution, display 'No Result' message as red bold text."
+  ],
+  "source_document_ids": [
+    "13cf279e-62e6-545c-8a12-fc48a40e27f6",
+    "3cc740a6-9cec-5953-b9cb-e47f5aecf053",
+    "4c2f67a8-e04f-5fa1-a938-348ddd90604f",
+    "4d4702f7-bafc-5040-a24c-352ef3e6d6ef",
+    "7619a28b-1d12-5c51-801b-98d6ae1962af",
+    "8bdb4f19-7058-5814-a483-79ad80a4b1de",
+    "a7fe4526-a44a-5bf2-b474-0385038873bb",
+    "acda6667-ef7b-52e9-a3f8-8a67a68dcb20",
+    "ca44ee34-6649-5ffd-8db8-1b1918ce611f",
+    "d599e8e2-3556-5256-90a9-400615b9720c"
+  ],
+  "content_gaps": []
 }
