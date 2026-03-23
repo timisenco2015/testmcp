@@ -1,58 +1,75 @@
 {
   "filename": "CohortRotations",
   "found": true,
-  "summary": "The CohortRotations document pertains to the configuration and management of course rotations within a learning management system. It handles the display, validation, and editing of timetable rotations, including their start and end dates. The document utilizes various web controls, such as Panels, Labels, Buttons, and Validators to manage user interactions and data presentation. It incorporates JavaScript functions for client-side validation and AJAX controls for asynchronous updates.",
-  "purpose": "To provide a user interface for managing cohort rotations within the HSPnet system, allowing for the addition, editing, deletion, and copying of course rotations.",
-  "entities": [
-    "TimetableRotation",
-    "UserSession"
-  ],
+  "summary": "The CohortRotations system facilitates the management and scheduling of cohort rotations within a course's timetable. It supports functionalities like adding, editing, and deleting timetable rotations, copying rotations from another course, and validating rotation dates against course start and end dates.",
+  "purpose": "The system is designed to manage cohort rotations within academic courses, allowing users to efficiently organize and control the scheduling of classes and rotations.",
+  "entities": [],
   "fields": [
-    "TimetableStartDate",
-    "TimetableEndDate",
-    "StartDate",
-    "EndDate",
-    "Count",
-    "CourseName",
-    "CourseShortName",
-    "TermName",
-    "TermStart",
-    "TermEnd"
+    {
+      "name": "TimetableStartDate",
+      "type": "Date",
+      "description": "The start date of the timetable for a course."
+    },
+    {
+      "name": "TimetableEndDate",
+      "type": "Date",
+      "description": "The end date of the timetable for a course."
+    },
+    {
+      "name": "StartDate",
+      "type": "Date",
+      "description": "The start date for a specific rotation."
+    },
+    {
+      "name": "EndDate",
+      "type": "Date",
+      "description": "The end date for a specific rotation."
+    }
   ],
   "actors": [
-    "User"
+    {
+      "name": "User",
+      "role": "Handles rotation management tasks such as adding, editing, and deleting rotations."
+    }
   ],
   "workflows": [
     {
       "name": "Manage Timetable Rotations",
       "steps": [
-        "Access the CohortRotations page.",
-        "Select a timetable to view rotations.",
-        "Add new rotations by entering start and end dates.",
-        "Edit existing rotations.",
-        "Delete rotations as needed.",
-        "Copy rotations from another course."
+        "User loads the CohortRotations page.",
+        "The page processes a query string to load the correct timetable if TimetableID is provided.",
+        "User can add a new rotation by clicking the 'Add' button, which switches the detail view to Add mode.",
+        "Edit an existing rotation by selecting it and choosing to edit, which populates the details view.",
+        "Save changes by clicking 'Save', triggering validations and update processes.",
+        "Copy rotations from another course using the provided dropdown and button functionality.",
+        "Validate start and end dates against the course's timetable dates using custom JavaScript functions."
       ]
     }
   ],
-  "business_rules": [],
+  "business_rules": [
+    "Rotation dates must be within the timetable's start and end dates.",
+    "Users must be non-read-only to perform add, edit, or delete operations."
+  ],
   "validations": [
-    "Start date cannot be after the end date.",
-    "Rotation dates must be within course start and end dates.",
-    "Mandatory fields must be completed before saving."
+    "Ensure StartDate is before or on the same day as EndDate.",
+    "StartDate and EndDate must be within the TimetableStartDate and TimetableEndDate range.",
+    "Custom client-side validation ensures dates are correctly configured according to rules."
   ],
   "calculations": [],
-  "conditions": [],
+  "conditions": [
+    "If no timetable entries exist, default StartDate to TimetableStartDate."
+  ],
   "system_behavior": [
-    "Display panels and messages based on user actions.",
-    "Use AJAX for updating parts of the page without a full refresh.",
-    "Handle errors and warnings through dedicated panels."
+    "Displays messages on form errors or warnings.",
+    "Handles AJAX updates and panel visibility changes."
   ],
   "dependencies": [
-    "HSPnet.DataLayer.TimetableEntries",
-    "HSPnet.DataLayer.TimetableRotations"
+    "Dependency on the HSPnet DataLayer for operations on timetable rotations.",
+    "Usage of AJAX Control Toolkit for front-end enhancements."
   ],
-  "exceptions": [],
+  "exceptions": [
+    "If no data is found for rotations, a message is displayed prompting the user to add new data."
+  ],
   "source_document_ids": [
     "075d7bc5-6794-5411-8449-f2c9badfb381",
     "084b9a0c-4475-5bff-a225-8643df22f092",
