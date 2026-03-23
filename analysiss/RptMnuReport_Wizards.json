@@ -1,57 +1,76 @@
 {
   "filename": "RptMnuReport_Wizards",
   "found": true,
-  "summary": "RptMnuReport_Wizards is a partial class within the HSPnet.UserControls.ReportMenu namespace, responsible for handling report wizards in a web application. It includes a GridView for displaying data and an ObjectDataSource for data operations.",
-  "purpose": "The class is designed to facilitate the display and management of report wizards through a web interface, handling operations and events related to user sessions and wizard selection.",
+  "summary": "The RptMnuReport_Wizards is a part of the HSPnet.UserControls.ReportMenu namespace, responsible for managing report wizards in a web application. It includes functionalities to handle user sessions and operations related to report wizard interactions.",
+  "purpose": "To facilitate the management and interaction with report wizards within a web-based application, leveraging user sessions for personalized operations.",
   "entities": [],
   "fields": [
     {
       "name": "gridData",
-      "type": "System.Web.UI.WebControls.GridView",
-      "description": "A GridView control for displaying wizard data, automatically generated and requires modifications in the code-behind file."
+      "description": "A GridView control for displaying data.",
+      "auto_generated": true
     },
     {
       "name": "dsWizards",
-      "type": "System.Web.UI.WebControls.ObjectDataSource",
-      "description": "An ObjectDataSource control to manage data operations for the wizard, automatically generated and requires modifications in the code-behind file."
+      "description": "An ObjectDataSource control for binding data to the GridView.",
+      "auto_generated": true
+    },
+    {
+      "name": "UserSession",
+      "description": "Represents the current user's session.",
+      "type": "HSPnetSession"
+    },
+    {
+      "name": "blnPlacingUser",
+      "description": "Boolean indicating if the user is a placing user.",
+      "type": "Boolean"
+    },
+    {
+      "name": "blnReceivingUser",
+      "description": "Boolean indicating if the user is a receiving user.",
+      "type": "Boolean"
     }
   ],
   "actors": [
-    "UserSession"
+    "User",
+    "System"
   ],
   "workflows": [
     {
-      "name": "Data Selection",
+      "name": "Selecting Data Source",
       "steps": [
         "Check if UserSession is null.",
-        "If null, cancel the data selection operation.",
-        "If not null, set input parameters for session and user status (PlacingUser and ReceivingUser)."
+        "If null, cancel the data source selection.",
+        "If not null, set InputParameters for Sess, PA, and RA using UserSession, blnPlacingUser, and blnReceivingUser respectively."
       ]
     },
     {
-      "name": "Row Command Execution",
+      "name": "Handling GridView Command",
       "steps": [
-        "On command 'cmdWizards', cache the current user session.",
-        "Redirect to ReportWizardMenu.aspx with appended session query string and WizardID."
+        "Listen for command events on gridData.",
+        "If command is 'cmdWizards', cache the UserSession and redirect to ReportWizardMenu.aspx with appropriate query strings."
       ]
     }
   ],
   "business_rules": [
-    "Data operations are cancelled if UserSession is not active."
+    "If UserSession is null during data source selection, the operation is cancelled."
   ],
   "validations": [],
   "calculations": [],
   "conditions": [],
   "system_behavior": [
-    "Handles the selection and row command events for report wizards.",
-    "Manages user session data caching and page redirections based on command inputs."
+    "Data source operations depend on user session states.",
+    "Command events on the GridView control trigger specific navigation actions."
   ],
   "dependencies": [
-    "HSPnetSession for managing user sessions.",
-    "QueryString utility class for URL manipulations."
+    "HSPnetSession",
+    "HSPnet.App_GlobalResources",
+    "HSPnet.DataLayer",
+    "HSPnet.UI",
+    "HSPnet.Framework"
   ],
   "exceptions": [
-    "Cancellation of data operations if UserSession is invalid or null."
+    "Operation cancelled if UserSession is null during data source selection."
   ],
   "source_document_ids": [
     "94607353-a6e5-5e55-b792-5de3aec82d07",
