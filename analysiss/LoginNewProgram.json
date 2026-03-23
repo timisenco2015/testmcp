@@ -1,52 +1,50 @@
 {
     "filename": "LoginNewProgram",
     "found": true,
-    "summary": "The content defines a class named LoginNewProgram that is responsible for retrieving program details from a database and storing them in a list of ProgramItem objects.",
-    "purpose": "To manage the login process for new programs in the HSPnet system by retrieving and organizing program information.",
-    "entities": ["ProgramItem", "LoginNewProgram"],
-    "fields": [
-        {
-            "name": "Name",
-            "type": "string",
-            "description": "Concatenated string of the long and short names of the program."
-        },
-        {
-            "name": "PCList",
-            "type": "string",
-            "description": "List of program components."
-        }
+    "summary": "The document contains C# code for managing program items through a class called LoginNewProgram, which retrieves program details from a database.",
+    "purpose": "To initialize and manage a list of program items by retrieving data from a database using a specific stored procedure.",
+    "entities": [
+        "ProgramItem",
+        "LoginNewProgram"
     ],
-    "actors": ["HSPnetSession"],
+    "fields": [
+        "Name",
+        "PCList"
+    ],
+    "actors": [
+        "HSPnetSession"
+    ],
     "workflows": [
         {
-            "name": "Data Retrieval Workflow",
+            "name": "Initialize and Fill Program List",
             "steps": [
-                "Initialize a new LoginNewProgram object with an HSPnetSession.",
-                "Invoke the FillList method to populate program data.",
-                "Use the HSPnetSession to call the procedure LoginWelcomeNewHSPnetPrograms.",
-                "Iterate over the SqlDataReader to create ProgramItem objects.",
-                "Add each ProgramItem to the internal Data list."
+                "Initialize LoginNewProgram with an HSPnetSession.",
+                "Call the FillList method.",
+                "Set the database procedure name to LoginWelcomeNewHSPnetPrograms.",
+                "Execute the stored procedure.",
+                "Read data using SqlDataReader.",
+                "For each record, create a ProgramItem, set its properties, and add it to the list.",
+                "Close the SqlDataReader."
             ]
         }
     ],
-    "business_rules": [
-        "Program names are combined from long and short names separated by a comma."
-    ],
+    "business_rules": [],
     "validations": [],
     "calculations": [],
-    "conditions": [
-        "SqlDataReader must not be null to proceed with data reading."
-    ],
+    "conditions": [],
     "system_behavior": [
-        "Retrieves data from the database using the stored procedure LoginWelcomeNewHSPnetPrograms.",
-        "Closes the SqlDataReader after data has been read."
+        "Retrieves a list of programs using a stored procedure and stores the data in ProgramItem objects."
     ],
     "dependencies": [
-        "HSPnetSession must be provided to the constructor of LoginNewProgram."
+        "HSPnet.Framework",
+        "HSPnet.App_GlobalResources",
+        "System.Data.SqlClient"
     ],
     "exceptions": [
-        "Handles the case where SqlDataReader is null by not attempting to read."
+        "Handling of null SqlDataReader"
     ],
-    "source_document_ids": ["bacebeb1-0a76-5a12-9d0b-1275211b772c"],
+    "source_document_ids": [
+        "bacebeb1-0a76-5a12-9d0b-1275211b772c"
+    ],
     "content_gaps": []
 }
