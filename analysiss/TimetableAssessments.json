@@ -1,36 +1,39 @@
 {
     "filename": "TimetableAssessments",
     "found": true,
-    "summary": "Contains functionality for managing timetable assessments including validation and editing.",
-    "purpose": "Provides UI elements and backend processing for handling assessments related to timetables.",
-    "entities": ["TimetableAssessment"],
-    "fields": [
-        {"name": "ddSubject", "type": "DropDownList"},
-        {"name": "chkSubjectsCanViewAssessorAnswers", "type": "CheckBox"}
-    ],
-    "actors": [],
+    "summary": "ASP.NET page for handling assessments tied to student timetables.",
+    "purpose": "Provides an interface for managing assessments related to student timetables.",
+    "entities": ["TimetableAssessments"],
+    "fields": ["AssessmentType", "AssessmentTemplate", "OpenDaysAfterStart", "CloseDaysAfterEnd", "AssessorTypeCodeID", "SubjectTypeCodeID"],
+    "actors": ["Instructor", "Supervisor"],
     "workflows": [
         {
-            "name": "ManageTimetableAssessment",
-            "steps": [
-                "Load and setup page resources.",
-                "Bind data to grid and handle postback triggers.",
-                "Use backend processing for various CRUD operations on assessments."
-            ]
+            "name": "Timetable Assessment Management",
+            "steps": ["Search", "Validate", "Bind data", "Show errors"]
         }
     ],
     "business_rules": [],
-    "validations": [
-        {"validator": "RequiredFieldValidator", "field": "txtOpenDaysAfterStart"},
-        {"validator": "CompareValidator", "field": "txtCloseDaysAfterEnd", "type": "Integer"}
-    ],
+    "validations": ["CompareValidator for numeric fields", "RequiredFieldValidator for mandatory fields"],
     "calculations": [],
     "conditions": [],
-    "system_behavior": [
-        "JavaScript functions to handle dynamic UI updates and validation."
-    ],
-    "dependencies": ["HSPnet.Framework", "AjaxControlToolkit"],
+    "system_behavior": [],
+    "dependencies": [],
     "exceptions": [],
-    "source_document_ids": ["447b10a9-0558-5d06-9fac-926c94892393"],
+    "source_document_ids": [
+        "0781696d-dec4-5dfc-aa58-80ddd173c0ae",
+        "0d330d29-e0a7-5f88-8c71-d32f88b252b0",
+        "0ea3e178-f11b-5ee8-afc8-441e55e2d2f4",
+        "135455cd-1a34-5b2d-b8cc-298a1d98c47e",
+        "1807e536-2914-59f1-a538-b9e127d25f77",
+        "345a2e51-fcf0-5df0-b1f6-b535c4b757c6",
+        "447b10a9-0558-5d06-9fac-926c94892393",
+        "50cbdfe8-4a64-5c51-ba1e-e88fb00ca8fc",
+        "61fa5351-3118-588b-a4f0-3147cd92841a",
+        "6f1aa10e-0697-5c9e-8e0a-182b597a2d3e",
+        "734dd83e-2a57-578d-9891-96f90686f95e",
+        "7ab03f3d-3b63-594e-a3ac-ea304249c66a",
+        "7afa582c-d2e5-5803-b315-7f8f63d1bc7e",
+        "9a9ab264-40f6-5641-bf80-27e1944adffd"
+    ],
     "content_gaps": []
 }
