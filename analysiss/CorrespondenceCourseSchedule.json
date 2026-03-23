@@ -1,10 +1,23 @@
 {
   "filename": "CorrespondenceCourseSchedule",
   "found": true,
-  "summary": "The CorrespondenceCourseSchedule system manages schedules related to correspondence courses by performing operations such as adding, updating, deleting, and retrieving schedule entries.",
-  "purpose": "The purpose of the CorrespondenceCourseSchedule system is to facilitate the management of schedules for courses that involve correspondence, ensuring accurate records and querying capabilities.",
+  "summary": "The CorrespondenceCourseSchedule module provides functionalities to manage course schedules related to correspondence for different periods. It includes operations to add, update, delete, and fetch correspondence course schedules by various criteria such as courseID and ID.",
+  "purpose": "Manage and interact with correspondence course schedules, including adding, updating, deleting, and retrieving schedules based on specific criteria.",
   "entities": [
-    "CorrespondenceCourseSchedule"
+    {
+      "name": "CorrespondenceCourseSchedule",
+      "attributes": [
+        "ID",
+        "CourseID",
+        "CorrespondenceID",
+        "Days",
+        "PeriodCodeID",
+        "CorrespondenceName",
+        "TypeDescription",
+        "PeriodDescription",
+        "TemplateFormatted"
+      ]
+    }
   ],
   "fields": [
     "ID",
@@ -23,68 +36,58 @@
   ],
   "workflows": [
     {
-      "name": "Add Schedule",
+      "name": "Add Correspondence Course Schedule",
       "steps": [
-        "Set ProcedureName to 'CorrespondenceCourseSchedulesAdd'",
+        "Set procedure name to CorrespondenceCourseSchedulesAdd",
         "Add parameters: CourseID, CorrespondenceID, Days, PeriodCodeID",
-        "Execute query"
+        "Execute database query"
       ]
     },
     {
-      "name": "Update Schedule",
+      "name": "Update Correspondence Course Schedule",
       "steps": [
-        "Set ProcedureName to 'CorrespondenceCourseSchedulesUpdate'",
+        "Set procedure name to CorrespondenceCourseSchedulesUpdate",
         "Add parameters: ID, CorrespondenceID, Days, PeriodCodeID",
-        "Execute query"
+        "Execute database query"
       ]
     },
     {
-      "name": "Delete Schedule",
+      "name": "Delete Correspondence Course Schedule",
       "steps": [
-        "Set ProcedureName to 'CorrespondenceCourseSchedulesDelete'",
+        "Set procedure name to CorrespondenceCourseSchedulesDelete",
         "Add parameter: ID",
-        "Execute query"
+        "Execute database query"
       ]
     },
     {
-      "name": "Retrieve Schedule by CourseID",
+      "name": "Get Correspondence Course Schedules by CourseID",
       "steps": [
-        "Set ProcedureName to 'CorrespondenceCourseSchedulesSearch'",
+        "Set procedure name to CorrespondenceCourseSchedulesSearch",
         "Add parameter: CourseID",
-        "Get data using SqlDataReader",
-        "Fill list using FillList method",
-        "Close SqlDataReader"
+        "Execute database query",
+        "Fill list with results",
+        "Close data reader"
       ]
     },
     {
-      "name": "Retrieve Schedule by ID",
+      "name": "Get Correspondence Course Schedules by ID",
       "steps": [
-        "Set ProcedureName to 'CorrespondenceCourseSchedulesSearchID'",
+        "Set procedure name to CorrespondenceCourseSchedulesSearchID",
         "Add parameter: ID",
-        "Get data using SqlDataReader",
-        "Fill list using FillList method",
-        "Close SqlDataReader"
+        "Execute database query",
+        "Fill list with results",
+        "Close data reader"
       ]
     }
   ],
   "business_rules": [
-    "Use alternative language fields if applicable"
+    "UseAltLanguageFields determines if alternative language fields are used for TypeDescription and PeriodDescription."
   ],
   "validations": [],
-  "calculations": [
-    "TemplateFormatted field combines TypeDescription and CorrespondenceName"
-  ],
+  "calculations": [],
   "conditions": [],
-  "system_behavior": [
-    "Executes defined stored procedures for schedule management",
-    "Fills schedule list using SqlDataReader",
-    "Switches between alternative language descriptions based on session settings"
-  ],
-  "dependencies": [
-    "HSPnet.Framework",
-    "HSPnet.App_GlobalResources",
-    "System.Data.SqlClient"
-  ],
+  "system_behavior": [],
+  "dependencies": [],
   "exceptions": [],
   "source_document_ids": [
     "433f1f60-30c5-537a-bd7c-729b3d0a5496",
