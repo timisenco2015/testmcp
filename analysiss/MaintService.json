@@ -1,128 +1,174 @@
 {
-  "filename": "MaintService",
-  "found": true,
-  "summary": "The MaintService module is designed to manage services and their associated details within the HSPnet framework. It includes functionality for service creation, editing, reactivation, and deletion, along with handling service contacts and user profiles.",
-  "purpose": "To facilitate management of services, including creation, editing, and management of associated staff and contact profiles within an agency context.",
-  "entities": [
-    "Service",
-    "Staff",
-    "UserSession",
-    "GridViewRow",
-    "Dropdown"
-  ],
-  "fields": [
-    "updPnlPopup",
-    "btnShowPopup",
-    "mdlDetails",
-    "ValidationSummary1",
-    "pnlEdit",
-    "gridDataEdit",
-    "dsService",
-    "hdnSCEditableOnly",
-    "Panel1",
-    "lblnon_HSP_net_user",
-    "gridData",
-    "updPnlMain",
-    "ddAgency",
-    "ddSite",
-    "txtKeyword",
-    "chkShowInactive",
-    "cmdRefreshView",
-    "cmdSaveAll",
-    "cmdCancel",
-    "cmdEditAll",
-    "cmdAdd",
-    "cmdReactivate",
-    "cmdDelete"
-  ],
-  "actors": [
-    "SystemAdministrator",
-    "LocalAdministrator",
-    "PlacementCoordinator",
-    "Agency",
-    "Site"
-  ],
-  "workflows": [
-    {
-      "name": "Service Management",
-      "steps": [
-        "Load the MaintService page.",
-        "Initialize Agency and Site dropdowns based on the user's session.",
-        "Render service grid data.",
-        "Handle commands for adding, editing, and saving services.",
-        "Manage user profiles and ensure access permissions.",
-        "Reactivate or delete services as needed."
-      ]
-    }
-  ],
-  "business_rules": [
-    "Services cannot be edited if a destination exists unless by a sysadmin.",
-    "Placing users in own agency restricts service editing unless they are sysadmins.",
-    "PCs can only edit the Service Contact if it is not an HSPnet user and they are the only active."
-  ],
-  "validations": [
-    "CustomValidator ensures valid Service Contact selection.",
-    "Ensure user session allows modification of services."
-  ],
-  "calculations": [],
-  "conditions": [
-    "ScreenIsEditable only when user is in their own agency or permitted site.",
-    "Service grid is editable based on user permissions and session settings."
-  ],
-  "system_behavior": [
-    "Setup of JavaScript for dynamic form control.",
-    "Error and warning panels display based on form state."
-  ],
-  "dependencies": [
-    "HSPnet.Framework",
-    "AjaxControlToolkit",
-    "HSPnet.DataLayer"
-  ],
-  "exceptions": [
-    "Invalid session leads to restricted page access.",
-    "Hidden fields control visibility and data integrity based on user actions."
-  ],
-  "source_document_ids": [
-    "0ba3473e-1016-5185-99ee-ce7c026d260f",
-    "1aa89907-17d6-5e3a-8873-d07b495145da",
-    "2085653b-18f4-5300-9057-42c41f883fad",
-    "246d2f24-6f6b-5c94-8191-dc33de2804f1",
-    "326b18d8-6795-5fa1-a21f-156f13d78045",
-    "353ae5f9-87ab-5829-90de-ce58e0fc3945",
-    "376f1f6d-07aa-5745-a2cc-cf864456ee24",
-    "3a7a2823-4c00-53cc-8ecd-9378be23fc13",
-    "3ff8ce53-ed4e-53b0-ba00-2c80401fa1c0",
-    "46a0f61b-9960-53b7-add2-cb3caa1ff489",
-    "4c5f26e2-4c40-5c2f-b3f2-91d8e9363bb1",
-    "4d2d2fbd-b7d0-595e-860c-a4cc6a893db1",
-    "514064df-9b3d-51e1-8a77-ad18d0d50374",
-    "5461f5b3-e803-5b73-b65b-9b060d23b1c0",
-    "578ec5e3-1698-5e29-b345-aae366a0e95a",
-    "626d02c7-706a-58e7-a865-419343d44c29",
-    "64a58f87-6306-52e4-add7-f04264c94412",
-    "68c1fc00-8c7b-596a-b249-1d1a8524b3bc",
-    "846dd0b3-6f3e-5936-acbc-4565c45b347c",
-    "847c2b51-2ac0-598b-b8b4-ed0efd63bcf9",
-    "879fb615-bc91-5419-aa48-52ae87d00565",
-    "99f441ee-b22b-516b-a0b5-de3318e066bb",
-    "9a137bcf-5ec5-5a90-9f89-3956bdc6a31c",
-    "a0b07f5b-1375-517f-8473-2da05e71a61a",
-    "a159c38a-0c22-52fb-9e0b-3c7eaddd7df1",
-    "a76d6a46-439f-52c5-b52b-8bfe68066928",
-    "b0b0ddcf-4c1a-5f63-b511-f596476127a6",
-    "b7f48ed2-4c3e-5e6a-9d4d-d6421abd3d80",
-    "b9f21482-87b8-5105-846c-9c5521c67587",
-    "c4def07e-42f5-5d8e-9fc6-867ec8fbfefc",
-    "c91b684e-56c0-57b2-a72a-03d4815c8630",
-    "d2751210-29a7-55b1-be9d-b049552c7300",
-    "d3ec4df0-c8cf-503a-8997-19478a70e75b",
-    "d41bbf61-53af-54c3-aa5a-70b179693881",
-    "d661d59d-e786-5d48-9089-ccd787f0d7f1",
-    "dca5225f-5a5b-5962-8647-bbd146ad0f13",
-    "dce8b04b-a3bf-5d65-9ce4-6a0e789e406d",
-    "ec5e6140-5b95-5c22-901e-3283c49ebda2",
-    "eddd35c7-6493-58a7-85cf-8e4ce0fd9967",
-    "f6e9b014-dac9-500f-98a3-43b27e779ad3"
-  ],
-  "content_gaps": []
+    "filename": "MaintService",
+    "found": true,
+    "summary": "MaintService is a web management interface for handling service-related data within the HSPnet framework. The interface includes features for adding, editing, deleting, and reactivating service entries, as well as user management functionalities.",
+    "purpose": "To provide an interface for managing services data including the ability to modify service details, manage user profiles, and handle service contacts within the HSPnet system.",
+    "entities": [
+        "Service",
+        "UserSession",
+        "Dropdown",
+        "Grid",
+        "Screen"
+    ],
+    "fields": [
+        {
+            "name": "updPnlPopup",
+            "type": "global::System.Web.UI.UpdatePanel"
+        },
+        {
+            "name": "btnShowPopup",
+            "type": "global::System.Web.UI.WebControls.Button"
+        },
+        {
+            "name": "mdlDetails",
+            "type": "global::AjaxControlToolkit.ModalPopupExtender"
+        },
+        {
+            "name": "ValidationSummary1",
+            "type": "global::System.Web.UI.WebControls.ValidationSummary"
+        },
+        {
+            "name": "pnlEdit",
+            "type": "global::System.Web.UI.WebControls.Panel"
+        },
+        {
+            "name": "gridDataEdit",
+            "type": "global::System.Web.UI.WebControls.GridView"
+        },
+        {
+            "name": "dsService",
+            "type": "global::System.Web.UI.WebControls.ObjectDataSource"
+        },
+        {
+            "name": "dsServiceEdit",
+            "type": "global::System.Web.UI.WebControls.ObjectDataSource"
+        },
+        {
+            "name": "pnlWarning",
+            "type": "global::System.Web.UI.WebControls.Panel"
+        },
+        {
+            "name": "pnlCurrentView",
+            "type": "global::System.Web.UI.WebControls.Panel"
+        },
+        {
+            "name": "ddAgency",
+            "type": "global::System.Web.UI.WebControls.DropDownList"
+        },
+        {
+            "name": "ddSite",
+            "type": "global::System.Web.UI.WebControls.DropDownList"
+        },
+        {
+            "name": "txtKeyword",
+            "type": "global::System.Web.UI.WebControls.TextBox"
+        },
+        {
+            "name": "chkShowInactive",
+            "type": "global::System.Web.UI.WebControls.CheckBox"
+        },
+        {
+            "name": "cmdRefreshView",
+            "type": "global::System.Web.UI.WebControls.Button"
+        }
+    ],
+    "actors": [
+        "System Administrator",
+        "Placement Coordinator",
+        "Local Administrator",
+        "Receiving User",
+        "Staff Admin"
+    ],
+    "workflows": [
+        {
+            "name": "Service Management",
+            "steps": [
+                "Load service data into the grid.",
+                "Allow editing, adding, or deleting services.",
+                "Enable user profile and contact management.",
+                "Reactivate services as needed."
+            ]
+        },
+        {
+            "name": "User Profile Handling",
+            "steps": [
+                "Check user session for permissions.",
+                "Display user icons based on role.",
+                "Navigate to user management details."
+            ]
+        }
+    ],
+    "business_rules": [
+        "Users can only edit services if they have the appropriate permissions.",
+        "Services cannot be edited if there is an active destination unless done by a system admin.",
+        "Placement Coordinators can edit service contacts only if conditions are met regarding HSPnet user status."
+    ],
+    "validations": [
+        "Ensure selected service contact is valid using client-side validation.",
+        "Check if user session allows for edit actions based on agency and site."
+    ],
+    "calculations": [
+        "Determine screen editability based on user role and session data."
+    ],
+    "conditions": [
+        "Screen becomes editable if user session permits and user is within appropriate role.",
+        "Services are displayed based on agency and site dropdown selections."
+    ],
+    "system_behavior": [
+        "Auto-hide certain buttons and panels based on service data state.",
+        "Trigger JavaScript functions for client-side updates upon data changes."
+    ],
+    "dependencies": [
+        "Agency ID and Site ID selection dependencies control service visibility.",
+        "User session settings determine access permissions and visibility."
+    ],
+    "exceptions": [
+        "Error messages for invalid service contact assignments based on HSPnet user status and session restrictions.",
+        "Warning panels visibility based on operation success or failure."
+    ],
+    "source_document_ids": [
+        "0ba3473e-1016-5185-99ee-ce7c026d260f",
+        "1aa89907-17d6-5e3a-8873-d07b495145da",
+        "2085653b-18f4-5300-9057-42c41f883fad",
+        "246d2f24-6f6b-5c94-8191-dc33de2804f1",
+        "326b18d8-6795-5fa1-a21f-156f13d78045",
+        "353ae5f9-87ab-5829-90de-ce58e0fc3945",
+        "376f1f6d-07aa-5745-a2cc-cf864456ee24",
+        "3a7a2823-4c00-53cc-8ecd-9378be23fc13",
+        "3ff8ce53-ed4e-53b0-ba00-2c80401fa1c0",
+        "46a0f61b-9960-53b7-add2-cb3caa1ff489",
+        "4c5f26e2-4c40-5c2f-b3f2-91d8e9363bb1",
+        "4d2d2fbd-b7d0-595e-860c-a4cc6a893db1",
+        "514064df-9b3d-51e1-8a77-ad18d0d50374",
+        "5461f5b3-e803-5b73-b65b-9b060d23b1c0",
+        "578ec5e3-1698-5e29-b345-aae366a0e95a",
+        "626d02c7-706a-58e7-a865-419343d44c29",
+        "64a58f87-6306-52e4-add7-f04264c94412",
+        "68c1fc00-8c7b-596a-b249-1d1a8524b3bc",
+        "846dd0b3-6f3e-5936-acbc-4565c45b347c",
+        "847c2b51-2ac0-598b-b8b4-ed0efd63bcf9",
+        "879fb615-bc91-5419-aa48-52ae87d00565",
+        "99f441ee-b22b-516b-a0b5-de3318e066bb",
+        "9a137bcf-5ec5-5a90-9f89-3956bdc6a31c",
+        "a0b07f5b-1375-517f-8473-2da05e71a61a",
+        "a159c38a-0c22-52fb-9e0b-3c7eaddd7df1",
+        "a76d6a46-439f-52c5-b52b-8bfe68066928",
+        "b0b0ddcf-4c1a-5f63-b511-f596476127a6",
+        "b7f48ed2-4c3e-5e6a-9d4d-d6421abd3d80",
+        "b9f21482-87b8-5105-846c-9c5521c67587",
+        "c4def07e-42f5-5d8e-9fc6-867ec8fbfefc",
+        "c91b684e-56c0-57b2-a72a-03d4815c8630",
+        "d2751210-29a7-55b1-be9d-b049552c7300",
+        "d3ec4df0-c8cf-503a-8997-19478a70e75b",
+        "d41bbf61-53af-54c3-aa5a-70b179693881",
+        "d661d59d-e786-5d48-9089-ccd787f0d7f1",
+        "dca5225f-5a5b-5962-8647-bbd146ad0f13",
+        "dce8b04b-a3bf-5d65-9ce4-6a0e789e406d",
+        "dd08f935-1300-5239-8f8b-1952fb6df75f",
+        "ea372cf5-225e-5e6a-af6d-e4c57cd85ddc",
+        "ec5e6140-5b95-5c22-901e-3283c49ebda2",
+        "eddd35c7-6493-58a7-85cf-8e4ce0fd9967",
+        "f6e9b014-dac9-500f-98a3-43b27e779ad3"
+    ],
+    "content_gaps": []
 }
