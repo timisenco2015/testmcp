@@ -1,0 +1,219 @@
+# Module: WCB
+
+## WCB-UC1 — View Enrollment Grid
+
+- Primary Actor(s):
+  - Instructor
+  - Administrator
+
+- Secondary Actor(s):
+  - Student
+
+- Trigger:
+  - User navigates to the enrollment page.
+
+- Description:
+  - The user views a grid of student enrollments with the ability to sort, filter, and paginate the data.
+
+- Preconditions:
+  - User must be logged in with appropriate permissions.
+  - Session variables for paging must be set.
+
+- Postconditions:
+  - The grid displays enrollments according to the applied filters and sorting.
+
+- Main Success Scenario:
+  1. User accesses the enrollment page.
+  2. The system displays the grid with student enrollment data.
+  3. User applies filters and sorting.
+  4. The system updates the grid based on filters and sorts.
+  5. User views paginated results.
+
+- Extensions:
+  - User changes sort direction.
+  - User applies different filters.
+
+- Exceptions:
+  - If session variables are not set, default paging is applied.
+
+- Business Rules:
+  - Grid should display only active enrollments unless filters are applied.
+
+- Assumptions:
+  - User has viewing permissions.
+
+- Open Issues:
+  - None identified.
+
+## WCB-UC2 — Edit Enrollment Entry
+
+- Primary Actor(s):
+  - Instructor
+  - Administrator
+
+- Secondary Actor(s):
+  - None
+
+- Trigger:
+  - User selects an enrollment entry to edit.
+
+- Description:
+  - User can edit details of a specific student enrollment.
+
+- Preconditions:
+  - User must have edit permissions.
+  - Enrollment entry must be active and editable.
+
+- Postconditions:
+  - Changes are saved to the database.
+
+- Main Success Scenario:
+  1. User selects an enrollment entry.
+  2. The system opens the edit modal.
+  3. User updates enrollment details.
+  4. User submits the changes.
+  5. The system saves changes and refreshes the grid.
+
+- Extensions:
+  - User cancels the edit operation.
+
+- Exceptions:
+  - If entry is inactive, edit is disabled.
+
+- Business Rules:
+  - Only editable fields may be modified.
+
+- Assumptions:
+  - User understands the editing process.
+
+- Open Issues:
+  - None identified.
+
+## WCB-UC3 — Mass Edit Enrollments
+
+- Primary Actor(s):
+  - Administrator
+
+- Secondary Actor(s):
+  - None
+
+- Trigger:
+  - User opts to edit multiple enrollments at once.
+
+- Description:
+  - Provides functionality to apply changes to multiple enrollments simultaneously.
+
+- Preconditions:
+  - Multiple enrollments are selected.
+  - User has mass edit permissions.
+
+- Postconditions:
+  - All selected enrollments are updated.
+
+- Main Success Scenario:
+  1. User selects multiple enrollment entries.
+  2. The system displays common editable fields.
+  3. User applies changes and submits.
+  4. The system updates all selected entries.
+  5. Grid reflects the updated entries.
+
+- Extensions:
+  - Changes can be discarded if user decides not to save.
+
+- Exceptions:
+  - If no entries are selected, operation does not proceed.
+
+- Business Rules:
+  - All selected entries must be in an editable state.
+
+- Assumptions:
+  - User is familiar with mass edit operations.
+
+- Open Issues:
+  - None identified.
+
+## WCB-UC4 — Email Students
+
+- Primary Actor(s):
+  - Instructor
+  - Administrator
+
+- Secondary Actor(s):
+  - None
+
+- Trigger:
+  - User chooses to email students from the grid.
+
+- Description:
+  - User sends email notifications to selected students.
+
+- Preconditions:
+  - Students must have valid email addresses.
+  - User has permission to send emails.
+
+- Postconditions:
+  - Emails are sent to selected students.
+
+- Main Success Scenario:
+  1. User selects students from the grid.
+  2. User opts to send an email.
+  3. The system prepares email content.
+  4. User confirms and sends email.
+  5. Emails are dispatched successfully.
+
+- Extensions:
+  - User previews email content before sending.
+
+- Exceptions:
+  - Invalid email addresses are flagged.
+
+- Business Rules:
+  - Emails should respect opt-out preferences.
+
+- Assumptions:
+  - User has adequate permissions for emailing.
+
+- Open Issues:
+  - None identified.
+
+## WCB-UC5 — Reactivate Enrollment
+
+- Primary Actor(s):
+  - Administrator
+
+- Secondary Actor(s):
+  - None
+
+- Trigger:
+  - User opts to reactivate a student's enrollment.
+
+- Description:
+  - Allows reactivation of a student’s enrollment entry.
+
+- Preconditions:
+  - Enrollment must be inactive or graduated.
+
+- Postconditions:
+  - The enrollment entry is active again.
+
+- Main Success Scenario:
+  1. User selects an inactive enrollment entry.
+  2. The system enables reactivation option.
+  3. User confirms reactivation.
+  4. The system updates the enrollment status.
+  5. Enrollment entry is now active.
+
+- Extensions:
+  - None
+
+- Exceptions:
+  - Already active enrollments cannot be reactivated.
+
+- Business Rules:
+  - Only inactive or graduated enrollments can be reactivated.
+
+- Assumptions:
+  - User has adequate permissions to reactivate entries.
+
+- Open Issues:
+  - None identified.
