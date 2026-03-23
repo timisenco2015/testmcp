@@ -1,88 +1,76 @@
 {
   "filename": "HSPnetPager",
   "found": true,
-  "summary": "The HSPnetPager is a custom web control used in ASP.NET applications for paging functionality, providing navigation through a set of paginated data.",
-  "purpose": "To provide a user interface for navigating pages of data in a web application by utilizing a set of controls and state management.",
+  "summary": "The HSPnetPager is a .NET web control for managing pagination on web pages. It provides functionality to render a paging control, manage control state, handle postback events, and manage pagination logic such as starting and ending page indices, and previous/next page navigation.",
+  "purpose": "The primary purpose of HSPnetPager is to facilitate paginated navigation of large datasets in web applications, allowing users to move between pages of data efficiently.",
   "entities": [],
   "fields": [
     {
-      "name": "ItemCount",
-      "type": "double",
-      "description": "Gets or sets total number of rows."
-    },
-    {
       "name": "CurrentIndex",
       "type": "int",
-      "description": "Gets or sets current page index."
+      "description": "The current page index being displayed."
     },
     {
       "name": "PageSize",
       "type": "int",
-      "description": "Gets or sets page size (results per page)."
+      "description": "The number of items to display per page."
+    },
+    {
+      "name": "ItemCount",
+      "type": "double",
+      "description": "Total number of items available."
     },
     {
       "name": "PageCount",
       "type": "int",
-      "description": "Gets or sets the total number of pages."
+      "description": "Total number of pages calculated based on ItemCount and PageSize."
     },
     {
       "name": "StartRow",
       "type": "int",
-      "description": "Calculates the starting row based on the current index and page size."
+      "description": "The starting row index for the current page."
     }
   ],
   "actors": [
-    {
-      "name": "IPostBackEventHandler",
-      "description": "Interface to handle postback events."
-    }
+    "HtmlTextWriter",
+    "Page"
   ],
   "workflows": [
     {
-      "name": "Render Pager",
+      "name": "RenderPaginationControl",
       "steps": [
-        "Verify page rendering in server form.",
-        "Initialize table for pager.",
-        "Create previous button if applicable.",
-        "Create ellipsis if necessary.",
-        "Generate numeric page buttons.",
-        "Create next ellipsis if necessary.",
-        "Create next button if applicable."
-      ]
-    },
-    {
-      "name": "State Management",
-      "steps": [
-        "OnInit: Register control for state management.",
-        "SaveControlState: Save current state for index, size, and count.",
-        "LoadControlState: Retrieve and set state from saved status."
+        "Verify rendering in the server form.",
+        "Define table attributes for cellspacing, cellpadding, etc.",
+        "Calculate pager start and end indices.",
+        "Create previous and next buttons and ellipses.",
+        "Render table with pagination controls."
       ]
     }
   ],
-  "business_rules": [],
-  "validations": [],
+  "business_rules": [
+    "If the CurrentIndex exceeds the PageCount, set CurrentIndex to PageCount.",
+    "Page size can be toggled between a default and a maximum size to simulate 'Show All' functionality."
+  ],
+  "validations": [
+    "Ensure PageSize and ItemCount are set before rendering.",
+    "Calculate PageCount as the ceiling of ItemCount divided by PageSize."
+  ],
   "calculations": [
-    {
-      "name": "PageCount Calculation",
-      "description": "Calculate number of pages based on item count and page size using ceiling."
-    }
+    "Calculate the starting and ending page index for pagination navigation.",
+    "Convert page index to page number and vice versa."
   ],
-  "conditions": [],
+  "conditions": [
+    "Show pagination controls only if PageCount > 1.",
+    "Switch between display of 'Show All' and 'Show Page Size' based on total items."
+  ],
   "system_behavior": [
-    {
-      "description": "Toggle between paged and show all mode by altering page size."
-    },
-    {
-      "description": "Update pagination controls dynamically based on current index and page count."
-    }
+    "Registers control state to maintain pagination indices across postbacks.",
+    "Handles postback events to manage page changes."
   ],
-  "dependencies": [
-    {
-      "name": "Resources",
-      "description": "Used for retrieving localized strings like 'Previous' and 'Next'."
-    }
+  "dependencies": [],
+  "exceptions": [
+    "Handle conditions where no pagination is required due to ItemCount being less than PageSize."
   ],
-  "exceptions": [],
   "source_document_ids": [
     "0f559ab4-f5f2-532a-95b7-7dd94861d8fa",
     "124aab60-a346-52ea-a642-22be0b9cd25a",
