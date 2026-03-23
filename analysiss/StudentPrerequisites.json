@@ -1,29 +1,50 @@
 {
-    "filename": "StudentPrerequisites",
-    "found": true,
-    "summary": "Manages student prerequisites regarding health, safety, and confidentiality forms.",
-    "purpose": "Updates and verifies student prerequisites including health requirements and safety checks.",
-    "entities": ["StudentPrerequisite"],
-    "fields": ["ID", "StudentID", "CRCStatusCodeID", "IDCard", "WCBWaiver", "ConfidentialityForm", "UseAssessmentModule", "DepartmentUseAssessmentModule", "N95MaskSizeCodeID"],
-    "actors": ["System Admin", "Health Administrator"],
-    "workflows": [
-        {
-            "name": "Student Prerequisites Management",
-            "steps": ["Search", "Update records", "Validate data"]
-        }
-    ],
-    "business_rules": [],
-    "validations": [],
-    "calculations": [],
-    "conditions": [],
-    "system_behavior": [],
-    "dependencies": [],
-    "exceptions": [],
-    "source_document_ids": [
-        "800c6896a-128a-591a-8ca6-2b17198986fb",
-        "dadce6a1-e08f-5117-9767-bb9b5e83fef7",
-        "eadce6a1-e08f-5117-9767-bb9b5e83fef7",
-        "eedb6500-7e63-5aba-b652-8cfbbf9b798d"
-    ],
-    "content_gaps": []
+  "filename": "StudentPrerequisites",
+  "found": true,
+  "summary": "The StudentPrerequisites class manages student prerequisite data, including updates to health and safety records.",
+  "purpose": "To maintain and update prerequisite information for students, particularly related to health and safety compliance.",
+  "entities": ["StudentPrerequisite", "StudentPrerequisites"],
+  "fields": [
+    {"name": "WCBStatusCodeID", "type": "int"},
+    {"name": "ImmunReqMetNotes", "type": "string"},
+    {"name": "TetanusStatusCodeID", "type": "int"},
+    {"name": "MeaslesAdminDate2", "type": "DateTime"},
+    {"name": "Covid19AdminDate2", "type": "DateTime"}
+  ],
+  "actors": ["HSPnetSession"],
+  "workflows": [
+    {
+      "name": "Health and Safety Update",
+      "steps": [
+        "Search for prerequisites of a student.",
+        "Update the prerequisite records using stored procedures."
+      ]
+    }
+  ],
+  "business_rules": [],
+  "validations": [
+    "Check for validity of dates and mandatory fields."
+  ],
+  "calculations": [],
+  "conditions": [
+    "Expiry dates must be set if years are specified."
+  ],
+  "system_behavior": [],
+  "dependencies": [
+    "Database for accessing and updating prerequisite records."
+  ],
+  "exceptions": [],
+  "source_document_ids": [
+    "126148d2-7c46-5bb8-8a4c-606105b702bd",
+    "165b1b6b-fd06-59e5-b7d7-81e87dbeac55",
+    "280408b2-2e1d-5bd7-8feb-59603ff0bb80",
+    "2f8ba20e-ca9a-5fc1-932a-1899a9499417",
+    "3787eddd-1ce0-519f-9959-30c8a913c827",
+    "3c00eec5-f694-53fb-abe6-a8d94038fd60",
+    "3e68c0d0-3ab9-5c14-a221-bf0f7592302c",
+    "430fc305-a57a-53e5-9f01-35e07b707792",
+    "46edf9a0-d978-5197-be20-b4536cae3e91",
+    "4a51cb58-538c-57f2-82ff-13fb4d577aa8"
+  ],
+  "content_gaps": []
 }
