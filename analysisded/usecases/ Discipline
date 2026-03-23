@@ -1,0 +1,92 @@
+# Module: Discipline
+
+## Discipline-UC1 — Search for Disciplines by Sub-Discipline ID
+
+- Primary Actor(s): User
+- Secondary Actor(s): System Administrator
+- Trigger: User initiates a search for disciplines using a Sub-Discipline ID.
+- Description: Users can search for specific disciplines using the Sub-Discipline ID. The system performs the search and retrieves the relevant discipline records.
+- Preconditions: User must be logged in and have necessary permissions.
+- Postconditions: Displays a list of disciplines matching the Sub-Discipline ID criteria.
+- Main Success Scenario:
+  1. User inputs Sub-Discipline ID into the search interface.
+  2. System retrieves and displays the list of matching disciplines.
+- Extensions:
+  - Alternate database configurations can be specified for different search environments.
+- Exceptions:
+  - If no matching records are found, notify the user.
+- Business Rules:
+  - Users without system administrator privileges will not see sub-disciplines beginning with "XXX".
+- Assumptions:
+  - The database connection is stable.
+- Open Issues:
+  - None identified.
+
+## Discipline-UC2 — Retrieve Discipline List
+
+- Primary Actor(s): System Administrator
+- Secondary Actor(s): User
+- Trigger: System or user requests the complete discipline list.
+- Description: The system retrieves a list of all available disciplines, filtering results based on the user's privileges.
+- Preconditions: System administrator privileges are required for unfiltered access.
+- Postconditions: A filtered or complete list of disciplines is presented to the user.
+- Main Success Scenario:
+  1. System initializes a request for the discipline list.
+  2. System checks user's privileges and filters the list accordingly.
+  3. System displays the list to the user.
+- Extensions:
+  - Users with specific access can view restricted disciplines.
+- Exceptions:
+  - Errors in database access should be handled gracefully.
+- Business Rules:
+  - Discipline lists are filtered for non-system administrators to exclude restricted codes.
+- Assumptions:
+  - User permissions are correctly set in the database.
+- Open Issues:
+  - Potential need for performance optimization in large datasets.
+
+## Discipline-UC3 — Document Sub-Discipline List
+
+- Primary Actor(s): User
+- Secondary Actor(s): System Administrator
+- Trigger: User requests the list of sub-disciplines associated with a document.
+- Description: The system provides a list of sub-disciplines related to a specified document, incorporating user-specific filters.
+- Preconditions: User must have access to the document and necessary permissions.
+- Postconditions: A list of sub-disciplines related to the document is displayed.
+- Main Success Scenario:
+  1. User selects a document.
+  2. System retrieves associated sub-disciplines.
+  3. Applies user-specific filters and displays the list.
+- Extensions:
+  - Document-specific parameters can refine the search results.
+- Exceptions:
+  - Invalid document ID should prompt an error notification.
+- Business Rules:
+  - Sub-discipline visibility is controlled by user permissions.
+- Assumptions:
+  - Document-sub-discipline mappings are accurate.
+- Open Issues:
+  - None identified.
+
+## Discipline-UC4 — Discipline Search by User
+
+- Primary Actor(s): User
+- Secondary Actor(s): System Administrator
+- Trigger: User initiates a search for disciplines based on their access level.
+- Description: The system filters and displays disciplines available to the user based on their credentials and permissions.
+- Preconditions: User must be logged in.
+- Postconditions: User views a list of disciplines they have permission to access.
+- Main Success Scenario:
+  1. User logs in and initiates a discipline search.
+  2. System verifies user's credentials and access rights.
+  3. System retrieves and displays the list of accessible disciplines.
+- Extensions:
+  - Advanced search filters can be applied based on user roles.
+- Exceptions:
+  - Unauthorized access attempts are logged and denied.
+- Business Rules:
+  - Disciplines are displayed based on user's access rights.
+- Assumptions:
+  - User access levels are up to date.
+- Open Issues:
+  - None identified.
