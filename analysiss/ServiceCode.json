@@ -1,57 +1,47 @@
 {
-    "filename": "ServiceCode",
-    "found": true,
-    "summary": "ServiceCode represents a system entity for categorizing and managing codes related to services within the HSPnet framework.",
-    "purpose": "To manage service-related codes, including their categorization and localization support.",
-    "entities": [],
-    "fields": [
-        {
-            "name": "ID",
-            "description": "Unique identifier for the service code."
-        },
-        {
-            "name": "CodeCategoryID",
-            "description": "Identifier for the category to which the code belongs."
-        },
-        {
-            "name": "ShortName",
-            "description": "Short name representation of the code."
-        },
-        {
-            "name": "Name",
-            "description": "Descriptive name for the code."
-        },
-        {
-            "name": "SortOrder",
-            "description": "Order in which the code should appear when sorted."
-        },
-        {
-            "name": "Notes",
-            "description": "Additional notes related to the code."
-        },
-        {
-            "name": "NameAlt",
-            "description": "Alternative name for the code used in localized settings."
-        },
-        {
-            "name": "NotesAlt",
-            "description": "Alternative notes for the code used in localized settings."
-        }
-    ],
-    "actors": [],
-    "workflows": [],
-    "business_rules": [
-        {
-            "name": "Localization",
-            "description": "Use alt-language fields if the session is running in alternate language mode."
-        }
-    ],
-    "validations": [],
-    "calculations": [],
-    "conditions": [],
-    "system_behavior": [],
-    "dependencies": [],
-    "exceptions": [],
-    "source_document_ids": ["94f1b055-348d-508a-ae6e-cf7960a8c6a2", "e4ebe4b4-6d14-5c3f-b693-61016f765239", "f976b9af-a402-540f-b162-391d578fac7c"],
-    "content_gaps": []
+  "filename": "ServiceCode",
+  "found": true,
+  "summary": "The ServiceCode document describes the structure for managing service codes within the HSPnet framework. It includes methods for retrieving service codes by various identifiers and handles localization of these codes.",
+  "purpose": "To manage and retrieve service code information within HSPnet.",
+  "entities": [
+    "HSPnet.DataLayer.ServiceCode",
+    "HSPnet.DataLayer.ServiceCodes"
+  ],
+  "fields": [
+    "ID",
+    "CodeCategoryID",
+    "ShortName",
+    "Name",
+    "SortOrder",
+    "Notes",
+    "NameAlt",
+    "NotesAlt"
+  ],
+  "actors": [],
+  "workflows": [
+    {
+      "name": "Service Code Retrieval",
+      "steps": [
+        "Call stored procedure for service codes retrieval.",
+        "Retrieve and map database fields to service code properties.",
+        "Return localized service codes as needed."
+      ]
+    }
+  ],
+  "business_rules": [],
+  "validations": [],
+  "calculations": [],
+  "conditions": [],
+  "system_behavior": [],
+  "dependencies": [
+    "HSPnetSession",
+    "SqlDataReader"
+  ],
+  "exceptions": [],
+  "source_document_ids": [
+    "94f1b055-348d-508a-ae6e-cf7960a8c6a2",
+    "e4ebe4b4-6d14-5c3f-b693-61016f765239",
+    "f976b9af-a402-540f-b162-391d578fac7c"
+  ],
+  "content_gaps": []
 }
