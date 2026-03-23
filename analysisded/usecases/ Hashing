@@ -1,0 +1,79 @@
+# Module: Hashing
+
+## Hashing-UC1 — Add Hash to Embedded URL
+
+- Primary Actor(s): User
+- Secondary Actor(s): System
+- Trigger: User submits a text containing URLs for processing.
+- Description: Process input text to embed URLs with a hash parameter.
+- Preconditions: The input text must contain URLs delimited by `<||` and `||>`.
+- Postconditions: Each URL in the text is replaced with a version containing a `URLHash` parameter.
+- Main Success Scenario:
+  1. User provides a text with embedded URLs.
+  2. The system identifies delimiters and extracts URLs.
+  3. The system generates a hash for each URL.
+  4. Each URL is replaced with its hashed version.
+- Extensions: None
+- Exceptions: If delimiters are not properly formatted, the text is returned unchanged.
+- Business Rules: Hashing of URLs must be salted to prevent unauthorized URL modifications.
+- Assumptions: Input format is consistent with provided delimiters.
+- Open Issues: None
+
+## Hashing-UC2 — URL Hash Validation
+
+- Primary Actor(s): System
+- Secondary Actor(s): User
+- Trigger: System receives an HTTP request requiring validation.
+- Description: Validate the `URLHash` parameter in incoming HTTP requests to ensure link integrity.
+- Preconditions: Incoming HTTP request contains a `URLHash` parameter.
+- Postconditions: User is logged out if the hash does not validate; access is granted if validation succeeds.
+- Main Success Scenario:
+  1. Receive HTTP request with a full URL.
+  2. The system extracts the existing `URLHash`.
+  3. The system generates a new hash using the URL.
+  4. The new hash is compared to the existing hash.
+  5. If hashes match, the request is valid; otherwise, user is logged out.
+- Extensions:
+  - Translating '+' to spaces in URL encoding for specific email cases.
+- Exceptions: Hash mismatch results in user timeout.
+- Business Rules: Use a consistent hashing process for both generation and validation.
+- Assumptions: URL format is consistent with hashing requirements.
+- Open Issues: Handling of hash in special cases like email subjects.
+
+## Hashing-UC3 — Rebuild or Redirect URLs
+
+- Primary Actor(s): System
+- Secondary Actor(s): None
+- Trigger: System needs to redirect or rebuild a URL.
+- Description: Rebuild or redirect URLs by removing domains and adding new hash parameters.
+- Preconditions: An HttpRequest with a full URL is provided.
+- Postconditions: Return a URL stripped of the domain or redirect using the rebuilt URL.
+- Main Success Scenario:
+  1. Receive HttpRequest.
+  2. Strip domain and old `URLHash` from HTTP request.
+  3. Process URL for additional modifications.
+  4. Optionally, add domain back for redirection.
+- Extensions:
+  - Rebuild URL for further processing.
+- Exceptions: None
+- Business Rules: Ensure URL rebuilt to maintain integrity for redirection.
+- Assumptions: URLs follow expected formatting.
+- Open Issues: Address specific scenarios requiring domain removal.
+
+## Hashing-UC4 — French Character Decoding
+
+- Primary Actor(s): System
+- Secondary Actor(s): None
+- Trigger: System processes URLs containing URL-encoded French characters.
+- Description: Decode URL-encoded French characters in URLs for correct processing.
+- Preconditions: URL contains encoded French characters.
+- Postconditions: French characters are properly decoded in the URL.
+- Main Success Scenario:
+  1. Detect encoded French characters in URL.
+  2. System decodes characters using predefined replacements.
+  3. Return URL with decoded characters.
+- Extensions: None
+- Exceptions: Incorrect encoding formats may fail to decode.
+- Business Rules: Utilize character maps for accurate decoding.
+- Assumptions: Encoding patterns are consistent.
+- Open Issues: Updating maps for additional character sets.
