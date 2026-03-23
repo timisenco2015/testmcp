@@ -1,0 +1,118 @@
+{
+  "filename": "StaffMessages",
+  "found": true,
+  "summary": "The StaffMessages system manages staff messages, including retrieval, addition, updating, and deletion of messages associated with staff using stored procedures.",
+  "purpose": "To handle the addition, updating, deletion, and retrieval of staff messages within the system, ensuring messages are valid and associated with staff.",
+  "entities": [],
+  "fields": [
+    {
+      "name": "ID",
+      "type": "int",
+      "description": "Unique identifier of the staff message."
+    },
+    {
+      "name": "StaffID",
+      "type": "int",
+      "description": "Identifier for the staff member associated with the message."
+    },
+    {
+      "name": "TypeCodeID",
+      "type": "int",
+      "description": "Identifier for the type of message."
+    },
+    {
+      "name": "Name",
+      "type": "string",
+      "description": "The name or nickname associated with the message."
+    },
+    {
+      "name": "Message",
+      "type": "string",
+      "description": "The content of the staff message."
+    },
+    {
+      "name": "TypeCodeDesc",
+      "type": "string",
+      "description": "Description of the message type, potentially in alternate languages."
+    },
+    {
+      "name": "MessageFormatted",
+      "type": "string",
+      "description": "Formatted version of the message, truncated to 50 characters."
+    }
+  ],
+  "actors": [
+    {
+      "name": "HSPnetSession",
+      "role": "Handles database sessions and operations, including executing stored procedures and managing message validity checks."
+    }
+  ],
+  "workflows": [
+    {
+      "name": "Add Staff Message",
+      "steps": [
+        "Create a StaffMessage object with StaffID, TypeCodeID, Name, and Message.",
+        "Check if the message is valid using the IsValid method.",
+        "If valid, set the database procedure to 'StaffMessagesAdd'.",
+        "Add parameters (StaffID, TypeCodeID, Name, Message) to the procedure.",
+        "Execute the query to add the new message."
+      ]
+    },
+    {
+      "name": "Update Staff Message",
+      "steps": [
+        "Create a StaffMessage object with ID, StaffID, TypeCodeID, Name, and Message.",
+        "Check if the updated message is valid using the IsValid method.",
+        "If valid, set the database procedure to 'StaffMessagesUpdate'.",
+        "Add parameters (ID, StaffID, TypeCodeID, Name, Message) to the procedure.",
+        "Execute the query to update the message."
+      ]
+    },
+    {
+      "name": "Delete Staff Message",
+      "steps": [
+        "Check if the ID is greater than 0.",
+        "Set the database procedure to 'StaffMessagesDelete'.",
+        "Add the ID parameter to the procedure.",
+        "Execute the query to delete the message."
+      ]
+    },
+    {
+      "name": "Search Staff Messages by ID",
+      "steps": [
+        "Set the database procedure to 'StaffMessagesSearchID'.",
+        "Add the ID parameter to the procedure.",
+        "Retrieve data and populate a list of StaffMessage objects if results exist."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Staff message must be associated with a valid StaffID and TypeCodeID.",
+    "Name and Message fields must not be blank."
+  ],
+  "validations": [
+    "Check if StaffID, TypeCodeID are not null.",
+    "Name and Message must not be blank (checked using StringUtil)."
+  ],
+  "calculations": [],
+  "conditions": [],
+  "system_behavior": [
+    "The system uses stored procedures for different operations on staff messages.",
+    "It validates messages to ensure all required fields are populated before operations."
+  ],
+  "dependencies": [
+    "Database: For executing stored procedures and managing data operations.",
+    "HSPnetSession: For session management and language-specific operations."
+  ],
+  "exceptions": [
+    "If ID is 0 in 'StaffMessagesSearchID', return an empty list.",
+    "If any required field is missing during validation, appropriate errors are added to session messages."
+  ],
+  "source_document_ids": [
+    "20ba6792-8ef5-5274-ae21-fb62f562284f",
+    "75a7a1f3-4644-5020-b42f-a67a3f4ba7f2",
+    "8b331701-8c46-5ae7-adc0-3b9ec49ea0ba",
+    "f7b72112-d29d-572a-a1a8-99817f694981"
+  ],
+  "content_gaps": []
+}
