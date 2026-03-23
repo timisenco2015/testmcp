@@ -1,140 +1,102 @@
 {
-  "filename": "ReportQueue",
-  "found": true,
-  "summary": "The ReportQueue module is designed to manage reports by providing functionalities such as submitting, viewing, delivering and deleting reports. It includes features for user interactions with reports using various controls, and processes report-related data.",
-  "purpose": "To manage the lifecycle of reports within the system, including submission, retrieval, viewing, and delivery.",
-  "entities": [],
-  "fields": [
-    "lblAction",
-    "ddAction",
-    "cmdSubmit",
-    "dsReportQ",
-    "ctl00_txtRefreshWindow",
-    "pnlError",
-    "lblErrorCaption",
-    "lblErrorList",
-    "cmdHideErrorPanel",
-    "pnlWarning",
-    "lblWarningCaption",
-    "lblWarningList",
-    "cmdHideWarningPanel",
-    "pnlCurrentView",
-    "CurrentViewLabel",
-    "Label1",
-    "ddReportName",
-    "trUser",
-    "Label2",
-    "ddStaffUser",
-    "chkSubmittedReports",
-    "chkReadyReports",
-    "chkViewedReports",
-    "chkDeliveredReports",
-    "chkShowDetails",
-    "lblInstructions",
-    "Literal1",
-    "Literal2",
-    "Literal3",
-    "hlPrintQueueNotesHelp",
-    "lblSUMMARYHEADING",
-    "lblFIRSTCATEGORYSUMMARY",
-    "lblSECONDCATEGORYSUMMARY",
-    "rprReportQ",
-    "pnlSelect",
-    "cmdSelectAll",
-    "cmdSelectNone"
-  ],
-  "actors": [
-    "User",
-    "Dropdown",
-    "Grid",
-    "UserSession"
-  ],
-  "workflows": [
-    {
-      "name": "Report Management",
-      "steps": [
-        "User selects report criteria using checkboxes and dropdowns.",
-        "User submits actions using the cmdSubmit button.",
-        "Reports are processed according to selected actions.",
-        "The system updates statuses using PrintJobs methods."
-      ]
-    }
-  ],
-  "business_rules": [
-    "Users can mark reports as delivered or undelivered.",
-    "Reports can be emailed to specific recipients.",
-    "Reports can be permanently deleted by users."
-  ],
-  "validations": [
-    "Check if UserSession is valid before proceeding.",
-    "Ensure action dropdown has a valid selection before submission."
-  ],
-  "calculations": [
-    "Calculate the FirstCategoryDeliveredCount and FirstCategoryNotDeliveredCount.",
-    "Calculate the SecondCategoryCount."
-  ],
-  "conditions": [
-    "If UserSession is null, cancel report selection.",
-    "If the user is in view-only mode, restrict certain actions."
-  ],
-  "system_behavior": [
-    "Report visibility and actions are based on user permissions.",
-    "JavaScript setups manage client-side interactions."
-  ],
-  "dependencies": [
-    "UserSession",
-    "HSPnet.DataLayer.PrintJobs",
-    "HSPnet.UI.Grid"
-  ],
-  "exceptions": [
-    "Handle failure in toggling report nodes.",
-    "Alert user if recipient details are incomplete."
-  ],
-  "source_document_ids": [
-    "042ad0f1-f5a9-553b-a4d2-e9cbea87be5b",
-    "05d8166e-fbb3-5b7c-8dfe-2b800e8a9949",
-    "0b832b9c-505a-52dd-8ae6-9ebc7656ec5c",
-    "0ce21e38-2be9-5afb-a21c-f458439750d3",
-    "1132d8d1-c6ba-5cd0-9497-e8259ea78fda",
-    "124aefea-479f-509b-a884-725332b1bc1d",
-    "1df08f1f-6a01-5a36-9e9f-cb3aa77c6376",
-    "28b391a9-6531-5d91-80dd-5e20116b3b06",
-    "3bac20b9-c053-5cad-80dd-6b0fb978a4b3",
-    "403e9c4a-abfe-53a3-9112-956dff4e56a4",
-    "46cf5794-6af2-5e4f-bd71-b58893895acc",
-    "4932df45-1f0f-5b70-ab1d-176989919852",
-    "520fadcc-f48e-5fc7-bd78-a1c573acfd77",
-    "5687e186-6077-5b43-ba2a-59bf45883d82",
-    "5f91a96c-d2d3-5f01-97df-5365158e3726",
-    "62f165af-1adf-54de-9acc-de4eea1c00d1",
-    "6546c487-a818-50e5-91db-bb9e64fb10b8",
-    "69c6588f-22c0-5487-a598-e7954a1767ed",
-    "707afa49-9d6d-5f86-ae83-0d144fd25d90",
-    "70ae1a24-e20a-53b5-9894-724b7a090733",
-    "73f29b4c-c695-53ee-814b-fbe03cbf06b0",
-    "818e0b27-b4a2-5409-8948-d621ac28ca72",
-    "89c8b404-98c2-58de-989f-28343a391e28",
-    "8a8b6b0c-1c58-5167-9660-bf7c50f76980",
-    "8ba7ba9b-dc67-5414-8a85-e895bd94ece9",
-    "8c526c5b-df75-5071-8c4e-93ebad305a23",
-    "94635ee7-6b2e-5cbc-bb66-bfaa66614605",
-    "9a92f58c-2da1-5778-8d98-97de8b8ccb23",
-    "a2d1dbb7-9ff0-5c66-9650-775a7991b2b6",
-    "a550e196-9a77-59de-b93b-ea703f7cd6d2",
-    "a90651c6-7edf-532d-982b-2fc7a01077b4",
-    "ab1bbc0e-ddbb-5bd6-b919-4b7fc02e5cd3",
-    "ae6c8cc2-6750-5da8-9948-12cc305529cd",
-    "b7eef73d-77d8-5742-ade2-26b50c7fbcf4",
-    "bd07aa03-ad2c-5b8e-9905-6c29c8a89e28",
-    "c401431b-44af-5c4f-b135-83ce46b54bf1",
-    "c453bd95-6e74-506d-b951-79597f9d008d",
-    "ca173c40-c8ec-5e18-bdc4-c1827f99d461",
-    "cec15b66-8095-5757-9980-034f0026ed84",
-    "d0a94859-4a2e-5be9-8a3f-dc2b44c9dc51",
-    "df7a6410-017a-5698-bac6-624a7ce886da",
-    "e7674b66-0806-5e1e-9205-a8889fab6f9d",
-    "f0255835-c1e3-57dc-80f1-2718967c3365",
-    "fab3ee9e-acee-58e3-9389-a954416f3f8e"
-  ],
-  "content_gaps": []
+    "filename": "ReportQueue",
+    "found": true,
+    "summary": "The Report Queue system is designed to manage and process report generation and delivery within the HSPnet framework. It provides functionality for users to submit, view, and deliver reports, including options for email delivery and permanent deletion.",
+    "purpose": "To facilitate the management, generation, and distribution of reports within an organizational framework, providing users with the ability to handle report statuses and interactions efficiently.",
+    "entities": [
+        "PrintJob",
+        "UserSession",
+        "Resources",
+        "EmailList",
+        "PRDList",
+        "GroupsList"
+    ],
+    "fields": [
+        "JobName",
+        "UserID",
+        "Viewed",
+        "Ready",
+        "Submitted",
+        "Delivered",
+        "ShowDetails",
+        "StatusDisplay",
+        "ReportSentFormatted",
+        "RecipientName",
+        "CategoryDelivery"
+    ],
+    "actors": [
+        "UserSession",
+        "StaffUser"
+    ],
+    "workflows": [
+        {
+            "name": "Report Handling",
+            "steps": [
+                "User selects report options (submitted, ready, viewed, delivered, show details).",
+                "Reports are filtered and displayed based on user selections.",
+                "Reports can be marked as delivered, emailed to default or specific recipients, or deleted permanently.",
+                "Data binds to reflect changes in report status or selection."
+            ]
+        },
+        {
+            "name": "Email Report",
+            "steps": [
+                "User selects reports to email.",
+                "Email information is constructed using selected report details.",
+                "Email is sent using predefined or user-specified recipients."
+            ]
+        },
+        {
+            "name": "Report Deletion",
+            "steps": [
+                "User selects reports to delete.",
+                "Selected reports are removed permanently from the database.",
+                "The system refreshes to reflect changes."
+            ]
+        }
+    ],
+    "business_rules": [
+        "Reports must be marked as viewed before they can be delivered.",
+        "Reports can be emailed only if they meet specific criteria (e.g., readiness).",
+        "Selected reports without default recipients prompt a user alert."
+    ],
+    "validations": [
+        "Ensure report options are correctly selected before operations.",
+        "Check for valid recipient information before email dispatch.",
+        "Verify report readiness prior to delivery or deletion."
+    ],
+    "calculations": [
+        "Calculate the number of reports ready for delivery and display summary.",
+        "Determine email and report delivery status based on user actions."
+    ],
+    "conditions": [
+        "Report must be marked as 'Ready' or 'Viewed' for delivery.",
+        "User selection or report status triggers system updates."
+    ],
+    "system_behavior": [
+        "Updates visual representation of reports based on user actions.",
+        "Shows or hides report details depending on user views."
+    ],
+    "dependencies": [
+        "UserSession for accessing user-specific data and settings.",
+        "Resources for localized and dynamic text display."
+    ],
+    "exceptions": [
+        "Invalid recipient error when report lacks a default recipient.",
+        "Alert for selecting non-ready reports for further actions."
+    ],
+    "source_document_ids": [
+        "042ad0f1-f5a9-553b-a4d2-e9cbea87be5b",
+        "05d8166e-fbb3-5b7c-8dfe-2b800e8a9949",
+        "0b832b9c-505a-52dd-8ae6-9ebc7656ec5c",
+        "0ce21e38-2be9-5afb-a21c-f458439750d3",
+        "1132d8d1-c6ba-5cd0-9497-e8259ea78fda",
+        "124aefea-479f-509b-a884-725332b1bc1d",
+        "1df08f1f-6a01-5a36-9e9f-cb3aa77c6376",
+        "28b391a9-6531-5d91-80dd-5e20116b3b06"
+    ],
+    "content_gaps": [
+        "Specific details of how the report data is stored or structured are not explained.",
+        "Additional information about client-side JavaScript handling could be beneficial."
+    ]
 }
