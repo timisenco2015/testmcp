@@ -1,0 +1,94 @@
+```json
+{
+    "filename": "Cohorts",
+    "found": true,
+    "summary": "The Cohorts file contains functionalities related to managing cohorts in an educational system. It includes handling various aspects of cohort planning, scheduling, and management through a web interface.",
+    "purpose": "The purpose of the Cohorts functionality is to facilitate the management of educational cohorts, including scheduling, tracking of courses, and handling student enrollments.",
+    "entities": ["Cohort", "Timetable", "Program", "Term", "Course", "Student", "Instructor", "Department"],
+    "fields": [
+        "CohortID",
+        "TermID",
+        "CourseID",
+        "InstructorID",
+        "ExpectedEnrollment",
+        "StartDate",
+        "EndDate",
+        "AutomaticEmailDate",
+        "DurationShifts",
+        "DurationHours",
+        "ShiftLength",
+        "SupervisionWeeks"
+    ],
+    "actors": ["System Administrator", "Local Administrator", "Placement Coordinator", "Course Leader"],
+    "workflows": [
+        {
+            "name": "Cohort Management",
+            "steps": [
+                "Create or edit cohort details",
+                "Assign courses and terms",
+                "Schedule timetables",
+                "Manage enrollments",
+                "Send automatic emails"
+            ]
+        }
+    ],
+    "business_rules": [
+        "Cohorts can be added, edited, archived, or unarchived.",
+        "Courses can be copied from existing cohorts.",
+        "Automatic emails are sent based on configured dates."
+    ],
+    "validations": [
+        "Start and end dates must be valid dates.",
+        "Expected enrollment must be an integer.",
+        "Shift lengths and durations must be positive numbers."
+    ],
+    "calculations": [
+        "Calculate shift length based on start and end times.",
+        "Calculate total duration from shifts and shift length."
+    ],
+    "conditions": [
+        "Automatic email feature is enabled if the program allows it.",
+        "Include or exclude instructors from IT provisioning roles."
+    ],
+    "system_behavior": [
+        "Hide or show fields based on user roles and settings.",
+        "Use AJAX for updating panels without full page refresh."
+    ],
+    "dependencies": [
+        "User Session settings for permissions and configurations.",
+        "Dropdowns are filled based on available terms, courses, and instructors."
+    ],
+    "exceptions": [
+        "Invalid date or time entries prevent form submission.",
+        "Duplicate instructors cause validation errors."
+    ],
+    "source_document_ids": [
+        "00fc0ceb-b953-5d52-8d8f-c572de9e3a66",
+        "019c112d-6e59-5189-9a3e-57254e097784",
+        "06c2084b-8093-55fb-b928-8c5ef2067577",
+        "078bfc37-a3ae-5f5b-949c-a07fc996da21",
+        "084eba88-4ce2-51d1-8cc0-22dd06b1303b",
+        "0a34ea2e-e351-52bc-86d1-c8884f488609",
+        "0d5a8e55-be4c-5b6a-88b8-97c20c2a2ee3",
+        "16254ae7-fab9-52d5-8ee3-e5867850c70b",
+        "1a01a4b2-28a1-53dd-8c75-0039e7ddb767",
+        "1da5a8a3-ca87-5f30-89db-4507dd532967",
+        "1f52a75b-75de-5422-a7e4-3a203b4cc7c4",
+        "20d92108-04c3-5000-8339-1ec2674e7a89",
+        "20fde1e7-8bb2-5d72-b274-058fa5791b6f",
+        "241892e9-fb36-51db-bf90-b065a8c04198",
+        "24a0130f-0c1a-596f-935a-57eace62656c",
+        "28fd5340-8c46-5fbd-bdd0-f0ae8a18c960",
+        "29450520-54b1-5731-b7c2-51f82b50f529",
+        "297a2995-8d9b-5f3d-b2e8-3eebd7ce3396",
+        "29ae6bec-6e28-5026-bead-427be789add1",
+        "2b8b9b63-62c3-5ca4-bad8-caa60a63f640",
+        "2de8eb86-13c0-58a1-957c-9f62b975ce6d",
+        "37577f67-2366-5269-9d00-8a8a59a10064",
+        "b114b227-c98f-588a-8e87-7b96aa4068e6",
+        "fc999ded-28a3-5b76-a309-0e39cc07ac21",
+        "cdc09f97-8d1e-523f-8ee1-7ecd6c2ed9d5"
+    ],
+    "content_gaps": []
+}
+```
