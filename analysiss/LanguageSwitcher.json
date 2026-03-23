@@ -1,0 +1,58 @@
+{
+  "filename": "LanguageSwitcher",
+  "found": true,
+  "summary": "The 'LanguageSwitcher' is a user control that allows toggling between different language locales on a webpage. It modifies the URL's locale parameter to switch between default and alternative locales.",
+  "purpose": "To provide the functionality of switching between different language locales on a webpage by modifying the URL parameters.",
+  "entities": [],
+  "fields": [
+    {
+      "name": "UserSession",
+      "description": "HSPnetSession object holding user's session data including locale information.",
+      "type": "HSPnetSession"
+    },
+    {
+      "name": "lbLanguageSwitcher",
+      "description": "LinkButton used to trigger the language switch event.",
+      "type": "WebControl"
+    }
+  ],
+  "actors": [
+    {
+      "name": "User",
+      "description": "A user interacting with the language switcher control to change the language of the webpage."
+    }
+  ],
+  "workflows": [
+    {
+      "name": "Language Locale Switching",
+      "steps": [
+        "User clicks the lbLanguageSwitcher button.",
+        "The current URL and locale parameter are retrieved.",
+        "If locale parameter is absent, it is appended with the current UserSession locale.",
+        "Locale is toggled between default and alternative settings.",
+        "If applicable, URL hash is added.",
+        "Page is redirected to the new URL."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Locale parameter should be appended to the URL if not present.",
+    "Locale is toggled between default and alternative values."
+  ],
+  "validations": [],
+  "calculations": [],
+  "conditions": [
+    "If no locale parameter is present, use UserSession's current locale.",
+    "Toggle from default to alternative locale based on UserSession's `IsUsingDefaultLocale`."
+  ],
+  "system_behavior": [
+    "Redirects the user to a URL with the updated locale parameter."
+  ],
+  "dependencies": [],
+  "exceptions": [],
+  "source_document_ids": [
+    "1e887c45-972c-596d-a016-fb3d9160d62f",
+    "3a20fbd0-33c1-5cf7-9cbe-bce44d3edd7f"
+  ],
+  "content_gaps": []
+}
