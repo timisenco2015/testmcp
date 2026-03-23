@@ -1,93 +1,77 @@
 {
-    "filename": "StudentPRSelector",
-    "found": true,
-    "summary": "The StudentPRSelector appears to be a web-based application component related to handling student placement and preference history. It involves user controls for managing student profiles, placement selection, and preference history.",
-    "purpose": "To facilitate the management and display of student placement selections and preference histories within a web application interface.",
-    "entities": [],
-    "fields": [
-        {
-            "name": "StudentID",
-            "type": "Int32"
-        },
-        {
-            "name": "Email",
-            "type": "String"
-        },
-        {
-            "name": "TimetableID",
-            "type": "Int32"
-        },
-        {
-            "name": "Phone",
-            "type": "String"
-        },
-        {
-            "name": "AltPhone",
-            "type": "String"
-        },
-        {
-            "name": "AltPhone2",
-            "type": "String"
-        }
-    ],
-    "actors": [
-        "UCPlacementSelector",
-        "UCPRPreferenceHistory"
-    ],
-    "workflows": [
-        {
-            "name": "Student Placement Selector Workflow",
-            "steps": [
-                "Initialize page and setup controls.",
-                "Validate URL hash for session security.",
-                "Link child controls based on query string parameters.",
-                "Load student profile and display relevant information.",
-                "Handle placement selection and preference history tabs."
-            ]
-        }
-    ],
-    "business_rules": [
-        "Email links should include the subject line 'HSPnet:'.",
-        "Placement selection should ensure unique rankings for each student."
-    ],
-    "validations": [
-        {
-            "rule": "Ensure unique rankings in placement selections",
-            "function": "checkRankings"
-        }
-    ],
-    "calculations": [],
-    "conditions": [
-        {
-            "condition": "If the TabContainer is active on Placement Selector or PR Preference History, load the respective user controls."
-        }
-    ],
-    "system_behavior": [
-        {
-            "behavior": "Hide error or warning panels when buttons are clicked.",
-            "function": "hideErrorPanel and hideWarningPanel"
-        }
-    ],
-    "dependencies": [
-        "HSPnet.DataLayer",
-        "HSPnet.UserControls",
-        "HSPnet.Framework"
-    ],
-    "exceptions": [],
-    "source_document_ids": [
-        "0e116a30-9f0f-58de-bef5-717a67d58594",
-        "17473837-1078-543f-bbc0-e1621e747ca6",
-        "1d2f33ff-2816-55a6-b2c3-cdf201feedfc",
-        "1f16a144-31db-5681-9e86-10b3373022dc",
-        "24bb389e-4b66-5a16-8549-bb81e3bd3d67",
-        "26433994-1f11-59c7-b412-680534b43b42",
-        "2705dafc-6f84-546f-91d6-d0cef17fde4e",
-        "77c3f9ea-cc3e-576b-9981-29a7d858fee6",
-        "814a37a0-432a-536d-b77f-8fdd0ecc62d9",
-        "866d758b-0a5a-5545-8c48-01d13fead89d",
-        "91a7576f-8112-5ffb-8142-b5722fef6194",
-        "97362ca6-88b8-5513-aebe-2e7709694a9a",
-        "efb2ff08-7d7f-52b2-8279-56283d90ece6"
-    ],
-    "content_gaps": []
+  "filename": "StudentPRSelector",
+  "found": true,
+  "summary": "The StudentPRSelector module is part of the HSPnet framework and includes components for student profile management and placement selection within a web application.",
+  "purpose": "To manage and display student profile information and facilitate the selection of placements for students.",
+  "entities": [],
+  "fields": [
+    "lblErrorCaption",
+    "lblErrorList",
+    "cmdHideErrorPanel",
+    "pnlWarning",
+    "lblWarningCaption",
+    "lblWarningList",
+    "cmdHideWarningPanel",
+    "fvwStudentProfileHeader",
+    "dsDetail",
+    "uxEmail"
+  ],
+  "actors": [
+    "UserSession",
+    "Student",
+    "ScriptManagerMaster"
+  ],
+  "workflows": [
+    {
+      "name": "Student Profile Display",
+      "steps": [
+        "Load student data using fvwStudentProfileHeader.",
+        "Bind data to UI components like uxEmail and litName."
+      ]
+    },
+    {
+      "name": "Placement Selection",
+      "steps": [
+        "User navigates to TabPanelPlacementSelector.",
+        "UCPlacementSelector is configured and displayed."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Ensure unique rankings in selection process.",
+    "Reset placement selector filters when requested."
+  ],
+  "validations": [
+    "Ensure all rankings are unique before submission."
+  ],
+  "calculations": [],
+  "conditions": [
+    "Check if UserSession is valid.",
+    "Verify if TabContainer1 is active for correct display."
+  ],
+  "system_behavior": [
+    "Error and warning panels are managed by an always visible control extender.",
+    "JavaScript provides interactive functionality for form elements and validation."
+  ],
+  "dependencies": [
+    "HSPnet.DataLayer for data operations.",
+    "HSPnet.UserControls for custom UI components."
+  ],
+  "exceptions": [],
+  "source_document_ids": [
+    "0e116a30-9f0f-58de-bef5-717a67d58594",
+    "17473837-1078-543f-bbc0-e1621e747ca6",
+    "1d2f33ff-2816-55a6-b2c3-cdf201feedfc",
+    "1f16a144-31db-5681-9e86-10b3373022dc",
+    "24bb389e-4b66-5a16-8549-bb81e3bd3d67",
+    "26433994-1f11-59c7-b412-680534b43b42",
+    "2705dafc-6f84-546f-91d6-d0cef17fde4e",
+    "77c3f9ea-cc3e-576b-9981-29a7d858fee6",
+    "814a37a0-432a-536d-b77f-8fdd0ecc62d9",
+    "866d758b-0a5a-5545-8c48-01d13fead89d",
+    "91a7576f-8112-5ffb-8142-b5722fef6194",
+    "97362ca6-88b8-5513-aebe-2e7709694a9a",
+    "efb2ff08-7d7f-52b2-8279-56283d90ece6"
+  ],
+  "content_gaps": []
 }
