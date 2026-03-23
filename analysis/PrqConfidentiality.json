@@ -1,0 +1,73 @@
+{
+    "filename": "PrqConfidentiality",
+    "found": true,
+    "summary": "The PrqConfidentiality module is part of the HSPnet application, dealing with staff confidentiality forms. It includes UI controls, data bindings, and user permissions, enabling data display, insertion, update, or deletion based on user roles and session states.",
+    "purpose": "To manage and enforce confidentiality agreements for staff within the HSPnet system, allowing authorized users to view, edit, and manage confidentiality-related data.",
+    "entities": [],
+    "fields": [
+        "StaffID",
+        "UserSession",
+        "CurrentPage",
+        "ProviderListDept",
+        "ProviderTypeCodeID"
+    ],
+    "actors": [
+        "UserSession",
+        "StaffConsentForms",
+        "HSPnet.UI"
+    ],
+    "workflows": [
+        {
+            "name": "Confidentiality Management",
+            "steps": [
+                "User interacts with UI elements such as grid views or form views.",
+                "System checks user session and role to determine access permissions.",
+                "User performs actions like view, insert, update, or delete on confidentiality records.",
+                "Changes are processed, and the system updates the UI accordingly."
+            ]
+        }
+    ],
+    "business_rules": [
+        "Only users with active sessions can access or modify data.",
+        "Users with appropriate roles can edit confidentiality forms.",
+        "Inactive or unauthorized users are restricted from modifying data."
+    ],
+    "validations": [
+        "Page validation ensures that forms are completed correctly before submission.",
+        "Session validation ensures user sessions are active before performing actions."
+    ],
+    "calculations": [],
+    "conditions": [
+        "If 'ConfOtherScreenIsEditable' is true, additional options are shown.",
+        "Certain UI elements are enabled or disabled depending on 'ScreenIsEditable' and 'Disabled' flags."
+    ],
+    "system_behavior": [
+        "The UI dynamically updates to hide or show controls based on session and role validation.",
+        "Session caching is used to maintain user state across operations.",
+        "Automatic redirection to current page upon operation completion."
+    ],
+    "dependencies": [
+        "HSPnetSession for user session management.",
+        "Grid and FormView controls for displaying and managing data."
+    ],
+    "exceptions": [
+        "Data access is cancelled if user session is null.",
+        "UI actions like edit or delete are restricted based on user permissions."
+    ],
+    "source_document_ids": [
+        "0d4e87ce-2e16-5c73-84e0-09c65d8fc606",
+        "174d9d0f-ce2e-5960-8ae4-9cb7cea2b69c",
+        "394cf0db-34a1-5c0d-8c95-e9a869be8474",
+        "53c676b1-3666-531c-99d8-07286415ae44",
+        "5d945a78-3a22-57dc-b784-12b93fe18fa6",
+        "760bb462-8bc1-5511-b952-66bdb50b8808",
+        "7efb356a-8088-5921-925a-52b238f52a90",
+        "8ccb4372-39b7-5df4-98bf-412d765c1706",
+        "ae311fd0-c1ae-5a84-9986-101a7bf00625",
+        "bd3c9440-fc84-508e-b6cb-264a233ad0b9",
+        "ee41efa9-58a0-5aa3-8b98-4ba6013c1503",
+        "fce69528-fdc6-5f52-a776-71ea295ff9b2",
+        "fdb7707a-363b-572f-8aee-438d2b3c1096"
+    ],
+    "content_gaps": []
+}
