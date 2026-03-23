@@ -1,74 +1,45 @@
 {
   "filename": "ProgramYearType",
   "found": true,
-  "summary": "The ProgramYearType class manages program year data, particularly providing lists of program years based on session configurations or specific program IDs.",
-  "purpose": "To generate and manage lists of program years for various programs in an HSPnet session, facilitating configurations and lookups for maximum allowable program years.",
-  "entities": [
-    "ProgramYearType",
-    "ProgramYearData"
-  ],
+  "summary": "The ProgramYearType class defines a structure for managing and returning a list of program year data, which includes codes and their corresponding values. This is used primarily in the context of managing program years within a system, offering methods to generate lists of program years based on configurations and input parameters.",
+  "purpose": "To provide a structured way to manage and retrieve program year data for different programs, enabling the system to handle various configurations and offer consistent outputs based on program requirements.",
+  "entities": [],
   "fields": [
     {
       "name": "Code",
-      "type": "string",
-      "description": "The code representing the program year"
+      "description": "Represents the code for a program year."
     },
     {
       "name": "Value",
-      "type": "string",
-      "description": "The value associated with the program year"
+      "description": "Represents the value associated with the program year code."
     }
   ],
-  "actors": [
-    "HSPnetSession"
-  ],
+  "actors": [],
   "workflows": [
     {
-      "name": "Generate Program Year List",
+      "name": "ProgramYearList Generation",
       "steps": [
-        "Check if session is valid",
-        "Lookup max program year from configuration",
-        "If maxProgramYear is parsed, build a list from 1 to maxProgramYear",
-        "Append 'Not Applicable' to the list",
-        "Return the list"
-      ]
-    },
-    {
-      "name": "Generate Program Year List for Program",
-      "steps": [
-        "Retrieve program details by ID",
-        "Determine total years for the program",
-        "Build a list from 1 to ProgramTotalYears",
-        "Append 'Not Applicable' to the list",
-        "Return the list"
+        "Retrieve maximum program year configuration using Codes.CodeLookup with the 'Configuration' and 'MaxProgramYear' parameters.",
+        "Attempt to parse the retrieved configuration value into an integer, maxProgramYear.",
+        "If successful, initialize a ProgramYearData list starting with a default entry ('-1', '').",
+        "Iterate from 1 up to maxProgramYear, appending each to the list as ProgramYearData.",
+        "Finalize the list with a special entry ('0', Resources.NotApplicable).",
+        "Handle the case where session or configuration is invalid by returning a default list with five years."
       ]
     }
   ],
-  "business_rules": [
-    "Program year lists must start from 1 and go up to the max program year or the total years for a specific program.",
-    "'Not Applicable' is represented with the code '0' and added at the end of each list."
-  ],
+  "business_rules": [],
   "validations": [
-    "Session must be valid for operations that require configuration lookup.",
-    "ProgramID must exist in the database when generating lists specific to a program."
+    "Ensure maxProgramYear configuration value is parsable to an integer."
   ],
-  "calculations": [
-    "ProgramTotalYears is determined by truncating the total years value of the program."
-  ],
-  "conditions": [
-    "If maxProgramYear cannot be parsed, a default list up to 5 years is used."
-  ],
+  "calculations": [],
+  "conditions": [],
   "system_behavior": [
-    "The system retrieves configuration data to determine max program years.",
-    "The system accesses program details by ID to determine the total years for a specific program."
+    "Returns a default list when session or configuration values are invalid.",
+    "Generates program year data lists dynamically based on configuration or program details."
   ],
-  "dependencies": [
-    "HSPnet.Framework",
-    "HSPnet.App_GlobalResources"
-  ],
-  "exceptions": [
-    "When session is null, default program year list up to 5 is used."
-  ],
+  "dependencies": [],
+  "exceptions": [],
   "source_document_ids": [
     "a037944d-d94c-55ee-a4f8-d64f0b89edfc",
     "b02e27f2-f2a6-5afa-af70-c0dfef61b5f0"
