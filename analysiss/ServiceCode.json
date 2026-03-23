@@ -1,29 +1,29 @@
 {
     "filename": "ServiceCode",
     "found": true,
-    "summary": "The ServiceCode class and its methods provide mechanisms for retrieving and localizing service code data within HSPnet.",
-    "purpose": "To list and manipulate service codes accessible via stored procedures in a database session.",
+    "summary": "ServiceCode is a class for managing service code details, supporting multiple retrieval methods based on various criteria.",
+    "purpose": "To handle service code information retrieval and localization.",
     "entities": ["ServiceCode"],
-    "fields": ["ID", "CodeCategoryID", "ShortName", "Name", "SortOrder", "Notes", "NameAlt", "NotesAlt"],
-    "actors": [],
-    "workflows": [
-        {
-            "name": "Service Code Retrieval",
-            "steps": [
-                "Call stored procedure for service code list",
-                "Read database fields into ServiceCode entities",
-                "Localize names based on session language settings",
-                "Return list of ServiceCode entities"
-            ]
-        }
+    "fields": [
+        "ID", "CodeCategoryID", "ShortName", "Name", "SortOrder", "Notes",
+        "NameAlt", "NotesAlt"
     ],
+    "actors": [],
+    "workflows": [],
     "business_rules": [],
     "validations": [],
     "calculations": [],
     "conditions": [],
-    "system_behavior": [],
+    "system_behavior": [
+        "Supports service code retrieval based on session and ID parameters.",
+        "Allows for localization by using alternative language fields."
+    ],
     "dependencies": [],
     "exceptions": [],
-    "source_document_ids": ["94f1b055-348d-508a-ae6e-cf7960a8c6a2", "e4ebe4b4-6d14-5c3f-b693-61016f765239", "f976b9af-a402-540f-b162-391d578fac7c"],
+    "source_document_ids": [
+        "94f1b055-348d-508a-ae6e-cf7960a8c6a2",
+        "e4ebe4b4-6d14-5c3f-b693-61016f765239",
+        "f976b9af-a402-540f-b162-391d578fac7c"
+    ],
     "content_gaps": []
 }
