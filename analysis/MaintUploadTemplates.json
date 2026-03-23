@@ -1,0 +1,138 @@
+{
+  "filename": "MaintUploadTemplates",
+  "found": true,
+  "summary": "MaintUploadTemplates provides an ASP.NET WebForms page and its backend for managing upload templates associated with agency and department selection. It allows users to view, add, edit, and delete template entries, each characterized by a name, file format, and header row count. The interface includes validation, error/warning panels, and supports modal popup editing.",
+  "purpose": "To enable administrators or authorized actors to manage (create, update, delete) upload templates (used for bulk data import, e.g., Excel files) associated with specific agencies and departments, with UI support for validation, error handling, and workflow guidance.",
+  "entities": [
+    {
+      "name": "UploadTemplateHeader",
+      "description": "Represents an upload template, including its ID, Name, FileFormat (currently hard-coded to Excel), HeaderRows, DepartmentID.",
+      "fields": ["ID", "Name", "FileFormat", "HeaderRows", "DepartmentID"]
+    },
+    {
+      "name": "Agencies",
+      "description": "Agency entity used for filtering templates.",
+      "fields": ["ID", "ShortName"]
+    },
+    {
+      "name": "Departments",
+      "description": "Department entity nested under Agency.",
+      "fields": ["ID", "ShortName"]
+    }
+  ],
+  "fields": [
+    {
+      "name": "Name",
+      "type": "string",
+      "required": true,
+      "max_length": 50,
+      "description": "Template display name"
+    },
+    {
+      "name": "HeaderRows",
+      "type": "integer",
+      "required": true,
+      "validation": "GreaterThan 0",
+      "description": "Number of header rows in uploaded file"
+    },
+    {
+      "name": "FileFormat",
+      "type": "string",
+      "required": false,
+      "default": "Excel",
+      "description": "Type of file template supports; currently only Excel is supported"
+    },
+    {
+      "name": "DepartmentID",
+      "type": "integer",
+      "required": true,
+      "description": "ID of department associated with the template"
+    }
+  ],
+  "actors": [
+    {
+      "name": "UserSession",
+      "roles": ["Admin", "Data Manager"],
+      "description": "Authenticated user performing template management"
+    }
+  ],
+  "workflows": [
+    {
+      "name": "Manage Upload Templates",
+      "steps": [
+        "Page Load: Populate agency and department dropdowns, set focus",
+        "Agency Change: Re-populate department dropdown based on agency selection, refresh template data",
+        "Department Change: Refresh template data shown",
+        "Refresh View: Reload grid with templates for selected agency/department",
+        "Add Template: Switch DetailsView to insert mode, show modal for entry, validate fields, save new template",
+        "Edit Template: Switch DetailsView to edit mode, load existing entry, validate fields, save changes",
+        "Delete Template: Confirm and permanently delete template entry, refresh view",
+        "Save Template: Validate required fields, commit add/update, refresh grid data and UI panels",
+        "Cancel Edit: Hide modal/details, discard changes",
+        "Row Data Bound: Setup add/edit/delete buttons for grid rows"
+      ]
+    }
+  ],
+  "business_rules": [
+    "Template Name is mandatory and must not exceed 50 characters.",
+    "HeaderRows must be specified and be an integer greater than 0.",
+    "FileFormat is currently limited to 'Excel'; support for CSV has been disabled.",
+    "Agency and department selection filter which templates are visible/editable.",
+    "Delete is permanent with confirmation."
+  ],
+  "validations": [
+    "RequiredFieldValidator for Name and HeaderRows",
+    "CompareValidator ensures HeaderRows > 0",
+    "ValidationSummary displays all errors in modal edit"
+  ],
+  "calculations": [
+    "HeaderRows is parsed as integer from textbox and defaults to 1 on insert or 0 if missing",
+    "DepartmentID is determined from dropdown selection"
+  ],
+  "conditions": [
+    "If page is loaded without postback, populate dropdowns and refresh grid",
+    "If agency or department dropdown changes, refresh template data",
+    "If HeaderRows input is empty, default to 0, otherwise use entered integer"
+  ],
+  "system_behavior": [
+    "Hides add button and displays custom 'No data found' message for read-only screens",
+    "Displays error/warning panels when appropriate",
+    "Uses modal popup for add/edit operations",
+    "Updates UI panels asynchronously (AJAX triggers)"
+  ],
+  "dependencies": [
+    "Dropdown control utilities for agency and department selection",
+    "Grid utility functions for row command, details switching, and error handling",
+    "Backend entities: Agencies, Departments, UploadTemplateHeader",
+    "AJAX Control Toolkit for modal popup and always visible extenders"
+  ],
+  "exceptions": [
+    "Delete operation is confirmed with JavaScript prompt; accidental deletes must be avoided",
+    "If header rows is empty or invalid, defaults to 0 or 1, but validation prevents saving invalid values"
+  ],
+  "source_document_ids": [
+    "0b4d7100-dd2c-5299-ac56-c9a2a5d6ea31",
+    "0c4da539-7638-5d2b-994f-1a28caf276b8",
+    "2452fc83-705e-5ccc-88d4-9d1f96c1acfb",
+    "36bae1a6-33ed-5cd5-8346-6b03f5e4c51e",
+    "3b7cb03c-32e0-50ca-978d-fe6279e4666f",
+    "40fa639a-f5b7-5d69-aa44-2627b6b4aa67",
+    "418268d4-2876-5828-8005-5594a831e27e",
+    "4ddc3871-620d-518a-b0ee-901810d02e59",
+    "661ebacd-b24b-53ae-9054-f99c38c46489",
+    "8800a6b4-2932-5656-b57f-daa7ede563bd",
+    "9036e64d-570e-5d22-8a59-b9522f1c6a1a",
+    "a16f8604-9ff7-51e8-ba6a-e862b6027d5a",
+    "a5ff5374-e43e-51af-adfe-13cae180d0a8",
+    "b4aae9b4-6902-5843-8b91-5ef5d24a9887",
+    "b7287609-aa55-583e-a8e5-b4ef5f48758c",
+    "b781fa2a-fd54-5ee9-b1e1-bfa95f55ab94",
+    "baa21dd9-5580-5403-b973-1ddefabdbaa3",
+    "d1aa9b40-7998-578c-b104-0c4aefa594c9"
+  ],
+  "content_gaps": [
+    "No explicit details about the UploadTemplates backend data structure.",
+    "No information about the CSV template format (commented out).",
+    "No visibility into how Add/Edit/Delete events are logged or audited."
+  ]
+}
