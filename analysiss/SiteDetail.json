@@ -1,0 +1,64 @@
+{
+  "filename": "SiteDetail",
+  "found": true,
+  "summary": "The SiteDetail class is part of the HSPnet Data Layer and is responsible for managing site details. It includes methods to add, update, delete, copy, and retrieve site details by site ID or ID. The class handles database operations such as executing queries with stored procedures (SiteDetailsAdd, SiteDetailsUpdate, SiteDetailsDelete, SiteDetailsCopy, SiteDetailsSearch, SiteDetailsSearchID) and manages session parameters.",
+  "purpose": "Manage site detail data including CRUD operations for site details in the HSPnet system.",
+  "entities": [],
+  "fields": [
+    "ID",
+    "SiteID",
+    "HeadingID",
+    "Response",
+    "SortOrder",
+    "Description",
+    "DescriptionAlt",
+    "DescriptionFormatted",
+    "SortOrderFormatted",
+    "WebPage",
+    "HeaderChanged"
+  ],
+  "actors": ["HSPnetSession"],
+  "workflows": [
+    {
+      "name": "Manage Site Details",
+      "steps": [
+        "Add Site Detail",
+        "Update Site Detail",
+        "Delete Site Detail",
+        "Copy Site Detail",
+        "Get Site Detail by ID",
+        "Get Site Details by SiteID"
+      ]
+    }
+  ],
+  "business_rules": [
+    "Use procedure names with or without alternate database prefix.",
+    "Translate new lines in response using HSPnet.UI.HTML.",
+    "Do not repeat header entries; set HeaderChanged to true if HeadingID changes.",
+    "Use DescriptionAlt for DescriptionFormatted if UseAltLanguageFields is true.",
+    "Display SortOrder of -1 as blank."
+  ],
+  "validations": [
+    "Check if Response is blank before adding or updating."
+  ],
+  "calculations": [],
+  "conditions": [
+    "If ID is not zero, proceed with copy or delete."
+  ],
+  "system_behavior": [
+    "Reset level counts when a new header entry is detected.",
+    "Flag entries as WebPage when description matches WEB_PAGE resource."
+  ],
+  "dependencies": [
+    "Requires HSPnetSession for database operations."
+  ],
+  "exceptions": [],
+  "source_document_ids": [
+    "32fca0ed-321d-5821-9483-3f26af546395",
+    "412e3fb4-6eb1-5da1-82f0-242edf7ebfb7",
+    "96b15f57-fe70-57a3-9102-98fbd8b40b7c",
+    "a6774683-ea8d-56b4-9528-7775596c32af",
+    "d8a9f57f-c9e8-5fda-89a1-c0c05718d5f7"
+  ],
+  "content_gaps": []
+}
