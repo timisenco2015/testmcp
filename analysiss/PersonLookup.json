@@ -1,0 +1,97 @@
+{
+    "filename": "PersonLookup",
+    "found": true,
+    "summary": "The 'PersonLookup' functionality is integrated within a web page used for querying and displaying personal information. It incorporates various ASP.NET Web UI controls, including Panels, Buttons, and GridViews, to facilitate user interaction.",
+    "purpose": "The primary purpose of the 'PersonLookup' feature is to allow users to search and manage personal information records through a web interface. This includes performing search queries, displaying results, and providing options for exporting or printing data.",
+    "entities": [],
+    "fields": [
+        "pnlCurrentView",
+        "Literal1",
+        "txtQuery",
+        "RequiredFieldValidator1",
+        "ValidationSummary1",
+        "cmdSearch",
+        "cmdClear",
+        "lblErrorList",
+        "cmdHideErrorPanel",
+        "uxPersonLookupNote",
+        "cmdPrint",
+        "cmdClose",
+        "Label1",
+        "uxPageTitle",
+        "AlwaysVisibleControlExtender1",
+        "AlwaysVisibleControlExtender2",
+        "pnlError",
+        "lblErrorCaption",
+        "uxMaster",
+        "dsMaster"
+    ],
+    "actors": [
+        "UserSession",
+        "SystemAdministrator",
+        "Person",
+        "StaffAdmin",
+        "Supervisor",
+        "CourseLeader"
+    ],
+    "workflows": [
+        {
+            "name": "Person Lookup Workflow",
+            "steps": [
+                "User enters search criteria in 'txtQuery'.",
+                "User clicks 'cmdSearch' to execute the search query.",
+                "The system performs the search and displays results in 'uxMaster'.",
+                "User can clear the search criteria using 'cmdClear'.",
+                "The search results can be printed via 'cmdPrint'."
+            ]
+        }
+    ],
+    "business_rules": [
+        "Search results should be sorted by 'LastName' by default.",
+        "Certain information is hidden based on user's permissions and roles.",
+        "User must be authenticated with a valid session to access the lookup page."
+    ],
+    "validations": [
+        "txtQuery must be populated for search - enforced by 'RequiredFieldValidator1'."
+    ],
+    "calculations": [],
+    "conditions": [
+        "User is a 'SystemAdministrator' - all information is visible.",
+        "User is not a 'SystemAdministrator' - certain information is hidden based on roles."
+    ],
+    "system_behavior": [
+        "Page_Load: Initializes the page and sets up initial state.",
+        "cmdSearch_Click: Binds data to 'uxMaster' GridView based on search query.",
+        "uxMaster_RowDataBound: Handles data binding for each row in the GridView."
+    ],
+    "dependencies": [
+        "HSPnet.Framework",
+        "HSPnet.DataLayer",
+        "HSPnet.UI"
+    ],
+    "exceptions": [
+        "Display error panel with 'lblErrorList' if any exception occurs during page processing."
+    ],
+    "source_document_ids": [
+        "117be637-65c1-565e-89b0-977f997dd239",
+        "1870e1b8-b75a-58ce-8571-23dda91e26d5",
+        "1ebb1a0c-261f-5bd5-aa68-bed6fd72afcf",
+        "267fb8df-52be-563e-a155-f932556f8b46",
+        "3a16d9e0-d032-541e-b6c8-f72be3f3f6ea",
+        "432e074f-5967-5e3a-b626-1c5374c0c9d5",
+        "43cdfad3-2731-5d3a-924d-d051420879f0",
+        "6af8a834-c9c9-59e5-a9be-42de1655d226",
+        "93ce3c75-902f-5019-ba81-3e4452017662",
+        "a7102962-59bf-57dd-8f44-b3298103f058",
+        "a8303814-89e0-575b-960d-08fef6b9875d",
+        "ac7612fe-becf-5375-a2c5-37985ed28d78",
+        "b982794e-99b8-5064-8102-f70a8585c59f",
+        "bab75735-5716-55e3-8e8f-9116662f5abd",
+        "d273e52d-4bfd-588a-8461-dbaf1ca741fe",
+        "d9d39c2c-c286-5d34-812e-72fa5f79cb77",
+        "e526b529-ca5a-5256-bc27-c8b2ff0c8086",
+        "ee0f8ceb-7906-5bb6-ad11-09c2ed0053bc",
+        "f39311cb-60d3-5466-a204-86e2cd03fd26"
+    ],
+    "content_gaps": []
+}
