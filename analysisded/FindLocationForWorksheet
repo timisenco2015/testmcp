@@ -2,84 +2,93 @@
 {
   "filename": "FindLocationForWorksheet",
   "found": true,
-  "summary": "The 'FindLocationForWorksheet' page is designed to facilitate the search and creation of location-based worksheets within a web application. It provides functionality for users to search destinations using various filters and allows for the creation of worksheets based on the selected search results.",
-  "purpose": "To provide users with a means to search for locations and create worksheets based on specific criteria.",
+  "summary": "The FindLocationForWorksheet module is part of the HSPnet framework and is designed for searching and managing location data related to worksheets. It includes features like data filtering, form handling, validation, and report generation.",
+  "purpose": "To enable users to search for and manage locations associated with specific worksheets within the HSPnet framework, including filtering, validation, and report generation.",
   "entities": [
     "Agency",
     "GoverningOrg",
     "SiteType",
     "Service",
-    "Destination",
-    "Discipline"
+    "Region",
+    "Province",
+    "Discipline",
+    "DatabaseLocations"
   ],
   "fields": [
     "WorksheetID",
     "CFOFlag",
     "GWSFlag",
-    "Keyword",
-    "Agency",
-    "GoverningOrg",
-    "SiteType",
-    "Service",
-    "Destination",
-    "Region",
-    "Province",
-    "Discipline"
+    "txtKeyword",
+    "ddAgency",
+    "ddGoverningOrg",
+    "ddSiteType",
+    "ddServiceFilter",
+    "ddRegion",
+    "ddProvinceFilter",
+    "ddDisciplineFilter",
+    "chkIncludeCity",
+    "chkIncludeAddress",
+    "cmdPrint",
+    "cmdClear",
+    "cmdSearch",
+    "cmdCreate",
+    "cmdClose",
+    "gridData",
+    "lblMatches",
+    "spnMatches",
+    "txtGroupSize",
+    "chkUseTemplate"
   ],
   "actors": [
-    "User",
-    "Location.CreateWorksheetEntries"
+    "UserSession",
+    "HSPnet.Locations"
   ],
   "workflows": [
     {
-      "name": "Search",
+      "name": "Location Search Workflow",
       "steps": [
-        "Page loads and validates URL hash.",
-        "Retrieve and bind lookup data for dropdown filters.",
-        "User enters search criteria and initiates search.",
-        "Search results are displayed in a grid view."
-      ]
-    },
-    {
-      "name": "Create Worksheet",
-      "steps": [
-        "User selects locations from search results.",
-        "Build comma-delimited lists of selected IDs.",
-        "Invoke creation of worksheet entries using selected IDs.",
-        "Refresh screen data and clear cache."
+        "Initialize page components and setup session",
+        "Load lookup data",
+        "Perform search based on user inputs",
+        "Display search results in grid",
+        "Select specific locations for worksheet creation",
+        "Generate report",
+        "Clear search parameters"
       ]
     }
   ],
   "business_rules": [
-    "Worksheet creation requires valid WorksheetID and CFOFlag.",
-    "Selection of locations is required for worksheet creation."
+    "WorksheetID and CFOFlag are required for worksheet creation",
+    "GWSFlag determines visibility of group size input",
+    "Dropdown lists are populated with options including 'ALL'"
   ],
   "validations": [
-    "CustomValidator to ensure search fields are completed.",
-    "CompareValidator to ensure group size is a valid integer.",
-    "RequiredFieldValidator to ensure group size is entered."
+    "Ensure Group Size is an integer",
+    "Require Group Size entry",
+    "Custom validation for search fields"
   ],
   "calculations": [
-    "Determine number of matches from search results.",
-    "Calculate group size for worksheet creation."
+    "Calculate number of matches from search results",
+    "Determine size for worksheet entries based on GWSFlag"
   ],
   "conditions": [
-    "Visibility of worksheet creation based on CFOFlag and WorksheetID.",
-    "Toggle visibility of match indicator and group size fields based on GWSFlag."
+    "GWSFlag impacts visibility of certain form inputs",
+    "Check if max rows threshold is hit"
   ],
   "system_behavior": [
-    "Screen needs valid WorksheetID and CFOFlag for Create function.",
-    "JavaScript setup for client-side variables and event handling."
+    "Page redirects based on session validation and query",
+    "JavaScript setup for client-side interactions"
   ],
   "dependencies": [
-    "HSPnet.DataLayer.Locations",
-    "HSPnet.Framework.Reporting",
-    "HSPnet.WebServices.ASSDLookups",
-    "HSPnet.Framework.Hashing"
+    "System.Web",
+    "HSPnet.DataLayer",
+    "HSPnet.App_GlobalResources",
+    "HSPnet.UI",
+    "HSPnet.Framework"
   ],
   "exceptions": [
-    "Handle empty keyword in search by defaulting to wildcard %",
-    "Check for max rows exceeded in search results and display appropriate message."
+    "Handle errors in search and report generation",
+    "Display warning messages for inconsistent data"
   ],
   "source_document_ids": [
     "0176c680-d043-50cd-be84-810b9401ca4d",
