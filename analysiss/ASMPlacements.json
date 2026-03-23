@@ -1,0 +1,41 @@
+{
+    "filename": "ASMPlacements",
+    "found": true,
+    "summary": "The ASMPlacements class in HSPnet.DataLayer provides functionality for handling ASM placement data. It includes methods for retrieving data by timetable ID and committing worksheet assignments.",
+    "purpose": "To manage ASM placement retrieval and worksheet assignment within the HSPnet framework.",
+    "entities": [],
+    "fields": [],
+    "actors": [],
+    "workflows": [
+        {
+            "name": "ASM Placement Retrieval",
+            "steps": [
+                "Invoke GetByTimetableID with timetableID and iteration",
+                "Execute stored procedure ReportASMPlacements",
+                "Return SqlDataReader with placement data"
+            ]
+        },
+        {
+            "name": "ASM Worksheet Assignment",
+            "steps": [
+                "Invoke WorksheetAssignASMCommit with timetableID, groupFlag, and iteration",
+                "Execute stored procedure WorksheetAssignASMCommit",
+                "Return success status based on SQL error occurrence"
+            ]
+        }
+    ],
+    "business_rules": [],
+    "validations": [],
+    "calculations": [],
+    "conditions": [],
+    "system_behavior": [
+        "System executes stored procedures for data retrieval and assignment actions.",
+        "System returns placement data or success status based on the execution result."
+    ],
+    "dependencies": [],
+    "exceptions": [],
+    "source_document_ids": [
+        "cb5a711b-a52c-553f-937c-a7848ccea5a5"
+    ],
+    "content_gaps": []
+}
