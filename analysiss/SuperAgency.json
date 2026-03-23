@@ -1,0 +1,91 @@
+{
+  "filename": "SuperAgency",
+  "found": true,
+  "summary": "SuperAgency manages agency data including search, add, update, delete, and reactivate operations, primarily through database interactions using HSPnet framework.",
+  "purpose": "To handle operations related to SuperAgency entities and manage their data effectively.",
+  "entities": [
+    "SuperAgency"
+  ],
+  "fields": [
+    "ID",
+    "Name",
+    "ShortName",
+    "Inactive",
+    "Description",
+    "AgencyList"
+  ],
+  "actors": [
+    "HSPnetSession",
+    "SqlDataReader"
+  ],
+  "workflows": [
+    {
+      "name": "SuperAgencySearch",
+      "steps": [
+        "Initialize procedure SuperAgencySearch.",
+        "Add parameters ShowInactive and keyword.",
+        "Fill list with data from SqlDataReader."
+      ]
+    },
+    {
+      "name": "AddSuperAgency",
+      "steps": [
+        "Validate inputs.",
+        "Initialize procedure SuperAgencyAdd.",
+        "Add input parameters.",
+        "Execute query."
+      ]
+    },
+    {
+      "name": "UpdateSuperAgency",
+      "steps": [
+        "Check ID is not zero.",
+        "Validate inputs.",
+        "Initialize procedure SuperAgencyUpdate.",
+        "Add updated parameters.",
+        "Execute query."
+      ]
+    },
+    {
+      "name": "DeleteSuperAgency",
+      "steps": [
+        "Check ID is not zero.",
+        "Initialize procedure SuperAgencyDelete.",
+        "Add parameters for session and ID.",
+        "Execute query."
+      ]
+    },
+    {
+      "name": "ReactivateSuperAgency",
+      "steps": [
+        "Check ID is not zero.",
+        "Initialize procedure SuperAgencyReactivate.",
+        "Add parameters for session and ID.",
+        "Execute query."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Name and ShortName are mandatory.",
+    "Inactive must be a boolean value."
+  ],
+  "validations": [
+    "Name must be specified.",
+    "ShortName must be specified."
+  ],
+  "calculations": [],
+  "conditions": [],
+  "system_behavior": [
+    "Database interactions for CRUD operations",
+    "Session-based operations management"
+  ],
+  "dependencies": [],
+  "exceptions": [],
+  "source_document_ids": [
+    "1ef6a0c9-a6c5-5e96-9adc-95788ebfa903",
+    "45c27509-3d41-5a16-84f9-c72ebcff8053",
+    "e93fe4b4-6b74-54f9-8228-a94f52e0880a",
+    "ed35e35e-1b1b-5846-8842-4861271123bc"
+  ],
+  "content_gaps": []
+}
