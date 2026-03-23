@@ -1,0 +1,102 @@
+{
+    "filename": "CorrespondenceGeneratedQueue",
+    "found": true,
+    "summary": "The CorrespondenceGeneratedQueue class is part of the HSPnet system, responsible for managing and displaying a queue of generated correspondence reports. This system component includes functionalities for displaying reports, allowing email actions, and facilitating interactions with various controls such as drop-downs and buttons.",
+    "purpose": "The primary purpose of the CorrespondenceGeneratedQueue is to manage and display a queue of correspondence reports within the HSPnet system, allowing users to perform actions such as marking reports as viewed or delivered, sending reports via email, and more.",
+    "entities": [],
+    "fields": [
+        "lblTitle",
+        "AlwaysVisibleControlExtender1",
+        "AlwaysVisibleControlExtender2",
+        "ctl00_txtRefreshWindow",
+        "pnlError",
+        "lblErrorCaption",
+        "lblErrorList",
+        "cmdHideErrorPanel",
+        "pnlWarning",
+        "lblWarningCaption",
+        "lblWarningList",
+        "cmdHideWarningPanel",
+        "hlCorrQueue",
+        "pnlCurrentView",
+        "CurrentViewLabel",
+        "Label1",
+        "ddReportName",
+        "Literal1",
+        "ddFilter",
+        "pnlExpandAll",
+        "hlExpandAll",
+        "hlCollapseAll"
+    ],
+    "actors": [],
+    "workflows": [
+        {
+            "name": "Email Message Workflow",
+            "steps": [
+                "Check if any checkbox from chkBoxList is checked.",
+                "Validate recipient and recipient list.",
+                "Construct the email URL with SessionID.",
+                "Invoke hashURL function.",
+                "Alert user if no checkbox is checked."
+            ]
+        },
+        {
+            "name": "Refresh Data Workflow",
+            "steps": [
+                "Check each checkbox from chkBoxList.",
+                "Construct data lists for refresh.",
+                "Refresh report lists and update the UI."
+            ]
+        }
+    ],
+    "business_rules": [
+        "Checkboxes must be checked for any action to proceed.",
+        "Recipient ID should not be '0' for emails."
+    ],
+    "validations": [
+        "Ensure at least one checkbox is selected before performing an action.",
+        "Recipient IDs should not be '0' when sending emails."
+    ],
+    "calculations": [],
+    "conditions": [
+        "If no checkbox from chkBoxList is checked, alerts are shown.",
+        "Actions depend on the value of ddAction."
+    ],
+    "system_behavior": [
+        "Displays a list of reports in the queue.",
+        "Enables filtering and selection of reports.",
+        "Allows various actions like emailing and marking reports."
+    ],
+    "dependencies": [
+        "HSPnet.Framework",
+        "HSPnet.DataLayer",
+        "System.Web.UI",
+        "AjaxControlToolkit"
+    ],
+    "exceptions": [
+        "No actions can be performed if all options are disabled or unchecked."
+    ],
+    "source_document_ids": [
+        "0812fa0f-005d-5484-935c-70402bbec108",
+        "0d09c923-c0b6-5916-a0f0-0ce19602d87a",
+        "0d976ace-5033-5827-8476-0ba1fc77fea1",
+        "0df1a081-6ff1-55d5-8fa2-4ce4d0d883b4",
+        "11b709eb-941f-5a52-86aa-c55e1a44c9c3",
+        "124e6bb4-6143-538f-80f8-84fe1912f0eb",
+        "171024da-2269-56b7-8d30-37d94ebaf992",
+        "30a4fb54-7523-5c74-81de-ddf922ffad8c",
+        "3723bba5-e806-5535-bf6d-c39dc0059e5a",
+        "422a6c2b-1246-5db2-a9e1-2e0a1946583f",
+        "6a1c167a-8bfa-5ab1-9bbc-3b5e3601a5ba",
+        "6f0fa6c8-24c1-508a-8bdd-5e95f3a1ebb3",
+        "80e61ba8-2c45-5cbb-8a7a-4f3c7470b2e2",
+        "858f860b-e2dc-5d2f-9ff6-996243d4fc7a",
+        "8712cefc-58f3-5d5a-8ca3-8a6037c5668a",
+        "88da5326-722b-50d8-b705-4d1fac594670",
+        "8c27bc98-3e91-5a2f-9b68-1d920f1a0acb",
+        "9f1cb2cf-3ccf-595d-938f-c880c3f3443f",
+        "a47bf535-3b4f-5ae1-8661-1f2618bd14b3",
+        "aca179b5-eef1-552f-9e3e-ba41fad6526f"
+    ],
+    "content_gaps": []
+}
