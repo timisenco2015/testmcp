@@ -1,0 +1,81 @@
+```json
+{
+  "filename": "StudentMessagesASM",
+  "found": true,
+  "summary": "The StudentMessagesASM is a web user control component within the HSPnet system, primarily responsible for managing and displaying messages related to student course preferences, including timetable and preference management.",
+  "purpose": "The purpose of the StudentMessagesASM component is to facilitate the interaction between students and their course scheduling and preferences, providing a user interface for viewing and managing these preferences.",
+  "entities": [
+    "HSPnetSession",
+    "Timetable",
+    "StudentPRPreferences"
+  ],
+  "fields": [
+    "UserSession",
+    "StudentID"
+  ],
+  "actors": [
+    "User",
+    "System Administrator"
+  ],
+  "workflows": [
+    {
+      "name": "Page Load",
+      "steps": [
+        "Check if UserSession is not null."
+      ]
+    },
+    {
+      "name": "Data Binding",
+      "steps": [
+        "Bind data to the control."
+      ]
+    },
+    {
+      "name": "Course Row Data Binding",
+      "steps": [
+        "Bind each row data from Timetable.",
+        "Setup Goto Selector and Choices for each row."
+      ]
+    },
+    {
+      "name": "Delete Command Execution",
+      "steps": [
+        "Execute the delete command on user command.",
+        "Rebind data to reflect changes."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Do not show GotoSelector if PRSelector dates are not valid.",
+    "Hide delete button when in SwitchUserViewOnly mode."
+  ],
+  "validations": [
+    "Check if UserSession is null before proceeding with data operations."
+  ],
+  "calculations": [],
+  "conditions": [
+    "Show different messages based on the timeline of PRSelectorStartDate and PRSelectorEndDate relative to LocalDateTime."
+  ],
+  "system_behavior": [
+    "Hide panel if no Timetable data is available.",
+    "Cancel data operations if UserSession is null."
+  ],
+  "dependencies": [
+    "HSPnet.DataLayer",
+    "HSPnet.Framework",
+    "HSPnet.App_GlobalResources"
+  ],
+  "exceptions": [
+    "Cancel data selection when UserSession is absent.",
+    "Delete command execution errors are handled with client-side confirmation."
+  ],
+  "source_document_ids": [
+    "5056beeb-f5ea-51a8-8a39-c36468786837",
+    "5aa653c9-23a5-5dd3-ac87-92cc8a5d3b78",
+    "72f259f4-4d82-5873-bd42-b24a57c413cc",
+    "e289a620-4ed7-5bf3-a792-2b58e92cf5d0",
+    "f1abcc1f-e68a-575d-a794-3ad5e6208f87"
+  ],
+  "content_gaps": []
+}
+```
