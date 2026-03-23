@@ -1,42 +1,46 @@
 {
   "filename": "Grid",
   "found": true,
-  "summary": "The Grid document contains utility functions for handling UI elements such as buttons, details, and controls in web applications. It provides methods to show, hide, add, edit, and delete UI components, ensuring proper user interaction based on the screen's editability and the specific UI state.",
-  "purpose": "This document serves as a utility to manage user interface components dynamically within a web application, focusing on maintaining user interaction integrity and controlling UI element behavior depending on user permissions and data status.",
+  "summary": "The Grid file provides functionalities for managing UI elements, specifically for hiding and showing buttons and other controls based on various conditions. It handles scenarios for enabling/disabling UI components, switching between modes (view, edit, add), and managing controls in different types of views like GridView, DetailsView, FormView, ListView, etc.",
+  "purpose": "The primary purpose of the Grid file is to provide reusable methods for controlling the visibility and functionality of UI components in web applications, particularly for maintaining consistency in user interactions across different views and states of the application.",
   "entities": [],
   "fields": [],
   "actors": [],
   "workflows": [
     {
-      "name": "UI Controls Management",
+      "name": "Control Visibility Management",
       "steps": [
-        "Determine screen editability and component state",
-        "Use methods to dynamically manage UI components",
-        "Show or hide components based on editability",
-        "Switch components between add, edit, and view modes",
-        "Customize user confirmation prompts using JavaScript"
+        "Identify the control to manage.",
+        "Determine the current screen state (editable or not).",
+        "Evaluate specific conditions (e.g. button type, control type).",
+        "Apply visibility and style changes based on conditions.",
+        "Repeat for each specified control."
       ]
     }
   ],
   "business_rules": [
-    "Buttons should be hidden or shown based on screen's editability status",
-    "Text boxes should be set to read-only and other controls disabled on non-editable screens",
-    "Confirmation dialogs should be used for critical actions like delete"
+    "Hide controls if the screen is not editable.",
+    "Buttons in inactive rows should not be shown.",
+    "Display 'no data found' message when applicable."
   ],
   "validations": [],
   "calculations": [],
   "conditions": [
-    "Determine if the screen is editable",
-    "Check if a row or item is inactive",
-    "Evaluate system admin privileges for certain actions"
+    "ScreenIsEditable: Determines if the screen is in an editable state.",
+    "Inactive: Specifies if the row is inactive.",
+    "Graduated: Checks if a specific condition for graduation applies.",
+    "SystemAdmin: Checks admin-specific visibility rules."
   ],
   "system_behavior": [
-    "Handle UI elements dynamically to enhance user experience",
-    "Prevent unauthorized actions by controlling UI component visibility and functionality"
+    "Switch UI components between different modes depending on user permissions and data state.",
+    "Enable or disable input fields based on the context of their use."
   ],
-  "dependencies": [],
+  "dependencies": [
+    "AjaxControlToolkit for modal popup management.",
+    "ASP.NET Web UI controls like GridView, FormView, etc."
+  ],
   "exceptions": [
-    "Attempting to interact with disabled or non-visible components should have no effect"
+    "If a control does not exist or is null, skip the visibility management for that control."
   ],
   "source_document_ids": [
     "1fe4071f-e39b-546a-9a6e-29af2721cdef",
