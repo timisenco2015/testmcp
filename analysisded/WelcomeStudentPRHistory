@@ -1,0 +1,88 @@
+```json
+{
+  "filename": "WelcomeStudentPRHistory",
+  "found": true,
+  "summary": "The WelcomeStudentPRHistory is a web user control that facilitates the display and management of a student's placement records and history. It includes functionality for binding data to UI components, sorting, and printing reports.",
+  "purpose": "To manage and display a student's placement request history and related information through a web interface.",
+  "entities": [
+    "HSPnetSession",
+    "PRSearchStudent"
+  ],
+  "fields": [
+    "UserSession",
+    "StudentID",
+    "WarnStudentHours",
+    "PRSSLst",
+    "ConfLst",
+    "NotConfLst"
+  ],
+  "actors": [
+    "User",
+    "System.Web.UI.UserControl"
+  ],
+  "workflows": [
+    {
+      "name": "Data Binding",
+      "steps": [
+        "Clear previous lists",
+        "Fetch and filter PR history data",
+        "Classify records into confirmed and not confirmed",
+        "Bind data to UI components"
+      ]
+    },
+    {
+      "name": "Item Command",
+      "steps": [
+        "Capture command event",
+        "Determine command name",
+        "Set sort expression",
+        "Bind data accordingly"
+      ]
+    },
+    {
+      "name": "Report Generation",
+      "steps": [
+        "Trigger print command",
+        "Run report generation",
+        "Display HTML report"
+      ]
+    }
+  ],
+  "business_rules": [
+    "Records are classified based on their confirmation status.",
+    "Future placements are shown only if ending on or after the current date."
+  ],
+  "validations": [
+    "Check if UserSession is initialized before processing.",
+    "Ensure that data lists are cleared before re-binding."
+  ],
+  "calculations": [],
+  "conditions": [
+    "If PR is confirmed and withhold placement, classify as not confirmed.",
+    "Show entries ending on or after today in future section."
+  ],
+  "system_behavior": [
+    "Toggles visibility of HTML report panel based on data availability.",
+    "Handles UI sorting direction via ViewState."
+  ],
+  "dependencies": [
+    "HSPnet.DataLayer",
+    "System.Web.UI.WebControls"
+  ],
+  "exceptions": [
+    "Null or invalid UserSession may disrupt data binding."
+  ],
+  "source_document_ids": [
+    "12ba6e83-f3d6-5440-80b0-094b8dd27a8c",
+    "4b55d321-598f-5a5c-8961-7fdbb26b88ee",
+    "50d4f5e4-f91a-593e-8a8c-aa3bb34fd9e4",
+    "6019bf51-f18b-5910-b6c0-554223de3d34",
+    "744e71ce-a9b4-5f0d-8d5e-ad5eb299e926",
+    "7511ee31-26f4-503a-96f2-db189be44f23",
+    "9ed2db53-9513-50d3-8315-e09fdbcfcff2",
+    "e7f3e571-0be7-5e57-a718-566cc76242c0",
+    "f9a68402-d4e7-54d9-9d56-4c41aefcb777"
+  ],
+  "content_gaps": []
+}
+```
