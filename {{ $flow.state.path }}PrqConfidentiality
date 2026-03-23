@@ -1,0 +1,90 @@
+```json
+{
+  "filename": "PrqConfidentiality",
+  "found": true,
+  "summary": "The documents detail the user control for managing confidentiality and consent forms within the HSPnet system, focusing on the staff profile module.",
+  "purpose": "To facilitate and manage confidentiality and consent forms related to staff profiles in the HSPnet platform, ensuring proper user interface interactions and data management.",
+  "entities": [
+    "HSPnetSession",
+    "StaffConsentForms",
+    "StudentPrerequisite",
+    "StaffConsentForm"
+  ],
+  "fields": [
+    "UserSession",
+    "StaffID",
+    "ScreenIsEditable",
+    "DisplayFPREConf",
+    "Inactive",
+    "Disabled",
+    "ConfOtherScreenIsEditable",
+    "ReadOnly",
+    "CurrentPage"
+  ],
+  "actors": [
+    "UserSession",
+    "StaffID"
+  ],
+  "workflows": [
+    {
+      "name": "Confidentiality Form Management",
+      "steps": [
+        "Bind data to GridView control based on session and staff ID.",
+        "Handle row commands like Add, Edit, Delete using GridViewCommandEvent.",
+        "Select, Insert, Update data in ObjectDataSource controls based on user session.",
+        "Manage visibility of UI components and buttons based on screen editability and user roles."
+      ]
+    },
+    {
+      "name": "Consent Form Interaction",
+      "steps": [
+        "Setup FormView control to display and edit consent forms.",
+        "Bind data to FormView control for StudentPrerequisite entity.",
+        "Toggle edit modes and control visibility based on form state and screen permissions."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Screen is not editable if UserSession is null.",
+    "Add/Edit/Delete actions are available depending on the ConfOtherScreenIsEditable flag."
+  ],
+  "validations": [
+    "Ensure Page.IsValid on insert/update operations.",
+    "Cancel data operations if UserSession is not set."
+  ],
+  "calculations": [],
+  "conditions": [
+    "Visibility of buttons based on ConfOtherScreenIsEditable and general screen editability.",
+    "Field values populated based on DataKey and control dropdown selections."
+  ],
+  "system_behavior": [
+    "Respective controls trigger page redirects upon successful data operations.",
+    "HSPnetSession cache updates on major data changes like insert, update, and delete."
+  ],
+  "dependencies": [
+    "HSPnet.DataLayer",
+    "HSPnet.Framework",
+    "System.Web.UI",
+    "AjaxControlToolkit"
+  ],
+  "exceptions": [
+    "Operations are canceled if UserSession is not available."
+  ],
+  "source_document_ids": [
+    "0d4e87ce-2e16-5c73-84e0-09c65d8fc606",
+    "174d9d0f-ce2e-5960-8ae4-9cb7cea2b69c",
+    "394cf0db-34a1-5c0d-8c95-e9a869be8474",
+    "53c676b1-3666-531c-99d8-07286415ae44",
+    "5d945a78-3a22-57dc-b784-12b93fe18fa6",
+    "760bb462-8bc1-5511-b952-66bdb50b8808",
+    "7efb356a-8088-5921-925a-52b238f52a90",
+    "8ccb4372-39b7-5df4-98bf-412d765c1706",
+    "ae311fd0-c1ae-5a84-9986-101a7bf00625",
+    "bd3c9440-fc84-508e-b6cb-264a233ad0b9",
+    "ee41efa9-58a0-5aa3-8b98-4ba6013c1503",
+    "fce69528-fdc6-5f52-a776-71ea295ff9b2",
+    "fdb7707a-363b-572f-8aee-438d2b3c1096"
+  ],
+  "content_gaps": []
+}
+```
