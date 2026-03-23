@@ -1,96 +1,122 @@
 {
   "filename": "ReportWizard",
   "found": true,
-  "summary": "The 'ReportWizard' is a component in the HSPnet system designed for the creation, editing, and execution of reports based on predefined templates or user-defined specifications. It interacts with various user sessions and database entries to facilitate the generation of reports in different formats such as HTML, PDF, Excel, and CSV.",
-  "purpose": "The purpose of the 'ReportWizard' is to provide a structured interface for users to create, edit, and run reports using predefined templates or customized settings. It includes functionalities to validate inputs, manage user sessions, and handle the flow of report generation processes.",
+  "summary": "The ReportWizard is a web-based application designed to facilitate the creation, editing, and execution of structured reports within the HSPnet system. It provides a wizard-driven interface, supporting various stages in report building, including input data collection, template usage, and output formatting. It supports multiple output formats like HTML, PDF, Excel, and CSV.",
+  "purpose": "The ReportWizard is intended to streamline the process of generating reports for various stakeholders using predefined templates and user-defined configurations. It allows for dynamic data input, validation, and report generation in multiple formats based on user roles and permissions.",
   "entities": [
-    "Wizards",
+    "ReportWizard",
     "WizardStage",
     "WizardField",
-    "UserSession"
+    "UserSession",
+    "WizardsController"
   ],
   "fields": [
     {
-      "name": "wizardID",
-      "type": "int"
+      "name": "Head1",
+      "type": "HtmlHead",
+      "description": "Control for the HTML head section."
     },
     {
-      "name": "wizardTemplateID",
-      "type": "int"
+      "name": "form1",
+      "type": "HtmlForm",
+      "description": "Control for the main form in the webpage."
     },
     {
-      "name": "name",
-      "type": "string"
+      "name": "ScriptManagerMaster",
+      "type": "ScriptManager",
+      "description": "Manages client script for the page."
     },
     {
-      "name": "description",
-      "type": "string"
+      "name": "lblTitle",
+      "type": "Label",
+      "description": "Displays the title of the report."
     },
     {
-      "name": "PAOnly",
-      "type": "bool"
+      "name": "hdnAction",
+      "type": "HiddenField",
+      "description": "Stores action values for the wizard."
     },
     {
-      "name": "RAOnly",
-      "type": "bool"
+      "name": "hdnStageNumber",
+      "type": "HiddenField",
+      "description": "Stores the current stage number."
     },
     {
-      "name": "locked",
-      "type": "bool"
+      "name": "hdnStageHistory",
+      "type": "HiddenField",
+      "description": "Keeps track of stage history."
     },
     {
-      "name": "runMode",
-      "type": "string"
+      "name": "hdnType",
+      "type": "HiddenField",
+      "description": "Stores the type of wizard execution."
     },
     {
-      "name": "stageHistory",
-      "type": "string"
+      "name": "hdnDisplay",
+      "type": "HiddenField",
+      "description": "Dictates the form display mode."
+    },
+    {
+      "name": "cmdAction",
+      "type": "Button",
+      "description": "Executes the defined action."
     }
   ],
   "actors": [
-    "SystemAdministrator",
-    "PlacingAgency",
-    "ReceivingAgency",
-    "UserSession"
+    "System Administrator",
+    "Placing Agency",
+    "Receiving Agency",
+    "User"
   ],
   "workflows": [
     {
-      "name": "Report Generation",
+      "name": "Report Creation",
       "steps": [
-        "Determine the execution mode based on parameters.",
-        "Load the necessary stage information.",
-        "Display the initial form for name and description.",
-        "Process form submissions to create, edit, or run the report.",
-        "Handle errors and user messages."
+        "Initialize wizard with template information.",
+        "Load initial and subsequent stages based on user input.",
+        "Collect data for report generation.",
+        "Validate data input and correctness.",
+        "Determine report output format."
+      ]
+    },
+    {
+      "name": "Report Execution",
+      "steps": [
+        "Validate report settings and criteria.",
+        "Generate report based on collected data and user settings.",
+        "Provide downloadable links based on the selected output format."
       ]
     }
   ],
   "business_rules": [
-    "The execution mode is determined by the user's session and provided parameters.",
-    "Reports must be run for a minimum number of agencies in specific conditions."
+    "Reports can be defined by users or pre-defined for agencies.",
+    "An agency-specific report can be locked for exclusive access.",
+    "Reports must be validated before execution."
   ],
   "validations": [
-    "Ensure the report name is not empty.",
-    "Verify the report type is selected if the user is a system administrator during new report creation."
+    "Report name must not be blank.",
+    "Report type must be selected by system admins for new wizards.",
+    "Form fields must validate according to the definitions in WizardField."
   ],
   "calculations": [
-    "Date range calculations for academic, fiscal, and other terms."
+    "Determine report file name using hashing for uniqueness.",
+    "Locale-specific report text based on user session settings."
   ],
   "conditions": [
-    "Wizard mode changes based on the selected action (e.g., 'Start', 'Finish').",
-    "Fields are displayed based on user roles (PAOnly, RAOnly)."
+    "Switch execution mode based on wizard type and initial ID.",
+    "User's role dictates report creation permissions."
   ],
   "system_behavior": [
-    "Redirect users based on the system configuration (e.g., YARP usage).",
-    "Update session details and form hidden fields during page lifecycle events."
+    "Rewrites URL after initial load to maintain security.",
+    "Loads JavaScript for client-side event handling and validation."
   ],
   "dependencies": [
-    "UserSession object for session management.",
-    "Resources for localization and UI elements."
+    "HSPnet.DataLayer",
+    "HSPnet.Framework",
+    "AjaxControlToolkit"
   ],
   "exceptions": [
-    "URL rewrite validation upon initial page load.",
-    "Error handling for invalid SQL execution during report generation."
+    "Validation errors when fields are not correctly populated."
   ],
   "source_document_ids": [
     "00b5024b-7872-5b3d-95ea-870ff56ec2f4",
