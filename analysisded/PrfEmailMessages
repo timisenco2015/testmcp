@@ -2,13 +2,11 @@
 {
   "filename": "PrfEmailMessages",
   "found": true,
-  "summary": "The PrfEmailMessages code manages the user interface for viewing, editing, and inserting staff email messages in the HSPnet system.",
-  "purpose": "To provide a user control for staff email message management, including displaying, editing, and inserting messages within a web application.",
+  "summary": "The `PrfEmailMessages` user control manages staff messages within a web application, providing functionality for CRUD operations and interaction with the UI.",
+  "purpose": "To facilitate the viewing, editing, inserting, and deletion of staff messages through a web interface using ASP.NET controls and server-side logic.",
   "entities": [
-    "HSPnetSession",
-    "StaffID",
     "StaffMessage",
-    "UserSession"
+    "HSPnetSession"
   ],
   "fields": [
     "mdlDetails",
@@ -16,82 +14,62 @@
     "uxDetail",
     "dsStaffMessagesID",
     "dsType",
+    "updPnlMain",
+    "pnlEmptyData",
+    "lblEmptyData",
+    "cmdAddEmptyData",
+    "gridData",
+    "dsStaffMessages",
+    "pnlPopup",
+    "updPnlPopup",
+    "btnShowPopup"
+  ],
+  "actors": [
+    "UserSession",
+    "CurrentPage",
     "ScreenIsEditable",
     "ReadOnly",
     "ScriptMgr",
-    "CurrentPage"
-  ],
-  "actors": [
-    "UserSession"
+    "StaffID"
   ],
   "workflows": [
     {
-      "name": "uxDetail Data Bound",
+      "name": "Data Binding and Display",
       "steps": [
-        "Check if uxDetail row and data item exist.",
-        "If exists, find and select value in TypeCodeID dropdown."
+        "Check if UserSession is null, if so cancel the operation.",
+        "Retrieve and bind data to controls using ObjectDataSource.",
+        "Manage data display based on screen editability."
       ]
     },
     {
-      "name": "uxDetail PreRender",
+      "name": "Message CRUD Operations",
       "steps": [
-        "Find 'cmdSave' button.",
-        "Set visibility based on ScreenIsEditable and uxDetail mode."
-      ]
-    },
-    {
-      "name": "uxDetail Item Inserting",
-      "steps": [
-        "Check if page is valid.",
-        "Retrieve TypeCodeID from dropdown."
-      ]
-    },
-    {
-      "name": "Data Selection",
-      "steps": [
-        "Check UserSession validity.",
-        "Set input parameters for data retrieval."
-      ]
-    },
-    {
-      "name": "Data Bound",
-      "steps": [
-        "Toggle empty data panel based on row count and ScreenIsEditable."
-      ]
-    },
-    {
-      "name": "Row Command Handling",
-      "steps": [
-        "Handle add, edit, and delete commands using grid controls."
+        "Insert and update operations check page validity before proceeding.",
+        "Inserting and updating involve setting values from UI components.",
+        "Handle database interactions through ObjectDataSource events."
       ]
     }
   ],
   "business_rules": [
-    "Auto-generated fields should be managed via code-behind.",
-    "FormView's visibility and editability is dependent on ScreenIsEditable flag."
+    "Ensure UserSession is active before binding or manipulating data."
   ],
   "validations": [
-    "Cancel operations if Page is not valid.",
-    "Ensure UserSession is valid before selecting or updating."
+    "Page.IsValid must be true for insert or update operations to proceed."
   ],
-  "calculations": [
-    "Redirect URLs include query string values, such as CurrentPage."
-  ],
+  "calculations": [],
   "conditions": [
-    "ScreenIsEditable dictates visual components' enablement.",
-    "UserSession must be valid for data operations."
+    "Visibility of add/edit buttons is conditional on ScreenIsEditable."
   ],
   "system_behavior": [
-    "Cache the user session after certain operations.",
-    "Redirect to the current page after data operations."
+    "Redirect upon successful data operations to maintain current page context.",
+    "Cache UserSession after operations to preserve session state."
   ],
   "dependencies": [
-    "System.Web.UI",
-    "AjaxControlToolkit",
-    "HSPnet.DataLayer"
+    "AjaxControlToolkit for modal popups.",
+    "Grid utility methods for UI manipulation."
   ],
   "exceptions": [
-    "Operations are canceled if Page is not valid or UserSession is null."
+    "JavaScript errors related to event validation when using EmptyDataTemplate."
   ],
   "source_document_ids": [
     "54eb7f90-aa81-5c73-9edf-449b18368886",
