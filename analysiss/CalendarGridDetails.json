@@ -1,13 +1,9 @@
 {
   "filename": "CalendarGridDetails",
   "found": true,
-  "summary": "The CalendarGridDetails documents describe a system component for handling calendar grid information related to placement requests in a software application. It involves managing dates, times, shifts, and related attributes for scheduling.",
-  "purpose": "The purpose is to manage and store details about calendar grids used for scheduling and placement requests including date ranges, shift codes, and other scheduling details.",
-  "entities": [
-    "CalendarGridDetail",
-    "Shift",
-    "PlacementRequest"
-  ],
+  "summary": "The CalendarGridDetails system is designed to manage and display detailed calendar entries related to placement requests. It encompasses functionality to handle calendar blocks, shifts, and related attributes for schedule management.",
+  "purpose": "To provide a systematic approach for managing calendar details associated with placement schedules, including handling shifts, blocks, instructors, and site-specific information.",
+  "entities": [],
   "fields": [
     "PRDID",
     "StartDate",
@@ -59,44 +55,43 @@
     "InstructorID"
   ],
   "actors": [
-    "Instructor",
-    "ServiceContact",
-    "DestinationContact"
+    "Instructor"
   ],
   "workflows": [
     {
-      "name": "Retrieve CalendarGridDetails by ID",
+      "name": "Retrieve Calendar Grid Details by ID",
       "steps": [
-        "Check if PRD_ID is greater than 0.",
-        "Set database procedure name.",
-        "Add parameter to database call.",
-        "Execute and read data.",
-        "Populate CalendarGridDetail fields from database results."
+        "Initialize a list of CalendarGridDetail.",
+        "Set procedure name to 'CalendarGridDetailsViewDetails'.",
+        "Add 'PRD_ID' parameter.",
+        "Execute data retrieval using SqlDataReader.",
+        "If data is available, map database fields to CalendarGridDetail properties.",
+        "Close the data reader."
       ]
     }
   ],
   "business_rules": [
-    "ShiftLength is calculated using the ShiftCode, StartTime, and EndTime."
+    "ShiftLength is calculated based on ShiftCode, StartTime, and EndTime.",
+    "Has2Blocks is determined by the presence of a valid EndDateBlock2."
   ],
   "validations": [
-    "Ensure PRD_ID is a valid identifier before executing retrieval procedure."
+    "Validate if EndDateBlock2 is not a null date to set Has2Blocks.",
+    "Ensure data retrieval fields are not null before assignment."
   ],
   "calculations": [
-    "Calculate ShiftLength based on ShiftCode, StartTime, and EndTime."
+    "ShiftLength calculation using Shift.ShiftLength method."
   ],
   "conditions": [
-    "Has2Blocks is true if EndDateBlock2 is not a null date."
+    "If PRD_ID is greater than 0, proceed with data retrieval."
   ],
   "system_behavior": [
-    "Retrieves and populates placement request and calendar grid details based on PRD_ID."
+    "Handles the shift and block details for calendar management."
   ],
   "dependencies": [
-    "HSPnetSession",
-    "Database",
-    "Shift"
+    "Relies on HSPnetSession for database operations."
   ],
   "exceptions": [
-    "Handle null database reader and ensure resources are closed after use."
+    "No data read exception, if SqlDataReader fails to fetch data."
   ],
   "source_document_ids": [
     "6996bec6-dfba-53d9-be64-cc88af90730b",
