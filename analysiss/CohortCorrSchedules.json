@@ -1,0 +1,95 @@
+{
+    "filename": "CohortCorrSchedules",
+    "found": true,
+    "summary": "The \"CohortCorrSchedules\" file is related to the management of correspondence schedules within the HSPnet system. It includes functionality for managing and displaying schedules related to cohorts, using ASP.NET web forms. The interface involves interaction with a grid view for data presentation and manipulation through forms for item commands, updates, and data bindings.",
+    "purpose": "To manage and display correspondence schedules for cohorts, allowing users to add, edit, and delete schedule information in a structured format.",
+    "entities": [
+        "CohortCorrSchedules",
+        "UserSession",
+        "Timetable",
+        "CorrespondenceCohortSchedule",
+        "Grid",
+        "FormView",
+        "DropDownList"
+    ],
+    "fields": [
+        "Head1",
+        "frmMain",
+        "ScriptManagerMaster",
+        "updPnlCorr",
+        "lblMainTitle",
+        "uxTermName",
+        "uxStartDate",
+        "uxEndDate",
+        "fvwCorr",
+        "gvwCorr"
+    ],
+    "actors": [
+        "UserSession",
+        "CorrespondenceCohortSchedules"
+    ],
+    "workflows": [
+        {
+            "name": "Manage Correspondence Schedule",
+            "steps": [
+                "User accesses the CohortCorrSchedules page.",
+                "The system loads the page and verifies URL hash.",
+                "The header is set up with timetable details.",
+                "Grid and form view are populated with schedule data.",
+                "Users can add, edit, or delete schedule entries.",
+                "Data changes are persisted on command completion."
+            ]
+        }
+    ],
+    "business_rules": [
+        "Schedules can be inherited if specified in the query string.",
+        "Screen is editable unless the user session is view-only or course-leader only.",
+        "Data source is set up based on timetable ID and user session."
+    ],
+    "validations": [
+        "Integer validation for days input field.",
+        "Required field validation for days input field."
+    ],
+    "calculations": [],
+    "conditions": [
+        "If the user session is null, data selection is canceled."
+    ],
+    "system_behavior": [
+        "Displays a 'no data found' message when applicable.",
+        "Triggers redirect after data command execution.",
+        "Handles data binding and form updates on user interactions."
+    ],
+    "dependencies": [
+        "System.Web.UI",
+        "HSPnet DataLayer",
+        "HSPnet UI",
+        "HSPnet Framework"
+    ],
+    "exceptions": [
+        "JavaScript errors related to event validation during data manipulation."
+    ],
+    "source_document_ids": [
+        "16c5fa89-674d-5eb3-a759-62d579e9e324",
+        "23907c29-2a3f-5428-8b13-b44b0553be6b",
+        "2bcd18cf-d8e2-5ea1-9ec5-7676eeccb9d9",
+        "3d6d621c-f67b-5860-be87-d3ef07db9f7d",
+        "492f20e5-272f-5b07-a9b0-142135736463",
+        "49527ab2-be1e-561e-ac70-a990d58eb453",
+        "545cbebb-670f-5690-97a5-d477b29ac084",
+        "59bf0ffb-ac84-50b8-bf7a-fa3cd7ea5160",
+        "661cffc1-c9b4-5c74-a9ac-2c287db62130",
+        "6fb776fa-e6df-5ac8-860e-b28e2d460ca7",
+        "861aa692-2619-58e3-815b-8bef9d2933e6",
+        "906c1234-c35f-5550-a105-0ea1b272134b",
+        "97a7dece-8c9b-54d5-b53a-1973c56994a6",
+        "ab4d4006-60bb-5a77-aa98-42cb368d143a",
+        "b1c5a313-bab5-58d7-a25f-fea7d88c3ce5",
+        "b65096c1-35e2-539d-89ee-69015a510e5d",
+        "b7c7487d-55be-5e3b-a9a7-c8ed76365e89",
+        "c052b449-729a-5c56-9c51-70e7474d8ede",
+        "cfb9772e-11b2-5b32-a987-35704877fe4b",
+        "ebcd282c-ab7a-543f-98ba-0a42fef151eb",
+        "fa48dc0e-a877-5eff-a4cb-1cfb638fc298"
+    ],
+    "content_gaps": []
+}
