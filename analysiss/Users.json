@@ -1,0 +1,101 @@
+{
+  "filename": "Users",
+  "found": true,
+  "summary": "The 'Users' document handles various operations related to user management, including assigning user permissions, updating user details, and handling alternate logins. It involves database operations for storing and retrieving user information, including agency, department, and role details.",
+  "purpose": "To manage user-related data, permissions, and settings within the system, allowing for updates, permissions assignments, and retrieval of user activities and details.",
+  "entities": [],
+  "fields": [
+    "UserID",
+    "UserName",
+    "Email",
+    "SecureEmail",
+    "RoleID",
+    "Disabled",
+    "AllowAllDepartments",
+    "AllowAllPrograms",
+    "AllowAllSites",
+    "AllowAllServices",
+    "AllowAllDestinations",
+    "OccasionalUser",
+    "AllowAllSubDisciplines",
+    "AllowAllAgencies",
+    "ViewOnly",
+    "HideStudentNames",
+    "LastLoginDate",
+    "SupportComment",
+    "SupportCommentDate",
+    "IssueEmail",
+    "MandatoryTrainingRefresherRequired"
+  ],
+  "actors": [
+    "HSPnetSession",
+    "Database",
+    "SqlDataReader"
+  ],
+  "workflows": [
+    {
+      "name": "User Permission Assignment",
+      "steps": [
+        "Delete existing permissions",
+        "Split input list by commas",
+        "Assign each ID in the list to the user"
+      ]
+    },
+    {
+      "name": "User Update",
+      "steps": [
+        "Set stored procedure for user update",
+        "Add all necessary parameters",
+        "Execute query",
+        "Return results"
+      ]
+    },
+    {
+      "name": "Locale Update",
+      "steps": [
+        "Set stored procedure for locale update",
+        "Add UserID and Locale parameters",
+        "Execute query"
+      ]
+    }
+  ],
+  "business_rules": [
+    "Delete existing permissions before assigning new ones.",
+    "Check if user ID is greater than 0 before updating or deleting alternate logins."
+  ],
+  "validations": [
+    "Ensure user ID is greater than 0 for certain operations."
+  ],
+  "calculations": [],
+  "conditions": [
+    "If ID is valid and greater than 0, proceed with operation."
+  ],
+  "system_behavior": [
+    "Formats Date and Time fields using DateFormatter.",
+    "Encrypts passwords before database storage."
+  ],
+  "dependencies": [
+    "DateFormatter",
+    "Framework.Security"
+  ],
+  "exceptions": [],
+  "source_document_ids": [
+    "04436fbf-69e5-516d-a9f8-188b2b7af3f0",
+    "05ea3577-7281-5d9a-b335-bf5265fd7a31",
+    "23ba49ac-d81e-59cd-9c21-afe565a90a91",
+    "2b590a48-4f3b-5650-aad6-e935e4a278ae",
+    "407c8de4-3ad6-58a8-9f60-60a6a54dfd26",
+    "5fde6c8c-1923-5490-ab36-39b64e6bd149",
+    "627a7809-ca43-5554-bdde-4d23f59c4428",
+    "6f6a7c19-d0df-564b-8705-42a64a5babee",
+    "9e0bcb0e-52f2-58f9-96f5-9cc35eacb3a6",
+    "cf542afa-980c-5f08-af79-7378504f9db3",
+    "e49cd427-5cff-5bdd-a917-745eeb338325",
+    "f04e72ba-53fb-5f5d-ad45-8d18cdfb79ae",
+    "f1380a13-7c78-5515-9c64-10eadf6c457f",
+    "f43cc326-1ddd-528f-b7fb-51f962f0cc04",
+    "f8c5de7f-be3a-5c05-a683-63b7f22a5acc",
+    "f9ea800e-ee2b-5eea-b156-338eb038430d"
+  ],
+  "content_gaps": []
+}
