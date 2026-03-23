@@ -1,0 +1,58 @@
+# Module: MaintGoverningOrg
+
+## MaintGoverningOrg-UC1 — Manage Governing Organization Data
+
+- Primary Actor(s): System Administrator
+- Secondary Actor(s): User
+- Trigger: Administrator decides to manage governing organization data.
+- Description: This use case allows administrators to manage governing organization data including adding, editing, reactivating, or deleting entries.
+- Preconditions:
+  - The user must be logged in as a System Administrator.
+  - The screen must be editable.
+- Postconditions:
+  - The governing organization data is updated in the database.
+- Main Success Scenario:
+  1. Administrator selects to add, edit, or reactivate governing organization.
+  2. System displays the detail view for the selected organization.
+  3. Administrator updates the necessary fields.
+  4. Administrator saves the changes.
+  5. System validates the input data.
+  6. System updates the database accordingly.
+- Extensions:
+  - If data is invalid, display error message and prompt to correct it.
+- Exceptions:
+  - If the organization cannot be deleted, an error message is displayed.
+- Business Rules:
+  - Only System Administrators with edit permissions can modify the data.
+  - The phone and fax numbers must adhere to the specified mask.
+  - A name and short name must be provided.
+- Assumptions:
+  - The administrator understands the structure and requirements of governing organization data.
+- Open Issues:
+  - None.
+
+## MaintGoverningOrg-UC2 — Search Governing Organizations
+
+- Primary Actor(s): User
+- Secondary Actor(s): None
+- Trigger: User wants to search for specific governing organizations.
+- Description: This use case allows users to search governing organizations by keywords and optionally include inactive ones.
+- Preconditions:
+  - User is authenticated.
+- Postconditions:
+  - The system displays a filtered list of governing organizations.
+- Main Success Scenario:
+  1. User enters a keyword in the search field.
+  2. User chooses whether to show inactive organizations.
+  3. User clicks the refresh view button.
+  4. System retrieves and displays matching records.
+- Extensions:
+  - None.
+- Exceptions:
+  - None.
+- Business Rules:
+  - Keywords entered should match organization fields like name or address.
+- Assumptions:
+  - The user is familiar with the search process.
+- Open Issues:
+  - None.
