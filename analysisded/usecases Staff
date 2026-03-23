@@ -1,0 +1,115 @@
+# Module: Staff
+
+## Staff-UC1 — Manage Staff Details
+
+- Primary Actor(s): System Administrator
+- Secondary Actor(s): None
+- Trigger: A staff member's details need to be added or updated in the system.
+- Description: Administrators can add or update staff member details within the system, including contact information, department, roles, and permissions.
+- Preconditions: The administrator has access to the staff management system.
+- Postconditions: The staff details are accurately reflected in the system's database.
+- Main Success Scenario:
+  1. Administrator accesses the staff management system.
+  2. Administrator selects to add a new staff member or edit an existing one.
+  3. The system presents a form with fields for staff details.
+  4. Administrator fills in or updates the fields with the staff member's information.
+  5. Administrator submits the details.
+  6. The system validates the input and saves the details to the database.
+- Extensions:
+  - 2a. If editing, the system loads the existing details into the form for updating.
+- Exceptions:
+  - 6a. If validation fails, the system displays error messages and prompts for corrections.
+- Business Rules:
+  - Email must be unique for each staff member.
+  - Mandatory fields must be completed before submission.
+- Assumptions: Administrators are trained on how to use the staff management system.
+- Open Issues: None identified.
+
+## Staff-UC2 — Search Staff Members
+
+- Primary Actor(s): Staff User
+- Secondary Actor(s): None
+- Trigger: A user needs to search for staff members by department or role.
+- Description: Users can search for staff members based on specific criteria such as department, role, or personal details.
+- Preconditions: The user has access to the staff management system.
+- Postconditions: The search results show a list of staff members matching the criteria.
+- Main Success Scenario:
+  1. User accesses the staff management system.
+  2. User navigates to the search function.
+  3. User enters search criteria (e.g., department, role).
+  4. User initiates the search.
+  5. The system queries the database and displays the matching results.
+- Extensions:
+  - 3a. Advanced search options may allow combination of criteria.
+- Exceptions:
+  - 5a. If no results match, the system displays a 'no results found' message.
+- Business Rules:
+  - Users can only search within departments they have access to.
+- Assumptions: System provides basic and advanced search functionalities.
+- Open Issues: None identified.
+
+## Staff-UC3 — Assign Roles and Permissions
+
+- Primary Actor(s): System Administrator
+- Secondary Actor(s): None
+- Trigger: A staff member's role or permission needs to be changed.
+- Description: Administrators can update roles and permissions assigned to staff members, affecting their access and responsibilities in the system.
+- Preconditions: The staff member is already in the system and logged in with permissions to assign roles.
+- Postconditions: Updated roles and permissions are saved and enforced by the system.
+- Main Success Scenario:
+  1. Administrator selects a staff member whose roles need updating.
+  2. Administrator views current roles and permissions.
+  3. Administrator changes roles and permissions as needed.
+  4. Administrator submits the updates.
+  5. System validates and enforces the new roles and permissions.
+- Extensions:
+  - None identified.
+- Exceptions:
+  - 5a. If validation fails, system prompts for corrections.
+- Business Rules:
+  - Only authorized administrators can change roles.
+- Assumptions: System supports flexible role management.
+- Open Issues: None identified.
+
+## Staff-UC4 — View Staff Profiles
+
+- Primary Actor(s): Staff Member
+- Secondary Actor(s): None
+- Trigger: A staff member wants to view their profile information.
+- Description: Staff members can view their personal profile details, including contact information, roles, and permissions.
+- Preconditions: The staff member is logged into the system.
+- Postconditions: The staff member views their current profile information.
+- Main Success Scenario:
+  1. Staff member logs into the system.
+  2. Staff member navigates to their profile page.
+  3. System displays the staff member's current profile information.
+- Extensions:
+  - None identified.
+- Exceptions:
+  - None identified.
+- Business Rules:
+  - Staff members can only view their own profiles.
+- Assumptions: Profile information is accurate and up-to-date.
+- Open Issues: None identified.
+
+## Staff-UC5 — Deactivate Staff Account
+
+- Primary Actor(s): System Administrator
+- Secondary Actor(s): None
+- Trigger: A staff member needs to be deactivated due to termination or other reasons.
+- Description: The system administrator can deactivate a staff member's account, preventing further access to the system.
+- Preconditions: The staff member is currently active in the system.
+- Postconditions: The staff member's account is deactivated, and they can no longer access the system.
+- Main Success Scenario:
+  1. Administrator logs into the staff management system.
+  2. Administrator searches for and selects the staff member to deactivate.
+  3. Administrator chooses to deactivate the staff member's account.
+  4. System confirms the action and updates the staff member's status to inactive.
+- Extensions:
+  - 3a. Administrator may specify a reason for deactivation.
+- Exceptions:
+  - None identified.
+- Business Rules:
+  - Only administrators can deactivate accounts.
+- Assumptions: Deactivated accounts are handled securely by the system.
+- Open Issues: None identified.
