@@ -1,0 +1,45 @@
+{
+  "filename": "AssessmentValidationResult",
+  "found": true,
+  "summary": "AssessmentValidationResult class details various boolean validation properties applicable to an assessment process.",
+  "purpose": "To determine specific validation results related to assessment conditions, such as interim and final assessment statuses, involvement of instructors and supervisors, and maximum assessment limits.",
+  "entities": [],
+  "fields": [
+    {
+      "name": "InterimWithoutFinal",
+      "type": "bool",
+      "description": "Indicates whether there is an interim assessment without a final assessment."
+    },
+    {
+      "name": "InstructorsAndSupervisors",
+      "type": "bool",
+      "description": "Indicates the presence of both instructors and supervisors in the assessment process."
+    },
+    {
+      "name": "AssessmentMaximumExceeded",
+      "type": "bool",
+      "description": "Indicates if the assessment maximum limit has been exceeded."
+    }
+  ],
+  "actors": [],
+  "workflows": [],
+  "business_rules": [],
+  "validations": [
+    "InterimWithoutFinal identifies if an interim assessment exists without being followed by a final assessment.",
+    "InstructorsAndSupervisors checks the involvement of both instructors and supervisors.",
+    "AssessmentMaximumExceeded checks if the number of assessments has surpassed the allowable limit."
+  ],
+  "calculations": [],
+  "conditions": [
+    "InterimWithoutFinal is true if interim assessment exists but a final one does not.",
+    "InstructorsAndSupervisors becomes true if both categories are involved.",
+    "AssessmentMaximumExceeded is true when the assessments exceed the preset limit."
+  ],
+  "system_behavior": [],
+  "dependencies": [],
+  "exceptions": [],
+  "source_document_ids": [
+    "e663d100-85dd-5023-9f4c-94982b490159"
+  ],
+  "content_gaps": []
+}
