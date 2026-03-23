@@ -1,38 +1,68 @@
-{
-  "filename": "CostCentre",
-  "found": true,
-  "summary": "Handles the retrieval and management of cost centre records within the HSPnet system.",
-  "purpose": "To retrieve and manage cost centre data related to various agencies and disciplines.",
-  "entities": ["CostCentreView", "CostCentreRecord"],
-  "fields": [
-    {"name": "PlacingAgency", "type": "string", "description": "Agency placing the cost"},
-    {"name": "Department", "type": "string", "description": "Department associated with the cost"},
-    {"name": "Program", "type": "string", "description": "Program related to the cost centre"},
-    {"name": "Discipline", "type": "string", "description": "Discipline related to the cost"},
-    {"name": "Site", "type": "string", "description": "Site related to the cost centre"},
-    {"name": "Portfolio", "type": "string", "description": "Portfolio associated with the cost"},
-    {"name": "Service", "type": "string", "description": "Service linked to the cost"},
-    {"name": "Destination", "type": "string", "description": "Destination related to the cost"},
-    {"name": "CostCentre", "type": "string", "description": "Identifier for the cost centre"},
-    {"name": "CostCentreDescription", "type": "string", "description": "Details about the cost centre"},
-    {"name": "PRType", "type": "string", "description": "Type of placement request"},
-    {"name": "StartDate", "type": "DateTime", "description": "Start date for the cost centre"},
-    {"name": "EndDate", "type": "DateTime", "description": "End date for the cost centre"},
-    {"name": "Status", "type": "string", "description": "Current status of the cost centre"},
-    {"name": "Course", "type": "string", "description": "Course associated with the cost centre"},
-    {"name": "ProgramYear", "type": "int", "description": "Year of the program"},
-    {"name": "ReferenceNumber", "type": "int", "description": "Reference number for the cost"},
-    {"name": "CFO", "type": "string", "description": "Chief Financial Officer related to the cost"}
-  ],
-  "actors": ["HSPnetSession"],
-  "workflows": [],
-  "business_rules": [],
-  "validations": [],
-  "calculations": [],
-  "conditions": [],
-  "system_behavior": [],
-  "dependencies": [],
-  "exceptions": [],
-  "source_document_ids": ["20ac8054-536e-5203-b33d-7db2b2dc2359", "2c04f259-cf58-5d95-803c-8ebf16840f6c", "97bc3ba9-9fe4-52b1-8847-dce2198e0aee", "dd965b0f-f9cf-57eb-a3f8-32b3b97a6d1a", "e1ac7e41-5e9e-5f16-baa0-29d05a70f976"],
-  "content_gaps": []
-}
+[
+    {
+        "filename": "CostCentre",
+        "found": true,
+        "summary": "CostCentre represents cost centre data associated with placements, including various descriptive fields and statistics.",
+        "purpose": "The purpose of CostCentre is to facilitate the retrieval and storage of placement-related cost and statistics for financial and management purposes.",
+        "entities": [
+            {
+                "name": "CostCentreRecord",
+                "fields": [
+                    "PlacingAgency",
+                    "Department",
+                    "Program",
+                    "Discipline",
+                    "SubDiscipline",
+                    "ReceivingAgency",
+                    "Site",
+                    "Portfolio",
+                    "Service",
+                    "Destination",
+                    "CostCentre",
+                    "CostCentreDescription",
+                    "PRType",
+                    "StartDate",
+                    "EndDate",
+                    "Status",
+                    "Course",
+                    "ProgramYear",
+                    "ReferenceNumber",
+                    "CFO",
+                    "PRCount",
+                    "StudentCount",
+                    "PRHours",
+                    "StudentHours"
+                ]
+            }
+        ],
+        "fields": [],
+        "actors": [
+            "HSPnetSession"
+        ],
+        "workflows": [
+            {
+                "name": "Cost Centre Retrieval",
+                "steps": [
+                    "Invoke stored procedure",
+                    "Extract data from SqlDataReader",
+                    "Map to CostCentreRecord objects"
+                ]
+            }
+        ],
+        "business_rules": [],
+        "validations": [],
+        "calculations": [],
+        "conditions": [],
+        "system_behavior": [],
+        "dependencies": [],
+        "exceptions": [],
+        "source_document_ids": [
+            "20ac8054-536e-5203-b33d-7db2b2dc2359",
+            "2c04f259-cf58-5d95-803c-8ebf16840f6c",
+            "97bc3ba9-9fe4-52b1-8847-dce2198e0aee",
+            "dd965b0f-f9cf-57eb-a3f8-32b3b97a6d1a",
+            "e1ac7e41-5e9e-5f16-baa0-29d05a70f976"
+        ],
+        "content_gaps": []
+    }
+]
