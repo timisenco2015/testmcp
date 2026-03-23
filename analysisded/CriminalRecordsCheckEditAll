@@ -1,0 +1,98 @@
+```json
+{
+    "filename": "CriminalRecordsCheckEditAll",
+    "found": true,
+    "summary": "The 'CriminalRecordsCheckEditAll' feature is part of the HSPnet system, providing a user control for managing and editing criminal record checks within an enrollment context.",
+    "purpose": "To facilitate the management and updating of criminal records check data for individuals enrolled in courses, using a web-based application interface.",
+    "entities": [
+        "HSPnetSession",
+        "GridView",
+        "Panel",
+        "DropDownList",
+        "HiddenField",
+        "CodeRecord",
+        "StudentPrerequisites"
+    ],
+    "fields": [
+        "ValidationSummary1",
+        "gridDataEdit",
+        "dsCRC",
+        "EnrollmentID",
+        "CohortID",
+        "TermID",
+        "CourseID",
+        "ShowGrad",
+        "ShowInactive",
+        "ShowWaived",
+        "SectionFilter",
+        "ActionFilter",
+        "keyword",
+        "CampusID",
+        "CommentFilter",
+        "StartRow",
+        "CRCStatusList"
+    ],
+    "actors": [
+        "User",
+        "ScriptManager",
+        "DataLayer.Enrollment",
+        "Grid"
+    ],
+    "workflows": [
+        {
+            "name": "gridDataEdit_RowCommand",
+            "steps": [
+                "Check command name and determine action (e.g., cmdSaveAll, cmdSaveEditNext).",
+                "Loop through rows to check for changes (isDirty).",
+                "Update record for each dirty row with StudentDetailsSafetyCRCUpdate.",
+                "Redirect based on warnings."
+            ]
+        },
+        {
+            "name": "gridDataEdit_RowDataBound",
+            "steps": [
+                "Hide 'Save All' button in header if EnrollmentID is not 0.",
+                "Configure dropdown values for each row based on CRCStatusList."
+            ]
+        }
+    ],
+    "business_rules": [
+        "Grid.HideButtons() is used to control visibility of buttons based on read-only state.",
+        "Updates only performed for rows marked as 'dirty'."
+    ],
+    "validations": [
+        "ValidationSummary1 control is used for displaying validation messages.",
+        "dsCRC can cancel data selection if UserSession is null."
+    ],
+    "calculations": [],
+    "conditions": [
+        "Panel visibility and button functionality depend on EnrollmentID and rows count.",
+        "Visibility is altered when gridDataEdit has fewer rows than page size."
+    ],
+    "system_behavior": [
+        "Utilizes JavaScript variables and registration for client-side functionalities.",
+        "Handles post-back scenarios using ScriptManager."
+    ],
+    "dependencies": [
+        "HSPnet.App_GlobalResources",
+        "HSPnet.DataLayer",
+        "HSPnet.UI",
+        "HSPnet.Framework"
+    ],
+    "exceptions": [
+        "Redirect occurs only if there are no warnings in session messages."
+    ],
+    "source_document_ids": [
+        "03144aa6-93b7-599f-b8e0-5588317ba19b",
+        "48902891-c057-57e5-9068-3b1307b2dffd",
+        "6918cccf-5e9d-514f-b001-797e2af8307f",
+        "b2bd51ac-3047-55c8-af59-4f8eed91961b",
+        "bd4a4fa1-d3ef-5764-b65e-7bf1cb6bbc30",
+        "c5efee46-5e88-55df-947d-7fe86465a805",
+        "d9e68048-669a-5e6a-b9fe-b5fe6ff4416e",
+        "f1a93269-4cd6-5f47-93a1-f9f2e4730224",
+        "f3ce8c3c-3cd0-531b-a85e-f90764dac0e2"
+    ],
+    "content_gaps": []
+}
+```
