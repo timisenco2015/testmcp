@@ -1,0 +1,111 @@
+{
+  "filename": "StudentDocument",
+  "found": true,
+  "summary": "The documents describe the structure and operations related to handling student documents within a system. The primary class involved is the `StudentDocument`, which manages various document attributes and operations like adding, deleting, and retrieving documents based on different parameters. The documents include method definitions for handling document retrieval, management, and formatting.",
+  "purpose": "To manage and process student documents within the system, including retrieving, adding, deleting, and updating document details based on specified criteria.",
+  "entities": [
+    "StudentDocument"
+  ],
+  "fields": [
+    "ID",
+    "StudentID",
+    "TypeCodeID",
+    "TypeComments",
+    "FileURL",
+    "FilePath",
+    "FileSize",
+    "FileType",
+    "FileTypeAlt",
+    "UpdateDate",
+    "ByUserID",
+    "LastName",
+    "FirstName",
+    "MiddleName",
+    "Anonymous",
+    "DeleteAfterDate",
+    "UploadedByStudent",
+    "InternalOnly",
+    "FileName",
+    "DocumentName",
+    "AgencyShortName",
+    "AgencyName",
+    "Email",
+    "Withhold",
+    "ProgramShortName",
+    "ProgramName",
+    "UpdatedDetails"
+  ],
+  "actors": [
+    "HSPnetSession",
+    "SqlDataReader"
+  ],
+  "workflows": [
+    {
+      "name": "GetByStudentID",
+      "steps": [
+        "Call GetByStudentID with session and studentID parameters.",
+        "Retrieve documents from the database using stored procedures.",
+        "Fill list with retrieved documents and format details according to parameters like anonymity and privacy."
+      ]
+    },
+    {
+      "name": "Add Document",
+      "steps": [
+        "Validate the document details.",
+        "Assign type codes for document types like anonymous, named, or photo.",
+        "Use a stored procedure to add the document to the database."
+      ]
+    },
+    {
+      "name": "Delete Document",
+      "steps": [
+        "Verify the existence of the document by ID.",
+        "Attempt to delete the physical file and containing folder, catching and ignoring exceptions.",
+        "Call the stored procedure to delete the database record."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Documents must have a valid type code.",
+    "Anonymous documents should not display the uploader's details.",
+    "Photos should only be displayed under certain conditions based on user role and privacy settings."
+  ],
+  "validations": [
+    "Validate that the TypeCodeID is not zero before adding a document."
+  ],
+  "calculations": [],
+  "conditions": [
+    "Anonymity affects the display of uploader details.",
+    "Access to document types may be limited based on user roles and privacy settings."
+  ],
+  "system_behavior": [
+    "Uses stored procedures for database operations.",
+    "Formats URLs and document names according to localization settings."
+  ],
+  "dependencies": [
+    "StudentDocumentSearch",
+    "StudentDocumentAddDoc",
+    "StudentDocumentDelete"
+  ],
+  "exceptions": [
+    "Administrative setup errors if expected document types are not found."
+  ],
+  "source_document_ids": [
+    "01b2d96d-9374-5b54-a36c-ab6050cf40ec",
+    "12780232-f2fc-5650-b77a-ed6037077e52",
+    "160588d5-4fb8-582c-b7e4-3a399d667ab6",
+    "295f835a-f5ee-5d88-8502-789a32f8b048",
+    "55b0611d-9b05-531e-a1ca-71ee16d0e3b1",
+    "76bc4509-4fd8-50e6-a5d7-410e8b5cb6d1",
+    "88ceab49-4ed7-58de-be5c-f25dd42cc5a2",
+    "8b590608-ee26-56d6-ad24-bfcc7c97881c",
+    "975ea606-bb0a-500d-aa26-3d0484461279",
+    "994fc348-ecc3-58fb-ac7c-87a9f2520905",
+    "9cec37b1-d094-5ea0-a14b-828965a2f7e4",
+    "b5ad3b63-a358-5884-8fa0-174ab96818b1",
+    "b7905721-1e81-54a6-b9ad-b069732ee749",
+    "f2de80cf-659f-5a29-a498-c9ad7029e3d3",
+    "fdc2bc64-1edf-5d31-8f72-d904b7a194fa"
+  ],
+  "content_gaps": []
+}
