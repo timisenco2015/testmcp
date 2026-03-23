@@ -1,114 +1,99 @@
 {
   "filename": "MaintUploadTemplates",
   "found": true,
-  "summary": "MaintUploadTemplates provides an ASP.NET WebForms page and its backend for managing upload templates associated with agency and department selection. It allows users to view, add, edit, and delete template entries, each characterized by a name, file format, and header row count. The interface includes validation, error/warning panels, and supports modal popup editing.",
-  "purpose": "To enable administrators or authorized actors to manage (create, update, delete) upload templates (used for bulk data import, e.g., Excel files) associated with specific agencies and departments, with UI support for validation, error handling, and workflow guidance.",
+  "summary": "The MaintUploadTemplates module allows administrators to view, add, edit, and delete upload templates associated with specific agencies and departments. It provides a web interface with data grid and details view components for managing templates, enforcing field validations, and supporting operations through event-driven workflows.",
+  "purpose": "To provide a user interface and related server-side functionality for managing upload template definitions (name and number of header rows) for Excel file imports, scoped to agency and department.",
   "entities": [
-    {
-      "name": "UploadTemplateHeader",
-      "description": "Represents an upload template, including its ID, Name, FileFormat (currently hard-coded to Excel), HeaderRows, DepartmentID.",
-      "fields": ["ID", "Name", "FileFormat", "HeaderRows", "DepartmentID"]
-    },
-    {
-      "name": "Agencies",
-      "description": "Agency entity used for filtering templates.",
-      "fields": ["ID", "ShortName"]
-    },
-    {
-      "name": "Departments",
-      "description": "Department entity nested under Agency.",
-      "fields": ["ID", "ShortName"]
-    }
+    "UploadTemplateHeader",
+    "UploadTemplates",
+    "Agency",
+    "Department"
   ],
   "fields": [
     {
+      "name": "ID",
+      "type": "int",
+      "description": "Primary key for the template."
+    },
+    {
       "name": "Name",
       "type": "string",
-      "required": true,
-      "max_length": 50,
-      "description": "Template display name"
+      "description": "Name of the upload template. Mandatory, max length 50."
     },
     {
       "name": "HeaderRows",
-      "type": "integer",
-      "required": true,
-      "validation": "GreaterThan 0",
-      "description": "Number of header rows in uploaded file"
+      "type": "int",
+      "description": "Number of header rows for the Excel (required, must be > 0)."
     },
     {
       "name": "FileFormat",
       "type": "string",
-      "required": false,
-      "default": "Excel",
-      "description": "Type of file template supports; currently only Excel is supported"
+      "description": "Format is hardcoded as 'Excel'."
+    },
+    {
+      "name": "AgencyID",
+      "type": "int",
+      "description": "ID of the associated agency."
     },
     {
       "name": "DepartmentID",
-      "type": "integer",
-      "required": true,
-      "description": "ID of department associated with the template"
+      "type": "int",
+      "description": "ID of the associated department."
     }
   ],
   "actors": [
     {
-      "name": "UserSession",
-      "roles": ["Admin", "Data Manager"],
-      "description": "Authenticated user performing template management"
+      "role": "Administrator",
+      "permissions": "Can add, edit, and delete upload templates for permitted agencies/departments."
     }
   ],
   "workflows": [
     {
       "name": "Manage Upload Templates",
       "steps": [
-        "Page Load: Populate agency and department dropdowns, set focus",
-        "Agency Change: Re-populate department dropdown based on agency selection, refresh template data",
-        "Department Change: Refresh template data shown",
-        "Refresh View: Reload grid with templates for selected agency/department",
-        "Add Template: Switch DetailsView to insert mode, show modal for entry, validate fields, save new template",
-        "Edit Template: Switch DetailsView to edit mode, load existing entry, validate fields, save changes",
-        "Delete Template: Confirm and permanently delete template entry, refresh view",
-        "Save Template: Validate required fields, commit add/update, refresh grid data and UI panels",
-        "Cancel Edit: Hide modal/details, discard changes",
-        "Row Data Bound: Setup add/edit/delete buttons for grid rows"
+        "User selects agency and department from drop-down menus.",
+        "Grid displays current templates for selection.",
+        "User can add a new template (opens DetailsView in insert mode).",
+        "User can edit an existing template (opens DetailsView in edit mode).",
+        "User enters template Name and HeaderRows.",
+        "Validations run: Name required, HeaderRows required and > 0.",
+        "On Save, template is added or updated for the selected agency/department.",
+        "User can delete a template with confirmation.",
+        "Error and warning panels display issues and messages.",
+        "Grid refreshes on changes."
       ]
     }
   ],
   "business_rules": [
-    "Template Name is mandatory and must not exceed 50 characters.",
-    "HeaderRows must be specified and be an integer greater than 0.",
-    "FileFormat is currently limited to 'Excel'; support for CSV has been disabled.",
-    "Agency and department selection filter which templates are visible/editable.",
-    "Delete is permanent with confirmation."
+    "Template Name is mandatory and maximum 50 characters.",
+    "HeaderRows is mandatory and must be an integer greater than 0.",
+    "FileFormat for all templates is fixed as 'Excel'.",
+    "Templates are always scoped to both an agency and department."
   ],
   "validations": [
-    "RequiredFieldValidator for Name and HeaderRows",
-    "CompareValidator ensures HeaderRows > 0",
-    "ValidationSummary displays all errors in modal edit"
+    "RequiredFieldValidator for Name and HeaderRows.",
+    "CompareValidator ensures HeaderRows is a positive integer (>0)."
   ],
-  "calculations": [
-    "HeaderRows is parsed as integer from textbox and defaults to 1 on insert or 0 if missing",
-    "DepartmentID is determined from dropdown selection"
-  ],
+  "calculations": [],
   "conditions": [
-    "If page is loaded without postback, populate dropdowns and refresh grid",
-    "If agency or department dropdown changes, refresh template data",
-    "If HeaderRows input is empty, default to 0, otherwise use entered integer"
+    "If AgencyID or DepartmentID is missing or invalid, user cannot proceed.",
+    "On insert, default HeaderRows to 1 in DetailsView."
   ],
   "system_behavior": [
-    "Hides add button and displays custom 'No data found' message for read-only screens",
-    "Displays error/warning panels when appropriate",
-    "Uses modal popup for add/edit operations",
-    "Updates UI panels asynchronously (AJAX triggers)"
+    "On page load, agency and department dropdowns are populated based on user session or querystring values.",
+    "Changing agency reloads department dropdown and templates.",
+    "Error and warning messages are handled by panels that can be dismissed by user.",
+    "Data is refreshed and grid re-bound after every modification."
   ],
   "dependencies": [
-    "Dropdown control utilities for agency and department selection",
-    "Grid utility functions for row command, details switching, and error handling",
-    "Backend entities: Agencies, Departments, UploadTemplateHeader",
-    "AJAX Control Toolkit for modal popup and always visible extenders"
+    "Agencies.AgencyList(UserSession)",
+    "Departments.DepartmentSearchAgency(CurrentAgencyID, ...)",
+    "UploadTemplates(UserSession, AgencyID, DepartmentID)",
+    "Grid, Dropdown, and HSPnet UI utilities"
   ],
   "exceptions": [
-    "Delete operation is confirmed with JavaScript prompt; accidental deletes must be avoided",
-    "If header rows is empty or invalid, defaults to 0 or 1, but validation prevents saving invalid values"
+    "If Save is attempted with invalid data, validations will prevent submission and errors are shown.",
+    "If a deletion fails, error panel displays the issue."
   ],
   "source_document_ids": [
     "0b4d7100-dd2c-5299-ac56-c9a2a5d6ea31",
@@ -131,8 +116,8 @@
     "d1aa9b40-7998-578c-b104-0c4aefa594c9"
   ],
   "content_gaps": [
-    "No explicit details about the UploadTemplates backend data structure.",
-    "No information about the CSV template format (commented out).",
-    "No visibility into how Add/Edit/Delete events are logged or audited."
+    "No explicit UI screenshots or end-to-end user examples.",
+    "No details on audit logging, security restrictions beyond session-based filtering, or multi-user conflict handling.",
+    "Actual UploadTemplateHeader class and methods are referenced but not fully described."
   ]
 }
