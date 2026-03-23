@@ -1,9 +1,15 @@
 {
   "filename": "CustomReports",
   "found": true,
-  "summary": "The CustomReports module manages various operations related to custom reports within the application, including creation, update, retrieval, and cancellation of custom reports. It handles file attachments, user requests, and report parameters.",
-  "purpose": "To facilitate the generation, management, and distribution of custom reports based on specific user or system requirements.",
-  "entities": [],
+  "summary": "The document outlines the functionality and structure of the Custom Reports system in HSPnet. It describes various components including data entities, workflows, business rules, validations, and system behaviors.",
+  "purpose": "To manage and handle custom report generation requests, including creation, updating, searching, and returning reports to users.",
+  "entities": [
+    "CustomReport",
+    "User",
+    "Agency",
+    "Department",
+    "CustomReportParameter"
+  ],
   "fields": [
     "ID",
     "RequestedByUserID",
@@ -17,82 +23,91 @@
     "LastUpdateDate",
     "LastUpdateByUserID",
     "ReturnedToUserDate",
+    "PastDetails",
     "StatusCodeID",
     "FileURL",
     "FilePath",
     "FileSize",
     "FileType",
     "FileTypeAlt",
+    "FileUpdateDate",
+    "ByUserId",
+    "LastName",
+    "FirstName",
+    "MiddleName",
+    "FileName",
+    "ReportTypeCode",
+    "ReportType",
     "RequestedByStaffID",
+    "CreatedDateFormatted",
+    "RequestedByDateFormatted",
     "RequestedByAgency",
-    "RequestedByDepartment",
-    "RequestedByFirstName",
     "RequestedByLastName",
+    "RequestedByFirstName",
     "RequestedByMiddleName",
+    "RequestedByNameFormatted",
     "RequestedByEmail",
     "RequestedByPhone",
     "RequestedByFax",
     "Status",
     "StatusCode",
-    "PastDetails"
+    "RequestedByDepartment"
   ],
-  "actors": ["User", "SysAdmin"],
+  "actors": [
+    "HSPnetSession",
+    "System Admin",
+    "Users"
+  ],
   "workflows": [
     {
       "name": "Create Custom Report",
       "steps": [
-        "User initiates a report request by providing necessary details including report type, purpose, and audience.",
-        "System stores the request along with user details.",
-        "The report is processed and stored as a file if applicable."
+        "Initialize Custom Report object with necessary fields.",
+        "Add report parameters.",
+        "Execute database procedure to save the report."
       ]
     },
     {
-      "name": "Update Custom Report",
+      "name": "Search for Reports",
       "steps": [
-        "User updates existing report details or parameters.",
-        "System validates updates and stores them, notifying users if successful."
+        "Receive parameters for search criteria.",
+        "Execute search procedure.",
+        "Return list of reports matching criteria."
       ]
     },
     {
-      "name": "Cancel Report",
+      "name": "Return Report to User",
       "steps": [
-        "User requests cancellation of a report.",
-        "System flags the report as canceled and updates the status."
-      ]
-    },
-    {
-      "name": "Complete Report without File",
-      "steps": [
-        "Report is marked as completed without file upload.",
-        "Used for non-HSPnet users or internal purposes."
+        "Call procedure to mark report as returned.",
+        "Notify the requesting user via email."
       ]
     }
   ],
   "business_rules": [
-    "Reports can be canceled or refused by users or system administrators.",
-    "A report is considered returned to user once the 'ReturnedToUserDate' is set."
+    "Custom reports can be created with parameters specific to an agency, department, and user.",
+    "Reports have a completion status which affects their retrieval and visibility.",
+    "Reports can be returned to the user or marked as completed without file uploads."
   ],
   "validations": [
-    "Dates must be valid and within set term limits for processing specific requests.",
-    "File details must not be blank during updates."
+    "File URL and path must not be blank during updates.",
+    "Dates must be properly formatted and validated against current system dates."
   ],
-  "calculations": [
-    "Date ranges for report searches based on user input conditions like 'Today', 'CurrentTerm', and 'PastTerm'."
-  ],
+  "calculations": [],
   "conditions": [
-    "Different date calculations apply based on the report's term status ('CurrentTerm', 'PastTerm')."
+    "Date ranges are calculated based on terms like 'Today', 'CurrentTerm', 'PastYear'.",
+    "File URLs are converted to clickable links if files exist on the server."
   ],
   "system_behavior": [
-    "Automatically generates email notifications for report creation and updates.",
-    "Executes stored procedures for managing report data."
+    "The system sends email notifications upon report submission or update.",
+    "System administrators can refuse report requests."
   ],
   "dependencies": [
-    "Database operations depend on proper connectivity and valid input parameters.",
-    "Email notifications depend on template availability and correct user email configuration."
+    "HSPnet.Framework dependencies for database connections and email notifications.",
+    "Resources for localized strings and email templates."
   ],
   "exceptions": [
-    "Files not found during URL linking result in a 'no_document_available' message.",
-    "Deletion of files or directories ignores exceptions for non-critical errors."
+    "Catch blocks are used to handle file system errors, like file deletion failures.",
+    "Email sending failures are logged and reported back to the user."
   ],
   "source_document_ids": [
     "132be9d9-0ab9-5355-af6c-608ff561a77d",
