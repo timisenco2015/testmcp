@@ -1,106 +1,42 @@
 {
   "filename": "ExpenseBatch",
   "found": true,
-  "summary": "C# code for managing expense batches.",
-  "purpose": "Manage operations on expense batches including creation, update, search, and delete.",
-  "entities": [
-    {
-      "name": "ExpenseBatch",
-      "fields": [
-        "ID",
-        "DepartmentID",
-        "BatchDescription",
-        "BatchDate",
-        "StatusCodeID",
-        "StatusCode",
-        "StatusDescription",
-        "ClosedDate",
-        "BatchNumberFormatted"
-      ]
-    }
-  ],
+  "summary": "The ExpenseBatch class manages expense batches within a department, including their creation, update, and deletion.",
+  "purpose": "To facilitate the handling of expense batches for departments, tracking their status and processing information.",
+  "entities": ["ExpenseBatch", "ExpenseBatches"],
   "fields": [
-    {
-      "name": "ID",
-      "type": "int",
-      "description": "Unique identifier for the expense batch."
-    },
-    {
-      "name": "DepartmentID",
-      "type": "int",
-      "description": "Identifier for the associated department."
-    },
-    {
-      "name": "BatchDescription",
-      "type": "string",
-      "description": "Description of the expense batch."
-    },
-    {
-      "name": "BatchDate",
-      "type": "DateTime",
-      "description": "Date the batch was created."
-    },
-    {
-      "name": "StatusCodeID",
-      "type": "int",
-      "description": "Status code identifier."
-    },
-    {
-      "name": "StatusCode",
-      "type": "string",
-      "description": "Code representing the batch status."
-    },
-    {
-      "name": "StatusDescription",
-      "type": "string",
-      "description": "Description of the batch status."
-    },
-    {
-      "name": "ClosedDate",
-      "type": "DateTime",
-      "description": "Date the batch was closed."
-    },
-    {
-      "name": "BatchNumberFormatted",
-      "type": "string",
-      "description": "Formatted number for batch."
-    }
+    {"name": "ID", "type": "int"},
+    {"name": "DepartmentID", "type": "int"},
+    {"name": "BatchDescription", "type": "string"},
+    {"name": "BatchDate", "type": "DateTime"},
+    {"name": "StatusCodeID", "type": "int"},
+    {"name": "StatusCode", "type": "string"},
+    {"name": "StatusDescription", "type": "string"},
+    {"name": "ClosedDate", "type": "DateTime"},
+    {"name": "BatchNumberFormatted", "type": "string"}
   ],
   "actors": [],
   "workflows": [
     {
-      "name": "Add",
+      "name": "Expense Batch Processing",
       "steps": [
-        "Set procedure name to 'ExpenseBatchAdd'.",
-        "Add parameters: SessionID, DepartmentID, BatchDescription, BatchDate.",
-        "Execute and return new batch ID."
-      ]
-    },
-    {
-      "name": "Update",
-      "steps": [
-        "Set procedure name to 'ExpenseBatchUpdate'.",
-        "Add parameters: SessionID, ID, BatchDescription, BatchDate, StatusCodeID.",
-        "Execute update procedure."
-      ]
-    },
-    {
-      "name": "Delete",
-      "steps": [
-        "Set procedure name to 'ExpenseBatchDelete'.",
-        "Add parameters: SessionID, ID.",
-        "Execute delete procedure."
+        "Retrieve batches using a search procedure.",
+        "Add new batch or update existing using stored procedures."
       ]
     }
   ],
   "business_rules": [],
   "validations": [],
-  "calculations": [],
+  "calculations": [
+    "Format batch number using ID and status description."
+  ],
   "conditions": [],
   "system_behavior": [
-    "Methods for batch creation, update, search, and deletion."
+    "Close database readers after operations."
   ],
-  "dependencies": [],
+  "dependencies": [
+    "Database procedures for managing expense batches."
+  ],
   "exceptions": [],
   "source_document_ids": [
     "060e08d3-49ca-5e40-bea0-849f4e6173e1",
