@@ -1,63 +1,48 @@
 {
   "filename": "MaintCodeCategories",
   "found": true,
-  "summary": "MaintCodeCategories is a maintenance page for managing code categories.",
-  "purpose": "To allow users to add, edit, and delete various code categories.",
-  "entities": [],
+  "summary": "This file provides management functionalities for code categories, enabling administrators to add, edit, delete, and view categories.",
+  "purpose": "To manage the different code categories used within the system.",
+  "entities": [
+    "CodeCategory"
+  ],
   "fields": [
+    "Category",
+    "Description",
+    "ID"
+  ],
+  "actors": [
+    "UserSession",
+    "SystemAdministrator"
+  ],
+  "workflows": [
     {
-      "name": "txtCategory",
-      "type": "textbox",
-      "description": "Textbox for entering the category name."
-    },
-    {
-      "name": "txtCategoryAlt",
-      "type": "textbox",
-      "description": "Textbox for entering the alternate category name."
-    },
-    {
-      "name": "txtKeyword",
-      "type": "textbox",
-      "description": "Textbox for entering keywords to filter categories."
+      "name": "Code Category Management",
+      "steps": [
+        "Add or edit code category",
+        "Validate input",
+        "Update category information"
+      ]
     }
   ],
-  "actors": [],
-  "workflows": [],
-  "business_rules": [],
-  "validations": [
-    {
-      "field": "txtCategory",
-      "validator": "RequiredFieldValidator",
-      "error_message": "Category must be specified"
-    },
-    {
-      "field": "txtCategoryAlt",
-      "validator": "RequiredFieldValidator",
-      "error_message": "Alternate Category must be specified"
-    }
+  "business_rules": [
+    "Ensure all mandatory fields are specified before saving"
   ],
+  "validations": [],
   "calculations": [],
   "conditions": [],
-  "system_behavior": [],
-  "dependencies": [],
+  "system_behavior": [
+    "Data binding based on user inputs and dropdown selection"
+  ],
+  "dependencies": [
+    "ASP.NET Web Controls",
+    "JavaScript for input validation"
+  ],
   "exceptions": [],
   "source_document_ids": [
     "035aec77-d332-5086-82ba-a828e38a423b",
-    "1b953ab5-2d2e-5b66-9cdc-9e3b82bbd0a1",
-    "2cfa22df-94c8-5664-b787-4c14373a6e99",
-    "3151d303-95e6-5a5c-b06a-d78bc878e104",
-    "5dd7905c-e042-51eb-b7de-986e6a967649",
-    "6261088e-e9b7-5eeb-8bd5-db012d12f2fc",
-    "62f01a02-a69a-5e05-b939-617906b7af9b",
-    "72fe7f23-aab3-534e-a189-ed715d3f49b6",
-    "8668378a-0e53-59a9-b21d-07eb719e312c",
-    "8a360b28-3d46-5e7f-ac51-474363a9ee3a",
-    "942e0d85-cf2e-5c7d-b962-d85c66581cfa",
     "958dbf2f-3444-5e50-8856-5d5d81cfc55d",
-    "b71b4a22-19ba-5328-9252-bf6cf176d62e",
-    "cdd45be7-8a76-5261-9bf4-1bb07ff4d239",
-    "d0949140-e426-5320-a880-f6f5316f6145",
-    "db86dc91-6af6-57a7-9d74-adaae7cadc9e"
+    "d0949140-e426-5320-a880-f6f5316f6145"
   ],
   "content_gaps": []
 }
