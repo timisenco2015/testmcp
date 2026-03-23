@@ -1,0 +1,86 @@
+# Module: CustomReportRequest
+
+## CustomReportRequest-UC1 — Create Custom Report Request
+
+- Primary Actor(s): User (Staff)
+- Secondary Actor(s): System Administrator
+- Trigger: User needs to create a custom report request.
+- Description: This use case allows users to create a custom report request specifying various parameters such as report type, department, program, and site information.
+- Preconditions: User is logged in and has the necessary permissions to request custom reports.
+- Postconditions: A new custom report request is created and stored in the system.
+- Main Success Scenario:
+  1. User selects the report type from a dropdown.
+  2. User enters required information such as purpose, audience, and requested date.
+  3. User selects programs, cohorts, and terms if applicable.
+  4. User selects sites or services from a list.
+  5. User reviews and submits the report request.
+  6. System validates inputs and stores the request.
+- Extensions:
+  - 4a. If user selects "Other" for programs/sites, enters text manually.
+  - 4b. If required fields are missing, system shows validation messages.
+- Exceptions:
+  - E1: System validation fails due to incorrect or missing inputs.
+  - E2: User does not have permission to create requests.
+- Business Rules:
+  - BR1: Only users with appropriate permissions can request custom reports.
+  - BR2: Required fields must be filled before submission.
+- Assumptions:
+  - User is familiar with the report parameters and options.
+- Open Issues:
+  - None identified.
+
+## CustomReportRequest-UC2 — Edit Custom Report Request
+
+- Primary Actor(s): User (Staff)
+- Secondary Actor(s): System Administrator
+- Trigger: User needs to edit an existing custom report request.
+- Description: This use case allows users to modify details of a custom report request they previously created.
+- Preconditions: User has an existing report request saved.
+- Postconditions: The updated report request is stored in the system.
+- Main Success Scenario:
+  1. User navigates to the existing custom report request.
+  2. User edits the parameters such as purpose, audience, and requested date.
+  3. User updates selected programs, sites, or services.
+  4. User reviews changes and submits the updates.
+  5. System validates inputs and updates the request.
+- Extensions:
+  - 3a. User selects a different report type or additional parameters.
+  - 3b. If required fields are missing, system shows validation messages.
+- Exceptions:
+  - E1: System validation fails due to incorrect or missing changes.
+  - E2: User does not have permission to edit requests.
+- Business Rules:
+  - BR1: Only users with appropriate permissions can edit requests.
+  - BR2: Required fields must be valid upon editing.
+- Assumptions:
+  - User is aware of the changes needed.
+- Open Issues:
+  - None identified.
+
+## CustomReportRequest-UC3 — Validate Report Request Data
+
+- Primary Actor(s): System
+- Secondary Actor(s): User (Staff)
+- Trigger: System needs to validate data entered by the user during report request creation or editing.
+- Description: This use case involves system validation of the report request data to ensure accuracy and completeness.
+- Preconditions: User has entered data for a report request.
+- Postconditions: Data is validated and errors are returned if any.
+- Main Success Scenario:
+  1. System checks all required fields are filled.
+  2. System validates date formats and mandatory fields.
+  3. System checks file uploads for required formats.
+  4. System ensures that all selected values correspond to valid options.
+  5. If validation passes, system allows request submission.
+- Extensions:
+  - 3a. If a file upload is required and not present, system shows a message.
+- Exceptions:
+  - E1: Date format is incorrect.
+  - E2: Required fields are not filled.
+  - E3: File type is not allowed.
+- Business Rules:
+  - BR1: Dates must be in a valid format.
+  - BR2: Mandatory fields must be completed before submission.
+- Assumptions:
+  - Validation rules are up-to-date with the current requirements.
+- Open Issues:
+  - None identified.
