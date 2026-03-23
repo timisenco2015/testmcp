@@ -1,138 +1,164 @@
 {
-  "filename": "Destinations",
-  "found": true,
-  "summary": "The 'Destinations' module primarily handles the management of destination entries in the system. This includes searching, adding, updating, deleting, and listing destinations. Methods include searching destinations by various parameters such as agency, service, user permissions, and more.",
-  "purpose": "To manage destinations which are part of a larger system, allowing users to search for, modify, and maintain destination records based on various inputs and conditions.",
-  "entities": [
-    {
-      "name": "Destination",
-      "description": "Represents a destination entry in the system with attributes such as ID, ServiceID, DestinationCodeID, and various user and system-related properties."
-    }
-  ],
-  "fields": [
-    "ID",
-    "ServiceID",
-    "Inactive",
-    "DestinationCodeID",
-    "HSPnetUser",
-    "DestinationContactID",
-    "UseAutoRedirect",
-    "CostCentre",
-    "CostCentreDescription",
-    "PortfolioOption",
-    "PortfolioCodeID",
-    "SitePortfolioCodeID",
-    "SitePortfolioCode",
-    "SitePortfolioDescription",
-    "Name",
-    "ShortName",
-    "StaffID",
-    "FirstName",
-    "LastName",
-    "MiddleName",
-    "Email",
-    "SecureEmail",
-    "Phone",
-    "Fax",
-    "IsHSPnetUser",
-    "SiteID",
-    "AgencyID",
-    "DestProfileExists",
-    "SiteShortName",
-    "ServiceShortName",
-    "SiteName",
-    "ServiceName",
-    "DestProfileLastUpdated",
-    "ProfileExists",
-    "ClosuresExists",
-    "StaffingExists",
-    "UnitManagerExists",
-    "CapacityExists",
-    "AdditionalContactsExists",
-    "UtilizationExists",
-    "ServiceList",
-    "SiteUseCostCentres",
-    "UserIsAllowedService",
-    "ServiceIsHSPnetUser",
-    "AgencyShortName"
-  ],
-  "actors": [
-    "HSPnetSession",
-    "Database",
-    "SqlDataReader"
-  ],
-  "workflows": [
-    {
-      "name": "Destination Management",
-      "steps": [
-        "Initialize Destination object",
-        "Perform database operations to fetch, add, or update destinations based on method parameters",
-        "Handle results and exceptions, updating session messages as needed",
-        "Return list of Destination objects or relevant data"
-      ]
-    }
-  ],
-  "business_rules": [
-    "Each destination must have a unique ID and associated service.",
-    "Each destination can be linked to multiple services, with optional cost centre settings."
-  ],
-  "validations": [
-    "ServiceID and DestinationCodeID must be specified for valid destination entries.",
-    "Inactive flag determines whether a destination is visible in certain searches."
-  ],
-  "calculations": [
-    "Phone and Fax formatting based on system settings."
-  ],
-  "conditions": [
-    "Checking if the current user has the necessary permissions to access or modify a destination.",
-    "Conditionally add or update destination contacts."
-  ],
-  "system_behavior": [
-    "Destination searches utilize stored procedures and database parameters for filtering results.",
-    "Messages and warnings are logged in the session for user feedback."
-  ],
-  "dependencies": [
-    "HSPnetSession to maintain session-specific information and database connections."
-  ],
-  "exceptions": [
-    "SQL errors are logged and appropriate messages are displayed to users when operations fail."
-  ],
-  "source_document_ids": [
-    "27025ff9-30fe-5261-ba86-6ec598a1fcf7",
-    "2db5e639-ce2f-5b31-84fa-c77b5dd8e493",
-    "3340dbd5-842a-5cf2-837d-cae7d1cd3c46",
-    "4e50c817-95fe-5fe9-8e95-e9556c678b00",
-    "50e5008b-6841-5a0f-a9bc-ea1162c957c5",
-    "5a43f8bf-3cc7-58b2-bdc0-59b4f792755e",
-    "5b79b67c-8337-5d58-83b3-dabc8d2cf9ff",
-    "65e5a8bd-3e29-501c-95f5-f8bebc085fc3",
-    "7709dc88-27c1-5954-8154-0a0d3e121251",
-    "7823c178-bc78-5e6d-8ec9-aa68b3e1cfdf",
-    "8175ba49-582e-521a-b2bb-fab409bcf21b",
-    "87441b80-d24f-5a48-84b9-ab3cf3b4beec",
-    "877ba8ca-c535-5b20-8b38-bad69b74280d",
-    "95e47952-4ac7-53e9-8a03-cc16e80fe019",
-    "9b50ea6f-c52d-5e84-87fc-7073b019272a",
-    "9bb15e92-99e6-587e-839f-fe3b79d53b00",
-    "a0267073-1d76-5b96-8d00-9701b22962f6",
-    "a8a64d1c-6360-5817-81eb-40f4c7c64679",
-    "b2b647ab-8f82-5695-bcce-475efe5a7557",
-    "b59203d7-cf44-513b-91e0-14e7a56b8d3b",
-    "bb1bf8f2-f54a-5b60-b01e-0829e054b668",
-    "c271c643-1909-53ea-9271-ff693b85067f",
-    "c3ae9ed1-7812-5077-8232-7ffc2dc6865f",
-    "d3b07f70-acda-5a8a-89a7-d232db8f3e32",
-    "d3e6df94-77a4-5eb3-91f5-abac5c283370",
-    "d5c6c97f-af5f-5963-a8c3-1e89d8e36866",
-    "da340dfe-fab9-5498-9dd3-3e829d18a18d",
-    "e0f34f2c-9560-57ba-abd6-b856db17f420",
-    "e8f92414-7a52-5142-83d3-ce7743634f02",
-    "edf0dc70-06b5-5f41-a3bd-2fb794b58032",
-    "f1dd4e2b-ab80-5465-a4eb-99b09708b2ee",
-    "f55a7481-f937-55f7-b134-3199331845b4",
-    "f5f1697a-946c-5eee-a093-b4598330a207",
-    "f7b0230b-8db3-5158-bbfc-d5822b78ab51",
-    "fe03f68e-c195-57f1-aa25-24d9043e1190"
-  ],
-  "content_gaps": []
+    "filename": "Destinations",
+    "found": true,
+    "summary": "This document provides functionalities for managing destinations within a session, including searching, adding, deleting, and updating destination details. It involves procedures to list services linked to destinations, check validity, and determine access rights for users and staff.",
+    "purpose": "To manage and manipulate destination-related operations within a session, ensuring correct data handling and user access control.",
+    "entities": [
+        "Destination",
+        "HSPnetSession",
+        "SqlDataReader"
+    ],
+    "fields": [
+        "ID",
+        "ServiceID",
+        "DestinationCodeID",
+        "Inactive",
+        "HSPnetUser",
+        "DestinationContactID",
+        "UseAutoRedirect",
+        "CostCentre",
+        "CostCentreDescription",
+        "PortfolioOption",
+        "PortfolioCodeID",
+        "SitePortfolioCodeID",
+        "SitePortfolioCode",
+        "SitePortfolioDescription",
+        "Name",
+        "ShortName",
+        "StaffID",
+        "FirstName",
+        "LastName",
+        "MiddleName",
+        "Email",
+        "SecureEmail",
+        "Phone",
+        "Fax",
+        "IsHSPnetUser",
+        "SiteID",
+        "AgencyID",
+        "DestProfileExists",
+        "SiteShortName",
+        "ServiceShortName",
+        "SiteName",
+        "ServiceName",
+        "DestProfileLastUpdated",
+        "ProfileExists",
+        "ClosuresExists",
+        "StaffingExists",
+        "UnitManagerExists",
+        "CapacityExists",
+        "AdditionalContactsExists",
+        "UtilizationExists",
+        "ServiceList",
+        "SiteUseCostCentres",
+        "UserIsAllowedService",
+        "ServiceIsHSPnetUser",
+        "AgencyShortName",
+        "HSPnetUserFormatted",
+        "StaffNameFormatted",
+        "EmailLinkFormatted",
+        "SecureEmailLinkFormatted",
+        "ShortNameFormatted",
+        "SiteServiceDest",
+        "ServiceIsHSPnetUserExists",
+        "ServiceArea",
+        "ServiceWithoutArea",
+        "FaxArea",
+        "FaxWithoutArea",
+        "StaffObj",
+        "UserID",
+        "DCUserID",
+        "DCUserIdDisabled",
+        "DCLastLoginDateFormatted",
+        "DCLocalAdministrator",
+        "DCSystemAdministrator",
+        "MandatoryTrainingDone",
+        "MandatoryTrainingRefresherRequired"
+    ],
+    "actors": [
+        "Session",
+        "Agency User",
+        "Sysadmin",
+        "Staff"
+    ],
+    "workflows": [
+        {
+            "name": "Destination Search",
+            "steps": [
+                "Initialize session and parameters",
+                "Execute stored procedure with parameters",
+                "Read data and populate Destination objects",
+                "Return list of destinations"
+            ]
+        }
+    ],
+    "business_rules": [
+        "Check if session is valid.",
+        "Ensure the destination code is specified.",
+        "Verify user permissions for accessing destinations."
+    ],
+    "validations": [
+        "Destination must have a ServiceID.",
+        "DestinationCodeID must be greater than 0."
+    ],
+    "calculations": [
+        "ServiceIsHSPnetUserExists",
+        "PhoneWithoutArea",
+        "FaxWithoutArea"
+    ],
+    "conditions": [
+        "Check if destination is inactive.",
+        "Verify if the user is allowed access to the service."
+    ],
+    "system_behavior": [
+        "Add or remove destinations based on session data.",
+        "Retrieve and format destination information for display.",
+        "Validate and process user access to destinations."
+    ],
+    "dependencies": [
+        "HSPnetSession",
+        "Database",
+        "Phone"
+    ],
+    "exceptions": [
+        "When session ID or user permissions do not allow the operation.",
+        "If mandatory fields are missing in a destination."
+    ],
+    "source_document_ids": [
+        "27025ff9-30fe-5261-ba86-6ec598a1fcf7",
+        "2db5e639-ce2f-5b31-84fa-c77b5dd8e493",
+        "3340dbd5-842a-5cf2-837d-cae7d1cd3c46",
+        "4e50c817-95fe-5fe9-8e95-e9556c678b00",
+        "50e5008b-6841-5a0f-a9bc-ea1162c957c5",
+        "5a43f8bf-3cc7-58b2-bdc0-59b4f792755e",
+        "5b79b67c-8337-5d58-83b3-dabc8d2cf9ff",
+        "65e5a8bd-3e29-501c-95f5-f8bebc085fc3",
+        "7709dc88-27c1-5954-8154-0a0d3e121251",
+        "7823c178-bc78-5e6d-8ec9-aa68b3e1cfdf",
+        "8175ba49-582e-521a-b2bb-fab409bcf21b",
+        "87441b80-d24f-5a48-84b9-ab3cf3b4beec",
+        "877ba8ca-c535-5b20-8b38-bad69b74280d",
+        "95e47952-4ac7-53e9-8a03-cc16e80fe019",
+        "9b50ea6f-c52d-5e84-87fc-7073b019272a",
+        "a0267073-1d76-5b96-8d00-9701b22962f6",
+        "a8a64d1c-6360-5817-81eb-40f4c7c64679",
+        "b2b647ab-8f82-5695-bcce-475efe5a7557",
+        "b59203d7-cf44-513b-91e0-14e7a56b8d3b",
+        "bb1bf8f2-f54a-5b60-b01e-0829e054b668",
+        "c271c643-1909-53ea-9271-ff693b85067f",
+        "c3ae9ed1-7812-5077-8232-7ffc2dc6865f",
+        "d3b07f70-acda-5a8a-89a7-d232db8f3e32",
+        "d3e6df94-77a4-5eb3-91f5-abac5c283370",
+        "d5c6c97f-af5f-5963-a8c3-1e89d8e36866",
+        "da340dfe-fab9-5498-9dd3-3e829d18a18d",
+        "e0f34f2c-9560-57ba-abd6-b856db17f420",
+        "e8f92414-7a52-5142-83d3-ce7743634f02",
+        "edf0dc70-06b5-5f41-a3bd-2fb794b58032",
+        "f1dd4e2b-ab80-5465-a4eb-99b09708b2ee",
+        "f55a7481-f937-55f7-b134-3199331845b4",
+        "f5f1697a-946c-5eee-a093-b4598330a207",
+        "f7b0230b-8db3-5158-bbfc-d5822b78ab51",
+        "fe03f68e-c195-57f1-aa25-24d9043e1190"
+    ],
+    "content_gaps": []
 }
