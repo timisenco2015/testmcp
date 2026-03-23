@@ -1,9 +1,12 @@
 {
   "filename": "UserHistory",
   "found": true,
-  "summary": "The UserHistory class and UserHistoryController in the system manage user actions and history, including adding, changing, and retrieving user history entries.",
-  "purpose": "To keep track of user actions within the system, storing details such as action date, authorized person, comments, and related identifiers.",
-  "entities": [],
+  "summary": "The UserHistory system manages user activity records, capturing details of actions performed by users along with authorization and contextual information.",
+  "purpose": "To record and manage the historical actions and authorizations of users within the system, allowing tracking of changes and actions across different users.",
+  "entities": [
+    "UserHistory",
+    "UserHistoryController"
+  ],
   "fields": [
     "ID",
     "UserID",
@@ -19,41 +22,38 @@
     "AuthorizedByFirstName",
     "AuthorizedByMiddleName",
     "AuthorizedByLastName",
-    "NameFormatted",
-    "AuthorizedByNameFormatted",
     "ActionDateFormatted"
   ],
   "actors": [
-    "UserHistoryController",
     "HSPnetSession"
   ],
   "workflows": [
     {
-      "name": "AddChanged",
+      "name": "GetByUser",
       "steps": [
-        "Initiate database procedure UserHistoryAddChanged",
-        "Add parameters: SessionID, UserID, ActionDate, AuthorizedBy, ReasonCodeID, Comments, ViewOnly, HideStudentNames, RoleID, Disabled, AuthorizedByContactID",
-        "Execute query to update user history"
+        "Setup database procedure name as 'UserHistorySearch'.",
+        "Add 'UserID' as a parameter.",
+        "Execute query and retrieve user history.",
+        "Populate UserHistory fields with retrieved data."
       ]
     },
     {
-      "name": "GetByUser",
+      "name": "AddChanged",
       "steps": [
-        "Initiate UserHistorySearch",
-        "Add parameter: UserID",
-        "Retrieve data using SqlDataReader",
-        "Map retrieved data to UserHistory entity fields"
+        "Setup database procedure name as 'UserHistoryAddChanged'.",
+        "Add parameters such as 'SessionID', 'UserID', 'ActionDate', 'AuthorizedBy', 'ReasonCodeID', 'Comments', etc.",
+        "Execute query to update or insert changes into the UserHistory."
       ]
     }
   ],
   "business_rules": [],
-  "validations": [],
+  "validations": [
+    "Check if data reader is not null and has data before populating fields."
+  ],
   "calculations": [],
   "conditions": [],
   "system_behavior": [
-    "Maintains user action history by storing records with specified fields",
-    "Provides method to search and retrieve user history by user ID",
-    "Formats names and dates for presentation"
+    "Formats names and dates for display using specified formatting utilities."
   ],
   "dependencies": [],
   "exceptions": [],
