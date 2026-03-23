@@ -1,0 +1,97 @@
+{
+  "filename": "Guideline",
+  "found": true,
+  "summary": "The \"Guideline\" content provides a structure for handling guidelines within the HSPnet system, focusing on database interactions and data retrieval based on various parameters like subtopics, topic IDs, and agency information.",
+  "purpose": "To facilitate the search, retrieval, and management of guidelines based on criteria such as topic, subtopic, agency, and status. It supports functions for managing subscriptions and retrieving lists of guidelines and related entities.",
+  "entities": [
+    "Guideline",
+    "Agency"
+  ],
+  "fields": [
+    "ID",
+    "Ref",
+    "TopicID",
+    "Topic",
+    "SubtopicID",
+    "SubtopicNumber",
+    "Subtopic",
+    "Status",
+    "AgencyID",
+    "AgencyName",
+    "SiteAppliedTo",
+    "DiscAppliedTo",
+    "LastUpdated",
+    "IsStatusSubscriber",
+    "TemplateID",
+    "GuidelineExists",
+    "SourceIsTemplate",
+    "TemplateUnchanged",
+    "Inactive",
+    "SiteListing",
+    "LastUpdatedFormatted",
+    "SubtopicIDFormatted",
+    "SubtopicFormatted"
+  ],
+  "actors": [
+    "HSPnetSession"
+  ],
+  "workflows": [
+    {
+      "name": "Retrieve Guidelines by Subtopic ID",
+      "steps": [
+        "Initialize a list for storing guidelines.",
+        "Set database procedure to 'GuidelineSearchGuideline'.",
+        "Add parameters for session ID, subtopic ID, and visibility flags.",
+        "Execute data retrieval.",
+        "Parse records into guideline objects.",
+        "Add guideline objects to the list.",
+        "Return the list."
+      ]
+    },
+    {
+      "name": "Subscribe or Unsubscribe User from Guideline",
+      "steps": [
+        "Check subscription status.",
+        "Set appropriate database procedure ('GuidelineSubscriberAdd' or 'GuidelineSubscriberDelete').",
+        "Add session ID and guideline ID as parameters.",
+        "Execute the query."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Guidelines can be filtered based on status (New, Pending, Approved, Review, Inactive).",
+    "Only existing guidelines are shown in specific retrieval functions."
+  ],
+  "validations": [
+    "Check if the data reader contains results before processing.",
+    "Ensure fields like IDs and names are retrieved as expected."
+  ],
+  "calculations": [
+    "Format LastUpdated to a short date format for display."
+  ],
+  "conditions": [
+    "Retrieve only active guidelines unless specified otherwise."
+  ],
+  "system_behavior": [
+    "Interacts with database to retrieve and manage guideline records.",
+    "Supports addition and removal of user subscriptions to guidelines."
+  ],
+  "dependencies": [
+    "Database procedures like 'GuidelineSearchGuideline', 'GuidelineSubscriberAdd', and 'GuidelineSubscriberDelete'.",
+    "HSPnet.Session for maintaining session state."
+  ],
+  "exceptions": [
+    "Handle unexpected database results by checking for null data readers."
+  ],
+  "source_document_ids": [
+    "154811b3-cbfa-5094-a7f7-9adc5e8a8b9e",
+    "2d6b4efa-9dfa-5162-b798-58b190221848",
+    "725ae059-ab34-5743-883a-3dd3c369c2da",
+    "7606dc3b-454e-5d71-a7b3-27aa902f2dee",
+    "7bf233bd-ace7-5f50-b39b-bc9bd678906b",
+    "a031eb7b-7ed9-5088-89e1-d42e2e9515db",
+    "eb7d40bb-5843-5bed-bc38-bb887dee318b",
+    "f4ffe286-bf16-50bd-b361-afacb72186eb"
+  ],
+  "content_gaps": []
+}
