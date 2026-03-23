@@ -1,0 +1,122 @@
+{
+  "filename": "Guidelines",
+  "found": true,
+  "summary": "The document provides configuration and implementation details for a web-based system related to educational guidelines, including controls, data binding, event handling, and UI setup.",
+  "purpose": "To outline the implementation of the 'Guidelines' web page, providing details about its controls, data sources, event handlers, and interactions.",
+  "entities": [
+    "Guidelines",
+    "UserSession",
+    "Department",
+    "Dropdown",
+    "Resources",
+    "Courses",
+    "Grid",
+    "AjaxControlToolkit",
+    "HSPnet"
+  ],
+  "fields": [
+    {
+      "name": "uxPending",
+      "type": "CheckBox"
+    },
+    {
+      "name": "uxReleased",
+      "type": "CheckBox"
+    },
+    {
+      "name": "uxReview",
+      "type": "CheckBox"
+    },
+    {
+      "name": "uxInactive",
+      "type": "CheckBox"
+    },
+    {
+      "name": "pnlTopic",
+      "type": "Panel"
+    },
+    {
+      "name": "pnlSubtopic",
+      "type": "Panel"
+    },
+    {
+      "name": "pnlAgency",
+      "type": "HtmlGenericControl"
+    }
+  ],
+  "actors": [
+    "User",
+    "System Administrator",
+    "Local Administrator"
+  ],
+  "workflows": [
+    {
+      "name": "View Selection Workflow",
+      "steps": [
+        "User selects a view from uxView DropDownList",
+        "Depending on chosen value, pnlTopic and pnlSubtopic visibility toggles",
+        "Data binds to selected agency or topic"
+      ]
+    },
+    {
+      "name": "Agency Selection Workflow",
+      "steps": [
+        "User selects agency from uxAgency DropDownList",
+        "System defaults to user's agency or binds data",
+        "Subtopic list is refreshed through LoadSubtopicList method"
+      ]
+    }
+  ],
+  "business_rules": [
+    "ScreenIsEditable is true if the user is not in ViewOnly mode and has access via administrative privileges",
+    "Certain components are mutually exclusive based on user selection"
+  ],
+  "validations": [
+    "check if user agency selection matches user's agency ID",
+    "check if data is inactive before rendering certain UI components"
+  ],
+  "calculations": [
+    "No specific calculations identified"
+  ],
+  "conditions": [
+    "If uxView.SelectedValue is '0', pnlTopic is visible and others hidden",
+    "If Dropdown.CurrentID(uxAgency) != 0, subtopic items are adjusted"
+  ],
+  "system_behavior": [
+    "Refreshes the page when popups cause refresh",
+    "Displays warning/error messages accordingly"
+  ],
+  "dependencies": [
+    "HSPnet.DataLayer",
+    "HSPnet.Framework",
+    "HSPnet.App_GlobalResources"
+  ],
+  "exceptions": [
+    "Potential data casting issues if incorrect value formats are used"
+  ],
+  "source_document_ids": [
+    "0b4fac8a-45c9-5e4f-ada2-df75a3134da7",
+    "0d01d504-f50d-5d07-8b53-ada7262e9a2b",
+    "148a1d45-c09f-5cbc-8745-aca2ae57cd26",
+    "1abf6367-07dc-5ec4-bdea-3dddded6b24a",
+    "300f9019-c7e4-5712-ba4b-43fa8f4f18e3",
+    "33472641-6d18-57c4-b181-02c610f8ef54",
+    "5aba526f-61c3-5e58-b113-bafa8dec7d1a",
+    "5b77e2ff-1a3a-5950-a02f-a53c3757c55c",
+    "7ccd4043-6dff-5920-8b15-2098bbacceb9",
+    "7ff0ac4e-f01d-5ba6-b69d-843090eb57c5",
+    "821e5b94-1ec1-5c63-903d-6a8e27072587",
+    "8a6ff9f7-769e-597f-b88b-4d7272e10687",
+    "932f22e2-58bb-5074-9515-a42223f601c6",
+    "9ab2aa03-12f3-5eaf-9cad-0e2787e376a2",
+    "a1d8dbf1-b4f2-56f4-baee-83aa4ca5af8e",
+    "a7239da0-7b45-57be-a35d-ff4f2a37b96a",
+    "b2505c77-a5c6-53ab-adda-d5a4a6b115d0",
+    "ca16b999-1748-5af7-9786-a3f21c1f7441",
+    "ca766ce1-669e-520c-9607-55ea744d80c6",
+    "d988b029-1912-58f2-81c1-49a75fb2bc64",
+    "e8187f70-546c-5361-ad34-429dcca45d90",
+    "ff28d872-08b8-5bbb-a1e1-ea9c2d794b52"
+  ],
+  "content_gaps": []
+}
