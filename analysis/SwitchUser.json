@@ -1,0 +1,109 @@
+{
+  "filename": "SwitchUser",
+  "found": true,
+  "summary": "The SwitchUser module enables privileged users (like system administrators) to switch between different user accounts within an active session, mainly to facilitate alternate logins, testing, or administrative actions. The switch operation includes workflow to retrieve available alternate logins, handle switch logic, update session variables, and redirect to appropriate start screens based on user roles.",
+  "purpose": "To allow a user (primarily system administrators or authorized personnel) to switch their session context to another user's account, either for administrative purposes or to support alternate user identities. It also supports reverting to the primary ID and view-only modes.",
+  "entities": [
+    "SwitchUser",
+    "AltUser",
+    "HSPnetSession"
+  ],
+  "fields": [
+    "SessionID",
+    "OriginalSessionID",
+    "NewLoginID",
+    "ViewOnly",
+    "StaffID",
+    "FullName",
+    "FullNameWithAgency",
+    "Original",
+    "SwitchUserViewOnly",
+    "Agency",
+    "SessionHash",
+    "Locale"
+  ],
+  "actors": [
+    "SystemAdministrator",
+    "Instructor",
+    "PlacementCoordinator",
+    "StudentMaint",
+    "GroupInstructor",
+    "CourseLeader",
+    "ReceivingCoordinator",
+    "DestinationCoordinator",
+    "Supervisor",
+    "PALOnly"
+  ],
+  "workflows": [
+    {
+      "name": "SwitchUser - Switch Login",
+      "steps": [
+        "If user is a sysadmin, use procedure 'SessionGetAllLogins'; else use 'SessionGetAlternateLogins'.",
+        "Add SessionID as parameter, query for alternate logins. AltUser objects constructed (StaffID, FullName, Original).",
+        "SwitchLogin called with session, StaffID, calledFrom, request, response, viewOnly flag.",
+        "SessionSwitch procedure invoked with SessionID, OriginalSessionID, NewLoginID, and ViewOnly parameters.",
+        "SessionID may be updated. Save session security cookie.",
+        "Determine StartScreen via GetStartScreen logic considering role and calledFromScreen.",
+        "Redirect to StartScreen (which may be changed depending on role, calledFromScreen, and .asp/.aspx conversion)."
+      ]
+    },
+    {
+      "name": "Go Back To Primary ID",
+      "steps": [
+        "Call SwitchLogin with OriginalUserID.",
+        "Redirect user to new screen if not empty."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Sysadmins do not use the standard 'start screen' proc to prevent unintended reset of welcome filters.",
+    "Roles influence which screens users land on after switch: GroupInstructor goes to GrpInstructorSummary.aspx, Instructor goes to WelcomeInstructor.aspx, Supervisor goes to WelcomeSupervisor.aspx, PALOnly roles go to ReportMenu.aspx.",
+    "Conversion of legacy .asp screens to .aspx is handled programmatically when redirecting."
+  ],
+  "validations": [
+    "SessionID is required for switch operations.",
+    "StaffID must be valid and associated with current session.",
+    "ViewOnly flag controls user abilities after switch.",
+    "Correct role assignment is confirmed via Boolean checks on multiple role fields."
+  ],
+  "calculations": [
+    "Boolean role checks for GroupInstructorOnly, StudentMaintOnly, InstructorOnly, SupervisorOnly, PALOnly constructed from session data."
+  ],
+  "conditions": [
+    "If sysadmin is switching, avoid resetting welcome filters.",
+    "If called from MaintStudent.aspx, redirect to WelcomeStudent.aspx.",
+    "If FromLogin is false and user is sysadmin, use custom logic for StartScreen."
+  ],
+  "system_behavior": [
+    "SwitchUser module updates session and security data after successful switch.",
+    "Redirects users based on their new context and role.",
+    "Handles conversion from legacy .asp screens to .aspx.",
+    "Provides MonitoringIndicator when in SwitchUserViewOnly mode."
+  ],
+  "dependencies": [
+    "Session procedures: SessionSwitch, SessionGetAllLogins, SessionGetAlternateLogins, SessionStartScreen.",
+    "SqlDataReader for data retrieval.",
+    "Security.SaveSecurityCookie for maintaining security context.",
+    "Hashing.AddURLHash, QueryString.AddQueryStringToURL for URL construction."
+  ],
+  "exceptions": [
+    "If no data is returned from database procedures, the switch operation is aborted.",
+    "If StartScreen is not determined, a default (Timedout.aspx) is used.",
+    "If screen redirect fails, user remains on current page."
+  ],
+  "source_document_ids": [
+    "17dcfa4c-08cd-5f34-a025-c22db6d65ad9",
+    "222869d2-81e8-5299-aabf-ec050b17e505",
+    "63203cfb-c460-5784-a759-d79c0e7082c3",
+    "99d50dd0-e9cd-5cc1-b399-af03780e485e",
+    "9c0f2d3d-a4ef-5694-acf0-63638ea2159f",
+    "c67e0f38-1e3b-5b7f-9b2a-c37353bbfaeb",
+    "fd2a66ea-bda8-5ec0-a28b-6c836b35309b"
+  ],
+  "content_gaps": [
+    "No UI descriptions or error handling for failed database connections.",
+    "No explicit permission checks shown beyond role Boolean fields.",
+    "No details on how Security.SaveSecurityCookie operates internally.",
+    "Does not include front-end logic or integration steps for invoking SwitchUser from UI."
+  ]
+}
