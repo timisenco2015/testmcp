@@ -1,19 +1,48 @@
 {
     "filename": "RptDestProfileSummary",
-    "found": false,
-    "summary": "",
-    "purpose": "",
+    "found": true,
+    "summary": "RptDestProfileSummary is a user control within the HSPnet application, responsible for generating and managing report jobs for destination profiles.",
+    "purpose": "This module facilitates the creation of reports related to destination profiles, ensuring that report generation adheres to specified conditions and limits.",
     "entities": [],
-    "fields": [],
+    "fields": [
+        "UserSession",
+        "ScriptMgr",
+        "cmdRunReport"
+    ],
     "actors": [],
-    "workflows": [],
-    "business_rules": [],
-    "validations": [],
+    "workflows": [
+        {
+            "name": "Report Generation",
+            "steps": [
+                "Check if user session allows report execution.",
+                "Retrieve destination access list.",
+                "Handle errors if no destinations or if maximum limit exceeded.",
+                "Generate report job for the valid destination list."
+            ]
+        }
+    ],
+    "business_rules": [
+        "Maximum allowed destination items for report: PrintJobs.MAX_INCLUDE_ITEMS."
+    ],
+    "validations": [
+        "cmdRunReport visibility check based on UserSession.SwitchUserViewOnly."
+    ],
     "calculations": [],
-    "conditions": [],
-    "system_behavior": [],
+    "conditions": [
+        "destList.Count == 0",
+        "destList.Count >= PrintJobs.MAX_INCLUDE_ITEMS"
+    ],
+    "system_behavior": [
+        "Shows error messages when report conditions are not met."
+    ],
     "dependencies": [],
-    "exceptions": [],
-    "source_document_ids": [],
-    "content_gaps": ["No related documents found"]
+    "exceptions": [
+        "Report not created if destination count is zero or exceeds maximum allowed."
+    ],
+    "source_document_ids": [
+        "6f855dcf-e226-5d28-8ba1-10a8fb7b86da",
+        "9c1dc009-ccd8-5a43-a130-79d87ab67c1f",
+        "fde9a74f-90bf-5f4c-b081-9fdb52ca1988"
+    ],
+    "content_gaps": []
 }
