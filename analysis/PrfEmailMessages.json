@@ -1,0 +1,105 @@
+{
+  "filename": "PrfEmailMessages",
+  "found": true,
+  "summary": "PrfEmailMessages implements a user control for managing staff email messages within a web application. It supports displaying, adding, editing, and deleting staff messages, with roles for session management, validation, and UI behaviors such as popups and grids.",
+  "purpose": "To enable users (likely staff managers or administrators) to view, add, edit, and delete email messages attached to staff profiles, using a grid and form-based interface, with support for session-based access and editable screens.",
+  "entities": [
+    "StaffMessage",
+    "UserSession",
+    "StaffID"
+  ],
+  "fields": [
+    "TypeCodeID",
+    "ID",
+    "Sess",
+    "CurrentPage"
+  ],
+  "actors": [
+    "User (with StaffID)",
+    "System (session manager)",
+    "Grid/Form UI"
+  ],
+  "workflows": [
+    {
+      "name": "Display Messages",
+      "steps": [
+        "Grid loads staff messages based on StaffID and UserSession.",
+        "If no data exists and screen is editable, show 'add' button."
+      ]
+    },
+    {
+      "name": "Add Message",
+      "steps": [
+        "User clicks add button.",
+        "Switch grid/form to add mode.",
+        "Show modal details.",
+        "Input values are captured, including TypeCodeID.",
+        "Insert operation validates page, cancels if invalid.",
+        "Session is cached, page is redirected after success."
+      ]
+    },
+    {
+      "name": "Edit Message",
+      "steps": [
+        "User clicks edit button on grid row.",
+        "Selects message by ID.",
+        "Switches form to edit mode.",
+        "Show modal details for editing.",
+        "Update operation validates page; cancels if invalid.",
+        "Session is cached, page is redirected after success."
+      ]
+    },
+    {
+      "name": "Delete Message",
+      "steps": [
+        "User clicks delete button.",
+        "Deletes staff message using session and ID.",
+        "Session is cached.",
+        "Page is redirected to current page."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Grid buttons for add, edit, delete are enabled/disabled based on ScreenIsEditable.",
+    "No data template only visible if no rows exist and screen is editable.",
+    "Staff message delete and update/insert operations depend on valid session and StaffID."
+  ],
+  "validations": [
+    "Page.IsValid is checked on insert and update; operation is cancelled if invalid.",
+    "Form values (TypeCodeID) are obtained from dropdown controls."
+  ],
+  "calculations": [],
+  "conditions": [
+    "ScreenIsEditable: determines if add/edit/delete functions are enabled.",
+    "UserSession: must be present, otherwise selection/query is cancelled.",
+    "Grid row count: if zero and editable, show empty data panel."
+  ],
+  "system_behavior": [
+    "Session caching after insert/update/delete.",
+    "UI updates and redirection after operations.",
+    "Modal popups are used for detail forms."
+  ],
+  "dependencies": [
+    "Grid and FormView controls are dependent on session and StaffID parameters.",
+    "Dropdown values depend on TypeCodeID.",
+    "ObjectDataSource is used for data interaction."
+  ],
+  "exceptions": [
+    "If UserSession is null, selection and operations are cancelled.",
+    "If Page validation fails, insert/update is cancelled."
+  ],
+  "source_document_ids": [
+    "54eb7f90-aa81-5c73-9edf-449b18368886",
+    "747bb576-2d1e-515e-844c-e5b69a297c7f",
+    "766d2735-749a-5eca-9d70-13ff77e83546",
+    "cf2f0c7f-251f-5853-a971-0e529d5cb0f0",
+    "d2df2107-29e7-5d6e-aafe-d55e8532eeca",
+    "edab8455-e683-5ca9-84d6-77349d98c7a5",
+    "f8b1f8d2-c584-576d-b5c1-20135d6f0924"
+  ],
+  "content_gaps": [
+    "Business logic details for StaffMessages backend methods are not described.",
+    "Error handling and user feedback strategies beyond redirection are not detailed.",
+    "Field validation specifics (range/format for TypeCodeID etc.) are not provided."
+  ]
+}
