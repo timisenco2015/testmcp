@@ -1,0 +1,96 @@
+{
+  "filename": "MaintCourseDetailsPlacementHistory",
+  "found": true,
+  "summary": "MaintCourseDetailsPlacementHistory is an ASP.NET Web UserControl for displaying the placement history of a course. It provides a GridView interface, data source management, and session-based selection logic for presenting placement-related data tied to a specific course.",
+  "purpose": "To display and manage the placement history data for a given course in a web application, ensuring that only authorized session users can access and interact with the placement data.",
+  "entities": [
+    "Course",
+    "PlacementHistory",
+    "UserSession"
+  ],
+  "fields": [
+    {
+      "name": "Panel1",
+      "type": "Panel",
+      "description": "A UI container panel."
+    },
+    {
+      "name": "Label1",
+      "type": "Label",
+      "description": "A label for displaying text or titles."
+    },
+    {
+      "name": "uxMaster",
+      "type": "GridView",
+      "description": "Grid to display placement history entries, sorted by TTStartDate descending on initial load."
+    },
+    {
+      "name": "dsMaster",
+      "type": "ObjectDataSource",
+      "description": "Data source control for fetching placement history data."
+    },
+    {
+      "name": "UserSession",
+      "type": "HSPnetSession",
+      "description": "Session object holding user and context information."
+    },
+    {
+      "name": "CourseID",
+      "type": "string",
+      "description": "The identifier for the course whose placement history is displayed."
+    }
+  ],
+  "actors": [
+    "End User (with valid UserSession)"
+  ],
+  "workflows": [
+    {
+      "name": "Display Placement History",
+      "steps": [
+        "Page loads MaintCourseDetailsPlacementHistory user control.",
+        "If not a postback, uxMaster GridView is sorted by TTStartDate in descending order.",
+        "When dsMaster (ObjectDataSource) performs selection, check if UserSession exists.",
+        "If no UserSession, cancel data selection.",
+        "If UserSession exists, pass UserSession and CourseID as input parameters for data fetching.",
+        "Placement history data is fetched and rendered in uxMaster GridView."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Placement history data can only be accessed if UserSession is valid.",
+    "Placement history is specific to the provided CourseID."
+  ],
+  "validations": [
+    "UserSession presence is checked before data retrieval.",
+    "CourseID must be provided to retrieve relevant data."
+  ],
+  "calculations": [
+    "GridView is sorted by TTStartDate in descending order upon initial page load."
+  ],
+  "conditions": [
+    "Page load is not a postback",
+    "UserSession is null: cancel data selection",
+    "UserSession is present: allow data retrieval"
+  ],
+  "system_behavior": [
+    "Prevents selection of data if user is not authenticated or session has expired.",
+    "Automatically sorts placement history by start date latest-first on initial load."
+  ],
+  "dependencies": [
+    "ObjectDataSource control for retrieving data",
+    "HSPnetSession for context and authorization",
+    "GridView for data display"
+  ],
+  "exceptions": [
+    "If UserSession is not set, ObjectDataSource selection is cancelled and data is not shown."
+  ],
+  "source_document_ids": [
+    "6b468cf5-f5c2-5134-93f6-3d3a23bb37b0",
+    "86cabaa7-c5d5-5565-9fc5-2a42f41498e6"
+  ],
+  "content_gaps": [
+    "Business rules for data update, edit, or delete are not defined.",
+    "Details on which placement fields are displayed in uxMaster GridView are not provided.",
+    "No explicit description of what constitutes PlacementHistory data beyond StartDate sorting."
+  ]
+}
