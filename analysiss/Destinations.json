@@ -1,12 +1,13 @@
 {
     "filename": "Destinations",
     "found": true,
-    "summary": "This document provides functionalities for managing destinations within a session, including searching, adding, deleting, and updating destination details. It involves procedures to list services linked to destinations, check validity, and determine access rights for users and staff.",
-    "purpose": "To manage and manipulate destination-related operations within a session, ensuring correct data handling and user access control.",
+    "summary": "This document provides a detailed description and implementation of destination-related functionalities within the HSPnet system. It outlines the methods for searching, listing, adding, updating, and deleting destinations, along with handling various aspects like service and site information, user access permissions, and validation checks.",
+    "purpose": "The purpose is to manage destinations, including their profiles, services, and associated user permissions and to facilitate operations like search, list, add, update, and delete under specified conditions.",
     "entities": [
         "Destination",
         "HSPnetSession",
-        "SqlDataReader"
+        "SqlDataReader",
+        "Database"
     ],
     "fields": [
         "ID",
@@ -20,109 +21,74 @@
         "CostCentreDescription",
         "PortfolioOption",
         "PortfolioCodeID",
-        "SitePortfolioCodeID",
-        "SitePortfolioCode",
-        "SitePortfolioDescription",
         "Name",
         "ShortName",
-        "StaffID",
-        "FirstName",
-        "LastName",
-        "MiddleName",
-        "Email",
-        "SecureEmail",
-        "Phone",
-        "Fax",
-        "IsHSPnetUser",
         "SiteID",
         "AgencyID",
-        "DestProfileExists",
+        "ProfileExists",
         "SiteShortName",
         "ServiceShortName",
         "SiteName",
         "ServiceName",
         "DestProfileLastUpdated",
-        "ProfileExists",
-        "ClosuresExists",
-        "StaffingExists",
-        "UnitManagerExists",
-        "CapacityExists",
-        "AdditionalContactsExists",
-        "UtilizationExists",
-        "ServiceList",
-        "SiteUseCostCentres",
-        "UserIsAllowedService",
-        "ServiceIsHSPnetUser",
-        "AgencyShortName",
-        "HSPnetUserFormatted",
-        "StaffNameFormatted",
-        "EmailLinkFormatted",
-        "SecureEmailLinkFormatted",
-        "ShortNameFormatted",
-        "SiteServiceDest",
-        "ServiceIsHSPnetUserExists",
-        "ServiceArea",
-        "ServiceWithoutArea",
-        "FaxArea",
-        "FaxWithoutArea",
-        "StaffObj",
-        "UserID",
-        "DCUserID",
-        "DCUserIdDisabled",
-        "DCLastLoginDateFormatted",
-        "DCLocalAdministrator",
-        "DCSystemAdministrator",
         "MandatoryTrainingDone",
-        "MandatoryTrainingRefresherRequired"
+        "MandatoryTrainingRefresherRequired",
+        "UserIsAllowedService",
+        "IsHSPnetUser"
     ],
     "actors": [
-        "Session",
-        "Agency User",
-        "Sysadmin",
-        "Staff"
+        "HSPnetSession",
+        "User"
     ],
     "workflows": [
         {
+            "name": "Destination Management",
+            "steps": [
+                "Initialize database procedures",
+                "Execute procedure based on action (add, update, delete)",
+                "Manage user permissions and validations",
+                "Return and process data lists"
+            ]
+        },
+        {
             "name": "Destination Search",
             "steps": [
-                "Initialize session and parameters",
-                "Execute stored procedure with parameters",
-                "Read data and populate Destination objects",
-                "Return list of destinations"
+                "Set procedure name",
+                "Add necessary parameters",
+                "Execute query and read data",
+                "Process and return a destination list"
             ]
         }
     ],
     "business_rules": [
-        "Check if session is valid.",
-        "Ensure the destination code is specified.",
-        "Verify user permissions for accessing destinations."
+        "Destinations must have a specified service and code ID to be valid.",
+        "Destinations can be searched, added, updated, or deleted based on user permissions and conditions.",
+        "Managing cost centres and portfolio options are conditional based on existing entries."
     ],
     "validations": [
-        "Destination must have a ServiceID.",
-        "DestinationCodeID must be greater than 0."
+        "Check that service and destination code IDs are specified.",
+        "Validate user permissions for destination actions.",
+        "User must be specified for accessing or modifying destination data."
     ],
     "calculations": [
-        "ServiceIsHSPnetUserExists",
-        "PhoneWithoutArea",
-        "FaxWithoutArea"
+        "Format dates and phone numbers for readability.",
+        "Calculate and format user permission strings."
     ],
     "conditions": [
-        "Check if destination is inactive.",
-        "Verify if the user is allowed access to the service."
+        "If destination contact ID is 0 or invalid, it must be created.",
+        "Services associated with destinations must be listed and verified."
     ],
     "system_behavior": [
-        "Add or remove destinations based on session data.",
-        "Retrieve and format destination information for display.",
-        "Validate and process user access to destinations."
+        "Manages and processes destinations using database stored procedures.",
+        "Communicates messages to users for actions performed (e.g., updates, deletions)."
     ],
     "dependencies": [
-        "HSPnetSession",
-        "Database",
-        "Phone"
+        "Requires HSPnetSession for accessing database and managing user sessions.",
+        "Utilizes SqlDataReader for processing query results."
     ],
     "exceptions": [
-        "When session ID or user permissions do not allow the operation.",
-        "If mandatory fields are missing in a destination."
+        "SQLErrorOccured flag is used to capture and handle database execution errors.",
+        "Invalid destination or service entries will result in error messages."
     ],
     "source_document_ids": [
         "27025ff9-30fe-5261-ba86-6ec598a1fcf7",
@@ -140,6 +106,7 @@
         "877ba8ca-c535-5b20-8b38-bad69b74280d",
         "95e47952-4ac7-53e9-8a03-cc16e80fe019",
         "9b50ea6f-c52d-5e84-87fc-7073b019272a",
+        "9bb15e92-99e6-587e-839f-fe3b79d53b00",
         "a0267073-1d76-5b96-8d00-9701b22962f6",
         "a8a64d1c-6360-5817-81eb-40f4c7c64679",
         "b2b647ab-8f82-5695-bcce-475efe5a7557",
@@ -151,9 +118,8 @@
         "d3e6df94-77a4-5eb3-91f5-abac5c283370",
         "d5c6c97f-af5f-5963-a8c3-1e89d8e36866",
         "da340dfe-fab9-5498-9dd3-3e829d18a18d",
-        "e0f34f2c-9560-57ba-abd6-b856db17f420",
-        "e8f92414-7a52-5142-83d3-ce7743634f02",
         "edf0dc70-06b5-5f41-a3bd-2fb794b58032",
+        "e8f92414-7a52-5142-83d3-ce7743634f02",
         "f1dd4e2b-ab80-5465-a4eb-99b09708b2ee",
         "f55a7481-f937-55f7-b134-3199331845b4",
         "f5f1697a-946c-5eee-a093-b4598330a207",
