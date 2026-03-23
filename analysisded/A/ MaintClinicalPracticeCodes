@@ -1,0 +1,95 @@
+```json
+{
+    "filename": "MaintClinicalPracticeCodes",
+    "found": true,
+    "summary": "The documents describe the management of Clinical Practice Codes, including their creation, update, and deletion within a web application.",
+    "purpose": "To handle the maintenance and operations related to Clinical Practice Codes within the HSPnet system.",
+    "entities": [
+        "ClinicalPracticeCode",
+        "UserSession",
+        "Agencies",
+        "Departments",
+        "Programs"
+    ],
+    "fields": [
+        "ID",
+        "Name",
+        "ShortName",
+        "ProgramID",
+        "Inactive"
+    ],
+    "actors": [
+        "SystemAdministrator",
+        "LocalAdministrator",
+        "UserSession"
+    ],
+    "workflows": [
+        {
+            "name": "Manage Clinical Practice Code",
+            "steps": [
+                "Add new Clinical Practice Code",
+                "Edit existing Clinical Practice Code",
+                "Delete Clinical Practice Code",
+                "Reactivate Clinical Practice Code"
+            ]
+        },
+        {
+            "name": "Populate Dropdowns",
+            "steps": [
+                "Fill Agency Dropdown",
+                "Fill Department Dropdown",
+                "Fill Program Dropdown"
+            ]
+        }
+    ],
+    "business_rules": [
+        "User must belong to an agency to add, edit or delete codes.",
+        "Only administrators can reactivate deleted codes."
+    ],
+    "validations": [
+        "RequiredFieldValidator for 'Name'.",
+        "RequiredFieldValidator for 'ShortName'."
+    ],
+    "calculations": [
+        "Determine current ID using Dropdown.CurrentID."
+    ],
+    "conditions": [
+        "ScreenIsEditable for access control.",
+        "Check if UserSession is a SystemAdministrator or LocalAdministrator."
+    ],
+    "system_behavior": [
+        "Auto-generated fields and controls.",
+        "Modal popup behavior for details editing."
+    ],
+    "dependencies": [
+        "HSPnet.DataLayer for database operations",
+        "HSPnet.UI for UI components"
+    ],
+    "exceptions": [
+        "System restricts add/edit in situations of view-only permissions or empty dropdowns."
+    ],
+    "source_document_ids": [
+        "1a77e7da-0f92-5a0c-8fae-71056a1a8094",
+        "2459a248-75cd-5726-acb7-2dac9c032ca2",
+        "2ab1fcc0-9f43-53e9-978e-dcb85b0368fd",
+        "36d4cd2b-4173-5197-9ef8-9a9e9696c813",
+        "37466f25-8263-5776-a737-d52f76a046b1",
+        "4639e39b-7c86-556c-a963-f1ebf07e430b",
+        "4f4ab970-b52f-50ad-970a-d15854034368",
+        "66ee2caa-af22-5133-b58c-335f3ff230b3",
+        "73d157d0-8704-5483-ba18-f07f908e37d9",
+        "7504ddba-c6ea-55cb-aa68-ce5b6da217be",
+        "884295cf-808e-5138-a00a-1c5eefd94ac3",
+        "96e1ad39-6796-5cd5-93ba-39eff14ddd5b",
+        "b427c6f5-5ce5-51da-8532-a9a794e7d965",
+        "c612f387-b77d-58d2-989e-f664f6bc89b0",
+        "d8353f31-27ad-5b3f-92ff-904167fdf1f0",
+        "dcb5aa7a-ecd8-5c97-863a-c610eda590af",
+        "e2b74601-147d-56af-9611-3fc5231f8c19",
+        "e68883dd-3062-567f-9a34-df0037ce41d0",
+        "f5d8614c-459e-5bc5-b8e9-e46671dc220b",
+        "fdc8515b-714d-5285-95af-55c30bd0e56a"
+    ],
+    "content_gaps": []
+}
+```
