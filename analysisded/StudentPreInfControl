@@ -1,0 +1,73 @@
+```json
+{
+  "filename": "StudentPreInfControl",
+  "found": true,
+  "summary": "The StudentPreInfControl is a user control component in ASP.NET, designed to handle prerequisites related to student infection control measures, including handling UI elements and data integration.",
+  "purpose": "To manage and display student infection control prerequisites within a web application interface, utilizing datastores, session management, and validation processes.",
+  "entities": ["StudentPreInfControl", "StudentPrerequisite", "HSPnetSession", "FormView", "Grid", "Localization"],
+  "fields": [
+    {"name": "updPnlMain", "type": "UpdatePanel"},
+    {"name": "txtCalendarPlaceholder", "type": "TextBox"},
+    {"name": "calCalendarPlaceholder", "type": "CalendarExtender"},
+    {"name": "fvmStdPrerequisite", "type": "FormView"},
+    {"name": "dsStdPrerequisite", "type": "ObjectDataSource"},
+    {"name": "dsStdPrerequisiteDetail", "type": "ObjectDataSource"},
+    {"name": "dsN95MaskSizeCode", "type": "ObjectDataSource"},
+    {"name": "dsN95MaskFitTestDate", "type": "ObjectDataSource"},
+    {"name": "dsInfectionControlSolutions", "type": "ObjectDataSource"},
+    {"name": "uxDetail", "type": "FormView"},
+    {"name": "pnlPopup", "type": "Panel"},
+    {"name": "updPnlPopup", "type": "UpdatePanel"},
+    {"name": "btnShowPopup", "type": "Button"},
+    {"name": "mdlDetails", "type": "ModalPopupExtender"},
+    {"name": "ValidationSummary1", "type": "ValidationSummary"}
+  ],
+  "actors": ["User", "System", "Grid", "Dropdown", "Localization"],
+  "workflows": [
+    {
+      "name": "ItemUpdating",
+      "steps": [
+        "Trigger on UX detail item update",
+        "Check if page is valid",
+        "Cancel if not valid",
+        "Update N95 mask size and infection control solution values"
+      ]
+    },
+    {
+      "name": "ItemUpdated",
+      "steps": ["Redirect to InfectionControl page"]
+    }
+  ],
+  "business_rules": ["None specified"],
+  "validations": [
+    {"description": "Ensure page is valid before updating items"},
+    {"description": "Check if user session exists before selecting prerequisites"}
+  ],
+  "calculations": [
+    {
+      "description": "JavaScript adds JavaScript number declaration for N95MaskSizeUnknownCodeID"
+    }
+  ],
+  "conditions": [
+    {"description": "Display fields are translated based on session language settings"},
+    {
+      "description": "Show or hide save button based on screen editable condition"
+    }
+  ],
+  "system_behavior": ["Handles asynchronous postbacks", "Registers client scripts"],
+  "dependencies": ["HSPnetSession", "HSPnet.UI", "AjaxControlToolkit"],
+  "exceptions": ["Session null cancels prerequisite selection"],
+  "source_document_ids": [
+    "04e9c4ac-7f77-5f3e-bfe5-d536dd31d727",
+    "1ae444a0-0cee-563e-be86-22e725e52b56",
+    "1f927279-8e83-52a0-b9fc-166c681c56f2",
+    "680c0077-b938-56b3-ba5d-6be62f571fc8",
+    "6fa54b48-83ba-581c-bc12-6bc743869ea2",
+    "85e13646-c70b-5b6e-b11a-e421b1750e04",
+    "8b9ecfea-0f28-5193-9388-f81afa65b730",
+    "b0772815-3167-5d6b-9ded-96e4cca329b6",
+    "d4625212-8b62-5355-8519-8cf54815b538"
+  ],
+  "content_gaps": []
+}
+```
