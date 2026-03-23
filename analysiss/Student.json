@@ -1,195 +1,101 @@
 {
-  "filename": "Student",
-  "found": true,
-  "summary": "The retrieved documents contain various details and functionalities related to student data management, including student identification, consent handling, contact updates, gender disclosure, document uploads, program enrollment, and demographic attributes. The system processes include searching, updating, and verifying student information across different modules.",
-  "purpose": "To manage student data within an educational or administrative system, focusing on consent procedures, personal details, document management, and program assessments.",
-  "entities": [
-    "Student",
-    "HSPnetSession",
-    "Database",
-    "SqlDataReader"
-  ],
-  "fields": [
-    "ID",
-    "FirstName",
-    "MiddleName",
-    "LastName",
-    "StudentNumber",
-    "Phone",
-    "Email",
-    "ConsentProgramID",
-    "ConsentObtainedDate",
-    "ExpectedEndDate",
-    "Gender",
-    "Address",
-    "City",
-    "Province",
-    "Country",
-    "PostalCode",
-    "EmployerAgencyID",
-    "EmployerSiteID",
-    "CampusID",
-    "SalutationCodeID",
-    "AlternateStudentNumber",
-    "AlternateStudentAgencyID",
-    "AltEmail",
-    "GenderCodeID",
-    "PrevLastName",
-    "ProgramApplicationStatusCodeID",
-    "RegPackageReceived",
-    "StudentEmailReleased",
-    "BirthDate",
-    "DemographicNotes",
-    "ConsentExpiredDate",
-    "WebPage",
-    "WebPageUpdateDate"
-  ],
-  "actors": [
-    "Student",
-    "Administrator",
-    "System Administrator",
-    "QES",
-    "Agency Staff"
-  ],
-  "workflows": [
-    {
-      "name": "Student Search",
-      "steps": [
-        "Accept search criteria: agencyID, lastName, firstName, studentNumber, etc.",
-        "Prepare and execute SQL query with the given parameters.",
-        "Retrieve data and populate student list.",
-        "Return paginated list based on startRowIndex and maximumRows."
-      ]
-    },
-    {
-      "name": "Student Consent Management",
-      "steps": [
-        "Check if consentProgramID is non-zero.",
-        "Fetch template for StudentNumber using consentProgramID.",
-        "Validate student number using regex against template."
-      ]
-    },
-    {
-      "name": "Student Profile Update",
-      "steps": [
-        "Verify student ID is non-zero.",
-        "Update student's personal details including contact information.",
-        "Execute update procedure with session parameters."
-      ]
-    },
-    {
-      "name": "Document Upload",
-      "steps": [
-        "Check if document upload is allowed for the given consent program.",
-        "Verify student status and consent expiry.",
-        "Process and store uploaded documents."
-      ]
-    },
-    {
-      "name": "Consent Expiry Handling",
-      "steps": [
-        "Determine expiry status based on consent dates and thresholds.",
-        "Update student records as necessary.",
-        "Notify or restrict access based on expiry."
-      ]
-    }
-  ],
-  "business_rules": [
-    "Student numbers should match a predefined template based on consentProgramID.",
-    "Consent expires after 6 years and a warning is issued 6 months prior.",
-    "Consent management visibility based on admin roles and expiry conditions.",
-    "Duplicate student records handled with confidentiality updates."
-  ],
-  "validations": [
-    "Check if consentProgramID is valid (non-zero) before template search.",
-    "Verify non-null and non-empty student names during profile updates.",
-    "Ensure document uploads comply with consent program policies."
-  ],
-  "calculations": [
-    "Determine estimated end date based on student program details.",
-    "Format phone numbers with or without area codes.",
-    "Calculate consent expiry and warning dates."
-  ],
-  "conditions": [
-    "Consent expiry affects document visibility and student name disclosure.",
-    "Student access varies based on consent program enrollment and confidentiality status.",
-    "Email and gender disclosure depend on program settings."
-  ],
-  "system_behavior": [
-    "Cache student search results for brief periods to enhance performance.",
-    "Provide warning icons and messages for gender or document deficiencies.",
-    "Generate user IDs for students in non-anonymous modes."
-  ],
-  "dependencies": [
-    "HSPnetSession for database connections and session management.",
-    "Resources for multilingual content and user messages.",
-    "Database procedures for retrieving and updating student information."
-  ],
-  "exceptions": [
-    "Handle null or invalid date entries in consent and demographic operations.",
-    "Manage errors for missing or incorrect search parameters."
-  ],
-  "source_document_ids": [
-    "050828de-cbb3-5ac9-8614-b2ae01ac787a",
-    "09e96ba9-0518-5bda-82a0-d1c899a60ea6",
-    "0b1e087b-7a1a-5f86-b7ea-d74f5a816903",
-    "13610719-748c-5c9d-983f-5e793b189c37",
-    "16a27a3d-5092-571c-b769-ad762754e0ae",
-    "18f5eca8-fa21-5c47-8b5c-8c2caa2a1132",
-    "1a551a64-24a9-5599-85b4-6b5fca09889a",
-    "1c150549-2fa3-5772-b90f-792e62a4f719",
-    "203fad22-6008-5f47-bd43-e2de1ce46389",
-    "2121a73a-6e00-5921-aef9-3f6300773a4d",
-    "226b1350-8c39-5356-aea9-299c888ca46a",
-    "2275b6b4-abe0-5437-a75c-0a7cadb7d680",
-    "2447fdae-d4e2-54be-a03c-9c7637f1d05c",
-    "2958ea9f-fb62-51b7-8c04-3a34f589f800",
-    "2b045a58-45fc-5c02-945e-77ac73bcb190",
-    "354c7166-08d1-548f-9419-f924ad525765",
-    "36c95aa9-9d49-5a8e-a397-7d07fae1c9e0",
-    "4031e2e1-0073-5360-beae-50473c54eb3b",
-    "4e7794e2-bc6c-54cb-90d3-b670bba66b86",
-    "53486c6d-c1c1-56e4-bf22-661fbcaa695e",
-    "55319dae-975e-55eb-a5c3-4ed3f45c3474",
-    "594b69f8-8be4-5ff1-a14e-cfceda5f5201",
-    "5d3a99df-8f41-56cb-97e2-55c8fa6a40fb",
-    "5dc58aa0-d34f-59ce-bbeb-b6790be48b39",
-    "6dada4c0-6417-5baf-adce-48cde55d4fb3",
-    "6f1172ae-accb-5965-9770-34a327324b68",
-    "6f408e11-9db0-53fe-98c1-a980545e536e",
-    "73786da8-8b29-5d67-ba7d-8b04b2ab1595",
-    "76818a12-9c76-5aa1-b909-2e4999e83dca",
-    "796f07a2-5e4d-5800-844c-c7859d8b3362",
-    "7ba9ec3f-ee2b-586c-b6d2-b5860466eb13",
-    "7c737603-1120-5c71-bac5-7732021b663d",
-    "7ca4316c-a1f6-594d-88ac-cf4dd25d1801",
-    "7d81a08b-62be-5778-90ea-90b6fc391c26",
-    "811fd873-7e1d-503f-b80d-0967aef60c5c",
-    "83450cc7-69b4-5cf3-98a2-60dd185a1344",
-    "8fc52e80-4750-58e6-a69f-7f048babe8f3",
-    "93f9e5cf-a2ae-53de-8b1a-9582fd6b9396",
-    "9683dba6-29c0-51a2-8307-6a489cd8dce0",
-    "9ae188fc-5c85-59ee-a2b9-d85bfd5cf489",
-    "ab1ea775-d10d-5824-b4d0-80c6896e252d",
-    "af8c2c5c-c663-5104-967d-636bd35c1a4d",
-    "b6caf73b-8ae0-50a1-9e69-153dc6449847",
-    "b7960c80-99ad-5ef7-8fa8-45b33066e2f5",
-    "c1b5bdea-d938-543d-b6da-c52eec7bc184",
-    "c2c5695b-df36-5d58-ad13-5224affb3886",
-    "cc00c1c4-45b4-5e50-b909-a16d828e87df",
-    "ccba1c21-8bc1-5bfd-b86c-ff0ae8b267eb",
-    "cd0d02a9-7b98-56f7-a829-40adc4f80d21",
-    "d00ccae3-ceb3-5f71-8ffa-e7fe775cfd25",
-    "d02f2744-5fc1-5e74-b356-3905ad76edc6",
-    "d097da29-291d-53d5-8c69-8a7bc646fca0",
-    "d2cd30ea-a44a-5f3b-9299-47f93ff935c7",
-    "d6511e66-bdba-51aa-b510-e528779bef2e",
-    "de80a4ca-cc03-598e-b5d3-8888d5cacfbf",
-    "e2806698-173e-53fe-9e05-c6ded4a98122",
-    "e6ddb2df-789f-59c9-80df-33e0b524f42f",
-    "f9c731bb-d156-5359-9a49-981fd239a269",
-    "fd3c1322-0541-598c-8b29-4ba080894c70",
-    "fdf7399d-5e58-5554-a322-f4e529269ffa"
-  ],
-  "content_gaps": []
+    "filename": "Student",
+    "found": true,
+    "summary": "The Student entity encompasses all functionalities related to managing student information including consent management, demographic details, record handling, and integration with external systems.",
+    "purpose": "To provide comprehensive management of student data encompassing personal details, consent records, program enrollment, and communication.",
+    "entities": [],
+    "fields": [
+        "ID", "StudentNumber", "FirstName", "PreferredFirstName", "MiddleName", "LastName", 
+        "Address1", "Address2", "City", "Province", "Country", "Phone", "Email", "ConsentProgramID",
+        "ConsentObtainedDate", "ExpectedEndDate", "EstimatedEndDate", "EmployerAgencyID",
+        "EmployerSiteID", "CampusID", "SalutationCodeID", "AlternateStudentNumber", 
+        "AlternateStudentAgencyID", "AltEmail", "GenderCodeID", "PrevLastName", 
+        "ProgramApplicationStatusCodeID", "RegPackageReceived", "PhoneIsMobile", 
+        "AltPhoneIsMobile", "AltPhone2IsMobile", "OriginalStudentID", "SsoUPN", 
+        "TrainingRequired", "TrainingRequiredNote", "SelfIdentifiedAboriginal", 
+        "ITProvisionExists", "NoNetworkAccountRequired"
+    ],
+    "actors": ["System Administrator", "HSPnet User"],
+    "workflows": [
+        {
+            "name": "StudentConsentManagement",
+            "steps": [
+                "Check consent program ID.",
+                "Retrieve student information based on consent settings.",
+                "Update consent expiration status.",
+                "Validate consent expiration rules."
+            ]
+        },
+        {
+            "name": "StudentProfileManagement",
+            "steps": [
+                "Search student by ID.",
+                "Update demographics and contact information.",
+                "Determine eligibility based on program criteria.",
+                "Handle duplicate records and confidentiality updates."
+            ]
+        },
+        {
+            "name": "StudentDocumentHandling",
+            "steps": [
+                "Upload documents.",
+                "Verify document upload permissions.",
+                "Manage anonymous document uploads."
+            ]
+        }
+    ],
+    "business_rules": [
+        "Student consent must be obtained and valid for profile creation.",
+        "A student's information can be updated if consent is valid.",
+        "Duplicate student names require confidentiality form updates."
+    ],
+    "validations": [
+        "Student number must be specified.",
+        "First and Last Names must not be empty.",
+        "Consent date cannot be null."
+    ],
+    "calculations": [
+        "Consent expiry date is calculated based on program rules.",
+        "Estimated end date formatted based on enrollment data."
+    ],
+    "conditions": [
+        "Anonymous mode hides student names if consent is expired.",
+        "Consent status impacts access to student details."
+    ],
+    "system_behavior": [
+        "Profile updates are contingent on consent validation.",
+        "System administers visibility control based on user roles."
+    ],
+    "dependencies": [
+        "HSPnetSession",
+        "Database configurations",
+        "Consent program rules"
+    ],
+    "exceptions": [
+        "Consent expiration throws visibility exceptions for non-admin users.",
+        "Duplicate records invoke confidentiality update processes."
+    ],
+    "source_document_ids": [
+        "050828de-cbb3-5ac9-8614-b2ae01ac787a", "09e96ba9-0518-5bda-82a0-d1c899a60ea6", "0b1e087b-7a1a-5f86-b7ea-d74f5a816903", 
+        "13610719-748c-5c9d-983f-5e793b189c37", "16a27a3d-5092-571c-b769-ad762754e0ae", "18f5eca8-fa21-5c47-8b5c-8c2caa2a1132", 
+        "1a551a64-24a9-5599-85b4-6b5fca09889a", "1c150549-2fa3-5772-b90f-792e62a4f719", "203fad22-6008-5f47-bd43-e2de1ce46389", 
+        "2121a73a-6e00-5921-aef9-3f6300773a4d", "226b1350-8c39-5356-aea9-299c888ca46a", "2275b6b4-abe0-5437-a75c-0a7cadb7d680", 
+        "2447fdae-d4e2-54be-a03c-9c7637f1d05c", "2958ea9f-fb62-51b7-8c04-3a34f589f800", "2b045a58-45fc-5c02-945e-77ac73bcb190", 
+        "354c7166-08d1-548f-9419-f924ad525765", "36c95aa9-9d49-5a8e-a397-7d07fae1c9e0", "4031e2e1-0073-5360-beae-50473c54eb3b", 
+        "4e7794e2-bc6c-54cb-90d3-b670bba66b86", "53486c6d-c1c1-56e4-bf22-661fbcaa695e", "55319dae-975e-55eb-a5c3-4ed3f45c3474", 
+        "594b69f8-8be4-5ff1-a14e-cfceda5f5201", "5d3a99df-8f41-56cb-97e2-55c8fa6a40fb", "5dc58aa0-d34f-59ce-bbeb-b6790be48b39", 
+        "6dada4c0-6417-5baf-adce-48cde55d4fb3", "6f1172ae-accb-5965-9770-34a327324b68", "6f408e11-9db0-53fe-98c1-a980545e536e", 
+        "73786da8-8b29-5d67-ba7d-8b04b2ab1595", "76818a12-9c76-5aa1-b909-2e4999e83dca", "7ba9ec3f-ee2b-586c-b6d2-b5860466eb13", 
+        "7c737603-1120-5c71-bac5-7732021b663d", "7ca4316c-a1f6-594d-88ac-cf4dd25d1801", "7d81a08b-62be-5778-90ea-90b6fc391c26", 
+        "811fd873-7e1d-503f-b80d-0967aef60c5c", "83450cc7-69b4-5cf3-98a2-60dd185a1344", "8fc52e80-4750-58e6-a69f-7f048babe8f3", 
+        "93f9e5cf-a2ae-53de-8b1a-9582fd6b9396", "9683dba6-29c0-51a2-8307-6a489cd8dce0", "9ae188fc-5c85-59ee-a2b9-d85bfd5cf489", 
+        "ab1ea775-d10d-5824-b4d0-80c6896e252d", "af8c2c5c-c663-5104-967d-636bd35c1a4d", "b6caf73b-8ae0-50a1-9e69-153dc6449847", 
+        "b7960c80-99ad-5ef7-8fa8-45b33066e2f5", "c1b5bdea-d938-543d-b6da-c52eec7bc184", "c2c5695b-df36-5d58-ad13-5224affb3886", 
+        "cc00c1c4-45b4-5e50-b909-a16d828e87df", "ccba1c21-8bc1-5bfd-b86c-ff0ae8b267eb", "cd0d02a9-7b98-56f7-a829-40adc4f80d21", 
+        "d00ccae3-ceb3-5f71-8ffa-e7fe775cfd25", "d02f2744-5fc1-5e74-b356-3905ad76edc6", "d097da29-291d-53d5-8c69-8a7bc646fca0", 
+        "d2cd30ea-a44a-5f3b-9299-47f93ff935c7", "d6511e66-bdba-51aa-b510-e528779bef2e", "de80a4ca-cc03-598e-b5d3-8888d5cacfbf", 
+        "e2806698-173e-53fe-9e05-c6ded4a98122", "e6ddb2df-789f-59c9-80df-33e0b524f42f", "f9c731bb-d156-5359-9a49-981fd239a269", 
+        "fd3c1322-0541-598c-8b29-4ba080894c70", "fdf7399d-5e58-5554-a322-f4e529269ffa"
+    ],
+    "content_gaps": []
 }
