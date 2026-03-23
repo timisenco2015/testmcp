@@ -1,0 +1,174 @@
+{
+  "filename": "RptMnuEmploymentChanges",
+  "found": true,
+  "summary": "RptMnuEmploymentChanges is an ASP.NET user control for generating reports about employment changes (newly employed, resigned, or both) within a specified date range. It provides options for Placement Coordinators and other users to export data in Excel format and supports field validation, filtering, and conditional report generation.",
+  "purpose": "To enable users (especially Placement Coordinators) to generate reports showing employment changes between two dates, filtered by employment status, and export the results to Excel. The control validates date inputs and offers options for how the report is generated and displayed.",
+  "entities": [
+    "EmploymentChange",
+    "UserSession",
+    "CodeRecord"
+  ],
+  "fields": [
+    {
+      "name": "txtStartDate",
+      "type": "TextBox",
+      "purpose": "Specifies the start date for the report's filter."
+    },
+    {
+      "name": "txtEndDate",
+      "type": "TextBox",
+      "purpose": "Specifies the end date for the report's filter."
+    },
+    {
+      "name": "radNewlyEmployed",
+      "type": "RadioButton",
+      "purpose": "Filter report for newly employed individuals."
+    },
+    {
+      "name": "radNewlyResigned",
+      "type": "RadioButton",
+      "purpose": "Filter report for newly resigned individuals."
+    },
+    {
+      "name": "radBoth",
+      "type": "RadioButton",
+      "purpose": "Filter report for both employment and resignation."
+    },
+    {
+      "name": "cmdRunExcel",
+      "type": "Button",
+      "purpose": "Triggers report generation and Excel export."
+    },
+    {
+      "name": "ValidationSummary1",
+      "type": "ValidationSummary",
+      "purpose": "Displays validation messages for the form."
+    },
+    {
+      "name": "ltlDescription",
+      "type": "Literal",
+      "purpose": "Shows description of the report."
+    },
+    {
+      "name": "ltlOptions",
+      "type": "Literal",
+      "purpose": "Displays report options/notes."
+    },
+    {
+      "name": "pnlReportHTML",
+      "type": "Panel",
+      "purpose": "Container for rendered report HTML."
+    },
+    {
+      "name": "lblReportHTML",
+      "type": "Label",
+      "purpose": "Displays report results as HTML."
+    },
+    {
+      "name": "CalendarExtender1",
+      "type": "CalendarExtender",
+      "purpose": "Calendar picker for start date."
+    },
+    {
+      "name": "CalendarExtender2",
+      "type": "CalendarExtender",
+      "purpose": "Calendar picker for end date."
+    },
+    {
+      "name": "RegularExpressionValidator1",
+      "type": "RegularExpressionValidator",
+      "purpose": "Validates start date format."
+    },
+    {
+      "name": "RegularExpressionValidator2",
+      "type": "RegularExpressionValidator",
+      "purpose": "Validates end date format."
+    },
+    {
+      "name": "valEditStartDate",
+      "type": "RequiredFieldValidator",
+      "purpose": "Ensures start date is provided."
+    },
+    {
+      "name": "valEditEndDate",
+      "type": "RequiredFieldValidator",
+      "purpose": "Ensures end date is provided."
+    },
+    {
+      "name": "CustomValidator1",
+      "type": "CustomValidator",
+      "purpose": "Custom validation logic (unknown specifics)."
+    }
+  ],
+  "actors": [
+    {
+      "name": "UserSession",
+      "role": "User interacting with the report menu; can be a Placement Coordinator or other user."
+    },
+    {
+      "name": "Placement Coordinator",
+      "role": "Special actor; triggers different stored procedure and report logic."
+    }
+  ],
+  "workflows": [
+    {
+      "name": "Generate Employment Changes Report",
+      "steps": [
+        "User selects date range and employment change type (employed, resigned, or both).",
+        "Input fields validated (required, format, custom logic).",
+        "User clicks 'Run Excel' button.",
+        "If user is Placement Coordinator, set procedure to 'ReportEmploymentChangesPA'. Otherwise, use 'ReportEmploymentChanges'.",
+        "Add parameters to database call: SessionID, DateFrom, DateTo, employment statuses.",
+        "Query database; generate report data.",
+        "Output report as CSV.",
+        "Display report HTML if results found; make panel visible."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Different stored procedures and report logic depending on user role (Placement Coordinator vs others).",
+    "Date range and employment status filter affect report content."
+  ],
+  "validations": [
+    "Start and end date fields are required.",
+    "Start and end date must match a valid format (Regex validation).",
+    "Custom validation may be applied (details not specified)."
+  ],
+  "calculations": [],
+  "conditions": [
+    "If radNewlyEmployed checked, report only newly employed (EmployStatus1 = 'EmployedStart', EmployStatus2 = '').",
+    "If radNewlyResigned checked, report only resigned (EmployStatus1 = '', EmployStatus2 = 'Resigned').",
+    "If neither, report both statuses (EmployStatus1 = 'EmployedStart', EmployStatus2 = 'Resigned')."
+  ],
+  "system_behavior": [
+    "Loads report options and description on pre-render.",
+    "Registers JavaScript variables for client controls.",
+    "Displays report results only if report data is found."
+  ],
+  "dependencies": [
+    "HSPnetSession",
+    "HSPnet.DataLayer",
+    "JavaScript",
+    "AjaxControlToolkit"
+  ],
+  "exceptions": [
+    "If no report data is found, report panel not shown.",
+    "Incorrect date input triggers validation errors."
+  ],
+  "source_document_ids": [
+    "03560de5-1084-56d7-a9d3-76df8b55572d",
+    "0b60a0a8-a4a3-5722-a72a-85b3a9fef376",
+    "7df86cd4-76e7-5460-b668-f9fb0213ad55",
+    "8835fd25-dfaa-5cdf-b9f9-34dd7f407d32",
+    "afcaa7b2-2aeb-500a-bf2e-099261c89a72",
+    "e220db30-1408-5ca8-afe3-41caaa27a868",
+    "e7c7618a-9a6d-5dcf-a6e1-678f1749919d",
+    "e8b0793a-00a6-5005-8f99-d91bac62666f"
+  ],
+  "content_gaps": [
+    "No details about CustomValidator logic.",
+    "No specific report output examples.",
+    "No information about report filtering beyond the fields described.",
+    "No error handling beyond UI field validation."
+  ]
+}
