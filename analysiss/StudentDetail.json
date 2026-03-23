@@ -1,77 +1,59 @@
 {
-  "filename": "StudentDetail",
-  "found": true,
-  "summary": "The StudentDetail component is a data management system for handling student details within an HSPnet session, including adding, updating, deleting, and retrieving student entries. It includes methods for determining the release of student information and maintaining numbering codes for organizational purposes.",
-  "purpose": "To manage student data including details like IDs, headings, and responses, as well as facilitate operations such as adding, updating, and deleting student records.",
-  "entities": [],
-  "fields": [
-    "ID",
-    "StudentID",
-    "HeadingID",
-    "Response",
-    "SortOrder",
-    "NumberingCodeID",
-    "Description",
-    "NumberingCode",
-    "SortOrderFormatted",
-    "WebPage",
-    "NumberCharacter",
-    "NumberingIndentLevel",
-    "HeaderChanged"
-  ],
-  "actors": [],
-  "workflows": [
-    {
-      "name": "Add Student Detail",
-      "steps": [
-        "Validate the session.",
-        "Set database procedure to 'StudentDetailsAdd'.",
-        "Add parameters: SessionID, StudentID, HeadingID, Response, SortOrder, NumberingCodeID.",
-        "Execute query."
-      ]
-    },
-    {
-      "name": "Update Student Detail",
-      "steps": [
-        "Validate the session and ensure ID is not 0.",
-        "Set database procedure to 'StudentDetailsUpdate'.",
-        "Add parameters: SessionID, StudentDetailID, HeadingID, Response, SortOrder, NumberingCodeID.",
-        "Execute query."
-      ]
-    },
-    {
-      "name": "Delete Student Detail",
-      "steps": [
-        "Ensure the ID is not 0.",
-        "Set database procedure to 'StudentDetailsDelete'.",
-        "Add parameters: SessionID, StudentDetailID.",
-        "Execute query."
-      ]
-    }
-  ],
-  "business_rules": [],
-  "validations": [
-    "Response must not be blank. If blank, add error message and return false."
-  ],
-  "calculations": [],
-  "conditions": [
-    "If the header entry has changed since the last entry, set HeaderChanged flag to true.",
-    "If description equals 'WEB_PAGE', set WebPage flag to true."
-  ],
-  "system_behavior": [
-    "Uses caching for short-term storage of student details to reduce database queries on refresh.",
-    "Converts SortOrder -1 to 0 for sorting logic."
-  ],
-  "dependencies": [],
-  "exceptions": [],
-  "source_document_ids": [
-    "2f3e4027-118a-5b7d-b9cb-e943e460765d",
-    "40112313-8254-5d98-a9db-48f60c3f745b",
-    "6a4590d6-e35b-54f7-b0ba-b9606bcb8172",
-    "6b8b3b7b-d574-599e-a9ea-d1c352f381ba",
-    "94472dd3-e32e-577b-b71c-3f0f4842ec2a",
-    "a279bb52-1482-57d8-aacf-419512574dc5",
-    "f71e11fa-9a45-5a04-a4ae-47c2ecde8a09"
-  ],
-  "content_gaps": []
+    "filename": "StudentDetail",
+    "found": true,
+    "summary": "The StudentDetail files primarily manage the structure and logic behind student records including fields such as ID, StudentID, HeadingID, Response, and NumberingCodeID. It provides functions to Add, Update, and Delete student details and contains validation processes for ensuring data integrity.",
+    "purpose": "To manage and manipulate student details, allowing the creation, updating, and deletion of records within the system.",
+    "entities": [],
+    "fields": [
+        "ID",
+        "StudentID",
+        "HeadingID",
+        "Response",
+        "SortOrder",
+        "NumberingCodeID",
+        "Description",
+        "NumberingCode",
+        "SortOrderFormatted",
+        "WebPage",
+        "NumberCharacter",
+        "NumberingIndentLevel",
+        "HeaderChanged",
+        "ResponseFormatted"
+    ],
+    "actors": [],
+    "workflows": [
+        {
+            "name": "StudentDetail Management",
+            "steps": [
+                "Add StudentDetail",
+                "Update StudentDetail",
+                "Delete StudentDetail"
+            ]
+        }
+    ],
+    "business_rules": [],
+    "validations": [
+        "Response cannot be blank"
+    ],
+    "calculations": [
+        "Calculate numbering code and indent level",
+        "Translate new lines in response"
+    ],
+    "conditions": [],
+    "system_behavior": [
+        "Set flag for Web Page entry",
+        "Cache management for repeated queries"
+    ],
+    "dependencies": [],
+    "exceptions": [],
+    "source_document_ids": [
+        "2f3e4027-118a-5b7d-b9cb-e943e460765d",
+        "40112313-8254-5d98-a9db-48f60c3f745b",
+        "6a4590d6-e35b-54f7-b0ba-b9606bcb8172",
+        "6b8b3b7b-d574-599e-a9ea-d1c352f381ba",
+        "94472dd3-e32e-577b-b71c-3f0f4842ec2a",
+        "a279bb52-1482-57d8-aacf-419512574dc5",
+        "f71e11fa-9a45-5a04-a4ae-47c2ecde8a09"
+    ],
+    "content_gaps": []
 }
