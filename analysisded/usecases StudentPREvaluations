@@ -1,0 +1,126 @@
+# Module: StudentPREvaluations
+
+## StudentPREvaluations-UC1 — Add Student PR Evaluation
+
+- Primary Actor(s): System Administrator
+- Secondary Actor(s): None
+- Trigger: Administrator decides to add a new student PR evaluation.
+- Description: This use case allows an administrator to add a new evaluation record for a student.
+- Preconditions: The student and placement request destination must exist.
+- Postconditions: A new student PR evaluation entry is added to the database.
+- Main Success Scenario:
+  1. Administrator accesses the StudentPR Evaluation module.
+  2. Administrator inputs student ID, placement request destination ID, requirement code ID, status code ID, evaluation date, and comment.
+  3. System validates inputs.
+  4. System executes the "StudentPREvaluationAdd" stored procedure to add the evaluation.
+  5. System confirms the addition of the evaluation entry.
+- Extensions:
+  - None
+- Exceptions:
+  - Invalid input data: System prompts for correction.
+  - Database connection failure: System logs the error and notifies the administrator.
+- Business Rules:
+  - All fields except comments are mandatory.
+- Assumptions:
+  - Administrator has necessary permissions.
+- Open Issues:
+  - None
+
+## StudentPREvaluations-UC2 — Update Student PR Evaluation
+
+- Primary Actor(s): System Administrator
+- Secondary Actor(s): None
+- Trigger: Administrator decides to update an existing evaluation.
+- Description: Allows modification of existing student PR evaluation records.
+- Preconditions: An existing student PR evaluation must be selected for updating.
+- Postconditions: The student PR evaluation is updated in the database.
+- Main Success Scenario:
+  1. Administrator accesses the evaluation entry to be updated.
+  2. Administrator modifies requirement code ID, status code ID, evaluation date, or comment.
+  3. System validates inputs.
+  4. System executes the "StudentPREvaluationUpdate" stored procedure.
+  5. System confirms the update.
+- Extensions:
+  - None
+- Exceptions:
+  - Invalid input data: System prompts for correction.
+  - Database connection failure: System logs the error and notifies the administrator.
+- Business Rules:
+  - All fields except comments are mandatory during update.
+- Assumptions:
+  - Administrator has necessary permissions.
+- Open Issues:
+  - None
+
+## StudentPREvaluations-UC3 — Delete Student PR Evaluation
+
+- Primary Actor(s): System Administrator
+- Secondary Actor(s): None
+- Trigger: Administrator decides to delete an evaluation.
+- Description: Facilitates removal of student PR evaluations.
+- Preconditions: An existing evaluation must be selected for deletion.
+- Postconditions: The evaluation entry is removed from the database.
+- Main Success Scenario:
+  1. Administrator selects the evaluation entry to delete.
+  2. System prompts for confirmation.
+  3. Administrator confirms deletion.
+  4. System executes the "StudentPREvaluationDelete" stored procedure.
+  5. System confirms the deletion of the evaluation entry.
+- Extensions:
+  - None
+- Exceptions:
+  - Database connection failure: System logs the error and notifies the administrator.
+- Business Rules:
+  - Deletion is final and cannot be undone.
+- Assumptions:
+  - Administrator has necessary permissions.
+- Open Issues:
+  - None
+
+## StudentPREvaluations-UC4 — Search Student PR Evaluation by ID
+
+- Primary Actor(s): System Administrator
+- Secondary Actor(s): None
+- Trigger: Administrator searches for a specific evaluation.
+- Description: Search for student PR evaluations using evaluation ID.
+- Preconditions: Evaluation ID input must exist.
+- Postconditions: Displays the requested evaluation details.
+- Main Success Scenario:
+  1. Administrator inputs the evaluation ID.
+  2. System executes the "StudentPREvaluationSearchID" stored procedure.
+  3. System retrieves and displays the evaluation details.
+- Extensions:
+  - None
+- Exceptions:
+  - ID does not exist: System informs the administrator.
+  - Database connection failure: System logs the error and notifies the administrator.
+- Business Rules:
+  - ID must be valid and existing.
+- Assumptions:
+  - Administrator has necessary permissions.
+- Open Issues:
+  - None
+
+## StudentPREvaluations-UC5 — Search Student PR Evaluations
+
+- Primary Actor(s): System Administrator
+- Secondary Actor(s): None
+- Trigger: Administrator performs a search query.
+- Description: Facilitates searching for evaluations by student ID and PRD ID.
+- Preconditions: Student ID and PRD ID input must exist.
+- Postconditions: Displays a list of matching evaluations.
+- Main Success Scenario:
+  1. Administrator inputs the student ID and PRD ID.
+  2. System executes the "StudentPREvaluationSearch" stored procedure.
+  3. System retrieves and displays a list of evaluations.
+- Extensions:
+  - None
+- Exceptions:
+  - No evaluations found: System informs the administrator.
+  - Database connection failure: System logs the error and notifies the administrator.
+- Business Rules:
+  - Both Student ID and PRD ID must be valid.
+- Assumptions:
+  - Administrator has necessary permissions.
+- Open Issues:
+  - None
