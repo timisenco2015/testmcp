@@ -1,0 +1,80 @@
+{
+  "filename": "DestProfilePrfClosures",
+  "found": true,
+  "summary": "The retrieved documents provide details on various user controls and data handling processes in a web application, specifically focusing on destination profile closures. This includes data-binding, user session management, and user interface interactions.",
+  "purpose": "To manage destination profile closures within an application interface, handling user interactions and data updates.",
+  "entities": [],
+  "fields": [
+    "UserSession",
+    "SessionID",
+    "SourceLevel",
+    "ParentID",
+    "ClosureCodeID",
+    "StartDate",
+    "EndDate",
+    "Comment",
+    "AllowAllSubDisciplines",
+    "SubDiscIDList",
+    "CurrentMode",
+    "ScreenIsEditable",
+    "CurrentPage",
+    "RestrictedSubDisciplines"
+  ],
+  "actors": [
+    "User",
+    "System"
+  ],
+  "workflows": [
+    {
+      "name": "Data Selection and Updating",
+      "steps": [
+        "dsDestClosure_Updating: Update destination closure data with user session information.",
+        "dsDisciplineFilter_Selecting: Select discipline filter based on user session availability.",
+        "dsDestClosures_Selecting: Select destination closures; cancel if user session is unavailable.",
+        "uxDetail_ItemCommand: Handle 'Insert' or 'Update' commands on user detail form."
+      ]
+    }
+  ],
+  "business_rules": [
+    "User session must be valid to proceed with selecting or updating data.",
+    "If 'Insert' command is triggered, user input validations must pass; otherwise, cancel the operation."
+  ],
+  "validations": [
+    "Page.IsValid check before proceeding with item insertion or updating."
+  ],
+  "calculations": [],
+  "conditions": [
+    "Screen is editable",
+    "User session is valid",
+    "Command name is 'Insert' or 'Update'"
+  ],
+  "system_behavior": [
+    "Manage updates and selection of data based on user session status.",
+    "Provide UI components for selecting and showing data details."
+  ],
+  "dependencies": [],
+  "exceptions": [
+    "Cancel data selection or update if user session is null."
+  ],
+  "source_document_ids": [
+    "1b9b1fb6-0487-5b3a-885d-cccd86895125",
+    "205baa41-ffaa-536b-8fd7-7185e2760150",
+    "209110db-b19d-517f-b7c6-d102b7ca1903",
+    "22a44773-90c2-534c-bcfb-65af97c43749",
+    "254086a7-1d35-52d7-84db-6db5adb58e31",
+    "360d5bf0-411f-5b63-9a6b-6d9dfe32a43b",
+    "637c9667-ac11-5c48-8422-2f15ef73355d",
+    "735b802c-b5fb-5354-a94f-f71c685cc631",
+    "7876a318-99fb-57de-be63-ec0d930e2574",
+    "9bac383d-1f82-568f-913e-2cb49ba34830",
+    "9f271585-3390-5a84-9f84-3dd182ea42b7",
+    "b05eef4e-c9bf-599c-aa64-8e6ab37fab0c",
+    "c0d409a5-d489-5519-85b2-265b8e27e6cf",
+    "cd54227c-5e5a-5dc3-b054-7097dd575bd3",
+    "d6823922-66d3-5cd3-ba03-c0b9316e2c3c",
+    "d971408a-2d77-5000-9d67-baae199b8e7d",
+    "de544ca7-70fa-5222-926f-38b5514bd67d",
+    "f804dabd-fed4-5715-8a1c-97b85d41f620"
+  ],
+  "content_gaps": []
+}
