@@ -1,0 +1,75 @@
+{
+    "filename": "StudentEmergencyContact",
+    "found": true,
+    "summary": "Handles the operations related to student emergency contact information.",
+    "purpose": "To manage the emergency contact details for students, including search, add, and update operations.",
+    "entities": [
+        "StudentEmergencyContact"
+    ],
+    "fields": [
+        "ID",
+        "StudentID",
+        "FirstName",
+        "LastName",
+        "Relationship",
+        "Address1",
+        "Address2",
+        "City",
+        "Province",
+        "Country",
+        "PostalCode",
+        "Phone",
+        "PhoneIsMobile",
+        "AltPhone",
+        "AltPhoneIsMobile",
+        "PhoneArea",
+        "PhoneWithoutArea",
+        "AltPhoneArea",
+        "AltPhoneWithoutArea"
+    ],
+    "actors": [
+        "HSPnetSession"
+    ],
+    "workflows": [
+        {
+            "name": "Search",
+            "steps": [
+                "Set ProcedureName to StudentDetailsEmergencyContactSearch",
+                "Add StudentID and SessionID parameters",
+                "Execute query to retrieve emergency contacts",
+                "Populate list with retrieved data"
+            ]
+        },
+        {
+            "name": "Add",
+            "steps": [
+                "Set ProcedureName to StudentDetailsEmergencyContactAdd",
+                "Add parameters including name, relationship, address, and phone details",
+                "Execute Insert query"
+            ]
+        },
+        {
+            "name": "Update",
+            "steps": [
+                "Set ProcedureName to StudentDetailsEmergencyContactUpdate",
+                "Add parameters including ID, name, relationship, address, and phone details",
+                "Execute Update query"
+            ]
+        }
+    ],
+    "business_rules": [],
+    "validations": [],
+    "calculations": [],
+    "conditions": [],
+    "system_behavior": [],
+    "dependencies": [],
+    "exceptions": [],
+    "source_document_ids": [
+        "02e0fcf1-1679-525b-a007-baf788acf336",
+        "1de9171e-f5f2-5000-8948-1cc636dd4978",
+        "7cae8c84-426c-5e9e-8c45-2ca8633ebde2",
+        "8e9255c7-8e37-5533-b90c-b2f12bdf3889",
+        "b852badf-3ee0-5138-8b45-cc6255f543b1"
+    ],
+    "content_gaps": []
+}
