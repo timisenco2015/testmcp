@@ -1,27 +1,32 @@
 {
-  "filename": "WelcomeStaffAdmin",
-  "found": true,
-  "summary": "WelcomeStaffAdmin is a page dedicated to administrative functions, including managing staff-related data and interfaces. It utilizes ASP.NET controls and AJAX for dynamic content updates.",
-  "purpose": "To provide an interface for administrators to manage staff-related information and interactions within the system.",
-  "entities": ["WelcomeStaffAdmin"],
-  "fields": ["valEndDate", "txtEndDate", "btnEndDateCalendar", "CalendarExtender2", "RegularExpressionValidator2", "cvrEndDateAfter", "chkShowWithdrawn"],
-  "actors": ["Administrators"],
-  "workflows": [],
-  "business_rules": [],
-  "validations": [
-    {"field": "txtEndDate", "validation": "RegularExpressionValidator2"}
-  ],
-  "calculations": [],
-  "conditions": [],
-  "system_behavior": [],
-  "dependencies": ["AjaxControlToolkit"],
-  "exceptions": [],
-  "source_document_ids": [
-    "05db31e4-e8b6-53ee-a6fb-812c106f0134",
-    "100d5925-a5f8-53db-8493-02cddd563eb7",
-    "3c84bade-9671-5fbf-acce-3c87a835e9b4",
-    "4c4b97b8-d242-5261-a515-767a3f7d7a49",
-    "52b5066f-23f6-5d82-96cd-5d51dad3de79"
-  ],
-  "content_gaps": []
+    "filename": "WelcomeStaffAdmin",
+    "found": true,
+    "summary": "WelcomeStaffAdmin is a web page facilitating interaction with staff administrators, offering controls and validators for date fields.",
+    "purpose": "To manage staff administrative actions and display relevant data using ASP.NET web controls.",
+    "entities": [],
+    "fields": ["valEndDate", "txtEndDate", "btnEndDateCalendar", "CalendarExtender2"],
+    "actors": [],
+    "workflows": [{
+        "name": "Data Population",
+        "steps": ["FillSiteDropdown", "FillDisciplineDropdown", "RefreshData"]
+    }],
+    "business_rules": [],
+    "validations": ["valEndDate", "RegularExpressionValidator1"],
+    "calculations": [],
+    "conditions": [],
+    "system_behavior": [],
+    "dependencies": [],
+    "exceptions": [],
+    "source_document_ids": [
+        "05db31e4-e8b6-53ee-a6fb-812c106f0134",
+        "100d5925-a5f8-53db-8493-02cddd563eb7",
+        "3c84bade-9671-5fbf-acce-3c87a835e9b4",
+        "4c4b97b8-d242-5261-a515-767a3f7d7a49",
+        "52b5066f-23f6-5d82-96cd-5d51dad3de79",
+        "5bb85da3-f5b4-5753-b07c-9bb2a04eeb89",
+        "5d9b92ea-7c12-5070-8603-977cf14d0e04",
+        "54244516-0707-581e-a8ba-9c041ea38366",
+        "6701b153-5288-59e5-8de9-61b68a1fc292"
+    ],
+    "content_gaps": []
 }
