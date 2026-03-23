@@ -1,47 +1,51 @@
 {
-  "filename": "WelcomeStaffAdmin",
-  "found": true,
-  "summary": "The WelcomeStaffAdmin page is designed to integrate various controls and display resources according to the user session.",
-  "purpose": "Serves as an administrative interface for welcoming staff within the HSPnet system.",
-  "entities": ["WelcomeStaffAdmin"],
-  "fields": ["valEndDate", "txtEndDate", "btnEndDateCalendar", "CalendarExtender2", "RegularExpressionValidator2", "cvrEndDateAfter", "chkShowWithdrawn"],
-  "actors": [],
-  "workflows": [],
-  "business_rules": [],
-  "validations": [
-    {
-      "field": "txtEndDate",
-      "type": "RegularExpressionValidator",
-      "expression": "<%$ Resources:Resources, Date_ValidationExpression %>",
-      "errorMessage": "<%$ Resources:Resources, End_Date_Invalid %>"
-    },
-    {
-      "field": "txtStartDate",
-      "type": "RequiredFieldValidator",
-      "errorMessage": "<%$ Resources:Resources, Start_Date_Required %>"
-    }
-  ],
-  "calculations": [],
-  "conditions": [
-    {
-      "condition": "StartDate > EndDate",
-      "validator": "checkStartEnd"
-    }
-  ],
-  "system_behavior": [],
-  "dependencies": [],
-  "exceptions": [],
-  "source_document_ids": [
-    "05db31e4-e8b6-53ee-a6fb-812c106f0134",
-    "100d5925-a5f8-53db-8493-02cddd563eb7",
-    "3c84bade-9671-5fbf-acce-3c87a835e9b4",
-    "4c4b97b8-d242-5261-a515-767a3f7d7a49",
-    "52b5066f-23f6-5d82-96cd-5d51dad3de79",
-    "5bb85da3-f5b4-5753-b07c-9bb2a04eeb89",
-    "5d9b92ea-7c12-5070-8603-977cf14d0e04",
-    "54244516-0707-581e-a8ba-9c041ea38366",
-    "5bb85da3-f5b4-5753-b07c-9bb2a04eeb89",
-    "b8e79322-9a0e-5fe7-8953-3d05e231f923"
-  ],
-  "content_gaps": []
+    "filename": "WelcomeStaffAdmin",
+    "found": true,
+    "summary": "The WelcomeStaffAdmin document is related to the user interface and validation controls for staff administration functionalities within the HSPnet system.",
+    "purpose": "To manage UI components and validation for staff-related administrative tasks, including handling date inputs and dropdown selections.",
+    "entities": [],
+    "fields": [
+        "valEndDate",
+        "txtEndDate",
+        "btnEndDateCalendar",
+        "CalendarExtender2",
+        "RegularExpressionValidator2",
+        "cvrEndDateAfter",
+        "chkShowWithdrawn"
+    ],
+    "actors": [],
+    "workflows": [
+        {
+            "name": "Staff Admin Page Load",
+            "steps": [
+                "SetupHSPnetPage",
+                "RegisterClientScriptIncludes",
+                "Fill and Bind Dropdowns",
+                "Set Default Dates and Refresh Data"
+            ]
+        }
+    ],
+    "business_rules": [],
+    "validations": [
+        {
+            "name": "Date Validation",
+            "details": "Ensure end date is after start date"
+        }
+    ],
+    "calculations": [],
+    "conditions": [],
+    "system_behavior": [],
+    "dependencies": [],
+    "exceptions": [],
+    "source_document_ids": [
+        "05db31e4-e8b6-53ee-a6fb-812c106f0134",
+        "100d5925-a5f8-53db-8493-02cddd563eb7",
+        "3c84bade-9671-5fbf-acce-3c87a835e9b4",
+        "4c4b97b8-d242-5261-a515-767a3f7d7a49",
+        "54244516-0707-581e-a8ba-9c041ea38366",
+        "5bb85da3-f5b4-5753-b07c-9bb2a04eeb89",
+        "5d9b92ea-7c12-5070-8603-977cf14d0e04",
+        "6701b153-5288-59e5-8de9-61b68a1fc292"
+    ],
+    "content_gaps": []
 }
