@@ -1,0 +1,86 @@
+```json
+{
+    "filename": "CriminalRecordsCheckEditAll",
+    "found": true,
+    "summary": "The content is related to the functionality of criminal records check within an enrollment system, particularly focusing on managing and editing data associated with criminal records checks.",
+    "purpose": "To facilitate the management of criminal records checks during the enrollment process.",
+    "entities": [],
+    "fields": [
+        "ValidationSummary1",
+        "gridDataEdit",
+        "dsCRC",
+        "keyword",
+        "ShowGrad",
+        "ShowInactive",
+        "ShowWaived",
+        "SectionFilter",
+        "ActionFilter",
+        "CampusID",
+        "CommentFilter",
+        "StartRow",
+        "EnrollmentID",
+        "CohortID",
+        "TermID",
+        "CourseID",
+        "UserSession",
+        "CRCStatusList"
+    ],
+    "actors": [
+        "User",
+        "System"
+    ],
+    "workflows": [
+        {
+            "name": "Edit Criminal Records",
+            "steps": [
+                "Select record",
+                "Edit fields",
+                "Validate data",
+                "Save changes"
+            ]
+        }
+    ],
+    "business_rules": [
+        "Grid.HideButtons(e.Row, !blnReadOnly, new string[] { "cmdSaveAll", "lbSaveAll", "cmdSaveEditNext", "lbSaveEditNext" })",
+        "If EnrollmentID > 0, set row state to Edit",
+        "If gridDataEdit.Rows.Count < gridDataEdit.PageSize, hide certain controls"
+    ],
+    "validations": [
+        "dsCRC_Selecting cancels operation if UserSession is null",
+        "Grid.DisableEditFields(gridDataEdit) when in read-only mode"
+    ],
+    "calculations": [],
+    "conditions": [
+        "If gridDataEdit.Rows.Count < 14, certain header controls are hidden",
+        "If EnrollmentID != 0, visibility of save controls is adjusted"
+    ],
+    "system_behavior": [
+        "Auto-generated fields for grid and validation summary",
+        "Bind data source dsCRC",
+        "Set up JavaScript variables for asynchronous operations"
+    ],
+    "dependencies": [
+        "UserSession",
+        "GridView",
+        "ScriptManager",
+        "ObjectDataSource"
+    ],
+    "exceptions": [
+        "e.Cancel is true if UserSession is null during dsCRC_Selecting"
+    ],
+    "source_document_ids": [
+        "03144aa6-93b7-599f-b8e0-5588317ba19b",
+        "48902891-c057-57e5-9068-3b1307b2dffd",
+        "6918cccf-5e9d-514f-b001-797e2af8307f",
+        "b2bd51ac-3047-55c8-af59-4f8eed91961b",
+        "bd4a4fa1-d3ef-5764-b65e-7bf1cb6bbc30",
+        "c5efee46-5e88-55df-947d-7fe86465a805",
+        "d9e68048-669a-5e6a-b9fe-b5fe6ff4416e",
+        "f1a93269-4cd6-5f47-93a1-f9f2e4730224",
+        "f3ce8c3c-3cd0-531b-a85e-f90764dac0e2"
+    ],
+    "content_gaps": [
+        "Details about specific field behaviors and interactions are not complete."
+    ]
+}
+```
