@@ -1,0 +1,84 @@
+```json
+{
+  "filename": "SiteOpportunity",
+  "found": true,
+  "summary": "The "SiteOpportunity" entity is designed to manage opportunities related to specific sites within a system, supporting operations like adding, updating, retrieving, and deleting site opportunity records.",
+  "purpose": "To handle site-specific opportunities, corresponding responses, and order of processing through adding, updating, retrieving, and deleting operations.",
+  "entities": ["SiteOpportunity"],
+  "fields": [
+    "ID",
+    "SiteID",
+    "HeadingID",
+    "Response",
+    "SortOrder",
+    "Description",
+    "DescriptionAlt",
+    "DescriptionFormatted",
+    "SortOrderFormatted",
+    "WebPage",
+    "HeaderChanged"
+  ],
+  "actors": ["HSPnetSession"],
+  "workflows": [
+    {
+      "name": "Retrieve Opportunities by Site ID",
+      "steps": [
+        "Set procedure name to 'SiteOpportunitiesSearch'",
+        "Add 'SiteID' parameter",
+        "Execute 'GetData' to retrieve data",
+        "Fill and return the list of 'SiteOpportunity'"
+      ]
+    },
+    {
+      "name": "Retrieve Opportunity by ID",
+      "steps": [
+        "Set procedure name to 'SiteOpportunitiesSearchID'",
+        "Add 'ID' parameter",
+        "Execute 'GetData' to retrieve data",
+        "Fill and return the list of 'SiteOpportunity'"
+      ]
+    },
+    {
+      "name": "Add SiteOpportunity",
+      "steps": [
+        "Validate input fields",
+        "Set procedure name to 'SiteOpportunitiesAdd'",
+        "Add parameters 'SiteID', 'HeadingID', 'Response', and 'SortOrder'",
+        "Execute query to add record"
+      ]
+    },
+    {
+      "name": "Update SiteOpportunity",
+      "steps": [
+        "Validate input fields",
+        "Set procedure name to 'SiteOpportunitiesUpdate'",
+        "Add parameters 'SiteOpportunitiesID', 'HeadingID', 'Response', and 'SortOrder'",
+        "Execute query to update record"
+      ]
+    },
+    {
+      "name": "Delete SiteOpportunity",
+      "steps": [
+        "Set procedure name to 'SiteOpportunitiesDelete'",
+        "Add 'SiteOpportunitiesID' parameter",
+        "Execute query to delete record"
+      ]
+    }
+  ],
+  "business_rules": ["Ensure no header entries are repeated", "Display '0' as blank in sort order"],
+  "validations": ["Check if 'Response' is non-blank"],
+  "calculations": ["Translate new lines in responses to HTML format"],
+  "conditions": ["Use alternate language fields if available"],
+  "system_behavior": ["Reset level counts on new header", "Set WebPage flag based on description content"],
+  "dependencies": ["HSPnet.UI for HTML translation and UI numbering codes", "HSPnet.App_GlobalResources for resources"],
+  "exceptions": ["Handle blank response error"],
+  "source_document_ids": [
+    "148590b2-a5c1-5ba2-9f76-5946671326da",
+    "18839216-0ce2-5da0-8629-43191022355e",
+    "2e24ba24-238e-539a-9060-ae9c5b2ef73d",
+    "430d8e05-df1d-5100-81dd-8c604142a057",
+    "64109c98-7c33-509c-9bd9-15bb43722cb7"
+  ],
+  "content_gaps": []
+}
+```
