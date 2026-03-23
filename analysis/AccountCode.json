@@ -1,0 +1,99 @@
+{
+  "filename": "AccountCode",
+  "found": true,
+  "summary": "The AccountCode system manages and processes account codes within the HSPnet framework. It includes CRUD operations and data retrieval for account codes, providing functionality for adding, updating, deleting, and retrieving account code records.",
+  "purpose": "The primary purpose of the AccountCode system is to organize and manage financial or categorical codes associated with different agencies. The system ensures that codes are handled correctly according to specified business logic and validation rules.",
+  "entities": [],
+  "fields": [
+    {
+      "name": "ID",
+      "type": "int",
+      "description": "Unique identifier for the account code record."
+    },
+    {
+      "name": "AgencyID",
+      "type": "int",
+      "description": "Identifier for the agency associated with the account code."
+    },
+    {
+      "name": "AccountCode",
+      "type": "string",
+      "description": "The account code category."
+    },
+    {
+      "name": "Code",
+      "type": "string",
+      "description": "The specific code associated with the account entry."
+    },
+    {
+      "name": "Description",
+      "type": "string",
+      "description": "Detailed description of the account code."
+    },
+    {
+      "name": "SortOrder",
+      "type": "int",
+      "description": "Order in which the account codes are sorted."
+    }
+  ],
+  "actors": [
+    {
+      "name": "HSPnetSession",
+      "role": "Handles database session and operations."
+    }
+  ],
+  "workflows": [
+    {
+      "name": "AccountCode Record Management",
+      "steps": [
+        "Initialize HSPnetSession.",
+        "Fill in account code details.",
+        "Validate details using IsValid method.",
+        "Execute Add or Update operations as needed.",
+        "Handle exceptions and return results."
+      ]
+    },
+    {
+      "name": "AccountCode Data Retrieval",
+      "steps": [
+        "Set up HSPnetSession.",
+        "Call stored procedure 'AccountCodeGet'.",
+        "Read data using SqlDataReader.",
+        "Populate AccountCodeRecord list."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Account codes must have unique and specified values.",
+    "Operations are only allowed when data is valid."
+  ],
+  "validations": [
+    "Account code cannot be blank.",
+    "Code cannot be blank.",
+    "Description cannot be blank."
+  ],
+  "calculations": [
+    {
+      "name": "PortfolioList",
+      "formula": "Concatenate Description and Code formatted as 'Description (Code)'."
+    }
+  ],
+  "conditions": [],
+  "system_behavior": [
+    "System validates account code details before executing database operations.",
+    "Provides error messages when validation fails."
+  ],
+  "dependencies": [
+    "Utilizes HSPnetSession for database transactions."
+  ],
+  "exceptions": [
+    "Operation exceptions are raised if mandatory fields are blank or invalid."
+  ],
+  "source_document_ids": [
+    "25389ed6-fe59-5906-92a4-03720ceb66e2",
+    "48c20e4f-7f79-5cd3-a09b-ce6072a82a1f",
+    "b30487be-5335-570e-b1bb-f78dc8aadf97",
+    "f49c6da1-9629-5f7f-8cd3-e68adb6bf13c"
+  ],
+  "content_gaps": []
+}
