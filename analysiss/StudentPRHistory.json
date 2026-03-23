@@ -1,0 +1,89 @@
+{
+  "filename": "StudentPRHistory",
+  "found": true,
+  "summary": "The StudentPRHistory document is part of the HSPnet application, used for managing student placement request histories. It includes functionalities for data selection, updating, validation, and refresh operations specific to student placement history records.",
+  "purpose": "To manage and display the history of student placement requests including comments, duration, and other details.",
+  "entities": [],
+  "fields": [
+    "StudentID",
+    "SortExpression",
+    "PrivateMode",
+    "DurationHoursAmended",
+    "PRHistoryComments"
+  ],
+  "actors": [
+    "UserSession",
+    "Student"
+  ],
+  "workflows": [
+    {
+      "name": "StudentPRHistory Management",
+      "steps": [
+        "Validate URL hash via UserSession",
+        "Load StudentID from query string and bind to user control",
+        "Configure visibility based on session or profile conditions",
+        "Handle asynchronous postbacks for field variable setup",
+        "Bind data and refresh view as needed"
+      ]
+    }
+  ],
+  "business_rules": [
+    "Hide unassigned items based on session settings",
+    "Calculate total hours based on duration and shift length"
+  ],
+  "validations": [
+    "Check if DurationHoursAmended is a valid number",
+    "Ensure DurationHoursAmended is not less than zero"
+  ],
+  "calculations": [
+    "Calculate shifts based on duration hours amended and shift length"
+  ],
+  "conditions": [
+    "Private mode affects UI display and behavior",
+    "Archived status impacts details visibility"
+  ],
+  "system_behavior": [
+    "Data is loaded based on student ID in query",
+    "JavaScript manages asynchronous UI updates",
+    "FormView and Repeaters control display of student comments and history"
+  ],
+  "dependencies": [
+    "HSPnet Framework for session and query management",
+    "JavaScript functions for client-side interactions"
+  ],
+  "exceptions": [
+    "Data selection is cancelled if UserSession is null"
+  ],
+  "source_document_ids": [
+    "06da31e4-a8e9-5123-bb28-420ebb06af77",
+    "0d8b5dec-3b34-5a75-ac31-4cfd82bfa521",
+    "0e7a0ba3-c4a8-5c7a-b0be-f22202b71e79",
+    "1073c1b4-bcbd-5a5d-abb0-fc3e7e865740",
+    "13962176-bc8e-5e96-b96d-24b754bc7ceb",
+    "18779af6-ee0b-5a06-bf14-7ce997666fcd",
+    "26598c48-ab09-54d1-a750-68f9d7576375",
+    "32426e87-c899-5d34-a76b-e1000237629c",
+    "3f95c232-e6b8-56d9-9722-78089e461b19",
+    "4f24c9fc-e0d2-5f91-aa37-505ffdec2177",
+    "64baa725-f53e-59e6-bc7e-3c83b15c119a",
+    "6778cc7c-2472-5464-85b7-7efde2fe4e6a",
+    "801b1574-4c9b-5cbd-8f11-b4727c16c3ae",
+    "82de97e9-288b-5699-a159-04a903678b68",
+    "82edc402-eccc-5c65-854f-bcf099bc89a7",
+    "86e66226-b3bc-59d8-8351-cf558013b57d",
+    "917e0ff6-c354-5559-8a74-b9b0cf5df410",
+    "93829ec8-d83c-5f65-be74-c99e8a758a60",
+    "9843da9b-d545-581c-b9cf-4fa0690d4212",
+    "a42ffd92-87e2-5621-b87f-a158168ba5bb",
+    "a56f8b1d-5c24-549b-aac5-891f8cdc7ebd",
+    "ad05ef2f-c591-51f8-9e53-9d5075c00d2c",
+    "b7465a0a-be04-5846-818d-14d2aaa8f3d8",
+    "bc8ef764-78db-543f-b33a-9ec787585015",
+    "d37c133b-27f1-5be4-81cd-a832a8a9c7a1",
+    "dbc9d6d0-ae42-52cd-90ea-791229e963b7",
+    "de17aca2-d25b-5c03-ae1a-e4ec8abc22fc",
+    "f13350f7-368f-510e-a618-3d758c1c2a39",
+    "f7d4c614-2098-5980-aa32-105b8fc53e1a"
+  ],
+  "content_gaps": []
+}
