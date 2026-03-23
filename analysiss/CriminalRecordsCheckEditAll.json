@@ -1,8 +1,8 @@
 {
   "filename": "CriminalRecordsCheckEditAll",
   "found": true,
-  "summary": "The CriminalRecordsCheckEditAll class is part of the HSPnet.UserControls.Enrollment namespace and is responsible for managing the enrollment process, specifically handling the editing and validation of criminal records checks for students. The class includes grid-based data management, sorting, filtering, and user interaction handling through events.",
-  "purpose": "The purpose of the CriminalRecordsCheckEditAll class is to provide a user control that facilitates the editing and validation of criminal records checks in the student enrollment process. This control supports sorting, filtering, and managing student data related to criminal records checks.",
+  "summary": "The documents describe the functionality and implementation details of the CriminalRecordsCheckEditAll user control component in a web application. The control handles the display, editing, and validation of criminal record check information for students.",
+  "purpose": "To provide a user interface for managing and editing criminal record check data related to student enrollments.",
   "entities": [],
   "fields": [
     "ValidationSummary1",
@@ -26,49 +26,47 @@
     "EnrollmentID",
     "StartRow"
   ],
-  "actors": [],
+  "actors": [
+    "UserSession"
+  ],
   "workflows": [
     {
-      "name": "Data Binding and Management",
+      "name": "Data Bind and Display",
       "steps": [
-        "Bind data to gridDataEdit upon certain actions.",
-        "Databind gridDataEdit when not in async postback.",
-        "Sort data based on user interactions."
+        "Bind data to gridDataEdit GridView.",
+        "Set visibility of panels and buttons based on row count and read-only status.",
+        "Register JavaScript variables for client-side use."
       ]
     },
     {
-      "name": "Row Command Handling",
+      "name": "Row Data Operations",
       "steps": [
-        "Handle commands such as cmdSaveAll and cmdSaveEditNext.",
-        "Update student data based on command execution.",
-        "Redirect users based on the outcome of command execution."
+        "Handle command events such as cmdSaveAll and cmdSave.",
+        "Update student details based on changes.",
+        "Redirect based on command execution results."
       ]
     }
   ],
   "business_rules": [
-    "Show or hide Save All and Cancel buttons based on the number of rows.",
-    "Set visibility for header buttons based on enrollment status."
+    "Hide buttons based on read-only status and row type.",
+    "Filter data based on various input parameters like CohortID, TermID, CourseID."
   ],
   "validations": [
-    "Use ValidationSummary1 for displaying validation messages.",
-    "Disable editing fields when in read-only mode.",
-    "Ensure that inputs are validated prior to selection or update."
+    "Validation of user session presence during data selection.",
+    "Input parameters validation for data binding."
   ],
   "calculations": [],
   "conditions": [
-    "Hide buttons if gridDataEdit has fewer than 14 rows.",
-    "Disable calendar input if read-only mode is active."
+    "Visibility of panels and controls depends on enrollment ID and row count.",
+    "JavaScript variable registration conditional on async postback state."
   ],
   "system_behavior": [
-    "Executes different queries based on grid sorting expression and direction.",
-    "Registers startup scripts for setting JavaScript variables in the client-side context.",
-    "Prevents data selection if UserSession is null."
+    "The gridDataEdit GridView processes enrollment records, enabling data sorting and pagination.",
+    "User input is processed through command events, updating records and handling redirection."
   ],
   "dependencies": [
-    "HSPnet.DataLayer",
-    "HSPnet.Framework",
-    "HSPnet.UI",
-    "System.Web.UI.WebControls"
+    "HSPnet.UI.Calendar",
+    "Codes.CodeSearch"
   ],
   "exceptions": [],
   "source_document_ids": [
