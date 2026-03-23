@@ -1,0 +1,59 @@
+```json
+{
+    "filename": "AllowedList",
+    "found": true,
+    "summary": "The AllowedList module manages session-based access control by validating location permissions against a predefined set of allowed codes.",
+    "purpose": "To provide a mechanism for checking if a user session is allowed access to certain resources based on location type identification.",
+    "entities": [],
+    "fields": [
+        {
+            "name": "Code",
+            "description": "Represents the unique identifier for a location type or a special identifier marking access to all resources."
+        }
+    ],
+    "actors": [
+        {
+            "name": "HSPnetSession",
+            "description": "Represents the session context in which access checks are performed."
+        }
+    ],
+    "workflows": [
+        {
+            "name": "SessionAllowedLocations",
+            "steps": [
+                "Initialize a list to store allowed locations.",
+                "Set procedure to 'SessionAllowedLocations' and add necessary parameters.",
+                "Execute stored procedure and iterate over results.",
+                "Check conditions to either allow all or specific locations.",
+                "Return the list of allowed locations."
+            ]
+        }
+    ],
+    "business_rules": [
+        "If the retrieved ID is -1, assign access to ALL locations.",
+        "The ID specified in locType must match the session's allowed codes."
+    ],
+    "validations": [
+        "Validates if the ID exists in the list of allowed codes or matches the ALL identifier."
+    ],
+    "calculations": [],
+    "conditions": [
+        "Check if the session's allowed list contains the specific ID or ALL identifier."
+    ],
+    "system_behavior": [
+        "Uses session parameters to determine and retrieve allowed location IDs from the database."
+    ],
+    "dependencies": [
+        {
+            "name": "HSPnetSession",
+            "description": "Manages database connections and parameter handling."
+        }
+    ],
+    "exceptions": [],
+    "source_document_ids": [
+        "96082a25-6d2c-5ded-9d45-3212935cf351",
+        "e3cab9e2-95a5-5d34-9f5a-3fa6764592d3"
+    ],
+    "content_gaps": []
+}
+```
