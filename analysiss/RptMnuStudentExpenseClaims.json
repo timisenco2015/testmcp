@@ -1,58 +1,90 @@
 {
-    "filename": "RptMnuStudentExpenseClaims",
-    "found": true,
-    "summary": "The document outlines components and controls for generating reports related to student expense claims. It includes validators, labels, buttons, and calendar extenders. There is functionality for generating reports in Excel format and displaying report data in HTML.",
-    "purpose": "To provide a user control interface for generating and viewing reports of student expense claims.",
-    "entities": [],
-    "fields": [
-        "txtStartDate",
-        "txtEndDate",
-        "ltlDescription",
-        "ltlOptions"
-    ],
-    "actors": [
-        "UserSession"
-    ],
-    "workflows": [
-        {
-            "name": "Generate Report",
-            "steps": [
-                "User inputs start and end dates.",
-                "User clicks on the Excel button ('cmdExcel_Click').",
-                "Parameters are set with session ID and date range.",
-                "Stored procedure 'ReportExpenseClaims' is executed.",
-                "Data is read using SqlDataReader.",
-                "Output is formatted as CSV and displayed in the HTML panel."
-            ]
-        }
-    ],
-    "business_rules": [
-        "The report generation relies on a valid session ID.",
-        "Date fields must be validated for correct formats."
-    ],
-    "validations": [
-        "RequiredFieldValidator for start and end dates.",
-        "RegularExpressionValidator for date format."
-    ],
-    "calculations": [],
-    "conditions": [],
-    "system_behavior": [
-        "JavaScript setup for date fields' client IDs.",
-        "Display of report HTML if generated content is available."
-    ],
-    "dependencies": [
-        "Uses AjaxControlToolkit for calendar extender.",
-        "Relies on HSPnet database procedures and session management."
-    ],
-    "exceptions": [],
-    "source_document_ids": [
-        "19337665-e6bd-5713-ba62-180392c8029d",
-        "1b2d6645-74c0-5299-9566-d4433b271b22",
-        "5baea157-4983-50d5-b671-80793ab49f3f",
-        "80155d16-438e-5de0-ab39-3e4b43c6f418",
-        "ac5d8735-dd99-563a-bb99-459e4d14fe0e",
-        "bfeb29c9-94a9-5797-99dd-70841f0bdab5",
-        "f1857ca1-28c6-5af4-8f9c-75ee69a66441"
-    ],
-    "content_gaps": []
+  "filename": "RptMnuStudentExpenseClaims",
+  "found": true,
+  "summary": "The RptMenuStudentExpenseClaims is a part of a web user control used for handling student expense claims reports within a given application. It mainly deals with rendering and validating report parameters, and executing and displaying the report results.",
+  "purpose": "To provide an interface for generating and viewing student expense claim reports based on specified date ranges.",
+  "entities": [
+    "HSPnet.UserControls.ReportMenu.RptMenuStudentExpenseClaims",
+    "HSPnet.DataLayer",
+    "System.Web.UI.WebControls"
+  ],
+  "fields": [
+    "ValidationSummary1",
+    "Label3",
+    "ltlDescription",
+    "Label4",
+    "ltlOptions",
+    "Label7",
+    "txtStartDate",
+    "btnStartDate",
+    "CalendarExtender1",
+    "RegularExpressionValidator1",
+    "ltlMandatoryStartDate",
+    "Label8",
+    "txtEndDate",
+    "btnEndDate",
+    "CalendarExtender2",
+    "RegularExpressionValidator2",
+    "Literal1",
+    "valEditStartDate",
+    "valEditEndDate",
+    "CustomValidator1",
+    "cmdRunExcel",
+    "lblPleaseWait",
+    "pnlReportHTML",
+    "lblReportHTML"
+  ],
+  "actors": [
+    "User",
+    "ScriptManager",
+    "Page",
+    "SqlDataReader"
+  ],
+  "workflows": [
+    {
+      "name": "Generate Student Expense Claims Report",
+      "steps": [
+        "User opens the report menu for student expense claims.",
+        "User selects start and end dates for the report.",
+        "Start and end dates are validated using RegularExpressionValidator and RequiredFieldValidator.",
+        "User clicks the button to generate the report.",
+        "On button click, a database stored procedure 'ReportExpenseClaims' is called with parameters 'SessionID', 'DateFrom', and 'DateTo'.",
+        "Database retrieves the report data which is then formatted into a CSV string.",
+        "If the report is successfully generated, it is displayed in the pnlReportHTML panel."
+      ]
+    }
+  ],
+  "business_rules": [
+    "The start and end dates must be provided by the user and validated.",
+    "The report generation will trigger a stored procedure call to get data."
+  ],
+  "validations": [
+    "start date format using RegularExpressionValidator1",
+    "end date format using RegularExpressionValidator2",
+    "required field checks for start and end dates"
+  ],
+  "calculations": [],
+  "conditions": [],
+  "system_behavior": [
+    "User interactions with start and end date controls trigger corresponding calendar controls.",
+    "The system manages visibility of the report panel based on successful report generation."
+  ],
+  "dependencies": [
+    "AjaxControlToolkit for calendar control",
+    "HSPnet.DataLayer for database interactions",
+    "HSPnet.Framework for session management"
+  ],
+  "exceptions": [
+    "Potential data retrieval issues if no data is returned by the stored procedure."
+  ],
+  "source_document_ids": [
+    "19337665-e6bd-5713-ba62-180392c8029d",
+    "1b2d6645-74c0-5299-9566-d4433b271b22",
+    "5baea157-4983-50d5-b671-80793ab49f3f",
+    "80155d16-438e-5de0-ab39-3e4b43c6f418",
+    "ac5d8735-dd99-563a-bb99-459e4d14fe0e",
+    "bfeb29c9-94a9-5797-99dd-70841f0bdab5",
+    "f1857ca1-28c6-5af4-8f9c-75ee69a66441"
+  ],
+  "content_gaps": []
 }
