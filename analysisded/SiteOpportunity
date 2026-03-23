@@ -2,11 +2,10 @@
 {
     "filename": "SiteOpportunity",
     "found": true,
-    "summary": "The SiteOpportunity entity handles site-related operations, including retrieval, update, adding, and deletion of site opportunities in a database context. It manages different attributes related to site responses and descriptions.",
-    "purpose": "To manage site opportunities by facilitating the operations of retrieval, addition, update, and deletion within a database context.",
+    "summary": "The 'SiteOpportunity' documents pertain to the management and manipulation of site opportunities associated with different sites in a system. It includes functionality for adding, updating, deleting, and retrieving site opportunities based on various criteria.",
+    "purpose": "To manage site opportunities by performing CRUD operations and handling specific business logic related to site opportunity entries.",
     "entities": [
-        "SiteOpportunity",
-        "SiteOpportunities"
+        "SiteOpportunity"
     ],
     "fields": [
         "ID",
@@ -22,82 +21,72 @@
         "HeaderChanged"
     ],
     "actors": [
-        "HSPnetSession",
-        "SqlDataReader"
+        "HSPnetSession"
     ],
     "workflows": [
         {
-            "name": "GetByID",
+            "name": "Add Site Opportunity",
             "steps": [
-                "AddParameter SiteID",
-                "Execute SiteOpportunitiesSearchID procedure",
-                "Fill list with data obtained from reader",
-                "Close reader"
+                "Check validity using IsValid(sess)",
+                "Assign procedure name to 'SiteOpportunitiesAdd'",
+                "Add parameters: SiteID, HeadingID, Response, SortOrder",
+                "Execute the query"
             ]
         },
         {
-            "name": "GetBySiteID",
+            "name": "Update Site Opportunity",
             "steps": [
-                "AddParameter SiteID",
-                "Execute SiteOpportunitiesSearch procedure",
-                "Fill list with data obtained from reader",
-                "Close reader"
+                "Check if ID is non-zero and IsValid(sess) is true",
+                "Assign procedure name to 'SiteOpportunitiesUpdate'",
+                "Add parameters: SiteOpportunitiesID, HeadingID, Response, SortOrder",
+                "Execute the query"
             ]
         },
         {
-            "name": "Update",
+            "name": "Delete Site Opportunity",
             "steps": [
-                "Check validity",
-                "Execute SiteOpportunitiesUpdate procedure",
-                "AddParameters for update",
-                "Execute query"
+                "Check if ID is non-zero",
+                "Assign procedure name to 'SiteOpportunitiesDelete'",
+                "Add parameter: SiteOpportunitiesID",
+                "Execute the query"
             ]
         },
         {
-            "name": "Add",
+            "name": "Get Site Opportunity By Site ID",
             "steps": [
-                "Check validity",
-                "Execute SiteOpportunitiesAdd procedure",
-                "AddParameters for addition",
-                "Execute query"
+                "Assign procedure name to 'SiteOpportunitiesSearch'",
+                "Add parameter: SiteID",
+                "Get data using GetData()",
+                "Fill list with data using FillList()"
             ]
         },
         {
-            "name": "Delete",
+            "name": "Get Site Opportunity By ID",
             "steps": [
-                "Execute SiteOpportunitiesDelete procedure",
-                "AddParameter for deletion",
-                "Execute query"
+                "Assign procedure name to 'SiteOpportunitiesSearchID'",
+                "Add parameter: ID",
+                "Get data using GetData()",
+                "Fill list with data using FillList()"
             ]
         }
     ],
     "business_rules": [
-        "Prevent repetition of header entries",
-        "Translate new lines in response for formatted display"
+        "Do not repeat header entries in listing.",
+        "Display sort order of -1 as blank."
     ],
     "validations": [
-        "Ensure response is not blank",
-        "Check if ID is non-zero for operations"
+        "Check if Response is blank; if so, add error and return false.",
+        "Ensure ID is non-zero for updates and deletes."
     ],
-    "calculations": [
-        {
-            "description": "Set SortOrder to 0 if -1 is provided indicating blank sort order",
-            "context": "SortOrder"
-        }
-    ],
-    "conditions": [
-        "Use alternative language fields if session indicates so"
-    ],
-    "system_behavior": [
-        "Reset counting levels when a new header is encountered"
-    ],
+    "calculations": [],
+    "conditions": [],
+    "system_behavior": [],
     "dependencies": [
-        "HSPnet.Framework",
-        "HSPnet.App_GlobalResources"
+        "System.ComponentModel.DataObjectMethodAttribute",
+        "HSPnet.UI.NumberingCodes",
+        "HSPnet.UI.HTML"
     ],
-    "exceptions": [
-        "During execution of database procedures if conditions are not met"
-    ],
+    "exceptions": [],
     "source_document_ids": [
         "148590b2-a5c1-5ba2-9f76-5946671326da",
         "18839216-0ce2-5da0-8629-43191022355e",
