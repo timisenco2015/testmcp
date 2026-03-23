@@ -1,0 +1,109 @@
+{
+    "filename": "StudentDocuments",
+    "found": true,
+    "summary": "The 'StudentDocuments' module encompasses operations related to handling student documents such as uploading, saving, editing, and managing document visibility. The module interacts with user sessions to determine document access, implements JavaScript for dynamic content management, and provides server-side support for file anonymization and handling.",
+    "purpose": "To facilitate the uploading, management, and secure handling of student documents while ensuring proper access permissions and anonymity where necessary.",
+    "entities": [
+        "Student",
+        "StudentDocument",
+        "UserSession",
+        "Program"
+    ],
+    "fields": [
+        "StudentID",
+        "FileName",
+        "FileURL",
+        "FileSize",
+        "FileType",
+        "DeleteAfterDate",
+        "DocumentName",
+        "Anonymous",
+        "Withhold",
+        "TypeCodeID",
+        "TypeCodeCode",
+        "TypeComments"
+    ],
+    "actors": [
+        "User",
+        "PlacementCoordinator",
+        "CourseLeader",
+        "Instructor"
+    ],
+    "workflows": [
+        {
+            "name": "Document Upload",
+            "steps": [
+                "User selects document type and uploads file.",
+                "System anonymizes file name and stores it.",
+                "Document metadata is saved in the database.",
+                "Visibility and access rights are checked based on user role."
+            ]
+        },
+        {
+            "name": "Document Edit",
+            "steps": [
+                "User selects document to edit.",
+                "Document details are loaded and displayed.",
+                "User makes changes and submits.",
+                "Changes are validated and saved."
+            ]
+        }
+    ],
+    "business_rules": [
+        "Documents should be anonymized before storage.",
+        "Photo uploads are restricted based on user roles.",
+        "Certain document types are restricted from being changed."
+    ],
+    "validations": [
+        "Check if document name is not empty during upload.",
+        "Validate file type and size.",
+        "Ensure document type code is selected."
+    ],
+    "calculations": [],
+    "conditions": [
+        "Documents are visible if the user is a PlacementCoordinator or has consent from the student.",
+        "Document type codes determine if an anonymized or named document is allowed."
+    ],
+    "system_behavior": [
+        "Automatically binds data to control when details are edited or added.",
+        "Utilizes JavaScript for client-side interactions."
+    ],
+    "dependencies": [
+        "User session data for permissions and access.",
+        "System configuration for directory paths."
+    ],
+    "exceptions": [
+        "Handling of undefined or null document types.",
+        "Graceful degradation if database operations fail."
+    ],
+    "source_document_ids": [
+        "0082c427-47d0-54cf-81b9-9d6bb5f40cce",
+        "029cc5c1-f445-5b4f-ae19-a8d72fd796f1",
+        "188535ff-ab16-5610-951e-bfb668317ebc",
+        "31352f3e-16e4-533f-ac2d-6fd32a220e06",
+        "3161c828-85e2-5c01-ad78-62321ea8a04d",
+        "3da6ca55-5875-5448-b396-b209e1e5b1d1",
+        "46b351a6-d10b-52ab-b99d-f40960e6d0c3",
+        "46ee8ccf-fbb3-5572-bfb7-1eff82539274",
+        "4945150a-a72f-5d3b-a3c3-55895b3537b2",
+        "4fcad530-c1e9-5df1-b542-c3dede66354f",
+        "540b7e2f-6e70-5368-8c71-2e61d8dfe86d",
+        "65fea4f0-a970-5a30-bb4c-8147db44a0b6",
+        "6ef5af6b-ea75-57a5-8cc2-a1ed1c6490ac",
+        "86473d23-c6f9-542e-8113-bb64ffe6a216",
+        "921e5573-fca9-52c9-b072-12c70c83ce01",
+        "928fa093-8e96-5f6c-a6e5-121ee6ca06c7",
+        "99ddd6b2-4bd4-555a-adf6-bc5ece663eed",
+        "9f11d8c9-a5ec-58f2-8840-2acb1abc6c25",
+        "a22cdb1f-a48b-57f3-88a9-14a0019b6225",
+        "a546829e-16df-5e90-9f96-4e750b3ec96b",
+        "bd14b6fd-1a08-51b8-82dd-a25ece9ccccf",
+        "be74a746-7308-5bc7-8918-0185ba9c2a35",
+        "e40f7b97-b4e7-523d-98f5-c9c663a50a59",
+        "e49c264f-0d8e-5c1c-974c-8e1fe704bfbe",
+        "ec28be0b-90b2-512f-acb3-76fc027a2b0a",
+        "f1451b0b-d431-5ec9-87f5-06994defc0d1",
+        "fde6ea0b-57a6-578a-aae3-86cfe7243d27"
+    ],
+    "content_gaps": []
+}
