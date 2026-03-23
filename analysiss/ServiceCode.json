@@ -1,19 +1,54 @@
 {
     "filename": "ServiceCode",
     "found": true,
-    "summary": "ServiceCode is a class used for managing service codes, their descriptions, and related data attributes within the HSPnet session.",
-    "purpose": "To handle service codes and provide localized descriptions based on session settings.",
-    "entities": ["ServiceCode", "ServiceCodes"],
-    "fields": ["ID", "CodeCategoryID", "ShortName", "Name", "SortOrder", "Notes", "NameAlt", "NotesAlt"],
-    "actors": [],
-    "workflows": [],
-    "business_rules": [],
+    "summary": "Defines entities for Service Code management, including listing all service codes and querying service codes based on course or timetable IDs. Functions for localization based on session language preferences are also included.",
+    "purpose": "To manage service code definitions and retrievals, supporting different contexts like courses and timetables.",
+    "entities": [
+        "ServiceCode",
+        "HSPnetSession"
+    ],
+    "fields": [
+        "ID",
+        "CodeCategoryID",
+        "ShortName",
+        "Name",
+        "SortOrder",
+        "Notes",
+        "NameAlt",
+        "NotesAlt"
+    ],
+    "actors": [
+        "HSPnetSession"
+    ],
+    "workflows": [
+        {
+            "name": "Retrieve Service Codes",
+            "steps": [
+                "Set procedure name and parameters in session database.",
+                "Execute database query for service codes.",
+                "Read and map results to ServiceCode objects.",
+                "Return list of service codes."
+            ]
+        }
+    ],
+    "business_rules": [
+        "Use alternative language data if session uses alternative language fields."
+    ],
     "validations": [],
     "calculations": [],
     "conditions": [],
-    "system_behavior": ["Localized descriptions based on session language"],
-    "dependencies": ["HSPnetSession", "Database"],
+    "system_behavior": [
+        "List all service codes or filter by specific course or timetable ID."
+    ],
+    "dependencies": [
+        "HSPnet.Framework",
+        "SqlDataReader"
+    ],
     "exceptions": [],
-    "source_document_ids": ["94f1b055-348d-508a-ae6e-cf7960a8c6a2", "e4ebe4b4-6d14-5c3f-b693-61016f765239"],
+    "source_document_ids": [
+        "94f1b055-348d-508a-ae6e-cf7960a8c6a2",
+        "e4ebe4b4-6d14-5c3f-b693-61016f765239",
+        "f976b9af-a402-540f-b162-391d578fac7c"
+    ],
     "content_gaps": []
 }
