@@ -1,0 +1,73 @@
+{
+  "filename": "StaffMessageService",
+  "found": true,
+  "summary": "StaffMessageService is a web service class that provides operations to retrieve staff messages by ID. It exposes a single web method that returns the message text for a given staff message ID and session hash.",
+  "purpose": "To allow retrieval of staff message text based on staff message ID and user session, facilitating access to staff communications within the system.",
+  "entities": [
+    "StaffMessage",
+    "StaffMessages"
+  ],
+  "fields": [
+    {
+      "name": "sessionHash",
+      "type": "string",
+      "description": "Hash representing the user's session used to identify the session context."
+    },
+    {
+      "name": "id",
+      "type": "int",
+      "description": "Unique identifier of the staff message to retrieve."
+    }
+  ],
+  "actors": [
+    "System user (with valid session)",
+    "WebService consumer"
+  ],
+  "workflows": [
+    {
+      "name": "Get Staff Message By ID",
+      "steps": [
+        "User calls StaffMessageGetByID web method with sessionHash and message ID.",
+        "System converts sessionHash to sessionID using HSPnetSession.GetSessionIDFromHash.",
+        "System searches for staff message matching sessionID and ID via StaffMessages.StaffMessagesSearchID.",
+        "If found, returns msg.Message (staff message text).",
+        "If not found, returns empty string."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Only retrieve staff message if valid session hash is provided.",
+    "Return empty string if staff message not found for session and ID."
+  ],
+  "validations": [
+    "sessionHash must be valid and convertible to sessionID.",
+    "id must correspond to an existing staff message."
+  ],
+  "calculations": [],
+  "conditions": [
+    "msg != null: message exists for provided session and ID.",
+    "else: message does not exist, return empty string."
+  ],
+  "system_behavior": [
+    "Buffers web method response, caches result for 60 seconds.",
+    "Web method accessible as a SOAP service with BasicProfile1_1 conformance."
+  ],
+  "dependencies": [
+    "HSPnetSession.GetSessionIDFromHash(sessionHash)",
+    "StaffMessages.StaffMessagesSearchID(sessionID, id)",
+    "StaffMessage"
+  ],
+  "exceptions": [
+    "If sessionHash is invalid or not convertible, message lookup may fail.",
+    "If staff message not found, returns empty string.",
+    "No explicit error handling exposed to consumer."
+  ],
+  "source_document_ids": [
+    "60df7613-1790-5d7c-8456-92d9d6e26b19"
+  ],
+  "content_gaps": [
+    "No details on input validation for sessionHash or id.",
+    "No information about logging, security, or error handling beyond empty string response.",
+    "Only one web method defined; additional functionality (e.g., create/update/delete messages) is not described."
+  ]
+}
