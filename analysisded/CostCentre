@@ -1,0 +1,45 @@
+```json
+{
+  "filename": "CostCentre",
+  "found": true,
+  "summary": "The CostCentre module retrieves and manages cost center records for a given session, querying and storing data regarding various educational and organizational aspects.",
+  "purpose": "The CostCentre is designed to retrieve cost center-related data for a session and organize it into a structured format for educational and organizational analysis.",
+  "entities": ["CostCentreView", "CostCentreRecord"],
+  "fields": ["sessionID", "startDate", "endDate", "placingAgencies", "discipline", "subDiscipline", "site", "service", "destination", "prStatus", "PlacingAgency", "Department", "Program", "Discipline", "SubDiscipline", "ReceivingAgency", "Site", "Portfolio", "Service", "Destination", "CostCentre", "CostCentreDescription", "PRType", "StartDate", "EndDate", "Status", "Course", "ProgramYear", "ReferenceNumber", "CFO", "PRCount", "StudentCount", "PRHours", "StudentHours"],
+  "actors": [],
+  "workflows": [
+    {
+      "name": "GetCostCentre",
+      "steps": [
+        "Initialize Database connection",
+        "Set procedure name to 'PlacementCostCentre'",
+        "Add necessary query parameters",
+        "Execute query and read data",
+        "Instantiate CostCentreRecord and populate fields",
+        "Close data reader",
+        "Return list of CostCentreRecords"
+      ]
+    }
+  ],
+  "business_rules": [],
+  "validations": [],
+  "calculations": [],
+  "conditions": [],
+  "system_behavior": [
+    "The system initializes a database connection and sets the procedure name for querying cost center data.",
+    "Parameters related to session and organizational details are added to the query.",
+    "Records are retrieved and mapped to the CostCentreRecord object.",
+    "The system processes cost center data, storing and returning it as a structured list."
+  ],
+  "dependencies": ["HSPnet.DataLayer", "HSPnet.Framework", "HSPnet.UI"],
+  "exceptions": [],
+  "source_document_ids": [
+    "20ac8054-536e-5203-b33d-7db2b2dc2359",
+    "2c04f259-cf58-5d95-803c-8ebf16840f6c",
+    "97bc3ba9-9fe4-52b1-8847-dce2198e0aee",
+    "dd965b0f-f9cf-57eb-a3f8-32b3b97a6d1a",
+    "e1ac7e41-5e9e-5f16-baa0-29d05a70f976"
+  ],
+  "content_gaps": []
+}
+```
