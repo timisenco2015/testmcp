@@ -1,60 +1,64 @@
 {
-    "filename": "ProfileHistory",
-    "found": true,
-    "summary": "The ProfileHistory file appears to be part of an ASP.NET web application managing staff profiles and history. It involves displaying, filtering, and handling various sections of data related to staff history such as education, training, and certifications.",
-    "purpose": "To manage and display different sections of a staff member's profile history, including filtering by specific types of entries such as education or training.",
-    "entities": [],
-    "fields": [
-        "UserSession",
-        "StaffID",
-        "ScreenIsEditable",
-        "ScriptMgr",
-        "CurrentPage",
-        "screenSection",
-        "ddScreenSection",
-        "gridData"
-    ],
-    "actors": [
-        "User",
-        "System"
-    ],
-    "workflows": [
-        {
-            "name": "Profile History Data Binding",
-            "steps": [
-                "Initialize StaffPRHistoryList with UserSession and StaffID.",
-                "Determine selected screen section, defaulting to 'ALL'.",
-                "Clear ddScreenSection items.",
-                "Check for entry existence in specific sections such as Master, Profile, Training, etc.",
-                "Add relevant sections to ddScreenSection dropdown if they exist.",
-                "Select screenSection from dropdown items.",
-                "Bind data to gridData based on selected section."
-            ]
-        }
-    ],
-    "business_rules": [],
-    "validations": [],
-    "calculations": [],
-    "conditions": [
-        "If user session is null, data bind does not proceed.",
-        "If no dropdown item is selected, screen section defaults to 'ALL'."
-    ],
-    "system_behavior": [
-        "Adds dropdown list items based on existent entries of specific types.",
-        "Binds data to a grid for a particular section or all sections."
-    ],
-    "dependencies": [
-        "HSPnet.DataLayer",
-        "HSPnet.App_GlobalResources",
-        "HSPnet.UI"
-    ],
-    "exceptions": [],
-    "source_document_ids": [
-        "330fbba0-5fdb-5316-ac46-844a5751ae5f",
-        "be5cf16b-38ad-59f2-9d39-4eeedbe1dc28",
-        "c7c23dcd-cbd4-5ec5-8d97-960cea02ec73",
-        "d0012316-f638-57ef-9faa-3b223c3a50ea",
-        "e5408175-2377-55a2-a397-94537bde5d0f"
-    ],
-    "content_gaps": []
+  "filename": "ProfileHistory",
+  "found": true,
+  "summary": "The ProfileHistory feature in the HSPnet application manages the display and filtering of staff profile records based on different sections. It includes functionalities for selecting different sections such as post-employment education, training, documents, etc., and updating the display accordingly.",
+  "purpose": "The purpose of the ProfileHistory feature is to allow users to view and manage different sections of staff profile records in a structured and filtered manner.",
+  "entities": [],
+  "fields": [
+    "pnlButtons",
+    "btnPrintDetails",
+    "lblScreenSection",
+    "ddScreenSection",
+    "Literal2",
+    "gridData",
+    "UserSession",
+    "StaffID",
+    "ScreenIsEditable",
+    "ScriptMgr",
+    "CurrentPage"
+  ],
+  "actors": [],
+  "workflows": [
+    {
+      "name": "Display and Filter Staff Profile",
+      "steps": [
+        "Initialize UserSession and StaffID.",
+        "Retrieve StaffPRHistoryList based on UserSession and StaffID.",
+        "Check if the screen section (selected item) is null; if so, set to 'ALL'.",
+        "Update lblScreenSection with the section label.",
+        "Clear and repopulate ddScreenSection dropdown with applicable sections.",
+        "Bind filtered data to gridData."
+      ]
+    }
+  ],
+  "business_rules": [
+    "The section dropdown is populated only with available sections based on the user's data.",
+    "The default dropdown value is 'ALL' if no section is selected."
+  ],
+  "validations": [],
+  "calculations": [],
+  "conditions": [
+    "If item is null, screenSection is set to 'ALL'.",
+    "Sections are added to ddScreenSection only if EntryExistsOfType returns true."
+  ],
+  "system_behavior": [
+    "Displays staff profile records filtered by selected section.",
+    "Allows printing of details through btnPrintDetails."
+  ],
+  "dependencies": [
+    "HSPnetSession",
+    "StaffPRHistoryList",
+    "ScriptManager",
+    "ListItem",
+    "Resources"
+  ],
+  "exceptions": [],
+  "source_document_ids": [
+    "330fbba0-5fdb-5316-ac46-844a5751ae5f",
+    "be5cf16b-38ad-59f2-9d39-4eeedbe1dc28",
+    "c7c23dcd-cbd4-5ec5-8d97-960cea02ec73",
+    "d0012316-f638-57ef-9faa-3b223c3a50ea",
+    "e5408175-2377-55a2-a397-94537bde5d0f"
+  ],
+  "content_gaps": []
 }
