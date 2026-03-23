@@ -1,8 +1,8 @@
 {
     "filename": "Calendar",
     "found": true,
-    "summary": "Calendar handling and popup functionalities in HSPnet UI.",
-    "purpose": "To manage and control calendar popups and their components within the UI framework.",
+    "summary": "Disable a calendar popup by hiding the icon and disabling the calendar extender.",
+    "purpose": "Provide functionality to disable calendar popups on view-only screens.",
     "entities": [],
     "fields": [],
     "actors": [],
@@ -10,10 +10,9 @@
         {
             "name": "Disable Calendar Popup",
             "steps": [
-                "Find the control within container using iconName.",
-                "Hide the icon if control is found.",
-                "Find the CalendarExtender control using extenderName.",
-                "Disable the CalendarExtender if found."
+                "Find calendar control using the control name.",
+                "Set calendar control visibility to false.",
+                "Disable calendar extender."
             ]
         }
     ],
@@ -21,11 +20,13 @@
     "validations": [],
     "calculations": [],
     "conditions": [],
-    "system_behavior": [],
-    "dependencies": [],
-    "exceptions": [],
-    "source_document_ids": [
-        "004691e2-ee17-54dc-b16c-be71b656c46a"
+    "system_behavior": [
+        "Calendar popup is hidden and extender is disabled when DisableCalendar method is called."
     ],
+    "dependencies": [
+        "AjaxControlToolkit.CalendarExtender"
+    ],
+    "exceptions": [],
+    "source_document_ids": ["004691e2-ee17-54dc-b16c-be71b656c46a"],
     "content_gaps": []
 }
