@@ -1,0 +1,104 @@
+{
+  "filename": "SsoSettings",
+  "found": true,
+  "summary": "The SsoSettings document outlines the configuration and management of Single Sign-On (SSO) settings for HSPnet. The document includes various components and controls that manage SSO functionality, such as labels, panels, buttons, and text boxes. It also covers the processes for searching, saving, and deleting SSO settings, as well as generating SSO URLs.",
+  "purpose": "To configure and manage SSO settings within the HSPnet system, facilitating SSO operations for different entities like agencies, departments, and sites.",
+  "entities": [
+    "SsoSetting",
+    "HSPnetSession",
+    "Database",
+    "SqlDataReader"
+  ],
+  "fields": [
+    "ID",
+    "AgencyID",
+    "DepartmentID",
+    "SiteID",
+    "EntityID",
+    "IdpLoginEndPoint",
+    "X509Certificate",
+    "PortalURL",
+    "HSPnetEntityID"
+  ],
+  "actors": [
+    "User",
+    "System"
+  ],
+  "workflows": [
+    {
+      "name": "Save SSO Setting",
+      "steps": [
+        "User initiates save operation.",
+        "System collects data from text fields.",
+        "System calls SsoSettingSave with collected data.",
+        "If no errors, update internal setting."
+      ]
+    },
+    {
+      "name": "Delete SSO Setting",
+      "steps": [
+        "User initiates delete operation.",
+        "System checks if setting ID is valid.",
+        "System calls SsoSettingDelete to remove setting.",
+        "Reload settings."
+      ]
+    },
+    {
+      "name": "Load SSO Settings",
+      "steps": [
+        "Page load event triggers reload.",
+        "System checks if setting is available.",
+        "If not, system retrieves setting via SsoSettingsSearch."
+      ]
+    },
+    {
+      "name": "Generate SSO URL",
+      "steps": [
+        "System checks if setting is valid.",
+        "System formats server URL.",
+        "System appends HSPnetEntityID to server URL."
+      ]
+    }
+  ],
+  "business_rules": [
+    "SSO settings must be associated with valid agency, department, and site IDs.",
+    "SsoServerUrl must be appended with a trailing slash if not present.",
+    "Settings without a valid ID are not displayed."
+  ],
+  "validations": [
+    "Portal URL must match a regular expression pattern."
+  ],
+  "calculations": [],
+  "conditions": [
+    "If DepartmentID and SiteID are both zero, set agency settings visibility.",
+    "If Setting.DepartmentID matches DepartmentID and SiteID, use department/site settings."
+  ],
+  "system_behavior": [
+    "System hides Employee Sign-On URL if support is not implemented.",
+    "System refreshes settings view based on current configuration state."
+  ],
+  "dependencies": [
+    "HSPnetSession",
+    "HSPnet.DataLayer",
+    "System.Web.UI"
+  ],
+  "exceptions": [
+    "Incomplete data blocks SSO setting save.",
+    "Error messages are triggered via UserSession."
+  ],
+  "source_document_ids": [
+    "16ff64d2-1c72-5c62-bdb8-501b7287f31f",
+    "368e7f56-6754-51df-a4e6-1aa985dd5b50",
+    "3b2ef0d0-0805-59eb-9e57-21bd38882afb",
+    "4f32dbb4-5f3b-5c09-b5f5-a45647722507",
+    "5812f007-93f1-50d6-a247-0f80afb6930c",
+    "63b8e1bc-0b44-570c-b4db-03182466a376",
+    "6cfa8576-00e1-55f5-a1db-fe535740dce5",
+    "75573436-8f52-5b83-a9d8-dbff195a3916",
+    "b7aae02d-8ee4-596e-bc2c-3ce3ab3b573d",
+    "b7f7d79a-3f0d-5c5b-8af0-69ea7482c9ca",
+    "d4b33a12-4315-5ae0-86a6-641ddd6f8cd8",
+    "ed6999c5-c3f7-5366-af75-d7985263becc"
+  ],
+  "content_gaps": []
+}
