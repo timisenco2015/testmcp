@@ -1,0 +1,61 @@
+# Module: PrqConfidentiality
+
+## PrqConfidentiality-UC1 — Manage Confidentiality Details
+
+- Primary Actor(s): Staff
+- Secondary Actor(s): System Administrator
+- Trigger: User accesses the confidentiality management interface.
+- Description: This use case describes the management of confidentiality details associated with staff profiles, including adding, editing, and deleting confidentiality-related entries.
+- Preconditions: 
+  - User must have appropriate permissions to manage confidentiality details.
+  - User must be logged into the system.
+- Postconditions:
+  - Confidentiality details are updated in the system.
+  - User session is cached to reflect updates.
+- Main Success Scenario:
+  1. User accesses the confidentiality management interface.
+  2. User views existing confidentiality entries in a grid view.
+  3. User selects an action (add, edit, delete) on a confidentiality entry.
+  4. System performs the requested action (add/edit/delete) on the entry.
+  5. User changes are saved, and the system refreshes the grid view.
+- Extensions:
+  - User cancels the operation after initiating an add/edit.
+- Exceptions:
+  - If UserSession is null, actions are canceled.
+  - If the page is not valid during insert/update, actions are canceled.
+- Business Rules:
+  - Actions on confidentiality details are only allowed if the screen is editable.
+  - Add/Edit/Delete functionality is controlled based on user permissions.
+- Assumptions:
+  - User knows how to navigate and interact with the system interface.
+  - User has the necessary permissions to perform the actions.
+- Open Issues:
+  - Handling of user permission changes dynamically during session. 
+
+## PrqConfidentiality-UC2 — Display and Validate Confidentiality Forms
+
+- Primary Actor(s): Staff
+- Secondary Actor(s): System Administrator
+- Trigger: System renders the confidentiality form view for display.
+- Description: This use case handles the display and validation of confidentiality forms within the confidentiality management module.
+- Preconditions:
+  - UserSession must be active.
+- Postconditions:
+  - Confidentiality form is displayed according to the user's permissions and data validity.
+- Main Success Scenario:
+  1. System checks if UserSession is active.
+  2. System displays the confidentiality form based on data availability and user permissions.
+  3. System validates the form input when user attempts to insert or update data.
+  4. System cancels actions if validation fails.
+- Extensions:
+  - N/A
+- Exceptions:
+  - Validation errors prevent data from being saved.
+  - Inactive UserSession cancels data selection actions.
+- Business Rules:
+  - Validation of form data is mandatory before any database transaction.
+  - Visibility of form fields is based on the ScreenIsEditable flag.
+- Assumptions:
+  - User performs actions sequentially and waits for the system to respond before proceeding.
+- Open Issues:
+  - Enhancement of validation feedback to users for better user experience.
