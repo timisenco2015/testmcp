@@ -1,1 +1,48 @@
-{"filename":"SiteProfileHistory","found":true,"summary":"This represents historical actions taken on site profiles, recording user actions and associated metadata.","purpose":"To track changes made to site profiles within user sessions.","entities":["SiteProfileHistory"],"fields":["ID","ActionDate","ScreenSection","UserAction","Fields","Agency","AgencyName","LastName","FirstName","MiddleName","Phone","ByUserID","ByOriginalUserID","ByUserSysAdmin"],"actors":["HSPnetSession"],"workflows":[],"business_rules":[],"validations":[],"calculations":[],"conditions":[],"system_behavior":["Localization depending on session settings"],"dependencies":[],"exceptions":[],"source_document_ids":["25f89a24-5eda-5a3f-83df-1de69b12b3f1","26e09292-d304-55c6-94e5-ef3346453c4b","7ca6b963-9ae9-5cd3-82d5-f30dcb727ae3"],"content_gaps":[]}
+{
+  "filename": "SiteProfileHistory",
+  "found": true,
+  "summary": "The SiteProfileHistory class logs changes and user actions on site profiles over time.",
+  "purpose": "To provide historical data and audit trail of changes made to site profiles.",
+  "entities": ["SiteProfileHistory"],
+  "fields": [
+    "ID",
+    "ActionDate",
+    "ScreenSection",
+    "UserAction",
+    "Fields",
+    "Agency",
+    "LastName",
+    "FirstName",
+    "MiddleName",
+    "Phone",
+    "ByUserID"
+  ],
+  "actors": ["HSPnet users"],
+  "workflows": [],
+  "business_rules": [
+    "Logs entries based on user actions and changes to site profiles"
+  ],
+  "validations": [],
+  "calculations": [],
+  "conditions": [
+    "Entries are retrieved based on site and agency ID within a session"
+  ],
+  "system_behavior": [
+    "Provides formatted action dates and user details",
+    "Supports localization for screen section and user actions"
+  ],
+  "dependencies": [
+    "System",
+    "System.Data.SqlClient",
+    "HSPnet.Framework"
+  ],
+  "exceptions": [],
+  "source_document_ids": [
+    "25f89a24-5eda-5a3f-83df-1de69b12b3f1",
+    "26e09292-d304-55c6-94e5-ef3346453c4b",
+    "7ca6b963-9ae9-5cd3-82d5-f30dcb727ae3",
+    "a8f030c6-90b8-53a1-bb8a-3b7ef33b9488",
+    "e806999c-3a39-5720-9b59-303faebc9eb6"
+  ],
+  "content_gaps": []
+}
