@@ -1,56 +1,28 @@
 {
-    "filename": "CostCentre",
-    "found": true,
-    "summary": "CostCentre relates to placement costs associated with programs, disciplines, and agencies, providing services to capture and retrieve cost centre data.",
-    "purpose": "To record and retrieve detailed placement cost information based on various filtering criteria.",
-    "entities": [
-        "CostCentreRecord"
-    ],
-    "fields": [
-        "PlacingAgency",
-        "Department",
-        "Program",
-        "Discipline",
-        "Site",
-        "Service",
-        "Destination",
-        "CostCentre",
-        "StartDate",
-        "EndDate",
-        "Course",
-        "ProgramYear",
-        "ReferenceNumber",
-        "CFO"
-    ],
-    "actors": [],
-    "workflows": [
-        {
-            "name": "Fetch Cost Centre Data",
-            "steps": [
-                "Initiate database connection.",
-                "Fetch and format data based on session parameters.",
-                "Return formatted CostCentreRecord list."
-            ]
-        }
-    ],
-    "business_rules": [],
-    "validations": [],
-    "calculations": [],
-    "conditions": [],
-    "system_behavior": [
-        "CostCentre data retrieval based on session and input parameters."
-    ],
-    "dependencies": [
-        "Database connection",
-        "Session management"
-    ],
-    "exceptions": [],
-    "source_document_ids": [
-        "20ac8054-536e-5203-b33d-7db2b2dc2359",
-        "2c04f259-cf58-5d95-803c-8ebf16840f6c",
-        "97bc3ba9-9fe4-52b1-8847-dce2198e0aee",
-        "dd965b0f-f9cf-57eb-a3f8-32b3b97a6d1a",
-        "e1ac7e41-5e9e-5f16-baa0-29d05a70f976"
-    ],
-    "content_gaps": []
+  "filename": "CostCentre",
+  "found": true,
+  "summary": "Provides functionality for fetching cost center data related to placements.",
+  "purpose": "To calculate and retrieve cost center data, supporting auditing and financial management within the organization.",
+  "entities": ["CostCentreRecord"],
+  "fields": ["PlacingAgency", "Department", "Program", "Discipline", "SubDiscipline", "ReceivingAgency", "Site", "Portfolio", "Service", "Destination", "CostCentre", "CostCentreDescription", "PRType", "StartDate", "EndDate", "Status", "Course", "ProgramYear", "ReferenceNumber", "CFO"],
+  "actors": [],
+  "workflows": [
+    {
+      "name": "Cost Centre Retrieval",
+      "steps": [
+        "Initialize parameters",
+        "Execute database query",
+        "Create and populate record list"
+      ]
+    }
+  ],
+  "business_rules": [],
+  "validations": [],
+  "calculations": [],
+  "conditions": [],
+  "system_behavior": ["Support financial auditing through detailed record retrieval"],
+  "dependencies": ["SQL, XML"],
+  "exceptions": [],
+  "source_document_ids": ["20ac8054-536e-5203-b33d-7db2b2dc2359", "2c04f259-cf58-5d95-803c-8ebf16840f6c", "97bc3ba9-9fe4-52b1-8847-dce2198e0aee", "dd965b0f-f9cf-57eb-a3f8-32b3b97a6d1a", "e1ac7e41-5e9e-5f16-baa0-29d05a70f976"],
+  "content_gaps": []
 }
