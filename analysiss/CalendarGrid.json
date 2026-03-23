@@ -1,70 +1,76 @@
 {
     "filename": "CalendarGrid",
     "found": true,
-    "summary": "The CalendarGrid is a complex system for managing placement requests (PR) and scheduling within a grid format, allowing for various levels of interaction and data presentation for different user roles such as instructors, coordinators, and students. It supports filtering by PR, viewing, editing, and managing shifts, handling conflicts, and displaying detailed information.",
-    "purpose": "The purpose of the CalendarGrid is to facilitate the scheduling and management of placement requests through an interactive grid interface, supporting various user roles, conflict management, and detailed PR information handling.",
+    "summary": "The CalendarGrid system supports managing and displaying placement requests, schedules, and shifts in an institutional setting. It handles user roles like instructors and coordinators, allowing for detailed viewing, editing, and managing of shift schedules.",
+    "purpose": "To facilitate the management and visualization of placement requests and shift schedules within an educational or organizational context, ensuring efficient operations and coordination among involved parties.",
     "entities": [],
     "fields": [
         "PRDID",
         "StartDate",
         "EndDate",
-        "VariousDays",
+        "StartDateBlock2",
+        "EndDateBlock2",
         "ShiftCode",
-        "StartTime",
-        "EndTime",
-        "InstructorName"
+        "ShiftLength",
+        "ShiftTypeCode",
+        "ShiftDetail",
+        "SupervisorID",
+        "Comments",
+        "UrgentAlert"
     ],
     "actors": [
-        "UserSession",
-        "Dropdown",
-        "ScriptManager"
+        "PlacementCoordinator",
+        "ReceivingCoordinator",
+        "Instructor",
+        "StudentUser",
+        "SystemAdministrator"
     ],
     "workflows": [
         {
-            "name": "View PR",
+            "name": "Shift Management",
             "steps": [
-                "Filter PR using dropdown uxPRFilter.",
-                "Display PR details based on filter.",
-                "Render grid based on filtered data."
-            ]
-        },
-        {
-            "name": "Edit PR",
-            "steps": [
-                "Select PR to edit.",
-                "Open form with current PR details.",
-                "Modify required fields and save.",
-                "Refresh grid and validate changes."
+                "User logs into the system",
+                "Navigates to the shift schedule interface",
+                "Selects or filters placement requests",
+                "Views, edits, or adds shifts as needed",
+                "Conflicts and alerts are automatically flagged",
+                "Shift details can be printed or exported"
             ]
         }
     ],
     "business_rules": [
-        "Conflicts must be flagged automatically if enabled.",
-        "Only users with edit permissions can modify PR data.",
-        "PR display is limited by user permissions and view filters."
+        "Shift schedules can't overlap within certain criteria",
+        "Only authorized users can edit specific details",
+        "Instructors can see 'My Groups' if permitted",
+        "Some users have read-only access based on their role"
     ],
     "validations": [
-        "Start and end times must adhere to specified formats.",
-        "Date fields are validated using regular expressions."
+        "Date validation for start and end times",
+        "Shift code validation",
+        "Conflict checks between shifts"
     ],
     "calculations": [
-        "Displayed hours for PR are calculated daily based on shifts."
+        "Displayed hours calculated from start and end dates",
+        "Unique nicknames generated for agency names"
     ],
     "conditions": [
-        "User roles determine the visibility of certain grid features.",
-        "PRDID 0 indicates viewing all available PRs."
+        "If user is 'PlacementCoordinator', they can view unreleased schedules",
+        "Date filters can be applied from the URL query string"
     ],
     "system_behavior": [
-        "Responsive grid updates with user interactions.",
-        "Shift details are dynamically loaded based on selection."
+        "Automatically flags conflicts based on predefined rules",
+        "Allows adding, editing, and deleting of shifts",
+        "Supports role-based access and functionalities",
+        "Handles shifts with regular or amended details"
     ],
     "dependencies": [
-        "Session information is critical for permission checks.",
-        "Resource strings for localization."
+        "Utilization list for shift details",
+        "Session data for user context",
+        "Database access for schedule information"
     ],
     "exceptions": [
-        "Conflicts in shift times must be resolved before proceeding.",
-        "User actions are restricted based on role-specific permissions."
+        "Unavailability of shifts for certain days",
+        "Conflicts with agency placements"
     ],
     "source_document_ids": [
         "00a92747-f90c-5f91-bf3f-21bf8a04292d",
@@ -88,6 +94,7 @@
         "2e9ddcb0-2d5b-5988-b0c4-31f275bc7f14",
         "317cd6a7-3184-5355-8957-b7507415c6a4",
         "32686e56-2494-5ac0-ad0b-68dd3c930f85",
+        "346bf3ae-633e-5b47-a5e0-7e2c7c8711ef",
         "39d85f29-7124-55a3-8e98-896d1b83e829",
         "3a890921-9b92-5e32-8c28-db2187310068",
         "3d939bfe-707b-55c6-958e-b6dc04dc1f33",
@@ -97,6 +104,11 @@
         "449274f6-bd4d-5a6c-9160-3e3e8ef7643b",
         "44ccbd75-94d1-5146-8b83-9849ef2b531b",
         "45f8d5c0-c49e-51ff-abfc-fd2f8d137ac9",
+        "4a5ffb99-6b74-5ca5-8bd9-b336fb0a7455",
+        "4a6b8bb3-fbb6-5841-b171-cfc116c0c80d",
+        "4a889993-a9e7-5ee3-8a8c-9a9e0f3624e9",
+        "4af707dc-6cc6-5b41-9d7e-32b8e9acd14b",
+        "4f6b26e6-8e38-5979-b2e9-22311c9c79dd",
         "51e2772e-dfaa-5188-9664-2edc75761fca",
         "52747e66-f880-52dc-96f5-74c6f5df99a6",
         "58d9667b-e6ed-5b25-bd70-16c83cac9088",
@@ -165,8 +177,8 @@
         "f5abaf95-80b7-56ca-b61e-e7903085902f",
         "fa1d8771-e6f3-5362-a5db-5fbcab64a4fe",
         "fabe5507-89dc-587a-8bf4-60923a3822b6",
-        "fbd7f871-8c54-5673-b836-0a40174f9f8c",
-        "fac3e69a-d94a-5b0f-b077-444b4d2288cd"
+        "fac3e69a-d94a-5b0f-b077-444b4d2288cd",
+        "fbd7f871-8c54-5673-b836-0a40174f9f8c"
     ],
     "content_gaps": []
 }
