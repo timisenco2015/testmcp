@@ -1,0 +1,150 @@
+```json
+{
+  "filename": "CallForOffers",
+  "found": true,
+  "summary": "The 'CallForOffers' system is designed to manage placement requests, offering functionalities like adding, updating, deleting, and copying offers. It uses a combination of JavaScript and ASP.NET controls to handle user inputs and validations.",
+  "purpose": "To facilitate the management of placement requests through creating, accepting, and managing offers with a structured workflow, validation, and user interaction.",
+  "entities": [],
+  "fields": [
+    "PRD_ID",
+    "StartDate",
+    "EndDate",
+    "NumStudents",
+    "Comments",
+    "SupervisorID",
+    "SupervisorID2",
+    "siteID",
+    "serviceID",
+    "destinationID",
+    "requestCodeIDs",
+    "RotationDates"
+  ],
+  "actors": [
+    "UserSession",
+    "HSPnetSession",
+    "ScriptManager",
+    "Page",
+    "Grid",
+    "Panel",
+    "Label",
+    "Literal"
+  ],
+  "workflows": [
+    {
+      "name": "Accept Offers Workflow",
+      "steps": [
+        "User initiates the accept offer process.",
+        "Check if the reason date is provided, else default to today's date.",
+        "Validate presence of comments if reason is marked as 'Other'.",
+        "Accept the offer and update the system accordingly."
+      ]
+    },
+    {
+      "name": "Placement Request Management",
+      "steps": [
+        "Initialize page and fetch placement request details.",
+        "On interaction, commands like edit, delete, or copy are executed.",
+        "Manage add or update based on form submissions with validation checks.",
+        "Data refresh and UI update upon command execution."
+      ]
+    }
+  ],
+  "business_rules": [
+    "If no reason date is provided, use today's date.",
+    "Comments are mandatory if the reason is 'Other'."
+  ],
+  "validations": [
+    "Start and end dates must be valid and formatted correctly.",
+    "Number of students must be an integer between 1 and 99.",
+    "Required fields like site, service, and destination must be selected.",
+    "Selected rotations must pass custom validation checks."
+  ],
+  "calculations": [],
+  "conditions": [
+    "If the user type is 'PC', additional services load.",
+    "Display instructions based on user session settings."
+  ],
+  "system_behavior": [
+    "JavaScript is used for client-side validations and user interactions.",
+    "UI components like panels and buttons enable dynamic content updates."
+  ],
+  "dependencies": [],
+  "exceptions": [
+    "Handle invalid date range errors with specific messages.",
+    "In read-only mode, certain features like adding new offers are disabled."
+  ],
+  "source_document_ids": [
+    "01875390-0136-5f04-b00b-3e4bb76911fe",
+    "064856eb-defb-5642-a47a-b49b1744c788",
+    "0f28b9b5-9e69-55b0-b272-2ac92bd5cd68",
+    "0fda078e-40b8-5888-9df3-6370895fe40b",
+    "1117e29f-f6ad-52f0-bb13-85de616af2a1",
+    "11a56f22-17ef-5862-931c-0a6f29d67b4f",
+    "15796240-2b6d-55bf-9d7d-61fa5619af70",
+    "1740d2fe-03cb-53a7-91cb-2aa0e6c822a7",
+    "296cf89c-c2e1-52be-bb31-3bbb67f91927",
+    "2e413455-656f-5c65-81b9-3bedcdcf1522",
+    "3026c03d-fc5c-55d0-9919-ba2e3717b079",
+    "34aeea3c-5414-52e2-a53b-417587fb6c3b",
+    "375acada-d786-5db6-a8eb-2b67354ba2c8",
+    "376d6f35-1a41-5ca4-9ab2-f3226b24891d",
+    "3ed2554a-6bbe-519a-b592-bb83f870b77c",
+    "3f36deb6-9311-54d4-996c-e2087933e9cb",
+    "3f91a677-fcd3-584b-9997-747bc2120f03",
+    "3fd7b267-c310-570c-badc-13297c373d64",
+    "44fda2e6-13e8-5b01-9e46-ddfeae6071ca",
+    "4b031b9f-27c3-51d9-9b1f-cecbf06e9a71",
+    "4cfc45c1-ac06-5c21-b3bf-756717d0d386",
+    "4d0df023-c335-58ff-9ba9-a8a244239e60",
+    "53a796d2-a812-55f0-af5b-cd83ef989000",
+    "557a6b74-0540-5273-9dd4-67a8362eda4d",
+    "57ed4dd2-e7cd-5830-9a2d-4cb641d32126",
+    "5a8f4453-fab5-5167-95ca-f79573c667d4",
+    "5c726a46-0a64-5e00-8c3a-759e450dbf45",
+    "5cc7fda5-95c1-5fef-a4cf-95a97019530d",
+    "5efe75ad-a700-574a-9f84-f9174f0f90d3",
+    "5f64093a-a081-5f2b-8e23-f1b3f4a04d94",
+    "68e1bf5f-24a3-5ff7-ba4b-69e97ba7bf11",
+    "6d0eb96d-41b4-56ea-b19d-d505c2304d7c",
+    "6df7bef2-a936-5f60-b954-53c0b3b0a347",
+    "6e162a07-3fdf-5ebd-b441-fe4b4ac0a02d",
+    "741a13d8-8f9c-5588-8141-25993d49757e",
+    "7b4ec6a1-6343-5f9d-ba5c-f91e5607bae9",
+    "7fdf5c5d-aa02-5cd0-8940-e9d32cba7796",
+    "80212fd1-6e9f-5d3f-be41-3c73d36d4bda",
+    "83ac45a5-1941-512f-aa37-e1644fe9da2f",
+    "85469bf4-2905-58d9-a710-ef572c552a74",
+    "903b47b1-98f4-5c05-9187-111fc5d84c8c",
+    "92e263be-e621-50fe-b0e5-d53f34f153a1",
+    "969a0d4a-ebfa-5a24-bfe8-c80a92acd057",
+    "9814591c-d70a-5570-9c07-c509f4eb5973",
+    "9d5ac1e1-5947-53be-be11-ca63831a1056",
+    "a2783a0e-a657-5dc6-942b-3393fd9ef7c8",
+    "a479c9fa-91b2-5a74-9b70-ac20265bcdcd",
+    "a7400d7b-9822-508a-a86d-a567d5754c99",
+    "aec01a61-7db7-5ae2-9e5b-85c0f7915ca0",
+    "aee8f548-3e89-5a36-a0b3-ad36b1654b5f",
+    "b1b98381-051a-50f7-8ecb-e5cfbc7d322a",
+    "b5ce7f58-3af3-591b-b625-d07dcb43d8cc",
+    "b99d3366-761e-508e-b497-1ab30e767d0c",
+    "bc56d265-7076-57c3-8928-76e851b43811",
+    "bcdcb2ca-c5c3-5f15-80ea-3cef96ea4037",
+    "c0beec85-f11e-5033-89f8-a7f6617bd067",
+    "c36cf152-2180-54f0-bea0-7a21048cd79f",
+    "c4643144-07c2-5897-8dc3-9f9fcd242bce",
+    "cae09fdb-824f-5291-aa58-42b06ce9f5fd",
+    "cb6965fa-dc69-5e44-bdce-67546c67175b",
+    "cc4577f0-3ca1-5e7c-bb35-4530f98aeef0",
+    "cf1533b6-5786-5c57-873a-02e51f3e2d3c",
+    "cf7d404a-62bc-523f-8827-7a9170ec5bfd",
+    "d25926e1-c9cd-51be-bd87-176508297818",
+    "d8bb2a1e-827b-52ff-b297-be5532b81de3",
+    "da42a57e-c9f1-5457-a0e1-b5acda9f75f8",
+    "ded97a92-602a-5dbd-8348-a342afbf3b9e",
+    "e505bce5-09e1-5ac1-91f4-0b43b0c9effa",
+    "e7d23467-635d-56ec-8621-9aa48d948511",
+    "fedd937f-faaa-5a85-b6b0-314b2806c10c"
+  ],
+  "content_gaps": []
+}
+```
