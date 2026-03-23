@@ -1,72 +1,87 @@
 {
   "filename": "EduPostEmployment",
   "found": true,
-  "summary": "The EduPostEmployment module in HSPnet handles the user interface components related to staff education post-employment. It involves managing the display and actions within a grid, including operations like adding, editing, and deleting entries related to staff post-education records.",
-  "purpose": "This module is designed to facilitate the management of staff post-employment education records including their display, update, and deletion through a web interface.",
-  "entities": [],
+  "summary": "The EduPostEmployment component within the HSPnet system is a web-based user control designed for handling detailed information regarding staff post-secondary education. It facilitates data input, updates, displays, and management of education records using ASP.NET web forms, object data sources, and AJAX controls.",
+  "purpose": "The purpose of the EduPostEmployment module is to manage the education records of staff post-employment, interact with data sources for retrieval and modification of data, and handle various UI operations to support data entry and display.",
+  "entities": [
+    "StaffPostEducation",
+    "HSPnetSession",
+    "GridViewRow",
+    "FormViewUpdateEventArgs",
+    "ObjectDataSourceMethodEventArgs",
+    "ObjectDataSourceSelectingEventArgs"
+  ],
   "fields": [
-    "EducationID",
-    "ProgramID",
-    "GraduationConfirmed",
-    "DeliveryMethodCodeID",
-    "TermCodeID",
-    "TermYear",
-    "StaffID"
+    {
+      "name": "ProgramID",
+      "type": "int",
+      "description": "Identifier for the education program."
+    },
+    {
+      "name": "GraduationConfirmed",
+      "type": "boolean",
+      "description": "Flag indicating if graduation has been confirmed."
+    },
+    {
+      "name": "DeliveryMethodCodeID",
+      "type": "int",
+      "description": "Identifier for the delivery method of the education program."
+    },
+    {
+      "name": "TermCodeID",
+      "type": "int",
+      "description": "Identifier for the term code."
+    },
+    {
+      "name": "TermYear",
+      "type": "int",
+      "description": "Year of the term."
+    }
   ],
   "actors": [
-    "UserSession"
+    {
+      "name": "UserSession",
+      "role": "Maintains session-specific information for the current user."
+    },
+    {
+      "name": "StaffID",
+      "role": "Identifier for the staff member."
+    }
   ],
   "workflows": [
     {
-      "name": "Delete Staff Post Education",
+      "name": "Insert or Update Education Record",
       "steps": [
-        "Invoke deleteRow with EducationID.",
-        "Call StaffPostEducations.StaffPostEducationDelete.",
-        "Cache updated UserSession.",
-        "Redirect to current page."
-      ]
-    },
-    {
-      "name": "Update Staff Post Education",
-      "steps": [
-        "Check if page is valid; cancel if not.",
-        "Update new values using dropdown selections.",
-        "Cache updated UserSession.",
-        "Redirect to current page."
-      ]
-    },
-    {
-      "name": "Insert Staff Post Education",
-      "steps": [
-        "Check if page is valid; cancel if not.",
-        "Insert new values using dropdown selections.",
-        "Cache updated UserSession.",
-        "Redirect to current page."
+        "User initiates data entry or update using the UI.",
+        "System validates input data and binds it to the corresponding data fields.",
+        "Data is submitted to the server for processing using ObjectDataSource.",
+        "Changes are committed if validation passes; otherwise, errors are shown."
       ]
     }
   ],
   "business_rules": [
-    "If an update or insert operation detects an invalid page state, it is canceled.",
-    "Specific dropdown selections map to entity fields for updates and inserts."
+    "ScreenIsEditable determines whether the user interface allows data modification.",
+    "GraduationConfirmed field is represented by a dropdown, indicating a boolean state.",
+    "Redirects are used to maintain user context after data operations."
   ],
   "validations": [
-    "Ensure page validity before proceeding with updates or inserts."
+    "Page.IsValid must be true before an insert or update is committed."
   ],
   "calculations": [],
   "conditions": [
-    "Screen visibility and editability are contingent on the current mode (Edit or Insert)."
+    "If UserSession is null, data selection is canceled to prevent unauthorized access."
   ],
   "system_behavior": [
-    "Handles grid row operations including data binding and command execution.",
-    "Manages visibility of UI elements based on screen's editability."
+    "UI controls are dynamically adjusted based on the screen mode (view, edit, insert).",
+    "JavaScript is used to initialize UI components for enhanced client-side interactions."
   ],
   "dependencies": [
-    "HSPnetSession",
-    "Grid",
-    "Dropdown",
-    "QueryString"
+    "HSPnetSession for managing user session data.",
+    "ASP.NET FormView and GridView controls for rendering data in tabular formats."
   ],
-  "exceptions": [],
+  "exceptions": [
+    "Handles unauthorized access or invalid data entries through server-side validation and exception handling mechanisms."
+  ],
   "source_document_ids": [
     "0de18e68-3a02-5154-9cd3-094f777dead7",
     "11182ff6-98d7-5bef-abba-fd72dc89ee05",
