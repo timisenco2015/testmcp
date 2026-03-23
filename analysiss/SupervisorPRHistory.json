@@ -1,21 +1,37 @@
 {
   "filename": "SupervisorPRHistory",
-  "found": false,
-  "summary": "",
-  "purpose": "",
+  "found": true,
+  "summary": "The document contains a VBScript file for managing the screen state and behavior of a SupervisorPRHistory page.",
+  "purpose": "To define server-side logic for the SupervisorPRHistory page, including response buffering and expiration settings.",
   "entities": [],
-  "fields": [],
+  "fields": ["strScreenName"],
   "actors": [],
-  "workflows": [],
+  "workflows": [
+    {
+      "name": "Page Initialization",
+      "steps": [
+        "Set the scripting language to VBScript.",
+        "Enable session state.",
+        "Buffer the HTTP response.",
+        "Set the HTTP response to expire immediately.",
+        "Define the screen name variable strScreenName as 'SupervisorPRHistory'.",
+        "Include additional server-side logic from DoScreen.asp."
+      ]
+    }
+  ],
   "business_rules": [],
   "validations": [],
   "calculations": [],
   "conditions": [],
-  "system_behavior": [],
-  "dependencies": [],
+  "system_behavior": [
+    "The page uses response buffering to control the output stream to the client.",
+    "The page is set to always retrieve the most recent data by expiring cached responses immediately.",
+    "The page includes additional logic from an external ASP file."
+  ],
+  "dependencies": [
+    "Depends on additional functionality from the included DoScreen.asp file."
+  ],
   "exceptions": [],
-  "source_document_ids": [],
-  "content_gaps": [
-    "No related documents found"
-  ]
+  "source_document_ids": ["ca1d1f5a-406a-5308-a9f6-8ec358cecf68"],
+  "content_gaps": []
 }
