@@ -1,0 +1,60 @@
+{
+  "filename": "RptMnuPlcSch_DestPlcSchedule",
+  "found": true,
+  "summary": "The RptMnuPlcSch_DestPlcSchedule page facilitates the creation of destination placement schedules and CSV reports, allowing users to specify date ranges, include options, and more.",
+  "purpose": "To manage and generate reports related to destination placement schedules with various options for inclusion and output formats.",
+  "entities": ["UserSession", "PrintJobs", "Resources", "Destinations", "Codes"],
+  "fields": [
+    { "name": "txtStartDate", "type": "TextBox" },
+    { "name": "txtEndDate", "type": "TextBox" },
+    { "name": "ddTerm", "type": "DropDownList" },
+    { "name": "chkIndividualPDF", "type": "CheckBox" },
+    { "name": "chkAppendSchedule", "type": "CheckBox" }
+  ],
+  "actors": ["UserSession", "Page"],
+  "workflows": [
+    {
+      "name": "GenerateDestinationPlacementSchedule",
+      "steps": [
+        "User specifies the date range and inclusion options.",
+        "User clicks 'Run Report' to generate the report.",
+        "The system validates dates and inclusion options.",
+        "The selected options are used to generate a PDF or CSV report."
+      ]
+    }
+  ],
+  "business_rules": [
+    "The maximum number of items to include in a report is governed by PrintJobs.MAX_INCLUDE_ITEMS.",
+    "UserSession.DB operations must be performed for report data retrieval and CSV generation."
+  ],
+  "validations": [
+    "RegularExpressionValidator for date controls.",
+    "CustomValidator for maximum include items."
+  ],
+  "calculations": [],
+  "conditions": [
+    "IncludeOption is set based on user selection: 0 = confirmed only, 1 = include accepted, 2 = include pending."
+  ],
+  "system_behavior": [
+    "JavaScript is set up dynamically based on Page state (async postback or normal).",
+    "Report HTML output is displayed based on the validation results."
+  ],
+  "dependencies": ["UserSession must be active.", "Destination data source must be bound on page load."],
+  "exceptions": [
+    "Handling of errors when report generation exceeds maximum include items.",
+    "No results found displays a specific message."
+  ],
+  "source_document_ids": [
+    "13cf279e-62e6-545c-8a12-fc48a40e27f6",
+    "3cc740a6-9cec-5953-b9cb-e47f5aecf053",
+    "4c2f67a8-e04f-5fa1-a938-348ddd90604f",
+    "4d4702f7-bafc-5040-a24c-352ef3e6d6ef",
+    "7619a28b-1d12-5c51-801b-98d6ae1962af",
+    "8bdb4f19-7058-5814-a483-79ad80a4b1de",
+    "a7fe4526-a44a-5bf2-b474-0385038873bb",
+    "acda6667-ef7b-52e9-a3f8-8a67a68dcb20",
+    "ca44ee34-6649-5ffd-8db8-1b1918ce611f",
+    "d599e8e2-3556-5256-90a9-400615b9720c"
+  ],
+  "content_gaps": []
+}
