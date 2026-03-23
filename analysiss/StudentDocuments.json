@@ -1,99 +1,108 @@
 {
-    "filename": "StudentDocuments",
-    "found": true,
-    "summary": "The documents pertain to a web application module for managing student documents. The system supports uploading, editing, and managing various types of student documents, including anonymous and named resumes, and photos. It integrates JavaScript for client-side operations and utilizes ASP.NET components to manage document interactions in a web environment.",
-    "purpose": "To provide a web interface for students and staff to upload and manage student documents, ensure proper document handling, and enforce access controls based on user roles.",
-    "entities": [],
-    "fields": [
-        "fileName",
-        "fileURL",
-        "fileSize",
-        "fileType",
-        "DocumentName",
-        "DeleteAfterDate",
-        "StudentID",
-        "Anonymous",
-        "Withhold"
-    ],
-    "actors": [
-        "Student",
-        "Staff",
-        "Instructor",
-        "Course Leader"
-    ],
-    "workflows": [
-        {
-            "name": "Document Upload and Save",
-            "steps": [
-                "User selects document upload.",
-                "FileUpload control captures the document.",
-                "HandleUploadedFile function processes the file.",
-                "The document is saved with metadata including name, size, and type.",
-                "Document is added to database."
-            ]
-        },
-        {
-            "name": "Document Display and Management",
-            "steps": [
-                "System checks user session and document visibility permissions.",
-                "Relevant documents are displayed based on user's role.",
-                "Users can add, edit, or delete documents as per permissions."
-            ]
-        }
-    ],
-    "business_rules": [
-        "Documents can be uploaded or edited only if the user has the necessary permissions.",
-        "Certain document types like 'RESUME-ANON', 'RESUME-NAMED', and 'PHOTO' have constraints on editing.",
-        "File names are anonymized by appending the student ID and timestamp."
-    ],
-    "validations": [
-        "RequiredFieldValidator for document upload ensures file selection.",
-        "JavaScript validations ensure correct input before form submission."
-    ],
-    "calculations": [],
-    "conditions": [
-        "Documents are visible if the user session indicates staff maintaining or placing roles.",
-        "Instructors may view documents if program permissions allow."
-    ],
-    "system_behavior": [
-        "System registers JavaScript for dynamic content management.",
-        "Documents are uploaded to specific directories and links are returned.",
-        "User-based access controls dynamically adjust visible content."
-    ],
-    "dependencies": [
-        "HSPnet.Session management for user authentication.",
-        "ASP.NET web controls and Ajax for dynamic content."
-    ],
-    "exceptions": [
-        "Catch blocks are in place for administrative setup errors regarding document type codes."
-    ],
-    "source_document_ids": [
-        "0082c427-47d0-54cf-81b9-9d6bb5f40cce",
-        "029cc5c1-f445-5b4f-ae19-a8d72fd796f1",
-        "188535ff-ab16-5610-951e-bfb668317ebc",
-        "31352f3e-16e4-533f-ac2d-6fd32a220e06",
-        "3161c828-85e2-5c01-ad78-62321ea8a04d",
-        "3da6ca55-5875-5448-b396-b209e1e5b1d1",
-        "46b351a6-d10b-52ab-b99d-f40960e6d0c3",
-        "46ee8ccf-fbb3-5572-bfb7-1eff82539274",
-        "4945150a-a72f-5d3b-a3c3-55895b3537b2",
-        "4fcad530-c1e9-5df1-b542-c3dede66354f",
-        "540b7e2f-6e70-5368-8c71-2e61d8dfe86d",
-        "65fea4f0-a970-5a30-bb4c-8147db44a0b6",
-        "6ef5af6b-ea75-57a5-8cc2-a1ed1c6490ac",
-        "86473d23-c6f9-542e-8113-bb64ffe6a216",
-        "921e5573-fca9-52c9-b072-12c70c83ce01",
-        "928fa093-8e96-5f6c-a6e5-121ee6ca06c7",
-        "99ddd6b2-4bd4-555a-adf6-bc5ece663eed",
-        "9f11d8c9-a5ec-58f2-8840-2acb1abc6c25",
-        "a22cdb1f-a48b-57f3-88a9-14a0019b6225",
-        "a546829e-16df-5e90-9f96-4e750b3ec96b",
-        "be74a746-7308-5bc7-8918-0185ba9c2a35",
-        "e40f7b97-b4e7-523d-98f5-c9c663a50a59",
-        "e49c264f-0d8e-5c1c-974c-8e1fe704bfbe",
-        "ec28be0b-90b2-512f-acb3-76fc027a2b0a",
-        "f1451b0b-d431-5ec9-87f5-06994defc0d1",
-        "fde6ea0b-57a6-578a-aae3-86cfe7243d27"
-    ],
-    "content_gaps": []
+  "filename": "StudentDocuments",
+  "found": true,
+  "summary": "The StudentDocuments system is designed to manage and handle the uploading and processing of student-related documents within a web application environment. It includes functionalities for uploading, saving, and managing document types such as resumes and photos.",
+  "purpose": "To provide a structured interface for students and administrators to manage student documents, ensuring secure upload, storage, and retrieval processes.",
+  "entities": [
+    "Student",
+    "Program",
+    "Document",
+    "CodeRecord"
+  ],
+  "fields": [
+    "OtherCodeID",
+    "PhotoID",
+    "ResumeNamedID",
+    "ResumeAnonID",
+    "FileURL",
+    "FileName",
+    "FileSize",
+    "FileType",
+    "Anonymous",
+    "Private",
+    "DeleteAfterDate",
+    "DocumentName",
+    "InternalOnly",
+    "TypeCodeID",
+    "TypeComments"
+  ],
+  "actors": [
+    "UserSession",
+    "StudentUser",
+    "Instructor",
+    "CourseLeader",
+    "PlacementCoordinator"
+  ],
+  "workflows": [
+    {
+      "name": "Upload Document",
+      "steps": [
+        "Initialize JavaScript variables for document IDs",
+        "Check if user session is in async postback",
+        "Handle uploaded file using FileUpload control",
+        "Save document information",
+        "Update UI visibility based on document data"
+      ]
+    },
+    {
+      "name": "Edit Document Profile",
+      "steps": [
+        "Switch document to edit mode",
+        "Bind document data to UI",
+        "Update document profile and save"
+      ]
+    },
+    {
+      "name": "Delete Document",
+      "steps": [
+        "Retrieve document ID from data key",
+        "Delete document using user session",
+        "Rebind document grid view"
+      ]
+    }
+  ],
+  "business_rules": [
+    "If the user is the same as StudentID, display specific javascript instructions.",
+    "Remove document types from dropdown if they already exist in data store.",
+    "Ensure documents can only be modified or deleted by authorized users."
+  ],
+  "validations": [
+    "Check for null user session before proceeding with document actions.",
+    "Ensure document types like PHOTO, RESUME-ANON, and RESUME-NAMED are handled correctly.",
+    "Validation of file size and type before upload."
+  ],
+  "calculations": [
+    "Generate anonymized file name using student ID and date-time."
+  ],
+  "conditions": [
+    "If user session is null, cancel data operations.",
+    "Show specific UI elements based on user session and document type.",
+    "Ensure uploaded documents comply with specified format and type."
+  ],
+  "system_behavior": [
+    "Display or hide UI elements based on user permissions and document state.",
+    "Automatically bind data after document upload or deletion.",
+    "Manage UI interactions using JavaScript to ensure seamless user experiences."
+  ],
+  "dependencies": [
+    "HSPnet.DataLayer",
+    "HSPnet.UI",
+    "HSPnet.Framework"
+  ],
+  "exceptions": [
+    "Handled exceptions when document codes are not found in setup.",
+    "Catch blocks for file upload issues."
+  ],
+  "source_document_ids": [
+    "0082c427-47d0-54cf-81b9-9d6bb5f40cce",
+    "029cc5c1-f445-5b4f-ae19-a8d72fd796f1",
+    "188535ff-ab16-5610-951e-bfb668317ebc",
+    "31352f3e-16e4-533f-ac2d-6fd32a220e06",
+    "46b351a6-d10b-52ab-b99d-f40960e6d0c3",
+    "46ee8ccf-fbb3-5572-bfb7-1eff82539274",
+    "4945150a-a72f-5d3b-a3c3-55895b3537b2",
+    "6ef5af6b-ea75-57a5-8cc2-a1ed1c6490ac",
+    "86473d23-c6f9-542e-8113-bb64ffe6a216"
+  ],
+  "content_gaps": []
 }
