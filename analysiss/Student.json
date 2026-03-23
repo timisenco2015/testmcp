@@ -1,117 +1,133 @@
 {
   "filename": "Student",
   "found": true,
-  "summary": "The documents related to 'Student' contain code snippets and database interactions to manage student records within an application. They detail various operations performed on student data such as searching, updating, and managing consent details.",
-  "purpose": "To manage and manipulate student information within a software application, including student profile creation, updates, validation, and consent management.",
-  "entities": [],
+  "summary": "The retrieved documents contain various details and functionalities related to student data management, including student identification, consent handling, contact updates, gender disclosure, document uploads, program enrollment, and demographic attributes. The system processes include searching, updating, and verifying student information across different modules.",
+  "purpose": "To manage student data within an educational or administrative system, focusing on consent procedures, personal details, document management, and program assessments.",
+  "entities": [
+    "Student",
+    "HSPnetSession",
+    "Database",
+    "SqlDataReader"
+  ],
   "fields": [
     "ID",
-    "EnrollmentID",
-    "AgencyID",
-    "StudentNumber",
     "FirstName",
-    "PreferredFirstName",
     "MiddleName",
     "LastName",
-    "LastNameDisplay",
-    "Address1",
-    "Address2",
-    "City",
-    "Province",
-    "Country",
+    "StudentNumber",
     "Phone",
     "Email",
-    "Anonymous",
-    "Placeholder",
-    "CreatedByQES",
-    "PostalCode",
     "ConsentProgramID",
     "ConsentObtainedDate",
     "ExpectedEndDate",
-    "EstimatedEndDate",
-    "CampusID",
+    "Gender",
+    "Address",
+    "City",
+    "Province",
+    "Country",
+    "PostalCode",
     "EmployerAgencyID",
     "EmployerSiteID",
-    "PreviousStudentID",
+    "CampusID",
     "SalutationCodeID",
+    "AlternateStudentNumber",
+    "AlternateStudentAgencyID",
+    "AltEmail",
     "GenderCodeID",
+    "PrevLastName",
+    "ProgramApplicationStatusCodeID",
     "RegPackageReceived",
     "StudentEmailReleased",
-    "StudentPhoneReleased",
-    "ConsentIsExpired",
+    "BirthDate",
+    "DemographicNotes",
     "ConsentExpiredDate",
-    "HSPnetUser",
-    "ProfileExists",
-    "PrevAgencyName",
-    "PrevStudentNumber",
-    "Campus",
-    "UserName",
-    "UserID",
-    "UserIdDisabled",
-    "UserIsNotActive",
-    "AllowStudentAccess",
-    "AllowUserID",
-    "DiscloseStudentGender",
-    "DocumentUploaded",
-    "LinkedStaffID",
-    "ConsentProgram",
-    "AgencyName",
-    "AgencyShortName",
-    "AreaCode",
-    "CampusInfo",
-    "ConsentProgramAllowStudentPref",
-    "ConsentProgramAllowStudentDocumentUpload",
-    "ConsentProgramAllowStudentSitePrerequisites",
-    "ConsentProgramUseEmploymentApplications",
-    "AllowStudentActivities",
-    "UploadedByStudent",
-    "ConsentProgramDisplayStudentID",
-    "PasswordGeneratedDate",
-    "UserEnabledDate"
+    "WebPage",
+    "WebPageUpdateDate"
   ],
   "actors": [
-    "Database",
-    "HSPnetSession",
-    "SqlDataReader",
-    "SystemAdministrator"
+    "Student",
+    "Administrator",
+    "System Administrator",
+    "QES",
+    "Agency Staff"
   ],
   "workflows": [
     {
-      "name": "StudentProfileCreation",
+      "name": "Student Search",
       "steps": [
-        "Initialize a new Student object",
-        "Populate fields including name, contact details, agency information",
-        "Save the profile using database procedures"
+        "Accept search criteria: agencyID, lastName, firstName, studentNumber, etc.",
+        "Prepare and execute SQL query with the given parameters.",
+        "Retrieve data and populate student list.",
+        "Return paginated list based on startRowIndex and maximumRows."
+      ]
+    },
+    {
+      "name": "Student Consent Management",
+      "steps": [
+        "Check if consentProgramID is non-zero.",
+        "Fetch template for StudentNumber using consentProgramID.",
+        "Validate student number using regex against template."
+      ]
+    },
+    {
+      "name": "Student Profile Update",
+      "steps": [
+        "Verify student ID is non-zero.",
+        "Update student's personal details including contact information.",
+        "Execute update procedure with session parameters."
+      ]
+    },
+    {
+      "name": "Document Upload",
+      "steps": [
+        "Check if document upload is allowed for the given consent program.",
+        "Verify student status and consent expiry.",
+        "Process and store uploaded documents."
+      ]
+    },
+    {
+      "name": "Consent Expiry Handling",
+      "steps": [
+        "Determine expiry status based on consent dates and thresholds.",
+        "Update student records as necessary.",
+        "Notify or restrict access based on expiry."
       ]
     }
   ],
   "business_rules": [
-    "A student user ID can be created if the consent program has been entered and names are not just initials.",
-    "Consent program operations are contingent on IDs and consent dates."
+    "Student numbers should match a predefined template based on consentProgramID.",
+    "Consent expires after 6 years and a warning is issued 6 months prior.",
+    "Consent management visibility based on admin roles and expiry conditions.",
+    "Duplicate student records handled with confidentiality updates."
   ],
   "validations": [
-    "Validation checks for missing consent date, student number, first name, or last name.",
-    "Regex validation for matching student number with templates."
+    "Check if consentProgramID is valid (non-zero) before template search.",
+    "Verify non-null and non-empty student names during profile updates.",
+    "Ensure document uploads comply with consent program policies."
   ],
   "calculations": [
-    "Consent expiry date based on obtained date plus threshold.",
-    "Formatted dates for display purposes."
+    "Determine estimated end date based on student program details.",
+    "Format phone numbers with or without area codes.",
+    "Calculate consent expiry and warning dates."
   ],
   "conditions": [
-    "Anonymity settings affect display of uploaded by details.",
-    "Consent expiry affects access to student details."
+    "Consent expiry affects document visibility and student name disclosure.",
+    "Student access varies based on consent program enrollment and confidentiality status.",
+    "Email and gender disclosure depend on program settings."
   ],
   "system_behavior": [
-    "Database queries for fetching and updating student records.",
-    "Caching student search results for performance optimization."
+    "Cache student search results for brief periods to enhance performance.",
+    "Provide warning icons and messages for gender or document deficiencies.",
+    "Generate user IDs for students in non-anonymous modes."
   ],
   "dependencies": [
-    "Microsoft SQL Server for database interactions.",
-    "ConfigurationManager for consent expiry date rules."
+    "HSPnetSession for database connections and session management.",
+    "Resources for multilingual content and user messages.",
+    "Database procedures for retrieving and updating student information."
   ],
   "exceptions": [
-    "Null values for critical fields result in errors or alternative flows.",
-    "Consent expiry can restrict access to certain student details."
+    "Handle null or invalid date entries in consent and demographic operations.",
+    "Manage errors for missing or incorrect search parameters."
   ],
   "source_document_ids": [
     "050828de-cbb3-5ac9-8614-b2ae01ac787a",
@@ -175,5 +191,5 @@
     "fd3c1322-0541-598c-8b29-4ba080894c70",
     "fdf7399d-5e58-5554-a322-f4e529269ffa"
   ],
-  "content_gaps": ["No explicit details on how demographic updates are validated or further processed."]
+  "content_gaps": []
 }
