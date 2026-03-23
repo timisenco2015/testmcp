@@ -1,0 +1,108 @@
+```json
+{
+    "filename": "FindLocationForWorksheet",
+    "found": true,
+    "summary": "The document outlines the code and structure for a webpage used to find locations for worksheets within the HSPnet system. It includes controls and workflows for searching, creating, and managing worksheet-related data.",
+    "purpose": "To provide a user interface for managing and locating worksheet entries based on various criteria such as agency, service, and site type.",
+    "entities": [],
+    "fields": [
+        "WorksheetID",
+        "CFOFlag",
+        "GWSFlag",
+        "txtKeyword",
+        "ddAgency",
+        "ddGoverningOrg",
+        "ddSiteType",
+        "ddProvinceFilter",
+        "ddDisciplineFilter",
+        "ddRegion",
+        "chkIncludeCity",
+        "chkIncludeAddress",
+        "lblMatches",
+        "lblErrorList",
+        "lblWarningList"
+    ],
+    "actors": [
+        "User",
+        "System"
+    ],
+    "workflows": [
+        {
+            "name": "Search Locations",
+            "steps": [
+                "User enters search criteria in text boxes and drop-down lists.",
+                "The system validates the input and performs a search using the criteria.",
+                "Results are displayed in a grid view.",
+                "User selects locations from the grid to include in a worksheet."
+            ]
+        },
+        {
+            "name": "Create Worksheet",
+            "steps": [
+                "User selects the 'Create' button after selecting search results.",
+                "The system validates selections and creates worksheet entries.",
+                "The system refreshes the screen and updates the display with new entries."
+            ]
+        }
+    ],
+    "business_rules": [
+        "Worksheet and CFO flag must be present to create new entries.",
+        "The field 'txtGroupSize' must contain a number if GWSFlag is true."
+    ],
+    "validations": [
+        "Ensure 'txtKeyword' is not empty before search.",
+        "Validate that 'txtGroupSize' is a valid integer.",
+        "Cross-check start and end dates to ensure logical sequence."
+    ],
+    "calculations": [],
+    "conditions": [
+        "GWSFlag determines visibility of certain UI components.",
+        "CFOFlag affects functionality for creating worksheets."
+    ],
+    "system_behavior": [
+        "Fetches and populates dropdown values from data sources.",
+        "Validates URL hash on page load to ensure secure access.",
+        "Displays error and warning panels based on validation results."
+    ],
+    "dependencies": [
+        "HSPnet Framework",
+        "DataLayer Methods"
+    ],
+    "exceptions": [
+        "Display an error if the worksheet ID or CFOFlag is missing on page load.",
+        "Handle JavaScript validation errors to guide users."
+    ],
+    "source_document_ids": [
+        "0176c680-d043-50cd-be84-810b9401ca4d",
+        "03390d5d-ec3d-55eb-bff3-cba2dbd1b246",
+        "053b5717-2acf-59f7-9163-abe991148b67",
+        "0dd7cd0d-2cbf-5782-86d1-f2be26bf0bbe",
+        "13fa92a9-f429-5cb6-9cbd-3c88732aa5bc",
+        "241b58a3-1f5e-5f69-bc89-4fe78108573d",
+        "26e28072-71f0-53e1-9791-63f7de682466",
+        "45de5522-32eb-5a87-8edc-5d699d153dab",
+        "4c55c8aa-4cac-588b-a6fd-a740c81f9808",
+        "4faeb7ba-4c89-5e62-a00b-c8a40782f01f",
+        "5d250228-2982-5245-80e4-0ce0ab4d04b5",
+        "5fcbfe6a-9f61-5170-be0d-16eacc6a7001",
+        "6b473dde-bf18-59ee-a5a6-3a8dbe3274a4",
+        "7de49aad-0888-574a-9d95-9c3d50c6ffda",
+        "80166401-2bc6-5aee-a816-5afefcef1717",
+        "810b3899-1eff-5479-be21-638dc4b04ba2",
+        "864717f5-e4db-56fc-b7fb-41b7b7f53d54",
+        "8ac0b000-856b-52fa-a0cd-d3dc0eb82072",
+        "8d730e3e-7cc0-554e-b14d-0f1a09df33f2",
+        "a00242d2-3405-5e54-946b-65f3cf6a3ac4",
+        "b5eef186-7bdd-59d5-b85d-e05e630f7e9c",
+        "cdd03bf2-5f2f-5b34-9a10-1d8d280138e0",
+        "cf3d5e55-cee1-5841-b770-5c0d94a350c9",
+        "d5f24882-02cb-56ef-b582-1b8adeb57a5c",
+        "e1a4ba6c-9dbb-536b-ae95-71d25de835fc",
+        "e8b44847-b94c-5b36-86fb-6593c2f83973",
+        "e99c8dbf-87b7-5245-ba1d-2cc1c2532ebe",
+        "faf4f79b-857c-56c1-898e-40a1ec9716ca",
+        "fccc1c70-95f6-5ea8-86ed-eae47887742a"
+    ],
+    "content_gaps": []
+}
+```
