@@ -1,17 +1,47 @@
 {
     "filename": "ChangeReminderNoMaster",
     "found": true,
-    "summary": "The ChangeReminderNoMaster page is designed to allow users to change their forgotten password reminder question. It includes panels for error and warning messages, and uses AJAX for visibility control. The page processes inputs for current password, reminder question, and answer, providing validation for these fields.",
-    "purpose": "This page facilitates the user in updating their security question used for password recovery, ensuring secure account management.",
-    "entities": [],
+    "summary": "The ChangeReminderNoMaster module allows users to change their forgotten password security question through a web interface. It involves input validation, displaying warnings and errors, and handling user sessions.",
+    "purpose": "To provide a mechanism for users to change their forgotten password security question, ensuring secure handling and validation of inputs and sessions.",
+    "entities": [
+        "UserSession",
+        "Resources"
+    ],
     "fields": [
-        "txtCurrentPassword",
-        "txtReminderQuestion",
-        "ddReminderQuestion",
-        "txtAnswer",
-        "lblCurrent_Password",
-        "lblForgotten_Password_Question",
-        "lblAnswer"
+        {
+            "name": "txtCurrentPassword",
+            "type": "TextBox",
+            "description": "Input field for current password",
+            "validations": [
+                "RequiredFieldValidator",
+                "RegularExpressionValidator"
+            ]
+        },
+        {
+            "name": "txtReminderQuestion",
+            "type": "TextBox",
+            "description": "Input field for new reminder question",
+            "validations": [
+                "CustomValidator"
+            ]
+        },
+        {
+            "name": "ddReminderQuestion",
+            "type": "DropDownList",
+            "description": "Dropdown for selecting a reminder question",
+            "validations": [
+                "CustomValidator"
+            ]
+        },
+        {
+            "name": "txtAnswer",
+            "type": "TextBox",
+            "description": "Input field for the answer to the reminder question",
+            "validations": [
+                "RequiredFieldValidator",
+                "RegularExpressionValidator"
+            ]
+        }
     ],
     "actors": [
         "User",
@@ -21,41 +51,40 @@
         {
             "name": "Change Reminder Question",
             "steps": [
-                "User accesses the ChangeReminderNoMaster page.",
-                "User enters the current password.",
-                "User chooses or types a new reminder question.",
+                "User accesses the Change Reminder Question page.",
+                "User enters the current password and selects or enters a new reminder question.",
                 "User provides an answer to the reminder question.",
-                "User submits the form.",
                 "System validates the inputs.",
-                "If inputs are valid, system updates the reminder question and redirects the user."
+                "If valid, the system updates the reminder question.",
+                "System redirects the user to appropriate page based on the session."
             ]
         }
     ],
     "business_rules": [
-        "Reminder question must be at least 10 characters if entered manually.",
-        "Answer must be at least 4 characters."
+        "The reminder question must be at least 10 characters long if entered manually.",
+        "The answer must be at least 4 characters long."
     ],
     "validations": [
-        "txtCurrentPassword: Required field.",
-        "ddReminderQuestion: Must select a valid option.",
-        "txtReminderQuestion: Must be at least 10 characters if visible.",
-        "txtAnswer: Required field, must be at least 4 characters."
+        "Current password is required.",
+        "Entered reminder question must be at least 10 characters.",
+        "Selected reminder question cannot be the default blank option.",
+        "Answer must be at least 4 characters."
     ],
     "calculations": [],
     "conditions": [
-        "If ddReminderQuestion is visible, txtReminderQuestion is hidden, and vice versa."
+        "User's session type determines the redirect page."
     ],
     "system_behavior": [
-        "Displays error panel if validation fails.",
-        "Displays warning panel for minor issues.",
-        "Redirects to appropriate welcome page based on the user role indicated by query parameters."
+        "Display error if current password is not entered.",
+        "Display error if reminder question is less than 10 characters.",
+        "Display error if answer is less than 4 characters."
     ],
     "dependencies": [
-        "UserSession object for storing session-related data.",
-        "Resources for UI text and error messages."
+        "Resources for error messages and labels.",
+        "UserSession for storing session data."
     ],
     "exceptions": [
-        "Redirects to the tools page if no user role is specified in the query string."
+        "Invalid input will prevent the reminder question change."
     ],
     "source_document_ids": [
         "1732f55f-31eb-5aad-8e40-1e03c246f429",
@@ -63,7 +92,6 @@
         "27e34292-97f6-5fd4-a53c-bd2ad20b0fa1",
         "2d849ed0-94fd-5447-a25d-6214f5c75c99",
         "3e5a985f-869b-58bb-b137-c32ce9efc412",
-        "410cbaec-e3de-5f5f-8c20-482be57f9072",
         "45c91291-0406-591d-a053-7e49bceec4b7",
         "4f9c5317-2305-5b1c-a6ac-7b2fd7f33f72",
         "59bf497c-45ca-532a-949a-811afb9f4556",
