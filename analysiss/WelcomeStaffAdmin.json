@@ -1,60 +1,32 @@
 {
     "filename": "WelcomeStaffAdmin",
     "found": true,
-    "summary": "The 'WelcomeStaffAdmin' web page facilitates staff administration, incorporating site and discipline dropdowns, application data management, and user session handling, with support for refreshing data views and managing visibility of error and warning panels.",
-    "purpose": "To provide a web interface for staff administrators to manage site-related documents, view and edit employment applications, and handle site and discipline selections.",
+    "summary": "The WelcomeStaffAdmin page includes various controls such as validators, calendar extenders, and dropdown lists for administering staff-related activities.",
+    "purpose": "To provide an administrative interface for staff in HSPnet, including validation and data entry controls.",
     "entities": [],
-    "fields": [
-        {
-            "name": "txtEndDate",
-            "type": "TextBox"
-        },
-        {
-            "name": "txtStartDate",
-            "type": "TextBox"
-        },
-        {
-            "name": "ddSite",
-            "type": "DropDownList"
-        },
-        {
-            "name": "ddDiscipline",
-            "type": "DropDownList"
-        }
-    ],
-    "actors": [
-        {
-            "name": "Staff Administrator",
-            "role": "Manage site documents and employment applications."
-        }
-    ],
+    "fields": ["valEndDate", "txtEndDate", "btnEndDateCalendar", "CalendarExtender2", "RequiredFieldValidator1", "Literal3", "valStartDate", "txtStartDate"],
+    "actors": ["StaffAdmin"],
     "workflows": [
         {
-            "name": "Initialize WelcomeStaffAdmin Page",
+            "name": "Manage Staff Details",
             "steps": [
-                "Load page with user session data.",
-                "Populate site and discipline dropdowns.",
-                "Set default date values for start and end dates."
-            ]
-        },
-        {
-            "name": "Refresh Application Data",
-            "steps": [
-                "Invoke 'RefreshData' method upon dropdown change or refresh button click.",
-                "Rebind grid view with updated data."
+                "Load WelcomeStaffAdmin page.",
+                "Input or select start and end dates.",
+                "Submit form for validation.",
+                "Receive feedback on actions taken."
             ]
         }
     ],
     "business_rules": [],
     "validations": [
-        "Use RegularExpressionValidator to validate date formats.",
-        "RequiredFieldValidator ensures date fields are not empty."
+        "End date cannot be earlier than start date.",
+        "End date must be provided."
     ],
     "calculations": [],
     "conditions": [],
     "system_behavior": [
-        "Uses AjaxControlToolkit for date pickers.",
-        "ObjectDataSource manages application data retrieval with parameters for session, agency, and date range."
+        "Displays last login information.",
+        "Handles postback for date selection."
     ],
     "dependencies": [],
     "exceptions": [],
@@ -66,10 +38,8 @@
         "52b5066f-23f6-5d82-96cd-5d51dad3de79",
         "5bb85da3-f5b4-5753-b07c-9bb2a04eeb89",
         "5d9b92ea-7c12-5070-8603-977cf14d0e04",
-        "6701b153-5288-59e5-8de9-61b68a1fc292",
-        "6eca1317-c0b2-5225-a9af-f034a722d924",
+        "54244516-0707-581e-a8ba-9c041ea38366",
         "871df91b-7ba0-558f-83ea-d5be1b0dc8db",
-        "8cea5c3a-2fbf-5206-a0c0-9425a5e14511",
         "964a48c9-231c-5d58-a44d-3675d949a453",
         "966ed8d3-a5af-567f-b092-936217777551",
         "a0c3da28-32a5-5fce-91b2-17274efa016e",
@@ -77,8 +47,8 @@
         "b8e79322-9a0e-5fe7-8953-3d05e231f923",
         "bf423a80-93db-572d-8cb8-c79f04214a93",
         "ca71b077-cc26-5979-a44f-59700a41316b",
-        "d278278f-d4ec-5f4a-9f29-a02b66773bb9",
         "db9b35e9-53ca-5eaf-9d75-4f3a72131bc7",
+        "d278278f-d4ec-5f4a-9f29-a02b66773bb9",
         "e249a878-c837-5d1c-9a3d-5167df2614fb"
     ],
     "content_gaps": []
