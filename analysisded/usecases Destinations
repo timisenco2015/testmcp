@@ -1,0 +1,91 @@
+# Module: Destinations
+
+## Destinations-UC1 — Search for Agency Destinations
+
+- Primary Actor(s): System
+- Secondary Actor(s): User
+- Trigger: User initiates a search for destinations by agency.
+- Description: The system searches for destinations associated with a specified agency, optionally filtered by a user.
+- Preconditions: The agency ID and optionally the user ID must be provided.
+- Postconditions: A list of destinations associated with the agency is returned.
+- Main Success Scenario:
+  1. User inputs agency ID (and optionally user ID).
+  2. System retrieves destinations associated with the agency.
+  3. System returns the destination list to the user.
+- Extensions: None
+- Exceptions: Database connection issues may prevent retrieval of destination data.
+- Business Rules: None
+- Assumptions: User has access rights to perform the search.
+- Open Issues: None
+
+## Destinations-UC2 — Retrieve Destination by Code ID
+
+- Primary Actor(s): System
+- Secondary Actor(s): Scheduler
+- Trigger: Scheduled operation to retrieve a destination by code ID.
+- Description: Retrieves detailed information about a destination using its destination code ID.
+- Preconditions: Destination code ID must be valid and exist in the database.
+- Postconditions: Returns detailed destination information.
+- Main Success Scenario:
+  1. Scheduler triggers the retrieval process.
+  2. System queries the database using the destination code ID.
+  3. System returns detailed information about the destination.
+- Extensions: None
+- Exceptions: Database errors may occur if the code ID does not exist.
+- Business Rules: None
+- Assumptions: The destination code ID corresponds to a unique destination.
+- Open Issues: How to handle non-existing destination code IDs.
+
+## Destinations-UC3 — Reactivate Destination
+
+- Primary Actor(s): Administrator
+- Secondary Actor(s): System
+- Trigger: Administrator opts to reactivate a previously inactive destination.
+- Description: The system reactivates a destination and checks for service linkage updates.
+- Preconditions: The destination must be inactive but not deleted.
+- Postconditions: The destination is reactivated, and service linkages are updated as relevant.
+- Main Success Scenario:
+  1. Administrator sets the destination to be reactivated.
+  2. System processes reactivation and evaluates service linkages.
+  3. System updates relevant linkages and sends warnings if necessary.
+- Extensions: None
+- Exceptions: Reactivation fails if destination data is corrupted.
+- Business Rules: None
+- Assumptions: The administrator has privileges to reactivate destinations.
+- Open Issues: Notification handling for service linkage changes.
+
+## Destinations-UC4 — Access Control Check for Destination
+
+- Primary Actor(s): System
+- Secondary Actor(s): User
+- Trigger: A user attempts to access a destination.
+- Description: The system verifies if the user is permitted to access a specified destination.
+- Preconditions: User is identified, and destination ID is specified.
+- Postconditions: Access is granted or denied based on user's permissions.
+- Main Success Scenario:
+  1. User requests access to a destination.
+  2. System checks user's permissions for the destination.
+  3. System grants or denies access based on the check.
+- Extensions: None
+- Exceptions: Access denied due to insufficient permissions.
+- Business Rules: Access must comply with organizational security policies.
+- Assumptions: User permissions are up-to-date.
+- Open Issues: None
+
+## Destinations-UC5 — Add New Destination
+
+- Primary Actor(s): Administrator
+- Secondary Actor(s): System
+- Trigger: Administrator initiates the addition of a new destination.
+- Description: System allows the addition of a new destination with required details.
+- Preconditions: All required destination details are available and valid.
+- Postconditions: New destination is added to the system.
+- Main Success Scenario:
+  1. Administrator provides necessary destination details.
+  2. System validates and adds the destination.
+  3. Confirmation is provided upon successful addition.
+- Extensions: None
+- Exceptions: Addition fails if details are incomplete or invalid.
+- Business Rules: Data must comply with format standards.
+- Assumptions: The administrator has the necessary rights to add destinations.
+- Open Issues: None
