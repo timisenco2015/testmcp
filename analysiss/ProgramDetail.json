@@ -1,0 +1,103 @@
+{
+  "filename": "ProgramDetail",
+  "found": true,
+  "summary": "The ProgramDetail module handles operations related to program details, including retrieval, addition, update, and deletion of program detail records. It interacts with the database using stored procedures and manages data integrity through validation checks.",
+  "purpose": "To manage and process program details within the HSPnet system, ensuring accurate data manipulation and retrieval via a structured API.",
+  "entities": [],
+  "fields": [
+    "ID",
+    "ProgramID",
+    "HeadingID",
+    "Response",
+    "SortOrder",
+    "Description",
+    "DescriptionAlt",
+    "SortOrderFormatted",
+    "ResponseFormatted",
+    "DescriptionFormatted",
+    "HeaderChanged"
+  ],
+  "actors": [
+    "HSPnetSession",
+    "Database",
+    "SqlDataReader"
+  ],
+  "workflows": [
+    {
+      "name": "GetByID",
+      "steps": [
+        "Check if ProgramDetailsID is not zero.",
+        "Initialize Database instance.",
+        "Set procedure name to 'ProgramDetailsSearchID'.",
+        "Add 'ID' parameter.",
+        "Fetch data using GetData method with reader.",
+        "Fill list using FillList method.",
+        "Close reader."
+      ]
+    },
+    {
+      "name": "GetByProgramID",
+      "steps": [
+        "Check if ProgramID is not zero.",
+        "Initialize Database instance.",
+        "Set procedure name to 'ProgramDetailsSearch'.",
+        "Add 'ProgramID' parameter.",
+        "Fetch data using GetData method.",
+        "Fill list using FillList method.",
+        "Close reader."
+      ]
+    },
+    {
+      "name": "Add",
+      "steps": [
+        "Validate if data is valid using IsValid method.",
+        "Set procedure name to 'ProgramDetailsAdd'.",
+        "Add necessary parameters: 'ProgramID', 'HeadingID', 'Response', 'SortOrder'.",
+        "Execute query."
+      ]
+    },
+    {
+      "name": "Update",
+      "steps": [
+        "Check if ID is not zero and data is valid.",
+        "Set procedure name to 'ProgramDetailsUpdate'.",
+        "Add necessary parameters: 'ProgramDetailID', 'HeadingID', 'Response', 'SortOrder'.",
+        "Execute query."
+      ]
+    },
+    {
+      "name": "Delete",
+      "steps": [
+        "Check if ID is not zero.",
+        "Set procedure name to 'ProgramDetailsDelete'.",
+        "Add 'ProgramDetailID' parameter.",
+        "Execute query."
+      ]
+    }
+  ],
+  "business_rules": [],
+  "validations": [
+    "Response field cannot be blank. If blank, add error message and return false."
+  ],
+  "calculations": [],
+  "conditions": [
+    "If ProgramDetailsID is zero, operation is skipped.",
+    "If ProgramID is zero, operation is skipped."
+  ],
+  "system_behavior": [
+    "Utilizes stored procedures for database operations.",
+    "Formats certain fields for display, especially in alternate languages."
+  ],
+  "dependencies": [
+    "HSPnetSession",
+    "StringUtil"
+  ],
+  "exceptions": [],
+  "source_document_ids": [
+    "7816c56d-7511-5cb3-b78a-8d45a20f8200",
+    "a2ab1ff8-dd2a-5e9f-b63e-3d953c4eac95",
+    "b9f3f258-ba46-511c-8e01-b0963e4527f2",
+    "dc349e65-d265-5c2c-9472-cc4938730832"
+  ],
+  "content_gaps": []
+}
