@@ -1,0 +1,88 @@
+{
+    "filename": "PRDocuments",
+    "found": true,
+    "summary": "The PRDocuments module is responsible for managing placement request documents within the HSPnet system. It includes functionalities related to document uploading, editing, deleting, and handling document data.",
+    "purpose": "To provide a user interface for managing documents associated with placement requests, including actions like uploading, editing, and deleting documents.",
+    "entities": [],
+    "fields": [
+        "ltlInstructions",
+        "Literal1",
+        "gvwDocument",
+        "dsDocument",
+        "pnlPopup",
+        "btnShowPopup",
+        "mdlDetails",
+        "ValidationSummary3",
+        "CustomValidator1",
+        "fvwDocument",
+        "fileName",
+        "fileURL",
+        "fileSize",
+        "fileType",
+        "imgBinaryData",
+        "PRD_ID",
+        "TypeCodeID",
+        "TypeComments"
+    ],
+    "actors": [
+        "User",
+        "Admin"
+    ],
+    "workflows": [
+        {
+            "name": "Document Upload",
+            "steps": [
+                "User selects a file",
+                "File is uploaded to server",
+                "Metadata about the file is stored"
+            ]
+        },
+        {
+            "name": "Document Edit",
+            "steps": [
+                "User enters edit mode",
+                "Changes are made to document metadata",
+                "Document is saved with new details"
+            ]
+        }
+    ],
+    "business_rules": [
+        "File upload must contain non-empty content",
+        "Only specific document types can be uploaded"
+    ],
+    "validations": [
+        "Ensure file content is not empty",
+        "Validate document type against predefined types"
+    ],
+    "calculations": [],
+    "conditions": [
+        "If document exists, edit mode can be enabled",
+        "If user session is null, operations are canceled"
+    ],
+    "system_behavior": [
+        "Document details are shown in a modal window",
+        "Redirect user after document actions"
+    ],
+    "dependencies": [
+        "DocumentTypeConversion",
+        "HSPnetSession",
+        "QueryString",
+        "FileManagement"
+    ],
+    "exceptions": [
+        "Handle empty file upload gracefully"
+    ],
+    "source_document_ids": [
+        "0b412b93-8664-5be6-805b-1ee2191d9d74",
+        "23b4d3b7-10c4-5d78-b417-25806a3b6a78",
+        "315aa7cb-e2a6-5af5-88f3-e3bceefb450f",
+        "55917466-db99-5182-a2a2-833ec3f8ac73",
+        "69b6a57a-d344-53e2-83c0-1b66e394f75c",
+        "ab5070cc-bed5-5724-81f7-a337463e0b26",
+        "c708b08e-5172-57a5-a019-e21d52674f1d",
+        "e2dbef3b-8922-580e-a47b-155764f78dc8",
+        "ef75673a-9291-5ff8-ac62-566c091feb8f",
+        "f20d0f3f-4573-59af-87eb-f9f110c51931"
+    ],
+    "content_gaps": []
+}
