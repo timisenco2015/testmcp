@@ -2,59 +2,72 @@
 {
   "filename": "TimetableAssessments",
   "found": true,
-  "summary": "The document outlines the structure and functionality of the Timetable Assessments module within a web application. It includes UI components, JavaScript functionality, and server-side processing details related to timetable assessments.",
-  "purpose": "To manage timetable assessments, including adding, editing, and validating assessments within a particular framework.",
-  "entities": ["TimetableAssessment", "AssessmentTemplate", "AssessmentType", "AssessorType", "SubjectType"],
-  "fields": [
-    "assessorTypeCodeID",
-    "subjectTypeCodeID",
-    "assessmentTypeCodeID",
-    "assessmentTemplateCodeID",
-    "openDaysAfterStart",
-    "closeDaysAfterEnd",
-    "assessorCanViewSubjectsAnswers",
-    "subjectsCanViewAssessorAnswers",
-    "viewUntilDaysAfterEnd",
-    "optionAppliedAssessorTypeCodeID"
+  "summary": "This document appears to be related to the Timetable Assessments component of the HSPnet system, which involves managing and displaying assessment-related information within a timetable context. It includes server-side ASP.NET controls and client-side JavaScript functionalities to handle assessment data and interactions.",
+  "purpose": "The purpose is to handle the assessment lifecycle within a timetable, including creating, updating, and managing assessments and related entities.",
+  "entities": [
+    "Timetable",
+    "Assessment",
+    "Assessor",
+    "Subject",
+    "AssessmentTemplate",
+    "AssessmentType",
+    "UserSession"
   ],
-  "actors": ["UserSession"],
+  "fields": [
+    "OpenDaysAfterStart",
+    "CloseDaysAfterEnd",
+    "AssessorCanViewSubjectsAnswers",
+    "SubjectsCanViewAssessorAnswers",
+    "ViewUntilDaysAfterEnd",
+    "OptionAppliedAssessorTypeCodeID",
+    "AssessmentTemplateCodeID",
+    "AssessmentTypeCodeID"
+  ],
+  "actors": [
+    "System Administrator",
+    "Placement Coordinator",
+    "Local Administrator",
+    "Assessor",
+    "Student"
+  ],
   "workflows": [
     {
       "name": "Assessment Management",
       "steps": [
-        "Load Page",
-        "Add Assessment",
-        "Edit Assessment",
-        "Delete Assessment",
-        "Validate Entries"
+        "Initialize page with required scripts and validate URL hash.",
+        "Bind data to GridView for displaying assessments.",
+        "Handle commands such as add, edit, and delete on assessments via GridView.",
+        "Perform validation checks before submitting changes.",
+        "Update UI based on user input and system state."
       ]
     }
   ],
   "business_rules": [
-    "Assessments must have a specified open and close day.",
-    "Assessors and subjects have configurable view permissions."
+    "Only certain user roles can modify assessment entries.",
+    "Assessments must be linked to valid assessor and subject types."
   ],
   "validations": [
-    "Open and close days must be numeric.",
-    "Assessment templates must be specified."
+    "Ensure required fields are provided.",
+    "Validate that open and close days are numerical.",
+    "Check if assessments exceed a maximum number."
   ],
-  "calculations": [],
+  "calculations": [
+    "Calculate the display of open and close days based on start and end dates."
+  ],
   "conditions": [
-    "Screen editable if logged-in user is an administrator.",
-    "Assessments must have interim and final types."
+    "Screen is editable only if user has appropriate permissions.",
+    "Display optional sections based on conditions checked in JavaScript."
   ],
   "system_behavior": [
-    "Page loads JavaScript for client-side interactions.",
-    "Assessments are handled through GridView controls."
+    "Show or hide panels based on assessment conditions.",
+    "JavaScript functions manage dynamic UI updates."
   ],
   "dependencies": [
-    "UserSession",
-    "TimetableEntries",
-    "CourseAssessments"
+    "JavaScript and ASP.NET controls",
+    "HSPnet Framework"
   ],
   "exceptions": [
-    "Display error if assessments are missing final entries.",
-    "Show error message when maximum assessments are exceeded."
+    "Handle invalid state conditions gracefully in UI interactions."
   ],
   "source_document_ids": [
     "0781696d-dec4-5dfc-aa58-80ddd173c0ae",
@@ -63,6 +76,7 @@
     "135455cd-1a34-5b2d-b8cc-298a1d98c47e",
     "14ec7368-e312-5de7-b00e-188a6d5310ef",
     "1807e536-2914-59f1-a538-b9e127d25f77",
+    "1d7ea219-2359-5da1-9c7b-79cbd696c770",
     "345a2e51-fcf0-5df0-b1f6-b535c4b757c6",
     "447b10a9-0558-5d06-9fac-926c94892393",
     "50cbdfe8-4a64-5c51-ba1e-e88fb00ca8fc",
