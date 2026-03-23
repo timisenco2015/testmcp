@@ -1,0 +1,64 @@
+{
+  "filename": "ProgramYearType",
+  "found": true,
+  "summary": "The ProgramYearType class is responsible for managing program year data within the HSPnet system. It provides functionalities to retrieve a list of program years based on session and program details.",
+  "purpose": "To handle and provide structured data related to program years for educational programs in the HSPnet system.",
+  "entities": [],
+  "fields": [
+    {
+      "name": "Code",
+      "type": "string",
+      "description": "A unique identifier for the program year."
+    },
+    {
+      "name": "Value",
+      "type": "string",
+      "description": "The display value for the program year."
+    }
+  ],
+  "actors": [
+    {
+      "role": "HSPnetSession",
+      "description": "Represents a session in the HSPnet system that is used to retrieve configuration settings and program details."
+    }
+  ],
+  "workflows": [
+    {
+      "name": "Retrieve Program Year List",
+      "steps": [
+        "Check if the session (sess) is not null.",
+        "Look up the maximum program year from the configuration using the session.",
+        "Parse the maximum program year value from the configuration.",
+        "Generate a list of ProgramYearData objects from 1 to the maximum program year.",
+        "Add a default ProgramYearData object with code 0 and value 'Not Applicable'.",
+        "Return the list of ProgramYearData objects."
+      ]
+    }
+  ],
+  "business_rules": [
+    "If the session is not provided, return a default set of ProgramYearData.",
+    "The list of program years includes a 'Not Applicable' option with code '0'."
+  ],
+  "validations": [
+    "Ensure that the session is not null before attempting to retrieve configuration data.",
+    "Validate that the program year value parsed from the configuration is an integer."
+  ],
+  "calculations": [
+    "Truncate the total years from the program details if program details are provided."
+  ],
+  "conditions": [],
+  "system_behavior": [
+    "If no session is provided or configuration data cannot be retrieved, a default list of program years is returned with values from 1 to 5 and a 'Not Applicable' entry."
+  ],
+  "dependencies": [
+    "Relies on Codes.CodeLookup to retrieve configuration data."
+  ],
+  "exceptions": [
+    "If the maximum program year cannot be parsed to an integer, default values will be used."
+  ],
+  "source_document_ids": [
+    "a037944d-d94c-55ee-a4f8-d64f0b89edfc",
+    "b02e27f2-f2a6-5afa-af70-c0dfef61b5f0"
+  ],
+  "content_gaps": []
+}
