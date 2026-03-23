@@ -1,0 +1,76 @@
+{
+  "filename": "OccHealthInfluenzaEditAll",
+  "found": true,
+  "summary": "The OccHealthInfluenzaEditAll is a web user control designed for managing occupational health influenza immunization data. The control allows for the display and management of influenza immunization records in a grid format and handles data binding, sorting, and user interactions such as saving or canceling changes.",
+  "purpose": "The purpose of the OccHealthInfluenzaEditAll control is to facilitate the editing and management of influenza immunization records for students in a web-based environment, supporting functionalities like filtering, sorting, and saving data.",
+  "entities": [],
+  "fields": [
+    "UserSession",
+    "CohortID",
+    "TermID",
+    "CourseID",
+    "ShowGrad",
+    "ShowInactive",
+    "ShowWaived",
+    "SectionFilter",
+    "ActionFilter",
+    "keyword",
+    "CampusID",
+    "CommentFilter",
+    "blnReadOnly",
+    "blnStudentMaint",
+    "H1N1",
+    "EnrollmentID",
+    "StartRow"
+  ],
+  "actors": [],
+  "workflows": [
+    {
+      "name": "Grid Data Edit",
+      "steps": [
+        "Initialize JavaScript variables to track dirty fields.",
+        "Iterate over GridView rows to attach change functions and gather field IDs.",
+        "Register startup script with field IDs for client-side tracking.",
+        "Apply sorting and filtering based on user session and input parameters.",
+        "Handle row commands to invoke update functions based on user input."
+      ]
+    }
+  ],
+  "business_rules": [],
+  "validations": [
+    "ValidationSummary1 control is used for aggregating form validations."
+  ],
+  "calculations": [],
+  "conditions": [
+    "Show save/cancel buttons conditionally based on row count or enrollment ID.",
+    "Toggle visibility of elements based on read-only status or H1N1 flag."
+  ],
+  "system_behavior": [
+    "GridView utilizes server-side binding and rendering.",
+    "JavaScript functions dynamically generated based on grid data.",
+    "User session is checked before data operations to ensure session validity."
+  ],
+  "dependencies": [
+    "HSPnet.DataLayer for data operations.",
+    "HSPnet.Framework for session and data handling.",
+    "User control interacts with HSPnet application framework."
+  ],
+  "exceptions": [
+    "Cancel data operation if user session is null.",
+    "Hide save/cancel controls when conditions dictate to prevent improper data operations."
+  ],
+  "source_document_ids": [
+    "0d476473-6083-5f51-ba86-86994f8d2005",
+    "1fc2d4a3-13a1-5a93-b0e7-3dbe8577eae0",
+    "3ad241b8-d5da-5077-8e72-14c0dd19a4ca",
+    "4f9ede21-00b0-5e79-a78d-a1cb6db32417",
+    "5127230e-5edc-5e20-8eb4-b402fb0accf8",
+    "5bde432b-bbc5-5f1a-8483-b259a3286565",
+    "731359ca-b860-5846-a8d7-78d1407d0624",
+    "8b2eca1a-596e-54f9-a666-769d9733955d",
+    "91574ad3-0aee-544a-bbf5-981a307edc3d",
+    "9592a93f-9975-5c09-9744-cbd341298017",
+    "a49ab0c1-e5ed-53e8-a380-021afe551cd6"
+  ],
+  "content_gaps": []
+}
