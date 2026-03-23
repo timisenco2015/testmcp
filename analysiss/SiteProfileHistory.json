@@ -1,11 +1,9 @@
 {
     "filename": "SiteProfileHistory",
     "found": true,
-    "summary": "The SiteProfileHistory tracks changes made to site profiles, logging user actions and associated metadata.",
-    "purpose": "To provide a detailed audit trail of modifications to site profiles.",
-    "entities": [
-        "SiteProfileHistory"
-    ],
+    "summary": "SiteProfileHistory represents historical data of site profiles, including user actions.",
+    "purpose": "To log and track changes and actions performed on site profiles for administrative purposes.",
+    "entities": ["SiteProfileHistory"],
     "fields": [
         "ID",
         "ActionDate",
@@ -16,40 +14,34 @@
         "AgencyName",
         "LastName",
         "FirstName",
-        "MiddleName",
-        "Phone",
-        "ByUserID"
+        "MiddleName"
     ],
-    "actors": [
-        "HSPnetSession"
-    ],
+    "actors": ["HSPnetSession"],
     "workflows": [
         {
-            "name": "Search Site Profile History",
+            "name": "Site Profile History Search",
             "steps": [
-                "Initialize database and session.",
-                "Execute stored procedure to fetch history.",
-                "Fill session data and return results."
+                "Invoke SiteProfileHistorySearch",
+                "Fill history list",
+                "Close data reader"
             ]
         }
     ],
     "business_rules": [],
     "validations": [],
     "calculations": [
-        "Format action date upon retrieval."
+        "AgencyUserFormatted concatenates agency and initials."
     ],
     "conditions": [],
-    "system_behavior": [
-        "Logs and formats user action details."
-    ],
-    "dependencies": [
-        "HSPnetSession",
-        "Database"
-    ],
+    "system_behavior": [],
+    "dependencies": ["Resources", "Database"],
     "exceptions": [],
     "source_document_ids": [
         "25f89a24-5eda-5a3f-83df-1de69b12b3f1",
-        "26e09292-d304-55c6-94e5-ef3346453c4b"
+        "26e09292-d304-55c6-94e5-ef3346453c4b",
+        "7ca6b963-9ae9-5cd3-82d5-f30dcb727ae3",
+        "a8f030c6-90b8-53a1-bb8a-3b7ef33b9488",
+        "e806999c-3a39-5720-9b59-303faebc9eb6"
     ],
     "content_gaps": []
 }
