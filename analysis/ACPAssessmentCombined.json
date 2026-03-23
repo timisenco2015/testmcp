@@ -1,1 +1,150 @@
-{"filename":"ACPAssessmentCombined","found":true,"summary":"ACPAssessmentCombined is the Canadian Physiotherapy Assessment of Clinical Performance (ACP) assessment tool used for evaluating physiotherapy students during clinical internships. The assessment is structured around the Canadian Essential Competency Profile for Physiotherapists and is organized by professional roles (Expert, Communicator, Collaborator, Manager, Advocate, Scholarly Practitioner, Professional, Summative Comments). It uses multiple rating scales and comment boxes at midterm and final points, based on observable performance anchored to key competencies. The tool incorporates workflows for input, review, and submission, with defined fields, business rules, roles, and system validations.","purpose":"To guide, document, and assess physiotherapy student performance during clinical education placements, enabling faculty and clinical instructors to provide structured feedback and assign grades. It gathers quantitative and qualitative evidence for competencies and supports decision-making regarding student progress, remediation, or distinction.","entities":["PlacementRequestAssessment","PlacementRequestAssessmentAnswer","AssessmentSection","Question","QuestionOption","Student","Assessor (Instructor/Staff)","WizardStep"],"fields":["StudentName","AssessorName","SiteName","PlacementDates","AssessmentTypeCode (Midterm/Final)","SectionName (Role)","QuestionText","AnswerInt (Rating)","AnswerText (Comments)","AnswerYN (Yes/No)","AnswerDecimal (Numeric value)","StatusCode","StatusDescription","DaysAbsent","ExtraHoursWorked","Recommendation"],"actors":["Student","Clinical Instructor / Assessor","Academic Coordinator/Director","University Faculty","HSPnet System"],"workflows":[{"name":"Assessment Workflow","steps":["Student is assigned to a clinical placement.","Assessor accesses ACPAssessmentCombined form online.","Instructions and rating anchors are reviewed.","At midterm, assessor observes student and completes rating scales for each Role and section.","Comment boxes used for strengths and improvements.","If concerns, 'Please check' checkboxes are used.","At final, assessment is repeated for same sections.","Assessor completes overall recommendation (Credit, Credit with exception, Credit with reservation, No Credit).","Submission workflow locks form for faculty review.","Faculty assigns final grade based on ACP and recommendation."]}],"business_rules":["All rating scales must be completed at midterm and final unless stated as not applicable.","Performance anchors require demonstration of all criteria at a level for scoring.","Areas of distinction require evidence of criteria plus one or more exceptional behaviors.","Students must meet minimum criteria for credit; remediation applies if 'credit with reservation' or 'no credit' is assigned.","Assessor and student ratings are tracked separately; consensus and comment required.","Days absent and extra hours worked must be recorded.","Comments must be factual based on clinical observation."],"validations":["Client consent and confidentiality must be respected.","Assessment answers must be submitted for all required sections.","Numeric ratings (Likert) must be valid (1-10).","Text fields for comments must not be empty if concerns flagged.","Drop-down recommendation must be selected."],"calculations":["Count and comparison of ratings for midterm and final.","Determination of overall recommendation based on rating scale and comments.","Assessment of days absent and extra hours worked."],"conditions":["If rating scale item not applicable, reason must be entered in comment.","If student performance below expected level, remediation or 'no credit' recommended.","If 'Performance with Distinction' considered, must meet primary criteria and at least one additional exceptional behavior."],"system_behavior":["Wizard steps guide assessor through each Role.","Sections appear/disappear based on assessor status and read-only mode.","Submission locks assessment for faculty review.","Error and warning panels display missing/invalid entries."],"dependencies":["AssessmentSections depend on PlacementRequestAssessment ID.","Instructor/Student answers depend on AssessmentTypeCode (Interim/Final).","Comment workflow depends on observation and evidence.","Final recommendation depends on completed rating scales and comment review."],"exceptions":["If missing required answers, wizard step remains incomplete.","If assessor or student cannot be found, error message displayed.","If section not applicable, must be documented in comments."],"source_document_ids":["00f78596-a599-5206-838d-249e3cb08db8","00fde7cd-5700-5d89-a153-a605b569d320","020ac176-b351-5a87-809a-bb371809dc3e","02603a77-59ae-5a9e-983d-65c9a2ff8875","028b8e5f-a79e-5fce-b159-7da44ccec91d","032ff41b-22d4-50fc-9922-a339a8a403a6","034c79ec-7272-501f-ae9f-cc9d8a73191b","036a6b8e-ecb5-590b-a028-844cdc5ac56c","03feaf7d-d06d-50a9-b646-669ff0382a89","044bf50a-a64c-5d22-bd12-7358af17603b","04c91e60-38d8-57ec-88a9-98cfcd98682d","04cf498d-ec58-5abd-a374-003d4e529aad","051195c8-a9ac-54a5-a352-155b4f2d0930","05538bdc-13e2-5f4a-9b6c-eb23a52d7ea9","06c49fd5-86e9-5288-a562-7b3eb14eef81","0725c378-3396-5c29-814a-9605d4ad1bcd","09dade7a-3df6-51ed-b58f-6c54556b8e03","0dead24d-270b-5b57-bfb8-7f29ffb75c30","10618352-4bb4-504c-903d-df074c60ddd5","1266f147-0512-5019-ba46-e3d9f7c16ddb","14db5f96-24a9-5c50-b39d-8f28f8b7c300","15087f3d-2f9a-5f4f-8334-b4025e45b52f","1560e82e-7139-5519-8bc8-544e3e83e509","1713b671-ef1c-5a14-b5ff-5f0f5d61c331","176dd1d4-4ebf-5b1e-92cd-a6f95151a37d","179428b5-e963-570f-be31-899195091c82","18290263-936a-516b-bd1c-7981e5f84b50"],"content_gaps":["Does not contain actual rating scale values or completed student sample answers.","No full definitions for Likert anchors (except anchor descriptors summary).","No complete validation error messages or full list of UI behaviors.","No implementation code for database or web service layers."]}
+{
+  "filename": "ACPAssessmentCombined",
+  "found": true,
+  "summary": "ACPAssessmentCombined is an integrated assessment file for evaluating physiotherapy students in Canadian clinical placements. It follows the Canadian Physiotherapy Assessment of Clinical Performance (ACP) form, mapping to the Essential Competency Profile for Physiotherapists. The system captures multi-role competencies and tracks student performance at midterm and final points. It utilizes rating scales, anchor descriptors, and structured comment fields, integrating assessor and student evaluations. The workflows facilitate stepwise assessment aligned to distinct physiotherapist roles and competencies.",
+  "purpose": "To provide an evidence-based, standardized, multi-role assessment of physiotherapy student performance during clinical placements, supporting formative and summative evaluation, informing grading and remediation, and contributing to regulatory compliance and clinical education quality assurance.",
+  "entities": [
+    "PlacementRequestAssessment",
+    "AssessmentSection",
+    "PlacementRequestAssessmentAnswer",
+    "Question",
+    "Assessor",
+    "Student",
+    "Client",
+    "Panel",
+    "WizardStep"
+  ],
+  "fields": [
+    "AssessmentTypeCode",
+    "StatusCode",
+    "AssessorTypeCode",
+    "StudentNameFormatted",
+    "AssessorNameFormatted",
+    "SectionName",
+    "SectionSubHeading",
+    "AnswerCheckBox",
+    "AnswerText",
+    "AnswerInt",
+    "AnswerYN",
+    "AnswerDecimal",
+    "QuestionOptionID",
+    "OptionChoiceName",
+    "Panel Name",
+    "WizardStep Name"
+  ],
+  "actors": [
+    "Student",
+    "Assessor (Instructor/Staff)",
+    "University Academic Coordinator",
+    "Clinical Education Director",
+    "Client",
+    "Other Health Professionals",
+    "Administrators"
+  ],
+  "workflows": [
+    {
+      "name": "ACP Combined Assessment Workflow",
+      "steps": [
+        "Access instructions and background via WSInstructions",
+        "Review rating scales and anchor descriptors (WSDefinitions)",
+        "Complete multi-step Wizard assessment: 1.0 Expert Assessment, 1.0 Expert Analysis, 1.0 Expert Intervention, 2.0 Communicator, 3.0 Collaborator, 4.0 Manager, 5.0 Advocate, 6.0 Scholarly Practitioner, 7.0 Professional, Summative Comments, Submit, Complete",
+        "For each step: All assessors provide ratings (Likert scale) and comments for each section and question",
+        "Midterm and Final points captured and displayed separately",
+        "Comments and areas of concern noted on each role/section",
+        "Summative comments, days absent, extra hours worked, and overall recommendation provided",
+        "Submission triggers grading workflow, faculty review, and final grade assignment"
+      ]
+    }
+  ],
+  "business_rules": [
+    "All criteria within an anchor must be demonstrated for scoring at a level",
+    "Performance with Distinction requires demonstration of primary criteria plus at least one additional",
+    "Assessment must be performed at both midterm and final points",
+    "Areas of strength and improvement must be substantiated with comments",
+    "If not applicable, rationale must be stated in comments",
+    "All rating scales and comment fields must be completed for required sections",
+    "Assessor and student ratings must be differentiated and tracked",
+    "Final assessment is only valid if status is 'Submitted'"
+  ],
+  "validations": [
+    "Student must demonstrate all anchor criteria for selected rating",
+    "Comments required for areas of strength and improvement",
+    "Numeric fields (days absent, extra hours) validated for numeric entry",
+    "Submitted assessments must be complete",
+    "Sections flagged incomplete if required answers missing",
+    "Data entered must correspond to regulatory guidelines for privacy and consent"
+  ],
+  "calculations": [
+    "Caseload percentage based on anchor definitions (beginner, intermediate, distinction, etc.)",
+    "Summary grading determination (Credit, Credit with reservation, No Credit)",
+    "Tracking days absent and extra hours for compliance and summary",
+    "Rating scale aggregation by section and role"
+  ],
+  "conditions": [
+    "Assessment can be midterm or final",
+    "If performance is below expectations, 'Credit with reservation' or 'No Credit' can be recommended",
+    "Sections or fields not applicable must be justified",
+    "Only 'Submitted' status final assessments are counted for grading"
+  ],
+  "system_behavior": [
+    "Wizard UI guides assessors through sequential steps",
+    "SideBar navigation allows step selection and completion flag visibility",
+    "Assessment answers are stored per section, assessor, and assessment type",
+    "On submission, system triggers faculty review and grading process",
+    "System supports read-only view when status is 'Submitted' or user is view-only"
+  ],
+  "dependencies": [
+    "AssessmentSection structure reflects Essential Competency Profile roles",
+    "Links to external education modules for assessor preparation",
+    "Assessment answers depend on user role and status",
+    "Rating scale anchors and descriptors licensed from American Physical Therapy Association"
+  ],
+  "exceptions": [
+    "Sections may be skipped or justified if not applicable",
+    "Errors shown if required questions or options are missing",
+    "Assessment not accepted if incomplete or not 'Submitted'",
+    "System displays warning/error panels for missing/incomplete fields"
+  ],
+  "source_document_ids": [
+    "00f78596-a599-5206-838d-249e3cb08db8",
+    "00fde7cd-5700-5d89-a153-a605b569d320",
+    "020ac176-b351-5a87-809a-bb371809dc3e",
+    "02603a77-59ae-5a9e-983d-65c9a2ff8875",
+    "028b8e5f-a79e-5fce-b159-7da44ccec91d",
+    "032ff41b-22d4-50fc-9922-a339a8a403a6",
+    "034c79ec-7272-501f-ae9f-cc9d8a73191b",
+    "036a6b8e-ecb5-590b-a028-844cdc5ac56c",
+    "03feaf7d-d06d-50a9-b646-669ff0382a89",
+    "044bf50a-a64c-5d22-bd12-7358af17603b",
+    "04c91e60-38d8-57ec-88a9-98cfcd98682d",
+    "04cf498d-ec58-5abd-a374-003d4e529aad",
+    "051195c8-a9ac-54a5-a352-155b4f2d0930",
+    "05538bdc-13e2-5f4a-9b6c-eb23a52d7ea9",
+    "06c49fd5-86e9-5288-a562-7b3eb14eef81",
+    "0725c378-3396-5c29-814a-9605d4ad1bcd",
+    "09dade7a-3df6-51ed-b58f-6c54556b8e03",
+    "0dead24d-270b-5b57-bfb8-7f29ffb75c30",
+    "10618352-4bb4-504c-903d-df074c60ddd5",
+    "1266f147-0512-5019-ba46-e3d9f7c16ddb",
+    "14db5f96-24a9-5c50-b39d-8f28f8b7c300",
+    "15087f3d-2f9a-5f4f-8334-b4025e45b52f",
+    "1560e82e-7139-5519-8bc8-544e3e83e509",
+    "1713b671-ef1c-5a14-b5ff-5f0f5d61c331",
+    "176dd1d4-4ebf-5b1e-92cd-a6f95151a37d",
+    "179428b5-e963-570f-be31-899195091c82",
+    "18290263-936a-516b-bd1c-7981e5f84b50",
+    "197f6b33-5558-5d18-b1a6-52f0a15414a2",
+    "19a02c47-ece1-558c-802a-191ef0b3f8d8",
+    "19bf0c7e-986e-5008-bb1a-fe098b12e2c4",
+    "1a7882f6-d55f-58ec-b3d1-eb6f7aa32ebd",
+    "1c6fd48c-c15b-5990-9c76-68e6ba0de2f5",
+    "1cdcc4c3-ba72-52d2-b754-56a12e28a8b5",
+    "ffb67234-779e-52c6-8c1f-c873aedf823e"
+  ],
+  "content_gaps": [
+    "Assessment results and actual student performance data are not present; only structure, fields, and rules.",
+    "No business process integration details (e.g., downstream reporting, analytics, LTI, etc.).",
+    "No explicit system error handling/notification mechanisms beyond UI warnings.",
+    "No implementation code for database writes or GitHub integration."
+  ]
+}
