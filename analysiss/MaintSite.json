@@ -1,129 +1,152 @@
 {
-  "filename": "MaintSite",
-  "found": true,
-  "summary": "The MaintSite page is part of the HSPnet system and is used for managing site information related to agencies. Users can view, edit, add, and manage site details, including addresses, contact information, governing organizations, and associated settings. The page includes functionalities for handling inactive sites, viewing site profiles, and linking to related services or destination masters.",
-  "purpose": "The primary purpose of the MaintSite page is to facilitate the management of site information within the HSPnet system, ensuring that users can efficiently handle site records, update relevant data, and perform administrative actions such as activation or deactivation of sites.",
-  "entities": [
-    "Site",
-    "UserSession",
-    "GoverningOrgs",
-    "Dropdown",
-    "Agency"
-  ],
-  "fields": [
-    "Name",
-    "ShortName",
-    "Address1",
-    "Address2",
-    "City",
-    "Province",
-    "PostalCode",
-    "Phone",
-    "Fax",
-    "SiteTypeCodeID",
-    "GoverningOrgID",
-    "RequestStudentNumber",
-    "UseCostCentres",
-    "PortfolioCodeID",
-    "UsePositionNumbers",
-    "PAAllocatePositionNumbers",
-    "InvoiceContactID"
-  ],
-  "actors": [
-    "SystemAdministrator",
-    "LocalAdministrator",
-    "ReceivingUser",
-    "PlacementCoordinator"
-  ],
-  "workflows": [
-    {
-      "name": "Site Management",
-      "steps": [
-        "Load page and check user permissions.",
-        "Populate dropdowns with agency and governing organization data.",
-        "Display site details in view or edit mode based on user input.",
-        "Handle add, edit, save, delete, and reactivate commands for sites.",
-        "Validate forms and perform actions based on user roles and permissions."
-      ]
-    }
-  ],
-  "business_rules": [
-    "Only sysadmins can add new sites.",
-    "The Governing Organization must be specified before saving.",
-    "Phone and fax must adhere to specified masks if enabled.",
-    "Sites cannot be deleted if associated services or destination codes exist.",
-    "Users cannot edit their own agency's site if they are not receiving users or sysadmins."
-  ],
-  "validations": [
-    "Phone and fax format validation using client-side scripts.",
-    "Governing Organization validation to ensure it is not set to default.",
-    "Portfolio requirement validation if cost centers are used."
-  ],
-  "calculations": [],
-  "conditions": [
-    "Display of 'Help' panel based on user view.",
-    "Visibility of 'RequestStudentNumber' checkbox based on configuration.",
-    "Dynamic adjustment of dropdown values and their visibility."
-  ],
-  "system_behavior": [
-    "Populate dropdowns with data from the database.",
-    "Bind site data to form views for display and editing.",
-    "Register client scripts for page functionalities.",
-    "Handle asynchronous postbacks with scripts."
-  ],
-  "dependencies": [
-    "HSPnet.DataLayer",
-    "HSPnet.UI",
-    "HSPnet.Framework",
-    "HSPnet.App_GlobalResources"
-  ],
-  "exceptions": [
-    "User lacks permissions to edit or add sites due to role restrictions.",
-    "Validation errors when required fields are missing or incorrectly formatted."
-  ],
-  "source_document_ids": [
-    "03e12b9a-d567-5714-9623-f4972c6dd09f",
-    "149c3f0e-7719-5a23-aa0f-c690cd3c1486",
-    "160c8358-e8b8-5993-9652-6dd96be3ff62",
-    "16a99913-e56f-5d3c-a0d0-356c6fbac231",
-    "1a6613e7-9a89-5c86-a1b8-dc3330321a6d",
-    "1a79796f-970c-56fa-ba98-cdf25e35aa08",
-    "23a6b914-69e3-5a0f-99ae-2e5174df630a",
-    "2fc84187-b5b8-5747-b4d8-ab2a301e84ae",
-    "36bf8bc7-81f1-5598-9cf9-eff79a312ec2",
-    "37a84359-e051-542f-b6c9-a618bf0001c3",
-    "3890d85a-b02a-5aac-bdfe-4eaff4f4651b",
-    "3af0aef9-c2b0-52c9-9add-a4cf5c5ee107",
-    "4c249d69-3322-5300-ac78-ac4a03d4566f",
-    "50abc420-67ba-518e-ba8d-10f13fa6c5a8",
-    "54279e63-0c2e-5cdc-8996-d41698d38177",
-    "5d913b8d-8041-57b7-8e21-099d33c25fe8",
-    "5fc25f66-f323-5ea2-8752-b0b3f2cd0ab5",
-    "67fc610f-2820-5e68-b5eb-74f97db8a4b8",
-    "6af77661-9832-5c0a-9392-add8502fd5db",
-    "728b1e5c-9a2b-5832-8eab-7d976f2b54aa",
-    "7511d326-98c3-5bf9-abf2-17994a1f51bc",
-    "7c3a273a-1218-5b51-9e9c-0f105281507c",
-    "83a556e8-b8de-5e93-a1af-2028e323cd66",
-    "8492b0f4-5723-50e8-a2c3-9c63e08bcea3",
-    "882200e6-617e-547f-928a-1c009539766c",
-    "88c30eb4-5477-5b65-b172-ae5a20f19a8a",
-    "9e8a6bd2-96f7-53ef-bea9-ec40c20555a8",
-    "9faa0126-866a-5a0e-92d5-622d3dc091d6",
-    "a24a1c30-0904-58d2-a302-594167998cef",
-    "a336eefe-404d-5dce-a605-6a1c0fee41b9",
-    "a5f713d4-ccec-5070-bfa8-74f96286cb7a",
-    "a735a750-a73b-52f9-bf57-bc9d2d876308",
-    "a8480126-bd99-59dc-9403-5cda06da01ad",
-    "aba48440-1506-5ab0-a9af-bbfe7e851401",
-    "ad38db3f-9a64-5180-9717-508b631186f7",
-    "bea3ce7e-bf54-59a1-ac3a-6f1161805085",
-    "c613f03f-8320-583d-919f-8e855060a9ee",
-    "ce83a0cd-7f62-5245-a30b-91f199565e57",
-    "dca4b1d5-480f-5073-bec4-29432eccdc06",
-    "dfb4dda8-53b3-5761-a5a1-924f96d5a207",
-    "e564082b-b4bd-5da9-9353-c0facdb565ac",
-    "f1022f76-d883-55ad-a3af-33ca0b22fe48"
-  ],
-  "content_gaps": []
+    "filename": "MaintSite",
+    "found": true,
+    "summary": "The document pertains to the maintenance of site information within a web application. It includes UI components for managing site details such as name, address, phone, fax, and related organizational data. The system allows for adding, editing, and reactivating site entries, with specific user permissions and validations.",
+    "purpose": "To provide a user interface and back-end functionality for maintaining site information within an agency's management system.",
+    "entities": [],
+    "fields": [
+        "Name",
+        "ShortName",
+        "Address1",
+        "Address2",
+        "City",
+        "Province",
+        "PostalCode",
+        "Phone",
+        "Fax",
+        "SiteTypeCodeID",
+        "GoverningOrgID",
+        "RequestStudentNumber",
+        "UseCostCentres",
+        "PortfolioCodeID",
+        "UsePositionNumbers",
+        "PAAllocatePositionNumbers",
+        "InvoiceContactID"
+    ],
+    "actors": [
+        "SystemAdministrator",
+        "LocalAdministrator",
+        "PlacementCoordinator",
+        "ReceivingUser"
+    ],
+    "workflows": [
+        {
+            "name": "Page_Load",
+            "steps": [
+                "Setup page with user session and script includes.",
+                "Initialize dropdowns and data if not postback."
+            ]
+        },
+        {
+            "name": "Edit_Site",
+            "steps": [
+                "Check user permission.",
+                "Populate form with site data.",
+                "Validate and submit changes."
+            ]
+        },
+        {
+            "name": "Add_Site",
+            "steps": [
+                "Switch to add mode.",
+                "Populate necessary defaults.",
+                "Validate and submit new site."
+            ]
+        },
+        {
+            "name": "Delete_Site",
+            "steps": [
+                "Check permission and site status.",
+                "Delete site and refresh data."
+            ]
+        },
+        {
+            "name": "Reactivate_Site",
+            "steps": [
+                "Check permission and site status.",
+                "Reactivate site and refresh data."
+            ]
+        }
+    ],
+    "business_rules": [
+        "Only SystemAdministrators can add new sites.",
+        "Sites cannot be deleted if services or destination codes exist.",
+        "SystemAdministrators can edit all fields; other users have limited access based on roles."
+    ],
+    "validations": [
+        {
+            "field": "Phone",
+            "rule": "Valid phone format using mask if enabled."
+        },
+        {
+            "field": "Fax",
+            "rule": "Valid fax format using mask if enabled."
+        },
+        {
+            "field": "GoverningOrgID",
+            "rule": "Must be specified."
+        },
+        {
+            "field": "RequestStudentNumber",
+            "rule": "Visible based on configuration."
+        }
+    ],
+    "calculations": [],
+    "conditions": [
+        {
+            "description": "Fields visibility and editability based on user's role and screen mode."
+        }
+    ],
+    "system_behavior": [
+        "UI components dynamically update based on user interactions and permissions.",
+        "Asynchronous post-back updates ensure seamless user experience."
+    ],
+    "dependencies": [],
+    "exceptions": [
+        "Attempting to delete a site with existing services raises an exception."
+    ],
+    "source_document_ids": [
+        "03e12b9a-d567-5714-9623-f4972c6dd09f",
+        "149c3f0e-7719-5a23-aa0f-c690cd3c1486",
+        "160c8358-e8b8-5993-9652-6dd96be3ff62",
+        "16a99913-e56f-5d3c-a0d0-356c6fbac231",
+        "1a6613e7-9a89-5c86-a1b8-dc3330321a6d",
+        "1a79796f-970c-56fa-ba98-cdf25e35aa08",
+        "23a6b914-69e3-5a0f-99ae-2e5174df630a",
+        "2fc84187-b5b8-5747-b4d8-ab2a301e84ae",
+        "36bf8bc7-81f1-5598-9cf9-eff79a312ec2",
+        "37a84359-e051-542f-b6c9-a618bf0001c3",
+        "3890d85a-b02a-5aac-bdfe-4eaff4f4651b",
+        "3af0aef9-c2b0-52c9-9add-a4cf5c5ee107",
+        "4c249d69-3322-5300-ac78-ac4a03d4566f",
+        "50abc420-67ba-518e-ba8d-10f13fa6c5a8",
+        "54279e63-0c2e-5cdc-8996-d41698d38177",
+        "5d913b8d-8041-57b7-8e21-099d33c25fe8",
+        "5f04dde2-17e7-5049-831e-535bd9849c25",
+        "67fc610f-2820-5e68-b5eb-74f97db8a4b8",
+        "6af77661-9832-5c0a-9392-add8502fd5db",
+        "728b1e5c-9a2b-5832-8eab-7d976f2b54aa",
+        "7c3a273a-1218-5b51-9e9c-0f105281507c",
+        "83a556e8-b8de-5e93-a1af-2028e323cd66",
+        "8492b0f4-5723-50e8-a2c3-9c63e08bcea3",
+        "882200e6-617e-547f-928a-1c009539766c",
+        "88c30eb4-5477-5b65-b172-ae5a20f19a8a",
+        "9e8a6bd2-96f7-53ef-bea9-ec40c20555a8",
+        "9faa0126-866a-5a0e-92d5-622d3dc091d6",
+        "a24a1c30-0904-58d2-a302-594167998cef",
+        "a336eefe-404d-5dce-a605-6a1c0fee41b9",
+        "a5f713d4-ccec-5070-bfa8-74f96286cb7a",
+        "a735a750-a73b-52f9-bf57-bc9d2d876308",
+        "a8480126-bd99-59dc-9403-5cda06da01ad",
+        "aba48440-1506-5ab0-a9af-bbfe7e851401",
+        "ad38db3f-9a64-5180-9717-508b631186f7",
+        "bea3ce7e-bf54-59a1-ac3a-6f1161805085",
+        "c613f03f-8320-583d-919f-8e855060a9ee",
+        "ce83a0cd-7f62-5245-a30b-91f199565e57",
+        "dca4b1d5-480f-5073-bec4-29432eccdc06",
+        "dfb4dda8-53b3-5761-a5a1-924f96d5a207",
+        "e564082b-b4bd-5da9-9353-c0facdb565ac",
+        "f1022f76-d883-55ad-a3af-33ca0b22fe48"
+    ],
+    "content_gaps": []
 }
