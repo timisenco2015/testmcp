@@ -1,22 +1,42 @@
 {
     "filename": "ServiceCode",
     "found": true,
-    "summary": "ServiceCode is a class for managing service code details, supporting multiple retrieval methods based on various criteria.",
-    "purpose": "To handle service code information retrieval and localization.",
-    "entities": ["ServiceCode"],
-    "fields": [
-        "ID", "CodeCategoryID", "ShortName", "Name", "SortOrder", "Notes",
-        "NameAlt", "NotesAlt"
+    "summary": "ServiceCode represents a code entity within HSPnet with properties for category, name, and order, used in service code listing and retrieval operations across various modules.",
+    "purpose": "To provide a structured definition and access methods for service codes in the HSPnet system.",
+    "entities": [
+        {
+            "name": "ServiceCode",
+            "properties": [
+                "ID",
+                "CodeCategoryID",
+                "ShortName",
+                "Name",
+                "SortOrder",
+                "Notes",
+                "NameAlt",
+                "NotesAlt"
+            ]
+        }
     ],
+    "fields": [],
     "actors": [],
-    "workflows": [],
+    "workflows": [
+        {
+            "name": "ServiceCode Retrieval",
+            "steps": [
+                "Invoke database procedures to fetch service codes.",
+                "Localize service code names based on session language settings.",
+                "Return list of service codes for use in modules."
+            ]
+        }
+    ],
     "business_rules": [],
     "validations": [],
     "calculations": [],
     "conditions": [],
     "system_behavior": [
-        "Supports service code retrieval based on session and ID parameters.",
-        "Allows for localization by using alternative language fields."
+        "Service code operations utilize stored procedures for data retrieval.",
+        "Localization of service code names based on session setting."
     ],
     "dependencies": [],
     "exceptions": [],
