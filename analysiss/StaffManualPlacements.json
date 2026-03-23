@@ -1,0 +1,96 @@
+{
+    "filename": "StaffManualPlacements",
+    "found": true,
+    "summary": "The StaffManualPlacements document outlines the procedures and data structures involved in managing manual staff placements in the HSPnet system. It details CRUD (Create, Read, Update, Delete) operations for managing staff placements and includes validation logic and parameter handling.",
+    "purpose": "To provide a structured approach to managing manual staff placements, including adding, updating, searching, and deleting placement records within the HSPnet system.",
+    "entities": [],
+    "fields": [
+        "ID",
+        "StaffID",
+        "StartDate",
+        "EndDate",
+        "ProgramID",
+        "CourseShortName",
+        "PlacementTypeID",
+        "InstructorLastName",
+        "InstructorFirstName",
+        "DurationHours",
+        "GroupSize",
+        "RcvAgencyID",
+        "SiteID",
+        "ServiceID",
+        "DestinationID",
+        "ProgramName",
+        "PlacementType",
+        "RcvAgencyName",
+        "SiteName",
+        "ServiceName",
+        "DestinationName"
+    ],
+    "actors": [
+        "HSPnetSession"
+    ],
+    "workflows": [
+        {
+            "name": "StaffManualPlacementUpdate",
+            "steps": [
+                "Initialize StaffManualPlacement object with parameters.",
+                "Check if the StaffManualPlacement object is valid.",
+                "Set DB procedure name to 'StaffManualPlacementUpdate'.",
+                "Add parameters to the session DB.",
+                "Execute the query."
+            ]
+        },
+        {
+            "name": "StaffManualPlacementAdd",
+            "steps": [
+                "Initialize StaffManualPlacement object with parameters.",
+                "Check if the StaffManualPlacement object is valid.",
+                "Set DB procedure name to 'StaffManualPlacementAdd'.",
+                "Add parameters to the session DB.",
+                "Execute the query."
+            ]
+        },
+        {
+            "name": "StaffManualPlacementSearch",
+            "steps": [
+                "Set DB procedure name to 'StaffManualPlacementSearch'.",
+                "Add parameters to the session DB.",
+                "Execute the query and populate list from SqlDataReader."
+            ]
+        },
+        {
+            "name": "StaffManualPlacementDelete",
+            "steps": [
+                "Check if PlacementID is greater than 0.",
+                "Set DB procedure name to 'StaffManualPlacementDelete'.",
+                "Add parameters to the session DB.",
+                "Execute the query."
+            ]
+        }
+    ],
+    "business_rules": [],
+    "validations": [
+        "ProgramID must not be null.",
+        "RcvAgencyID must not be null.",
+        "DurationHours must be a valid integer.",
+        "GroupSize must be a valid integer."
+    ],
+    "calculations": [],
+    "conditions": [],
+    "system_behavior": [
+        "Executes database stored procedures for CRUD operations on staff manual placements."
+    ],
+    "dependencies": [],
+    "exceptions": [],
+    "source_document_ids": [
+        "38d623c0-e374-5e7b-8e2b-e49108c9bfa0",
+        "4c5e8df5-824c-5f70-bc92-41090c1ef323",
+        "5375acad-0b46-55b9-b19e-c4648015704c",
+        "828ddef2-0044-5299-9e29-0321692a048b",
+        "845368ce-d4f3-5c11-b0ed-c7357c837299",
+        "8a0099ac-0317-5364-bb67-74ecdf762383",
+        "e2e119d3-0c14-5ca7-a884-15952a7ec19c"
+    ],
+    "content_gaps": []
+}
