@@ -1,23 +1,18 @@
 {
   "filename": "ServiceCode",
   "found": true,
-  "summary": "ServiceCode and ServiceCodes classes manage service code data, supporting localization and database interactions.",
-  "purpose": "Handles retrieval and management of service codes including localization.",
-  "entities": ["ServiceCode", "ServiceCodes"],
+  "summary": "Defines the ServiceCode class and related methods for retrieving service codes from the database.",
+  "purpose": "To manage service codes that categorize and describe services within HSPnet.",
+  "entities": [],
   "fields": ["ID", "CodeCategoryID", "ShortName", "Name", "SortOrder", "Notes", "NameAlt", "NotesAlt"],
   "actors": [],
-  "workflows": [
-    {
-      "name": "FetchServiceCodes",
-      "steps": ["Execute ServiceCodeListAll stored procedure", "Read data with localization"]
-    }
-  ],
-  "business_rules": ["Localization based on session settings"],
+  "workflows": [],
+  "business_rules": [],
   "validations": [],
   "calculations": [],
   "conditions": [],
   "system_behavior": [],
-  "dependencies": [],
+  "dependencies": ["System.Data.SqlClient", "HSPnet.Framework"],
   "exceptions": [],
   "source_document_ids": ["94f1b055-348d-508a-ae6e-cf7960a8c6a2", "e4ebe4b4-6d14-5c3f-b693-61016f765239", "f976b9af-a402-540f-b162-391d578fac7c"],
   "content_gaps": []
