@@ -1,0 +1,130 @@
+{
+  "filename": "RptMnuPlcSch_PlcSchedule",
+  "found": true,
+  "summary": "RptMnuPlcSch_PlcSchedule is a web user control that manages the generation of Placement Schedule reports via a configurable report menu. Its UI and backend logic allow users to select cohort, course, department, program, and term, along with options for sorting, inclusion criteria, and output format for the schedules.",
+  "purpose": "To enable users (with appropriate session context) to generate Placement Schedule reports with flexible options regarding included requests, departments/programs/terms, PDF output formats, and the inclusion of students, amendments, and shift schedules.",
+  "entities": [
+    "Department",
+    "Program",
+    "Term",
+    "Cohort",
+    "Course",
+    "Instructor",
+    "Request",
+    "Placement Schedule",
+    "PrintJobs",
+    "UserSession"
+  ],
+  "fields": [
+    "ValidationSummary1",
+    "Label5",
+    "ltlDescription",
+    "Label6",
+    "ltlOptions",
+    "radAcceptedConfirmedRequests",
+    "radALLRequestsExceptDecl",
+    "chkIncludeStudent",
+    "Label4",
+    "chkIncludeAmendments",
+    "chkIncludeShiftSchedule",
+    "lblInstructor",
+    "CustomValidator1",
+    "CustomValidator2",
+    "cmdRunReport",
+    "Literal5",
+    "ddTerm",
+    "lblCohortsCourses",
+    "UCchoosers",
+    "Label1",
+    "radSortbyInstructor",
+    "radSortbyDestination",
+    "Label2",
+    "Label3",
+    "radConfirmedRequestsOnly",
+    "radSinglePDFFile",
+    "radSinglePDFFilePageBreak",
+    "lblInstructors",
+    "radIndividualPDFfile",
+    "ddDepartment",
+    "Literal2",
+    "Literal3",
+    "ddProgram"
+  ],
+  "actors": [
+    "User (with HSPnetSession)",
+    "Course Leader (can filter by own courses)",
+    "ScriptManager"
+  ],
+  "workflows": [
+    {
+      "name": "Placement Schedule Report Generation",
+      "steps": [
+        "Page_Load initializes labels and error messages.",
+        "Page_PreRender loads descriptions and options from code records, sets up JavaScript, and populates dropdowns.",
+        "User interacts with department/program/term dropdowns, triggering FillDepartmentDropdown, FillProgramDropdown, FillTermDropdown.",
+        "User selects inclusion options: confirmed, accepted, all except declined/canceled.",
+        "User selects sorting options: by instructor or destination.",
+        "User sets PDF output options (single file, page break, individual files).",
+        "User chooses whether to include students, amendments, and shift schedules.",
+        "User clicks 'Run Report' button (cmdRunReport), which triggers PrintJobs.ReportMenuPlacementSchedule with all specified parameters.",
+        "JavaScript setup manages client-side variables for UI consistency."
+      ]
+    }
+  ],
+  "business_rules": [
+    "SortOptions: 0 for instructor, 1 for destination.",
+    "IncludeOption: 0 is confirmed only, 1 is accepted, 2 is all except declined/canceled.",
+    "BreakOption: 0 is single PDF, 1 is single PDF with page breaks, 2 is individual PDF files.",
+    "Dropdowns are populated based on user session and agency/program/department permissions.",
+    "Course Leader Only filter applies if UserSession.CourseLeaderOnly is true."
+  ],
+  "validations": [
+    "CustomValidator1 and CustomValidator2 enforce report creation limitations and display dynamic error messages.",
+    "ValidationSummary1 aggregates validation messages for user awareness.",
+    "Maximum inclusion items checked via PrintJobs.MAX_INCLUDE_ITEMS."
+  ],
+  "calculations": [
+    "JavaScript variables are defined for maximum inclusion items and label client IDs for use in client-side scripting.",
+    "IncludeOption, SortOptions, BreakOption all calculated based on user input and controlled radio/check boxes."
+  ],
+  "conditions": [
+    "Dropdowns are filled only if user session exists and corresponding item counts are low.",
+    "Program dropdown is populated after department dropdown is changed.",
+    "Term dropdown is populated after program dropdown is changed.",
+    "Report is not generated if maximum inclusion items exceeded."
+  ],
+  "system_behavior": [
+    "Auto-generates fields, labels, and controls in the user control.",
+    "Handles async postbacks for JavaScript initialization.",
+    "Binds NotIncludedList and IncludedList for course/timetable selection.",
+    "Executes PrintJobs.ReportMenuPlacementSchedule to generate report output as per user configuration."
+  ],
+  "dependencies": [
+    "HSPnetSession for user context.",
+    "Dropdown for ID selection.",
+    "PrintJobs for report generation.",
+    "Departments, Programs, Terms for populating dropdowns.",
+    "ScriptManager for client script registration."
+  ],
+  "exceptions": [
+    "Report will not be generated if CustomValidator2 fails due to exceeding maximum inclusion items.",
+    "Dropdowns may not fill if data requirements (session, item count) are unmet."
+  ],
+  "source_document_ids": [
+    "32e4a4fa-9803-55fa-8854-b483c084a993",
+    "66fbe5aa-e372-5ddf-88ba-28bdf8ae0ece",
+    "7b297401-c2de-5a44-839c-07ee193d28b4",
+    "80324fa6-95e7-513a-bad3-1937c21159d2",
+    "944b34ab-808d-5b71-aecf-90c2ef20c28a",
+    "a87eac9f-3678-587b-a03c-81687a77d7d4",
+    "b01a35af-a73d-5676-b261-98ebe0f04dea",
+    "b8e8e53a-70b0-5293-9618-1d2670a9a88c",
+    "baad4bf5-b0dd-59ff-8c45-b165bae6126e",
+    "e92c83b1-2245-5975-afac-df18de15d94e",
+    "f1c5f911-83ee-5dd0-ba06-07ddb91298a9"
+  ],
+  "content_gaps": [
+    "No explicit sample data, no UI layout details, no full error handling pathways, no underlying database schema or entity relationships beyond dropdown population logic.",
+    "Limited information on how UCchoosers (NotIncludedList/IncludedList) is structured and how PrintJobs generates actual report content."
+  ]
+}
