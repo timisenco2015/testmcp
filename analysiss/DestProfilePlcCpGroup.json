@@ -1,0 +1,60 @@
+{
+  "filename": "DestProfilePlcCpGroup",
+  "found": true,
+  "summary": "The content pertains to a web control class 'DestProfilePlcCpGroup' used within a .NET framework for handling destination capacity profiles in a user interface. It includes various controls such as labels, hyperlinks, repeaters, and data sources that facilitate interaction and data presentation. The workflow highlights user session management, data binding, control visibility based on conditions, and user interface behavior.",
+  "purpose": "The primary purpose of 'DestProfilePlcCpGroup' is to manage and display information related to destination capacity profiles, facilitate data operations like select and delete, and control user interface elements' visibility within a web application.",
+  "entities": [],
+  "fields": [
+    "lblCapacityInfo",
+    "htReportWizardAdd",
+    "rprDestCapGroup",
+    "dsDestCapGroup"
+  ],
+  "actors": [
+    "UserSession"
+  ],
+  "workflows": [
+    {
+      "name": "User Interface Control Management",
+      "steps": [
+        "Initialize user session and check screen access.",
+        "Manage control visibility based on user role and interface state.",
+        "Handle item data binding and update UI elements accordingly.",
+        "Perform command actions like delete operation and update session cache."
+      ]
+    }
+  ],
+  "business_rules": [],
+  "validations": [
+    "Check if UserSession is null to cancel data selection.",
+    "Ensure user role permissions before allowing interface interactions."
+  ],
+  "calculations": [],
+  "conditions": [
+    "ItemType is ListItemType.Item or ListItemType.AlternatingItem for certain operations.",
+    "ContextDisciplineID should be checked for literal text generation.",
+    "Visibility attributes depend on user session and screen editability."
+  ],
+  "system_behavior": [
+    "Controls like hyperlinks and buttons adjust visibility based on 'blnGridReadOnly'.",
+    "Session queries and destination management linked with user roles.",
+    "Data items are configured to respond to context discipline changes."
+  ],
+  "dependencies": [
+    "HSPnetSession for session data",
+    "User controls and data source binding to user session and destination ID"
+  ],
+  "exceptions": [
+    "Cancel data operations if UserSession is not initialized."
+  ],
+  "source_document_ids": [
+    "011885f5-9b9b-576a-9f35-2a75b4e4a7db",
+    "36e02f28-1236-5965-813c-df87c4a12ab5",
+    "6ab2bec2-4688-510b-a88d-c9c2c2a15cc7",
+    "99605f70-120e-52b3-8a3d-f12c13d8e654",
+    "aaa3f1a5-8747-55ac-a29d-16954d142731",
+    "baad0042-449e-599c-acd4-0c12f2b3897b",
+    "dae32e8f-786a-5942-b7e2-336bd4aa0ccc"
+  ],
+  "content_gaps": []
+}
