@@ -1,85 +1,55 @@
 {
   "filename": "StudentQualifications",
   "found": true,
-  "summary": "The StudentQualifications component is a user control for managing student qualifications within a web application. It provides functionalities for viewing, editing, inserting, and deleting student qualifications using a grid interface with associated data sources.",
-  "purpose": "To facilitate the management of student qualifications within the application by providing a user-friendly interface for interacting with qualification data.",
+  "summary": "The StudentQualifications control is a user interface component for managing and displaying student qualifications within a web application. It allows for adding, editing, and deleting qualifications associated with a student. The control interacts with the ObjectDataSource components for data operations and uses GridView for displaying data. It includes functionality for handling user sessions and utilizes ASP.NET web forms components.",
+  "purpose": "To provide a user interface for managing student qualifications, allowing users to view, add, edit, or delete qualifications associated with a student.",
   "entities": [],
   "fields": [
-    {
-      "name": "StudentID",
-      "type": "int",
-      "description": "Identifies the student for whom the qualifications are being managed."
-    },
-    {
-      "name": "UserSession",
-      "type": "HSPnetSession",
-      "description": "Represents the current user session for maintaining session-specific data."
-    },
-    {
-      "name": "qualificationCodeID",
-      "type": "string",
-      "description": "The code identifier for the qualification, selected from a dropdown list."
-    },
-    {
-      "name": "authorityCodeID",
-      "type": "string",
-      "description": "The code identifier for the authority granting the qualification, selected from a dropdown list."
-    },
-    {
-      "name": "countryCodeID",
-      "type": "string",
-      "description": "The code identifier for the country of the qualification, selected from a dropdown list."
-    }
+    "StudentID",
+    "ScreenIsEditable",
+    "ReadOnly"
   ],
   "actors": [
-    {
-      "name": "User",
-      "description": "Interacts with the system to manage student qualifications."
-    }
+    "UserSession",
+    "Grid",
+    "Page",
+    "Response",
+    "Dropdown",
+    "Resources"
   ],
   "workflows": [
     {
-      "name": "Manage Student Qualifications",
+      "name": "Managing Student Qualifications",
       "steps": [
-        "Display existing qualifications in a grid.",
-        "Allow editing of qualifications if the screen is editable.",
-        "Provide options to add new qualifications.",
-        "Handle deletion of qualifications through a command interface.",
-        "Redirect after adding or updating a qualification."
+        "Handle Data Binding.",
+        "Select qualifications data with session and student ID.",
+        "Bind GridView with data and set up add/edit/delete buttons based on permissions.",
+        "Handle row commands for adding, editing, and deleting qualifications.",
+        "Handle inserting and updating items with proper validations.",
+        "Redirect after successful operations."
       ]
     }
   ],
   "business_rules": [
-    "The user session must exist for qualification data operations to proceed.",
-    "The grid must be editable for the user to add or edit qualifications."
+    "Cancel operation if user session is not valid.",
+    "Set input parameters for data operations based on user session and student ID."
   ],
   "validations": [
-    {
-      "condition": "Page.IsValid",
-      "action": "Prevents insertion or update if the page is not valid."
-    }
+    "Cancel operation if the page is not valid during inserting or updating.",
+    "Select values from dropdowns for fields qualificationCodeID, authorityCodeID, and countryCodeID."
   ],
   "calculations": [],
   "conditions": [
-    {
-      "condition": "ScreenIsEditable",
-      "action": "Determines whether the add and edit buttons are visible."
-    },
-    {
-      "condition": "ReadOnly",
-      "action": "Determines if the edit and delete buttons are enabled."
-    }
+    "Check if the screen is editable to determine visibility of buttons.",
+    "Handle row types in GridView for setting up buttons."
   ],
   "system_behavior": [
-    "Redirects the user after inserting or updating an item.",
-    "Disables edit fields if the screen is not editable."
+    "Data is bound to controls and operations are performed based on session validity.",
+    "Grid data is processed for displaying messages and handling no data scenarios.",
+    "Details are shown or hidden in modals based on user actions and command types."
   ],
-  "dependencies": [
-    "HSPnetSession to maintain user session details across operations."
-  ],
-  "exceptions": [
-    "Cancel data operations if Page.IsValid is false."
-  ],
+  "dependencies": [],
+  "exceptions": [],
   "source_document_ids": [
     "09ce27fe-3be9-5c03-a6b4-222db63d2aea",
     "10de9de8-337a-5f73-baf6-074ae6edf92a",
