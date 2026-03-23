@@ -1,88 +1,198 @@
 {
   "filename": "WorksheetAssignStudentsEditAll",
   "found": true,
-  "summary": "The WorksheetAssignStudentsEditAll is a web application page designed for assigning students within a worksheet framework. It handles complex assignments using various criteria such as department, program, cohort, term, and course parameters. The page allows for sorting and filtering of assignments and provides functionalities for editing and confirming student assignments.",
-  "purpose": "To facilitate the assignment and editing of student placements across various educational programs and terms.",
+  "summary": "The WorksheetAssignStudentsEditAll class is part of the HSPnet framework and is responsible for managing the assignment of students through a web-based interface. It includes functionalities for editing and sorting assignments, handling user preferences and prerequisites, and displaying various student assignment options.",
+  "purpose": "To facilitate the management and assignment of students within academic workflows, providing functionalities for editing, sorting, and managing assignment details, preferences, and prerequisites through a web-based interface.",
   "entities": [
-    "WorksheetAssignSearchCriteria",
-    "WorksheetAssignedStudent",
-    "WorksheetGroup",
-    "UserSession"
+    {
+      "name": "WorksheetAssignStudentsEditAll",
+      "type": "Class",
+      "description": "Represents a web-based interface for managing student assignments."
+    },
+    {
+      "name": "WorksheetAssignedStudent",
+      "type": "Class",
+      "description": "Represents a student assigned to a worksheet."
+    },
+    {
+      "name": "WorksheetAssignSearchCriteria",
+      "type": "Class",
+      "description": "Criteria used to search and filter student assignments."
+    }
   ],
   "fields": [
-    "_groupFlag",
-    "_departmentID",
-    "_programID",
-    "_cohortID",
-    "_termID",
-    "_courseID",
-    "_showConfirmed",
-    "_block",
-    "_assignmentSortOrder",
-    "_sort",
-    "_asc",
-    "_section",
-    "_campusID",
-    "_showPreferences",
-    "_showSitePrerequisites",
-    "_searchCriteria",
-    "_useCFO",
-    "_cfoMode",
-    "_courseUsesBlocks",
-    "_startRow",
-    "_totalCount",
-    "_keyword",
-    "_editFlag"
+    {
+      "name": "_groupFlag",
+      "type": "boolean",
+      "description": "Indicates whether grouping is enabled."
+    },
+    {
+      "name": "_departmentID",
+      "type": "integer",
+      "description": "The ID of the department."
+    },
+    {
+      "name": "_programID",
+      "type": "integer",
+      "description": "The ID of the program."
+    },
+    {
+      "name": "_cohortID",
+      "type": "integer",
+      "description": "The ID of the cohort."
+    },
+    {
+      "name": "_termID",
+      "type": "integer",
+      "description": "The ID of the term."
+    },
+    {
+      "name": "_courseID",
+      "type": "integer",
+      "description": "The ID of the course."
+    },
+    {
+      "name": "_showConfirmed",
+      "type": "boolean",
+      "description": "Indicates whether confirmed assignments are shown."
+    },
+    {
+      "name": "_showPreferences",
+      "type": "boolean",
+      "description": "Indicates whether student preferences are shown."
+    },
+    {
+      "name": "_showSitePrerequisites",
+      "type": "boolean",
+      "description": "Indicates whether site prerequisites are shown."
+    },
+    {
+      "name": "_assignmentSortOrder",
+      "type": "string",
+      "description": "The order of sorting assignments."
+    },
+    {
+      "name": "_sort",
+      "type": "string",
+      "description": "The sorting criteria."
+    },
+    {
+      "name": "_asc",
+      "type": "boolean",
+      "description": "Indicates if sorting is in ascending order."
+    },
+    {
+      "name": "_section",
+      "type": "string",
+      "description": "The section information."
+    },
+    {
+      "name": "_campusID",
+      "type": "integer",
+      "description": "The ID of the campus."
+    },
+    {
+      "name": "_useCFO",
+      "type": "boolean",
+      "description": "Indicates if CFO mode is used."
+    },
+    {
+      "name": "_cfoMode",
+      "type": "integer",
+      "description": "The mode of CFO operation."
+    },
+    {
+      "name": "_courseUsesBlocks",
+      "type": "boolean",
+      "description": "Indicates whether the course uses blocks."
+    },
+    {
+      "name": "_startRow",
+      "type": "integer",
+      "description": "The starting row index for pagination."
+    },
+    {
+      "name": "_totalCount",
+      "type": "integer",
+      "description": "Total count of records."
+    },
+    {
+      "name": "_keyword",
+      "type": "string",
+      "description": "Keyword for searching."
+    },
+    {
+      "name": "_editFlag",
+      "type": "boolean",
+      "description": "Indicates if the page is in edit mode."
+    },
+    {
+      "name": "dsMaster",
+      "type": "ObjectDataSource",
+      "description": "Data source for master data retrieval."
+    },
+    {
+      "name": "gridDataEdit",
+      "type": "GridView",
+      "description": "GridView for editing assignment data."
+    }
   ],
   "actors": [
-    "UserSession",
-    "Admin/Editor"
+    {
+      "name": "User",
+      "role": "Interact with worksheet assignments through the web interface."
+    },
+    {
+      "name": "Admin",
+      "role": "Manage assignment settings and review criteria."
+    }
   ],
   "workflows": [
     {
-      "name": "ManageStudentAssignments",
+      "name": "Assignment Editing and Saving",
       "steps": [
-        "Page_Load: Set up page and retrieve query parameters",
-        "SearchWorksheetAssignStudents: Search and bind data based on criteria",
-        "gridDataEdit_RowDataBound: Bind row data for assignment editing",
-        "gridDataEdit_RowCommand: Handle commands like saving edits",
-        "SaveWorksheetGroup: Save assignment changes to the database",
-        "Page_PreRender: Process page messages",
-        "Page_UnLoad: Finish session tasks"
+        "Load assignment data.",
+        "Allow user to edit and save changes.",
+        "Display appropriate messages based on actions."
+      ]
+    },
+    {
+      "name": "Filtering with Search Criteria",
+      "steps": [
+        "Retrieve search criteria.",
+        "Filter assignment data based on criteria.",
+        "Display filtered results."
       ]
     }
   ],
   "business_rules": [
-    "Assignments can be confirmed or edited based on the current session's permissions.",
-    "Sorting and filtering are available based on various assignment parameters.",
-    "Session variables determine display configurations and sorting order."
+    "Assignments cannot be confirmed after being accepted.",
+    "Assignments cannot be confirmed if prerequisites are not met."
   ],
   "validations": [
-    "Ensure UserSession is valid before proceeding with data operations.",
-    "Validate query string parameters before using them."
+    "Ensure that user session is active before performing operations.",
+    "Validate cohort, term, and course IDs before displaying data."
   ],
   "calculations": [
-    "Determine start row and page size based on data count and edit mode.",
-    "Calculate pagination based on total count and page size."
+    "Calculate total count of records based on pagination settings."
   ],
   "conditions": [
-    "Display panels based on session variables and user actions.",
-    "Handle different assignment sort orders like ASSD, StartDate, etc.",
-    "Determine visibility of blocks based on course settings."
+    "Display assignments only if user session is valid.",
+    "Toggle display of blocks based on course settings."
   ],
   "system_behavior": [
-    "Loads JavaScript required for assignment functionality.",
-    "Handles asynchronous updates and maintains session integrity."
+    "Opens appropriate page based on session variables and query strings.",
+    "Shows or hides UI elements based on assignment and confirmation status."
   ],
   "dependencies": [
-    "SessionConstants",
-    "WorksheetGroups",
-    "Resources",
-    "HSPnet framework and components"
+    "HSPnet.Framework",
+    "HSPnet.DataLayer",
+    "System.Web.UI.WebControls",
+    "AjaxControlToolkit"
   ],
   "exceptions": [
-    "Handle missing or invalid session scenarios.",
-    "Provide warnings and errors for data integrity issues."
+    "Handle data binding exceptions gracefully.",
+    "Log and display errors related to session or data retrieval issues."
   ],
   "source_document_ids": [
     "0fd56451-7a7a-514b-8562-e05661f7da8b",
@@ -92,7 +202,6 @@
     "3332ab47-aa05-5a62-a96e-01d828e95ba0",
     "335d5584-8fb5-5cf7-9eac-a9c7565713e6",
     "4129de3d-73f9-5442-a1b5-14207df2dfc1",
-    "41680f7e-3423-5c75-ace0-6e48b911401d",
     "531f0772-39a4-52a4-864f-97a6a4197163",
     "5a633baa-c86b-5f26-8e57-26d2a5a3493d",
     "60806c46-224d-540d-8bb9-23676b57cfa4",
@@ -100,6 +209,7 @@
     "684c52dd-5527-5cc8-b1cf-88936baa0acd",
     "69a505b9-2d46-54f5-932e-9e23fe54f5f2",
     "741c2cd0-01d0-5ce1-914f-d6e555276f70",
+    "7fa0fa59-2303-5ca6-8b11-35b5ea134e65",
     "875b4446-0fca-5db0-98c9-8b00a0e8f792",
     "965409db-88cb-595b-8b25-7d471a50e74e",
     "99fc0f70-794d-5412-8c97-d48ce9e14de6",
