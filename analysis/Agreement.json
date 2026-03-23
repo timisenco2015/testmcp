@@ -1,0 +1,198 @@
+{
+  "filename": "Agreement",
+  "found": true,
+  "summary": "The Agreement module implements the data structures and operations for managing agreements, templates, and their workflows in a system. It enables searching, listing, creating, updating, and deleting agreement records, including template and content user associations. The module manages display logic for agreement templates and history, supports workflow grouping, and integrates business rules around access, status, and content authorship.",
+  "purpose": "To provide comprehensive management and workflow for agreements including templates, statuses, content authors, agency associations, expiration, review scheduling, and historical tracking within the system.",
+  "entities": [
+    "Agreement",
+    "ItemList",
+    "CodeRecord"
+  ],
+  "fields": [
+    "ID",
+    "DescriptionCodeID",
+    "TemplateID",
+    "StatusCodeID",
+    "NextSteps",
+    "SourceIsTemplate",
+    "TemplateUnchanged",
+    "OtherSourceCodeID",
+    "LastUpdated",
+    "LastReview",
+    "NextReview",
+    "ContentUserID1",
+    "ContentUserID2",
+    "ContentUserID3",
+    "StatusChangeText",
+    "AppliedAllDepartments",
+    "AppliedAllPrograms",
+    "AppliedAllSites",
+    "AppliedAllServices",
+    "AppliedAllDestinations",
+    "StatusComments",
+    "PRDID",
+    "Printed",
+    "Deleted",
+    "ExpiryDate",
+    "PRComments",
+    "InsertPRComments",
+    "Ref",
+    "TypeID",
+    "RAPAID",
+    "Type",
+    "AADescription",
+    "AgencyAppliedTo",
+    "SiteAppliedTo",
+    "ProgAppliedTo",
+    "StatusDescription",
+    "IsStatusSubscriber",
+    "AgreementExists",
+    "Inactive",
+    "SiteListing",
+    "OtherSourceDescription",
+    "AppliedAllDepartmentsFormatted",
+    "AppliedAllProgramsFormatted",
+    "AppliedAllSitesFormatted",
+    "AppliedAllServicesFormatted",
+    "AppliedAllDestinationsFormatted",
+    "LastUpdatedFormatted",
+    "LastReviewFormatted",
+    "NextReviewFormatted",
+    "ExpiryDateFormatted",
+    "TemplateNavigateUrl",
+    "TemplateImageUrl",
+    "TemplateToolTip",
+    "HistoryNavigateUrl",
+    "HistoryImageUrl",
+    "HistoryToolTip",
+    "StatusSubscriberImageUrl",
+    "StatusSubscriberToolTip",
+    "btnToggleClientClick",
+    "ShowMinus",
+    "DetailType",
+    "Detail"
+  ],
+  "actors": [
+    "HSPnetSession",
+    "Content Users",
+    "Agency Users"
+  ],
+  "workflows": [
+    {
+      "name": "Agreement Search Template",
+      "steps": [
+        "Call agreement search procedure with parameters for template and status filtering",
+        "Iterate through results, build Agreement objects",
+        "Manage template display, edit and history logic based on access and status",
+        "Group agreements by type and description",
+        "Return list and group metadata"
+      ]
+    },
+    {
+      "name": "Agreement Creation",
+      "steps": [
+        "Call AgreementAdd procedure with session and agreement metadata",
+        "Read returned AgreementID",
+        "Return new Agreement record"
+      ]
+    },
+    {
+      "name": "Agreement Update",
+      "steps": [
+        "Call AgreementUpdate procedure with session, agreement ID, review date, status, content authors, and other fields",
+        "Execute update"
+      ]
+    },
+    {
+      "name": "Agreement Delete",
+      "steps": [
+        "Call AgreementDelete procedure with session and agreement ID",
+        "Execute deletion"
+      ]
+    },
+    {
+      "name": "Agreement Listing",
+      "steps": [
+        "Call AgreementSearchAgreement procedure with filters for status, type, description, etc.",
+        "Iterate through results, build Agreement objects",
+        "Format fields for display"
+      ]
+    },
+    {
+      "name": "Agreement Grouping",
+      "steps": [
+        "Identify group headers",
+        "Track start and end index per group",
+        "Set client toggle click logic",
+        "Build group metadata string"
+      ]
+    },
+    {
+      "name": "Content Author and Agency Listing",
+      "steps": [
+        "Fetch appropriate content user lists based on agency and agreement parameters",
+        "Build ItemList objects"
+      ]
+    }
+  ],
+  "business_rules": [
+    "Only CA users can access or list agreements from other agencies",
+    "Inactive agreements use alternate display imaging and tooltip",
+    "Template records existence and edit permissions control available actions",
+    "Status subscriber field controls display of subscription imagery and tooltips",
+    "Expiry and review dates are conditionally formatted"
+  ],
+  "validations": [
+    "Check agreement type and description IDs when creating or updating",
+    "Validate user permissions for editing, viewing, and deleting",
+    "Formatting checks for date fields"
+  ],
+  "calculations": [
+    "Format dates for display",
+    "Color code expired agreements",
+    "Toggle client click logic for groupings"
+  ],
+  "conditions": [
+    "AgreementExists=true: show template and history, else edit or invisible depending on user rights",
+    "Inactive: special image and tooltip shown",
+    "DisplayDate==2 and LastUpdated<DateTime.Today: show date in red"
+  ],
+  "system_behavior": [
+    "Retrieves, creates, updates, and deletes agreements via stored procedures",
+    "Builds agreement, template, and history URLs for UI navigation",
+    "Groups agreements by type and description",
+    "Formats display based on status, template existence, and inactivity"
+  ],
+  "dependencies": [
+    "HSPnetSession",
+    "SqlDataReader",
+    "Resources (App_GlobalResources)",
+    "DateFormatter",
+    "QueryString"
+  ],
+  "exceptions": [
+    "If agreement record does not exist, disables editing and history actions",
+    "If agency user lacks permission, restricts visibility of certain agreements"
+  ],
+  "source_document_ids": [
+    "ab02f0fe-64a1-50ae-9817-49e2ea01f820",
+    "b13ec003-a70a-5232-87ba-00c851d73e6c",
+    "4d0ef014-7317-5b4c-a4f6-587459047fa7",
+    "5b6a46c1-b06a-50b1-a02a-47ae2ae590b6",
+    "869ab082-89f6-570e-95e1-6c4d91e50e5f",
+    "1ba6c2bc-e058-582c-85e1-da0f1117a1a5",
+    "70cf9f1b-b2d9-528b-bb1e-c5103c91e4cb",
+    "47f70ad1-b18e-5473-8ebf-54139a777c97",
+    "a27a9ba0-0123-5e16-89fb-06298cc5e3c7",
+    "be77c228-d99c-596b-9485-d9da1c6f0f77",
+    "af126836-92db-5d5d-85b8-1923b5b2c2b3",
+    "de2a08e8-d6bc-5ab3-9c82-2e440b60d63b",
+    "e6c1f06f-4f8d-5387-9611-c0fc85c6d4a3",
+    "efeb4660-bca5-57e3-b5c9-03c0e3a96fd6"
+  ],
+  "content_gaps": [
+    "No explicit UI layout or user interaction details",
+    "No error handling logic for database failures",
+    "No business rule explanations for status transitions"
+  ]
+}
