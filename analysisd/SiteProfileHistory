@@ -1,0 +1,26 @@
+```json
+{
+  "filename": "SiteProfileHistory",
+  "found": true,
+  "summary": "SiteProfileHistory class handles the logging and retrieval of user actions on site profiles.",
+  "purpose": "To maintain a historical log of user actions within site profiles and facilitate auditing.",
+  "entities": ["SiteProfileHistory", "SiteProfileHistories", "Phone", "HSPnetSession", "Database"],
+  "fields": ["ID", "ActionDate", "ScreenSection", "UserAction", "Fields", "Agency", "AgencyName", "LastName", "FirstName", "MiddleName", "Phone", "ByUserID", "ByOriginalUserID", "ByUserSysAdmin"],
+  "actors": ["User", "System Administrator"],
+  "workflows": [
+    {
+      "name": "SiteProfileHistorySearch",
+      "steps": ["Invoke stored procedure with parameters", "Retrieve data using SqlDataReader", "Convert data into list of SiteProfileHistory objects"]
+    }
+  ],
+  "business_rules": [],
+  "validations": ["Check if UserSession is null before proceeding"],
+  "calculations": ["FormatActionDate using DateFormatter", "Generate AgencyUserFormatted field"],
+  "conditions": ["UseAltLanguageFields determines language of ScreenSection, UserAction, and Fields"],
+  "system_behavior": ["Cancel data retrieval if UserSession is null"],
+  "dependencies": ["HSPnet.Framework", "HSPnet.App_GlobalResources", "HSPnet.UI"],
+  "exceptions": ["Data retrieval is canceled if the user session is not active"],
+  "source_document_ids": ["25f89a24-5eda-5a3f-83df-1de69b12b3f1", "26e09292-d304-55c6-94e5-ef3346453c4b", "7ca6b963-9ae9-5cd3-82d5-f30dcb727ae3", "a8f030c6-90b8-53a1-bb8a-3b7ef33b9488", "e806999c-3a39-5720-9b59-303faebc9eb6"],
+  "content_gaps": []
+}
+```
