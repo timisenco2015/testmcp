@@ -1,0 +1,50 @@
+# Module: RptMnuStudentExpenseClaims
+
+## RptMnuStudentExpenseClaims-UC1 — Generate Expense Claims Report
+
+- Primary Actor(s): 
+  - User
+
+- Secondary Actor(s):
+  - System
+
+- Trigger:
+  - User initiates generating an expense claims report.
+
+- Description:
+  - The user generates an expense claims report for a specified date range using the report generation interface.
+
+- Preconditions:
+  - User must be logged into the system.
+  - User must have access to the report generation module.
+
+- Postconditions:
+  - Expense claims report is generated and displayed.
+  - Report can be exported as CSV.
+
+- Main Success Scenario:
+  1. User selects the start date and end date using the provided date input fields.
+  2. User clicks the button to generate the report.
+  3. System validates the input dates.
+  4. System executes the stored procedure `ReportExpenseClaims` with the provided date range.
+  5. System retrieves the report data and generates the report.
+  6. Report is displayed to the user in HTML format.
+  7. User can export the report in CSV format.
+
+- Extensions:
+  - 3a. If input dates are invalid, show validation error messages for corrections. 
+
+- Exceptions:
+  - Database connection failure or execution errors during report generation.
+
+- Business Rules:
+  - Dates must be in valid format according to RegularExpressionValidators.
+
+- Assumptions:
+  - User has necessary permissions for accessing this module.
+  - Date parsing is correctly handled by `DateFormatter.ParseDate`.
+
+- Open Issues:
+  - None identified from the available documentation.  
+
+Note: This use case is derived from the available system controls and functions observed in the retrieved documents.
