@@ -1,11 +1,9 @@
 {
     "filename": "ServiceCode",
     "found": true,
-    "summary": "The ServiceCode class is part of the HSPnet data layer, managing service codes with various attributes and supporting methods for listing and localizing codes.",
-    "purpose": "To manage service codes within the HSPnet system, allowing retrieval and localization based on session parameters.",
-    "entities": [
-        "ServiceCode"
-    ],
+    "summary": "The ServiceCode class provides service code records and manages service code operations using stored procedures.",
+    "purpose": "Provide and manage service code records in the application.",
+    "entities": [],
     "fields": [
         "ID",
         "CodeCategoryID",
@@ -17,7 +15,15 @@
         "NotesAlt"
     ],
     "actors": [],
-    "workflows": [],
+    "workflows": [
+        {
+            "name": "Service Code Retrieval",
+            "steps": [
+                "Execute stored procedure.",
+                "Read data and fill service code objects."
+            ]
+        }
+    ],
     "business_rules": [],
     "validations": [],
     "calculations": [],
