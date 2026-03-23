@@ -1,0 +1,56 @@
+```json
+{
+  "filename": "EmailPopupDocument",
+  "found": true,
+  "summary": "The EmailPopupDocument class handles email document data manipulation, including searching and deletion of email data entries stored within file paths.",
+  "purpose": "To manage email-related document entries, search and delete file paths associated with email data.",
+  "entities": [
+    "EmailPopupDocument"
+  ],
+  "fields": [
+    "ID",
+    "FileName",
+    "FilePath",
+    "Checked"
+  ],
+  "actors": [],
+  "workflows": [
+    {
+      "name": "Search Email Documents",
+      "steps": [
+        "Split DataInfo string by '|' to extract email entries.",
+        "For each entry, split by '>' to get FileName and FilePath.",
+        "Create EmailPopupDocument object for each entry.",
+        "Add objects to list and return."
+      ]
+    },
+    {
+      "name": "Delete Email Document Entry",
+      "steps": [
+        "Split DataInfo string by '|' to extract email entries.",
+        "For each entry, check if the index matches the given ID.",
+        "If matched, split entry by '>' to get FilePath.",
+        "Delete file and its directory, then update return string."
+      ]
+    }
+  ],
+  "business_rules": [],
+  "validations": [],
+  "calculations": [],
+  "conditions": [],
+  "system_behavior": [
+    "Deletes specified email document file and its directory.",
+    "Returns a concatenated string after entry removal."
+  ],
+  "dependencies": [
+    "System.IO",
+    "System.Data.SqlClient"
+  ],
+  "exceptions": [],
+  "source_document_ids": [
+    "7287734e-f13d-550f-9249-4242db620766",
+    "927bc837-5564-5759-9324-27c6d5d7321d"
+  ],
+  "content_gaps": []
+}
+```
