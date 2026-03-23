@@ -1,0 +1,117 @@
+{
+  "filename": "WelcomeDC",
+  "found": true,
+  "summary": "The WelcomeDC file is part of a web application providing a user interface for managing destination coordinators. It contains various user controls, tabs, and panels for handling reports, messages, supervisors, and destinations.",
+  "purpose": "To facilitate navigation and management within the web application, providing structured access to various features and controls related to destination coordination.",
+  "entities": [],
+  "fields": [
+    {
+      "name": "cmdHideErrorPanel",
+      "type": "HtmlInputButton",
+      "description": "Button to hide the error panel."
+    },
+    {
+      "name": "pnlWarning",
+      "type": "Panel",
+      "description": "Panel to display warning messages."
+    },
+    {
+      "name": "lblWarningCaption",
+      "type": "Label",
+      "description": "Label for warning caption."
+    },
+    {
+      "name": "cmdHideWarningPanel",
+      "type": "HtmlInputButton",
+      "description": "Button to hide the warning panel."
+    },
+    {
+      "name": "hlOnlineHelp",
+      "type": "HyperLink",
+      "description": "Link to online help."
+    }
+  ],
+  "actors": [],
+  "workflows": [
+    {
+      "name": "Report Navigation",
+      "steps": [
+        "User clicks on a report tab.",
+        "The application checks which report is selected.",
+        "Loads corresponding data and makes the respective panel visible."
+      ]
+    },
+    {
+      "name": "Error Handling",
+      "steps": [
+        "An error occurs.",
+        "Error panel becomes visible.",
+        "User clicks 'Hide' button to dismiss the error panel."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Ensure the user session is authenticated before loading the page.",
+    "Only show links and panels if the user has appropriate permissions."
+  ],
+  "validations": [
+    {
+      "name": "checkOtherReasonNotes",
+      "description": "Validates that notes are provided when 'Other' reason code is selected."
+    },
+    {
+      "name": "checkStartEnd",
+      "description": "Ensures the start date is earlier than or equal to the end date."
+    }
+  ],
+  "calculations": [],
+  "conditions": [
+    "If MultiViewReports.ActiveViewIndex is 0, LoadDestPlcSchedule is called.",
+    "If MultiViewReports.ActiveViewIndex is 1, LoadStaffListDC is called."
+  ],
+  "system_behavior": [
+    "Panels are only visible when their corresponding tab is active.",
+    "System uses client-side scripts for interactive elements like date resetting."
+  ],
+  "dependencies": [
+    "UserSession object for maintaining user state and permissions.",
+    "AjaxControlToolkit for UI components like TabPanel."
+  ],
+  "exceptions": [
+    "Redirect to default page if UserSession is null during logout."
+  ],
+  "source_document_ids": [
+    "0b2388fa-0cd6-57f3-ae2e-617d14343308",
+    "0cbe2683-db49-567d-b095-ddd242fd357f",
+    "1b6e2541-79b0-5184-b3ac-c337a163da74",
+    "21842c93-1187-58d7-b80c-e23926d538e8",
+    "2872c4f4-e710-5843-a23c-16da2730bc4f",
+    "2f9a0e69-c106-5e58-aea9-c6713bf8dc1d",
+    "3345a0cd-4bad-5367-b1ed-ba2d3c471598",
+    "350ea2e3-ca39-57b2-bf8d-27727efc3461",
+    "39598a94-e712-5fa3-806d-97e60b5a4a3a",
+    "3a19584c-a9e9-56ca-bab8-3c99a3b65413",
+    "414fc072-2046-5fc3-aa71-0cd2370e9e08",
+    "43939665-d7a4-58c0-b59c-c7ff6a8a506b",
+    "49ce6117-85ec-589f-8301-c3f0907a3857",
+    "4a353dc7-5639-505f-9f23-831aa954fc99",
+    "51f3c929-6a3d-54ef-aaa9-fb420fab70a2",
+    "5228ae7a-5e45-5354-8f42-c05ef442b793",
+    "5ccf70dc-9095-50a9-bfd3-9fdd46aa9c98",
+    "630f4357-165d-5681-a481-8374d862ab77",
+    "74765eb9-ffaa-53de-ad2d-44e8f9858d0f",
+    "752c2672-2a61-5178-84c3-b02b9d6b7202",
+    "94d773f2-4caf-5d74-8871-bcebdd68a678",
+    "a32c2c28-ba66-5192-b8c9-34183980c40a",
+    "b5df8fc7-f9ab-5c92-bc6b-0b6f6b025550",
+    "bb4baae7-6256-5f84-8475-934060abafaf",
+    "bc28bdaa-0fae-56ed-ad6a-e2ae52559a34",
+    "c8f38005-2ba6-5d51-ac77-5ea1a630430f",
+    "c90d5b16-6b62-5802-bbf3-68cec98b90f6",
+    "cfb04536-bce5-55c0-9c93-ceb672942362",
+    "d7d2ad8d-39a7-590a-afde-b911d20bc7a0",
+    "dc3e486a-2832-5d4a-b665-f397b6145d91",
+    "e60c111f-3c45-5df3-b0a2-786a11d3e8e5"
+  ],
+  "content_gaps": []
+}
