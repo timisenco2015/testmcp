@@ -1,79 +1,59 @@
 {
   "filename": "MaintAltUsers",
   "found": true,
-  "summary": "The document is a web page related to maintaining alternate user logins in a system called HSPnet. It involves managing user alternate logins associated with agencies and departments.",
-  "purpose": "To manage and maintain alternate user logins that are associated with different agencies and departments within the HSPnet system.",
+  "summary": "The MaintAltUsers file is part of the HSPnet application and is responsible for managing alternate user logins. It involves a web page and associated server-side logic for displaying, editing, and managing alternate logins for users.",
+  "purpose": "To provide a user interface for maintaining alternate logins, allowing the creation, editing, and deletion of alternate login entries for users within the HSPnet system.",
   "entities": [],
   "fields": [
-    {
-      "name": "Agency",
-      "type": "string"
-    },
-    {
-      "name": "Department",
-      "type": "string"
-    },
-    {
-      "name": "NameFormatted",
-      "type": "string"
-    },
-    {
-      "name": "AU_ID",
-      "type": "integer"
-    },
-    {
-      "name": "AgencyID",
-      "type": "integer"
-    },
-    {
-      "name": "DepartmentID",
-      "type": "integer"
-    },
-    {
-      "name": "AlternateUserID",
-      "type": "integer"
-    },
-    {
-      "name": "StaffID",
-      "type": "integer"
-    }
+    "AgencyID",
+    "DepartmentID",
+    "AlternateUserID",
+    "StaffID",
+    "AU_ID",
+    "NameFormatted"
   ],
   "actors": [
-    "User",
-    "System Administrator"
+    "System Administrator",
+    "User"
   ],
   "workflows": [
     {
       "name": "Manage Alternate User Logins",
       "steps": [
-        "Load the MaintAltUsers page.",
-        "Validate URL hash for security.",
-        "Display a grid of existing alternate user logins.",
-        "Allow editing, adding, or deleting records via grid actions.",
-        "Manage data through a FormView for detailed entry."
+        "Navigate to the MaintAltUsers page.",
+        "View a list of alternate user logins.",
+        "Add a new alternate login using the provided form.",
+        "Edit an existing alternate login.",
+        "Delete an alternate login."
       ]
     }
   ],
   "business_rules": [
-    "Screen is editable only if the user is a system administrator."
+    "Only system administrators can edit alternate logins.",
+    "Alternate logins must be unique for a user."
   ],
   "validations": [
-    "Ensure that the alternate login field ddStaff is specified."
+    "Mandatory fields such as Alternate_Login must be specified.",
+    "Valid user ID and alternate user ID should be provided."
   ],
   "calculations": [],
   "conditions": [
-    "If no data is found, display a message and offer an add button."
+    "Screen is editable only if the user is a system administrator."
   ],
   "system_behavior": [
-    "Displays errors and warnings in respective panels.",
-    "Handles CRUD operations on user alternate logins."
+    "On page load, setup page and validate URL hash.",
+    "Populate details in the form when editing.",
+    "Use AJAX controls to dynamically update sections without full page reload."
   ],
   "dependencies": [
-    "Users data layer",
+    "HSPnet.UI",
     "HSPnet.DataLayer",
-    "HSPnet.UI"
+    "HSPnet.Framework",
+    "AjazControlToolkit"
   ],
-  "exceptions": [],
+  "exceptions": [
+    "Show error panel for any errors encountered in operations."
+  ],
   "source_document_ids": [
     "04235841-30cc-5773-b01e-14aaa968168c",
     "0f63ea0a-5b85-5032-a03b-f4c4aa33d1e4",
