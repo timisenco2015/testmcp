@@ -1,45 +1,22 @@
 {
   "filename": "SiteProfileHistory",
   "found": true,
-  "summary": "Handles historical data management for site profiles within the HSPnet system.",
-  "purpose": "To track changes made to site profiles over time.",
-  "entities": [
-    "SiteProfileHistory",
-    "SiteProfileHistories"
-  ],
-  "fields": [
-    "ID",
-    "ActionDate",
-    "ScreenSection",
-    "UserAction",
-    "Fields",
-    "Agency",
-    "AgencyName",
-    "LastName",
-    "FirstName",
-    "MiddleName",
-    "Phone",
-    "ByUserID",
-    "ByOriginalUserID",
-    "ByUserSysAdmin"
-  ],
-  "actors": [],
+  "summary": "Tracks changes and actions within site profiles.",
+  "purpose": "Record and manage historical actions related to site profiles.",
+  "entities": ["SiteProfileHistory"],
+  "fields": ["ID", "ActionDate", "ScreenSection", "UserAction", "Fields", "Agency", "AgencyName", "LastName", "FirstName", "MiddleName", "Phone", "ByUserID", "ByOriginalUserID", "ByUserSysAdmin"],
+  "actors": ["Site User"],
   "workflows": [
     {
-      "name": "Site Profile History Search",
-      "steps": [
-        "Initiate search procedure",
-        "Retrieve and format site profile history data"
-      ]
+      "name": "Search Site Profile History",
+      "steps": ["Set procedure to SiteProfileHistorySearch", "Add parameters", "Return history"]
     }
   ],
-  "business_rules": [
-    "Format name and user actions based on system settings"
-  ],
+  "business_rules": [],
   "validations": [],
   "calculations": [],
   "conditions": [],
-  "system_behavior": [],
+  "system_behavior": ["Provide formatted agency user details", "Track screen section and user action"],
   "dependencies": [],
   "exceptions": [],
   "source_document_ids": [
