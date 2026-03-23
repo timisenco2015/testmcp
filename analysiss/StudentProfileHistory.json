@@ -1,56 +1,67 @@
 {
   "filename": "StudentProfileHistory",
   "found": true,
-  "summary": "The StudentProfileHistory file handles the display and management of student profile history. It supports different modes including cohort and non-cohort views and includes functionality for filtering and displaying different types of records such as evaluations, HR information, and enrollment details.",
-  "purpose": "To manage and display the history of student profiles, including cohort and non-cohort information.",
+  "summary": "The StudentProfileHistory module manages the historical records of student profiles, focusing on cohort and non-cohort data entries. It includes functionalities for displaying and managing sections such as certifications, safety, infection control, and occupational health. The system allows filtering between cohort and non-cohort history, displaying all relevant entries unless specific sections are chosen.",
+  "purpose": "To provide a comprehensive historical record of student profiles, including various sections and data entries relevant to student management and compliance.",
   "entities": [],
   "fields": [
-    {"name": "ActionDate", "type": "string"},
-    {"name": "ScreenSection", "type": "string"},
-    {"name": "UserAction", "type": "string"},
-    {"name": "Fields", "type": "string"},
-    {"name": "Agency", "type": "string"},
-    {"name": "AgencyName", "type": "string"},
-    {"name": "LastName", "type": "string"},
-    {"name": "FirstName", "type": "string"},
-    {"name": "MiddleName", "type": "string"},
-    {"name": "Phone", "type": "string"},
-    {"name": "StudentUser", "type": "boolean"},
-    {"name": "TimetableID", "type": "integer"},
-    {"name": "ByUserID", "type": "integer"},
-    {"name": "ByOriginalUserID", "type": "integer"},
-    {"name": "ByUserSysAdmin", "type": "boolean"}
+    "ActionDate",
+    "ScreenSection",
+    "UserAction",
+    "Fields",
+    "Agency",
+    "AgencyName",
+    "LastName",
+    "FirstName",
+    "MiddleName",
+    "Phone",
+    "StudentUser",
+    "TimetableID",
+    "ByUserID",
+    "ByOriginalUserID",
+    "ByUserSysAdmin"
   ],
-  "actors": ["Student", "System Administrator", "User"],
+  "actors": [
+    "StudentUser",
+    "System Administrators"
+  ],
   "workflows": [
     {
-      "name": "Student Profile History Management",
+      "name": "StudentProfileHistory Management",
       "steps": [
-        "Load student profile history page.",
-        "Determine mode based on cohort history flag.",
-        "Display data sections based on screen section and user permissions.",
-        "Provide interactivity for enrollment details navigation."
+        "Initialize the session and retrieve the student ID.",
+        "Load the student profile history page.",
+        "Display entries based on cohort or non-cohort settings.",
+        "Allow filtering of entries by screen section.",
+        "Display error or warning messages if applicable.",
+        "Handle actions such as navigation to enrollment details."
       ]
     }
   ],
   "business_rules": [
-    "Display all entries if HR information is visible, otherwise exclude HR entries."
+    "Entries are filtered between cohort and non-cohort based on the query string.",
+    "Show all entries if HR information is accessible, otherwise filter out HR entries."
   ],
   "validations": [
-    {"field": "StudentID", "rule": "Must be a positive integer"},
-    {"field": "TimetableID", "rule": "Must be a positive integer"}
+    "Ensure valid StudentID is provided.",
+    "Session must be active for data retrieval."
   ],
-  "calculations": [],
+  "calculations": [
+    "Format action dates and phone numbers for display."
+  ],
   "conditions": [
-    {"condition": "If cohort history is enabled", "action": "Show only enrollment entries"}
+    "Display HR sections only if allowed by session settings."
   ],
   "system_behavior": [
-    "Filters entries based on user permissions and selected screen section.",
-    "Formats user details for display."
+    "Retrieves student profile history based on session and filters applied.",
+    "Displays appropriate UI elements based on cohort settings."
   ],
-  "dependencies": [],
+  "dependencies": [
+    "Database procedures for retrieving student profile history."
+  ],
   "exceptions": [
-    "No data available for the selected filters results in a 'No Data' message display."
+    "Invalid StudentID leads to no data display.",
+    "Session expiration cancels data retrieval."
   ],
   "source_document_ids": [
     "00a748ca-1c82-5ded-8892-163aaea8c680",
@@ -59,8 +70,6 @@
     "33e313f7-4ae5-5e2f-ac36-3e850128749b",
     "49ae1269-eff1-5b07-89b7-350079255dc6",
     "585e0e0b-d27d-510b-bf9d-f7e6970b9c7e",
-    "5b8a29ca-bdde-562b-89f0-498d7fd4d3f5",
-    "5e7b47b4-c74f-59d1-8efc-f8b7ee942d64",
     "679e01c5-eb5c-58e0-a406-8db753cd95c5",
     "761d0849-c77c-5c36-a24f-2230f7acff53",
     "7ec3e76e-499d-5059-afac-a6cb54dc8c67",
