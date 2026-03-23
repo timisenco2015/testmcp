@@ -2,17 +2,14 @@
 {
   "filename": "CriminalRecordsCheckEditAll",
   "found": true,
-  "summary": "Code for managing criminal records check in enrollment.",
-  "purpose": "Manage criminal records check status and updates.",
-  "entities": [
-    "CriminalRecordsCheckEditAll",
-    "GridView",
-    "ObjectDataSource"
-  ],
+  "summary": "CriminalRecordsCheckEditAll is a partial class in a web application handling enrollment data.",
+  "purpose": "Manage and facilitate actions related to criminal records check in enrollment.",
+  "entities": [],
   "fields": [
     "ValidationSummary1",
     "gridDataEdit",
     "dsCRC",
+    "EnrollmentID",
     "CohortID",
     "TermID",
     "CourseID",
@@ -26,47 +23,57 @@
     "CommentFilter",
     "blnReadOnly",
     "blnStudentMaint",
-    "EnrollmentID",
     "StartRow"
   ],
-  "actors": [
-    "UserSession",
-    "ScriptMgr"
-  ],
+  "actors": [],
   "workflows": [
     {
-      "name": "CriminalRecordsProcess",
+      "name": "Data Binding",
       "steps": [
-        "Validate session",
-        "Bind data on page load",
-        "Handle DataBound event",
-        "Update status on command",
-        "Register JavaScript variables"
+        "DataBind gridDataEdit",
+        "Handle DataBound event for gridDataEdit"
+      ]
+    },
+    {
+      "name": "User Interaction",
+      "steps": [
+        "Setup JavaScript",
+        "Execute gridDataEdit_RowCommand"
+      ]
+    },
+    {
+      "name": "Save Process",
+      "steps": [
+        "Determine if row data is dirty",
+        "Update CRC status",
+        "Redirect based on warnings"
       ]
     }
   ],
-  "business_rules": [
-    "Hide save buttons if less than 14 rows",
-    "Disable edit fields if read-only"
-  ],
+  "business_rules": [],
   "validations": [
-    "Ensure session exists",
-    "Check dirty status of fields"
+    "Check if UserSession is null"
   ],
   "calculations": [],
   "conditions": [
     "EnrollmentID > 0",
+    "EnrollmentID == 0",
     "gridDataEdit.Rows.Count < 14",
-    "blnReadOnly true"
+    "gridDataEdit.Rows.Count < gridDataEdit.PageSize",
+    "isDirty",
+    "redirect based on UserSession.Messages.GetWarnings().Count"
   ],
   "system_behavior": [
-    "Hide UI elements based on edit mode",
-    "Redirect based on command outcome"
+    "Hide Save and Cancel buttons based on row count",
+    "Hide buttons based on read-only state",
+    "Disable edit fields if read-only",
+    "Register JavaScript variables for async postback"
   ],
   "dependencies": [
     "HSPnet.DataLayer",
-    "HSPnet UI",
-    "ASP.NET controls"
+    "HSPnet.UI",
+    "HSPnet.Framework",
+    "System.Web.UI.WebControls"
   ],
   "exceptions": [],
   "source_document_ids": [
