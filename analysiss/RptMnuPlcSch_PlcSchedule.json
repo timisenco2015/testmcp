@@ -1,19 +1,95 @@
 {
   "filename": "RptMnuPlcSch_PlcSchedule",
-  "found": false,
-  "summary": "",
-  "purpose": "",
-  "entities": [],
-  "fields": [],
-  "actors": [],
-  "workflows": [],
-  "business_rules": [],
-  "validations": [],
+  "found": true,
+  "summary": "The RptMnuPlcSch_PlcSchedule is a user control class for handling a report menu related to placement schedules in a web application. It provides various user interface controls and workflows to manage how placement schedule reports are generated and displayed.",
+  "purpose": "The purpose of this control is to allow users, likely administrators or coordinators, to generate reports on placement schedules with various customization options including filtering, sorting, and output format selection.",
+  "entities": [
+    "RptMnuPlcSch_PlcSchedule",
+    "HSPnetSession",
+    "ScriptManager"
+  ],
+  "fields": [
+    "ValidationSummary1",
+    "Label5",
+    "ltlDescription",
+    "Label6",
+    "ltlOptions",
+    "radAcceptedConfirmedRequests",
+    "radALLRequestsExceptDecl",
+    "chkIncludeStudent",
+    "Label4",
+    "chkIncludeAmendments",
+    "chkIncludeShiftSchedule",
+    "lblInstructor",
+    "CustomValidator1",
+    "CustomValidator2",
+    "cmdRunReport",
+    "Literal5",
+    "ddTerm",
+    "lblCohortsCourses",
+    "UCchoosers",
+    "Label1",
+    "radSortbyInstructor",
+    "radSinglePDFFile",
+    "radSinglePDFFilePageBreak",
+    "lblInstructors",
+    "radIndividualPDFfile",
+    "radSortbyDestination",
+    "Label2",
+    "Label3",
+    "radConfirmedRequestsOnly"
+  ],
+  "actors": [
+    "User",
+    "System"
+  ],
+  "workflows": [
+    {
+      "name": "Report Generation",
+      "steps": [
+        "User selects department, program, and term.",
+        "User sets report options like sorting and inclusion of student and schedule details.",
+        "User selects output format for the report (e.g., single PDF, with or without page breaks, or individual PDF files).",
+        "User clicks the 'Run Report' button to generate the report."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Only confirmed requests can be included in the report or include accepted ones as specified by the user.",
+    "The report can be sorted by instructor or destination."
+  ],
+  "validations": [
+    "Custom validator ensures that generated reports do not exceed a maximum number of items.",
+    "JavaScript variables facilitate client-side validations and dynamic content management."
+  ],
   "calculations": [],
-  "conditions": [],
-  "system_behavior": [],
-  "dependencies": [],
+  "conditions": [
+    "If 'radConfirmedRequestsOnly' is checked, only confirmed requests will be included.",
+    "If 'radAcceptedConfirmedRequests' is checked, both accepted and confirmed requests will be included.",
+    "If 'radALLRequestsExceptDecl' is checked, all requests except declined or canceled will be included."
+  ],
+  "system_behavior": [
+    "Fills dropdowns for department, program, and term based on user session settings.",
+    "Binds data to controls dynamically on page load and pre-render events."
+  ],
+  "dependencies": [
+    "HSPnet.App_GlobalResources",
+    "HSPnet.DataLayer",
+    "HSPnet.Framework"
+  ],
   "exceptions": [],
-  "source_document_ids": [],
-  "content_gaps": ["No related documents found"]
+  "source_document_ids": [
+    "32e4a4fa-9803-55fa-8854-b483c084a993",
+    "66fbe5aa-e372-5ddf-88ba-28bdf8ae0ece",
+    "7b297401-c2de-5a44-839c-07ee193d28b4",
+    "80324fa6-95e7-513a-bad3-1937c21159d2",
+    "944b34ab-808d-5b71-aecf-90c2ef20c28a",
+    "a87eac9f-3678-587b-a03c-81687a77d7d4",
+    "b01a35af-a73d-5676-b261-98ebe0f04dea",
+    "b8e8e53a-70b0-5293-9618-1d2670a9a88c",
+    "baad4bf5-b0dd-59ff-8c45-b165bae6126e",
+    "e92c83b1-2245-5975-afac-df18de15d94e",
+    "f1c5f911-83ee-5dd0-ba06-07ddb91298a9"
+  ],
+  "content_gaps": []
 }
