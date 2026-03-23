@@ -1,0 +1,66 @@
+{
+  "filename": "ProfileIcon",
+  "found": true,
+  "summary": "The ProfileIcon component manages the state and appearance of profile and detail icons within a grid view or repeater interface in a web application. It highlights the last clicked icon, clears previous highlights, and relies on ViewState for state management.",
+  "purpose": "To manage the highlighting of profile and detail icons in a web-based grid or repeater interface, ensuring that user interactions are visually acknowledged and state is properly managed.",
+  "entities": [],
+  "fields": [
+    "PROFILE_KEY",
+    "DETAILS_KEY"
+  ],
+  "actors": [],
+  "workflows": [
+    {
+      "name": "Clear Last Profile Highlight",
+      "steps": [
+        "Iterate over gridData rows.",
+        "Find imgProfile control.",
+        "If img has profileopen or profileexistsopen class, reset to default class."
+      ]
+    },
+    {
+      "name": "Highlight Profile Icon",
+      "steps": [
+        "Check gridData data keys and ViewState PROFILE_KEY.",
+        "Iterate over gridData rows to find matched ID.",
+        "Change imgProfile class to profileopen or profileexistsopen."
+      ]
+    },
+    {
+      "name": "Clear Last Details Highlight",
+      "steps": [
+        "Iterate over gridData rows.",
+        "Find imgDetails control.",
+        "If img has detailsopen class, reset to default class."
+      ]
+    },
+    {
+      "name": "Highlight Details Icon",
+      "steps": [
+        "Check gridData data keys and ViewState DETAILS_KEY.",
+        "Iterate over gridData rows to find matched ID.",
+        "Change imgDetails class to detailsopen."
+      ]
+    }
+  ],
+  "business_rules": [],
+  "validations": [],
+  "calculations": [],
+  "conditions": [],
+  "system_behavior": [
+    "Uses ViewState to store and retrieve the last-profile state.",
+    "Changes CSS class of icons based on interaction state."
+  ],
+  "dependencies": [],
+  "exceptions": [
+    "Ensure the icon control (imgLabel or LinkButton) exists in the UI before attempting to change its class."
+  ],
+  "source_document_ids": [
+    "41ae6694-3fff-5d72-84e4-f0e1ab5dfcd5",
+    "452439c3-531d-5982-9b69-1f19ce3af20b",
+    "56646e12-5dc4-5092-9747-27a301fc130f",
+    "a58e98b5-0057-5754-8a1b-8d7b9ab68c5d",
+    "f9b2ad20-1734-5eef-8a2f-449078462de1"
+  ],
+  "content_gaps": []
+}
