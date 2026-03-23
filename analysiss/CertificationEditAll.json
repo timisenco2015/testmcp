@@ -1,0 +1,82 @@
+{
+    "filename": "CertificationEditAll",
+    "found": true,
+    "summary": "The 'CertificationEditAll' component is a part of the HSPnet system, used to manage and update student certifications in a grid format. It allows for operations such as saving certification details and updating statuses. The component uses various controls for input and display, such as GridView and ObjectDataSource.",
+    "purpose": "To facilitate the management and editing of student certifications within an enrollment system, allowing for batch updates and individual record editing.",
+    "entities": [],
+    "fields": [
+        "CohortID",
+        "TermID",
+        "CourseID",
+        "ShowGrad",
+        "ShowInactive",
+        "ShowWaived",
+        "SectionFilter",
+        "ActionFilter",
+        "keyword",
+        "CampusID",
+        "CommentFilter",
+        "blnReadOnly",
+        "CertificationCodeID",
+        "EnrollmentID",
+        "StartRow"
+    ],
+    "actors": [
+        "UserSession"
+    ],
+    "workflows": [
+        {
+            "name": "Save Certification Details",
+            "steps": [
+                "Check if grid rows are dirty.",
+                "Update certification details using StudentDetailsCertificateUpdate.",
+                "Redirect based on error messages."
+            ]
+        },
+        {
+            "name": "Data Selecting",
+            "steps": [
+                "Check UserSession existence.",
+                "Set InputParameters for ObjectDataSource."
+            ]
+        }
+    ],
+    "business_rules": [],
+    "validations": [
+        "Check if Effective Date is valid.",
+        "Check if Expiry Date is valid.",
+        "Ensure Expiry Date is on or after Effective Date."
+    ],
+    "calculations": [],
+    "conditions": [
+        "If EnrollmentID is 0, specific panels are hidden.",
+        "If grid row count is less than grid page size, certain buttons are hidden."
+    ],
+    "system_behavior": [
+        "Hides buttons conditionally based on user permissions.",
+        "Disables edit fields if read-only flag is set.",
+        "Registers JavaScript variables for client-side validation."
+    ],
+    "dependencies": [
+        "HSPnet.UI",
+        "HSPnet.DataLayer"
+    ],
+    "exceptions": [
+        "Cancel data retrieval if UserSession is null."
+    ],
+    "source_document_ids": [
+        "1222fbc3-250e-55b4-b8b4-60d60de320ec",
+        "3bb5ea2e-d0be-52b1-b4a7-ed18748f42ee",
+        "3f5aab61-d0b2-52ae-8e24-51a67d881587",
+        "4cc31364-0b64-55f1-883f-a2943ea20c0b",
+        "54b85faf-2d00-5472-a3a0-c1fe681fdc76",
+        "7d7cc830-39b1-5d9d-b489-4575e70780f4",
+        "7f9eb089-a320-5302-9cd0-07bb5ab02b2f",
+        "9b726ecc-2937-5117-b396-fc2a8c916cd5",
+        "9f544382-0164-5431-b438-4d0d8cff18ee",
+        "ab8f2c0f-45fb-5935-b2f8-8684e2c47a4d",
+        "ba60038f-dcfe-595c-8656-14bc8d91cf7a",
+        "fd91bd44-a983-5f4f-899f-9f5aa39bc870"
+    ],
+    "content_gaps": []
+}
