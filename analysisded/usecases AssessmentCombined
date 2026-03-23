@@ -1,0 +1,98 @@
+# Module: AssessmentCombined
+
+## AssessmentCombined-UC1 — Display Assessment Instructions
+
+- Primary Actor(s): System
+- Secondary Actor(s): Assessor, Student
+- Trigger: Access to the assessment page
+- Description: When the assessment page is accessed, the system displays the instructions provided by the assessor.
+- Preconditions: The assessment instructions must be stored in the system.
+- Postconditions: Instructions are displayed to the user.
+- Main Success Scenario:
+  1. User navigates to the assessment page.
+  2. System retrieves the assessment instructions.
+  3. System formats the instructions for display.
+  4. Instructions are displayed on the screen.
+- Extensions:
+  - None
+- Exceptions:
+  - If instructions are missing, display a warning message.
+- Business Rules:
+  - Instructions need to be loaded from the assessment header.
+- Assumptions:
+  - Instructions are stored in a format compatible with HTML.
+- Open Issues:
+  - None
+
+## AssessmentCombined-UC2 — Setup Assessment Questions
+
+- Primary Actor(s): System
+- Secondary Actor(s): None
+- Trigger: Initialization of the assessment page
+- Description: The system sets up the questions for the assessment, including configuring images for the answer options.
+- Preconditions: Questions and answer options must be predefined in the system.
+- Postconditions: All questions and associated options are displayed to the user.
+- Main Success Scenario:
+  1. System initializes the assessment page.
+  2. Retrieves assessment questions and images for each answer option.
+  3. Configures the display according to the type of question (e.g., text, number).
+  4. Renders the questions and options on the page.
+- Extensions:
+  - For different assessment types (e.g., Midterm, Final), the respective set of questions will be loaded.
+- Exceptions:
+  - If questions cannot be retrieved, an error message is displayed.
+- Business Rules:
+  - Images need to align with the answer options specified for questions.
+- Assumptions:
+  - Questions are categorized properly for each step in the assessment wizard.
+- Open Issues:
+  - None
+
+## AssessmentCombined-UC3 — Maintain Assessment State
+
+- Primary Actor(s): System
+- Secondary Actor(s): None
+- Trigger: Between navigation steps in the assessment
+- Description: The system maintains the state of the assessment answers between steps.
+- Preconditions: Assessment wizard supports step-based navigation.
+- Postconditions: User answers are preserved as they navigate between steps.
+- Main Success Scenario:
+  1. User answers questions on a step.
+  2. User navigates to another step in the assessment wizard.
+  3. System stores the state of current answers.
+  4. System restores answers when the user returns to the previous step.
+- Extensions:
+  - If the user's session expires, they may need to log back in.
+- Exceptions:
+  - If storing the state fails, notify the user to try again.
+- Business Rules:
+  - Requires support for session handling or persistent data storage.
+- Assumptions:
+  - Users are authenticated and have valid sessions.
+- Open Issues:
+  - None
+
+## AssessmentCombined-UC4 — Close Assessment
+
+- Primary Actor(s): User (Assessor or Student)
+- Secondary Actor(s): None
+- Trigger: User clicks the close button
+- Description: The assessment window is closed upon user action.
+- Preconditions: The assessment window is actively open.
+- Postconditions: Assessment window is closed, and any unsaved data is discarded.
+- Main Success Scenario:
+  1. User clicks the "Close" button.
+  2. System prompts to confirm if unsaved changes should be discarded.
+  3. If confirmed, the system closes the assessment window.
+- Extensions:
+  - Prompt user if there are unsaved changes.
+- Exceptions:
+  - If the window fails to close, an error is logged.
+- Business Rules:
+  - Close operations must consider unsaved data warnings.
+- Assumptions:
+  - Close button functionality is universally understood.
+- Open Issues:
+  - Handling of unsaved changes if the user does not confirm.
+
+No other extractable use cases found.
