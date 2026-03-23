@@ -1,73 +1,76 @@
 {
   "filename": "MaintActivityCodes",
   "found": true,
-  "summary": "The MaintActivityCodes system facilitates the management and maintenance of activity codes within the HSPnet framework. It provides functionalities for adding, editing, deleting, and reactivating activity codes. It utilizes a user interface with panels and controls for displaying error and warning messages, and dropdowns for filtering activity codes by agency, department, and program.",
-  "purpose": "To manage and maintain activity codes, allowing users to perform operations such as add, edit, deactivate, and reactivate codes within a structured UI.",
+  "summary": "The 'MaintActivityCodes' document provides a web interface for managing Activity Codes within a system. It includes functionality for adding, editing, deleting, and reactivating activity codes through a grid view interface and a detailed popup panel.",
+  "purpose": "To facilitate the maintenance and management of Activity Codes in a web-based system, allowing authorized users to perform CRUD operations on these codes.",
   "entities": [],
   "fields": [
     {
       "name": "Name",
-      "type": "String",
-      "description": "The name of the activity code."
+      "type": "string",
+      "description": "The full name of the activity code.",
+      "validation": "Mandatory"
     },
     {
       "name": "ShortName",
-      "type": "String",
-      "description": "A short form of the activity code's name."
-    },
-    {
-      "name": "ProgramID",
-      "type": "Int32",
-      "description": "Identifier for the associated program."
-    },
-    {
-      "name": "Inactive",
-      "type": "Boolean",
-      "description": "Indicates whether the activity code is inactive."
+      "type": "string",
+      "description": "A shorter version of the activity code name.",
+      "validation": "Mandatory"
     }
   ],
   "actors": [
     {
-      "name": "UserSession",
-      "description": "Represents the current user's session including their access rights."
+      "role": "System Administrator",
+      "capabilities": [
+        "Access the interface",
+        "Add, edit, delete, and reactivate activity codes"
+      ]
+    },
+    {
+      "role": "Local Administrator",
+      "capabilities": [
+        "Access the interface based on departmental permissions",
+        "Add, edit, delete activity codes within assigned departments"
+      ]
+    },
+    {
+      "role": "User",
+      "capabilities": [
+        "View activity codes"
+      ]
     }
   ],
   "workflows": [
     {
-      "name": "Activity Code Maintenance",
+      "name": "Activity Code Management",
       "steps": [
-        "User accesses the maintenance page.",
-        "User uses dropdowns to filter activity codes by agency, department, and program.",
-        "User can add a new activity code using the add button.",
-        "User can edit an existing activity code by selecting it and using the edit option.",
-        "User can deactivate an activity code using the deactivate control.",
-        "User can reactivate an inactive activity code using the reactivate control.",
-        "Changes are reflected on the UI grid, which updates after each operation."
+        "User accesses the MaintActivityCodes page.",
+        "User selects the agency, department, and program from dropdowns.",
+        "User views the list of activity codes in the grid view.",
+        "User can add a new code using the 'Add' button.",
+        "User can edit or delete existing codes using respective buttons.",
+        "Changes are submitted and the view is refreshed."
       ]
     }
   ],
   "business_rules": [
-    "Activity codes must have a unique name within a program.",
-    "Changes to activity codes should only be allowed if the user has appropriate permissions.",
-    "The activity code cannot be added if the program or department dropdowns are empty."
+    "Agency and department must be selected for the screen to be editable.",
+    "Only users with appropriate permissions can perform modifications."
   ],
   "validations": [
-    "Name must be specified.",
-    "ShortName must be specified."
+    "Name and ShortName fields are required."
   ],
   "calculations": [],
   "conditions": [
-    "Screen is editable if the user's agency matches the selected agency and the user has appropriate administrative rights."
+    "Screen becomes editable based on agency and department selection and user role."
   ],
   "system_behavior": [
-    "Displays appropriate error and warning messages based on operations.",
-    "Refreshes data display upon changes to selection criteria or after CRUD operations."
+    "The grid view updates upon actions like adding, editing or deleting codes.",
+    "Popup extends to show details of an activity code for editing."
   ],
-  "dependencies": [
-    "Dropdown controls are dependent on data sources from agencies, departments, and programs."
-  ],
+  "dependencies": [],
   "exceptions": [
-    "No data found message displayed if no records match the current selection criteria."
+    "If no agency or department is selected, the screen remains uneditable."
   ],
   "source_document_ids": [
     "0b160f3a-8e4e-57fc-91d5-9342826cf2c1",
@@ -80,12 +83,13 @@
     "4eab8fe6-bcf3-5a05-a2a2-7035df1d8c37",
     "60c74954-18a6-5d4c-bb25-39ad41232fc0",
     "7deaef31-19bf-560a-b282-80113597d00a",
-    "80f2125e-fc5c-57af-b316-79569fc642e1",
+    "83053878-0098-5820-9027-9b2205b2c42c",
+    "84088ff9-ddc9-5c6f-abac-b683b5007a45",
     "acd00766-c8f8-5922-ac92-bf188ebcaa30",
     "b47e4c38-1ae9-59c4-b5ea-ba2cc998638d",
-    "d525c918-6b94-5c22-8f60-85314cf1b3b6",
     "bdf35cea-91ae-5545-966f-84e09771983f",
     "cd067466-8e02-55cc-9665-584c20596090",
+    "d525c918-6b94-5c22-8f60-85314cf1b3b6",
     "ffdac725-3bfe-5a3d-99f7-328ec12aa1f9"
   ],
   "content_gaps": []
