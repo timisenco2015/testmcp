@@ -1,0 +1,94 @@
+{
+  "filename": "PlacementRequestChanges",
+  "found": true,
+  "summary": "The PlacementRequestChanges class tracks summary counts of various types of changes to placement requests, such as urgent alerts, cancellations, date changes, destination changes, and supervisor changes. It contains a method for analyzing and recording destination coordinator changes, indicating a workflow for detecting and incrementing relevant change counters based on data accessed from a database.",
+  "purpose": "To provide structured tracking and summary of changes to placement requests, particularly focusing on different types of modifications (urgent alerts, cancellations, date changes, destination changes, supervisor changes) and to enable analysis for destination coordinator-related changes.",
+  "entities": [
+    "PlacementRequestChanges",
+    "PlacementRequestDestination"
+  ],
+  "fields": [
+    {
+      "name": "UrgentAlerts",
+      "type": "int",
+      "description": "Count of urgent alerts triggered by placement request changes."
+    },
+    {
+      "name": "Cancellations",
+      "type": "int",
+      "description": "Count of placement request cancellations."
+    },
+    {
+      "name": "DateChanges",
+      "type": "int",
+      "description": "Count of changes to placement request dates."
+    },
+    {
+      "name": "DestinationChanges",
+      "type": "int",
+      "description": "Count of changes to placement destinations."
+    },
+    {
+      "name": "SupervisorChanges",
+      "type": "int",
+      "description": "Count of changes to supervisors associated with placement requests."
+    }
+  ],
+  "actors": [
+    "Destination Coordinator",
+    "HSPnetSession (system/session object)"
+  ],
+  "workflows": [
+    {
+      "name": "Analyse Destination Coordinator Changes",
+      "steps": [
+        "Create a new PlacementRequestChanges instance.",
+        "Initialize a list to hold PlacementRequestDestination entries.",
+        "Fetch data from PlacementRequestDestinations via database reader.",
+        "For each data row, create a PlacementRequestDestination entry and add to the list.",
+        "Close database reader.",
+        "Analyse the list for changes.",
+        "Increment UrgentAlerts counter.",
+        "Return the updated PlacementRequestChanges instance."
+      ]
+    }
+  ],
+  "business_rules": [
+    "UrgentAlerts are incremented when certain changes are detected during the analysis of PlacementRequestDestination data."
+  ],
+  "validations": [
+    "Check that the database reader (dr) is not null before processing results.",
+    "Ensure proper closure of the database reader."
+  ],
+  "calculations": [
+    "Incrementing various counters (UrgentAlerts, Cancellations, DateChanges, DestinationChanges, SupervisorChanges) based on analysis."
+  ],
+  "conditions": [
+    "Database reader must not be null to process changes."
+  ],
+  "system_behavior": [
+    "Fetches placement request destination data from the database.",
+    "Processes each entry to detect and record changes.",
+    "Increments change counters accordingly.",
+    "Ensures database resources are properly released after processing."
+  ],
+  "dependencies": [
+    "HSPnetSession",
+    "SqlDataReader",
+    "PlacementRequestDestinations.SearchRequests",
+    "HSPnet.DB"
+  ],
+  "exceptions": [
+    "Potential null database reader.",
+    "Unspecified behavior if no changes are detected in the list."
+  ],
+  "source_document_ids": [
+    "ce2de8d5-9359-5357-9d88-816047aa2f55"
+  ],
+  "content_gaps": [
+    "Detailed business logic for incrementing counters other than UrgentAlerts is missing.",
+    "Workflow for how changes are analyzed within the 'lst' list is not specified.",
+    "Criteria for triggering each change type (Cancellations, DateChanges, etc.) are not provided.",
+    "Behavior for empty or invalid results is not defined."
+  ]
+}
