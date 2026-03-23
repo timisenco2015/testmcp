@@ -1,0 +1,71 @@
+{
+    "filename": "Reporting",
+    "found": true,
+    "summary": "The documents related to the 'Reporting' filename provide a detailed overview of the system's reporting functionality, utilizing Crystal Reports and MigraDoc/PDFSharp for generating different report formats. The content includes methods for setting up report parameters, handling different languages, and managing connection settings for report generation, alongside various error handling and validation scenarios.",
+    "purpose": "To define and manage the reporting functionalities in the system, facilitating report generation in various formats while ensuring accurate and secure connections to data sources.",
+    "entities": [],
+    "fields": [
+        "OutputType",
+        "ReportName",
+        "ReportDescription",
+        "LinkText",
+        "Parameters",
+        "ReportFile",
+        "AltReportFile",
+        "CreatedFile",
+        "CreatedFileFullPath"
+    ],
+    "actors": [
+        "HSPnetSession"
+    ],
+    "workflows": [
+        {
+            "name": "Run Report",
+            "steps": [
+                "Determine report file name and path, considering language and locale settings.",
+                "Setup connection information using the session data.",
+                "Load the report file and apply connection settings.",
+                "Open any subreports and apply connection settings.",
+                "Set report parameters from the provided parameters list.",
+                "Export report to desired output format.",
+                "Return HTML response indicating success or specific error."
+            ]
+        }
+    ],
+    "business_rules": [
+        "Use alternative language fields if session indicates such.",
+        "Always check for existence of template files before attempting to load."
+    ],
+    "validations": [
+        "Check connectivity for each table within the report.",
+        "Ensure template files exist before usage."
+    ],
+    "calculations": [],
+    "conditions": [
+        "If using an alternate language, check for corresponding template file before defaulting to English.",
+        "Switch output format handling based on OutputType."
+    ],
+    "system_behavior": [
+        "System attempts to load report templates based on current locale and settings.",
+        "System generates and exports reports in specified formats based on input parameters."
+    ],
+    "dependencies": [
+        "CrystalDecisions.CrystalReports.Engine",
+        "MigraDocXML",
+        "PdfSharp.Fonts"
+    ],
+    "exceptions": [
+        "Report cannot open due to missing file.",
+        "Invalid parameter handling during report generation.",
+        "Failure to connect to database or report tables."
+    ],
+    "source_document_ids": [
+        "12ed470b-15a2-5de3-a98e-f17b59078c07",
+        "33321746-6c5f-597e-8fd2-a6a52a6afe4c",
+        "394a10f3-8aea-53d7-98bc-ffee8cc2ccbc",
+        "671a0c1e-63d8-59d5-8272-a2b6caba0ae8",
+        "8672f99f-2d4b-575d-a6c9-f45823f1360d",
+        "8c4527a6-81a9-5998-acdf-c747b9bce015"
+    ],
+    "content_gaps": []
+}
