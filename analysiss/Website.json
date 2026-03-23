@@ -1,0 +1,95 @@
+{
+  "filename": "Website",
+  "found": true,
+  "summary": "The content revolves around managing website entries associated with agencies and sites within the HSPnet system. It includes functionalities for adding, updating, deleting, and searching website entries. The website entries contain various fields including URL, Name, Comment, and metadata such as UpdateDate.",
+  "purpose": "To facilitate the management of website information related to agencies and sites in the HSPnet system.",
+  "entities": [
+    "Website",
+    "HSPnetSession"
+  ],
+  "fields": [
+    "ID",
+    "ParentID",
+    "URL",
+    "Name",
+    "Comment",
+    "UpdateDate",
+    "ByUserID",
+    "LastName",
+    "FirstName",
+    "MiddleName",
+    "AgencyShortName",
+    "AgencyName",
+    "Phone",
+    "Email",
+    "UpdateDateFormatted",
+    "AgencyUserFormatted",
+    "AgencyUserDetailsFormatted",
+    "EmailFormatted"
+  ],
+  "actors": [
+    "HSPnetSession",
+    "User"
+  ],
+  "workflows": [
+    {
+      "name": "Manage Agency Website",
+      "steps": [
+        "Add agency website with details such as URL, name, and comment.",
+        "Update existing agency website information.",
+        "Delete agency website if ID is valid.",
+        "Search agency website by ID or agency ID."
+      ]
+    },
+    {
+      "name": "Manage Site Website",
+      "steps": [
+        "Add site website with details such as URL, name, and comment.",
+        "Update existing site website information.",
+        "Delete site website if ID is valid.",
+        "Search site website by ID or site ID."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Website entries must be associated with a valid agency or site.",
+    "ID must be non-zero for deletion operations.",
+    "Valid session ID is required for all operations."
+  ],
+  "validations": [
+    "Check for non-empty URL before adding or updating a website entry.",
+    "Ensure ID is valid and connected to an agency or site for retrieval."
+  ],
+  "calculations": [
+    "URL is formatted using UI.Links.MakeLink function.",
+    "UpdateDate is formatted using UI.DateFormatter.FormatDateShort function."
+  ],
+  "conditions": [
+    "If Email is empty, set EmailFormatted to a placeholder image.",
+    "If Email is not empty, format as a mailto link."
+  ],
+  "system_behavior": [
+    "Data retrieval is done via stored procedures defined in the database.",
+    "List of website entries is returned after querying database."
+  ],
+  "dependencies": [
+    "UI frameworks for formatting names and dates.",
+    "Database procedures for executing queries."
+  ],
+  "exceptions": [
+    "Handle null SqlDataReader in search operations.",
+    "Prevent operations with invalid ID by checking if ID is zero."
+  ],
+  "source_document_ids": [
+    "0603e7cc-6490-5c15-81c4-9966157264a3",
+    "0ba50f1b-9609-54da-81ab-c99dd745e127",
+    "14ace11e-3e7d-534f-9e65-3fd904591757",
+    "3d2e68d7-01c8-51d0-8b33-3e7735e34dd7",
+    "4e8fa538-26d2-5cc3-a2bd-8d46cf043c4b",
+    "60098d01-bc29-5406-a193-f99dcbf5fe88",
+    "8fdaa832-62eb-5f63-b61a-f8f956074d5f",
+    "c8446311-7f42-53db-a672-ef0f9137266f",
+    "eaeb4dde-022e-5c83-9981-65b880d8c971"
+  ],
+  "content_gaps": []
+}
