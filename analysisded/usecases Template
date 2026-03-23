@@ -1,0 +1,107 @@
+# Module: Template
+
+## Template-UC1 — Create a New Template
+
+- Primary Actor(s): System Administrator
+- Secondary Actor(s): None
+- Trigger: A new template is requested for creation.
+- Description: Allows the user to create a new template by providing necessary details such as name, template content, and alternate template content.
+- Preconditions: The user must be logged into the system with appropriate administrative privileges.
+- Postconditions: A new template is successfully saved into the system database.
+- Main Success Scenario:
+  1. The user logs in with administrative credentials.
+  2. The user navigates to the template creation interface.
+  3. The user enters details including Name, Template, and TemplateAlt.
+  4. The system validates the input fields.
+  5. The system stores the new template details in the database.
+  6. A confirmation message is displayed to the user.
+- Extensions: None
+- Exceptions:
+  - If the Name, Template, or TemplateAlt fields are blank, an error message is displayed: "Template must be specified."
+- Business Rules: All input fields are required and must not be blank.
+- Assumptions: None
+- Open Issues: None
+
+## Template-UC2 — Update an Existing Template
+
+- Primary Actor(s): System Administrator
+- Secondary Actor(s): None
+- Trigger: An update to an existing template is requested.
+- Description: Enables the update of existing template details in the system.
+- Preconditions: The template must exist, and the user must have administrative privileges.
+- Postconditions: The updated template details are saved in the system.
+- Main Success Scenario:
+  1. The user logs in with administrative credentials.
+  2. The user navigates to the template update interface.
+  3. The user selects a template to update.
+  4. The user modifies template fields such as Name, Template, and TemplateAlt.
+  5. The system validates that the input fields are not blank.
+  6. The system updates the database with the new template details.
+  7. A confirmation message is displayed to the user.
+- Extensions: None
+- Exceptions:
+  - Blank fields cause an error message, and the update is halted.
+- Business Rules: All fields must be completed before submission.
+- Assumptions: Templates are uniquely identified by an ID.
+- Open Issues: None
+
+## Template-UC3 — Delete a Template
+
+- Primary Actor(s): System Administrator
+- Secondary Actor(s): None
+- Trigger: A request to remove a template from the system is made.
+- Description: Allows the system administrator to delete an existing template.
+- Preconditions: The template must exist in the system.
+- Postconditions: The selected template is permanently removed from the database.
+- Main Success Scenario:
+  1. The user logs in with administrative credentials.
+  2. The user accesses the template management interface.
+  3. The user selects a template to delete.
+  4. The system confirms the deletion action.
+  5. The template is deleted from the database.
+  6. A confirmation of deletion is displayed.
+- Extensions: None
+- Exceptions:
+  - If the template ID is invalid, an error message is shown.
+- Business Rules: Only templates that exist can be deleted.
+- Assumptions: None
+- Open Issues: None
+
+## Template-UC4 — Look Up a Template by Name
+
+- Primary Actor(s): System User
+- Secondary Actor(s): None
+- Trigger: A user requests information on a template using its name.
+- Description: Ensures retrieval of template details based on the template name.
+- Preconditions: At least one template with the specified name must be present in the system.
+- Postconditions: Template details are displayed to the user.
+- Main Success Scenario:
+  1. The user accesses the template interface.
+  2. The user inputs the name of the template to search.
+  3. The system searches the database for the specified name.
+  4. Template details are retrieved and displayed.
+- Extensions: None
+- Exceptions:
+  - If no template is found with the specified name, an error message is displayed.
+- Business Rules: Name searches are case-sensitive.
+- Assumptions: None
+- Open Issues: None
+
+## Template-UC5 — Email Template Lookup
+
+- Primary Actor(s): System User
+- Secondary Actor(s): None
+- Trigger: An operation requires retrieval of an email template.
+- Description: Retrieves an email template from the database using an EmailJobID.
+- Preconditions: The email template must exist in the system.
+- Postconditions: The correct email template is fetched and returned.
+- Main Success Scenario:
+  1. The system calls for an email template by EmailJobID.
+  2. System retrieves the email template from the database.
+  3. The template is returned to the requesting process.
+- Extensions: None
+- Exceptions:
+  - If the EmailJobID is invalid, a null or empty result is returned.
+- Business Rules: Email templates are uniquely identified by their EmailJobID.
+- Assumptions: EmailJobID is valid and corresponds to an existing template.
+- Open Issues: None
