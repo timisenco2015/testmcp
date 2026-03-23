@@ -1,71 +1,67 @@
 {
-    "filename": "DateFormatter",
-    "found": true,
-    "summary": "The DateFormatter module provides functionalities for formatting dates and days, handling various term types, and managing reset date ranges.",
-    "purpose": "The DateFormatter is used to format dates and days for display, handle seasonal term logic, and manage date ranges for different academic and operational purposes.",
-    "entities": [],
-    "fields": [],
-    "actors": [],
-    "workflows": [
-        {
-            "name": "Build Date Reset Array",
-            "steps": [
-                "Initialize reset dates with default ranges depending on the current date.",
-                "Determine if today falls within certain predefined term types such as Winter, Spring/Summer, or Fall.",
-                "Adjust reset dates based on detected term type."
-            ]
-        },
-        {
-            "name": "Format Days",
-            "steps": [
-                "Take boolean inputs representing days of the week.",
-                "Construct a short string representation of selected days.",
-                "Handle specific sequences like continuous weekdays, transforming them to a range format."
-            ]
-        }
-    ],
-    "business_rules": [
-        "If today is before April 30, use dates from January to April of this year.",
-        "For Spring/Summer, if before August 31, use May-August of this year; otherwise, of next year.",
-        "Custom date option should be selected only if no other options match current date."
-    ],
-    "validations": [
-        "Ensure date strings are not null or empty before parsing.",
-        "Validate if the input date string can be converted into a DateTime object."
-    ],
-    "calculations": [
-        "Calculate the highest end date from predefined ranges to adjust future date calculations."
-    ],
-    "conditions": [
-        "Check if the current date falls within predefined term range boundaries to select appropriate reset date range."
-    ],
-    "system_behavior": [
-        "Transforms short day codes to full 3-letter day strings.",
-        "Parses and formats dates based on system resources and term rules."
-    ],
-    "dependencies": [
-        "Utilizes system resources for localized string formatting.",
-        "Relies on term type constants to control date range logic."
-    ],
-    "exceptions": [
-        "Return a null date if input string for date parsing is empty or cannot be parsed."
-    ],
-    "source_document_ids": [
-        "161e95e0-d0b4-5201-9a83-02e9fe5a2b71",
-        "1837f945-6d14-578c-a28a-2e8fe8bf0897",
-        "19b65ec1-5af5-576c-9011-4632cb8a2c69",
-        "323e2ed8-6e69-5cee-9c59-cdda6cccf0b9",
-        "399d2461-8357-59e6-bf91-2126da512f3d",
-        "3e802cc0-426b-50a6-9820-5c6e7352c86d",
-        "456da831-8176-5449-a7d2-ee139a2a1305",
-        "714b1bf0-71dc-572e-8752-2a7bbd742648",
-        "8237e639-38cf-5ffc-a31c-60344f0268d7",
-        "82b5c808-e0ff-54d2-8ef7-d4d3a4485c57",
-        "8d6cf4e7-d2ad-5a7c-b17f-8cdacf5b9f34",
-        "c9dd6d98-3003-5850-9826-f61d1816875c",
-        "dd7ca3f6-e2fa-5d04-b3a7-6c61ed174505",
-        "f83b2872-138f-51e4-869c-f6dad81d9380",
-        "fc686706-a930-568c-ae62-91b4cb7b66b6"
-    ],
-    "content_gaps": []
+  "filename": "DateFormatter",
+  "found": true,
+  "summary": "The DateFormatter class provides date formatting and parsing utilities, including functions to format dates into different string representations and methods to build arrays of reset dates based on specific conditions and term types.",
+  "purpose": "The primary purpose of the DateFormatter class is to offer methods for formatting dates and times into various string formats and to assist in constructing date ranges for different term types and scenarios.",
+  "entities": [],
+  "fields": [],
+  "actors": [],
+  "workflows": [
+    {
+      "name": "Format Days Workflow",
+      "steps": [
+        "Check if various days are selected and return 'Various' if true.",
+        "Identify special cases of consecutive days and return the appropriate abbreviation.",
+        "Build a string of day abbreviations based on selected days.",
+        "Convert day abbreviations to full names, adding separators as needed."
+      ]
+    },
+    {
+      "name": "Build Date Reset Array",
+      "steps": [
+        "Start with 'Today' option, setting a default date range from today to 24 months from now.",
+        "Adjust date ranges based on the current term type (e.g., Winter, Spring/Summer, Fall).",
+        "Consider past term scenarios by shifting date ranges based on current season.",
+        "Assign term types and adjust date ranges accordingly."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Ensure the 'Today' option covers a range of today's date to 24 months ahead.",
+    "Specific date ranges are set for Winter, Spring/Summer, and Fall terms based on current dates.",
+    "Future date ranges start one day after the latest end date and end a year minus a day after that."
+  ],
+  "validations": [
+    "If a date string is empty or null, return a pre-defined null date.",
+    "Convert the day abbreviation to a full name only if it matches pre-defined resources."
+  ],
+  "calculations": [],
+  "conditions": [
+    "Check if today's date is before a specified date for adjusting term ranges (e.g., April 30 for Winter).",
+    "Adjust date ranges based on today's position in the calendar year relative to term start and end dates."
+  ],
+  "system_behavior": [
+    "Formats dates into ISO, CSV, short, month-day, month, and sortable string formats.",
+    "Parses date strings into DateTime objects, handling null or malformed strings gracefully."
+  ],
+  "dependencies": [],
+  "exceptions": [],
+  "source_document_ids": [
+    "161e95e0-d0b4-5201-9a83-02e9fe5a2b71",
+    "1837f945-6d14-578c-a28a-2e8fe8bf0897",
+    "19b65ec1-5af5-576c-9011-4632cb8a2c69",
+    "323e2ed8-6e69-5cee-9c59-cdda6cccf0b9",
+    "399d2461-8357-59e6-bf91-2126da512f3d",
+    "3e802cc0-426b-50a6-9820-5c6e7352c86d",
+    "456da831-8176-5449-a7d2-ee139a2a1305",
+    "714b1bf0-71dc-572e-8752-2a7bbd742648",
+    "8237e639-38cf-5ffc-a31c-60344f0268d7",
+    "82b5c808-e0ff-54d2-8ef7-d4d3a4485c57",
+    "8d6cf4e7-d2ad-5a7c-b17f-8cdacf5b9f34",
+    "c9dd6d98-3003-5850-9826-f61d1816875c",
+    "dd7ca3f6-e2fa-5d04-b3a7-6c61ed174505",
+    "f83b2872-138f-51e4-869c-f6dad81d9380",
+    "fc686706-a930-568c-ae62-91b4cb7b66b6"
+  ],
+  "content_gaps": []
 }
