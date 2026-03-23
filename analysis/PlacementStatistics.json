@@ -1,0 +1,111 @@
+{
+  "filename": "PlacementStatistics",
+  "found": true,
+  "summary": "PlacementStatistics is a module responsible for recording, calculating, and reporting changes made to Placement Requests within the HSPnet system, specifically for DCs (Direct Coordinators) and Supervisors. The statistics are captured based on various business rules and actor roles, considering agency types, request statuses, and allowed lists.",
+  "purpose": "The purpose of PlacementStatistics is to track and report on key changes to Placement Requests, including alerts, cancellations, date changes, duration changes, destination additions/changes, supervisor additions/changes, days changed, group size changed, and report tags changed, for agency oversight and operational analytics.",
+  "entities": [
+    "PlacementStatisticsDC",
+    "PlacementStatistics",
+    "PlacementRequestInformation",
+    "AllowedList",
+    "HSPnetSession"
+  ],
+  "fields": [
+    "AlertsAdded",
+    "PACancelled",
+    "PADateChanged",
+    "PADurationChanged",
+    "NISDateChanged",
+    "IRPDateChanged",
+    "DateChanged",
+    "PADestAddedChanged",
+    "SupervisorsAddedChanged",
+    "DaysChanged",
+    "GroupSizeChanged",
+    "ReportTagChanged"
+  ],
+  "actors": [
+    "DC (Direct Coordinator)",
+    "Supervisor",
+    "NIS Agency user",
+    "IRP Agency user",
+    "Other RA (Receiving Agency) user"
+  ],
+  "workflows": [
+    {
+      "name": "Placement Change Statistics Calculation (DC/Supervisor)",
+      "steps": [
+        "Initialize statistics fields and lastPRD_ID dictionary.",
+        "Retrieve the list of allowed sites, services, and destinations for the session.",
+        "Query Placement Requests using session and filter based on allowed lists except for NIS/IRP.",
+        "Iterate through Placement Requests:",
+        " - Skip PRs not relevant by agency, status, service, or destination.",
+        " - Analyze history comments for change types:",
+        "   - Alert Added: Increment AlertsAdded if new.",
+        "   - Date(s) Changed: Increment PADateChanged/NISDateChanged/IRPDateChanged based on agency, status, and by-agency logic.",
+        "   - Shift Code or Hours changed: Increment PADurationChanged if conditions met.",
+        "   - Updated destination: Increment PADestAddedChanged if conditions met.",
+        "   - Added destination / Split Placement Request: Increment PADestAddedChanged if status not New.",
+        "   - Status set to Canc: Increment PACancelled.",
+        "   - Supervisor: Increment SupervisorsAddedChanged based on agency and status.",
+        "   - Various Days enabled/disabled/changed: Increment DaysChanged.",
+        "   - Total group size changed: Increment GroupSizeChanged if proper status.",
+        "   - Tag changed: Increment ReportTagChanged.",
+        "Return statistics object."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Placement Requests are filtered by allowed site, service, and destination lists except for NIS/IRP users.",
+    "PRs from the user's own agency or with service 'SharedAlt' are skipped.",
+    "For DCs, changes are recorded based on whether the PR is for their agency and status conditions.",
+    "For NIS/IRP users, changes are counted for statuses Sent or later.",
+    "For other RA users, only released PRs with status Redir or later are counted."
+  ],
+  "validations": [
+    "Only count changes if PRD_ID differs from the last recorded for that change type (to avoid duplicates).",
+    "Only count destinations added when status is not New.",
+    "Supervisor changes only counted if supervisor name is not withheld for NIS/IRP or for all other users."
+  ],
+  "calculations": [
+    "DateChanged = PADateChanged + NISDateChanged + IRPDateChanged"
+  ],
+  "conditions": [
+    "PRs must pass allowed list checks for site, service, and destination (unless NIS/IRP).",
+    "Change actions depend on history comment content and PR status.",
+    "Actions may differ for DCs, Supervisors, NIS, IRP, or RA users."
+  ],
+  "system_behavior": [
+    "Automatically filters and skips irrelevant Placement Requests.",
+    "Aggregates statistics for each key change type per agency and session.",
+    "Returns structured statistics for reporting or analytics."
+  ],
+  "dependencies": [
+    "AllowedLists.SessionAllowedLocations",
+    "PlacementRequestInfo.PlacementRequestSearchWelcomeDCStats",
+    "PlacementRequestInfo.PlacementRequestSearchWelcomeSupervisor",
+    "StatusCodeFormatter"
+  ],
+  "exceptions": [
+    "Requests from user's own agency are skipped.",
+    "Requests with service 'SharedAlt' are ignored.",
+    "Parent CFO PRs are skipped (UseCallForOffers && CFOWorksheetGroupID == 0).",
+    "Auto-redirected PRs in Redir status are ignored in RC mode."
+  ],
+  "source_document_ids": [
+    "3525fb51-4d11-52b1-9e24-1fb7bde184de",
+    "3dc985b6-fe3d-5b6a-bd40-847cae4f65c7",
+    "4096ab07-0b4c-538c-88d3-afab37152f2a",
+    "45f34ecc-62d2-5111-8ac4-ba49183b100d",
+    "500917d6-5157-5984-9eec-f26e91cb6d9f",
+    "60de1c11-3fc0-59a9-a3ee-36ac6058877c",
+    "73d8f2b5-fd71-5837-9d2b-579ca77bf4cc",
+    "7f8a422b-0658-5255-b92c-06d76bcd5043",
+    "91204c1a-31b0-5646-971b-c94041e42342",
+    "9f85577a-e279-536e-924f-ff331cfd0f1b",
+    "df4a80f5-9b04-5c51-b92f-4137c42d3767",
+    "ef1473e1-d853-51ad-8d42-d29bd882192d",
+    "ef278315-bfe6-5dc8-85ff-78ecc734e680"
+  ],
+  "content_gaps": []
+}
