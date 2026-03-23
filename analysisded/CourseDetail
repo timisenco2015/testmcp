@@ -1,0 +1,121 @@
+```json
+{
+  "filename": "CourseDetail",
+  "found": true,
+  "summary": "The CourseDetail system manages course details, including adding, updating, deleting, copying, and retrieving course detail records. It handles the data for courses, headings, numbering codes, and descriptions.",
+  "purpose": "To provide a mechanism for managing detailed course-related information within the HSPnet framework.",
+  "entities": [
+    "CourseDetail"
+  ],
+  "fields": [
+    "ID",
+    "CourseID",
+    "HeadingID",
+    "Response",
+    "SortOrder",
+    "NumberingCodeID",
+    "Description",
+    "DescriptionAlt",
+    "DescriptionFormatted",
+    "NumberingCode",
+    "SortOrderFormatted",
+    "WebPage",
+    "NumberCharacter",
+    "NumberingIndentLevel",
+    "HeaderChanged",
+    "ResponseFormatted"
+  ],
+  "actors": [
+    "HSPnetSession"
+  ],
+  "workflows": [
+    {
+      "name": "Add CourseDetail",
+      "steps": [
+        "Validate response.",
+        "Set procedure name to CourseDetailsAdd.",
+        "Add parameters for CourseID, HeadingID, Response, SortOrder, and NumberingCodeID.",
+        "Execute query."
+      ]
+    },
+    {
+      "name": "Update CourseDetail",
+      "steps": [
+        "Check ID validity and validate response.",
+        "Set procedure name to CourseDetailsUpdate.",
+        "Add parameters for CourseDetailID, HeadingID, Response, SortOrder, and NumberingCodeID.",
+        "Execute query."
+      ]
+    },
+    {
+      "name": "Delete CourseDetail",
+      "steps": [
+        "Check if ID is not zero.",
+        "Set procedure name to CourseDetailsDelete.",
+        "Add parameter for CourseDetailID.",
+        "Execute query."
+      ]
+    },
+    {
+      "name": "Copy CourseDetail",
+      "steps": [
+        "Check if ID is not zero.",
+        "Set procedure name to CourseDetailsCopy.",
+        "Add parameter for ID.",
+        "Execute query."
+      ]
+    },
+    {
+      "name": "Retrieve CourseDetail by CourseID",
+      "steps": [
+        "Set procedure name to CourseDetailsSearch.",
+        "Add parameter for CourseID.",
+        "Get data using SqlDataReader.",
+        "Fill list with course details.",
+        "Close reader."
+      ]
+    },
+    {
+      "name": "Retrieve CourseDetail by ID",
+      "steps": [
+        "Set procedure name to CourseDetailsSearchID.",
+        "Add parameter for ID.",
+        "Get data using SqlDataReader.",
+        "Fill list with course details.",
+        "Close reader."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Use alternate language fields if enabled.",
+    "Reset level counts for new headings."
+  ],
+  "validations": [
+    "Response must not be blank."
+  ],
+  "calculations": [
+    "Calculate numbering character and indent level based on numbering code."
+  ],
+  "conditions": [
+    "Response should be formatted if HSPnet.UI.HTML.translateNewLines is enabled.",
+    "SortOrder displayed as 0 if -1 is set."
+  ],
+  "system_behavior": [
+    "Automatically reset counts of levels when a new header is detected."
+  ],
+  "dependencies": [
+    "HSPnet.Framework",
+    "HSPnet.App_GlobalResources"
+  ],
+  "exceptions": [],
+  "source_document_ids": [
+    "4c927f86-38fd-569d-993c-ecb14b1c2eb8",
+    "4f923d1d-c9d2-5122-97b1-feb4c28153ef",
+    "59b7e9a9-48a6-5f88-b4d2-105956914870",
+    "9e7b6283-3788-5d6b-83aa-7f42e837c370",
+    "a1693e76-d88a-589c-9fe4-35a74ee97c98",
+    "c3c2e46d-57db-5b24-9020-c8a557b23022"
+  ],
+  "content_gaps": []
+}
+```
