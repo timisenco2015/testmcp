@@ -1,0 +1,81 @@
+{
+  "filename": "WelcomeSupervisor",
+  "found": true,
+  "summary": "The WelcomeSupervisor system appears to be a web application page that manages user sessions, handles client-side scripting, and provides interaction elements such as language switching, message handling, and user navigation. The page's primary role is to define the layout and behavior of the supervisor's welcome page within a larger web application, likely related to HSPnet, a system for managing healthcare student placements.",
+  "purpose": "The purpose of the WelcomeSupervisor page is to provide a central interface for supervisors to manage their tasks, view messages, and execute specific actions such as logging out, switching users, and navigating through different tabs.",
+  "entities": [],
+  "fields": [
+    "ctl00_txtRefreshWindow",
+    "ScriptManagerMaster",
+    "hlHSPnetHome",
+    "lblTitle",
+    "pnlGoBack",
+    "LinkButton1"
+  ],
+  "actors": [
+    "UserSession",
+    "ScriptManagerMaster"
+  ],
+  "workflows": [
+    {
+      "name": "Log out",
+      "steps": [
+        "User clicks the Log Out button.",
+        "Check if user session is active.",
+        "If active, perform logout using the Security.Logout method.",
+        "Redirect user based on the locale setting."
+      ]
+    },
+    {
+      "name": "Search in Inbox",
+      "steps": [
+        "User clicks the Search button while Inbox tab is active.",
+        "Invoke UCInbox.RefreshData to update the view."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Hide buttons when monitoring the user.",
+    "Ensure proper session handling during page load."
+  ],
+  "validations": [
+    "Validate user session and hash on page load."
+  ],
+  "calculations": [],
+  "conditions": [
+    "If TabPanelInbox is active, refresh data in UCInbox."
+  ],
+  "system_behavior": [
+    "Page registers client scripts for JavaScript files.",
+    "Manage visibility of elements based on session state.",
+    "Update page layout dynamically based on activation state by another agency."
+  ],
+  "dependencies": [
+    "HSPnet.UserControls",
+    "HSPnet.DataLayer",
+    "AjaxControlToolkit"
+  ],
+  "exceptions": [
+    "If session is null during log out, redirect to default page."
+  ],
+  "source_document_ids": [
+    "187bcb0c-7be3-5e4e-b939-5d503a70a4a4",
+    "206930ad-00f1-5856-b90e-20df85b065c7",
+    "290582e8-526b-585b-a5ba-b145edf7d190",
+    "3f4bec87-7c64-5df8-bc13-a9601ed26c83",
+    "4757b8ac-52b6-5df8-8e94-29f923ef9e59",
+    "6cb189b8-a40c-5d4a-a2cb-c9379fbbd1d2",
+    "6dc9b6e9-2266-5962-8b61-dc4367e8adac",
+    "72c967c2-561a-5782-b4be-9e39d93a915c",
+    "7f058b99-deee-5cec-b345-5ad99eec09ce",
+    "84ea3e68-5d76-55f2-bb20-d275afeec74c",
+    "916463e7-badf-595a-b7c4-542ba7f5ef75",
+    "9934e948-bc7d-589e-9aca-9450046dc0c9",
+    "bd8f515c-7859-536a-b89c-4bd602348503",
+    "c6ea1320-9bd6-5464-a636-826ad1f6a5d4",
+    "d3237eee-78de-5167-a94b-f29393b77258",
+    "dd798991-b108-56e6-bac9-677be4cf14bb",
+    "f249a235-8540-57de-a92f-f90fa63a1b27"
+  ],
+  "content_gaps": []
+}
