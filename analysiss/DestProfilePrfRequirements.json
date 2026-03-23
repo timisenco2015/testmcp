@@ -1,99 +1,95 @@
 {
-  "filename": "DestProfilePrfRequirements",
-  "found": true,
-  "summary": "The DestProfilePrfRequirements file focuses on managing requirements associated with destination profiles, particularly prerequisites. It supports adding, editing, and managing prerequisite options such as Standard, Document, and Link types with validation and dynamic UI adjustments.",
-  "purpose": "To enable the management of destination profile requirements by providing mechanisms to add, edit, and delete requirements while ensuring prerequisite options are handled properly.",
-  "entities": [],
-  "fields": [
-    "PrerequisiteOption",
-    "ParentID",
-    "ParentIDName",
-    "CurrentPage",
-    "ScreenIsEditable"
-  ],
-  "actors": [
-    "UserSession"
-  ],
-  "workflows": [
-    {
-      "name": "Add New Requirement",
-      "steps": [
-        "User clicks 'Add New Requirement'.",
-        "Form switches to Insert mode.",
-        "User selects Prerequisite Option.",
-        "User fills in required fields.",
-        "User saves the new requirement."
-      ]
-    },
-    {
-      "name": "Edit Requirement",
-      "steps": [
-        "User clicks 'Edit' on a requirement.",
-        "Form switches to Edit mode.",
-        "User updates fields as needed.",
-        "User saves changes."
-      ]
-    },
-    {
-      "name": "Delete Requirement",
-      "steps": [
-        "User clicks 'Delete' on a requirement.",
-        "Requirement is removed from the system."
-      ]
-    }
-  ],
-  "business_rules": [
-    "Only standard, document, and link types are allowed for prerequisites.",
-    "Hidden items and omitted codes are filtered out from requirement lists.",
-    "If no sub-disciplines are selected, apply prerequisites to all disciplines."
-  ],
-  "validations": [
-    "Ensure fields are not left empty before submission.",
-    "Validate prerequisite type selection.",
-    "Confirm file uploads meet specified criteria for Document type."
-  ],
-  "calculations": [],
-  "conditions": [
-    "Different behaviors for Standard, Document, and Link prerequisite options."
-  ],
-  "system_behavior": [
-    "Dynamically adjust form fields based on prerequisite option selected.",
-    "Display warnings if required selections are missing.",
-    "Handle file uploads for Document prerequisite option."
-  ],
-  "dependencies": [
-    "Disciplines module for managing sub-discipline selections."
-  ],
-  "exceptions": [
-    "Cancel operation if user session is not available.",
-    "Raise exceptions if necessary prerequisite criteria are not met."
-  ],
-  "source_document_ids": [
-    "00fcca6d-1a9f-5dcd-811b-bf43a2c4d755",
-    "0fed9d78-58d5-5197-992e-44aad34a7e3a",
-    "15d5150d-6aab-582b-b897-b6fb18904e70",
-    "16d6abeb-02f7-5d60-97bb-990b0d496b41",
-    "24d2c23b-f935-5751-b76a-32538323aec7",
-    "2641ef88-3108-55f9-be52-499c2e858551",
-    "27ee8817-6841-5740-bf42-67e94d1eba4b",
-    "40b15b64-a6a7-5da9-ac85-58c8cba0dd6e",
-    "4d243d1d-e4b4-563c-b06b-14d82a0090cd",
-    "611160fe-eb65-5824-b405-3d7cf1d19bde",
-    "6c18214a-5b05-573b-be95-7919c943e084",
-    "70c2cd1a-dcbc-53b9-aaa5-cc7267552a7d",
-    "793b43f3-8560-5351-9a1d-db81fb46aa70",
-    "8216e9f8-5561-5fb6-9cf2-a499c8a82036",
-    "82f7801a-1076-5d4f-a5fa-104bdb1d2bb7",
-    "8343e5a3-7e3f-5ab5-916e-ecb22f9121ec",
-    "905633fb-d456-5af6-a772-0a7dd6a85436",
-    "b6862f10-bb5a-5a46-a823-a10da47e0c1f",
-    "c4b3ab13-c0dc-564c-b3d6-e39555f4b4c4",
-    "d3da1b10-2e92-5e99-84ac-28d5b8ea0f71",
-    "dae1438a-0b7c-538b-9530-3ca738cd458d",
-    "db0696b1-e2c2-5b95-8b56-f57e38316e26",
-    "e1e57236-cea3-5af4-b570-ee728c162cf5",
-    "ea7e740a-3500-523f-a4c0-8c40b362c7af",
-    "ee57a734-0f58-5a0a-b29d-9c3487a5b897"
-  ],
-  "content_gaps": []
+    "filename": "DestProfilePrfRequirements",
+    "found": true,
+    "summary": "The documents related to DestProfilePrfRequirements describe the implementation of a web user control for handling prerequisite requirements, such as standard, document, or link-based requirements, for a specific profile within the HSPnet application.",
+    "purpose": "To manage and display prerequisite requirements for user profiles, allowing the addition, modification, and deletion of these requirements within the system.",
+    "entities": [],
+    "fields": [
+        "ddRequirement",
+        "txtRequirementDescription",
+        "lbIncluded",
+        "hdnPrereqOption",
+        "RequiredFieldValidator_ddRequirement",
+        "uxAllowAllDisciplines",
+        "trSubDiscipline",
+        "trUpload",
+        "trDocumentName",
+        "ddlRequirementFilter",
+        "ddlDisciplineFilter"
+    ],
+    "actors": [
+        "UserSession",
+        "ScriptManager",
+        "HSPnetSession"
+    ],
+    "workflows": [
+        {
+            "name": "Handling Prerequisite Requirements",
+            "steps": [
+                "Load and display existing prerequisite requirements.",
+                "Allow users to add a new requirement or edit/delete an existing one.",
+                "Provide options for setting the requirement as a standard entry, a document upload, or a URL link.",
+                "Handle the file upload process and store information about the uploaded file in the system.",
+                "Display a list of disciplines and allow users to set requirements per discipline.",
+                "Provide validation and client-side scripting to ensure correct user input and data consistency."
+            ]
+        }
+    ],
+    "business_rules": [
+        "Do not process alternate databases when adding or editing requirements.",
+        "Omitted requirement codes should be removed from the data source before displaying options.",
+        "Hidden requirement types, such as document and URL, should be removed from the list."
+    ],
+    "validations": [
+        "Ensure required fields have values before submission.",
+        "Client-side validation checks on requirement description."
+    ],
+    "calculations": [],
+    "conditions": [
+        "If UseSubDisciplines is true, display sub-discipline selection options.",
+        "If ScreenIsEditable is true, show add/edit buttons in the UI."
+    ],
+    "system_behavior": [
+        "Load and bind data to controls on page load.",
+        "Update view state and UI elements based on user actions.",
+        "Dynamically adjust UI based on the type of prerequisite selected (standard, document, link)."
+    ],
+    "dependencies": [
+        "Codes",
+        "Disciplines",
+        "GenericRequirements",
+        "Grid"
+    ],
+    "exceptions": [
+        "Canceled operations if prerequisites are not loaded or user session is unavailable."
+    ],
+    "source_document_ids": [
+        "00fcca6d-1a9f-5dcd-811b-bf43a2c4d755",
+        "0fed9d78-58d5-5197-992e-44aad34a7e3a",
+        "15d5150d-6aab-582b-b897-b6fb18904e70",
+        "16d6abeb-02f7-5d60-97bb-990b0d496b41",
+        "24d2c23b-f935-5751-b76a-32538323aec7",
+        "2641ef88-3108-55f9-be52-499c2e858551",
+        "27ee8817-6841-5740-bf42-67e94d1eba4b",
+        "40b15b64-a6a7-5da9-ac85-58c8cba0dd6e",
+        "4d243d1d-e4b4-563c-b06b-14d82a0090cd",
+        "611160fe-eb65-5824-b405-3d7cf1d19bde",
+        "6c18214a-5b05-573b-be95-7919c943e084",
+        "70c2cd1a-dcbc-53b9-aaa5-cc7267552a7d",
+        "793b43f3-8560-5351-9a1d-db81fb46aa70",
+        "8216e9f8-5561-5fb6-9cf2-a499c8a82036",
+        "82f7801a-1076-5d4f-a5fa-104bdb1d2bb7",
+        "8343e5a3-7e3f-5ab5-916e-ecb22f9121ec",
+        "905633fb-d456-5af6-a772-0a7dd6a85436",
+        "b6862f10-bb5a-5a46-a823-a10da47e0c1f",
+        "c4b3ab13-c0dc-564c-b3d6-e39555f4b4c4",
+        "d3da1b10-2e92-5e99-84ac-28d5b8ea0f71",
+        "dae1438a-0b7c-538b-9530-3ca738cd458d",
+        "db0696b1-e2c2-5b95-8b56-f57e38316e26",
+        "e1e57236-cea3-5af4-b570-ee728c162cf5",
+        "e301f790-95d3-57f5-b56b-3522ff9753b4",
+        "ea7e740a-3500-523f-a4c0-8c40b362c7af",
+        "ee57a734-0f58-5a0a-b29d-9c3487a5b897"
+    ],
+    "content_gaps": []
 }
