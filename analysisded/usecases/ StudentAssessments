@@ -1,0 +1,71 @@
+# Module: StudentAssessments
+
+## StudentAssessments-UC1 — View Student Assessment Report
+
+- Primary Actor(s): Student
+- Secondary Actor(s): None
+- Trigger: The student accesses the assessment report page.
+- Description: Displays the assessment report for the student.
+- Preconditions: The user must be logged in and have an active session.
+- Postconditions: The assessment report is displayed.
+- Main Success Scenario:
+  1. Student navigates to the assessment report page.
+  2. System checks if the page is accessed for the first time.
+  3. If so, initializes view state and refreshes the data.
+  4. Displays the assessment report.
+- Extensions:
+  - None
+- Exceptions:
+  - If there is no active session, the operation is canceled.
+- Business Rules:
+  - The report can be viewed only if the user is authenticated.
+- Assumptions:
+  - The system is already aware of the student’s identity and session status.
+- Open Issues:
+  - None
+
+## StudentAssessments-UC2 — Download Assessment Results
+
+- Primary Actor(s): Student
+- Secondary Actor(s): None
+- Trigger: The student requests to download the assessment results.
+- Description: Allows students to download their assessment results in CSV format.
+- Preconditions: The report must be generated and available.
+- Postconditions: A CSV file containing the assessment results is downloaded.
+- Main Success Scenario:
+  1. Student clicks the 'Download' link.
+  2. System generates the file name and prepares the CSV.
+  3. File is downloaded to the student's device.
+- Extensions:
+  - None
+- Exceptions:
+  - If the file is not available, an error is shown.
+- Business Rules:
+  - The file name follows a specific naming convention incorporating student details.
+- Assumptions:
+  - The student has permission to download the file.
+- Open Issues:
+  - None
+
+## StudentAssessments-UC3 — Generate Student Assessment Report
+
+- Primary Actor(s): Student
+- Secondary Actor(s): None
+- Trigger: The student initiates report generation.
+- Description: Generates the student assessment report.
+- Preconditions: The student session must be active.
+- Postconditions: The report is generated and displayed.
+- Main Success Scenario:
+  1. Student clicks the 'Generate Report' button.
+  2. System collects necessary data and compiles the report.
+  3. The generated report is displayed to the student.
+- Extensions:
+  - None
+- Exceptions:
+  - Report generation failure due to data unavailability.
+- Business Rules:
+  - The report should include assessments for active courses only.
+- Assumptions:
+  - Student has necessary permissions for report generation.
+- Open Issues:
+  - None
