@@ -1,17 +1,48 @@
 {
   "filename": "SiteProfileHistory",
   "found": true,
-  "summary": "The SiteProfileHistory class manages history records pertaining to site profiles.",
-  "purpose": "To track and manage changes and actions related to site profiles.",
-  "entities": ["SiteProfileHistory"],
-  "fields": ["ID", "ActionDate", "ScreenSection", "UserAction", "Fields", "Agency", "AgencyName", "LastName", "FirstName", "MiddleName", "Phone", "ByUserID", "ByOriginalUserID", "ByUserSysAdmin"],
+  "summary": "Handles site profile history data including actions, fields modified, and user details.",
+  "purpose": "Track and manage historical changes to site profiles within the system.",
+  "entities": [
+    "SiteProfileHistory"
+  ],
+  "fields": [
+    "ID",
+    "ActionDate",
+    "ScreenSection",
+    "UserAction",
+    "Fields",
+    "Agency",
+    "AgencyName",
+    "LastName",
+    "FirstName",
+    "MiddleName",
+    "Phone",
+    "ByUserID",
+    "ByOriginalUserID",
+    "ByUserSysAdmin"
+  ],
   "actors": [],
-  "workflows": [],
-  "business_rules": [],
+  "workflows": [
+    {
+      "name": "Search History Records",
+      "steps": [
+        "Search site profile histories by site and agency ID",
+        "Fill list with historical entries",
+        "Return results"
+      ]
+    }
+  ],
+  "business_rules": [
+    "Use alt-language fields if running in alt language mode."
+  ],
   "validations": [],
   "calculations": [],
   "conditions": [],
-  "system_behavior": [],
+  "system_behavior": [
+    "Provides detailed history of site profile changes and user actions.",
+    "Supports multiple language fields based on session settings."
+  ],
   "dependencies": [],
   "exceptions": [],
   "source_document_ids": [
