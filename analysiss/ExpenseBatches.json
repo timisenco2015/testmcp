@@ -1,0 +1,107 @@
+{
+  "filename": "ExpenseBatches",
+  "found": true,
+  "summary": "The ExpenseBatches file contains the implementation details for handling batches of expense receipts. It provides functionalities to add, edit, save, audit, and manage statuses of expense batches.",
+  "purpose": "To manage batches of expense receipts within the system, allowing users to perform actions like creating new batches, editing existing ones, locking, closing, reopening, saving, and deleting batches.",
+  "entities": [],
+  "fields": ["BatchNumber", "BatchDescription", "BatchDate", "StatusCodeID", "GrossAmount", "Tax", "NetAmount"],
+  "actors": ["UserSession"],
+  "workflows": [
+    {
+      "name": "Setup Batch",
+      "steps": [
+        "Retrieve batch data based on user session and department ID.",
+        "Bind retrieved data to UI elements.",
+        "Handle page load with initial batch setup if not a postback."
+      ]
+    },
+    {
+      "name": "Add or Edit Receipt",
+      "steps": [
+        "Display a GridView allowing multiple receipts to be entered or edited.",
+        "Save new or edited receipt data to the database."
+      ]
+    },
+    {
+      "name": "Batch Status Management",
+      "steps": [
+        "Close, lock, or reopen a batch based on actions triggered by user interface buttons.",
+        "Perform database updates to reflect changes in batch status."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Batch date must be within a year from today.",
+    "Newly added rows must be saved before creating more new rows."
+  ],
+  "validations": [
+    "Ensure batch date is valid and within permitted date range.",
+    "Validate that gross amount and tax values are correct."
+  ],
+  "calculations": [],
+  "conditions": [
+    "Check if batch is open or closed for certain UI actions.",
+    "Determine the visibility of UI elements based on batch status."
+  ],
+  "system_behavior": [
+    "Automatically configure number formatting for currency values.",
+    "Maintain data integrity across multiple operations within the GridView."
+  ],
+  "dependencies": [],
+  "exceptions": [
+    "Error messages and warnings are shown as panels on the UI during invalid operations."
+  ],
+  "source_document_ids": [
+    "06931b82-b230-5244-beff-de9ba126b091",
+    "0eee9df0-94d5-54c6-9c4d-95362193a933",
+    "133d85b5-2e0e-5fd7-b281-aabf8a9077b7",
+    "1f35e902-74e3-5230-8954-6416f2d34dae",
+    "2312425e-70a8-583a-994c-edf27bd052ab",
+    "251a3a43-a404-5576-9d1e-0fbf6976c695",
+    "267230f7-73b7-51fe-b261-67f2ab7b8fa7",
+    "2a7da0c1-1046-5bb0-b18c-284262572068",
+    "3b5991e1-dd0a-5b9b-a0e8-c9e083407e52",
+    "3eac1f72-15c6-5a7c-b966-3ee952352fef",
+    "4069f18a-bf4a-5f9c-a824-4bceb85f361b",
+    "44d972a0-cc39-5bca-badf-a1001bc074a2",
+    "45c451b2-0c29-5baa-9754-d20c2190d8fb",
+    "47141743-3650-57f0-b031-891944b49efb",
+    "4ccf9527-5092-5e03-a7f8-5a8c944d033a",
+    "52979de5-03f7-5493-857c-ae327f1ef930",
+    "52cc6e5a-c0c4-5317-9e80-aa06ae75456a",
+    "677bc00b-1ecb-5226-b747-7d60c5cb823d",
+    "6c7b148d-69a4-594c-8441-522e7ea1197f",
+    "7298478c-f9a7-5e86-bbcd-e9138a9b277d",
+    "741898d1-43ee-5d5b-ac65-4526f1c60415",
+    "79441824-05ca-5b3d-8ead-543647aa2687",
+    "7bd65d2c-8ad5-5a15-bb60-99739af94461",
+    "7bef1943-603a-58a4-bf91-f35c367d74a9",
+    "7fd253e7-7748-5bad-970b-79b22cd8ccfe",
+    "7ff66668-c55c-55a9-b1e7-5f913b2e6125",
+    "88d2d842-4682-5cbc-b013-878ab9765e2e",
+    "8c1a898b-b921-536d-8e84-32ffadff218b",
+    "94c2a12b-f180-5c5d-a3cb-4ddc2d8b56c0",
+    "95f3d008-ccca-54fb-b1df-6a3e8f1255e0",
+    "a174ebdb-d5f3-5318-9bb0-4272f3b3cb9a",
+    "a736a34c-52b3-5dc8-bfcb-9b21da5e9be6",
+    "aa25336a-e839-59b5-a664-5b12ad6a8b80",
+    "afbe0e30-8f74-5abe-9d57-1020ff000f45",
+    "b93a64fd-52ff-5485-bf6e-b98a383d3da8",
+    "ba565933-ebae-54f5-951c-e3ab347833bd",
+    "c5f18a81-33c9-5578-8fb2-72e1786919cf",
+    "ccd45a7d-b4e4-5016-9e46-e1ff69d5fc25",
+    "cfa9f932-8a74-53b8-903c-544d45037949",
+    "d120ce7b-4f99-570a-bb6e-140174cd2ef1",
+    "d4bf8ec6-76ca-5c65-b559-d040be6b7ccf",
+    "de281921-b518-53b7-93e5-12fc5bebadf3",
+    "e10b445d-47e8-5b35-8cb1-faa4a0c7afa5",
+    "e679a1f5-7217-58f7-a749-7ac3e527d70f",
+    "e857f5ef-21ef-505c-90a1-5fde28d0e917",
+    "ea4ee68c-59f9-5331-8a74-d47e7456e2a3",
+    "ea9bd006-4e48-5358-b402-643fbd88b751",
+    "ebf1b38a-b99a-5669-bba2-84c1959f5b8a",
+    "f32c8d99-ed44-5783-8d61-39f5153f2f71",
+    "fde1cd22-0b1c-5054-95ca-e9f654bd0936"
+  ],
+  "content_gaps": []
+}
