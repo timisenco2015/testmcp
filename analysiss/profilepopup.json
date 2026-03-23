@@ -1,1 +1,56 @@
-{"filename":"profilepopup","found":true,"summary":"The profilePopup function handles the display logic for profile icons based on whether a profile exists or is being accessed. It updates the icon graphics and opens a new window with the provided URL.","purpose":"To control the visual representation of user profiles in a UI and trigger profile-related actions.","entities":[],"fields":["PRD","URL","icon","profileExists","old"],"actors":["document","frmMain","newWindow"],"workflows":[{"name":"Profile Popup Initialization","steps":["Retrieve last profile access value.","Check if an icon needs to be updated for previous profile.","Update the icon graphic based on profile existence for previous profile.","Set new last profile access value.","Retrieve and update icon for new profile.","Open new window with the URL."]}],"business_rules":[],"validations":[],"calculations":[],"conditions":["Check if 'old' is not -1 to determine if there is a previous profile.","Check if profileExists equals 1 to determine the icon state."],"system_behavior":[],"dependencies":[],"exceptions":[],"source_document_ids":["e0d5a3e6-672e-5964-865f-04dbf8499263"],"content_gaps":[]}
+{
+  "filename": "profilepopup",
+  "found": true,
+  "summary": "The script defines a function called profilePopup that handles profile icon updates based on profile existence. It updates icon images for profiles and opens a new window with a specified URL.",
+  "purpose": "To manage and update profile icons and handle profile navigation within a web application interface.",
+  "entities": [],
+  "fields": [
+    "PRD",
+    "URL",
+    "icon",
+    "profileExists",
+    "old",
+    "document.frmMain.txtLastProfile.value",
+    "document.frmMain['icoProfile'+old]",
+    "document.frmMain['txtProfileExistsIcon'+old].value",
+    "document.frmMain['icoProfile'+PRD]",
+    "document.frmMain['txtProfileExistsIcon'+PRD].value"
+  ],
+  "actors": [],
+  "workflows": [
+    {
+      "name": "Profile Icon Update and Navigation",
+      "steps": [
+        "Check the value of document.frmMain.txtLastProfile.value.",
+        "If old value is not -1, update icon for the old profile.",
+        "Check if old profile exists; update icon src accordingly.",
+        "Set document.frmMain.txtLastProfile.value to PRD.",
+        "Retrieve the icon for the new profile using PRD.",
+        "Check if new profile exists; update icon src accordingly.",
+        "Open a new window with the specified URL."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Use 'images/profileexists.gif' for existing profiles.",
+    "Use 'images/profile.gif' for non-existing profiles.",
+    "Use 'images/profileexistsopen.gif' when opening existing profiles.",
+    "Use 'images/profileopen.gif' when opening non-existing profiles."
+  ],
+  "validations": [],
+  "calculations": [],
+  "conditions": [
+    "old != -1",
+    "profileExists == 1"
+  ],
+  "system_behavior": [
+    "Updates profile icons based on existence and navigation.",
+    "Opens a new browser window with the given URL."
+  ],
+  "dependencies": [],
+  "exceptions": [],
+  "source_document_ids": [
+    "e0d5a3e6-672e-5964-865f-04dbf8499263"
+  ],
+  "content_gaps": []
+}
