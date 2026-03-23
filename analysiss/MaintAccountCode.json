@@ -1,114 +1,104 @@
 {
-    "filename": "MaintAccountCode",
-    "found": true,
-    "summary": "The MaintAccountCode system manages account codes within the HSPnet framework, focusing on user interface elements and backend logic for displaying, adding, editing, and deleting account codes.",
-    "purpose": "To provide a user interface for managing account codes in the HSPnet application, allowing users to view, add, edit, or delete account codes based on their permissions.",
-    "entities": [],
-    "fields": [
-        {
-            "name": "ID",
-            "description": "A unique identifier for each account code.",
-            "type": "uuid"
-        },
-        {
-            "name": "Code",
-            "description": "The code representing the account.",
-            "type": "string",
-            "validation": "Required, MaxLength 50"
-        },
-        {
-            "name": "Description",
-            "description": "A description of the account code.",
-            "type": "string",
-            "validation": "Required, MaxLength 200"
-        },
-        {
-            "name": "SortOrder",
-            "description": "An integer representing the order in which the account code appears.",
-            "type": "integer",
-            "validation": "Required, Must be a number"
-        },
-        {
-            "name": "AgencyID",
-            "description": "The ID of the agency to which the account code belongs.",
-            "type": "integer"
-        }
-    ],
-    "actors": [
-        {
-            "role": "SystemAdministrator",
-            "permissions": "View and edit all account codes."
-        },
-        {
-            "role": "LocalAdministrator",
-            "permissions": "View and edit account codes for their own agency."
-        },
-        {
-            "role": "User",
-            "permissions": "View account codes only, unless additional permissions are granted."
-        }
-    ],
-    "workflows": [
-        {
-            "name": "Manage Account Codes",
-            "steps": [
-                "User navigates to the MaintAccountCode page.",
-                "System checks user's permissions to determine edit access.",
-                "User can view account codes in a grid format.",
-                "User can add a new account code by clicking the 'Add' button.",
-                "User can edit an existing account code by clicking the 'Edit' button next to the desired entry.",
-                "User can delete an account code by clicking the 'Delete' button (if permissions allow).",
-                "Changes are saved to the database and the grid is refreshed to reflect updates."
-            ]
-        }
-    ],
-    "business_rules": [
-        "Account codes must be unique and associated with an agency.",
-        "Only users with appropriate permissions can add, edit, or delete account codes."
-    ],
-    "validations": [
-        "Code field is required and has a maximum length of 50 characters.",
-        "Description field is required and has a maximum length of 200 characters.",
-        "SortOrder field is required and must be an integer."
-    ],
-    "calculations": [
-        "SortOrder determines the rendering order within the grid."
-    ],
-    "conditions": [
-        "ScreenIsEditable is set to true if the user is a System Administrator or a Local Administrator for the current agency."
-    ],
-    "system_behavior": [
-        "Displays error and warning messages in panels.",
-        "Uses ASP.NET GridView for data display and manipulation.",
-        "Employs Ajax controls for partial-page updates and modals."
-    ],
-    "dependencies": [
-        "HSPnet.DataLayer for data operations.",
-        "HSPnet.App_GlobalResources for localization and resource management.",
-        "AjaxControlToolkit for modal and control extender functionalities."
-    ],
-    "exceptions": [
-        "Errors are captured and displayed within an error panel to guide users."
-    ],
-    "source_document_ids": [
-        "187e7e90-6af2-57d4-ac0a-dffa21eba0d6",
-        "1994f226-b4b3-5f02-a86c-601c45f270cf",
-        "1d26994a-bff8-5fc2-97b7-3034e90a2af0",
-        "34dd438c-7016-500d-8cf9-f8e50df86aa0",
-        "475e8271-b3b8-59f9-ac9a-53b1203cdf4e",
-        "4d4cd631-dc61-533b-8792-1a4e231190d2",
-        "53f4025b-8f4f-5149-b270-71819ba63c59",
-        "5c5daa2b-ad99-56a9-a72c-1dce50456b08",
-        "71f97b89-5cf9-5712-8023-313727e4b93b",
-        "784c2c34-59cb-528f-afb9-be8f232bc365",
-        "82ba1f0f-7ea4-5933-8971-d2f103c2bdac",
-        "8cebbe37-cbfc-5c3e-a94a-0ec7993a1c49",
-        "bc6e2175-8b8a-5fa9-b0fb-f4bb48cbc53f",
-        "ccfdc808-1b8d-5063-a3e2-9ecd3c5dd0ae",
-        "ce2cdb6e-0ed3-536e-8056-de1ce4fc7651",
-        "d09c1c47-de80-5cb7-a67d-292aae0827c5",
-        "d0c0234d-971f-5d0f-adaa-4102ff23c7bb",
-        "e2427c2c-f8a7-5a10-ad6a-3ce2c7795672"
-    ],
-    "content_gaps": []
+  "filename": "MaintAccountCode",
+  "found": true,
+  "summary": "The 'MaintAccountCode' system appears to be a web application feature used to maintain account codes within an organization. It involves functionalities for adding, editing, deleting, and listing account codes with associated descriptions and sort orders.",
+  "purpose": "To manage and maintain account codes efficiently with a user interface that allows system administrators and local administrators to perform CRUD operations, and to ensure that only authorized personnel have the necessary access.",
+  "entities": [],
+  "fields": [
+    {
+      "name": "Code",
+      "type": "string",
+      "description": "The unique code for the account."
+    },
+    {
+      "name": "Description",
+      "type": "string",
+      "description": "A brief description of the account."
+    },
+    {
+      "name": "SortOrder",
+      "type": "integer",
+      "description": "Order in which the account codes are displayed."
+    },
+    {
+      "name": "ID",
+      "type": "uuid",
+      "description": "The unique identifier for each record."
+    }
+  ],
+  "actors": [
+    {
+      "role": "System Administrator",
+      "permissions": "Can view and edit all account codes."
+    },
+    {
+      "role": "Local Administrator",
+      "permissions": "Can manage account codes for the agency they belong to."
+    }
+  ],
+  "workflows": [
+    {
+      "name": "Manage Account Codes",
+      "steps": [
+        "User accesses the MaintAccountCode page.",
+        "User selects an agency from the dropdown.",
+        "User selects an account code type from the dropdown.",
+        "The system retrieves and displays account code data in a grid.",
+        "User can add, edit, or delete an account code using buttons on the grid.",
+        "Changes are reflected in the system and the grid is refreshed."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Only System Administrators can view and edit account codes for all agencies.",
+    "Local Administrators can only manage account codes related to their agency."
+  ],
+  "validations": [
+    {
+      "field": "Code",
+      "validation": "Must be specified and contain no more than 50 characters."
+    },
+    {
+      "field": "Description",
+      "validation": "Must be specified and contain no more than 200 characters."
+    },
+    {
+      "field": "SortOrder",
+      "validation": "Must be specified and be a valid integer."
+    }
+  ],
+  "calculations": [],
+  "conditions": [
+    "Screen is editable only if accessed by authorized users like System Administrators or the appropriate Local Administrator."
+  ],
+  "system_behavior": [
+    "The interface displays account codes in a grid with options to add, edit, or delete entries.",
+    "Grid supports operations like sorting and filtering based on user role/access."
+  ],
+  "dependencies": [],
+  "exceptions": [
+    "User attempts to modify data without appropriate permissions.",
+    "Data retrieval failures due to incorrect agency selection."
+  ],
+  "source_document_ids": [
+    "187e7e90-6af2-57d4-ac0a-dffa21eba0d6",
+    "1994f226-b4b3-5f02-a86c-601c45f270cf",
+    "1d26994a-bff8-5fc2-97b7-3034e90a2af0",
+    "34dd438c-7016-500d-8cf9-f8e50df86aa0",
+    "475e8271-b3b8-59f9-ac9a-53b1203cdf4e",
+    "4d4cd631-dc61-533b-8792-1a4e231190d2",
+    "53f4025b-8f4f-5149-b270-71819ba63c59",
+    "5c5daa2b-ad99-56a9-a72c-1dce50456b08",
+    "71f97b89-5cf9-5712-8023-313727e4b93b",
+    "784c2c34-59cb-528f-afb9-be8f232bc365",
+    "82ba1f0f-7ea4-5933-8971-d2f103c2bdac",
+    "8cebbe37-cbfc-5c3e-a94a-0ec7993a1c49",
+    "bc6e2175-8b8a-5fa9-b0fb-f4bb48cbc53f",
+    "ccfdc808-1b8d-5063-a3e2-9ecd3c5dd0ae",
+    "ce2cdb6e-0ed3-536e-8056-de1ce4fc7651",
+    "d09c1c47-de80-5cb7-a67d-292aae0827c5",
+    "d0c0234d-971f-5d0f-adaa-4102ff23c7bb",
+    "e2427c2c-f8a7-5a10-ad6a-3ce2c7795672"
+  ],
+  "content_gaps": []
 }
