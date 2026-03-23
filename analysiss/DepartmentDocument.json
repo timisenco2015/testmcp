@@ -1,0 +1,58 @@
+{
+  "filename": "DepartmentDocument",
+  "found": true,
+  "summary": "The DepartmentDocument file contains methods and operations related to managing department documents in the HSPnet system. It handles adding, updating, deleting, and retrieving department documents, including file URLs, file paths, file sizes, and types. The operations are executed using SQL queries through the HSPnet session. It supports localization and provides utilities to format document updates with user details.",
+  "purpose": "To manage department-related documents, including storing, retrieving, updating, and deleting document records in the HSPnet system, while ensuring proper handling of file properties and localization options.",
+  "entities": [],
+  "fields": [
+    "ID",
+    "DepartmentID",
+    "TypeCodeID",
+    "TypeComments",
+    "FileURL",
+    "FilePath",
+    "FileSize",
+    "FileType",
+    "FileTypeAlt",
+    "Deleted",
+    "UpdateDate",
+    "ByUserId",
+    "LastName",
+    "FirstName",
+    "MiddleName",
+    "Agency",
+    "IncludeLogoOnPRForms",
+    "Code"
+  ],
+  "actors": [],
+  "workflows": [
+    {
+      "name": "Manage Department Documents",
+      "steps": [
+        "Add a new department document with details such as TypeCodeID, comments, FileURL, FilePath, FileSize, and FileType through the DepartmentDocumentAdd method.",
+        "Update an existing document's file properties using the DepartmentDocumentUpdateFile method by providing the DocumentID and new file details.",
+        "Delete a department document using the DepartmentDocumentDelete method by specifying the DocumentID.",
+        "Retrieve department documents using GetByDepartmentID method, optionally filtering to include only documents with logos."
+      ]
+    }
+  ],
+  "business_rules": [],
+  "validations": [],
+  "calculations": [],
+  "conditions": [],
+  "system_behavior": [],
+  "dependencies": [
+    "HSPnetSession",
+    "SqlDataReader",
+    "HSPnet Framework"
+  ],
+  "exceptions": [],
+  "source_document_ids": [
+    "0702f0e9-9281-5a9e-b6fe-5ee53d62a09d",
+    "426f5bd2-6892-5c2e-a4c8-f2b77fab80d4",
+    "7100745b-0637-5059-81a5-7d0b89caa0f0",
+    "ca912889-96c3-5f69-ab3a-d659557cdea7",
+    "ee0228fb-c94c-5615-a058-f7076a7d272b"
+  ],
+  "content_gaps": []
+}
