@@ -1,0 +1,83 @@
+```json
+{
+  "filename": "CourseDetail",
+  "found": true,
+  "summary": "The CourseDetail module manages CRUD operations for course details within the HSPnet system.",
+  "purpose": "To facilitate the management of course details including adding, updating, deleting, and searching course details.",
+  "entities": ["CourseDetail"],
+  "fields": [
+    "ID", "CourseID", "HeadingID", "Response", "SortOrder", "NumberingCodeID", "Description",
+    "DescriptionAlt", "DescriptionFormatted", "NumberingCode", "SortOrderFormatted", "WebPage",
+    "NumberCharacter", "NumberingIndentLevel", "HeaderChanged"
+  ],
+  "actors": ["HSPnetSession"],
+  "workflows": [
+    {
+      "name": "Add Course Detail",
+      "steps": [
+        "Check if the details are valid using IsValid method.",
+        "Set the procedure name to 'CourseDetailsAdd'.",
+        "Add parameters: CourseID, HeadingID, Response, SortOrder, NumberingCodeID.",
+        "Execute the query."
+      ]
+    },
+    {
+      "name": "Update Course Detail",
+      "steps": [
+        "Ensure ID is not zero and validate details with IsValid.",
+        "Set the procedure name to 'CourseDetailsUpdate'.",
+        "Add parameters: CourseDetailID, HeadingID, Response, SortOrder, NumberingCodeID.",
+        "Execute the query."
+      ]
+    },
+    {
+      "name": "Delete Course Detail",
+      "steps": [
+        "Ensure ID is not zero.",
+        "Set the procedure name to 'CourseDetailsDelete'.",
+        "Add parameter: CourseDetailID.",
+        "Execute the query."
+      ]
+    },
+    {
+      "name": "Copy Course Detail",
+      "steps": [
+        "Ensure ID is not zero.",
+        "Set the procedure name to 'CourseDetailsCopy'.",
+        "Add parameter: ID.",
+        "Execute the query."
+      ]
+    }
+  ],
+  "business_rules": [
+    "SortOrder -1 indicates blank and is formatted as zero.",
+    "HeaderChanged indicates if the header category has changed since the last entry."
+  ],
+  "validations": [
+    "Response must not be blank, otherwise, an error is added."
+  ],
+  "calculations": [
+    "SetNumberingCharacter and indent level for numbering code.",
+    "Format SortOrder as empty if zero."
+  ],
+  "conditions": [
+    "If UseAltLanguageFields is true, use DescriptionAlt; otherwise, use Description.",
+    "If Description equals WEB_PAGE resource, mark as WebPage entry."
+  ],
+  "system_behavior": [
+    "Translate new lines in Response using HTML.translateNewLines.",
+    "Use ProcedureName to execute stored procedures."
+  ],
+  "dependencies": ["SqlDataReader", "HSPnet.UI.NumberingCodes", "Resources"],
+  "exceptions": [],
+  "source_document_ids": [
+    "4c927f86-38fd-569d-993c-ecb14b1c2eb8",
+    "4f923d1d-c9d2-5122-97b1-feb4c28153ef",
+    "59b7e9a9-48a6-5f88-b4d2-105956914870",
+    "9e7b6283-3788-5d6b-83aa-7f42e837c370",
+    "a1693e76-d88a-589c-9fe4-35a74ee97c98",
+    "c3c2e46d-57db-5b24-9020-c8a557b23022"
+  ],
+  "content_gaps": []
+}
+```
