@@ -1,0 +1,91 @@
+{
+  "filename": "ExpenseBatch",
+  "found": true,
+  "summary": "The ExpenseBatch system manages expense batch operations, including searching, adding, updating, and deleting batch records, with workflows tied to database procedures.",
+  "purpose": "To provide a detailed system for managing and manipulating expense batch records within a database environment, supporting operations such as search, creation, update, and deletion.",
+  "entities": [],
+  "fields": [
+    "ID",
+    "DepartmentID",
+    "BatchDescription",
+    "BatchDate",
+    "StatusCodeID",
+    "StatusCode",
+    "StatusDescription",
+    "ClosedDate",
+    "BatchNumberFormatted"
+  ],
+  "actors": [],
+  "workflows": [
+    {
+      "name": "ExpenseBatch Search",
+      "steps": [
+        "Prepare stored procedure name 'ExpenseBatchSearch'.",
+        "Add 'DepartmentID' as a parameter.",
+        "Execute database query to retrieve data.",
+        "Parse result set into ExpenseBatch objects.",
+        "Close the data reader."
+      ]
+    },
+    {
+      "name": "ExpenseBatch Search by ID",
+      "steps": [
+        "Prepare stored procedure name 'ExpenseBatchSearchID'.",
+        "Add 'ID' as a parameter.",
+        "Execute database query to retrieve a single batch.",
+        "Parse result set into an ExpenseBatch object if available.",
+        "Close the data reader and return result."
+      ]
+    },
+    {
+      "name": "ExpenseBatch Add",
+      "steps": [
+        "Prepare stored procedure name 'ExpenseBatchAdd'.",
+        "Add parameters: 'SessionID', 'DepartmentID', 'BatchDescription', 'BatchDate'.",
+        "Execute database query to insert data.",
+        "Retrieve and return the new 'ID'.",
+        "Close the data reader."
+      ]
+    },
+    {
+      "name": "ExpenseBatch Update",
+      "steps": [
+        "Prepare stored procedure name 'ExpenseBatchUpdate'.",
+        "Add parameters: 'SessionID', 'ID', 'BatchDescription', 'BatchDate', 'StatusCodeID'.",
+        "Execute database query to update data."
+      ]
+    },
+    {
+      "name": "ExpenseBatch Delete",
+      "steps": [
+        "Prepare stored procedure name 'ExpenseBatchDelete'.",
+        "Add parameters: 'SessionID', 'ID'.",
+        "Execute database query to delete data."
+      ]
+    }
+  ],
+  "business_rules": [
+    "BatchNumberFormatted is a combination of ID and StatusDescription."
+  ],
+  "validations": [],
+  "calculations": [
+    "BatchNumberFormatted = ID.ToString() + ' - ' + StatusDescription"
+  ],
+  "conditions": [
+    "Use alternative language fields if 'sess.UseAltLanguageFields' is true."
+  ],
+  "system_behavior": [
+    "Interacts with the database using stored procedures for operations.",
+    "Utilizes data readers to fetch and parse data."
+  ],
+  "dependencies": [
+    "HSPnetSession for session management."
+  ],
+  "exceptions": [],
+  "source_document_ids": [
+    "060e08d3-49ca-5e40-bea0-849f4e6173e1",
+    "3559737f-0154-520e-be2b-d3dd2c3de539",
+    "b2216e58-a144-55cb-8b87-3da9787fc1d7"
+  ],
+  "content_gaps": []
+}
