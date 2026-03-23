@@ -1,92 +1,92 @@
 {
   "filename": "DestProfileHistory",
   "found": true,
-  "summary": "DestProfileHistory is a user control (ASP.NET Web UserControl) designed to display and manage the history of a Destination Profile. It interacts with user session data, agency context, and provides a grid-based UI for presenting profile history.",
-  "purpose": "To show the historical information and changes related to a Destination Profile for a specified agency and session context.",
+  "summary": "DestProfileHistory is a user control component used in the HSPnet web application for displaying and interacting with destination profile history data. It uses an object data source to fetch data based on session and destination identifiers, and provides grid display and button/label controls.",
+  "purpose": "The purpose of DestProfileHistory is to allow users to view and interact with historical data for a specified destination profile, filtered by session and agency context, within the HSPnet system.",
   "entities": [
-    "Destination Profile",
-    "User Session",
+    "DestinationProfile",
+    "UserSession",
     "Agency"
   ],
   "fields": [
     {
       "name": "Button1",
       "type": "Button",
-      "description": "User interface button, purpose not described in retrieved content."
+      "purpose": "User interaction for actions (unspecified)"
     },
     {
       "name": "Label1",
       "type": "Label",
-      "description": "UI label for display, specific usage not described."
+      "purpose": "Display purposes (unspecified)"
     },
     {
       "name": "gridData",
       "type": "GridView",
-      "description": "Displays destination profile history in a tabular format."
+      "purpose": "Displays destination profile history in grid format"
     },
     {
       "name": "dsDestProfileHistory",
       "type": "ObjectDataSource",
-      "description": "Provides data to the grid, feeds profile history information."
-    },
-    {
-      "name": "UserSession",
-      "type": "HSPnetSession",
-      "description": "Session object storing user and agency context."
+      "purpose": "Retrieves destination profile history data"
     },
     {
       "name": "DestID",
       "type": "int",
-      "description": "Identifier for the Destination Profile being viewed."
+      "purpose": "Identifier for the destination"
+    },
+    {
+      "name": "UserSession",
+      "type": "HSPnetSession",
+      "purpose": "Session object containing AgencyID and other session data"
     }
   ],
   "actors": [
-    "User (via web interface)",
-    "System (ASP.NET, HSPnet)"
+    "User",
+    "System"
   ],
   "workflows": [
     {
       "name": "Display Destination Profile History",
       "steps": [
-        "User navigates to the profile history control.",
-        "System verifies UserSession is present.",
-        "System cancels data retrieval if UserSession is null.",
-        "System sets input parameters for data source: DestinationCodeID (DestID), SessionAgencyID (from UserSession), sess (UserSession object).",
-        "System retrieves and displays profile history data in gridData."
+        "User control is loaded with UserSession and DestID properties.",
+        "dsDestProfileHistory_Selecting event is triggered.",
+        "If UserSession is null, data selection is cancelled.",
+        "If UserSession is present, input parameters are set: DestinationCodeID = DestID, SessionAgencyID = UserSession.AgencyID, sess = UserSession.",
+        "ObjectDataSource fetches data.",
+        "gridData displays the returned history data."
       ]
     }
   ],
   "business_rules": [
-    "Profile history can only be viewed if a valid UserSession exists.",
-    "Data retrieval requires valid DestinationCodeID and SessionAgencyID."
+    "Data selection for destination profile history requires a valid UserSession."
   ],
   "validations": [
-    "UserSession must not be null; otherwise, data retrieval is canceled."
+    "UserSession must not be null for data retrieval."
   ],
   "calculations": [],
   "conditions": [
-    "If UserSession is null, ObjectDataSourceSelecting event is canceled."
+    "Cancel data retrieval when UserSession is null.",
+    "Proceed with data retrieval when UserSession is valid."
   ],
   "system_behavior": [
-    "Cancels selection and data retrieval if user session is missing.",
-    "Provides agency-contextual historical data based on session and destination ID."
+    "Cancels or allows ObjectDataSource selection based on session validation.",
+    "Sets parameters for data fetching according to session and destination context."
   ],
   "dependencies": [
-    "HSPnetSession",
-    "HSPnet.DataLayer",
-    "ASP.NET Web UI controls",
-    "ObjectDataSource"
+    "HSPnetSession data structure",
+    "Destination identifier (DestID)",
+    "Web controls (Button, Label, GridView, ObjectDataSource)"
   ],
   "exceptions": [
-    "No data is retrieved if UserSession is null."
+    "UserSession is null: data selection is cancelled and no data is retrieved."
   ],
   "source_document_ids": [
     "26d18152-a8d6-510e-b713-734784713928",
     "71b67fa5-87fc-5a95-aa14-2eaa59c96551"
   ],
   "content_gaps": [
-    "No specific details on Button1 or Label1 usage.",
-    "No information on the exact business process for updating or maintaining profile history.",
-    "No data structure definition for profile history content."
+    "Details of business actions related to buttons/labels are not specified.",
+    "Specific workflows beyond data retrieval and display are unclear.",
+    "No information about error handling or edge-case behavior beyond UserSession validation."
   ]
 }
