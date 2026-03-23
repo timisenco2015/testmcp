@@ -1,36 +1,20 @@
 {
   "filename": "EmailPopupDocument",
   "found": true,
-  "summary": "The document manages EmailPopupDocument class which represents email-related document actions.",
-  "purpose": "To manage email attachments and related document actions within HSPnet.",
-  "entities": [
-    "EmailPopupDocument",
-    "EmailPopupDocuments"
-  ],
-  "fields": [
+  "summary": "EmailPopupDocument represents documents to be displayed in email pop-ups, including file management functionality.",
+  "purpose": "Manage documents associated with email pop-ups.",
+  "entities": ["EmailPopupDocument"],
+  "fields": ["ID", "FileName", "FilePath", "Checked"],
+  "actors": ["User"],
+  "workflows": [
     {
-      "name": "ID",
-      "type": "int",
-      "description": "Identifier of the email document."
-    },
-    {
-      "name": "FileName",
-      "type": "string",
-      "description": "Name of the file."
-    },
-    {
-      "name": "FilePath",
-      "type": "string",
-      "description": "Path to the file."
-    },
-    {
-      "name": "Checked",
-      "type": "Boolean",
-      "description": "Status of the document whether checked or not."
+      "name": "Email Popup",
+      "steps": [
+        "Parse email data and document details.",
+        "Delete expired or unwanted documents."
+      ]
     }
   ],
-  "actors": [],
-  "workflows": [],
   "business_rules": [],
   "validations": [],
   "calculations": [],
