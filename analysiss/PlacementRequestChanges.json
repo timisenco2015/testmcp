@@ -1,65 +1,49 @@
 {
   "filename": "PlacementRequestChanges",
   "found": true,
-  "summary": "The 'PlacementRequestChanges' class tracks modifications related to placement requests. Key fields include UrgentAlerts, Cancellations, DateChanges, DestinationChanges, and SupervisorChanges. The function 'DestinationCoordinatorChanges' is designed to analyze placement request destination changes and update these fields.",
-  "purpose": "To manage and track changes in placement requests, particularly those related to destinations and coordinators.",
+  "summary": "The document contains a C# class named PlacementRequestChanges used for tracking changes in placement requests within the HSPnet system. It includes properties to track various types of changes such as urgent alerts, cancellations, date changes, destination changes, and supervisor changes.",
+  "purpose": "To track and manage changes related to placement requests in the HSPnet system.",
   "entities": [
-    "PlacementRequestChanges"
+    "PlacementRequestChanges",
+    "PlacementRequestDestination"
   ],
   "fields": [
-    {
-      "name": "UrgentAlerts",
-      "type": "int"
-    },
-    {
-      "name": "Cancellations",
-      "type": "int"
-    },
-    {
-      "name": "DateChanges",
-      "type": "int"
-    },
-    {
-      "name": "DestinationChanges",
-      "type": "int"
-    },
-    {
-      "name": "SupervisorChanges",
-      "type": "int"
-    }
+    "UrgentAlerts",
+    "Cancellations",
+    "DateChanges",
+    "DestinationChanges",
+    "SupervisorChanges"
   ],
   "actors": [],
   "workflows": [
     {
       "name": "DestinationCoordinatorChanges",
       "steps": [
-        "Initialize PlacementRequestChanges object.",
-        "Fetch placement request destination data using a SQL query.",
-        "Read data from SqlDataReader.",
-        "Add entries to the list if any.",
+        "Instantiate PlacementRequestChanges object.",
+        "Create list of PlacementRequestDestination objects.",
+        "Execute SQL query to fetch placement requests.",
+        "Read data and populate PlacementRequestDestination list.",
         "Analyze list for changes.",
-        "Increment UrgentAlerts based on analysis.",
-        "Return updated PlacementRequestChanges object."
+        "Increment UrgentAlerts."
       ]
     }
   ],
   "business_rules": [],
   "validations": [],
-  "calculations": [
-    "Increment UrgentAlerts based on certain conditions in DestinationCoordinatorChanges."
+  "calculations": [],
+  "conditions": [
+    "Check if SqlDataReader (dr) is not null before processing."
   ],
-  "conditions": [],
-  "system_behavior": [
-    "Tracks and logs changes related to placement requests.",
-    "Processes SQL data to update alert counts."
-  ],
+  "system_behavior": [],
   "dependencies": [
-    "HSPnetSession for database operations.",
-    "SqlDataReader for reading SQL query results."
+    "HSPnetSession",
+    "SqlDataReader"
   ],
   "exceptions": [],
   "source_document_ids": [
     "ce2de8d5-9359-5357-9d88-816047aa2f55"
   ],
-  "content_gaps": ["Details of the actual SQL query and its parameters are not provided."]
+  "content_gaps": [
+    "Details on analysis of PlacementRequestDestination list are missing."
+  ]
 }
