@@ -1,0 +1,88 @@
+{
+  "filename": "RptMnuPlcSch_StudAssignSummary",
+  "found": true,
+  "summary": "The document represents a user control in an ASP.NET application, specifically designed to generate reports related to student assignment summaries. It includes various controls for user input and display, including checkboxes, drop-down lists, radio buttons, and labels.",
+  "purpose": "To facilitate the generation and customization of student assignment summary reports within the HSPnet application.",
+  "entities": [],
+  "fields": [
+    "chkIncDestAddressComments",
+    "chkShowDestPhone",
+    "chkIncludeStudentContactInfo",
+    "chkIncludeAdvancedStudentContactInfo",
+    "chkIncludeInternalComment",
+    "chkIncludeShiftSchedule",
+    "ddCampus",
+    "radSinglePDFFile",
+    "radIndividualPDFfile",
+    "radPageBreakStudents",
+    "chkShowPreceptor",
+    "chkShowPreceptorPhone",
+    "chkShowDC",
+    "chkShowDCPhone",
+    "ddDepartment",
+    "ddProgram",
+    "ddCohort",
+    "ValidationSummary1",
+    "ltlDescription",
+    "ltlOptions",
+    "UCchoosers",
+    "cmdRunReport"
+  ],
+  "actors": [
+    "UserSession",
+    "ScriptMgr"
+  ],
+  "workflows": [
+    {
+      "name": "Report Generation",
+      "steps": [
+        "Page_Load sets up interface texts and error messages.",
+        "Page_PreRender fetches and displays descriptions and options from code repository.",
+        "User input through controls like checkboxes and drop-down lists.",
+        "cmdRunReport_Click initiates report generation with various user-selected parameters."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Javascript setup is conditional on async postbacks.",
+    "Department dropdown list populated based on user session and agency constraints.",
+    "Program dropdown list populated based on user session and department constraints.",
+    "Cohort dropdown list to be filled based on program selection."
+  ],
+  "validations": [
+    "CustomValidator1 and CustomValidator2 ensure report constraints are met before generation.",
+    "ValidationSummary1 collects validation errors for user display."
+  ],
+  "calculations": [],
+  "conditions": [
+    "UserSession must be active to interact with controls.",
+    "cmdRunReport_Click operates based on user-selected PDF and contact information options."
+  ],
+  "system_behavior": [
+    "Controls are auto-generated and modifications are suggested to be done in code-behind files.",
+    "Dropdowns dynamically populated based on user data.",
+    "Report generation is a server-side process involving user session data."
+  ],
+  "dependencies": [
+    "HSPnet.DataLayer",
+    "HSPnet.UI",
+    "HSPnet.Framework",
+    "Resources for dynamic text content"
+  ],
+  "exceptions": [
+    "Session null states prevent certain data actions using ObjectDataSourceSelecting."
+  ],
+  "source_document_ids": [
+    "356c1064-9115-56e8-adb5-8c6fe23ae6a7",
+    "3d9cb1a9-3d70-5c0b-9bd9-541016341ba1",
+    "57087af6-f3eb-5354-88f4-1ffa087455d7",
+    "974f558a-3330-593b-9081-438928972c37",
+    "de5e1343-1da4-5ef1-ab94-f739c03afdd4",
+    "df93da5d-fc37-558b-942c-0368e8c1bddb",
+    "eb5a794a-50ff-5eb9-ae29-3d857af335fc",
+    "f1e24206-327e-552e-9001-346c5779d7db",
+    "f3d88fc0-b3c4-5184-bd9c-7401a953bcf2",
+    "f95ddbc3-e09d-517c-931a-fbb7943deb38"
+  ],
+  "content_gaps": []
+}
