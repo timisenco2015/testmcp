@@ -1,171 +1,53 @@
 {
   "filename": "CostCentre",
   "found": true,
-  "summary": "C# code for managing cost center records.",
-  "purpose": "Retrieve and define cost center information.",
-  "entities": [
+  "summary": "The CostCentre functionality provides methods to retrieve cost centre records, representing financial allocations and organizational data.",
+  "purpose": "To access and manage cost centre data for various organizational and financial reporting needs.",
+  "entities": ["CostCentreRecord", "CostCentreView"],
+  "fields": [
+    {"name": "PlacingAgency", "type": "string"},
+    {"name": "Department", "type": "string"},
+    {"name": "Program", "type": "string"},
+    {"name": "Discipline", "type": "string"},
+    {"name": "SubDiscipline", "type": "string"},
+    {"name": "ReceivingAgency", "type": "string"},
+    {"name": "Site", "type": "string"},
+    {"name": "Portfolio", "type": "string"},
+    {"name": "Service", "type": "string"},
+    {"name": "Destination", "type": "string"},
+    {"name": "CostCentre", "type": "string"},
+    {"name": "CostCentreDescription", "type": "string"},
+    {"name": "PRType", "type": "string"},
+    {"name": "StartDate", "type": "DateTime"},
+    {"name": "EndDate", "type": "DateTime"},
+    {"name": "Status", "type": "string"},
+    {"name": "Course", "type": "string"},
+    {"name": "ProgramYear", "type": "int"},
+    {"name": "ReferenceNumber", "type": "int"},
+    {"name": "CFO", "type": "string"},
+    {"name": "PRCount", "type": "int"},
+    {"name": "StudentCount", "type": "int"},
+    {"name": "PRHours", "type": "decimal"},
+    {"name": "StudentHours", "type": "decimal"}
+  ],
+  "actors": [],
+  "workflows": [
     {
-      "name": "CostCentreRecord",
-      "fields": [
-        "PlacingAgency",
-        "Department",
-        "Program",
-        "Discipline",
-        "SubDiscipline",
-        "ReceivingAgency",
-        "Site",
-        "Portfolio",
-        "Service",
-        "Destination",
-        "CostCentre",
-        "CostCentreDescription",
-        "PRType",
-        "StartDate",
-        "EndDate",
-        "Status",
-        "Course",
-        "ProgramYear",
-        "ReferenceNumber",
-        "CFO",
-        "PRCount",
-        "StudentCount",
-        "PRHours",
-        "StudentHours"
+      "name": "Cost Centre Data Retrieval",
+      "steps": [
+        "Use stored procedure to fetch cost centre data.",
+        "Populate CostCentreRecord list with database results."
       ]
     }
   ],
-  "fields": [
-    {
-      "name": "PlacingAgency",
-      "type": "string",
-      "description": "Agency placing the record."
-    },
-    {
-      "name": "Department",
-      "type": "string",
-      "description": "Department associated with the record."
-    },
-    {
-      "name": "Program",
-      "type": "string",
-      "description": "Program name."
-    },
-    {
-      "name": "Discipline",
-      "type": "string",
-      "description": "Discipline category."
-    },
-    {
-      "name": "SubDiscipline",
-      "type": "string",
-      "description": "Sub-discipline category."
-    },
-    {
-      "name": "ReceivingAgency",
-      "type": "string",
-      "description": "Agency receiving the record."
-    },
-    {
-      "name": "Site",
-      "type": "string",
-      "description": "Site name."
-    },
-    {
-      "name": "Portfolio",
-      "type": "string",
-      "description": "Portfolio information."
-    },
-    {
-      "name": "Service",
-      "type": "string",
-      "description": "Service associated with the record."
-    },
-    {
-      "name": "Destination",
-      "type": "string",
-      "description": "Destination associated with the record."
-    },
-    {
-      "name": "CostCentre",
-      "type": "string",
-      "description": "Cost center identifier."
-    },
-    {
-      "name": "CostCentreDescription",
-      "type": "string",
-      "description": "Description of the cost center."
-    },
-    {
-      "name": "PRType",
-      "type": "string",
-      "description": "Type of the placement request."
-    },
-    {
-      "name": "StartDate",
-      "type": "DateTime",
-      "description": "Start date of the record."
-    },
-    {
-      "name": "EndDate",
-      "type": "DateTime",
-      "description": "End date of the record."
-    },
-    {
-      "name": "Status",
-      "type": "string",
-      "description": "Status of the record."
-    },
-    {
-      "name": "Course",
-      "type": "string",
-      "description": "Course name associated with the record."
-    },
-    {
-      "name": "ProgramYear",
-      "type": "int",
-      "description": "Year of the program."
-    },
-    {
-      "name": "ReferenceNumber",
-      "type": "int",
-      "description": "Reference number for the record."
-    },
-    {
-      "name": "CFO",
-      "type": "string",
-      "description": "CFO information."
-    },
-    {
-      "name": "PRCount",
-      "type": "int",
-      "description": "Placement request count."
-    },
-    {
-      "name": "StudentCount",
-      "type": "int",
-      "description": "Number of students involved."
-    },
-    {
-      "name": "PRHours",
-      "type": "decimal",
-      "description": "Hours associated with placement requests."
-    },
-    {
-      "name": "StudentHours",
-      "type": "decimal",
-      "description": "Hours associated with students."
-    }
-  ],
-  "actors": [],
-  "workflows": [],
   "business_rules": [],
   "validations": [],
   "calculations": [],
   "conditions": [],
-  "system_behavior": [
-    "Retrieval and formatting of cost center records."
+  "system_behavior": [],
+  "dependencies": [
+    "Database for accessing cost centre records."
   ],
-  "dependencies": [],
   "exceptions": [],
   "source_document_ids": [
     "20ac8054-536e-5203-b33d-7db2b2dc2359",
