@@ -1,0 +1,96 @@
+```json
+{
+  "filename": "Cohorts",
+  "found": true,
+  "summary": "The documents pertain to the management and workflow of cohorts within a system, involving various interface and logic interactions primarily through a web-based application.",
+  "purpose": "To manage and coordinate the operations related to cohort creation, data handling, and user interactions within an educational or organizational framework.",
+  "entities": [
+    "Cohort",
+    "Program",
+    "Department",
+    "UserSession"
+  ],
+  "fields": [
+    "ID",
+    "FullName",
+    "ExpectedEnrollment",
+    "ExpectedEndDate",
+    "TotalYears",
+    "NISParticipant",
+    "UsePAW",
+    "UsePABreaks",
+    "SendAutomaticSupervisorEmail",
+    "AllowStudentsEOrientation",
+    "UseCallForOffers"
+  ],
+  "actors": [
+    "User",
+    "Program",
+    "Department"
+  ],
+  "workflows": [
+    {
+      "name": "Cohort Management",
+      "steps": [
+        "Select cohort source",
+        "Configure parameters and options",
+        "Confirm and save cohort details"
+      ]
+    },
+    {
+      "name": "Program Configuration",
+      "steps": [
+        "Search program ID",
+        "Retrieve program flags",
+        "Update program settings"
+      ]
+    },
+    {
+      "name": "Interface Initialization",
+      "steps": [
+        "Load controls",
+        "Set session defaults",
+        "Verify user permissions"
+      ]
+    }
+  ],
+  "business_rules": [
+    "Cohort copy option availability depends on source availability.",
+    "Build new cohort only if no source cohorts exist to copy."
+  ],
+  "validations": [
+    "Ensure expected enrollment and end date fields are correctly filled.",
+    "Validate cohort ID before adding or updating records."
+  ],
+  "calculations": [],
+  "conditions": [
+    "Show certain fields only under specific radio button options.",
+    "Only allow 'build new' option if no source cohorts to copy from."
+  ],
+  "system_behavior": [
+    "Screen visibility depends on user session and locale settings.",
+    "Error and warning panels managed through interface interaction."
+  ],
+  "dependencies": [
+    "UserSession",
+    "Program flags"
+  ],
+  "exceptions": [
+    "Handle invalid date formats",
+    "Ensure visibility of elements based on state"
+  ],
+  "source_document_ids": [
+    "00fc0ceb-b953-5d52-8d8f-c572de9e3a66",
+    "019c112d-6e59-5189-9a3e-57254e097784",
+    "06c2084b-8093-55fb-b928-8c5ef2067577",
+    "078bfc37-a3ae-5f5b-949c-a07fc996da21",
+    "084eba88-4ce2-51d1-8cc0-22dd06b1303b",
+    "0a34ea2e-e351-52bc-86d1-c8884f488609",
+    "0d5a8e55-be4c-5b6a-88b8-97c20c2a2ee3",
+    "16254ae7-fab9-52d5-8ee3-e5867850c70b",
+    "1a01a4b2-28a1-53dd-8c75-0039e7ddb767",
+    "1da5a8a3-ca87-5f30-89db-4507dd532967"
+  ],
+  "content_gaps": []
+}
+```
