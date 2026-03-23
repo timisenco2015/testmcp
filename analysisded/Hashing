@@ -1,71 +1,92 @@
 ```json
 {
-    "filename": "Hashing",
-    "found": true,
-    "summary": "The documents define procedures for managing and configuring URL hashing within a web application. It includes instructions for handling embedded URLs, URL encoding-decoding, and validating URL hashes.",
-    "purpose": "To securely manage URL hashes using encoded parameters and hash validation processes.",
-    "entities": ["URLHash", "HttpRequest", "HttpResponse", "HSPnetSession", "Hashing"],
-    "fields": ["URL", "URLHash", "absPath", "query", "fileName"],
-    "actors": ["Session", "Request", "Response"],
-    "workflows": [
-        {
-            "name": "Add Hash to Embedded URL",
-            "steps": [
-                "Identify delimiters <|| and ||>",
-                "Replace embedded delimiters with URLHash parameter",
-                "Repeat until all URLs are processed"
-            ]
-        },
-        {
-            "name": "Validate URL Hash",
-            "steps": [
-                "Extract URL components",
-                "Compute hash",
-                "Validate against existing hash",
-                "Handle timeout and redirection if invalid"
-            ]
-        }
-    ],
-    "business_rules": [
-        "URLHash should be unique and secure",
-        "URLHash must be validated against the original"
-    ],
-    "validations": [
-        "Check if new hash matches old hash",
-        "Log timeout and redirect on failure"
-    ],
-    "calculations": [
-        "Generate hash using SHA-1 with salt",
-        "Un-URLencode special characters"
-    ],
-    "conditions": [
-        "URL contains URLHash parameter",
-        "Base URL must be hash-free"
-    ],
-    "system_behavior": [
-        "Handles URL encoding and decoding",
-        "Validates URLHash for session security",
-        "Logs timeout events"
-    ],
-    "dependencies": [
-        "System.Security.Cryptography",
-        "System.Web.HttpUtility"
-    ],
-    "exceptions": [
-        "Hash mismatch logs timeout and redirects user"
-    ],
-    "source_document_ids": [
-        "23395986-e98e-570c-8095-485b7fd028a0",
-        "30ab0118-db74-5b13-9ba7-399bada01620",
-        "54a5b3ae-5315-5599-92a7-f204bf45848d",
-        "57e564b0-61db-56ee-91e3-4680f3d1adf4",
-        "7c921882-b8f0-5001-a2bd-05ee5afc6b2b",
-        "8f4c7d7f-e6d4-5c57-8d4d-c8c22b008c19",
-        "b9512be4-d4d5-542c-8be9-8370507a5815",
-        "dc48531e-6645-5589-9115-cd08638e8191",
-        "debc4670-543a-57f1-9022-4d02d424aa8c",
-        "ec18bef8-2651-5bb8-b94f-ede60842d2ab"
-    ],
-    "content_gaps": []
+  "filename": "Hashing",
+  "found": true,
+  "summary": "The documents contain information on handling URL hashing within the HSPnet framework. They cover adding, validating, and regenerating URL hashes, removing pre-existing hash parameters from URLs, and handling URL encoding issues, especially with French characters.",
+  "purpose": "To manage URL hashing within the HSPnet framework, ensuring secure and consistent hash generation and validation processes.",
+  "entities": ["HttpRequest", "HttpResponse", "HSPnetSession"],
+  "fields": ["URLHash", "SessionID", "Locale", "baseURL", "query"],
+  "actors": ["Security", "HttpUtility"],
+  "workflows": [
+    {
+      "name": "AddHashToEmbeddedURL",
+      "steps": [
+        "Identify URLs delimited by <|| and ||>",
+        "Replace each URL with a new URL including a URLHash parameter"
+      ]
+    },
+    {
+      "name": "AddURLHash",
+      "steps": [
+        "Check if URL already contains URLHash",
+        "Generate new hash if regenerating",
+        "Return URL with URLHash"
+      ]
+    },
+    {
+      "name": "ValidateURLHash",
+      "steps": [
+        "Generate hash from current URL",
+        "Compare with stored hash",
+        "Mark page valid or timeout user"
+      ]
+    },
+    {
+      "name": "HttpRequestRebuildURL",
+      "steps": [
+        "Strip domain and pre-existing URLHash",
+        "Return page and query string"
+      ]
+    },
+    {
+      "name": "HttpRequestRedirectURL",
+      "steps": [
+        "Combine domain from original request with rebuilt URL",
+        "Return full URL for redirection"
+      ]
+    }
+  ],
+  "business_rules": [
+    "A new URLHash is generated only if reGenerate is true",
+    "Validation fails if URLHash is missing"
+  ],
+  "validations": [
+    "Ensure new hash matches old hash",
+    "Validate URL with spaces translated from plus signs"
+  ],
+  "calculations": [
+    "Hash generated using SHA1 with salt",
+    "URLHash value calculated from URL"
+  ],
+  "conditions": [
+    "Hash index found in baseURL indicates presence of URLHash",
+    "URL is considered invalid without a URLHash"
+  ],
+  "system_behavior": [
+    "Logout user if validation fails",
+    "Redirect to Timedout page on timeout"
+  ],
+  "dependencies": [
+    "System.Security.Cryptography",
+    "System.Web",
+    "HSPnet.Framework"
+  ],
+  "exceptions": [
+    "Timeout on validation failure",
+    "Encoding issues with French characters"
+  ],
+  "source_document_ids": [
+    "23395986-e98e-570c-8095-485b7fd028a0",
+    "30ab0118-db74-5b13-9ba7-399bada01620",
+    "54a5b3ae-5315-5599-92a7-f204bf45848d",
+    "57e564b0-61db-56ee-91e3-4680f3d1adf4",
+    "7c921882-b8f0-5001-a2bd-05ee5afc6b2b",
+    "8f4c7d7f-e6d4-5c57-8d4d-c8c22b008c19",
+    "b9512be4-d4d5-542c-8be9-8370507a5815",
+    "dc48531e-6645-5589-9115-cd08638e8191",
+    "debc4670-543a-57f1-9022-4d02d424aa8c",
+    "ec18bef8-2651-5bb8-b94f-ede60842d2ab"
+  ],
+  "content_gaps": []
 }
 ```
