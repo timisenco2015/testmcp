@@ -1,0 +1,97 @@
+# Module: Recognition
+
+## Recognition-UC1 — View Staff Recognition Details
+
+- Primary Actor(s): Staff Member
+- Secondary Actor(s): System Administrator
+- Trigger: Staff Member accesses the Recognition details page.
+- Description: This use case describes how a staff member can view their recognition details.
+- Preconditions: User must be logged into the system with a valid session.
+- Postconditions: The recognition details are displayed to the staff member, with appropriate editable fields.
+- Main Success Scenario:
+  1. The staff member navigates to the Recognition details page.
+  2. The system retrieves recognition data related to the staff member.
+  3. The system displays the recognition details, including activity type, comments, and dates.
+- Extensions:
+  - If the staff member is part of a Placing Agency, additional program details are displayed.
+- Exceptions:
+  - If the session is invalid, an error message is shown, and the access is denied.
+- Business Rules:
+  - Only authorized users can view recognition details.
+  - The program column is hidden unless the user is part of a Placing Agency.
+- Assumptions:
+  - The user has the necessary role to view recognition details.
+- Open Issues:
+  - None identified.
+
+## Recognition-UC2 — Edit Staff Recognition
+
+- Primary Actor(s): Staff Member
+- Secondary Actor(s): System Administrator
+- Trigger: Staff Member opts to edit recognition details.
+- Description: This use case allows a staff member to edit their recognition details.
+- Preconditions: User must have permission to edit recognition details.
+- Postconditions: The recognition details are updated successfully in the system.
+- Main Success Scenario:
+  1. Staff member selects the edit option on their recognition details.
+  2. The system presents the details in an editable form.
+  3. The staff member updates the necessary fields and saves the changes.
+  4. The system updates the recognition details and confirms the changes.
+- Extensions:
+  - None identified.
+- Exceptions:
+  - If the staff member has insufficient permissions, the edit option is disabled.
+- Business Rules:
+  - Editable fields include activity type, comments, activity date, and expiry date.
+- Assumptions:
+  - The staff member knows the necessary details for updating.
+- Open Issues:
+  - Handling of concurrent updates is not specified.
+
+## Recognition-UC3 — Add New Recognition Entry
+
+- Primary Actor(s): Staff Member
+- Secondary Actor(s): None
+- Trigger: Staff Member opts to add a new recognition entry.
+- Description: This use case describes the process for adding a new recognition entry for the staff member.
+- Preconditions: User must have permission to add new entries.
+- Postconditions: A new recognition entry is added to the system.
+- Main Success Scenario:
+  1. Staff member clicks on the add button for recognition details.
+  2. The system shows a blank form for entering recognition details.
+  3. The staff member fills in the required information and submits the form.
+  4. The system saves the new entry and confirms the addition.
+- Extensions:
+  - None identified.
+- Exceptions:
+  - If required fields are missing, the system prompts the user to enter all necessary information.
+- Business Rules:
+  - System must ensure unique identification for each recognition entry.
+- Assumptions:
+  - User has the necessary information ready for the new entry.
+- Open Issues:
+  - None identified.
+
+## Recognition-UC4 — Delete Recognition Entry
+
+- Primary Actor(s): Staff Member
+- Secondary Actor(s): None
+- Trigger: Staff Member opts to delete a recognition entry.
+- Description: This use case handles the deletion of an existing recognition entry.
+- Preconditions: User must have permission to delete entries.
+- Postconditions: The selected recognition entry is removed from the system.
+- Main Success Scenario:
+  1. Staff member selects a recognition entry to delete.
+  2. The system prompts for confirmation of deletion.
+  3. Staff member confirms the deletion.
+  4. The system removes the entry and updates the display.
+- Extensions:
+  - None identified.
+- Exceptions:
+  - If the entry cannot be deleted due to constraints, the system provides an error message.
+- Business Rules:
+  - Deleting a recognition entry is a non-reversible action.
+- Assumptions:
+  - The staff member is certain about the deletion of the entry.
+- Open Issues:
+  - None identified.
