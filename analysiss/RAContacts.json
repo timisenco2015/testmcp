@@ -1,79 +1,78 @@
 {
   "filename": "RAContacts",
   "found": true,
-  "summary": "RAContacts is a component within the HSPnet framework that handles various functionalities related to service, destination, and supervisor contacts in placement requests.",
-  "purpose": "RAContacts facilitates the management of service, destination, and supervisor contacts, allowing users to view, edit, and manage contact information within the context of placement requests.",
+  "summary": "The RAContacts system manages the configuration and display of contact details involved in a placement request, including Service, Destination, Discipline, and Supervisor contacts. It integrates with a session-based user system to adjust access and editing permissions based on user roles.",
+  "purpose": "To facilitate the management and visibility of contact information related to placement requests for users with varying roles and permissions.",
   "entities": [],
   "fields": [
     "uxServiceContact",
     "uxDestinationContact",
     "uxSupervisor",
-    "uxSupervisorEmail",
-    "uxSupervisorPhone",
-    "uxDestinationContactEmail",
-    "uxDestinationContactPhone",
     "uxDisciplineContact",
-    "uxDisciplineContactEmail",
-    "uxDisciplineContactPhone",
     "uxStudentInstructorContact",
-    "uxStudentInstructorContactEmail",
-    "uxStudentInstructorContactPhone",
     "uxMultipleSupervisors",
-    "uxAddMultipleSupervisors",
-    "uxWithholdPreceptor",
-    "uxWithholdDC",
-    "trServiceContactChanged",
-    "lblServiceContactChanged",
-    "trDestinationContactChanged",
-    "lblDestinationContactChanged",
-    "uxToggleLock",
+    "hdnSupervisorID",
+    "hdnSupervisorAssessmentDataExists",
     "cmdSave",
     "cmdCancel"
   ],
   "actors": [
     "UserSession",
-    "PlacementRequestDestination",
-    "PlacementRequestCourse"
+    "PlacementRequest",
+    "Staff",
+    "Resources"
   ],
   "workflows": [
     {
-      "name": "Setup Contacts",
+      "name": "Service Contact Data Binding",
       "steps": [
-        "SetupServiceContact",
-        "SetupDestinationContact",
-        "SetupDisciplineContact",
-        "SetupStudentInstructorContact",
-        "SetupSupervisor"
+        "Check user type and session attributes.",
+        "Add new or blank entry to the dropdown based on user access.",
+        "Apply onchange event with hashed URL if user has the right permissions."
+      ]
+    },
+    {
+      "name": "Supervisor Contact Management",
+      "steps": [
+        "Determine user permissions to edit supervisor data.",
+        "Load supervisor data and set visibility.",
+        "Update contact information if allowed and save or cancel changes."
+      ]
+    },
+    {
+      "name": "Assessment Processing",
+      "steps": [
+        "Retrieve assessments based on supervisor type.",
+        "Format and display assessment icons and links.",
+        "Handle password resend logic for activated users by another agency."
       ]
     }
   ],
   "business_rules": [
-    "Agency contacts are managed based on the user's role, such as PC, NIS_Agency, or LocalAdministrator.",
-    "Overrides for release information are applied if the user is from the same agency.",
-    "Certain users (e.g., Placement Coordinators) have the ability to edit contact information if allowed."
+    "Allow edit override for local administrators and specific coordinator roles.",
+    "Release contact information if the user is from the same agency.",
+    "Enable or disable dropdowns based on user permissions and field status."
   ],
   "validations": [
-    "valSupervisorCheckAddNew ensures a valid supervisor is selected."
+    "Ensure valid supervisor selection before updating.",
+    "Restrict visibility of profile icons to authorized users."
   ],
   "calculations": [],
   "conditions": [
-    "User roles determine access and visibility, such as PC, NIS_Agency, LocalAdministrator, DestinationCoordinator, and ReceivingCoordinator."
+    "Check if user type is 'PC' or in specific agency roles to grant editing rights.",
+    "Determine visibility of multiple supervisor icons based on balance of hours."
   ],
   "system_behavior": [
-    "Drop-downs for contacts are populated based on allowed permissions and existing data.",
-    "Icons for email and phone links are shown based on release information.",
-    "Lock and unlock mechanisms are provided for supervisor editing."
+    "Auto redirect logic based on placement request status.",
+    "JavaScript setup for client-side interactions."
   ],
   "dependencies": [
-    "HSPnet.Framework",
     "HSPnet.DataLayer",
-    "StaffController",
-    "PlacementRequestStaffController",
+    "HSPnet.Framework",
     "PlacementRequestAssessments"
   ],
   "exceptions": [
-    "Read-only users cannot modify contact information.",
-    "Supervisor lock status affects editing capabilities."
+    "Handle user session caching and redirections for state management."
   ],
   "source_document_ids": [
     "057b262b-99b6-5ed4-80ed-d05e9b56602e",
