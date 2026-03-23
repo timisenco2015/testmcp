@@ -2,60 +2,83 @@
 {
   "filename": "PersonLookup",
   "found": true,
-  "summary": "The PersonLookup system manages the search and display of person-related data within the HSPnet application, including functionalities for search, data binding, and UI interactions.",
-  "purpose": "To provide an interface for searching and displaying information about persons, including email, profiles, and roles within the HSPnet system.",
-  "entities": ["Person", "HSPnetPage", "ProfileIcon", "UserSession"],
-  "fields": [
-    "pnlCurrentView", "Literal1", "txtQuery", "RequiredFieldValidator1", "ValidationSummary1", "cmdSearch", "cmdClear",
-    "cmdHideWarningPanel", "uxPersonLookupNote", "cmdPrint", "cmdClose", "Label1", "pnlWarning", "lblWarningCaption",
-    "lblWarningList", "uxPageTitle", "AlwaysVisibleControlExtender1", "AlwaysVisibleControlExtender2", "pnlError",
-    "lblErrorCaption", "lblErrorList", "cmdHideErrorPanel"
+  "summary": "The PersonLookup module is a web-based system component designed for searching, displaying, and managing person-related information within the HSPnet framework. It allows users to query, view, and interact with data such as names, roles, and associated profiles, utilizing various control elements for display and manipulation.",
+  "purpose": "To facilitate efficient searching and management of person-related data and profiles within the HSPnet system.",
+  "entities": [
+    "Person",
+    "UserSession",
+    "PersonController"
   ],
-  "actors": ["SystemAdministrator", "Staff", "Student", "Supervisor", "ReceivingCoord", "DestinationCoord"],
+  "fields": [
+    "txtQuery",
+    "LastName",
+    "FirstNameIncludingPreferred",
+    "Roles",
+    "AgencyDepartmentFormatted",
+    "StaffID",
+    "StudentID"
+  ],
+  "actors": [
+    "System Administrator",
+    "Staff",
+    "Student",
+    "Supervisor",
+    "Receiving Coordinator",
+    "Destination Coordinator"
+  ],
   "workflows": [
     {
-      "name": "Search Person",
+      "name": "Search Workflow",
       "steps": [
-        "Initialize search parameters",
-        "Validate search input fields",
-        "Execute search query",
-        "Bind search results to UI"
+        "Initiate search using txtQuery",
+        "Filter based on placingAgency parameter",
+        "Bind results to uxMaster grid",
+        "Display results sorted by LastName"
       ]
     },
     {
-      "name": "Display Profile",
+      "name": "Profile Handling",
       "steps": [
-        "Check profile existence",
-        "Display profile icon",
-        "Open profile in new window if profile exists"
+        "Setup profile icon link",
+        "Handle email link",
+        "Highlight profile icon if exists"
+      ]
+    },
+    {
+      "name": "Error and Warning Management",
+      "steps": [
+        "Process error and warning panels",
+        "Display status messages",
+        "Hide panels via user interaction"
       ]
     }
   ],
   "business_rules": [
-    "Email icons are hidden if certain info is not released.",
-    "Profiles are displayed only if user is authorized.",
-    "Default button on page is the search button.",
-    "Page sorts results by last name ascending."
+    "Field declarations are auto-generated and should be modified by moving them to code-behind files.",
+    "Profiles should be highlighted if existing using multi-part IDs.",
+    "Role display should be disabled for view-only users."
   ],
   "validations": [
-    "RequiredFieldValidator1 ensures txtQuery is not empty.",
-    "ValidationSummary1 displays validation errors."
+    "RequiredFieldValidator ensures txtQuery is populated.",
+    "ValidationSummary displays search-related errors."
   ],
   "calculations": [],
   "conditions": [
-    "If data.StaffID equals UserSession.StaffID, it marks this as current user.",
-    "If Request.QueryString['PA'] equals '1', additional information is displayed."
+    "If placingAgency is true, perform specific searches.",
+    "Ensure email icons are properly setup based on person data."
   ],
   "system_behavior": [
-    "Uses AJAX for dynamic UI updates.",
-    "Handles client-side events using JavaScript."
+    "Page_Load initiates session validation and setups the page.",
+    "OnRowDataBound customizes row appearance based on Role and Data.",
+    "JavaScript functions manage client-side behaviors like clearing fields and setting initial searches."
   ],
   "dependencies": [
-    "HSPnet.DataLayer", "HSPnet.Framework", "AjaxControlToolkit"
+    "HSPnet.DataLayer",
+    "HSPnet.Framework",
+    "HSPnet.UI",
+    "System.Web.UI"
   ],
-  "exceptions": [
-    "Errors are captured in lblErrorList."
-  ],
+  "exceptions": [],
   "source_document_ids": [
     "117be637-65c1-565e-89b0-977f997dd239",
     "1870e1b8-b75a-58ce-8571-23dda91e26d5",
