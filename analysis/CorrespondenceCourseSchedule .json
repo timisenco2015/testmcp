@@ -1,123 +1,97 @@
-{
-  "filename": "CorrespondenceCourseSchedule",
-  "found": true,
-  "summary": "The CorrespondenceCourseSchedule module manages scheduling for correspondence courses by providing CRUD operations, search functionality, and supporting alternate language fields. It defines both the entity structure and logic to add, update, delete, and retrieve schedules associated with courses.",
-  "purpose": "To facilitate the creation, retrieval, update, and deletion of schedule records for correspondence courses, including support for alternate language fields and descriptive formatting.",
-  "entities": [
-    {
-      "name": "CorrespondenceCourseSchedule",
-      "description": "Represents a schedule entry for a correspondence course.",
-      "fields": [
-        "ID",
-        "CourseID",
-        "CorrespondenceID",
-        "Days",
-        "PeriodCodeID",
-        "CorrespondenceName",
-        "TypeDescription",
-        "PeriodDescription",
-        "TemplateFormatted"
-      ]
-    }
-  ],
-  "fields": [
-    { "name": "ID", "type": "int", "description": "Unique identifier for the schedule record." },
-    { "name": "CourseID", "type": "int", "description": "Identifier for the related course." },
-    { "name": "CorrespondenceID", "type": "int", "description": "Identifier for the correspondence type." },
-    { "name": "Days", "type": "int", "description": "Number of days assigned to the schedule." },
-    { "name": "PeriodCodeID", "type": "int", "description": "Identifier for the scheduling period." },
-    { "name": "CorrespondenceName", "type": "string", "description": "Name/description of correspondence." },
-    { "name": "TypeDescription", "type": "string", "description": "Descriptive type info; also supports alternate language fields." },
-    { "name": "PeriodDescription", "type": "string", "description": "Period description; also supports alternate language fields." },
-    { "name": "TemplateFormatted", "type": "string", "description": "Formatted string combining type and correspondence name." }
-  ],
-  "actors": [
-    { "name": "HSPnetSession", "description": "Manages DB interaction and session context." }
-  ],
-  "workflows": [
-    {
-      "name": "Add Correspondence Course Schedule",
-      "steps": [
-        "Prepare DB procedure 'CorrespondenceCourseSchedulesAdd'.",
-        "Add parameters: CourseID, CorrespondenceID, Days, PeriodCodeID.",
-        "Execute query to insert new schedule."
-      ]
-    },
-    {
-      "name": "Update Correspondence Course Schedule",
-      "steps": [
-        "Prepare DB procedure 'CorrespondenceCourseSchedulesUpdate'.",
-        "Add parameters: ID, CorrespondenceID, Days, PeriodCodeID.",
-        "Execute query to update existing schedule."
-      ]
-    },
-    {
-      "name": "Delete Correspondence Course Schedule",
-      "steps": [
-        "Prepare DB procedure 'CorrespondenceCourseSchedulesDelete'.",
-        "Add parameter: ID.",
-        "Execute query to delete schedule."
-      ]
-    },
-    {
-      "name": "Get Schedules by CourseID",
-      "steps": [
-        "Prepare DB procedure 'CorrespondenceCourseSchedulesSearch'.",
-        "Add parameter: CourseID.",
-        "Read data with SqlDataReader.",
-        "Populate entity list with FillList."
-      ]
-    },
-    {
-      "name": "Get Schedules by ID",
-      "steps": [
-        "Prepare DB procedure 'CorrespondenceCourseSchedulesSearchID'.",
-        "Add parameter: ID.",
-        "Read data with SqlDataReader.",
-        "Populate entity list with FillList."
-      ]
-    }
-  ],
-  "business_rules": [
-    "Alternate language fields (TypeDescriptionAlt, PeriodDescriptionAlt) are used if sess.UseAltLanguageFields is enabled.",
-    "ID is required for update and delete operations."
-  ],
-  "validations": [
-    "For updates and deletes, the schedule record must exist (verified by ID).",
-    "Days, CourseID, CorrespondenceID, PeriodCodeID must be valid and present for add and update operations."
-  ],
-  "calculations": [
-    {
-      "name": "TemplateFormatted",
-      "formula": "TypeDescription + ' - ' + CorrespondenceName"
-    }
-  ],
-  "conditions": [
-    "If sess.UseAltLanguageFields is true, retrieve alternate descriptions from TypeDescriptionAlt and PeriodDescriptionAlt.",
-    "Else, use TypeDescription and PeriodDescription fields."
-  ],
-  "system_behavior": [
-    "CRUD operations are executed via defined DB stored procedures.",
-    "List population uses FillList, reading from SqlDataReader and mapping fields accordingly.",
-    "Handles alternate language fields based on session context."
-  ],
-  "dependencies": [
-    "HSPnetSession for DB context",
-    "SqlDataReader for reading schedule records",
-    "DB stored procedures: CorrespondenceCourseSchedulesAdd, CorrespondenceCourseSchedulesUpdate, CorrespondenceCourseSchedulesDelete, CorrespondenceCourseSchedulesSearch, CorrespondenceCourseSchedulesSearchID"
-  ],
-  "exceptions": [
-    "If invalid UUIDs or IDs are provided, the DB procedure will not execute successfully.",
-    "If required parameters are missing, operations will fail."
-  ],
-  "source_document_ids": [
-    "433f1f60-30c5-537a-bd7c-729b3d0a5496",
-    "6e0281aa-01ec-56c8-9f50-f68ce5c69aa9",
-    "f58e19a0-5a2c-5a5b-b765-eac59c6e989d"
-  ],
-  "content_gaps": [
-    "No explicit error handling or exception management details.",
-    "Business rule coverage outside CRUD and alternate language not described.",
-    "No information on validation constraints for Days, PeriodCodeID, etc."
-  ]
-}
+[
+  {
+    "filename": "SiteDocument",
+    "found": false,
+    "summary": "",
+    "purpose": "",
+    "entities": [],
+    "fields": [],
+    "actors": [],
+    "workflows": [],
+    "business_rules": [],
+    "validations": [],
+    "calculations": [],
+    "conditions": [],
+    "system_behavior": [],
+    "dependencies": [],
+    "exceptions": [],
+    "source_document_ids": [],
+    "content_gaps": ["No related documents were found for filename SiteDocument."]
+  },
+  {
+    "filename": "WelcomeStaffAdmin",
+    "found": false,
+    "summary": "",
+    "purpose": "",
+    "entities": [],
+    "fields": [],
+    "actors": [],
+    "workflows": [],
+    "business_rules": [],
+    "validations": [],
+    "calculations": [],
+    "conditions": [],
+    "system_behavior": [],
+    "dependencies": [],
+    "exceptions": [],
+    "source_document_ids": [],
+    "content_gaps": ["No related documents were found for filename WelcomeStaffAdmin."]
+  },
+  {
+    "filename": "ServiceCode",
+    "found": false,
+    "summary": "",
+    "purpose": "",
+    "entities": [],
+    "fields": [],
+    "actors": [],
+    "workflows": [],
+    "business_rules": [],
+    "validations": [],
+    "calculations": [],
+    "conditions": [],
+    "system_behavior": [],
+    "dependencies": [],
+    "exceptions": [],
+    "source_document_ids": [],
+    "content_gaps": ["No related documents were found for filename ServiceCode."]
+  },
+  {
+    "filename": "SiteProfileHistory",
+    "found": false,
+    "summary": "",
+    "purpose": "",
+    "entities": [],
+    "fields": [],
+    "actors": [],
+    "workflows": [],
+    "business_rules": [],
+    "validations": [],
+    "calculations": [],
+    "conditions": [],
+    "system_behavior": [],
+    "dependencies": [],
+    "exceptions": [],
+    "source_document_ids": [],
+    "content_gaps": ["No related documents were found for filename SiteProfileHistory."]
+  },
+  {
+    "filename": "EmailPopupDocument",
+    "found": false,
+    "summary": "",
+    "purpose": "",
+    "entities": [],
+    "fields": [],
+    "actors": [],
+    "workflows": [],
+    "business_rules": [],
+    "validations": [],
+    "calculations": [],
+    "conditions": [],
+    "system_behavior": [],
+    "dependencies": [],
+    "exceptions": [],
+    "source_document_ids": [],
+    "content_gaps": ["No related documents were found for filename EmailPopupDocument."]
+  }
+]
