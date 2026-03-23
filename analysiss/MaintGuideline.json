@@ -1,29 +1,39 @@
 {
-  "filename": "MaintGuideline",
-  "found": true,
-  "summary": "VBScript setup for page response and buffer management.",
-  "purpose": "To initialize the page settings and include a virtual script.",
-  "entities": [],
-  "fields": [
-    {
-      "name": "strScreenName",
-      "type": "string",
-      "description": "Screen name set to 'MaintGuideline'."
-    }
-  ],
-  "actors": [],
-  "workflows": [],
-  "business_rules": [],
-  "validations": [],
-  "calculations": [],
-  "conditions": [],
-  "system_behavior": [
-    "Buffering enabled and screen name is set for response."
-  ],
-  "dependencies": [
-    "Includes /HSPnet/DoScreen.asp"
-  ],
-  "exceptions": [],
-  "source_document_ids": ["d2a7a3b6-db59-52b4-9178-4b2e112144fa"],
-  "content_gaps": []
+    "filename": "MaintGuideline",
+    "found": true,
+    "summary": "The document defines the structure for generating maintenance guidelines using VBScript with session state disabled. It includes a screen name variable and a virtual include for further processing.",
+    "purpose": "To provide a web-based screen for maintenance guidelines, using server-side VBScript for processing.",
+    "entities": [],
+    "fields": [
+        {
+            "name": "strScreenName",
+            "type": "string",
+            "description": "Holds the screen name for the maintenance guideline interface."
+        }
+    ],
+    "actors": [],
+    "workflows": [
+        {
+            "name": "Maintenance Guideline Execution",
+            "steps": [
+                "Set Option Explicit for VBScript",
+                "Disable session state",
+                "Initialize strScreenName with 'MaintGuideline'",
+                "Include virtual processing script via DoScreen.asp"
+            ]
+        }
+    ],
+    "business_rules": [],
+    "validations": [],
+    "calculations": [],
+    "conditions": [],
+    "system_behavior": [
+        {
+            "description": "The VBScript disables session state and buffers response, creating an environment for web-based interactions without storing session information."
+        }
+    ],
+    "dependencies": [],
+    "exceptions": [],
+    "source_document_ids": ["d2a7a3b6-db59-52b4-9178-4b2e112144fa"],
+    "content_gaps": []
 }
