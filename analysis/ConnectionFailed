@@ -1,0 +1,69 @@
+```json
+{
+  "filename": "ConnectionFailed",
+  "found": true,
+  "summary": "The 'ConnectionFailed' component is part of the HSPnet web application, responsible for displaying connection failure messages to users. It includes internationalization features supporting English and French languages.",
+  "purpose": "To inform users of a connection failure and display the appropriate error message based on the user's language preference.",
+  "entities": [],
+  "fields": [
+    {
+      "name": "HeaderEN",
+      "description": "A Panel control for displaying the header in English."
+    },
+    {
+      "name": "HeaderFR",
+      "description": "A Panel control for displaying the header in French."
+    },
+    {
+      "name": "uxErrorMessage",
+      "description": "A Label control for displaying the connection failed error message."
+    }
+  ],
+  "actors": [
+    {
+      "id": "1",
+      "name": "User",
+      "role": "Interacts with the page by viewing the connection status and language-specific content."
+    }
+  ],
+  "workflows": [
+    {
+      "name": "Display Connection Failed Message",
+      "steps": [
+        "User visits a page that triggers the ConnectionFailed component.",
+        "The component checks the 'Locale' query string parameter.",
+        "Displays HeaderEN if the locale is 'en-US' or unspecified.",
+        "Displays HeaderFR if the locale is 'fr-CA'.",
+        "Sets the cultural information according to the 'Locale' parameter.",
+        "Displays the connection failed message in the appropriate language."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Display the English header if the locale is 'en-US' or not specified.",
+    "Display the French header if the locale is 'fr-CA'."
+  ],
+  "validations": [
+    {
+      "field": "Locale",
+      "condition": "Must be either 'en-US' or 'fr-CA'."
+    }
+  ],
+  "calculations": [],
+  "conditions": [],
+  "system_behavior": [
+    "Dynamically sets the culture information based on the 'Locale' query string."
+  ],
+  "dependencies": [],
+  "exceptions": [
+    "If the 'Locale' parameter is missing or invalid, the server defaults to 'en-US'."
+  ],
+  "source_document_ids": [
+    "1b519992-db1d-5f57-b018-a0e1befe8491",
+    "5ba21fbf-7905-59e7-90cb-c18e7f0bb6fb",
+    "83674888-1068-5d79-8a82-659f9547d3c0",
+    "8aaa6f24-0523-5c88-a8bb-fc0af3303321"
+  ],
+  "content_gaps": []
+}
+```
