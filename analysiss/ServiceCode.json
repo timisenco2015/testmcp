@@ -1,17 +1,22 @@
 {
     "filename": "ServiceCode",
     "found": true,
-    "summary": "The 'ServiceCode' file defines data access operations for service code information, including list retrievals based on various criteria.",
-    "purpose": "To manage service code data and provide methods for retrieving service code lists.",
+    "summary": "ServiceCode and ServiceCodes classes manage and retrieve service code information within different contexts.",
+    "purpose": "To provide methods and structures for managing different service codes.",
     "entities": ["ServiceCode", "ServiceCodes"],
     "fields": ["ID", "CodeCategoryID", "ShortName", "Name", "SortOrder", "Notes", "NameAlt", "NotesAlt"],
     "actors": [],
-    "workflows": [],
+    "workflows": [
+        {
+            "name": "Retrieve Service Codes",
+            "steps": ["Initiate session", "Execute stored procedure", "Retrieve and localize data", "Return service code list"]
+        }
+    ],
     "business_rules": [],
     "validations": [],
     "calculations": [],
-    "conditions": [],
-    "system_behavior": ["Provides methods for listing and localizing service codes."],
+    "conditions": ["Entry should use alternative language fields if specified"],
+    "system_behavior": ["Retrieves service code data from database", "Localizes service code information if necessary"],
     "dependencies": [],
     "exceptions": [],
     "source_document_ids": ["94f1b055-348d-508a-ae6e-cf7960a8c6a2", "e4ebe4b4-6d14-5c3f-b693-61016f765239", "f976b9af-a402-540f-b162-391d578fac7c"],
