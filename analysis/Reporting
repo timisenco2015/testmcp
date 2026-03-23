@@ -1,0 +1,79 @@
+```json
+{
+  "filename": "Reporting",
+  "found": true,
+  "summary": "The provided documentation outlines the process of generating reports using Crystal Reports and MigraDoc/PDFSharp frameworks. It includes error handling, parameter setting, and exporting in different formats. The system supports both English and alternative locale templates. Reports are saved with unique filenames in specified folders.",
+  "purpose": "The purpose of this documentation is to guide the implementation of reporting functionalities using specified technologies, ensuring proper handling of report generation, parameter validation, and file management.",
+  "entities": [],
+  "fields": [
+    "OutputType",
+    "ReportName",
+    "ReportDescription",
+    "LinkText",
+    "Parameters",
+    "CreatedFile",
+    "CreatedFileFullPath",
+    "ReportFile",
+    "templateFile",
+    "templateFileFullPath"
+  ],
+  "actors": [
+    "HSPnetSession"
+  ],
+  "workflows": [
+    {
+      "name": "RunReport",
+      "steps": [
+        "Initialize successFlag to false.",
+        "Determine the report file path.",
+        "Check for alternative locale template.",
+        "Set up connection information.",
+        "Load the report file.",
+        "Apply logon information to tables.",
+        "Log on to subreports.",
+        "Set report parameters.",
+        "Export report to specified format.",
+        "Return report status."
+      ]
+    }
+  ],
+  "business_rules": [],
+  "validations": [
+    "Verify existence of alternative language template.",
+    "Check connectivity for each table.",
+    "Ensure parameters are valid.",
+    "Confirm successful report generation."
+  ],
+  "calculations": [],
+  "conditions": [
+    "Use alternative locale template if available.",
+    "Export to RTF or PDF based on OutputType.",
+    "Return specific status messages for different errors."
+  ],
+  "system_behavior": [
+    "Generates unique filenames for report outputs.",
+    "Exports reports in specified formats.",
+    "Handles errors using predefined status codes."
+  ],
+  "dependencies": [
+    "CrystalDecisions.CrystalReports.Engine",
+    "HSPnet.Framework",
+    "MigraDocXML"
+  ],
+  "exceptions": [
+    "CanNotOpen",
+    "CanNotConnect",
+    "CanNotExport",
+    "InvalidParameter"
+  ],
+  "source_document_ids": [
+    "12ed470b-15a2-5de3-a98e-f17b59078c07",
+    "33321746-6c5f-597e-8fd2-a6a52a6afe4c",
+    "394a10f3-8aea-53d7-98bc-ffee8cc2ccbc",
+    "671a0c1e-63d8-59d5-8272-a2b6caba0ae8",
+    "8672f99f-2d4b-575d-a6c9-f45823f1360d",
+    "8c4527a6-81a9-5998-acdf-c747b9bce015"
+  ],
+  "content_gaps": []
+}
+```
