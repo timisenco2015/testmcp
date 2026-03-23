@@ -1,21 +1,45 @@
 {
     "filename": "SiteProfileHistory",
     "found": true,
-    "summary": "Handles the history of site profile changes, tracking various user actions and fields affected.",
-    "purpose": "To maintain a historical record of changes in site profiles for auditing and review purposes.",
-    "entities": ["SiteProfileHistory"],
+    "summary": "Handles historical tracking of site profile actions.",
+    "purpose": "To track changes and actions performed on site profiles for historical purposes.",
+    "entities": [
+        "HSPnetSession",
+        "SqlDataReader"
+    ],
     "fields": [
-        "ID", "ActionDate", "ScreenSection", "UserAction", "Fields", "Agency", "AgencyName",
-        "LastName", "FirstName", "MiddleName", "Phone", "ByUserID", "ByOriginalUserID", "ByUserSysAdmin"
+        {
+            "name": "ID",
+            "type": "int"
+        },
+        {
+            "name": "ActionDate",
+            "type": "DateTime"
+        }
     ],
     "actors": [],
-    "workflows": [],
+    "workflows": [
+        {
+            "name": "SiteProfileHistorySearch",
+            "steps": [
+                "Establish database connection",
+                "Execute stored procedure",
+                "Fill list with results"
+            ]
+        }
+    ],
     "business_rules": [],
     "validations": [],
     "calculations": [],
     "conditions": [],
-    "system_behavior": [],
-    "dependencies": [],
+    "system_behavior": [
+        "Tracks changes to site profiles.",
+        "Formats names and details for display."
+    ],
+    "dependencies": [
+        "System.Data.SqlClient",
+        "HSPnet.Framework"
+    ],
     "exceptions": [],
     "source_document_ids": [
         "25f89a24-5eda-5a3f-83df-1de69b12b3f1",
