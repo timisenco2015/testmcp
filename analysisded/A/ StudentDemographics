@@ -1,0 +1,49 @@
+```json
+{
+  "filename": "StudentDemographics",
+  "found": true,
+  "summary": "The StudentDemographics module manages student demographic details using web forms and dropdowns for data entry and modification.",
+  "purpose": "To provide a UI component for viewing and editing student demographic information within the HSPnet application.",
+  "entities": ["Student"],
+  "fields": ["birthDate", "ethnicityCodeID", "citizenshipCodeID"],
+  "actors": ["UserSession"],
+  "workflows": [
+    {
+      "name": "Edit Demographics",
+      "steps": [
+        "Switch form to edit mode",
+        "Bind data to the form view",
+        "Update values on save",
+        "Redirect to demographics page"
+      ]
+    }
+  ],
+  "business_rules": [
+    "Dropdown values are populated from Codes with user session context.",
+    "If ScreenIsEditable is false, edit controls are disabled."
+  ],
+  "validations": ["ValidationSummary3 control is used"],
+  "calculations": [],
+  "conditions": [
+    "If UserSession is null, data selection is cancelled.",
+    "ScreenIsEditable determines if edit controls are visible."
+  ],
+  "system_behavior": [
+    "Redirects to demographics page after updates.",
+    "Sets JavaScript variables for UI controls."
+  ],
+  "dependencies": ["HSPnetSession", "QueryString", "UserSession", "Codes"],
+  "exceptions": [
+    "Operation cancelled if UserSession is null during data selection."
+  ],
+  "source_document_ids": [
+    "0ca5fc75-f201-5ab2-97a9-0e0353c56509",
+    "3c9cdf75-61fd-5f75-94af-7a5683073940",
+    "3d9c0143-202c-58d0-bebf-b7c9484bfb16",
+    "5ad026e6-f846-5458-b96f-42b5f5527f87",
+    "7467125d-8c3f-5975-b201-0fce9820235f",
+    "c920787e-96df-5b8c-ac2b-87e911d57e53"
+  ],
+  "content_gaps": []
+}
+```
