@@ -1,100 +1,118 @@
 {
   "filename": "EnrollmentEditAll",
   "found": true,
-  "summary": "EnrollmentEditAll is a component of the HSPnet system. It is part of the HSPnet framework used to manage and display various aspects of student enrollments within the system. This module appears to handle a variety of tasks related to displaying and editing enrollment-related information, including displaying lists of enrolled students, handling user controls for editing student preferences, confirmed enrollments, criminal records checks, and various health-related certifications.",
-  "purpose": "The purpose of the EnrollmentEditAll component is to facilitate the management and editing of student enrollment-related data within the HSPnet system. It provides functionalities for managing student preferences, processing different enrollment modes, and generating displays related to student enrollment status, certification requirements, and related activities.",
+  "summary": "EnrollmentEditAll is a comprehensive page within the HSPnet system designed to manage various aspects of student enrollment. It includes functionalities for different forms and records management, such as preferences, confirmed enrollments, criminal records checks, clinical ID cards, health forms, orientation, and more. The page provides controls for navigation, filtering, and displaying information according to different criteria and user sessions.",
+  "purpose": "The main purpose of EnrollmentEditAll is to facilitate the management of student enrollment records and related administrative tasks in an educational or training institution setting. It enables users to edit, view, and manage various enrollment-related information and documents.",
   "entities": [
-    "EnrollmentEditAll",
-    "HSPnet"
+    "Enrollment",
+    "Preferences",
+    "Confirmed",
+    "CriminalRecordsCheck",
+    "ClinicalIDCard",
+    "WCB",
+    "OccHealth",
+    "OccHealthInfluenza",
+    "OccHealthCovid19",
+    "OccHealthInfluenzaH1N1",
+    "Certification",
+    "InfectionControl",
+    "Orientation",
+    "ConfidentialityForms",
+    "SchoolConfidentialityForm",
+    "RAITProvisioning",
+    "InternalComments"
   ],
   "fields": [
-    {
-      "name": "Section",
-      "description": "Indicates the current section setting for the enrollment."
-    },
-    {
-      "name": "Action",
-      "description": "Indicates the action being performed in the enrollment context."
-    },
-    {
-      "name": "Keyword",
-      "description": "Used for filtering enrollments by a specific keyword."
-    },
-    {
-      "name": "CommentFilter",
-      "description": "Sets the criteria for filtering comments (e.g., Blank, NonBlank)."
-    },
-    {
-      "name": "Campus",
-      "description": "Represents the campus ID related to the enrollment."
-    },
-    {
-      "name": "ScreenMode",
-      "description": "Determines the mode of interaction with the enrollment screen."
-    },
-    {
-      "name": "Sort",
-      "description": "Specifies the sorting criteria for displaying lists."
-    },
-    {
-      "name": "StartRow",
-      "description": "Indicates the starting row for pagination purposes."
-    },
-    {
-      "name": "CohortID",
-      "description": "Identifies the cohort ID relevant to the enrollment."
-    },
-    {
-      "name": "TermID",
-      "description": "Identifies the term ID relevant to the enrollment."
-    },
-    {
-      "name": "CourseID",
-      "description": "Identifies the course ID relevant to the enrollment."
-    }
+    "Section",
+    "Action",
+    "Keyword",
+    "Campus",
+    "CommentFilter",
+    "ShowAll",
+    "ShowGrad",
+    "ShowInact",
+    "ShowWaived",
+    "ScreenMode",
+    "Sort",
+    "Asc",
+    "IgnorePrefs",
+    "StartRow",
+    "CohortID",
+    "TermID",
+    "CourseID",
+    "Use3Prefs"
   ],
   "actors": [
-    {
-      "name": "UserSession",
-      "description": "Represents the user's session, managing their interactions and state."
-    }
+    "UserSession",
+    "PlacementCoordinator",
+    "StudentMaint",
+    "ViewOnly"
   ],
   "workflows": [
     {
-      "name": "Enrollment Display",
+      "name": "LoadPreferences",
       "steps": [
-        "Determine user access and permissions.",
-        "Set up page based on session data and user permissions.",
-        "Load relevant user controls for enrollment editing based on the screen mode.",
-        "Sort and filter the enrollment data according to user settings.",
-        "Display filtered and sorted enrollment lists to the user."
+        "Initialize UserSession, ScriptMgr, and other session variables.",
+        "Check and set visibility for graduated, inactive, and waived students.",
+        "Adjust filters and sorting based on input parameters.",
+        "Bind data and make the control visible if needed."
+      ]
+    },
+    {
+      "name": "LoadConfirmed",
+      "steps": [
+        "Setup UserSession and ScriptMgr.",
+        "Configure the visibility and filters for the control.",
+        "Bind data and update visibility."
+      ]
+    },
+    {
+      "name": "LoadCriminalRecordsCheck",
+      "steps": [
+        "Set UserSession and ScriptMgr.",
+        "Apply section, action, keyword, and campus filters.",
+        "Sort and make data visible based on the input."
+      ]
+    },
+    {
+      "name": "LinkChildControls",
+      "steps": [
+        "Reset UserSession and visibility for various user controls.",
+        "Link controls based on data-binding requirements."
       ]
     }
   ],
   "business_rules": [
-    "Only users with specific roles (e.g., PlacementCoordinator, StudentMaint) can edit enrollment data.",
-    "The ScreenMode determines which controls are visible and interactive."
+    "Fields are auto-generated and can be modified by moving declarations to the code-behind file.",
+    "User access and control visibility are determined by session roles such as PlacementCoordinator, StudentMaint, and ViewOnly."
   ],
   "validations": [
-    "Ensure that UUIDs in the keys field are valid before casting and using them in queries.",
-    "Validate that user interactions adhere to defined business rules and permissions."
+    "Ensure that query strings are not null or empty before processing.",
+    "Check that filters and user roles are correctly applied."
   ],
-  "calculations": [],
+  "calculations": [
+    "Conversion of query string parameters to integers and booleans.",
+    "Setting default values for action and section when parameters are missing."
+  ],
   "conditions": [
-    "The display and interaction modes are influenced by the screen mode and user role."
+    "Visibility and data loading depend on the ScreenMode.",
+    "Role-based conditions to determine control permissions."
   ],
   "system_behavior": [
-    "The system dynamically loads and displays different user controls depending on the screen mode.",
-    "Visibility and functionality of controls are managed through user session data."
+    "The page manages display and interaction for enrollment-related data.",
+    "Utilizes AJAX controls for dynamic content visibility."
   ],
   "dependencies": [
     "HSPnet.DataLayer",
+    "HSPnet.App_GlobalResources",
+    "HSPnet.UI",
     "HSPnet.Framework",
-    "HSPnet.UserControls"
+    "System.Web.UI",
+    "System.Data.SqlClient"
   ],
   "exceptions": [
-    "Issue in loading user controls due to invalid user session data.",
-    "Error in processing enrollment data without correct session or user permissions."
+    "Handle invalid query string format or missing parameters gracefully.",
+    "Provide fallbacks for missing session information or invalid conversions."
   ],
   "source_document_ids": [
     "02c2fee2-0401-55f0-bf6b-a79ea9fb78e8",
