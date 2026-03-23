@@ -1,0 +1,157 @@
+The retrieval for the documents has been successful. Here is an analysis of the retrieved content for each document:
+
+1. **SiteDocument**
+   - **Entities**: `SiteDocument` class with ID and SiteID properties.
+   - **Purpose**: Represents a document related to a site.
+   - **Fields**: `ID`, `SiteID`
+   - **Actors**: None specified.
+   - **Workflows**: None specified.
+   - **Business Rules**: None specified.
+   - **Validations**: None specified.
+   - **Calculations**: None specified.
+   - **Conditions**: None specified.
+   - **System Behavior**: None specified.
+   - **Dependencies**: None specified.
+   - **Exceptions**: None specified.
+   - **Content Gaps**: The document is part of a system framework but lacks context about its interactions or usage.
+
+2. **WelcomeStaffAdmin**
+   - **Entities**: `WelcomeStaffAdmin` page with labels and panels for title and last login.
+   - **Purpose**: Provides a welcome interface for staff admin users.
+   - **Fields**: `lblTitle`, `pnlLastLogin`, `ltlLastLogin`
+   - **Actors**: Staff admin users.
+   - **Workflows**: 
+       - Name: "LoadPage"
+       - Steps: "SetupHSPnetPage", "Populate title and last login", "Check if post-back and refresh data if not"
+   - **Business Rules**: None specified.
+   - **Validations**: None specified.
+   - **Calculations**: None specified.
+   - **Conditions**: None specified.
+   - **System Behavior**: Loads JavaScript includes when the page is loaded.
+   - **Dependencies**: None specified.
+   - **Exceptions**: None specified.
+   - **Content Gaps**: Page behavior described, but lacks detailed interaction or backend service documentation.
+
+3. **ServiceCode**
+   - **Entities**: `ServiceCode` class with properties for ID, CodeCategoryID, ShortName, Name, etc.
+   - **Purpose**: Represents service coding information used in the HSPnet system.
+   - **Fields**: ID, CodeCategoryID, ShortName, Name, SortOrder, Notes, NameAlt, NotesAlt
+   - **Actors**: None specified.
+   - **Workflows**: None specified.
+   - **Business Rules**: Localization checks for alternative language fields.
+   - **Validations**: None specified.
+   - **Calculations**: None specified.
+   - **Conditions**: Uses alternative names if the session is configured for a different language.
+   - **System Behavior**: Interfaces with SQL database for service code data retrieval and list operations.
+   - **Dependencies**: Relies on `HSPnetSession` and SQL database operations.
+   - **Exceptions**: None specified.
+   - **Content Gaps**: Describes structure and language handling but lacks detailed usage or integration context.
+
+4. **SiteProfileHistory**
+   - **Entities**: `SiteProfileHistory` class documenting changes in the site profile.
+   - **Purpose**: Logs and formats historical changes in site profiles.
+   - **Fields**: ID, ActionDate, ScreenSection, UserAction, etc.
+   - **Actors**: None specified.
+   - **Workflows**: None specified.
+   - **Business Rules**: None specified.
+   - **Validations**: Formats fields based on language settings.
+   - **Calculations**: Formats dates and user details.
+   - **Conditions**: None specified.
+   - **System Behavior**: Provides formatted output for tooltips and UI.
+   - **Dependencies**: Relies on session details for language settings and database access.
+   - **Exceptions**: None specified.
+   - **Content Gaps**: Provides data structure and language formatting details, but lacks context on how or when entries are logged.
+
+5. **EmailPopupDocument**
+   - **Entities**: `EmailPopupDocument` class with ID, FileName, FilePath, and Checked properties.
+   - **Purpose**: Represents email attachments or documents that can be displayed in a popup.
+   - **Fields**: ID, FileName, FilePath, Checked
+   - **Actors**: None specified.
+   - **Workflows**: None specified.
+   - **Business Rules**: None specified.
+   - **Validations**: None specified.
+   - **Calculations**: None specified.
+   - **Conditions**: None specified.
+   - **System Behavior**: Handles operations for searching and deleting email documents.
+   - **Dependencies**: Involves file system operations for handling documents.
+   - **Exceptions**: None specified.
+   - **Content Gaps**: Lacks detailed interaction context, such as triggers or related events.
+
+6. **CostCentre**
+   - **Entities**: `CostCentreRecord` class representing a financial or administrative cost center.
+   - **Purpose**: Manages cost information related to placements.
+   - **Fields**: PlacingAgency, Department, Program, etc.
+   - **Actors**: None specified.
+   - **Workflows**: None specified.
+   - **Business Rules**: None specified.
+   - **Validations**: None specified.
+   - **Calculations**: Constructs descriptions and retrieves related data using stored procedures.
+   - **Conditions**: None specified.
+   - **System Behavior**: Integrates with a database to process cost center data.
+   - **Dependencies**: SQL database procedures for data operations.
+   - **Exceptions**: None specified.
+   - **Content Gaps**: Provides structural data but lacks details on the practical usage within business processes.
+
+7. **ExpenseBatch**
+   - **Entities**: `ExpenseBatch` class encapsulating details of a financial batch for processing expenses.
+   - **Purpose**: Facilitates managing and querying expense data in batches.
+   - **Fields**: ID, DepartmentID, BatchDescription, etc.
+   - **Actors**: None specified.
+   - **Workflows**: None specified.
+   - **Business Rules**: None specified.
+   - **Validations**: None specified.
+   - **Calculations**: Formats batch numbers by combining IDs and descriptions.
+   - **Conditions**: None specified.
+   - **System Behavior**: Supports batch operations like add, update, delete, and search using stored procedures.
+   - **Dependencies**: SQL database for storing batch details.
+   - **Exceptions**: None specified.
+   - **Content Gaps**: Describes batch handling but lacks integration and user context.
+
+8. **TimetableAssessments**
+   - **Entities**: Timetable assessments handling page with UI elements for managing assessments.
+   - **Purpose**: Interface for managing and validating student assessments within timetables.
+   - **Fields**: Various controls like `gvwMaster`, `pnlEmptyData`, `uxErrors`
+   - **Actors**: System administrators, placement coordinators.
+   - **Workflows**: 
+       - Name: "DataBinding and Validations"
+       - Steps: "Bind grid data", "Validate assessment results", "Show/hide error messages"
+   - **Business Rules**: Validations on assessment entries like interim assessments without finals.
+   - **Validations**: Validates timetable entries and displays errors if conditions are not met.
+   - **Calculations**: None specified.
+   - **Conditions**: None specified.
+   - **System Behavior**: Generates JavaScript variables and handles operations through events.
+   - **Dependencies**: Relies on HSPnet data layers and session information.
+   - **Exceptions**: None specified.
+   - **Content Gaps**: Extensive frontend interaction but missing backend process details or triggers.
+
+9. **AdHocQuery**
+   - **Entities**: Static class for converting SQL reader data into HTML tables.
+   - **Purpose**: Formats SQL query results into HTML tables for reporting.
+   - **Fields**: None specified.
+   - **Actors**: None specified.
+   - **Workflows**: None specified.
+   - **Business Rules**: None specified.
+   - **Validations**: None specified.
+   - **Calculations**: Formats SQL reader data row-wise into HTML.
+   - **Conditions**: None specified.
+   - **System Behavior**: Handles SQL query data and returns formatted HTML.
+   - **Dependencies**: SQL reader for fetching data.
+   - **Exceptions**: None specified.
+   - **Content Gaps**: Lacks context for when and where it is used.
+
+10. **StudentPrerequisites**
+    - **Entities**: `StudentPrerequisite` with detailed properties for health and safety compliance.
+    - **Purpose**: Manages the health and safety prerequisites for students.
+    - **Fields**: ID, StudentID, CRCStatusCodeID, etc.
+    - **Actors**: None specified.
+    - **Workflows**: None specified.
+    - **Business Rules**: Validates various health and safety records.
+    - **Validations**: Checks for date validity and health/safety compliance.
+    - **Calculations**: Formats and parses various medical and administrative dates.
+    - **Conditions**: Checks compliance against defined health and safety standards.
+    - **System Behavior**: Allows updates and searches for student prerequisites.
+    - **Dependencies**: SQL database operations for student data.
+    - **Exceptions**: None specified.
+    - **Content Gaps**: Provides detailed field management but lacks integration context.
+
+These analyses provide a foundational understanding of each document's purpose and contents, but gaps in application context and system integration remain.
