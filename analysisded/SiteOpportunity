@@ -1,104 +1,110 @@
 ```json
 {
-  "filename": "SiteOpportunity",
-  "found": true,
-  "summary": "The 'SiteOpportunity' manages data operations related to site opportunities, including queries, updates, deletions, and formatting responses. It involves managing headers, sorting orders, and distinguishing web page entries.",
-  "purpose": "To manage site opportunities through database operations and maintain organized data for display and processing.",
-  "entities": [
-    "SiteOpportunity",
-    "HSPnetSession"
-  ],
-  "fields": [
-    "ID",
-    "SiteID",
-    "HeadingID",
-    "Response",
-    "SortOrder",
-    "Description",
-    "DescriptionAlt",
-    "DescriptionFormatted",
-    "SortOrderFormatted",
-    "WebPage",
-    "HeaderChanged"
-  ],
-  "actors": [
-    "System",
-    "SqlDataReader"
-  ],
-  "workflows": [
-    {
-      "name": "GetByID",
-      "steps": [
-        "Set procedure to 'SiteOpportunitiesSearchID'",
-        "Add parameter 'ID'",
-        "Execute data retrieval",
-        "Fill list and return"
-      ]
-    },
-    {
-      "name": "GetBySiteID",
-      "steps": [
-        "Set procedure to 'SiteOpportunitiesSearch'",
-        "Add parameter 'SiteID'",
-        "Execute data retrieval",
-        "Fill list and return"
-      ]
-    },
-    {
-      "name": "Update",
-      "steps": [
-        "Check if ID is not zero and is valid",
-        "Set procedure to 'SiteOpportunitiesUpdate'",
-        "Add parameters",
-        "Execute update"
-      ]
-    },
-    {
-      "name": "Delete",
-      "steps": [
-        "Check if ID is not zero",
-        "Set procedure to 'SiteOpportunitiesDelete'",
-        "Add parameter 'SiteOpportunitiesID'",
-        "Execute deletion"
-      ]
-    },
-    {
-      "name": "Add",
-      "steps": [
-        "Check if valid",
-        "Set procedure to 'SiteOpportunitiesAdd'",
-        "Add parameters",
-        "Execute addition"
-      ]
-    }
-  ],
-  "business_rules": [
-    "Reset header entry levels on change",
-    "Use alternative language fields if applicable"
-  ],
-  "validations": [
-    "Ensure 'Response' is not blank"
-  ],
-  "calculations": [],
-  "conditions": [
-    "Check if 'SortOrder' is -1 to display as blank",
-    "Determine if entry is a Web Page entry based on description"
-  ],
-  "system_behavior": [
-    "Translate new lines in responses for HTML display"
-  ],
-  "dependencies": [
-    "HSPnet.UI.HTML",
-    "HSPnet.Framework"
-  ],
-  "exceptions": [],
-  "source_document_ids": [
-    "148590b2-a5c1-5ba2-9f76-5946671326da",
-    "18839216-0ce2-5da0-8629-43191022355e",
-    "2e24ba24-238e-539a-9060-ae9c5b2ef73d",
-    "430d8e05-df1d-5100-81dd-8c604142a057",
-    "64109c98-7c33-509c-9bd9-15bb43722cb7"
-  ],
-  "content_gaps": []
+    "filename": "SiteOpportunity",
+    "found": true,
+    "summary": "The SiteOpportunity entity handles site-related operations, including retrieval, update, adding, and deletion of site opportunities in a database context. It manages different attributes related to site responses and descriptions.",
+    "purpose": "To manage site opportunities by facilitating the operations of retrieval, addition, update, and deletion within a database context.",
+    "entities": [
+        "SiteOpportunity",
+        "SiteOpportunities"
+    ],
+    "fields": [
+        "ID",
+        "SiteID",
+        "HeadingID",
+        "Response",
+        "SortOrder",
+        "Description",
+        "DescriptionAlt",
+        "DescriptionFormatted",
+        "SortOrderFormatted",
+        "WebPage",
+        "HeaderChanged"
+    ],
+    "actors": [
+        "HSPnetSession",
+        "SqlDataReader"
+    ],
+    "workflows": [
+        {
+            "name": "GetByID",
+            "steps": [
+                "AddParameter SiteID",
+                "Execute SiteOpportunitiesSearchID procedure",
+                "Fill list with data obtained from reader",
+                "Close reader"
+            ]
+        },
+        {
+            "name": "GetBySiteID",
+            "steps": [
+                "AddParameter SiteID",
+                "Execute SiteOpportunitiesSearch procedure",
+                "Fill list with data obtained from reader",
+                "Close reader"
+            ]
+        },
+        {
+            "name": "Update",
+            "steps": [
+                "Check validity",
+                "Execute SiteOpportunitiesUpdate procedure",
+                "AddParameters for update",
+                "Execute query"
+            ]
+        },
+        {
+            "name": "Add",
+            "steps": [
+                "Check validity",
+                "Execute SiteOpportunitiesAdd procedure",
+                "AddParameters for addition",
+                "Execute query"
+            ]
+        },
+        {
+            "name": "Delete",
+            "steps": [
+                "Execute SiteOpportunitiesDelete procedure",
+                "AddParameter for deletion",
+                "Execute query"
+            ]
+        }
+    ],
+    "business_rules": [
+        "Prevent repetition of header entries",
+        "Translate new lines in response for formatted display"
+    ],
+    "validations": [
+        "Ensure response is not blank",
+        "Check if ID is non-zero for operations"
+    ],
+    "calculations": [
+        {
+            "description": "Set SortOrder to 0 if -1 is provided indicating blank sort order",
+            "context": "SortOrder"
+        }
+    ],
+    "conditions": [
+        "Use alternative language fields if session indicates so"
+    ],
+    "system_behavior": [
+        "Reset counting levels when a new header is encountered"
+    ],
+    "dependencies": [
+        "HSPnet.Framework",
+        "HSPnet.App_GlobalResources"
+    ],
+    "exceptions": [
+        "During execution of database procedures if conditions are not met"
+    ],
+    "source_document_ids": [
+        "148590b2-a5c1-5ba2-9f76-5946671326da",
+        "18839216-0ce2-5da0-8629-43191022355e",
+        "2e24ba24-238e-539a-9060-ae9c5b2ef73d",
+        "430d8e05-df1d-5100-81dd-8c604142a057",
+        "64109c98-7c33-509c-9bd9-15bb43722cb7"
+    ],
+    "content_gaps": []
 }
 ```
