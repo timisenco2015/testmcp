@@ -1,0 +1,90 @@
+```json
+{
+    "filename": "PRDocuments",
+    "found": true,
+    "summary": "The document handles Placement Request Documents functionality, enabling users to upload, edit, and manage placement request documents within the HSPnet system.",
+    "purpose": "The primary purpose is to manage document uploads, edits, and deletions related to placement requests in the HSPnet system.",
+    "entities": [
+        "PlacementRequestDocument",
+        "HSPnetSession",
+        "Codes"
+    ],
+    "fields": [
+        "ltlInstructions",
+        "Literal1",
+        "gvwDocument",
+        "dsDocument",
+        "pnlPopup",
+        "btnShowPopup",
+        "mdlDetails",
+        "ValidationSummary3",
+        "CustomValidator1",
+        "fvwDocument"
+    ],
+    "actors": [
+        "User"
+    ],
+    "workflows": [
+        {
+            "name": "Upload Document Workflow",
+            "steps": [
+                "User selects a document to upload.",
+                "Document details such as file name, URL, size, and type are processed.",
+                "The document is saved in a unique folder."
+            ]
+        },
+        {
+            "name": "Edit Document Workflow",
+            "steps": [
+                "User initiates editing on a document row.",
+                "Document details are retrieved and displayed for editing.",
+                "Changes are saved and the document details are updated in the system."
+            ]
+        },
+        {
+            "name": "Delete Document Workflow",
+            "steps": [
+                "User selects a document to delete.",
+                "Document is removed from the system.",
+                "User is redirected to the document page."
+            ]
+        }
+    ],
+    "business_rules": [
+        "Do not allow edits if ScreenIsEditable is false.",
+        "Hide update details if they are blank."
+    ],
+    "validations": [
+        "Check if UserSession is null before proceeding with data operations."
+    ],
+    "calculations": [],
+    "conditions": [
+        "DocumentExists is true if TypeCodeID is not zero."
+    ],
+    "system_behavior": [
+        "Displays document details in a GridView.",
+        "Allows document interaction through FormView commands."
+    ],
+    "dependencies": [
+        "HSPnet.DataLayer",
+        "HSPnet.Framework",
+        "System.Web.UI.WebControls"
+    ],
+    "exceptions": [
+        "Cancel document selection if UserSession is null."
+    ],
+    "source_document_ids": [
+        "0b412b93-8664-5be6-805b-1ee2191d9d74",
+        "23b4d3b7-10c4-5d78-b417-25806a3b6a78",
+        "315aa7cb-e2a6-5af5-88f3-e3bceefb450f",
+        "55917466-db99-5182-a2a2-833ec3f8ac73",
+        "69b6a57a-d344-53e2-83c0-1b66e394f75c",
+        "ab5070cc-bed5-5724-81f7-a337463e0b26",
+        "c708b08e-5172-57a5-a019-e21d52674f1d",
+        "e2dbef3b-8922-580e-a47b-155764f78dc8",
+        "ef75673a-9291-5ff8-ac62-566c091feb8f",
+        "f20d0f3f-4573-59af-87eb-f9f110c51931"
+    ],
+    "content_gaps": []
+}
+```
