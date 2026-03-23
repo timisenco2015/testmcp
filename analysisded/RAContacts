@@ -1,0 +1,118 @@
+```json
+{
+  "filename": "RAContacts",
+  "found": true,
+  "summary": "The RAContacts functionality manages the various contact interfaces within a placement request for educational or training placements. It involves handling service, destination, discipline, student instructor, and supervisor contacts, ensuring the correct permissions and information visibility based on user roles and session data.",
+  "purpose": "To manage and display various contact details related to placement requests, ensuring user role-based permissions for editing and viewing contact information, along with functionalities for setting up and handling supervisor assignments and assessments.",
+  "entities": ["Staff", "PlacementRequest", "UserSession"],
+  "fields": [
+    "ServiceContactID",
+    "DestinationContactID",
+    "SupervisorID",
+    "UserType",
+    "ScreenIsEditable",
+    "PRD_ID",
+    "UserAllowedProgram",
+    "ReadOnly",
+    "SupervisorEmail",
+    "SupervisorPhone"
+  ],
+  "actors": ["Placement Coordinator", "Receiving Coordinator", "Destination Coordinator", "System Administrator", "Local Administrator"],
+  "workflows": [
+    {
+      "name": "Setup Service Contact",
+      "steps": [
+        "Retrieve current service contact details",
+        "Determine edit permissions based on user session and role",
+        "Bind contact data to UI elements"
+      ]
+    },
+    {
+      "name": "Setup Destination Contact",
+      "steps": [
+        "Retrieve current destination contact details",
+        "Determine edit permissions and visibility",
+        "Bind contact data to UI elements"
+      ]
+    },
+    {
+      "name": "Setup Supervisor",
+      "steps": [
+        "Retrieve list of potential supervisors from database",
+        "Check if user can edit supervisor information based on role",
+        "Display supervisor dropdown and bind appropriate data"
+      ]
+    }
+  ],
+  "business_rules": [
+    "Service contact and destination contact information can be edited by users with specific roles and permissions",
+    "Email and phone details are formatted and displayed conditionally based on user permissions",
+    "Supervisor details can be locked or unlocked based on the placement request status and user role"
+  ],
+  "validations": [
+    "Ensure service and destination contact IDs are valid when submitting changes",
+    "Check for overlapping supervisor assignments"
+  ],
+  "calculations": [],
+  "conditions": [
+    "Visibility and editability of contact fields depend on the user's role, session data, and placement request status",
+    "Supervisor assignments visibility is conditioned on agency-specific settings and user permissions"
+  ],
+  "system_behavior": [
+    "Auto-redirects to appropriate screens based on user input and action outcomes",
+    "Locks/unlocks supervisor details based on predefined conditions"
+  ],
+  "dependencies": ["HSPnet.Framework", "HSPnet.DataLayer"],
+  "exceptions": [
+    "Handling of invalid ID submissions",
+    "Prevention of unauthorized edits to contact details"
+  ],
+  "source_document_ids": [
+    "057b262b-99b6-5ed4-80ed-d05e9b56602e",
+    "0eb56430-accb-511c-bd4e-b317d7bb38c4",
+    "11278478-2658-59bc-bc42-bb0d686ba9e4",
+    "163fd05f-bf50-5978-957a-e88ec1d14931",
+    "1930d0e2-777a-5bf7-9e82-c2c56920fb84",
+    "1a7e112b-f1d8-52e6-8b09-78501e89ba65",
+    "24cfa45e-f7c5-521d-bc02-be9318bd9aed",
+    "2f2c6310-bd79-5b9a-9c7d-2b9a083476fb",
+    "306586d2-ca92-58f0-a624-6c367e9de0e5",
+    "3d64a27e-2fbe-5f63-88e1-cbc328d2fb19",
+    "434f7f2f-fed2-5da3-903b-79b167717b5c",
+    "490f9bd9-79db-5dfe-a750-7971de3ead11",
+    "4c836621-760b-5365-a611-522e7eb88cac",
+    "4ed27ae5-52b5-577f-920d-54823f08535d",
+    "52c86a19-8d59-52bd-bbbc-efacd6ca8f5f",
+    "540874e2-e2fa-51d1-b8e4-809446eb2004",
+    "56c6975d-e8b1-56ed-bd67-d4851f85b064",
+    "599e0af4-a606-55a6-81ba-5230421eb549",
+    "618f2db5-6a07-5660-91f9-3237bbdb3d0e",
+    "6656c8a2-e130-5aa2-b11e-34a77df804dc",
+    "6b3236d8-5236-542d-b048-8595dd9b09a1",
+    "76bf1b9e-6607-5871-9015-6e508bd44b64",
+    "7c3d0512-6bc3-5925-9f3b-acd5b8bdd73e",
+    "7d3354ad-6288-57a3-93e8-d2d057f65c94",
+    "8543fead-f96a-5472-a1a4-4cc9790bdb32",
+    "9b683cd4-b672-5cdb-a494-5c54e649c022",
+    "9da38671-8a7e-5b87-9d8e-6b39273c4d7f",
+    "a2d48e26-b0ee-5288-8bd8-972149faa9ed",
+    "a5382d22-24a0-570e-b698-7eec969d39ae",
+    "b05246f7-733e-5954-887d-98629a6e7062",
+    "b27b2bf8-ec3e-5d19-b10a-714f83e95def",
+    "b3404efc-508b-51c4-837c-9bcee1279a7d",
+    "bc26c8d0-7244-5f25-8e0c-40aa0dc80bef",
+    "c4dc3164-e53a-5c15-ab05-86475a7c5c3a",
+    "caf84072-2c30-5a7c-a872-394f4ce8a518",
+    "d03dc1a1-348f-56da-8f6a-13ac1c8175ae",
+    "e181d317-6f4f-525c-b82f-cc09b82f9928",
+    "e398e6fa-4ff5-5168-970e-77be00e7a34a",
+    "e72c8578-e521-52f0-8023-2bc12ca21e7d",
+    "ec23c347-40db-50e4-847b-d3cb4f34da52",
+    "ec281b02-288c-5144-b93c-557fc77ad4e4",
+    "ee45ceed-ac43-5148-8d79-6ede9801e463",
+    "f67c5935-272d-58e9-8d65-d41c851f67d0",
+    "f7e1862d-278e-556f-bef5-c039ac1e4b61"
+  ],
+  "content_gaps": []
+}
+```
