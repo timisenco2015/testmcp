@@ -1,0 +1,79 @@
+# Module: QuickEntryPlacing
+
+## QuickEntryPlacing-UC1 — Setup and Configure Placement
+
+- Primary Actor(s): Placement Coordinator
+- Secondary Actor(s): Administrator
+- Trigger: User initiates the setup of a new placement.
+- Description: The coordinator configures necessary details for a student placement, including agency, department, program, and other relevant fields.
+- Preconditions:
+  - User must be logged in with appropriate permissions.
+  - Agency, department, and program dropdowns should be populated.
+- Postconditions:
+  - Placement details are saved and ready for further processing.
+- Main Success Scenario:
+  1. User selects agency, department, and program from dropdowns.
+  2. User fills in necessary placement details including dates and contacts.
+  3. User saves the configuration.
+- Extensions:
+  - If dropdowns are not populated, the system prompts to refresh the data.
+- Exceptions:
+  - Validation errors occur if required fields (e.g., start/end dates, coordinator) are missing.
+- Business Rules:
+  - Field validations ensure the selected agency and department exist.
+  - Start date must precede the end date.
+- Assumptions:
+  - The user has basic understanding of the placement workflow.
+- Open Issues:
+  - None identified.
+
+## QuickEntryPlacing-UC2 — Assign and Manage Students
+
+- Primary Actor(s): Placement Coordinator
+- Secondary Actor(s): None
+- Trigger: User selects the option to assign students to a placement.
+- Description: Coordinator assigns students by either selecting from a list or clearing existing assignments.
+- Preconditions:
+  - Placement setup must be completed.
+  - Student list is available for selection.
+- Postconditions:
+  - Students are assigned or unassigned to/from the placement.
+- Main Success Scenario:
+  1. User selects students to assign.
+  2. User confirms the student assignments.
+  3. System updates the placement with the selected students.
+- Extensions:
+  - Option to clear all student assignments.
+- Exceptions:
+  - Error occurs if no students are selected and assignment is attempted.
+- Business Rules:
+  - Group size must match the number of assigned students if specified.
+- Assumptions:
+  - Student data is preloaded or fetchable.
+- Open Issues:
+  - None identified.
+
+## QuickEntryPlacing-UC3 — Validate and Submit Placement Request
+
+- Primary Actor(s): Placement Coordinator
+- Secondary Actor(s): None
+- Trigger: User finalizes the placement details and submits the placement request.
+- Description: Coordinator submits the placement details for approval, including any special requests and comments.
+- Preconditions:
+  - All placement details must be correctly filled and validated.
+- Postconditions:
+  - Placement request moves to an approval queue or the outbox.
+- Main Success Scenario:
+  1. User reviews the filled form for accuracy.
+  2. User enters any additional comments or requests.
+  3. User submits the request.
+- Extensions:
+  - NIS/IRP flags may be set based on program requirements.
+- Exceptions:
+  - Submission fails if validations do not pass (e.g., invalid dates).
+- Business Rules:
+  - The system checks for conflicts and returns errors if encountered.
+- Assumptions:
+  - The coordinator role includes submission authority.
+- Open Issues:
+  - None identified.
