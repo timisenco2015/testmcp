@@ -1,0 +1,87 @@
+```json
+{
+    "filename": "Discipline",
+    "found": true,
+    "summary": "The documents related to the Discipline contain code snippets and method definitions for managing discipline entities within a system. The system utilizes SQL procedures to search and list disciplines and sub-disciplines based on various identifiers. It includes logic for handling permissions and restrictions based on user roles, and provides functionality for retrieving discipline data from the database.",
+    "purpose": "The purpose of the documents is to implement functionality for handling discipline entities in the system, allowing for the management and retrieval of discipline and sub-discipline data, with consideration for user permissions and system constraints.",
+    "entities": [
+        "Discipline",
+        "HSPnetSession"
+    ],
+    "fields": [
+        "DisciplineID",
+        "SubDisciplineID",
+        "DisciplineName",
+        "SubDisciplineName",
+        "UserID",
+        "DocumentID"
+    ],
+    "actors": [
+        "SystemAdministrator",
+        "AssignedUser"
+    ],
+    "workflows": [
+        {
+            "name": "DisciplineSearchSubDisciplineID",
+            "steps": [
+                "Set ProcedureName to DisciplineSearchSubDisciplineID",
+                "Add SessionID and SubDisciplineID as parameters",
+                "Execute procedure",
+                "Retrieve results"
+            ]
+        },
+        {
+            "name": "ETopicDisciplineSearch",
+            "steps": [
+                "Set ProcedureName to ETopicDisciplineSearch",
+                "Add ETopicID as parameter",
+                "Execute procedure",
+                "Retrieve and filter results"
+            ]
+        },
+        {
+            "name": "DocumentSubDisciplineList",
+            "steps": [
+                "Set ProcedureName to spName",
+                "Add SessionID and DocumentID as parameters",
+                "Execute procedure",
+                "Retrieve and filter discipline list"
+            ]
+        }
+    ],
+    "business_rules": [
+        "Non-sysadmin users skip sub-disciplines with provincial code starting with 'XXX'",
+        "UserID and DocumentID fields are reused for different purposes in various methods"
+    ],
+    "validations": [
+        "Check if GroupingCode is non-empty and starts with 'XXX' for user-specific filtering"
+    ],
+    "calculations": [],
+    "conditions": [
+        "SystemAdministrator and AssignedUser checks for permission-based actions"
+    ],
+    "system_behavior": [
+        "String concatenation for DisciplineSubDisciplineID and DisciplineSubDisciplineShort fields",
+        "Use alternative language fields based on settings"
+    ],
+    "dependencies": [
+        "HSPnet.Framework",
+        "System.Data.SqlClient"
+    ],
+    "exceptions": [
+        "Return empty list or string in case of error or no results"
+    ],
+    "source_document_ids": [
+        "178cdac9-9d2c-5fd9-a042-54e7f1b821a1",
+        "2773673c-13f2-5396-852d-9cdb9f63a1dc",
+        "3086236d-f89f-5727-b677-cc617d8cdcc9",
+        "360ceea2-e7b5-5387-b149-eccd296c63c0",
+        "38b02d41-ded5-52cf-b7f2-1841c78ddd4b",
+        "4312f193-4745-53d7-a07e-fe38bdacac3f",
+        "5e749a43-5195-52d3-930f-c26e7557479b",
+        "a2444365-8f11-5c8e-9cfd-9d4a5c755e42",
+        "f78c265c-e67c-5f61-ae74-51c767bed8e5"
+    ],
+    "content_gaps": []
+}
+```
