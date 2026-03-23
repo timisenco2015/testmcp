@@ -1,0 +1,87 @@
+```json
+{
+  "filename": "InfectionControl",
+  "found": true,
+  "summary": "The InfectionControl module is part of the HSPnet user controls for managing enrollment data, specifically focused on infection control measures such as respiratory mask fit testing for students.",
+  "purpose": "To manage infection control data related to student enrollments, including respiratory mask fit testing and associated actions.",
+  "entities": ["Student", "Enrollment", "Course"],
+  "fields": [
+    "StudentFirstName",
+    "StudentMiddleName",
+    "StudentLastName",
+    "N95MaskSizeCodeID",
+    "N95MaskAltSizeCodeID",
+    "N95MaskFitTestDate",
+    "N95MaskFitTestExpiryDate"
+  ],
+  "actors": ["UserSession", "Grid", "DataLayer", "HSPnet.UI"],
+  "workflows": [
+    {
+      "name": "Enrollment Management",
+      "steps": [
+        "GridData initialization and binding",
+        "User input validation and confirmation",
+        "N95 Mask size selection and validation",
+        "Email generation and list management",
+        "Popup handling for edit actions",
+        "JavaScript setup for field management"
+      ]
+    }
+  ],
+  "business_rules": [
+    "Checkboxes list management for student selection",
+    "Enrolment waiving and unwaiving procedures",
+    "Enrollment reactivation conditional on student status",
+    "Access control based on student waiver and enrollment conditions"
+  ],
+  "validations": [
+    "Fit Test Date is required if Mask Size specified",
+    "Fit Test Date validity",
+    "Expiry Date must be on or after Completed Date"
+  ],
+  "calculations": [],
+  "conditions": [
+    "EnrollmentID > 0 for edit visibility",
+    "Graduate or Inactive status disables row actions",
+    "Waived status overrides other enrollment actions"
+  ],
+  "system_behavior": [
+    "Auto-generation of page controls",
+    "JavaScript declarations for UI management",
+    "Interest-specific email composition",
+    "Popup extender for detailed enrollment reviews"
+  ],
+  "dependencies": [
+    "HSPnet.DataLayer",
+    "HSPnet.Framework",
+    "System.Web.UI"
+  ],
+  "exceptions": [
+    "SQL Error handling during enrollment actions",
+    "Data binding cancellation without active UserSession"
+  ],
+  "source_document_ids": [
+    "1b3592c9-095a-5400-87b5-b4e0b2639ac2",
+    "30574f3a-491b-5d6d-be00-23b99be20a49",
+    "32e706a0-2fb0-5820-a939-fd70f6c472d4",
+    "5b114886-5f18-57c7-a866-3e93f979791d",
+    "5f189a9e-ce38-5ca4-a3b1-ebdd1cbffc68",
+    "617dab02-492d-5fbb-81f6-16a8d35be6e6",
+    "65f9a15c-62cd-50cc-b18a-2c98d3be15ea",
+    "7144ac07-3248-5d33-86aa-6857d1103b68",
+    "7176119b-1224-584f-b928-3476fc11827b",
+    "71aff2f5-6784-5dcc-ad78-5496178816b9",
+    "7e2bbcc7-1c8d-5de1-94dd-e58edf369af3",
+    "96b67ace-803f-57f4-8ad3-577dee53c2ac",
+    "9b6cb07c-c039-50b6-b1ae-89d6a257b172",
+    "b2d7d48b-6d74-5b30-a41f-457bc42e8859",
+    "c3f7475f-0b7f-5ad5-b1de-24d2276a5455",
+    "cc517e6a-5fd0-54b0-a8a9-631419ac5bf9",
+    "de1c27cd-a3dd-5b5b-83a8-d8282910d95b",
+    "eda4d3a3-2dae-5d78-94d1-e2e54f12a2c5",
+    "ef53f6bb-25bf-5af3-8ee5-ded3737c10a3",
+    "f30a8bef-70a8-5b75-a827-0c2c3dc51a86"
+  ],
+  "content_gaps": []
+}
+```
