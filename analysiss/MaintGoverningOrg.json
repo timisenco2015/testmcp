@@ -1,115 +1,65 @@
 {
   "filename": "MaintGoverningOrg",
   "found": true,
-  "summary": "The 'MaintGoverningOrg' module is a part of an application used to manage governing organizations. It includes functionalities for viewing, adding, editing, deleting, and reactivating organizations. The module also handles data validation and user permissions for managing these organizations.",
-  "purpose": "To provide an interface for managing governing organizations, including viewing, editing, and handling inactive states, while ensuring data integrity and proper user permissions.",
-  "entities": [],
+  "summary": "The MaintGoverningOrg module provides web-based functionality for managing governing organizations within the HSPnet system. It includes features for viewing, adding, editing, deleting, and reactivating organization records.",
+  "purpose": "Manage governing organization records, including adding, editing, deleting, and reactivating them within the web application.",
+  "entities": [
+    "GoverningOrg"
+  ],
   "fields": [
-    {
-      "name": "Name",
-      "type": "TextBox",
-      "validation": "Required"
-    },
-    {
-      "name": "ShortName",
-      "type": "TextBox",
-      "validation": "Required"
-    },
-    {
-      "name": "PreviousName",
-      "type": "TextBox",
-      "validation": "Optional"
-    },
-    {
-      "name": "PreviousNameEffectiveDate",
-      "type": "TextBox",
-      "validation": "RegularExpression"
-    },
-    {
-      "name": "Address1",
-      "type": "TextBox",
-      "validation": "Optional"
-    },
-    {
-      "name": "Address2",
-      "type": "TextBox",
-      "validation": "Optional"
-    },
-    {
-      "name": "City",
-      "type": "TextBox",
-      "validation": "Optional"
-    },
-    {
-      "name": "Province",
-      "type": "TextBox",
-      "validation": "Optional"
-    },
-    {
-      "name": "PostalCode",
-      "type": "TextBox",
-      "validation": "Optional"
-    },
-    {
-      "name": "Phone",
-      "type": "MaskedEditExtender",
-      "validation": "Custom"
-    },
-    {
-      "name": "Fax",
-      "type": "MaskedEditExtender",
-      "validation": "Custom"
-    },
-    {
-      "name": "Inactive",
-      "type": "HiddenField",
-      "validation": "None"
-    }
+    "Name",
+    "ShortName",
+    "PreviousName",
+    "PreviousNameEffectiveDate",
+    "Address1",
+    "Address2",
+    "City",
+    "Province",
+    "PostalCode",
+    "Phone",
+    "Fax",
+    "Inactive"
   ],
   "actors": [
-    {
-      "role": "System Administrator",
-      "permissions": "Full access to edit and manage organizations."
-    },
-    {
-      "role": "User",
-      "permissions": "Read-only access unless given specific permissions."
-    }
+    "UserSession",
+    "SystemAdministrator"
   ],
   "workflows": [
     {
-      "name": "Organization Management",
+      "name": "Manage Governing Organizations",
       "steps": [
-        "Load governing organizations list.",
-        "Check user permissions for edit access.",
-        "Allow adding/editing/deleting organizations based on permissions.",
-        "Validate user inputs for organization details.",
-        "Save or update organization details in the system.",
-        "Reactivate organizations if required."
+        "Load page with organization data.",
+        "Add a new organization: Switch to add mode, enter details, save.",
+        "Edit an organization: Switch to edit mode based on selection, modify details, save.",
+        "Delete or reactivate based on selected record.",
+        "Refresh data and update view."
       ]
     }
   ],
   "business_rules": [
-    "Only system administrators can edit or manage organizations.",
-    "Phone and Fax numbers must be validated using the specified mask."
+    "A user must have SystemAdministrator rights and not be in ViewOnly mode to edit records.",
+    "Phone and fax numbers can have optional masking based on user preference."
   ],
   "validations": [
-    "Name and ShortName fields are required.",
-    "PreviousNameEffectiveDate must match the specified date format."
+    "RequiredFieldValidator for Name",
+    "RequiredFieldValidator for ShortName",
+    "RegularExpressionValidator for PreviousNameEffectiveDate"
   ],
   "calculations": [],
   "conditions": [
-    "Screen is editable if the user is a system administrator and not in view-only mode."
+    "UsePhoneMask to determine how phone numbers are validated."
   ],
   "system_behavior": [
-    "Show or hide buttons based on user permissions and entity states.",
-    "Refresh data view after any data modification."
+    "Displays error and warning messages depending on user actions.",
+    "Handles data binding for grid and details views.",
+    "Uses panels and modal pop-ups for user interactions."
   ],
   "dependencies": [
-    "UserSession for managing user permissions and settings."
+    "HSPnet.UI",
+    "HSPnet.Framework"
   ],
   "exceptions": [
-    "Cannot delete an organization that is currently in use."
+    "Attempt to delete without permissions triggers error message."
   ],
   "source_document_ids": [
     "064ee812-6a9e-513f-830a-cdf02a947bcb",
