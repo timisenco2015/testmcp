@@ -1,0 +1,107 @@
+{
+  "filename": "ETopicCourse",
+  "found": true,
+  "summary": "The retrieved documents are related to the ETopicCourse class and its methods for handling course data, particularly involving course retrieval by student or staff ID, status checking, and course retake procedures.",
+  "purpose": "The purpose of the ETopicCourse class is to manage electronic topic courses, including retrieval, status updates, and retake operations for both students and staff.",
+  "entities": [
+    "ETopicCourse",
+    "HSPnetSession",
+    "SqlDataReader",
+    "ETopicStatus"
+  ],
+  "fields": [
+    "CourseID",
+    "CourseName",
+    "SiteName",
+    "Status",
+    "Required",
+    "DueDate",
+    "DueDateFormatted",
+    "DateAccessed",
+    "DateAccessedFormatted",
+    "PRDEndDate",
+    "DateCompleted",
+    "DateCompletedFormatted",
+    "RepeatPeriod",
+    "RepeatPeriodDesc"
+  ],
+  "actors": [
+    "Student",
+    "Staff"
+  ],
+  "workflows": [
+    {
+      "name": "Course Retrieval by Student ID",
+      "steps": [
+        "Set procedure name to 'ETopicStudentSearchOrientation'.",
+        "Add session and student ID parameters.",
+        "Retrieve data with SqlDataReader.",
+        "Iterate through data to populate ETopicCourse list."
+      ]
+    },
+    {
+      "name": "Course Retrieval by Staff ID",
+      "steps": [
+        "Set procedure name to 'ETopicStaffSearchOrientation'.",
+        "Add session and staff ID parameters.",
+        "Retrieve data with SqlDataReader.",
+        "Iterate through data to populate ETopicCourse list."
+      ]
+    },
+    {
+      "name": "Student Retake Course",
+      "steps": [
+        "Set procedure name to 'ETopicStudentRetake'.",
+        "Add student and course ID parameters.",
+        "Execute the procedure."
+      ]
+    },
+    {
+      "name": "Staff Retake Course",
+      "steps": [
+        "Set procedure name to 'ETopicStaffRetake'.",
+        "Add staff and course ID parameters.",
+        "Execute the procedure."
+      ]
+    }
+  ],
+  "business_rules": [
+    "CourseID must be greater than 0 to be valid.",
+    "Mandatory status cannot override optional status."
+  ],
+  "validations": [
+    "Check for null dates when accessing date fields.",
+    "Validate CourseID uniqueness within the list."
+  ],
+  "calculations": [],
+  "conditions": [
+    "DateAccessedFormatted = 'Never' if DateAccessed is a null date.",
+    "DateCompletedFormatted = 'Never' if DateCompleted is a null date.",
+    "RepeatPeriodDesc defaults to 'Never' if RepeatPeriod equals 1000000."
+  ],
+  "system_behavior": [
+    "Procedure names are dynamically set based on the context of student or staff.",
+    "Data retrieval uses SqlDataReader for iterating records."
+  ],
+  "dependencies": [
+    "Resources for internationalized string values.",
+    "DateFormatter for date formatting."
+  ],
+  "exceptions": [
+    "Invalid CourseID results in not adding the entry to the list."
+  ],
+  "source_document_ids": [
+    "348e3bb4-bbdd-55d5-a3d7-4ea3df9b3f23",
+    "6f745c47-4bcf-53ff-8392-26abcd5b599d",
+    "7c2f0e86-1138-5b3e-b80e-bdc477f55960",
+    "8797c008-b2b0-50d0-baa0-4c4cb385cd8d",
+    "887a0b81-300a-5419-b325-a69a546b0018",
+    "8b450805-fa57-5b0b-bb8c-ef88ef65f913",
+    "ba3433b2-8287-5d0e-b99c-9ef944cb2fcd",
+    "c1ceffa0-cb88-53fc-b844-0bb7ef0af94c",
+    "d68b1079-76cb-55e6-9ff3-a314abd682eb",
+    "f6c9b23e-2b88-5c12-a588-c7eff6d7bbc1",
+    "f977f89a-358c-585c-b02a-85e29363bac8"
+  ],
+  "content_gaps": []
+}
