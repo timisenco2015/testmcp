@@ -1,8 +1,8 @@
 {
     "filename": "MaintDestinationProfile",
     "found": true,
-    "summary": "The MaintDestinationProfile manages various aspects of destination profiles, including requirements, documents, contacts, staffing, and placement capacities. It features different tabs to view and manage these elements and includes role-based access permissions.",
-    "purpose": "The purpose of the MaintDestinationProfile is to provide an interface for managing destination profiles within the HSPnet system, allowing users to control and view requirements, documents, contacts, and capacity information based on their session and role.",
+    "summary": "The MaintDestinationProfile is a system component designed to manage and facilitate various aspects of a destination's profile, including requirements, documents, contacts, capacity, and historical data. It supports varied modes such as Student and Instructor mode, and interacts with alternate databases.",
+    "purpose": "To provide comprehensive management of destination profiles within a system, including operations on requirements, documents, and capacity management while respecting user permissions and mode-specific restrictions.",
     "entities": [],
     "fields": [
         "DestID",
@@ -16,85 +16,83 @@
         "AgencyID",
         "AlternateDatabase",
         "UsingAlternateDatabase",
-        "ServiceLst",
-        "DestProfile",
-        "more",
         "cmdMore",
         "currentPage"
     ],
     "actors": [
         "UserSession",
-        "PlacementCoordinator",
         "SystemAdministrator",
-        "LocalAdministrator",
+        "StudentUser",
         "ReceivingUser",
-        "DestinationCoordinator",
-        "ReceivingCoordinator",
         "PlacementCoordinator",
-        "NIS_Agency",
-        "IRP_Agency",
-        "StudentMode",
-        "InstructorMode"
+        "LocalAdministrator"
     ],
     "workflows": [
         {
-            "name": "LoadDocuments",
+            "name": "Load Requirements",
             "steps": [
-                "Sets currentPage to Documents",
-                "Configures UCPrfDocuments with user session, editability, and database settings",
-                "Binds data to the document grid view"
+                "Set current page to Requirements",
+                "Load user session",
+                "Check and set edit permissions",
+                "Bind data with sub-discipline search and display"
             ]
         },
         {
-            "name": "LoadContacts",
+            "name": "Load Contacts",
             "steps": [
-                "Sets currentPage to Contacts",
-                "Configures UCContacts with user session, editability, and database settings",
-                "Binds data to UCContacts"
+                "Set current page to Contacts",
+                "Load user session",
+                "Check and set edit permissions for contacts",
+                "Bind data with search parameters and display"
             ]
         },
         {
-            "name": "LoadCapacityUtilization",
+            "name": "Load Documents",
             "steps": [
-                "Sets currentPage to CapacityUtilization",
-                "Configures UCCpcUtilization with user session",
-                "Sets view to CapacityUtilization"
+                "Set current page to Documents",
+                "Load user session",
+                "Check and set edit permissions for documents",
+                "Bind data with search parameters and display"
+            ]
+        },
+        {
+            "name": "Load Capacity",
+            "steps": [
+                "Determine type of capacity (individual/group)",
+                "Set current page accordingly",
+                "Load capacity data",
+                "Bind and display data"
             ]
         }
     ],
     "business_rules": [
-        "If UserSession.SystemAdministrator, show all sections.",
-        "Students don't see Closures.",
-        "In alternate database mode, only show Profile and Description.",
-        "Users cannot edit destination codes unless they have proper permissions."
+        "User's ability to edit is contingent on role and session validity.",
+        "Sub-discipline access is restricted based on user roles and permissions.",
+        "Various sections of capacity and profiles are only accessible to specific roles."
     ],
     "validations": [
-        {
-            "name": "checkPhone",
-            "details": "Validates phone number format if UsePhoneMask is true."
-        },
-        {
-            "name": "checkStartEnd",
-            "details": "Ensures StartDate is not greater than EndDate."
-        }
+        "Check if start date is before end date",
+        "Ensure phone numbers are valid if phone mask is active",
+        "Capability to operate on alternate databases",
+        "Ensure disciplines are correctly selected for operations"
     ],
     "calculations": [],
     "conditions": [
-        "if (UserSession.ViewOnly || UsingAlternateDatabase) ret = true;",
-        "if (UserSession.SystemAdministrator && UserSession.AgencyID == AgencyID) ret = false;"
+        "Read-only mode is triggered by specific user roles and session states.",
+        "UsingAlternateDatabase alters visible tabs and data accessibility.",
+        "Student mode restricts access to certain profile sections."
     ],
     "system_behavior": [
-        "Controls visibility of UI elements based on user session and role.",
-        "Manages data binding for grids and controls.",
-        "Handles navigation between tabs and views within the application."
+        "System alters UI components based on user permissions and roles.",
+        "Profile data is dynamically loaded and displayed based on active tabs."
     ],
     "dependencies": [
-        "UserSession for role and permissions",
-        "QueryStrings for setting context and navigation",
-        "HSPnet data services for fetching data"
+        "User session management handles permissions",
+        "AlternateDatabase setting modifies data source and behavior"
     ],
     "exceptions": [
-        "If no user session is available, certain functionalities are not accessible."
+        "Non-administrators are restricted from editing certain profile components.",
+        "Fresh student sessions default to profile view"
     ],
     "source_document_ids": [
         "057db98b-a3f8-542c-b892-4bd86f536a1b",
