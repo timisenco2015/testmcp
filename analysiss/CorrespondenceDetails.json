@@ -1,0 +1,102 @@
+{
+  "filename": "CorrespondenceDetails",
+  "found": true,
+  "summary": "The CorrespondenceDetails module in the HSPnet application handles the creation, retrieval, and management of correspondence entries. It ensures data consistency through business rules and validations.",
+  "purpose": "To manage correspondence details including adding, updating, deleting, and retrieving entries with specific formatting and business logic.",
+  "entities": [],
+  "fields": [
+    "ID",
+    "CorrespondenceID",
+    "HeadingID",
+    "Response",
+    "SortOrder",
+    "NumberingCodeID",
+    "Alignment",
+    "Description",
+    "NumberingCode",
+    "SignatureImageStaffID",
+    "FontSize",
+    "FontWeight",
+    "TextDecoration",
+    "FontStyle",
+    "SortOrderFormatted",
+    "NumberCharacter",
+    "NumberingIndentLevel",
+    "ResponseFormatted",
+    "FormalLetter",
+    "BlankRowCodeID",
+    "SignatureImageCodeID"
+  ],
+  "actors": [],
+  "workflows": [
+    {
+      "name": "CorrespondenceDetailsSearch",
+      "steps": [
+        "Set procedure name to CorrespondenceDetailsSearch",
+        "Add CorrespondenceID as parameter",
+        "Execute SQL command to retrieve data",
+        "Populate list with the retrieved data"
+      ]
+    },
+    {
+      "name": "CorrespondenceDetailsAdd",
+      "steps": [
+        "Create a new CorrespondenceDetail object",
+        "Set properties with provided inputs",
+        "Validate the CorrespondenceDetail object",
+        "Apply business rules if valid",
+        "Add entity to the database if valid"
+      ]
+    },
+    {
+      "name": "CorrespondenceDetailsUpdate",
+      "steps": [
+        "Retrieve the CorrespondenceDetail by ID",
+        "Update properties with provided inputs",
+        "Validate the updated CorrespondenceDetail object",
+        "Reapply business rules if valid",
+        "Update entity in the database if valid"
+      ]
+    },
+    {
+      "name": "CorrespondenceDetailsDelete",
+      "steps": [
+        "Check if ID is valid",
+        "Execute the delete procedure with the provided ID"
+      ]
+    }
+  ],
+  "business_rules": [
+    "If not a formal letter and HeadingID equals SignatureImageCodeID, Response is set to SignatureImageStaffID.",
+    "Apply language translations if alt language fields are used."
+  ],
+  "validations": [
+    "Formal letters require non-blank Response.",
+    "Non-formal letters require non-blank Response unless HeadingID corresponds to blank row or signature image.",
+    "Signature image requires a non-zero SignatureImageStaffID."
+  ],
+  "calculations": [
+    "Calculate SortOrderFormatted to display SortOrder or blank if -1.",
+    "Set NumberCharacter and NumberingIndentLevel based on NumberingCode and previous entry."
+  ],
+  "conditions": [
+    "IsLeft, IsCenter, IsRight, and IsJustify return true when Alignment matches the respective condition."
+  ],
+  "system_behavior": [
+    "Format entry descriptions to respond to specified font styles and sizes.",
+    "Ensure that header entries are not repeated and reset numbering codes for new headers."
+  ],
+  "dependencies": [],
+  "exceptions": [],
+  "source_document_ids": [
+    "02862537-57c3-5554-bb6a-feaf93a4a5ff",
+    "12ed0d00-3f3c-5fb8-8302-90c37ea203ff",
+    "3e358ca1-1f79-5623-9bed-eb05f8833c8f",
+    "6ed67483-5557-53ec-8883-0bd2e28edb2d",
+    "70fefca2-1066-564b-997e-20ccaa70cce2",
+    "9687d5b8-adbe-5c8f-9ea6-7130805c3328",
+    "b3f4b443-58a9-522c-a537-75ac363119d4",
+    "c05e9df2-a94b-538c-8dcf-02f1425f5cb0"
+  ],
+  "content_gaps": []
+}
