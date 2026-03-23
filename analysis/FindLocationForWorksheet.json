@@ -1,19 +1,19 @@
 {
   "filename": "FindLocationForWorksheet",
   "found": true,
-  "summary": "The 'FindLocationForWorksheet' screen in HSPnet provides a user interface and backend logic to search for and select agency sites, services, and destinations for inclusion in a worksheet (used for student placement, likely). It supports multiple filters, search criteria, batch selection, validation, and creation of worksheet entries.",
-  "purpose": "To allow users to search for and filter agency sites, services and destinations, select matching results, and add them to a worksheet. This facilitates the process of finding appropriate locations for student placement workflows.",
+  "summary": "FindLocationForWorksheet is a web page and backend code module that provides a user interface for searching, selecting, and creating worksheet entries for locations (destinations) within the HSPnet system. It enables users to search using multiple filters (agency, governing organization, site type, service, region, province, discipline, keyword) and then select locations to associate with a worksheet. Advanced controls, dynamic dropdowns, error/warning panels, and reporting functionality are included.",
+  "purpose": "To enable users to find, filter, and select destinations for a worksheet within HSPnet, and to create worksheet entries for each selected destination based on configurable criteria such as group size, worksheet type, and template usage.",
   "entities": [
-    "Worksheet",
     "Agency",
-    "Governing Organization",
-    "Site Type",
+    "GoverningOrg",
+    "SiteType",
     "Service",
     "Region",
     "Province",
     "Discipline",
-    "DatabaseLocations",
-    "UserSession"
+    "Worksheet",
+    "Location",
+    "Destination"
   ],
   "fields": [
     "txtKeyword",
@@ -26,75 +26,110 @@
     "ddRegion",
     "chkIncludeCity",
     "chkIncludeAddress",
-    "lblMatches",
+    "cmdPrint",
+    "cmdClear",
+    "cmdSearch",
+    "cmdClose",
+    "cmdSelectAll",
+    "cmdSelectNone",
+    "cmdCreate",
+    "spnGroupSize",
     "txtGroupSize",
-    "chkUseTemplate"
+    "chkUseTemplate",
+    "gridData",
+    "lblMatches",
+    "lblErrorList",
+    "lblWarningList",
+    "pnlError",
+    "pnlWarning",
+    "pnlCurrentView",
+    "lblFooter",
+    "lblReportHTML",
+    "spnMatches",
+    "ValidationSummary1",
+    "ValidationSummary2",
+    "CustomValidator2",
+    "CompareValidator4",
+    "RequiredFieldValidator2"
   ],
   "actors": [
-    "User"
+    "User",
+    "HSPnet.WebServices.ASSDLookups",
+    "HSPnet.DataLayer.Locations",
+    "HSPnet.Framework.Reporting",
+    "HSPnet.Framework.HSPnetPage"
   ],
   "workflows": [
     {
       "name": "Search and Select Locations for Worksheet",
       "steps": [
-        "Page loads; query string parameters WorksheetID, CFOFlag, and GWS are read.",
-        "If not a postback: lookups (Agencies, GoverningOrgs, SiteTypes, Services, Regions, Provinces, Disciplines) are fetched and dropdowns filled. txtKeyword is focused.",
-        "If WorksheetID or CFOFlag are missing, disable Create button.",
-        "Page sets up JavaScript variables for client-side use.",
-        "User fills filter fields and clicks Search.",
-        "System validates required search fields (custom validator).",
-        "System fetches and binds matching locations to gridData GridView. lblMatches updated with count.",
-        "Grid supports paging; on page change, fetches and binds new page of results.",
-        "User may select multiple locations (via checkboxes) or use Select All/None.",
-        "User may fill group size and choose to use template.",
-        "User clicks 'Create': system collects selected SiteID/ServiceID/DestinationID from checked rows, creates worksheet entries (with parameters including group size and template option), and clears related caches.",
-        "User can Print results, Clear the form, or Close the window.",
-        "Error/Warning messages are shown in dedicated panels."
+        "Page loads, reads WorksheetID and CFOFlag from query string.",
+        "GetLookupData populates dropdowns for filters using agency, site type, service, governing org, region, province, discipline, etc.",
+        "User enters keyword and selects filter criteria.",
+        "User clicks 'Search' (cmdSearch_Click): runs search via HSPnet.DataLayer.Locations, displays results in gridData.",
+        "If too many rows found, shows warning/caption.",
+        "User can use Select All / Select None buttons to bulk select locations.",
+        "User may create worksheet entries: for each selected row, site/service/destination IDs are gathered; group size is checked/validated.",
+        "Location.CreateWorksheetEntries is called with user/session data and selected IDs.",
+        "ASSD cache is cleared to ensure up-to-date worksheet edit screen."
+      ]
+    },
+    {
+      "name": "Print Results",
+      "steps": [
+        "User clicks 'Print' (cmdPrint_Click).",
+        "Report is generated via HSPnet.Framework.Reporting.RunReport.",
+        "Results shown in lblReportHTML and pnlReportHTML."
+      ]
+    },
+    {
+      "name": "Clear Filters",
+      "steps": [
+        "User clicks 'Clear' (cmdClear_Click).",
+        "All filter controls and grid are reset."
       ]
     }
   ],
   "business_rules": [
-    "Create button is visible only if both WorksheetID and CFOFlag are present.",
-    "Default value for group size is 1 if not using GWSFlag or if parsing fails.",
-    "If no records are selected, no worksheet entries are created.",
-    "Validation: group size must be a number and must be entered if creating worksheet.",
-    "Keyword is required for searching (CustomValidator enforced)."
+    "Worksheet creation is only possible if both WorksheetID and CFOFlag are provided.",
+    "Group size must be a valid integer if GWSFlag is set; defaults to 1 otherwise.",
+    "If too many results, display warning and help link.",
+    "Dropdowns always contain an 'All' option inserted as first item."
   ],
   "validations": [
-    "CustomValidator2: Validates that required search fields are filled before search.",
-    "CompareValidator4: Ensures txtGroupSize is an integer.",
-    "RequiredFieldValidator2: Ensures txtGroupSize is entered if creating worksheet.",
-    "ValidationSummary1/2: Summarizes all validation errors."
+    "CustomValidator2 validates search keyword entry.",
+    "ValidationSummary1 and ValidationSummary2 collect validation errors.",
+    "CompareValidator4 ensures txtGroupSize is an integer.",
+    "RequiredFieldValidator2 ensures txtGroupSize is entered when required."
   ],
   "calculations": [
-    "lblMatches displays the total number of matched rows after a search.",
-    "If no keyword entered, default to '%'.",
-    "Group size: parse txtGroupSize as integer or use 1 as fallback."
+    "Row count for matches (lblMatches).",
+    "Comma-delimited lists of selected SiteID, ServiceID, DestinationID for worksheet creation."
   ],
   "conditions": [
-    "Show/hide Create button based on presence of WorksheetID/CFOFlag.",
-    "Show/hide group size controls based on GWSFlag.",
-    "Show/hide Matches indicator and New Destination form only after search."
+    "cmdCreate is only visible if both WorksheetID and CFOFlag are not null/empty.",
+    "spnGroupSize is shown only if GWSFlag is enabled.",
+    "If page is not postback or clearPressed is true, spnMatches is hidden."
   ],
   "system_behavior": [
-    "Dropdown filters are dynamically filled from lookup data.",
-    "Grid supports selection, paging, and live count.",
-    "JavaScript hooks for Select All/None and print behaviors.",
-    "Page ensures URL hash is valid (security).",
-    "Cache is cleared after creating worksheet entries.",
-    "AJAX toolkits maintain floating error/warning panels."
+    "Dropdowns populated dynamically from lookup data.",
+    "Error and warning panels shown/hidden via script controls.",
+    "Search results and worksheet creation update UI and trigger back-end updates.",
+    "Client-side scripts register field variables and checkboxes for select-all/none.",
+    "Print form displays please-wait indicator."
   ],
   "dependencies": [
+    "Global resources (Resources)",
     "HSPnet.DataLayer.Locations",
     "HSPnet.Framework.Reporting",
-    "HSPnet.WebServices.ASSDLookups.ClearASSDCache",
-    "HSPnet.Framework.Hashing",
-    "HSPnet.Framework.QueryString",
-    "Javascript client scripts and AJAX toolkit"
+    "HSPnet.WebServices.ASSDLookups",
+    "AjaxControlToolkit",
+    "JavaScript scripts (Global.js, FindLocation.js)",
+    "CSS (Global.css)"
   ],
   "exceptions": [
-    "If invalid WorksheetID or CFOFlag, creation is not permitted.",
-    "If group size is invalid, default is used."
+    "Too many search results (MAX_ROWS hit): warning is displayed with help link.",
+    "Invalid or missing input for worksheet creation: validation prevents action."
   ],
   "source_document_ids": [
     "0176c680-d043-50cd-be84-810b9401ca4d",
@@ -128,6 +163,9 @@
     "fccc1c70-95f6-5ea8-86ed-eae47887742a"
   ],
   "content_gaps": [
-    "Some resource string values and business logic implementation details are referenced but not seen here (e.g., translation of labels, internal structure of Worksheet creation, error handling details, exact format of lookup data, and JavaScript functions)."
+    "No explicit database schema for Agency, GoverningOrg, SiteType, Service, Region, Province, Discipline.",
+    "Some referenced methods (e.g., Location.CreateWorksheetEntries, HSPnet.DataLayer.Locations) implementation details not provided.",
+    "Resource strings (e.g., Resources.*, error/warning messages) not defined in content.",
+    "No user stories or detailed UI wireframes."
   ]
 }
