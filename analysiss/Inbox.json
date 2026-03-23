@@ -1,0 +1,50 @@
+{
+  "filename": "Inbox",
+  "found": true,
+  "summary": "The 'Inbox' consists of code related to handling email documents within the HSPnet application, including operations like creating, deleting, and manipulating email attachments.",
+  "purpose": "To manage email-related documents and their interactions within the system.",
+  "entities": [
+    "EmailPopupDocument"
+  ],
+  "fields": [
+    "ID",
+    "FileName",
+    "FilePath",
+    "Checked"
+  ],
+  "actors": [],
+  "workflows": [
+    {
+      "name": "Email Document Management",
+      "steps": [
+        "Parse the data info string to retrieve details about the email and document.",
+        "Delete the file at the specified path.",
+        "Delete the directory associated with the email document if it exists."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Ensure the data info string is valid before processing."
+  ],
+  "validations": [
+    "Check if the parsed data info string provides valid email document details."
+  ],
+  "calculations": [],
+  "conditions": [],
+  "system_behavior": [
+    "Allows attaching and handling email documents within the application.",
+    "Supports deletion of emails and their associated directories."
+  ],
+  "dependencies": [
+    "System.IO for file operations",
+    "System.Data.SqlClient for database interactions"
+  ],
+  "exceptions": [
+    "Handle file and directory deletion errors gracefully."
+  ],
+  "source_document_ids": [
+    "7287734e-f13d-550f-9249-4242db620766",
+    "927bc837-5564-5759-9324-27c6d5d7321d"
+  ],
+  "content_gaps": []
+}
