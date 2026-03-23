@@ -1,53 +1,47 @@
 {
     "filename": "SiteProfileHistory",
     "found": true,
-    "summary": "The SiteProfileHistory class handles the history of site profiles, including action dates, user actions, and agency details. It provides methods for formatting action dates and localizing user information.",
-    "purpose": "To document and manage the historical actions related to site profiles in a structured format.",
-    "entities": [],
+    "summary": "This document describes the SiteProfileHistory class, capturing site-related actions within the HSPnet system, including fields for action date, user details, and agency information.",
+    "purpose": "Track historical changes and actions taken on site profiles within the HSPnet system.",
+    "entities": [
+        "SiteProfileHistory"
+    ],
     "fields": [
-        {"name": "ID", "type": "int"},
-        {"name": "ActionDate", "type": "DateTime"},
-        {"name": "ScreenSection", "type": "string"},
-        {"name": "UserAction", "type": "string"},
-        {"name": "Fields", "type": "string"},
-        {"name": "Agency", "type": "string"},
-        {"name": "AgencyName", "type": "string"},
-        {"name": "LastName", "type": "string"},
-        {"name": "FirstName", "type": "string"},
-        {"name": "MiddleName", "type": "string"},
-        {"name": "Phone", "type": "Phone"},
-        {"name": "ByUserID", "type": "int"},
-        {"name": "ByOriginalUserID", "type": "int"},
-        {"name": "ByUserSysAdmin", "type": "bool"}
+        "ID",
+        "ActionDate",
+        "ScreenSection",
+        "UserAction",
+        "Fields",
+        "Agency",
+        "AgencyName",
+        "LastName",
+        "FirstName",
+        "MiddleName",
+        "Phone",
+        "ByUserID",
+        "ByOriginalUserID",
+        "ByUserSysAdmin",
+        "ActionDateFormatted",
+        "AgencyUserFormatted",
+        "AgencyUserDetailsFormatted"
     ],
     "actors": [],
-    "workflows": [
-        {
-            "name": "Site Profile History Search",
-            "steps": [
-                "Search site profile history using SiteID and SessionAgencyID.",
-                "Fill list with historical entries."
-            ]
-        }
-    ],
+    "workflows": [],
     "business_rules": [],
     "validations": [],
-    "calculations": [
-        {
-            "name": "ActionDateFormatted",
-            "description": "Formats the action date for display."
-        }
-    ],
+    "calculations": [],
     "conditions": [],
-    "system_behavior": [],
-    "dependencies": [],
+    "system_behavior": [
+        "Formats user and agency details for display.",
+        "Tracks and records changes made by users on site profiles."
+    ],
+    "dependencies": [
+        "UserSession"
+    ],
     "exceptions": [],
     "source_document_ids": [
         "25f89a24-5eda-5a3f-83df-1de69b12b3f1",
-        "26e09292-d304-55c6-94e5-ef3346453c4b",
-        "7ca6b963-9ae9-5cd3-82d5-f30dcb727ae3",
-        "a8f030c6-90b8-53a1-bb8a-3b7ef33b9488",
-        "e806999c-3a39-5720-9b59-303faebc9eb6"
+        "a8f030c6-90b8-53a1-bb8a-3b7ef33b9488"
     ],
     "content_gaps": []
 }
