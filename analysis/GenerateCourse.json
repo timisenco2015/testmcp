@@ -1,0 +1,108 @@
+{
+    "filename": "GenerateCourse",
+    "found": true,
+    "summary": "The GenerateCourse functionality is part of a system that handles correspondence for courses and cohorts. It involves generating documents or recipient lists based on selected criteria and user preferences.",
+    "purpose": "The purpose of GenerateCourse is to generate correspondence documents or recipient lists for selected courses or cohorts, allowing users to manage communication efficiently within the system.",
+    "entities": [],
+    "fields": [
+        "txtRequestDestID",
+        "cklStatus",
+        "txtCorDate",
+        "OutputFormat",
+        "CorrespondenceID",
+        "ProgramID",
+        "ddDepartment",
+        "ddProgram",
+        "ddTerm",
+        "chkIncludeLogo",
+        "chkUseBlankAddressee",
+        "chkAddresseeContactInfo",
+        "chkUseDisciplineContact",
+        "ddSignatory"
+    ],
+    "actors": [
+        "UserSession",
+        "PlacementCoordinator",
+        "StudentMaint",
+        "DestinationCoordinator"
+    ],
+    "workflows": [
+        {
+            "name": "GenerateCourse",
+            "steps": [
+                "User selects recipient or course details.",
+                "Validations are performed on input data.",
+                "User chooses output format (PDF, RTF, XLS, etc.).",
+                "System generates a recipient list or correspondence document.",
+                "If necessary, details such as signature and department are included.",
+                "Output is generated and displayed as per user's role and permissions."
+            ]
+        }
+    ],
+    "business_rules": [
+        "If Outbox is true, generate for selected requests.",
+        "Allow email sending only for System Administrators or specific coordinators.",
+        "Populate department and program dropdowns based on user permissions."
+    ],
+    "validations": [
+        "Date validation for txtCorDate using DateFormatter.",
+        "Input parameters validation for session and correspondence ID."
+    ],
+    "calculations": [
+        "Calculate correspondence dates based on selected or custom settings.",
+        "Set start and end dates for outbox items based on user session variables."
+    ],
+    "conditions": [
+        "Check if Outbox is true or false to determine action.",
+        "If UserSession is null, cancel certain operations.",
+        "Check user's role to determine permissions and actions (PC, DC, RC)."
+    ],
+    "system_behavior": [
+        "Dynamically populate dropdowns and checkboxes based on user session and permissions.",
+        "Manage display properties and enable/disable controls based on context."
+    ],
+    "dependencies": [
+        "Depends on session data for user roles and permissions.",
+        "Utilizes JavaScript for client-side operations and validation."
+    ],
+    "exceptions": [
+        "Handle null or invalid user session scenarios.",
+        "Cancel data operations if prerequisites are not met."
+    ],
+    "source_document_ids": [
+        "02e09e81-5a82-5c62-bb4c-751a99905bb1",
+        "0321a006-38ab-51ee-a500-fd1823b05e12",
+        "0b974889-fe04-5c13-bba1-3eadbc18ca4f",
+        "18308b20-af1e-5dd4-b3e2-0545c7e7cc7d",
+        "18592d00-fbc1-5793-8804-5fd12e935ec1",
+        "1c41c0c0-f8e0-5ea0-90b9-35db3f6188d7",
+        "1cd049ae-3b4f-5f6d-9d16-82469ac6ab31",
+        "1d41c5a3-b932-5479-a019-c574e34a64ed",
+        "1ebf63fa-f3bc-5421-853a-665e9700b57b",
+        "2430cc81-e3e2-5cde-bc18-3a6c0fc86998",
+        "25a70d13-2e1a-559b-91fb-77293a4f5aea",
+        "26b7f0af-0b4d-5853-a1e1-c04549dc93fa",
+        "2d103c3e-db4b-5a2f-98fd-d285f42ebe67",
+        "2feded0d-1287-5503-8821-ae705194df49",
+        "3fc75726-4e03-5ead-b26d-84c149ab87ec",
+        "4e828758-784d-5fdc-82e6-7da7a368c72f",
+        "624109b9-f7f3-5a53-a6c7-8b18532482d5",
+        "67247769-28f5-5533-ad6d-7bbfcec68836",
+        "6e11a4eb-5138-5538-b08f-a4148a965ba8",
+        "82f90f7d-802d-5544-a68f-fa1d7464a2dc",
+        "88c9934f-e904-5a4d-a01a-9fb24a804ba8",
+        "a4fed21a-dd98-5832-90a7-51cf9c30edd9",
+        "be43e130-556a-5163-b92d-5a29b379b715",
+        "c157b43b-9a25-5a2b-a1ef-c6998911725d",
+        "ceef8f18-3103-5979-aaf0-a1421be33cbc",
+        "da3647d9-278c-5797-bc33-f0b5e98c5172",
+        "dc4ae4aa-879c-517a-b08c-5746e0260645",
+        "fb935f3c-a163-56b1-bdd4-cac00365b2fc",
+        "fc250fd4-9e76-542e-9350-6c1a5e9bf92f",
+        "fce71396-0d2e-538c-98c6-f7bafb9925a3"
+    ],
+    "content_gaps": [
+        "Specific user role definitions are incomplete.",
+        "Detailed error handling procedures are not fully documented."
+    ]
+}
