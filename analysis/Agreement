@@ -1,0 +1,108 @@
+```json
+{
+  "filename": "Agreement",
+  "found": true,
+  "summary": "The retrieved content describes various functionalities of an agreement management system. It includes methods for adding, updating, and deleting agreements, managing templates, and listing agreement types, descriptions, and agencies.",
+  "purpose": "To manage agreements including addition, update, deletion, and retrieval of agreements using templates and various organizational lists.",
+  "entities": [],
+  "fields": [
+    {
+      "name": "ID",
+      "type": "int",
+      "description": "Unique identifier for the agreement"
+    },
+    {
+      "name": "DescriptionCodeID",
+      "type": "int",
+      "description": "Identifier for the description code of the agreement"
+    },
+    {
+      "name": "TemplateID",
+      "type": "int",
+      "description": "Identifier for the template used by the agreement"
+    },
+    {
+      "name": "StatusCodeID",
+      "type": "int",
+      "description": "Identifier for the status code of the agreement"
+    },
+    {
+      "name": "NextSteps",
+      "type": "string",
+      "description": "The next steps outlined for the agreement"
+    },
+    {
+      "name": "SourceIsTemplate",
+      "type": "bool",
+      "description": "Indicates if the agreement's source is a template"
+    },
+    {
+      "name": "TemplateUnchanged",
+      "type": "bool",
+      "description": "Indicates if the template associated with the agreement has remained unchanged"
+    },
+    {
+      "name": "LastUpdated",
+      "type": "DateTime",
+      "description": "The last date and time the agreement was updated"
+    }
+  ],
+  "actors": [
+    {
+      "name": "HSPnetSession",
+      "role": "Session manager that handles database operations related to agreements."
+    }
+  ],
+  "workflows": [
+    {
+      "name": "Agreement Management",
+      "steps": [
+        "Add agreement using Add method.",
+        "Update agreement details with Update method.",
+        "Delete an agreement with Delete method.",
+        "Search for agreements using AgreementSearchTemplate or AgreementSearchAgreement."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Agreements can be added, updated, or deleted within the system.",
+    "Templates are used to manage agreement structures."
+  ],
+  "validations": [
+    "Ensure that DescriptionID, AgreementID, and content user IDs are valid before operations."
+  ],
+  "calculations": [
+    "Formatting dates such as LastUpdatedFormatted involves short date formatting."
+  ],
+  "conditions": [
+    "If the agreement ID is 0, it indicates a non-existent template record."
+  ],
+  "system_behavior": [
+    "Uses stored procedures like AgreementAdd, AgreementUpdate, and AgreementDelete for database operations.",
+    "Initiates URLs using JavaScript for interaction with templates and history."
+  ],
+  "dependencies": [
+    "SQL Server for data storage and retrieval."
+  ],
+  "exceptions": [
+    "Handling null data readers and ensuring proper closure of readers post data retrieval operations."
+  ],
+  "source_document_ids": [
+    "1ba6c2bc-e058-582c-85e1-da0f1117a1a5",
+    "47f70ad1-b18e-5473-8ebf-54139a777c97",
+    "4d0ef014-7317-5b4c-a4f6-587459047fa7",
+    "5b6a46c1-b06a-50b1-a02a-47ae2ae590b6",
+    "70cf9f1b-b2d9-528b-bb1e-c5103c91e4cb",
+    "869ab082-89f6-570e-95e1-6c4d91e50e5f",
+    "a27a9ba0-0123-5e16-89fb-06298cc5e3c7",
+    "ab02f0fe-64a1-50ae-9817-49e2ea01f820",
+    "af126836-92db-5d5d-85b8-1923b5b2c2b3",
+    "b13ec003-a70a-5232-87ba-00c851d73e6c",
+    "be77c228-d99c-596b-9485-d9da1c6f0f77",
+    "de2a08e8-d6bc-5ab3-9c82-2e440b60d63b",
+    "e6c1f06f-4f8d-5387-9611-c0fc85c6d4a3",
+    "efeb4660-bca5-57e3-b5c9-03c0e3a96fd6"
+  ],
+  "content_gaps": []
+}
+```
