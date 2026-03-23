@@ -1,0 +1,140 @@
+{
+  "filename": "ReportMenu",
+  "found": true,
+  "summary": "The document is a C# ASP.NET application code related to the ReportMenu component of an HSPnet web application. It includes user interface controls, event-handling logic, user sessions, and access permissions for generating and displaying various reports related to student and staff management.",
+  "purpose": "The purpose of this document is to define the structure, functionality, and logic for managing the ReportMenu in the HSPnet application, including loading different reports, setting up views, handling user interactions, and managing user roles and permissions.",
+  "entities": [
+    "HSPnet.Framework.HSPnetPage",
+    "UserSession",
+    "AjaxControlToolkit.TabContainer",
+    "System.Web.UI.WebControls.MultiView",
+    "HSPnet.UserControls.ReportMenu"
+  ],
+  "fields": [
+    "blnPlacingUser",
+    "blnReceivingUser",
+    "blnRCUser",
+    "blnGetsWizards",
+    "TabContainer1",
+    "MultiViewStud_Staff",
+    "MultiViewPlcSch",
+    "MultiViewHRInfo",
+    "MultiViewSetupProf",
+    "UserSession"
+  ],
+  "actors": [
+    "Instructor",
+    "PlacementCoordinator",
+    "StudentMaint",
+    "GroupInstructor",
+    "CourseLeader",
+    "PAPolicy",
+    "Supervisor",
+    "ReceivingCoordinator",
+    "DestinationCoordinator",
+    "DestinationProfileContact",
+    "RAPolicy",
+    "StaffAdmin",
+    "SystemAdministrator"
+  ],
+  "workflows": [
+    {
+      "name": "Loading Student and Staff Reports",
+      "steps": [
+        "CheckTabsAccess to determine user permissions.",
+        "LinkChildControls to set up report viewing.",
+        "Load appropriate report based on user actions and visibility settings."
+      ]
+    }
+  ],
+  "business_rules": [
+    "UserSession determines accessible tabs and reports.",
+    "Placing user or RCUser roles are required to access specific reports.",
+    "UseStudentHRInformation config code affects visibility of HR Information tab."
+  ],
+  "validations": [
+    "checkIncludedList ensures the number of included items is within MAX_INCLUDE_ITEMS.",
+    "checkStartEnd validates that StartDate is earlier than or equal to EndDate."
+  ],
+  "calculations": [
+    "resetDates function sets default date values based on active term selection."
+  ],
+  "conditions": [
+    "TabPanelHRInformation is enabled if UseStudentHRInformation is '1' and user has appropriate roles.",
+    "Student preferences list visibility is conditional upon user roles and program configuration."
+  ],
+  "system_behavior": [
+    "TabContainer1 manages tab visibility and events for the user interface.",
+    "Page_Load initializes page settings and user session properties.",
+    "AjaxControlToolkit and MultiView components are used to manage dynamic views and tabs."
+  ],
+  "dependencies": [
+    "HSPnet.UserControls.ReportMenu components like RptMnuStudentEvaluations and RptMnuPlcSch_PlcSchedule."
+  ],
+  "exceptions": [
+    "No error-handling logic detected for system failures or unexpected behavior."
+  ],
+  "source_document_ids": [
+    "006af4e4-ad02-56ba-81d5-e20b65992663",
+    "022e32f7-1a1f-52f4-87da-189d78ec3e87",
+    "0404c7cb-1103-5aac-9a54-6c0d0039fa55",
+    "062ddf39-8672-5516-b316-f53958606259",
+    "06d6d963-e3a8-5be7-aec8-8320770f8dee",
+    "082c54a1-364e-5e81-bf5b-c8f626773dc0",
+    "08ce3aaa-d8a6-58bf-89dd-3b63101f2e1f",
+    "0eaf913d-3ea4-5016-9f1f-2a6f2bba798e",
+    "1c84a746-ba00-5fe8-8648-77d8d1afc3ff",
+    "1d27b676-fdea-531c-841d-fcc0267280d4",
+    "1f00d7d2-b9b5-5b8c-af78-b136fc18ea97",
+    "21b24310-031c-5928-b756-35a80722f14e",
+    "21b937a4-474c-5e16-8083-5bf88a24e8fc",
+    "2df0e423-3eaf-54a2-988b-f74c06e10cc4",
+    "320020ce-ff3e-5ecb-8146-21e4b147a9e4",
+    "324040d9-e301-518f-8bf0-724489ca839a",
+    "37fd4f26-7fb3-5955-9f48-c13e035c18d2",
+    "3d6c5cbd-54fc-5e0a-bbed-cb6934a3b6c2",
+    "3d8c6570-e68c-5c62-bce1-4593c3512f4d",
+    "437e1fb6-0f14-50a1-af0f-4341b0972290",
+    "466ae457-0b9c-5fc3-845d-3224ed38ba54",
+    "46a1c2a6-39ac-5014-9be4-1bd9cb952682",
+    "46c59381-23ba-54f5-9438-175eefb2700f",
+    "4ad5ffb7-8907-558d-a774-2c3de9c4d7b6",
+    "51927c9c-a6da-59e2-9267-6ba34ae5ca4c",
+    "53dd0225-8ca0-5da2-a8eb-8338476da062",
+    "569a798b-9022-55ce-9b41-17b474d7685a",
+    "5d51e33f-ea38-5e3f-8fc0-bdec1545169d",
+    "5e8d5e50-8561-58b1-89df-5056c1438d3d",
+    "61af7bb7-d989-52c6-b7b6-2e5d7ee4e779",
+    "63dfc503-2021-5c10-8f88-0e91ef3a8c6f",
+    "79067499-5e9d-5fb1-a799-faeb03659be9",
+    "7c5c430c-08ca-5097-b04c-51c950de0798",
+    "86274e3c-657a-52bc-bc9e-6d78d08dd1fe",
+    "86655dc1-cf8a-5557-8436-89fb3fad49fa",
+    "8bcecca1-f414-5c72-9260-7b9c0bdd1f51",
+    "8c238ec9-7c16-5661-9857-cde83b43b0d2",
+    "8c36a842-2d82-527e-af39-aebe7e4c0d23",
+    "8caa246d-7f15-5e45-adf3-db794c110b54",
+    "958d59c8-cb62-5c00-85ff-5f842a40e682",
+    "96af8856-28d9-5252-a08c-2211673a96c1",
+    "98f4eb37-0993-5f08-aae4-4b0909923a7d",
+    "98f69d06-0191-5bc1-af16-527d79753852",
+    "a9d46b30-2a92-587c-a312-c8a4f26e6f73",
+    "abf113ab-362a-5988-819d-7b902f92bb68",
+    "b0beb4a4-64e1-50a3-bdd5-1fcc37263d58",
+    "b9b293cd-92f9-56be-bae0-48f6331ec8c7",
+    "b9e284ea-abf7-5a7a-88a7-67982f93e1d2",
+    "bcd89c35-841a-5c8f-8ca9-811b87a9708d",
+    "d2c3c78a-d734-51d4-91a3-7d439dfdb396",
+    "d328f38d-c1ba-5cd7-b475-3f531f6eda79",
+    "d678c292-c9ea-552c-87b5-bb747beee273",
+    "d7a24809-56fc-594a-884f-ec42ea252ede",
+    "d83ed914-dc8c-573f-a26b-9f56f9e368e8",
+    "dae46d70-cc3d-538e-bd5e-3f55da950278",
+    "dc3e2791-1723-5ccb-83bd-c978e2b24128",
+    "e143d207-22cf-5dd6-b0c3-86ed49de19be",
+    "e8c0643b-15ba-5dcd-86e9-0838b62bf0f6",
+    "eebc2b2a-30c5-5b3b-9acb-c166fbe4e92b",
+    "f17ec054-a681-5f4a-a627-32f4384ef918"
+  ],
+  "content_gaps": []
+}
