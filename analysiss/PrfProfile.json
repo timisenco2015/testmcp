@@ -1,0 +1,74 @@
+{
+  "filename": "PrfProfile",
+  "found": true,
+  "summary": "The 'PrfProfile' is a user control for managing staff profiles in a web application. It includes UI elements for viewing and editing profile details such as work schedule, licensure codes, and personal information. The control uses various components such as FormView, ObjectDataSource, and CascadingDropDowns to handle data display and interaction.",
+  "purpose": "The purpose of 'PrfProfile' is to allow authorized users to view, edit, and manage staff profiles within a web-based platform, providing access to specific details and enabling profile updates while adhering to user permissions.",
+  "entities": [],
+  "fields": [
+    "workScheduleCodeID",
+    "licensureCodeID",
+    "licensureRestrictionCodeID",
+    "profileNameFormatted",
+    "registrationNumber",
+    "licensureDateFormatted"
+  ],
+  "actors": ["UserSession", "Staff"],
+  "workflows": [
+    {
+      "name": "Edit Staff Profile",
+      "steps": [
+        "Switch to edit mode when edit command is triggered.",
+        "Populate form fields with current staff profile data.",
+        "Allow data entry and validation.",
+        "Save updates and redirect to appropriate page."
+      ]
+    },
+    {
+      "name": "Select Work Schedule",
+      "steps": [
+        "Provide dropdown to select work schedule.",
+        "Update profile based on user selection."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Only authorized users can edit profiles.",
+    "Profiles must be viewed using the SessionHash and AgencyID.",
+    "Certain fields are disabled if not editable."
+  ],
+  "validations": [
+    "Ensure all required fields are filled before saving.",
+    "Validate the licensure date and registration number formats."
+  ],
+  "calculations": [],
+  "conditions": [
+    "If user is a Destination Coordinator and not an Administrator, restrict data access.",
+    "Hide licensure details if not the user's own profile."
+  ],
+  "system_behavior": [
+    "Load user session details.",
+    "Disable fields when the profile is not in edit mode.",
+    "Use CascadingDropDowns to maintain logical data relationships."
+  ],
+  "dependencies": [
+    "HSPnetSession object for managing user sessions.",
+    "AjaxControlToolkit for handling dropdown and popup behaviors."
+  ],
+  "exceptions": [
+    "Cancel data loading if UserSession is null.",
+    "Prevent profile edits if user lacks proper authorization."
+  ],
+  "source_document_ids": [
+    "377929ef-5881-52d7-8eee-df8231a3eb9c",
+    "4174bb45-88a5-58d1-8539-106daee11a0c",
+    "79bce1f9-56f2-5841-8731-a6a5a4c02ed2",
+    "87957b01-215a-5ad6-ad00-72f3056982b6",
+    "973d779a-ada2-59d4-91d4-66673ceffaf0",
+    "b76ee8c8-cbd5-5be0-be52-aee7b2cd2749",
+    "b84a72ae-19f6-5055-97f7-343f054c1013",
+    "d29e392f-d55d-5288-af36-0ddcd4cb440d",
+    "d598c65d-b656-5660-a780-27daf30b966a",
+    "f3e43a7d-34be-559e-8024-5964dec4e230"
+  ],
+  "content_gaps": []
+}
