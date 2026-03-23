@@ -1,16 +1,13 @@
 {
   "filename": "RptMnuPlcSch_ConfirmLetters",
   "found": true,
-  "summary": "RptMnuPlcSch_ConfirmLetters is a user control within the HSPnet system designed to manage confirmation letter reports. It includes functionalities to set up user interface controls and execute report generation tasks, integrating various dropdowns and user selections.",
-  "purpose": "The purpose of the RptMnuPlcSch_ConfirmLetters control is to allow users to configure and generate confirmation letter reports within the HSPnet environment. It offers options to include various participant roles and customize report outputs.",
+  "summary": "The system implements a user interface for managing and generating confirmation letters related to placements, courses, and departments. It involves dynamic dropdowns for departments, programs, and terms, checkbox selections for additional options, and a final report generation button.",
+  "purpose": "To facilitate the creation and management of confirmation letters for placement schedules, allowing users to select relevant parameters such as departments, programs, terms, and optional settings before generating the confirmation report.",
   "entities": [],
   "fields": [
     "ddDepartment",
     "ddProgram",
     "ddTerm",
-    "lblCohortsCourses",
-    "ltlDescription",
-    "ltlOptions",
     "ddSender",
     "chkIncludeHSPnetUsers",
     "chkccSupervisor",
@@ -18,52 +15,67 @@
     "chkccInstructor",
     "chkIncludeStudentName",
     "chkIndividualPDF",
+    "ValidationSummary1",
+    "ltlDescription",
+    "ltlOptions",
     "CustomValidator1",
-    "CustomValidator2",
-    "ValidationSummary1"
+    "CustomValidator2"
   ],
   "actors": [
-    "User",
-    "UserSession"
+    "UserSession",
+    "ScriptMgr"
   ],
   "workflows": [
     {
-      "name": "Generate Report Workflow",
+      "name": "Department Selection",
       "steps": [
-        "Page Load: Setup labels and validate user session.",
-        "Fill department dropdown based on user session.",
-        "Fill program dropdown based on selected department.",
-        "Fill term dropdown based on selected program.",
-        "User selects report parameters including roles to CC and whether to include student names.",
-        "User clicks 'Run Report' button.",
-        "Report job is created using current selections and session details."
+        "User selects a department from the dropdown.",
+        "Programs and terms are dynamically loaded based on the selected department."
+      ]
+    },
+    {
+      "name": "Program Selection",
+      "steps": [
+        "User selects a program from the dropdown.",
+        "Terms are dynamically loaded based on the selected program."
+      ]
+    },
+    {
+      "name": "Run Report",
+      "steps": [
+        "User clicks the 'Run Report' button.",
+        "A confirmation letter creation job is initiated with the selected parameters."
       ]
     }
   ],
   "business_rules": [
-    "If UserSession allows all departments or programs, populate dropdowns with all available options.",
-    "Restrict dropdown selections based on session permissions."
+    {
+      "rule": "Load Departments",
+      "description": "Load all departments if the user has permission to access all; otherwise, load specific departments."
+    },
+    {
+      "rule": "Load Programs",
+      "description": "Load all programs if the user has permission to access all; otherwise, load specific programs."
+    }
   ],
   "validations": [
-    "CustomValidator1",
-    "CustomValidator2",
-    "Ensure UserSession is active before proceeding with data operations."
+    "Ensure UserSession is not null before proceeding with data operations.",
+    "Custom validators validate specific fields before report generation."
   ],
   "calculations": [],
   "conditions": [
-    "UserSession must not be null to proceed with report generation."
+    "If UserSession is null, cancel data loading operations for ObjectDataSource."
   ],
   "system_behavior": [
-    "Populate dropdowns depending on user session's permissions and current selections.",
-    "Trigger report generation process when 'Run Report' is clicked."
+    "The system populates dropdowns based on user selections and permissions.",
+    "The system validates user inputs before initiating report generation."
   ],
   "dependencies": [
-    "HSPnetSession",
-    "ScriptManager",
-    "UserControls.ReportMenu"
+    "HSPnetSession for managing user session data.",
+    "ScriptManager for handling JavaScript setup during postbacks."
   ],
   "exceptions": [
-    "Cancel data operations if UserSession is null."
+    "Cancel data operations if the user session is null."
   ],
   "source_document_ids": [
     "009a0668-9742-5427-a20b-6d28822e7982",
