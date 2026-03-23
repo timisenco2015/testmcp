@@ -1,41 +1,49 @@
 {
     "filename": "History",
     "found": true,
-    "summary": "The content describes the implementation of a History user control in a web application, including various UI components, their properties, and event handling methods.",
-    "purpose": "To manage and display historical data related to a specific topic within the web application, including searching and refreshing options.",
+    "summary": "The documents define a user control named 'History' within the HSPnet application. This control handles various aspects of displaying and refreshing historical data related to educational topics (ETopic) for a user session.",
+    "purpose": "The purpose of the 'History' user control is to manage and display history data related to educational topics within a user's session, providing functionalities like search, print, and refresh.",
     "entities": [],
     "fields": [
-        "dsHistoryList",
-        "btnPrintDetails",
-        "spnRefreshBtns",
-        "cmdSearch",
-        "cmdClose",
-        "Literal2",
-        "gridData",
-        "UserSession",
-        "ETopicID",
-        "HistoryType",
-        "DisplayButtons",
-        "pnlRef",
-        "lblRef",
-        "pnlButtons"
+        {
+            "name": "UserSession",
+            "description": "HSPnetSession representing the current user's session",
+            "type": "HSPnetSession"
+        },
+        {
+            "name": "ETopicID",
+            "description": "Identifier for the educational topic",
+            "type": "int"
+        },
+        {
+            "name": "HistoryType",
+            "description": "Type of history to be displayed",
+            "type": "string"
+        },
+        {
+            "name": "DisplayButtons",
+            "description": "Indicates whether buttons should be displayed",
+            "type": "bool"
+        }
     ],
-    "actors": [],
+    "actors": [
+        "UserSession"
+    ],
     "workflows": [
         {
-            "name": "SelectHistoryList",
+            "name": "Select History Data",
             "steps": [
-                "Check if UserSession is null, if so, cancel the operation.",
-                "If UserSession exists, set InputParameters for session, ETopicID, and HistoryType.",
-                "Set visibility of spnRefreshBtns and pnlRef based on DisplayButtons property.",
-                "Display reference label using data from ETopics"
+                "Check if UserSession is null.",
+                "If null, cancel the operation.",
+                "If not null, set input parameters for ETopicID and HistoryType.",
+                "Set visibility for refresh buttons based on DisplayButtons."
             ]
         },
         {
-            "name": "SearchHistory",
+            "name": "Search Command",
             "steps": [
                 "Cache the UserSession if it is not null.",
-                "Redirect the user based on USE_YARP configuration."
+                "Redirect to the current URL using YARP if enabled, otherwise use the full URL."
             ]
         }
     ],
@@ -43,12 +51,19 @@
     "validations": [],
     "calculations": [],
     "conditions": [
-        "If UserSession is null, cancel the selection operation.",
-        "Set visibility of elements based on DisplayButtons."
+        "Check if UserSession is null before proceeding with data selection."
     ],
-    "system_behavior": [],
-    "dependencies": [],
-    "exceptions": [],
+    "system_behavior": [
+        "The control relies on HSPnetSession for managing user sessions.",
+        "Visibility of refresh buttons is conditional on DisplayButtons property."
+    ],
+    "dependencies": [
+        "HSPnetSession",
+        "HSPnet.DataLayer"
+    ],
+    "exceptions": [
+        "Operation is cancelled if UserSession is null during data selection."
+    ],
     "source_document_ids": [
         "02ba45dd-d164-55c0-9e4f-fbda82dc0698",
         "2efb001f-c356-50f9-8c77-ce520e76d7a9",
