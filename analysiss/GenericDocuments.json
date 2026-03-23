@@ -1,0 +1,111 @@
+{
+  "filename": "GenericDocuments",
+  "found": true,
+  "summary": "The documents provide an overview of the GenericDocuments module within an ASP.NET application, focusing on user interactions, data management, and UI control settings. This module handles discipline selection processes, document uploading and management, and user session management.",
+  "purpose": "To manage user interactions and data handling for GenericDocuments, including discipline selection, document uploads, and session management within an ASP.NET application.",
+  "entities": [
+    "GenericDocument",
+    "Discipline",
+    "UserSession",
+    "ListBox",
+    "RadioButtonList",
+    "DropDownList",
+    "GridView",
+    "FileUpload",
+    "Panel",
+    "Label"
+  ],
+  "fields": [
+    {
+      "name": "UserSession",
+      "type": "Object",
+      "description": "Manages the session for a user."
+    },
+    {
+      "name": "ScreenIsEditable",
+      "type": "Boolean",
+      "description": "Defines whether the screen can be edited."
+    },
+    {
+      "name": "ParentID",
+      "type": "Integer",
+      "description": "Identifier for the parent object."
+    },
+    {
+      "name": "UploadFolderName",
+      "type": "String",
+      "description": "Name of the folder where uploads are stored."
+    }
+  ],
+  "actors": [
+    "User",
+    "Administrator"
+  ],
+  "workflows": [
+    {
+      "name": "Document Upload Workflow",
+      "steps": [
+        "User selects file for upload.",
+        "System creates a unique folder for the file.",
+        "File is saved to the server.",
+        "System returns the file URL and details."
+      ]
+    },
+    {
+      "name": "Discipline Selection Workflow",
+      "steps": [
+        "User selects disciplines from a list.",
+        "Selected disciplines are moved to another list.",
+        "Changes are saved."
+      ]
+    }
+  ],
+  "business_rules": [
+    "If UserSession is null, operations are cancelled.",
+    "UseSubDisciplines controls visibility of discipline filters."
+  ],
+  "validations": [
+    "Ensure UserSession is active before proceeding with operations.",
+    "Validate file type and size during uploads."
+  ],
+  "calculations": [
+    "Calculate complete file URL based on session and folder structure.",
+    "Determine included disciplines based on selection."
+  ],
+  "conditions": [
+    "Document operations depend on session validity.",
+    "Visibility toggled based on discipline selections."
+  ],
+  "system_behavior": [
+    "The system dynamically updates UI components based on user actions.",
+    "It performs validations and shows data based on session state."
+  ],
+  "dependencies": [
+    "HSPnet.Framework",
+    "HSPnet.DataLayer"
+  ],
+  "exceptions": [
+    "Session expiration leads to operation cancellation.",
+    "Invalid file type leads to upload failure."
+  ],
+  "source_document_ids": [
+    "02e5e91f-4d64-5375-bf99-265c5b378696",
+    "358ab0c1-8147-5558-ba41-be7819da84c8",
+    "495ef2cb-b3cc-5b84-97af-ede6c38b5f84",
+    "4fb49daf-80cd-51b8-9415-50f8aede8e11",
+    "56d63b67-1a37-5b5c-8cf8-d9bdec0ca2a2",
+    "58eabe99-307e-50b1-8b3d-4a8467c8791b",
+    "5acdcd66-71d0-50be-a43d-a75373605c0d",
+    "79315f71-7233-5b44-b681-43e96aeae9c4",
+    "8115da21-5d33-5f53-82b2-932631304afd",
+    "acf85c0f-16bc-5006-8151-7c13d0ba6816",
+    "aeb3d5bc-7255-5cef-8a41-418fbe73f2f5",
+    "b6286fc2-c61d-5ff9-99f6-d5763b1d7089",
+    "bc148fc2-c61d-5ff9-99f6-d5763b1d7089",
+    "d07e065c-4f3c-5ba1-8a92-7b489735b978",
+    "de0d024b-55b3-548e-b145-5a369a139a63",
+    "e24df222-016c-5116-b1e4-cee2dbeb3439",
+    "ef6f2b09-a550-501b-ab94-28aac9b854a4"
+  ],
+  "content_gaps": []
+}
