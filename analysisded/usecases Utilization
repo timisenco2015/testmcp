@@ -1,0 +1,109 @@
+# Module: Utilization
+
+## Utilization-UC1 — Manage Placement Request Schedules
+
+- Primary Actor(s): Scheduler
+- Secondary Actor(s): Instructors, Supervisors
+- Trigger: Submission or review of a placement request schedule.
+- Description: This use case involves the management and editing of placement request schedules which includes term dates, instructor details, course information, and potential conflicts.
+- Preconditions:
+  - Placement request schedule exists in the system.
+  - Scheduler has the appropriate permissions to modify schedules.
+- Postconditions:
+  - The updated placement request schedule is saved and any conflicts are flagged.
+- Main Success Scenario:
+  1. Scheduler accesses the placement request schedule.
+  2. Scheduler edits the term start and end dates.
+  3. Scheduler adds or updates instructor information.
+  4. Scheduler saves the changes.
+  5. System checks for and flags any schedule conflicts.
+- Extensions:
+  - 3a. If another instructor is added:
+    1. System allows for multiple instructors.
+- Exceptions:
+  - E1: Insufficient permissions prevent schedule modification. 
+  - E2: Invalid date entries trigger warnings.
+- Business Rules:
+  - A placement request may have one or more instructors.
+- Assumptions:
+  - All instructors have valid contact information in the system.
+- Open Issues:
+  - Handling of multiple instructor conflicts is not clearly defined.
+
+## Utilization-UC2 — Conflict Management
+
+- Primary Actor(s): Scheduler
+- Secondary Actor(s): Supervisors
+- Trigger: Detection of potential scheduling conflicts.
+- Description: This use case addresses the automatic flagging and resolution of scheduling conflicts involving placement requests.
+- Preconditions:
+  - A placement request schedule is active.
+- Postconditions:
+  - Conflicts are flagged and optionally resolved manually.
+- Main Success Scenario:
+  1. Scheduler reviews the schedule for conflicts.
+  2. System automatically flags conflicts.
+  3. Scheduler reviews conflict details.
+  4. Scheduler resolves or marks conflicts as resolved.
+- Extensions:
+  - 4a. If conflicts are unresolved, display conflict alerts for supervisor review.
+- Exceptions:
+  - E1: System fails to automatically detect conflicts due to incomplete data.
+- Business Rules:
+  - Conflicts must be resolved before the schedule is finalized.
+- Assumptions:
+  - Conflict detection logic is up-to-date.
+- Open Issues:
+  - Further automation of conflict resolution could enhance efficiency.
+
+## Utilization-UC3 — Alert Management
+
+- Primary Actor(s): Scheduler
+- Secondary Actor(s): Supervisors
+- Trigger: New comments or urgent items related to placement requests.
+- Description: This use case involves managing alerts related to comments or urgent issues in placement requests.
+- Preconditions:
+  - Placement request schedule has associated alerts.
+- Postconditions:
+  - Alerts are acknowledged and acted upon as required.
+- Main Success Scenario:
+  1. Scheduler reviews alerts.
+  2. Scheduler takes necessary actions based on alerts.
+  3. Scheduler marks alerts as resolved.
+- Extensions:
+  - 2a. If an alert requires supervisor attention:
+    1. Escalate the alert to the supervisor.
+- Exceptions:
+  - E1: Alert details are incomplete or missing.
+- Business Rules:
+  - Alerts must be acted upon within a specified timeframe.
+- Assumptions:
+  - Scheduler regularly checks for new alerts.
+- Open Issues:
+  - Criteria for alert escalation need clarification.
+
+## Utilization-UC4 — Shift and Timing Management
+
+- Primary Actor(s): Scheduler
+- Secondary Actor(s): Instructors
+- Trigger: Creation or update of shift schedules.
+- Description: This use case involves managing shifts and timings within the placement request system, potentially using predefined shift codes.
+- Preconditions:
+  - Shift information is available in the system.
+- Postconditions:
+  - Updated shift schedules are reflected in the system.
+- Main Success Scenario:
+  1. Scheduler selects a shift to edit.
+  2. Scheduler adjusts the shift timings or selects a different shift code.
+  3. Scheduler saves the changes.
+- Extensions:
+  - 2a. If new shift codes are introduced:
+    1. Update the shift code repository.
+- Exceptions:
+  - E1: Shift code is invalid or missing.
+- Business Rules:
+  - Shift timings must conform to predefined codes.
+- Assumptions:
+  - Shift codes are regularly updated and maintained.
+- Open Issues:
+  - The impact of new shift codes on existing schedules.
