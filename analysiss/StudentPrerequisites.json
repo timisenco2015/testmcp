@@ -1,19 +1,78 @@
 {
   "filename": "StudentPrerequisites",
   "found": true,
-  "summary": "Management of student pre-requisites including health and safety checks.",
-  "purpose": "To track and update student prerequisite information related to health, safety, and confidentiality.",
-  "entities": ["StudentPrerequisite"],
-  "fields": ["ID", "StudentID", "CRCStatusCodeID", "IDCard", "WCBWaiver", "ConfidentialityForm", "UseAssessmentModule", "DepartmentUseAssessmentModule", "N95MaskSizeCodeID", "N95MaskAltSizeCodeID", "N95MaskFitTestExpiryDate", "TetanusExpiryDate", "TdapImmunity"],
-  "actors": ["HSPnetSession", "Database"],
-  "workflows": [],
-  "business_rules": ["Validation of dates and expiry conditions"],
-  "validations": ["Date validations for health records"],
+  "summary": "The retrieved content revolves around the processes and data structures used for managing student prerequisites, particularly focusing on health-related requirements like immunizations, health status updates, mask fittings, and confidentiality agreements.",
+  "purpose": "To manage and update student health prerequisites, ensuring compliance with various health and safety protocols required for students in certain programs or institutions.",
+  "entities": [],
+  "fields": [
+    "N95MaskSizeCodeID",
+    "N95MaskAltSizeCodeID",
+    "N95MaskFitTestDate",
+    "N95MaskFitTestExpiryDate",
+    "N95MaskFitNotes",
+    "SessionID",
+    "StaffID",
+    "StudentID",
+    "OccHealthReqMetStatusCodeID",
+    "ImmunReqMetDateFormatted",
+    "ImmunReqMetNotes",
+    "MedicalCompleted",
+    "MedicalCompletedDateFormatted",
+    "ImmunizationFeePaid",
+    "ImmunizationFeePaidDateFormatted",
+    "ConfidentialityFormDateReceived",
+    "ConfidentialityNotes",
+    "InfluenzaStatusCodeID",
+    "InfluenzaAdminDate",
+    "FluReqMet",
+    "TBTestNotes",
+    "ImmunizationNotes"
+  ],
+  "actors": [
+    "Student",
+    "Staff",
+    "HSPnetSession"
+  ],
+  "workflows": [
+    {
+      "name": "StudentDetailsInfectionUpdate",
+      "steps": [
+        "Check if prerequisites are valid.",
+        "Update infection-related details in the database.",
+        "Execute the database query with infection parameters."
+      ]
+    },
+    {
+      "name": "StudentDetailsOccHealthSumUpdate",
+      "steps": [
+        "Search for student prerequisites.",
+        "Set occupational health requirement status.",
+        "Format and update immunization notes.",
+        "Execute updates if valid."
+      ]
+    },
+    {
+      "name": "StudentDetailsImmunizationOccHealthCovid19Update",
+      "steps": [
+        "Format Covid-19 administration dates.",
+        "Set Covid-19 status and execute query."
+      ]
+    }
+  ],
+  "business_rules": [],
+  "validations": [
+    "N95 Mask Fit Test Date must be specified if Mask Size is specified.",
+    "Expiry date must be on or after the completed date.",
+    "Health requirement met dates must be within last 5 years."
+  ],
   "calculations": [],
   "conditions": [],
-  "system_behavior": ["Updates and retrieves student prerequisite data based on health and safety protocols."],
-  "dependencies": ["SQL Procedures for data operations"],
-  "exceptions": [],
+  "system_behavior": [],
+  "dependencies": [],
+  "exceptions": [
+    "Return false if dates are not within acceptable range.",
+    "Add error messages to session if validations fail."
+  ],
   "source_document_ids": [
     "126148d2-7c46-5bb8-8a4c-606105b702bd",
     "165b1b6b-fd06-59e5-b7d7-81e87dbeac55",
@@ -39,6 +98,7 @@
     "6326993d-e08e-5e60-9b82-ab09b0ee7aaa",
     "64b9d3fc-975d-5d39-ab37-dbeff805220f",
     "6c76048a-8dbd-57f8-a34d-f0474a8066e7",
+    "6f4e2f7e-5afe-5594-b7af-e3164b62cc31",
     "72969051-b340-56cd-9567-db665fe9963a",
     "7ad65168-6ffa-588e-8b5e-2c138a0092b6",
     "80c6896a-128a-591a-8ca6-2b17198986fb",
@@ -55,10 +115,17 @@
     "9c001d9f-6b5e-5efb-bae5-beec7494b84c",
     "9dc9edf7-a95e-57c9-ae8e-a04ecdfa88be",
     "a9be8e45-83d9-54f8-baf7-de5e6c16d394",
-    "dadce6a1-e08f-5117-9767-bb9b5e83fef7",
+    "b017c1aa-ba9e-5224-b66a-42e4768ed23b",
+    "b5ab106e-c17a-5125-84ac-e4f9d60a842e",
+    "c2b792da-41a1-54e8-9415-795065348574",
+    "c44b7954-91d6-5eaa-b033-a765cc18d949",
+    "c5635bb5-13a4-5707-a628-269e77e4ede2",
+    "d0eb0cc2-a4a7-55d8-8468-1d6ae5eefb35",
     "d29d4c69-472b-5cdc-8324-d8b31f86cb75",
     "d65fc939-7e93-5874-a3e2-934f23808835",
-    "eedb6500-7e63-5aba-b652-8cfbbf9b798d",
+    "dadce6a1-e08f-5117-9767-bb9b5e83fef7",
+    "e9656b6a-7fa3-53ad-8e91-5ea186dd35de",
+    "ea26e640-45be-5fed-9d03-b18363a3b120",
     "ec8c8c16-1482-5149-87fd-34c4724af0a2",
     "eedb6500-7e63-5aba-b652-8cfbbf9b798d",
     "f1337cc9-2c22-570f-8028-6d6cf3d3f36d",
