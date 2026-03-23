@@ -1,0 +1,95 @@
+{
+  "filename": "StudentAssessments",
+  "found": true,
+  "summary": "The StudentAssessments file contains code for managing student assessments within an HSPnet application. It includes functionalities such as loading assessment data, generating reports, sorting data, and handling user interactions.",
+  "purpose": "To provide an interface for managing student assessments, including viewing, downloading, and sorting assessment information.",
+  "entities": [],
+  "fields": [
+    "UserSession",
+    "StudentID",
+    "StudentFirstName",
+    "StudentLastName",
+    "StudentNumber",
+    "ScreenIsEditable",
+    "ddCourse",
+    "ddAssessmentTemplateFilter",
+    "gridData"
+  ],
+  "actors": [
+    "UserSession",
+    "Literal",
+    "HyperLink",
+    "PlacementRequestAssessment",
+    "GridViewRowEventArgs"
+  ],
+  "workflows": [
+    {
+      "name": "Page Load",
+      "steps": [
+        "Check if page is a postback.",
+        "Set ViewState 'FirstDataLoad' to '1' if not a postback.",
+        "Refresh data if UserSession exists and 'FirstDataLoad' is '1'.",
+        "Hide report HTML panel."
+      ]
+    },
+    {
+      "name": "Refresh",
+      "steps": [
+        "Check if UserSession is null.",
+        "Set visibility of Generate Report button.",
+        "Fill course and assessment template dropdowns.",
+        "Set visibility of Combined View.",
+        "Display grid data if data binding is true."
+      ]
+    },
+    {
+      "name": "Generate Report",
+      "steps": [
+        "Prepare context and report description.",
+        "Execute report query.",
+        "Generate CSV report if data is available.",
+        "Set report HTML and file name, and make download link visible."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Screen is editable if 'btnGenerateReport.Visible' is true."
+  ],
+  "validations": [
+    "Check if UserSession is null before proceeding with data operations."
+  ],
+  "calculations": [
+    "Calculate and set CSS classes for grid rows during data binding."
+  ],
+  "conditions": [
+    "Check if page is not a postback to initialize data.",
+    "Check if selected template value is 'ALL' to determine assessment template code."
+  ],
+  "system_behavior": [
+    "On dataset binding, grid data is displayed.",
+    "User actions trigger postbacks that refresh data."
+  ],
+  "dependencies": [
+    "Resources for string values.",
+    "HSPnet application framework.",
+    "SQL data access for retrieving assessment data."
+  ],
+  "exceptions": [],
+  "source_document_ids": [
+    "152ea2b5-0e47-54c6-8fb4-1a593694fcc8",
+    "18975034-34fd-5ada-aa15-e50aa6f01e3e",
+    "36f2e201-e23a-5fe0-9463-2e5a123b82a0",
+    "3c098c58-04d7-5414-a6d4-a1ba81476378",
+    "4d41ad30-7063-547a-9863-14aebb19422d",
+    "69831e90-452c-5743-bfaa-01f63b4ad32f",
+    "7ede13bb-194a-50e2-a7de-6226265ab73c",
+    "90af7c25-e487-5a6c-a1e6-4933afcd9bcc",
+    "98dd668c-090d-5b92-9788-74e88e707c80",
+    "b28d3385-e44b-58d2-84ae-9e419d465d40",
+    "c2f8b2a8-5360-55a2-bde9-e69d2d6fb8ab",
+    "c37b919e-11d5-5a05-bc71-2f3d96c4f0c3",
+    "f4bf0152-9368-52ef-933c-c706b30572ac",
+    "fffbac8e-91eb-58e2-8bd4-87894276ec1b"
+  ],
+  "content_gaps": []
+}
