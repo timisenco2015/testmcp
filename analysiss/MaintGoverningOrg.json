@@ -1,74 +1,138 @@
 {
-    "filename": "MaintGoverningOrg",
-    "found": true,
-    "summary": "The MaintGoverningOrg system manages governing organizations, allowing for the creation, update, and deletion of organization entries.",
-    "purpose": "To handle CRUD operations for governing organizations within the system.",
-    "entities": [
-        {
-            "name": "GoverningOrg",
-            "description": "An entity representing a governing organization with attributes like name, address, and contact details."
-        }
-    ],
-    "fields": [
-        "Name",
-        "ShortName",
-        "PreviousName",
-        "Address1",
-        "Address2",
-        "City",
-        "Province",
-        "PostalCode",
-        "Phone",
-        "Fax"
-    ],
-    "actors": [
-        {
-            "name": "System Administrator",
-            "description": "A user with permissions to edit governing organization details."
-        }
-    ],
-    "workflows": [
-        {
-            "name": "Manage Governing Organizations",
-            "steps": [
-                "Add, edit or delete an organization using the interface.",
-                "Enter details such as Name, Address, and contact information.",
-                "Save the changes to update the system records."
-            ]
-        }
-    ],
-    "business_rules": [
-        "An organization cannot be deleted if it is referenced elsewhere."
-    ],
-    "validations": [
-        "The Name must be specified.",
-        "The ShortName must be specified."
-    ],
-    "calculations": [],
-    "conditions": [
-        "Check if the screen is editable to enable certain controls."
-    ],
-    "system_behavior": [
-        "Grid controls handle row commands for adding, editing, or deleting entries."
-    ],
-    "dependencies": [
-        {
-            "name": "UserSession",
-            "description": "Session details provide context for operations like use of phone mask."
-        }
-    ],
-    "exceptions": [
-        "Cannot delete an organization if constraints are violated."
-    ],
-    "source_document_ids": [
-        "064ee812-6a9e-513f-830a-cdf02a947bcb",
-        "0bbfc55c-4e37-5195-9c61-06b1b8bbb59a",
-        "0f83fafd-cd79-59fa-a23f-09de153cfaa4",
-        "29468167-d473-5cf7-929e-9df67d7f2beb",
-        "31e628c6-8463-5f57-b846-2eb33136cfe6",
-        "3d1f42de-c51a-5625-9520-3f5ed219012f",
-        "4f7edf0a-2f0b-560d-8ff2-b03f7a2982d3",
-        "59ef3d25-a882-5c86-975e-d2e1c44e9230"
-    ],
-    "content_gaps": []
+  "filename": "MaintGoverningOrg",
+  "found": true,
+  "summary": "The 'MaintGoverningOrg' module is a part of an application used to manage governing organizations. It includes functionalities for viewing, adding, editing, deleting, and reactivating organizations. The module also handles data validation and user permissions for managing these organizations.",
+  "purpose": "To provide an interface for managing governing organizations, including viewing, editing, and handling inactive states, while ensuring data integrity and proper user permissions.",
+  "entities": [],
+  "fields": [
+    {
+      "name": "Name",
+      "type": "TextBox",
+      "validation": "Required"
+    },
+    {
+      "name": "ShortName",
+      "type": "TextBox",
+      "validation": "Required"
+    },
+    {
+      "name": "PreviousName",
+      "type": "TextBox",
+      "validation": "Optional"
+    },
+    {
+      "name": "PreviousNameEffectiveDate",
+      "type": "TextBox",
+      "validation": "RegularExpression"
+    },
+    {
+      "name": "Address1",
+      "type": "TextBox",
+      "validation": "Optional"
+    },
+    {
+      "name": "Address2",
+      "type": "TextBox",
+      "validation": "Optional"
+    },
+    {
+      "name": "City",
+      "type": "TextBox",
+      "validation": "Optional"
+    },
+    {
+      "name": "Province",
+      "type": "TextBox",
+      "validation": "Optional"
+    },
+    {
+      "name": "PostalCode",
+      "type": "TextBox",
+      "validation": "Optional"
+    },
+    {
+      "name": "Phone",
+      "type": "MaskedEditExtender",
+      "validation": "Custom"
+    },
+    {
+      "name": "Fax",
+      "type": "MaskedEditExtender",
+      "validation": "Custom"
+    },
+    {
+      "name": "Inactive",
+      "type": "HiddenField",
+      "validation": "None"
+    }
+  ],
+  "actors": [
+    {
+      "role": "System Administrator",
+      "permissions": "Full access to edit and manage organizations."
+    },
+    {
+      "role": "User",
+      "permissions": "Read-only access unless given specific permissions."
+    }
+  ],
+  "workflows": [
+    {
+      "name": "Organization Management",
+      "steps": [
+        "Load governing organizations list.",
+        "Check user permissions for edit access.",
+        "Allow adding/editing/deleting organizations based on permissions.",
+        "Validate user inputs for organization details.",
+        "Save or update organization details in the system.",
+        "Reactivate organizations if required."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Only system administrators can edit or manage organizations.",
+    "Phone and Fax numbers must be validated using the specified mask."
+  ],
+  "validations": [
+    "Name and ShortName fields are required.",
+    "PreviousNameEffectiveDate must match the specified date format."
+  ],
+  "calculations": [],
+  "conditions": [
+    "Screen is editable if the user is a system administrator and not in view-only mode."
+  ],
+  "system_behavior": [
+    "Show or hide buttons based on user permissions and entity states.",
+    "Refresh data view after any data modification."
+  ],
+  "dependencies": [
+    "UserSession for managing user permissions and settings."
+  ],
+  "exceptions": [
+    "Cannot delete an organization that is currently in use."
+  ],
+  "source_document_ids": [
+    "064ee812-6a9e-513f-830a-cdf02a947bcb",
+    "0bbfc55c-4e37-5195-9c61-06b1b8bbb59a",
+    "0f83fafd-cd79-59fa-a23f-09de153cfaa4",
+    "29468167-d473-5cf7-929e-9df67d7f2beb",
+    "31e628c6-8463-5f57-b846-2eb33136cfe6",
+    "3d1f42de-c51a-5625-9520-3f5ed219012f",
+    "4f7edf0a-2f0b-560d-8ff2-b03f7a2982d3",
+    "59ef3d25-a882-5c86-975e-d2e1c44e9230",
+    "5aa6bea1-1faa-5e57-a784-644389bf5365",
+    "619d6734-d0c9-52c0-8d5c-0976e4edf2a0",
+    "7d6f3b52-1161-5de0-b716-7e830b7ace9f",
+    "7f1c0e15-b484-5ae2-84f2-f93564a400c6",
+    "b2792b6a-5f2f-588d-adca-cf130db38ac3",
+    "c92121f4-6b7c-5000-a75a-ee150930c7bd",
+    "d1cc81b5-4c5a-5911-a244-9601ac1d16e1",
+    "d9e8164c-d9a7-5a21-8d85-18b9deff580b",
+    "debf1ec2-971e-5b87-89a0-33f3741080e7",
+    "e46eaa7e-8653-50c2-8226-2abfecb10ee3",
+    "e5d9461e-eb36-5b05-9bd2-a5c07722db93",
+    "eabe1def-39a0-5ddd-a649-fb02b97bb993",
+    "f926bedd-b133-5a25-9a43-11f99a1d4714"
+  ],
+  "content_gaps": []
 }
