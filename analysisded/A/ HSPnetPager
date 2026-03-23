@@ -1,0 +1,74 @@
+```json
+{
+    "filename": "HSPnetPager",
+    "found": true,
+    "summary": "HSPnetPager is a web control designed for pagination in a web application, providing navigation through pages of data.",
+    "purpose": "To facilitate the navigation through multiple pages of data in a web application by providing paging controls.",
+    "entities": [],
+    "fields": [
+        "ItemCount",
+        "CurrentIndex",
+        "PageSize",
+        "PageCount",
+        "StartRow"
+    ],
+    "actors": [],
+    "workflows": [
+        {
+            "name": "Pagination Render Process",
+            "steps": [
+                "Verify rendering in server form.",
+                "Add HTML attributes for table structure.",
+                "Determine start and end page indexes.",
+                "Create previous button.",
+                "Create ellipsis if needed.",
+                "Create page buttons.",
+                "Create next ellipsis if needed.",
+                "Create next button.",
+                "Close table structure."
+            ]
+        },
+        {
+            "name": "Save and Load Control State",
+            "steps": [
+                "OnInit registers control state requirement.",
+                "SaveControlState stores ItemCount, PageSize, and CurrentIndex.",
+                "LoadControlState restores ItemCount, PageSize, and CurrentIndex."
+            ]
+        }
+    ],
+    "business_rules": [],
+    "validations": [
+        "Ensure page size and item count calculations are correct for pagination.",
+        "Correctly calculate and display the number of pages based on item count and page size."
+    ],
+    "calculations": [
+        "Calculate total page count using ceiling of item count divided by page size.",
+        "Determine start and end page indexes for current navigation."
+    ],
+    "conditions": [
+        "Toggle between 'Show All' and paged view based on item count.",
+        "Visibility of pagination controls depends on item count and page size."
+    ],
+    "system_behavior": [
+        "Handles postback events for pagination control.",
+        "Adjusts page size to toggle between full list view and paged view."
+    ],
+    "dependencies": [
+        "Dependent on ASP.NET page lifecycle for rendering and state management.",
+        "References to HSPnet.App_GlobalResources for localized strings."
+    ],
+    "exceptions": [],
+    "source_document_ids": [
+        "0f559ab4-f5f2-532a-95b7-7dd94861d8fa",
+        "124aab60-a346-52ea-a642-22be0b9cd25a",
+        "16d10d82-1982-5ce4-95cd-90c30240e13f",
+        "1e2f5777-af4e-5b75-941e-3d5d02de1198",
+        "45291128-c606-5ae7-8d60-482136203aa7",
+        "473e056a-565d-59e0-acc9-674fd0142489",
+        "99540765-1a5c-5aef-887e-0c979320b34c",
+        "9cf805ae-1159-514d-b02b-bf7093627f22"
+    ],
+    "content_gaps": []
+}
+```
