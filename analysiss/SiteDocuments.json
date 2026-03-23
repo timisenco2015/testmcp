@@ -1,72 +1,63 @@
 {
   "filename": "SiteDocuments",
   "found": true,
-  "summary": "The documents contain code and configurations for managing site documents within a web application framework. Key functionalities include uploading documents, handling document details, managing applied destinations, and handling discipline-related configurations.",
-  "purpose": "To provide the necessary code logic and configurations to manage document-related operations in a web application, allowing upload, configuration, and assignment of documents to specific destinations and disciplines.",
+  "summary": "The SiteDocuments document outlines the management and handling processes for documents within the HSPnet framework. It includes definitions for user controls, event handling for document uploads, and the configuration of discipline-specific document restrictions.",
+  "purpose": "To manage and streamline the document handling process in HSPnet, including uploads, editing, and visibility based on disciplines.",
   "entities": [],
   "fields": [
     "FileType",
     "FileName",
     "FileURL",
     "FileSize",
+    "ScreenIsEditable",
     "ParentID",
-    "DocumentTypeCodeCategoryName",
-    "SPNameAdd",
-    "SPNameDelete",
-    "SPNameSearch",
-    "SPNameSearchByID",
-    "SPNameSubDisciplineSearch",
-    "UploadFolderName",
-    "DisciplineSubDisciplineID",
+    "ParentIDName",
     "OmitTypeCodes",
-    "CurrentPage"
+    "CurrentPage",
+    "DisciplineSubDisciplineID"
   ],
   "actors": [
-    "UserSession"
+    "UserSession",
+    "GenericDocument",
+    "GridView",
+    "FormViewRow"
   ],
   "workflows": [
     {
-      "name": "HandleUploadedFile",
+      "name": "Document Handling",
       "steps": [
-        "Check if a file is uploaded",
-        "Create a new folder path for the uploaded file",
-        "Save file to the designated folder",
-        "Return file details including URL, size, and type"
-      ]
-    },
-    {
-      "name": "SetupDestinations",
-      "steps": [
-        "Retrieve available and assigned destinations for a document",
-        "Populate list boxes with these destinations",
-        "Bind data to controls for user selection"
+        "Uploading documents via FileUpload control.",
+        "Assigning documents to specific disciplines using ListBox controls.",
+        "Editing documents through FormView controls.",
+        "Filtering documents by type and discipline."
       ]
     }
   ],
   "business_rules": [
-    "Auto-generated fields should not be directly modified; changes should be applied in the code-behind file.",
-    "Ensure that document type codes are not omitted as per configurations."
+    "Document uploads must be saved in a unique directory.",
+    "Only authorized users (UserSession) can edit documents.",
+    "Certain document types can be omitted from dropdowns using OmitTypeCodes."
   ],
   "validations": [
-    "Check if uploaded file is present and has a non-zero length.",
-    "Validate discipline selections based on user session configurations."
+    "File upload size and type are validated during the upload process.",
+    "RequiredFieldValidator controls ensure necessary fields are filled."
   ],
   "calculations": [],
   "conditions": [
-    "Screen is editable if ScreenIsEditable flag is true.",
-    "Execute upload logic only if a file is present."
+    "ScreenIsEditable determines if fields can be edited.",
+    "UseSubDisciplines affects visibility of discipline-related controls."
   ],
   "system_behavior": [
-    "Hide save button if screen is not editable.",
-    "Enable or disable user control elements based on user session."
+    "Documents are sorted and filtered based on user input.",
+    "Visibility of controls is altered based on user permissions and document status."
   ],
   "dependencies": [
-    "HSPnet.Session",
-    "User session must be active for document operations.",
-    "Database stored procedures for adding and deleting documents."
+    "UserSession for managing current user state.",
+    "HSPnet.DataLayer for data access operations."
   ],
   "exceptions": [
-    "Cancel operations if the user session is null during data selection."
+    "If UserSession is null, data operations are cancelled.",
+    "Handled exceptions for file upload failures or permission issues."
   ],
   "source_document_ids": [
     "036431e4-342c-5d86-8ac2-f132fb704e07",
