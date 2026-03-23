@@ -1,0 +1,163 @@
+{
+  "filename": "WelcomeStaffAdmin",
+  "found": true,
+  "summary": "WelcomeStaffAdmin is an ASP.NET web page for staff administrators, implemented as a partial class inheriting HSPnet.Framework.HSPnetPage, with a web form view managed via LeftNav.Master. It includes controls for filtering and viewing student employment applications, error and warning panels, and a grid to display application data.",
+  "purpose": "To allow staff administrators to filter, view, and manage student employment applications, including the ability to search by site, discipline, date range, and withdrawn status.",
+  "entities": [
+    "UserSession",
+    "EmploymentApplication",
+    "Site",
+    "Discipline",
+    "SubDiscipline"
+  ],
+  "fields": [
+    "lblTitle",
+    "ltlLastLogin",
+    "pnlLastLogin",
+    "pnlError",
+    "lblErrorCaption",
+    "lblErrorList",
+    "cmdHideErrorPanel",
+    "pnlWarning",
+    "lblWarningCaption",
+    "lblWarningList",
+    "cmdHideWarningPanel",
+    "ValidationSummary1",
+    "CurrentViewLabel",
+    "pnlCurrentView",
+    "Literal2",
+    "ddSite",
+    "Literal4",
+    "ddDiscipline",
+    "Literal3",
+    "valStartDate",
+    "txtStartDate",
+    "btnStartDateCalendar",
+    "CalendarExtender1",
+    "RegularExpressionValidator1",
+    "LiteralTo",
+    "valEndDate",
+    "txtEndDate",
+    "btnEndDateCalendar",
+    "CalendarExtender2",
+    "RegularExpressionValidator2",
+    "cvrEndDateAfter",
+    "chkShowWithdrawn",
+    "cmdRefreshView",
+    "Label1",
+    "gvwApplications",
+    "dsEmploymentApplications",
+    "Master"
+  ],
+  "actors": [
+    "Staff Administrator",
+    "Page (System)",
+    "GridView",
+    "DropDownList",
+    "Panel"
+  ],
+  "workflows": [
+    {
+      "name": "Page Load and Initialization",
+      "steps": [
+        "SetupHSPnetPage with master and user session.",
+        "Register required JavaScript files.",
+        "Set page title and last login information.",
+        "Fill dropdown controls for Site and Discipline.",
+        "Set default date range (last 3 months to today).",
+        "Call RefreshData to bind initial grid content."
+      ]
+    },
+    {
+      "name": "Filtering Applications",
+      "steps": [
+        "Staff admin selects Site, Discipline, Start Date, End Date, or Withdrawn status.",
+        "Selection triggers data refresh (RefreshData).",
+        "GridView displays filtered applications."
+      ]
+    },
+    {
+      "name": "Validation and Error Handling",
+      "steps": [
+        "Required field validators and regular expression validators validate input dates.",
+        "Custom validator (checkStartEnd) ensures Start Date <= End Date.",
+        "Error and warning panels display validation messages."
+      ]
+    },
+    {
+      "name": "Grid Rendering and Row Binding",
+      "steps": [
+        "RowDataBound event formats and displays application details.",
+        "Email link setup if available.",
+        "Status and withdrawn date display."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Start Date and End Date must be valid and required.",
+    "Withdrawn applications can be optionally shown.",
+    "If Start Date is after End Date, validation fails.",
+    "Paging enabled; 50 records per page."
+  ],
+  "validations": [
+    "RequiredFieldValidator for Start Date and End Date.",
+    "RegularExpressionValidator checks date format.",
+    "CustomValidator ensures Start Date not after End Date.",
+    "ValidationSummary displays grouped errors."
+  ],
+  "calculations": [
+    "Date range defaults to last 3 months to today."
+  ],
+  "conditions": [
+    "Show withdrawn filter determines whether withdrawn applications are included.",
+    "Panel visibility depends on error or warning presence.",
+    "Last login only shown if available."
+  ],
+  "system_behavior": [
+    "AutoPostBack on dropdowns for real-time filtering.",
+    "Error and warning panels float for visibility.",
+    "Default button set for form submission.",
+    "Scripts registered for calendar and date functionality."
+  ],
+  "dependencies": [
+    "HSPnet.UI",
+    "HSPnet.DataLayer",
+    "AjaxControlToolkit",
+    "App_GlobalResources",
+    "LeftNav.Master"
+  ],
+  "exceptions": [
+    "Invalid date input prevents search.",
+    "Missing required fields trigger validation errors.",
+    "No data shown if filters yield empty result."
+  ],
+  "source_document_ids": [
+    "05db31e4-e8b6-53ee-a6fb-812c106f0134",
+    "100d5925-a5f8-53db-8493-02cddd563eb7",
+    "3c84bade-9671-5fbf-acce-3c87a835e9b4",
+    "4c4b97b8-d242-5261-a515-767a3f7d7a49",
+    "52b5066f-23f6-5d82-96cd-5d51dad3de79",
+    "54244516-0707-581e-a8ba-9c041ea38366",
+    "5bb85da3-f5b4-5753-b07c-9bb2a04eeb89",
+    "5d9b92ea-7c12-5070-8603-977cf14d0e04",
+    "6701b153-5288-59e5-8de9-61b68a1fc292",
+    "6eca1317-c0b2-5225-a9af-f034a722d924",
+    "871df91b-7ba0-558f-83ea-d5be1b0dc8db",
+    "8cea5c3a-2fbf-5206-a0c0-9425a5e14511",
+    "964a48c9-231c-5d58-a44d-3675d949a453",
+    "966ed8d3-a5af-567f-b092-936217777551",
+    "a0c3da28-32a5-5fce-91b2-17274efa016e",
+    "afbb4ec5-43c8-5281-ad2c-4b6cfd23a48e",
+    "b8e79322-9a0e-5fe7-8953-3d05e231f923",
+    "bf423a80-93db-572d-8cb8-c79f04214a93",
+    "ca71b077-cc26-5979-a44f-59700a41316b",
+    "d278278f-d4ec-5f4a-9f29-a02b66773bb9",
+    "db9b35e9-53ca-5eaf-9d75-4f3a72131bc7",
+    "e249a878-c837-5d1c-9a3d-5167df2614fb"
+  ],
+  "content_gaps": [
+    "Business logic for SearchSubmitted and actual EmploymentApplication data not included.",
+    "No explicit description of security/authorization mechanisms.",
+    "Some fields and controls referenced in summaries, but actual UI/UX details may be incomplete."
+  ]
+}
