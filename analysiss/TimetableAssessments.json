@@ -1,45 +1,61 @@
 {
     "filename": "TimetableAssessments",
     "found": true,
-    "summary": "The TimetableAssessments class and related ASP.NET elements manage assessments tied to timetables, with functionalities like editing, deleting, and viewing assessments.",
-    "purpose": "To handle assessments related to student timetables, providing administrative control over the assessments process in the HSPnet system.",
+    "summary": "This document outlines functionality for managing timetable assessments, including UI elements for interacting with assessment data, validation routines, and JavaScript behaviors.",
+    "purpose": "Manage assessments linked to specific timetables within HSPnet, including adding, editing, deleting, and validating assessments.",
     "entities": [],
     "fields": [
-        {"name": "ddAssessor", "type": "DropDownList"},
-        {"name": "ddAssessmentType", "type": "DropDownList"},
-        {"name": "ddSubject", "type": "DropDownList"},
-        {"name": "ddAssessmentTemplate", "type": "DropDownList"},
-        {"name": "txtOpenDaysAfterStart", "type": "TextBox"},
-        {"name": "txtCloseDaysAfterEnd", "type": "TextBox"},
-        {"name": "txtViewUntilDaysAfterEnd", "type": "TextBox"}
+        "ddlAssessor",
+        "ddlAssessmentType",
+        "ddlAssessmentTemplate",
+        "ddlOptionalSectionAssessor",
+        "txtOpenDaysAfterStart",
+        "txtCloseDaysAfterEnd",
+        "chkAssessorCanViewSubjectsAnswers",
+        "chkSubjectsCanViewAssessorAnswers",
+        "txtViewUntilDaysAfterEnd"
     ],
-    "actors": [],
+    "actors": [
+        "Assessor",
+        "Subject"
+    ],
     "workflows": [
         {
-            "name": "Assessment Management",
+            "name": "Assessment Management Workflow",
             "steps": [
-                "Load timetables and associated assessments.",
-                "Allow editing and addition of new assessments.",
-                "Validate and bind updated data."
+                "Load timetable assessments data",
+                "Execute validation checks",
+                "Manage assessment entries",
+                "Show/hide UI elements based on input",
+                "Save or cancel assessment changes",
+                "Handle JavaScript events for UI controls"
             ]
         }
     ],
-    "business_rules": [],
-    "validations": [],
+    "business_rules": [
+        "Ensure interim assessments without final assessments are flagged.",
+        "Limit assessments exceeding maximum thresholds."
+    ],
+    "validations": [
+        "Required fields must be specified for assessments.",
+        "Numeric fields must contain valid numbers."
+    ],
     "calculations": [],
-    "conditions": [],
-    "system_behavior": [],
-    "dependencies": [],
-    "exceptions": [],
+    "conditions": [
+        "Show/hide fields based on assessment type and template selections."
+    ],
+    "system_behavior": [
+        "Scripts handle JavaScript interactions within the page.",
+        "Error panels display validation messages."
+    ],
+    "dependencies": [
+        "UserSession"
+    ],
+    "exceptions": [
+        "JavaScript functions manage various conditions within the page."
+    ],
     "source_document_ids": [
-        "0781696d-dec4-5dfc-aa58-80ddd173c0ae",
-        "0ea3e178-f11b-5ee8-afc8-441e55e2d2f4",
-        "1807e536-2914-59f1-a538-b9e127d25f77",
-        "6f1aa10e-0697-5c9e-8e0a-182b597a2d3e",
-        "707335b9-f19a-5366-959c-4872a99363e8",
-        "7287734e-f13d-550f-9249-4242db620766",
-        "7a89081a-a4a0-569f-8bc4-676ec99f7dcb",
-        "7bb40b95-0bb5-5f6d-91ca-bbcb527d60ff"
+        "528d9fc6-cb63-5c52-9327-f323552f37e3"
     ],
     "content_gaps": []
 }
