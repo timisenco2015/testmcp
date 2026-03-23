@@ -1,9 +1,9 @@
 {
   "filename": "CourseDocument",
   "found": true,
-  "summary": "The CourseDocument module handles the management of course-related documents. It includes functionalities for creating, updating, deleting, and retrieving course documents along with their associated metadata.",
-  "purpose": "To manage documents related to courses within the HSPnet system, facilitating storage, retrieval, and management of document metadata.",
-  "entities": [],
+  "summary": "The retrieved documents define the behavior and structure of 'CourseDocument' entities used in the HSPnet Data Layer. The core functionalities include adding, deleting, and retrieving course documents, with various conditions and validations.",
+  "purpose": "The documents aim to manage course documents within the HSPnet system, ensuring validation, formatting, and database management of document entries.",
+  "entities": ["CourseDocument"],
   "fields": [
     "ID",
     "CourseID",
@@ -28,47 +28,73 @@
     "Phone",
     "Email",
     "UpdateDateFormatted",
-    "EmailFormatted",
     "AgencyUserFormatted",
-    "AgencyUserDetailsFormatted"
+    "AgencyUserDetailsFormatted",
+    "EmailFormatted"
   ],
-  "actors": [
-    "HSPnetSession"
-  ],
+  "actors": ["HSPnetSession"],
   "workflows": [
     {
-      "name": "Add Course Document",
+      "name": "Add CourseDocument",
       "steps": [
-        "Validate if the document is valid using IsValid method.",
-        "Set the database procedure to 'CourseDocumentAddDoc'.",
-        "Add required parameters such as SessionID, CourseDocumentID, etc.",
-        "Execute the query to add the document."
+        "Validate the document using IsValid function.",
+        "Add parameters such as SessionID, CourseDocumentID, CourseID, etc.",
+        "Execute database query to add the document."
       ]
     },
     {
-      "name": "Delete Course Document",
+      "name": "Delete CourseDocument",
       "steps": [
-        "Check if the ID is greater than 0.",
-        "Attempt to delete the file and directory.",
-        "Set the database procedure to 'CourseDocumentDelete'.",
-        "Add DocumentID parameter.",
-        "Execute the query to delete the document."
+        "Retrieve the document using its ID.",
+        "Delete the file and directory associated with the document.",
+        "Delete the database record using CourseDocumentDelete procedure."
+      ]
+    },
+    {
+      "name": "Get CourseDocuments by CourseID",
+      "steps": [
+        "Initialize a list to store course documents.",
+        "Set the procedure name to CourseDocumentSearch.",
+        "Add parameters such as SessionID and CourseID.",
+        "Fetch data using database query and fill the list."
+      ]
+    },
+    {
+      "name": "Get CourseDocuments by ID",
+      "steps": [
+        "Initialize a list to store course documents.",
+        "Set the procedure name to CourseDocumentSearchByID.",
+        "Add parameter ID.",
+        "Fetch data using database query and fill the list."
       ]
     }
   ],
-  "business_rules": [],
+  "business_rules": [
+    "Use alternate language fields if UseAltLanguageFields is true.",
+    "Display 'Other' instead of full text for code 'OTHER'."
+  ],
   "validations": [
-    "Document must have a TypeCodeID greater than 0."
+    "Check if TypeCodeID is not zero in IsValid function.",
+    "Ensure the file exists before converting FileURL to a link."
   ],
-  "calculations": [],
-  "conditions": [],
+  "calculations": [
+    "Determine FileSize in kilobytes for displaying purpose.",
+    "Format UpdateDate using DateFormatter."
+  ],
+  "conditions": [
+    "If TypeCodeID is zero, add error message to session.",
+    "If the file URL is non-empty, convert it to a hyperlink."
+  ],
   "system_behavior": [
-    "Converts file URL to a link in the UI if the file exists.",
-    "Displays 'Document Not Found' if the file URL is non-blank but the file does not exist."
+    "Execute database procedures for adding and deleting course documents.",
+    "Format various fields such as names, emails, and phone numbers."
   ],
-  "dependencies": [],
+  "dependencies": [
+    "HSPnet.Framework",
+    "HSPnet.App_GlobalResources"
+  ],
   "exceptions": [
-    "Exceptions in file and directory deletion are ignored."
+    "Ignore exceptions during file and directory deletion."
   ],
   "source_document_ids": [
     "072418f2-c5d1-5431-be3d-3807b5f97794",
