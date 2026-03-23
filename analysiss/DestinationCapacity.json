@@ -1,0 +1,179 @@
+{
+    "filename": "DestinationCapacity",
+    "found": true,
+    "summary": "The DestinationCapacity functionality involves managing and formatting shift schedules for various destinations based on weekdays and specific shift types (e.g., 8-hour days, 12-hour days, nights, evenings). It includes operations like copying shift capacities from one destination to another, verifying user discipline, updating individual and group capacities, and handling entries with specific grouping codes.",
+    "purpose": "The purpose of the DestinationCapacity module is to manage and format shift capacities for different destinations in a systematic way, allowing for both individual and group entries, and providing mechanisms to update, copy, and validate these capacities.",
+    "entities": [
+        "DestinationCapacity",
+        "DestinationProfile",
+        "Database"
+    ],
+    "fields": [
+        "ID",
+        "DestinationCodeID",
+        "DisciplineID",
+        "SubDisciplineID",
+        "GroupFlag",
+        "HoursPerWeek",
+        "AcceptsGroups",
+        "GroupsReasonCodeID",
+        "GroupsComments",
+        "AcceptsNonGroups",
+        "NonGroupsReasonCodeID",
+        "NonGroupsComments",
+        "SevenBy24ReasonCodeID",
+        "SevenBy24Comments",
+        "AcceptConsecutive",
+        "ConsecutiveComments",
+        "MaxSpacesWinter",
+        "MaxSpacesSpring",
+        "MaxSpacesFall",
+        "StudentLevelCodeID",
+        "LastUpdated",
+        "ActivelySeekingStudents",
+        "Discipline",
+        "SubDiscipline",
+        "SortOrder",
+        "GroupingCode"
+    ],
+    "actors": [
+        "User",
+        "HSPnetSession",
+        "Database"
+    ],
+    "workflows": [
+        {
+            "name": "DestinationCapacity Copy",
+            "steps": [
+                "Check if SourceDestinationCodeID is valid.",
+                "Get database connection from session.",
+                "Set procedure name to 'DestinationCapacityCopy'.",
+                "Add parameters and execute the procedure.",
+                "Log success or error message."
+            ]
+        },
+        {
+            "name": "Update DestinationCapacity",
+            "steps": [
+                "Check if AcceptsGroups is true and update fields accordingly.",
+                "Update MaxShiftsPerWeek fields based on shift types.",
+                "Set database procedure to 'DestinationCapacityUpdateGroup' or 'DestinationCapacityUpdateIndividual'.",
+                "Execute the procedure with parameters."
+            ]
+        }
+    ],
+    "business_rules": [
+        "If Shifts8Days or Shifts8Eves, calculate count8Hour.",
+        "If Shifts12Days, calculate count12Hour.",
+        "If destination accepts groups, set specific comment and reason codes."
+    ],
+    "validations": [
+        "Check if SubDisciplineID is -1 for grouping code.",
+        "Verify entries using EqualExceptForSubDiscipline method."
+    ],
+    "calculations": [
+        "Calculate MaxShiftsPerWeek based on weekdays selected.",
+        "Format hours per week for different shift types."
+    ],
+    "conditions": [
+        "If Shifts8Days, format with 'Days - 8'.",
+        "If entry.GroupFlag is true, use MaxShiftsPerWeek; otherwise, use HoursPerWeek."
+    ],
+    "system_behavior": [
+        "Copy entries from one destination to another using DestinationCapacityCopy.",
+        "Update group or individual records based on provided parameters."
+    ],
+    "dependencies": [
+        "Database connection via HSPnetSession.",
+        "Resource strings for formatting output."
+    ],
+    "exceptions": [
+        "No entries copied if SourceDestinationCodeID is invalid.",
+        "Database errors logged during execution."
+    ],
+    "source_document_ids": [
+        "018feb8d-0d81-5741-84c4-d9be39bc9db0",
+        "03a4a234-0178-5ed2-bfb9-414114c10446",
+        "043e92ec-213b-5d8d-af32-4a916a66668e",
+        "09a763dc-7def-5dd4-a082-60615089fa96",
+        "0a69c655-8307-5835-a878-94bec6c2e8ce",
+        "0b092738-c34c-5737-a567-97f33ae2cfe6",
+        "0ca46419-2480-550c-a64b-9bedec60deef",
+        "0eb0ffb5-2e3f-599d-843f-2615e173594d",
+        "1c17a12b-4b1a-5e52-adf6-6c474bf4dd9c",
+        "1c2c19f8-8c73-57de-800c-592eadee5bf3",
+        "1dec7ebe-41c0-5757-97d4-d8cb83826457",
+        "276e18a9-ffb1-59cd-97c1-e5c24710ef4f",
+        "293b4c80-175a-58fd-842a-c10452a8e5bd",
+        "29c2522a-0c80-5709-a655-2d1336c1ed6a",
+        "2b5b53b1-25d2-5cdf-be67-ef165921d0ba",
+        "2bf85f63-f340-573d-8210-ee90d26cff43",
+        "37b63104-6f36-5978-bea7-a7c95742e727",
+        "40499348-2617-53ba-8f91-dad2db3124b3",
+        "44e49810-deda-5661-89f4-afbf073b7006",
+        "4997d0bd-e068-56e6-b90a-08d56c5b791f",
+        "4b890fc8-9c1f-52f4-abfc-a3cdf85b699c",
+        "51a380e3-cbf9-5070-9ee7-e499e2de0e6c",
+        "53093018-aa33-5b2e-88fa-ad02e10cb9b2",
+        "566a9a90-d412-5f2f-8853-3b9969c801e2",
+        "5df6d6f7-81e3-5d42-a749-25bae125598d",
+        "5e164505-d9a3-5677-b701-00d2d033f70d",
+        "608c0386-2b52-5d60-9ad9-a6a3a5d34aab",
+        "620c9c01-a4d1-5f15-a78b-c75ac375a4cc",
+        "632bb0a5-eff6-5ead-96e8-5293504998c7",
+        "650c6c5d-de13-565e-8e87-2701f1afe2a7",
+        "667dac12-e871-50aa-967d-cf968bb18c1b",
+        "69f18a1d-d735-5724-b933-fa1994c0866a",
+        "6d6cf11d-5214-55f0-bf1f-934be9e53dfa",
+        "7009b158-a95f-51d4-96d1-769019f78e38",
+        "72eeda01-2642-509e-a505-36109cafe8c6",
+        "75b67f8c-a019-5a46-9ee9-2d02c205688a",
+        "7a31048e-e243-564c-bd81-c1150678cc98",
+        "7b5d832c-654a-5b6d-a43a-ce4e453520fb",
+        "82c6bd34-2ad1-5135-9497-d9fbe9944c69",
+        "87dd5829-42e2-56cc-be72-cb557859a16d",
+        "8dd1ea59-25a6-5804-8bd4-ae4c55654560",
+        "94c9fbd6-bca3-55eb-94db-58d2e111f631",
+        "964f4b72-42a7-5f49-a0ca-76806e22a489",
+        "9773a3ae-4710-5f72-8e48-9094a07b85f0",
+        "97ffd7a2-f936-5fda-a53e-3cad4ccd4c50",
+        "9ab0dad1-29a4-5ab1-967d-2d273ddc79a2",
+        "9b6bc1b5-a3fa-56cf-98ba-91a0b80bd97f",
+        "a355a6bb-8d62-57b9-94b9-d11723b2b8c1",
+        "a44b62d9-2d80-5d1b-b244-cb9a7ee4f927",
+        "a895bd34-7812-50ed-8e22-fbac88bd04e3",
+        "a8e88c1f-6d7a-58f9-87f1-fdad908d35cd",
+        "b28a0af8-52a9-5eb1-93cd-dc010427addd",
+        "b291f6fd-dcae-5042-bca4-1db254e348c1",
+        "b455c1dd-289e-5fcf-9296-062ee2646662",
+        "b80f9c40-2f40-5493-9d75-92bb8dd76abe",
+        "bdc5ebdd-2bf6-570f-81fa-1dd9f1f5fcc1",
+        "c3f5a454-a23c-5198-bbd5-e84be82fde74",
+        "c6b4cca6-4edb-55fc-a2fe-5d08d568cec1",
+        "c7dfa80d-f18e-5bba-aaac-91d29a06730c",
+        "c88fad02-c7d4-5d31-933c-7f9dfca6a9a4",
+        "ce00cc95-9bff-562d-8cef-fcedda61e407",
+        "ce1b4fdd-b200-59e6-aa0c-74e9a9a39471",
+        "cf57b6a9-1221-5bfe-9144-57e08d0f0bd4",
+        "d7bf6902-4708-50a9-8645-e698b614ad09",
+        "d8a2d049-79b7-5853-9704-59143c240416",
+        "db222b70-4cfa-5714-b765-154522eceef6",
+        "dd3a224a-a70d-5b2c-8e00-f926ffbf2b73",
+        "df0655f2-41f5-56f6-8b1a-a1f5f2109902",
+        "e0ac367d-e3ae-59c2-a197-4ef4617364d8",
+        "e1be5889-ec02-573e-afd9-51525438d827",
+        "e63a115d-6e52-567d-986a-177cb510dee4",
+        "e75a458e-2bf8-5417-ba5e-c927f396ecf7",
+        "eaf8a3d5-18e5-5cb0-9d42-d39a17db6fc5",
+        "ebda1c8d-f51b-50d5-9b96-ecd955cc2061",
+        "efa733be-1efe-5acb-8ccf-d394919d2e44",
+        "f0e5f1a4-e419-54aa-8f97-35499ced64bc",
+        "f4e970ec-7f4f-5435-82f2-721658088bc7",
+        "f8658105-1e5c-567a-a038-9862098b745b",
+        "f87e6bf9-03e2-5399-9e59-059d26fba02d",
+        "f9018f92-565e-5d20-9975-9ef9a8973155",
+        "fdb0f021-d225-571a-ad6d-7fafbde14012",
+        "ff35f0a3-ffc7-5982-a1ae-6b2b968b6caf"
+    ],
+    "content_gaps": []
+}
