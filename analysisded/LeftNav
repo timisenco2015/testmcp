@@ -2,56 +2,60 @@
 {
   "filename": "LeftNav",
   "found": true,
-  "summary": "The LeftNav is a master page component within the HSPnet framework, used primarily for navigation and user interface layout. It includes various panels, labels, buttons, and other web controls, allowing users to navigate through different sections such as inbox, outbox, user settings, help, and more.",
-  "purpose": "The purpose of the LeftNav is to provide a consistent and functional navigation interface for users within the HSPnet application, facilitating easy access to various features and functionalities.",
-  "entities": [],
-  "fields": [
-    "lblInboxPleaseWait",
-    "pnlRefNumOutbox",
-    "imgGoToOutbox",
-    "lbGoToOutbox",
-    "lblOutboxPleaseWait",
-    "pnlQESRA",
-    "head",
-    "form1",
-    "txtRefreshWindow",
-    "txtLoggingOut",
-    "ScriptManagerMaster",
-    "cmdLogOut",
-    "UpdateProgress2",
-    "pnlMainContent",
-    "MainContent",
-    "lbMakeStartPage",
-    "lblFooter",
-    "pnlLeftNav",
-    "hlHSPnetHome",
-    "pnlSysadminIndicator",
-    "lblSysadminIndicator",
-    "pnlVersionTag",
-    "hlRCGOW"
+  "summary": "The LeftNav file is part of the HSPnet application, providing a dynamic navigation structure within the web UI context. It includes various controls and panels for navigating different sections of the application, such as inbox, outbox, and system administration.",
+  "purpose": "To offer a structured navigation interface within the HSPnet web application, enabling users to easily access different sections and functionalities.",
+  "entities": [
+    "Panel",
+    "ContentPlaceHolder",
+    "HyperLink",
+    "Label",
+    "Button",
+    "LinkButton",
+    "HiddenField",
+    "ScriptManager",
+    "TreeView"
   ],
-  "actors": [],
+  "fields": [
+    "pnlLeftNav",
+    "MainContent",
+    "pnlSysadminIndicator",
+    "lblVersionTag",
+    "pnlWelcome",
+    "hlWelcome",
+    "pnlLookup",
+    "pnlInbox",
+    "hlInbox",
+    "pnlOutbox",
+    "hlOutbox",
+    "pnlVersionTag",
+    "lblFooter"
+  ],
+  "actors": [
+    "UserSession"
+  ],
   "workflows": [
     {
-      "name": "User Logout",
+      "name": "LogOut Workflow",
       "steps": [
-        "User clicks on cmdLogOut button.",
-        "System processes the logout request.",
-        "User is redirected based on session settings."
+        "Trigger cmdLogOut_Click event",
+        "Logout current user session",
+        "Redirect to login or homepage"
       ]
     },
     {
-      "name": "Navigate to Inbox",
+      "name": "GoToInbox Workflow",
       "steps": [
-        "User clicks imgGoToInbox or lbGoToInbox.",
-        "System fetches and displays the Inbox contents."
+        "Trigger imgGoToInbox_Click or lbGoToInbox_Click event",
+        "Find reference number for Inbox",
+        "Clear txtQuery"
       ]
     },
     {
-      "name": "Navigate to Outbox",
+      "name": "GoToOutbox Workflow",
       "steps": [
-        "User clicks imgGoToOutbox or lbGoToOutbox.",
-        "System fetches and displays the Outbox contents."
+        "Trigger imgGoToOutbox_Click or lbGoToOutbox_Click event",
+        "Find reference number for Outbox",
+        "Clear txtQuery"
       ]
     }
   ],
@@ -60,18 +64,14 @@
   "calculations": [],
   "conditions": [],
   "system_behavior": [
-    "Auto-generation of web controls in code-behind files.",
-    "Dynamic session handling for user navigation.",
-    "CSS-based styling for navigation elements."
+    "Load different panels and placeholders based on user's actions",
+    "Scripts and session management handled by ScriptManager"
   ],
   "dependencies": [
-    "HSPnet.Framework",
-    "System.Web.UI.WebControls",
-    "System.Web.UI.HtmlControls"
+    "System.Web.UI",
+    "HSPnet.Framework"
   ],
-  "exceptions": [
-    "Loss of custom code modifications if auto-generated code is altered directly."
-  ],
+  "exceptions": [],
   "source_document_ids": [
     "131938f4-154d-527c-8bbe-d4d03457376e",
     "1c1f4e82-660a-58aa-905d-03e2a1a165b9",
