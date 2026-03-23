@@ -1,19 +1,122 @@
 {
-    "filename": "ExpenseBatch",
-    "found": false,
-    "summary": "",
-    "purpose": "",
-    "entities": [],
-    "fields": [],
-    "actors": [],
-    "workflows": [],
-    "business_rules": [],
-    "validations": [],
-    "calculations": [],
-    "conditions": [],
-    "system_behavior": [],
-    "dependencies": [],
-    "exceptions": [],
-    "source_document_ids": [],
-    "content_gaps": ["No related documents found"]
+  "filename": "ExpenseBatch",
+  "found": true,
+  "summary": "The ExpenseBatch class manages expense batch records within the HSPnet system, providing methods to add, search, update, and delete batch records. It includes procedures for handling batch IDs, descriptions, dates, status codes, and department associations.",
+  "purpose": "To manage financial records related to expense batches including creation, modification, and retrieval of batch details.",
+  "entities": [
+    "ExpenseBatch"
+  ],
+  "fields": [
+    {
+      "name": "ID",
+      "type": "int"
+    },
+    {
+      "name": "DepartmentID",
+      "type": "int"
+    },
+    {
+      "name": "BatchDescription",
+      "type": "string"
+    },
+    {
+      "name": "BatchDate",
+      "type": "DateTime"
+    },
+    {
+      "name": "StatusCodeID",
+      "type": "int"
+    },
+    {
+      "name": "StatusCode",
+      "type": "string"
+    },
+    {
+      "name": "StatusDescription",
+      "type": "string"
+    },
+    {
+      "name": "ClosedDate",
+      "type": "DateTime"
+    }
+  ],
+  "actors": [
+    "HSPnetSession"
+  ],
+  "workflows": [
+    {
+      "name": "Add Expense Batch",
+      "steps": [
+        "Prepare database session.",
+        "Set procedure name to ExpenseBatchAdd.",
+        "Add parameters for departmentID, batchDescription, batchDate.",
+        "Execute query to insert record and retrieve its ID."
+      ]
+    },
+    {
+      "name": "Search Expense Batch",
+      "steps": [
+        "Prepare database session.",
+        "Set procedure name to ExpenseBatchSearch.",
+        "Add parameter for departmentID.",
+        "Execute query and read results to list ExpenseBatch records."
+      ]
+    },
+    {
+      "name": "Update Expense Batch",
+      "steps": [
+        "Prepare database session.",
+        "Set procedure name to ExpenseBatchUpdate.",
+        "Add parameters for ID, batchDescription, batchDate, statusCodeID.",
+        "Execute update query."
+      ]
+    },
+    {
+      "name": "Delete Expense Batch",
+      "steps": [
+        "Prepare database session.",
+        "Set procedure name to ExpenseBatchDelete.",
+        "Add parameter for ID.",
+        "Execute delete query."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Expense batches should be linked to a valid department ID.",
+    "Closed batches should have a ClosedDate value."
+  ],
+  "validations": [
+    "Ensure ID is unique upon initial batch creation.",
+    "StatusDescription should reflect the current status code."
+  ],
+  "calculations": [
+    {
+      "description": "BatchNumberFormatted",
+      "formula": "entry.ID.ToString() + ' - ' + entry.StatusDescription"
+    }
+  ],
+  "conditions": [
+    {
+      "name": "Check Alternate Language",
+      "description": "If UseAltLanguageFields is true, use StatusDescriptionAlt; otherwise, use StatusDescription."
+    }
+  ],
+  "system_behavior": [
+    "Ensure sessions are closed after database operations.",
+    "Use SQL stored procedures for batch operations."
+  ],
+  "dependencies": [
+    "HSPnet Framework and Global Resources",
+    "SqlDataReader for database operations"
+  ],
+  "exceptions": [
+    "Handle null SqlDataReader results gracefully to prevent errors.",
+    "Ensure procedure names match those defined in the database."
+  ],
+  "source_document_ids": [
+    "060e08d3-49ca-5e40-bea0-849f4e6173e1",
+    "3559737f-0154-520e-be2b-d3dd2c3de539",
+    "b2216e58-a144-55cb-8b87-3da9787fc1d7"
+  ],
+  "content_gaps": []
 }
