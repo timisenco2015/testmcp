@@ -1,22 +1,15 @@
 {
     "filename": "ExpenseBatch",
     "found": true,
-    "summary": "Manages expense batches including searching, adding, updating, and deleting operations.",
-    "purpose": "Facilitates operations on expense batches within departments, including generation related to departments.",
+    "summary": "ExpenseBatch class and methods to manage batches of department expenses.",
+    "purpose": "Handles creation, update, and deletion of expense batches within HSPnet system.",
     "entities": ["ExpenseBatch"],
-    "fields": [
-        {"name": "ID", "type": "int"},
-        {"name": "DepartmentID", "type": "int"},
-        {"name": "BatchDescription", "type": "string"}
-    ],
-    "actors": [],
+    "fields": ["ID", "DepartmentID", "BatchDescription", "BatchDate", "StatusCodeID", "StatusCode", "StatusDescription", "ClosedDate"],
+    "actors": ["Finance Manager"],
     "workflows": [
         {
-            "name": "SearchExpenseBatch",
-            "steps": [
-                "Use 'ExpenseBatchSearch' procedure with departmentID to fetch data.",
-                "Return list of ExpenseBatch objects populated from data reader."
-            ]
+            "name": "Manage Expense Batch",
+            "steps": ["Add batch", "Update batch", "Delete batch"]
         }
     ],
     "business_rules": [],
@@ -24,8 +17,12 @@
     "calculations": [],
     "conditions": [],
     "system_behavior": [],
-    "dependencies": ["HSPnet.Framework", "HSPnet.App_GlobalResources"],
+    "dependencies": [],
     "exceptions": [],
-    "source_document_ids": ["3559737f-0154-520e-be2b-d3dd2c3de539"],
+    "source_document_ids": [
+        "060e08d3-49ca-5e40-bea0-849f4e6173e1",
+        "3559737f-0154-520e-be2b-d3dd2c3de539",
+        "b2216e58-a144-55cb-8b87-3da9787fc1d7"
+    ],
     "content_gaps": []
 }
