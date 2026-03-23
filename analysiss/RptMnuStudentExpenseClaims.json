@@ -1,0 +1,92 @@
+{
+    "filename": "RptMnuStudentExpenseClaims",
+    "found": true,
+    "summary": "The documents describe the web controls and server-side logic for managing student expense claims reports within a web application. This includes validation controls, data input elements, script management, and database procedures for generating reports.",
+    "purpose": "To handle the presentation, user interaction, and backend processing for generating and validating student expense claims reports in a web application.",
+    "entities": [],
+    "fields": [
+        "ValidationSummary1",
+        "Label3",
+        "ltlDescription",
+        "Label4",
+        "ltlOptions",
+        "Label7",
+        "txtStartDate",
+        "btnStartDate",
+        "CalendarExtender1",
+        "RegularExpressionValidator1",
+        "ltlMandatoryStartDate",
+        "Label8",
+        "txtEndDate",
+        "btnEndDate",
+        "CalendarExtender2",
+        "RegularExpressionValidator2",
+        "Literal1",
+        "valEditStartDate",
+        "valEditEndDate",
+        "CustomValidator1",
+        "cmdRunExcel",
+        "lblPleaseWait",
+        "pnlReportHTML",
+        "lblReportHTML"
+    ],
+    "actors": [
+        "UserSession",
+        "ScriptMgr",
+        "Page",
+        "ScriptManager",
+        "CodeRecord"
+    ],
+    "workflows": [
+        {
+            "name": "Page Load and PreRender",
+            "steps": [
+                "Page_Load initializes page",
+                "Page_PreRender checks UserSession",
+                "Description and options set based on CodeRecord",
+                "SetupJavaScript is called"
+            ]
+        },
+        {
+            "name": "Export to Excel",
+            "steps": [
+                "cmdExcel_Click sets ProcedureName to ReportExpenseClaims",
+                "Parameters added: SessionID, DateFrom, DateTo",
+                "GetData retrieves data using SqlDataReader",
+                "OutputCSV generates report HTML",
+                "Report HTML displayed if non-empty"
+            ]
+        }
+    ],
+    "business_rules": [
+        "Auto-generated fields should be modified by moving the declaration from designer file to code-behind."
+    ],
+    "validations": [
+        "RequiredFieldValidator",
+        "RegularExpressionValidator"
+    ],
+    "calculations": [],
+    "conditions": [],
+    "system_behavior": [
+        "JavaScript setup for client-side interaction.",
+        "Server-side data retrieval and report generation."
+    ],
+    "dependencies": [
+        "HSPnet.DataLayer",
+        "HSPnet.App_GlobalResources",
+        "HSPnet.UI",
+        "HSPnet.Framework",
+        "AJAX Control Toolkit"
+    ],
+    "exceptions": [],
+    "source_document_ids": [
+        "19337665-e6bd-5713-ba62-180392c8029d",
+        "1b2d6645-74c0-5299-9566-d4433b271b22",
+        "5baea157-4983-50d5-b671-80793ab49f3f",
+        "80155d16-438e-5de0-ab39-3e4b43c6f418",
+        "ac5d8735-dd99-563a-bb99-459e4d14fe0e",
+        "bfeb29c9-94a9-5797-99dd-70841f0bdab5",
+        "f1857ca1-28c6-5af4-8f9c-75ee69a66441"
+    ],
+    "content_gaps": []
+}
