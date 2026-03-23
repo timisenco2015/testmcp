@@ -1,0 +1,150 @@
+{
+  "filename": "Course",
+  "found": true,
+  "summary": "The 'Course' module relates to the management and retrieval of course data within a session-based system, utilizing SQL queries to interact with the database and leveraging cached data when appropriate. This module includes workflows for course creation, update, search, and validation, allowing for detailed control over course attributes, access parameters, and dynamic data retrieval.",
+  "purpose": "The purpose of the 'Course' module is to manage course data comprehensively, including creation, updates, search functionalities, and validation processes within an educational or organizational session framework. It is designed to efficiently handle course details, parameters, and associated business logic.",
+  "entities": [
+    "Course",
+    "DepartmentRequestType"
+  ],
+  "fields": [
+    {"name": "ID", "type": "int"},
+    {"name": "DepartmentID", "type": "int"},
+    {"name": "Name", "type": "string"},
+    {"name": "ShortName", "type": "string"},
+    {"name": "Description", "type": "string"},
+    {"name": "DurationHours", "type": "decimal"},
+    {"name": "DurationShifts", "type": "decimal"},
+    {"name": "SupervisionWeeks", "type": "decimal"},
+    {"name": "ShiftLength", "type": "decimal"},
+    {"name": "DefaultTypeCodeID", "type": "int"},
+    {"name": "Inactive", "type": "Boolean"},
+    {"name": "CreatedByQES", "type": "Boolean"},
+    {"name": "ReportCodeID", "type": "int"},
+    {"name": "UseBlocks", "type": "Boolean"},
+    {"name": "UseIndividualWorksheet", "type": "Boolean"},
+    {"name": "InstructorStudentRatio", "type": "string"},
+    {"name": "Comments", "type": "string"},
+    {"name": "UseRotations", "type": "Boolean"},
+    {"name": "IncludeRequests", "type": "Boolean"},
+    {"name": "IncludeRequestsWithCFO", "type": "Boolean"},
+    {"name": "IncludeOutOfProvinceCFO", "type": "Boolean"},
+    {"name": "TypeCode", "type": "string"},
+    {"name": "ShortType", "type": "string"},
+    {"name": "PRFormCode", "type": "string"},
+    {"name": "ProfileExists", "type": "Boolean"},
+    {"name": "CourseUsesNISTemplate", "type": "Boolean"},
+    {"name": "IdleCourse", "type": "Boolean"},
+    {"name": "ExcludeInstructorFromITProvRole", "type": "Boolean"},
+    {"name": "MaxStudentPRSelections", "type": "int"},
+    {"name": "SpecifyDuplicatePRs", "type": "Boolean"},
+    {"name": "RankWithheldPRs", "type": "Boolean"},
+    {"name": "ViewClassmateStats", "type": "Boolean"},
+    {"name": "AllowAnyDestInSite", "type": "Boolean"},
+    {"name": "AllowAnySiteDestInService", "type": "Boolean"},
+    {"name": "SearchableStatusCodeID", "type": "int"},
+    {"name": "SearchableStatusCode", "type": "string"},
+    {"name": "StudentsViewPRStatus", "type": "Boolean"},
+    {"name": "StudentsViewDestinations", "type": "Boolean"},
+    {"name": "AllowDuplicateDestinations", "type": "Boolean"},
+    {"name": "StudentsViewAgency", "type": "Boolean"},
+    {"name": "StudentsViewService", "type": "Boolean"},
+    {"name": "CampusesExist", "type": "Boolean"},
+    {"name": "PRsAllocatedToCampusOnly", "type": "Boolean"},
+    {"name": "PRsAllocatedToSectionOnly", "type": "Boolean"},
+    {"name": "ContactDataExists", "type": "Boolean"},
+    {"name": "SupervisorCaptionID", "type": "int"},
+    {"name": "GroupCodeID", "type": "int"},
+    {"name": "NISTemplateID", "type": "int"},
+    {"name": "Use3Prefs", "type": "Boolean"},
+    {"name": "NISFlag", "type": "Boolean"}
+  ],
+  "actors": [
+    "HSPnetSession"
+  ],
+  "workflows": [
+    {
+      "name": "Course Creation",
+      "steps": [
+        "Initialize Course object with default values.",
+        "Set parameters: departmentID, name, shortName, typeCode, etc.",
+        "Validate data using course validation method.",
+        "Apply business rules as applicable.",
+        "Execute query to insert course data into database."
+      ]
+    },
+    {
+      "name": "Course Update",
+      "steps": [
+        "Retrieve existing course data from database.",
+        "Modify course parameters as needed.",
+        "Validate updated data using course validation method.",
+        "Apply business rules if any changes affect them.",
+        "Execute query to update course data in database."
+      ]
+    },
+    {
+      "name": "Course Search",
+      "steps": [
+        "Set search parameters including departmentID, keywords, termID.",
+        "Execute stored procedure or query based on search mode.",
+        "Retrieve and process data using SqlDataReader.",
+        "Close data reader and return results list."
+      ]
+    }
+  ],
+  "business_rules": [
+    "DefaultTypeCodeID must be specified and not zero.",
+    "DurationHours should not be zero; calculated if shifts and length are specified.",
+    "InstructorStudentRatio should begin with '1' and be minimum 3 characters.",
+    "StudentActivityCutoffDays must be greater than or equal to -1."
+  ],
+  "validations": [
+    "Check that Name and ShortName are not blank.",
+    "Verify that DefaultTypeCodeID and DurationHours are valid.",
+    "Ensure StudentActivityCutoffDays is valid."
+  ],
+  "calculations": [
+    "Calculate DurationHours from DurationShifts and ShiftLength if not specified."
+  ],
+  "conditions": [
+    "Course fields might be modified based on department or type code."
+  ],
+  "system_behavior": [
+    "Queries executed within a session framework, potentially caching results.",
+    "Data retrieved using SqlDataReader."
+  ],
+  "dependencies": [],
+  "exceptions": [
+    "Handle invalid parameter values during updates and inserts.",
+    "Manage errors with missing required fields."
+  ],
+  "source_document_ids": [
+    "113fda5f-b356-500c-b6ba-13a1697099cf",
+    "1657a581-8112-53fb-9bf4-2f85b175adbe",
+    "1b598bad-8a0a-5651-b3a8-4eead3dfef23",
+    "313845ef-1113-5324-bce0-553a0449cde4",
+    "3175d5ed-950b-5b15-b993-9be68c1cc795",
+    "34958587-423a-52a0-9a85-bca13184689b",
+    "3bad9a02-3342-505b-a432-9c1890e8609e",
+    "4080f062-b582-50fd-b379-e843ecf7eecf",
+    "497f9326-eff8-51eb-a7f7-bb67c07aa185",
+    "4da5127c-87fe-54d6-9ece-9e9d45dac9ed",
+    "65f5f8d3-3ba2-5529-8089-938acd1bd636",
+    "7bad651c-cfd5-5b69-81b5-f442b857734d",
+    "8c3e07cc-1594-53cb-bb39-a16ca2222667",
+    "a459233f-9ed0-5fa1-9424-55db75f4571b",
+    "a96477a1-f81a-563d-910f-781f2eccd6e0",
+    "c5eacc90-1336-567f-a4d7-d62e997947cc",
+    "d2082233-b56b-549d-8bb5-24e393af3eb6",
+    "d51e0b1e-ff38-5ceb-bf93-fb8053a744f3",
+    "dea9ffb5-3e1e-507d-b210-dc0339affe73",
+    "e609dbbf-b08b-5d8f-aadb-d9d4b5fb40e3",
+    "e9c1e76e-b034-55c5-8197-719f50ee3ca9",
+    "eb7a2a01-cf08-5bc9-b792-e366690657da",
+    "ef3d177d-9b5f-5cf3-8084-04fd79c6b210",
+    "f44e30f7-3568-5f02-9c6d-42d7675acd48",
+    "f8f7bbad-cefb-5731-b42c-d1dc97ac264d"
+  ],
+  "content_gaps": []
+}
