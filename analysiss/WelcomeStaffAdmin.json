@@ -1,46 +1,43 @@
 {
     "filename": "WelcomeStaffAdmin",
     "found": true,
-    "summary": "Web UI elements for staff admin page, including calendar controls and validation.",
-    "purpose": "Provide staff with administration capabilities through a web interface.",
+    "summary": "The WelcomeStaffAdmin module handles the user interface for staff administration tasks.",
+    "purpose": "Provides functionality for managing staff related actions and settings, including date inputs and validation controls.",
     "entities": [],
     "fields": [
-        "txtStartDate",
-        "txtEndDate",
-        "ddSite",
-        "ddDiscipline"
+        { "name": "txtEndDate", "type": "TextBox", "description": "Input for end date." },
+        { "name": "valStartDate", "type": "RequiredFieldValidator", "description": "Validator to ensure start date is provided." },
+        { "name": "btnStartDateCalendar", "type": "LinkButton", "description": "Button to open start date calendar." }
     ],
-    "actors": [
-        "Staff"
-    ],
+    "actors": [],
     "workflows": [
         {
-            "name": "Refresh View",
+            "name": "Data Refresh",
             "steps": [
-                "Select site and discipline.",
-                "Choose date range.",
-                "Click refresh button."
+                "User selects a date range.",
+                "System validates date inputs.",
+                "User clicks refresh, triggering data refresh in view."
             ]
         }
     ],
     "business_rules": [],
     "validations": [
-        "Ensure start date is provided.",
-        "Ensure end date is provided.",
-        "Validate date format."
+        "Start date must be less than or equal to end date."
     ],
     "calculations": [],
-    "conditions": [
-        "Check if start date is before end date."
-    ],
-    "system_behavior": [
-        "Displays current view based on filters.",
-        "Refreshes data according to selected parameters."
-    ],
-    "dependencies": [
-        "AjaxControlToolkit.CalendarExtender"
-    ],
+    "conditions": [],
+    "system_behavior": [],
+    "dependencies": [],
     "exceptions": [],
-    "source_document_ids": ["05db31e4-e8b6-53ee-a6fb-812c106f0134","100d5925-a5f8-53db-8493-02cddd563eb7"],
+    "source_document_ids": [
+        "05db31e4-e8b6-53ee-a6fb-812c106f0134",
+        "100d5925-a5f8-53db-8493-02cddd563eb7",
+        "3c84bade-9671-5fbf-acce-3c87a835e9b4",
+        "4c4b97b8-d242-5261-a515-767a3f7d7a49",
+        "52b5066f-23f6-5d82-96cd-5d51dad3de79",
+        "5bb85da3-f5b4-5753-b07c-9bb2a04eeb89",
+        "5d9b92ea-7c12-5070-8603-977cf14d0e04",
+        "6701b153-5288-59e5-8de9-61b68a1fc292"
+    ],
     "content_gaps": []
 }
