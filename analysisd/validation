@@ -1,41 +1,52 @@
-Here is the JSON output for the "validation" document, which includes various utility functions for validating inputs such as numbers, emails, phone numbers, and dates:
-
 ```json
 {
   "filename": "validation",
   "found": true,
-  "summary": "Utility functions for data validation.",
-  "purpose": "Validating various data formats including numbers, emails, phone numbers, and dates.",
+  "summary": "Validation functions for numeric, email, phone, and date formats.",
+  "purpose": "Ensure data integrity and correct format.",
   "entities": [],
   "fields": [],
   "actors": [],
   "workflows": [
     {
-      "name": "Validation functions",
+      "name": "DataValidation",
       "steps": [
-        "IsNumeric",
-        "IsValidEmail",
-        "ContainsDigitAndLetter",
-        "IsValidPhone",
-        "IsValidDate",
-        "ParseDate"
+        "Check if data is numeric.",
+        "Check if email format is valid.",
+        "Check if phone number format is valid.",
+        "Check if date format is valid."
       ]
     }
   ],
-  "business_rules": [],
-  "validations": [
-    "Check numeric",
-    "Email format",
-    "Digit and letter requirement",
-    "Phone number format",
-    "Date format"
+  "business_rules": [
+    "Valid numeric characters: 0-9",
+    "Valid email structure: use emailFilter regex",
+    "Valid phone format: 7 or 8 characters",
+    "Valid date format: specific month and day checks"
   ],
-  "calculations": [],
-  "conditions": [],
-  "system_behavior": [],
+  "validations": [
+    "IsNumeric(data)",
+    "IsValidEmail(data)",
+    "IsValidPhone(data)",
+    "IsValidDate(data)"
+  ],
+  "calculations": [
+    "Calculate leap year for February date validation"
+  ],
+  "conditions": [
+    "Email must not contain illegal characters",
+    "Phone length determines validation path",
+    "Date format requires specific patterns"
+  ],
+  "system_behavior": [
+    "True for valid data",
+    "False for invalid data"
+  ],
   "dependencies": [],
   "exceptions": [
-    "Invalid format"
+    "Invalid numeric or email format returns false",
+    "Invalid phone format returns false",
+    "Invalid date format returns false"
   ],
   "source_document_ids": [
     "1912ae46-5f87-5bdd-973d-b22c7bb59189",
@@ -44,5 +55,3 @@ Here is the JSON output for the "validation" document, which includes various ut
   "content_gaps": []
 }
 ```
-
-I will proceed with analyzing other retrieved documents and provide JSON outputs for each. Let me know if you want to continue with specific filenames or if you'd like all documents analyzed.
