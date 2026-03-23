@@ -1,0 +1,176 @@
+```json
+{
+    "filename": "CustomReportRequest",
+    "found": true,
+    "summary": "The document describes the structure and functionality of the Custom Report Request within the HSPnet application, including the setup of report parameters, user interactions, and validation processes.",
+    "purpose": "The purpose of the Custom Report Request is to facilitate the generation and customization of reports within the HSPnet application.",
+    "entities": [
+        "CustomReport",
+        "Staff",
+        "CodeRecord",
+        "UserSession"
+    ],
+    "fields": [
+        "ReportTypeComments",
+        "Purpose",
+        "Audience",
+        "RequestedDate",
+        "Comments",
+        "StatusCode",
+        "DeptShortName",
+        "AgencyName"
+    ],
+    "actors": [
+        "UserSession",
+        "RequestedByStaff",
+        "SystemAdministrator"
+    ],
+    "workflows": [
+        {
+            "name": "Setup Report Type",
+            "steps": [
+                "Determine the report type based on dropdown selection.",
+                "Bind report types data to dropdown.",
+                "Enable or disable save button based on validation."
+            ]
+        },
+        {
+            "name": "Setup My Programs",
+            "steps": [
+                "Retrieve allowed programs for user.",
+                "Identify selected programs and bind data.",
+                "Manage inclusion and exclusion of programs."
+            ]
+        },
+        {
+            "name": "Setup Sites Services",
+            "steps": [
+                "Determine active view based on user type.",
+                "Set up agency and site filters.",
+                "Bind services data and manage inclusion."
+            ]
+        }
+    ],
+    "business_rules": [
+        "Save button is enabled only if report type is valid and user has appropriate permissions.",
+        "Report type view is set based on selected value of ddReportType."
+    ],
+    "validations": [
+        "Required fields include ReportTypeComments, Purpose, Audience, RequestedDate.",
+        "Date fields must be validated using regular expressions."
+    ],
+    "calculations": [
+        "Date calculations for setting default term dates.",
+        "Program and site inclusion calculations based on user selections."
+    ],
+    "conditions": [
+        "Page load condition checks for user session and initializes report.",
+        "Javascript conditions validate date and checkbox selections."
+    ],
+    "system_behavior": [
+        "JavaScript functions handle user interaction and validation on the client-side.",
+        "Server-side event handlers manage data binding and validation processes."
+    ],
+    "dependencies": [
+        "AjaxControlToolkit for UI components",
+        "HSPnet namespaces for accessing data and resources"
+    ],
+    "exceptions": [
+        "Display error message if required fields are missing or invalid.",
+        "Handle file upload exceptions through validation."
+    ],
+    "source_document_ids": [
+        "a39dbfba-3b59-52e0-88a9-5ae22fb8721b",
+        "ed81e284-5afc-51b6-944a-6856fb99a903",
+        "3f868210-07f6-5e49-8db6-2ad8a011be11",
+        "32972f05-65d3-50e8-a0ec-48147254bc54",
+        "42217d73-ae94-5fc0-b1c7-1b0245d5be22",
+        "338b6fd4-ac82-5b00-a60e-0f81921d3649",
+        "890c08d2-61c1-5fb6-ad2a-32b9f173a872",
+        "988830d0-abe1-5afa-abc9-ca2429530ef9",
+        "3c2d6f53-1ada-58c8-a43e-b0cfb8167288",
+        "9eb9a2e8-ae06-592f-a7f0-2a5124be81c6",
+        "73a389c6-a304-5bd5-ad5b-bc0865b8a6cc",
+        "5514110e-249e-55b5-85ed-65289217e13c",
+        "786f8e60-99ef-5ca5-b65a-b66fae82cbd9",
+        "29af3385-5727-5b7a-8c6f-681180e8c1b5",
+        "25f136e9-5e29-5466-afff-9e4625237faa",
+        "f1455cf2-1d16-5cc2-bcd1-700b4a13b3c1",
+        "6d5c28c4-6f95-5a6d-81af-55acaf933519",
+        "53988a7a-5690-5238-a4f8-cba7373aad5e",
+        "e9a0de08-e707-5847-8752-adcbebec59f3",
+        "7d8750e0-b1b3-5389-8656-2100604f2b69",
+        "1ab5d1d5-c40a-55ab-9359-2f22268dfa88",
+        "472ae06d-98cb-5891-8cdb-f77e58cc3fc9",
+        "0aad0add-12d9-580c-9fbb-e8dbef303802",
+        "866de8d8-6b70-53c9-b020-e374f95030a3",
+        "507e29ed-f2e2-580d-b430-7e4265736e01",
+        "543397bd-ec65-55d1-a123-5d972d14bf29",
+        "318ef578-2009-5071-bfb3-396fb44cedd5",
+        "3a389412-87db-5c88-9e1c-48abb2a0caa8",
+        "21f03fff-6292-5d05-b95e-4c37fade754b",
+        "1e31a3ec-d9d2-5fe1-8f2b-5481c496bf6a",
+        "8413efca-da12-51c3-97ed-6b09763152b8",
+        "e6f4d22a-5c88-5587-ba81-3da0a9b77e27",
+        "edd1f23a-bdcf-5a2a-bc36-ec82ba7c8d23",
+        "3bade5a5-9fa5-56dd-8be8-e9fffa3a2b6a",
+        "806e18ee-317f-588d-a377-72b0bc544c64",
+        "34aad872-c5b5-5642-99ee-50db4ace0c23",
+        "1eebbaff-a2c6-5f00-8980-7636869aabf9",
+        "78bd1269-ab6f-536f-9a6e-5a5309ded762",
+        "40bc69f8-aef6-5abc-a503-04ea5bf8bc0f",
+        "9aea93c7-5274-5e96-80e9-a3792ac5a2cf",
+        "c3029812-e3bd-5e2a-a046-296bb482059a",
+        "ea6f7bb2-3dc9-5571-8faf-4c4e8db8eb43",
+        "addb87f7-73ca-5b22-8397-61971d9aa4d9",
+        "25aeac5d-4f58-52dc-a10d-eabe6880367e",
+        "b6dd2148-acf7-5ccf-a82c-7fac50b823a5",
+        "e8dc1e0b-528f-54a6-bbfa-0a16b9a3bd06",
+        "422e8522-7c80-515e-ae0f-77fe5c920415",
+        "b31d8f4f-d58b-5a31-b78f-36e2047361c2",
+        "fb7727f2-291f-597e-80b5-1750138e6554",
+        "435a40e5-a345-531d-a450-b7b0c47b0d09",
+        "d7c27386-708c-52e9-88d9-93b10a0a1d36",
+        "d7d2c84c-cc2f-582c-8ab0-c26573c28ec1",
+        "faa9e8bb4-1d72-56cb-8c1c-fa1a8a9be41f",
+        "fc518de3-283a-5be0-a45a-41ce805243cd",
+        "8e1ab705-7ae5-5a03-b8d2-a6bce91a2fc7",
+        "f94a5351-c51d-5476-8fe5-30db947fab3a",
+        "e310eaa5-ac10-563f-a810-c16ea78be929",
+        "685c948c-10d8-57c7-a514-a2923a8e23d3",
+        "f3de034f-85dc-5585-98cf-e2832c367dcc",
+        "3bd65a80-1452-51d3-a766-5df574174dab",
+        "13f4dfc6-fc65-5c96-b008-e82ed6f2df16",
+        "a2ce3dd0-3940-5c81-8c78-149158b48a38",
+        "4f3c22b3-b27b-5c4c-a4da-1e9dba4b6eda",
+        "ad43c6b1-bead-5a15-9c4e-cfdb30d6e126",
+        "77301169-30c4-5e73-af27-cfebcaaaa35c",
+        "3ea8d5ba-16ce-543d-bba9-27ca8cb0252a",
+        "3b1d046c-c75d-5e45-b775-0a1437e4fd76",
+        "a785789b-1808-5495-8574-ee26bc3c5dd3",
+        "534740d6-ada2-5b20-a7ec-7586a6f59a7a",
+        "43fa98b3-cb6a-50ea-b985-3248ae06bbf5",
+        "e5961ef3-59e5-5f78-9d2e-d3051ab847ba",
+        "daa40a22-62fa-5202-88ff-68b990a3259b",
+        "6428c927-fb93-5ecd-9df3-8cb11e5d56f6",
+        "85955889-e352-5d70-9e77-1cbc18a53c72",
+        "00aebfc5-778a-5e93-93a2-b6ef20e08d92",
+        "8bf92240-9628-5e22-ae31-6d9063daf1ea",
+        "444c42cd-5ee6-5b07-b155-233035fa9eca",
+        "af9b0bc7-b879-5b16-a782-7829ba375645",
+        "7b0b5bca-a21a-5a48-bd0f-e90fd93c1f4c",
+        "7c9d02b0-a011-549a-9b77-65edcd6243d2",
+        "484b9ae4-da2b-506f-a9c7-cfc517286ff0",
+        "64109a5c-dd45-5e45-9994-f835f02b55cc",
+        "630e1ec7-bf22-5d4b-9d10-991c70c3bf97",
+        "e57a0259-fa9c-5ab4-a9f9-ae278f2ab742",
+        "f32ca82a-4201-501b-b5d1-1eb6510c879d",
+        "c7b9275f-22fb-578b-9f02-c085e0537624",
+        "3e3e247e-e9ac-5f16-9d7b-2057f34d688a",
+        "fe1151a2-2f3b-56bf-aee1-210fd73dc1c0",
+        "02c69d05-da41-5b68-a303-7131d9dc32d9",
+        "4898d947-bfdd-5dfd-84d2-8dbe602c9bda"
+    ],
+    "content_gaps": []
+}
+```
