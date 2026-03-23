@@ -1,0 +1,79 @@
+```json
+{
+  "filename": "Cohort",
+  "found": true,
+  "summary": "The Cohort class defines a structure used to manage cohort information in the HSPnet system. It includes fields, methods, and validation rules for cohort operations.",
+  "purpose": "To manage and manipulate cohort data, including operations like add, update, delete, copy, archive, and search within HSPnet.",
+  "entities": ["Cohort", "Cohorts"],
+  "fields": [
+    "ID",
+    "ProgramID",
+    "Name",
+    "ShortName",
+    "ShortNameUnformatted",
+    "Description",
+    "Inactive",
+    "CreatedByQES",
+    "HideCourses",
+    "Unstructured",
+    "TotalYears",
+    "IDFormatted",
+    "CohortInfo",
+    "TimetableEntryExists",
+    "FullName",
+    "ExpectedEnrollment",
+    "ExpectedEndDate"
+  ],
+  "actors": ["HSPnetSession", "Sess"],
+  "workflows": [
+    {
+      "name": "Cohort Management",
+      "steps": [
+        "Add a new cohort.",
+        "Update existing cohort details.",
+        "Delete a cohort.",
+        "Copy a cohort to a different term.",
+        "Archive and unarchive a cohort.",
+        "Search for cohorts by program."
+      ]
+    }
+  ],
+  "business_rules": [
+    "A cohort must have a name and short name to be valid.",
+    "Cohorts can be archived if they have no enrolled students."
+  ],
+  "validations": [
+    "Ensure name is specified.",
+    "Ensure short name is specified."
+  ],
+  "calculations": [
+    "Formatting of total years into a string format.",
+    "Construct full name based on short name and name."
+  ],
+  "conditions": [
+    "Allow changes to unstructured status if only one timetable entry exists."
+  ],
+  "system_behavior": [
+    "Executes database stored procedures for cohort operations.",
+    "Manages cohort data operations using HSPnetSession."
+  ],
+  "dependencies": ["HSPnet.Framework", "HSPnet.App_GlobalResources"],
+  "exceptions": [
+    "Handles cohort deletion and copying within valid session.",
+    "Validates cohort fields before database operations."
+  ],
+  "source_document_ids": [
+    "02bd92c3-159e-531a-9456-c2b9d176f79d",
+    "1bf6a62d-9056-5057-a512-61cb3e89f439",
+    "6cffad27-0d17-5fb1-b5f3-05a156cf93b6",
+    "afcdd9ee-7dae-5ac8-aba2-8ca264b4c6b8",
+    "c3ff9e9d-d807-5930-96df-a5a67d521376",
+    "ca0e2c97-b9a0-5487-83ec-994a85d4a612",
+    "d5823397-d3a3-5d0a-b4cf-0bf3c2d77008",
+    "d6c1869f-bf70-5904-8b13-c894338f7525",
+    "e2fc2ec7-ce99-50c0-bdab-803fbd2f20f8",
+    "e5df3ec3-3873-5605-ad7e-66df59db89d0"
+  ],
+  "content_gaps": []
+}
+```
