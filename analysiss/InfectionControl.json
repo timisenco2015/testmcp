@@ -1,0 +1,157 @@
+{
+  "filename": "InfectionControl",
+  "found": true,
+  "summary": "The InfectionControl file is part of the HSPnet application related to enrollment management, especially focused on managing student prerequisites and infection control measures. It includes user controls for displaying and updating student information, handling prerequisites for respiratory masks, and managing data grid actions like editing and saving entries.",
+  "purpose": "To facilitate the management of infection control measures within the HSPnet system, specifically for handling student prerequisites and related data in enrollment processes.",
+  "entities": [],
+  "fields": [
+    {
+      "name": "CohortID",
+      "type": "int",
+      "description": "Identifier for the cohort."
+    },
+    {
+      "name": "TermID",
+      "type": "int",
+      "description": "Identifier for the term."
+    },
+    {
+      "name": "CourseID",
+      "type": "int",
+      "description": "Identifier for the course."
+    },
+    {
+      "name": "CampusID",
+      "type": "int",
+      "description": "Identifier for the campus."
+    },
+    {
+      "name": "EnrollmentID",
+      "type": "int",
+      "description": "Identifier for the enrollment."
+    },
+    {
+      "name": "N95MaskSizeCodeID",
+      "type": "int",
+      "description": "Code ID for the N95 mask size."
+    },
+    {
+      "name": "N95MaskAltSizeCodeID",
+      "type": "int",
+      "description": "Code ID for an alternative N95 mask size."
+    },
+    {
+      "name": "ShowGrad",
+      "type": "Boolean",
+      "description": "Flag to show graduated students."
+    },
+    {
+      "name": "ShowInactive",
+      "type": "Boolean",
+      "description": "Flag to show inactive students."
+    },
+    {
+      "name": "ShowWaived",
+      "type": "Boolean",
+      "description": "Flag to show waived prerequisites."
+    },
+    {
+      "name": "SectionFilter",
+      "type": "string",
+      "description": "Filter for sections."
+    },
+    {
+      "name": "ActionFilter",
+      "type": "string",
+      "description": "Filter for actions."
+    },
+    {
+      "name": "keyword",
+      "type": "string",
+      "description": "Keyword for search or filter operations."
+    },
+    {
+      "name": "CommentFilter",
+      "type": "string",
+      "description": "Filter for comments."
+    }
+  ],
+  "actors": [
+    {
+      "name": "UserSession",
+      "role": "Session manager for user interactions and data access control."
+    },
+    {
+      "name": "GridViewRow",
+      "role": "Represents each row in the data grid, used for operations on data entries."
+    }
+  ],
+  "workflows": [
+    {
+      "name": "Student Enrollment Data Processing",
+      "steps": [
+        "Check user session validity for operation commencement.",
+        "Iterate over grid data rows to process entries.",
+        "Perform actions based on command names like 'cmdUnwaive', 'cmdEdit', and 'cmdEditAll'.",
+        "Bind data as per current state and user commands.",
+        "Update UI components like panels and validation summaries."
+      ]
+    },
+    {
+      "name": "Infection Control Equipment Management",
+      "steps": [
+        "Load data involving N95 mask size and fit test details.",
+        "Validate input fields for mask sizes and fit test dates.",
+        "Commit changes to the data source reflecting updated prerequisites."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Student records cannot be edited if the user session is invalid.",
+    "N95 mask fit test date is mandatory if a mask size is specified.",
+    "Graduated or inactive students have disabled rows unless waived."
+  ],
+  "validations": [
+    "Ensure N95 mask fit test date is valid and required if mask size is given.",
+    "Verify that input fields match expected data types before processing."
+  ],
+  "calculations": [],
+  "conditions": [
+    "RowDisabled condition applies if a student has graduated or is inactive.",
+    "Screen is editable unless the user session is read-only or row is disabled."
+  ],
+  "system_behavior": [
+    "Automatically hide or show UI components based on the user's access level.",
+    "Use JavaScript for client-side validations and UI interactions."
+  ],
+  "dependencies": [
+    "HSPnet.UI.Calendar for date picker controls.",
+    "System.Web.UI.WebControls for UI components like GridView and Buttons."
+  ],
+  "exceptions": [
+    "Cancel data operations if the user session is null during data binding."
+  ],
+  "source_document_ids": [
+    "1b3592c9-095a-5400-87b5-b4e0b2639ac2",
+    "30574f3a-491b-5d6d-be00-23b99be20a49",
+    "32e706a0-2fb0-5820-a939-fd70f6c472d4",
+    "5b114886-5f18-57c7-a866-3e93f979791d",
+    "5f189a9e-ce38-5ca4-a3b1-ebdd1cbffc68",
+    "617dab02-492d-5fbb-81f6-16a8d35be6e6",
+    "65f9a15c-62cd-50cc-b18a-2c98d3be15ea",
+    "7144ac07-3248-5d33-86aa-6857d1103b68",
+    "7176119b-1224-584f-b928-3476fc11827b",
+    "71aff2f5-6784-5dcc-ad78-5496178816b9",
+    "7e2bbcc7-1c8d-5de1-94dd-e58edf369af3",
+    "96b67ace-803f-57f4-8ad3-577dee53c2ac",
+    "9b6cb07c-c039-50b6-b1ae-89d6a257b172",
+    "b2d7d48b-6d74-5b30-a41f-457bc42e8859",
+    "c3f7475f-0b7f-5ad5-b1de-24d2276a5455",
+    "cc517e6a-5fd0-54b0-a8a9-631419ac5bf9",
+    "de1c27cd-a3dd-5b5b-83a8-d8282910d95b",
+    "eda4d3a3-2dae-5d78-94d1-e2e54f12a2c5",
+    "ef53f6bb-25bf-5af3-8ee5-ded3737c10a3",
+    "f30a8bef-70a8-5b75-a827-0c2c3dc51a86"
+  ],
+  "content_gaps": []
+}
