@@ -1,0 +1,69 @@
+{
+  "filename": "Recognition",
+  "found": true,
+  "summary": "The Recognition component is a user control within the HSPnet application, designed to manage staff recognition activities. It includes functionality for adding, editing, and deleting recognition activities, using various controls like dropdowns and date fields to capture information.",
+  "purpose": "To provide an interface for managing staff recognition activities within the HSPnet application.",
+  "entities": [
+    "HSPnetSession",
+    "CodeRecord",
+    "StaffRecognitionActivity"
+  ],
+  "fields": [
+    "activityTypeCodeID",
+    "academicAppointmentTypeCodeID",
+    "activityTypeComments",
+    "activityDate",
+    "expiryDate",
+    "departmentID",
+    "programID"
+  ],
+  "actors": [
+    "UserSession",
+    "StaffID"
+  ],
+  "workflows": [
+    {
+      "name": "Add or Edit Recognition Activity",
+      "steps": [
+        "Select activity type from dropdown.",
+        "Fill in activity date and comments if applicable.",
+        "Submit the data for adding or updating."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Ensure user session exists before performing operations.",
+    "Use different code IDs based on activity types (e.g., OTHER, ACAD)."
+  ],
+  "validations": [
+    "Validate that the start date is before the end date."
+  ],
+  "calculations": [],
+  "conditions": [
+    "If no user session, cancel operation.",
+    "Different handling for OTHER and ACAD activity types."
+  ],
+  "system_behavior": [
+    "JavaScript functions to handle UI behavior and form submission."
+  ],
+  "dependencies": [
+    "HSPnet.UI",
+    "AjaxControlToolkit"
+  ],
+  "exceptions": [
+    "Cancel operation if user session is null."
+  ],
+  "source_document_ids": [
+    "0a0a7e51-eb8c-5a38-882e-41f4f84bff9a",
+    "19f37882-9042-571b-a655-e9376ac8ff17",
+    "1e67d3f5-437b-5805-8910-1530eaae20f5",
+    "383b5bda-617b-5d1a-82a0-b06a071b58b1",
+    "43c06007-f867-56a1-a161-1cf216960817",
+    "616e0bd3-1e94-592c-987e-cdeb65aae239",
+    "aeed2929-9bf0-577a-bbce-27a0ce038e05",
+    "ba0652f1-c58f-530b-ac92-e20fb52ba37f",
+    "b1e469b1-7dff-5198-abbb-f3063aca2b50",
+    "bbb5e1af-f431-527e-9203-b46b0ff8d238"
+  ],
+  "content_gaps": []
+}
