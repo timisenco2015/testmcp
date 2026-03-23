@@ -1,62 +1,82 @@
 {
   "filename": "MaintHelp",
   "found": true,
-  "summary": "The document appears to be a web application page developed using ASP.NET, featuring a user interface for managing help screens within the HSPnet system. The page provides functionalities for adding, editing, deleting, and previewing help records, allowing users to manage help content effectively.",
-  "purpose": "The document is intended to provide a management interface for help screens, allowing users to perform CRUD operations on help records and navigate through different help entries in the HSPnet system.",
+  "summary": "The 'MaintHelp' file is related to the maintenance of help documentation in a web application. It involves the management and display of help records, including adding, editing, deleting, and viewing help entries. The content handles various user interactions with help entries through a grid view and a detailed view component.",
+  "purpose": "The purpose of 'MaintHelp' is to facilitate the management of help documentation within a web application, allowing users to add, edit, delete, and view help content effectively.",
   "entities": [],
   "fields": [
-    "ScreenName",
-    "HelpTitle",
-    "HelpText",
-    "HelpTitleAlt",
-    "HelpTextAlt"
+    {
+      "name": "HelpTitleAlt",
+      "description": "An alternate title for help documentation",
+      "type": "string",
+      "constraints": {
+        "maxLength": 200,
+        "required": true
+      }
+    },
+    {
+      "name": "HelpText",
+      "description": "Main text content for help documentation",
+      "type": "string",
+      "constraints": {
+        "multiLine": true,
+        "required": true
+      }
+    },
+    {
+      "name": "ScreenName",
+      "description": "Identifier for the screen the help documentation is associated with",
+      "type": "string",
+      "constraints": {
+        "visible": false
+      }
+    }
   ],
   "actors": [
-    "User",
-    "Administrator"
+    {
+      "name": "User",
+      "description": "Interacts with the help system to manage help entries"
+    }
   ],
   "workflows": [
     {
-      "name": "Managing Help Screens",
+      "name": "Manage Help Entries",
       "steps": [
-        "User accesses the help management page.",
-        "User can add a new help record by clicking 'Add'.",
-        "User enters details such as ScreenName, HelpTitle, and HelpText.",
-        "User saves the record, which is then displayed in the grid.",
-        "User can edit an existing record by selecting 'Edit'.",
-        "User can delete a record by selecting 'Delete'.",
-        "User can preview a help screen by selecting 'Preview'."
+        "User loads the help maintenance page",
+        "User views existing help entries in a grid",
+        "User selects an entry to edit or delete",
+        "User can add new help entries",
+        "System processes updates and communicates results"
       ]
     }
   ],
   "business_rules": [
-    "ScreenName must be specified for each help record.",
-    "HelpTitle and HelpText fields are mandatory.",
-    "Changes are reflected in the grid after operations like add, edit, or delete."
+    "Screen Title and Text must be specified for all help entries.",
+    "Only users with valid session can access the help maintenance page."
   ],
   "validations": [
-    "ScreenName is required: validated by asp:RequiredFieldValidator.",
-    "HelpTitle is required: validated by asp:RequiredFieldValidator.",
-    "HelpText is required."
+    {
+      "field": "HelpTitleAlt",
+      "type": "required",
+      "errorMessage": "Screen Title must be specified."
+    },
+    {
+      "field": "HelpText",
+      "type": "required",
+      "errorMessage": "Help Text must be specified."
+    }
   ],
-  "calculations": [
-    "StringUtil.TruncateString is used to limit the display length of HelpText and HelpTextAlt."
-  ],
-  "conditions": [
-    "If the keyword is not specified, a default wildcard '%' is used for search.",
-    "Operations like edit and delete are conditional on user selection."
-  ],
+  "calculations": [],
+  "conditions": [],
   "system_behavior": [
-    "Page loads up with the existing help entries in a grid.",
-    "Grid data is refreshed after every operation to reflect the latest state.",
-    "Error and warning panels are shown/hidden based on operation outcomes."
+    "Displays help entries in a grid format.",
+    "Allows in-place editing of help entries through a detailed view.",
+    "Deletes help entries upon user confirmation.",
+    "Refreshes data upon interactions to maintain up-to-date entries."
   ],
-  "dependencies": [
-    "HSPnet.DataLayer.Help for data operations.",
-    "HSPnet.Framework for UI and functional components."
-  ],
+  "dependencies": [],
   "exceptions": [
-    "Invalid entries trigger validation errors displayed through a ValidationSummary."
+    "If a required field is not filled, the entry will not be saved."
   ],
   "source_document_ids": [
     "086f8287-aaa2-589f-b82f-0814a01c1079",
