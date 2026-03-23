@@ -1,0 +1,125 @@
+{
+  "filename": "RptMnuInvoicing",
+  "found": true,
+  "summary": "RptMnuInvoicing is a web user control designed for generating invoicing reports in various formats such as CSV based on multiple filters and criteria. The control supports both term-based and date-range options and integrates various agency, department, program, and term selections, alongside options for including specific statuses and details related to invoicing.",
+  "purpose": "The control's purpose is to facilitate dynamic report generation by filtering and compiling data based on user-selected criteria, enabling detailed invoicing and financial analysis.",
+  "entities": [
+    "Agency",
+    "Department",
+    "Program",
+    "Term",
+    "Site",
+    "PlacementRequestType",
+    "CohortCourse"
+  ],
+  "fields": [
+    "PlcAgencyID",
+    "DepartmentID",
+    "ProgramID",
+    "TermID",
+    "CohortCourseIDList",
+    "AgencyID",
+    "GoverningOrgIDList",
+    "SiteIDList",
+    "IncludeOption",
+    "startDate",
+    "endDate",
+    "invoiceStatus"
+  ],
+  "actors": [
+    "UserSession",
+    "Dropdown",
+    "UserReportFilters"
+  ],
+  "workflows": [
+    {
+      "name": "Report Generation",
+      "steps": [
+        "Select agency, department, program, and term.",
+        "Choose filter options such as receiving or placing mode.",
+        "Specify date range or term mode.",
+        "Set invoice statuses and saved filters.",
+        "Execute report generation and display output."
+      ]
+    },
+    {
+      "name": "Filter Setup",
+      "steps": [
+        "Initialize dropdown lists based on session data.",
+        "Load existing saved filters if available.",
+        "Update filters dynamically through user interaction."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Only user-specific agencies are shown in receiving mode.",
+    "The term mode requires selection of at least one cohort/course.",
+    "Date mode requires both start and end dates to be specified."
+  ],
+  "validations": [
+    "Start and end dates must be entered in date mode.",
+    "Cohort/course filters cannot exceed the maximum allowed."
+  ],
+  "calculations": [
+    "Report header construction based on selected filters and criteria."
+  ],
+  "conditions": [
+    "ReceivingMode must be true or false.",
+    "IncludeOption can be 0 (confirmed only), 1 (include accepted), or 2 (all except decline/cancel)."
+  ],
+  "system_behavior": [
+    "Dropdowns populate with current session data.",
+    "JavaScript integration for dynamic filter management."
+  ],
+  "dependencies": [
+    "Resources for localization and label texts.",
+    "UserSession API for retrieving session-specific data."
+  ],
+  "exceptions": [
+    "Error messages for missing required fields like start and end dates or type selection."
+  ],
+  "source_document_ids": [
+    "057bc5e5-28dd-5588-8c7a-0592c332feed",
+    "23724209-6da4-5b73-8468-bc7c3a6f341a",
+    "2b561829-9afd-57a8-8df3-d917c428ba88",
+    "2fd6a32b-5d2b-5645-8397-b66ea1d404fb",
+    "3bac11d5-bc9f-5667-aa3c-927677b4fc61",
+    "3cc50521-e713-5ad9-a315-e0f2597ac9bb",
+    "3ce16935-4941-50aa-bcf5-5ea6e3b360e9",
+    "4485e4c4-6694-5219-aa17-646e805f5d65",
+    "482fa800-177c-5f8b-933b-35312a57fef7",
+    "4eebe7cc-7f96-5819-b58c-141971a3b10a",
+    "533b23d2-d085-5f30-b357-8c5866f12ba1",
+    "5ddf4f4e-a818-5766-934f-1f394c5e9d60",
+    "811e282c-aa10-528f-9f41-40dbbc52964e",
+    "8e8cfae4-63fc-54d6-bace-51ec8491889c",
+    "9946539b-5324-5eda-afd6-9cd2520f0ea5",
+    "a5135645-b71f-5103-a2c4-3ab569b80a86",
+    "ab18385b-ddea-5cfc-9ab0-96402bfbf4d9",
+    "b239a9e1-e92d-584d-b709-b07784067e1f",
+    "b308e180-c36e-532d-b00e-8cc3764821e1",
+    "b482adfe-08c6-5697-8083-2ee8d1960598",
+    "b62d41fe-a78e-5d26-811c-5cde4042928c",
+    "b817e93d-d627-5bd3-8c96-236a139cb5bb",
+    "b94cf52f-cf82-592d-8b27-4784b9825def",
+    "bc4fbe73-069d-5afc-9a15-4d10c7b5e827",
+    "c1ea850e-ea56-5dc4-9ed6-82a33055dc10",
+    "c2296e24-0711-5fbf-b0e8-31fd819e93b9",
+    "c832d5d7-356c-5772-ba94-7f63a50c0ef2",
+    "ce361d6e-6ce1-516d-a9db-a671b1898fd5",
+    "d11ab245-e71e-5361-9adc-06904cf92cd0",
+    "d489ca74-e0e7-512b-bd41-6d2353dc0b23",
+    "d7e4b710-c209-5989-ad43-e2b065adc55b",
+    "dac2226b-a0b6-5a47-9496-25b7a98ee976",
+    "ddc8d6cd-1557-5353-8a68-8b8e246f80fc",
+    "df6957f9-6c11-5df2-aa28-bdf92e49c871",
+    "e3bb635f-165b-5882-8dbf-fe188bc2e461",
+    "e5367e57-00e0-56c4-84f6-b99ecd6ca0bb",
+    "e83422db-c229-5319-9bcf-939c224fce1c",
+    "e8f13745-f699-5846-9a88-c2764e476778",
+    "f265a6a7-0e77-5510-a316-07391d430818",
+    "fa6c44ed-fb30-5bbb-8f39-676f097584d7",
+    "fdad9901-92b1-5276-8fae-06e8c7b14d51"
+  ],
+  "content_gaps": []
+}
