@@ -1,0 +1,72 @@
+```json
+{
+    "filename": "validation",
+    "found": true,
+    "summary": "The content extracted from the documents related to 'validation' provides comprehensive insights into the system's validation processes. These include various health-related assessments and status updates for students in a healthcare system. The content details the management of health and safety records, validations of immunizations, confidentiality, and various medical tests that students must undergo as prerequisites.",
+    "purpose": "The primary purpose of the extracted content is to manage, track, and validate health-related prerequisites for students in a healthcare education setting. This includes maintaining records of vaccinations, health status, medical fitness, and safety compliance.",
+    "entities": [],
+    "fields": [
+        {
+            "name": "Student ID",
+            "type": "Integer",
+            "description": "Unique identifier for each student."
+        },
+        {
+            "name": "Staff ID",
+            "type": "Integer",
+            "description": "Unique identifier for staff responsible for updates."
+        },
+        {
+            "name": "Vaccination Dates",
+            "type": "Date",
+            "description": "Dates of administration for various vaccines."
+        },
+        {
+            "name": "Immunization Status",
+            "type": "Boolean",
+            "description": "Indicates if the immunization requirements are met."
+        }
+    ],
+    "actors": [
+        {
+            "name": "HSPnetSession",
+            "role": "Session management for database operations and validation."
+        }
+    ],
+    "workflows": [
+        {
+            "name": "Immunization Record Update",
+            "steps": [
+                "Check if student record is valid.",
+                "Update vaccination status and dates in the database.",
+                "Validate and store confidentiality form details."
+            ]
+        }
+    ],
+    "business_rules": [],
+    "validations": [
+        "MeaslesAdminDate must be a valid date and formatted correctly.",
+        "Vaccination dates should not be more than 5 years old from the current date.",
+        "Confidentiality form must be received and valid."
+    ],
+    "calculations": [],
+    "conditions": [],
+    "system_behavior": [
+        "Automatically format and validate dates for display and storage.",
+        "Add error messages to session if validations fail."
+    ],
+    "dependencies": [],
+    "exceptions": [
+        "Expired vaccination records result in warnings or errors.",
+        "Invalid or missing confidentiality forms trigger validation failures."
+    ],
+    "source_document_ids": [
+        "126148d2-7c46-5bb8-8a4c-606105b702bd",
+        "165b1b6b-fd06-59e5-b7d7-81e87dbeac55",
+        "4abb53e7-107a-535d-a3b7-97b5279e2632",
+        "d0eb0cc2-a4a7-55d8-8468-1d6ae5eefb35",
+        "eedb6500-7e63-5aba-b652-8cfbbf9b798d"
+    ],
+    "content_gaps": []
+}
+```
