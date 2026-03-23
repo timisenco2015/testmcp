@@ -1,0 +1,95 @@
+{
+  "filename": "MaintCourseDetailsCompetency",
+  "found": true,
+  "summary": "MaintCourseDetailsCompetency is an ASP.NET UserControl for managing course competencies within the HSPnet framework, allowing users to view, edit, and update competency levels for a specific course. It supports controlled access based on session and screen editability, displays competencies in a grid, provides glossary links, and uses modal popups for editing.",
+  "purpose": "To facilitate competency management for courses, allowing authorized users to view, edit, and save competency levels via grid interfaces and popups, with business logic integrated for session validation, button visibility, and redirection.",
+  "entities": [
+    "CourseCompetency",
+    "CompetencyLevels",
+    "HSPnetSession"
+  ],
+  "fields": [
+    "CompetencyCodeID",
+    "Level",
+    "CourseID",
+    "UserSession"
+  ],
+  "actors": [
+    "Authenticated User",
+    "System Administrator",
+    "HSPnet Framework Components"
+  ],
+  "workflows": [
+    {
+      "name": "View Competencies",
+      "steps": [
+        "User accesses MaintCourseDetailsCompetency screen.",
+        "System loads competency grid (gvwCompetency) based on CourseID and UserSession.",
+        "Glossary hyperlink is configured if present.",
+        "Edit All button is shown only if ScreenIsEditable."
+      ]
+    },
+    {
+      "name": "Edit Competencies",
+      "steps": [
+        "User clicks Edit All (if enabled).",
+        "Competency modal (mdlDetails) pops up and gvwCompetencyEdit grid is displayed.",
+        "Rows in gvwCompetencyEdit are bound with available competency levels.",
+        "User selects new levels via dropdowns."
+      ]
+    },
+    {
+      "name": "Save Competencies",
+      "steps": [
+        "User clicks Save All in modal.",
+        "System iterates through each row, constructs CourseCompetency objects with selected values.",
+        "CourseCompetencies.UpdateCompetencies is called to persist changes.",
+        "User session is cached and redirected to updated course details page."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Edit All and related buttons are hidden in read-only mode (ScreenIsEditable = false).",
+    "Competency grid is only loaded if UserSession is valid.",
+    "Competency levels are loaded from CompetencyLevels.CompetencyLevelList().",
+    "CourseCompetency updates are only allowed for authenticated sessions."
+  ],
+  "validations": [
+    "UserSession must not be null.",
+    "CompetencyCodeID and Level must be valid integers.",
+    "Dropdown selections in competency edit grid must correspond to valid levels."
+  ],
+  "calculations": [],
+  "conditions": [
+    "If UserSession is null, data source selection is cancelled.",
+    "ScreenIsEditable determines visibility of edit controls."
+  ],
+  "system_behavior": [
+    "Redirects user to MaintCourseDetails page with updated parameters and session cache after saving.",
+    "Uses modal popups for editing competencies.",
+    "Updates panel and grid controls to reflect competency data."
+  ],
+  "dependencies": [
+    "HSPnetSession for user authentication and session management.",
+    "CompetencyLevels.CompetencyLevelList() for populating dropdowns.",
+    "CourseCompetencies.UpdateCompetencies for saving changes.",
+    "Grid UI controls (GridView, Panel, UpdatePanel, ModalPopupExtender)."
+  ],
+  "exceptions": [
+    "Invalid session (UserSession null) aborts competency data loading.",
+    "Fields not editable if screen is in read-only mode."
+  ],
+  "source_document_ids": [
+    "30da0bad-a34e-52f2-9a53-62ed0414c4bf",
+    "458078bf-ab35-5785-a4a7-9754754243dc",
+    "51182d66-8706-5cdc-a381-47a0cd5d10ee",
+    "61861f73-9373-5f5b-bc46-f839651ee5d2",
+    "ed62da10-cafd-5ccc-a3b6-83f28a00f0c7"
+  ],
+  "content_gaps": [
+    "CompetencyLevels.CompetencyLevelList() implementation details are missing.",
+    "CourseCompetencies.UpdateCompetencies business logic is not fully described.",
+    "No explicit UI markup or field validation rules are present.",
+    "Exception handling routines beyond session validation are not specified."
+  ]
+}
