@@ -1,0 +1,100 @@
+# Module: LeftNav
+
+## LeftNav-UC1 — Navigate to Inbox
+
+- Primary Actor(s): User
+- Secondary Actor(s): None
+- Trigger: User selects the Inbox option.
+- Description: Allows the user to navigate to their Inbox to check messages.
+- Preconditions: User is logged into the system.
+- Postconditions: User is taken to the Inbox page.
+- Main Success Scenario:
+  1. User clicks on the Inbox hyperlink or button.
+  2. System uses `FindRefNumber` to navigate to the Inbox page.
+  3. The Inbox content is displayed to the user.
+- Extensions:
+  - The user can use a query to search within the Inbox.
+- Exceptions:
+  - If the Inbox is not available, an appropriate message is displayed.
+- Business Rules: N/A
+- Assumptions: The system is connected and the user has Inbox access rights.
+- Open Issues: None
+
+## LeftNav-UC2 — Navigate to Outbox
+
+- Primary Actor(s): User
+- Secondary Actor(s): None
+- Trigger: User selects the Outbox option.
+- Description: Allows the user to navigate to their Outbox to check sent messages.
+- Preconditions: User is logged into the system.
+- Postconditions: User is taken to the Outbox page.
+- Main Success Scenario:
+  1. User clicks on the Outbox hyperlink or button.
+  2. System uses `FindRefNumber` to navigate to the Outbox page.
+  3. The Outbox content is displayed to the user.
+- Extensions:
+  - The user can use a query to search within the Outbox.
+- Exceptions:
+  - If the Outbox is not available, an appropriate message is displayed.
+- Business Rules: N/A
+- Assumptions: The system is connected and the user has Outbox access rights.
+- Open Issues: None
+
+## LeftNav-UC3 — User Logout
+
+- Primary Actor(s): User
+- Secondary Actor(s): None
+- Trigger: User selects the logout option.
+- Description: Processes user logout and redirects to the appropriate URL.
+- Preconditions: User is logged into the system.
+- Postconditions: User is logged out of the system.
+- Main Success Scenario:
+  1. User clicks the logout button.
+  2. System calls the `Logout` function.
+  3. User is redirected to the specified URL post-logout.
+- Extensions:
+  - Users can be redirected to different URLs based on settings.
+- Exceptions:
+  - If the logout fails, the system displays an error message.
+- Business Rules: N/A
+- Assumptions: The system is functioning correctly, and session handling is active.
+- Open Issues: None
+
+## LeftNav-UC4 — Switch User
+
+- Primary Actor(s): User
+- Secondary Actor(s): System
+- Trigger: User selects the switch user option.
+- Description: Allows a user to switch to a different user profile or ID.
+- Preconditions: User is logged into the system and has permission to switch users.
+- Postconditions: User is logged as a new user ID.
+- Main Success Scenario:
+  1. User clicks on the switch user button.
+  2. System processes the switch using `goBackToPrimaryID`.
+  3. User is logged in with the new ID.
+- Extensions: N/A
+- Exceptions:
+  - If switching fails, an appropriate error message is displayed.
+- Business Rules: User must have permissions to switch.
+- Assumptions: The system maintains multiple user profiles.
+- Open Issues: None
+
+## LeftNav-UC5 — Set Start Page
+
+- Primary Actor(s): User
+- Secondary Actor(s): None
+- Trigger: User selects the make start page option.
+- Description: Sets the current page as the start page for the user's session.
+- Preconditions: User is logged into the system.
+- Postconditions: The selected page is set as the start page for future sessions.
+- Main Success Scenario:
+  1. User clicks the make start page button.
+  2. System sets the current page as the start page using `SetStartScreen`.
+- Extensions: N/A
+- Exceptions:
+  - If the start page setting fails, an error is returned to the user.
+- Business Rules: N/A
+- Assumptions: User has the permission to set their start page.
+- Open Issues: None
+
+These use cases capture the navigation and session control features built into the LeftNav module, based on the extracted documentation.
