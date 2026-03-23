@@ -1,0 +1,47 @@
+{
+  "filename": "TermReleaseDates",
+  "found": true,
+  "summary": "The TermReleaseDates class is responsible for determining, calculating, and managing release dates for academic terms based on configurable provincial options. It generates three lists of release dates corresponding to each term's start date.",
+  "purpose": "To calculate academic term release dates based on start date and provincial configuration options.",
+  "entities": [],
+  "fields": [],
+  "actors": ["HSPnetSession"],
+  "workflows": [
+    {
+      "name": "Determine Term Release Dates",
+      "steps": [
+        "Receive the current session and term start date.",
+        "Create initial term and release date lists.",
+        "Calculate release dates based on start date and provincial options.",
+        "Output three lists of release dates."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Release dates vary based on term start date and provincial options.",
+    "Three release date lists are created for each term."
+  ],
+  "validations": [],
+  "calculations": [
+    "Release dates are assigned specific year, month, and day values based on conditions."
+  ],
+  "conditions": [
+    "Different date ranges are treated differently regarding the release date calculations.",
+    "Provincial option 'SK' alters the release date formula."
+  ],
+  "system_behavior": [
+    "Uses the DateLists function to generate release date lists.",
+    "Calculates release dates depending on the start date of the term."
+  ],
+  "dependencies": [
+    "Depends on the DateFormatter for formatting date strings.",
+    "Relies on provincial configuration settings for release date calculations."
+  ],
+  "exceptions": [],
+  "source_document_ids": [
+    "14139468-6c49-5491-9d8b-fe012cdb52ad",
+    "2dee5900-158a-54d9-9761-0a184ff86f95",
+    "f949e84a-160e-5436-a4bb-9293b3d0874e"
+  ],
+  "content_gaps": []
+}
