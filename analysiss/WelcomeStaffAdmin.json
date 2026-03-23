@@ -1,53 +1,45 @@
 {
-  "filename": "WelcomeStaffAdmin",
-  "found": true,
-  "summary": "This document defines the UI for the welcome page for staff administration, including dropdowns, validators, and control elements.",
-  "purpose": "Facilitate staff administration tasks by providing a user-interface for selecting sites and disciplines.",
-  "entities": [],
-  "fields": [
-    {
-      "name": "txtEndDate",
-      "type": "TextBox"
-    },
-    {
-      "name": "btnEndDateCalendar",
-      "type": "LinkButton"
-    }
-  ],
-  "actors": [],
-  "workflows": [
-    {
-      "name": "Page Load",
-      "steps": [
-        "Initialize dropdowns with site and discipline data",
-        "Set default dates for start and end date fields",
-        "Bind grid view with employment applications"
-      ]
-    }
-  ],
-  "business_rules": [],
-  "validations": [
-    {
-      "type": "RegularExpression",
-      "control": "txtEndDate",
-      "validation_expression": "Date_ValidationExpression",
-      "error_message": "End_Date_Invalid"
-    }
-  ],
-  "calculations": [],
-  "conditions": [],
-  "system_behavior": [],
-  "dependencies": [],
-  "exceptions": [],
-  "source_document_ids": [
-    "05db31e4-e8b6-53ee-a6fb-812c106f0134",
-    "100d5925-a5f8-53db-8493-02cddd563eb7",
-    "3c84bade-9671-5fbf-acce-3c87a835e9b4",
-    "4c4b97b8-d242-5261-a515-767a3f7d7a49",
-    "52b5066f-23f6-5d82-96cd-5d51dad3de79",
-    "5bb85da3-f5b4-5753-b07c-9bb2a04eeb89",
-    "5d9b92ea-7c12-5070-8603-977cf14d0e04",
-    "54244516-0707-581e-a8ba-9c041ea38366"
-  ],
-  "content_gaps": []
+    "filename": "WelcomeStaffAdmin",
+    "found": true,
+    "summary": "Welcome page for staff administrators in the HSPnet system.",
+    "purpose": "To provide a welcome interface and functionalities for staff administrators.",
+    "entities": [],
+    "fields": [
+        "lblTitle",
+        "pnlLastLogin",
+        "ltlLastLogin",
+        "AlwaysVisibleControlExtender1"
+    ],
+    "actors": ["Staff Admin"],
+    "workflows": [
+        {
+            "name": "Login Workflow",
+            "steps": [
+                "Page_Load",
+                "FillSiteDropdown",
+                "FillDisciplineDropdown",
+                "RefreshData"
+            ]
+        }
+    ],
+    "business_rules": [],
+    "validations": [
+        "RequiredFieldValidator",
+        "RegularExpressionValidator"
+    ],
+    "calculations": [],
+    "conditions": ["If not IsPostBack"],
+    "system_behavior": [
+        "Display last login information",
+        "Enable script globalization"
+    ],
+    "dependencies": [],
+    "exceptions": [],
+    "source_document_ids": [
+        "05db31e4-e8b6-53ee-a6fb-812c106f0134",
+        "54244516-0707-581e-a8ba-9c041ea38366",
+        "ca71b077-cc26-5979-a44f-59700a41316b",
+        "e249a878-c837-5d1c-9a3d-5167df2614fb"
+    ],
+    "content_gaps": []
 }
