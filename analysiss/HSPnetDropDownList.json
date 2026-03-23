@@ -1,8 +1,8 @@
 {
   "filename": "HSPnetDropDownList",
   "found": true,
-  "summary": "The HSPnetDropDownList is a custom dropdown list control that extends the capabilities of a standard ASP.NET DropDownList. It includes additional properties and behaviors for handling options, particularly with a focus on an 'ALL' option.",
-  "purpose": "To provide a customizable dropdown list control that can highlight options and handle additional properties for specific application needs, such as managing a default 'ALL' option.",
+  "summary": "The HSPnetDropDownList is a custom implementation of a DropDownList control in a web application. It includes features for highlighting the dropdown list items based on selection and providing an 'ALL' option.",
+  "purpose": "The purpose of the HSPnetDropDownList is to provide a dropdown list with custom behavior for highlighting selected items and handling an optional 'ALL' selection.",
   "entities": [],
   "fields": [
     {
@@ -13,7 +13,7 @@
     {
       "name": "FirstItemIsALL",
       "type": "Boolean",
-      "description": "Indicates whether the first item in the dropdown is the 'ALL' option."
+      "description": "Indicates if the first item in the dropdown is the 'ALL' option."
     }
   ],
   "actors": [],
@@ -21,26 +21,24 @@
     {
       "name": "Dropdown Rendering",
       "steps": [
-        "On pre-rendering, evaluate the selected index.",
-        "If the selected index is greater than 0, add a red color style to the dropdown.",
-        "Iterate through each item to assign color styles based on the selection state."
+        "OnPreRender: Remove existing color styles.",
+        "Check if the selected index is greater than 0.",
+        "If selected index > 0, set dropdown color to red.",
+        "Else, set dropdown color to black.",
+        "If ALL is set, insert 'ALL' as first item on DataBound."
       ]
     }
   ],
-  "business_rules": [
-    "The first item in the dropdown list can be an 'ALL' option if configured.",
-    "Color styling is applied to highlight selected items and differentiate them from the 'ALL' option."
-  ],
+  "business_rules": [],
   "validations": [],
   "calculations": [],
   "conditions": [
-    {
-      "name": "Color Change",
-      "condition": "If an option other than the first is selected, apply a red color style."
-    }
+    "If ALL is true, 'ALL' is inserted as the first item.",
+    "Selected index > 0 sets dropdown color to red."
   ],
   "system_behavior": [
-    "The dropdown list will change its color based on the selection, defaulting to red if any option besides 'ALL' is selected."
+    "The dropdown's appearance changes based on the selected item.",
+    "The 'ALL' option can be included based on the ALL property."
   ],
   "dependencies": [],
   "exceptions": [],
