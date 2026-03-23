@@ -1,0 +1,159 @@
+```json
+{
+  "filename": "Course",
+  "found": true,
+  "summary": "The Course module involves managing course-related data and operations within an educational system, including search functions, validation rules, and profile management.",
+  "purpose": "To manage and retrieve data related to courses, including their details, configurations, and associated business rules, ensuring consistency and data integrity.",
+  "entities": [
+    {
+      "name": "Course",
+      "description": "Represents educational courses with attributes like ID, Name, DepartmentID, Duration, and various flags for configurations."
+    },
+    {
+      "name": "DepartmentRequestType",
+      "description": "Represents types of requests associated with departments."
+    }
+  ],
+  "fields": [
+    "ID",
+    "DepartmentID",
+    "Name",
+    "ShortName",
+    "Description",
+    "DurationHours",
+    "DurationShifts",
+    "SupervisionWeeks",
+    "ShiftLength",
+    "DefaultTypeCodeID",
+    "Inactive",
+    "CreatedByQES",
+    "ReportCodeID",
+    "UseBlocks",
+    "UseIndividualWorksheet",
+    "InstructorStudentRatio",
+    "Comments",
+    "UseRotations",
+    "IncludeRequests",
+    "IncludeRequestsWithCFO",
+    "IncludeOutOfProvinceCFO",
+    "TypeCode",
+    "ShortType",
+    "PRFormCode",
+    "ProfileExists",
+    "CourseUsesNISTemplate",
+    "IdleCourse",
+    "ExcludeInstructorFromITProvRole",
+    "MaxStudentPRSelections",
+    "SpecifyDuplicatePRs",
+    "RankWithheldPRs",
+    "ViewClassmateStats",
+    "AllowAnyDestInSite",
+    "AllowAnySiteDestInService",
+    "SearchableStatusCodeID",
+    "SearchableStatusCode",
+    "StudentsViewPRStatus",
+    "StudentsViewDestinations",
+    "AllowDuplicateDestinations",
+    "StudentsViewAgency",
+    "StudentsViewService",
+    "CampusesExist",
+    "PRsAllocatedToCampusOnly",
+    "PRsAllocatedToSectionOnly",
+    "ContactDataExists",
+    "SupervisorCaptionID",
+    "RequestType",
+    "PRFormTemplate",
+    "AgencyID",
+    "AgencyShortName",
+    "DepartmentShortName",
+    "CourseType",
+    "ProfileDataExists",
+    "DocumentDataExists",
+    "CompetencyDataExists",
+    "ASMDataExists",
+    "CorrDataExists",
+    "AssessmentDataExists",
+    "AllowStudentActivities",
+    "StudentActivityCutoffDays",
+    "GroupCodeID",
+    "NISTemplateID",
+    "Use3Prefs",
+    "NISFlag"
+  ],
+  "actors": [
+    {
+      "name": "HSPnetSession",
+      "description": "Handles the database interaction session."
+    },
+    {
+      "name": "User",
+      "description": "Interacts with the Course module via UI to manage and query course data."
+    }
+  ],
+  "workflows": [
+    {
+      "name": "Course Retrieval by Department",
+      "steps": [
+        "Set procedure name to CourseSearchDepartment",
+        "Add departmentID, showInactive, keyword, DefaultTypeCodeID, and SessionID as parameters",
+        "Execute database query",
+        "Parse results and populate Course entities"
+      ]
+    },
+    {
+      "name": "Course Addition",
+      "steps": [
+        "Create new Course object",
+        "Set course attributes",
+        "Validate course data",
+        "Apply business rules",
+        "Insert course data into database using CourseAdd procedure"
+      ]
+    },
+    {
+      "name": "Course Update",
+      "steps": [
+        "Retrieve course data",
+        "Set updated attributes",
+        "Validate data",
+        "Update course data in database using CourseUpdate procedure"
+      ]
+    }
+  ],
+  "business_rules": [
+    "Exclude Instructor From IT Provision Role if applicable.",
+    "Set StudentActivityCutoffDays to -1 if AllowStudentActivities is false.",
+    "Translate course names 'Unknown' for CreatedByQES flag."
+  ],
+  "validations": [
+    "Ensure Name and ShortName are specified.",
+    "DefaultTypeCodeID must be non-zero.",
+    "DurationHours must be calculated from DurationShifts and ShiftLength if zero.",
+    "StudentActivityCutoffDays cannot be less than -1."
+  ],
+  "calculations": [
+    "DurationHours = DurationShifts * ShiftLength"
+  ],
+  "conditions": [
+    "AgencyID must not be zero for CourseListAgency retrieval.",
+    "Course data is cached for repeated queries."
+  ],
+  "system_behavior": [
+    "Cache course detail data to minimize repeated queries.",
+    "Validate instructor-student ratio before updating."
+  ],
+  "dependencies": [
+    "HSPnet session object for database operations.",
+    "System.Web.HttpContext for caching course data."
+  ],
+  "exceptions": [
+    "Invalid instructor-student ratio raises error.",
+    "Missing required fields prevents course validation."
+  ],
+  "source_document_ids": [
+    "entry.ExcludeInstructorFromITProvRole",
+    "sess.DB.GetInt(dr,"
+  ],
+  "content_gaps": []
+}
+```
