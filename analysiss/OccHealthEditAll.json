@@ -1,0 +1,119 @@
+{
+  "filename": "OccHealthEditAll",
+  "found": true,
+  "summary": "OccHealthEditAll is part of the HSPnet application, used for managing occupational health data in an educational setting. It involves data entry and update functionalities for student immunization and health requirements.",
+  "purpose": "The purpose of OccHealthEditAll is to provide a user interface for managing student occupational health data, including immunization records and other health-related requirements.",
+  "entities": [],
+  "fields": [
+    {
+      "name": "CohortID",
+      "type": "int"
+    },
+    {
+      "name": "TermID",
+      "type": "int"
+    },
+    {
+      "name": "CourseID",
+      "type": "int"
+    },
+    {
+      "name": "ShowGrad",
+      "type": "Boolean"
+    },
+    {
+      "name": "ShowInactive",
+      "type": "Boolean"
+    },
+    {
+      "name": "ShowWaived",
+      "type": "Boolean"
+    },
+    {
+      "name": "SectionFilter",
+      "type": "string"
+    },
+    {
+      "name": "ActionFilter",
+      "type": "string"
+    },
+    {
+      "name": "keyword",
+      "type": "string"
+    },
+    {
+      "name": "CampusID",
+      "type": "int"
+    },
+    {
+      "name": "CommentFilter",
+      "type": "string"
+    },
+    {
+      "name": "EnrollmentID",
+      "type": "int"
+    },
+    {
+      "name": "StartRow",
+      "type": "int"
+    },
+    {
+      "name": "blnReadOnly",
+      "type": "Boolean"
+    },
+    {
+      "name": "blnStudentMaint",
+      "type": "Boolean"
+    }
+  ],
+  "actors": [
+    "UserSession",
+    "ScriptMgr"
+  ],
+  "workflows": [
+    {
+      "name": "Data Entry",
+      "steps": [
+        "User interacts with gridDataEdit for data entry.",
+        "Data is validated using JavaScript for dirty fields.",
+        "Submissions are handled through commands like cmdSaveAll and cmdSaveEditNext."
+      ]
+    }
+  ],
+  "business_rules": [
+    "If EnrollmentID is 0, hide certain buttons in the header.",
+    "If gridDataEdit contains fewer than 14 rows, hide buttons to prevent scrolling."
+  ],
+  "validations": [
+    "Ensure textarea input does not exceed 1000 characters using onKeyUp event."
+  ],
+  "calculations": [],
+  "conditions": [
+    "Check if a UserSession exists before proceeding with data operations."
+  ],
+  "system_behavior": [
+    "Page scripts and JavaScript variables are dynamically registered depending on postbacks.",
+    "GridDataEdit allows sorting and pagination.",
+    "Validation and processing of health data occurs upon command execution."
+  ],
+  "dependencies": [
+    "UserSession for maintaining user-specific session information.",
+    "ScriptManager for handling asynchronous postbacks."
+  ],
+  "exceptions": [
+    "Cancel data operations if UserSession is null."
+  ],
+  "source_document_ids": [
+    "421982c1-f1ad-5dd5-846c-665fe66c3bdb",
+    "6adcce1d-f1ef-5b38-96a3-95d1a47aed16",
+    "95fb0066-6586-5498-a460-51b49cda325d",
+    "99baa1af-5f67-56eb-b5ed-9bcf2f01ff2b",
+    "9d4f5114-30ed-59cf-85fd-ee742befe45a",
+    "b2ccd809-8782-54a7-b33d-98332441adba",
+    "b61a5919-afbe-510f-9313-ee24bbde76a2",
+    "ba6faf47-98dc-59c7-8652-c97a0679e7d4",
+    "c8228c24-0f9c-5f99-8523-b23808eb9bda",
+    "d14c2ad0-d5c9-5ccd-b6fb-33415293cf86"
+  ],
+  "content_gaps": []
+}
