@@ -1,56 +1,37 @@
 {
     "filename": "StudentOrientation",
     "found": true,
-    "summary": "The StudentOrientation module manages details associated with student orientations including creation, updating, and searching procedures for orientation records.",
-    "purpose": "To facilitate the management and retrieval of student orientation details in the HSPnet system.",
-    "entities": [
-        {
-            "name": "StudentOrientation",
-            "attributes": [
-                "ID",
-                "StudentID",
-                "ProviderID",
-                "ProviderTypeCodeID",
-                "ContentSource",
-                "Location",
-                "OrientationDate",
-                "Comments",
-                "ProviderTypeDescription",
-                "AgencyID",
-                "SiteID",
-                "StaffID",
-                "Agency",
-                "Site",
-                "AgencyLongName",
-                "SiteLongName",
-                "ProviderType",
-                "ProviderTypeCode",
-                "CreatedByAgencyID",
-                "RCAllowedEdit"
-            ]
-        }
-    ],
+    "summary": "The StudentOrientation documents describe methods for managing student orientation records within the HSPnet system. These include procedures for adding, updating, searching, and deleting records along with validation checks.",
+    "purpose": "To manage student orientation records, allowing for CRUD operations and ensuring data integrity within the HSPnet session framework.",
+    "entities": ["StudentOrientation", "HSPnetSession"],
     "fields": [
+        "ID",
+        "StudentID",
+        "ProviderID",
+        "ProviderTypeCodeID",
+        "ContentSource",
+        "Location",
         "OrientationDate",
         "Comments",
         "ProviderTypeDescription",
         "AgencyID",
         "SiteID",
-        "ProviderTypeCodeID",
-        "ContentSource",
-        "Location",
-        "SessionID",
-        "StudentID",
-        "StaffID"
+        "StaffID",
+        "Agency",
+        "Site",
+        "AgencyLongName",
+        "SiteLongName",
+        "ProviderType",
+        "ProviderTypeCode",
+        "CreatedByAgencyID",
+        "RCAllowedEdit"
     ],
-    "actors": [
-        "HSPnetSession"
-    ],
+    "actors": ["HSPnetSession", "StudentOrientation"],
     "workflows": [
         {
             "name": "Add Student Orientation",
             "steps": [
-                "Parse agencySiteID to get agencyID and siteID.",
+                "Parse agencySiteID to retrieve agencyID and siteID.",
                 "Set procedure name to 'StudentDetailsOrientationAdd'.",
                 "Add parameters: SessionID, StudentID, AgencyID, SiteID, ProviderTypeCodeID, ContentSource, Location, OrientationDate, Comments, ProviderTypeDescription, StaffID.",
                 "Execute query."
@@ -59,19 +40,10 @@
         {
             "name": "Update Student Orientation",
             "steps": [
-                "Parse agencySiteID to get agencyID and siteID.",
-                "If agencyID is 0, add warning and set hasMessage to true.",
-                "If noError is true, proceed with update.",
+                "Parse agencySiteID to retrieve agencyID and siteID.",
+                "Check for errors, e.g., agencyID must not be 0.",
                 "Set procedure name to 'StudentDetailsOrientationUpdate'.",
                 "Add parameters: SessionID, ID, AgencyID, SiteID, ProviderTypeCodeID, ContentSource, Location, OrientationDate, Comments, ProviderTypeDescription.",
-                "Execute query."
-            ]
-        },
-        {
-            "name": "Delete Student Orientation",
-            "steps": [
-                "Set procedure name to 'StudentDetailsOrientationDelete'.",
-                "Add parameters: ID, SessionID.",
                 "Execute query."
             ]
         },
@@ -80,37 +52,39 @@
             "steps": [
                 "Set procedure name to 'StudentDetailsOrientationSearchID'.",
                 "Add parameters: ID, SessionID.",
-                "Get data using SqlDataReader.",
-                "Fill list with data from reader.",
-                "Return list."
+                "Retrieve data using SqlDataReader.",
+                "Populate StudentOrientation list from retrieved data.",
+                "Close data reader."
+            ]
+        },
+        {
+            "name": "Delete Student Orientation",
+            "steps": [
+                "Check if ID is greater than 0.",
+                "Set procedure name to 'StudentDetailsOrientationDelete'.",
+                "Add parameters: ID, SessionID.",
+                "Execute query."
             ]
         }
     ],
     "business_rules": [
-        "Do not run query in StudentDetailsOrientationSearchID if ID is not greater than 0."
+        "ID must be greater than 0 to perform delete operation.",
+        "AgencyID parsed from agencySiteID must not be 0 in update operation."
     ],
     "validations": [
-        "Validate agencySiteID format before parsing."
+        "Check for null or invalid orientation dates.",
+        "Ensure agencyID is non-zero before update."
     ],
-    "calculations": [
-        "Truncate Comments to 20 characters for CommentsTruncated field."
-    ],
-    "conditions": [
-        "If agencyID is 0 during update, raise warning and flag as message."
-    ],
+    "calculations": [],
+    "conditions": [],
     "system_behavior": [
-        "Use session to execute queries.",
-        "Override min date with null if returned in OrientationDate."
+        "Manages database operations for student orientations.",
+        "Retrieves session data for current user operations.",
+        "Handles alternative language fields based on session settings."
     ],
-    "dependencies": [
-        "Database",
-        "SqlDataReader",
-        "HSPnet.Framework",
-        "HSPnet.App_GlobalResources",
-        "HSPnet.UI"
-    ],
+    "dependencies": ["Database", "SqlDataReader", "HSPnet.Session"],
     "exceptions": [
-        "No update on students with blank Provider."
+        "Warning issued if agencyID is 0 during updates."
     ],
     "source_document_ids": [
         "0ca0e5a1-aa94-54ba-bd74-9d62a905c60a",
