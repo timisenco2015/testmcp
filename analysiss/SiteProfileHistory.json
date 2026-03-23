@@ -1,22 +1,68 @@
 {
   "filename": "SiteProfileHistory",
   "found": true,
-  "summary": "Tracks changes and actions within site profiles.",
-  "purpose": "Record and manage historical actions related to site profiles.",
-  "entities": ["SiteProfileHistory"],
-  "fields": ["ID", "ActionDate", "ScreenSection", "UserAction", "Fields", "Agency", "AgencyName", "LastName", "FirstName", "MiddleName", "Phone", "ByUserID", "ByOriginalUserID", "ByUserSysAdmin"],
-  "actors": ["Site User"],
-  "workflows": [
+  "summary": "Handles site profile history records, managing data related to site profile changes.",
+  "purpose": "To maintain and retrieve historical changes made to site profiles.",
+  "entities": [
+    "SiteProfileHistory",
+    "SiteProfileHistories"
+  ],
+  "fields": [
     {
-      "name": "Search Site Profile History",
-      "steps": ["Set procedure to SiteProfileHistorySearch", "Add parameters", "Return history"]
+      "name": "ID",
+      "type": "int"
+    },
+    {
+      "name": "ActionDate",
+      "type": "DateTime"
+    },
+    {
+      "name": "ScreenSection",
+      "type": "string"
+    },
+    {
+      "name": "UserAction",
+      "type": "string"
+    },
+    {
+      "name": "Fields",
+      "type": "string"
+    },
+    {
+      "name": "Agency",
+      "type": "string"
+    },
+    {
+      "name": "AgencyName",
+      "type": "string"
+    },
+    {
+      "name": "LastName",
+      "type": "string"
+    },
+    {
+      "name": "FirstName",
+      "type": "string"
+    },
+    {
+      "name": "MiddleName",
+      "type": "string"
+    },
+    {
+      "name": "Phone",
+      "type": "Phone"
     }
   ],
+  "actors": [],
+  "workflows": [],
   "business_rules": [],
   "validations": [],
   "calculations": [],
   "conditions": [],
-  "system_behavior": ["Provide formatted agency user details", "Track screen section and user action"],
+  "system_behavior": [
+    "Stores and retrieves historical change records for site profiles.",
+    "Formats user and agency information for display."
+  ],
   "dependencies": [],
   "exceptions": [],
   "source_document_ids": [
