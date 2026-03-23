@@ -2,30 +2,17 @@
 {
   "filename": "RptMnuStudentEvaluations",
   "found": true,
-  "summary": "RptMnuStudentEvaluations is a user control designed for managing and displaying student evaluation reports. It provides functionality for setting date ranges, selecting departments and programs, and generating reports in various formats.",
-  "purpose": "The primary purpose of the RptMnuStudentEvaluations is to facilitate the generation and display of student evaluation reports within certain date ranges and for specific departments and programs.",
-  "entities": [
-    "UserSession",
-    "Department",
-    "Program",
-    "ReportMain",
-    "SqlDataReader",
-    "CodeRecord",
-    "HSPnetSession",
-    "Button",
-    "Label",
-    "DropDownList",
-    "TextBox",
-    "Literal",
-    "LinkButton",
-    "Panel"
-  ],
+  "summary": "RptMnuStudentEvaluations is a web user control designed for managing student evaluation reports in HSPnet. It involves selecting departments and programs, specifying report date ranges, and generating reports in HTML or CSV formats.",
+  "purpose": "To facilitate the generation and management of student evaluation reports via a web interface, allowing users to select parameters and view/export the report data.",
+  "entities": ["Department", "Program", "UserSession", "ReportDetails", "Student Evaluations"],
   "fields": [
     "ValidationSummary1",
     "Label3",
     "ltlDescription",
     "Label4",
     "ltlOptions",
+    "valEditEndDate",
+    "CustomValidator1",
     "LabelA",
     "ddDepartment",
     "LabelB",
@@ -39,59 +26,56 @@
     "RegularExpressionValidator2",
     "Literal1",
     "valEditStartDate",
-    "valEditEndDate",
-    "CustomValidator1",
     "CalendarExtender1",
     "RegularExpressionValidator1",
     "ltlMandatoryStartDate",
     "Label8",
     "txtEndDate",
-    "btnStartDate"
+    "btnStartDate",
+    "txtStartDate"
   ],
-  "actors": [
-    "ScriptManager",
-    "Page",
-    "UserSession"
-  ],
+  "actors": ["User", "ScriptManager"],
   "workflows": [
     {
-      "name": "Generate Student Evaluations Report",
+      "name": "Generate Evaluation Report",
       "steps": [
-        "Select department and program from dropdowns.",
-        "Enter start date and end date.",
-        "Click 'Run Excel' to generate the report.",
-        "Display report in HTML or CSV format."
+        "Initialize UserSession",
+        "Page Load and PreRender setup",
+        "Setup JavaScript for UI elements",
+        "Department dropdown changes trigger Program dropdown refresh",
+        "Fill Department and Program dropdowns",
+        "User provides date range",
+        "Execution of cmdExcel generates report"
       ]
     }
   ],
   "business_rules": [
-    "Department and program must be selected to run a report.",
-    "Start date and end date are mandatory for generating a report.",
-    "UserSession must be active to perform operations."
+    "Users must have appropriate permissions to view all departments or programs.",
+    "Program and department selections must correlate with the user's agency."
   ],
   "validations": [
-    "Regular expressions for date formats.",
-    "Required field validators for date inputs."
+    "RequiredFieldValidator for edit start and end dates",
+    "RegularExpressionValidator for date formats"
   ],
-  "calculations": [
-    "Parse date formats for start and end dates.",
-    "Generate HTML or CSV report based on data retrieved."
-  ],
+  "calculations": [],
   "conditions": [
-    "If UserSession is null, certain operations cannot be performed.",
-    "pnlReportHTML visibility depends on report HTML content availability."
+    "If UserSession allows all departments, all departments are listed.",
+    "Ensure department and program drop-downs are populated."
   ],
   "system_behavior": [
-    "Auto-generated fields require moving declarations to code-behind to modify.",
-    "JavaScript setup for date fields on asynchronous postbacks."
+    "Load selected department and program information based on user session.",
+    "Display generated HTML report if successful.",
+    "Handle changes in department dropdown by updating the program dropdown."
   ],
   "dependencies": [
-    "AjaxControlToolkit for Calendar control.",
-    "DataLayer for database operations."
+    "HSPnet.DataLayer",
+    "HSPnet.Framework",
+    "HSPnet.UI",
+    "AjaxControlToolkit.CalendarExtender",
+    "System.Web.UI.WebControls"
   ],
   "exceptions": [
-    "Incorrect behavior if auto-generated code is changed without moving to code-behind.",
-    "Handling empty report cases."
+    "Incorrect or incomplete user input may result in validation failure."
   ],
   "source_document_ids": [
     "3bda989e-aee9-5cb0-a91b-23b5c507dcce",
