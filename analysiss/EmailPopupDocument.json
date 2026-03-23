@@ -1,31 +1,34 @@
 {
-    "filename": "EmailPopupDocument",
-    "found": true,
-    "summary": "Defines the EmailPopupDocument class used in managing email attachments within HSPnet, including searching and deleting functionalities.",
-    "purpose": "To manage and control the lifecycle of email documents within HSPnet.",
-    "entities": [],
-    "fields": ["ID", "FileName", "FilePath", "Checked"],
-    "actors": [],
-    "workflows": [
-        {
-            "name": "Manage Email Documents",
-            "steps": [
-                "Search documents using provided data.",
-                "Parse email data for document properties.",
-                "Delete email document based on provided ID."
-            ]
-        }
-    ],
-    "business_rules": [],
-    "validations": [],
-    "calculations": [],
-    "conditions": [],
-    "system_behavior": [],
-    "dependencies": [],
-    "exceptions": [],
-    "source_document_ids": [
-        "7287734e-f13d-550f-9249-4242db620766",
-        "927bc837-5564-5759-9324-27c6d5d7321d"
-    ],
-    "content_gaps": []
+  "filename": "EmailPopupDocument",
+  "found": true,
+  "summary": "Handles email popup document management and deletion process.",
+  "purpose": "To manage email popups within the system, including searching and deleting associated documents.",
+  "entities": ["EmailPopupDocument"],
+  "fields": ["ID", "FileName", "FilePath"],
+  "actors": [],
+  "workflows": [
+    {
+      "name": "Email Document Search",
+      "steps": [
+        "Split and analyze data info",
+        "Create EmailPopupDocument entries"
+      ]
+    },
+    {
+      "name": "Email Document Deletion",
+      "steps": [
+        "Delete file",
+        "Remove directory"
+      ]
+    }
+  ],
+  "business_rules": [],
+  "validations": [],
+  "calculations": [],
+  "conditions": [],
+  "system_behavior": ["File system operations for management and cleanup"],
+  "dependencies": ["IO, SQL"],
+  "exceptions": [],
+  "source_document_ids": ["7287734e-f13d-550f-9249-4242db620766", "927bc837-5564-5759-9324-27c6d5d7321d"],
+  "content_gaps": []
 }
