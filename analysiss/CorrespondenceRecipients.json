@@ -1,0 +1,109 @@
+{
+  "filename": "CorrespondenceRecipients",
+  "found": true,
+  "summary": "The CorrespondenceRecipients document focuses on managing correspondence-related operations, particularly handling placement requests and generating correspondence reports. It involves the creation and manipulation of correspondence reports, sending emails, and managing placement requests through various formats like PDF, DOC, and TXT.",
+  "purpose": "To manage and automate the process of generating and sending correspondence related to placement requests, including generating reports and handling user interactions.",
+  "entities": [
+    "Correspondence",
+    "PlacementRequestDestination",
+    "UserSession",
+    "CorrespondenceRunVariables",
+    "ReportMain"
+  ],
+  "fields": [
+    "CorrespondenceID",
+    "TimeStamp",
+    "OutputFormat",
+    "Role",
+    "BaseURL",
+    "JobDate",
+    "scheduledCorr",
+    "IncludeLogo",
+    "IncludeCFO",
+    "useFreeForm"
+  ],
+  "actors": [
+    "UserSession"
+  ],
+  "workflows": [
+    {
+      "name": "Generate Correspondence Reports",
+      "steps": [
+        "Check if PlacementRequestDestinations are selected.",
+        "Prepare the list of selected PlacementRequestDestinations.",
+        "Select the output format (PDF, DOC, TXT) for the correspondence.",
+        "Determine if logos or signatures should be included.",
+        "Run the report generation using ReportMain.RunReport.",
+        "Send emails if applicable using Email.SendEmail.",
+        "Handle file output for scheduled correspondences."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Include logo only if specified.",
+    "Generate reports based on user session settings.",
+    "Allow only specific output formats for reports.",
+    "Trigger email sending if valid email addresses are provided."
+  ],
+  "validations": [
+    "Check if at least one PlacementRequestDestination is selected.",
+    "Ensure email addresses are valid before sending."
+  ],
+  "calculations": [],
+  "conditions": [
+    "If OutputFormat is MultiPDF, iterate through PlacementRequestDestinations and generate reports.",
+    "If scheduled correspondence, update the generated date for reminders."
+  ],
+  "system_behavior": [
+    "Displays warnings if no placement requests are selected.",
+    "Handles report generation based on selected output formats."
+  ],
+  "dependencies": [
+    "Resources for string formats and message templates."
+  ],
+  "exceptions": [
+    "Handle missing mailing label data errors."
+  ],
+  "source_document_ids": [
+    "01f9e542-134e-59d1-ac3a-db0e0330113a",
+    "0a8f63cf-b4e6-594b-a5cd-011b27df43f7",
+    "0f5febe6-8695-54b5-a0d6-229f8a1a77c7",
+    "16f533ef-b52f-51ab-a725-303b577cbe81",
+    "20dc68c8-215b-5abc-b334-0c9e0446a0a5",
+    "26607450-9ff1-5400-bafb-c11b681b8dc6",
+    "28a71633-e395-5d9c-b33e-8aef32abe504",
+    "3505ef01-37df-55a5-87b6-08624bf9c94a",
+    "35ec62c6-77de-57cc-a1c1-4db7a0032063",
+    "39b2d0f9-abbd-592e-a379-be43b6b298b4",
+    "3b0f08c1-ec58-5da6-810e-78c16254b07c",
+    "3e40215f-4210-555e-a774-487cdb59d851",
+    "42b7b1b1-faf4-540f-bdc6-00efc24a96d1",
+    "430a933b-19bf-54de-9108-df5a42657fe0",
+    "4932f366-ffe9-5ef8-b262-91ae6e8f811f",
+    "4ea82969-6ca0-52af-8ec2-c83c37cd28d1",
+    "552783cf-94e5-5366-be37-4b65d1454660",
+    "5ede666a-5bba-5f47-8f84-4364eb720364",
+    "62de592a-76c6-56d8-b1e3-e2f91344e365",
+    "65ff559b-4fbe-566e-ba4b-f562a4a88c98",
+    "80a2e3c6-0f9a-5353-8dd4-63525157e6b4",
+    "83ba939b-804a-5fc3-b092-2d29ba181816",
+    "8b872cd8-b7a6-5b5a-95b6-583865a8e6dc",
+    "936e6be7-a21b-5fa3-a801-32c11bba773a",
+    "98fa9391-9bf2-5ff4-aff7-d4ef8e60be72",
+    "9a2287a5-dda2-5e01-8b5c-9473518cdbec",
+    "9cbaab33-f337-5e72-9df6-097a0830670f",
+    "b51a1044-566b-5972-9bd8-0d3f64804b0c",
+    "b8d20c08-6c52-5433-8cf0-8c4b185388f0",
+    "bb922ed0-fc97-595f-b2e5-5d9d9008d05d",
+    "cd0bf228-dd65-5d6c-bb02-b9d2aabbb5d6",
+    "cfb5e0a2-4798-58ee-b093-fab1e1f331ef",
+    "d378b155-df37-5f5d-87d5-e22bcda8dc6a",
+    "dff9b99b-b9b0-560f-97c3-12cac0cd528f",
+    "e0165818-f63a-53b8-afa3-830f5bc81352",
+    "e962a180-126a-541c-bb12-fa909733e7f6",
+    "ec9874c0-c0ad-50ec-9d33-bb558cc8267c",
+    "eefbbb24-0f3c-5f4f-97ca-c87a1d7e781d",
+    "f5eb51cc-a1dd-5cf6-a69b-3d540876e972"
+  ],
+  "content_gaps": []
+}
