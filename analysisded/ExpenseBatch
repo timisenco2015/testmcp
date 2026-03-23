@@ -1,0 +1,87 @@
+```json
+{
+  "filename": "ExpenseBatch",
+  "found": true,
+  "summary": "The ExpenseBatch class and its related procedures manage the creation, retrieval, updating, and deletion of expense batches within a department.",
+  "purpose": "To facilitate the management of expense batches within a department, including operations such as search, add, update, and delete.",
+  "entities": [
+    "ExpenseBatch",
+    "ExpenseBatches"
+  ],
+  "fields": [
+    "ID",
+    "DepartmentID",
+    "BatchDescription",
+    "BatchDate",
+    "StatusCodeID",
+    "StatusCode",
+    "StatusDescription",
+    "ClosedDate",
+    "BatchNumberFormatted"
+  ],
+  "actors": [
+    "HSPnetSession"
+  ],
+  "workflows": [
+    {
+      "name": "Search",
+      "steps": [
+        "Set procedure name to 'ExpenseBatchSearch'.",
+        "Add parameter 'DepartmentID'.",
+        "Execute stored procedure and retrieve data.",
+        "Map data to ExpenseBatch entities."
+      ]
+    },
+    {
+      "name": "SearchID",
+      "steps": [
+        "Set procedure name to 'ExpenseBatchSearchID'.",
+        "Add parameter 'ID'.",
+        "Execute stored procedure and retrieve data.",
+        "Map data to a single ExpenseBatch entity."
+      ]
+    },
+    {
+      "name": "Add",
+      "steps": [
+        "Set procedure name to 'ExpenseBatchAdd'.",
+        "Add parameters 'SessionID', 'DepartmentID', 'BatchDescription', and 'BatchDate'.",
+        "Execute stored procedure and retrieve new ID."
+      ]
+    },
+    {
+      "name": "Update",
+      "steps": [
+        "Set procedure name to 'ExpenseBatchUpdate'.",
+        "Add parameters 'SessionID', 'ID', 'BatchDescription', 'BatchDate', and 'StatusCodeID'.",
+        "Execute update query."
+      ]
+    },
+    {
+      "name": "Delete",
+      "steps": [
+        "Set procedure name to 'ExpenseBatchDelete'.",
+        "Add parameters 'SessionID' and 'ID'.",
+        "Execute delete query."
+      ]
+    }
+  ],
+  "business_rules": [],
+  "validations": [],
+  "calculations": [
+    "BatchNumberFormatted = ID + ' - ' + StatusDescription"
+  ],
+  "conditions": [
+    "UseAltLanguageFields determines if alternative language fields are used."
+  ],
+  "system_behavior": [],
+  "dependencies": [],
+  "exceptions": [],
+  "source_document_ids": [
+    "060e08d3-49ca-5e40-bea0-849f4e6173e1",
+    "3559737f-0154-520e-be2b-d3dd2c3de539",
+    "b2216e58-a144-55cb-8b87-3da9787fc1d7"
+  ],
+  "content_gaps": []
+}
+```
