@@ -2,63 +2,70 @@
 {
   "filename": "StudentPreCertifications",
   "found": true,
-  "summary": "The StudentPreCertifications system is a web-based user interface dealing with student certification processes. It uses various controls like panels, update panels, buttons, and grids to facilitate tasks such as inserting, updating, and deleting student certification records.",
-  "purpose": "To manage student certification records, including inserting, updating, and deleting certifications through a web interface.",
-  "entities": ["StudentCertification", "UserSession", "CertificationCodeID", "StatusCodeID", "ScriptManager"],
-  "fields": ["pnlPopup", "updPnlPopup", "btnShowPopup", "mdlDetails", "ValidationSummary1", "uxDetail", "dsStudentCertification", "dsStdCertifications", "dsStatus", "dsExpiryDate", "gridData"],
-  "actors": ["GridViewCommandEventArgs", "FormViewInsertEventArgs", "FormViewUpdateEventArgs", "ObjectDataSourceSelectingEventArgs", "ObjectDataSourceMethodEventArgs"],
+  "summary": "The StudentPreCertifications module manages student certifications, allowing insertion, updating, and deletion operations with various controls and data sources involved.",
+  "purpose": "To handle operations related to student certifications, including viewing, adding, editing, and deleting certifications.",
+  "entities": [
+    "StudentCertification",
+    "UserSession"
+  ],
+  "fields": [
+    "CertificationCodeID",
+    "StatusCodeID",
+    "EffectiveDate",
+    "ExpiryDate",
+    "StudentID",
+    "SessionID"
+  ],
+  "actors": [
+    "User",
+    "Administrator"
+  ],
   "workflows": [
     {
-      "name": "Row Command",
+      "name": "Certification Management",
       "steps": [
-        "Switch based on command name (cmdAdd, cmdEdit, cmdDelete)",
-        "Change mode of uxDetail to Insert or Edit",
-        "Show details using modal popup"
+        "Select certification from dropdown",
+        "Perform insert or update operation",
+        "Validate fields",
+        "Redirect upon success"
       ]
     },
     {
       "name": "Data Binding",
       "steps": [
-        "Select using dsStudentCertifications_Selecting",
-        "Bind data to gridData_RowDataBound",
-        "Process no data message using gridData_DataBound"
-      ]
-    },
-    {
-      "name": "Inserting and Updating",
-      "steps": [
-        "Handle uxDetail_ItemInserting and uxDetail_ItemUpdating events",
-        "Use values from dropdown lists for CertificationCodeID and StatusCodeID",
-        "Redirect after inserting or updating"
+        "Bind data to controls",
+        "Handle data source selection and methods"
       ]
     }
   ],
   "business_rules": [
-    "Auto-generated fields must be moved from designer file to code-behind file prior to modification.",
-    "Only show Disclosed Registration ID when ITProvisioning is true."
+    "Hide Add button if no permission",
+    "Only show disclosed Registration ID if conditions are met"
   ],
   "validations": [
-    "Ensure page validity before insert or update operations.",
-    "Cancel operation if page is not valid."
+    "Ensure page is valid before inserting or updating",
+    "Check user permissions for row visibility"
   ],
   "calculations": [
-    "Calculate MaxDate using current date + Max_Future_Years.",
-    "Select values through Dropdown.SelectValue using CertificationCodeID and StatusCodeID."
+    "Calculate max future expiry date"
   ],
   "conditions": [
-    "Anonymous users have restricted access for certain functions.",
-    "Conditions to show/hide registration code based on ITProvisioning."
+    "Check if the screen is editable",
+    "Verify session details before operations"
   ],
   "system_behavior": [
-    "Handle JavaScript setups based on async or client postbacks.",
-    "Handle data binding and visibility based on user permissions."
+    "Setup JavaScript for UI interactions",
+    "Cache user sessions"
   ],
   "dependencies": [
-    "HSPnet.App_GlobalResources",
-    "HSPnet.DataLayer",
+    "AjaxControlToolkit.ModalPopupExtender",
+    "HSPnet.Framework",
     "HSPnet.UI"
   ],
-  "exceptions": [],
+  "exceptions": [
+    "Cancel operations if page is invalid",
+    "Hide rows if no permission is granted"
+  ],
   "source_document_ids": [
     "1c096ee0-30c7-5ade-8080-86ff9953b982",
     "4de42f24-da61-5d24-806a-6189d1372af2",
