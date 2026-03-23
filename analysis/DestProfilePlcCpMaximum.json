@@ -1,0 +1,133 @@
+{
+  "filename": "DestProfilePlcCpMaximum",
+  "found": true,
+  "summary": "DestProfilePlcCpMaximum is a .NET Web UserControl that supports viewing and updating a destination profile's maximum learner information. It includes editable forms, popups, validation, and session handling, and interacts with backend data sources and user sessions.",
+  "purpose": "To allow users to view, edit, and update maximum learner profile data for a destination in a web application, supporting session-specific editing and data retrieval.",
+  "entities": [
+    "HSPnetSession",
+    "UserSession",
+    "Destination Profile",
+    "DestID",
+    "CurrentPage",
+    "SessionAgencyID"
+  ],
+  "fields": [
+    {
+      "name": "updPnlMain",
+      "type": "UpdatePanel",
+      "description": "Contains main controls for the profile."
+    },
+    {
+      "name": "fvwDestinationProfile",
+      "type": "FormView",
+      "description": "Displays and allows interaction with destination profile data."
+    },
+    {
+      "name": "dsDestinationProfile",
+      "type": "ObjectDataSource",
+      "description": "Backend data source for profile operations."
+    },
+    {
+      "name": "pnlPopup",
+      "type": "Panel",
+      "description": "Contains popup controls for editing."
+    },
+    {
+      "name": "updPnlPopup",
+      "type": "UpdatePanel",
+      "description": "Panel for popup updates."
+    },
+    {
+      "name": "btnShowPopup",
+      "type": "Button",
+      "description": "Button to trigger popup."
+    },
+    {
+      "name": "mdlDetails",
+      "type": "ModalPopupExtender",
+      "description": "Displays popup modal for details editing."
+    },
+    {
+      "name": "ValidationSummary1",
+      "type": "ValidationSummary",
+      "description": "Summarizes validation errors in the UI."
+    },
+    {
+      "name": "uxDetail",
+      "type": "FormView",
+      "description": "Detail form for editing destination profile data."
+    }
+  ],
+  "actors": [
+    "Web User",
+    "System",
+    "UI Controls",
+    "Session Manager"
+  ],
+  "workflows": [
+    {
+      "name": "View/Edit Destination Profile Maximum",
+      "steps": [
+        "User navigates to destination profile.",
+        "System checks session validity; cancels operation if session missing.",
+        "Profile data is loaded using DestID and SessionAgencyID.",
+        "User can trigger Edit via cmdEdit button.",
+        "System switches uxDetail form to edit mode and shows modal popup.",
+        "User interacts with editable fields; save button becomes visible if screen is editable.",
+        "On update/insert, command name and mode are set.",
+        "After ItemUpdated, session is cached and redirected to CurrentPage."
+      ]
+    },
+    {
+      "name": "Glossary Help Access",
+      "steps": [
+        "User clicks GlossaryLink in either view or edit form.",
+        "System opens a help popup with MaxLearners context using session query string."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Profile data cannot be selected unless user session is present.",
+    "Edit mode only enabled if ScreenIsEditable is true.",
+    "Grid edit mode and modal popup shown only for edit command.",
+    "Glossary help links always use session query string."
+  ],
+  "validations": [
+    "ValidationSummary1 presents all validation errors.",
+    "Edit/insert mode disables edit fields if ScreenIsEditable is false."
+  ],
+  "calculations": [],
+  "conditions": [
+    "UserSession must be present for selection.",
+    "ScreenIsEditable must be true for edit mode.",
+    "uxDetail current mode dictates command (Update or Insert)."
+  ],
+  "system_behavior": [
+    "Caches user session after updates.",
+    "Redirects user to CurrentPage after profile update.",
+    "Disables edit fields if screen not editable."
+  ],
+  "dependencies": [
+    "HSPnetSession for caching session.",
+    "Grid utility for switching modes and showing details.",
+    "AjaxControlToolkit for modal popups.",
+    "ObjectDataSource for backend data."
+  ],
+  "exceptions": [
+    "Selection cancelled if user session is missing.",
+    "Edit/save not available if ScreenIsEditable is false."
+  ],
+  "source_document_ids": [
+    "08a2b470-29ae-543f-84d5-b488aac17ae8",
+    "2f249763-242b-5e04-bb03-ede2d00befe0",
+    "23aa90cc-da5f-5fa9-9b84-77c37ca33b4b",
+    "3ffc9376-6f97-5d48-9ba0-494868e51468",
+    "9ae1aa2a-a51e-5e3f-aa31-409ff0851476"
+  ],
+  "content_gaps": [
+    "Field-level business rules and data validation for maximum learner value not explicitly described.",
+    "No explicit description of how maximum is calculated or updated.",
+    "Underlying data schema for destination profile is not included.",
+    "UI layout and possible error-handling scenarios are minimally described."
+  ]
+}
