@@ -1,19 +1,102 @@
 {
-    "filename": "StudentPREvaluations",
-    "found": false,
-    "summary": "",
-    "purpose": "",
-    "entities": [],
-    "fields": [],
-    "actors": [],
-    "workflows": [],
-    "business_rules": [],
-    "validations": [],
-    "calculations": [],
-    "conditions": [],
-    "system_behavior": [],
-    "dependencies": [],
-    "exceptions": [],
-    "source_document_ids": [],
-    "content_gaps": ["No related documents found"]
+  "filename": "StudentPREvaluations",
+  "found": true,
+  "summary": "The StudentPREvaluations system handles the creation, updating, deletion, and retrieval of student pre-evaluation records. It is structured to interact with a SQL database using various procedures to manage these records.",
+  "purpose": "Manage student pre-evaluation records within the HSPnet system, enabling operations like add, update, delete, and search for evaluation data.",
+  "entities": [
+    "StudentPREvaluation",
+    "StudentPREvaluations"
+  ],
+  "fields": [
+    "ID",
+    "StudentID",
+    "PlacementRequestDestinationID",
+    "RequirementCodeID",
+    "RequirementCode",
+    "Requirement",
+    "StatusCodeID",
+    "StatusCode",
+    "Status",
+    "EvaluationDate",
+    "EvaluationDateFormatted",
+    "Comment"
+  ],
+  "actors": [
+    "HSPnetSession"
+  ],
+  "workflows": [
+    {
+      "name": "Add Student Pre-Evaluation",
+      "steps": [
+        "Check if PlacementRequestDestinationID is not 0.",
+        "Set procedure name to 'StudentPREvaluationAdd'.",
+        "Add parameters: SessionID, StudentID, PlacementRequestDestinationID, RequirementCodeID, StatusCodeID, EvaluationDate, Comment.",
+        "Execute query."
+      ]
+    },
+    {
+      "name": "Update Student Pre-Evaluation",
+      "steps": [
+        "Set procedure name to 'StudentPREvaluationUpdate'.",
+        "Add parameters: SessionID, ID, RequirementCodeID, StatusCodeID, EvaluationDate, Comment.",
+        "Execute query."
+      ]
+    },
+    {
+      "name": "Delete Student Pre-Evaluation",
+      "steps": [
+        "Set procedure name to 'StudentPREvaluationDelete'.",
+        "Add parameters: SessionID, ID.",
+        "Execute query."
+      ]
+    },
+    {
+      "name": "Search Student Pre-Evaluation by ID",
+      "steps": [
+        "Set procedure name to 'StudentPREvaluationSearchID'.",
+        "Add parameter: ID.",
+        "Retrieve data using SqlDataReader.",
+        "Fill list with retrieved records.",
+        "Close data reader."
+      ]
+    },
+    {
+      "name": "Search Student Pre-Evaluation",
+      "steps": [
+        "Set procedure name to 'StudentPREvaluationSearch'.",
+        "Add parameters: StudentID, PRD_ID, SessionID.",
+        "Retrieve data using SqlDataReader.",
+        "Fill list with retrieved records.",
+        "Close data reader."
+      ]
+    }
+  ],
+  "business_rules": [
+    "PlacementRequestDestinationID must not be 0 for adding records."
+  ],
+  "validations": [],
+  "calculations": [
+    {
+      "name": "EvaluationDateFormatted",
+      "formula": "If EvaluationDate is null, return empty; otherwise, format using HSPnet.UI.DateFormatter.FormatDateShort."
+    }
+  ],
+  "conditions": [
+    "Check if ID is not 0 for searching by ID."
+  ],
+  "system_behavior": [
+    "Interacts with the database to execute stored procedures for managing student pre-evaluations."
+  ],
+  "dependencies": [
+    "HSPnet.Framework",
+    "HSPnet.App_GlobalResources"
+  ],
+  "exceptions": [],
+  "source_document_ids": [
+    "01cd3571-7cb0-59a2-9dc9-3cfe59c70c16",
+    "56d84a2a-569d-54a7-b5f6-1218e1c8e2a2",
+    "5b81fdfd-afce-5e3f-b9d3-8e9c3aa67b6b",
+    "67156d01-61ca-579d-95d2-6630f61eb16f"
+  ],
+  "content_gaps": []
 }
