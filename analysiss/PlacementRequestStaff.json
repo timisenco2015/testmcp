@@ -1,32 +1,98 @@
 {
   "filename": "PlacementRequestStaff",
   "found": true,
-  "summary": "Manages staff assignments and operations related to placement requests.",
-  "purpose": "Handle staff operations for placement requests including assignment, overlaps checking, and record management.",
-  "entities": ["PlacementRequestStaff", "Supervisor", "HSPnetSession"],
-  "fields": ["StaffID", "FirstName", "MiddleName", "LastName", "Phone", "AltPhone", "Email", "Fax", "Title", "SalutationCodeID", "Designation", "DurationHours", "StartDate", "EndDate", "SecureEmail"],
-  "actors": ["Supervisor", "Staff"],
+  "summary": "The PlacementRequestStaff involves operations related to adding, updating, retrieving, and managing staff information for placement requests within the HSPnet system.",
+  "purpose": "To manage staff data involved in placement requests, including adding new supervisors, updating details, checking for overlaps, and distributing hours among multiple staff.",
+  "entities": [],
+  "fields": [
+    "ID",
+    "PlacementRequestDestinationID",
+    "StaffID",
+    "StaffNameFormatted",
+    "FirstName",
+    "PreferredFirstName",
+    "MiddleName",
+    "LastName",
+    "Email",
+    "SecureEmail",
+    "Phone",
+    "AltPhone",
+    "Fax",
+    "Title",
+    "SalutationCodeID",
+    "Designation",
+    "ReleaseInfo",
+    "CreatedByQES",
+    "IsHSPnetUser",
+    "ProfileExists",
+    "HomeSiteID",
+    "HomeServiceID",
+    "HomeDestinationID",
+    "AgencyID",
+    "AssessmentAnswersExist",
+    "SubmittedJointAssessment",
+    "JointStaffID",
+    "JointStaffLastName",
+    "JointStaffFirstName",
+    "JointStaffFullName",
+    "AssessmentStatus"
+  ],
+  "actors": [
+    "Supervisor",
+    "Staff",
+    "HSPnetSession"
+  ],
   "workflows": [
     {
-      "name": "Add Staff to Placement Request",
-      "steps": ["Set procedure name to PlacementRequestAddDC", "Set parameters", "Execute query"]
+      "name": "Add Supervisor",
+      "steps": [
+        "Invoke PlacementRequestAddSup procedure",
+        "Add parameters (SessionID, PRD_ID, DepartmentID, FirstName, MiddleName, LastName, Phone, AltPhone, Email, Fax, Title, SalutationCodeID, Designation)",
+        "Execute query"
+      ]
     },
     {
-      "name": "Adjust Staff Hours",
-      "steps": ["Set procedure name to PlacementRequestStaffAdjust", "Set parameters", "Execute query"]
+      "name": "Update Supervisor",
+      "steps": [
+        "Invoke PlacementRequestUpdateSupervisor procedure",
+        "Add parameters (SessionID, PRD_ID, SupervisorID)",
+        "Execute query"
+      ]
     },
     {
-      "name": "Delete Staff Assignment",
-      "steps": ["Set procedure name to PlacementRequestStaffDelete", "Set parameters", "Execute query"]
+      "name": "Check Supervisor Overlaps",
+      "steps": [
+        "Invoke PlacementRequestSupervisorAssigned procedure",
+        "Add parameter (PRD_ID)",
+        "Execute query",
+        "Return overlap condition"
+      ]
     }
   ],
-  "business_rules": ["Use Precep as StaffTypeCode"],
-  "validations": ["Ensure StaffID is not null", "Ensure dates are valid"],
-  "calculations": ["DurationHours based on assignment", "Distribute hours using declining balance algorithm"],
-  "conditions": ["Check if joint staff ID is provided", "Check supervisor overlaps"],
-  "system_behavior": ["Add or update staff assignments", "Check for staff overlaps"],
-  "dependencies": ["Session handling and connection", "NameFormatter utility"],
-  "exceptions": ["Handle SQL data errors", "Check overlaps and warnings for supervisors"],
+  "business_rules": [
+    "A supervisor must be assigned to a placement request.",
+    "Duration hours must be calculated without rounding errors."
+  ],
+  "validations": [
+    "Check for joint staff involvement and overwrite conditions during updates."
+  ],
+  "calculations": [
+    "Declining balance algorithm for distributing hours to prevent rounding errors."
+  ],
+  "conditions": [
+    "If jointStaffID is not 0, include joint staff parameters."
+  ],
+  "system_behavior": [
+    "Execute stored procedures for database operations related to staff management within placement requests."
+  ],
+  "dependencies": [
+    "HSPnet.Framework",
+    "HSPnet.App_GlobalResources",
+    "HSPnet.UI"
+  ],
+  "exceptions": [
+    "Handling of supervisor overlaps not explicitly defined."
+  ],
   "source_document_ids": [
     "12aecd2c-e845-5c90-be91-99a9bb5136c5",
     "1d06d041-0349-532a-beca-66c897b8fe08",
