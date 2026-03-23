@@ -1,0 +1,34 @@
+```json
+{
+  "filename": "AdHocQuery",
+  "found": true,
+  "summary": "Converts SQL data into an HTML table format.",
+  "purpose": "To present SQL query results as an HTML table.",
+  "entities": ["SqlDataReader", "StringBuilder"],
+  "fields": ["FieldCount", "IsDBNull", "GetName", "GetValue"],
+  "actors": [],
+  "workflows": [
+    {
+      "name": "DataReaderToHTMLTable",
+      "steps": [
+        "Check if SqlDataReader has rows",
+        "Append table header with column names",
+        "Iterate over rows to append data to HTML table",
+        "Add footer to close HTML table"
+      ]
+    }
+  ],
+  "business_rules": [],
+  "validations": ["Check if data is NULL"],
+  "calculations": [],
+  "conditions": ["if (dr.HasRows)", "if (dr.IsDBNull(i))"],
+  "system_behavior": ["Converts data to HTML format"],
+  "dependencies": ["System.Data.SqlClient", "HSPnet.Framework"],
+  "exceptions": [],
+  "source_document_ids": [
+    "20140dcf-7d8e-51f1-86ab-4b5a291db2b2",
+    "2878adb2-c26b-5d41-a6a4-d9f5a2c2c782"
+  ],
+  "content_gaps": []
+}
+```
