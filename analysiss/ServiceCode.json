@@ -1,36 +1,16 @@
 {
-    "filename": "ServiceCode",
-    "found": true,
-    "summary": "The ServiceCode file defines and manages service codes within the HSPnet framework. It includes methods to retrieve service codes based on course or timetable.",
-    "purpose": "To manage and provide access to service codes necessary for organizing and cataloging services within the HSPnet system.",
-    "entities": ["ServiceCode"],
-    "fields": ["ID", "CodeCategoryID", "ShortName", "Name", "SortOrder", "Notes", "NameAlt"],
-    "actors": ["HSPnetSession"],
-    "workflows": [
-        {
-            "name": "Retrieve Service Codes",
-            "steps": [
-                "Set procedure name for database operation.",
-                "Add required parameters.",
-                "Execute database query to fetch service codes.",
-                "Localize service codes based on session language settings."
-            ]
-        }
-    ],
-    "business_rules": [],
-    "validations": [],
-    "calculations": [],
-    "conditions": [],
-    "system_behavior": [
-        "Service codes are localized based on session language settings.",
-        "Service codes are fetched using stored procedures."
-    ],
-    "dependencies": [],
-    "exceptions": [],
-    "source_document_ids": [
-        "94f1b055-348d-508a-ae6e-cf7960a8c6a2",
-        "e4ebe4b4-6d14-5c3f-b693-61016f765239",
-        "f976b9af-a402-540f-b162-391d578fac7c"
-    ],
-    "content_gaps": []
+  "Summary": "The document describes a class structure and methods for managing service codes within HSPnet including database procedures for listing and localizing service codes.",
+  "Entities": ["ServiceCode", "ServiceCodes"],
+  "Fields": "ID, CodeCategoryID, ShortName, Name, SortOrder, Notes, NameAlt, NotesAlt",
+  "Actors": "None",
+  "Workflows": "Listing and localizing ServiceCode",
+  "Business Rules": "Usage of alt-language fields",
+  "Validations": "None",
+  "Calculations": "None",
+  "Conditions": "Alt-language mode condition",
+  "System Behavior": "Database interaction for fetching and localizing service code entries",
+  "Dependencies": "HSPnet.DataLayer, HSPnet.Framework",
+  "Exceptions": "None",
+  "Source Document IDs": ["94f1b055-348d-508a-ae6e-cf7960a8c6a2", "e4ebe4b4-6d14-5c3f-b693-61016f765239", "..."],
+  "Content Gaps": "None"
 }
