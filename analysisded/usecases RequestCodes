@@ -1,0 +1,126 @@
+# Module: RequestCodes
+
+## RequestCodes-UC1 — Create a Request Code
+
+- Primary Actor(s): Administrator
+- Secondary Actor(s): None
+- Trigger: Administrator initiates the creation of a new request code.
+- Description: This use case allows an administrator to create a new request code in the system, specifying the necessary program and sub-discipline associations.
+- Preconditions: Administrator is logged into the system and has appropriate permissions.
+- Postconditions: A new request code is created and stored in the database.
+- Main Success Scenario:
+  1. Administrator navigates to the create request code interface.
+  2. Administrator inputs the required details: Program ID, SubDisciplineID, Name, and ShortName.
+  3. Administrator saves the new request code.
+  4. The system validates the input data.
+  5. The system stores the new request code in the database.
+  6. The system confirms the successful creation to the administrator.
+- Extensions: 
+  - 3a. If optional fields are specified, they are also saved.
+- Exceptions: 
+  - E1: If validation fails, provide error message and ask for corrected input.
+- Business Rules: 
+  - BR1: Name and ShortName must not be blank.
+- Assumptions:
+  - None.
+- Open Issues:
+  - None.
+
+## RequestCodes-UC2 — Search Request Codes
+
+- Primary Actor(s): User
+- Secondary Actor(s): None
+- Trigger: User performs a search for request codes.
+- Description: Users can search for existing request codes based on various criteria such as program, discipline, and sub-discipline.
+- Preconditions: User has access to the search functionality.
+- Postconditions: Matching request codes are displayed to the user.
+- Main Success Scenario:
+  1. User navigates to the request code search interface.
+  2. User enters search criteria such as ProgramID, SubDisciplineID, keywords, etc.
+  3. User submits the search query.
+  4. The system retrieves matching request codes from the database.
+  5. The system displays the search results to the user.
+- Extensions: 
+  - 2a. Search criteria can include a combination of parameters like keyword, showInactive, etc.
+- Exceptions:
+  - E1: No matching records found, a relevant message is shown to the user.
+- Business Rules: 
+  - BR1: System may truncate string representations based on configuration.
+- Assumptions:
+  - Users understand the available search parameters.
+- Open Issues:
+  - None.
+
+## RequestCodes-UC3 — Update a Request Code
+
+- Primary Actor(s): Administrator
+- Secondary Actor(s): None
+- Trigger: Administrator decides to update an existing request code.
+- Description: Administrators can update the details of an existing request code, ensuring the data remains current.
+- Preconditions: The request code exists in the database.
+- Postconditions: The request code is updated in the database.
+- Main Success Scenario:
+  1. Administrator selects a request code to update.
+  2. Administrator edits fields such as Name, ShortName, etc.
+  3. Administrator saves the changes.
+  4. The system validates the changes.
+  5. The system updates the request code in the database.
+  6. The system confirms the updates to the administrator.
+- Extensions: 
+  - None.
+- Exceptions:
+  - E1: Validation errors occur, prompting correction before saving.
+- Business Rules: 
+  - BR1: Fields must adhere to their respective data type constraints.
+- Assumptions:
+  - None.
+- Open Issues:
+  - None.
+
+## RequestCodes-UC4 — Delete a Request Code
+
+- Primary Actor(s): Administrator
+- Secondary Actor(s): None
+- Trigger: Administrator opts to delete a request code that is no longer needed.
+- Description: This use case provides a mechanism for removing a request code from active use, by marking it as inactive or deleting it.
+- Preconditions: Request code exists and is not currently active or required for ongoing operations.
+- Postconditions: Request code is removed or marked inactive in the database.
+- Main Success Scenario:
+  1. Administrator selects the request code to be deleted.
+  2. Administrator confirms the delete action.
+  3. The system executes the delete operation.
+  4. The system confirms deletion.
+- Extensions: 
+  - None.
+- Exceptions:
+  - E1: If the request code is linked to active records, deletion may be prevented.
+- Business Rules: 
+  - BR1: Deletion must not violate integrity constraints.
+- Assumptions:
+  - None.
+- Open Issues:
+  - None.
+
+## RequestCodes-UC5 — Reactivate a Request Code
+
+- Primary Actor(s): Administrator
+- Secondary Actor(s): None
+- Trigger: Administrator opts to reactivate an inactive request code.
+- Description: This allows administrators to restore an inactive request code to active status.
+- Preconditions: The request code exists in the system as inactive.
+- Postconditions: The request code is active and available in the system.
+- Main Success Scenario:
+  1. Administrator selects an inactive request code.
+  2. Administrator initiates reactivation.
+  3. The system updates the request code status to active.
+  4. The system confirms reactivation to the administrator.
+- Extensions: 
+  - None.
+- Exceptions:
+  - E1: If reactivation fails due to constraints, an error message is shown.
+- Business Rules: 
+  - BR1: Reactivation should not conflict with existing data integrity constraints.
+- Assumptions:
+  - None.
+- Open Issues:
+  - None.
