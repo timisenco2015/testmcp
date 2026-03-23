@@ -1,0 +1,98 @@
+{
+  "filename": "StudentEvals",
+  "found": true,
+  "summary": "The StudentEvals module is a user control in a web application designed to manage and display student placement evaluations. It includes controls for selecting placement requests, displaying evaluation data, and handling user interactions with the evaluation data grid.",
+  "purpose": "The purpose of the StudentEvals module is to facilitate the management and display of student evaluations for placement requests within the web application, allowing users to view, add, edit, or delete evaluations.",
+  "entities": [],
+  "fields": [
+    "uxDates",
+    "updPnlMain",
+    "gridData",
+    "dsEvals",
+    "pnlPopup",
+    "updPnlPopup",
+    "lblPlacementRequests",
+    "ddPlacementRequests",
+    "Literal9",
+    "ltlHeaderAgencyName",
+    "Literal2",
+    "ltlHeaderRcvAgencyName",
+    "Literal14",
+    "uxStatus",
+    "Literal3",
+    "uxDetail",
+    "dsDetail"
+  ],
+  "actors": [
+    "UserSession"
+  ],
+  "workflows": [
+    {
+      "name": "Page Load",
+      "steps": [
+        "Check if the page is a postback or if the placement request list needs a refresh.",
+        "Fill the placement request list if required.",
+        "Update the header information if the user session is active."
+      ]
+    },
+    {
+      "name": "Selecting Evaluations",
+      "steps": [
+        "Cancel selection if the UserSession is null.",
+        "Pass session and student information for valid selections."
+      ]
+    },
+    {
+      "name": "Data Binding",
+      "steps": [
+        "Refresh the placement request list if necessary.",
+        "Bind data to controls."
+      ]
+    },
+    {
+      "name": "Row Data Bound",
+      "steps": [
+        "Setup add, edit, and delete buttons based on row type and screen editability.",
+        "Manage comment visibility and tooltips."
+      ]
+    },
+    {
+      "name": "Detail Handling",
+      "steps": [
+        "Bind dropdown lists for requirements and statuses.",
+        "Display PRD in labels.",
+        "Control saving button visibility based on screen editability."
+      ]
+    }
+  ],
+  "business_rules": [],
+  "validations": [],
+  "calculations": [],
+  "conditions": [],
+  "system_behavior": [
+    "Display placement request and evaluation details based on user actions.",
+    "Allow adding new entries or editing existing ones if the screen is editable.",
+    "Redirect the user after updates or selections."
+  ],
+  "dependencies": [
+    "Dropdown",
+    "Grid",
+    "DateFormatter",
+    "Resources"
+  ],
+  "exceptions": [],
+  "source_document_ids": [
+    "092d2c01-aeeb-52ef-bde9-ed5743fc1a86",
+    "2b6b3910-18fb-5a22-98bd-6d3e0d66f6dc",
+    "2f2243d3-b841-5469-81f3-fbd3719c506c",
+    "371c6570-5362-571e-aebf-8173b558a8be",
+    "479b10bf-0c5b-55bf-bfac-d3cbd4325f37",
+    "642d6cd2-55d4-574b-8cf3-7ecbf6983330",
+    "6809fb02-5e87-51f4-9350-ecbc82461e62",
+    "83e5d0ff-49db-521d-a63e-2782d7ff814f",
+    "c3661a39-95c9-5368-bcca-1c0343be12bf",
+    "edf63383-9290-53cc-a970-1ca62067d23a",
+    "f494c453-e5ef-55a5-9350-f1900691dc91"
+  ],
+  "content_gaps": []
+}
