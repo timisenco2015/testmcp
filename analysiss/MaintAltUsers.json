@@ -1,1 +1,99 @@
-{"filename": "MaintAltUsers", "found": true, "summary": "The MaintAltUsers is a web application page that manages alternate user logins. It includes UI components such as forms, grids, panels, and various script controls to facilitate the management of alternate user credentials for agencies and departments.", "purpose": "The purpose of the MaintAltUsers page is to manage alternate user logins within an organization. It provides functionalities for adding, editing, and deleting alternate login entries and includes validation and error handling mechanisms.", "entities": [], "fields": ["Agency", "Department", "NameFormatted", "AU_ID", "AgencyID", "DepartmentID", "AlternateUserID", "StaffID"], "actors": ["User", "System Administrator"], "workflows": [{"name": "Alternate User Management", "steps": ["Load the page with existing alternate users.", "Add a new alternate user by providing the necessary agency, department, and staff details.", "Edit an existing alternate user entry.", "Delete an alternate user entry using the grid options.", "Handle errors and warnings during operations."]}], "business_rules": ["Only system administrators can make changes to alternate user entries.", "Entries must be validated before saving."], "validations": ["The alternate login must be specified.", "Agency, department, and staff details must be selected before saving."], "calculations": [], "conditions": ["Screen is editable only for system administrators.", "Display 'No data found' message when the grid is empty."], "system_behavior": ["Refresh the data grid upon successful operation.", "Display pop-up for adding and editing details.", "Execute appropriate command based on user actions (add, edit, delete)."], "dependencies": ["UserSession for retrieving current user details.", "Grid utilities for managing grid operations.", "HSPnet resources for localizing strings and UI labels."], "exceptions": ["Handle and display errors appropriately when operations fail.", "Provide user feedback on validation errors."], "source_document_ids": ["04235841-30cc-5773-b01e-14aaa968168c", "0f63ea0a-5b85-5032-a03b-f4c4aa33d1e4", "2542dc5e-bee0-5f8d-9237-8778d3a83ffc", "2e71affb-4396-5478-8d75-42d34d00d3a0", "512ec838-1530-5dbd-95b4-76025f0d1449", "566f1f4f-2691-500f-8b11-8e8d95c88b84", "7bda3923-6428-5dd3-b7d2-732fe64164e7", "8a311370-7115-50da-9156-f3ae5799c1a4", "9dcffa67-a97f-5807-8cee-e8c9de7c183c", "aa29f077-6a2e-5bf5-bec0-e1b7e2319eed", "ab21b8aa-18d9-52a9-b743-64c7744486a6", "b6d672bc-a6ce-5630-90a0-b559a686164a", "cb45fe54-b5d3-5414-8dd9-692783987798", "d1e375ee-8bd4-50a8-9ecb-ed72479560c5", "d6cc6a02-6b68-5a1b-ab94-2c6016b40ec6", "e619b69a-f6b0-5643-9ee6-7834b8b430c1", "f962cac5-4a38-5341-b918-d8d3759fbf8c", "fb47d4bc-bbbc-5beb-a8ff-e82845872d7e", "fbd8e441-01f7-504c-a7a3-ea58497b4eee"], "content_gaps": []}
+{
+  "filename": "MaintAltUsers",
+  "found": true,
+  "summary": "The document is a web page related to maintaining alternate user logins in a system called HSPnet. It involves managing user alternate logins associated with agencies and departments.",
+  "purpose": "To manage and maintain alternate user logins that are associated with different agencies and departments within the HSPnet system.",
+  "entities": [],
+  "fields": [
+    {
+      "name": "Agency",
+      "type": "string"
+    },
+    {
+      "name": "Department",
+      "type": "string"
+    },
+    {
+      "name": "NameFormatted",
+      "type": "string"
+    },
+    {
+      "name": "AU_ID",
+      "type": "integer"
+    },
+    {
+      "name": "AgencyID",
+      "type": "integer"
+    },
+    {
+      "name": "DepartmentID",
+      "type": "integer"
+    },
+    {
+      "name": "AlternateUserID",
+      "type": "integer"
+    },
+    {
+      "name": "StaffID",
+      "type": "integer"
+    }
+  ],
+  "actors": [
+    "User",
+    "System Administrator"
+  ],
+  "workflows": [
+    {
+      "name": "Manage Alternate User Logins",
+      "steps": [
+        "Load the MaintAltUsers page.",
+        "Validate URL hash for security.",
+        "Display a grid of existing alternate user logins.",
+        "Allow editing, adding, or deleting records via grid actions.",
+        "Manage data through a FormView for detailed entry."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Screen is editable only if the user is a system administrator."
+  ],
+  "validations": [
+    "Ensure that the alternate login field ddStaff is specified."
+  ],
+  "calculations": [],
+  "conditions": [
+    "If no data is found, display a message and offer an add button."
+  ],
+  "system_behavior": [
+    "Displays errors and warnings in respective panels.",
+    "Handles CRUD operations on user alternate logins."
+  ],
+  "dependencies": [
+    "Users data layer",
+    "HSPnet.DataLayer",
+    "HSPnet.UI"
+  ],
+  "exceptions": [],
+  "source_document_ids": [
+    "04235841-30cc-5773-b01e-14aaa968168c",
+    "0f63ea0a-5b85-5032-a03b-f4c4aa33d1e4",
+    "2542dc5e-bee0-5f8d-9237-8778d3a83ffc",
+    "2e71affb-4396-5478-8d75-42d34d00d3a0",
+    "512ec838-1530-5dbd-95b4-76025f0d1449",
+    "566f1f4f-2691-500f-8b11-8e8d95c88b84",
+    "7bda3923-6428-5dd3-b7d2-732fe64164e7",
+    "8a311370-7115-50da-9156-f3ae5799c1a4",
+    "9dcffa67-a97f-5807-8cee-e8c9de7c183c",
+    "aa29f077-6a2e-5bf5-bec0-e1b7e2319eed",
+    "ab21b8aa-18d9-52a9-b743-64c7744486a6",
+    "b6d672bc-a6ce-5630-90a0-b559a686164a",
+    "cb45fe54-b5d3-5414-8dd9-692783987798",
+    "d1e375ee-8bd4-50a8-9ecb-ed72479560c5",
+    "d6cc6a02-6b68-5a1b-ab94-2c6016b40ec6",
+    "e619b69a-f6b0-5643-9ee6-7834b8b430c1",
+    "f962cac5-4a38-5341-b918-d8d3759fbf8c",
+    "fb47d4bc-bbbc-5beb-a8ff-e82845872d7e",
+    "fbd8e441-01f7-504c-a7a3-ea58497b4eee"
+  ],
+  "content_gaps": []
+}
