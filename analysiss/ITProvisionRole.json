@@ -1,79 +1,85 @@
 {
-  "filename": "ITProvisionRole",
-  "found": true,
-  "summary": "The ITProvisionRole module handles CRUD operations and search functionalities related to IT roles within an agency. It includes methods to add, update, delete, and reactivate ITProvisionRole entries and provides search capabilities for placement requests.",
-  "purpose": "To manage IT roles within an agency, including adding new roles, updating existing ones, and providing search functionality for placement requests.",
-  "entities": [
-    "ITProvisionRole",
-    "ITProvisionRoles"
-  ],
-  "fields": [
-    "ID",
-    "AgencyID",
-    "PlacementRequestDestinationID",
-    "Name",
-    "ShortName",
-    "Inactive"
-  ],
-  "actors": [
-    "HSPnetSession"
-  ],
-  "workflows": [
-    {
-      "name": "ITProvisionRole Search",
-      "steps": [
-        "Set procedure name to ITProvRoleSearch or ITProvRoleSearchPlacementRequest.",
-        "Add parameters including AgencyID, ShowInactive, PlacementRequestDestinationID, and keyword.",
-        "Execute query and retrieve data.",
-        "Fill list of ITProvisionRole using retrieved data.",
-        "Close data reader."
-      ]
-    },
-    {
-      "name": "ITProvisionRole CRUD Operations",
-      "steps": [
-        "Validate entry fields for Name and ShortName.",
-        "Set procedure name to ITProvRoleAdd, ITProvRoleUpdate, ITProvRoleDelete, or ITProvRoleReactivate.",
-        "Add necessary parameters such as SessionID, AgencyID, and entry fields.",
-        "Execute respective procedure."
-      ]
-    }
-  ],
-  "business_rules": [],
-  "validations": [
-    {
-      "condition": "Name must be specified",
-      "result": "Add error message to session."
-    },
-    {
-      "condition": "ShortName must be specified",
-      "result": "Add error message to session."
-    }
-  ],
-  "calculations": [],
-  "conditions": [
-    {
-      "name": "IsValid",
-      "details": "Validates that Name and ShortName are not blank."
-    }
-  ],
-  "system_behavior": [
-    "Adds, updates, deletes, and reactivates ITProvisionRole entries based on session parameters.",
-    "Searches for ITProvisionRole entries based on agency and placement request details."
-  ],
-  "dependencies": [
-    "HSPnet.Framework",
-    "HSPnet.App_GlobalResources",
-    "HSPnet.DataLayer",
-    "System.Data.SqlClient"
-  ],
-  "exceptions": [],
-  "source_document_ids": [
-    "1a10d8d9-795a-59ae-8ada-9d790c448b53",
-    "1e007376-8ab6-5f88-8dfb-6abfcd6614d0",
-    "7418f480-3fe2-56bf-ac8b-950dc83394c0",
-    "a855d1f5-cae6-5eb0-ad8d-354b71ed5537",
-    "bf9d3a09-cfa1-5424-aee2-e832230e217e"
-  ],
-  "content_gaps": []
-}
+    "filename": "ITProvisionRole",
+    "found": true,
+    "summary": "The ITProvisionRole class represents roles within IT provisioning, providing methods for adding, updating, deleting, and searching roles in placement requests. It includes validations for name and short name fields and relies on stored procedures for database interactions.",
+    "purpose": "Manage IT provisioning roles including their addition, update, deletion, and search operations.",
+    "entities": [
+      "ITProvisionRole",
+      "ITProvisionRoles"
+    ],
+    "fields": [
+      "ID",
+      "AgencyID",
+      "PlacementRequestDestinationID",
+      "Name",
+      "ShortName",
+      "Inactive"
+    ],
+    "actors": [
+      "HSPnetSession"
+    ],
+    "workflows": [
+      {
+        "name": "Search Placement Request",
+        "steps": [
+          "Set procedure name to ITProvRoleSearchPlacementRequest",
+          "Add parameters: SessionID, PlacementRequestDestinationID, ShowInactive",
+          "Execute query and fill result list"
+        ]
+      },
+      {
+        "name": "Add Role",
+        "steps": [
+          "Validate input",
+          "Set procedure name to ITProvRoleAdd",
+          "Add parameters: SessionID, AgencyID, Name, ShortName",
+          "Execute query"
+        ]
+      },
+      {
+        "name": "Update Role",
+        "steps": [
+          "Validate input",
+          "Set procedure name to ITProvRoleUpdate",
+          "Add parameters: SessionID, ID, Name, ShortName",
+          "Execute query"
+        ]
+      },
+      {
+        "name": "Delete Role",
+        "steps": [
+          "Set procedure name to ITProvRoleDelete",
+          "Add parameters: SessionID, ID",
+          "Execute query"
+        ]
+      },
+      {
+        "name": "Reactivate Role",
+        "steps": [
+          "Set procedure name to ITProvRoleReactivate",
+          "Add parameters: SessionID, ID",
+          "Execute query"
+        ]
+      }
+    ],
+    "business_rules": [],
+    "validations": [
+      "Name must be specified",
+      "ShortName must be specified"
+    ],
+    "calculations": [],
+    "conditions": [],
+    "system_behavior": [
+      "Stored procedure interaction for CRUD operations"
+    ],
+    "dependencies": [],
+    "exceptions": [],
+    "source_document_ids": [
+      "1a10d8d9-795a-59ae-8ada-9d790c448b53",
+      "1e007376-8ab6-5f88-8dfb-6abfcd6614d0",
+      "7418f480-3fe2-56bf-ac8b-950dc83394c0",
+      "a855d1f5-cae6-5eb0-ad8d-354b71ed5537",
+      "bf9d3a09-cfa1-5424-aee2-e832230e217e"
+    ],
+    "content_gaps": []
+  }
