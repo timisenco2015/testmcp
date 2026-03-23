@@ -1,74 +1,75 @@
 {
   "filename": "PrqOccupationalHealth",
   "found": true,
-  "summary": "The file PrqOccupationalHealth appears to be a component of a web application, likely a user control within the HSPnet application, focused on managing and displaying occupational health requirements related to various immunizations and tests.",
-  "purpose": "The purpose of this file is to manage and display occupational health prerequisites and status for staff, including various immunization and test statuses.",
+  "summary": "The PrqOccupationalHealth document is part of a web application that manages staff profiles with an emphasis on occupational health requirements. It features various controls for collecting and displaying immunization and test status data related to diseases such as Tetanus, Covid-19, Measles, Mumps, Rubella, Varicella, Hepatitis, TB and Influenza. The system relies on user controls, sessions, and client-side JavaScript to manage form interactions and validations.",
+  "purpose": "The purpose of the PrqOccupationalHealth module is to track and manage staff compliance with occupational health requirements, particularly related to immunizations and other health prerequisites necessary for their roles.",
   "entities": [],
   "fields": [
-    "TetanusStatusCodeID",
-    "TdapStatusCodeID",
-    "PolioStatusCodeID",
-    "MeaslesStatusCodeID",
-    "Covid19StatusCodeID",
-    "RubellaStatusCodeID",
-    "MumpsStatusCodeID",
-    "VaricellaStatusCodeID",
-    "InfluenzaStatusCodeID",
-    "OccHealthReqMetStatusCodeID",
-    "StaffID",
-    "SessionID"
+    "Tetanus Status",
+    "Covid-19 Status",
+    "Measles Status",
+    "Mumps Status",
+    "Rubella Status",
+    "Varicella Status",
+    "Hepatitis B Status",
+    "TB Status",
+    "Influenza Status",
+    "Immunization Fee Paid",
+    "Medical Completed"
   ],
   "actors": [
-    "UserSession",
-    "HSPnetSession",
+    "User",
+    "ScriptManager",
     "Grid",
-    "Dropdown",
-    "Page",
-    "Resources",
-    "ScriptManager"
+    "StudentPrerequisite"
   ],
   "workflows": [
     {
-      "name": "LoadStudentPrerequisites",
+      "name": "Load Student Prerequisites",
       "steps": [
-        "Check if UserSession is available",
-        "Retrieve StudentPrerequisite data",
+        "Check if UserSession is not null",
+        "Search for Student Prerequisites",
         "Load summary and detailed panels"
       ]
     },
     {
-      "name": "UpdateDetailRequest",
+      "name": "Updating Details",
       "steps": [
-        "Validate page inputs",
-        "Convert and assign new values from dropdowns to request parameters",
-        "Cache the user session and redirect to updated page"
+        "Validate page fields",
+        "Convert and assign new values from dropdowns",
+        "Handle async postback with JavaScript"
       ]
     }
   ],
   "business_rules": [
-    "Page validation must succeed before updates can occur",
-    "Dropdowns and textboxes have specific values based on immunization and test status codes",
-    "ScriptManager manages JavaScript execution based on async postback status"
+    "If Inactive, hide edit buttons.",
+    "If Screen is not editable, disable form fields.",
+    "Use alternate language fields if UserSession.UseAltLanguageFields is true."
   ],
   "validations": [
-    "Page.IsValid must be true for updates",
-    "Dropdown selections are validated against specific ID formats"
+    "Check if page is valid before updating",
+    "Cancel update if the page is invalid"
   ],
-  "calculations": [],
+  "calculations": [
+    "Calculate future date for expiry",
+    "Select appropriate year for influenza if current date is past October 1st"
+  ],
   "conditions": [
-    "ScreenIsEditable",
-    "UserSession.UseAltLanguageFields"
+    "Use alternate field descriptions if alternate language fields are used.",
+    "Hide H1N1 row if InfluenzaStatusCodeID2 is 0."
   ],
   "system_behavior": [
-    "Disabling and enabling calendars based on form modes",
-    "JavaScript variables set for client-side scripting"
+    "Disable calendar UI components if the screen is not editable",
+    "Load JavaScript variables for form validation and interaction"
   ],
   "dependencies": [
+    "HSPnet.App_GlobalResources",
     "HSPnet.DataLayer",
-    "HSPnet.Framework",
-    "HSPnet.App_GlobalResources"
+    "HSPnet.Framework"
   ],
-  "exceptions": [],
+  "exceptions": [
+    "Cancel data source selection if UserSession is null"
+  ],
   "source_document_ids": [
     "0227f881-99ad-53f4-b0f8-bf34c34414d0",
     "074fd257-f36c-5844-b46c-af84ea63f469",
