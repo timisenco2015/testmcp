@@ -1,0 +1,139 @@
+# Module: PersonLookup
+
+## PersonLookup-UC1 — Search for a Person
+
+- Primary Actor(s): User
+- Secondary Actor(s): System
+- Trigger: User wants to find a person in the database.
+- Description: The user inputs search criteria and initiates a search to find details about a person.
+- Preconditions: User must be logged into the system.
+- Postconditions: Display a list of people matching the search criteria.
+- Main Success Scenario:
+  1. User enters search criteria into the search interface.
+  2. User clicks on the "Search" button.
+  3. System processes the search request.
+  4. System returns and displays search results in a grid format.
+- Extensions:
+  - 2a. No search results are found: System displays "No People Found" message.
+- Exceptions:
+  - Invalid or empty search criteria trigger a warning dialog.
+- Business Rules:
+  - User session must be valid for search to proceed.
+- Assumptions:
+  - User has the necessary permissions to perform searches.
+- Open Issues:
+  - None.
+
+## PersonLookup-UC2 — View Person Profile
+
+- Primary Actor(s): User
+- Secondary Actor(s): System
+- Trigger: User selects a person from the search results.
+- Description: User reviews the profile of a selected person from the search results.
+- Preconditions: Search has been completed, and results are displayed.
+- Postconditions: Display detailed profile of the selected person.
+- Main Success Scenario:
+  1. User clicks on the "Profile" icon for a person in the search results.
+  2. System validates user permissions.
+  3. System opens a new window with the person's detailed profile.
+- Extensions:
+  - 2a. User does not have permission: System hides profile elements.
+- Exceptions:
+  - Access to profile is denied if the user lacks proper permissions.
+- Business Rules:
+  - Profile access is regulated by user roles and permissions.
+- Assumptions:
+  - The profile exists for the selected person.
+- Open Issues:
+  - None.
+
+## PersonLookup-UC3 — Clear Search Criteria
+
+- Primary Actor(s): User
+- Secondary Actor(s): System
+- Trigger: User wants to clear the current search criteria.
+- Description: User clears all input fields to reset the search form.
+- Preconditions: User is on the search page with search criteria possibly entered.
+- Postconditions: All input fields are cleared and set to default.
+- Main Success Scenario:
+  1. User clicks the "Clear" button.
+  2. System resets all fields to empty or default values.
+- Extensions:
+  - None.
+- Exceptions:
+  - None.
+- Business Rules:
+  - Clearing criteria does not automatically trigger a new search.
+- Assumptions:
+  - User intends to reset fields before a new search.
+- Open Issues:
+  - None.
+
+## PersonLookup-UC4 — Handle Error and Warning Messages
+
+- Primary Actor(s): System
+- Secondary Actor(s): User
+- Trigger: An error or warning condition occurs during search operations.
+- Description: System displays error or warning messages when certain conditions are met.
+- Preconditions: A search action has been initiated.
+- Postconditions: Error or warning messages are visible to the user.
+- Main Success Scenario:
+  1. An error or warning condition is detected.
+  2. System displays the corresponding message in a panel.
+  3. User acknowledges and dismisses the message.
+- Extensions:
+  - None.
+- Exceptions:
+  - System fails to display message correctly.
+- Business Rules:
+  - Error and warning messages must be user-friendly and informative.
+- Assumptions:
+  - Messages are displayed as per system settings and conditions.
+- Open Issues:
+  - None.
+
+## PersonLookup-UC5 — Print List of Search Results
+
+- Primary Actor(s): User
+- Secondary Actor(s): System
+- Trigger: User wants to print the list of search results.
+- Description: User initiates a print action for the search results displayed.
+- Preconditions: Search results are displayed.
+- Postconditions: A print command is sent to the user's printer.
+- Main Success Scenario:
+  1. User clicks the "Print List" button.
+  2. System generates a print-friendly format of the search results.
+  3. System sends the print command to the default printer.
+- Extensions:
+  - None.
+- Exceptions:
+  - Printer is unavailable.
+- Business Rules:
+  - Print action does not alter the search results displayed.
+- Assumptions:
+  - User has access to a configured printer.
+- Open Issues:
+  - None.
+
+## PersonLookup-UC6 — Close Search Interface
+
+- Primary Actor(s): User
+- Secondary Actor(s): System
+- Trigger: User wants to close the search interface window.
+- Description: User closes the Person Lookup interface.
+- Preconditions: Search interface is open.
+- Postconditions: Search interface window is closed.
+- Main Success Scenario:
+  1. User clicks the "Close Window" button.
+  2. System confirms the close action.
+  3. Search interface window is closed.
+- Extensions:
+  - None.
+- Exceptions:
+  - None.
+- Business Rules:
+  - UseSubmitBehavior should be set to false.
+- Assumptions:
+  - User intentionally wants to end the session on this interface.
+- Open Issues:
+  - None.
