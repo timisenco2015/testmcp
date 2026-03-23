@@ -1,54 +1,39 @@
 {
   "filename": "MaintGuideline",
   "found": true,
-  "summary": "The file is a VBScript web page for the MaintGuideline screen, setting up session and response behavior, and including a screen processing script.",
-  "purpose": "To serve as an entry point for the MaintGuideline screen, initializing required variables and including the core screen logic from another file.",
+  "summary": "The file sets up a VBScript page for the 'MaintGuideline' screen name, disables session state, and includes another script to render or process the screen.",
+  "purpose": "To initialize and render the 'MaintGuideline' screen logic, leveraging shared application logic defined in '/HSPnet/DoScreen.asp'.",
   "entities": [],
-  "fields": [
-    {
-      "name": "strScreenName",
-      "type": "string",
-      "description": "Name of the current screen, set to 'MaintGuideline'"
-    }
-  ],
-  "actors": [
-    "Web user accessing the MaintGuideline screen"
-  ],
+  "fields": [],
+  "actors": [],
   "workflows": [
     {
-      "name": "Display MaintGuideline Screen",
+      "name": "Screen Rendering",
       "steps": [
-        "Initialize VBScript environment and session state",
-        "Set response buffer and expiration settings",
-        "Define 'strScreenName' variable as 'MaintGuideline'",
-        "Include the core screen processing script '/HSPnet/DoScreen.asp'"
+        "Set VBScript language and disable session state.",
+        "Enable response buffering and set response expiration header.",
+        "Define the screen name as 'MaintGuideline'.",
+        "Include '/HSPnet/DoScreen.asp' for screen processing and rendering."
       ]
     }
   ],
-  "business_rules": [
-    "Session state is disabled on this page",
-    "Response is buffered and set to expire immediately"
-  ],
+  "business_rules": [],
   "validations": [],
   "calculations": [],
-  "conditions": [
-    "Language must be VBScript",
-    "Session state is explicitly disabled"
-  ],
+  "conditions": [],
   "system_behavior": [
-    "Page initializes environment for the MaintGuideline screen",
-    "Delegates further processing to an included script"
+    "Page is rendered with response buffering and no session state.",
+    "Expiration is set to -1 to prevent caching.",
+    "Screen logic is abstracted in '/HSPnet/DoScreen.asp'."
   ],
   "dependencies": [
-    "/HSPnet/DoScreen.asp"
+    "'/HSPnet/DoScreen.asp' which likely contains main logic for the screen rendering and processing."
   ],
   "exceptions": [],
   "source_document_ids": [
     "d2a7a3b6-db59-52b4-9178-4b2e112144fa"
   ],
   "content_gaps": [
-    "Core business logic and screen behavior are determined by '/HSPnet/DoScreen.asp', which is not provided.",
-    "No user interface or detailed field definitions are present.",
-    "No validation or exception handling is shown."
+    "No further details are available on workflow steps, business rules, validations, fields, actors, or calculations as the main logic resides in the included file '/HSPnet/DoScreen.asp'."
   ]
 }
