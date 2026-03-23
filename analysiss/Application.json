@@ -1,19 +1,103 @@
 {
   "filename": "Application",
-  "found": false,
-  "summary": "",
-  "purpose": "",
+  "found": true,
+  "summary": "The Application file is part of a user control for managing eTopics within a web application. It involves a wizard control that guides the user through different configuration steps related to disciplines, sites, services, and destinations.",
+  "purpose": "To manage the configuration and assignment of eTopics within a web application, allowing users to set preferences for disciplines, sites, services, and destinations through a series of wizard steps.",
   "entities": [],
-  "fields": [],
-  "actors": [],
-  "workflows": [],
-  "business_rules": [],
-  "validations": [],
+  "fields": [
+    "Label17",
+    "trDisciplines",
+    "Literal17",
+    "uxDisciplines",
+    "trSites",
+    "Literal19",
+    "uxSites",
+    "uxAllowAllSites",
+    "UCSites",
+    "WSServices",
+    "Label10",
+    "uxAllowAllServices",
+    "Label15",
+    "uxSiteFilter",
+    "uxAllowAllDisciplines",
+    "UCDisciplines",
+    "WSSites",
+    "Label9",
+    "UCDestinations",
+    "uxAllowAllDestinations",
+    "uxServiceFilter",
+    "uxDestinations",
+    "Literal21",
+    "Wizard1"
+  ],
+  "actors": [
+    "UserSession",
+    "ScriptMgr"
+  ],
+  "workflows": [
+    {
+      "name": "ETopic Application Setup",
+      "steps": [
+        "Initialize eTopic configuration",
+        "Set disciplines, sites, services, and destinations",
+        "Save configuration on Wizard finish button",
+        "Handle cascading access rights",
+        "Load appropriate wizard step"
+      ]
+    }
+  ],
+  "business_rules": [
+    "If uxAllowAllSites, uxAllowAllServices or uxAllowAllDestinations is set to '1', respective configuration lists are not enabled.",
+    "The system manages the application of all, none, or selected disciplines, sites, services, and destinations."
+  ],
+  "validations": [
+    "Validate if selected disciplines, sites, services, and destinations are part of allowed lists.",
+    "Ensure UX controls are enabled only when the screen is editable."
+  ],
   "calculations": [],
-  "conditions": [],
-  "system_behavior": [],
-  "dependencies": [],
+  "conditions": [
+    "If uxAllowAllDisciplines, uxAllowAllSites, uxAllowAllServices, or uxAllowAllDestinations is '0', set up respective configurations.",
+    "Use UserID field to store ETopicID for allowed user services."
+  ],
+  "system_behavior": [
+    "Updates user session cache on application saving.",
+    "Redirects user to current page with updated query parameters after saving changes.",
+    "Handles AJAX postbacks and script registration dynamically."
+  ],
+  "dependencies": [
+    "HSPnetSession",
+    "DataLayer.ETopic",
+    "HSPnet.UserControls.ListBoxChooser",
+    "HSPnet.DataLayer",
+    "HSPnet.App_GlobalResources",
+    "System.Web.UI"
+  ],
   "exceptions": [],
-  "source_document_ids": [],
-  "content_gaps": ["No related documents found"]
+  "source_document_ids": [
+    "11e5e416-40ed-5618-a877-63d9db2580ba",
+    "124c7e48-ef3d-5c58-9776-812c292e26e0",
+    "12c5da3a-1f3c-5019-81ff-c6534f977380",
+    "181b9550-fe37-568a-8183-585bb0cfcc18",
+    "263abae2-1931-5e89-9948-e7d6faea076b",
+    "27e3d9b4-afe3-5fe2-b57c-228a0420a2ca",
+    "33e16676-a34b-570b-908e-ec83855899ff",
+    "4228d8f2-a612-51cb-8ac5-ca1f8aa5f974",
+    "4b562530-751c-54b6-9001-f025bf47564c",
+    "601d8ebd-735f-5f06-becb-72a5697189ff",
+    "7dca46b4-579d-5331-a8f6-59a47bba33ee",
+    "8009385f-ad7f-5a31-9ab6-c3f6859f5f23",
+    "8a50e993-2bc8-516a-bec8-393a4c6c6202",
+    "8e9b6565-2c71-5436-940b-f8606ccbeeff",
+    "9238b525-1d0e-5ff0-bb21-f36fa0982b24",
+    "92699e70-841b-576e-ad54-adeb0d77bae2",
+    "a7310de7-9207-5191-80d1-9bf484e9ea73",
+    "b1fc9e66-c0f2-5471-a29a-ac90e553efaa",
+    "bb96b1d6-2fe6-5ea4-bad2-0423eb94b403",
+    "c60f0bdc-7875-5648-bfb1-e478c2c75791",
+    "c8fdde4a-46b0-51cc-b623-234988b0199e",
+    "ecf38923-a935-53f8-b70c-3c614cbc74a3",
+    "f8fbb57a-ed5a-59a8-a962-d824a6104fae",
+    "f9703294-61f4-5a9f-932c-078f98975483"
+  ],
+  "content_gaps": []
 }
