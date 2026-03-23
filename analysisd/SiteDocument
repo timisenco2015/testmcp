@@ -1,257 +1,29 @@
+Based on the retrieved content, here is the analysis of the SiteDocument:
+
 ```json
-[
-    {
-        "filename": "SiteDocument",
-        "found": true,
-        "summary": "The SiteDocument class is a sealed class used within the HSPnet.DataLayer namespace to represent site-related document data. It contains properties for ID and SiteID and is part of the system's data access layer.",
-        "purpose": "Represent site-related document data within the system's data access layer.",
-        "entities": ["SiteDocument"],
-        "fields": ["ID", "SiteID"],
-        "actors": [],
-        "workflows": [],
-        "business_rules": [],
-        "validations": [],
-        "calculations": [],
-        "conditions": [],
-        "system_behavior": [],
-        "dependencies": [],
-        "exceptions": [],
-        "source_document_ids": ["a2967f17-a924-5e9c-8b15-d1f7bd028b32"],
-        "content_gaps": []
-    },
-    {
-        "filename": "WelcomeStaffAdmin",
-        "found": true,
-        "summary": "The WelcomeStaffAdmin page manages staff admin tasks and includes UI elements like text fields, calendar controls, validation methods, and dropdown lists for managing dates and selections. It is part of the HSPnet framework.",
-        "purpose": "Manage staff administration tasks, including handling date fields and dropdown selections.",
-        "entities": ["WelcomeStaffAdmin"],
-        "fields": [
-            "valEndDate", 
-            "txtEndDate", 
-            "btnEndDateCalendar"
-        ],
-        "actors": [],
-        "workflows": [
-            {
-                "name": "Update Panel Refresh",
-                "steps": [
-                    "User clicks refresh view.",
-                    "Data is refreshed within the current view panel."
-                ]
-            },
-            {
-                "name": "Site Dropdown Change",
-                "steps": [
-                    "Site dropdown selection is changed.",
-                    "Data is refreshed based on the new site selection."
-                ]
-            }
-        ],
-        "business_rules": [],
-        "validations": [
-            "Start date and end date fields must satisfy date format validation."
-        ],
-        "calculations": [],
-        "conditions": [],
-        "system_behavior": [
-            "RefreshData() function is used to bind data from database based on dropdown selections."
-        ],
-        "dependencies": [],
-        "exceptions": [],
-        "source_document_ids": [
-            "05db31e4-e8b6-53ee-a6fb-812c106f0134",
-            "100d5925-a5f8-53db-8493-02cddd563eb7",
-            "3c84bade-9671-5fbf-acce-3c87a835e9b4",
-            "4c4b97b8-d242-5261-a515-767a3f7d7a49",
-            "54244516-0707-581e-a8ba-9c041ea38366",
-            "5bb85da3-f5b4-5753-b07c-9bb2a04eeb89",
-            "5d9b92ea-7c12-5070-8603-977cf14d0e04",
-            "6701b153-5288-59e5-8de9-61b68a1fc292",
-            "871df91b-7ba0-558f-83ea-d5be1b0dc8db",
-            "8cea5c3a-2fbf-5206-a0c0-9425a5e14511",
-            "964a48c9-231c-5d58-a44d-3675d949a453",
-            "966ed8d3-a5af-567f-b092-936217777551",
-            "a0c3da28-32a5-5fce-91b2-17274efa016e"
-        ],
-        "content_gaps": []
-    },
-    {
-        "filename": "ServiceCode",
-        "found": true,
-        "summary": "The ServiceCode class within HSPnet represents codes for services with properties like CodeCategoryID, ShortName, Name, and Notes. Methods for listing service codes by different IDs are provided.",
-        "purpose": "Manage and retrieve codes associated with services.",
-        "entities": ["ServiceCode"],
-        "fields": [
-            "ID",
-            "CodeCategoryID",
-            "ShortName",
-            "Name",
-            "SortOrder",
-            "Notes",
-            "NameAlt",
-            "NotesAlt"
-        ],
-        "actors": [],
-        "workflows": [
-            {
-                "name": "Fetch Service Codes",
-                "steps": [
-                    "Service codes are fetched from the database using procedures like ServiceCodeListAll."
-                ]
-            }
-        ],
-        "business_rules": [],
-        "validations": [],
-        "calculations": [],
-        "conditions": [
-            "Use alternate language fields if in alt language mode."
-        ],
-        "system_behavior": [
-            "Service codes are localized based on session settings."
-        ],
-        "dependencies": [],
-        "exceptions": [],
-        "source_document_ids": [
-            "94f1b055-348d-508a-ae6e-cf7960a8c6a2",
-            "e4ebe4b4-6d14-5c3f-b693-61016f765239",
-            "f976b9af-a402-540f-b162-391d578fac7c"
-        ],
-        "content_gaps": []
-    },
-    {
-        "filename": "SiteProfileHistory",
-        "found": true,
-        "summary": "The SiteProfileHistory class tracks changes in site profiles, including actions taken and user details. It is part of the HSPnet.DataLayer and contains methods for searching profile history.",
-        "purpose": "Track and manage changes in site profiles.",
-        "entities": ["SiteProfileHistory"],
-        "fields": [
-            "ID",
-            "ActionDate",
-            "ScreenSection",
-            "UserAction",
-            "Fields",
-            "Agency",
-            "AgencyName",
-            "LastName",
-            "FirstName",
-            "MiddleName",
-            "Phone",
-            "ByUserID",
-            "ByOriginalUserID",
-            "ByUserSysAdmin"
-        ],
-        "actors": [],
-        "workflows": [
-            {
-                "name": "Search Site Profile History",
-                "steps": [
-                    "Searches are conducted using SiteProfileHistorySearch method which retrieves data based on SiteID."
-                ]
-            }
-        ],
-        "business_rules": [],
-        "validations": [],
-        "calculations": [],
-        "conditions": [],
-        "system_behavior": [
-            "Tooltip details are constructed for display based on user actions and agency information."
-        ],
-        "dependencies": [],
-        "exceptions": [],
-        "source_document_ids": [
-            "25f89a24-5eda-5a3f-83df-1de69b12b3f1",
-            "26e09292-d304-55c6-94e5-ef3346453c4b",
-            "7ca6b963-9ae9-5cd3-82d5-f30dcb727ae3",
-            "a8f030c6-90b8-53a1-bb8a-3b7ef33b9488",
-            "e806999c-3a39-5720-9b59-303faebc9eb6"
-        ],
-        "content_gaps": []
-    },
-    {
-        "filename": "EmailPopupDocument",
-        "found": true,
-        "summary": "The EmailPopupDocument class is a serializable class in the HSPnet.DataLayer for handling email popup documents. It includes methods for searching and deleting documents based on data info.",
-        "purpose": "Manage email popup documents including search and deletion functionalities.",
-        "entities": ["EmailPopupDocument"],
-        "fields": [
-            "ID",
-            "FileName",
-            "FilePath",
-            "Checked"
-        ],
-        "actors": [],
-        "workflows": [],
-        "business_rules": [],
-        "validations": [],
-        "calculations": [],
-        "conditions": [],
-        "system_behavior": [
-            "Email documents are managed by parsing data info strings."
-        ],
-        "dependencies": [],
-        "exceptions": [],
-        "source_document_ids": [
-            "7287734e-f13d-550f-9249-4242db620766",
-            "927bc837-5564-5759-9324-27c6d5d7321d"
-        ],
-        "content_gaps": []
-    },
-    {
-        "filename": "CostCentre",
-        "found": true,
-        "summary": "The CostCentre class handles the retrieval of cost centre information related to placements, including fields such as PlacingAgency, Discipline, Site, and associated dates and costs.",
-        "purpose": "Provide detailed information on placement cost centres.",
-        "entities": ["CostCentre"],
-        "fields": [
-            "PlacingAgency",
-            "Department",
-            "Program",
-            "Discipline",
-            "SubDiscipline",
-            "ReceivingAgency",
-            "Site",
-            "Portfolio",
-            "Service",
-            "Destination",
-            "CostCentre",
-            "CostCentreDescription",
-            "PRType",
-            "StartDate",
-            "EndDate",
-            "Status",
-            "Course",
-            "ProgramYear",
-            "ReferenceNumber",
-            "CFO",
-            "PRCount",
-            "StudentCount",
-            "PRHours",
-            "StudentHours"
-        ],
-        "actors": [],
-        "workflows": [
-            {
-                "name": "Fetch Cost Centre Details",
-                "steps": [
-                    "Cost centre details are retrieved based on session ID and other criteria using the GetCostCentre method."
-                ]
-            }
-        ],
-        "business_rules": [],
-        "validations": [],
-        "calculations": [],
-        "conditions": [],
-        "system_behavior": [],
-        "dependencies": [],
-        "exceptions": [],
-        "source_document_ids": [
-            "20ac8054-536e-5203-b33d-7db2b2dc2359",
-            "2c04f259-cf58-5d95-803c-8ebf16840f6c",
-            "97bc3ba9-9fe4-52b1-8847-dce2198e0aee",
-            "dd965b0f-f9cf-57eb-a3f8-32b3b97a6d1a",
-            "e1ac7e41-5e9e-5f16-baa0-29d05a70f976"
-        ],
-        "content_gaps": []
-    }
-]
+{
+  "filename": "SiteDocument",
+  "found": true,
+  "summary": "Definition of the SiteDocument class with properties.",
+  "purpose": "To represent documents linked to a site in the database.",
+  "entities": ["SiteDocument"],
+  "fields": ["ID", "SiteID"],
+  "actors": [],
+  "workflows": [],
+  "business_rules": [],
+  "validations": [],
+  "calculations": [],
+  "conditions": [],
+  "system_behavior": [],
+  "dependencies": [
+    "System",
+    "System.Data.SqlClient",
+    "System.Collections.Generic",
+    "HSPnet.Framework",
+    "HSPnet.App_GlobalResources"
+  ],
+  "exceptions": [],
+  "source_document_ids": ["a2967f17-a924-5e9c-8b15-d1f7bd028b32"],
+  "content_gaps": []
+}
 ```
