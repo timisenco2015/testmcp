@@ -1,87 +1,112 @@
 {
     "filename": "MaintProgramProfileDescription",
     "found": true,
-    "summary": "The MaintProgramProfileDescription is a web user control that manages the maintenance of program profile descriptions. It involves various UI components such as GridViews, Panels, Buttons, and ModalPopupExtenders to facilitate operations like adding, editing, and deleting program details.",
-    "purpose": "To provide a user interface for viewing and managing program profile descriptions within a system, allowing users to perform CRUD (Create, Read, Update, and Delete) operations on program details.",
+    "summary": "The MaintProgramProfileDescription user control allows for the management of program profiles. It supports viewing, adding, editing, and deleting program details within a grid view. The control utilizes various ASP.NET Web Forms features such as GridView, FormView, ObjectDataSource, and UpdatePanel to manage the data. It also includes functionality for user session management, UI interaction, and data validation.",
+    "purpose": "To provide a user interface for managing program profiles, including viewing, editing, adding, and deleting program details.",
     "entities": [],
     "fields": [
-        "gvwProfile",
-        "dsProfile",
-        "pnlPopup",
-        "updPnlPopup",
-        "btnShowPopup",
-        "mdlDetails",
-        "ValidationSummary3",
-        "fvwProfile",
-        "dsHeading"
+        {
+            "name": "gvwProfile",
+            "description": "GridView control for displaying program profiles"
+        },
+        {
+            "name": "dsProfile",
+            "description": "Data source for the profile information"
+        },
+        {
+            "name": "pnlPopup",
+            "description": "Panel for displaying pop-up dialogs"
+        },
+        {
+            "name": "updPnlPopup",
+            "description": "UpdatePanel for partial page updates related to pop-ups"
+        },
+        {
+            "name": "btnShowPopup",
+            "description": "Button to trigger the display of pop-up dialogs"
+        },
+        {
+            "name": "mdlDetails",
+            "description": "Modal popup extender for showing details in a modal dialog"
+        },
+        {
+            "name": "ValidationSummary3",
+            "description": "Validation summary for displaying errors"
+        },
+        {
+            "name": "fvwProfile",
+            "description": "FormView control for displaying and editing a single program detail"
+        },
+        {
+            "name": "dsHeading",
+            "description": "Data source for the heading information"
+        },
+        {
+            "name": "pnlEmptyData",
+            "description": "Panel for adding new data when no data is present"
+        },
+        {
+            "name": "cmdAddEmptyData",
+            "description": "Link button for adding data when no data is present"
+        }
     ],
     "actors": [
-        "UserSession",
-        "ScriptManager"
+        {
+            "name": "User",
+            "description": "Interacts with the user control to manage program profiles"
+        },
+        {
+            "name": "System",
+            "description": "Handles server-side operations such as data retrieval and updates"
+        }
     ],
     "workflows": [
         {
-            "name": "Selecting Profile",
+            "name": "Profile Management",
             "steps": [
-                "Check if the control is visible.",
-                "Set input parameters for session and program ID.",
-                "Cancel the operation if not visible."
+                "User views the profile list in the GridView (gvwProfile)",
+                "User can add a new profile via cmdAddEmptyData if no data present",
+                "User can edit an existing profile by selecting the edit command in the GridView",
+                "User can delete a profile via the delete command in the GridView",
+                "Changes are saved and the system updates the display"
             ]
         },
         {
-            "name": "Row Data Bound Handling",
+            "name": "Popup Display",
             "steps": [
-                "Setup add, edit, and delete buttons depending on row type.",
-                "Toggle visibility of panels based on data conditions."
-            ]
-        },
-        {
-            "name": "Data Bound Handling",
-            "steps": [
-                "Hide 'no data found' button if rows exist and screen is editable.",
-                "Show specific panels if there is no data and the screen is editable."
-            ]
-        },
-        {
-            "name": "Row Command Handling",
-            "steps": [
-                "Execute edit, add, delete commands.",
-                "Redirect after executing commands."
-            ]
-        },
-        {
-            "name": "Add Handling",
-            "steps": [
-                "Switch to add mode.",
-                "Bind form view data.",
-                "Show details popup."
+                "User initiates a popup via btnShowPopup",
+                "System shows mdlDetails modal popup",
+                "User interacts with the popup content",
+                "System processes any actions and closes the popup"
             ]
         }
     ],
     "business_rules": [
-        "If the control is not visible, selection operations are canceled.",
-        "Different types of buttons are displayed based on the row type and screen editability."
+        "Profiles must have a SortOrder, defaulting to -1 if not provided.",
+        "Only editable profiles allow adding, editing, and deleting.",
+        "Popups are shown only if specific criteria are met."
     ],
     "validations": [
-        "ValidationSummary3 is used for validating data entry."
+        "Ensure that all fields are filled correctly before saving changes.",
+        "Validate data formats and required fields in GridView and FormView."
     ],
-    "calculations": [
-        "Sort order is set to -1 if left empty during save operation."
-    ],
+    "calculations": [],
     "conditions": [
-        "Actions are conditional on the visibility of control and row type.",
-        "Conditions are checked for screen editability before showing certain UI elements."
+        "The grid header setup and action buttons depend on whether the screen is editable.",
+        "Row actions in the GridView depend on the row type (header or data row).",
+        "Redirect logic after save action based on whether changes are cancelled."
     ],
     "system_behavior": [
-        "Responds to user actions by executing corresponding commands and displaying modals as needed."
+        "Redirect to another page with query string parameters after certain actions.",
+        "Process each row command (edit, add, delete) in the GridView to affect corresponding data.",
+        "Handle session state and caching related to user actions and data display."
     ],
     "dependencies": [
-        "ProgramDetail class for handling program data.",
-        "UserSession for session management.",
-        "Grid utility for UI operations."
+        "ASP.NET Web Forms features (GridView, FormView, etc.)",
+        "HSPnet session management and data layers"
     ],
     "exceptions": [
-        "JavaScript errors related to event validation are noted as unexplained when using certain methods."
+        "JavaScript errors related to event validation when handling no data templates"
     ],
     "source_document_ids": [
         "03243333-f3df-579f-ad44-5ded284d50a1",
