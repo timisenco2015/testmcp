@@ -1,0 +1,82 @@
+```json
+{
+  "filename": "PersonLookup",
+  "found": true,
+  "summary": "The PersonLookup system manages the search and display of person-related data within the HSPnet application, including functionalities for search, data binding, and UI interactions.",
+  "purpose": "To provide an interface for searching and displaying information about persons, including email, profiles, and roles within the HSPnet system.",
+  "entities": ["Person", "HSPnetPage", "ProfileIcon", "UserSession"],
+  "fields": [
+    "pnlCurrentView", "Literal1", "txtQuery", "RequiredFieldValidator1", "ValidationSummary1", "cmdSearch", "cmdClear",
+    "cmdHideWarningPanel", "uxPersonLookupNote", "cmdPrint", "cmdClose", "Label1", "pnlWarning", "lblWarningCaption",
+    "lblWarningList", "uxPageTitle", "AlwaysVisibleControlExtender1", "AlwaysVisibleControlExtender2", "pnlError",
+    "lblErrorCaption", "lblErrorList", "cmdHideErrorPanel"
+  ],
+  "actors": ["SystemAdministrator", "Staff", "Student", "Supervisor", "ReceivingCoord", "DestinationCoord"],
+  "workflows": [
+    {
+      "name": "Search Person",
+      "steps": [
+        "Initialize search parameters",
+        "Validate search input fields",
+        "Execute search query",
+        "Bind search results to UI"
+      ]
+    },
+    {
+      "name": "Display Profile",
+      "steps": [
+        "Check profile existence",
+        "Display profile icon",
+        "Open profile in new window if profile exists"
+      ]
+    }
+  ],
+  "business_rules": [
+    "Email icons are hidden if certain info is not released.",
+    "Profiles are displayed only if user is authorized.",
+    "Default button on page is the search button.",
+    "Page sorts results by last name ascending."
+  ],
+  "validations": [
+    "RequiredFieldValidator1 ensures txtQuery is not empty.",
+    "ValidationSummary1 displays validation errors."
+  ],
+  "calculations": [],
+  "conditions": [
+    "If data.StaffID equals UserSession.StaffID, it marks this as current user.",
+    "If Request.QueryString['PA'] equals '1', additional information is displayed."
+  ],
+  "system_behavior": [
+    "Uses AJAX for dynamic UI updates.",
+    "Handles client-side events using JavaScript."
+  ],
+  "dependencies": [
+    "HSPnet.DataLayer", "HSPnet.Framework", "AjaxControlToolkit"
+  ],
+  "exceptions": [
+    "Errors are captured in lblErrorList."
+  ],
+  "source_document_ids": [
+    "117be637-65c1-565e-89b0-977f997dd239",
+    "1870e1b8-b75a-58ce-8571-23dda91e26d5",
+    "1ebb1a0c-261f-5bd5-aa68-bed6fd72afcf",
+    "267fb8df-52be-563e-a155-f932556f8b46",
+    "3a16d9e0-d032-541e-b6c8-f72be3f3f6ea",
+    "432e074f-5967-5e3a-b626-1c5374c0c9d5",
+    "43cdfad3-2731-5d3a-924d-d051420879f0",
+    "6af8a834-c9c9-59e5-a9be-42de1655d226",
+    "93ce3c75-902f-5019-ba81-3e4452017662",
+    "a7102962-59bf-57dd-8f44-b3298103f058",
+    "a8303814-89e0-575b-960d-08fef6b9875d",
+    "ac7612fe-becf-5375-a2c5-37985ed28d78",
+    "b982794e-99b8-5064-8102-f70a8585c59f",
+    "bab75735-5716-55e3-8e8f-9116662f5abd",
+    "d273e52d-4bfd-588a-8461-dbaf1ca741fe",
+    "d9d39c2c-c286-5d34-812e-72fa5f79cb77",
+    "e526b529-ca5a-5256-bc27-c8b2ff0c8086",
+    "ee0f8ceb-7906-5bb6-ad11-09c2ed0053bc",
+    "f39311cb-60d3-5466-a204-86e2cd03fd26"
+  ],
+  "content_gaps": []
+}
+```
