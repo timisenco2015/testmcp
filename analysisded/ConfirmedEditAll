@@ -1,0 +1,109 @@
+```json
+{
+    "filename": "ConfirmedEditAll",
+    "found": true,
+    "summary": "ConfirmedEditAll is a component within an enrollment management system that facilitates the editing and confirmation of student enrollments and related data.",
+    "purpose": "The module is designed to manage and edit enrollment data, including handling student enrollments, applying filters, and saving changes across multiple records.",
+    "entities": [
+        "UserSession",
+        "Enrollment",
+        "PlacementRequestDestination",
+        "PRSearchStudent",
+        "DataLayer.Enrollment",
+        "HSPnet.Enrollment",
+        "GridViewRow"
+    ],
+    "fields": [
+        "Sess",
+        "CohortID",
+        "TermID",
+        "CourseID",
+        "ShowGrad",
+        "ShowInactive",
+        "ShowWaived",
+        "SectionFilter",
+        "ActionFilter",
+        "Sort",
+        "Asc",
+        "keyword",
+        "CampusID",
+        "StudentMaint",
+        "startRowIndex",
+        "maximumRows",
+        "CommentFilter",
+        "ScreenIsEditable",
+        "EnrollmentID"
+    ],
+    "actors": [
+        "System.Web.UI.UserControl",
+        "UserSession",
+        "ScriptManager",
+        "GridView",
+        "ObjectDataSource"
+    ],
+    "workflows": [
+        {
+            "name": "RowDataBound",
+            "steps": [
+                "Check if row type is Header, hide Save All if needed.",
+                "Check if row type is Footer, manage Save button visibility."
+            ]
+        },
+        {
+            "name": "DataBound",
+            "steps": [
+                "Hide buttons based on the number of rows and read-only status."
+            ]
+        },
+        {
+            "name": "RowCommand",
+            "steps": [
+                "Handle SaveAll and SaveEditNext commands."
+            ]
+        }
+    ],
+    "business_rules": [
+        "Screen is editable if enrollment is not Waived, Graduated, or Inactive.",
+        "Rows are visible if they are not placeholders and screen is editable."
+    ],
+    "validations": [
+        "Return textarea character count under 200.",
+        "Ensure numeric conversion for grid fields."
+    ],
+    "calculations": [
+        "Calculate shifts based on actual hours and shift length.",
+        "Compute durations based on grid inputs."
+    ],
+    "conditions": [
+        "Hide panels based on enrollment ID.",
+        "Buttons visibility determined by the number of rows."
+    ],
+    "system_behavior": [
+        "Disable edit fields if read-only.",
+        "Populate JavaScript variables for async operations."
+    ],
+    "dependencies": [
+        "HSPnet.App_GlobalResources",
+        "HSPnet.DataLayer",
+        "HSPnet.UI",
+        "HSPnet.Framework"
+    ],
+    "exceptions": [
+        "Cancel data source selection if UserSession is null."
+    ],
+    "source_document_ids": [
+        "0755397d-49f2-5a80-a0d6-c84d5befefe0",
+        "34b1ed38-0e13-5881-8c0c-26bd1f44b46b",
+        "513cc50b-05c2-5153-82f8-8d9383c789ef",
+        "59112759-401e-5d1d-9e84-dd6d9689b84b",
+        "8d832e31-1a4d-5e04-9656-eb00f2cd56a1",
+        "b989a689-a654-5f07-8f33-b102b75b1baf",
+        "bafc9285-af0a-5a05-b6e0-eb6e8591b991",
+        "bf3192b3-566f-595d-81dd-781d8bc85e4f",
+        "d401b74f-333a-50e6-bc77-7ce52c48358e",
+        "e2ef249a-91bc-5e2c-8fac-121b02b68443",
+        "e869f95d-1c2a-5a90-8ff0-b80225502383"
+    ],
+    "content_gaps": []
+}
+```
