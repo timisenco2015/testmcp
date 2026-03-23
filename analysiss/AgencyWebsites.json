@@ -1,8 +1,8 @@
 {
   "filename": "AgencyWebsites",
   "found": true,
-  "summary": "The AgencyWebsites document provides a detailed code structure for managing agency websites in a web application. It involves user control components to manage website entries, including add, edit, and delete functionalities. It uses an editable grid view and handles data binding, command execution, and user session management.",
-  "purpose": "To facilitate the management of agency websites through a structured user control interface that supports CRUD operations and integrates with user session management.",
+  "summary": "The AgencyWebsites component is a user control within the HSPnet system designed for managing agency website data. It includes functionality for displaying, editing, adding, and deleting records in a GridView, with associated controls for handling actions like showing details and validating inputs.",
+  "purpose": "To manage and display website information related to agencies within the HSPnet system, providing a user interface for CRUD operations on agency website records.",
   "entities": [],
   "fields": [
     "updPnlProfile",
@@ -10,50 +10,57 @@
     "Label1",
     "lblEmptyData",
     "cmdAddEmptyData",
+    "gvwWebsites",
+    "dsWebsites",
+    "pnlPopup",
     "updPnlPopup",
     "btnShowPopup",
     "mdlDetails",
     "ValidationSummary3",
-    "fvwWebsite",
-    "gvwWebsites",
-    "dsWebsites",
-    "pnlPopup"
+    "fvwWebsite"
   ],
-  "actors": [],
+  "actors": [
+    "UserSession",
+    "ScreenIsEditable",
+    "AgencyID",
+    "AlternateDatabase"
+  ],
   "workflows": [
     {
-      "name": "Website Management",
+      "name": "Agency Website Management",
       "steps": [
-        "Page Load",
-        "Data Binding",
-        "Row Command Execution",
-        "Add, Edit, Delete Operations",
-        "Redirect on Save"
+        "Load the control with Page_Load.",
+        "Select data via dsWebsites_Selecting using session and agency ID.",
+        "Bind data to GridView in gvwWebsites_RowDataBound.",
+        "Handle user commands in gvwWebsites_RowCommand, such as cmdEdit, cmdAdd, and cmdDelete.",
+        "Add new data when cmdAddEmptyData is clicked.",
+        "Save or update data using fvwWebsite_ItemCommand, then redirect to Agency Profile page."
       ]
     }
   ],
   "business_rules": [
-    "Cancel data selection if UserSession is null.",
-    "Switch to edit mode on 'cmdEdit' command.",
-    "Handle add operation via HandleAdd() method.",
-    "Execute delete operation for a website entry."
+    "If UserSession is null during data select, cancel the operation.",
+    "GridView shows 'no data found' button only if rows exist and screen is editable."
   ],
   "validations": [
-    "Use ValidationSummary3 for displaying field validation messages."
+    "Check if UserSession is null before proceeding with data selection."
   ],
   "calculations": [],
   "conditions": [
-    "Check for ScreenIsEditable to decide on display properties and actions."
+    "ScreenIsEditable affects the visibility of UI elements like add/edit buttons.",
+    "Command names determine the type of database operation (edit, add, delete).",
+    "Data row type affects GridView setup (header vs data row)."
   ],
   "system_behavior": [
-    "Handles session caching and redirection based on operations.",
-    "Uses modal popup for detailed view of website entries."
+    "Switches between edit and add modes in the FormView.",
+    "Handles insert and update operations via fvwWebsite_ItemCommand.",
+    "Redirects users after specific operations to the agency profile page."
   ],
-  "dependencies": [],
-  "exceptions": [
-    "JavaScript errors related to event validation mentioned.",
-    "Redirects handled for command operations other than 'cmdCancel'."
+  "dependencies": [
+    "Depends on HSPnet session management for caching and user session handling.",
+    "Utilizes AJAX for ModalPopupExtender functionality to show website details."
   ],
+  "exceptions": [],
   "source_document_ids": [
     "3bc6d105-ab67-5629-9be9-e3e1c6988245",
     "3d6e1397-58e5-5698-ab34-86a52d6d1cf2",
