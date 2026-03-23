@@ -1,0 +1,51 @@
+# Module: StudentActiveCohort
+
+## StudentActiveCohort-UC1 — Search Active Cohorts
+
+- Primary Actor(s): Student
+- Secondary Actor(s): System
+- Trigger: A student initiates a search for active cohorts they are part of.
+- Description: The system retrieves and lists active cohorts that a student is enrolled in.
+- Preconditions: The student must have an active session.
+- Postconditions: The student views a list of their active cohorts.
+- Main Success Scenario:
+  1. Student logs into the system.
+  2. Student accesses the cohort search function.
+  3. System fetches active cohorts from the database.
+  4. System displays the list of active cohorts to the student.
+- Extensions:
+  - 3a. If no active cohorts are found, the system informs the student.
+- Exceptions:
+  - Database connection error.
+- Business Rules:
+  - Only cohorts with enrolled and assigned courses are listed.
+- Assumptions:
+  - Student has valid permissions to view cohort information.
+- Open Issues:
+  - None
+
+## StudentActiveCohort-UC2 — Remove Student from Cohort
+
+- Primary Actor(s): Admin
+- Secondary Actor(s): System
+- Trigger: Admin decides to remove a student from a cohort.
+- Description: The system removes a student from an active cohort.
+- Preconditions: The admin must have permission to modify cohort assignments.
+- Postconditions: The student is no longer part of the specified cohort.
+- Main Success Scenario:
+  1. Admin logs into the system.
+  2. Admin accesses the cohort management function.
+  3. Admin selects a student to remove from a cohort.
+  4. System processes the removal of the student from the cohort.
+  5. System confirms the removal to the admin.
+- Extensions:
+  - 4a. If student is not found in the cohort, the system informs the admin.
+- Exceptions:
+  - Database connection error.
+  - Insufficient permissions.
+- Business Rules:
+  - A student can only be removed if they are not part of any assigned courses in the cohort.
+- Assumptions:
+  - Admin has necessary credentials and session active.
+- Open Issues:
+  - None
