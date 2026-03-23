@@ -1,19 +1,76 @@
 {
-  "filename": "StatusCodeFormatter",
-  "found": false,
-  "summary": "",
-  "purpose": "",
-  "entities": [],
-  "fields": [],
-  "actors": [],
-  "workflows": [],
-  "business_rules": [],
-  "validations": [],
-  "calculations": [],
-  "conditions": [],
-  "system_behavior": [],
-  "dependencies": [],
-  "exceptions": [],
-  "source_document_ids": [],
-  "content_gaps": ["No related documents found"]
+    "filename": "StatusCodeFormatter",
+    "found": true,
+    "summary": "The StatusCodeFormatter is a system used to translate, process, and format status codes based on specific rules and conditions. It handles various status codes for requests, such as 'Sent', 'Pend', 'New', 'Redir', and others, applying formatting like bolding based on user roles, flags, and other conditions.",
+    "purpose": "To provide a consistent mechanism for handling request status codes within the system, adjusting their presentation based on context such as user roles, release flags, and holding conditions.",
+    "entities": [],
+    "fields": [
+        "STATUS_ACCA", "STATUS_ACCD", "STATUS_CANC", "STATUS_CONF", "STATUS_DECA", 
+        "STATUS_DECD", "STATUS_PEND", "STATUS_REAC", "STATUS_REDIR", "STATUS_REDIR_P", 
+        "STATUS_SENT", "STATUS_SENT_P", "STATUS_NEW", "STATUS_NEWD", "STATUS_GROUP",
+        "STATUS_PEND_REL", "STATUS_REL", "STATUS_NIS", "STATUS_IRP", "STATUS_CFO"
+    ],
+    "actors": [
+        "ReceivingCoordinator", "PlacingCoordinator", "PAPlacingCoordinator", 
+        "PAInstructor", "RAReceivingCoordinator", "RADestinationCoordinator", 
+        "RASupervisor"
+    ],
+    "workflows": [
+        {
+            "name": "FormatStatusCode",
+            "steps": [
+                "Translate the status code based on the role and session flags.",
+                "Return the formatted status code."
+            ]
+        },
+        {
+            "name": "ProcessStatusCode",
+            "steps": [
+                "Check NIS and IRP conditions for release and adjust status code.",
+                "Bold status code if it's pending to the current user.",
+                "Modify status for special user conditions like printed or autorouted requests.",
+                "Return the processed status code."
+            ]
+        },
+        {
+            "name": "RxStatus",
+            "steps": [
+                "Translate certain status codes to localized versions.",
+                "Return the translated status code."
+            ]
+        }
+    ],
+    "business_rules": [
+        "If status is 'Sent' and PRD Printed flag is set, display 'Sent-P'.",
+        "If status is 'Redir' and PRD Printed flag is set, display 'Redir-P'.",
+        "Append '/CFO' to the status code for parent CFO requests.",
+        "Translate 'Sent' to 'Pend' for receiving coordinators."
+    ],
+    "validations": [],
+    "calculations": [],
+    "conditions": [
+        "Status is 'Sent' and printed flag is true.",
+        "User is in PA Outbox and status is 'AccD' or 'DecD'.",
+        "Status is 'NewD' and in RA view."
+    ],
+    "system_behavior": [
+        "Bolds status code when the request is directed to the current user.",
+        "Adds '/NIS' or '/IRP' flag for unreleased requests.",
+        "Auto-redirects and prefixes 'A' to the status if applicable."
+    ],
+    "dependencies": [],
+    "exceptions": [],
+    "source_document_ids": [
+        "3a2997fc-049f-54cc-b9bb-87ab5be5b834",
+        "5d85e5a6-0b27-5598-80dc-76f0d387b931",
+        "6635dc2f-8298-55b0-9405-4fee4d9ec2b8",
+        "ab2b0cb6-d288-58d7-b58d-efaf53036b64",
+        "b350d86e-d1b3-55c7-9dd6-09a5ab2bdad7",
+        "c4c33e92-a0b9-5dc8-8493-d7d68b35a4b2",
+        "d9668ec1-5f54-50f9-b0ed-cfaf5c52a66b",
+        "e49ff020-6d16-5479-8f00-12cc1c2e06b8",
+        "ea18b0cf-69a5-57e6-bfa3-201f63619d6f",
+        "f75cca8f-df1b-59fa-ae92-a71928a478f7"
+    ],
+    "content_gaps": []
 }
