@@ -1,0 +1,88 @@
+{
+  "filename": "StudentPayHistoryUC",
+  "found": true,
+  "summary": "StudentPayHistoryUC manages student pay history details including interactions with the UI components for displaying, editing, and saving pay-related information.",
+  "purpose": "To provide functionalities for adding, editing, and managing the student's pay history in a user control setup.",
+  "entities": ["StudentPayHistory", "CodeRecord", "HSPnetSession"],
+  "fields": [
+    {
+      "name": "EffectiveDate",
+      "type": "Date",
+      "description": "Date when the record is effective."
+    },
+    {
+      "name": "EmploymentClassCodeID",
+      "type": "Dropdown",
+      "description": "Code ID for employment class."
+    },
+    {
+      "name": "DesignationCodeID",
+      "type": "Dropdown",
+      "description": "Code ID for designation."
+    },
+    {
+      "name": "StatusCodeID",
+      "type": "Dropdown",
+      "description": "Code ID for employment status."
+    },
+    {
+      "name": "FixedTermAppointmentCodeID",
+      "type": "Dropdown",
+      "description": "Code ID for fixed-term appointment."
+    }
+  ],
+  "actors": ["UserSession", "Grid"],
+  "workflows": [
+    {
+      "name": "Data Management",
+      "steps": [
+        "Insert or update student pay history",
+        "Determine if the entry was created by user",
+        "Bind dropdowns with appropriate codes",
+        "Handle command execution based on mode (insert, update)",
+        "Redirect after operation completion"
+      ]
+    }
+  ],
+  "business_rules": [
+    "Entries created by an automated process cannot be edited by non-administrative users.",
+    "Dropdown values are populated using code searches with the user session."
+  ],
+  "validations": [
+    "Date inputs are validated for correct formatting.",
+    "Dropdown selections are checked against their respective indices for employment status logic.",
+    "If session indices are null, they are reset."
+  ],
+  "calculations": [],
+  "conditions": [
+    "Screen is editable only if created by user or user is a system administrator.",
+    "Employment status dropdown determines the dependent dropdown visibility."
+  ],
+  "system_behavior": [
+    "JavaScript setup is used for handling dropdown changes in asynchronous postbacks.",
+    "Grid buttons visibility is governed by user's administrative privileges."
+  ],
+  "dependencies": ["Codes.CodeSearch", "Grid.DisableEditFields"],
+  "exceptions": [
+    "Null session indices are handled by resetting them.",
+    "Redirects occur post successful data operations."
+  ],
+  "source_document_ids": [
+    "097b81b5-5d50-5929-9410-ad6301258c0e",
+    "39f52c51-e084-5e63-bae4-d55f976816e6",
+    "45798b9e-29b9-5793-9203-f81b8651402f",
+    "46392175-456c-5fc3-a522-039799db0356",
+    "54fad47e-513c-5d79-a33c-812ac863380e",
+    "5b3d984e-4240-514d-86c2-d8ea6610d12e",
+    "81fa433e-6740-5e99-831b-916b28dba8ef",
+    "93063673-b768-5fd4-b307-5acbc13ee920",
+    "b42f0996-897d-5506-b2e3-61bbb6e15e16",
+    "ec3cccb3-766f-55f7-b757-ee6ea2927a97",
+    "c346da6c-30b5-53ba-9a9f-9e7d184f42cb",
+    "ca33356a-380e-5308-be3c-b6cdfd822938",
+    "cc4e954a-f55b-5aff-95c6-b6ed02aa8213",
+    "d32140d3-e9d2-5cdc-9c94-c6519d487c19",
+    "e0546ca5-9096-5eca-860d-318371c84e46"
+  ],
+  "content_gaps": []
+}
