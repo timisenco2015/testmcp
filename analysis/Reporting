@@ -2,63 +2,63 @@
 {
   "filename": "Reporting",
   "found": true,
-  "summary": "The provided documentation outlines the process of generating reports using Crystal Reports and MigraDoc/PDFSharp frameworks. It includes error handling, parameter setting, and exporting in different formats. The system supports both English and alternative locale templates. Reports are saved with unique filenames in specified folders.",
-  "purpose": "The purpose of this documentation is to guide the implementation of reporting functionalities using specified technologies, ensuring proper handling of report generation, parameter validation, and file management.",
+  "summary": "The documents describe a reporting framework utilizing Crystal Reports and MigraDoc to generate and export report documents in various formats like PDF and RTF. The framework includes error handling for common issues such as connection failures, invalid parameters, and file export issues.",
+  "purpose": "The purpose of the reporting framework is to generate report documents from predefined templates, apply necessary parameters and connections, and export the final documents in desired formats while handling errors gracefully.",
   "entities": [],
   "fields": [
     "OutputType",
+    "HSPnetSession",
     "ReportName",
     "ReportDescription",
     "LinkText",
     "Parameters",
+    "ReportFile",
     "CreatedFile",
     "CreatedFileFullPath",
-    "ReportFile",
-    "templateFile",
-    "templateFileFullPath"
+    "templateFileName",
+    "templateFileFullPath",
+    "AltReportFile",
+    "AltReportFileFullPath"
   ],
   "actors": [
-    "HSPnetSession"
+    "User",
+    "System"
   ],
   "workflows": [
     {
-      "name": "RunReport",
+      "name": "Generate Report",
       "steps": [
-        "Initialize successFlag to false.",
-        "Determine the report file path.",
-        "Check for alternative locale template.",
-        "Set up connection information.",
-        "Load the report file.",
-        "Apply logon information to tables.",
-        "Log on to subreports.",
-        "Set report parameters.",
-        "Export report to specified format.",
-        "Return report status."
+        "Set the output type and report parameters.",
+        "Determine the report template path and check for alternate versions.",
+        "Initialize the report document and apply connection settings.",
+        "Set report parameters and validate.",
+        "Generate a unique filename for the output.",
+        "Export the report to the desired format.",
+        "Handle any exceptions during the reporting process."
       ]
     }
   ],
-  "business_rules": [],
+  "business_rules": [
+    "Use alternate language report templates if available.",
+    "Generate unique filenames for report output."
+  ],
   "validations": [
-    "Verify existence of alternative language template.",
-    "Check connectivity for each table.",
-    "Ensure parameters are valid.",
-    "Confirm successful report generation."
+    "Check if template file exists in the specified path.",
+    "Ensure all parameters are set and valid before proceeding."
   ],
   "calculations": [],
   "conditions": [
-    "Use alternative locale template if available.",
-    "Export to RTF or PDF based on OutputType.",
-    "Return specific status messages for different errors."
+    "Use alternate report template if session is set to use alternate language.",
+    "Export format is determined by the specified output type."
   ],
   "system_behavior": [
-    "Generates unique filenames for report outputs.",
-    "Exports reports in specified formats.",
-    "Handles errors using predefined status codes."
+    "Export reports in specified formats like PDF or RTF.",
+    "Provide feedback on success or failure of the report generation."
   ],
   "dependencies": [
-    "CrystalDecisions.CrystalReports.Engine",
-    "HSPnet.Framework",
-    "MigraDocXML"
+    "Crystal Decisions libraries",
+    "MigraDoc libraries",
+    "HSPnet Framework"
   ],
   "exceptions": [
     "CanNotOpen",
