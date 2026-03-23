@@ -1,0 +1,109 @@
+{
+  "filename": "ITProvisionRole",
+  "found": true,
+  "summary": "The ITProvisionRole class is used to manage roles related to IT provisioning within the HSPnet system. It provides functionality for adding, updating, deleting, searching, and reactivating roles. It features methods for interacting with the database, such as executing stored procedures and validating entries before database operations.",
+  "purpose": "Manage and operate on IT provisioning roles within the system, including database CRUD operations and search functionalities.",
+  "entities": [
+    "ITProvisionRole",
+    "ITProvisionRoles"
+  ],
+  "fields": [
+    {
+      "name": "ID",
+      "type": "int"
+    },
+    {
+      "name": "AgencyID",
+      "type": "int"
+    },
+    {
+      "name": "PlacementRequestDestinationID",
+      "type": "int"
+    },
+    {
+      "name": "Name",
+      "type": "string"
+    },
+    {
+      "name": "ShortName",
+      "type": "string"
+    },
+    {
+      "name": "Inactive",
+      "type": "Boolean"
+    }
+  ],
+  "actors": [
+    "HSPnetSession",
+    "SqlDataReader"
+  ],
+  "workflows": [
+    {
+      "name": "Add IT Provision Role",
+      "steps": [
+        "Validate role details using IsValid method.",
+        "Add role to database using ITProvRoleAdd procedure."
+      ]
+    },
+    {
+      "name": "Search IT Provision Roles",
+      "steps": [
+        "Execute ITProvRoleSearchPlacementRequest or ITProvRoleSearch procedure.",
+        "Fetch data using SqlDataReader.",
+        "Populate list using FillList method."
+      ]
+    },
+    {
+      "name": "Update IT Provision Role",
+      "steps": [
+        "Validate role using IsValid method.",
+        "Update details in database if role is valid."
+      ]
+    },
+    {
+      "name": "Delete IT Provision Role",
+      "steps": [
+        "Execute ITProvRoleDelete procedure.",
+        "Pass SessionID and ID parameters for deletion."
+      ]
+    },
+    {
+      "name": "Reactivate IT Provision Role",
+      "steps": [
+        "Execute ITProvRoleReactivate procedure.",
+        "Pass SessionID and ID parameters for reactivation."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Role name and short name must be specified to be valid.",
+    "Inactive roles can be filtered in search operations."
+  ],
+  "validations": [
+    "Check if Name is blank.",
+    "Check if ShortName is blank."
+  ],
+  "calculations": [],
+  "conditions": [
+    "ID must not be zero for update, delete, or reactivate operations."
+  ],
+  "system_behavior": [
+    "Interaction with database through stored procedures.",
+    "Role details are used to populate dropdowns and maintenance screens."
+  ],
+  "dependencies": [
+    "HSPnet.Framework",
+    "HSPnet.App_GlobalResources"
+  ],
+  "exceptions": [
+    "Invalid parameters lead to error messages within session."
+  ],
+  "source_document_ids": [
+    "1a10d8d9-795a-59ae-8ada-9d790c448b53",
+    "1e007376-8ab6-5f88-8dfb-6abfcd6614d0",
+    "7418f480-3fe2-56bf-ac8b-950dc83394c0",
+    "a855d1f5-cae6-5eb0-ad8d-354b71ed5537",
+    "bf9d3a09-cfa1-5424-aee2-e832230e217e"
+  ],
+  "content_gaps": []
+}
