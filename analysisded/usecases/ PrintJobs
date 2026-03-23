@@ -1,0 +1,99 @@
+# Module: PrintJobs
+
+## PrintJobs-UC1 — Create Placement Request Assessment Report Job
+
+- Primary Actor(s): HSPnet Session (sess)
+- Secondary Actor(s): None
+- Trigger: User requests to generate a placement request assessment report.
+- Description: This use case involves creating a job for generating a placement request assessment report.
+- Preconditions: A valid enrollment ID list must be provided.
+- Postconditions: The job is added to the report queue if no errors occur.
+- Main Success Scenario:
+  1. The user initiates a request to create a placement request assessment report with an enrollment ID list.
+  2. The system validates the enrollment ID list.
+  3. If valid, the system creates a job and adds it to the report queue.
+  4. A success message is displayed if no SQL errors occur.
+- Extensions:
+  - None
+- Exceptions:
+  - Enrollment ID list is empty.
+  - Enrollment ID list exceeds the maximum allowed items.
+  - SQL error occurs.
+- Business Rules:
+  - The maximum number of items allowed in the enrollment ID list is defined by `PrintJobs.MAX_INCLUDE_ITEMS`.
+- Assumptions:
+  - The session (sess) is correctly initialized.
+- Open Issues:
+  - None
+
+## PrintJobs-UC2 — Create Service Destination Contacts Report Job
+
+- Primary Actor(s): HSPnet Session (Sess)
+- Secondary Actor(s): None
+- Trigger: User requests to generate a service destination contacts report.
+- Description: Generates a job to create a service destination contacts report.
+- Preconditions: Valid agency, site, service, and governing organization IDs must be provided.
+- Postconditions: The job is queued if no SQL errors occur.
+- Main Success Scenario:
+  1. The user selects agency, site, service, and governing org IDs.
+  2. The system creates a job for the service destination contacts report.
+  3. The system queues the job for execution.
+  4. A success message is displayed if no errors occur.
+- Extensions:
+  - None
+- Exceptions:
+  - SQL error occurs.
+- Business Rules:
+  - Display a success message only if the `displaySuccessMessage` is true.
+- Assumptions:
+  - The session is active and valid.
+- Open Issues:
+  - None
+
+## PrintJobs-UC3 — Create Destination Profile Report Job
+
+- Primary Actor(s): HSPnet Session (Sess)
+- Secondary Actor(s): None
+- Trigger: User requests to generate destination profile reports.
+- Description: Creates individual or combined PDF reports for selected destinations.
+- Preconditions: At least one destination code ID must be selected.
+- Postconditions: The job is queued; individual PDFs created if specified.
+- Main Success Scenario:
+  1. User selects destination code IDs and report options.
+  2. System validates the selections.
+  3. System creates report jobs and queues them.
+  4. Displays success notifications.
+- Extensions:
+  - Create individual PDFs if specified.
+- Exceptions:
+  - Destination code ID list is empty or exceeds maximum items.
+  - SQL error occurs.
+- Business Rules:
+  - Maximum items are constrained by `PrintJobs.MAX_INCLUDE_ITEMS`.
+- Assumptions:
+  - Session details and database are accessible.
+- Open Issues:
+  - None
+
+## PrintJobs-UC4 — Search Print Jobs for Today
+
+- Primary Actor(s): HSPnet Session (sess)
+- Secondary Actor(s): None
+- Trigger: User searches for print jobs created today.
+- Description: Retrieves today's print jobs based on the user's session.
+- Preconditions: User must be authenticated and have an active session.
+- Postconditions: A list of today's print jobs is returned.
+- Main Success Scenario:
+  1. User executes a search for today's print jobs.
+  2. System retrieves the list of today's print jobs.
+  3. System displays the list to the user.
+- Extensions:
+  - None
+- Exceptions:
+  - SQL error occurs during the search.
+- Business Rules:
+  - Search is restricted to jobs created today for the current user.
+- Assumptions:
+  - The user has relevant permissions to perform the search.
+- Open Issues:
+  - None
