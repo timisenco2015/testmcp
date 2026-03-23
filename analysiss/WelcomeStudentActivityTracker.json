@@ -1,19 +1,109 @@
 {
-    "filename": "WelcomeStudentActivityTracker",
-    "found": false,
-    "summary": "",
-    "purpose": "",
-    "entities": [],
-    "fields": [],
-    "actors": [],
-    "workflows": [],
-    "business_rules": [],
-    "validations": [],
-    "calculations": [],
-    "conditions": [],
-    "system_behavior": [],
-    "dependencies": [],
-    "exceptions": [],
-    "source_document_ids": [],
-    "content_gaps": ["No related documents found"]
+  "filename": "WelcomeStudentActivityTracker",
+  "found": true,
+  "summary": "The WelcomeStudentActivityTracker is a user control in a web application designed to manage and track student activities within courses. It includes functionalities for displaying, adding, editing, and verifying student activities. The control offers features such as toggling visibility of elements, managing data sources, and generating reports.",
+  "purpose": "To provide a web interface for managing and tracking student activities, allowing users to add, edit, verify, and lock activity records, and generate related reports.",
+  "entities": [],
+  "fields": [
+    "gridCourses",
+    "gridData",
+    "uxVerifiedEditMode",
+    "dsGridCourses",
+    "dsGridData",
+    "dsSupervisor",
+    "dsSupervisorPrt",
+    "dsActivityDate",
+    "uxCourse",
+    "ltlCourseInfo",
+    "uxToggleLock",
+    "cmdPrintProgramSummary",
+    "trSupervisor",
+    "trTotalHours",
+    "ltlSupervisor",
+    "pnlReportHTML",
+    "lblReportHTML",
+    "pnlPopup",
+    "updPnlPopup",
+    "btnShowPopup",
+    "mdlDetails"
+  ],
+  "actors": [
+    "UserSession",
+    "PRD_Info",
+    "StudentID",
+    "SupervisorID"
+  ],
+  "workflows": [
+    {
+      "name": "Manage Student Activities",
+      "steps": [
+        "Load data for student activities using LoadData method.",
+        "Display student activities in grid using DisplayGrid method.",
+        "Add or update activities using uxDetail control.",
+        "Approve or lock activities using cmdApproveLockHours.",
+        "Generate reports using cmdPrintSummary or cmdPrintProgramSummary."
+      ]
+    }
+  ],
+  "business_rules": [
+    "GridData is visible if course dropdown has a selected course.",
+    "Supervisor and total hours rows are visible if a course is selected.",
+    "Toggle lock button visibility depends on user privileges and course status.",
+    "Activity tracker is closed when PRD_Info.ApprovedAndLocked is true.",
+    "Restrict actions like add, edit, or delete based on user permissions and course state."
+  ],
+  "validations": [
+    "Cancel data source selecting events if UserSession is null.",
+    "Cancel data source selecting events if course dropdown has no selection.",
+    "Ensure page is valid before inserting or updating data in uxDetail."
+  ],
+  "calculations": [
+    "Total hours (_totalHours) are calculated and displayed in uxTotalHours."
+  ],
+  "conditions": [
+    "Grid visibility and button approvals depend on the current course and user session details.",
+    "Various UI elements like add buttons are hidden if user is in view-only mode or course is archived."
+  ],
+  "system_behavior": [
+    "Grid and controls are dynamically bound and updated based on user actions and selections.",
+    "JavaScript setup occurs for asynchronous postbacks and client-side operations.",
+    "Report generation is conditional based on activity data availability and user session."
+  ],
+  "dependencies": [
+    "Dependent on user session information and enrolled courses.",
+    "Relies on the availability of data sources for activities, supervisors, and clinical practices."
+  ],
+  "exceptions": [
+    "Prevent data actions if user session is invalid or data inputs fail validation."
+  ],
+  "source_document_ids": [
+    "01c96346-44ae-56a1-a628-d5c83d28b524",
+    "036af323-0fe5-5804-9a27-23da719db581",
+    "0cb73315-de1a-53c6-93bc-0971f4f825f9",
+    "18a2306b-e497-50c4-bbd4-0c21d18a9229",
+    "1f70030c-499b-5b96-b9ca-2e752333e0cb",
+    "21074d4a-d18f-5ec8-9204-52d7d36cdc71",
+    "24d2066f-8a99-5b1d-a2ad-303b9f9cc295",
+    "39e8e203-a3d7-5e42-b22a-dd3c8c0020a0",
+    "6c030500-205e-5382-93b3-7d7b602ed773",
+    "701b2f3c-4731-5431-895b-f3cea1e856d1",
+    "71b7ba57-7fc7-5c16-a202-f230524ad227",
+    "7c0068c9-6bf1-52e8-9d4f-886c2f64b2c5",
+    "90dec2c8-0694-5b87-b1e4-6bd0b1e6dc81",
+    "929072e0-33b5-5780-bc85-0d6739f2249c",
+    "9e2f188f-d851-5d80-8c1c-ae5cc10d14af",
+    "b3e2c14c-1f20-5705-acbe-578b321286fe",
+    "bd57fb24-41c2-557c-b617-a79998467725",
+    "c4c8df2f-c726-515e-b08e-99caafd32da9",
+    "c9f83483-2da2-51e1-a8a8-0d0e52948146",
+    "d3f214a4-24c9-5b2a-a27e-ab02945aceaa",
+    "d7154754-9972-5709-9f3b-b9e40c984488",
+    "d7990eaf-5f51-5262-8c25-5cf0b25602ae",
+    "de19cad4-4344-5a60-aa9c-6873deb75d6e",
+    "ea814b3d-cc57-5840-8edf-d2ce65d878c3",
+    "f4c04011-d17c-5dc1-84c7-7b7c635d6691",
+    "f7564fd7-53c0-52a4-b06e-ed2347df8018",
+    "fcf588bb-947c-559d-b789-bc4e6b8f2e84"
+  ],
+  "content_gaps": []
 }
