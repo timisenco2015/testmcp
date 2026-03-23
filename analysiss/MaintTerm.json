@@ -1,0 +1,103 @@
+{
+  "filename": "MaintTerm",
+  "found": true,
+  "summary": "The MaintTerm document outlines the functionality and implementation details of managing program terms within the HSPnet application. It includes a combination of ASP.NET server controls, AJAX toolkit enhancements, and validation mechanisms. The document describes the setup of user interface components, data retrieval, and modification workflows, as well as validation and error handling.",
+  "purpose": "To manage program terms including creating, updating, and displaying them within the HSPnet application.",
+  "entities": [],
+  "fields": [
+    "ID",
+    "Name",
+    "ShortName",
+    "StartDate",
+    "EndDate",
+    "ProgramID",
+    "sess"
+  ],
+  "actors": ["UserSession", "ScreenIsEditable"],
+  "workflows": [
+    {
+      "name": "Term Management Workflow",
+      "steps": [
+        "Page Load: SetupHSPnetPage and register client-side scripts.",
+        "Check Screen Access: Determine if the screen is editable.",
+        "Populate Dropdowns: Fill agency, department, and program dropdowns based on user session.",
+        "Refresh View: Bind data to grid view and update UI components.",
+        "Generate Terms: Automatically create terms for a selected program.",
+        "Grid Actions: Handle add, edit, delete, and reactivate term actions."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Screen is editable if the user is a system or local administrator and has access to the selected agency and department.",
+    "Terms can only be generated if there is a valid program selected."
+  ],
+  "validations": [
+    {
+      "field": "StartDate",
+      "validation": "Required field and must be a valid date."
+    },
+    {
+      "field": "EndDate",
+      "validation": "Required field and must be a valid date, cannot be before StartDate."
+    },
+    {
+      "field": "Name",
+      "validation": "Required field."
+    },
+    {
+      "field": "ShortName",
+      "validation": "Required field."
+    }
+  ],
+  "calculations": [
+    {
+      "description": "Parse Date",
+      "calculation": "Convert string date input into DateTime format for StartDate and EndDate."
+    }
+  ],
+  "conditions": [
+    "If any of the dropdowns (agency, department, program) are empty, the screen is not editable."
+  ],
+  "system_behavior": [
+    "Client-side validation scripts ensure dates are valid and StartDate is before EndDate.",
+    "AJAX toolkit components provide enhanced user interface feedback such as AlwaysVisibleControlExtender and ModalPopupExtender."
+  ],
+  "dependencies": [
+    "HSPnet.DataLayer.Terms for data access",
+    "HSPnet.UI.Calendar for date controls",
+    "HSPnet.App_GlobalResources for localization resources"
+  ],
+  "exceptions": [
+    "Cancel term insertion if programID is null during the inserting event."
+  ],
+  "source_document_ids": [
+    "0a554d88-2b92-544b-8744-85d4df147aa0",
+    "0f1214cb-c0b5-5cc3-b04a-dcdc4d767026",
+    "0fe74b0f-8e75-55e2-a785-12411b7d9128",
+    "1438920a-687e-5c96-ac17-52094435ce4e",
+    "2cdc3638-a7c4-5711-bf69-effafec69c82",
+    "2d7c8b04-e423-5c72-9917-6ef0e7aeb30a",
+    "39dd881a-aa60-50b5-bb96-4ff0fb3b13bc",
+    "3b54ac97-987e-57c7-a567-5400cc1a78b5",
+    "42ede7c2-fdb5-5b8e-88f9-c0600acf5596",
+    "74388188-1195-5a04-86cc-fdb79b041f97",
+    "7a34f745-0698-5190-af8b-d29f63897007",
+    "850081b5-cd3a-5bda-8660-2cbb5eeeec44",
+    "8571509f-7b5d-5d77-96ed-3264d04149b4",
+    "87f7e882-b6e9-56b3-8340-2e5d1e93df6c",
+    "9887756c-9cdd-5e24-a614-e4786d748081",
+    "9f1d603d-07c2-58b0-b4d4-e285d5eb56c5",
+    "bab60f7b-ddff-5972-86d4-9ed13be22704",
+    "bca575d9-ded8-5b91-9998-5ffeb39cfaa6",
+    "c626e165-fc6b-5ad2-afb1-ac808a77e902",
+    "c91153aa-3497-5751-95e3-d899ff937112",
+    "d5643006-227c-504b-956e-cd21fad3649a",
+    "ed5601bb-bb20-58fb-bd27-037063e8a780",
+    "ee51ddec-39bf-586f-9047-f40f117419ab",
+    "f2fe47be-a031-560d-b8f9-f90cb2bae112",
+    "f40b6ec1-a7d0-53ad-a879-e9970bbdf262",
+    "f73f3a8b-b51f-5a29-a7c6-a54f00454289",
+    "faf3ee8a-c562-5fb0-b96c-4ab9a15a7434"
+  ],
+  "content_gaps": []
+}
