@@ -1,0 +1,106 @@
+# Module: PlacementRequest
+
+## PlacementRequest-UC1 — Validate Placement Request
+- Primary Actor(s): System
+- Secondary Actor(s): User
+- Trigger: User initiates validation of a Placement Request.
+- Description: Validate the Placement Request details based on user permissions and agency types.
+- Preconditions: User must be logged in and possess necessary permissions.
+- Postconditions: Placement Request is marked valid or invalid based on checks.
+- Main Success Scenario:
+  1. User requests validation for a Placement Request.
+  2. System checks user type and agency permissions.
+  3. System verifies the Site, Service, and Destination.
+  4. If checks are passed, the Placement Request is marked valid.
+- Extensions: None
+- Exceptions: Invalid user type or insufficient permissions.
+- Business Rules: Only users of type 1 or 2 can perform these validations if not associated with NIS/IRP agencies.
+- Assumptions: User roles and permissions are correctly assigned.
+- Open Issues: None
+
+## PlacementRequest-UC2 — Retrieve Key Information
+- Primary Actor(s): System
+- Secondary Actor(s): User
+- Trigger: System retrieves key information for a Placement Request.
+- Description: Fetch detailed Placement Request information from the database.
+- Preconditions: Placement Request ID must be valid and existing.
+- Postconditions: Placement Request details are populated for user review.
+- Main Success Scenario:
+  1. User requests key information for a Placement Request.
+  2. System retrieves data using stored procedures.
+  3. System populates Placement Request object with necessary data.
+- Extensions: None
+- Exceptions: Invalid Placement Request ID.
+- Business Rules: Information retrieval is restricted to valid Placement Requests only.
+- Assumptions: Database is operational and accessible.
+- Open Issues: None
+
+## PlacementRequest-UC3 — Link Placement Requests
+- Primary Actor(s): System
+- Secondary Actor(s): User
+- Trigger: User requests to link multiple Placement Requests.
+- Description: Create associations between different Placement Requests.
+- Preconditions: User must have permission to manage Placement Requests.
+- Postconditions: Placement Requests are linked successfully.
+- Main Success Scenario:
+  1. User selects multiple Placement Requests to link.
+  2. System executes the linking process using stored procedures.
+  3. System confirms linking success to the user.
+- Extensions: None
+- Exceptions: SQL errors or linking constraints violations.
+- Business Rules: Requests can only be linked if criteria are met.
+- Assumptions: User understands linking requirements.
+- Open Issues: Potential improvements in error handling.
+
+## PlacementRequest-UC4 — Unlink Placement Requests
+- Primary Actor(s): System
+- Secondary Actor(s): User
+- Trigger: User requests to unlink a Placement Request.
+- Description: Remove association between linked Placement Requests.
+- Preconditions: Placement Requests must be linked.
+- Postconditions: Selected Placement Request is unlinked from others.
+- Main Success Scenario:
+  1. User selects Placement Request to unlink.
+  2. System processes the unlinking using stored procedures.
+  3. System confirms unlinking success to the user.
+- Extensions: None
+- Exceptions: SQL errors or unlinking constraints violations.
+- Business Rules: Requests can only be unlinked if criteria are met.
+- Assumptions: User understands unlinking requirements.
+- Open Issues: None
+
+## PlacementRequest-UC5 — Term Date Calculations
+- Primary Actor(s): System
+- Secondary Actor(s): None
+- Trigger: System calculates term start and end dates.
+- Description: Calculate the start and end dates of an HSPnet term based on a given date.
+- Preconditions: Input date must be provided.
+- Postconditions: Start and end dates of the term containing the input date are calculated.
+- Main Success Scenario:
+  1. System receives input date.
+  2. System calculates start and end dates of the corresponding term.
+  3. System returns calculated dates.
+- Extensions: None
+- Exceptions: Invalid date input format.
+- Business Rules: Terms are segmented into specific yearly intervals.
+- Assumptions: Date input is in valid format.
+- Open Issues: Consideration of leap years or calendar adjustments.
+
+## PlacementRequest-UC6 — Check Shared Cohort
+- Primary Actor(s): System
+- Secondary Actor(s): User
+- Trigger: System checks if a Placement Request is part of a shared cohort.
+- Description: Determine cohesiveness of Placement Requests as shared cohorts.
+- Preconditions: Placement Request must exist.
+- Postconditions: Shared cohort status of the Placement Request is determined.
+- Main Success Scenario:
+  1. System receives Placement Request ID.
+  2. System checks for shared cohort status using stored procedures.
+  3. System returns shared status result.
+- Extensions: None
+- Exceptions: Invalid Placement Request ID.
+- Business Rules: Cohort sharing rules are pre-defined and enforced.
+- Assumptions: Database and procedures are fully functional.
+- Open Issues: None
+
+These use cases summarize the logic and actions related to handling Placement Requests as extracted from the source documents.
