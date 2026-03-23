@@ -1,0 +1,100 @@
+```json
+{
+  "filename": "RptMnuStudentEvaluations",
+  "found": true,
+  "summary": "RptMnuStudentEvaluations is a user control in the HSPnet application designed to manage and report student evaluations. The control utilizes several web components to validate, retrieve, and display evaluation data pertaining to students within certain departments and programs.",
+  "purpose": "The primary purpose of RptMnuStudentEvaluations is to facilitate the generation and display of reports related to student evaluations based on selected departments and programs. It allows for data validation, filtering, and retrieval using date ranges.",
+  "entities": ["HSPnetSession", "Department", "Program", "CodeRecord"],
+  "fields": [
+    "ValidationSummary1",
+    "Label3",
+    "ltlDescription",
+    "Label4",
+    "ltlOptions",
+    "valEditStartDate",
+    "valEditEndDate",
+    "CustomValidator1",
+    "ddDepartment",
+    "ddProgram",
+    "cmdRunExcel",
+    "lblPleaseWait",
+    "pnlReportHTML",
+    "lblReportHTML",
+    "btnEndDate",
+    "CalendarExtender2",
+    "RegularExpressionValidator2",
+    "Literal1",
+    "ltlMandatoryStartDate",
+    "Label8",
+    "txtEndDate",
+    "CalendarExtender1",
+    "RegularExpressionValidator1",
+    "txtStartDate",
+    "btnStartDate"
+  ],
+  "actors": ["UserSession", "ScriptManager", "Page"],
+  "workflows": [
+    {
+      "name": "Report Generation Workflow",
+      "steps": [
+        "User selects department and program.",
+        "User inputs start and end date.",
+        "Validation is performed on inputs.",
+        "User triggers report generation.",
+        "Data is retrieved and processed.",
+        "Report is displayed in HTML format or exported to Excel."
+      ]
+    },
+    {
+      "name": "Dropdown Population Workflow",
+      "steps": [
+        "FillDepartmentDropdown is called.",
+        "Departments are retrieved based on user permissions.",
+        "FillProgramDropdown is called.",
+        "Programs are retrieved based on selected department."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Departments and programs are populated based on user permissions.",
+    "Dates must adhere to the required format and not be empty."
+  ],
+  "validations": [
+    "RequiredFieldValidator for start and end dates.",
+    "CustomValidator for additional checks.",
+    "RegularExpressionValidator for date format validation."
+  ],
+  "calculations": [
+    "DateFormatter.ParseDate for validating and parsing input dates."
+  ],
+  "conditions": [
+    "Visibility of pnlReportHTML depends on report generation success.",
+    "Dropdowns are populated only when the user session is valid."
+  ],
+  "system_behavior": [
+    "Asynchronous postbacks manage JavaScript registration.",
+    "UserSession manages DB connections and procedure executions."
+  ],
+  "dependencies": [
+    "HSPnet.DataLayer for database interactions.",
+    "AjaxControlToolkit for calendar functionalities.",
+    "HSPnet.App_GlobalResources for resource management."
+  ],
+  "exceptions": [
+    "Missing or invalid date input prevents report generation.",
+    "Database connection failure halts report retrieval."
+  ],
+  "source_document_ids": [
+    "3bda989e-aee9-5cb0-a91b-23b5c507dcce",
+    "61fb9721-4ba7-52db-970a-f961984a3da4",
+    "655270a1-b63f-5095-b8d5-e0786f5a67d5",
+    "6a6d3e5d-65f4-55d0-8a26-bb833decde1d",
+    "8389c636-6a4e-5e20-9527-aa890021a8cc",
+    "9acbebb5-e432-5501-a525-cb5de2c228bd",
+    "b379a95a-4b6c-5652-9bd2-dd11e1be0538",
+    "e2803cea-dae1-5367-9582-0de35ea31cfc",
+    "e317b930-d13f-5511-844e-4de35ee59b82"
+  ],
+  "content_gaps": []
+}
+```
