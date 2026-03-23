@@ -1,0 +1,86 @@
+{
+  "filename": "StudentRAITProvision",
+  "found": true,
+  "summary": "The StudentRAITProvision system handles the management of RAIT provisioning for students within an educational institution. This includes inserting, editing, and deleting provisioning records and handling associated workflows through a web interface.",
+  "purpose": "To manage the Resource Allocation and IT (RAIT) provisioning process for students, including adding, editing, and deleting provisioning entries related to students and associated agencies.",
+  "entities": [
+    "StudentRAITProvisioning",
+    "UserSession",
+    "Student",
+    "Staff",
+    "Agency"
+  ],
+  "fields": [
+    {
+      "name": "StudentID",
+      "description": "Identifier for a student involved in RAIT provisioning."
+    },
+    {
+      "name": "StaffID",
+      "description": "Identifier for a staff member associated with the RAIT provisioning."
+    },
+    {
+      "name": "AgencyID",
+      "description": "Identifier for the agency associated with the RAIT provisioning."
+    }
+  ],
+  "actors": [
+    {
+      "name": "System Administrator",
+      "role": "Oversees and can make changes to all provisioning records."
+    },
+    {
+      "name": "Receiving Coordinator",
+      "role": "Manages provisioning records related to receiving agencies."
+    }
+  ],
+  "workflows": [
+    {
+      "name": "RAIT Provisioning Management",
+      "steps": [
+        "Edit or insert a new RAIT provisioning record through the UI.",
+        "Select or disable fields based on user permissions and session data.",
+        "Submit changes to update the system records."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Only system administrators or users with specific roles can edit the unique ID of a provisioning record.",
+    "Provisioning records can only be edited by a receiving coordinator if the user's session is aligned with the agency."
+  ],
+  "validations": [
+    "Ensure Page.IsValid before inserting or updating records.",
+    "Disable fields based on user roles and session information."
+  ],
+  "calculations": [
+    "Determine the default agency ID based on user session or placement data."
+  ],
+  "conditions": [
+    "Disable dropdowns if the session agency does not match the current target agency."
+  ],
+  "system_behavior": [
+    "Setup JavaScript variables for UI interaction.",
+    "Redirect users upon record insertion or update."
+  ],
+  "dependencies": [
+    "User session data for permissions and agency alignment.",
+    "External dropdown controls for agency selection."
+  ],
+  "exceptions": [
+    "Cancel operations if the user session is not valid.",
+    "Redirect if necessary permissions are not met."
+  ],
+  "source_document_ids": [
+    "08894d70-e467-53ea-bd04-ed8754cf32e2",
+    "426ffa1c-707d-5375-abce-a466e6d7460b",
+    "56f3067a-d6c4-56df-a350-6d7905ed8416",
+    "6326aa88-b864-57bd-91c4-f4760ec25e42",
+    "709ce603-5737-5f56-be66-c1b0ca6b388a",
+    "823ef450-362a-54b4-a6ae-f93cc597c0cb",
+    "835f2c8d-cbb6-54c7-af6e-aa5ca1806805",
+    "b4eb8462-fb09-5c3b-b93f-903ae2e17648",
+    "dc8dc960-bdcd-5b9a-85e9-9e8debec0342",
+    "edbbcdd7-b5ac-5738-a8bc-1d50bed60af0"
+  ],
+  "content_gaps": []
+}
