@@ -1,0 +1,93 @@
+```json
+{
+    "filename": "MaintActivityCodes",
+    "found": true,
+    "summary": "The documents related to MaintActivityCodes describe the user interface and backend logic for managing activity codes within a web application. This includes screen elements, workflows, and user access permissions.",
+    "purpose": "To allow users to perform maintenance tasks on activity codes, including adding, editing, deleting, and reactivating codes, within a structured and controlled web interface.",
+    "entities": [
+        "ActivityCode",
+        "UserSession"
+    ],
+    "fields": [
+        {
+            "name": "Name",
+            "type": "string"
+        },
+        {
+            "name": "ShortName",
+            "type": "string"
+        },
+        {
+            "name": "ID",
+            "type": "int"
+        }
+    ],
+    "actors": [
+        "System Administrator",
+        "Local Administrator"
+    ],
+    "workflows": [
+        {
+            "name": "Manage Activity Codes",
+            "steps": [
+                "Load activity codes data grid.",
+                "Select action: Add, Edit, Delete, or Reactivate.",
+                "Handle input validation and save changes."
+            ]
+        },
+        {
+            "name": "Dropdown Selection",
+            "steps": [
+                "Select Agency from dropdown.",
+                "Select Department and Program.",
+                "Refresh data based on selection."
+            ]
+        }
+    ],
+    "business_rules": [
+        "Screen is editable only for certain user roles and conditions."
+    ],
+    "validations": [
+        "Required fields: Name, ShortName.",
+        "Ensure dropdowns are populated before allowing operations."
+    ],
+    "calculations": [],
+    "conditions": [
+        "User must have proper permissions to edit or delete codes."
+    ],
+    "system_behavior": [
+        "Modal popup for detailed views or confirmations.",
+        "Grid updates based on user interaction with dropdowns."
+    ],
+    "dependencies": [
+        "AjaxControlToolkit",
+        "HSPnet UI components"
+    ],
+    "exceptions": [
+        "Handle view-only user sessions by disabling edit features."
+    ],
+    "source_document_ids": [
+        "0b160f3a-8e4e-57fc-91d5-9342826cf2c1",
+        "0fe98cd6-ed79-5651-adfe-4563a09a87ad",
+        "15aa9c0c-6c36-59cc-a3e4-3bbc5267e445",
+        "1c4eec34-a546-5848-8f86-1212af96e924",
+        "1ed757e5-cc1e-53bd-b2e0-f20f29eeb54b",
+        "29111b9c-67b5-5920-ae78-c43495df419a",
+        "4985a23b-b330-5ff8-9865-3fa87a7ae1e0",
+        "4eab8fe6-bcf3-5a05-a2a2-7035df1d8c37",
+        "60c74954-18a6-5d4c-bb25-39ad41232fc0",
+        "7960a328-d5d6-55e7-a47b-9fa0453e072c",
+        "7deaef31-19bf-560a-b282-80113597d00a",
+        "80f2125e-fc5c-57af-b316-79569fc642e1",
+        "83053878-0098-5820-9027-9b2205b2c42c",
+        "84088ff9-ddc9-5c6f-abac-b683b5007a45",
+        "acd00766-c8f8-5922-ac92-bf188ebcaa30",
+        "b47e4c38-1ae9-59c4-b5ea-ba2cc998638d",
+        "bdf35cea-91ae-5545-966f-84e09771983f",
+        "cd067466-8e02-55cc-9665-584c20596090",
+        "d525c918-6b94-5c22-8f60-85314cf1b3b6",
+        "ffdac725-3bfe-5a3d-99f7-328ec12aa1f9"
+    ],
+    "content_gaps": []
+}
+```
