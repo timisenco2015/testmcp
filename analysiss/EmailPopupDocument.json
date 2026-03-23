@@ -1,19 +1,53 @@
 {
-  "filename": "EmailPopupDocument",
-  "found": true,
-  "summary": "Manages email popup documents in the HSPnet platform.",
-  "purpose": "Provide search and deletion functionalities for popup email documents.",
-  "entities": ["EmailPopupDocument"],
-  "fields": ["ID", "FileName", "FilePath", "Checked"],
-  "actors": [],
-  "workflows": [],
-  "business_rules": [],
-  "validations": [],
-  "calculations": [],
-  "conditions": [],
-  "system_behavior": [],
-  "dependencies": [],
-  "exceptions": [],
-  "source_document_ids": ["7287734e-f13d-550f-9249-4242db620766", "927bc837-5564-5759-9324-27c6d5d7321d"],
-  "content_gaps": []
+    "filename": "EmailPopupDocument",
+    "found": true,
+    "summary": "The EmailPopupDocument class handles email-related popup documents, facilitating their storage, deletion, and retrieval.",
+    "purpose": "Manage email popup documents within the HSPnet framework.",
+    "entities": [
+        "EmailPopupDocument",
+        "EmailPopupDocuments"
+    ],
+    "fields": [
+        {
+            "name": "ID",
+            "type": "int"
+        },
+        {
+            "name": "FileName",
+            "type": "string"
+        },
+        {
+            "name": "FilePath",
+            "type": "string"
+        },
+        {
+            "name": "Checked",
+            "type": "Boolean"
+        }
+    ],
+    "actors": [],
+    "workflows": [
+        {
+            "name": "Delete Email Popup Document",
+            "steps": [
+                "Locate directory of the email data file.",
+                "Attempt deletion of email data file.",
+                "Attempt deletion of directory."
+            ]
+        }
+    ],
+    "business_rules": [],
+    "validations": [],
+    "calculations": [],
+    "conditions": [],
+    "system_behavior": [
+        "Handles file deletion and directory cleanup operations."
+    ],
+    "dependencies": [],
+    "exceptions": [],
+    "source_document_ids": [
+        "7287734e-f13d-550f-9249-4242db620766",
+        "927bc837-5564-5759-9324-27c6d5d7321d"
+    ],
+    "content_gaps": []
 }
