@@ -1,45 +1,32 @@
 {
   "filename": "SiteProfileHistory",
   "found": true,
-  "summary": "Stores historical data regarding changes made to site profiles.",
-  "purpose": "To record and retrieve changes made to site profiles for audit and review purposes.",
-  "entities": [
-    {
-      "name": "SiteProfileHistory",
-      "attributes": [
-        "ID",
-        "ActionDate",
-        "ScreenSection",
-        "UserAction",
-        "Fields",
-        "Agency",
-        "AgencyName",
-        "LastName",
-        "FirstName",
-        "MiddleName",
-        "Phone",
-        "ByUserID",
-        "ByOriginalUserID",
-        "ByUserSysAdmin"
-      ]
-    }
-  ],
+  "summary": "The SiteProfileHistory class represents the history of site profiles, including user actions and other relevant details such as agency and personal information.",
+  "purpose": "To track and represent changes and actions within site profiles.",
+  "entities": ["SiteProfileHistory"],
   "fields": [
-    "ActionDate",
-    "ScreenSection",
-    "UserAction",
-    "Fields",
-    "Agency",
-    "AgencyName"
+    {"name": "ID", "type": "int"},
+    {"name": "ActionDate", "type": "DateTime"},
+    {"name": "ScreenSection", "type": "string"},
+    {"name": "UserAction", "type": "string"},
+    {"name": "Fields", "type": "string"},
+    {"name": "Agency", "type": "string"},
+    {"name": "AgencyName", "type": "string"},
+    {"name": "LastName", "type": "string"},
+    {"name": "FirstName", "type": "string"},
+    {"name": "MiddleName", "type": "string"},
+    {"name": "Phone", "type": "Phone"},
+    {"name": "ByUserID", "type": "int"},
+    {"name": "ByOriginalUserID", "type": "int"},
+    {"name": "ByUserSysAdmin", "type": "bool"}
   ],
-  "actors": ["HSPnetSession"],
+  "actors": [],
   "workflows": [
     {
-      "name": "Retrieve Site Profile History",
+      "name": "Site Profile History Retrieval",
       "steps": [
-        "Set procedure name to SiteProfileHistorySearch",
-        "Add parameters SiteID, SessionAgencyID",
-        "Execute query and fill list"
+        "Execute stored procedure to find site profile history.",
+        "Parse results and fill data into SiteProfileHistory objects."
       ]
     }
   ],
@@ -47,9 +34,7 @@
   "validations": [],
   "calculations": [],
   "conditions": [],
-  "system_behavior": [
-    "Use alternative language fields if session flag is set."
-  ],
+  "system_behavior": [],
   "dependencies": [],
   "exceptions": [],
   "source_document_ids": [
