@@ -1,0 +1,56 @@
+{
+  "filename": "TestException",
+  "found": true,
+  "summary": "The TestException class provides static methods for simulating exceptions, specifically for testing how the system handles connection exceptions and null reference exceptions.",
+  "purpose": "To centrally allow controlled exception throwing for testing the application's error handling screens and logic.",
+  "entities": [
+    "TestException",
+    "HSPnetConnectionException"
+  ],
+  "fields": [],
+  "actors": [
+    "Developer",
+    "Tester"
+  ],
+  "workflows": [
+    {
+      "name": "Throw Test Exception",
+      "steps": [
+        "Call TestException.ThrowException(type)",
+        "If type is 'Connection', call TestConnectionException() to throw HSPnetConnectionException",
+        "Otherwise, call TestNullReferenceException(null) to trigger a NullReferenceException"
+      ]
+    }
+  ],
+  "business_rules": [
+    "If type is 'Connection', only HSPnetConnectionException should be thrown.",
+    "Otherwise, only NullReferenceException is triggered as a generic fallback."
+  ],
+  "validations": [],
+  "calculations": [],
+  "conditions": [
+    "type == 'Connection' triggers TestConnectionException",
+    "any other type triggers TestNullReferenceException"
+  ],
+  "system_behavior": [
+    "TestException.ThrowException simulates exception handling scenarios.",
+    "TestConnectionException throws a custom connection exception.",
+    "TestNullReferenceException triggers a NullReferenceException if passed null."
+  ],
+  "dependencies": [
+    "HSPnetConnectionException",
+    "System"
+  ],
+  "exceptions": [
+    "HSPnetConnectionException",
+    "NullReferenceException"
+  ],
+  "source_document_ids": [
+    "a2167b56-3b9d-5f37-9bd9-f0134b98c766"
+  ],
+  "content_gaps": [
+    "No information about usage context, logging, or integration with broader error handling framework.",
+    "No documentation on HSPnetConnectionException implementation.",
+    "No mention of side effects or expected outputs beyond exception throwing."
+  ]
+}
