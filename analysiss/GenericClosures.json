@@ -1,14 +1,12 @@
 {
   "filename": "GenericClosures",
   "found": true,
-  "summary": "The GenericClosures system manages closures with specified start and end dates, closure codes, and applies to various source levels like Agency, Site, or Destination. It supports adding, updating, deleting, and validating closures with different parameters and conditions.",
-  "purpose": "To manage closures within different organizational levels (e.g., Agency, Site, Destination) by allowing users to add, update, delete, and validate closures based on specified dates and codes.",
+  "summary": "The GenericClosures module manages entity closures on different source levels such as Agency, Site, and Destination. It provides functionalities to add, update, and delete closures. The closures include details such as ClosureCodeID, start and end dates, comments, and sub-discipline lists. The module ensures data validation and integrates with a database to perform CRUD operations.",
+  "purpose": "To manage and process entity closures across different hierarchical levels, ensuring valid data entry and database synchronization.",
   "entities": [
     "GenericClosure",
     "DestinationCode",
-    "Site",
-    "HSPnetSession",
-    "Database"
+    "Site"
   ],
   "fields": [
     "ID",
@@ -21,50 +19,68 @@
     "SubDisciplineIDList",
     "AppliedAllDestinations",
     "ClosureCode",
-    "StartDateFormatted",
-    "EndDateFormatted",
-    "SourceLevel",
-    "SessionID"
+    "SourceLevel"
   ],
   "actors": [
-    "HSPnetSession"
+    "HSPnetSession",
+    "Database"
   ],
   "workflows": [
     {
-      "name": "Closure Management",
+      "name": "Add Closure",
       "steps": [
-        "Add new closure using relevant source level and validated parameters.",
-        "Update existing closure by validating inputs and executing database operations.",
-        "Delete specified closure if it exists using procedural calls for the specific source level.",
-        "Validate closure parameters including date constraints and mandatory fields."
+        "Check if SourceLevel is valid",
+        "Parse StartDate and EndDate",
+        "Validate closure attributes",
+        "Prepare database procedure",
+        "Add parameters and execute query"
+      ]
+    },
+    {
+      "name": "Update Closure",
+      "steps": [
+        "Check if SourceLevel is valid",
+        "Parse StartDate and EndDate",
+        "Validate closure attributes",
+        "Prepare database procedure",
+        "Add parameters and execute query"
+      ]
+    },
+    {
+      "name": "Delete Closure",
+      "steps": [
+        "Check if SourceLevel is valid",
+        "Prepare database delete procedure",
+        "Add parameters and execute query"
       ]
     }
   ],
   "business_rules": [
-    "Closures must be associated with a valid source level (Agency, Site, or Destination).",
-    "SessionID and other essential parameters must be provided for database operations."
+    "Invalid closures are not processed",
+    "SourceLevel determines the appropriate database procedure"
   ],
   "validations": [
-    "StartDate and EndDate must not exceed a maximum future date limit (5 years).",
-    "ClosureCodeID, StartDate, and EndDate are mandatory fields.",
-    "StartDate must be earlier than EndDate."
+    "ClosureCodeID is mandatory",
+    "StartDate and EndDate are mandatory and within allowed range",
+    "StartDate must be less than or equal to EndDate"
   ],
   "calculations": [],
   "conditions": [
-    "If SourceLevel is Invalid, operations are not performed.",
-    "Different database procedure names and parameters are used based on SourceLevel."
+    "SourceLevel: Agency, Site, Destination"
   ],
   "system_behavior": [
-    "Executes database procedures to perform add, update, and delete operations.",
-    "Interacts with HSPnetSession to validate and execute closure operations."
+    "Database procedures are dynamically selected based on SourceLevel",
+    "Errors are logged when validations fail",
+    "Closures are added, updated, or deleted in the database"
   ],
   "dependencies": [
-    "HSPnetSession for database connection and session management.",
-    "Database class for executing SQL procedures."
+    "DateFormatter",
+    "HSPnetSession",
+    "Database utilities"
   ],
   "exceptions": [
-    "Invalid SourceLevel leads to early return without processing.",
-    "Closure parameters failing validation lead to operation failure."
+    "Invalid SourceLevel returns without action",
+    "Validation failures prevent database operations"
   ],
   "source_document_ids": [
     "0abc3c11-26e4-5a20-84e1-8ed3a15da6e6",
