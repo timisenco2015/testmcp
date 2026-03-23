@@ -1,118 +1,138 @@
 {
-  "filename": "MaintSiteProfile",
-  "found": true,
-  "summary": "The MaintSiteProfile file manages site profiles within the HSPnet system, including tabs for details, documents, requirements, contacts, recruitment, and closures.",
-  "purpose": "To provide an interface for managing and viewing site profiles and related information in the HSPnet system.",
-  "entities": [],
-  "fields": [
-    "Name",
-    "ShortName",
-    "Address1",
-    "Address2",
-    "City",
-    "Province",
-    "PostalCode",
-    "Phone",
-    "Fax",
-    "AgencyName",
-    "AgencyShortName",
-    "RecruitmentContactFirstName",
-    "RecruitmentContactLastName",
-    "RecruitmentContactTitle",
-    "RecruitmentContactEmail",
-    "RecruitmentContactPhone"
-  ],
-  "actors": [
-    "UserSession",
-    "SystemAdministrator",
-    "LocalAdministrator",
-    "PlacementCoordinator",
-    "StudentUser",
-    "ReceivingUser",
-    "StaffAdmin"
-  ],
-  "workflows": [
-    {
-      "name": "Page Load",
-      "steps": [
-        "Validate URL hash.",
-        "Determine if alternate database is used.",
-        "Load site information and check data existence flags.",
-        "Enable or disable tabs based on user permissions and database context."
-      ]
-    },
-    {
-      "name": "Tab Configuration",
-      "steps": [
-        "Enable or disable tabs based on user roles and configurations.",
-        "Setup recruitment tab if recruitment feature is enabled and contact information is available.",
-        "Bind data to active tab's controls."
-      ]
-    }
-  ],
-  "business_rules": [
-    "Users cannot edit site profiles if they have view-only permissions.",
-    "Tabs are only enabled if the user has the appropriate permissions and the necessary data exists."
-  ],
-  "validations": [
-    "Start date must be less than the end date.",
-    "Recruitment contact information cannot be blank if a recruitment contact is selected."
-  ],
-  "calculations": [],
-  "conditions": [
-    "If using an alternate database, some tabs are disabled.",
-    "Tabs are only enabled if the corresponding data exists and the user has permission."
-  ],
-  "system_behavior": [
-    "Tab panels are dynamically enabled or disabled based on the user role and database context.",
-    "Data is automatically refreshed when switching between tabs or upon certain operations."
-  ],
-  "dependencies": [
-    "HSPnet.DataLayer for database operations.",
-    "UserSession for accessing user-specific information.",
-    "AjaxControlToolkit for UI enhancements."
-  ],
-  "exceptions": [
-    "If a required field is missing or user permissions are misconfigured, actions may be restricted."
-  ],
-  "source_document_ids": [
-    "1241b5f1-57f3-5f83-ac89-ca2df5e48865",
-    "18a6b637-be4f-5b23-8b07-b07a90f08810",
-    "287fa06d-1129-5238-8a9b-1a4bcc63d1ed",
-    "2d5475ae-d95a-58bf-8591-e195acb0789c",
-    "2f02e697-9960-5aa8-91ef-75e81bf8bd1c",
-    "3662875c-6024-5793-ba43-baa787d88d39",
-    "3f45a65b-7bc6-5475-8a6f-bfa62afd7935",
-    "441321e5-cc55-511c-b6d2-d8e0474be7fe",
-    "56da2590-c39a-518b-a5aa-050befc18bcf",
-    "5d2d848a-1f82-5a76-b2a7-f2493fe6ecdd",
-    "6b001ad1-8dbc-569e-8011-fadda8d62497",
-    "735a4d4e-b368-5abf-9567-7bc4de05c58c",
-    "822d4e1b-e4de-5f7f-bb7a-789f41f76e3f",
-    "8b878a44-bd4b-5c44-8f77-efb5bc43e76f",
-    "98a74b6f-36ba-5013-97b1-a2fba08e30c9",
-    "9a426f75-c4ab-56d0-ae6e-04894d7fde4e",
-    "9d5ee82b-3dae-58be-b9cf-60e1e7a11ecb",
-    "9dcbfc58-d001-5359-ba1a-f0b1571ab9e6",
-    "9f126db3-7d40-593c-a749-b3891cf5ded3",
-    "b049a98c-fe70-506c-8c69-8a622f9b4d82",
-    "b61d910e-17db-50f5-a260-f29d050fe9fc",
-    "bef18899-1594-5034-bc80-54fa287fa2ca",
-    "c3b5af8d-cad4-539f-adf3-651ac9b0bfc1",
-    "c767b823-6152-50db-b2d7-2ef8f035f05a",
-    "cac3d63f-782f-54d6-ab71-7631fc2d9b12",
-    "cfe67802-f940-5332-a66d-123ea7949d88",
-    "d50e4d00-021d-57ac-b406-1d29b6c0f0d6",
-    "e07a055b-7f0d-5a24-89d7-dddbf6067e18",
-    "e952a0a0-14a3-5c1f-8faf-04ea8b7add09",
-    "ec043254-0234-5573-8b3d-2dc9298fb168",
-    "f3dde21c-1441-525d-9ea9-6338221bfa15",
-    "f50d1409-d1ee-53b6-bf10-61879d216df0",
-    "f8fe1d90-080c-542c-bce6-8155449ce435",
-    "f9080fc3-ed97-538c-ab2d-9708413e70ff",
-    "f9eeabe1-e242-56f1-8da2-49c3ab57ad58",
-    "fead7fa7-aa90-55c5-a853-91d97ace4aaa",
-    "ff0ea8f6-46ac-53f9-b06d-461fb40252d3"
-  ],
-  "content_gaps": []
+    "filename": "MaintSiteProfile",
+    "found": true,
+    "summary": "MaintSiteProfile is a part of the HSPnet system, structured to manage site profiles with various interactive tabs for details, documents, contacts, recruitment, and more. It includes a detailed layout for site management enriched with user sessions, data validations, and configurations.",
+    "purpose": "The MaintSiteProfile serves as a management interface for handling various aspects of site profiles in the HSPnet system, such as details, recruitment, document management, and user interactions.",
+    "entities": ["Site", "UserSession", "SiteProfile"],
+    "fields": [
+        {"name": "SiteID", "type": "string"},
+        {"name": "ProfileExists", "type": "boolean"},
+        {"name": "DetailsExists", "type": "boolean"},
+        {"name": "DocumentExists", "type": "boolean"},
+        {"name": "ClosureExists", "type": "boolean"},
+        {"name": "RecruitmentResourcesExists", "type": "boolean"},
+        {"name": "RecruitmentOpportunitiesExists", "type": "boolean"},
+        {"name": "RequirementExists", "type": "boolean"},
+        {"name": "ContactDataExists", "type": "boolean"},
+        {"name": "ServiceUserExists", "type": "boolean"},
+        {"name": "ReadOnly", "type": "boolean"},
+        {"name": "QES", "type": "boolean"},
+        {"name": "AlternateDatabase", "type": "string"},
+        {"name": "UsingAlternateDatabase", "type": "boolean"},
+        {"name": "currentPage", "type": "string"}
+    ],
+    "actors": [
+        "SystemAdministrator",
+        "LocalAdministrator",
+        "StaffAdmin",
+        "StudentUser",
+        "ReceivingUser",
+        "PlacementCoordinator"
+    ],
+    "workflows": [
+        {
+            "name": "Page_Load",
+            "steps": [
+                "Validate URL hash with Hashing.ValidateURLHash",
+                "Determine Alternate Database usage",
+                "Load Site Information",
+                "Setup Page and Tabs",
+                "Register Client Scripts"
+            ]
+        },
+        {
+            "name": "SetupRecruitmentTab",
+            "steps": [
+                "Check User Privileges for Recruitment Features",
+                "Enable or Disable Recruitment Tab"
+            ]
+        },
+        {
+            "name": "ProcessReadOnly",
+            "steps": [
+                "Check ReadOnly Query String",
+                "Determine ReadOnly State based on User Permissions"
+            ]
+        }
+    ],
+    "business_rules": [
+        "TabPanelContact is enabled when the user is not a StudentUser and not using an alternate database.",
+        "Site profile tabs are enabled based on user session and existing data flags."
+    ],
+    "validations": [
+        {
+            "field": "txtStartDate",
+            "rule": "checkStartDateMax",
+            "description": "Validates that the start date is before the maximum date."
+        },
+        {
+            "field": "txtEndDate",
+            "rule": "checkEndDateMax",
+            "description": "Validates that the end date is before the maximum date."
+        }
+    ],
+    "calculations": [],
+    "conditions": [
+        {
+            "condition": "UserSession.SystemAdministrator",
+            "result": "Full access to edit site profiles."
+        },
+        {
+            "condition": "UsingAlternateDatabase",
+            "result": "Some tabs are disabled."
+        }
+    ],
+    "system_behavior": [
+        "Displays tabs like Profile, Documents, Requirement, and History based on the active session and permissions.",
+        "Each tab can be enabled or disabled based on configuration and user permissions."
+    ],
+    "dependencies": [
+        "HSPnet Framework",
+        "DataLayer for Site information retrieval",
+        "JavaScript for front-end interactions"
+    ],
+    "exceptions": [
+        "Error messages displayed via pnlError and lblErrorList",
+        "Warnings displayed via pnlWarning and lblWarningList"
+    ],
+    "source_document_ids": [
+        "1241b5f1-57f3-5f83-ac89-ca2df5e48865",
+        "18a6b637-be4f-5b23-8b07-b07a90f08810",
+        "287fa06d-1129-5238-8a9b-1a4bcc63d1ed",
+        "2d5475ae-d95a-58bf-8591-e195acb0789c",
+        "2f02e697-9960-5aa8-91ef-75e81bf8bd1c",
+        "3662875c-6024-5793-ba43-baa787d88d39",
+        "3f45a65b-7bc6-5475-8a6f-bfa62afd7935",
+        "441321e5-cc55-511c-b6d2-d8e0474be7fe",
+        "56da2590-c39a-518b-a5aa-050befc18bcf",
+        "5d2d848a-1f82-5a76-b2a7-f2493fe6ecdd",
+        "6b001ad1-8dbc-569e-8011-fadda8d62497",
+        "735a4d4e-b368-5abf-9567-7bc4de05c58c",
+        "822d4e1b-e4de-5f7f-bb7a-789f41f76e3f",
+        "8b878a44-bd4b-5c44-8f77-efb5bc43e76f",
+        "98a74b6f-36ba-5013-97b1-a2fba08e30c9",
+        "9a426f75-c4ab-56d0-ae6e-04894d7fde4e",
+        "9d5ee82b-3dae-58be-b9cf-60e1e7a11ecb",
+        "9dcbfc58-d001-5359-ba1a-f0b1571ab9e6",
+        "9f126db3-7d40-593c-a749-b3891cf5ded3",
+        "b049a98c-fe70-506c-8c69-8a622f9b4d82",
+        "b61d910e-17db-50f5-a260-f29d050fe9fc",
+        "bef18899-1594-5034-bc80-54fa287fa2ca",
+        "c3b5af8d-cad4-539f-adf3-651ac9b0bfc1",
+        "c767b823-6152-50db-b2d7-2ef8f035f05a",
+        "cac3d63f-782f-54d6-ab71-7631fc2d9b12",
+        "cfe67802-f940-5332-a66d-123ea7949d88",
+        "d50e4d00-021d-57ac-b406-1d29b6c0f0d6",
+        "e07a055b-7f0d-5a24-89d7-dddbf6067e18",
+        "e952a0a0-14a3-5c1f-8faf-04ea8b7add09",
+        "ec043254-0234-5573-8b3d-2dc9298fb168",
+        "f3dde21c-1441-525d-9ea9-6338221bfa15",
+        "f50d1409-d1ee-53b6-bf10-61879d216df0",
+        "f8fe1d90-080c-542c-bce6-8155449ce435",
+        "f9080fc3-ed97-538c-ab2d-9708413e70ff",
+        "f9eeabe1-e242-56f1-8da2-49c3ab57ad58",
+        "fead7fa7-aa90-55c5-a853-91d97ace4aaa",
+        "ff0ea8f6-46ac-53f9-b06d-461fb40252d3"
+    ],
+    "content_gaps": []
 }
