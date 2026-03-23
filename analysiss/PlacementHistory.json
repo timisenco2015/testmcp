@@ -1,0 +1,36 @@
+{
+    "filename": "PlacementHistory",
+    "found": true,
+    "summary": "PlacementHistory is a component of the HSPnet system managing the placement history for staff profiles. It involves user interaction to display, sort, and manage details of placement records, including reports and printing functions.",
+    "purpose": "To manage and display placement history details associated with staff profiles.",
+    "entities": ["PRSearchStudent", "Staff"],
+    "fields": ["SupervisorSortExpression", "SupervisorDirection"],
+    "actors": ["UserSession", "StaffController"],
+    "workflows": [
+        {
+            "name": "Report Generation",
+            "steps": [
+                "User initiates report generation.",
+                "System checks user session and available data.",
+                "System fetches data and generates report.",
+                "Report is displayed if data is valid."
+            ]
+        }
+    ],
+    "business_rules": ["Reports are generated only when user session is active."],
+    "validations": ["Ensure PRHistoryOnly flag is set appropriately."],
+    "calculations": ["SortExpression based on user input for report display."],
+    "conditions": ["User session must be active.", "ScreenIsEditable must be true."],
+    "system_behavior": ["Visibility controls based on data attributes."],
+    "dependencies": ["HSPnet Framework and DataLayer"],
+    "exceptions": ["Report HTML display is conditional on valid user session."],
+    "source_document_ids": [
+        "038f5c7c-b9e1-515c-8df7-e0ea45a4cd54",
+        "175e6272-074c-5229-9c6b-4e2e273c56b7",
+        "1f73fd38-29b5-5084-97ae-d9b115cb1f07",
+        "4756e290-e7b8-581b-b359-eaaca10e987e",
+        "54b6952c-2e88-5de5-8009-1af71a987456",
+        "79c8c0b6-05fb-50c4-95eb-592fb1ab085e"
+    ],
+    "content_gaps": []
+}
