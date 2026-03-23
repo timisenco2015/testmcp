@@ -1,27 +1,71 @@
 {
-    "filename": "EmailPopupDocument",
-    "found": true,
-    "summary": "EmailPopupDocument class managing email popup document entities within HSPnet.",
-    "purpose": "Allows searching, managing and deleting email popup documents.",
-    "entities": ["EmailPopupDocument"],
-    "fields": ["ID", "FileName", "FilePath"],
-    "actors": ["System Admin"],
-    "workflows": [
-        {
-            "name": "Manage Email Popup Documents",
-            "steps": ["Search", "Delete files"]
-        }
-    ],
-    "business_rules": [],
-    "validations": [],
-    "calculations": [],
-    "conditions": [],
-    "system_behavior": [],
-    "dependencies": [],
-    "exceptions": [],
-    "source_document_ids": [
-        "7287734e-f13d-550f-9249-4242db620766",
-        "927bc837-5564-5759-9324-27c6d5d7321d"
-    ],
-    "content_gaps": []
+  "filename": "EmailPopupDocument",
+  "found": true,
+  "summary": "C# code for managing email popup documents.",
+  "purpose": "Handle operations for displaying and deleting email-related documents.",
+  "entities": [
+    {
+      "name": "EmailPopupDocument",
+      "fields": [
+        "ID",
+        "FileName",
+        "FilePath",
+        "Checked"
+      ]
+    }
+  ],
+  "fields": [
+    {
+      "name": "ID",
+      "type": "int",
+      "description": "Unique identifier for the email document."
+    },
+    {
+      "name": "FileName",
+      "type": "string",
+      "description": "Name of the email file."
+    },
+    {
+      "name": "FilePath",
+      "type": "string",
+      "description": "Path to the email file."
+    },
+    {
+      "name": "Checked",
+      "type": "Boolean",
+      "description": "Indicates if the file is checked."
+    }
+  ],
+  "actors": [],
+  "workflows": [
+    {
+      "name": "Search",
+      "steps": [
+        "Split DataInfo into individual documents.",
+        "Create EmailPopupDocument for each entry.",
+        "Add to list and return."
+      ]
+    },
+    {
+      "name": "Delete",
+      "steps": [
+        "Identify document by ID.",
+        "Delete file and directory if exists."
+      ]
+    }
+  ],
+  "business_rules": [],
+  "validations": [],
+  "calculations": [],
+  "conditions": [],
+  "system_behavior": [
+    "Document search and delete operations for email popups."
+  ],
+  "dependencies": [],
+  "exceptions": [],
+  "source_document_ids": [
+    "7287734e-f13d-550f-9249-4242db620766",
+    "927bc837-5564-5759-9324-27c6d5d7321d"
+  ],
+  "content_gaps": []
 }
