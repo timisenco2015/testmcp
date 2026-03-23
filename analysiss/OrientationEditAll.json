@@ -1,0 +1,36 @@
+{
+  "filename": "OrientationEditAll",
+  "found": true,
+  "summary": "Orientation editing for students with functionalities to save and update orientation details, including agency, site, onsite location, and comments. Includes validation and session management.",
+  "purpose": "To manage and edit student orientation information within the HSPnet enrollment system.",
+  "entities": [],
+  "fields": ["txtOrientationID", "txtStudentID", "ddAgency", "ddSite", "txtContentSource", "txtOnsiteLocation", "txtOrientationDate", "txtComments", "txtDescription"],
+  "actors": ["UserSession"],
+  "workflows": [
+      {
+        "name": "Editing and Saving Orientation Information",
+        "steps": [
+          "Retrieve agency and site details from UI controls.",
+          "Check if orientation details are marked as dirty.",
+          "Invoke controller to add or update orientation details based on conditions.",
+          "Handle validation and error messages.",
+          "Redirect or reload based on outcomes."
+        ]
+      }
+    ],
+  "business_rules": ["OrientationProviderType determined from UserSession", "Use of providerTypeCodeID to differentiate provider types"],
+  "validations": ["Textarea max length for comments set to 1000 characters", "GridView row command checks for data and update operation status"],
+  "calculations": [],
+  "conditions": ["Check if orientationID is 0 for a new record", "Check for session validity before operations"],
+  "system_behavior": ["Disable calendar controls for readonly access", "Session management for data operations"],
+  "dependencies": [],
+  "exceptions": ["Redirect only if no error messages are present"],
+  "source_document_ids": [
+      "15c5d7d8-7479-58bf-8cea-56f28ed443e3",
+      "15ff7145-ed9f-5d16-b0f6-6ad77c784a87",
+      "35d572a1-12b3-5856-96f2-e5f7ee5ab0b0",
+      "73818141-b19a-58c8-b7bd-290e9564cb67",
+      "8043b9a1-03d8-5e7d-9476-b5a59aafdcd6"
+    ],
+  "content_gaps": []
+}
