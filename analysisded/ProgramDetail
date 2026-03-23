@@ -1,0 +1,107 @@
+```json
+{
+    "filename": "ProgramDetail",
+    "found": true,
+    "summary": "The ProgramDetail class manages program details in a database using SQL Server. It includes methods for adding, updating, deleting, and retrieving program details based on various criteria.",
+    "purpose": "To manage and manipulate details related to programs in the database.",
+    "entities": [
+        "ProgramDetail",
+        "ProgramDetails"
+    ],
+    "fields": [
+        "ID",
+        "ProgramID",
+        "HeadingID",
+        "Response",
+        "SortOrder",
+        "Description",
+        "DescriptionAlt",
+        "SortOrderFormatted",
+        "ResponseFormatted",
+        "DescriptionFormatted",
+        "HeaderChanged"
+    ],
+    "actors": [
+        "HSPnetSession"
+    ],
+    "workflows": [
+        {
+            "name": "Get Program Details by Program ID",
+            "steps": [
+                "Check if ProgramID is not 0",
+                "Initialize database and set procedure to 'ProgramDetailsSearch'",
+                "Add 'ProgramID' parameter",
+                "Execute and retrieve data using SqlDataReader",
+                "Fill a list of ProgramDetail objects",
+                "Return the list"
+            ]
+        },
+        {
+            "name": "Get Program Detail by ID",
+            "steps": [
+                "Check if ProgramDetailsID is not 0",
+                "Initialize database and set procedure to 'ProgramDetailsSearchID'",
+                "Add 'ID' parameter",
+                "Execute and retrieve data using SqlDataReader",
+                "Fill a list of ProgramDetail objects",
+                "Return the list"
+            ]
+        },
+        {
+            "name": "Add Program Detail",
+            "steps": [
+                "Validate the ProgramDetail object",
+                "Set database procedure to 'ProgramDetailsAdd'",
+                "Add parameters for ProgramID, HeadingID, Response, and SortOrder",
+                "Execute the query"
+            ]
+        },
+        {
+            "name": "Update Program Detail",
+            "steps": [
+                "Check if ID is not 0 and validate the ProgramDetail object",
+                "Set database procedure to 'ProgramDetailsUpdate'",
+                "Add parameters for ProgramDetailID, HeadingID, Response, and SortOrder",
+                "Execute the query"
+            ]
+        },
+        {
+            "name": "Delete Program Detail",
+            "steps": [
+                "Check if ID is not 0",
+                "Set database procedure to 'ProgramDetailsDelete'",
+                "Add 'ProgramDetailID' parameter",
+                "Execute the query"
+            ]
+        }
+    ],
+    "business_rules": [
+        "Do not repeat header entries.",
+        "Display SortOrder of 0 as blank."
+    ],
+    "validations": [
+        "Response cannot be blank."
+    ],
+    "calculations": [],
+    "conditions": [
+        "Use alternate language fields if applicable."
+    ],
+    "system_behavior": [
+        "Formats SortOrder to be displayed as blank if it is -1.",
+        "Detects changes in header categories."
+    ],
+    "dependencies": [
+        "System.Data.SqlClient",
+        "HSPnet.Framework",
+        "HSPnet.App_GlobalResources"
+    ],
+    "exceptions": [],
+    "source_document_ids": [
+        "7816c56d-7511-5cb3-b78a-8d45a20f8200",
+        "a2ab1ff8-dd2a-5e9f-b63e-3d953c4eac95",
+        "b9f3f258-ba46-511c-8e01-b0963e4527f2",
+        "dc349e65-d265-5c2c-9472-cc4938730832"
+    ],
+    "content_gaps": []
+}
+```
