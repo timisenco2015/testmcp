@@ -1,24 +1,36 @@
 {
     "filename": "SiteProfileHistory",
     "found": true,
-    "summary": "SiteProfileHistory manages historical records of site profiles including user actions, screen sections, and agency details.",
-    "purpose": "Track and manage changes in site profiles over time.",
-    "entities": ["SiteProfileHistory", "SiteProfileHistories"],
+    "summary": "SiteProfileHistory class manages the historical actions and user details associated with site profiles.",
+    "purpose": "To track actions performed on site profiles for historical reference.",
+    "entities": ["SiteProfileHistory"],
     "fields": ["ID", "ActionDate", "ScreenSection", "UserAction", "Fields", "Agency", "AgencyName", "LastName", "FirstName", "MiddleName", "Phone", "ByUserID", "ByOriginalUserID", "ByUserSysAdmin"],
-    "actors": ["User"],
+    "actors": ["Database", "HSPnetSession"],
     "workflows": [
         {
-            "name": "Profile History Management",
-            "steps": ["Record user actions", "Format history details", "Retrieve profile changes"]
+            "name": "Fetch Site Profile History",
+            "steps": [
+                "Set procedure name for fetching profile history",
+                "Add site and agency IDs as parameters",
+                "Fetch data",
+                "Fill list with history entries",
+                "Close data reader"
+            ]
         }
     ],
-    "business_rules": [],
+    "business_rules": ["Proper session handling"],
     "validations": [],
     "calculations": [],
     "conditions": [],
-    "system_behavior": ["Data retrieval based on user sessions"],
-    "dependencies": ["Phone class for formatting"],
+    "system_behavior": ["Tracks and displays profile history actions"],
+    "dependencies": [],
     "exceptions": [],
-    "source_document_ids": ["25f89a24-5eda-5a3f-83df-1de69b12b3f1", "26e09292-d304-55c6-94e5-ef3346453c4b", "7ca6b963-9ae9-5cd3-82d5-f30dcb727ae3", "e806999c-3a39-5720-9b59-303faebc9eb6"],
+    "source_document_ids": [
+        "25f89a24-5eda-5a3f-83df-1de69b12b3f1",
+        "26e09292-d304-55c6-94e5-ef3346453c4b",
+        "7ca6b963-9ae9-5cd3-82d5-f30dcb727ae3",
+        "a8f030c6-90b8-53a1-bb8a-3b7ef33b9488",
+        "e806999c-3a39-5720-9b59-303faebc9eb6"
+    ],
     "content_gaps": []
 }
