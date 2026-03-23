@@ -1,0 +1,74 @@
+```json
+{
+  "filename": "StudentActiveCohort",
+  "found": true,
+  "summary": "The StudentActiveCohort documents describe the management of student cohort data within a database, including searching, adding, and removing student cohort entries.",
+  "purpose": "To manage and retrieve student cohort data, including their courses, departments, and programs.",
+  "entities": ["StudentActiveCohort"],
+  "fields": [
+    "DepartmentID",
+    "DepartmentShortName",
+    "ProgramID",
+    "ProgramShortName",
+    "CohortID",
+    "CohortShortName",
+    "Unstructured",
+    "EnrolledCourses",
+    "AssignedCourses",
+    "UnassignedCourses",
+    "TimetableID",
+    "StudentHasActiveUserID",
+    "TermID",
+    "CourseID",
+    "CourseName"
+  ],
+  "actors": ["HSPnetSession"],
+  "workflows": [
+    {
+      "name": "StudentSearchActiveCohorts",
+      "steps": [
+        "Initialize StudentActiveCohort list.",
+        "Set procedure name to 'StudentSearchActiveCohorts'.",
+        "Add session and student ID as parameters.",
+        "Retrieve data using GetData method.",
+        "Iterate and process the data reader results.",
+        "Create and populate StudentActiveCohort entries."
+      ]
+    },
+    {
+      "name": "StudentRemoveFromCohort",
+      "steps": [
+        "Initialize StudentActiveCohort list.",
+        "Set procedure name to 'StudentRemoveFromCohort'.",
+        "Add session, student, and cohort IDs as parameters.",
+        "Retrieve data using GetData method.",
+        "Iterate and process the data reader results."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Skip entries with zero assigned and unassigned courses."
+  ],
+  "validations": [],
+  "calculations": [
+    "UnassignedCourses = EnrolledCourses - AssignedCourses"
+  ],
+  "conditions": [],
+  "system_behavior": [
+    "Retrieve and process data from a SQL Server using parameterized queries."
+  ],
+  "dependencies": [
+    "SQL Server database",
+    "HSPnet.Framework",
+    "HSPnet.App_GlobalResources",
+    "HSPnet.UI"
+  ],
+  "exceptions": ["DataReader might be null and should be managed."],
+  "source_document_ids": [
+    "24eaf078-e391-5240-9a2b-f1e669753812",
+    "8027c505-01e5-5861-af3d-ec417f2e1383",
+    "ebe839ba-3287-52fb-84f5-416ae2b6ec35"
+  ],
+  "content_gaps": []
+}
+```
