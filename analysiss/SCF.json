@@ -1,0 +1,53 @@
+{
+  "filename": "SCF",
+  "found": true,
+  "summary": "The SCF model represents a report generation system in the HSPnet framework, handling report metadata and processing report requests with specific parameters.",
+  "purpose": "To facilitate the structured generation of reports, including handling of program metadata and logos, using specified parameters.",
+  "entities": [
+    "HSPnet.ReportModel.SCF"
+  ],
+  "fields": [
+    "Name",
+    "Logo",
+    "LogoHeight"
+  ],
+  "actors": [],
+  "workflows": [
+    {
+      "name": "GenerateReport_SCF.RunReport",
+      "steps": [
+        "Parse input parameters for ProgramID, Logo, LogoWidth, and LogoHeight.",
+        "Check if Logo file exists; discard if not.",
+        "Validate ProgramID.",
+        "Retrieve Program Name using ProgramID.",
+        "Initialize SCF report model with retrieved data.",
+        "Run report using Reporting.MigraDoc_RunReport."
+      ]
+    }
+  ],
+  "business_rules": [
+    "If Logo file does not exist on the system, it should not be used in the report."
+  ],
+  "validations": [
+    "Ensure ProgramID is successfully parsed."
+  ],
+  "calculations": [],
+  "conditions": [
+    "If ProgramID is zero after parsing, return an error message."
+  ],
+  "system_behavior": [
+    "Handles report generation by processing input parameters and executing the report through an external reporting engine."
+  ],
+  "dependencies": [
+    "Programs.ProgramSearchID",
+    "Reporting.MigraDoc_RunReport",
+    "System.IO.File.Exists"
+  ],
+  "exceptions": [],
+  "source_document_ids": [
+    "05250fd1-ea7e-5991-8c0c-9a115049850e",
+    "8742a6ea-0147-5f76-9272-e268d98add48",
+    "e9b3ade0-7100-5af2-ae8d-723ed97e2e24"
+  ],
+  "content_gaps": []
+}
