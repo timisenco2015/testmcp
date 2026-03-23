@@ -1,0 +1,111 @@
+{
+  "filename": "GenericRequirement",
+  "found": true,
+  "summary": "The documents describe the implementation of a system handling generic requirements, focusing on their retrieval, manipulation, and application within a database context. This involves handling prerequisites, organizing requirements in sections, and supporting both standard and alternative language data.",
+  "purpose": "To manage generic requirements within a software system, including storage, retrieval, manipulation, and assignment to various entities such as agencies and sites.",
+  "entities": [],
+  "fields": [
+    "ID",
+    "ParentID",
+    "RequirementCodeID",
+    "RequirementDescription",
+    "Website",
+    "UpdateDate",
+    "ByUserID",
+    "LastName",
+    "FirstName",
+    "MiddleName",
+    "AgencyShortName",
+    "RequirementCode",
+    "CategoryDividerDescription",
+    "AllowAllSubDisciplines",
+    "SubDisciplineIDList",
+    "IsApplied",
+    "SourceLevel",
+    "CanEditRow",
+    "DocumentName",
+    "Section",
+    "Email",
+    "DisciplineFormatted",
+    "DisciplineListingAll",
+    "RequirementCodeName",
+    "EmailFormatted"
+  ],
+  "actors": [
+    "HSPnetSession",
+    "SqlDataReader",
+    "CodeRecord"
+  ],
+  "workflows": [
+    {
+      "name": "Retrieve and Process Generic Requirements",
+      "steps": [
+        "Split the discipline and sub-discipline ID.",
+        "Retrieve prerequisite codes.",
+        "Execute a stored procedure to gather requirement data.",
+        "Read data with a SqlDataReader and populate a GenericRequirement list.",
+        "Sort and order the list based on section or other criteria."
+      ]
+    },
+    {
+      "name": "Assign Requirements",
+      "steps": [
+        "Assign site or destination codes to agency requirements.",
+        "Update database with new assignment data."
+      ]
+    },
+    {
+      "name": "Database Operations",
+      "steps": [
+        "Retrieve data using a stored procedure.",
+        "Add parameters for session and entity identifiers.",
+        "Execute database queries for retrieving or saving data."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Use alternate language fields if configured.",
+    "Only display descriptions for 'Other' requirement codes.",
+    "Allow all sub-disciplines if configured."
+  ],
+  "validations": [
+    "Check if discipline and sub-discipline IDs are valid.",
+    "Ensure data is retrieved correctly from the database."
+  ],
+  "calculations": [],
+  "conditions": [
+    "Insert items based on the section order if found.",
+    "Add new sections at the end if they do not exist."
+  ],
+  "system_behavior": [
+    "Formats and returns the requirement website URL based on type.",
+    "Formats email and phone details for display."
+  ],
+  "dependencies": [
+    "HSPnet.Framework",
+    "HSPnet.App_GlobalResources"
+  ],
+  "exceptions": [
+    "Handle empty results when retrieving sort orders."
+  ],
+  "source_document_ids": [
+    "047875a3-c67c-55bb-81b5-712b778d5d89",
+    "07158f98-0408-54b1-b914-4802404c80fd",
+    "0a84799c-e4c6-56c7-b009-e6d36243987f",
+    "12e1bc3a-2eba-5ff5-9ad2-f3e31255efa8",
+    "154fe5a2-da60-5525-bfa9-91d8b6f27ae1",
+    "4c6fdf89-10d0-596a-b218-6ed1bf9debd0",
+    "4e141489-ad51-5a11-abb0-edb223601f1c",
+    "5ab88f5c-dcab-53f0-9fd5-27b53779d468",
+    "72bb6c3e-879f-51bf-b590-e103444bfbeb",
+    "73f4c440-9a12-5faf-b64d-6cc36ded0b6f",
+    "9bcd5076-b839-5c44-9694-d99489598085",
+    "c5757bbf-5ea4-5ee7-83c2-58373dc8f0df",
+    "d07b6f55-5b83-5400-87de-3e740e934062",
+    "d149c32f-2862-591c-b5d5-025745ff8c7b",
+    "e4e7031e-d6d7-5387-8d08-7e7a5c0caaaf",
+    "f27fd67b-482c-59a8-9765-6119c533cef5",
+    "fc3009ba-6caa-592a-ae51-ac3b29de114a"
+  ],
+  "content_gaps": []
+}
