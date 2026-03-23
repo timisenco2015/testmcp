@@ -1,0 +1,137 @@
+{
+  "filename": "StudentPayHistory",
+  "found": true,
+  "summary": "StudentPayHistory manages and tracks a student's pay history, including employment, designation, pay level, status, and fixed term appointments. The system provides APIs for adding, updating, deleting, and searching pay history records, which include extensive field validation, alternate language handling, and formatted display logic.",
+  "purpose": "The primary purpose is to store, retrieve, and manipulate the pay history details of individual students, supporting business processes around employment status, salary classification, and related HR workflows in the system.",
+  "entities": [
+    "StudentPayHistory",
+    "StudentPayHistoryController",
+    "HSPnetSession"
+  ],
+  "fields": [
+    "ID",
+    "StudentID",
+    "CreatedByUserID",
+    "CreatedByUserFirstName",
+    "CreatedByUserLastName",
+    "EffectiveDate",
+    "EmploymentClassCodeID",
+    "EmploymentClass",
+    "DesignationCodeID",
+    "Designation",
+    "StatusCodeID",
+    "Status",
+    "StatusReasonCodeID",
+    "StatusReason",
+    "PayLevelCodeID",
+    "PayLevel",
+    "PayLevelReasonCodeID",
+    "PayLevelReason",
+    "YearCodeID",
+    "Year",
+    "FixedTermAppointmentCodeID",
+    "FixedTermAppointment",
+    "FixedTermAppointmentNotes",
+    "EffectiveDateFormatted",
+    "FixedTermAppointmentFormatted",
+    "StatusOrPayLevelReason"
+  ],
+  "actors": [
+    "System (Automated_process)",
+    "User (CreatedByUserID, CreatedByUserFirstName, CreatedByUserLastName)",
+    "Session (HSPnetSession)"
+  ],
+  "workflows": [
+    {
+      "name": "Add Pay History",
+      "steps": [
+        "Set database procedure to 'StudentDetailsPayHistoryAdd'",
+        "Add necessary parameters: SessionID, StudentID, CreatedByUserID, EffectiveDate, EmploymentClassCodeID, DesignationCodeID, StatusCodeID, StatusReasonCodeID, PayLevelCodeID, PayLevelReasonCodeID, YearCodeID, FixedTermAppointmentCodeID, FixedTermAppointmentNotes",
+        "Execute the query"
+      ]
+    },
+    {
+      "name": "Update Pay History",
+      "steps": [
+        "Set procedure to 'StudentDetailsPayHistoryUpdate'",
+        "Add parameters: SessionID, ID, EffectiveDate, EmploymentClassCodeID, DesignationCodeID, StatusCodeID, StatusReasonCodeID, PayLevelCodeID, PayLevelReasonCodeID, YearCodeID, FixedTermAppointmentCodeID, FixedTermAppointmentNotes",
+        "Execute the query"
+      ]
+    },
+    {
+      "name": "Delete Pay History",
+      "steps": [
+        "Set procedure to 'StudentPayHistoryDelete'",
+        "Add parameters: SessionID, ID",
+        "Execute query"
+      ]
+    },
+    {
+      "name": "Search Pay Histories By Student",
+      "steps": [
+        "Set procedure to 'StudentDetailsPayHistorySearch'",
+        "Add parameters: StudentID, SessionID",
+        "Iterate through results, filling StudentPayHistory entries"
+      ]
+    },
+    {
+      "name": "Search Pay History By ID",
+      "steps": [
+        "Set procedure to 'StudentDetailsPayHistorySearchID'",
+        "Add parameter: ID",
+        "Fill StudentPayHistory entry from result"
+      ]
+    },
+    {
+      "name": "Search Most Recent Pay History",
+      "steps": [
+        "Set procedure to 'StudentDetailsPayHistorySearchMostRecent'",
+        "Add parameter: StudentID",
+        "If found, fill StudentPayHistory entry. If not, default inherited fields to zero or blank."
+      ]
+    }
+  ],
+  "business_rules": [
+    "If CreatedByUserID is 0, user fields return automated process wording from resources",
+    "Formatting logic is applied for EffectiveDate and FixedTermAppointment display",
+    "StatusOrPayLevelReason will prefer status reason when available, otherwise pay level reason",
+    "When no recent pay history is found, all core code IDs and notes are defaulted"
+  ],
+  "validations": [
+    "EffectiveDate must be a valid date",
+    "All code ID fields must be valid integers (non-null, possibly 0 for unset)",
+    "Strings for notes and resource fields are trimmed and checked for null"
+  ],
+  "calculations": [
+    "CreatedByUserLong and CreatedByUserShort are derived from user fields and resource values",
+    "FixedTermAppointmentFormatted combines labels and notes for display, with logic for empty states",
+    "StatusOrPayLevelReason selects the first non-empty between StatusReason and PayLevelReason"
+  ],
+  "conditions": [
+    "If UseAltLanguageFields is true, use alternate language versions of fields for display",
+    "If FixedTermAppointmentCodeID is 0, formatted string is empty"
+  ],
+  "system_behavior": [
+    "All add, update, and delete actions use stored procedures",
+    "Reads may return multiple or single StudentPayHistory records, with logic for most recent"
+  ],
+  "dependencies": [
+    "Relies on Resources for automated process strings and for alternative language field support",
+    "Depends on HSPnetSession for transactional/db context",
+    "Underlying SQL procedures for CRUD operations"
+  ],
+  "exceptions": [
+    "If search for recent pay history fails, fields are defaulted to zero or blank",
+    "Robustness from null/empty result handling in queries"
+  ],
+  "source_document_ids": [
+    "12549b42-cfff-56ce-8694-a42806d84a22",
+    "15447d6a-7962-5621-897b-73c7b7bef4e9",
+    "3065877d-a9e0-5eb2-a6f7-070a1a5c63f6",
+    "82a1c5f2-1661-5918-a92d-c9596f6f4a5d",
+    "ca09209d-8b98-5556-bde4-4d65ffca8331",
+    "d8425d60-2000-55f5-9e75-d6934d0ef545",
+    "e6e0cd55-384d-5d52-90d3-27f6ce935968"
+  ],
+  "content_gaps": []
+}
