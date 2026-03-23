@@ -1,24 +1,17 @@
 {
   "filename": "MaintGoverningOrg",
   "found": true,
-  "summary": "The MaintGoverningOrg module provides web-based functionality for managing governing organizations within the HSPnet system. It includes features for viewing, adding, editing, deleting, and reactivating organization records.",
-  "purpose": "Manage governing organization records, including adding, editing, deleting, and reactivating them within the web application.",
+  "summary": "This file allows for the management of governing organizations, including creating, editing, reactivating, and deleting organizations.",
+  "purpose": "To manage details of governing organizations associated with the system, including their contact information.",
   "entities": [
     "GoverningOrg"
   ],
   "fields": [
     "Name",
     "ShortName",
-    "PreviousName",
-    "PreviousNameEffectiveDate",
-    "Address1",
-    "Address2",
-    "City",
-    "Province",
-    "PostalCode",
-    "Phone",
-    "Fax",
-    "Inactive"
+    "ID",
+    "Address",
+    "Phone"
   ],
   "actors": [
     "UserSession",
@@ -26,63 +19,35 @@
   ],
   "workflows": [
     {
-      "name": "Manage Governing Organizations",
+      "name": "Governing Organization Management",
       "steps": [
-        "Load page with organization data.",
-        "Add a new organization: Switch to add mode, enter details, save.",
-        "Edit an organization: Switch to edit mode based on selection, modify details, save.",
-        "Delete or reactivate based on selected record.",
-        "Refresh data and update view."
+        "Select organization to manage",
+        "Validate inputs",
+        "Save changes or add new organization"
       ]
     }
   ],
   "business_rules": [
-    "A user must have SystemAdministrator rights and not be in ViewOnly mode to edit records.",
-    "Phone and fax numbers can have optional masking based on user preference."
+    "Ensure phone mask is used if enabled",
+    "Setup buttons based on user access level"
   ],
   "validations": [
-    "RequiredFieldValidator for Name",
-    "RequiredFieldValidator for ShortName",
-    "RegularExpressionValidator for PreviousNameEffectiveDate"
+    "Custom client-side validation for phone and fax numbers"
   ],
   "calculations": [],
-  "conditions": [
-    "UsePhoneMask to determine how phone numbers are validated."
-  ],
+  "conditions": [],
   "system_behavior": [
-    "Displays error and warning messages depending on user actions.",
-    "Handles data binding for grid and details views.",
-    "Uses panels and modal pop-ups for user interactions."
+    "Handle visibility and actions based on user role"
   ],
   "dependencies": [
-    "HSPnet.UI",
-    "HSPnet.Framework"
+    "ASP.NET Web Controls",
+    "JavaScript for client validation"
   ],
-  "exceptions": [
-    "Attempt to delete without permissions triggers error message."
-  ],
+  "exceptions": [],
   "source_document_ids": [
-    "064ee812-6a9e-513f-830a-cdf02a947bcb",
-    "0bbfc55c-4e37-5195-9c61-06b1b8bbb59a",
-    "0f83fafd-cd79-59fa-a23f-09de153cfaa4",
     "29468167-d473-5cf7-929e-9df67d7f2beb",
-    "31e628c6-8463-5f57-b846-2eb33136cfe6",
-    "3d1f42de-c51a-5625-9520-3f5ed219012f",
-    "4f7edf0a-2f0b-560d-8ff2-b03f7a2982d3",
-    "59ef3d25-a882-5c86-975e-d2e1c44e9230",
-    "5aa6bea1-1faa-5e57-a784-644389bf5365",
-    "619d6734-d0c9-52c0-8d5c-0976e4edf2a0",
-    "7d6f3b52-1161-5de0-b716-7e830b7ace9f",
-    "7f1c0e15-b484-5ae2-84f2-f93564a400c6",
-    "b2792b6a-5f2f-588d-adca-cf130db38ac3",
-    "c92121f4-6b7c-5000-a75a-ee150930c7bd",
-    "d1cc81b5-4c5a-5911-a244-9601ac1d16e1",
-    "d9e8164c-d9a7-5a21-8d85-18b9deff580b",
-    "debf1ec2-971e-5b87-89a0-33f3741080e7",
-    "e46eaa7e-8653-50c2-8226-2abfecb10ee3",
-    "e5d9461e-eb36-5b05-9bd2-a5c07722db93",
     "eabe1def-39a0-5ddd-a649-fb02b97bb993",
-    "f926bedd-b133-5a25-9a43-11f99a1d4714"
+    "619d6734-d0c9-52c0-8d5c-0976e4edf2a0"
   ],
   "content_gaps": []
 }
