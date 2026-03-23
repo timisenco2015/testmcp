@@ -1,8 +1,8 @@
 {
     "filename": "WelcomeStaffAdmin",
     "found": true,
-    "summary": "The WelcomeStaffAdmin page serves as a welcome screen for staff administrators in the HSPnet application, providing access to recent activity and administrative tools. It includes controls for managing employment application views and interactions with the application.",
-    "purpose": "To provide staff administrators with a welcome interface and management tools for overseeing employment applications.",
+    "summary": "WelcomeStaffAdmin is a web page module that provides an interface for staff administrators in the HSPnet system.",
+    "purpose": "Enables staff administrators to manage and view various aspects of the application related to their role, including site selections and session management.",
     "entities": [],
     "fields": [
         "valEndDate",
@@ -11,88 +11,25 @@
         "CalendarExtender2",
         "RegularExpressionValidator2",
         "cvrEndDateAfter",
-        "chkShowWithdrawn",
-        "cmdRefreshView",
-        "Literal2",
-        "ddSite",
-        "Literal4",
-        "ddDiscipline",
-        "Literal3",
-        "valStartDate",
-        "txtStartDate",
-        "btnStartDateCalendar",
-        "CalendarExtender1",
-        "RegularExpressionValidator1",
-        "LiteralTo",
-        "Label1",
-        "gvwApplications",
-        "dsEmploymentApplications",
-        "cmdHideErrorPanel",
-        "lblErrorList",
-        "pnlWarning",
-        "lblWarningCaption",
-        "lblWarningList",
-        "AlwaysVisibleControlExtender1",
-        "AlwaysVisibleControlExtender2",
-        "pnlError",
-        "lblErrorCaption"
+        "chkShowWithdrawn"
     ],
-    "actors": [
-        "Staff Administrator"
-    ],
+    "actors": [],
     "workflows": [
         {
-            "name": "Employment Application Review",
+            "name": "Initialize Page",
             "steps": [
-                "Load WelcomeStaffAdmin page",
-                "Select site and discipline",
-                "Set date range for application review",
-                "Refresh and display current view",
-                "Manage applications through data-bound controls"
+                "Load session-specific data and set up interface components."
             ]
         }
     ],
-    "business_rules": [
-        "Employment applications are accessed based on filter criteria: site, discipline, and date range."
-    ],
+    "business_rules": [],
     "validations": [
-        {
-            "field": "txtStartDate",
-            "rule": "required",
-            "errorMessage": "Start date is required."
-        },
-        {
-            "field": "txtEndDate",
-            "rule": "required",
-            "errorMessage": "End date is required."
-        },
-        {
-            "field": "txtStartDate",
-            "rule": "regex",
-            "errorMessage": "Start date format is invalid."
-        },
-        {
-            "field": "txtEndDate",
-            "rule": "regex",
-            "errorMessage": "End date format is invalid."
-        }
+        "Ensure valid date formats using RegularExpressionValidators and CustomValidators."
     ],
     "calculations": [],
-    "conditions": [
-        {
-            "condition": "StartDate > EndDate",
-            "validation": "checkStartEnd"
-        }
-    ],
-    "system_behavior": [
-        "Enables staff administrators to refresh the view and manage employment applications within set criteria.",
-        "Displays warnings and error messages when applicable."
-    ],
-    "dependencies": [
-        "HSPnetSession",
-        "DateFormatter",
-        "JavaScript"
-    ],
+    "conditions": [],
+    "system_behavior": [],
+    "dependencies": [],
     "exceptions": [],
     "source_document_ids": [
         "05db31e4-e8b6-53ee-a6fb-812c106f0134",
@@ -100,7 +37,6 @@
         "3c84bade-9671-5fbf-acce-3c87a835e9b4",
         "4c4b97b8-d242-5261-a515-767a3f7d7a49",
         "52b5066f-23f6-5d82-96cd-5d51dad3de79",
-        "54244516-0707-581e-a8ba-9c041ea38366",
         "5bb85da3-f5b4-5753-b07c-9bb2a04eeb89",
         "5d9b92ea-7c12-5070-8603-977cf14d0e04",
         "6701b153-5288-59e5-8de9-61b68a1fc292",
@@ -111,6 +47,7 @@
         "966ed8d3-a5af-567f-b092-936217777551",
         "a0c3da28-32a5-5fce-91b2-17274efa016e",
         "afbb4ec5-43c8-5281-ad2c-4b6cfd23a48e",
+        "b8e79322-9a0e-5fe7-8953-3d05e231f923",
         "bf423a80-93db-572d-8cb8-c79f04214a93",
         "ca71b077-cc26-5979-a44f-59700a41316b",
         "d278278f-d4ec-5f4a-9f29-a02b66773bb9",
