@@ -1,43 +1,40 @@
 {
     "filename": "ServiceCode",
     "found": true,
-    "summary": "Manages service codes including their attributes such as categories, names, and localization for various contexts.",
-    "purpose": "Provide functionality to manage service codes for courses and timetables.",
-    "entities": ["ServiceCode", "ServiceCodes"],
+    "summary": "The ServiceCode class represents the code and other associated information for services in the HSPnet system. It includes properties like ID, CodeCategoryID, ShortName, Name, and Notes, and provides methods for localization and retrieval by course or timetable ID.",
+    "purpose": "To represent and manage service codes within the HSPnet application.",
+    "entities": [],
     "fields": [
-        "ID",
-        "CodeCategoryID",
-        "ShortName",
-        "Name",
-        "SortOrder",
-        "Notes",
-        "NameAlt",
-        "NotesAlt"
+        { "name": "ID", "type": "int" },
+        { "name": "CodeCategoryID", "type": "int"},
+        {"name": "ShortName", "type": "string"},
+        {"name": "Name", "type": "string"},
+        {"name": "SortOrder", "type": "int"},
+        {"name": "Notes", "type": "string"},
+        {"name": "NameAlt", "type": "string"},
+        {"name": "NotesAlt", "type": "string"}
     ],
     "actors": [],
     "workflows": [
         {
-            "name": "List All Service Codes",
+            "name": "Service Code Retrieval",
             "steps": [
-                "Retrieve all service codes",
-                "Apply localization based on session settings"
+                "Retrieve service codes using ServiceCodeListAll.",
+                "Localize service if alt language fields are used."
             ]
         }
     ],
-    "business_rules": [
-        "Use alt-language data when in alt-language mode"
-    ],
+    "business_rules": [],
     "validations": [],
     "calculations": [],
     "conditions": [],
     "system_behavior": [],
-    "dependencies": [
-        "HSPnetSession"
-    ],
+    "dependencies": [],
     "exceptions": [],
     "source_document_ids": [
         "94f1b055-348d-508a-ae6e-cf7960a8c6a2",
-        "e4ebe4b4-6d14-5c3f-b693-61016f765239"
+        "e4ebe4b4-6d14-5c3f-b693-61016f765239",
+        "f976b9af-a402-540f-b162-391d578fac7c"
     ],
     "content_gaps": []
 }
