@@ -1,0 +1,117 @@
+{
+  "filename": "MaintDepartment",
+  "found": true,
+  "summary": "The MaintDepartment module handles departmental maintenance tasks, including adding, editing, and managing departmental contacts and details. It provides functionalities for managing department-specific workflows, validations, and various configurations such as contact information releases, email requirements, and additional departmental settings.",
+  "purpose": "To manage and maintain department information within the HSPnet system, including contacts, settings, and workflows.",
+  "entities": [],
+  "fields": [
+    "Address1", "Address2", "City", "Province", "PostalCode",
+    "PhoneArea", "PhoneWithoutArea", "FaxArea", "FaxWithoutArea",
+    "Name", "ShortName", "ContactID1", "ContactID2", "StudentNumberTemplate"
+  ],
+  "actors": [
+    "UserSession", "SystemAdministrator", "LocalAdministrator",
+    "PlacementCoordinator", "ReceivingCoordinator"
+  ],
+  "workflows": [
+    {
+      "name": "Department Management",
+      "steps": [
+        "Load departmental data.",
+        "Display department list with options to add, edit, or delete.",
+        "Manage department contacts via dropdown and manual entry.",
+        "Verify validations during insert and update operations.",
+        "Trigger refresh of data view on selection changes."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Sysadmins only can edit departments in an umbrella agency.",
+    "Department contacts cannot be the same.",
+    "User must be a sysadmin to view 'Back to Agencies' link.",
+    "At least one department contact must be specified."
+  ],
+  "validations": [
+    "CustomValidator for department contacts uniqueness.",
+    "CustomValidator for phone and fax formats.",
+    "Check for valid email and department address entries."
+  ],
+  "calculations": [],
+  "conditions": [
+    "Display or hide releaseStudentDOB based on configuration settings.",
+    "Enable or disable fields based on user roles and system conditions.",
+    "Visibility toggling for controls based on agency settings."
+  ],
+  "system_behavior": [
+    "Handles asynchronous postbacks for dropdown changes.",
+    "Data binding is dynamic and based on session parameters.",
+    "Popup extenders to handle modal dialogs for data entry."
+  ],
+  "dependencies": [
+    "Database lookups for agency and department IDs.",
+    "JavaScript for client-side validations and dynamic interactions."
+  ],
+  "exceptions": [
+    "Error handling during data validation failures.",
+    "Role-based access control exceptions.",
+    "Conditional UI element visibility based on session role."
+  ],
+  "source_document_ids": [
+    "04198135-9e1e-5cbe-85e5-c72873bd200b",
+    "061c7ed3-fb6c-5c34-93e0-5005f7156dd4",
+    "071b1709-c951-5fc1-836b-3481719a4d2d",
+    "0bd50e21-c519-5e34-b423-5a392b01efaa",
+    "12181ed9-dcc6-5b1b-a4ca-d116234d6fa1",
+    "15dc900a-046d-5eab-b25c-b40907a527c4",
+    "1b7b4e4a-f591-580e-9713-77d41c07d897",
+    "2484ffe1-8c52-5b5c-b906-9e58f950868b",
+    "264e2d4d-fc6d-549a-aa4a-27d8545e2625",
+    "285c5be1-5f2f-5403-a98e-c173647c4708",
+    "2db17380-f20f-5786-b2d0-df684d64736d",
+    "3245b229-9707-59df-86e1-777bbc8d68af",
+    "36283d7b-8a1d-5e5b-9a0a-163edd80877d",
+    "3c67ddc2-8731-5917-8ddc-914177ac9c11",
+    "3e4f8547-abd6-5d36-9e0f-8b12d0913506",
+    "44a78704-fb92-5f2f-80d3-abd5823089dc",
+    "48d457a7-6945-5ff9-abd6-056158175d3c",
+    "48f88e54-9aa0-5db2-8f57-7cde8022dfec",
+    "490e8c16-2fa6-5721-a721-fc852cbbd5ef",
+    "517a3177-8be7-56d7-81c7-4c59e6ff13ff",
+    "542394b0-0a16-5fa4-ab90-0e32b4dfe8b2",
+    "56e558c1-b2d3-5bce-a82e-5d8d5b311fcc",
+    "6388fdbb-48d6-5d33-934b-cce77a7db888",
+    "67df92f8-b525-5663-93a1-4d24e81039c0",
+    "6f1aa274-a54c-5d70-93ec-8ce8f4f368ec",
+    "7c477c66-a6aa-5b25-8859-de3b9ce6b9fd",
+    "7da4c608-9b46-59a2-adbc-1c4641b908d6",
+    "85fa29dd-272b-5eff-b859-cbcea1eccfcc",
+    "8d295a30-652a-5ebe-bacb-1e1489f260e2",
+    "999cfdc6-3832-5ec0-bfa5-03e3038af7bc",
+    "9a962052-0fb0-5606-8c34-65854a80ba2e",
+    "9abca099-9217-5842-81c5-fec8bfa619ae",
+    "af8d6333-606b-5694-adc8-0b54fa9dab50",
+    "b3b9fa8f-1b6b-5955-ad61-fa2881085315",
+    "b492e968-4af9-5f47-a427-85e6ef72436a",
+    "bae69841-fb85-5295-9c4b-1727ad06eaae",
+    "c1f9a8b6-91d2-566b-b02d-159c820f704c",
+    "c5acea97-f6a6-5a85-8473-c11dfecb10fd",
+    "c7960128-a406-5050-8329-603b2ae3042f",
+    "cfee4adf-6260-5e28-b0f0-ebfc9f6fcc3e",
+    "d076f7cd-c76c-59db-a372-f50ab618029c",
+    "d5196a86-776c-5062-b1fc-4eb562e559df",
+    "d5dde351-9f79-5ec6-811a-2d1a177f628d",
+    "db6ceb51-626b-536c-b529-db26e91c2c8b",
+    "df475d84-0aae-5b95-aa46-4191062eca69",
+    "df7224ec-df02-5e75-afa4-1a4aa86fab0a",
+    "dfd2cc5b-413f-5177-87e1-dde2874c74c7",
+    "e1ead53f-ef97-53b6-853a-60af5a338d8e",
+    "e5e79fd8-680e-5716-983f-914772a8c2a3",
+    "e618aed2-ce8b-5d1d-a978-3e35d4646d58",
+    "e818170f-652a-5426-861b-04a27e1528d1",
+    "ec8e67e6-eb5b-5573-b652-4d7f4353cc62",
+    "f57e3469-48e6-5040-aa01-73e01583fd90",
+    "fd8b3450-c82c-57eb-bf0e-e413b26d7ba0",
+    "fef3ec87-5955-54f4-af43-d85edc1e276a"
+  ],
+  "content_gaps": []
+}
