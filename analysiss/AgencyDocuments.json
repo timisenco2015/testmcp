@@ -1,0 +1,136 @@
+{
+  "filename": "AgencyDocuments",
+  "found": true,
+  "summary": "The AgencyDocuments system manages documents and associated sub-disciplines, sites, and destinations within the HSPnet framework. It facilitates document editing, creation, and deletion, along with handling user permissions and settings for disciplines and destinations.",
+  "purpose": "To manage document operations including creation, editing, deleting, and applying specific disciplines, sites, and destinations related to agency profiles.",
+  "entities": [],
+  "fields": [
+    "btnShowPopupAppliedChildren",
+    "mdlAppliedChildren",
+    "divHeaderAppliedChildren",
+    "lblHeaderAppliedChildren",
+    "fvwAppliedChildren",
+    "hdnSectionAdded",
+    "hdnAllSections",
+    "uxSubDisciplineHeading",
+    "lblHeader",
+    "pnlUploadNote",
+    "FileUploadNote",
+    "ddTypeCodeID",
+    "FileUpload",
+    "lbIncluded",
+    "lbNotIncludedSites",
+    "lbIncludedSites",
+    "ddSiteFilter",
+    "ValidationSummary3",
+    "cmdAddEmptyData",
+    "hdnSection",
+    "dsDisciplineFilter",
+    "dsDocument",
+    "pnlPopup",
+    "btnShowPopup",
+    "mdlDetails",
+    "lblEmptyData",
+    "ddTypeFilter",
+    "ddDisciplineFilter",
+    "divDisciplineNote",
+    "uxDisciplineNote",
+    "pnlEmptyData"
+  ],
+  "actors": [
+    "UserSession",
+    "GridView",
+    "GridViewRow",
+    "ListBox",
+    "Panel",
+    "DropDownList",
+    "RadioButtonList",
+    "GenericDocument",
+    "Codes",
+    "Discipline",
+    "DestinationCode",
+    "Site"
+  ],
+  "workflows": [
+    {
+      "name": "Document Management",
+      "steps": [
+        "Load document details and settings from user session and database.",
+        "Setup sites and destinations based on user permissions and selections.",
+        "Modify or add document details using forms and data fields.",
+        "Handle file uploads and assign corresponding settings."
+      ]
+    },
+    {
+      "name": "Sub-discipline Management",
+      "steps": [
+        "Setup the list of allowed disciplines based on user permissions.",
+        "Assign document sub-disciplines and validate entries.",
+        "Manage sub-discipline filters and visibility settings."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Documents must adhere to the user's discipline permissions.",
+    "Sections must be updated dynamically based on data changes.",
+    "Document types can be restricted based on predefined omission codes."
+  ],
+  "validations": [
+    "RequiredFieldValidator to ensure discipline selection.",
+    "Validation for file upload to ensure non-empty file content."
+  ],
+  "calculations": [
+    "SetupDisciplines function calculates allowance based on available disciplines.",
+    "ValueList converts ListBox items to a comma-separated list of values."
+  ],
+  "conditions": [
+    "Check if a document is editable or not before displaying controls.",
+    "Determine section changes based on hidden fields and document data."
+  ],
+  "system_behavior": [
+    "Auto-hide panels that do not have valid data or conditions.",
+    "Recompute visibility and settings based on user selections and session status.",
+    "Redirect users after save/delete operations to update views correctly."
+  ],
+  "dependencies": [
+    "HSPnetSession for user authentication and session management.",
+    "DataLayer for database operations related to documents.",
+    "AjaxControlToolkit for modal popup management."
+  ],
+  "exceptions": [
+    "HandleUploadedFile function handles empty file scenarios gracefully.",
+    "Session null checks to cancel data operations if the user session is not active."
+  ],
+  "source_document_ids": [
+    "0082e615-f9e3-5dcc-9917-ddc013ba52d1",
+    "018cda9b-e4cc-5bd7-9549-012c489753bb",
+    "0567e87a-4e33-515f-bbf4-978e56428d92",
+    "1758fed5-29d5-5933-a40e-fcdfac92fa05",
+    "1e0bb34b-e3e1-5aea-8fba-f614b5103b3f",
+    "26b9e812-7d8d-58c2-bafc-fb2329bee94b",
+    "34b76b52-521c-536e-b6d6-b1a56f7934ab",
+    "357e7f05-121d-56d2-962c-d55506153715",
+    "3780d37a-57f8-5027-8e7f-8aa6016e2766",
+    "49caaaf6-0519-5626-a444-2fd166f640b0",
+    "4fe78297-00a1-5c70-933a-a3f4c2571b33",
+    "5922bd0b-b4ee-54d8-af87-423972fd86b1",
+    "5d08e0bf-2e3e-5ba6-853f-e111e50e070e",
+    "5f741b58-e9a0-512e-ab20-c2a78459af22",
+    "63d1887f-b7b7-53fb-bea9-34facdb3fba4",
+    "65421086-8a15-538d-bd84-173777d4fcf8",
+    "702be41e-2143-5a58-b754-33baf48fc42b",
+    "72f4284c-b3d6-5b26-a2b4-484ad5f47353",
+    "73471504-497a-5230-9bf9-ddee5abc13ba",
+    "922a6fbb-e839-5478-a859-7149e708b824",
+    "9488eeeb-13ba-55f4-9e73-4c66d4428900",
+    "9f951fe1-8432-59b2-b72a-93ea3f095c90",
+    "aaf16e66-a36b-5e81-bc48-57dc2cfc296e",
+    "c6878d3c-52c1-51a6-a162-6ca50377b501",
+    "d54cd840-5428-53dc-9f93-862a46ac140e",
+    "d883be8b-aebd-584a-8f8c-8cf18b289ab5",
+    "ebbdf35c-b5e9-53e5-8b26-95a585fe6944",
+    "f62b19cd-3d9d-5e36-92de-36d86236add6",
+    "f80e2249-4b2f-51d5-b362-aa9f3b1e4ebe"
+  ],
+  "content_gaps": []
+}
