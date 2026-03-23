@@ -1,29 +1,28 @@
 {
     "filename": "ServiceCode",
     "found": true,
-    "summary": "The ServiceCode file defines service codes used for categorizing operations within HSPnet. It includes methods for retrieving service codes by various criteria.",
-    "purpose": "To manage and retrieve service code information for categorizing services within the application.",
-    "entities": ["ServiceCode", "ServiceCodes"],
-    "fields": ["ID", "CodeCategoryID", "ShortName", "Name", "SortOrder", "Notes", "NameAlt"],
-    "actors": [],
+    "summary": "ServiceCode class and database retrieval for managing service codes within HSPnet.",
+    "purpose": "Handles service code information and retrieval from the database for HSPnet sessions.",
+    "entities": ["ServiceCode"],
+    "fields": ["ID", "CodeCategoryID", "ShortName", "Name", "SortOrder", "Notes", "NameAlt", "NotesAlt"],
+    "actors": ["Database Administrator", "HSPnet Session"],
     "workflows": [
         {
-            "name": "Retrieve Service Codes",
-            "steps": [
-                "Call stored procedures",
-                "Add parameters",
-                "Fetch data",
-                "Localize data"
-            ]
+            "name": "Service Code Retrieval",
+            "steps": ["Procedure execution", "Data mapping", "Return list"]
         }
     ],
     "business_rules": [],
     "validations": [],
     "calculations": [],
     "conditions": [],
-    "system_behavior": ["Localizes service codes based on session language settings"],
-    "dependencies": ["HSPnet.Framework", "HSPnet.App_GlobalResources"],
+    "system_behavior": [],
+    "dependencies": [],
     "exceptions": [],
-    "source_document_ids": ["94f1b055-348d-508a-ae6e-cf7960a8c6a2", "e4ebe4b4-6d14-5c3f-b693-61016f765239", "f976b9af-a402-540f-b162-391d578fac7c"],
+    "source_document_ids": [
+        "94f1b055-348d-508a-ae6e-cf7960a8c6a2",
+        "e4ebe4b4-6d14-5c3f-b693-61016f765239",
+        "f976b9af-a402-540f-b162-391d578fac7c"
+    ],
     "content_gaps": []
 }
