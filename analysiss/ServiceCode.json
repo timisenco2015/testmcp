@@ -1,1 +1,24 @@
-{"filename": "ServiceCode", "found": true, "summary": "Defines ServiceCode and ServiceCodes classes with properties such as ID, CodeCategoryID, and methods for retrieving service codes.", "purpose": "To manage and retrieve details related to service codes used in the application.", "entities": [], "fields": ["ID", "CodeCategoryID", "ShortName", "Name", "SortOrder", "Notes", "NameAlt"], "actors": ["HSPnetSession"], "workflows": [], "business_rules": [], "validations": [], "calculations": [], "conditions": [], "system_behavior": [], "dependencies": [], "exceptions": [], "source_document_ids": ["94f1b055-348d-508a-ae6e-cf7960a8c6a2", "e4ebe4b4-6d14-5c3f-b693-61016f765239", "f976b9af-a402-540f-b162-391d578fac7c"], "content_gaps": []}
+{
+  "filename": "ServiceCode",
+  "found": true,
+  "summary": "Data definitions and behavior for service codes.",
+  "purpose": "Defines the structure and retrieval of service codes.",
+  "entities": ["ServiceCode", "ServiceCodes"],
+  "fields": ["ID", "CodeCategoryID", "ShortName", "Name", "SortOrder", "Notes", "NameAlt"],
+  "actors": ["Database"],
+  "workflows": [
+    {
+      "name": "Retrieve Service Codes",
+      "steps": ["Invoke stored procedures", "Populate service code objects", "Return list of service codes"]
+    }
+  ],
+  "business_rules": [],
+  "validations": [],
+  "calculations": [],
+  "conditions": [],
+  "system_behavior": ["Localization of service code names"],
+  "dependencies": [],
+  "exceptions": [],
+  "source_document_ids": ["94f1b055-348d-508a-ae6e-cf7960a8c6a2","e4ebe4b4-6d14-5c3f-b693-61016f765239","f976b9af-a402-540f-b162-391d578fac7f"],
+  "content_gaps": []
+}
