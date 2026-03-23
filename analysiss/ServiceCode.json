@@ -1,8 +1,8 @@
 {
     "filename": "ServiceCode",
     "found": true,
-    "summary": "ServiceCode is a class within HSPnet's data layer designed to manage service code information, including retrieval by course or timetable ID and localization based on session preferences.",
-    "purpose": "To manage and provide access to service code information based on course or timetable criteria.",
+    "summary": "ServiceCode is a class used to represent service codes within the HSPnet application.",
+    "purpose": "Manages service code data, providing methods to retrieve, localize, and display service codes based on session and input parameters.",
     "entities": [
         "ServiceCode"
     ],
@@ -21,9 +21,8 @@
         {
             "name": "Service Code Retrieval",
             "steps": [
-                "Call ServiceCodeListAll to retrieve all service codes",
-                "Optionally call ServiceCodeASMOptionByCourseID or ServiceCodeASMOptionByTimetableID for filtered results",
-                "Localize based on session preferences"
+                "Execute stored procedures to fetch service codes.",
+                "Localize service codes based on session settings."
             ]
         }
     ],
@@ -31,14 +30,8 @@
     "validations": [],
     "calculations": [],
     "conditions": [],
-    "system_behavior": [
-        "Uses specific stored procedures to retrieve service code data",
-        "Localizes service code names based on session preferences"
-    ],
-    "dependencies": [
-        "HSPnetSession",
-        "SqlDataReader"
-    ],
+    "system_behavior": [],
+    "dependencies": [],
     "exceptions": [],
     "source_document_ids": [
         "94f1b055-348d-508a-ae6e-cf7960a8c6a2",
