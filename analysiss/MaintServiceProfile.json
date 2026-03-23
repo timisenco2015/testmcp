@@ -1,69 +1,106 @@
 {
   "filename": "MaintServiceProfile",
   "found": true,
-  "summary": "The MaintServiceProfile page is designed to manage various functional aspects of a service profile within the HSPnet application. It features multiple tabs for detailed service information, including positions and history. Each tab can display specific user controls related to the service profile, positions, or history.",
-  "purpose": "The purpose of the MaintServiceProfile is to provide a user interface within the HSPnet system that allows users to view, edit, and manage a service profile, including its positions and historical data.",
+  "summary": "The MaintServiceProfile is a web application page of HSPnet system managing service profiles. It involves rendering and handling user-control tabs such as Profile, Positions, and History, along with handling actions on these tabs.",
+  "purpose": "To display and manage detailed information of service profiles, positions, and history within the HSPnet system. It allows administrators and staff to edit and view data depending on permissions.",
   "entities": [],
   "fields": [
-    "ServiceID",
-    "ReadOnly",
-    "ProfileExists",
-    "PositionExists",
-    "SiteUsesPositions",
-    "ServiceAgencyID",
-    "currentPage"
+    {
+      "name": "ServiceID",
+      "type": "string",
+      "description": "The identifier for the service being managed."
+    },
+    {
+      "name": "ReadOnly",
+      "type": "Boolean",
+      "description": "Flag indicating if the page is in read-only mode."
+    },
+    {
+      "name": "ProfileExists",
+      "type": "Boolean",
+      "description": "Flag indicating if a profile exists for the service."
+    },
+    {
+      "name": "PositionExists",
+      "type": "Boolean",
+      "description": "Flag indicating if positions exist for the service."
+    },
+    {
+      "name": "SiteUsesPositions",
+      "type": "Boolean",
+      "description": "Flag indicating if the site uses positions."
+    },
+    {
+      "name": "ServiceAgencyID",
+      "type": "int",
+      "description": "Identifier for the service agency associated with the profile."
+    },
+    {
+      "name": "currentPage",
+      "type": "string",
+      "description": "The current page/tab being displayed."
+    }
   ],
   "actors": [
-    "UserSession",
-    "SystemAdministrator",
-    "StaffAdmin"
+    {
+      "name": "UserSession",
+      "role": "Holds the session data for the current user, used throughout the page for various checks and operations."
+    }
   ],
   "workflows": [
     {
-      "name": "Page Load",
+      "name": "Tab Navigation",
       "steps": [
-        "Validate URL hash using Hashing.ValidateURLHash.",
-        "Retrieve ServiceID from QueryString.",
-        "Invoke LoadServiceInfo to populate service details.",
-        "Check read-only status via ProcessReadOnly.",
-        "Setup page using SetupHSPnetPage with UserSession.",
-        "Register client script 'EditDetails'."
+        "On page load, determine the current tab based on request parameters.",
+        "If the site does not use positions, disable the Positions tab.",
+        "Make the currently active tab visible and load its data."
       ]
     },
     {
-      "name": "Tab Switching",
+      "name": "Service Information Load",
       "steps": [
-        "Check currentPage value from QueryString.",
-        "Set ActiveTab of TabContainer1 based on currentPage.",
-        "Disable TabPanelPositions if SiteUsesPositions is false."
+        "Retrieve service information using the service ID.",
+        "Populate the profile, position, and service data on the page.",
+        "Update header information and existence flags."
       ]
     }
   ],
   "business_rules": [
-    "Screen should be read-only if ReadOnlyQS equals '1'.",
-    "TabPanelPositions should be disabled if SiteUsesPositions is false.",
-    "Screen editability is determined by system administrator status or agency ID match."
+    "The Profile tab is shown by default if no current page is specified.",
+    "Positions tab is disabled if the site does not use positions.",
+    "Tabs are enabled based on the existence of data, indicated by flags."
   ],
   "validations": [
-    "Ensure effective date is set when pay scales are selected in checkPayScaleEffectiveDate.",
-    "Default pay scale must be selected if secondary pay scale is."
+    {
+      "condition": "Ensure PayScale Effective Date",
+      "script": "checkPayScaleEffectiveDate",
+      "description": "Ensures that an effective date is entered if a pay scale is selected."
+    },
+    {
+      "condition": "Check Pay Scales selection",
+      "script": "checkPayScales",
+      "description": "Ensures that a default pay scale is selected if a secondary pay scale is chosen."
+    }
   ],
   "calculations": [],
   "conditions": [
-    "If ProfileExists, append exists flag to TabPanelProfile HeaderText.",
-    "If PositionExists, append exists flag to TabPanelPositions HeaderText."
+    {
+      "condition": "Editable screen",
+      "description": "Screen becomes editable based on user permissions and edit mode flag."
+    }
   ],
   "system_behavior": [
-    "Changes ActiveTab based on query string parameter or default value.",
-    "Binds data to relevant user controls based on active tab."
+    "Resizes the window to fit content upon pre-render.",
+    "Processes messages to display any error or warning information."
   ],
   "dependencies": [
-    "Resources for localized text",
-    "UserSession for session management",
-    "Services for service data retrieval",
-    "HSPnet.Framework for framework utilities"
+    "Requires the 'UserSession' object to manage session details.",
+    "Interacts with various user controls to display and manage information."
   ],
-  "exceptions": [],
+  "exceptions": [
+    "If the 'ServiceID' is not present, certain data cannot be loaded.",
+    "Without 'UserSession', the page cannot validate or process as intended."
+  ],
   "source_document_ids": [
     "1f19b0b9-67fe-5001-aeae-ab20bd4e6832",
     "2bfc8a55-0a29-5b95-9c14-c3ea5ce529fe",
