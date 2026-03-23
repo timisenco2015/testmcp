@@ -1,0 +1,71 @@
+{
+  "filename": "PlacementCommentsArchive",
+  "found": true,
+  "summary": "The PlacementCommentsArchive is a web user control designed to display and manage comments, alerts, and conditions related to placement requests. It interacts with resources, user sessions, and conditions within the HSPnet application framework.",
+  "purpose": "The primary purpose of PlacementCommentsArchive is to set up and display various types of comments and alerts (such as comment alert, condition alert, and urgent alert) related to a placement request within the HSPnet system. It ensures that users are notified appropriately based on the conditions and alert settings associated with the placement.",
+  "entities": [],
+  "fields": [
+    "txtComments",
+    "chkShowCommentAlert",
+    "ddConditions",
+    "txtConditionReason",
+    "chkShowConditionAlert",
+    "txtUrgentAlert",
+    "chkShowUrgentAlert",
+    "uxStudentID",
+    "ValidationSummary1",
+    "trConditionDCNote"
+  ],
+  "actors": [
+    "HSPnetSession",
+    "PlacementRequestDestination"
+  ],
+  "workflows": [
+    {
+      "name": "SetupComments",
+      "steps": [
+        "Load comments from PlacementRequestDestination.",
+        "Set comment alert text based on ShowCommentAlert flag.",
+        "Retrieve and display condition description if ConditionCodeID is set.",
+        "Set condition alert text based on ShowConditionAlert flag.",
+        "Set urgent alert text.",
+        "Set urgent alert text based on ShowUrgentAlert flag."
+      ]
+    }
+  ],
+  "business_rules": [
+    "If ShowCommentAlert is true, display 'Yes' next to the comment alert label.",
+    "If ConditionCodeID is not zero, retrieve the condition description from the code database.",
+    "Display a note about email notification if there are conditions and ShowConditionAlert is true.",
+    "If ShowUrgentAlert is true, display 'Yes' next to the urgent alert label."
+  ],
+  "validations": [
+    "ValidationSummary1 control is used to display validation messages."
+  ],
+  "calculations": [],
+  "conditions": [
+    "PRD.ConditionCodeID != 0",
+    "PRD.ShowCommentAlert",
+    "PRD.ShowConditionAlert",
+    "PRD.ShowUrgentAlert"
+  ],
+  "system_behavior": [
+    "Display alerts and comments based on flags and conditions.",
+    "Render condition and comment sections depending on the presence of data and settings."
+  ],
+  "dependencies": [
+    "HSPnet.DataLayer",
+    "HSPnet.Framework",
+    "HSPnet.App_GlobalResources"
+  ],
+  "exceptions": [],
+  "source_document_ids": [
+    "18f2b719-1903-5852-89de-0f8f1d8e37c8",
+    "1dae7e6d-5c01-571b-b656-1dabd1d00a90",
+    "2cfaba79-7f4a-54ac-80a6-e70f559423a8",
+    "30596f26-fef4-5103-9746-c561b425ec85",
+    "4e18d0f3-c8ac-5d69-b808-95a7384f5933",
+    "b49b6722-3ae4-5826-aa6a-78717a36bb84"
+  ],
+  "content_gaps": []
+}
