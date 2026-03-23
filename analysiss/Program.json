@@ -1,0 +1,198 @@
+{
+  "filename": "Program",
+  "found": true,
+  "summary": "The 'Program' file contains code related to the management and operations of educational programs within an application. This includes defining program attributes, handling data retrieval and manipulation through database operations, and applying business rules and validations.",
+  "purpose": "The purpose of the 'Program' file is to facilitate the management of program data in a structured manner, allowing for retrieval, update, and validation of program-related information within the system.",
+  "entities": [
+    "Program",
+    "Programs",
+    "HSPnetSession",
+    "SqlDataReader",
+    "Phone",
+    "Department"
+  ],
+  "fields": [
+    "ID",
+    "DepartmentID",
+    "DisciplineID",
+    "Name",
+    "ShortName",
+    "Description",
+    "Inactive",
+    "NISParticipant",
+    "IRPParticipant",
+    "UseAltShifts",
+    "UsePAW",
+    "TotalYears",
+    "HSPnetUser",
+    "HSPnetUserEffectiveDate",
+    "AutoFlagConflicts",
+    "PACanClearConflicts",
+    "AllowStudentAccess",
+    "UseCallForOffers",
+    "DiscloseStudentGender",
+    "DiscloseStudentRegistrationID",
+    "AllowStudentsEOrientation",
+    "CLViewAllCourses",
+    "CLViewAllTerms",
+    "CLViewStudentPreReq",
+    "CLViewStudentInternalDoc",
+    "CLViewStudentPlacementHistory",
+    "InstructorViewPreReq",
+    "TrackStudentEmployeeNumber",
+    "StudentRegistrationCodeID",
+    "SendAutomaticSupervisorEmail",
+    "HSPnetSubscriber",
+    "HSPnetSubscriberEffectiveDate",
+    "WebPage",
+    "AllowStudentPref",
+    "UseStudentMatching",
+    "UseDepartmentLogo",
+    "UseDepartmentAddress",
+    "AllowStudentDocumentUpload",
+    "AllowStudentSitePrerequisites",
+    "UseEmploymentApplications",
+    "UseSiteInstructor",
+    "AllowStudentActivities",
+    "StudentActivitySummaryCodeID",
+    "UsePABreaks",
+    "DisplayStudentID",
+    "QESUserExists",
+    "StudentActivityInstructions",
+    "SubDisciplineCode",
+    "SubDisciplineDescription",
+    "DisciplineDescription",
+    "SubDisciplineDescriptionAlt",
+    "DisciplineDescriptionAlt",
+    "CC_ID",
+    "ProfileExists",
+    "DepartmentProgram",
+    "Department",
+    "DisplayName",
+    "Address1",
+    "Address2",
+    "City",
+    "Province",
+    "Country",
+    "PostalCode"
+  ],
+  "actors": [
+    "Program",
+    "HSPnetSession",
+    "SqlDataReader",
+    "Database",
+    "Resources",
+    "UI.DateFormatter",
+    "Email"
+  ],
+  "workflows": [
+    {
+      "name": "Retrieve Program List",
+      "steps": [
+        "Initialize list of programs.",
+        "Set database procedure to 'ProgramList'.",
+        "Add necessary parameters (e.g., DepartmentID, SessionID).",
+        "Execute database query to retrieve data.",
+        "Process the SqlDataReader to populate the program list.",
+        "Close the SqlDataReader."
+      ]
+    },
+    {
+      "name": "Update Program",
+      "steps": [
+        "Validate the program instance.",
+        "Apply business rules.",
+        "Set database procedure to 'ProgramUpdate'.",
+        "Add parameters for program fields.",
+        "Execute database query to update program data."
+      ]
+    },
+    {
+      "name": "Check User Access to Program",
+      "steps": [
+        "Set database procedure to 'CheckUserProgram'.",
+        "Add parameters: SessionID, ProgramID.",
+        "Execute query to check access permissions.",
+        "Process result to determine access."
+      ]
+    }
+  ],
+  "business_rules": [
+    "HSPnetSubscriber must also be an HSPnetUser.",
+    "Effective date is required for HSPnet User and Subscriber.",
+    "If using department address, clear any other address info."
+  ],
+  "validations": [
+    "Name must be specified.",
+    "Short name must be specified.",
+    "Discipline ID must be specified.",
+    "Total years must be specified.",
+    "Effective date is required for HSPnet Programs and Subscribers."
+  ],
+  "calculations": [
+    "NISParticipantFormatted",
+    "IRPParticipantFormatted",
+    "UseCallForOffersFormatted",
+    "QESUserExistsFormatted"
+  ],
+  "conditions": [
+    "If program ID is not 0, retrieve program details by ID.",
+    "If HSPnetUser flag is set, send a notification email."
+  ],
+  "system_behavior": [
+    "Retrieve program information from the database.",
+    "Process and validate program data.",
+    "Update program data in the database.",
+    "Apply specific business rules based on conditions."
+  ],
+  "dependencies": [
+    "SqlDataReader",
+    "HSPnet.Framework"
+  ],
+  "exceptions": [
+    "Handle invalid phone or fax numbers by adding error messages."
+  ],
+  "source_document_ids": [
+    "022594f6-3038-5c55-ac4d-a01cdc3e3887",
+    "06a6f443-8be5-5888-98b6-b5be6b01a602",
+    "08dd68d8-7d8d-5596-bb7d-1bfa7adca8d7",
+    "0fcee189-1da4-5f23-82c8-fe2312793785",
+    "1094ba9c-8914-575b-b3f7-40ad5c3ab0d5",
+    "119793b3-878d-5533-8d0f-22b2fd229f39",
+    "23c7ec05-522f-5261-a7c9-b7a2bb4d0202",
+    "2d6869d9-18b1-5d37-bde6-c6ed756c0752",
+    "30f082f8-9dbe-517f-a242-5ecf2d815ca5",
+    "34e658e4-f349-5128-985a-c727207d1829",
+    "377d3f06-bfb8-535a-9a88-dde7245924a5",
+    "432a8059-be56-5b7d-8d99-ccfd71d00228",
+    "47b378b4-2903-5a8d-954e-1c5be6f39a2e",
+    "49a934a0-a1de-5d8d-b5b6-2503db9f3924",
+    "4df01a98-1758-58e8-bfbb-51135da8a4e6",
+    "62c4cc56-223d-570a-9612-45347df64a19",
+    "6418706b-ffe4-5dd9-bda3-04d98215050b",
+    "64886001-2783-5c21-ae6c-4503a9e5d072",
+    "75e1077e-6c2f-5e5a-8da2-bc7dc04d8d5d",
+    "84cbbc69-1835-53b8-a7fd-a8ad3edc2fdd",
+    "94d66d6f-40f8-54de-a712-51eb51f85d8d",
+    "9b40b091-f460-5ba2-af84-2c79a5dd6d51",
+    "a503a471-ca59-5094-a316-19cdcc40d86e",
+    "a8a4b574-4064-58c0-97c5-3a2e282d16ea",
+    "af905318-5ccf-5211-a45b-a95cb9b88de4",
+    "b81d50dc-6945-5e5d-9844-acbe6d5854f3",
+    "b8a7871f-1037-5056-984d-35ee08b30b82",
+    "bba916d8-2697-538f-b846-6844bfe45c07",
+    "bc9f2411-c59d-5144-acd1-c259a9a802cb",
+    "be415607-0b58-5639-937f-8b2267b90519",
+    "cbafc3da-3f08-56c4-bbf3-d1d50646bb22",
+    "cf28b560-b238-57ee-bbd2-f63176627498",
+    "d0d053ab-694d-55e0-a214-fba7114f3e27",
+    "d1b9f0aa-6954-5c24-80e4-251ec66a59d2",
+    "d272776f-221c-562b-b99a-e452207ddffb",
+    "d32d6ec4-343e-5bf8-858c-901aff63a2c1",
+    "de1acc06-3194-5da9-acca-5cb033f6cd3a",
+    "e10fd7b3-f9f6-5689-90dc-aa070a2efd0b",
+    "f4ba7644-b9c3-55f8-97c3-9ebf28f60199",
+    "fc376ed3-c01c-5ccc-843b-dae93ea729e4"
+  ],
+  "content_gaps": []
+}
