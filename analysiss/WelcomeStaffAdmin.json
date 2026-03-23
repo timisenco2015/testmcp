@@ -1,19 +1,40 @@
 {
-  "filename": "WelcomeStaffAdmin",
-  "found": false,
-  "summary": "",
-  "purpose": "",
-  "entities": [],
-  "fields": [],
-  "actors": [],
-  "workflows": [],
-  "business_rules": [],
-  "validations": [],
-  "calculations": [],
-  "conditions": [],
-  "system_behavior": [],
-  "dependencies": [],
-  "exceptions": [],
-  "source_document_ids": [],
-  "content_gaps": ["No related documents found"]
+  "WelcomeStaffAdmin": {
+    "filename": "WelcomeStaffAdmin",
+    "found": true,
+    "summary": "The WelcomeStaffAdmin page manages administrative workflows for staff.",
+    "purpose": "To provide staff admin functionalities such as viewing employment applications and managing start and end dates.",
+    "entities": ["EmploymentApplication"],
+    "fields": [
+      {"name": "StartDate", "type": "DateTime"},
+      {"name": "EndDate", "type": "DateTime"},
+      {"name": "ID", "type": "int"}
+    ],
+    "actors": ["Admin"],
+    "workflows": [
+      {
+        "name": "Manage Staff Applications",
+        "steps": [
+          "Initialize page with existing applications.",
+          "Validate start and end date inputs.",
+          "Filter applications based on user input."
+        ]
+      }
+    ],
+    "business_rules": ["Applications must not be withdrawn"],
+    "validations": ["StartDate must be before EndDate"],
+    "calculations": [],
+    "conditions": [],
+    "system_behavior": [],
+    "dependencies": [],
+    "exceptions": [],
+    "source_document_ids": [
+      "05db31e4-e8b6-53ee-a6fb-812c106f0134",
+      "100d5925-a5f8-53db-8493-02cddd563eb7",
+      "3c84bade-9671-5fbf-acce-3c87a835e9b4",
+      "a0c3da28-32a5-5fce-91b2-17274efa016e",
+      "54244516-0707-581e-a8ba-9c041ea38366"
+    ],
+    "content_gaps": []
+  }
 }
