@@ -1,0 +1,48 @@
+# Module: EmailPopupDocument
+
+## EmailPopupDocument-UC1 — Search Email Popup Documents
+
+- Primary Actor(s): User
+- Secondary Actor(s): System
+- Trigger: User initiates a search for email popup documents using a keyword or identifier.
+- Description: The system performs a search to list all email popup documents based on provided data information.
+- Preconditions: User must provide a valid `DataInfo` string containing the search criteria.
+- Postconditions: A list of matching `EmailPopupDocument` entries is returned.
+- Main Success Scenario:
+  1. User inputs `DataInfo` containing search terms.
+  2. System splits `DataInfo` into individual email data elements.
+  3. System constructs and returns a list of `EmailPopupDocument` objects.
+- Extensions:
+  - If `DataInfo` is empty, the system returns an empty list.
+- Exceptions:
+  - Malformed `DataInfo` resulting in unexpected format may not return expected results.
+- Business Rules:
+  - Each `EmailPopupDocument` contains an ID, FileName, and FilePath.
+- Assumptions:
+  - Valid entries in `DataInfo` are delimited by `|` and further split by `>`.
+- Open Issues:
+  - Define validation criteria for `DataInfo`.
+
+## EmailPopupDocument-UC2 — Delete Email Popup Document
+
+- Primary Actor(s): User
+- Secondary Actor(s): System
+- Trigger: User requests deletion of an email popup document.
+- Description: The system deletes the specified email document and its associated folder.
+- Preconditions: User must provide a valid `DataInfo` string and a valid document ID.
+- Postconditions: The specified document and its directory are deleted from the system.
+- Main Success Scenario:
+  1. User provides `DataInfo` and specifies ID for deletion.
+  2. System locates and deletes the file associated with the given ID.
+  3. System deletes the folder containing the file.
+  4. System returns the modified `DataInfo` string without the deleted entry.
+- Extensions:
+  - If the file or folder is already deleted, the system gracefully handles the absence.
+- Exceptions:
+  - Failure to delete file or directory due to permission issues.
+- Business Rules:
+  - File and folder deletion attempts are encapsulated in try-catch blocks.
+- Assumptions:
+  - File and directories are stored in accessible locations.
+- Open Issues:
+  - Define return format of `DataInfo` after deletion of entries.
