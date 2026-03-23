@@ -1,0 +1,95 @@
+{
+    "filename": "ConfirmedEditAll",
+    "found": true,
+    "summary": "The ConfirmedEditAll file is a component of the HSPnet system used for managing enrollment data. It defines user controls and workflows for editing enrollment records, handling user input and session parameters, screen access validation, and redirects based on user commands.",
+    "purpose": "To enable batch editing of enrollment records in the HSPnet system, providing a user interface for filtering, sorting, updating, and saving enrollment data.",
+    "entities": [],
+    "fields": [
+        "UserSession",
+        "CohortID",
+        "TermID",
+        "CourseID",
+        "ShowAll",
+        "ShowGrad",
+        "ShowInactive",
+        "ShowWaived",
+        "SectionFilter",
+        "ActionFilter",
+        "Sort",
+        "Asc",
+        "keyword",
+        "blnReadOnly",
+        "CampusID",
+        "CommentFilter",
+        "blnStudentMaint",
+        "EnrollmentID",
+        "StartRow",
+        "gridDataEdit",
+        "txtActualHours",
+        "txtNotes",
+        "txtDurationShifts",
+        "txtShiftLength",
+        "txtViewAllRAs",
+        "ValidationSummary1",
+        "dsPref"
+    ],
+    "actors": [
+        "User",
+        "ScriptManager"
+    ],
+    "workflows": [
+        {
+            "name": "Edit Enrollment Data",
+            "steps": [
+                "Check if UserSession is valid",
+                "Set input parameters based on session and filters",
+                "Check screen access permissions",
+                "Bind data to grid",
+                "Handle redirect commands"
+            ]
+        }
+    ],
+    "business_rules": [
+        "Screen is editable if the enrollment is not waived, graduated, or inactive",
+        "If ReadOnly flag is true, disable editing"
+    ],
+    "validations": [
+        "Ensure UserSession is valid before processing",
+        "Limit text input in txtNotes to 200 characters"
+    ],
+    "calculations": [
+        "Calculate shifts based on actual hours and shift length",
+        "Determine txtDurationShifts value based on shift calculations"
+    ],
+    "conditions": [
+        "If EnrollmentID is set, alter grid visibility based on row types"
+    ],
+    "system_behavior": [
+        "Disable edit fields if ReadOnly flag is true",
+        "Hide buttons conditionally based on access settings and data state",
+        "Register JavaScript variables for client-side operations"
+    ],
+    "dependencies": [
+        "HSPnet.DataLayer",
+        "HSPnet.UI",
+        "HSPnet.Framework"
+    ],
+    "exceptions": [
+        "Cancel data selection if UserSession is null",
+        "Break workflow if warning messages are detected"
+    ],
+    "source_document_ids": [
+        "0755397d-49f2-5a80-a0d6-c84d5befefe0",
+        "34b1ed38-0e13-5881-8c0c-26bd1f44b46b",
+        "513cc50b-05c2-5153-82f8-8d9383c789ef",
+        "59112759-401e-5d1d-9e84-dd6d9689b84b",
+        "8d832e31-1a4d-5e04-9656-eb00f2cd56a1",
+        "b989a689-a654-5f07-8f33-b102b75b1baf",
+        "bafc9285-af0a-5a05-b6e0-eb6e8591b991",
+        "bf3192b3-566f-595d-81dd-781d8bc85e4f",
+        "d401b74f-333a-50e6-bc77-7ce52c48358e",
+        "e2ef249a-91bc-5e2c-8fac-121b02b68443",
+        "e869f95d-1c2a-5a90-8ff0-b80225502383"
+    ],
+    "content_gaps": []
+}
