@@ -1,18 +1,41 @@
 {
     "filename": "ServiceCode",
     "found": true,
-    "summary": "ServiceCode is a data structure representing codes associated with services in HSPnet, including description and categorization.",
-    "purpose": "To maintain and provide service code information for various applications within HSPnet.",
-    "entities": ["ServiceCode"],
-    "fields": ["ID", "CodeCategoryID", "ShortName", "Name", "SortOrder", "Notes"],
-    "actors": [],
-    "workflows": [],
+    "summary": "This document handles the management of service codes within the HSPnet system.",
+    "purpose": "To interact with and retrieve service code information within the HSPnet system through various methods.",
+    "entities": [],
+    "fields": [
+        "ID",
+        "CodeCategoryID",
+        "ShortName",
+        "Name",
+        "SortOrder",
+        "Notes",
+        "NameAlt"
+    ],
+    "actors": [
+        "HSPnetSession"
+    ],
+    "workflows": [
+        {
+            "name": "Retrieve Service Codes",
+            "steps": [
+                "Define procedure name.",
+                "Add parameters including session ID and optional identifiers like CourseID.",
+                "Execute and read data from SqlDataReader.",
+                "Localize data based on session language settings."
+            ]
+        }
+    ],
     "business_rules": [],
     "validations": [],
     "calculations": [],
-    "conditions": ["Service codes may have alternate language fields."],
-    "system_behavior": ["Localize names based on session language settings."],
-    "dependencies": ["HSPnet Framework"],
+    "conditions": [],
+    "system_behavior": [
+        "Use alternate names in non-default language sessions.",
+        "Close data reader sessions after data operations."
+    ],
+    "dependencies": [],
     "exceptions": [],
     "source_document_ids": [
         "94f1b055-348d-508a-ae6e-cf7960a8c6a2",
