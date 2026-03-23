@@ -1,0 +1,72 @@
+{
+    "filename": "Preferences",
+    "found": true,
+    "summary": "The 'Preferences' document is part of a system that manages enrollment preferences and actions for students in various courses. It handles the addition, editing, and display of student preferences for course sections, their eligibility, and actions such as enrolling, waiving, and group work assignment. It also includes mechanisms to manage student access and preferences using a web interface.",
+    "purpose": "To manage student enrollment preferences and actions in a web-based system, providing functionalities to edit, save, and display student course preferences and related actions.",
+    "entities": [],
+    "fields": [
+        "txtCourseID",
+        "txtViewAllRAs",
+        "txtWaiveNotes",
+        "txtRemoveNotes",
+        "txtReplyByDate",
+        "txtAcceptDate",
+        "txtConfirmDate"
+    ],
+    "actors": [
+        "UserSession",
+        "Dropdown",
+        "Grid",
+        "rprPref",
+        "DataLayer.Enrollment",
+        "HSPnet.UI.CascadingDropdown"
+    ],
+    "workflows": [
+        {
+            "name": "Manage Enrollment Preferences",
+            "steps": [
+                "Load student enrollment preferences",
+                "Display preference options",
+                "Allow editing of preferences",
+                "Submit changes",
+                "Handle actions based on preferences (e.g., enroll, waive, assign to group)"
+            ]
+        }
+    ],
+    "business_rules": [],
+    "validations": [
+        "Ensure dates are valid using DateFormatter",
+        "Check if a student can be shown based on status",
+        "Validate field input through validation summaries"
+    ],
+    "calculations": [],
+    "conditions": [
+        "If EnrollmentID != 0, hide Save All button",
+        "If blnReadOnly, set ScreenIsEditable to false"
+    ],
+    "system_behavior": [
+        "Manages UI rendering of student preferences",
+        "Conditionally shows/hides UI elements based on student status",
+        "Handles data binding on preference changes"
+    ],
+    "dependencies": [
+        "HSPnet.DataLayer",
+        "HSPnet.Framework",
+        "HSPnet.UI"
+    ],
+    "exceptions": [],
+    "source_document_ids": [
+        "035e0189-d7b1-5dd9-9413-4ba61954595e",
+        "0cf959f7-f90d-5401-b57a-d9c147bdcdc6",
+        "122a5046-0f0c-5d58-9e9e-df2eefda10d8",
+        "14bcdb19-cac8-5a3a-8e2a-792c1e117936",
+        "16fa0edf-8364-57ea-ba87-501778fb04ff",
+        "16ff03c5-6827-5e15-879c-9f73f85a135a",
+        "1adfa30f-7e2a-58a6-be31-b3a05ab00c25",
+        "1b49f1cf-ca46-5c5d-b6f0-d50a750da6b9",
+        "226bdc62-b356-5206-acab-e3e4a12e7c10",
+        "279fe3fa-821d-5114-b01e-4c0317e73948",
+        ...
+    ],
+    "content_gaps": []
+}
