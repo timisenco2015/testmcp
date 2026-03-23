@@ -1,11 +1,19 @@
 [
   {
     "filename": "SiteDocument",
-    "found": false,
-    "summary": "",
-    "purpose": "",
-    "entities": [],
-    "fields": [],
+    "found": true,
+    "summary": "SiteDocument entity represents a document related to a specific site within the HSPnet system. It is primarily a simple data object with an ID and SiteID.",
+    "purpose": "To store and uniquely identify documents associated with specific sites.",
+    "entities": [
+      {
+        "name": "SiteDocument",
+        "fields": ["ID", "SiteID"]
+      }
+    ],
+    "fields": [
+      { "name": "ID", "type": "int", "description": "Unique identifier for the document." },
+      { "name": "SiteID", "type": "int", "description": "Identifier for the associated site." }
+    ],
     "actors": [],
     "workflows": [],
     "business_rules": [],
@@ -15,64 +23,89 @@
     "system_behavior": [],
     "dependencies": [],
     "exceptions": [],
-    "source_document_ids": [],
-    "content_gaps": ["No related documents found for filename 'SiteDocument'."]
+    "source_document_ids": ["a2967f17-a924-5e9c-8b15-d1f7bd028b32"],
+    "content_gaps": []
   },
   {
     "filename": "WelcomeStaffAdmin",
-    "found": false,
-    "summary": "",
-    "purpose": "",
+    "found": true,
+    "summary": "The WelcomeStaffAdmin module is a web page for welcoming administrative staff. It displays staff-specific information, login history, and relevant administrative messages. The page supports filtering and displaying submitted employment applications, and provides interface controls for navigating, filtering, and interacting with those records.",
+    "purpose": "To provide staff administrators a summary dashboard displaying their last login and a list of employment applications to manage, including filters for site, discipline, date range, and withdrawn status.",
     "entities": [],
-    "fields": [],
-    "actors": [],
-    "workflows": [],
-    "business_rules": [],
-    "validations": [],
+    "fields": [
+      { "name": "lblTitle", "type": "Label", "description": "Page title, including the user's preferred name." },
+      { "name": "ltlLastLogin", "type": "Literal", "description": "Displays last login date and time zone." },
+      { "name": "pnlLastLogin", "type": "Panel", "description": "Panel for last login information, shown if available." },
+      { "name": "ddSite", "type": "DropDown", "description": "Dropdown list for selecting the site to filter applications." },
+      { "name": "ddDiscipline", "type": "DropDown", "description": "Dropdown list to filter by discipline." },
+      { "name": "txtStartDate", "type": "TextBox", "description": "Start date filter for applications." },
+      { "name": "txtEndDate", "type": "TextBox", "description": "End date filter for applications." },
+      { "name": "chkShowWithdrawn", "type": "Checkbox", "description": "Option to include withdrawn applications." }
+    ],
+    "actors": [
+      "Staff Administrator"
+    ],
+    "workflows": [
+      {
+        "name": "Viewing Applications",
+        "steps": [
+          "Staff administrator logs in and lands on WelcomeStaffAdmin page.",
+          "Page displays name and last login details.",
+          "User selects filters (site, discipline, date range, withdrawn status).",
+          "User clicks Refresh to update the applications grid.",
+          "Applications can be viewed, and email/contact links and status are available per record."
+        ]
+      }
+    ],
+    "business_rules": [
+      "Applications must have valid start and end dates.",
+      "Withdrawn applications are displayed only if checkbox is checked."
+    ],
+    "validations": [
+      "txtStartDate and txtEndDate are required fields.",
+      "Date fields must match a specified format.",
+      "End Date must be after Start Date."
+    ],
     "calculations": [],
-    "conditions": [],
-    "system_behavior": [],
-    "dependencies": [],
-    "exceptions": [],
-    "source_document_ids": [],
-    "content_gaps": ["No related documents found for filename 'WelcomeStaffAdmin'."]
-  },
-  {
-    "filename": "ServiceCode",
-    "found": false,
-    "summary": "",
-    "purpose": "",
-    "entities": [],
-    "fields": [],
-    "actors": [],
-    "workflows": [],
-    "business_rules": [],
-    "validations": [],
-    "calculations": [],
-    "conditions": [],
-    "system_behavior": [],
-    "dependencies": [],
-    "exceptions": [],
-    "source_document_ids": [],
-    "content_gaps": ["No related documents found for filename 'ServiceCode'."]
-  },
-  {
-    "filename": "SiteProfileHistory",
-    "found": false,
-    "summary": "",
-    "purpose": "",
-    "entities": [],
-    "fields": [],
-    "actors": [],
-    "workflows": [],
-    "business_rules": [],
-    "validations": [],
-    "calculations": [],
-    "conditions": [],
-    "system_behavior": [],
-    "dependencies": [],
-    "exceptions": [],
-    "source_document_ids": [],
-    "content_gaps": ["No related documents found for filename 'SiteProfileHistory'."]
+    "conditions": [
+      "If last login is not available, last login panel is not shown.",
+      "If withdrawn date exists, its field is displayed."
+    ],
+    "system_behavior": [
+      "Page loads with default dates set to the past 3 months.",
+      "Filters and search parameters are retained across page refreshes."
+    ],
+    "dependencies": [
+      "User session is required to retrieve agency ID and last login.",
+      "Dropdowns depend on available options from backend data sources."
+    ],
+    "exceptions": [
+      "If user session is missing, application loading is canceled.",
+      "Invalid or missing filters prevent page updates."
+    ],
+    "source_document_ids": [
+      "05db31e4-e8b6-53ee-a6fb-812c106f0134",
+      "100d5925-a5f8-53db-8493-02cddd563eb7",
+      "3c84bade-9671-5fbf-acce-3c87a835e9b4",
+      "4c4b97b8-d242-5261-a515-767a3f7d7a49",
+      "52b5066f-23f6-5d82-96cd-5d51dad3de79",
+      "54244516-0707-581e-a8ba-9c041ea38366",
+      "5bb85da3-f5b4-5753-b07c-9bb2a04eeb89",
+      "5d9b92ea-7c12-5070-8603-977cf14d0e04",
+      "6701b153-5288-59e5-8de9-61b68a1fc292",
+      "871df91b-7ba0-558f-83ea-d5be1b0dc8db",
+      "8cea5c3a-2fbf-5206-a0c0-9425a5e14511",
+      "964a48c9-231c-5d58-a44d-3675d949a453",
+      "966ed8d3-a5af-567f-b092-936217777551",
+      "a0c3da28-32a5-5fce-91b2-17274efa016e",
+      "afbb4ec5-43c8-5281-ad2c-4b6cfd23a48e",
+      "b8e79322-9a0e-5fe7-8953-3d05e231f923",
+      "bf423a80-93db-572d-8cb8-c79f04214a93",
+      "ca71b077-cc26-5979-a44f-59700a41316b",
+      "d278278f-d4ec-5f4a-9f29-a02b66773bb9",
+      "db9b35e9-53ca-5eaf-9d75-4f3a72131bc7",
+      "e249a878-c837-5d1c-9a3d-5167df2614fb"
+    ],
+    "content_gaps": []
   }
 ]
