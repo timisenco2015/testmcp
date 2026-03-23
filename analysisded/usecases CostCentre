@@ -1,86 +1,28 @@
 # Module: CostCentre
 
-## CostCentre-UC1 — Retrieve Cost Centre Records
+## CostCentre-UC1 — Retrieve Cost Centre Data
 
-- Primary Actor(s):
-  - System
-
-- Secondary Actor(s):
-  - Database
-
-- Trigger:
-  - A request is made to retrieve cost centre records for given parameters.
-
-- Description:
-  - The system retrieves cost centre records from the database for a specified session ID and date range, along with optional filters such as placing agencies, discipline, site, service, and destination.
-
+- Primary Actor(s): Application User
+- Secondary Actor(s): Database Administrator
+- Trigger: User requests to view cost centre data within a specific session and date range.
+- Description: This use case allows users to retrieve and view cost centre data based on criteria such as session ID, start and end dates, and optional filters for placing agencies, discipline, sub-discipline, site, service, destination, and PR status.
 - Preconditions:
-  - The database is accessible.
-  - Valid session ID and date range are provided.
-  - Optional filters may include valid values if provided.
-
+  - User must be authenticated and authorized to access cost centre data.
+  - A valid session ID must exist.
 - Postconditions:
-  - A list of cost centre records is returned.
-
+  - The list of cost centre records matching the criteria is displayed to the user.
 - Main Success Scenario:
-  1. The system receives a request with the required parameters.
-  2. The system establishes a connection to the database.
-  3. The system executes the stored procedure "PlacementCostCentre" with the provided parameters.
-  4. The system retrieves data from the database.
-  5. The system returns a list of populated `CostCentreRecord` objects.
-
+  1. User inputs the session ID, start date, end date, and optional filter criteria.
+  2. System retrieves cost centre data from the database using a stored procedure `PlacementCostCentre`.
+  3. System displays the list of retrieved cost centre records to the user.
 - Extensions:
-  - None
-
+  - If optional filter criteria are provided, the system applies them to the data retrieval process.
 - Exceptions:
-  - Database connection failure.
-  - Invalid parameters leading to an empty result set.
-
+  - If the database is unreachable, the system displays an error message to the user.
+  - If no data matches the criteria, the system informs the user that no records were found.
 - Business Rules:
-  - The stored procedure "PlacementCostCentre" must exist in the database.
-
+  - The data retrieval process employs a stored procedure for efficiency and security.
 - Assumptions:
-  - The database schema matches the expected structure for the stored procedure.
-
+  - The database structure and stored procedure `PlacementCostCentre` are correctly configured.
 - Open Issues:
-  - None
-
-## CostCentre-UC2 — Populate Cost Centre Record
-
-- Primary Actor(s):
-  - System
-
-- Secondary Actor(s):
-  - None
-
-- Trigger:
-  - A data row is read from the database result set.
-
-- Description:
-  - The system populates a `CostCentreRecord` object with data from a database result set.
-
-- Preconditions:
-  - A valid database result set is available.
-
-- Postconditions:
-  - A `CostCentreRecord` object is populated with data from a data row.
-
-- Main Success Scenario:
-  1. The system reads a data row from the result set.
-  2. The system assigns each field in the data row to the corresponding property in the `CostCentreRecord` object.
-  3. The populated `CostCentreRecord` object is added to the collection.
-
-- Extensions:
-  - None
-
-- Exceptions:
-  - Data conversion errors if the data types do not match the expected types.
-
-- Business Rules:
-  - The `CostCentreRecord` object structure must mirror the data schema in the result set.
-
-- Assumptions:
-  - The data types in the result set align with the data types in the `CostCentreRecord`.
-
-- Open Issues:
-  - None
+  - None identified.
