@@ -1,44 +1,27 @@
 {
     "filename": "ServiceCode",
     "found": true,
-    "summary": "The 'ServiceCode' file defines a data model for Service Codes, which includes attributes for categorization, naming, and notes. It includes methods to retrieve service codes by various parameters.",
-    "purpose": "To encapsulate and manage service code-related data within the HSPnet application, supporting retrieval and localization based on session parameters.",
+    "summary": "ServiceCode and ServiceCodes classes provide structure for handling service-related data in the HSPnet system.",
+    "purpose": "Handles retrieval and representation of service codes within the application, including localization for session-specific display.",
     "entities": ["ServiceCode"],
-    "fields": [
-        "ID",
-        "CodeCategoryID",
-        "ShortName",
-        "Name",
-        "SortOrder",
-        "Notes",
-        "NameAlt",
-        "NotesAlt"
-    ],
+    "fields": ["ID", "CodeCategoryID", "ShortName", "Name", "SortOrder", "Notes", "NameAlt"],
     "actors": [],
     "workflows": [
         {
-            "name": "RetrieveServiceCodes",
+            "name": "ServiceCode Retrieval",
             "steps": [
-                "Define session parameters",
-                "Execute stored procedure",
-                "Read data",
-                "Parse and store in list"
+                "Fetch service codes using session parameters.",
+                "Localize names if alt language is enabled."
             ]
         }
     ],
     "business_rules": [],
     "validations": [],
     "calculations": [],
-    "conditions": [],
-    "system_behavior": [
-        "Localizes service code name based on language settings"
-    ],
-    "dependencies": [],
+    "conditions": ["Use alt-language fields if session requires."],
+    "system_behavior": ["Accesses database to fetch service code data based on session parameters."],
+    "dependencies": ["HSPnet.Framework", "HSPnet.App_GlobalResources"],
     "exceptions": [],
-    "source_document_ids": [
-        "94f1b055-348d-508a-ae6e-cf7960a8c6a2",
-        "e4ebe4b4-6d14-5c3f-b693-61016f765239",
-        "f976b9af-a402-540f-b162-391d578fac7c"
-    ],
+    "source_document_ids": ["94f1b055-348d-508a-ae6e-cf7960a8c6a2", "e4ebe4b4-6d14-5c3f-b693-61016f765239", "f976b9af-a402-540f-b162-391d578fac7c"],
     "content_gaps": []
 }
