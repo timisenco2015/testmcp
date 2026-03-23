@@ -2,95 +2,42 @@
 {
   "filename": "ExpenseBatch",
   "found": true,
-  "summary": "A class and related methods for managing expense batches.",
-  "purpose": "To handle expense batch operations such as searching, adding, updating, and deleting.",
-  "entities": [
-    "ExpenseBatch",
-    "ExpenseBatches"
-  ],
-  "fields": [
-    "ID",
-    "DepartmentID",
-    "BatchDescription",
-    "BatchDate",
-    "StatusCodeID",
-    "StatusCode",
-    "StatusDescription",
-    "ClosedDate",
-    "BatchNumberFormatted"
-  ],
-  "actors": [
-    "HSPnetSession"
-  ],
+  "summary": "Management of expense batches including searching, adding, updating, and deleting batches.",
+  "purpose": "To facilitate operations related to expense batches such as creation, retrieval, and updates.",
+  "entities": ["ExpenseBatch", "HSPnetSession"],
+  "fields": ["ID", "DepartmentID", "BatchDescription", "BatchDate", "StatusCodeID", "StatusCode", "StatusDescription", "ClosedDate", "BatchNumberFormatted"],
+  "actors": ["HSPnetSession"],
   "workflows": [
     {
-      "name": "Search",
-      "steps": [
-        "Set procedure name to 'ExpenseBatchSearch'",
-        "Execute query with DepartmentID parameter",
-        "Read results and populate ExpenseBatch list"
-      ]
+      "name": "Search Batches",
+      "steps": ["Invoke ExpenseBatchSearch procedure", "Retrieve data with SqlDataReader", "Map data to ExpenseBatch object"]
     },
     {
-      "name": "SearchID",
-      "steps": [
-        "Set procedure name to 'ExpenseBatchSearchID'",
-        "Execute query with ID parameter",
-        "Read result and populate ExpenseBatch instance"
-      ]
+      "name": "Add Batch",
+      "steps": ["Invoke ExpenseBatchAdd procedure", "Add necessary parameters", "Execute query and get new ID"]
     },
     {
-      "name": "Add",
-      "steps": [
-        "Set procedure name to 'ExpenseBatchAdd'",
-        "Execute query with session, department, and batch parameters",
-        "Read result to get new ID"
-      ]
+      "name": "Update Batch",
+      "steps": ["Invoke ExpenseBatchUpdate procedure", "Add necessary parameters", "Execute query"]
     },
     {
-      "name": "Update",
-      "steps": [
-        "Set procedure name to 'ExpenseBatchUpdate'",
-        "Execute update with session and batch parameters"
-      ]
-    },
-    {
-      "name": "Delete",
-      "steps": [
-        "Set procedure name to 'ExpenseBatchDelete'",
-        "Execute delete with ID parameter"
-      ]
+      "name": "Delete Batch",
+      "steps": ["Invoke ExpenseBatchDelete procedure", "Add necessary parameters", "Execute query"]
     }
   ],
   "business_rules": [],
-  "validations": [
-    "Check if SqlDataReader is not null",
-    "Check if SqlDataReader can read data"
-  ],
+  "validations": [],
   "calculations": [
-    "BatchNumberFormatted as ID + ' - ' + StatusDescription"
+    "BatchNumberFormatted = ID.ToString() + ' - ' + StatusDescription"
   ],
-  "conditions": [
-    "Use alternative language fields if available"
-  ],
+  "conditions": ["UseAltLanguageFields ? StatusDescriptionAlt : StatusDescription"],
   "system_behavior": [
-    "Reads from database",
-    "Formats batch number",
-    "Handles null reader exception"
+    "Retrieve all batches for a department in the last year",
+    "Close SqlDataReader after operations"
   ],
-  "dependencies": [
-    "System.Data.SqlClient",
-    "HSPnet.Framework",
-    "HSPnet.UI"
-  ],
-  "exceptions": [
-    "Null SqlDataReader"
-  ],
-  "source_document_ids": [
-    "060e08d3-49ca-5e40-bea0-849f4e6173e1",
-    "3559737f-0154-520e-be2b-d3dd2c3de539",
-    "b2216e58-a144-55cb-8b87-3da9787fc1d7"
-  ],
+  "dependencies": ["System.Data.SqlClient", "HSPnet.Framework", "HSPnet.App_GlobalResources", "HSPnet.UI"],
+  "exceptions": [],
+  "source_document_ids": ["060e08d3-49ca-5e40-bea0-849f4e6173e1", "3559737f-0154-520e-be2b-d3dd2c3de539", "b2216e58-a144-55cb-8b87-3da9787fc1d7"],
   "content_gaps": []
 }
 ```
