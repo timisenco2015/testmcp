@@ -1,0 +1,79 @@
+{
+  "filename": "PrfTraining",
+  "found": true,
+  "summary": "The PrfTraining class is part of the HSPnet UserControls StaffProfile namespace and handles staff training functionalities in a web application. It includes operations such as adding, updating, and deleting training records; interacting with user session data; and managing UI components like data grids and forms.",
+  "purpose": "Manage and manipulate staff training data within a web application, providing functionalities for adding, editing, and displaying training information.",
+  "entities": [],
+  "fields": [
+    "TrainingCodeID",
+    "CourseCodeID",
+    "TrainerCodeID",
+    "DurationHours",
+    "Approved",
+    "LateCancellation",
+    "PartialCompletion",
+    "TrainedWith",
+    "Notes"
+  ],
+  "actors": [
+    "UserSession",
+    "SystemAdministrator",
+    "LocalAdministrator"
+  ],
+  "workflows": [
+    {
+      "name": "Add Training Data",
+      "steps": ["Switch to Add Mode", "Show Details", "Insert Data"]
+    },
+    {
+      "name": "Delete Training Data",
+      "steps": ["Delete Row", "Cache Session", "Redirect to Current Page"]
+    },
+    {
+      "name": "Edit Training Data",
+      "steps": ["Switch to Edit Mode", "Update Data", "Cache Session", "Redirect to Current Page"]
+    },
+    {
+      "name": "Bind Data to Grid",
+      "steps": ["Setup Add Button", "Setup Edit Button", "Setup Delete Button", "Display Notes"]
+    }
+  ],
+  "business_rules": [
+    "Ensure user session is valid before selecting data.",
+    "Setup visibility of controls based on user role.",
+    "Prevent actions if the screen is not editable."
+  ],
+  "validations": [
+    "Page must be valid on insert.",
+    "Ensure dropdown values are not null or empty before updating."
+  ],
+  "calculations": [
+    "Convert duration hours from text to decimal."
+  ],
+  "conditions": [
+    "Visibility control based on user roles for sections like 'Courses', 'Trainer', 'Approved', 'LateCancellation'."
+  ],
+  "system_behavior": [
+    "Cache user session data.",
+    "Redirect page after operations."
+  ],
+  "dependencies": [
+    "HSPnetSession for user session management.",
+    "QueryString utility for URL manipulation."
+  ],
+  "exceptions": [],
+  "source_document_ids": [
+    "165aaa43-b209-56a5-be66-183a75306324",
+    "4cf86596-fa99-56f6-a061-e731257171f8",
+    "4dab2d81-a5f4-5624-9dd7-0350580d6d79",
+    "5e178bdb-6f2b-5f55-8401-b46a5f2336d8",
+    "8b5253d0-2269-50c0-a452-cb3b018fd525",
+    "8f91edb1-b320-5514-8b45-103dac78d69b",
+    "a1ee9ea0-cdc2-5932-a5c8-6505db936867",
+    "a6724ae4-6e05-5cc3-8ace-f499dba140d6",
+    "a93cb950-27ff-5192-8942-320158d2237c",
+    "cca40530-c979-5f86-8f08-011fffc4433a",
+    "e9938684-ca53-5224-9e52-b18b92708f37"
+  ],
+  "content_gaps": []
+}
