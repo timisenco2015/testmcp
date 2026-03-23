@@ -1,0 +1,78 @@
+{
+  "filename": "PreferencesEditAll",
+  "found": true,
+  "summary": "The 'PreferencesEditAll' component handles the editing of preferences for enrollments within a web application. It provides functionality to update enrollment data such as site, service, destination, and request codes, and manages visibility and state of UI components based on user session and read-only status.",
+  "purpose": "Facilitate the editing and management of enrollment preferences in a web-based grid interface, allowing different sets of preferences to be specified or edited for each enrollment entry.",
+  "entities": [],
+  "fields": [
+    "Pref1SiteID",
+    "Pref1ServiceID",
+    "Pref1DestID",
+    "Pref1RequestCodeID",
+    "Pref2SiteID",
+    "Pref2ServiceID",
+    "Pref2DestID",
+    "Pref2RequestCodeID",
+    "Pref3SiteID",
+    "Pref3ServiceID",
+    "Pref3DestID",
+    "Pref3RequestCodeID",
+    "Waived"
+  ],
+  "actors": [
+    "User",
+    "System"
+  ],
+  "workflows": [
+    {
+      "name": "Save Preferences",
+      "steps": [
+        "Check if row is dirty (modified).",
+        "Retrieve all preference fields from UI controls.",
+        "Convert field data to integer values, defaulting to zero if empty.",
+        "Update enrollment object with new preference data.",
+        "Check validation status and display warnings if any.",
+        "Submit update to the back-end data layer."
+      ]
+    }
+  ],
+  "business_rules": [],
+  "validations": [
+    "Ensure all preference fields are either properly filled or default to zero.",
+    "Warn if preferences can't be saved due to back-end errors."
+  ],
+  "calculations": [],
+  "conditions": [
+    "Check visibility of panels to determine if preferences need to be gathered from dropdowns or hidden fields.",
+    "Use various session and state variables to determine behavior (e.g., PR_WSExists, Use3Prefs, ShowAll)."
+  ],
+  "system_behavior": [
+    "Hide or display UI elements based on enrollment state (e.g., waived, graduated, inactive).",
+    "Switch dropdowns to labels in read-only mode."
+  ],
+  "dependencies": [
+    "UserSession object for maintaining user state.",
+    "DataLayer for persisting enrollment data."
+  ],
+  "exceptions": [
+    "Cancel operation if user session is null.",
+    "Handle possible warnings from the UserSession message system."
+  ],
+  "source_document_ids": [
+    "06dac0cc-400d-5c69-9685-1bfd7a22dfd9",
+    "08c59cdd-a3b7-56e1-bc2c-814f06753415",
+    "562715d6-752b-5a6c-a94f-b380b8f5325a",
+    "5d3e7589-e4d9-5240-90aa-bf8f36b51a10",
+    "5d5e1bb9-0817-5895-a977-d773d2011042",
+    "62ee5abd-49a1-5793-bb44-3bed2167f700",
+    "6c0abcfb-4666-50dd-a0ba-87280b8696c1",
+    "7119ed12-bc0d-5b2a-95b4-317fa030661e",
+    "a8124b60-7262-5124-9687-aa42c9d8c4ff",
+    "a89cc25a-48aa-5bd6-85d1-99ca0916daf5",
+    "dabf89a4-be7a-5605-a46e-4920da7763cb",
+    "f1a85d60-e35a-51c7-8539-b221bd5e6636",
+    "f73b51cb-df89-5ca8-8ec9-cc8e579c90dc",
+    "f85eb1fe-b460-599e-9ca4-feff9dfc8196"
+  ],
+  "content_gaps": []
+}
