@@ -1,0 +1,139 @@
+{
+  "filename": "ChangeReminder",
+  "found": true,
+  "summary": "The ChangeReminder module handles the user workflow for changing the security or reminder question used in password recovery. It allows users to select or enter a new reminder question, validate their answer, and confirm their current password. The workflow includes form validation, input handling, and appropriate error/warning display. System behavior ensures secure update of reminder questions and answers.",
+  "purpose": "To provide users with a secure process for changing their forgotten password reminder question and answer, ensuring authentic validation via current password and enforcing input requirements for security.",
+  "entities": [
+    "UserSession",
+    "ReminderQuestion",
+    "Answer",
+    "CurrentPassword"
+  ],
+  "fields": [
+    {
+      "name": "ddReminderQuestion",
+      "type": "DropDownList",
+      "description": "Dropdown for selecting predefined reminder questions."
+    },
+    {
+      "name": "txtReminderQuestion",
+      "type": "TextBox",
+      "description": "Textbox for entering custom reminder question."
+    },
+    {
+      "name": "txtAnswer",
+      "type": "TextBox",
+      "description": "Textbox for entering the answer to the reminder question."
+    },
+    {
+      "name": "txtCurrentPassword",
+      "type": "TextBox",
+      "description": "Textbox for entering user’s current password."
+    }
+  ],
+  "actors": [
+    "User",
+    "System"
+  ],
+  "workflows": [
+    {
+      "name": "Change Reminder Question",
+      "steps": [
+        "User navigates to the ChangeReminder page.",
+        "System displays current reminder question and answer fields.",
+        "User chooses either to select a predefined question (dropdown) or enter a custom question (textbox).",
+        "User enters the answer for the new reminder question.",
+        "User enters current password for authentication.",
+        "User submits the form.",
+        "System validates: current password is not empty; chosen reminder question is valid; answer is at least 4 characters.",
+        "If validation succeeds, System calls Security.ChangeReminder to update the question and answer.",
+        "System displays success message and redirects user.",
+        "If validation fails, System displays appropriate errors in error panel."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Reminder question entered by user must be at least 10 characters.",
+    "If using dropdown, user must select a question (not default blank).",
+    "Answer to reminder question must be at least 4 characters.",
+    "Current password field must not be empty.",
+    "Validation occurs on client and server side."
+  ],
+  "validations": [
+    {
+      "field": "ddReminderQuestion",
+      "type": "CustomValidator",
+      "clientFunction": "checkddReminderQuestion",
+      "rule": "SelectedIndex > 0"
+    },
+    {
+      "field": "txtReminderQuestion",
+      "type": "CustomValidator",
+      "clientFunction": "checkdtxtReminderQuestion",
+      "rule": "Length > 9"
+    },
+    {
+      "field": "txtAnswer",
+      "type": "RequiredFieldValidator",
+      "rule": "Length >= 4"
+    },
+    {
+      "field": "txtAnswer",
+      "type": "RegularExpressionValidator",
+      "rule": "^[\\d\\D]{4,}$"
+    },
+    {
+      "field": "txtCurrentPassword",
+      "type": "RequiredFieldValidator",
+      "rule": "Not empty"
+    }
+  ],
+  "calculations": [],
+  "conditions": [
+    "If ddReminderQuestion.Visible is true, user must select from dropdown.",
+    "If txtReminderQuestion.Visible is true, user must enter custom question with at least 10 characters."
+  ],
+  "system_behavior": [
+    "Displays errors in panel when validation fails.",
+    "Hides/shows controls depending on user choice.",
+    "Focuses correct control after page render.",
+    "Registers JavaScript variables and handles async postbacks.",
+    "On successful change, redirects to Tools.aspx.",
+    "Processes error and warning messages through dedicated panels."
+  ],
+  "dependencies": [
+    "HSPnet.Security.ChangeReminder",
+    "UserSession",
+    "Resources",
+    "HSPnet.DataLayer.Codes",
+    "AjaxControlToolkit"
+  ],
+  "exceptions": [
+    "Form submission with invalid fields blocks update and displays error messages.",
+    "If change fails at Security.ChangeReminder, no update occurs and user is informed."
+  ],
+  "source_document_ids": [
+    "2fbaadc3-eb80-5e9e-ac49-dba30f26288a",
+    "4e6e142b-e1ab-5f96-ba73-808a0d1c698b",
+    "767c15ef-f476-5c98-91bc-3f95d7350ed5",
+    "83f54738-9cfa-514b-bf24-0c4b4b2566d3",
+    "89904825-6cba-5a60-8822-647152e512d3",
+    "8d1b638d-22da-531e-b776-73e184438a26",
+    "8fbf861e-d1f2-5001-acff-45e8273568f2",
+    "9299c9cf-7777-5502-b1ea-56c160f7c849",
+    "93a5ebbb-37c9-5a96-a1f2-eef013c1ca41",
+    "9b8aee2e-79c3-50a7-ac7b-68caa420aee4",
+    "ae270b85-b4ce-50b6-9e8a-c795c6e2fd31",
+    "b36d50f2-a803-56c3-8666-2a4c3e749776",
+    "cdd043c2-a9f5-53d3-96cf-91659e67c436",
+    "daa85fb0-f3f8-5228-b52b-975142309c9d",
+    "e7014932-5cf1-5ea2-be92-89c1799d6be0",
+    "f4c20f8d-c554-5be3-b467-bb0dae73bbd8"
+  ],
+  "content_gaps": [
+    "No detail on Security.ChangeReminder implementation.",
+    "No information on backend error handling or logging.",
+    "No explicit localization details for resource messages.",
+    "No details on how dsReminderQuestion source retrieves questions."
+  ]
+}
