@@ -1,0 +1,59 @@
+{
+  "filename": "ConnectionFailed",
+  "found": true,
+  "summary": "The document set outlines the structure and behavior of a web page responsible for handling failed connections within an application named HSPnet. It includes both HTML and C# code aiming to provide multilingual support and proper error messaging.",
+  "purpose": "To manage and display connection failure information to end users effectively while supporting both English and French languages.",
+  "entities": [],
+  "fields": [
+    {
+      "name": "HeaderEN",
+      "description": "Web panel for English header display."
+    },
+    {
+      "name": "HeaderFR",
+      "description": "Web panel for French header display."
+    },
+    {
+      "name": "uxErrorMessage",
+      "description": "Label to show error messages on connection failure."
+    }
+  ],
+  "actors": [],
+  "workflows": [
+    {
+      "name": "Connection Failure Display Workflow",
+      "steps": [
+        "Load the page.",
+        "Check locale setting through query string.",
+        "Display corresponding header based on locale.",
+        "Initialize culture settings based on locale.",
+        "Show connection failure message."
+      ]
+    }
+  ],
+  "business_rules": [],
+  "validations": [],
+  "calculations": [],
+  "conditions": [
+    {
+      "description": "HeaderEN visible when query string Locale is en-US or empty."
+    },
+    {
+      "description": "HeaderFR visible when query string Locale is fr-CA."
+    }
+  ],
+  "system_behavior": [
+    "The page loads specified HTML content.",
+    "Culture initialization based on locale query string.",
+    "Display of connection failure message."
+  ],
+  "dependencies": [],
+  "exceptions": [],
+  "source_document_ids": [
+    "1b519992-db1d-5f57-b018-a0e1befe8491",
+    "5ba21fbf-7905-59e7-90cb-c18e7f0bb6fb",
+    "83674888-1068-5d79-8a82-659f9547d3c0",
+    "8aaa6f24-0523-5c88-a8bb-fc0af3303321"
+  ],
+  "content_gaps": []
+}
