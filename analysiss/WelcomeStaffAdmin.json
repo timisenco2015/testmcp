@@ -1,41 +1,60 @@
 {
-  "filename": "WelcomeStaffAdmin",
-  "found": true,
-  "summary": "Describes the admin welcome page for staff with UI layout and logic.",
-  "purpose": "Manages the presentation and data interaction on the staff admin welcome page.",
-  "entities": ["WelcomeStaffAdmin"],
-  "fields": ["valEndDate", "txtEndDate", "btnEndDateCalendar", "CalendarExtender2", "RegularExpressionValidator2", "cvrEndDateAfter", "chkShowWithdrawn"],
-  "actors": [],
-  "workflows": [
-    {
-      "name": "Page Initialization",
-      "steps": [
-        "Load page settings and scripts",
-        "Fill site and discipline dropdowns",
-        "Set date fields",
-        "Refresh data"
-      ]
-    }
-  ],
-  "business_rules": [],
-  "validations": [
-    {
-      "name": "End Date Validation",
-      "steps": [
-        "Ensure end date is not before start date"
-      ]
-    }
-  ],
-  "calculations": [],
-  "conditions": [],
-  "system_behavior": [],
-  "dependencies": [],
-  "exceptions": [],
-  "source_document_ids": [
-    "05db31e4-e8b6-53ee-a6fb-812c106f0134",
-    "100d5925-a5f8-53db-8493-02cddd563eb7",
-    "3c84bade-9671-5fbf-acce-3c87a835e9b4",
-    "4c4b97b8-d242-5261-a515-767a3f7d7a49"
-  ],
-  "content_gaps": []
+    "filename": "WelcomeStaffAdmin",
+    "found": true,
+    "summary": "WelcomeStaffAdmin page is designed to provide staff administrators with a web interface that includes controls for date inputs, dropdown selections, and data refreshing functionalities.",
+    "purpose": "To facilitate the interactions of staff administrators with various system resources, such as site and discipline selections, employment applications, and user sessions.",
+    "entities": ["WelcomeStaffAdmin"],
+    "fields": ["txtEndDate", "btnEndDateCalendar", "CalendarExtender2", "RegularExpressionValidator2", "cvrEndDateAfter", "chkShowWithdrawn"],
+    "actors": ["Staff Administrator"],
+    "workflows": [
+        {
+            "name": "Refresh View Workflow",
+            "steps": [
+                "User changes site or discipline dropdown.",
+                "User clicks Refresh View.",
+                "System binds data to gvwApplications."
+            ]
+        }
+    ],
+    "business_rules": [],
+    "validations": [
+        {
+            "field": "txtStartDate",
+            "validator": "RegularExpressionValidator1",
+            "rule": "Must match date validation expression."
+        },
+        {
+            "field": "txtEndDate",
+            "validator": "RegularExpressionValidator2",
+            "rule": "Must follow specified format."
+        },
+        {
+            "validator": "cvrEndDateAfter",
+            "rule": "Start date must be before end date."
+        }
+    ],
+    "calculations": [],
+    "conditions": [
+        {
+            "condition": "Check if withdrawn data exists.",
+            "action": "Setup status and withdrawn date display."
+        }
+    ],
+    "system_behavior": [
+        {
+            "behavior": "Async post-back script registration."
+        },
+        {
+            "behavior": "Data binding on dropdown selection changes."
+        }
+    ],
+    "dependencies": ["JavaScript functions for date parsing and validation"],
+    "exceptions": [],
+    "source_document_ids": [
+        "05db31e4-e8b6-53ee-a6fb-812c106f0134",
+        "100d5925-a5f8-53db-8493-02cddd563eb7",
+        "3c84bade-9671-5fbf-acce-3c87a835e9b4",
+        "4c4b97b8-d242-5261-a515-767a3f7d7a49"
+    ],
+    "content_gaps": []
 }
