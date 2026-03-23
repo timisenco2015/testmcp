@@ -1,0 +1,70 @@
+{
+    "filename": "StudentEOrientation",
+    "found": true,
+    "summary": "StudentEOrientation is a portal for student engagement in orientation activities, providing course retake opportunities and certificate printing.",
+    "purpose": "Engage students with orientation courses, offering retake options and certification functionalities.",
+    "entities": [],
+    "fields": [
+        "pnlEOpeLink",
+        "pnlPrintCertificate",
+        "btnPrintCertificate",
+        "lblPleaseWait",
+        "pnlReportHTML",
+        "lblReportHTML",
+        "gvwCourses",
+        "dsCourses"
+    ],
+    "actors": [
+        "UserSession",
+        "StudentID"
+    ],
+    "workflows": [
+        {
+            "name": "Retake Course",
+            "steps": [
+                "Evaluate course completion.",
+                "Display retake button if criteria met.",
+                "Bind data on retake action."
+            ]
+        },
+        {
+            "name": "Print Completion Certificate",
+            "steps": [
+                "Run certificate report.",
+                "Display as HTML if generated."
+            ]
+        }
+    ],
+    "business_rules": [
+        "Retake is allowed if course is completed and criteria are met.",
+        "Switch visibility settings based on UserSession attributes."
+    ],
+    "validations": [],
+    "calculations": [],
+    "conditions": [
+        "UserSession is valid.",
+        "StudentID matches the UserSession criteria.",
+        "Status equals ETopicStatus.Completed."
+    ],
+    "system_behavior": [
+        "Page manages visibility of orientation links based on role and session attributes.",
+        "Data binding triggers on command execution."
+    ],
+    "dependencies": [
+        "HTPnet.DataLayer",
+        "HTPnet.App_GlobalResources",
+        "CodeLookup for MoodleURL"
+    ],
+    "exceptions": [
+        "Cancel data selection if session null."
+    ],
+    "source_document_ids": [
+        "1d551419-67cd-5f43-8011-83999159acc3",
+        "352b4554-fa18-59fe-9d11-cd72472ece6f",
+        "5a3fa64d-1a3b-55f2-9b05-c5ebc28ed4f2",
+        "bae687f4-b9a7-5d79-90ae-9e7f13f530db",
+        "d2c9c987-3374-57c1-a05e-ef991253412d",
+        "f38de7e2-d269-5b8b-993d-efc67802180c"
+    ],
+    "content_gaps": []
+}
