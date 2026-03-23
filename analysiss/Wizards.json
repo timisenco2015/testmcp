@@ -1,82 +1,109 @@
 {
   "filename": "Wizards",
   "found": true,
-  "summary": "The 'Wizards' document describes the functionalities of managing and executing wizards within a system, including parameters, date management, user permissions, and localization.",
-  "purpose": "To provide an interface for managing wizard entries, executing queries based on wizard parameters, and handling user-specific configurations and permissions.",
+  "summary": "Wizards are entities in the system that manage various operations such as search, update, delete, and duplicate actions. They can be customized and executed for specific scenarios.",
+  "purpose": "To manage and execute wizard operations in the HSPnet system.",
   "entities": [
-    "Wizards"
+    {
+      "name": "Wizard",
+      "attributes": [
+        "ID",
+        "WizardTemplateID",
+        "Name",
+        "EnglishName",
+        "MenuDescription",
+        "PreviewIcon",
+        "LockedFlag",
+        "SavedFlag",
+        "PAOnly",
+        "RAOnly",
+        "HideNamePrompt",
+        "LastModificationDate",
+        "Description",
+        "LastRunDate",
+        "CompleteFlag",
+        "DaysOld",
+        "RunNavigateUrlFormatted",
+        "EditNavigateUrlFormatted"
+      ]
+    }
   ],
   "fields": [
-    "ID",
-    "WizardTemplateID",
-    "Name",
-    "EnglishName",
-    "MenuDescription",
-    "PreviewIcon",
-    "LockedFlag",
-    "SavedFlag",
-    "PAOnly",
-    "RAOnly",
-    "HideNamePrompt",
-    "LastModificationDate",
-    "Description",
-    "LastRunDate",
-    "CompleteFlag",
-    "DaysOld",
-    "RunNavigateUrlFormatted",
-    "EditNavigateUrlFormatted"
+    {
+      "name": "WizardID",
+      "type": "int"
+    },
+    {
+      "name": "UserID",
+      "type": "int"
+    },
+    {
+      "name": "PA",
+      "type": "boolean"
+    },
+    {
+      "name": "RA",
+      "type": "boolean"
+    },
+    {
+      "name": "Sort",
+      "type": "string"
+    },
+    {
+      "name": "Asc",
+      "type": "boolean"
+    },
+    {
+      "name": "Entry",
+      "type": "object"
+    }
   ],
   "actors": [
-    "User",
-    "System Administrator"
+    {
+      "role": "System Administrator"
+    },
+    {
+      "role": "User"
+    }
   ],
   "workflows": [
     {
       "name": "Wizard Execution",
       "steps": [
-        "Add parameters to the session database.",
-        "Execute SQL queries to retrieve wizard data.",
-        "Handle alternate language fields if required.",
-        "Format navigation URLs for running and editing wizards."
-      ]
-    },
-    {
-      "name": "Wizard Management",
-      "steps": [
-        "Update wizard details such as name and description.",
-        "Complete wizards and set locale flags.",
-        "Search for wizard templates and manage duplicates."
+        "Add parameters to session database",
+        "Execute SQL query",
+        "Retrieve data using SqlDataReader",
+        "Create and add wizard entity",
+        "Return list of wizard entities or specific wizard entity"
       ]
     }
   ],
   "business_rules": [
-    "Wizards are locked or unlocked based on user permissions.",
-    "Alternative language fields are used when specified.",
-    "Wizards can only be saved or searched by authorized users."
+    "Wizards can be locked or unlocked.",
+    "Wizards can be saved for future reference.",
+    "Wizards are associated with a specific user."
   ],
   "validations": [
-    "Wizard ID must be valid for operations.",
-    "Ensure user permissions before executing wizard operations."
+    "Wizard ID must be valid.",
+    "User ID must be valid.",
+    "Wizard operations must be authorized by SysAdmin."
   ],
-  "calculations": [
-    "Calculate 'DaysOld' based on the current date and last run date.",
-    "Format dates using 'DateFormatter'."
-  ],
+  "calculations": [],
   "conditions": [
-    "Use alternative language fields if 'Sess.UseAltLanguageFields' is true.",
-    "Check 'HideStudentNames' and 'StudentMaintOnly' for permission settings."
+    "Execute data reader if not null",
+    "Use alternative language fields based on Session settings"
   ],
   "system_behavior": [
-    "Executes SQL queries with fail-safes for errors.",
-    "Generates URLs with hashed query strings for secure navigation."
+    "System returns a list of wizard entities on successful query execution.",
+    "System handles wizard entity operations like search, update, and delete."
   ],
   "dependencies": [
-    "HSPnetSession for managing session data.",
-    "ADODB for database interactions."
+    "Database connection must be established",
+    "Session must have valid UserID and SessionID"
   ],
   "exceptions": [
-    "SQL errors during wizard management operations.",
-    "Invalid parameters causing query failures."
+    "SQL error may occur during query execution",
+    "Session data reader might be null"
   ],
   "source_document_ids": [
     "0c0629de-b12b-5476-a07c-d01dab146ced",
