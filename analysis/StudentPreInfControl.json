@@ -1,0 +1,110 @@
+{
+  "filename": "StudentPreInfControl",
+  "found": true,
+  "summary": "The StudentPreInfControl encompasses various components related to student prerequisites and infection control mechanisms within a web-based application environment. It integrates UI controls, data handling, and update mechanisms with conditional logic and validation.",
+  "purpose": "The purpose of StudentPreInfControl is to manage and update student prerequisites and infection control information through a web user interface.",
+  "entities": [],
+  "fields": [
+    {
+      "name": "updPnlMain",
+      "type": "UpdatePanel",
+      "description": "Main update panel for AJAX operations."
+    },
+    {
+      "name": "txtCalendarPlaceholder",
+      "type": "TextBox",
+      "description": "Text box to hold calendar data."
+    },
+    {
+      "name": "calCalendarPlaceholder",
+      "type": "CalendarExtender",
+      "description": "Calendar extender control."
+    },
+    {
+      "name": "fvmStdPrerequisite",
+      "type": "FormView",
+      "description": "View for displaying student prerequisites."
+    },
+    {
+      "name": "dsStdPrerequisite",
+      "type": "ObjectDataSource",
+      "description": "Data source for student prerequisite details."
+    },
+    {
+      "name": "ValidationSummary1",
+      "type": "ValidationSummary",
+      "description": "Validation summary control for displaying errors."
+    }
+  ],
+  "actors": [
+    {
+      "name": "UserSession",
+      "description": "Represents the session for the current user."
+    },
+    {
+      "name": "StudentID",
+      "description": "ID of the student being processed."
+    },
+    {
+      "name": "ScreenIsEditable",
+      "description": "Determines if the screen is editable."
+    },
+    {
+      "name": "ReadOnly",
+      "description": "Indicates if the content is readonly."
+    },
+    {
+      "name": "ScriptMgr",
+      "description": "Manages client-side script operations."
+    }
+  ],
+  "workflows": [
+    {
+      "name": "Student Prerequisite Update",
+      "steps": [
+        "Selecting data using dsStdPrerequisite based on UserSession and StudentID.",
+        "Binding data to fvmStdPrerequisite.",
+        "Updating uxDetail with new values from the DropDownList controls.",
+        "Redirecting to the InfectionControl page after update."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Ensure the user's session is valid before allowing data selection.",
+    "Automatically translate display fields based on UserSession language preferences."
+  ],
+  "validations": [
+    "Page validation is mandatory before proceeding with item updates.",
+    "Dropdown values are selected based on current data bindings."
+  ],
+  "calculations": [
+    "JavaScript declarations involve setting up mask size unknown codes and future expiry dates."
+  ],
+  "conditions": [
+    "Operations like data selection and updates are contingent on user session validity."
+  ],
+  "system_behavior": [
+    "The system caches the user session and redirects after updates.",
+    "The application uses AJAX controls for asynchronous operations."
+  ],
+  "dependencies": [
+    "HSPnet framework for session and UI operations.",
+    "AjaxControlToolkit for enhancing UI components."
+  ],
+  "exceptions": [
+    "Cancel operations if no valid session is found.",
+    "Handle missing data items gracefully in data-bound controls."
+  ],
+  "source_document_ids": [
+    "04e9c4ac-7f77-5f3e-bfe5-d536dd31d727",
+    "1ae444a0-0cee-563e-be86-22e725e52b56",
+    "1f927279-8e83-52a0-b9fc-166c681c56f2",
+    "680c0077-b938-56b3-ba5d-6be62f571fc8",
+    "6fa54b48-83ba-581c-bc12-6bc743869ea2",
+    "85e13646-c70b-5b6e-b11a-e421b1750e04",
+    "8b9ecfea-0f28-5193-9388-f81afa65b730",
+    "b0772815-3167-5d6b-9ded-96e4cca329b6",
+    "d4625212-8b62-5355-8519-8cf54815b538"
+  ],
+  "content_gaps": []
+}
