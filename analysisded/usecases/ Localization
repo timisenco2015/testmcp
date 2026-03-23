@@ -1,0 +1,73 @@
+# Module: Localization
+
+## Localization-UC1 — Translate Fields
+
+- Primary Actor(s): System
+- Secondary Actor(s): User
+- Trigger: A screen with labels or literals requires translation.
+- Description: The system updates the text of all specified fields to the translated values when using an alternate locale.
+- Preconditions:
+  - `fields` and `newValues` arrays must be of the same size.
+  - `UseAltLanguageFields` must be true.
+- Postconditions: All specified fields are updated to display translated values.
+- Main Success Scenario:
+  1. Check if alternate language fields are used.
+  2. Iterate through each field.
+  3. Update the text of `Literal` or `Label` controls with the corresponding translated values.
+- Extensions:
+  - None
+- Exceptions:
+  - Field or new value is null.
+- Business Rules:
+  - Fields are updated only if `UseAltLanguageFields` is true.
+  - The arrays for fields and new values must be the same size.
+- Assumptions:
+  - The translation values are correctly mapped and provided.
+- Open Issues:
+  - None
+
+## Localization-UC2 — Translate File Type
+
+- Primary Actor(s): System
+- Secondary Actor(s): HSPnetSession
+- Trigger: A request to determine the appropriate file type based on language settings.
+- Description: The system returns the appropriate file type based on whether alternate language fields are used.
+- Preconditions:
+  - The session exists or defaults to not using alternate language fields.
+- Postconditions: Returns either the original file type or the alternate file type.
+- Main Success Scenario:
+  1. Determine if alternate language fields are in use from the session.
+  2. Return the alternate file type if true, otherwise return the original.
+- Extensions:
+  - None
+- Exceptions:
+  - Session is null, defaults to using the original file type.
+- Business Rules:
+  - Use of alternate language must be determined from the session.
+- Assumptions:
+  - File types are pre-defined and mapped.
+- Open Issues:
+  - None
+
+## Localization-UC3 — Translate Last Login
+
+- Primary Actor(s): System
+- Secondary Actor(s): HSPnetSession
+- Trigger: User's last login information needs to be displayed in the correct language format.
+- Description: The system translates the month in the last login date string into the appropriate language.
+- Preconditions:
+  - A valid last login date string is provided.
+- Postconditions: Returns the translated last login date string.
+- Main Success Scenario:
+  1. Check if alternate language fields are used in the session.
+  2. Replace each English month abbreviation in the date with the corresponding translated abbreviation.
+- Extensions:
+  - None
+- Exceptions:
+  - Last login string is blank or improperly formatted.
+- Business Rules:
+  - Translation applies only to month abbreviations.
+- Assumptions:
+  - Session language settings are correctly configured.
+- Open Issues:
+  - None
