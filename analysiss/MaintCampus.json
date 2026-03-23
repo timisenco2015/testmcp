@@ -1,65 +1,73 @@
 {
     "filename": "MaintCampus",
     "found": true,
-    "summary": "The MaintCampus module is part of the HSPnet system, implemented in ASP.NET, providing CRUD operations and user interface for managing campus data. This involves data refreshment, error and warning handling, and user role-based display management.",
-    "purpose": "To manage campus-related data within the HSPnet environment, including adding, editing, deleting, and viewing campus details.",
-    "entities": ["Campus", "Department", "Agency"],
-    "fields": ["cmdRefreshView", "gridData", "pnlPopup", "updPnlPopup", "btnShowPopup", "mdlDetails", "ValidationSummary1", "dvwDetail", "pnlError", "lblErrorCaption", "lblErrorList", "cmdHideErrorPanel", "pnlWarning", "lblWarningCaption", "lblWarningList", "cmdHideWarningPanel", "pnlCurrentView", "CurrentViewLabel", "Label2", "ddAgency", "Label4", "ddDepartment", "chkShowInactive", "cmdRefreshView"],
-    "actors": ["System Administrator", "Local Administrator"],
+    "summary": "The MaintCampus system is designed as a web application for managing campus records. It includes functionalities for viewing, adding, editing, deleting, and reactivating campus data. The application employs ASP.NET web controls, data binding, and event handling to facilitate management operations.",
+    "purpose": "To manage campus data by allowing users to add, edit, delete, and view records in a web-based interface.",
+    "entities": [
+        "Campus",
+        "UserSession"
+    ],
+    "fields": [
+        {
+            "name": "Name",
+            "type": "string",
+            "validations": ["Required", "Max length 50"]
+        },
+        {
+            "name": "ShortName",
+            "type": "string",
+            "validations": ["Required", "Max length 10"]
+        },
+        {
+            "name": "ID",
+            "type": "integer",
+            "usage": "Hidden"
+        },
+        {
+            "name": "Inactive",
+            "type": "boolean"
+        }
+    ],
+    "actors": [
+        "System Administrator",
+        "Local Administrator"
+    ],
     "workflows": [
         {
-            "name": "Page Load",
+            "name": "Manage Campus Records",
             "steps": [
-                "SetupHSPnetPage is called.",
-                "If not postback, FillAgencyDropdown and FillDepartmentDropdown are called.",
-                "RefreshData is executed and ddAgency is focused on."
-            ]
-        },
-        {
-            "name": "Data Refresh",
-            "steps": [
-                "Convert department ID from ddDepartment.",
-                "CheckScreenAccess ensures permission.",
-                "Load Campuses data and bind to gridData."
-            ]
-        },
-        {
-            "name": "Grid Command Execution",
-            "steps": [
-                "CheckScreenAccess checks user permissions.",
-                "Execute command based on e.CommandName (Add, Edit, Delete, Reactivate).",
-                "Show or hide details in mdlDetails."
+                "User selects a department from the dropdown.",
+                "System refreshes data based on selection.",
+                "User can choose to add, edit, or delete campus records.",
+                "System validates inputs and updates database accordingly.",
+                "Changes are reflected in the grid view."
             ]
         }
     ],
     "business_rules": [
-        "Screen editability is determined by the user session's role and agency match.",
-        "Auto-generated fields should not be modified directly in the designer file.",
-        "Dropdown.currentID is used to maintain user session agency consistency."
+        "Only users with proper access rights can modify campus data."
     ],
     "validations": [
-        "Name field requires validation with 'valName'.",
-        "ShortName field requires validation with 'valShortName'."
+        "Name and ShortName are required fields.",
+        "Maximum length for Name is 50 characters.",
+        "Maximum length for ShortName is 10 characters."
     ],
     "calculations": [],
     "conditions": [
-        "ScreenIsEditable is set based on user role and department access permissions.",
-        "Inactive campuses are determined with hidden field 'txtInactive'."
+        "The screen is editable only if user has appropriate permissions.",
+        "Dropdown selections trigger data refresh."
     ],
     "system_behavior": [
-        "Auto-generated fields move from designer to code-behind upon member changes.",
-        "AlwaysVisibleControlExtenders keep pnlWarning and pnlError panels visible under certain conditions.",
-        "ModalPopupExtender handles modal behavior for mdlDetails.",
-        "Page messages are processed on render."
+        "Auto-populates agency and department dropdowns on page load.",
+        "Grid view updates dynamically upon data changes."
     ],
     "dependencies": [
         "HSPnet.DataLayer",
-        "HSPnet.App_GlobalResources",
-        "HSPnet.UI"
+        "HSPnet.App_GlobalResources"
     ],
     "exceptions": [
-        "Non-editable screens hide Add buttons and change 'no data found' messages to reflect read-only state.",
-        "If agency or department mismatches occur, dropdown values are reset."
+        "If user does not have edit rights, edit buttons are disabled.",
+        "Error and warning panels display messages based on system events."
     ],
     "source_document_ids": [
         "0d9437d3-0b37-5803-a5c1-2c5219b2bd25",
@@ -73,6 +81,7 @@
         "9c2a7b46-1e65-5178-a2d2-07e885faccb4",
         "9e662116-da42-5465-8ce4-b75765ea9c4a",
         "b280ccab-6156-5f54-8afe-7f5293e3a1cb",
+        "bbad919b-7208-5e2c-9ab4-2ae59084fdfd",
         "d06f3606-807e-5be1-bfa0-f2d775c7c381",
         "de47dd4c-d67e-5924-be3f-c1c764db836b",
         "dee73270-3b9b-5bb3-afbf-be933126db8f",
