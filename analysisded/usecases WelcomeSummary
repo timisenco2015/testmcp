@@ -1,100 +1,78 @@
 # Module: WelcomeSummary
 
-## WelcomeSummary-UC1 — Display Main Title and Help Popup
-
-- Primary Actor(s): User
-- Secondary Actor(s): None
-- Trigger: User accesses the WelcomeSummary page.
-- Description: The system displays the main title and provides a help popup for additional information.
-- Preconditions: User must have access to the WelcomeSummary page.
-- Postconditions: Main title and help popup are displayed.
-- Main Success Scenario:
-  1. User navigates to the WelcomeSummary page.
-  2. The system displays the main title.
-  3. A help icon is displayed next to the main title.
-  4. User hovers over or clicks the help icon.
-  5. A help popup is displayed with additional information.
-- Extensions:
-  - None
-- Exceptions:
-  - If the resource for the help popup is missing, a default message should be shown.
-- Business Rules:
-  - Help content must be relevant and up-to-date.
-- Assumptions:
-  - User has the necessary permissions to view the help content.
-- Open Issues:
-  - None
-
-## WelcomeSummary-UC2 — Display Error and Warning Messages
-
-- Primary Actor(s): System
-- Secondary Actor(s): User
-- Trigger: System detects errors or warnings upon user actions.
-- Description: System displays error and warning messages based on user actions and system state.
-- Preconditions: User performs an action that may trigger errors or warnings.
-- Postconditions: Error or warning messages are displayed.
-- Main Success Scenario:
-  1. User performs an action on the WelcomeSummary page.
-  2. The system evaluates the action.
-  3. If an error or warning condition is met, an appropriate message is displayed.
-- Extensions:
-  - User checks error details for more information.
-- Exceptions:
-  - If the message resource is missing, a default error message is displayed.
-- Business Rules:
-  - Error messages should be informative and guide the user towards resolution.
-  - Warnings should alert the user to potential issues without halting progress.
-- Assumptions:
-  - Error and warning conditions are properly defined in the system.
-- Open Issues:
-  - None
-
-## WelcomeSummary-UC3 — Handle Printing and PDF Generation
+## WelcomeSummary-UC1 — Display and Manage Help Popups
 
 - Primary Actor(s): User
 - Secondary Actor(s): System
-- Trigger: User initiates a print or PDF generation request.
-- Description: The system processes the print or PDF generation request based on user input.
-- Preconditions: User has access to the printing and PDF generation features.
-- Postconditions: Printout or PDF file is generated.
+- Trigger: User accesses the WelcomeSummary page.
+- Description: The system should display help information as a popup when the user hovers or clicks on the help icon.
+- Preconditions: User is logged into the system and has access to the WelcomeSummary page.
+- Postconditions: Help information is displayed in a popup.
 - Main Success Scenario:
-  1. User selects print or PDF generation option.
-  2. System validates the request.
-  3. If valid, the system processes the request.
-  4. Print or PDF is generated and presented to the user.
-- Extensions:
-  - User selects individual PDF checkbox for specific options.
-- Exceptions:
-  - If the request is invalid or encounters an error, an error message is displayed.
-- Business Rules:
-  - Print and PDF options must comply with company standards and formats.
-- Assumptions:
-  - User input is accurate and all resources for printing are available.
-- Open Issues:
-  - None
+  1. User navigates to the WelcomeSummary page.
+  2. User clicks or hovers over the help icon.
+  3. System displays a popup with help information.
+- Extensions: None
+- Exceptions: None
+- Business Rules: None
+- Assumptions: The help information is available and correctly linked to the icon.
+- Open Issues: None
 
-## WelcomeSummary-UC4 — Manage Placement Request Updates
+## WelcomeSummary-UC2 — Display Error and Warning Messages
 
 - Primary Actor(s): User
-- Secondary Actor(s): None
-- Trigger: User submits a placement request update.
-- Description: System processes updates to placement requests based on user input.
-- Preconditions: User must have permissions to update placement requests.
-- Postconditions: Placement request is updated, or errors are communicated.
+- Secondary Actor(s): System
+- Trigger: User actions or system events that require notification.
+- Description: The system presents error or warning messages to the user based on various conditions.
+- Preconditions: User is interacting with the system, performing actions that trigger messages.
+- Postconditions: User is notified of any errors or warnings through messages.
 - Main Success Scenario:
-  1. User enters update details for a placement request.
-  2. System validates input.
-  3. If valid, updates are applied to the placement request.
-  4. Confirmation is displayed to the user.
-- Extensions:
-  - User adds notes for the update.
+  1. User performs an action that breaches the business rules or system conditions.
+  2. System checks the condition and determines the need for a message.
+  3. System displays the appropriate error or warning message.
+- Extensions: None
 - Exceptions:
-  - If the update is invalid, an error message is displayed with details.
-- Business Rules:
-  - Updates must adhere to workflow restrictions and rules.
-- Assumptions:
-  - User inputs are correct and all necessary information is provided.
-- Open Issues:
-  - None
+  - E1: Some errors might not be captured due to missing conditions.
+- Business Rules: Error messages for unbalanced roles, inactive destinations, and SSDs.
+- Assumptions: Error and warning messages are predefined in the system resources.
+- Open Issues: None
 
-(Additional use cases can be generated based on more detailed document content analysis.)
+## WelcomeSummary-UC3 — Manage Course Information Display
+
+- Primary Actor(s): User
+- Secondary Actor(s): System
+- Trigger: User views course information on the WelcomeSummary page.
+- Description: The system displays detailed course information including start date, duration, and agency names.
+- Preconditions: User accesses the WelcomeSummary page where course information is available.
+- Postconditions: Course information is correctly displayed to the user.
+- Main Success Scenario:
+  1. User accesses the WelcomeSummary page.
+  2. System retrieves and displays course details like course name, start date, agency name, etc.
+- Extensions: None
+- Exceptions: None
+- Business Rules: None
+- Assumptions: Course data is accurate and up-to-date.
+- Open Issues: None
+
+## WelcomeSummary-UC4 — Validate and Process Placement Requests
+
+- Primary Actor(s): User
+- Secondary Actor(s): System
+- Trigger: User submits a placement request update.
+- Description: The system validates the placement request information and processes the updates.
+- Preconditions: User has filled in the placement request details.
+- Postconditions: Placement request is validated and processed or errors are shown.
+- Main Success Scenario:
+  1. User submits placement request details.
+  2. System validates the input for errors or inconsistencies.
+  3. If valid, the system processes the request update.
+- Extensions:
+  - Alternate Flow: User reviews and corrects input errors.
+- Exceptions:
+  - E1: Invalid shift information causes an error message.
+  - E2: Missing required fields result in an error message.
+- Business Rules: Validation of duration hours and reason IDs.
+- Assumptions: Input data follows expected formats and constraints.
+- Open Issues: None
+
+If there are more use cases or specific conditions to address, they should be derived directly from the document content above.
