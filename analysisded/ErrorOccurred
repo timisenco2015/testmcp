@@ -1,0 +1,51 @@
+```json
+{
+    "filename": "ErrorOccurred",
+    "found": true,
+    "summary": "The documents describe an ASP.NET web page for handling error occurrences, including both English and French localizations. The page is configured to display an appropriate message and contact information depending on the user's selected locale.",
+    "purpose": "To display an error message and contact information when an error occurs in the system, with locale-specific support.",
+    "entities": ["ErrorOccurred page"],
+    "fields": ["HeaderEN", "HeaderFR", "uxErrorMessage"],
+    "actors": ["System.Web.UI.Page", "User"],
+    "workflows": [
+        {
+            "name": "Display Error",
+            "steps": [
+                "Initialize culture based on user locale.",
+                "Determine if the default locale (en-US) is used.",
+                "Display appropriate header (English or French).",
+                "Retrieve error email and subject from configuration.",
+                "Set error message content based on exception type."
+            ]
+        }
+    ],
+    "business_rules": [
+        "Display the English header if the locale is en-US or empty.",
+        "Error email and subject are retrieved from configuration settings."
+    ],
+    "validations": [
+        "Check if HttpRequestValidationException is present in query string."
+    ],
+    "calculations": [],
+    "conditions": [
+        "if locale is en-US or empty, use English header",
+        "if HttpRequestValidationException=1, use specific error message"
+    ],
+    "system_behavior": [],
+    "dependencies": [
+        "System.Web.UI.Page",
+        "Thread culture settings",
+        "ConfigurationManager"
+    ],
+    "exceptions": [
+        "HttpRequestValidationException"
+    ],
+    "source_document_ids": [
+        "061d570b-3af2-5dc8-9639-8df86256fbfd",
+        "745fd8a6-9d74-5b61-a2f4-678706f9e330",
+        "b91b73c2-09c1-55dc-8f24-5033abbc7c12",
+        "b9f61ea8-4e71-5ce8-9493-99a77994d0b6"
+    ],
+    "content_gaps": []
+}
+```
