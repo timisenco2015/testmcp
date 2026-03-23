@@ -1,0 +1,77 @@
+{
+  "filename": "RptMnuStudentPreferencesList",
+  "found": true,
+  "summary": "The RptMnuStudentPreferencesList module is designed to generate reports of student preferences based on selected programs and cohorts. It utilizes dropdown controls for department, program, and cohort selection and generates a CSV report upon execution.",
+  "purpose": "To create and display reports detailing student preferences within selected programs and cohorts.",
+  "entities": ["Program", "Cohort", "Department", "UserSession"],
+  "fields": [
+    "Literal3",
+    "ddProgram",
+    "Literal4",
+    "ddCohort",
+    "cmdRunReport",
+    "lblPleaseWait",
+    "Label5",
+    "ltlDescription",
+    "Label6",
+    "ltlOptions",
+    "Literal2",
+    "ddDepartment",
+    "ValidationSummary1",
+    "pnlReportHTML",
+    "lblReportHTML"
+  ],
+  "actors": ["UserSession"],
+  "workflows": [
+    {
+      "name": "Generate Student Preferences Report",
+      "steps": [
+        "FillDepartmentDropdown",
+        "FillProgramDropdown",
+        "FillCohortDropdown",
+        "Update dropdowns on changes",
+        "Execute cmdRunReport_Click to generate report",
+        "Display report in pnlReportHTML"
+      ]
+    }
+  ],
+  "business_rules": [
+    "UserSession.AllowAllDepartments determines department access",
+    "UserSession.AllowAllPrograms determines program access",
+    "cmdRunReport is visible only if a program is selected"
+  ],
+  "validations": [
+    "ValidationSummary1 is used for form validation",
+    "Ensure dropdowns are filled with data using UserSession"
+  ],
+  "calculations": [
+    "Dropdown.CurrentID is used to get selected ProgramID and CohortID"
+  ],
+  "conditions": [
+    "Visibility of cmdRunReport depends on program selection",
+    "Departments and programs are populated based on UserSession permissions"
+  ],
+  "system_behavior": [
+    "Page_Load initializes the user control",
+    "Page_PreRender updates the UI based on current session data",
+    "Data is bound to dropdowns on initial load and UI changes"
+  ],
+  "dependencies": [
+    "HSPnet.DataLayer for database interactions",
+    "HSPnet.App_GlobalResources for accessing global resources",
+    "CodeRecord for looking up code descriptions and notes"
+  ],
+  "exceptions": [
+    "No report generated if no program is selected",
+    "UserSession.DB.CloseReader handles closing of data reader object"
+  ],
+  "source_document_ids": [
+    "0455bf9c-bce6-5281-bfc0-778462590c78",
+    "6034f93b-1178-53e1-a691-1291fb60d399",
+    "6fd0a39b-5b00-566a-be3e-44138240ab9c",
+    "81dcbb4c-d1ef-55ab-ab23-f4ed0e16cfcb",
+    "8662b3d6-30d8-5a76-9063-f3714c8a55df",
+    "a9688f23-63de-5dc7-ad87-f7dc3dc315d6"
+  ],
+  "content_gaps": []
+}
