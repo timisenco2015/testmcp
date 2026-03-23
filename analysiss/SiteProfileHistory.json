@@ -1,37 +1,99 @@
 {
-    "filename": "SiteProfileHistory",
-    "found": true,
-    "summary": "The SiteProfileHistory file manages the history of changes to site profiles, including tracking actions, user details, and change descriptions.",
-    "purpose": "To track and maintain a history of changes made to site profiles, including capturing user actions and changes in site details.",
-    "entities": ["SiteProfileHistory"],
-    "fields": ["ID", "ActionDate", "ScreenSection", "UserAction", "Fields", "Agency", "AgencyName", "LastName", "FirstName", "MiddleName", "Phone", "ByUserID", "ByOriginalUserID", "ByUserSysAdmin"],
-    "actors": ["HSPnetSession"],
-    "workflows": [
-        {
-            "name": "Track Site Profile History",
-            "steps": [
-                "Record each change made to site profiles.",
-                "Store user details and action descriptions."
-            ]
-        }
-    ],
-    "business_rules": [],
-    "validations": [],
-    "calculations": [
-        "Format action date using the standard date formatter."
-    ],
-    "conditions": [],
-    "system_behavior": [],
-    "dependencies": [
-        "Relies on HSPnet framework for session handling and database connectivity."
-    ],
-    "exceptions": [],
-    "source_document_ids": [
-        "25f89a24-5eda-5a3f-83df-1de69b12b3f1",
-        "26e09292-d304-55c6-94e5-ef3346453c4b",
-        "7ca6b963-9ae9-5cd3-82d5-f30dcb727ae3",
-        "a8f030c6-90b8-53a1-bb8a-3b7ef33b9488",
-        "e806999c-3a39-5720-9b59-303faebc9eb6"
-    ],
-    "content_gaps": []
+  "filename": "SiteProfileHistory",
+  "found": true,
+  "summary": "This document describes site profile history functionality, including data structures and operations.",
+  "purpose": "To track and manage the history of changes made to site profiles.",
+  "entities": [
+    "SiteProfileHistory",
+    "SiteProfileHistories"
+  ],
+  "fields": [
+    {
+      "name": "ID",
+      "type": "int",
+      "description": "Identifier of the site profile history entry."
+    },
+    {
+      "name": "ActionDate",
+      "type": "DateTime",
+      "description": "Date of the action recorded."
+    },
+    {
+      "name": "ScreenSection",
+      "type": "string",
+      "description": "Section of the screen where the action took place."
+    },
+    {
+      "name": "UserAction",
+      "type": "string",
+      "description": "Description of the user action."
+    },
+    {
+      "name": "Fields",
+      "type": "string",
+      "description": "Impacted fields."
+    },
+    {
+      "name": "Agency",
+      "type": "string",
+      "description": "Agency involved."
+    },
+    {
+      "name": "AgencyName",
+      "type": "string",
+      "description": "Name of the agency."
+    },
+    {
+      "name": "LastName",
+      "type": "string",
+      "description": "Last name of the user."
+    },
+    {
+      "name": "FirstName",
+      "type": "string",
+      "description": "First name of the user."
+    },
+    {
+      "name": "MiddleName",
+      "type": "string",
+      "description": "Middle name of the user."
+    },
+    {
+      "name": "Phone",
+      "type": "Phone",
+      "description": "User's phone contact."
+    },
+    {
+      "name": "ByUserID",
+      "type": "int",
+      "description": "User who performed the action."
+    },
+    {
+      "name": "ByOriginalUserID",
+      "type": "int",
+      "description": "Original user who initiated the action."
+    },
+    {
+      "name": "ByUserSysAdmin",
+      "type": "bool",
+      "description": "If the user has system admin rights."
+    }
+  ],
+  "actors": [],
+  "workflows": [],
+  "business_rules": [],
+  "validations": [],
+  "calculations": [],
+  "conditions": [],
+  "system_behavior": [],
+  "dependencies": [],
+  "exceptions": [],
+  "source_document_ids": [
+    "25f89a24-5eda-5a3f-83df-1de69b12b3f1",
+    "26e09292-d304-55c6-94e5-ef3346453c4b",
+    "7ca6b963-9ae9-5cd3-82d5-f30dcb727ae3",
+    "a8f030c6-90b8-53a1-bb8a-3b7ef33b9488",
+    "e806999c-3a39-5720-9b59-303faebc9eb6"
+  ],
+  "content_gaps": []
 }
