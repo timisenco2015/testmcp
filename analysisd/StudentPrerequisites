@@ -1,0 +1,112 @@
+```json
+{
+  "filename": "StudentPrerequisites",
+  "found": true,
+  "summary": "The document outlines various procedures, validations, and updates related to student health prerequisites, including immunizations, medical tests, confidentiality, and safety requirements.",
+  "purpose": "To manage and update student health and safety prerequisites efficiently in a database system.",
+  "entities": [
+    "StudentPrerequisite",
+    "Database",
+    "HSPnetSession"
+  ],
+  "fields": [
+    "N95MaskSizeCodeID",
+    "N95MaskAltSizeCodeID",
+    "N95MaskFitTestDate",
+    "OccHealthReqMetStatusCodeID",
+    "ImmunReqMetDateFormatted",
+    "HepBFirstShotDate",
+    "HepBSecondShotDate",
+    "HepBThirdShotDate",
+    "Step1AdminDate",
+    "Step2AdminDate",
+    "CRCStatusDate",
+    "IDCardDate",
+    "MedicalCompletedDate",
+    "ImmunizationFeePaidDate",
+    "MeaslesAdminDate",
+    "MeaslesConfirmedYear",
+    "Covid19AdminDate",
+    "RubellaAdminDate",
+    "MumpsAdminDate",
+    "VaricellaAdminDate1",
+    "VaricellaAdminDate2"
+  ],
+  "actors": [
+    "Student",
+    "Staff"
+  ],
+  "workflows": [
+    {
+      "name": "StudentDetailsImmunizationUpdate",
+      "steps": [
+        "Validate student details",
+        "Update database records",
+        "Handle exceptions"
+      ]
+    },
+    {
+      "name": "StudentDetailsRespiratoryMaskUpdate",
+      "steps": [
+        "Validate mask size and test dates",
+        "Update database records",
+        "Handle exceptions"
+      ]
+    }
+  ],
+  "business_rules": [
+    "MedicalCompleted status requires valid date",
+    "Immunization fees need to be recorded with date",
+    "Tetanus immunization needs expiry validation"
+  ],
+  "validations": [
+    "Date must not exceed 5 years from the current year",
+    "Mandatory fields cannot be null",
+    "Specific error messages for incorrect year ranges"
+  ],
+  "calculations": [
+    "Calculate expiry date based on test date",
+    "Convert year-based dates to formatted strings"
+  ],
+  "conditions": [
+    "Check if N95MaskFitTestDate is before expiry",
+    "Check if years are within acceptable range"
+  ],
+  "system_behavior": [
+    "Add parameters to database queries",
+    "Execute stored procedures"
+  ],
+  "dependencies": [
+    "DateFormatter",
+    "Resources"
+  ],
+  "exceptions": [
+    "Date fields exceeding 5 years result in error",
+    "Null dates in mandatory fields cause validation failure"
+  ],
+  "source_document_ids": [
+    "126148d2-7c46-5bb8-8a4c-606105b702bd",
+    "165b1b6b-fd06-59e5-b7d7-81e87dbeac55",
+    "280408b2-2e1d-5bd7-8feb-59603ff0bb80",
+    "2f8ba20e-ca9a-5fc1-932a-1899a9499417",
+    "3787eddd-1ce0-519f-9959-30c8a913c827",
+    "3c00eec5-f694-53fb-abe6-a8d94038fd60",
+    "430fc305-a57a-53e5-9f01-35e07b707792",
+    "46edf9a0-d978-5197-be20-b4536cae3e91",
+    "4abb53e7-107a-535d-a3b7-97b5279e2632",
+    "58666a42-abe8-54d8-89a0-54666f57461b",
+    "60564881-fabd-566c-ae55-496631ed07ce",
+    "61704a31-73c8-510f-a8a5-2f3f90576102",
+    "64b9d3fc-975d-5d39-ab37-dbeff805220f",
+    "6f4e2f7e-5afe-5594-b7af-e3164b62cc31",
+    "72569051-b340-56cd-9567-db665fe9963a",
+    "9096371b-8c7b-5c4b-81f4-7d9582776926",
+    "d5ab106e-c17a-5125-84ac-e4f9d60a842e",
+    "eedb6500-7e63-5aba-b652-8cfbbf9b798d"
+  ],
+  "content_gaps": [
+    "Detailed description for database field handling",
+    "Clarification on business logic parameters"
+  ]
+}
+```
