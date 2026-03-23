@@ -1,0 +1,70 @@
+{
+  "filename": "StaffAdd",
+  "found": true,
+  "summary": "The StaffAdd module handles the addition of staff records in the system, providing functionality for managing contact details, roles, and department allocations.",
+  "purpose": "To facilitate the management and addition of staff records including their contact information, roles, and associated departments.",
+  "entities": [],
+  "fields": [
+    "Email",
+    "Phone",
+    "AltPhone",
+    "Fax",
+    "Title",
+    "Salutation",
+    "CADesignation",
+    "HomeDestination"
+  ],
+  "actors": [
+    "UserSession",
+    "Departments",
+    "Staff"
+  ],
+  "workflows": [
+    {
+      "name": "Add New Staff",
+      "steps": [
+        "Validate URL hash.",
+        "Determine AgencyID from query or session.",
+        "Check department settings.",
+        "Bind department info to dropdown.",
+        "Setup JavaScript variables.",
+        "Process page messages.",
+        "Save staff with validation checks."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Email requirement based on department settings.",
+    "Phone and fax masks managed by session settings.",
+    "Role visibility based on user type."
+  ],
+  "validations": [
+    "Email field must be specified and follow a proper format.",
+    "Empty fields trigger warnings if required.",
+    "Proper name formatting using regex."
+  ],
+  "calculations": [],
+  "conditions": [
+    "Display role options based on user type.",
+    "Visibility of certain fields contingent on department and user role."
+  ],
+  "system_behavior": [
+    "Dynamic dropdowns informed by department and agency settings.",
+    "JavaScript-driven field operations and validations."
+  ],
+  "dependencies": [
+    "Resources for field labels and validation expressions.",
+    "User session information for access rights and department settings."
+  ],
+  "exceptions": [
+    "Handle errors and display messages using panels.",
+    "Warn if duplicate staff entries are detected."
+  ],
+  "source_document_ids": [
+    "023ee0d9-b6ac-56f8-8b00-5e13a6dba034",
+    "0e841d7a-43c9-56e5-beae-c59b8f1cf75d",
+    "0fabef61-dded-599b-bffb-76e281a3dbd2",
+    ...
+  ],
+  "content_gaps": []
+}
