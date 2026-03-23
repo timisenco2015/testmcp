@@ -1,0 +1,100 @@
+```json
+{
+  "filename": "CustomReportRequest",
+  "found": true,
+  "summary": "The documents provide a detailed technical structure of the Custom Report Request system, including UI elements, controls, validation, and workflows. The documents describe how report requests are created, edited, and finalized.",
+  "purpose": "To manage and process custom report requests within the system, including creating, editing, and validating requests.",
+  "entities": [
+    "CustomReport",
+    "Staff",
+    "Program",
+    "Cohort",
+    "Site",
+    "Agency",
+    "Department",
+    "Service"
+  ],
+  "fields": [
+    "txtStartDate",
+    "txtEndDate",
+    "txtRequestedDate",
+    "txtComments",
+    "txtPurpose",
+    "txtAudience",
+    "txtPastDetails",
+    "txtProgramsIncluded",
+    "txtSitesIncluded",
+    "txtStudentInformation",
+    "txtStudentAuthorization",
+    "cklStatus",
+    "ddReportType",
+    "ddTerm",
+    "ddDepartment",
+    "ddProgram",
+    "ddCohort",
+    "ddCohortTerm",
+    "ddCourse"
+  ],
+  "actors": [
+    "UserSession",
+    "RequestedByStaff",
+    "SystemAdministrator"
+  ],
+  "workflows": [
+    {
+      "name": "Create Report Request",
+      "steps": [
+        "Initialize page and controls",
+        "Capture user input for report parameters",
+        "Validate mandatory fields",
+        "Submit report request"
+      ]
+    },
+    {
+      "name": "Edit Report Request",
+      "steps": [
+        "Load existing report data",
+        "Modify parameters",
+        "Re-validate fields",
+        "Update report request"
+      ]
+    }
+  ],
+  "business_rules": [
+    "Report Type must be selected",
+    "All mandatory fields must be filled",
+    "Statuses are saved with a delimiter",
+    "File uploads must conform to specified types"
+  ],
+  "validations": [
+    "RequiredFieldValidator for mandatory fields",
+    "RegularExpressionValidator for date fields",
+    "CustomValidator for specific conditions"
+  ],
+  "calculations": [
+    "Calculate term start and end dates based on selected options"
+  ],
+  "conditions": [
+    "Check if user is a system administrator",
+    "Check if all filters are selected"
+  ],
+  "system_behavior": [
+    "Disable controls based on user role",
+    "Display error and warning panels"
+  ],
+  "dependencies": [
+    "User session information",
+    "Database of programs, cohorts, sites, agencies"
+  ],
+  "exceptions": [
+    "Show error when mandatory fields are missing",
+    "Handle file upload errors"
+  ],
+  "source_document_ids": [
+    "00aebfc5-778a-5e93-93a2-b6ef20e08d92",
+    "02c69d05-da41-5b68-a303-7131d9dc32d9",
+    "0aad0add-12d9-580c-9fbb-e8dbef303802"
+  ],
+  "content_gaps": []
+}
+```
