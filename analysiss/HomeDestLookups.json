@@ -1,0 +1,67 @@
+{
+  "filename": "HomeDestLookups",
+  "found": true,
+  "summary": "The HomeDestLookups web service provides AJAX cascading dropdowns using data from HomeDestination and related entities.",
+  "purpose": "To provide dynamic data for cascading dropdowns in a web application using AJAX.",
+  "entities": ["CascadingDropDownNameValue", "Destination", "Service", "Site"],
+  "fields": ["knownCategoryValues", "category", "contextKey", "sessionID", "agencyID"],
+  "actors": ["WebService Users"],
+  "workflows": [
+    {
+      "name": "GetHomeSites",
+      "steps": [
+        "Retrieve sites based on category and context key",
+        "Return a list of CascadingDropDownNameValue objects"
+      ]
+    },
+    {
+      "name": "GetHomeDest",
+      "steps": [
+        "Parse knownCategoryValues",
+        "Retrieve destinations based on parsed values and context key",
+        "Return a list of CascadingDropDownNameValue objects"
+      ]
+    },
+    {
+      "name": "GetHomeDestListByService",
+      "steps": [
+        "Parse knownCategoryValues for serviceID",
+        "Retrieve destinations filtered by serviceID",
+        "Return a list of CascadingDropDownNameValue objects"
+      ]
+    }
+  ],
+  "business_rules": [
+    "The service retrieves and returns data from the database to populate cascading dropdowns."
+  ],
+  "validations": [
+    "Ensure category and contextKey are valid",
+    "SessionID is derived from referer URL"
+  ],
+  "calculations": [],
+  "conditions": [
+    "If no contextKey is provided, default behavior is applied",
+    "Destinations and sites are filtered by category"
+  ],
+  "system_behavior": [
+    "Returns cascading dropdown data for AJAX control"
+  ],
+  "dependencies": [
+    "HSPnet.Framework",
+    "AjaxControlToolkit",
+    "SiteSearchAgency",
+    "DestinationSearchAgency"
+  ],
+  "exceptions": [
+    "Null return if key length or category parsing fails"
+  ],
+  "source_document_ids": [
+    "04d9347e-c6fb-5dcf-9a02-c8941c1681e7",
+    "0e716145-06b7-5a04-9263-c438f660b7e7",
+    "3624f1ca-9731-57f7-a4bd-052d3d6d911b",
+    "4eb6638e-6b2b-5a4e-812b-566260145aab",
+    "7898228d-c130-5d4e-9ad3-e07affe6eff1",
+    "cf113f09-95bc-5de2-a3f3-c10fccc9ab45"
+  ],
+  "content_gaps": []
+}
