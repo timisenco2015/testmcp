@@ -1,0 +1,131 @@
+```json
+{
+  "filename": "GenerateCourse",
+  "found": true,
+  "summary": "The GenerateCourse functionality is designed to manage and generate correspondence documents based on user input and selections within a web application. It includes controls and workflows for managing department, program, term, and course selections, as well as configuring document format and content customization.",
+  "purpose": "To generate formatted correspondence for courses and cohorts, allowing users to customize the content and format based on selected criteria and roles.",
+  "entities": [
+    "UserSession",
+    "CorrespondenceID",
+    "ProgramID",
+    "Term",
+    "Department",
+    "CohortID",
+    "CourseID",
+    "CorrespondenceDetails",
+    "CorrespondenceRecipients",
+    "CorrespondenceRunVariables"
+  ],
+  "fields": [
+    "txtRequestDestID",
+    "OutputFormat",
+    "Filters",
+    "CorDate",
+    "txtCorDate",
+    "ddDepartment",
+    "ddProgram",
+    "ddTerm",
+    "txtOrderSC",
+    "txtOrderDC",
+    "txtOrderPre",
+    "txtOrderInstr",
+    "txtOrderCourseLeader",
+    "txtOrderStudent",
+    "SignatoryID"
+  ],
+  "actors": [
+    "SystemAdministrator",
+    "LocalAdministrator",
+    "PlacementCoordinator",
+    "ReceivingCoordinator",
+    "DestinationCoordinator",
+    "StudentMaint",
+    "Instructor",
+    "Supervisor"
+  ],
+  "workflows": [
+    {
+      "name": "Generate Correspondence",
+      "steps": [
+        "Page Load: Initialize page elements based on query strings (CohortID, CourseID).",
+        "Pre Render: Set up JavaScript and update UI states.",
+        "Generate: Validate inputs, save run variables, and execute correspondence generation with selected format."
+      ]
+    },
+    {
+      "name": "Dropdown Management",
+      "steps": [
+        "FillDepartmentDropdown: Populate department list based on user session.",
+        "FillProgramDropdown: Populate program list conditional on department changes.",
+        "FillTermDropdown: Populate term list based on program selection."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Correspondence is generated only if errors are not found.",
+    "Department dropdown is populated based on user session permissions.",
+    "Output format must be selected via specific radio buttons.",
+    "User roles determine visibility and permissions of certain features."
+  ],
+  "validations": [
+    "Ensure RawData is not empty or '-1' when Outbox is active.",
+    "Validate date formats and ensure non-null values.",
+    "Ensure signature image staff ID is set when not a formal letter."
+  ],
+  "calculations": [
+    "Determine correspondence output format (PDF, MultiPDF, RTF, XLS, TXT, LABEL).",
+    "Calculate start and end dates for correspondence period if applicable."
+  ],
+  "conditions": [
+    "User must have specific roles to access email visibility.",
+    "Dropdown items are enabled based on query string presence and postback status."
+  ],
+  "system_behavior": [
+    "Displays or hides UI components based on user roles and query parameters.",
+    "Registers JavaScript for dynamic field variable handling.",
+    "Binds data sources and updates UI with relevant options."
+  ],
+  "dependencies": [
+    "UserSession for context and permissions.",
+    "Dropdown handling for department, program, and term selection.",
+    "External resources for error messages and format parsing."
+  ],
+  "exceptions": [
+    "Errors in run variable saving prevent correspondence generation.",
+    "Invalid date entries trigger error messages."
+  ],
+  "source_document_ids": [
+    "02e09e81-5a82-5c62-bb4c-751a99905bb1",
+    "0321a006-38ab-51ee-a500-fd1823b05e12",
+    "0b974889-fe04-5c13-bba1-3eadbc18ca4f",
+    "18308b20-af1e-5dd4-b3e2-0545c7e7cc7d",
+    "18592d00-fbc1-5793-8804-5fd12e935ec1",
+    "1c41c0c0-f8e0-5ea0-90b9-35db3f6188d7",
+    "1cd049ae-3b4f-5f6d-9d16-82469ac6ab31",
+    "1d41c5a3-b932-5479-a019-c574e34a64ed",
+    "1ebf63fa-f3bc-5421-853a-665e9700b57b",
+    "2430cc81-e3e2-5cde-bc18-3a6c0fc86998",
+    "25a70d13-2e1a-559b-91fb-77293a4f5aea",
+    "26b7f0af-0b4d-5853-a1e1-c04549dc93fa",
+    "2d103c3e-db4b-5a2f-98fd-d285f42ebe67",
+    "2feded0d-1287-5503-8821-ae705194df49",
+    "3fc75726-4e03-5ead-b26d-84c149ab87ec",
+    "4e828758-784d-5fdc-82e6-7da7a368c72f",
+    "624109b9-f7f3-5a53-a6c7-8b18532482d5",
+    "67247769-28f5-5533-ad6d-7bbfcec68836",
+    "6e11a4eb-5138-5538-b08f-a4148a965ba8",
+    "82f90f7d-802d-5544-a68f-fa1d7464a2dc",
+    "88c9934f-e904-5a4d-a01a-9fb24a804ba8",
+    "a4fed21a-dd98-5832-90a7-51cf9c30edd9",
+    "be43e130-556a-5163-b92d-5a29b379b715",
+    "c157b43b-9a25-5a2b-a1ef-c6998911725d",
+    "ceef8f18-3103-5979-aaf0-a1421be33cbc",
+    "da3647d9-278c-5797-bc33-f0b5e98c5172",
+    "dc4ae4aa-879c-517a-b08c-5746e0260645",
+    "fb935f3c-a163-56b1-bdd4-cac00365b2fc",
+    "fc250fd4-9e76-542e-9350-6c1a5e9bf92f",
+    "fce71396-0d2e-538c-98c6-f7bafb9925a3"
+  ],
+  "content_gaps": []
+}
+```
