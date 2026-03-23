@@ -1,55 +1,142 @@
 {
-    "filename": "WelcomeStudent",
-    "found": true,
-    "summary": "The WelcomeStudent file pertains to the initial interface for students in the HSPnet system, providing mechanisms for accessing various student-related functionalities such as placements, assessments, and personal information management.",
-    "purpose": "To facilitate the entry point for students in managing their academic and placement records within HSPnet.",
-    "entities": [],
-    "fields": [
-      "UserSession",
-      "StudentID",
-      "ScreenIsEditable",
-      "ConsentProgramDisplayStudentID",
-      "UseRAITProvisioning",
-      "TabContainer1",
-      "MultiViewProfile"
-    ],
-    "actors": [
-      "Student",
-      "HSPnet System",
-      "Placement Coordinator"
-    ],
-    "workflows": [
-      {
-        "name": "Student Tab Management",
-        "steps": [
-          "Load student-specific data upon initial access.",
-          "Configure tab visibility based on student program and permissions.",
-          "Manage tab transitions and data refreshes based on user actions."
-        ]
-      }
-    ],
-    "business_rules": [
-      "Tabs are enabled based on student program settings.",
-      "Profiles should only display sections allowed by the student’s consent program.",
-      "Tabs should reflect real-time updates and reflect accurate information."
-    ],
-    "validations": [],
-    "calculations": [],
-    "conditions": [
-      "Tabs are conditionally displayed based on program attributes."
-    ],
-    "system_behavior": [
-      "Displays student information and tools in a tabbed interface.",
-      "Tabs are dynamically loaded and updated based on student interactions.",
-      "Session management ensures correct tab updates."
-    ],
-    "dependencies": [],
-    "exceptions": [],
-    "source_document_ids": [
-      "00f502b5-1835-59c8-ac6f-430da5fedb5c",
-      "0533664e-3dbb-5670-87a6-bebb9f428673",
-      "0b00735c-f7fa-5ab4-a957-b3a60f12d2bc",
-      "07cd965f-d9a9-5d8e-8ff0-b57cf62e1020"
-    ],
-    "content_gaps": []
-  }
+  "filename": "WelcomeStudent",
+  "found": true,
+  "summary": "The WelcomeStudent document is a web page within the HSPnet application, designed to manage student profiles and activities related to healthcare placements. It incorporates multiple tabs for various functions such as profile management, document handling, activity tracking, and assessments.",
+  "purpose": "To provide a comprehensive interface for students to manage their healthcare placement profiles, consent forms, documents, and activity tracking through various interactive tabs.",
+  "entities": [],
+  "fields": [
+    "StudentID",
+    "UserSession",
+    "ScriptMgr",
+    "ScreenIsEditable",
+    "Visible",
+    "Anonymous",
+    "Private",
+    "FromStudentWelcome"
+  ],
+  "actors": [],
+  "workflows": [
+    {
+      "name": "Page_Load",
+      "steps": [
+        "Validate URL hash using Hashing.ValidateURLHash",
+        "Set up the HSPnet page",
+        "Register client script include for Date.js",
+        "Update lblTitle with UserSession details",
+        "Retrieve student data via Students controller",
+        "Check IsPostBack and modify visibility settings based on UserSession"
+      ]
+    },
+    {
+      "name": "TabContainer1_ActiveTabChanged",
+      "steps": [
+        "Refresh controls based on active tab",
+        "DataBind relevant user controls"
+      ]
+    },
+    {
+      "name": "cmdSearch_Click",
+      "steps": [
+        "Refresh current tab controls",
+        "Call DataBind on necessary components"
+      ]
+    }
+  ],
+  "business_rules": [
+    "Enable TabPanelRequirements based on ConsentProgramAllowStudentSitePrerequisites",
+    "Enable TabPanelEmploymentApplications if ConsentProgramUseEmploymentApplications is true and date conditions are met",
+    "Enable TabPanelActivityTracker if AllowStudentActivities is true",
+    "Enable TabPanelDocuments if consented program allows document upload and date conditions are met"
+  ],
+  "validations": [
+    {
+      "function": "checkRankings",
+      "validation": "Ensure rankings are unique"
+    },
+    {
+      "function": "checkPhone",
+      "validation": "Validate phone using UsePhoneMask"
+    },
+    {
+      "function": "validDeleteAfterDate",
+      "validation": "Ensure deleteAfterDate is not empty when validated"
+    }
+  ],
+  "calculations": [],
+  "conditions": [],
+  "system_behavior": [
+    "Manage visibility of tabs based on active selection",
+    "Perform data binding and refreshing within tab controls upon interaction"
+  ],
+  "dependencies": [
+    "Hashing.ValidateURLHash",
+    "Students controller",
+    "ScriptManagerMaster"
+  ],
+  "exceptions": [],
+  "source_document_ids": [
+    "00f502b5-1835-59c8-ac6f-430da5fedb5c",
+    "03c43aae-d39c-5d62-9727-a0d767d6bf95",
+    "046d7bf1-c436-5355-8ce2-51b87624f4e4",
+    "0533664e-3dbb-5670-87a6-bebb9f428673",
+    "067459c3-d591-51e0-bace-9f07f0f79e90",
+    "082c95b7-d61b-512a-abd6-7a60378f50b0",
+    "0b00735c-f7fa-5ab4-a957-b3a60f12d2bc",
+    "0c6d4853-16e1-5fe7-ba7e-1b85a081e2b6",
+    "0ccf976a-7898-55fa-8690-7096b5882437",
+    "10bc737e-9999-5c49-95c7-e197f2c44a5c",
+    "12e58ace-b776-5257-8ecc-a6f50c0b5db4",
+    "17e2030c-69b5-55eb-a429-d101c6e46b46",
+    "1f3fdad0-3959-5682-8c40-1ad366a5a75d",
+    "25a80815-84bf-5d2a-b6e7-ee0bbcdd7424",
+    "262d98e7-6386-50ac-93b5-34f7d6abc561",
+    "266627e0-2965-5651-97f9-a59ac6f084e1",
+    "2a6f8e49-cbff-5ca3-9b7c-4093c5635e21",
+    "2fc49b25-7ce8-519e-89d2-04ee0c3f8a21",
+    "3607143b-90d7-5b71-a22e-e37915e2d593",
+    "36fe822d-ad31-555b-8274-0387fb028688",
+    "39f5916f-1429-559a-a2b4-c12ccda2563d",
+    "3d7cdb12-4a24-5a02-8219-5242e99dfcd4",
+    "4007a464-c29a-5d55-80d4-1d548d36fcf1",
+    "4666d6ab-9816-5122-822a-3bbc09c7351a",
+    "4b2380d2-3549-5aa9-a62c-10a74e6096a0",
+    "4c73fb27-a5f1-50aa-9861-1fc3e9e7081a",
+    "4d038dae-61d9-52b2-b85f-1f276bf516fd",
+    "4d6e2231-3e38-5800-b54e-6255107d1202",
+    "5394be28-48dc-5be6-b7d3-fd94351b517a",
+    "61caf86c-db49-5992-9743-72abc9ab60d5",
+    "6b4ee88f-8233-51c7-81ae-723f060fc496",
+    "6ca7d578-67e1-5fa7-bce2-06ef13de7a04",
+    "6d054f8d-dee5-52e6-a89d-21c7c4faab30",
+    "7170e900-9978-5120-9368-6d63a2c453de",
+    "79b82908-2bf5-5c97-973a-fc6b43da130e",
+    "7f04b36e-97ac-5e63-a6c3-89745032f589",
+    "802447ef-4863-5c40-82be-60579d4fb0d3",
+    "8c16ef5e-dfe2-58d3-b562-e172b133d850",
+    "8f25e668-c294-51d5-9502-e8152d5fc25e",
+    "910fe6d6-1fc8-513e-b98c-2699db6b77d8",
+    "9886dd28-1a41-5c75-83c7-e29852218551",
+    "9b5c018a-9c3e-5f87-b9c2-10b4279e80fc",
+    "a06ff1ea-740f-5fde-806e-1c269c0ee7e5",
+    "ace9c35f-202e-5557-9f57-ad9557ae03da",
+    "afcd9ecf-1686-5771-a54c-f8047c4a2546",
+    "b5177dab-c942-58ba-a263-44e8949ca5f8",
+    "b86fbf57-a0a0-52e6-9319-9a0bb47dc96c",
+    "b8ef51aa-4445-5558-8bad-968d6a8faf73",
+    "c0c27c7a-f207-5b3b-bbe1-df21d15f5322",
+    "c5f16331-8743-54ee-af33-d7c2fdd323b6",
+    "cb262924-07c5-5d15-b446-22f360791ab8",
+    "cd5aae32-ae86-5820-8c65-ef3a6789b9de",
+    "da814a48-b65b-5e91-b0cd-d446cc70322e",
+    "dbfac8ea-6f51-5567-bab9-9313175f3e37",
+    "def9547a-dff3-505b-86a9-600b49757978",
+    "e4fa6c84-afa6-574d-a321-a6f7e38baa6c",
+    "eb0cc9b8-d6f3-516c-b320-8c81f99759be",
+    "eee0fb49-c57e-51cd-a532-9965498fa2f8",
+    "f04469c7-5d83-564f-ae86-cbe557c17401",
+    "f851c93b-ca81-5cf5-b189-1179e25e7d50",
+    "fbcb1db9-1b63-55e8-8742-2c9797ac6cda",
+    "ff5e05f0-94eb-5cfb-bfc3-06a399871b58"
+  ],
+  "content_gaps": []
+}
