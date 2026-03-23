@@ -1,0 +1,78 @@
+{
+    "filename": "MaintUploadTemplateDetails",
+    "found": true,
+    "summary": "The 'MaintUploadTemplateDetails' document is part of the HSPnet system and is responsible for handling the details and operations related to the maintenance of upload templates. It involves various user interface elements, including update panels, labels, buttons, data grids, and panels for displaying errors and warnings. The system supports functionalities like adding, editing, and deleting template details using a grid data view, alongside validation and error handling mechanisms.",
+    "purpose": "The primary purpose of the 'MaintUploadTemplateDetails' document is to manage and display the details of upload templates within the HSPnet system. It facilitates user interactions with template data, allowing for the addition, modification, and deletion of template details while maintaining data integrity through validations and user feedback mechanisms.",
+    "entities": [],
+    "fields": [
+        "ExcelColumnNumberFormatted",
+        "DataColumnName",
+        "SkipColumnFormatted"
+    ],
+    "actors": [
+        "UserSession"
+    ],
+    "workflows": [
+        {
+            "name": "Managing Template Details",
+            "steps": [
+                "Load the page and initialize UserSession and UploadTemplateID.",
+                "Display current template details in a grid.",
+                "Allow users to add new template details via a modal popup.",
+                "Edit existing template details by selecting them from the grid.",
+                "Delete template details through command actions on the grid.",
+                "Show any errors or warnings in designated panels."
+            ]
+        }
+    ],
+    "business_rules": [
+        "Template details must have a valid Excel column number (A-Z).",
+        "Template details can be skipped by setting the 'SkipColumn' flag."
+    ],
+    "validations": [
+        "Ensure the Excel column number is valid and within A-Z range.",
+        "Check the completion of mandatory fields before saving."
+    ],
+    "calculations": [
+        "Convert Excel column letter to numeric value for processing."
+    ],
+    "conditions": [
+        "When entering edit mode, populate details with existing data.",
+        "Display no data message when the grid is empty."
+    ],
+    "system_behavior": [
+        "Automatically binds data to grid view upon loading.",
+        "Updates UI elements conditionally based on user actions.",
+        "Handles user commands like add, edit, and delete for grid entries."
+    ],
+    "dependencies": [
+        "Relies on HSPnet.DataLayer for data operations.",
+        "Uses AjaxControlToolkit for UI enhancements."
+    ],
+    "exceptions": [
+        "If Excel column number is invalid, an error message is shown.",
+        "Handle null data gracefully when binding grid views."
+    ],
+    "source_document_ids": [
+        "03ef8fcf-4e80-5f7e-b993-0dd93099be4b",
+        "097d36c6-6cd9-59e5-848b-3ad8079bac2b",
+        "1b723337-d9f4-5ab7-8022-63e617cc8ba0",
+        "1f5b8c8f-7d9a-53c6-9144-74c29f87b889",
+        "264fc793-3b4f-51fd-a13b-6b4bc0dd014c",
+        "5227bd68-1375-56f8-84bd-a7074eb7256a",
+        "5a66ab9a-cd95-5bf8-a1b7-88c3a9d9e402",
+        "5bf33db1-17a1-540a-a3f1-04a4668a08bb",
+        "7fc5975c-0be0-5612-a179-b518fdd66cab",
+        "88bc75e6-d52d-524f-9411-a01abb91a566",
+        "a0a51652-ca06-5eae-becf-4e73730c3db6",
+        "a6d9740f-5e85-5c67-bd03-7500587bf615",
+        "ad5a3dc3-0a61-5166-9c28-277cd2755729",
+        "adca8789-d389-5e95-9fe9-81092534b0ff",
+        "d21a8fb8-477d-5c20-8b47-900356a03e1e",
+        "d487e48e-fc4c-54f5-883d-0cab284ed34d",
+        "e35656bf-5ea6-5dbf-b28c-95d1435e6c32",
+        "ebd2d072-755e-5a51-9024-3d252bc9cb52",
+        "fd104e45-e4af-5ec8-8fb7-8366cae66d9a"
+    ],
+    "content_gaps": []
+}
