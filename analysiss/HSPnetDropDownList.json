@@ -1,0 +1,52 @@
+{
+  "filename": "HSPnetDropDownList",
+  "found": true,
+  "summary": "The HSPnetDropDownList is a custom dropdown list control that extends the capabilities of a standard ASP.NET DropDownList. It includes additional properties and behaviors for handling options, particularly with a focus on an 'ALL' option.",
+  "purpose": "To provide a customizable dropdown list control that can highlight options and handle additional properties for specific application needs, such as managing a default 'ALL' option.",
+  "entities": [],
+  "fields": [
+    {
+      "name": "ALL",
+      "type": "Boolean",
+      "description": "Determines if the 'ALL' option is included in the dropdown."
+    },
+    {
+      "name": "FirstItemIsALL",
+      "type": "Boolean",
+      "description": "Indicates whether the first item in the dropdown is the 'ALL' option."
+    }
+  ],
+  "actors": [],
+  "workflows": [
+    {
+      "name": "Dropdown Rendering",
+      "steps": [
+        "On pre-rendering, evaluate the selected index.",
+        "If the selected index is greater than 0, add a red color style to the dropdown.",
+        "Iterate through each item to assign color styles based on the selection state."
+      ]
+    }
+  ],
+  "business_rules": [
+    "The first item in the dropdown list can be an 'ALL' option if configured.",
+    "Color styling is applied to highlight selected items and differentiate them from the 'ALL' option."
+  ],
+  "validations": [],
+  "calculations": [],
+  "conditions": [
+    {
+      "name": "Color Change",
+      "condition": "If an option other than the first is selected, apply a red color style."
+    }
+  ],
+  "system_behavior": [
+    "The dropdown list will change its color based on the selection, defaulting to red if any option besides 'ALL' is selected."
+  ],
+  "dependencies": [],
+  "exceptions": [],
+  "source_document_ids": [
+    "0308ea81-1239-5a09-b3ba-967392b5ac86",
+    "6c19a916-eff0-5a39-a66f-abacd800cca4"
+  ],
+  "content_gaps": []
+}
