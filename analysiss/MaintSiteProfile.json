@@ -1,99 +1,82 @@
 {
     "filename": "MaintSiteProfile",
     "found": true,
-    "summary": "MaintSiteProfile is a part of the HSPnet system, structured to manage site profiles with various interactive tabs for details, documents, contacts, recruitment, and more. It includes a detailed layout for site management enriched with user sessions, data validations, and configurations.",
-    "purpose": "The MaintSiteProfile serves as a management interface for handling various aspects of site profiles in the HSPnet system, such as details, recruitment, document management, and user interactions.",
-    "entities": ["Site", "UserSession", "SiteProfile"],
+    "summary": "The MaintSiteProfile is a complex system designed to manage a variety of operations related to site profiles. It includes functionalities for managing site details, documents, contacts, recruitment, history, and closures. The system is designed to be used by multiple types of users, including system administrators, staff, and local administrators, with different levels of access and edit capabilities.",
+    "purpose": "The system is intended to provide comprehensive management of site profiles, including the ability to view and edit site details, manage documents, handle recruitment processes, maintain historical records, and manage closures.",
+    "entities": [],
     "fields": [
-        {"name": "SiteID", "type": "string"},
-        {"name": "ProfileExists", "type": "boolean"},
-        {"name": "DetailsExists", "type": "boolean"},
-        {"name": "DocumentExists", "type": "boolean"},
-        {"name": "ClosureExists", "type": "boolean"},
-        {"name": "RecruitmentResourcesExists", "type": "boolean"},
-        {"name": "RecruitmentOpportunitiesExists", "type": "boolean"},
-        {"name": "RequirementExists", "type": "boolean"},
-        {"name": "ContactDataExists", "type": "boolean"},
-        {"name": "ServiceUserExists", "type": "boolean"},
-        {"name": "ReadOnly", "type": "boolean"},
-        {"name": "QES", "type": "boolean"},
-        {"name": "AlternateDatabase", "type": "string"},
-        {"name": "UsingAlternateDatabase", "type": "boolean"},
-        {"name": "currentPage", "type": "string"}
+        "SiteID",
+        "ProfileExists",
+        "DetailsExists",
+        "DocumentExists",
+        "ClosureExists",
+        "RecruitmentResourcesExists",
+        "RecruitmentOpportunitiesExists",
+        "RequirementExists",
+        "ContactDataExists",
+        "SiteAgencyID",
+        "ServiceUserExists",
+        "ReadOnly",
+        "QES",
+        "AlternateDatabase",
+        "UsingAlternateDatabase",
+        "currentPage"
     ],
     "actors": [
-        "SystemAdministrator",
-        "LocalAdministrator",
-        "StaffAdmin",
-        "StudentUser",
-        "ReceivingUser",
-        "PlacementCoordinator"
+        "System Administrator",
+        "Staff Admin",
+        "Local Administrator",
+        "Placement Coordinator",
+        "Receiving User",
+        "Student User"
     ],
     "workflows": [
         {
-            "name": "Page_Load",
+            "name": "Tab Management",
             "steps": [
-                "Validate URL hash with Hashing.ValidateURLHash",
-                "Determine Alternate Database usage",
-                "Load Site Information",
-                "Setup Page and Tabs",
-                "Register Client Scripts"
+                "Check user permissions and session details.",
+                "Determine which tabs should be enabled or disabled based on user permissions and database state.",
+                "Set the active tab based on the current page.",
+                "Bind data to the respective user controls.",
+                "Ensure the user controls are visible if they correspond to the active tab."
             ]
         },
         {
-            "name": "SetupRecruitmentTab",
+            "name": "Data Management",
             "steps": [
-                "Check User Privileges for Recruitment Features",
-                "Enable or Disable Recruitment Tab"
-            ]
-        },
-        {
-            "name": "ProcessReadOnly",
-            "steps": [
-                "Check ReadOnly Query String",
-                "Determine ReadOnly State based on User Permissions"
+                "Load site information based on the SiteID.",
+                "Validate URL hash to ensure request integrity.",
+                "Process query strings to determine database use and edit capabilities.",
+                "Bind data to grids and other controls as necessary based on active tab."
             ]
         }
     ],
     "business_rules": [
-        "TabPanelContact is enabled when the user is not a StudentUser and not using an alternate database.",
-        "Site profile tabs are enabled based on user session and existing data flags."
+        "EditableByPCLocalAdmin: PC local admin can edit sites if no user services exist in the site.",
+        "RecruitmentIsEditable: Recruitment is editable only if the site is not using an alternate database and the user has appropriate permissions."
     ],
     "validations": [
-        {
-            "field": "txtStartDate",
-            "rule": "checkStartDateMax",
-            "description": "Validates that the start date is before the maximum date."
-        },
-        {
-            "field": "txtEndDate",
-            "rule": "checkEndDateMax",
-            "description": "Validates that the end date is before the maximum date."
-        }
+        "checkStartDateMax: Validates that the start date is less than the maximum allowed date.",
+        "checkEndDateMax: Validates that the end date is less than the maximum allowed date.",
+        "checkStartEnd: Validates that the start date is before the end date."
     ],
     "calculations": [],
     "conditions": [
-        {
-            "condition": "UserSession.SystemAdministrator",
-            "result": "Full access to edit site profiles."
-        },
-        {
-            "condition": "UsingAlternateDatabase",
-            "result": "Some tabs are disabled."
-        }
+        "UsingAlternateDatabase: Set to true if an alternate database is specified via the query string.",
+        "QES: Set to true if the query string 'QES' is specified and equal to '1'."
     ],
     "system_behavior": [
-        "Displays tabs like Profile, Documents, Requirement, and History based on the active session and permissions.",
-        "Each tab can be enabled or disabled based on configuration and user permissions."
+        "Enable or disable tabs based on user role and database status.",
+        "Bind data to form views and update panels based on the selection made in the UI.",
+        "Process session information to determine the visibility and edit capabilities of various sections."
     ],
     "dependencies": [
-        "HSPnet Framework",
-        "DataLayer for Site information retrieval",
-        "JavaScript for front-end interactions"
+        "SQL Database for fetching and updating site profile data.",
+        "User session data for determining permissions and state."
     ],
     "exceptions": [
-        "Error messages displayed via pnlError and lblErrorList",
-        "Warnings displayed via pnlWarning and lblWarningList"
+        "Invalid UUID in the query string for SiteID or DisciplineSubDisciplineID.",
+        "Error during data binding due to missing or malformed data."
     ],
     "source_document_ids": [
         "1241b5f1-57f3-5f83-ac89-ca2df5e48865",
@@ -134,5 +117,7 @@
         "fead7fa7-aa90-55c5-a853-91d97ace4aaa",
         "ff0ea8f6-46ac-53f9-b06d-461fb40252d3"
     ],
-    "content_gaps": []
+    "content_gaps": [
+        "Detailed descriptions of workflows, business rules, and validations are inferred based on code comments and structure but may lack complete context."
+    ]
 }
