@@ -1,0 +1,107 @@
+# Module: CriminalRecordsCheck
+
+## CriminalRecordsCheck-UC1 — View Enrollment Data
+
+- Primary Actor(s): Enrollment Officer
+- Secondary Actor(s): System Administrator
+- Trigger: User selects to view enrollment data from the interface.
+- Description: The user can view a list of enrolled students with various filters applied.
+- Preconditions:
+  - User is logged into the system.
+  - User has appropriate access rights to view enrollment data.
+- Postconditions:
+  - Enrollment data is displayed according to applied filters.
+- Main Success Scenario:
+  1. User opens the Criminal Records Check interface.
+  2. User applies desired filters such as section, action, campus, etc.
+  3. System fetches and displays the filtered list of enrolled students.
+- Extensions:
+  - User modifies the sorting of displayed data.
+- Exceptions:
+  - No data available for the applied filters.
+- Business Rules:
+  - Data should be filtered based on the user access level.
+- Assumptions:
+  - User knows how to navigate the interface.
+- Open Issues:
+  - None identified.
+
+## CriminalRecordsCheck-UC2 — Update Enrollment Status
+
+- Primary Actor(s): Enrollment Officer
+- Secondary Actor(s): System Administrator
+- Trigger: User initiates an update on the enrollment status of a student.
+- Description: The user updates the enrollment status, such as CRC status, of students.
+- Preconditions:
+  - User is logged into the system.
+  - User has edit permissions for enrollment status.
+- Postconditions:
+  - Updated status is saved in the system.
+- Main Success Scenario:
+  1. User selects a student from the list to update their status.
+  2. User changes the desired status or notes.
+  3. User saves the changes.
+  4. System updates the enrollment data and reflects changes.
+- Extensions:
+  - User cancels the edits before saving.
+- Exceptions:
+  - Update fails due to concurrency or validation errors.
+- Business Rules:
+  - Edits should not be possible if the user is in read-only mode.
+- Assumptions:
+  - User is aware of the correct status to be applied.
+- Open Issues:
+  - None identified.
+
+## CriminalRecordsCheck-UC3 — Filter Enrollment Data
+
+- Primary Actor(s): Enrollment Officer
+- Secondary Actor(s): System Administrator
+- Trigger: User applies filters to manage the visibility of enrollment data.
+- Description: The user applies various filters to narrow down the enrollment data for review.
+- Preconditions:
+  - User is logged into the system.
+  - User has appropriate access rights to apply filters.
+- Postconditions:
+  - Data is filtered according to user inputs.
+- Main Success Scenario:
+  1. User applies one or more filters such as campus, course, or status.
+  2. System applies the filters and updates the displayed data accordingly.
+- Extensions:
+  - User can reset the filters to default.
+- Exceptions:
+  - No matching results for the selected filters.
+- Business Rules:
+  - Filters should respect the user's access level and permissions.
+- Assumptions:
+  - User understands the purpose and effect of each filter.
+- Open Issues:
+  - None identified.
+
+## CriminalRecordsCheck-UC4 — Manage Student Selection
+
+- Primary Actor(s): Enrollment Officer
+- Secondary Actor(s): System Administrator
+- Trigger: User selects/deselects all or specific students for batch actions.
+- Description: The user can select multiple students to apply batch actions.
+- Preconditions:
+  - User is logged into the system.
+  - User has appropriate permissions for batch operations.
+- Postconditions:
+  - Selected students are marked for subsequent batch actions.
+- Main Success Scenario:
+  1. User clicks to select all students.
+  2. User deselects individual students if needed.
+  3. System reflects the selection state.
+- Extensions:
+  - User uses 'Select None' to clear all selections.
+- Exceptions:
+  - Selection state fails due to interface errors.
+- Business Rules:
+  - Selection should only be possible on the current page of displayed data.
+- Assumptions:
+  - User operates within the allowed batch size limits.
+- Open Issues:
+  - None identified.
+
+No further use cases identified.
