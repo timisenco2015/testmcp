@@ -1,0 +1,73 @@
+```json
+{
+  "filename": "SiteOpportunity",
+  "found": true,
+  "summary": "The documents describe the implementation of a SiteOpportunity entity in a .NET application, involving database operations for adding, retrieving, updating, and deleting records. The implementation includes several fields related to site opportunities and has dedicated methods for handling data operations via stored procedures.",
+  "purpose": "To manage site opportunities within the HSPnet application, allowing for CRUD operations and ensuring data integrity.",
+  "entities": [
+    "SiteOpportunity",
+    "SiteOpportunities"
+  ],
+  "fields": [
+    "ID",
+    "SiteID",
+    "HeadingID",
+    "Response",
+    "SortOrder",
+    "Description",
+    "DescriptionAlt",
+    "DescriptionFormatted",
+    "SortOrderFormatted",
+    "WebPage",
+    "HeaderChanged"
+  ],
+  "actors": [
+    "HSPnetSession"
+  ],
+  "workflows": [
+    {
+      "name": "CRUD Operations",
+      "steps": [
+        "Add method to insert a new site opportunity using stored procedure 'SiteOpportunitiesAdd'.",
+        "GetByID method retrieves a site opportunity by ID using stored procedure 'SiteOpportunitiesSearchID'.",
+        "GetBySiteID method retrieves site opportunities by site ID using stored procedure 'SiteOpportunitiesSearch'.",
+        "Update method updates an existing site opportunity using stored procedure 'SiteOpportunitiesUpdate'.",
+        "Delete method removes a site opportunity using stored procedure 'SiteOpportunitiesDelete'."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Site opportunities are managed through stored procedures to ensure data consistency and integrity."
+  ],
+  "validations": [
+    "Ensure Response is not blank before performing updates or additions.",
+    "ID must be non-zero for update and delete operations."
+  ],
+  "calculations": [
+    "Uses -1 as a flag for a blank SortOrder in data operations."
+  ],
+  "conditions": [
+    "Response is validated to not be blank to proceed with updates or additions."
+  ],
+  "system_behavior": [
+    "CRUD operations utilize stored procedures for database interaction.",
+    "System sets HeaderChanged based on HeadingID changes."
+  ],
+  "dependencies": [
+    "Depends on HSPnetSession for database connections and operations."
+  ],
+  "exceptions": [
+    "If Response is blank, an error message is added to the session and operation is not performed."
+  ],
+  "source_document_ids": [
+    "148590b2-a5c1-5ba2-9f76-5946671326da",
+    "18839216-0ce2-5da0-8629-43191022355e",
+    "2e24ba24-238e-539a-9060-ae9c5b2ef73d",
+    "430d8e05-df1d-5100-81dd-8c604142a057",
+    "64109c98-7c33-509c-9bd9-15bb43722cb7"
+  ],
+  "content_gaps": [
+    "No detailed user interface or user interaction processes."
+  ]
+}
+```
