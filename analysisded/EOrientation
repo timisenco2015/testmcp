@@ -1,0 +1,75 @@
+```json
+{
+  "filename": "EOrientation",
+  "found": true,
+  "summary": "EOrientation facilitates a redirect to a Moodle site for accessing e-learning courses, with mechanisms for printing completion certificates and retaking courses.",
+  "purpose": "To provide a mechanism for users to access e-learning orientation courses via a Moodle site, including functionalities for managing course access and printing course completion certificates.",
+  "entities": [],
+  "fields": [
+    "username",
+    "password",
+    "Submit",
+    "hleOpeQRG",
+    "pnlEOpeLink",
+    "pnlPrintCertificate",
+    "btnPrintCertificate",
+    "lblPleaseWait",
+    "pnlReportHTML",
+    "lblReportHTML",
+    "gvwCourses",
+    "dsCourses"
+  ],
+  "actors": [
+    "UserSession",
+    "StaffID"
+  ],
+  "workflows": [
+    {
+      "name": "Course Retake Workflow",
+      "steps": [
+        "Check if the user can retake a course using CanRetakeCourse function.",
+        "If eligible, enable 'Retake Course' button and handle retake command."
+      ]
+    },
+    {
+      "name": "Certificate Printing Workflow",
+      "steps": [
+        "Validate completion status.",
+        "Generate and display the course completion certificate using PDF report."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Courses can be retaken by users if they have administrative permissions or if they are not students and the course was completed.",
+    "Certificates are generated for completed courses and can be printed."
+  ],
+  "validations": [
+    "Ensure UserSession is not null before proceeding with actions.",
+    "Courses marked as mandatory and not completed should display warnings if close to due date."
+  ],
+  "calculations": [],
+  "conditions": [
+    "Check whether the course is complete for certificate printing visibility.",
+    "Enable retake functionality based on user permissions."
+  ],
+  "system_behavior": [
+    "Redirect users to Moodle login page for course access.",
+    "Display HTML content of reports in a panel if successfully generated."
+  ],
+  "dependencies": [
+    "Resources for localization strings.",
+    "HSPnet.DataLayer for data operations.",
+    "HSPnet.Framework for report generation."
+  ],
+  "exceptions": [],
+  "source_document_ids": [
+    "045f50d5-bc7d-5dc3-b71a-5f0d0a654dd6",
+    "1023002b-1958-5d9d-95b2-38eb653d834b",
+    "54382e60-cab6-55f2-a803-beb37a508fd1",
+    "a3cfdda2-5219-5ee7-a854-1214eb2593d6",
+    "e4f560be-8b14-5d5a-9a69-3a4da94be598",
+    "ef86ad80-0450-519f-a3d5-d4480d6af2ec"
+  ],
+  "content_gaps": []
+}
+```
