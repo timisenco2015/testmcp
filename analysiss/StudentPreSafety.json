@@ -1,19 +1,83 @@
 {
-        "filename": "StudentPreSafety",
-        "found": false,
-        "summary": "",
-        "purpose": "",
-        "entities": [],
-        "fields": [],
-        "actors": [],
-        "workflows": [],
-        "business_rules": [],
-        "validations": [],
-        "calculations": [],
-        "conditions": [],
-        "system_behavior": [],
-        "dependencies": [],
-        "exceptions": [],
-        "source_document_ids": [],
-        "content_gaps": ["No related documents found"]
+  "filename": "StudentPreSafety",
+  "found": true,
+  "summary": "The 'StudentPreSafety' user control manages student prerequisite data, allowing for the display, update, and validation of prerequisite statuses such as CRCStatus, IDCard, and WCBWaiverDate. It includes functionality for handling user sessions, displaying data in a form view, and managing user interactions through commands and data updates.",
+  "purpose": "The purpose of the 'StudentPreSafety' control is to manage the safety prerequisites for students in an educational context, providing interfaces for displaying, editing, and validating prerequisite status data.",
+  "entities": [
+    "StudentPrerequisite",
+    "HSPnetSession",
+    "UserSession"
+  ],
+  "fields": [
+    "CRCStatus",
+    "IDCard",
+    "WCBWaiverDate",
+    "StudentID",
+    "ScreenIsEditable",
+    "ReadOnly"
+  ],
+  "actors": [
+    "User (with a session)",
+    "System (managing data display and updates)"
+  ],
+  "workflows": [
+    {
+      "name": "Display Prerequisite Data",
+      "steps": [
+        "Check if user session exists; if not, cancel operation.",
+        "Use session and student ID to fetch prerequisite data.",
+        "Display data in FormView, binding appropriate values."
+      ]
+    },
+    {
+      "name": "Update Prerequisite Data",
+      "steps": [
+        "Initiate update process when page is valid.",
+        "Retrieve new values from DropDownList controls.",
+        "Cache user session and redirect to the updated view."
+      ]
+    },
+    {
+      "name": "Execute Item Commands",
+      "steps": [
+        "Switch to edit mode on receiving 'cmdEdit'.",
+        "Enable or disable controls based on editability."
+      ]
     }
+  ],
+  "business_rules": [
+    "Visible conditions based on CRCStatus and WCBWaiverDate",
+    "Editable conditions based on ScreenIsEditable and ReadOnly"
+  ],
+  "validations": [
+    "Page must be valid before updating data.",
+    "Dropdown values must be converted to integer before use."
+  ],
+  "calculations": [],
+  "conditions": [
+    "Data display contingent on non-null session.",
+    "Visibility of fields dependent on data conditions."
+  ],
+  "system_behavior": [
+    "JavaScript setup for client-side management of controls.",
+    "FormView's mode determines command behavior (Edit or Insert)."
+  ],
+  "dependencies": [
+    "Server-side controls and data sources such as FormView and ObjectDataSources",
+    "Session management and user authentication"
+  ],
+  "exceptions": [
+    "Operation cancelled if user session is not initialized."
+  ],
+  "source_document_ids": [
+    "432176fc-0da0-53f5-a17f-3b7c5873054c",
+    "44b0862f-f5ca-50c9-91c8-8c8c682f2c81",
+    "77da2834-e430-50d8-ac4a-99f9338cb22e",
+    "a848d7a9-edf6-5cd2-ac31-b1e99f6178bf",
+    "aea7fcfb-293e-5886-beec-5b069f07f25d",
+    "b8f98eab-f789-50c2-b63d-83c140582425",
+    "c425a48a-96f5-5a18-9aca-1d3e945640ef",
+    "d2dbf045-4761-5e11-97ca-617a1ec05d81"
+  ],
+  "content_gaps": []
+}
