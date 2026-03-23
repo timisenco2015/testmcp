@@ -1,19 +1,93 @@
 {
-    "filename": "Time24Hour",
-    "found": false,
-    "summary": "",
-    "purpose": "",
-    "entities": [],
-    "fields": [],
-    "actors": [],
-    "workflows": [],
-    "business_rules": [],
-    "validations": [],
-    "calculations": [],
-    "conditions": [],
-    "system_behavior": [],
-    "dependencies": [],
-    "exceptions": [],
-    "source_document_ids": [],
-    "content_gaps": ["No related documents found"]
+  "filename": "Time24Hour",
+  "found": true,
+  "summary": "The Time24Hour system provides functionality for handling, validating, and manipulating 24-hour time representations. It includes methods for calculating shift lengths, validating times and time periods, determining shift based on time, and converting time to decimal format.",
+  "purpose": "To facilitate the handling and management of 24-hour time representations in scheduling and shift management applications.",
+  "entities": [],
+  "fields": [],
+  "actors": [],
+  "workflows": [
+    {
+      "name": "Calculate Shift Length",
+      "steps": [
+        "Convert StartTime and EndTime to decimal.",
+        "Calculate the time difference.",
+        "Return difference as a decimal rounded to two places."
+      ]
+    },
+    {
+      "name": "Validate Time",
+      "steps": [
+        "Check if time is 4 digits and numeric.",
+        "Ensure it is between 0000 and 2400.",
+        "Check if last two digits are between 0 and 59."
+      ]
+    },
+    {
+      "name": "Determine Valid Time Period",
+      "steps": [
+        "Validate StartTime and EndTime.",
+        "Check if end is greater than start or crosses midnight.",
+        "Ensure shift doesn't exceed 12 hours if crossing midnight."
+      ]
+    },
+    {
+      "name": "Parse Shift",
+      "steps": [
+        "Validate shift code.",
+        "Determine shift based on time range and shift code.",
+        "Return appropriate shift label."
+      ]
+    }
+  ],
+  "business_rules": [],
+  "validations": [
+    {
+      "name": "24-hour Time Validation",
+      "details": "Ensure time is a valid 4-digit representation between 0000 and 2400 with last two digits under 60."
+    }
+  ],
+  "calculations": [
+    {
+      "detail": "Convert 24-hour time to decimal: 1230 becomes 12.5."
+    },
+    {
+      "detail": "Calculate hours difference between two 24-hour times."
+    }
+  ],
+  "conditions": [
+    {
+      "condition": "End is less than start, add 24 to end to account for crossing midnight."
+    }
+  ],
+  "system_behavior": [
+    {
+      "behavior": "Converts 24-hour times to decimal for calculations."
+    },
+    {
+      "behavior": "Validates time format and sequence for scheduling."
+    }
+  ],
+  "dependencies": [],
+  "exceptions": [
+    {
+      "exception": "Invalid time returns true for period validity to prevent redundant errors."
+    }
+  ],
+  "source_document_ids": [
+    "004643d1-5348-5058-acfd-8e6b91762bd9",
+    "13371c16-d1fb-5542-8302-c6c7b68c0d2e",
+    "22e73e3c-ca27-5724-99bc-911724a1b6a5",
+    "28dd8ac6-d885-5927-8baa-8633ecc5b405",
+    "2c660a0b-a8fa-548c-b45e-8b2b8d1c287a",
+    "51a79298-05c5-5a00-a6ff-7f220012dd67",
+    "79ca524b-36b3-59f1-8e59-972571b3e079",
+    "99a374eb-61e3-5cb2-9111-727987cdd162",
+    "ce1a107b-0311-50ec-9339-aa2fa93d287e",
+    "cf7e85d1-2471-5461-a589-94d01875d456",
+    "ddba0698-21b9-5bc1-a227-3ed3401088a7",
+    "fdd75265-9b4d-5047-a794-9763658954cf",
+    "fdf117d4-2bb3-5b65-b114-76be4925de91"
+  ],
+  "content_gaps": []
 }
