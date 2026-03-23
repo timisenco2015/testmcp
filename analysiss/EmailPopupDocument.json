@@ -1,44 +1,44 @@
 {
     "filename": "EmailPopupDocument",
     "found": true,
-    "summary": "This module handles email popup documents, allowing for searching and deleting email data based on an identifier.",
-    "purpose": "To provide functionalities for managing email attachments or linked documents within popups.",
+    "summary": "EmailPopupDocument represents documents linked to email operations, including file handling.",
+    "purpose": "To manage email-associated document handling, including searching and deletion.",
     "entities": [
-        "EmailPopupDocument"
-    ],
-    "fields": [
         {
-            "name": "ID",
-            "type": "int",
-            "description": "Unique identifier for the email popup document."
-        },
-        {
-            "name": "FileName",
-            "type": "string",
-            "description": "Name of the file associated with the email popup."
-        },
-        {
-            "name": "FilePath",
-            "type": "string",
-            "description": "Path to the file associated with the email popup."
-        },
-        {
-            "name": "Checked",
-            "type": "Boolean",
-            "description": "Indicates if the document is checked or selected."
+            "name": "EmailPopupDocument",
+            "attributes": [
+                "ID",
+                "FileName",
+                "FilePath",
+                "Checked"
+            ]
         }
     ],
+    "fields": [
+        "DataInfo"
+    ],
     "actors": [],
-    "workflows": [],
+    "workflows": [
+        {
+            "name": "EmailPopupDocumentSearchWorkflow",
+            "steps": [
+                "Search",
+                "Delete"
+            ]
+        }
+    ],
     "business_rules": [],
     "validations": [],
     "calculations": [],
     "conditions": [],
-    "system_behavior": [],
+    "system_behavior": [
+        "File and directory deletion operations"
+    ],
     "dependencies": [],
     "exceptions": [],
     "source_document_ids": [
-        "7287734e-f13d-550f-9249-4242db620766"
+        "7287734e-f13d-550f-9249-4242db620766",
+        "927bc837-5564-5759-9324-27c6d5d7321d"
     ],
     "content_gaps": []
 }
