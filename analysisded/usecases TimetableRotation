@@ -1,0 +1,77 @@
+```markdown
+# Module: TimetableRotation
+
+## TimetableRotation-UC1 — Retrieve Timetable Rotation by ID
+
+- Primary Actor(s): System
+- Secondary Actor(s): Database
+- Trigger: Request to retrieve timetable rotation by Timetable ID.
+- Description: Retrieve a list of timetable rotations associated with a specific timetable ID.
+- Preconditions: Timetable ID must exist in the system.
+- Postconditions: A list of TimetableRotation objects is returned.
+- Main Success Scenario:
+  1. System receives a request with a specific Timetable ID.
+  2. System executes a stored procedure `TimetableRotationSearch`.
+  3. System retrieves and formats the start and end dates.
+  4. System returns the list of timetable rotations.
+- Extensions: None
+- Exceptions: Database connection fails or an invalid Timetable ID is provided.
+- Business Rules: None
+- Assumptions: Timetable ID is valid.
+- Open Issues: None
+
+## TimetableRotation-UC2 — Add a Timetable Rotation
+
+- Primary Actor(s): Administrator
+- Secondary Actor(s): Database
+- Trigger: Administrator requests to add a new timetable rotation.
+- Description: Add a new timetable rotation to the system.
+- Preconditions: StartDate and EndDate must be provided and valid.
+- Postconditions: A new timetable rotation is added to the database.
+- Main Success Scenario:
+  1. Administrator provides TimetableID, StartDate, and EndDate.
+  2. System validates the provided dates.
+  3. System executes a stored procedure `TimetableRotationAdd`.
+  4. Timetable rotation data is saved to the database.
+- Extensions: None
+- Exceptions: Validation fails or database operation error occurs.
+- Business Rules: StartDate and EndDate must be within the timetable's defined date range.
+- Assumptions: Dates are correctly formatted.
+- Open Issues: None
+
+## TimetableRotation-UC3 — Delete a Timetable Rotation
+
+- Primary Actor(s): Administrator
+- Secondary Actor(s): Database
+- Trigger: Administrator requests to delete an existing timetable rotation.
+- Description: Delete a timetable rotation based on its ID.
+- Preconditions: Timetable Rotation ID must exist.
+- Postconditions: Timetable rotation is removed from the database.
+- Main Success Scenario:
+  1. Administrator provides the ID of the timetable rotation.
+  2. System executes a stored procedure `TimetableRotationDelete`.
+  3. Timetable rotation is deleted from the database.
+- Extensions: None
+- Exceptions: Invalid ID or database error during deletion.
+- Business Rules: None
+- Assumptions: Provided ID is valid and present.
+- Open Issues: None
+
+## TimetableRotation-UC4 — Validate Timetable Rotation Dates
+
+- Primary Actor(s): System
+- Secondary Actor(s): None
+- Trigger: System checks validity of timetable rotation dates.
+- Description: Validate that the start and end dates of a timetable rotation are within the allowable range.
+- Preconditions: StartDate, EndDate, TimetableStartDate, and TimetableEndDate must be set.
+- Postconditions: Validation errors are returned if dates are out of range.
+- Main Success Scenario:
+  1. System compares StartDate and EndDate with TimetableStartDate and TimetableEndDate.
+  2. System ensures StartDate is not after EndDate.
+  3. System ensures both dates fall within the timetable's date range.
+- Extensions: None
+- Exceptions: StartDate after EndDate or dates outside the timetable's range.
+- Business Rules: Dates must be chronologically consistent and within the timetable's limits.
+- Assumptions: Dates are entered correctly.
+- Open Issues: None
+```
