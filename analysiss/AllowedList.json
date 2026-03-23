@@ -1,74 +1,65 @@
 {
-    "filename": "AllowedList",
-    "found": true,
-    "summary": "The AllowedList and AllowedLists are components of the HSPnet.Framework which handle access control related to session allowed locations and validation against a list of allowed identifiers.",
-    "purpose": "To manage and verify session-specific access permissions for locations based on allowed identifiers.",
-    "entities": [
-        "AllowedList",
-        "AllowedLists"
-    ],
-    "fields": [
-        {
-            "name": "Code",
-            "type": "string",
-            "description": "Represents the identifier code for an allowed location."
-        }
-    ],
-    "actors": [
-        "HSPnetSession"
-    ],
-    "workflows": [
-        {
-            "name": "SessionAllowedLocations",
-            "steps": [
-                "Initialize a list of AllowedList.",
-                "Setup database procedure name SessionAllowedLocations.",
-                "Add LocType and SessionID as parameters.",
-                "Execute database read operation to obtain data.",
-                "Iterate over the result data reader.",
-                "Create and populate AllowedList based on the result data.",
-                "Check if ID is -1 to denote all access allowed.",
-                "Add populated AllowedList to the list.",
-                "Return the populated list of AllowedList."
-            ]
-        },
-        {
-            "name": "CheckAllowedList",
-            "steps": [
-                "Initialize a return boolean as false.",
-                "Iterate through each AllowedList in the list.",
-                "Check if AllowedList Code is ALL or matches the provided ID.",
-                "If match is found, set return boolean to true and break loop.",
-                "Return the final boolean result."
-            ]
-        }
-    ],
-    "business_rules": [
-        "If the AllowedList Code of an entry is ALL, then it implies unrestricted access."
-    ],
-    "validations": [
-        "Validate ID by checking against entries in AllowedList."
-    ],
-    "calculations": [],
-    "conditions": [
-        "If Sess.DB.GetInt(dr, 'ID') returns -1, then entry.Code is set to ALL."
-    ],
-    "system_behavior": [
-        "Executes database procedures to determine session-specific allowed locations.",
-        "Checks if a specific identifier is present in the allowed list."
-    ],
-    "dependencies": [
-        "HSPnetSession",
-        "Resources.ALL",
-        "System.Data.SqlClient"
-    ],
-    "exceptions": [
-        "Break operation when AllowedList Code is equal to ALL.",
-        "Break operation when AllowedList Code matches the specific ID."
-    ],
-    "source_document_ids": [
-        "96082a25-6d2c-5ded-9d45-3212935cf351",
-        "e3cab9e2-95a5-5d34-9f5a-3fa6764592d3"
-    ],
-    "content_gaps": []
+  "filename": "AllowedList",
+  "found": true,
+  "summary": "The AllowedList manages a collection of allowed locations based on the session and location type parameters. It includes functionality to retrieve locations allowed for a particular session and to verify if a specific ID is within the allowed list.",
+  "purpose": "To handle and verify a list of allowed locations for sessions based on specified location types.",
+  "entities": [],
+  "fields": [
+    {
+      "name": "Code",
+      "type": "string",
+      "description": "Represents the code of the allowed location, or 'ALL' for unrestricted."
+    }
+  ],
+  "actors": [
+    "HSPnetSession"
+  ],
+  "workflows": [
+    {
+      "name": "SessionAllowedLocations",
+      "steps": [
+        "Initialize a list to store allowed locations.",
+        "Set the database procedure name to 'SessionAllowedLocations'.",
+        "Add 'LocType' and 'SessionID' as parameters to the database procedure.",
+        "Execute the procedure and fetch data using a SqlDataReader.",
+        "Loop through the data reader results.",
+        "If the ID from the database is -1, add a location with code 'ALL' and break.",
+        "Otherwise, add the location ID to the list.",
+        "Return the list of allowed locations."
+      ]
+    },
+    {
+      "name": "CheckAllowedList",
+      "steps": [
+        "Initialize a boolean return value as false.",
+        "Loop through each entry in the list of allowed locations.",
+        "If an entry code is 'ALL' or matches the ID, set return value to true and break.",
+        "Return the boolean result."
+      ]
+    }
+  ],
+  "business_rules": [
+    "If ID is -1, it represents 'ALL' locations being allowed.",
+    "A location is allowed if its code matches the 'ID' or if the code is 'ALL'."
+  ],
+  "validations": [],
+  "calculations": [],
+  "conditions": [
+    "If an ID from the database equals -1, it signifies all locations are allowed and the list entry code is set to 'ALL'.",
+    "If a location's entry code matches 'ID', it is considered allowed."
+  ],
+  "system_behavior": [
+    "Retrieve allowed locations based on session and location type.",
+    "Check if a particular ID is in the allowed list."
+  ],
+  "dependencies": [
+    "Resources.ALL",
+    "HSPnetSession.DB"
+  ],
+  "exceptions": [],
+  "source_document_ids": [
+    "96082a25-6d2c-5ded-9d45-3212935cf351",
+    "e3cab9e2-95a5-5d34-9f5a-3fa6764592d3"
+  ],
+  "content_gaps": []
 }
