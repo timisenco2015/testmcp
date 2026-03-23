@@ -1,0 +1,141 @@
+```json
+{
+  "filename": "Destinations",
+  "found": true,
+  "summary": "The documents related to 'Destinations' describe the implementation and functionalities surrounding the handling of destination entities within the HSPnet system. It covers various aspects including destination management, user assignments, and system integrations.",
+  "purpose": "To manage and facilitate destination entities, including ensuring user permissions, system integrations, and data processing within the HSPnet framework.",
+  "entities": [
+    "Destination",
+    "Site",
+    "Service",
+    "Agency",
+    "Staff"
+  ],
+  "fields": [
+    "ID",
+    "ServiceID",
+    "Inactive",
+    "DestinationCodeID",
+    "HSPnetUser",
+    "DestinationContactID",
+    "UseAutoRedirect",
+    "CostCentre",
+    "CostCentreDescription",
+    "PortfolioOption",
+    "PortfolioCodeID",
+    "SitePortfolioCodeID",
+    "SitePortfolioCode",
+    "SitePortfolioDescription",
+    "Name",
+    "ShortName",
+    "FirstName",
+    "LastName",
+    "MiddleName",
+    "Email",
+    "SecureEmail",
+    "Phone",
+    "Fax",
+    "IsHSPnetUser",
+    "SiteID",
+    "AgencyID",
+    "DestProfileExists",
+    "SiteShortName",
+    "ServiceShortName",
+    "SiteName",
+    "ServiceName",
+    "DestProfileLastUpdated"
+  ],
+  "actors": [
+    "HSPnetUser",
+    "DestinationContact",
+    "Staff",
+    "Agency"
+  ],
+  "workflows": [
+    {
+      "name": "Destination Management",
+      "steps": [
+        "Add destination with appropriate parameters.",
+        "Update destination details.",
+        "Delete destination with validation checks.",
+        "Reactivate inactive destinations."
+      ]
+    },
+    {
+      "name": "Destination Search",
+      "steps": [
+        "Search destinations by various criteria such as ServiceID, SiteID, AgencyID.",
+        "Filter results based on user and service permissions."
+      ]
+    }
+  ],
+  "business_rules": [
+    "PortfolioOption dictates whether to use site-specific or other code.",
+    "Destination must have a valid ServiceID and DestinationCodeID.",
+    "DestinationContactID must be assigned properly during add/update operations."
+  ],
+  "validations": [
+    "ServiceID and DestinationCodeID must be greater than zero.",
+    "Ensure no SQL errors occurred during operations."
+  ],
+  "calculations": [
+    "Format staff names using NameFormatter.",
+    "Format email links depending on user type."
+  ],
+  "conditions": [
+    "Check if HSPnetUser is active.",
+    "Determine whether AutoRedirect is enabled."
+  ],
+  "system_behavior": [
+    "Procedure calls for 'DestinationAdd', 'DestinationUpdate', 'DestinationDelete'.",
+    "Handle database interactions through HSPnetSession class methods."
+  ],
+  "dependencies": [
+    "HSPnet.Session",
+    "Database connectivity",
+    "Resource strings for error messages"
+  ],
+  "exceptions": [
+    "SQL errors during database procedures.",
+    "Validation errors for missing mandatory fields."
+  ],
+  "source_document_ids": [
+    "27025ff9-30fe-5261-ba86-6ec598a1fcf7",
+    "2db5e639-ce2f-5b31-84fa-c77b5dd8e493",
+    "3340dbd5-842a-5cf2-837d-cae7d1cd3c46",
+    "4e50c817-95fe-5fe9-8e95-e9556c678b00",
+    "50e5008b-6841-5a0f-a9bc-ea1162c957c5",
+    "5a43f8bf-3cc7-58b2-bdc0-59b4f792755e",
+    "5b79b67c-8337-5d58-83b3-dabc8d2cf9ff",
+    "65e5a8bd-3e29-501c-95f5-f8bebc085fc3",
+    "7709dc88-27c1-5954-8154-0a0d3e121251",
+    "7823c178-bc78-5e6d-8ec9-aa68b3e1cfdf",
+    "8175ba49-582e-521a-b2bb-fab409bcf21b",
+    "87441b80-d24f-5a48-84b9-ab3cf3b4beec",
+    "877ba8ca-c535-5b20-8b38-bad69b74280d",
+    "95e47952-4ac7-53e9-8a03-cc16e80fe019",
+    "9b50ea6f-c52d-5e84-87fc-7073b019272a",
+    "9bb15e92-99e6-587e-839f-fe3b79d53b00",
+    "a0267073-1d76-5b96-8d00-9701b22962f6",
+    "a8a64d1c-6360-5817-81eb-40f4c7c64679",
+    "b2b647ab-8f82-5695-bcce-475efe5a7557",
+    "b59203d7-cf44-513b-91e0-14e7a56b8d3b",
+    "bb1bf8f2-f54a-5b60-b01e-0829e054b668",
+    "c271c643-1909-53ea-9271-ff693b85067f",
+    "c3ae9ed1-7812-5077-8232-7ffc2dc6865f",
+    "d3b07f70-acda-5a8a-89a7-d232db8f3e32",
+    "d3e6df94-77a4-5eb3-91f5-abac5c283370",
+    "d5c6c97f-af5f-5963-a8c3-1e89d8e36866",
+    "da340dfe-fab9-5498-9dd3-3e829d18a18d",
+    "e0f34f2c-9560-57ba-abd6-b856db17f420",
+    "e8f92414-7a52-5142-83d3-ce7743634f02",
+    "edf0dc70-06b5-5f41-a3bd-2fb794b58032",
+    "f1dd4e2b-ab80-5465-a4eb-99b09708b2ee",
+    "f55a7481-f937-55f7-b134-3199331845b4",
+    "f5f1697a-946c-5eee-a093-b4598330a207",
+    "f7b0230b-8db3-5158-bbfc-d5822b78ab51",
+    "fe03f68e-c195-57f1-aa25-24d9043e1190"
+  ],
+  "content_gaps": []
+}
+```
