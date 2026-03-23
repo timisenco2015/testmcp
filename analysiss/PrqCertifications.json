@@ -1,46 +1,54 @@
 {
     "filename": "PrqCertifications",
     "found": true,
-    "summary": "The PrqCertifications system is a web-based application component for managing staff certifications. It involves user interactions for inserting, updating, and displaying certification records. The system uses ASP.NET web controls extensively, leveraging FormView, GridView, DropDownList, UpdatePanel, and ModalPopupExtender controls for UI rendering and interaction.",
-    "purpose": "To manage staff certification records efficiently, including inserting, updating, and displaying certification data within a web application interface.",
+    "summary": "PrqCertifications is a component part of the HSPnet.UserControls.StaffProfile namespace dealing with certification management for staff profiles. The control involves UI elements like panels, update panels, grid views, form views, and various data source objects. It supports functionalities for adding, editing, and deleting certification records.",
+    "purpose": "The purpose of PrqCertifications is to manage staff certification data within the HSPnet system, providing an interface for viewing and modifying certification details.",
     "entities": [],
     "fields": [
         "CertificationCodeID",
         "StatusCodeID",
-        "ExpiryDate",
-        "EffectiveDate"
+        "SessionID",
+        "StaffID",
+        "CurrentPage"
     ],
-    "actors": [],
+    "actors": [
+        "UserSession",
+        "HSPnetSession"
+    ],
     "workflows": [
         {
-            "name": "Certification Management",
+            "name": "Certificate Management",
             "steps": [
-                "Insert a new certification record using a FormView.",
-                "Update existing certification records.",
-                "Display certification details in a grid format.",
-                "Handle certification data selection and display changes through ObjectDataSources."
+                "Adding a new certification entry via a form.",
+                "Editing an existing certification entry in the form view.",
+                "Deleting a certification entry using the grid view commands.",
+                "Displaying details in a modal popup for selected actions."
             ]
         }
     ],
-    "business_rules": [],
+    "business_rules": [
+        "Disable edit fields if the screen is not editable.",
+        "Process no data message on a read-only screen."
+    ],
     "validations": [
-        "Ensure all required fields are valid before processing insertions and updates."
+        "Cancel form insert or update if the page is invalid."
     ],
     "calculations": [],
     "conditions": [
-        "Handle different modes (insert, edit, display) for the FormView control.",
-        "Setup UI elements visibility based on user's screen permissions."
+        "Check if the user session exists before data operations."
     ],
     "system_behavior": [
-        "Manage JavaScript variables for client-side processing of date fields.",
-        "Display popup details for certifications and manage form submissions asynchronously."
+        "Uses script manager to register JavaScript variables and functions.",
+        "Redirect to current page after insert, update, or delete operations.",
+        "Cache user session post-interaction."
     ],
     "dependencies": [
-        "JavaScript dependencies for managing date and dropdown fields."
+        "HSPnet.DataLayer",
+        "HSPnet.Framework",
+        "HSPnet.UI"
     ],
     "exceptions": [
-        "Cancel insertion or update if page validation fails.",
-        "Cancel data retrieval if user session is missing."
+        "Cancel data operation if user session does not exist."
     ],
     "source_document_ids": [
         "39440c87-5f50-51d6-812f-6e2e162a1eae",
