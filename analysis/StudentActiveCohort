@@ -1,25 +1,76 @@
-The analysis of each document requires examining the retrieved data but generating such detailed insights and converting them into structured JSON for all files is quite intensive and needs to be done individually for each document. Starting with the "StudentActiveCohort" as initially instructed, here is the structured JSON output for the document analysis for this file: 
-
 ```json
 {
   "filename": "StudentActiveCohort",
-  "found": false,
-  "summary": "",
-  "purpose": "",
+  "found": true,
+  "summary": "The StudentActiveCohort files provide a mechanism to manage student cohort data within the HSPnet system. This includes retrieving active cohorts for students, manipulating cohort assignments, and maintaining data consistency.",
+  "purpose": "To manage student cohort assignments, including retrieval, addition, and removal of students from cohorts, and handling of course data associated with cohorts.",
   "entities": [],
-  "fields": [],
-  "actors": [],
-  "workflows": [],
-  "business_rules": [],
-  "validations": [],
-  "calculations": [],
-  "conditions": [],
+  "fields": [
+    "DepartmentID",
+    "DepartmentShortName",
+    "ProgramID",
+    "ProgramShortName",
+    "CohortID",
+    "CohortShortName",
+    "Unstructured",
+    "EnrolledCourses",
+    "AssignedCourses",
+    "UnassignedCourses",
+    "TimetableID",
+    "StudentHasActiveUserID",
+    "TermID",
+    "CourseID",
+    "CourseName"
+  ],
+  "actors": [
+    "HSPnetSession"
+  ],
+  "workflows": [
+    {
+      "name": "StudentSearchActiveCohorts",
+      "steps": [
+        "Set database procedure to 'StudentSearchActiveCohorts'.",
+        "Add session and student identifiers as parameters.",
+        "Execute database query to retrieve active cohort data.",
+        "Process results, creating StudentActiveCohort entries for valid data.",
+        "Return list of active cohorts."
+      ]
+    },
+    {
+      "name": "StudentRemoveFromCohort",
+      "steps": [
+        "Set database procedure to 'StudentRemoveFromCohort'.",
+        "Add session, student, and cohort identifiers as parameters.",
+        "Execute database query to remove student from specified cohort.",
+        "Process results if any.",
+        "Return updated list of cohorts."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Skip any all-zero entries (assigned and unassigned courses)."
+  ],
+  "validations": [
+    "Ensure UUIDs are valid before processing.",
+    "Check if any course assignments exist before processing."
+  ],
+  "calculations": [
+    "Calculate UnassignedCourses as EnrolledCourses minus AssignedCourses."
+  ],
+  "conditions": [
+    "Process only if data reader is not null.",
+    "Skip results until the 'Course' record set is reached during retrieval."
+  ],
   "system_behavior": [],
   "dependencies": [],
-  "exceptions": [],
-  "source_document_ids": [],
-  "content_gaps": ["No related documents found"]
+  "exceptions": [
+    "If data reader is null, skip processing."
+  ],
+  "source_document_ids": [
+    "24eaf078-e391-5240-9a2b-f1e669753812",
+    "8027c505-01e5-5861-af3d-ec417f2e1383",
+    "ebe839ba-3287-52fb-84f5-416ae2b6ec35"
+  ],
+  "content_gaps": []
 }
 ```
-
-If you wish to proceed with an analysis of any specific files retrieved, please indicate which one(s) and I can conduct a similar examination for those documents.
