@@ -1,27 +1,42 @@
 {
   "filename": "GuidelineDocArchive",
   "found": true,
-  "summary": "The content is related to a web page configuration using VBScript for a screen named 'GuidelineDocArchive'. It includes a script that sets session state, buffering, and expiration for HTTP responses.",
-  "purpose": "To configure and manage a web page related to the 'GuidelineDocArchive' screen, ensuring appropriate session and response handling.",
+  "summary": "The document contains VBScript code for handling a web page related to GuidelineDocArchive. It sets the HTTP response characteristics and includes functionality from an external script.",
+  "purpose": "The purpose is to serve a web page named GuidelineDocArchive using VBScript, managing session states, buffering responses, and including additional scripts for extended functionality.",
   "entities": [],
-  "fields": [],
+  "fields": [
+    {
+      "name": "strScreenName",
+      "type": "string",
+      "description": "Holds the screen name 'GuidelineDocArchive'."
+    }
+  ],
   "actors": [],
-  "workflows": [],
+  "workflows": [
+    {
+      "name": "Render GuidelineDocArchive Page",
+      "steps": [
+        "Set language to VBScript and disable session state.",
+        "Enable response buffering and set response expiration.",
+        "Declare and initialize strScreenName with 'GuidelineDocArchive'.",
+        "Include external script '/HSPnet/DoScreen.asp'."
+      ]
+    }
+  ],
   "business_rules": [],
   "validations": [],
   "calculations": [],
   "conditions": [],
   "system_behavior": [
-    "The script sets the HTTP response to buffer and not cache by setting the expiration to -1."
+    "The response is buffered and expires immediately.",
+    "The external script '/HSPnet/DoScreen.asp' is included for additional processing."
   ],
   "dependencies": [
-    "Includes a virtual file 'DoScreen.asp' as part of the page execution."
+    "Relies on external script '/HSPnet/DoScreen.asp'."
   ],
   "exceptions": [],
   "source_document_ids": [
     "0fd1bcc5-8161-55ec-9e8d-23df8909394e"
   ],
-  "content_gaps": [
-    "The content does not specify detailed workflows, business rules, or specific fields."
-  ]
+  "content_gaps": []
 }
