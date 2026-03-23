@@ -1,0 +1,148 @@
+{
+  "filename": "Agreement",
+  "found": true,
+  "summary": "The Agreement component handles operations related to the management of agreements, including searching, adding, updating, and displaying agreements. The system is designed to handle agreements with templates and provide interface elements based on the user's access rights. The data layer leverages a database session to perform operations on the agreements.",
+  "purpose": "To manage agreements through a series of workflows that allow for adding, updating, viewing, and organizing agreements and their associated templates.",
+  "entities": [
+    "Agreement",
+    "HSPnetSession",
+    "ItemList",
+    "CodeRecord"
+  ],
+  "fields": [
+    "ID",
+    "DescriptionCodeID",
+    "TemplateID",
+    "StatusCodeID",
+    "NextSteps",
+    "SourceIsTemplate",
+    "TemplateUnchanged",
+    "OtherSourceCodeID",
+    "LastUpdated",
+    "LastReview",
+    "NextReview",
+    "ContentUserID1",
+    "ContentUserID2",
+    "ContentUserID3",
+    "StatusChangeText",
+    "AppliedAllDepartments",
+    "AppliedAllPrograms",
+    "AppliedAllSites",
+    "AppliedAllServices",
+    "AppliedAllDestinations",
+    "StatusComments",
+    "PRDID",
+    "Printed",
+    "Deleted",
+    "ExpiryDate",
+    "PRComments",
+    "InsertPRComments",
+    "Ref",
+    "TypeID",
+    "RAPAID",
+    "Type",
+    "AADescription",
+    "AgencyAppliedTo",
+    "SiteAppliedTo",
+    "ProgAppliedTo",
+    "StatusDescription",
+    "IsStatusSubscriber",
+    "AgreementExists",
+    "Inactive",
+    "SiteListing",
+    "LastUpdatedFormatted",
+    "LastReviewFormatted",
+    "NextReviewFormatted",
+    "ExpiryDateFormatted",
+    "TemplateNavigateUrl",
+    "TemplateImageUrl",
+    "TemplateToolTip",
+    "HistoryNavigateUrl",
+    "HistoryImageUrl",
+    "HistoryToolTip",
+    "StatusSubscriberImageUrl",
+    "StatusSubscriberToolTip",
+    "btnToggleClientClick",
+    "ShowMinus",
+    "DetailType",
+    "Detail"
+  ],
+  "actors": [
+    "Users",
+    "CAUsers"
+  ],
+  "workflows": [
+    {
+      "name": "Agreement Search",
+      "steps": [
+        "Use AgreementSearchTemplate stored procedure",
+        "Add session parameters to DB",
+        "Process results into Agreement list"
+      ]
+    },
+    {
+      "name": "Agreement Add",
+      "steps": [
+        "Call AgreementAdd stored procedure",
+        "Add session and agreement parameters to DB",
+        "Return new agreement ID on success"
+      ]
+    },
+    {
+      "name": "Agreement Update",
+      "steps": [
+        "Call AgreementUpdate stored procedure",
+        "Add session and agreement parameters to DB"
+      ]
+    },
+    {
+      "name": "Agreement Delete",
+      "steps": [
+        "Call AgreementDelete stored procedure",
+        "Add agreement ID parameter",
+        "Execute query to delete agreement"
+      ]
+    }
+  ],
+  "business_rules": [
+    "Only existing agreements can be viewed or edited.",
+    "Template records behave differently based on user access rights."
+  ],
+  "validations": [
+    "Check that startIndex and endIndex are valid indices when setting group lists.",
+    "Validate that the agreement ID exists before updating or deleting."
+  ],
+  "calculations": [],
+  "conditions": [
+    "Display agreements differently based on TemplateExists flag and user's edit rights.",
+    "Render LastUpdated in red if ExpiryDate is before today's date."
+  ],
+  "system_behavior": [
+    "Load agreement data from database through stored procedures.",
+    "Toggle UI components based on agreement data and user rights."
+  ],
+  "dependencies": [
+    "HSPnet Framework",
+    "System.Data.SqlClient"
+  ],
+  "exceptions": [
+    "Handle cases where SqlDataReader is null or fails to read data."
+  ],
+  "source_document_ids": [
+    "1ba6c2bc-e058-582c-85e1-da0f1117a1a5",
+    "47f70ad1-b18e-5473-8ebf-54139a777c97",
+    "4d0ef014-7317-5b4c-a4f6-587459047fa7",
+    "5b6a46c1-b06a-50b1-a02a-47ae2ae590b6",
+    "70cf9f1b-b2d9-528b-bb1e-c5103c91e4cb",
+    "869ab082-89f6-570e-95e1-6c4d91e50e5f",
+    "a27a9ba0-0123-5e16-89fb-06298cc5e3c7",
+    "ab02f0fe-64a1-50ae-9817-49e2ea01f820",
+    "af126836-92db-5d5d-85b8-1923b5b2c2b3",
+    "b13ec003-a70a-5232-87ba-00c851d73e6c",
+    "be77c228-d99c-596b-9485-d9da1c6f0f77",
+    "de2a08e8-d6bc-5ab3-9c82-2e440b60d63b",
+    "e6c1f06f-4f8d-5387-9611-c0fc85c6d4a3",
+    "efeb4660-bca5-57e3-b5c9-03c0e3a96fd6"
+  ],
+  "content_gaps": []
+}
