@@ -1,118 +1,97 @@
-{
-  "filename": "SiteContacts",
-  "found": true,
-  "summary": "The SiteContacts module facilitates privacy management and contact details control for various roles including preceptors, instructors, DCInfos, and placements. It provides functionality to add, update, and delete contact privacy settings based on user interactions, validations, and conditions.",
-  "purpose": "To manage contact privacy and withholding rules for site contacts in an educational or institutional setting, ensuring data protection based on interaction and system validation.",
-  "entities": [],
-  "fields": [
-    "imgPreceptorWithHold",
-    "valtxtPreceptorWithHold",
-    "divPlacement",
-    "hdnPlacementWithHoldId",
-    "chkPlacementWithHold",
-    "lblPlacementWithHoldUntil",
-    "txtPlacementWithHoldDays",
-    "lblPlacementWithHold",
-    "valtxtPlacementWithHold",
-    "divHelp",
-    "lblHelpContact",
-    "pnlPopupAppliedChildren",
-    "btnShowPopupAppliedChildren",
-    "mdlAppliedChildren",
-    "divHeaderAppliedChildren",
-    "lblHeaderAppliedChildren",
-    "fvwAppliedChildren",
-    "chkDCInfoWithHold",
-    "chkDCInfoWithHoldAlways",
-    "lblDCInfoWithHoldUntil",
-    "txtDCInfoWithHoldDays",
-    "lblDCInfoWithHold",
-    "imgDCInfoWithHold",
-    "valtxtDCInfoWithHold",
-    "hdnDCInfoWithHoldId",
-    "hdnDCInfoWithHoldContactTypeId",
-    "chkPreceptorWithHold",
-    "chkPreceptorWithHoldAlways",
-    "lblPreceptorWithHoldUntil",
-    "txtPreceptorWithHoldDays",
-    "lblPreceptorWithHold",
-    "imgPreceptorWithHold",
-    "hdnPreceptorWithHoldId",
-    "hdnPreceptorWithHoldContactTypeId",
-    "chkInstructorWithHold",
-    "chkInstructorWithHoldAlways",
-    "lblInstructorWithHoldDaysUntil",
-    "txtInstructorWithHoldDays",
-    "lblInstructorWithHold",
-    "imgInstructorWithHold",
-    "hdnInstructorWithHoldId",
-    "hdnInstructorWithHoldContactTypeId"
-  ],
-  "actors": [
-    "GenericContactPrivacy",
-    "UserSession",
-    "ScreenIsEditable",
-    "ParentIDName",
-    "ScriptMgr",
-    "SPNameAdd",
-    "SPNameUpdate",
-    "SPNameDelete",
-    "SPNameSearch",
-    "SPNameSearchByID",
-    "HasInheritedContactPrivacy"
-  ],
-  "workflows": [
+[
     {
-      "name": "Contact Privacy Management",
-      "steps": [
-        "User changes checkbox state or text input for withholding days.",
-        "Page validation checks and passes.",
-        "Save privacy settings through functions (saveInstructorPrivacy, savePreceptorPrivacy, etc.).",
-        "Redirect based on ParentIDName."
-      ]
-    },
-    {
-      "name": "Destination Management",
-      "steps": [
-        "User interacts with list of included and not included destinations.",
-        "Adjust destination inclusion through Add/Remove operations.",
-        "Bind updated lists to the UI components."
-      ]
+        "filename": "SiteContacts",
+        "found": true,
+        "summary": "SiteContacts facilitates privacy settings for different contact types related to placements, instructors, preceptors, and DCInfo. It manages visibility and withhold settings for these contacts.",
+        "purpose": "The purpose of SiteContacts is to manage contact privacy settings within a site, allowing adjustments and updates to withhold contact information under certain conditions.",
+        "entities": [],
+        "fields": [
+            "hdnPlacementWithHoldId",
+            "hdnPlacementWithHoldContactTypeId",
+            "chkPlacementWithHold",
+            "txtPlacementWithHoldDays",
+            "hdnInstructorWithHoldId",
+            "hdnInstructorWithHoldContactTypeId",
+            "chkInstructorWithHold",
+            "hdnPreceptorWithHoldId",
+            "hdnPreceptorWithHoldContactTypeId",
+            "chkPreceptorWithHold",
+            "txtPreceptorWithHoldDays",
+            "hdnDCInfoWithHoldId",
+            "hdnDCInfoWithHoldContactTypeId",
+            "chkDCInfoWithHold",
+            "txtDCInfoWithHoldDays"
+        ],
+        "actors": [
+            "UserSession",
+            "ScreenIsEditable"
+        ],
+        "workflows": [
+            {
+                "name": "Privacy Save Workflow",
+                "steps": [
+                    "Check if checkbox is selected",
+                    "Determine withhold days",
+                    "Add or update contact privacy info",
+                    "Redirect based on ParentIDName"
+                ]
+            },
+            {
+                "name": "Destination Setup Workflow",
+                "steps": [
+                    "Initialize destination lists",
+                    "Populate list based on contact privacy",
+                    "Bind data to controls"
+                ]
+            }
+        ],
+        "business_rules": [
+            "Withhold information if checkbox is selected and withhold days are negative."
+        ],
+        "validations": [
+            "CompareValidator for PreceptorWithHold",
+            "CompareValidator for DCInfoWithHold",
+            "CompareValidator for PlacementWithHold"
+        ],
+        "calculations": [],
+        "conditions": [
+            "chkPlacementWithHold.Checked || chkDCInfoWithHold.Checked || chkInstructorWithHold.Checked"
+        ],
+        "system_behavior": [],
+        "dependencies": [],
+        "exceptions": [],
+        "source_document_ids": [
+            "23ecfd48-1d97-5485-966f-32eaeee30fa6",
+            "24d0e21a-791c-5dc3-9934-fe82e3b141fd",
+            "255692e6-3f7f-56d8-849b-ebf752ee036a",
+            "2a56371a-9c38-584b-bf96-d890ca1296d8",
+            "2e1d833d-fb72-5759-8358-2863df1018a2",
+            "3b41121d-acfb-5882-84c1-59882196993a",
+            "3c7f08d1-646b-58a0-95e3-2dc96aa436a4",
+            "404d4164-b7b3-5ce1-bc21-1849d7a9c3a3",
+            "4138b3d0-833f-58e0-a6de-a3c1186a35f5",
+            "4f5fe0b7-df42-5292-b878-540e878935b4",
+            "68f245a2-4671-571c-bcd2-5b3a3e48b728",
+            "731993eb-d9b3-5f71-859f-ab970e9919c8",
+            "760265cf-0643-5d03-8457-e544a21c70ef",
+            "79007af4-6bd7-58b4-bd89-d913ed43ee1f",
+            "7c4784e2-dcd9-5cea-8e55-7b028f0f96ea",
+            "7d5ec46b-19c8-5341-9c28-9836fccebda2",
+            "7db4bfcb-f6a9-571c-a7b4-1e31d5cc826d",
+            "a8bcda81-a122-50bb-9670-157bed4f8938",
+            "b3a70c46-44ab-5135-a01b-52040408b168",
+            "bdd209df-ebc1-525b-a164-0b9df82dab68",
+            "c12b0df9-ea44-5718-addf-fe5a2b92dabe",
+            "d1750c92-7e77-5d12-936f-a13445d27dad",
+            "d643e34d-63e0-54cc-a9b4-a4466cf158ee",
+            "d8623723-3ed6-5224-8141-ade3d12e4ec1",
+            "dbc5059b-cc8b-533c-99e1-0f28a7e9f55f",
+            "e4c6c70f-36db-5438-ac64-736a8ed41bf1",
+            "e58448a8-fefe-5fee-99c1-2e3bfd5c82bc",
+            "f03777e1-6d8a-50aa-b178-19038429fa4f",
+            "f3190ab3-3599-58c2-8666-5c8d6557ac70",
+            "faced3fe-7484-58ea-aabf-ddacdc2869f3"
+        ],
+        "content_gaps": []
     }
-  ],
-  "business_rules": [],
-  "validations": [
-    "Ensure all numeric inputs for 'WithholdDays' are non-negative.",
-    "Check if the page and data inputs are valid before saving privacy settings.",
-    "Use Page.IsValid to determine whether the operation can proceed."
-  ],
-  "calculations": [],
-  "conditions": [
-    "If the checkbox for always withhold is checked, 'WithholdDays' is set to -1.",
-    "Enable/Disable fields based on checkbox states and ScreenIsEditable flag.",
-    "Show/Hide elements based on ParentIDName and user interaction."
-  ],
-  "system_behavior": [
-    "Auto-generates UI controls based on designer file",
-    "Persist user session cache and redirect after operations",
-    "Triggers privacy save functions based on UI events"
-  ],
-  "dependencies": [],
-  "exceptions": [],
-  "source_document_ids": [
-    "23ecfd48-1d97-5485-966f-32eaeee30fa6",
-    "24d0e21a-791c-5dc3-9934-fe82e3b141fd",
-    "255692e6-3f7f-56d8-849b-ebf752ee036a",
-    "2a56371a-9c38-584b-bf96-d890ca1296d8",
-    "2e1d833d-fb72-5759-8358-2863df1018a2",
-    "3b41121d-acfb-5882-84c1-59882196993a",
-    "3c7f08d1-646b-58a0-95e3-2dc96aa436a4",
-    "4f5fe0b7-df42-5292-b878-540e878935b4",
-    "7c4784e2-dcd9-5cea-8e55-7b028f0f96ea",
-    "e4c6c70f-36db-5438-ac64-736a8ed41bf1",
-    "f03777e1-6d8a-50aa-b178-19038429fa4f",
-    "f3190ab3-3599-58c2-8666-5c8d6557ac70",
-    "d1750c92-7e77-5d12-936f-a13445d27dad"
-  ],
-  "content_gaps": []
-}
+]
