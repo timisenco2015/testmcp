@@ -1,49 +1,39 @@
 {
     "filename": "ServiceCode",
     "found": true,
-    "summary": "ServiceCode manages different service codes used within courses and timetables, supporting localization and categorization.",
-    "purpose": "To provide a structured way to manage service codes categorized by code categories.",
-    "entities": [
-        "ServiceCode"
-    ],
+    "summary": "ServiceCode and ServiceCodes provide data structures and methods for managing service codes.",
+    "purpose": "To enable retrieval and management of service codes linked to courses and timetables.",
+    "entities": ["ServiceCode"],
     "fields": [
         "ID",
         "CodeCategoryID",
         "ShortName",
         "Name",
         "SortOrder",
-        "Notes",
-        "NameAlt",
-        "NotesAlt"
+        "Notes"
     ],
-    "actors": [
-        "HSPnetSession"
-    ],
+    "actors": ["HSPnetSession"],
     "workflows": [
         {
-            "name": "Retrieve Service Codes",
+            "name": "Service Code Retrieval",
             "steps": [
-                "Initialize session and database.",
-                "Execute procedure to fetch service codes.",
-                "Parse and localize retrieved data."
+                "Invoke ServiceCodeListAll",
+                "Invoke ServiceCodeASMOptionByTimetableID",
+                "Invoke ServiceCodeASMOptionByCourseID"
             ]
         }
     ],
-    "business_rules": [
-        "Use alternate name if session is in alternate language mode."
-    ],
+    "business_rules": ["Localized names are used when alt language mode is active."],
     "validations": [],
     "calculations": [],
-    "conditions": [],
+    "conditions": ["UseAltLanguageFields condition affects name localization."],
     "system_behavior": [],
-    "dependencies": [
-        "HSPnetSession",
-        "Localization"
-    ],
+    "dependencies": [],
     "exceptions": [],
     "source_document_ids": [
         "94f1b055-348d-508a-ae6e-cf7960a8c6a2",
-        "e4ebe4b4-6d14-5c3f-b693-61016f765239"
+        "e4ebe4b4-6d14-5c3f-b693-61016f765239",
+        "f976b9af-a402-540f-b162-391d578fac7c"
     ],
     "content_gaps": []
 }
