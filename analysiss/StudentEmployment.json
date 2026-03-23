@@ -1,69 +1,63 @@
 {
-    "filename": "StudentEmployment",
-    "found": true,
-    "summary": "The document contains code for a user control named StudentEmployment in the HSPnet application. The control includes a repeater for student employment data and an ObjectDataSource for data binding. It is designed to handle the presentation and interaction of student employment information within a web application.",
-    "purpose": "The purpose of the StudentEmployment control is to manage and display employment-related information for students within the HSPnet application, particularly focusing on handling data binding and user interactions.",
-    "entities": [
-        "StudentEmployment",
-        "UserSession",
-        "PRSearchStudent"
-    ],
-    "fields": [
-        "rprStudEmployment",
-        "dsGridData",
-        "UserSession",
-        "StudentID",
-        "AlternateObservation"
-    ],
-    "actors": [
-        "HSPnetSession"
-    ],
-    "workflows": [
-        {
-            "name": "Data Binding Workflow",
-            "steps": [
-                "Check if UserSession is null during data selection.",
-                "Cancel data selection if UserSession is null.",
-                "Set input parameters for data selection based on UserSession and StudentID."
-            ]
-        },
-        {
-            "name": "Item Data Bound Workflow",
-            "steps": [
-                "Set supervisor caption in the header if available.",
-                "Check visibility conditions for certain controls based on PRSearchStudent properties.",
-                "Set CSS classes for rows based on item type."
-            ]
-        }
-    ],
-    "business_rules": [
-        "UserSession must not be null to proceed with data selection.",
-        "Supervisor caption should be set in the header if available."
-    ],
-    "validations": [
-        "UserSession validation for null check during data selection."
-    ],
-    "calculations": [],
-    "conditions": [
-        "Visibility of controls based on PRSearchStudent properties.",
-        "Row class setting based on item type."
-    ],
-    "system_behavior": [
-        "Data binding is contingent on UserSession availability."
-    ],
-    "dependencies": [
-        "HSPnet Framework",
-        "HSPnet DataLayer"
-    ],
-    "exceptions": [
-        "Data selection is cancelled if UserSession is null."
-    ],
-    "source_document_ids": [
-        "008173b2-fa40-51c1-9f67-806ecc8e7c57",
-        "7c838bae-40e5-59c1-9a8e-2f9278f8d26c",
-        "ec370be1-d0e6-5139-9978-3552ffe80644"
-    ],
-    "content_gaps": [
-        "Detailed explanation of PRSearchStudent properties and its role is missing."
-    ]
+  "filename": "StudentEmployment",
+  "found": true,
+  "summary": "The content defines a StudentEmployment user control in a web application, including setup of web controls, data sources, and event handling for displaying and interacting with student employment data.",
+  "purpose": "To manage and display student employment information within a web application, providing interfaces for viewing and interacting with employment details.",
+  "entities": [],
+  "fields": [
+    "rprStudEmployment",
+    "dsGridData",
+    "UserSession",
+    "StudentID",
+    "AlternateObservation"
+  ],
+  "actors": [
+    "UserSession"
+  ],
+  "workflows": [
+    {
+      "name": "DataBinding",
+      "steps": [
+        "Check if UserSession is available.",
+        "Bind session and student ID as input parameters for data selection.",
+        "Handle item data binding for different list item types."
+      ]
+    },
+    {
+      "name": "ItemDataBound",
+      "steps": [
+        "Handle header item type to set supervisor caption.",
+        "Determine visibility of control based on ParentPRDID.",
+        "Configure link buttons and tool tips with placement details."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Data selection is canceled if UserSession is null.",
+    "Visibility of specific controls depends on data item's ParentPRDID."
+  ],
+  "validations": [],
+  "calculations": [],
+  "conditions": [
+    "PRSS.ParentPRDID > 0",
+    "PRSS.PR_ID == 0 || PRSS.PlcAgencyID != UserSession.AgencyID",
+    "e.Item.ItemType == ListItemType.Footer"
+  ],
+  "system_behavior": [
+    "Auto-generated fields are protected and require manual updates in code-behind for changes."
+  ],
+  "dependencies": [
+    "HSPnet.DataLayer",
+    "HSPnet.Framework",
+    "HSPnet.App_GlobalResources"
+  ],
+  "exceptions": [
+    "Data selection is canceled if UserSession is missing."
+  ],
+  "source_document_ids": [
+    "008173b2-fa40-51c1-9f67-806ecc8e7c57",
+    "7c838bae-40e5-59c1-9a8e-2f9278f8d26c",
+    "ec370be1-d0e6-5139-9978-3552ffe80644"
+  ],
+  "content_gaps": []
 }
