@@ -1,168 +1,115 @@
 {
   "filename": "CustomReportRequest",
   "found": true,
-  "summary": "The 'CustomReportRequest' module is designed to facilitate the creation and management of custom reports. This involves setting up report parameters, handling user inputs for various field selections, and managing multiple views for different types of reports.",
-  "purpose": "To provide users with the functionality to request, configure, and manage custom reports based on various parameters and conditions specific to students, staff, sites, and other categories.",
+  "summary": "The Custom Report Request module allows users to create and manage custom reports within the system, handling parameters like department, program, cohort, and specific report types tailored for different user roles such as students, staff, and site-related services. The module includes various views for handling inputs related to educational programs, user authorizations, site selections, and data fields. It integrates with user session settings, allowing tailored access and customization based on user roles.",
+  "purpose": "To facilitate the creation and customization of reports by capturing specific parameters and data fields needed by different entities within the organization, allowing tailored reports for students, staff, and sites.",
   "entities": [],
   "fields": [
     {
+      "name": "ddReportType",
+      "description": "Dropdown for selecting report type based on user role (e.g., student, staff, site)."
+    },
+    {
       "name": "txtStartDate",
-      "type": "TextBox",
-      "description": "Input field for the start date of the report."
+      "description": "TextBox for entering the start date of the report period."
     },
     {
       "name": "txtEndDate",
-      "type": "TextBox",
-      "description": "Input field for the end date of the report."
-    },
-    {
-      "name": "txtReportTypeComments",
-      "type": "TextBox",
-      "description": "Input field for comments related to the report type."
-    },
-    {
-      "name": "txtPurpose",
-      "type": "TextBox",
-      "description": "Input field for the purpose of the report."
-    },
-    {
-      "name": "txtAudience",
-      "type": "TextBox",
-      "description": "Input field for specifying the audience of the report."
-    },
-    {
-      "name": "txtRequestedDate",
-      "type": "TextBox",
-      "description": "Input field for the requested date of the report."
+      "description": "TextBox for entering the end date of the report period."
     },
     {
       "name": "txtStudentDataFields",
-      "type": "TextBox",
-      "description": "Input field for specifying student data fields for the report."
+      "description": "TextBox for entering custom data fields required for student reports."
     },
     {
-      "name": "txtSitesServicesDataFields",
-      "type": "TextBox",
-      "description": "Input field for specifying sites/services data fields for the report."
+      "name": "txtPurpose",
+      "description": "TextBox for specifying the purpose of the report."
+    },
+    {
+      "name": "txtAudience",
+      "description": "TextBox for identifying the audience for the report."
     },
     {
       "name": "txtStudentInformation",
-      "type": "TextBox",
-      "description": "Input field for student information related to the report."
+      "description": "TextBox for entering student information required for personalized reports."
     },
     {
       "name": "txtStudentAuthorization",
-      "type": "TextBox",
-      "description": "Input field for student authorization related to the report."
+      "description": "TextBox for entering student authorization details for the report."
+    },
+    {
+      "name": "upldUploadFile",
+      "description": "File upload control for attaching files with the report."
     }
   ],
   "actors": [
     {
-      "name": "UserSession",
-      "description": "Manages user sessions and provides user-specific data and configurations."
+      "name": "User",
+      "description": "General user interacting with the report request module."
     },
     {
       "name": "Staff",
-      "description": "Handles staff-related data and actions within the report requests."
+      "description": "Staff member involved in requesting or processing reports."
+    },
+    {
+      "name": "System Administrator",
+      "description": "Administrator who manages system settings impacting reports."
     }
   ],
   "workflows": [
     {
-      "name": "SetupHeader",
+      "name": "Create Custom Report",
       "steps": [
-        "Set user name, email, and phone in header.",
-        "Set user agency and department information."
+        "User selects the report type from the dropdown.",
+        "User fills in the required fields including start date, end date, and relevant data fields.",
+        "User attaches any necessary files using the upload control.",
+        "User submits the report request for processing."
       ]
     },
     {
-      "name": "SetupReportType",
+      "name": "Setup Header Information",
       "steps": [
-        "Define report type based on user selection.",
-        "Bind data to the report type dropdown list."
-      ]
-    },
-    {
-      "name": "SetupPlacementRequests",
-      "steps": [
-        "Configure view based on user's Placement Coordinator role.",
-        "Initialize form fields and dropdowns if not postback."
-      ]
-    },
-    {
-      "name": "SetupStudents",
-      "steps": [
-        "Fill department and program dropdowns.",
-        "Populate student-related fields based on parameters."
-      ]
-    },
-    {
-      "name": "HandleUploadedFile",
-      "steps": [
-        "Check if a file is posted and has content.",
-        "Create a folder and save the uploaded file.",
-        "Return file metadata including URL, size, and type."
-      ]
-    },
-    {
-      "name": "CheckFilters",
-      "steps": [
-        "Toggle filter checkboxes based on state parameter.",
-        "Set visibility and status of release filters."
+        "Retrieve and display user information (name, email, agency, department).",
+        "Setup JavaScript variables for handling client-side interactions."
       ]
     }
   ],
   "business_rules": [
-    "Only system administrators can see all sites and services.",
-    "Report submission is enabled only if a valid report type is selected.",
-    "Start and end dates must be provided and validated.",
-    "At least one data field must be specified for each report."
+    "Report types are restricted by user role; only applicable types are selectable.",
+    "Start and end dates must be valid calendar dates, enforced through validation controls."
   ],
   "validations": [
     {
-      "name": "RequiredFieldValidator1",
-      "target": "txtReportTypeComments",
-      "description": "Ensures that comments are provided when the report type is 'OTHER'."
+      "name": "RequiredFieldValidator",
+      "description": "Ensures that mandatory fields are filled before submission."
     },
     {
-      "name": "RequiredFieldValidator2",
-      "target": "txtStartDate",
-      "description": "Ensures that a start date is entered."
-    },
-    {
-      "name": "RegularExpressionValidator1",
-      "target": "txtStartDate",
-      "description": "Validates the format of the start date."
-    },
-    {
-      "name": "RequiredFieldValidator3",
-      "target": "txtEndDate",
-      "description": "Ensures that an end date is entered."
-    },
-    {
-      "name": "RegularExpressionValidator2",
-      "target": "txtEndDate",
-      "description": "Validates the format of the end date."
+      "name": "RegularExpressionValidator",
+      "description": "Validates input format, especially for date fields."
     }
   ],
   "calculations": [],
   "conditions": [
     {
-      "name": "UserIsSysadmin",
-      "description": "Checks if the current user has system administrator privileges."
+      "description": "Activation of different views based on the selected report type."
     }
   ],
   "system_behavior": [
-    "Automatically sets the term dropdown to 'Custom' by default.",
-    "Disables certain fields based on user roles and report state."
+    "Displays error or warning panels based on the validation of user input or system status."
   ],
   "dependencies": [
-    "HSPnet.Framework for common functions and page setup.",
-    "HSPnet.DataLayer for accessing department, cohort, and site data."
+    {
+      "name": "UserSession",
+      "description": "Handles session-specific data and user roles."
+    },
+    {
+      "name": "JavaScript Libraries",
+      "description": "Used for managing client-side functionality."
+    }
   ],
   "exceptions": [
     {
-      "name": "FileUploadException",
-      "description": "Handles errors related to file uploads during report requests."
+      "description": "File upload errors if the file is not compliant with the allowed types."
     }
   ],
   "source_document_ids": [
@@ -173,45 +120,9 @@
     "13f4dfc6-fc65-5c96-b008-e82ed6f2df16",
     "1ab5d1d5-c40a-55ab-9359-2f22268dfa88",
     "1e31a3ec-d9d2-5fe1-8f2b-5481c496bf6a",
-    "1eebbaff-a2c6-5f00-8980-7636869aabf9",
     "21f03fff-6292-5d05-b95e-4c37fade754b",
     "25aeac5d-4f58-52dc-a10d-eabe6880367e",
-    "25f136e9-5e29-5466-afff-9e4625237faa",
-    "29af3385-5727-5b7a-8c6f-681180e8c1b5",
-    "318ef578-2009-5071-bfb3-396fb44cedd5",
-    "32972f05-65d3-50e8-a0ec-48147254bc54",
-    "338b6fd4-ac82-5b00-a60e-0f81921d3649",
-    "34aad872-c5b5-5642-99ee-50db4ace0c23",
-    "3a389412-87db-5c88-9e1c-48abb2a0caa8",
-    "3b1d046c-c75d-5e45-b775-0a1437e4fd76",
-    "3bade5a5-9fa5-56dd-8be8-e9fffa3a2b6a",
-    "3bd65a80-1452-51d3-a766-5df574174dab",
-    "3c2d6f53-1ada-58c8-a43e-b0cfb8167288",
-    "3e3e247e-e9ac-5f16-9d7b-2057f34d688a",
-    "3ea8d5ba-16ce-543d-bba9-27ca8cb0252a",
-    "3f868210-07f6-5e49-8db6-2ad8a011be11",
-    "40bc69f8-aef6-5abc-a503-04ea5bf8bc0f",
-    "42217d73-ae94-5fc0-b1c7-1b0245d5be22",
-    "422e8522-7c80-515e-ae0f-77fe5c920415",
-    "435a40e5-a345-531d-a450-b7b0c47b0d09",
-    "43fa98b3-cb6a-50ea-b985-3248ae06bbf5",
-    "444c42cd-5ee6-5b07-b155-233035fa9eca",
-    "472ae06d-98cb-5891-8cdb-f77e58cc3fc9",
-    "484b9ae4-da2b-506f-a9c7-cfc517286ff0",
-    "4898d947-bfdd-5dfd-84d2-8dbe602c9bda",
-    "4f3c22b3-b27b-5c4c-a4da-1e9dba4b6eda",
-    "507e29ed-f2e2-580d-b430-7e4265736e01",
-    "534740d6-ada2-5b20-a7ec-7586a6f59a7a",
-    "53988a7a-5690-5238-a4f8-cba7373aad5e",
-    "543397bd-ec65-55d1-a123-5d972d14bf29",
-    "5514110e-249e-55b5-85ed-65289217e13c",
-    "630e1ec7-bf22-5d4b-9d10-991c70c3bf97",
-    "7d8750e0-b1b3-5389-8656-2100604f2b69",
-    "806e18ee-317f-588d-a377-72b0bc544c64",
-    "9e81d962-8197-5912-8550-25d5abf4593d",
-    "a2ce3dd0-3940-5c81-8c78-149158b48a38",
-    "ad43c6b1-bead-5a15-9c4e-cfdb30d6e126",
-    "edd1f23a-bdcf-5a2a-bc36-ec82ba7c8d23"
+    "25f136e9-5e29-5466-afff-9e4625237faa"
   ],
   "content_gaps": []
 }
