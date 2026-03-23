@@ -1,0 +1,71 @@
+```json
+{
+  "filename": "CustomReportQueue",
+  "found": true,
+  "summary": "The CustomReportQueue is a web user control that manages the display and interaction with custom report requests in a web application. It handles data selection, sorting, and user interactions with the report queue.",
+  "purpose": "To provide an interface for viewing, sorting, and managing custom report requests in the web application.",
+  "entities": ["CustomReport", "UserSession"],
+  "fields": ["UserSession", "ddAgency", "ddDepartment", "ddUser", "ddCreated", "rprCustomReport", "fvwDocument"],
+  "actors": ["SystemAdministrator", "LocalAdministrator", "User"],
+  "workflows": [
+    {
+      "name": "Custom Report Refresh",
+      "steps": [
+        "Check if page is loaded or refreshed by a popup.",
+        "If FirstLoad, bind data to dropdowns and set initial sort.",
+        "Refresh data based on agency, department, and user selection."
+      ]
+    },
+    {
+      "name": "Custom Report Item Command",
+      "steps": [
+        "Execute command based on user interaction (edit, return, cancel, sort).",
+        "Update the report status or order based on command."
+      ]
+    }
+  ],
+  "business_rules": [
+    "On first load, bind agency and department dropdowns.",
+    "Administrators have access to additional dropdown items."
+  ],
+  "validations": [
+    "Ensure dropdowns have items before adding blank entries.",
+    "Check user session validity before binding data."
+  ],
+  "calculations": [],
+  "conditions": [
+    "Page is not a postback or caused by popup refresh.",
+    "Sort expression changes based on current order."
+  ],
+  "system_behavior": [
+    "Handle file uploads and updates for custom reports.",
+    "Bind and update views based on user session and selections."
+  ],
+  "dependencies": [
+    "HSPnet.DataLayer",
+    "HSPnet.Framework",
+    "System.Web.UI.WebControls"
+  ],
+  "exceptions": [
+    "Popup caused refresh without valid user session.",
+    "Failed to load data due to invalid session."
+  ],
+  "source_document_ids": [
+    "065fbc13-294e-5802-8862-5eeee1e293c4",
+    "06673988-c0e1-567b-8e5e-6f7d10ad50f7",
+    "272b27a8-86a2-54d3-848f-122354d493b0",
+    "44f2b574-24db-5c77-bfac-e398c3e03f66",
+    "4a0eefa9-782b-5738-ae9d-61aaa33b65f9",
+    "6f3e30c7-6486-5332-96a9-c3d68207c376",
+    "723416ea-321b-5391-a8c6-a9e6dba4e56e",
+    "780c9195-9780-5849-b2fc-0b934fdd83c7",
+    "9de91c08-26c4-5167-95f1-7aa271077b75",
+    "a8d7e60d-8732-5c60-9c47-06ec00b1a95b",
+    "af753a9f-2d1b-5d8a-9197-7f3f4b9346e6",
+    "b44bfebd-b2aa-5370-94e5-e506fae93724",
+    "cb9f6f4b-fe7c-5342-b9b2-b8dd36b32d4c",
+    "e37e6caa-a235-5e9a-9262-ce42a18e5898"
+  ],
+  "content_gaps": []
+}
+```
