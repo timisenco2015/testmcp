@@ -1,33 +1,30 @@
 {
   "filename": "ServiceCode",
   "found": true,
-  "summary": "The document defines a ServiceCode class and its related operations including listing, searching by CourseID or TimetableID.",
-  "purpose": "To manage service codes within the system, facilitating retrieval and localization of service codes.",
-  "entities": ["ServiceCode"],
-  "fields": [
-    {
-      "name": "ID",
-      "type": "int",
-      "description": "Unique identifier for the service code."
-    },
-    {
-      "name": "ShortName",
-      "type": "string",
-      "description": "Short form of the service code."
-    },
-    {
-      "name": "Name",
-      "type": "string",
-      "description": "Full description of the service code."
-    }
+  "summary": "ServiceCode is a data structure used to represent service codes in association with programs and courses.",
+  "purpose": "To manage service codes and their associated metadata for programs and courses.",
+  "entities": [
+    "ServiceCode"
   ],
-  "actors": [],
+  "fields": [
+    "ID",
+    "CodeCategoryID",
+    "ShortName",
+    "Name",
+    "SortOrder",
+    "Notes",
+    "NameAlt",
+    "NotesAlt"
+  ],
+  "actors": [
+    "HSPnetSession"
+  ],
   "workflows": [],
   "business_rules": [],
   "validations": [],
   "calculations": [],
-  "conditions": ["Alternative language fields are used when 'UseAltLanguageFields' is true."],
-  "system_behavior": ["Handles operations related to service codes, including retrieval by course or timetable ID."],
+  "conditions": [],
+  "system_behavior": [],
   "dependencies": [],
   "exceptions": [],
   "source_document_ids": [
