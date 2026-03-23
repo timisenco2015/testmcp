@@ -1,20 +1,53 @@
 {
     "filename": "choosers",
     "found": true,
-    "summary": "The choosers module facilitates the selection of items between two lists using JavaScript functions to manipulate and transfer selected items. It employs client-side scripting for item movement and updates and includes controls for automated field updates.",
-    "purpose": "To manage item selection and transfer between lists, enabling dynamic updates of included and excluded items.",
+    "summary": "The 'choosers' component is a web control for managing listbox selections, allowing the transfer of items between two listboxes using buttons. It includes client-side JavaScript functions for selecting and moving items, and server-side controls for handling the transfer.",
+    "purpose": "To facilitate the selection and transfer of list items between two listboxes in a web application interface.",
     "entities": [],
     "fields": [
-        "txtIncluded"
+        {
+            "name": "cmdAddRight",
+            "type": "Button"
+        },
+        {
+            "name": "cmdAddLeft",
+            "type": "Button"
+        },
+        {
+            "name": "Label3",
+            "type": "Label"
+        },
+        {
+            "name": "lbIncluded",
+            "type": "ListBox"
+        },
+        {
+            "name": "cmdRemoveAll",
+            "type": "Button"
+        },
+        {
+            "name": "txtIncluded",
+            "type": "HiddenField"
+        },
+        {
+            "name": "lbNotIncluded",
+            "type": "ListBox"
+        },
+        {
+            "name": "cmdAddAll",
+            "type": "Button"
+        }
     ],
     "actors": [],
     "workflows": [
         {
-            "name": "Item Selection Workflow",
+            "name": "Select and Move Items",
             "steps": [
-                "User selects items in source list.",
-                "JavaScript moves selected items to destination list.",
-                "Hidden field is updated to reflect changes."
+                "Select items in 'lbNotIncluded' ListBox.",
+                "Click 'cmdAddRight' to move selected items to 'lbIncluded'.",
+                "Click 'cmdAddLeft' to move selected items back.",
+                "Use 'cmdAddAll' to transfer all items from 'lbNotIncluded' to 'lbIncluded'.",
+                "Use 'cmdRemoveAll' to transfer all items back from 'lbIncluded' to 'lbNotIncluded'."
             ]
         }
     ],
@@ -23,8 +56,8 @@
     "calculations": [],
     "conditions": [],
     "system_behavior": [
-        "JavaScript functions handle item movement and list updates.",
-        "Controls are enabled or disabled based on conditions."
+        "JavaScript functions `selectWholeList`, `moveSelectedEntries`, `moveAllEntries`, and `copyListToHidden` manage the selection and movement of items between listboxes and their synchronization with hidden input fields.",
+        "Control enabling/disabling is dependent on `_EnableControls` boolean flag."
     ],
     "dependencies": [],
     "exceptions": [],
