@@ -1,0 +1,105 @@
+```json
+{
+  "filename": "ClinicalPracticeCodes",
+  "found": true,
+  "summary": "The Clinical Practice Codes system manages clinical practice codes with functionalities to add, update, search, delete, and reactivate them within a program. It is designed to validate entries and ensure a consistent database state.",
+  "purpose": "Manage and manipulate clinical practice codes, ensuring they can be created, modified, searched, deleted, or reactivated as required for a specific program.",
+  "entities": [
+    "ClinicalPracticeCode",
+    "HSPnetSession",
+    "SqlDataReader",
+    "Database"
+  ],
+  "fields": [
+    "ID",
+    "ProgramID",
+    "Name",
+    "ShortName",
+    "Inactive"
+  ],
+  "actors": [
+    "User"
+  ],
+  "workflows": [
+    {
+      "name": "Add Clinical Practice Code",
+      "steps": [
+        "Validate the ClinicalPracticeCode object.",
+        "Set procedure name to 'ClinicalPracticeCodeAdd'.",
+        "Add parameters for ProgramID, Name, ShortName.",
+        "Execute the database query."
+      ]
+    },
+    {
+      "name": "Update Clinical Practice Code",
+      "steps": [
+        "Check that ID is not zero and validate the ClinicalPracticeCode object.",
+        "Set procedure name to 'ClinicalPracticeCodeUpdate'.",
+        "Add parameters for ID, Name, ShortName.",
+        "Execute the database query."
+      ]
+    },
+    {
+      "name": "Delete Clinical Practice Code",
+      "steps": [
+        "Ensure ID is not zero.",
+        "Set procedure name to 'ClinicalPracticeCodeDelete'.",
+        "Add ID as parameter.",
+        "Execute the database query."
+      ]
+    },
+    {
+      "name": "Reactivate Clinical Practice Code",
+      "steps": [
+        "Ensure ID is not zero.",
+        "Set procedure name to 'ClinicalPracticeCodeReactivate'.",
+        "Add ID as parameter.",
+        "Execute the database query."
+      ]
+    },
+    {
+      "name": "Search Clinical Practice Code by Program",
+      "steps": [
+        "Set procedure name to 'ClinicalPracticeCodeSearchProgram'.",
+        "Add parameters for ProgramID, ShowInactive, keyword.",
+        "Retrieve data using SqlDataReader.",
+        "Populate list with retrieved ClinicalPracticeCode entries."
+      ]
+    },
+    {
+      "name": "Search Clinical Practice Code by Student",
+      "steps": [
+        "Set procedure name to 'ClinicalPracticeCodeSearchStudent'.",
+        "Add StudentID as parameter.",
+        "Retrieve data using SqlDataReader.",
+        "Populate list with retrieved ClinicalPracticeCode entries."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Name and ShortName must not be blank."
+  ],
+  "validations": [
+    "Ensure Name is specified.",
+    "Ensure ShortName is specified."
+  ],
+  "calculations": [],
+  "conditions": [
+    "ID must not be zero for update, delete, and reactivate operations."
+  ],
+  "system_behavior": [
+    "Executes stored procedures for database interaction.",
+    "Handles errors by adding messages to session."
+  ],
+  "dependencies": [
+    "HSPnetSession for managing database connections and error messages."
+  ],
+  "exceptions": [],
+  "source_document_ids": [
+    "09b8daec-a933-5e6b-b231-4d178784b73f",
+    "8d64c60c-eea5-5a32-8758-268715c5cd97",
+    "a76658a5-bb41-56c9-aa1b-e44948df78bb"
+  ],
+  "content_gaps": []
+}
+```
