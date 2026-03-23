@@ -1,0 +1,95 @@
+{
+  "filename": "RptMnuReport_Wizards",
+  "found": true,
+  "summary": "RptMnuReport_Wizards is an ASP.NET UserControl designed to display and manage Wizard-based reports through a GridView. It connects to an ObjectDataSource, filters data based on user session and actor roles, and provides navigation to the ReportWizardMenu for detailed actions.",
+  "purpose": "To provide a menu interface for Wizard-driven reports, allowing users (e.g., placing and receiving agents) to select, filter, and access wizard reports based on session context and actor role.",
+  "entities": [
+    {
+      "name": "RptMnuReport_Wizards",
+      "type": "ASP.NET UserControl"
+    },
+    {
+      "name": "gridData",
+      "type": "GridView"
+    },
+    {
+      "name": "dsWizards",
+      "type": "ObjectDataSource"
+    },
+    {
+      "name": "HSPnetSession",
+      "type": "Session object"
+    }
+  ],
+  "fields": [
+    {
+      "name": "Sess",
+      "description": "User session object input parameter"
+    },
+    {
+      "name": "PA",
+      "description": "Boolean indicating placing user role"
+    },
+    {
+      "name": "RA",
+      "description": "Boolean indicating receiving user role"
+    }
+  ],
+  "actors": [
+    {
+      "name": "Placing User",
+      "description": "Agent placing students/applicants"
+    },
+    {
+      "name": "Receiving User",
+      "description": "Agent receiving students/applicants"
+    }
+  ],
+  "workflows": [
+    {
+      "name": "Displaying Wizards",
+      "steps": [
+        "UserControl is loaded within ReportMenu context.",
+        "User session is validated.",
+        "ObjectDataSource dsWizards is configured with user session and actor role parameters.",
+        "GridView displays available wizards filtered by session/role.",
+        "User selects a wizard from the gridData.",
+        "RowCommand cmdWizards is triggered.",
+        "Session state is cached.",
+        "User is redirected to ReportWizardMenu.aspx with the selected WizardID in the query string."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Wizard list is filtered based on placing/receiving user boolean flags.",
+    "Access to wizards is only granted if user session is valid."
+  ],
+  "validations": [
+    "dsWizards_Selecting event cancels data selection if user session is null."
+  ],
+  "calculations": [],
+  "conditions": [
+    "Data selection is conditional on UserSession being non-null.",
+    "Parameters PA and RA are set based on actor role."
+  ],
+  "system_behavior": [
+    "Caches UserSession in RowCommand for wizard selection.",
+    "Redirects to ReportWizardMenu with WizardID after selection."
+  ],
+  "dependencies": [
+    "Requires HSPnetSession object for context.",
+    "Depends on ObjectDataSource and GridView for binding and display.",
+    "Uses QueryString utility for URL manipulation."
+  ],
+  "exceptions": [
+    "If UserSession is null, data selection is cancelled and no wizards are displayed."
+  ],
+  "source_document_ids": [
+    "94607353-a6e5-5e55-b792-5de3aec82d07",
+    "c016b78d-cf14-54d9-af1d-295551f3c6b4"
+  ],
+  "content_gaps": [
+    "No explicit UI design details.",
+    "No wizard report schema or field details beyond session filtering."
+  ]
+}
