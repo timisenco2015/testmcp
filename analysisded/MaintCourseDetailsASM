@@ -1,0 +1,91 @@
+```json
+{
+    "filename": "MaintCourseDetailsASM",
+    "found": true,
+    "summary": "The MaintCourseDetailsASM is a user control for managing course details within the HSPnet application. It provides functionalities for editing course details, selecting associated services, handling user inputs, and managing display elements based on user sessions and edit permissions.",
+    "purpose": "To manage and maintain course details, including associating services, handling form updates, and controlling user permissions within a web application framework.",
+    "entities": ["Course", "ServiceCode", "UserSession"],
+    "fields": [
+        "maxStudentPRSelections",
+        "specifyDuplicatePRs",
+        "rankWithheldPRs",
+        "viewClassmateStats",
+        "allowAnyDestInSite",
+        "allowedServiceCodeList",
+        "searchableStatusCodeID",
+        "studentsViewPRStatus",
+        "studentsViewDestinations",
+        "allowDuplicateDestinations",
+        "studentsViewAgency",
+        "studentsViewService",
+        "prsAllocatedToCampusOnly",
+        "prsAllocatedToSectionOnly"
+    ],
+    "actors": ["User", "Administrator"],
+    "workflows": [
+        {
+            "name": "Updating Course Details",
+            "steps": [
+                "ItemUpdated event triggers a redirect.",
+                "Updating sets input parameters from the user session.",
+                "Handle selections for service codes and other dropdowns.",
+                "Update parameters like 'maxStudentPRSelections', 'searchableStatusCodeID', etc."
+            ]
+        },
+        {
+            "name": "Handling CheckBox Changes",
+            "steps": [
+                "User toggles a checkbox for specific settings.",
+                "System checks status and updates visibility or value accordingly."
+            ]
+        },
+        {
+            "name": "Managing ListBox Items",
+            "steps": [
+                "Items added or removed from ListBoxes",
+                "Items are sorted after addition or removal."
+            ]
+        }
+    ],
+    "business_rules": [
+        "Ensure the user session is active before proceeding with operations.",
+        "Display elements based on the existence of campus data.",
+        "Validate inputs before saving data."
+    ],
+    "validations": [
+        "Check if user session is null before executing.",
+        "Ensure selected service codes are correctly mapped and managed."
+    ],
+    "calculations": [],
+    "conditions": [
+        "Campus display logic dependent on 'CampusesExist'.",
+        "Visibility and editability conditioned by 'ScreenIsEditable' state."
+    ],
+    "system_behavior": [
+        "The system redirects upon successful updates.",
+        "Pop-ups are managed via AjaxControlToolkit.ModalPopupExtender."
+    ],
+    "dependencies": [
+        "HSPnetSession",
+        "HSPnet.DataLayer",
+        "HSPnet.Framework"
+    ],
+    "exceptions": [],
+    "source_document_ids": [
+        "19ba5b49-43f5-5856-9092-d98ec3a45a3d",
+        "20afbbdf-fb36-59e6-ba6d-f0bb3fb3f366",
+        "276f4239-c023-5c91-b800-c2c59dde6d26",
+        "38195de2-0797-5696-bacf-a90a1f022647",
+        "3ed7c95c-8e32-5c5f-80bd-c9c7aa41e63c",
+        "7d90f175-631e-5dcd-a5bb-3bbd77df0029",
+        "9901d22f-c5d7-565d-8933-aa2302643811",
+        "a00fefd5-5d8c-56b4-b409-d5343029c0c5",
+        "ac07fe7c-0519-5ddc-b58a-bd9d0cdbc64b",
+        "d973d89d-0564-5a76-a5f3-503c9a69d325",
+        "e66e2440-1be9-5475-ad84-56928b565a62",
+        "f36fd996-0be8-5cc9-b7fb-84aa593af72f",
+        "f9ed376a-9105-5493-901f-860a57734594"
+    ],
+    "content_gaps": []
+}
+```
