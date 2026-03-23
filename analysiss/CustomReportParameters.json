@@ -1,44 +1,42 @@
 {
   "filename": "CustomReportParameters",
   "found": true,
-  "summary": "The CustomReportParameters file defines a class used to handle custom report parameters within the HSPnet system. It contains constant field names for various report-related parameters and methods to retrieve and manage these parameters.",
-  "purpose": "To define and manage parameters associated with custom reports in the HSPnet system.",
+  "summary": "The documents describe the structure and retrieval process for custom report parameters in a system, including fields for various parameters and a method for obtaining them from the database.",
+  "purpose": "To define and retrieve custom report parameters for reports in the system.",
   "entities": [],
   "fields": [
-    "START_DATE",
-    "END_DATE",
-    "PROGRAM_ID_LIST",
-    "OTHER_PROGRAMS",
-    "SITE_ID_LIST",
-    "OTHER_SITES",
-    "STATUS_CODE_ID_LIST",
-    "NIS_RELEASED",
-    "IRP_RELEASED",
-    "COHORT_ID",
-    "COURSE_ID",
-    "TERM_ID",
-    "DEPARTMENT_ID_LIST",
-    "SERVICE_ID_LIST",
-    "AGENCY_ID_LIST",
-    "DATA_FIELD_LIST",
-    "STUDENT_INFO_LIST",
-    "STUDENT_AUTHORIZATION",
-    "STUDENT_AUTHORIZATION_UPLOAD_FILE"
+    "StartDate",
+    "EndDate",
+    "ProgramIDList",
+    "OtherPrograms",
+    "SiteIDList",
+    "OtherSites",
+    "StatusCodeIDList",
+    "NISReleased",
+    "IRPReleased",
+    "CohortID",
+    "CourseID",
+    "TermID",
+    "DepartmentIDList",
+    "ServiceIDList",
+    "AgencyIDList",
+    "DataFieldList",
+    "StudentInfoList",
+    "StudentAuthorization",
+    "StudentAuthorizationUpload"
   ],
-  "actors": [
-    "HSPnetSession"
-  ],
+  "actors": [],
   "workflows": [
     {
       "name": "GetParameters",
       "steps": [
-        "Initialize a list to hold CustomReportParameter instances.",
-        "Set the database procedure name to 'CustomReportGetParameters'.",
-        "Add 'CustomReportID' as a parameter to the database call.",
-        "Execute the database procedure and retrieve results using a SqlDataReader.",
-        "Read each result, create a CustomReportParameter instance, populate it with data, and add it to the list.",
-        "Close the SqlDataReader.",
-        "Return the list of CustomReportParameter instances."
+        "Initialize List of CustomReportParameter.",
+        "Set the procedure name to 'CustomReportGetParameters'.",
+        "Add 'CustomReportID' as a parameter.",
+        "Execute stored procedure and read data.",
+        "For each data record, create a new CustomReportParameter, populate fields, and add to the list.",
+        "Close the data reader.",
+        "Return the list of parameters."
       ]
     }
   ],
@@ -46,10 +44,7 @@
   "validations": [],
   "calculations": [],
   "conditions": [],
-  "system_behavior": [
-    "The system retrieves custom report parameters from a database using stored procedures.",
-    "Parameters are fetched and stored as objects of the CustomReportParameter class."
-  ],
+  "system_behavior": [],
   "dependencies": [],
   "exceptions": [],
   "source_document_ids": [
