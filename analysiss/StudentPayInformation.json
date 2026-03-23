@@ -1,0 +1,104 @@
+{
+  "filename": "StudentPayInformation",
+  "found": true,
+  "summary": "Student Pay Information module handles the management of student salary details including union membership and bank account information. It supports data binding for display and update functions and enforces specific validation rules, mainly for the annual increment date.",
+  "purpose": "Manage and display student salary information within the system, including union membership details and bank account info.",
+  "entities": [],
+  "fields": [
+    {
+      "name": "ID",
+      "type": "int",
+      "description": "Unique identifier for the pay information entry."
+    },
+    {
+      "name": "StudentID",
+      "type": "int",
+      "description": "Identifier for the student associated with the pay information."
+    },
+    {
+      "name": "AnnualIncrementDate",
+      "type": "DateTime",
+      "description": "Date for annual salary increment, formatted to exclude specific year considerations."
+    },
+    {
+      "name": "UnionMembershipCodeID",
+      "type": "int",
+      "description": "Code identifier for union membership associated with the student."
+    },
+    {
+      "name": "UnionMembershipDescription",
+      "type": "string",
+      "description": "Description of the union membership, with support for alternate language fields."
+    },
+    {
+      "name": "BankAccountName",
+      "type": "string",
+      "description": "Name of the bank account for salary deposits."
+    },
+    {
+      "name": "AccountNumber",
+      "type": "string",
+      "description": "Account number for salary deposit transactions."
+    }
+  ],
+  "actors": [
+    {
+      "name": "UserSession",
+      "type": "HSPnetSession",
+      "description": "Manages user session information for accessing student pay details."
+    }
+  ],
+  "workflows": [
+    {
+      "name": "Updating Student Pay Information",
+      "steps": [
+        "User initiates update through the interface.",
+        "System checks for annual increment date validity.",
+        "Union membership information is updated via dropdown selection.",
+        "Changes are saved, and the user is redirected to the Payroll page."
+      ]
+    },
+    {
+      "name": "Inserting New Pay Information",
+      "steps": [
+        "System checks if record exists; if not, switches to Insert Mode.",
+        "User provides necessary details including annual increment date and bank information.",
+        "System validates increment date and adds pay information to database."
+      ]
+    }
+  ],
+  "business_rules": [
+    {
+      "name": "Valid Increment Date Rule",
+      "description": "Annual increment date should not be February 29th; checks enforced to prevent leap year entries."
+    }
+  ],
+  "validations": [
+    {
+      "name": "Increment Date Validation",
+      "description": "Ensures annual increment date is valid and not a leap day; prevents saving invalid dates."
+    }
+  ],
+  "calculations": [],
+  "conditions": [],
+  "system_behavior": [
+    {
+      "name": "Session Check",
+      "description": "Cancels data retrieval if user session is not active."
+    }
+  ],
+  "dependencies": [],
+  "exceptions": [],
+  "source_document_ids": [
+    "038d1edd-313e-5c17-8779-5c738f6f71b0",
+    "23bcadf8-b06c-52c5-9b0e-2881afb3ce5d",
+    "31accb44-f136-54a6-a2b0-abebc7ffe0c8",
+    "4f07d9e5-6076-5a72-800b-4860f4a54df8",
+    "751fcefd-6955-53be-b13b-4d46373d63fe",
+    "8a70f26b-c16b-57b9-9de9-6d778e76465a",
+    "8fd13fce-25a8-57a8-a816-e05339b65896",
+    "c6ddc664-ab21-5719-bb62-ff37d7a70ca6",
+    "d16acbe1-b87e-51d7-bb24-451cc0b21fc2"
+  ],
+  "content_gaps": []
+}
