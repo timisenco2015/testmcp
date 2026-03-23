@@ -1,0 +1,66 @@
+{
+  "filename": "RptMnuFundingEligibility",
+  "found": true,
+  "summary": "The RptMnuFundingEligibility is a user control for generating a funding eligibility report in HTML and CSV format. It involves user session management, interaction with dropdown lists, date input validation, and execution of reports.",
+  "purpose": "To allow users to generate and view funding eligibility reports, with the ability to export these reports to CSV format.",
+  "entities": [],
+  "fields": [
+    "ltlDescription",
+    "ltlOptions",
+    "txtStartDate",
+    "ddPlcAgency",
+    "cmdRunExcel",
+    "lblReportHTML",
+    "pnlReportHTML"
+  ],
+  "actors": [
+    "User"
+  ],
+  "workflows": [
+    {
+      "name": "Generate Funding Eligibility Report",
+      "steps": [
+        "User logs in and accesses the Funding Eligibility Report menu.",
+        "User selects an agency from the dropdown.",
+        "User enters a start date.",
+        "User clicks the 'Run Excel' button to generate the report.",
+        "The system calls the 'ReportFundingEligibility' stored procedure.",
+        "The report is generated in CSV format and displayed in HTML on the page."
+      ]
+    }
+  ],
+  "business_rules": [
+    "The agency dropdown should be populated on session creation, and only if it is not already populated.",
+    "Start date is mandatory for generating the report."
+  ],
+  "validations": [
+    "Regular expression validation for date format in txtStartDate.",
+    "Required field validation for txtStartDate."
+  ],
+  "calculations": [],
+  "conditions": [
+    "If UserSession is null, the dropdown is not populated.",
+    "If ScriptManager IsInAsyncPostBack, register the JavaScript for async postbacks."
+  ],
+  "system_behavior": [
+    "The system binds the agency dropdown with data from the AgencySearchPlacing method.",
+    "If the generated report is not empty, it becomes visible on the page."
+  ],
+  "dependencies": [
+    "UserSession.DB for executing stored procedures and fetching data.",
+    "JavaScript for handling client-side interactions."
+  ],
+  "exceptions": [
+    "Ensure safe handling and closing of SqlDataReader objects to prevent resource leaks.",
+    "Handle scenarios where the report data might be empty or null."
+  ],
+  "source_document_ids": [
+    "0a26ac8f-a583-5a65-ba9b-fb698aea89ae",
+    "2fae0b41-9562-53f3-b15e-749411ae0d5e",
+    "46e65b31-e64b-594c-a44d-b815bfaae8c6",
+    "db59963a-2665-5bb1-95d9-a6f6a5a23854",
+    "e4550a79-b4e1-5b57-8045-d907dbe0b6cb",
+    "fe53a5f7-667d-5170-af6e-25b8c9a897fa"
+  ],
+  "content_gaps": []
+}
