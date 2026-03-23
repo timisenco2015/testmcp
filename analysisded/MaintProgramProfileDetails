@@ -1,0 +1,100 @@
+```json
+{
+  "filename": "MaintProgramProfileDetails",
+  "found": true,
+  "summary": "The MaintProgramProfileDetails controls and manages the display and interaction with program profile details for educational programs in a web application. This includes handling user permissions, displaying and editing program information, and ensuring the UI adheres to the configurations set within the system.",
+  "purpose": "To provide a web-based interface for managing and displaying program profile details, including user permissions and configuration settings.",
+  "entities": [
+    "Program",
+    "UserSession",
+    "ObjectDataSource",
+    "FormView",
+    "ScriptManager",
+    "HtmlControl",
+    "CheckBox",
+    "Label",
+    "Phone",
+    "Panel",
+    "ModalPopupExtender"
+  ],
+  "fields": [
+    "ProgramID",
+    "UsePhoneMask",
+    "AllowStudentAccess",
+    "UseRAITProvisioning",
+    "ScreenIsEditable"
+  ],
+  "actors": [],
+  "workflows": [
+    {
+      "name": "Profile Data Display",
+      "steps": [
+        "Check user permissions",
+        "Load program data",
+        "Apply visibility rules based on user role",
+        "Render data on UI"
+      ]
+    },
+    {
+      "name": "Profile Data Edit",
+      "steps": [
+        "Enable edit mode",
+        "Populate fields with current data",
+        "Submit changes",
+        "Validate input",
+        "Update data source",
+        "Refresh UI"
+      ]
+    }
+  ],
+  "business_rules": [
+    "Hide controls if student access is not permitted",
+    "Disable checkbox if feature is already allowed",
+    "Hide email mask fields unless user is SysAdmin"
+  ],
+  "validations": [
+    "Ensure data item is not null before processing",
+    "Cancel operation if UserSession is null"
+  ],
+  "calculations": [],
+  "conditions": [
+    {
+      "description": "Check if UseRAITProvisioning is enabled",
+      "result": "Determine visibility of RAIT controls"
+    },
+    {
+      "description": "Check if user role is SysAdmin",
+      "result": "Show/Hide email mask controls"
+    }
+  ],
+  "system_behavior": [
+    "Auto-generate controls' declarations",
+    "Register JavaScript for client-side interactions"
+  ],
+  "dependencies": [
+    "HSPnet.DataLayer",
+    "HSPnet.Framework",
+    "HSPnet.UI",
+    "HSPnet.App_GlobalResources"
+  ],
+  "exceptions": [
+    "Operation cancelation when UserSession is null"
+  ],
+  "source_document_ids": [
+    "00fda0b5-4502-5a86-8e65-68ef5b7471ec",
+    "1ee06aa4-7385-5f47-95c8-5b60096554d9",
+    "275910fd-33cf-5963-acac-fe4d146b14d3",
+    "36ef26c4-8f8a-57da-88b1-5376918e78ba",
+    "49962d26-cfdc-55c9-93fe-a4da1853749f",
+    "728c6abb-1942-5b2e-a505-07e5f3262a41",
+    "7a6deaca-0a3d-5220-aeb0-7e7e0dc147cc",
+    "8347f512-cca9-5534-af1a-388d23dbee7d",
+    "90e48d5d-5b74-55d1-991d-ead7c489a5ca",
+    "a565825e-0922-5655-b4ed-73fee3344cb2",
+    "a5ae94a9-163e-5387-9527-4958ddad43b9",
+    "a8a666db-f90a-55c8-aa8e-a44120a04af3",
+    "ebe3732a-40c2-5c04-9193-f2582f7243ff"
+  ],
+  "content_gaps": []
+}
+```
