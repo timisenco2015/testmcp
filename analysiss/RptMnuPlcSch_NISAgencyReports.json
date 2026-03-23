@@ -1,0 +1,95 @@
+{
+  "filename": "RptMnuPlcSch_NISAgencyReports",
+  "found": true,
+  "summary": "The RptMnuPlcSch_NISAgencyReports user control is responsible for displaying and managing the interface for NIS Agency Reports within a web application. It includes functionalities for selecting report parameters such as start and end dates and type of agency.",
+  "purpose": "To provide a user interface for generating NIS Agency Reports within the HSPnet application, allowing users to set parameters and execute report generation.",
+  "entities": [],
+  "fields": [
+    "btnStartDate",
+    "CalendarExtender1",
+    "RegularExpressionValidator1",
+    "Label6",
+    "txtEndDate",
+    "btnEndDate",
+    "CalendarExtender2",
+    "RegularExpressionValidator2",
+    "Label1",
+    "radPlacingAgency",
+    "radRASite",
+    "CustomValidator1",
+    "cmdRunReport",
+    "ValidationSummary1",
+    "Label3",
+    "ltlDescription",
+    "Label4",
+    "ltlOptions",
+    "Label2",
+    "ddTerm",
+    "Label5",
+    "txtStartDate"
+  ],
+  "actors": [
+    "HSPnetSession",
+    "ScriptManager",
+    "User"
+  ],
+  "workflows": [
+    {
+      "name": "Page Load Initialization",
+      "steps": [
+        "Check if UserSession is not null.",
+        "Retrieve CodeRecord using CodeLookupCodes with UserSession.",
+        "Set ltlDescription and ltlOptions based on CodeRecord.",
+        "If not IsPostBack, bind TermFull data to ddTerm."
+      ]
+    },
+    {
+      "name": "JavaScript Setup",
+      "steps": [
+        "Declare JavaScript variables for ddTerm, txtStartDate, txtEndDate.",
+        "Append 'resetDates()' function.",
+        "Register JavaScript during async postback or client script registration."
+      ]
+    },
+    {
+      "name": "Run Report Command",
+      "steps": [
+        "Execute PrintJobs.ReportNISCreateJob with selected parameters including start date, end date, agency type, and term."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Report details and options are fetched from the code records based on the user session."
+  ],
+  "validations": [
+    "RegularExpressionValidator1 for start date format.",
+    "RegularExpressionValidator2 for end date format.",
+    "CustomValidator1 for custom validations."
+  ],
+  "calculations": [],
+  "conditions": [
+    "UserSession must not be null for description and options setup.",
+    "IsPostBack condition determines if ddTerm data binding is necessary."
+  ],
+  "system_behavior": [
+    "Initialization of page elements and JavaScript upon Page_Load.",
+    "Dynamic JavaScript injection depending on postback state."
+  ],
+  "dependencies": [
+    "HSPnetSession",
+    "HSPnet.DataLayer",
+    "HSPnet.Framework",
+    "AjaxControlToolkit"
+  ],
+  "exceptions": [],
+  "source_document_ids": [
+    "0a7f1826-2725-5471-b42e-1c8d88fdfa50",
+    "5c096a75-b077-530e-9eeb-70a798609562",
+    "6b31e87c-344b-5434-8bb6-13386e15d326",
+    "abd9df66-b51f-58ff-89e4-28490f9c4177",
+    "be32c870-0681-5bf7-a5e0-d2df8b55f037",
+    "faa38258-7d32-5308-844c-7e971d9f34df",
+    "fb918468-c6da-5a25-be74-fdd06ed0e30b"
+  ],
+  "content_gaps": []
+}
