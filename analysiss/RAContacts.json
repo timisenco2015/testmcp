@@ -1,93 +1,126 @@
 {
   "filename": "RAContacts",
   "found": true,
-  "summary": "The RAContacts system manages various contact details within placement requests, including service, destination, discipline, and supervisor contacts. It provides functionalities to add, modify, and validate contact information, with specific access rules for different user types.",
-  "purpose": "To manage and organize contact information within placement requests, ensuring correct access and modification rights based on user roles and agency affiliations.",
+  "summary": "RAContacts is a component within the HSPnet framework that handles various functionalities related to service, destination, and supervisor contacts in placement requests.",
+  "purpose": "RAContacts facilitates the management of service, destination, and supervisor contacts, allowing users to view, edit, and manage contact information within the context of placement requests.",
   "entities": [],
   "fields": [
     "uxServiceContact",
     "uxDestinationContact",
-    "uxDisciplineContact",
     "uxSupervisor",
-    "uxServiceContactEmail",
-    "uxServiceContactPhone",
-    "uxDestinationContactEmail",
-    "uxDestinationContactPhone",
-    "uxDisciplineContactEmail",
-    "uxDisciplineContactPhone",
     "uxSupervisorEmail",
     "uxSupervisorPhone",
-    "uxMultipleSupervisors"
+    "uxDestinationContactEmail",
+    "uxDestinationContactPhone",
+    "uxDisciplineContact",
+    "uxDisciplineContactEmail",
+    "uxDisciplineContactPhone",
+    "uxStudentInstructorContact",
+    "uxStudentInstructorContactEmail",
+    "uxStudentInstructorContactPhone",
+    "uxMultipleSupervisors",
+    "uxAddMultipleSupervisors",
+    "uxWithholdPreceptor",
+    "uxWithholdDC",
+    "trServiceContactChanged",
+    "lblServiceContactChanged",
+    "trDestinationContactChanged",
+    "lblDestinationContactChanged",
+    "uxToggleLock",
+    "cmdSave",
+    "cmdCancel"
   ],
   "actors": [
     "UserSession",
-    "PlacementCoordinator",
-    "SystemAdministrator",
-    "LocalAdministrator",
-    "DestinationCoordinator",
-    "ReceivingCoordinator",
-    "StaffController",
-    "PlacementRequestAssessments"
+    "PlacementRequestDestination",
+    "PlacementRequestCourse"
   ],
   "workflows": [
     {
-      "name": "Service Contact Setup",
+      "name": "Setup Contacts",
       "steps": [
-        "Retrieve current service contact information using StaffController.",
-        "Format and display contact details based on user permissions.",
-        "Check if service contact has changed and update display accordingly."
-      ]
-    },
-    {
-      "name": "Destination Contact Setup",
-      "steps": [
-        "Retrieve current destination contact information using StaffController.",
-        "Format and display contact details based on user permissions.",
-        "Check if destination contact has changed and update display accordingly."
-      ]
-    },
-    {
-      "name": "Supervisor Setup",
-      "steps": [
-        "Retrieve current supervisor information using StaffController.",
-        "Format and display contact details based on user permissions.",
-        "If multiple preceptors exist, handle unbalanced hours and display icons."
+        "SetupServiceContact",
+        "SetupDestinationContact",
+        "SetupDisciplineContact",
+        "SetupStudentInstructorContact",
+        "SetupSupervisor"
       ]
     }
   ],
   "business_rules": [
-    "Supervisors can be added or edited based on the user's role and agency affiliation.",
-    "Contact details are released based on the user's permission to edit contact fields.",
-    "Service and destination contacts are automatically modified if certain conditions are met, such as the user being from the same agency."
+    "Agency contacts are managed based on the user's role, such as PC, NIS_Agency, or LocalAdministrator.",
+    "Overrides for release information are applied if the user is from the same agency.",
+    "Certain users (e.g., Placement Coordinators) have the ability to edit contact information if allowed."
   ],
   "validations": [
-    "Ensure valid supervisor selection with valSupervisorCheckAddNew.",
-    "Check for balance in preceptor hours if multiple preceptors are present."
+    "valSupervisorCheckAddNew ensures a valid supervisor is selected."
   ],
   "calculations": [],
   "conditions": [
-    "UserType determines access level and editable fields.",
-    "CFO status affects visibility and modification rights on certain fields."
+    "User roles determine access and visibility, such as PC, NIS_Agency, LocalAdministrator, DestinationCoordinator, and ReceivingCoordinator."
   ],
   "system_behavior": [
-    "Contact information is dynamically updated and validated based on session and user data.",
-    "Automatic redirection occurs based on agency and placement request status."
+    "Drop-downs for contacts are populated based on allowed permissions and existing data.",
+    "Icons for email and phone links are shown based on release information.",
+    "Lock and unlock mechanisms are provided for supervisor editing."
   ],
-  "dependencies": [],
+  "dependencies": [
+    "HSPnet.Framework",
+    "HSPnet.DataLayer",
+    "StaffController",
+    "PlacementRequestStaffController",
+    "PlacementRequestAssessments"
+  ],
   "exceptions": [
-    "If the supervisor is locked, modifications are restricted unless specific conditions are met."
+    "Read-only users cannot modify contact information.",
+    "Supervisor lock status affects editing capabilities."
   ],
   "source_document_ids": [
     "057b262b-99b6-5ed4-80ed-d05e9b56602e",
     "0eb56430-accb-511c-bd4e-b317d7bb38c4",
     "11278478-2658-59bc-bc42-bb0d686ba9e4",
+    "163fd05f-bf50-5978-957a-e88ec1d14931",
     "1930d0e2-777a-5bf7-9e82-c2c56920fb84",
+    "1a7e112b-f1d8-52e6-8b09-78501e89ba65",
     "24cfa45e-f7c5-521d-bc02-be9318bd9aed",
     "2f2c6310-bd79-5b9a-9c7d-2b9a083476fb",
     "306586d2-ca92-58f0-a624-6c367e9de0e5",
     "3d64a27e-2fbe-5f63-88e1-cbc328d2fb19",
+    "434f7f2f-fed2-5da3-903b-79b167717b5c",
+    "490f9bd9-79db-5dfe-a750-7971de3ead11",
+    "4c836621-760b-5365-a611-522e7eb88cac",
+    "4ed27ae5-52b5-577f-920d-54823f08535d",
     "52c86a19-8d59-52bd-bbbc-efacd6ca8f5f",
-    "9da38671-8a7e-5b87-9d8e-6b39273c4d7f"
+    "540874e2-e2fa-51d1-b8e4-809446eb2004",
+    "56c6975d-e8b1-56ed-bd67-d4851f85b064",
+    "599e0af4-a606-55a6-81ba-5230421eb549",
+    "618f2db5-6a07-5660-91f9-3237bbdb3d0e",
+    "6656c8a2-e130-5aa2-b11e-34a77df804dc",
+    "6b3236d8-5236-542d-b048-8595dd9b09a1",
+    "76bf1b9e-6607-5871-9015-6e508bd44b64",
+    "7c3d0512-6bc3-5925-9f3b-acd5b8bdd73e",
+    "7d3354ad-6288-57a3-93e8-d2d057f65c94",
+    "8543fead-f96a-5472-a1a4-4cc9790bdb32",
+    "9b683cd4-b672-5cdb-a494-5c54e649c022",
+    "9da38671-8a7e-5b87-9d8e-6b39273c4d7f",
+    "a2d48e26-b0ee-5288-8bd8-972149faa9ed",
+    "a5382d22-24a0-570e-b698-7eec969d39ae",
+    "b05246f7-733e-5954-887d-98629a6e7062",
+    "b27b2bf8-ec3e-5d19-b10a-714f83e95def",
+    "b3404efc-508b-51c4-837c-9bcee1279a7d",
+    "bc26c8d0-7244-5f25-8e0c-40aa0dc80bef",
+    "c4dc3164-e53a-5c15-ab05-86475a7c5c3a",
+    "c50cf539-8844-5d00-bfb9-2ad3c574bd6a",
+    "caf84072-2c30-5a7c-a872-394f4ce8a518",
+    "d03dc1a1-348f-56da-8f6a-13ac1c8175ae",
+    "e181d317-6f4f-525c-b82f-cc09b82f9928",
+    "e398e6fa-4ff5-5168-970e-77be00e7a34a",
+    "e72c8578-e521-52f0-8023-2bc12ca21e7d",
+    "ec23c347-40db-50e4-847b-d3cb4f34da52",
+    "ec281b02-288c-5144-b93c-557fc77ad4e4",
+    "ee45ceed-ac43-5148-8d79-6ede9801e463",
+    "f67c5935-272d-58e9-8d65-d41c851f67d0",
+    "f7e1862d-278e-556f-bef5-c039ac1e4b61"
   ],
   "content_gaps": []
 }
