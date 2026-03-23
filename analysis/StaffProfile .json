@@ -1,0 +1,125 @@
+{
+  "filename": "StaffProfile",
+  "found": true,
+  "summary": "The StaffProfile entity handles the data management and workflow around staff licensing, credentials, scheduling, and related comments within the HSPnet system. It includes CRUD (Create, Read, Update, Delete) operations for staff profiles, with validations for various sections and their existence, and supports updates to licensure and expertise comments.",
+  "purpose": "To manage and maintain comprehensive profiles for staff members, including licensure, restrictions, comments, and related compliance documentation. The profile acts as a central record for verifying staff qualifications and tracking required certifications and other regulatory data.",
+  "entities": [
+    "StaffProfile",
+    "StaffProfiles"
+  ],
+  "fields": [
+    "ID",
+    "StaffID",
+    "WorkScheduleCodeID",
+    "LastUpdated",
+    "HomeSiteID",
+    "HomeServiceID",
+    "HomeDestinationID",
+    "DisciplineID",
+    "LicensureCodeID",
+    "LicensureDate",
+    "LicensureRestrictionCodeID",
+    "RestrictionNotes",
+    "RegistrationNumber",
+    "Comments",
+    "ProfileExists",
+    "EducationPreExists",
+    "EducationPostExists",
+    "PlacementsExists",
+    "HomeContactsExists",
+    "ConsentExists",
+    "CertificationExists",
+    "SafetyExists",
+    "InfectionExists",
+    "ImmunizationExists",
+    "PortfolioExists",
+    "OrientationExists",
+    "EOrientationExists",
+    "AllowEOrientation",
+    "DocumentsExists",
+    "TrainingExists",
+    "RequirementsExists",
+    "StaffMessagesExists",
+    "RecognitionExists",
+    "RAITProvisionExists",
+    "LicensureDateFormatted",
+    "CommentsFormatted"
+  ],
+  "actors": [
+    "HSPnetSession",
+    "StaffProfile administrator"
+  ],
+  "workflows": [
+    {
+      "name": "StaffProfile Creation/Update",
+      "steps": [
+        "Collect staff key attributes (licensure, schedule, site, restriction, etc.).",
+        "Format licensure date for consistency.",
+        "Assign all collected values to StaffProfile fields.",
+        "Invoke stored procedure 'StaffProfileUpdate' with parameters for session, staff, and all profile attributes.",
+        "Execute query to commit the changes."
+      ]
+    },
+    {
+      "name": "StaffProfile Section Presence Check",
+      "steps": [
+        "Prepare DB call with staff and session IDs.",
+        "Call stored procedure 'StaffSearchProfileSections'.",
+        "For each section, query whether it exists for the staff profile (returns booleans).",
+        "Return entity with flags for each section's existence."
+      ]
+    },
+    {
+      "name": "Staff Expertise Comment Management",
+      "steps": [
+        "To retrieve, call 'StaffExpertiseSearchComment' with staff ID.",
+        "Read and return existing comments.",
+        "To update, call 'StaffExpertiseUpdateComment' with session, staff ID, and new comment value.",
+        "Persist changes via DB execution."
+      ]
+    }
+  ],
+  "business_rules": [
+    "LicensureDate must be formatted before being set.",
+    "IDs for HomeSite, HomeService, etc. must be provided; defaults are zero if not specified.",
+    "Profile and subsection existence is tracked via boolean flags.",
+    "All insert/update operations require a valid session ID."
+  ],
+  "validations": [
+    "LicensureDate must be a valid date.",
+    "IDs provided must be valid integers or GUIDs.",
+    "All required fields (e.g., StaffID) must be present before update."
+  ],
+  "calculations": [
+    "LicensureDateFormatted is calculated by converting LicensureDate to a short-format string (unless null).",
+    "CommentsFormatted applies HTML translation for new lines in display."
+  ],
+  "conditions": [
+    "If a section (e.g., Certification, Safety) does not exist, related flags are set to false.",
+    "ReleaseSignatureImage handling is conditional in some updates."
+  ],
+  "system_behavior": [
+    "All profile updates and section checks execute via stored procedures in the database.",
+    "Profile supports partial updates limited to comments or specific fields.",
+    "Boolean flags used to drive front-end display and workflow (e.g., show section if *.Exists is true)."
+  ],
+  "dependencies": [
+    "Database stored procedures: StaffProfileUpdate, StaffSearchProfileSections, StaffExpertiseSearchComment, StaffExpertiseUpdateComment.",
+    "UI.DateFormatter for formatting dates.",
+    "HSPnetSession for session and DB management."
+  ],
+  "exceptions": [
+    "If IDs are invalid or missing, database operations may fail.",
+    "If formatting fails (e.g., for dates), property setters may throw.",
+    "Null handling for profile attributes, especially comments and dates."
+  ],
+  "source_document_ids": [
+    "30332a7e-830e-5e71-af1b-87c52d115e44",
+    "539058fe-c9c1-58ae-976d-2935668dcf43",
+    "8715975e-d448-5924-a523-10ef663f76e8",
+    "95e1bfcf-879a-56bb-8c4e-a8d112b91ebd",
+    "a010c9b6-fe97-5b26-9af2-4e96a18882e0",
+    "bbd39b44-ca1a-57a4-beb7-ec4eab3d934f"
+  ],
+  "content_gaps": []
+}
