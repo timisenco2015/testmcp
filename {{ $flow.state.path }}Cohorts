@@ -1,0 +1,73 @@
+```json
+{
+  "filename": "Cohorts",
+  "found": true,
+  "summary": "The documents describe various functionalities related to cohort management, including validation of dates, handling user interface elements like dropdowns and buttons, managing cohort details, and handling different display options based on user roles and permissions.",
+  "purpose": "To manage cohort data, provide user interface controls for cohort operations, support conditional logic and workflows for cohort interaction.",
+  "entities": [],
+  "fields": [
+    "txtEditAutomaticEmailDate",
+    "txtEditEndDateBlock2",
+    "ddEditCourse",
+    "txtExpectedEnrollment",
+    "txtExpectedEndDate",
+    "ddAddCopyCohortTerm",
+    "chkExcludeInstructorFromITProvRole",
+    "chkApplyExcludeInstructorFromITProvRole"
+  ],
+  "actors": [
+    "UserSession"
+  ],
+  "workflows": [
+    {
+      "name": "Cohort Creation and Management",
+      "steps": [
+        "Validate form field dates before submission",
+        "Toggle UI elements based on selected options",
+        "Handle cohort data binding and display",
+        "Apply conditional logic based on session settings"
+      ]
+    }
+  ],
+  "business_rules": [
+    "Ensure end date is validated when checked",
+    "Cohort planning fields should be used based on options",
+    "Displaying fields based on the client's requirements"
+  ],
+  "validations": [
+    "Date validation for automatic email and end dates",
+    "Enrollment numbers must be numeric"
+  ],
+  "calculations": [],
+  "conditions": [
+    "If cohort count is zero, disable copy options",
+    "Display panels based on user session locale settings",
+    "Toggle cohort UI based on editable access"
+  ],
+  "system_behavior": [
+    "UI elements should align with backend settings",
+    "Automatically check certain UI options based on data values"
+  ],
+  "dependencies": [
+    "Relies on session settings for displaying certain options",
+    "Database fields like date and enrollment numbers"
+  ],
+  "exceptions": [
+    "Handle null values in dropdowns",
+    "Managing conditions when cohorts are not available"
+  ],
+  "source_document_ids": [
+    "00fc0ceb-b953-5d52-8d8f-c572de9e3a66",
+    "019c112d-6e59-5189-9a3e-57254e097784",
+    "06c2084b-8093-55fb-b928-8c5ef2067577",
+    "078bfc37-a3ae-5f5b-949c-a07fc996da21",
+    "084eba88-4ce2-51d1-8cc0-22dd06b1303b",
+    "0a34ea2e-e351-52bc-86d1-c8884f488609",
+    "0d5a8e55-be4c-5b6a-88b8-97c20c2a2ee3",
+    "16254ae7-fab9-52d5-8ee3-e5867850c70b",
+    "1a01a4b2-28a1-53dd-8c75-0039e7ddb767",
+    "1da5a8a3-ca87-5f30-89db-4507dd532967"
+  ],
+  "content_gaps": []
+}
+```
