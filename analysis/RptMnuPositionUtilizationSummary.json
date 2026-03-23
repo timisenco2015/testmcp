@@ -1,0 +1,102 @@
+{
+  "filename": "RptMnuPositionUtilizationSummary",
+  "found": true,
+  "summary": "RptMnuPositionUtilizationSummary is a web user control for generating a Position Utilization Summary report. The control provides dropdowns for selecting Placing Agency, Department, Program, as well as date range inputs. It supports data binding for agencies, departments, and programs based on user selections and generates the report using a stored procedure. Input fields are validated using required field validators and regular expression validators, and the report is output as HTML or CSV. The user control handles cascading dropdowns and displays report content dynamically. The workflow involves user interaction, input validation, report generation, and displaying results.",
+  "purpose": "To allow users to generate a Position Utilization Summary report by selecting agency, department, program, and date range; display the report in HTML and provide export functionality.",
+  "entities": [
+    "Agency",
+    "Department",
+    "Program",
+    "UserSession"
+  ],
+  "fields": [
+    "ddPlcAgency",
+    "ddDepartment",
+    "ddProgram",
+    "txtStartDate",
+    "txtEndDate",
+    "btnStartDate",
+    "btnEndDate",
+    "CalendarExtender1",
+    "CalendarExtender2",
+    "ltlDescription",
+    "ltlOptions",
+    "lblReportHTML",
+    "pnlReportHTML"
+  ],
+  "actors": [
+    "User",
+    "System"
+  ],
+  "workflows": [
+    {
+      "name": "Generate Position Utilization Summary Report",
+      "steps": [
+        "User selects Placing Agency (ddPlcAgency).",
+        "System fills Department dropdown based on selected agency.",
+        "User selects Department (ddDepartment).",
+        "System fills Program dropdown based on selected department.",
+        "User selects Program (ddProgram).",
+        "User enters Start Date (txtStartDate) and End Date (txtEndDate).",
+        "Input fields validated (RequiredFieldValidator, RegularExpressionValidator, CustomValidator).",
+        "User clicks export button (cmdRunExcel).",
+        "System executes stored procedure 'ReportPosUtilSummary' and passes parameters: SessionID, DepartmentID, ProgramID, DateFrom, DateTo.",
+        "System generates report output as HTML or CSV.",
+        "System displays report content (lblReportHTML, pnlReportHTML)."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Dropdowns for agency, department, and program are cascaded: agency -> department -> program.",
+    "Program dropdown includes an 'ALL' option at the top.",
+    "Stored procedure 'ReportPosUtilSummary' generates the report."
+  ],
+  "validations": [
+    "RequiredFieldValidator on start and end dates.",
+    "RegularExpressionValidator on date fields.",
+    "CustomValidator for additional input checks.",
+    "ValidationSummary control aggregates validation errors."
+  ],
+  "calculations": [],
+  "conditions": [
+    "Dropdowns are filled only if UserSession is not null.",
+    "Department and program dropdowns are updated when the agency or department changes."
+  ],
+  "system_behavior": [
+    "Fills dropdowns dynamically based on selections.",
+    "Handles async postback for JavaScript setup.",
+    "Displays report content only if output is not empty.",
+    "Exports report in CSV format when the button is clicked."
+  ],
+  "dependencies": [
+    "UserSession.DB",
+    "Codes.CodeLookupCodes",
+    "Agencies.AgencySearchPlacing",
+    "Departments.DepartmentList",
+    "Programs.ProgramList",
+    "Dropdown.CurrentID",
+    "DateFormatter.ParseDate",
+    "ReportMain.OutputCSV",
+    "Resources.PositionUtilizationSummary"
+  ],
+  "exceptions": [
+    "Empty or invalid inputs will prevent report generation (handled by validators)."
+  ],
+  "source_document_ids": [
+    "25fbcf7c-9df8-5317-9ec3-8c1e0c1fbe91",
+    "2e8f6e2e-ffe9-5b71-913d-3544dc0dcd1b",
+    "30e6eb5d-f357-5a7d-9964-7def5861ce17",
+    "76013b2d-edee-53e5-9bff-9cddd39f2c37",
+    "8d1302f3-03be-50a6-b1e6-7a9bf6b5c714",
+    "92fd932b-76a6-5535-a316-fa0368f8c327",
+    "e4fb7111-ba5a-52f8-8cb3-967982bf1a2e",
+    "e9a42aeb-8b85-5911-9e22-41ab264b7e9e",
+    "ea1cc4de-2c4d-56e3-a187-add44607a06a",
+    "f7f74fe0-4d69-54d6-9d43-fea2345ef9dc"
+  ],
+  "content_gaps": [
+    "No complete business logic or stored procedure definition retrieved.",
+    "No UI layout details.",
+    "No report output sample or CSV schema included."
+  ]
+}
