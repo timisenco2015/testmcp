@@ -1,0 +1,75 @@
+{
+  "filename": "Security",
+  "found": true,
+  "summary": "Security handling mechanisms including encryption, session management, and password validation.",
+  "purpose": "Manage user security by handling password encryption, session validation, and authentication codes.",
+  "entities": [],
+  "fields": ["UserName", "Password", "SessionID", "AuthCode", "Captcha"],
+  "actors": ["UserSession", "HttpRequest", "HttpResponse"],
+  "workflows": [
+    {
+      "name": "Login Process",
+      "steps": [
+        "Encrypt password",
+        "Validate login",
+        "Check session status",
+        "Handle login result"
+      ]
+    },
+    {
+      "name": "Password Reset",
+      "steps": [
+        "Generate new password",
+        "Send reset email",
+        "Update user password"
+      ]
+    }
+  ],
+  "business_rules": [
+    "Password must not be reused",
+    "SessionID must be greater than 0 for valid login"
+  ],
+  "validations": [
+    "Check if password contains digits, letters, and symbols",
+    "Verify if session ID remains active"
+  ],
+  "calculations": [],
+  "conditions": [
+    "If SessionID is 0, check for account inactivation",
+    "If login attempts exceed limit, lock account"
+  ],
+  "system_behavior": [
+    "Add security cookies upon successful login",
+    "Send email for authentication code"
+  ],
+  "dependencies": ["HSPnetSession", "SqlDataReader", "HttpRequest", "HttpResponse"],
+  "exceptions": [
+    "Handle OverflowException when generating random numbers",
+    "Manage incorrect login attempts"
+  ],
+  "source_document_ids": [
+    "145baa98-ff02-5074-8859-c630400e5b58",
+    "1e39f93a-0f8d-5324-adf9-c84e5f02f757",
+    "21bb1530-dbaa-5941-8581-eeb23e5fa9d3",
+    "25451504-eef2-5b7d-8069-7015f52b70b7",
+    "28147ffb-1117-5d08-b803-05859e50d2c0",
+    "3aa20d4b-837e-5064-a96b-51f9202e0522",
+    "5a0bad6c-3701-59ad-b45c-80bbe52923f6",
+    "65774afa-90c5-556a-9939-54388461d639",
+    "75c89736-3fdb-59d5-90c3-08177a0308f6",
+    "75f165a9-02df-5569-b648-09758a36d9fd",
+    "7ec3ef21-0607-56d0-ae44-4c10f5b717f1",
+    "8db68caf-71ae-5198-b66d-64f1ee6bb617",
+    "959bbf3a-3b1e-5f5a-8a07-9c1fd936bc6d",
+    "a094bf8e-d28c-5f90-bd4c-193abb176d8a",
+    "a4c06000-7fea-5d35-a879-1da6ea025a4c",
+    "a5090f48-fe16-5025-8c9a-06a07dd2fe3b",
+    "cb0b14f5-2248-58b9-bf6a-6b471561c74d",
+    "d447eb6d-c229-527f-ae52-45ad4f3dc718",
+    "f1812a04-9170-54df-b778-1ee8e9dcca2e",
+    "f320fb18-73ca-5625-aa3f-8ed3ed0ed14a",
+    "f54f2ccc-fc66-51f5-920b-473233342fef",
+    "fb29a589-3bc7-563c-8b87-70b68e8f667c"
+  ],
+  "content_gaps": []
+}
