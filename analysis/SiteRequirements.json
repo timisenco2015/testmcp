@@ -1,0 +1,172 @@
+{
+  "filename": "SiteRequirements",
+  "found": true,
+  "summary": "SiteRequirements implements a web control that manages prerequisite requirements at a site level within a larger system. It provides workflows for adding, editing, filtering, assigning discipline and destination codes, and handling various types of prerequisites including standard, document-based, and URL/link-based. The control supports sub-discipline filtering and user permission-based visibility, and includes comprehensive logic for populating, validating, and persisting requirement data along with associated files or links.",
+  "purpose": "To provide a UI and backend workflow for managing requirements (prerequisites) for a site, including discipline filtering, prerequisite type selection, file uploads, destination assignments, and dynamic interaction via web forms in an enterprise context.",
+  "entities": [
+    "GenericRequirement",
+    "Discipline",
+    "DestinationCode",
+    "Codes",
+    "CodeRecord",
+    "UserSession",
+    "HSPnetSession"
+  ],
+  "fields": [
+    "RequirementCodeID",
+    "Description",
+    "Website",
+    "DocumentName",
+    "Section",
+    "AllowAllSubDisciplines",
+    "SubDisciplineID",
+    "DisciplineSubDiscipline",
+    "DestinationID",
+    "ShortName",
+    "ParentID",
+    "ParentIDName",
+    "CurrentPage",
+    "UploadFolderName"
+  ],
+  "actors": [
+    "User",
+    "System Administrator",
+    "Site Manager",
+    "ScreenIsEditable"
+  ],
+  "workflows": [
+    {
+      "name": "Add/Edit Requirement",
+      "steps": [
+        "Initialize form with default values",
+        "Populate requirement type dropdown (excluding hidden/omit codes)",
+        "User enters requirement description and selects prerequisite type",
+        "If Document prerequisite, allow file upload and capture metadata",
+        "If Link prerequisite, capture website URL",
+        "Assign disciplines: allow all or select subset via list box",
+        "Assign destinations (if applicable)",
+        "Validate input fields",
+        "Submit: Call Add or Update backend methods",
+        "Cache session and redirect as needed",
+        "Display validation summaries if errors exist"
+      ]
+    },
+    {
+      "name": "Discipline Filter and Assignment",
+      "steps": [
+        "Show/Hide discipline filter based on use or restriction",
+        "Populate sub-discipline lists for inclusion/exclusion",
+        "User can move items between included/not included lists",
+        "AllowAllSubDisciplines updates list visibility",
+        "Apply selected disciplines to requirement"
+      ]
+    },
+    {
+      "name": "Destination Assignment",
+      "steps": [
+        "Populate destination code lists for inclusion/exclusion",
+        "User moves codes between included/not included",
+        "Apply assignments to requirement via backend call"
+      ]
+    },
+    {
+      "name": "Requirement Filtering",
+      "steps": [
+        "Initialize dropdown filters for requirement type and discipline",
+        "Update requirement grid view based on filter selection"
+      ]
+    },
+    {
+      "name": "Delete Requirement",
+      "steps": [
+        "User triggers delete command",
+        "Call backend Delete method",
+        "Cache session and redirect"
+      ]
+    }
+  ],
+  "business_rules": [
+    "Only allow editing if ScreenIsEditable and row is not locked",
+    "Omit certain requirement codes as configured",
+    "Remove hidden codes from dropdowns",
+    "Treat blank section input as null",
+    "File uploads stored in per-upload unique folder with filename sanitization",
+    "Requirement must be assigned at least one discipline unless AllowAll is set",
+    "Deleting requirements triggers session cache update"
+  ],
+  "validations": [
+    "Required fields: requirement type, description, discipline assignment",
+    "Document upload must be non-empty file",
+    "Website/URL field is mandatory for Link prerequisites",
+    "Section field transforms empty string input to null"
+  ],
+  "calculations": [
+    "Section header placement in grid view increments hidden count for correct row insertion",
+    "ID extraction and assignment for requirements and destination codes",
+    "File size and type calculation during upload"
+  ],
+  "conditions": [
+    "Show discipline filter only if UseSubDisciplines is true and not restricted",
+    "Show empty data panel if no requirements and screen is editable",
+    "Different command names determine behavior (cmdSave, cmdEdit, cmdDelete, StdPrereq, DocPrereq, UrlPrereq)"
+  ],
+  "system_behavior": [
+    "Auto-generated fields declared in designer, moved to code-behind as needed",
+    "Grid and FormView controls are used for display and details",
+    "Modal popups for detail and applied children editing",
+    "JavaScript variables and event handlers injected for dynamic UI behavior",
+    "Session and view state variables manage user context and workflow logic",
+    "Backend methods invoked for CRUD operations and list population",
+    "Dynamic filtering updates grid and controls in real time"
+  ],
+  "dependencies": [
+    "HSPnet.DataLayer.GenericRequirement",
+    "HSPnet.UI",
+    "HSPnet.App_GlobalResources",
+    "AjaxControlToolkit.ModalPopupExtender",
+    "GridView, FormView controls",
+    "Codes, DestinationCodes services"
+  ],
+  "exceptions": [
+    "Cancel selection if UserSession is null",
+    "Handle empty discipline and destination lists gracefully",
+    "ValidationSummary control displays errors"
+  ],
+  "source_document_ids": [
+    "00be9e6a-9700-5fcc-98ad-8868181aa146",
+    "022ed4a1-cec6-571b-b395-075b5eccd96c",
+    "024349a5-e71a-50f3-bdf2-6f7aafeb02be",
+    "02e4cd3f-e614-5475-a754-bf09a82eaa28",
+    "07c25369-3d22-5f19-9143-d304c4d206a6",
+    "0a23fb6e-7d70-5da7-b93e-8e3e7f6e16bb",
+    "0abcc526-198f-5f13-9abd-e253982384ea",
+    "1ba0f0e1-6069-564f-8dac-351415d236d5",
+    "25441fea-199b-559a-a1f1-8118be9f35bf",
+    "285ec376-6abf-5fbc-8b8f-79e340754d84",
+    "36cc4828-5a7f-55c4-9b8b-60f02164aeb2",
+    "38f2f5ee-d7e6-5e81-a35f-a0b78bf4e306",
+    "3f727705-576e-50a0-9e52-06fdda0a469c",
+    "414d4009-769f-5d7a-9609-2d4c8b82b5ef",
+    "60d8ac2a-f899-5056-a6c6-53c2f89aa293",
+    "7d489ea3-85ec-599d-95ef-261bec30a94c",
+    "7db556c2-1eef-514f-8bc6-ce230fc4763d",
+    "96d9dfd2-4114-5655-83fe-be7dbc6d960e",
+    "986c023f-cbd6-527f-8f30-db4ad69a4bab",
+    "a0d665b6-d500-5f67-846a-57981c34ab0c",
+    "a672cc70-5fd2-59e7-bc39-0f8794c57db5",
+    "aad83828-fd10-545e-a021-f0f3f81acf79",
+    "aadf09e7-a2a9-5fa5-b467-913c9f2f693e",
+    "b6d7b1cf-bd71-57a4-9b55-ec58937946dd",
+    "c64dd509-44de-5eda-aee6-baca433b3896",
+    "cf88265a-edb6-57d3-9ba4-b7ba76d00326",
+    "d5200828-6ea3-5ade-b4f1-d10645df7e79",
+    "df54fd3b-b74e-5a2e-b98c-55a38dd30efb",
+    "e19d090e-80c4-5c24-89b2-fcb2e571bb4e",
+    "e5e5ce0e-6bea-55c0-8d5b-436567d6f7c7"
+  ],
+  "content_gaps": [
+    "Actual UI field labels, validation error messages, and detailed user permission logic are not fully described.",
+    "Details of backend data structure, types, and configuration for GenericRequirement, Discipline, and DestinationCode are inferred but not explicit.",
+    "Comprehensive sample data or business context is not included."
+  ]
+}
