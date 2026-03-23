@@ -1,0 +1,137 @@
+{
+  "filename": "UploadJobs",
+  "found": true,
+  "summary": "UploadJob and UploadJobs classes manage document uploads by users (Students, Staff) for agencies and departments within HSPnet, supporting searching, adding, deleting, marking as processed/rejected, and retrieval. They track metadata, workflow, and validation for uploaded files.",
+  "purpose": "To facilitate secure and organized uploading, searching, management, and retrieval of documents by staff and students, with business rules for file handling, validation, and workflow state tracking in the HSPnet system.",
+  "entities": [
+    "UploadJob",
+    "UploadJobs",
+    "Agency",
+    "Department",
+    "User",
+    "Program",
+    "Cohort",
+    "Term",
+    "Course",
+    "StudentConsentProgram"
+  ],
+  "fields": [
+    {"name": "ID", "type": "int"},
+    {"name": "UserID", "type": "int"},
+    {"name": "UploadTypeCodeID", "type": "int"},
+    {"name": "UploadType", "type": "string"},
+    {"name": "AgencyID", "type": "int"},
+    {"name": "DepartmentID", "type": "int"},
+    {"name": "FileURL", "type": "string"},
+    {"name": "FilePath", "type": "string"},
+    {"name": "FileSize", "type": "long"},
+    {"name": "FileType", "type": "string"},
+    {"name": "FileTypeAlt", "type": "string"},
+    {"name": "ReadyDate", "type": "DateTime"},
+    {"name": "ReviewedDate", "type": "DateTime"},
+    {"name": "ProcessedDate", "type": "DateTime"},
+    {"name": "RejectedDate", "type": "DateTime"},
+    {"name": "Comments", "type": "string"},
+    {"name": "StudentConsentProgramID", "type": "int"},
+    {"name": "ProgramID", "type": "int"},
+    {"name": "CohortID", "type": "int"},
+    {"name": "TermID", "type": "int"},
+    {"name": "CourseID", "type": "int"},
+    {"name": "Agency", "type": "string"},
+    {"name": "FirstName", "type": "string"},
+    {"name": "MiddleName", "type": "string"},
+    {"name": "LastName", "type": "string"},
+    {"name": "Department", "type": "string"},
+    {"name": "Program", "type": "string"},
+    {"name": "Cohort", "type": "string"},
+    {"name": "Term", "type": "string"},
+    {"name": "Course", "type": "string"},
+    {"name": "Phone", "type": "Phone"},
+    {"name": "Fax", "type": "Phone"},
+    {"name": "Email", "type": "string"},
+    {"name": "IsHSPnetUser", "type": "Boolean"},
+    {"name": "StaffID", "type": "int"},
+    {"name": "StudentConsentProgram", "type": "string"}
+  ],
+  "actors": [
+    "Student",
+    "Staff",
+    "System Administrator"
+  ],
+  "workflows": [
+    {
+      "name": "Upload Document Workflow",
+      "steps": [
+        "User initiates an UploadJob with relevant metadata and file",
+        "System validates UploadJob (file presence, type)",
+        "If valid, Insert into database using UploadJobAdd procedure",
+        "File and metadata are persisted",
+        "Linked with agency, department, program, cohort, term, course, and optionally student consent",
+        "User may retrieve or search UploadJobs by parameters",
+        "Admins/authorized users may mark UploadJobs as processed or rejected",
+        "File deletion and database cleanup handled by Delete operation"
+      ]
+    },
+    {
+      "name": "Search Workflow",
+      "steps": [
+        "User/actor initiates search using UploadJobSearch, UploadJobSearchAgencies, or UploadJobSearchUsers",
+        "System executes corresponding stored procedure and returns matched UploadJob records",
+        "Entities and fields are enriched from database",
+        "Display includes links, formatted names, phone, email"
+      ]
+    }
+  ],
+  "business_rules": [
+    "UploadType must be either 'Students' or 'Staff'.",
+    "FileURL and FilePath cannot be blank.",
+    "FileType 0/-1 is valid, no document yet; handled by upload proc.",
+    "Deletion ignores exceptions if file/folder delete fails.",
+    "Files are associated with agency, department, program, cohort, term, course, and consent program if applicable."
+  ],
+  "validations": [
+    "FileURL and FilePath must not be empty",
+    "UploadType value is restricted to valid types",
+    "File existence checked when displaying link",
+    "Comments may be enriched and must be translated to HTML if necessary"
+  ],
+  "calculations": [
+    "File size converted to kilobytes for display",
+    "Name formatting for UI using NameFormatter.FormatName",
+    "Date formatting for UI using DateFormatter.FormatDateShort"
+  ],
+  "conditions": [
+    "If file does not exist, FileURL returns 'Document_Not_Found'.",
+    "If department, program, cohort, term, course fields not empty, enrich Department display string."
+  ],
+  "system_behavior": [
+    "Persist UploadJob metadata and file",
+    "Search and retrieval using stored procedures",
+    "Marking processed/rejected updates upload state",
+    "Delete operation removes file/folder and DB record; exceptions ignored",
+    "Add operation only proceeds if validations pass"
+  ],
+  "dependencies": [
+    "Database stored procedures: UploadJobAdd, UploadJobSearch, UploadJobDelete, UploadJobSearchAgencies, UploadJobSearchUsers, UploadJobMarkProcessed, UploadJobMarkRejected",
+    "UI formatters: NameFormatter, DateFormatter",
+    "Resources for localization",
+    "HSPnetSession for DB access"
+  ],
+  "exceptions": [
+    "File or directory delete failure ignored",
+    "Invalid upload file type triggers messages, upload rejected",
+    "Missing file triggers error message"
+  ],
+  "source_document_ids": [
+    "2e33e3e2-7f26-5fe3-a987-57ec2a8df086",
+    "3f6d388b-870b-504e-9a4e-a31c3c360ed3",
+    "423f5a48-ac64-5928-bd43-4bdeba863c0d",
+    "70719146-2ba9-528e-a6ac-035f2bb1d684",
+    "800ecb7a-5d71-5744-88c4-d92f3782477b",
+    "8c4f6c82-0732-5d7f-b456-62904df5e099",
+    "cb3476a7-af74-56df-bd4f-c3057f74728a",
+    "e302e522-3d1a-5728-8c92-8bb5212411ea",
+    "f0283360-a78e-5daf-9542-fc9522c13709"
+  ],
+  "content_gaps": []
+}
