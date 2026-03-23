@@ -1,19 +1,90 @@
 {
-  "filename": "SiteProfileHistory",
-  "found": true,
-  "summary": "Defines SiteProfileHistory class with properties for tracking user actions and changes within site profiles.",
-  "purpose": "To record and manage site profile history within the HSPnet system.",
-  "entities": [],
-  "fields": ["ID", "ActionDate", "ScreenSection", "UserAction", "Fields", "AgencyName", "Phone", "ByUserID", "ByOriginalUserID", "ByUserSysAdmin"],
-  "actors": [],
-  "workflows": [],
-  "business_rules": [],
-  "validations": [],
-  "calculations": [],
-  "conditions": [],
-  "system_behavior": [],
-  "dependencies": ["System.Data.SqlClient", "HSPnet.Framework"],
-  "exceptions": [],
-  "source_document_ids": ["25f89a24-5eda-5a3f-83df-1de69b12b3f1", "26e09292-d304-55c6-94e5-ef3346453c4b", "7ca6b963-9ae9-5cd3-82d5-f30dcb727ae3", "a8f030c6-90b8-53a1-bb8a-3b7ef33b9488", "e806999c-3a39-5720-9b59-303faebc9eb6"],
-  "content_gaps": []
+    "filename": "SiteProfileHistory",
+    "found": true,
+    "summary": "SiteProfileHistory handles the historical actions performed on site profiles, including tracking changes by users and agencies.",
+    "purpose": "To track and manage the history of changes made to site profiles within the HSPnet framework.",
+    "entities": [],
+    "fields": [
+        {
+            "name": "ID",
+            "description": "Unique identifier for the site profile history entry."
+        },
+        {
+            "name": "ActionDate",
+            "description": "Date when the action was performed."
+        },
+        {
+            "name": "ScreenSection",
+            "description": "Section of the screen where the action took place."
+        },
+        {
+            "name": "UserAction",
+            "description": "Description of the action performed by the user."
+        },
+        {
+            "name": "Fields",
+            "description": "Fields affected by the user action."
+        },
+        {
+            "name": "Agency",
+            "description": "Agency involved in the action."
+        },
+        {
+            "name": "AgencyName",
+            "description": "Name of the agency involved."
+        },
+        {
+            "name": "LastName",
+            "description": "Last name of the user who performed the action."
+        },
+        {
+            "name": "FirstName",
+            "description": "First name of the user who performed the action."
+        },
+        {
+            "name": "MiddleName",
+            "description": "Middle name of the user who performed the action."
+        },
+        {
+            "name": "Phone",
+            "description": "Phone contact details of the user."
+        },
+        {
+            "name": "ByUserID",
+            "description": "User ID of the person who performed the action."
+        },
+        {
+            "name": "ByOriginalUserID",
+            "description": "User ID of the original user who performed the action, if different."
+        },
+        {
+            "name": "ByUserSysAdmin",
+            "description": "Boolean flag indicating if the user is a system administrator."
+        }
+    ],
+    "actors": [],
+    "workflows": [
+        {
+            "name": "Site Profile History Search",
+            "steps": [
+                "Initiate search with SiteID and SessionAgencyID parameters.",
+                "Retrieve historical entries from the database.",
+                "Localize data if alternate language fields are enabled."
+            ]
+        }
+    ],
+    "business_rules": [
+        {
+            "name": "SysAdmin Visibility",
+            "description": "SysAdmin user actions are displayed differently in history."
+        }
+    ],
+    "validations": [],
+    "calculations": [],
+    "conditions": [],
+    "system_behavior": [],
+    "dependencies": [],
+    "exceptions": [],
+    "source_document_ids": ["25f89a24-5eda-5a3f-83df-1de69b12b3f1", "26e09292-d304-55c6-94e5-ef3346453c4b", "7ca6b963-9ae9-5cd3-82d5-f30dcb727ae3", "a8f030c6-90b8-53a1-bb8a-3b7ef33b9488", "e806999c-3a39-5720-9b59-303faebc9eb6"],
+    "content_gaps": []
 }
