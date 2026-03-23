@@ -1,0 +1,85 @@
+{
+  "filename": "CorrespondenceQueue",
+  "found": true,
+  "summary": "The 'CorrespondenceQueue' document is part of a web application that facilitates the handling and tracking of scheduled correspondences. It includes functionalities for displaying, filtering, deleting, and updating correspondence records within a grid view interface.",
+  "purpose": "To manage and control the flow of scheduled correspondences, providing a user interface for viewing, filtering, and managing correspondence records.",
+  "entities": [],
+  "fields": [
+    {
+      "name": "TemplateFormatted",
+      "type": "String",
+      "description": "Field displaying the formatted template to be generated."
+    },
+    {
+      "name": "PRDueDateFormatted",
+      "type": "Date",
+      "description": "Field showing the earliest due date for the correspondence."
+    },
+    {
+      "name": "GeneratedDateFormatted",
+      "type": "Date",
+      "description": "Field displaying the date when the correspondence was generated."
+    },
+    {
+      "name": "CorrespondenceID",
+      "type": "Integer",
+      "description": "Unique identifier for the correspondence record."
+    }
+  ],
+  "actors": [
+    {
+      "name": "User",
+      "role": "Can interact with the correspondence queue by viewing, filtering, and deleting records."
+    }
+  ],
+  "workflows": [
+    {
+      "name": "Manage Correspondence Queue",
+      "steps": [
+        "User accesses the CorrespondenceQueue page.",
+        "Page initializes and checks if a postback event has occurred.",
+        "User can filter correspondences by criteria such as Due Date, Program, etc.",
+        "Grid displays correspondence data; empty grid shown if no data is available.",
+        "User can delete a correspondence record using the delete command."
+      ]
+    }
+  ],
+  "business_rules": [
+    "A correspondence record can be deleted from the queue, which triggers an update of the cohort schedule.",
+    "The page auto-updates if a refresh action is triggered by a popup."
+  ],
+  "validations": [
+    "Ensure the UserSession is not null before processing data selection.",
+    "Confirm deletion of records through JavaScript to prevent accidental removals."
+  ],
+  "calculations": [],
+  "conditions": [
+    {
+      "description": "Red color is used for due dates that are overdue and not yet generated."
+    }
+  ],
+  "system_behavior": [
+    "Page refreshes upon certain user actions like popup refresh.",
+    "Data is bound to grid views after refreshing or loading."
+  ],
+  "dependencies": [
+    "HSPnet.DataLayer for grid data source selection.",
+    "UserSession object to maintain user-specific data parameters."
+  ],
+  "exceptions": [
+    "Handles no data found scenario by showing a specific empty data panel template."
+  ],
+  "source_document_ids": [
+    "10c5f7a2-0929-5f2b-bcc8-f110fc32f024",
+    "1101aae0-a739-5e59-9ed3-2e935afc94f4",
+    "177739da-fa89-58ca-9e1e-fa4b6aa5f650",
+    "1c789366-e80e-51f9-85d7-7b3924280535",
+    "312c6dd8-ba4a-58d4-86ec-90ba8368e666",
+    "37e4ee4d-b935-5bfd-8b72-bf8fa9c39e5c",
+    "46a9c6b1-abc8-50c4-8e72-c63921de331e",
+    "4bc7877c-2a52-5ff6-ae9a-b65286f41863",
+    "a4399bdd-72d3-5224-825d-d6ed26a33a80",
+    "f91b74bb-60e7-516a-a7ce-e6e84c36d1de"
+  ],
+  "content_gaps": []
+}
