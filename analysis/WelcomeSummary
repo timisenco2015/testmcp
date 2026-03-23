@@ -1,0 +1,89 @@
+```json
+{
+    "filename": "WelcomeSummary",
+    "found": true,
+    "summary": "The WelcomeSummary document serves as an interface for handling placement requests within the HSPnet system. It provides functionalities for managing workflows related to placement requests, including acceptance, decline, status changes, supervisor assignment, and report generation.",
+    "purpose": "To manage and process placement requests efficiently within the HSPnet system, ensuring proper assignment and tracking of supervisors, students, and associated reports.",
+    "entities": [
+        "PlacementRequest",
+        "Supervisor",
+        "Student",
+        "Agency",
+        "Site",
+        "Service",
+        "Destination"
+    ],
+    "fields": [
+        "PRD_ID",
+        "PlacementRequestID",
+        "SupervisorID",
+        "ReportTagCodeIDs",
+        "StatusCode",
+        "StartDate",
+        "EndDate",
+        "ReplyByDate",
+        "AgencyProgram",
+        "SupervisorCaption"
+    ],
+    "actors": [
+        "Placing Coordinator (PC)",
+        "Receiving Coordinator (RC)",
+        "Supervisor",
+        "Instructor",
+        "System Administrator"
+    ],
+    "workflows": [
+        {
+            "name": "PlacementRequestProcess",
+            "steps": [
+                "Select placement requests using checkboxes.",
+                "Change status via dropdown menu or direct command.",
+                "Assign or change supervisors.",
+                "Generate reports based on selected criteria.",
+                "Handle overdue notifications and warnings."
+            ]
+        }
+    ],
+    "business_rules": [
+        "Placing mode can never be NIS or IRP user, just Receiving.",
+        "DC mode doesn't use the action dropdown.",
+        "Report generation can output PDFs or CSVs based on criteria."
+    ],
+    "validations": [
+        "Date fields must follow the correct format and logical order.",
+        "Reasons must be provided for declines."
+    ],
+    "calculations": [
+        "Calculate duration based on shift length and number of shifts."
+    ],
+    "conditions": [
+        "If supervisor dropdown is populated, allow supervisor selection.",
+        "Display overdue warnings if reply-by date is exceeded."
+    ],
+    "system_behavior": [
+        "Toggle visibility of controls based on status and role.",
+        "Pre-populate dropdowns if less than 10 supervisor fields."
+    ],
+    "dependencies": [
+        "Resources for text and captions.",
+        "Various ASP.NET and AJAX control toolkits."
+    ],
+    "exceptions": [
+        "Invalid date input for start or end dates.",
+        "Permission issues when modifying certain statuses."
+    ],
+    "source_document_ids": [
+        "00271393-56bd-5d9e-b98b-f96773845166",
+        "02b39acc-c672-5993-82aa-74916eecf13c",
+        "04dd41c8-b647-5557-8591-2d118bbdc2e6",
+        "0689a0b4-5758-52d9-a674-658a642145b4",
+        "07543153-4fed-5b32-add7-2881072dd604",
+        "090f27b5-61df-55e4-aecd-7ef79f7861d3",
+        "09a8ac5e-421d-51ff-9f11-a18070640c1b",
+        "0b9a7e92-4ae5-5f25-9390-557f8a0a41ca",
+        "0c88221c-a888-5f30-b7f5-bc84b192b105",
+        "0e6fb6cc-55e4-5ea2-9c8c-7278b5e372fc"
+    ],
+    "content_gaps": []
+}
+```
