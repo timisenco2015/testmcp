@@ -1,0 +1,57 @@
+{
+  "filename": "StudentPRPreferenceMessage",
+  "found": true,
+  "summary": "The StudentPRPreferenceMessage handles student messages with support for alternate language fields.",
+  "purpose": "To manage student messages, including the ability to use alternate language messages.",
+  "entities": [],
+  "fields": [
+    {
+      "name": "ID",
+      "type": "int",
+      "description": "Identifier for the student message."
+    },
+    {
+      "name": "StudentMessage",
+      "type": "string",
+      "description": "The message for the student in the primary language."
+    },
+    {
+      "name": "StudentMessageAlt",
+      "type": "string",
+      "description": "The alternate language message for the student."
+    }
+  ],
+  "actors": [],
+  "workflows": [
+    {
+      "name": "Retrieving Student Messages",
+      "steps": [
+        "Load messages for a student using the stored procedure 'StudentPRPReferenceMessagesAdd'.",
+        "Fetch results using 'StudentPRPReferenceMessagesSearch'.",
+        "Localize the message based on session language settings."
+      ]
+    },
+    {
+      "name": "Deleting a Student Message",
+      "steps": [
+        "Call the stored procedure 'StudentPRPReferenceMessagesDelete' with the message ID."
+      ]
+    }
+  ],
+  "business_rules": [],
+  "validations": [],
+  "calculations": [],
+  "conditions": [
+    "If the session is set to use alternate language fields, the alternate language message is used."
+  ],
+  "system_behavior": [
+    "Handles CRUD operations for student messages while supporting localization."
+  ],
+  "dependencies": [],
+  "exceptions": [],
+  "source_document_ids": [
+    "6898d3dc-1c8d-5d63-8b3d-ae7cc4ce9639",
+    "c5f69aa5-6709-544f-b375-c12d637c1f6c"
+  ],
+  "content_gaps": []
+}
