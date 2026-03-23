@@ -2,34 +2,30 @@
 {
   "filename": "MaintClinicalPracticeCodes",
   "found": true,
-  "summary": "The MaintClinicalPracticeCodes document contains information related to the maintenance and management of clinical practice codes within a system. It involves user interactions such as adding, updating, deleting, and reactivating clinical practice codes through a web interface.",
-  "purpose": "To manage clinical practice codes in a system, allowing users to maintain and manipulate the codes as needed, including viewing, editing, and updating practice code details.",
-  "entities": [],
+  "summary": "The 'MaintClinicalPracticeCodes' module provides functionality to manage clinical practice codes, including adding, editing, deleting, and viewing code entries. It utilizes ASP.NET web forms and controls like GridView, DetailsView, and DropDownList to facilitate user interaction and data manipulation within a web environment.",
+  "purpose": "Allows users to perform maintenance operations on clinical practice codes, including CRUD (Create, Read, Update, Delete) operations within an ASP.NET application.",
+  "entities": [
+    "ClinicalPracticeCode",
+    "Agencies",
+    "Departments",
+    "Programs"
+  ],
   "fields": [
     {
       "name": "Name",
-      "type": "string",
-      "validation": "Required"
+      "maxLength": 50
     },
     {
       "name": "ShortName",
-      "type": "string",
-      "validation": "Required"
+      "maxLength": 10
     },
     {
-      "name": "ProgramID",
-      "type": "int",
-      "validation": "Required"
-    },
-    {
-      "name": "Sess",
-      "type": "object",
-      "validation": "Session parameter"
+      "name": "ID",
+      "type": "DataKey"
     }
   ],
   "actors": [
     "UserSession",
-    "ScreenIsEditable",
     "SystemAdministrator",
     "LocalAdministrator"
   ],
@@ -37,41 +33,52 @@
     {
       "name": "Manage Clinical Practice Codes",
       "steps": [
-        "Check user session and permissions.",
-        "Populate dropdowns for agency, department, and program.",
-        "Allow actions based on user permissions: Add, Edit, Delete, Reactivate.",
-        "Use DetailsView for editing entry details.",
-        "Use GridView for displaying data with add/edit/reactivate functionality."
+        "User accesses the page and the page load event initializes data.",
+        "User selects an agency, department, and program.",
+        "User adds a new code via 'cmdAdd' button or edits an existing code using 'cmdEdit'.",
+        "User can delete a code using 'cmdDelete' or reactivate using 'cmdReactivate'.",
+        "Changes are submitted and the view is refreshed."
       ]
     }
   ],
   "business_rules": [
-    "ScreenIsEditable is set based on user roles and dropdown values.",
-    "GridView toggles buttons based on editable state."
+    "Do not allow adding if department or program dropdown is empty.",
+    "Screen can be editable only for system administrators accessing the correct agency or local administrators with department access."
   ],
   "validations": [
-    "Required fields for Name and ShortName must be specified.",
-    "User session must be provided for data operations."
+    {
+      "field": "Name",
+      "type": "RequiredFieldValidator",
+      "errorMessage": "Name must be specified."
+    },
+    {
+      "field": "ShortName",
+      "type": "RequiredFieldValidator",
+      "errorMessage": "Short name must be specified."
+    }
   ],
-  "calculations": [],
+  "calculations": [
+    "CurrentAgencyID is calculated based on the user's session and dropdown selections.",
+    "ScreenIsEditable is determined based on user roles and dropdown contents."
+  ],
   "conditions": [
-    "User must be SystemAdministrator or LocalAdministrator to edit.",
-    "Details cannot be edited if ScreenIsEditable is false."
+    "If ID is 0, the code is added.",
+    "If ID is not 0, the code is updated.",
+    "ScreenIsEditable is true if conditions for role and dropdown contents are met."
   ],
   "system_behavior": [
-    "Refresh data on interaction with dropdowns or actions.",
-    "Hide/show details based on command execution."
+    "GridView binds to object data source for dynamic data display.",
+    "Error and warning panels are displayed based on validation and user actions.",
+    "Details view displays code information for editing."
   ],
   "dependencies": [
-    "UserSession",
-    "Dropdown.CurrentID",
-    "Grid.GetIDfromDataKey",
-    "ClinicalPracticeCode methods",
-    "HSPnet.DataLayer"
+    "HSPnet.DataLayer",
+    "HSPnet.UI",
+    "AjaxControlToolkit"
   ],
   "exceptions": [
-    "Validation errors are shown using ValidationSummary control.",
-    "Error handling through pnlError and lblErrorCaption controls."
+    "Handle screen errors in pnlError.",
+    "Handle screen warnings in pnlWarning."
   ],
   "source_document_ids": [
     "1a77e7da-0f92-5a0c-8fae-71056a1a8094",
