@@ -1,0 +1,136 @@
+# Module: CalendarGrid
+
+## CalendarGrid-UC1 — View and Manage Alerts 
+- Primary Actor(s): System User
+- Secondary Actor(s): None
+- Trigger: User accesses the grid to review alerts.
+- Description: Users can view urgent alerts and comments related to items in the calendar grid.
+- Preconditions: The user must be logged into the system.
+- Postconditions: The user receives updated information on alert statuses.
+- Main Success Scenario:
+  1. User navigates to the calendar grid.
+  2. Visual alerts (conflict alerts, urgent alerts, comments) are displayed for each item.
+  3. User reviews alerts and takes necessary actions.
+- Extensions: None
+- Exceptions: None
+- Business Rules: Alerts must be displayed prominently for user attention.
+- Assumptions: The grid contains valid data with alert indicators.
+- Open Issues: None
+
+## CalendarGrid-UC2 — Fix Nicknames in Utilization List 
+- Primary Actor(s): System
+- Secondary Actor(s): None
+- Trigger: Task initiated for nickname correction.
+- Description: Corrects nicknames in the utilization list by removing placeholders and adding unique indexes.
+- Preconditions: Utilization list available with placeholder nicknames.
+- Postconditions: Nicknames are corrected and updated in the system.
+- Main Success Scenario:
+  1. System identifies nicknames containing placeholders.
+  2. Placeholder removed and unique index appended.
+  3. Updated list returned for further processing.
+- Extensions: None
+- Exceptions: None
+- Business Rules: Nicknames must not contain placeholder indicators post-operation.
+- Assumptions: Nicknames are formatted consistently.
+- Open Issues: None
+
+## CalendarGrid-UC3 — Night Shift Detection
+- Primary Actor(s): System
+- Secondary Actor(s): None
+- Trigger: System checks for night shift presence.
+- Description: Identifies if any night shifts exist within the provided utilization list.
+- Preconditions: Utilization list with shift data available.
+- Postconditions: Confirmation of night shift existence.
+- Main Success Scenario:
+  1. System iterates over utilization data.
+  2. Checks shift codes against night shift criteria.
+  3. Returns true if night shift exists.
+- Extensions: None
+- Exceptions: None
+- Business Rules: Night shifts are defined by specific time codes.
+- Assumptions: Shift codes are accurate and reflective of time periods.
+- Open Issues: None
+
+## CalendarGrid-UC4 — Time Formatting
+- Primary Actor(s): System
+- Secondary Actor(s): None
+- Trigger: Task initiated for time formatting.
+- Description: Formats time strings based on provided shift and various flags.
+- Preconditions: Shift data and time details available.
+- Postconditions: Formatted time string provided.
+- Main Success Scenario:
+  1. Receives start, end time, various flag, and shift code.
+  2. Formats time string according to rules and resources.
+  3. Returns formatted time value.
+- Extensions: None
+- Exceptions: None
+- Business Rules: Times must be formatted according to predefined resource configurations.
+- Assumptions: Shift codes and time data are correct.
+- Open Issues: None
+
+## CalendarGrid-UC5 — View PR Filter Options
+- Primary Actor(s): User (Instructor)
+- Secondary Actor(s): System
+- Trigger: User selects PR filter option.
+- Description: Instructor manages placement requests based on filter selections.
+- Preconditions: User logged in as instructor.
+- Postconditions: Filtered PR list displayed.
+- Main Success Scenario:
+  1. User selects filter from dropdown.
+  2. System displays filtered data based on selection.
+- Extensions: None
+- Exceptions: None
+- Business Rules: Filters must accurately reflect available data.
+- Assumptions: User has access to instructor mode.
+- Open Issues: None
+
+## CalendarGrid-UC6 — Print Schedule Report
+- Primary Actor(s): User
+- Secondary Actor(s): System
+- Trigger: User initiates print command.
+- Description: Generate and print schedule report in PDF format.
+- Preconditions: Schedule data must be available.
+- Postconditions: Printed report is visible and accessible.
+- Main Success Scenario:
+  1. User selects print option.
+  2. System generates PDF report from schedule data.
+  3. Prints report and displays it to user.
+- Extensions: None
+- Exceptions: None
+- Business Rules: Reports must adhere to specified format and content guidelines.
+- Assumptions: Printing resources are available and functioning.
+- Open Issues: None
+
+## CalendarGrid-UC7 — Conflict Checking
+- Primary Actor(s): System
+- Secondary Actor(s): None
+- Trigger: System checks for conflicts in placement requests.
+- Description: Identifies placement request conflicts within the calendar grid.
+- Preconditions: Utilization data must be populated.
+- Postconditions: Conflicts are identified and flagged.
+- Main Success Scenario:
+  1. System analyzes placement requests.
+  2. Flags any conflicts found.
+  3. Updates utilization data reflecting changes.
+- Extensions: None
+- Exceptions: None
+- Business Rules: Conflicts must be resolved to maintain schedule integrity.
+- Assumptions: Accurate utilization data is provided.
+- Open Issues: None
+
+## CalendarGrid-UC8 — Setup JavaScript for Page Operations
+- Primary Actor(s): System
+- Secondary Actor(s): None
+- Trigger: Page load event.
+- Description: Initializes JavaScript variables and scripts for page functionality.
+- Preconditions: Page must be loaded and script manager available.
+- Postconditions: Page operates with initialized scripts.
+- Main Success Scenario:
+  1. On page load, JavaScript variables set up.
+  2. Functions like popup initialization executed.
+  3. Scripts registered for async postback scenarios.
+- Extensions: None
+- Exceptions: None
+- Business Rules: JavaScript must support page operations seamlessly.
+- Assumptions: JavaScript functions are robust and error-free.
+- Open Issues: None
