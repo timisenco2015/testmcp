@@ -1,0 +1,107 @@
+{
+  "filename": "MySupervisors",
+  "found": true,
+  "summary": "The MySupervisors feature manages the profiles and roles of staff members within HSPnet, including editing and viewing permissions based on user roles such as System Administrator, Local Administrator, Content Manager, and others.",
+  "purpose": "To facilitate management of supervisor profiles by allowing authorized users to edit, view, and organize staff information while respecting role-based access controls.",
+  "entities": [],
+  "fields": [
+    "StaffID",
+    "AreaCode",
+    "ProfileExists",
+    "LastName",
+    "FirstName",
+    "MiddleName",
+    "Email",
+    "Phone",
+    "AltPhone",
+    "Fax",
+    "Designation",
+    "SalutationCodeID",
+    "DepartmentID",
+    "AgencyID",
+    "EmployeeNumber"
+  ],
+  "actors": [
+    "System Administrator",
+    "Local Administrator",
+    "Content Manager",
+    "Placement Coordinator",
+    "Instructor",
+    "Course Leader",
+    "Staff Admin",
+    "Receiving Coordinator",
+    "Destination Coordinator",
+    "Supervisor",
+    "UserSession"
+  ],
+  "workflows": [
+    {
+      "name": "Profile Management",
+      "steps": [
+        "Check user session for editing rights",
+        "Load profile information based on user access",
+        "Edit profile fields if permitted",
+        "Save changes and refresh data"
+      ]
+    },
+    {
+      "name": "Staff Role Assignment",
+      "steps": [
+        "Determine user's role and permissions",
+        "Assign role-specific tasks to staff",
+        "Update role permissions"
+      ]
+    }
+  ],
+  "business_rules": [
+    "System Administrator has unrestricted access",
+    "Local Administrator can edit within permitted departments",
+    "Content Manager can manage role-specific content",
+    "Placement Coordinators, Instructors, Course Leaders have view-only access"
+  ],
+  "validations": [
+    "Email is required for HSPnet users",
+    "Phone number must adhere to formatting rules"
+  ],
+  "calculations": [],
+  "conditions": [
+    "User must not be a view-only user to edit profiles",
+    "Access flags determine visibility of certain fields"
+  ],
+  "system_behavior": [
+    "Profiles are highlighted based on session state",
+    "Screen access is editable based on user role",
+    "Grid and form view modes are handled based on user actions"
+  ],
+  "dependencies": [
+    "UserSession for determining access",
+    "Grid bindings for data refresh",
+    "JavaScript for client-side interactions"
+  ],
+  "exceptions": [
+    "View-only users cannot make changes",
+    "Inactive staff profiles restrict certain actions"
+  ],
+  "source_document_ids": [
+    "08660008-e3d2-5c27-bc11-2888a49b5a22",
+    "1cf49d25-36db-52ba-9f3b-d4daa8371c9d",
+    "1d28a089-1c1a-5aad-a17c-d963de6dbe15",
+    "2585d210-0d1c-5090-84a5-3c36db807420",
+    "28a651ff-b732-548b-a229-99a98f515d55",
+    "2a10c423-fd83-5bb5-b0de-6f193cdcb0ef",
+    "2adc29ff-f943-59d4-8094-452b9d73f0ce",
+    "2f9ccd06-5f7c-5b83-8893-7e24e928c8d7",
+    "39259d5c-2d7d-5448-baab-d4b06b4e10c9",
+    "44f32016-6e08-50ad-b8a1-4c23bad15148",
+    "47636167-6331-53f0-a4ab-767d5e16095e",
+    "549c83df-baee-592f-b30d-feccbf9d404e",
+    "579d6d7e-47ee-5fbe-ab40-78c6870eead6",
+    "63ace040-b830-5237-9cd4-d612b587932c",
+    "69284cae-fe17-5790-9ddb-3f8ad7ee9d2a",
+    "846a1d58-d5a8-5da4-9779-ac7b68506e00",
+    "8ebe5f79-64c9-5ce7-abdc-774b458c54d0",
+    "9a61857e-179f-5f7b-b327-3065b319263d",
+    "abf6df63-368c-51f8-9b1f-5936b1108d53"
+  ],
+  "content_gaps": []
+}
