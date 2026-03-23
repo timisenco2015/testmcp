@@ -1,19 +1,44 @@
 {
-  "filename": "EmailPopupDocument",
-  "found": true,
-  "summary": "Defines EmailPopupDocument class for managing email-related documents and operations.",
-  "purpose": "To handle email popup document management within the HSPnet framework.",
-  "entities": [],
-  "fields": ["ID", "FileName", "FilePath", "Checked"],
-  "actors": [],
-  "workflows": [],
-  "business_rules": [],
-  "validations": [],
-  "calculations": [],
-  "conditions": [],
-  "system_behavior": [],
-  "dependencies": ["System.IO", "System.Data.SqlClient", "HSPnet.Framework"],
-  "exceptions": [],
-  "source_document_ids": ["7287734e-f13d-550f-9249-4242db620766", "927bc837-5564-5759-9324-27c6d5d7321d"],
-  "content_gaps": []
+    "filename": "EmailPopupDocument",
+    "found": true,
+    "summary": "EmailPopupDocument represents documents used in email popups, including metadata like file name and path.",
+    "purpose": "To manage and display documents in email popups within the HSPnet framework.",
+    "entities": [],
+    "fields": [
+        {
+            "name": "ID",
+            "description": "Unique identifier for the email popup document."
+        },
+        {
+            "name": "FileName",
+            "description": "Name of the file associated with the email popup document."
+        },
+        {
+            "name": "FilePath",
+            "description": "Path where the file is stored."
+        },
+        {
+            "name": "Checked",
+            "description": "Boolean flag indicating whether the document is checked."
+        }
+    ],
+    "actors": [],
+    "workflows": [
+        {
+            "name": "Email Document Management",
+            "steps": [
+                "Search for documents using specified data information.",
+                "Delete documents by file path and manage associated directories."
+            ]
+        }
+    ],
+    "business_rules": [],
+    "validations": [],
+    "calculations": [],
+    "conditions": [],
+    "system_behavior": [],
+    "dependencies": [],
+    "exceptions": [],
+    "source_document_ids": ["7287734e-f13d-550f-9249-4242db620766", "927bc837-5564-5759-9324-27c6d5d7321d"],
+    "content_gaps": []
 }
