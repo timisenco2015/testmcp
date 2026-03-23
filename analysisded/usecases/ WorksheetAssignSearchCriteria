@@ -1,0 +1,54 @@
+```markdown
+# Module: WorksheetAssignSearchCriteria
+
+## WorksheetAssignSearchCriteria-UC1 — Retrieve Assignment Criteria
+
+- Primary Actor(s): Administrator
+- Secondary Actor(s): None
+- Trigger: Administrator requests assignment criteria for specific cohort, term, and course.
+- Description: The system retrieves detailed assignment criteria based on the specified cohort, term, and course IDs.
+- Preconditions: Administrator has access to the system and a valid session is established.
+- Postconditions: The assignment criteria are available for further processing or viewing.
+- Main Success Scenario:
+  1. Administrator initiates a query using cohortID, termID, and courseID.
+  2. System calls stored procedure `WorksheetAssignSearchCriteria`.
+  3. System retrieves criteria data from the database, including department name, program information, student preferences, etc.
+  4. System displays criteria details to Administrator.
+- Extensions:
+  - None
+- Exceptions:
+  - Database connection failure.
+  - Invalid cohort, term, or course IDs.
+- Business Rules:
+  - Procedures and parameter bindings must be accurately defined.
+- Assumptions:
+  - Database contains valid and accessible data.
+- Open Issues:
+  - Need to define UI for displaying criteria.
+
+## WorksheetAssignSearchCriteria-UC2 — Verify Placement Request Existence
+
+- Primary Actor(s): Administrator
+- Secondary Actor(s): None
+- Trigger: Administrator checks if placement requests exist for a given cohort, term, and course.
+- Description: The system verifies the existence of placement requests and retrieves count of offers and confirmed placements.
+- Preconditions: Administrator has access to the system and a valid session is established.
+- Postconditions: System returns true if placement requests exist, along with counts for offers and confirmed placements.
+- Main Success Scenario:
+  1. Administrator initiates verification using cohortID, termID, and courseID.
+  2. System calls stored procedure `WorksheetPRsExist`.
+  3. System checks the database for existing placement requests.
+  4. System returns results including whether requests exist, offers count, and confirmed count.
+- Extensions:
+  - None
+- Exceptions:
+  - Database connection issues.
+  - Invalid input parameters.
+- Business Rules:
+  - Accurate parameter binding and stored procedure execution.
+- Assumptions:
+  - System handles boolean and integer data types correctly.
+- Open Issues:
+  - Clarify handling for zero count scenarios.
+
+```
