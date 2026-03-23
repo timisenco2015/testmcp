@@ -1,0 +1,790 @@
+{
+  "filename": "SiteDocument",
+  "found": true,
+  "summary": "SiteDocument manages documents associated with a site, providing a model for document storage and retrieval. Documents are tied to a SiteID and have an ID for identification.",
+  "purpose": "To represent and manage documents linked to sites in the system.",
+  "entities": ["SiteDocument"],
+  "fields": [
+    "ID",
+    "SiteID"
+  ],
+  "actors": [],
+  "workflows": [],
+  "business_rules": [],
+  "validations": [],
+  "calculations": [],
+  "conditions": [],
+  "system_behavior": [
+    "SiteDocument is a sealed class; documents linked by SiteID and ID; used in data layer logic."
+  ],
+  "dependencies": [
+    "HSPnet.Framework",
+    "HSPnet.App_GlobalResources",
+    "System.Data.SqlClient"
+  ],
+  "exceptions": [],
+  "source_document_ids": ["a2967f17-a924-5e9c-8b15-d1f7bd028b32"],
+  "content_gaps": []
+}
+---
+{
+  "filename": "WelcomeStaffAdmin",
+  "found": true,
+  "summary": "WelcomeStaffAdmin provides a landing page and interface for staff administrators, including date filtering, dropdowns for Site and Discipline, and facilities for viewing and managing employment applications.",
+  "purpose": "To provide staff administrators a dashboard for viewing key application data, filtering by site, discipline, and date, and managing status.",
+  "entities": [
+    "EmploymentApplication",
+    "Site",
+    "Discipline",
+    "StaffAdmin"
+  ],
+  "fields": [
+    "valEndDate",
+    "txtEndDate",
+    "btnEndDateCalendar",
+    "CalendarExtender2",
+    "RegularExpressionValidator2",
+    "cvrEndDateAfter",
+    "chkShowWithdrawn",
+    "pnlCurrentView",
+    "ddSite",
+    "ddDiscipline",
+    "txtStartDate",
+    "btnStartDateCalendar",
+    "CalendarExtender1",
+    "RegularExpressionValidator1",
+    "cmdRefreshView",
+    "Label1",
+    "gvwApplications",
+    "dsEmploymentApplications"
+  ],
+  "actors": [
+    "StaffAdmin",
+    "UserSession"
+  ],
+  "workflows": [
+    {
+      "name": "Application Filtering and View",
+      "steps": [
+        "StaffAdmin logs in and lands on WelcomeStaffAdmin page.",
+        "Dropdowns for Site and Discipline presented; filtering by Start and End Date.",
+        "Data grid shows employment applications; withdrawn applications toggle.",
+        "Validators ensure proper date entry.",
+        "Refresh button reloads filtered applications.",
+        "Row data bound for email, status, withdrawn date.",
+        "View can be updated by changing dropdowns or date fields."
+      ]
+    }
+  ],
+  "business_rules": [
+    "StartDate must be before EndDate.",
+    "Withdrawn applications can be toggled."
+  ],
+  "validations": [
+    "RequiredFieldValidator for Start and End dates.",
+    "RegularExpressionValidator for date format.",
+    "CustomValidator to ensure StartDate is not after EndDate."
+  ],
+  "calculations": [],
+  "conditions": [
+    "Show withdrawn applications if checkbox is checked.",
+    "Show warning/error panels if errors are present."
+  ],
+  "system_behavior": [
+    "Auto-generated fields are present for UI controls.",
+    "RefreshData is called on filter changes.",
+    "Dropdowns are populated via FillSiteDropdown and FillDisciplineDropdown.",
+    "Page messages and JavaScript setup on render."
+  ],
+  "dependencies": [
+    "HSPnet.Framework",
+    "HSPnet.App_GlobalResources",
+    "AjaxControlToolkit",
+    "HSPnet.UI"
+  ],
+  "exceptions": [
+    "Invalid dates trigger warnings/errors.",
+    "Missing required fields prevent refresh."
+  ],
+  "source_document_ids": [
+    "05db31e4-e8b6-53ee-a6fb-812c106f0134",
+    "100d5925-a5f8-53db-8493-02cddd563eb7",
+    "3c84bade-9671-5fbf-acce-3c87a835e9b4",
+    "4c4b97b8-d242-5261-a515-767a3f7d7a49",
+    "52b5066f-23f6-5d82-96cd-5d51dad3de79",
+    "54244516-0707-581e-a8ba-9c041ea38366",
+    "5bb85da3-f5b4-5753-b07c-9bb2a04eeb89",
+    "5d9b92ea-7c12-5070-8603-977cf14d0e04",
+    "6701b153-5288-59e5-8de9-61b68a1fc292",
+    "6eca1317-c0b2-5225-a9af-f034a722d924",
+    "871df91b-7ba0-558f-83ea-d5be1b0dc8db",
+    "8cea5c3a-2fbf-5206-a0c0-9425a5e14511",
+    "964a48c9-231c-5d58-a44d-3675d949a453",
+    "966ed8d3-a5af-567f-b092-936217777551",
+    "a0c3da28-32a5-5fce-91b2-17274efa016e",
+    "afbb4ec5-43c8-5281-ad2c-4b6cfd23a48e",
+    "b8e79322-9a0e-5fe7-8953-3d05e231f923",
+    "bf423a80-93db-572d-8cb8-c79f04214a93",
+    "ca71b077-cc26-5979-a44f-59700a41316b",
+    "d278278f-d4ec-5f4a-9f29-a02b66773bb9",
+    "db9b35e9-53ca-5eaf-9d75-4f3a72131bc7",
+    "e249a878-c837-5d1c-9a3d-5167df2614fb"
+  ],
+  "content_gaps": []
+}
+---
+{
+  "filename": "ServiceCode",
+  "found": true,
+  "summary": "ServiceCode represents a categorized code for services provided, supporting alternate language fields and retrieval by course or timetable.",
+  "purpose": "To provide a systematic coding and categorization for services, including localization.",
+  "entities": [
+    "ServiceCode"
+  ],
+  "fields": [
+    "ID",
+    "CodeCategoryID",
+    "ShortName",
+    "Name",
+    "SortOrder",
+    "Notes",
+    "NameAlt",
+    "NotesAlt"
+  ],
+  "actors": [
+    "HSPnetSession"
+  ],
+  "workflows": [
+    {
+      "name": "ServiceCode Retrieval",
+      "steps": [
+        "ServiceCodeListAll: Retrieve all service codes.",
+        "ServiceCodeASMOptionByCourseID: Retrieve codes by CourseID.",
+        "ServiceCodeASMOptionByTimetableID: Retrieve codes by TimetableID.",
+        "Localize: Replace Name field with NameAlt if alternate language mode is enabled."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Use alternate language fields when Sess.UseAltLanguageFields is true."
+  ],
+  "validations": [],
+  "calculations": [],
+  "conditions": [],
+  "system_behavior": [
+    "ServiceCode is a sealed class.",
+    "ServiceCodes is a static class for batch retrieval and localization."
+  ],
+  "dependencies": [
+    "HSPnet.Framework",
+    "HSPnet.App_GlobalResources",
+    "System.Data.SqlClient",
+    "HSPnet.UI"
+  ],
+  "exceptions": [],
+  "source_document_ids": [
+    "94f1b055-348d-508a-ae6e-cf7960a8c6a2",
+    "e4ebe4b4-6d14-5c3f-b693-61016f765239",
+    "f976b9af-a402-540f-b162-391d578fac7c"
+  ],
+  "content_gaps": []
+}
+---
+{
+  "filename": "SiteProfileHistory",
+  "found": true,
+  "summary": "SiteProfileHistory tracks historical changes to site profiles, including action dates, sections changed, user actions, user details, and conditions for displaying supporting team information.",
+  "purpose": "To provide an audit trail and formatted details for changes to site profiles, including who made the change and what was altered.",
+  "entities": [
+    "SiteProfileHistory"
+  ],
+  "fields": [
+    "ID",
+    "ActionDate",
+    "ScreenSection",
+    "UserAction",
+    "Fields",
+    "Agency",
+    "AgencyName",
+    "LastName",
+    "FirstName",
+    "MiddleName",
+    "Phone",
+    "ByUserID",
+    "ByOriginalUserID",
+    "ByUserSysAdmin",
+    "ActionDateFormatted",
+    "AgencyUserFormatted",
+    "AgencyUserDetailsFormatted"
+  ],
+  "actors": [
+    "UserSession",
+    "ByUserID"
+  ],
+  "workflows": [
+    {
+      "name": "SiteProfileHistory Retrieval",
+      "steps": [
+        "SiteProfileHistorySearch: Retrieve history by SiteID and SessionAgencyID.",
+        "FillSiteDropdown: Populate dropdowns for retrieval.",
+        "FillList: Populate SiteProfileHistory entity from database record."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Display HSPnet Support Team info when ByUserSysAdmin is false and user IDs do not match.",
+    "Format user details using NameFormatter."
+  ],
+  "validations": [],
+  "calculations": [],
+  "conditions": [
+    "If Phone is non-empty, include in tooltip."
+  ],
+  "system_behavior": [
+    "SiteProfileHistories is a sealed class with retrieval/search logic.",
+    "UserControls.SiteProfileHistory expects UserSession and SiteID properties."
+  ],
+  "dependencies": [
+    "HSPnet.Framework",
+    "HSPnet.App_GlobalResources",
+    "System.Data.SqlClient",
+    "HSPnet.UI"
+  ],
+  "exceptions": [],
+  "source_document_ids": [
+    "25f89a24-5eda-5a3f-83df-1de69b12b3f1",
+    "26e09292-d304-55c6-94e5-ef3346453c4b",
+    "7ca6b963-9ae9-5cd3-82d5-f30dcb727ae3",
+    "a8f030c6-90b8-53a1-bb8a-3b7ef33b9488",
+    "e806999c-3a39-5720-9b59-303faebc9eb6"
+  ],
+  "content_gaps": []
+}
+---
+{
+  "filename": "EmailPopupDocument",
+  "found": true,
+  "summary": "EmailPopupDocument represents documents used in email popups, tracking filename, file path, and checked status. Supports searching and deleting popup documents by parsing the data string.",
+  "purpose": "To manage email-related documents for popup display and deletion.",
+  "entities": [
+    "EmailPopupDocument"
+  ],
+  "fields": [
+    "ID",
+    "FileName",
+    "FilePath",
+    "Checked"
+  ],
+  "actors": [],
+  "workflows": [
+    {
+      "name": "Search and Delete EmailPopupDocuments",
+      "steps": [
+        "Search: Parse DataInfo string, create EmailPopupDocument instances per valid entry.",
+        "Delete: Remove file and folder for document with matching ID, rebuild DataInfo string."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Valid entries require FileName and FilePath.",
+    "Delete cleans up both file and folder if possible."
+  ],
+  "validations": [],
+  "calculations": [],
+  "conditions": [],
+  "system_behavior": [
+    "Search parses a delimited string, splits into documents.",
+    "Delete removes file/folder and updates the DataInfo string."
+  ],
+  "dependencies": [
+    "System.IO"
+  ],
+  "exceptions": [
+    "File/Directory deletion exceptions are caught and ignored."
+  ],
+  "source_document_ids": [
+    "7287734e-f13d-550f-9249-4242db620766",
+    "927bc837-5564-5759-9324-27c6d5d7321d"
+  ],
+  "content_gaps": []
+}
+---
+{
+  "filename": "ExpenseBatch",
+  "found": true,
+  "summary": "ExpenseBatch represents batches of expenses per department, including codes, descriptions, dates, and status. Supports adding, updating, searching, and deletion operations.",
+  "purpose": "To manage and track batches of expenses, their status, and associated metadata.",
+  "entities": [
+    "ExpenseBatch"
+  ],
+  "fields": [
+    "ID",
+    "DepartmentID",
+    "BatchDescription",
+    "BatchDate",
+    "StatusCodeID",
+    "StatusCode",
+    "StatusDescription",
+    "ClosedDate",
+    "BatchNumberFormatted"
+  ],
+  "actors": [
+    "HSPnetSession"
+  ],
+  "workflows": [
+    {
+      "name": "ExpenseBatch Management",
+      "steps": [
+        "Search: Retrieve batches for department.",
+        "SearchID: Retrieve batch by ID.",
+        "Add: Create an expense batch.",
+        "Update: Modify expense batch.",
+        "Delete: Remove expense batch."
+      ]
+    }
+  ],
+  "business_rules": [
+    "StatusDescription uses alternate language if UseAltLanguageFields is set."
+  ],
+  "validations": [],
+  "calculations": [
+    "BatchNumberFormatted = ID + ' - ' + StatusDescription"
+  ],
+  "conditions": [],
+  "system_behavior": [
+    "ExpenseBatch is a sealed class; ExpenseBatches is a static manager class."
+  ],
+  "dependencies": [
+    "HSPnet.Framework",
+    "HSPnet.App_GlobalResources",
+    "System.Data.SqlClient",
+    "HSPnet.UI"
+  ],
+  "exceptions": [],
+  "source_document_ids": [
+    "060e08d3-49ca-5e40-bea0-849f4e6173e1",
+    "3559737f-0154-520e-be2b-d3dd2c3de539",
+    "b2216e58-a144-55cb-8b87-3da9787fc1d7"
+  ],
+  "content_gaps": []
+}
+---
+{
+  "filename": "CostCentre",
+  "found": true,
+  "summary": "CostCentre manages records for placement cost centers, supporting filtering by various placement attributes and storing rich metadata including agencies, discipline, finances, and student hours.",
+  "purpose": "To provide detailed cost center records for placements, enabling financial and administrative reporting.",
+  "entities": [
+    "CostCentreRecord"
+  ],
+  "fields": [
+    "PlacingAgency",
+    "Department",
+    "Program",
+    "Discipline",
+    "SubDiscipline",
+    "ReceivingAgency",
+    "Site",
+    "Portfolio",
+    "Service",
+    "Destination",
+    "CostCentre",
+    "CostCentreDescription",
+    "PRType",
+    "StartDate",
+    "EndDate",
+    "Status",
+    "Course",
+    "ProgramYear",
+    "ReferenceNumber",
+    "CFO",
+    "PRCount",
+    "StudentCount",
+    "PRHours",
+    "StudentHours"
+  ],
+  "actors": [],
+  "workflows": [
+    {
+      "name": "CostCentre Retrieval",
+      "steps": [
+        "GetCostCentre: Retrieve records by parameters (sessionID, dates, agencies, discipline, etc.).",
+        "FillList: Populate CostCentreRecord from database values."
+      ]
+    }
+  ],
+  "business_rules": [],
+  "validations": [],
+  "calculations": [],
+  "conditions": [],
+  "system_behavior": [
+    "CostCentreView.GetCostCentre filters and retrieves cost center records.",
+    "CostCentreRecord is a POCO with XML mapping."
+  ],
+  "dependencies": [
+    "HSPnet.DataLayer",
+    "System.Data.SqlClient"
+  ],
+  "exceptions": [],
+  "source_document_ids": [
+    "20ac8054-536e-5203-b33d-7db2b2dc2359",
+    "2c04f259-cf58-5d95-803c-8ebf16840f6c",
+    "97bc3ba9-9fe4-52b1-8847-dce2198e0aee",
+    "dd965b0f-f9cf-57eb-a3f8-32b3b97a6d1a",
+    "e1ac7e41-5e9e-5f16-baa0-29d05a70f976"
+  ],
+  "content_gaps": []
+}
+---
+{
+  "filename": "TimetableAssessments",
+  "found": true,
+  "summary": "TimetableAssessments manages student assessment schedules, including workflows for adding, editing, deleting assessments, validations for dates, and rules for assessor/subject roles. Provides custom popups for editing assessments and tracks rotation existence.",
+  "purpose": "To enable management of scheduled assessments for students, including detailed assessor/subject configuration, templates, and validations.",
+  "entities": [
+    "TimetableAssessment"
+  ],
+  "fields": [
+    "ID",
+    "AssessorTypeCodeID",
+    "SubjectTypeCodeID",
+    "AssessmentTypeCodeID",
+    "AssessmentTemplateCodeID",
+    "OpenDaysAfterStart",
+    "CloseDaysAfterEnd",
+    "AssessorCanViewSubjectsAnswers",
+    "SubjectCanViewAssessorAnswers",
+    "ViewUntilDaysAfterEnd",
+    "OptionAppliedAssessorTypeCodeID"
+  ],
+  "actors": [
+    "UserSession"
+  ],
+  "workflows": [
+    {
+      "name": "Assessment Management",
+      "steps": [
+        "Show all assessments for a timetable.",
+        "Add/edit assessment details via popup.",
+        "Validate open/close dates and relationships.",
+        "Allow/deny viewing of answers as per roles.",
+        "On add/edit, update database and refresh grid.",
+        "Handle rotations existence notes."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Interim assessment cannot exist without a final.",
+    "Instructors and supervisors cannot both be assessors for the same assessment.",
+    "Assessment maximum must not be exceeded."
+  ],
+  "validations": [
+    "RequiredFieldValidator for key fields.",
+    "CompareValidator for numeric fields.",
+    "CustomValidator for close date validation."
+  ],
+  "calculations": [
+    "Days after placement start/end for assessment open/close."
+  ],
+  "conditions": [
+    "Editable only for system admins or local admins.",
+    "Optional sections shown per templates and roles.",
+    "PnlEmptyData visible if no rows and editable."
+  ],
+  "system_behavior": [
+    "GridView binds assessments, provides popup for add/edit.",
+    "JavaScript manages UI logic for roles and templates.",
+    "Validation and error panels display issues."
+  ],
+  "dependencies": [
+    "HSPnet.Framework",
+    "HSPnet.App_GlobalResources",
+    "AjaxControlToolkit",
+    "HSPnet.UI"
+  ],
+  "exceptions": [
+    "Errors for interim without final, role conflicts, assessment maximum exceeded."
+  ],
+  "source_document_ids": [
+    "0781696d-dec4-5dfc-aa58-80ddd173c0ae",
+    "0d330d29-e0a7-5f88-8c71-d32f88b252b0",
+    "0ea3e178-f11b-5ee8-afc8-441e55e2d2f4",
+    "135455cd-1a34-5b2d-b8cc-298a1d98c47e",
+    "14ec7368-e312-5de7-b00e-188a6d5310ef",
+    "1807e536-2914-59f1-a538-b9e127d25f77",
+    "1d7ea219-2359-5da1-9c7b-79cbd696c770",
+    "345a2e51-fcf0-5df0-b1f6-b535c4b757c6",
+    "447b10a9-0558-5d06-9fac-926c94892393",
+    "50cbdfe8-4a64-5c51-ba1e-e88fb00ca8fc",
+    "528d9fc6-cb63-5c52-9327-f323552f37e3",
+    "61fa5351-3118-588b-a4f0-3147cd92841a",
+    "6f04742e-ad06-58cf-af37-b3ae7ebe39cc",
+    "6f1aa10e-0697-5c9e-8e0a-182b597a2d3e",
+    "707335b9-f19a-5366-959c-4872a99363e8",
+    "727a0287-de95-52fe-a841-7f49f9958884",
+    "734dd83e-2a57-578d-9891-96f90686f95e",
+    "7a89081a-a4a0-569f-8bc4-676ec99f7dcb",
+    "7ab03f3d-3b63-594e-a3ac-ea304249c66a",
+    "7afa582c-d2e5-5803-b315-7f8f63d1bc7e",
+    "7bb40b95-0bb5-5f6d-91ca-bbcb527d60ff",
+    "824387dc-2c7b-5cca-96a6-bfab53dbaeee",
+    "96eaf83a-27cc-5e53-b93a-4835addb1ab6",
+    "a1b432d1-2597-591b-a1a7-80d7b39db2b7",
+    "a7c42983-f1a4-5f7f-8487-6a59e89d7502",
+    "b0600110-1773-5335-a423-4e456e7b615b",
+    "b66763e8-1cd7-5741-9b81-95c511b8cf64",
+    "c55e37c8-0668-52c9-8860-02706d05d1c5",
+    "c8e37d14-9d6e-5d5f-a710-581fe5dfd958",
+    "dd0997ef-5454-5014-9d78-fa20aed967eb",
+    "e506841f-d914-5482-b64c-7deca11f392a",
+    "ed5d2f45-0dea-5606-bc98-3a7d2c634bf5",
+    "ede3c463-e1b7-551c-bad2-e5db6d44165e",
+    "f0d967b2-325c-584a-a002-fd27615e3c62",
+    "f34f81c5-ea44-558f-a144-dc0a4d5a65ac"
+  ],
+  "content_gaps": []
+}
+---
+{
+  "filename": "AdHocQuery",
+  "found": true,
+  "summary": "AdHocQuery provides methods to render SQL query results as HTML tables, supporting header, row, and footer formatting.",
+  "purpose": "To transform database query results into HTML tables for display.",
+  "entities": [
+    "AdHocQuery"
+  ],
+  "fields": [],
+  "actors": [],
+  "workflows": [
+    {
+      "name": "Render Data Reader as HTML Table",
+      "steps": [
+        "DataReaderToHTMLTable: Calls HeaderRow, DataRow for each record, FooterRow for completion.",
+        "HeaderRow: Generates <table> and <th> elements.",
+        "DataRow: Generates <td> elements per column, handles nulls.",
+        "FooterRow: Closes table."
+      ]
+    }
+  ],
+  "business_rules": [],
+  "validations": [],
+  "calculations": [],
+  "conditions": [],
+  "system_behavior": [
+    "For each database row, values converted to HTML table cells.",
+    "Null values are displayed as 'NULL'."
+  ],
+  "dependencies": [
+    "HSPnet.Framework",
+    "HSPnet.App_GlobalResources"
+  ],
+  "exceptions": [],
+  "source_document_ids": [
+    "20140dcf-7d8e-51f1-86ab-4b5a291db2b2",
+    "2878adb2-c26b-5d41-a6a4-d9f5a2c2c782"
+  ],
+  "content_gaps": []
+}
+---
+{
+  "filename": "StudentPrerequisites",
+  "found": true,
+  "summary": "StudentPrerequisites manages and tracks student prerequisites for placements, including immunizations, mask fitting, confidentiality forms, and medical details. Provides business logic and validations for expiry dates, status codes, and administrative updates.",
+  "purpose": "To ensure students meet health, safety, and compliance prerequisites for placement, and support update workflows.",
+  "entities": [
+    "StudentPrerequisite"
+  ],
+  "fields": [
+    "ID",
+    "StudentID",
+    "CRCStatusCodeID",
+    "IDCard",
+    "WCBWaiver",
+    "ConfidentialityForm",
+    "UseAssessmentModule",
+    "DepartmentUseAssessmentModule",
+    "N95MaskSizeCodeID",
+    "N95MaskAltSizeCodeID",
+    "N95MaskFitTestExpiryDate",
+    "TetanusExpiryDate",
+    "TdapImmunity",
+    "PolioImmunity",
+    "MeaslesStatusCodeID",
+    "Covid19StatusCodeID",
+    "RubellaStatusCodeID",
+    "VaricellaStatusCodeID",
+    "InfluenzaStatusCodeID",
+    "ChestXRayDate",
+    "ChestXRayResultsCodeID",
+    "HepBFirstShotDate",
+    "HepBSecondShotDate",
+    "HepBThirdShotDate",
+    "HepABResultsCodeID",
+    "ImmunizationNotes",
+    "InfectionControlSolutionID",
+    "N95MaskFitNotes",
+    "CRCStatusNotes",
+    "IDCardNotes",
+    "WCBWaiverNotes",
+    "WCBStatusCodeID",
+    "WCBWaiverDate",
+    "ConfidentialityFormDateReceived",
+    "ConfidentialityNotes",
+    "TetanusAdminDate",
+    "TdapStatusCodeID",
+    "TdapAdminDate",
+    "PolioStatusCodeID",
+    "PolioAdminDate",
+    "PolioReinforcingDoseDate",
+    "InfluenzaAdminDate",
+    "MumpsStatusCodeID",
+    "MeaslesAdminDate",
+    "Covid19AdminDate",
+    "VaricellaAdminDate1",
+    "VaricellaAdminDate2",
+    "TBTestNotes",
+    "HepABTestDate",
+    "CRCStatusDate",
+    "IDCardDate",
+    "OccHealthReqMetStatusCodeID",
+    "OccHealthReqMetStatusCode",
+    "OccHealthReqMetStatusCodeDesc",
+    "ImmunReqMetDate",
+    "ImmunReqMetNotes",
+    "MedicalCompleted",
+    "MedicalCompletedDate",
+    "ImmunizationFeePaid",
+    "ImmunizationFeePaidDate",
+    "RubellaAdminDate2",
+    "MumpsAdminDate2",
+    "TetanusSourceCodeID",
+    "TdapSourceCodeID",
+    "PolioSourceCodeID",
+    "PolioReinforcingDoseSourceCodeID",
+    "MeaslesSourceCodeID",
+    "Covid19SourceCodeID",
+    "RubellaSourceCodeID",
+    "MumpsSourceCodeID",
+    "VaricellaSourceCodeID",
+    "InfluenzaSourceCodeID",
+    "HepBSourceCodeID",
+    "HepSerologySourceCodeID",
+    "TBSourceCodeID",
+    "StaffID",
+    "InfluenzaStatusCodeID2",
+    "FluReqMet2",
+    "InfluenzaAdminDate2",
+    "InfluenzaSourceCodeID2",
+    "MeaslesTitreDate",
+    "MumpsTitreDate",
+    "RubellaTitreDate",
+    "VaricellaTitreDate"
+  ],
+  "actors": [],
+  "workflows": [
+    {
+      "name": "StudentPrerequisite Update",
+      "steps": [
+        "StudentDetailsImmunizationUpdate: Update student immunization status.",
+        "StudentDetailsImmunizationOccHealthUpdate: Update OccHealth info for student.",
+        "StudentDetailsImmunizationOccHealthCovid19Update: Update Covid19 immunization.",
+        "StudentDetailsSafetyCRCUpdate: Update CRC safety status.",
+        "StudentDetailsSafetyIDCardUpdate: Update ID card details.",
+        "StudentDetailsSafetyWCBUpdate: Update WCB waiver.",
+        "StudentDetailsSchoolConfidentialityFormUpdate: Update school confidentiality form info.",
+        "StudentDetailsInfectionUpdate: Update infection control info.",
+        "StudentDetailsRespiratoryMaskUpdate: Update mask fitting details.",
+        "StaffConfidentialityUpdate: Update staff confidentiality.",
+        "StudentDetailsOccHealthReqUpdate: Update OccHealth requirements."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Fit Test expiry cannot be more than 5 years in future.",
+    "Immunization dates and medical completion cannot be more than 5 years in future.",
+    "Year fields must be in valid range (MIN_YEAR to MaxYear).",
+    "Dates must be valid and not NullDate for mandatory fields.",
+    "Expiry date must be after fit test date if both are specified.",
+    "Consent program and dates are required for confidentiality."
+  ],
+  "validations": [
+    "IsValid checks for date ranges, required fields, and field logic."
+  ],
+  "calculations": [
+    "Expiry dates computed based on admin date when not specified.",
+    "Status code descriptions formatted for display/print."
+  ],
+  "conditions": [],
+  "system_behavior": [
+    "StudentPrerequisite is a sealed class with extensive field mapping.",
+    "StudentPrerequisites is a static manager class for search and update.",
+    "Methods support not only update but validation and error message handling."
+  ],
+  "dependencies": [
+    "HSPnet.Framework",
+    "HSPnet.App_GlobalResources",
+    "System.Data.SqlClient",
+    "HSPnet.UI"
+  ],
+  "exceptions": [
+    "Validation errors for date/fields show error messages.",
+    "Database NullInt, NullDate handling."
+  ],
+  "source_document_ids": [
+    "126148d2-7c46-5bb8-8a4c-606105b702bd",
+    "165b1b6b-fd06-59e5-b7d7-81e87dbeac55",
+    "280408b2-2e1d-5bd7-8feb-59603ff0bb80",
+    "2f8ba20e-ca9a-5fc1-932a-1899a9499417",
+    "3787eddd-1ce0-519f-9959-30c8a913c827",
+    "3c00eec5-f694-53fb-abe6-a8d94038fd60",
+    "3e68c0d0-3ab9-5c14-a221-bf0f7592302c",
+    "430fc305-a57a-53e5-9f01-35e07b707792",
+    "46edf9a0-d978-5197-be20-b4536cae3e91",
+    "4a51cb58-538c-57f2-82ff-13fb4d577aa8",
+    "4abb53e7-107a-535d-a3b7-97b5279e2632",
+    "4c84ad96-eff9-5f59-ad88-b1083437874e",
+    "4fef49f1-918d-5276-9b5d-2394b74edd53",
+    "580b77b9-dd28-5027-bdae-912684d6c0b6",
+    "5829b29d-0fd8-5ba1-98f8-f7195d0f276d",
+    "5847f312-ca34-559d-b351-cdadb289d73c",
+    "58666a42-abe8-54d8-89a0-54666f57461b",
+    "5eaa703a-dd1e-5dee-bb2e-1fb263c75db6",
+    "60564881-fabd-566c-ae55-496631ed07ce",
+    "60fbd355-bf2a-5b34-900c-2d4271e50c18",
+    "61704a31-73c8-510f-a8a5-2f3f90576102",
+    "6326993d-e08e-5e60-9b82-ab09b0ee7aaa",
+    "64b9d3fc-975d-5d39-ab37-dbeff805220f",
+    "6c76048a-8dbd-57f8-a34d-f0474a8066e7",
+    "6f4e2f7e-5afe-5594-b7af-e3164b62cc31",
+    "72969051-b340-56cd-9567-db665fe9963a",
+    "7ad65168-6ffa-588e-8b5e-2c138a0092b6",
+    "80c6896a-128a-591a-8ca6-2b17198986fb",
+    "80da2e19-0529-5ff8-b271-c7143aa2de8f",
+    "80ed1288-90d5-5218-87e0-ea7d3f5db104",
+    "812c66d2-bc1a-5ced-a6c2-fafa49e2bcb9",
+    "8325c58d-21a0-55d5-a8e9-e1479ebd011f",
+    "92a9a02b-cd4f-5050-9603-a3c1fb695f28",
+    "92f4ca82-b65d-570b-b830-aa1aae296ad4",
+    "97ddf3ed-0086-5903-91ce-adc367f9ec68",
+    "9a9ab264-40f6-5641-bf80-27e1944adffd",
+    "9c001d9f-6b5e-5efb-bae5-beec7494b84c",
+    "9dc9edf7-a95e-57c9-ae8e-a04ecdfa88be",
+    "a9be8e45-83d9-54f8-baf7-de5e6c16d394",
+    "b017c1aa-ba9e-5224-b66a-42e4768ed23b",
+    "b5ab106e-c17a-5125-84ac-e4f9d60a842e",
+    "c2b792da-41a1-54e8-9415-795065348574",
+    "c44b7954-91d6-5eaa-b033-a765cc18d949",
+    "c5635bb5-13a4-5707-a628-269e77e4ede2",
+    "d0eb0cc2-a4a7-55d8-8468-1d6ae5eefb35",
+    "d29d4c69-472b-5cdc-8324-d8b31f86cb75",
+    "d65fc939-7e93-5874-a3e2-934f23808835",
+    "dadce6a1-e08f-5117-9767-bb9b5e83fef7",
+    "e9656b6a-7fa3-53ad-8e91-5ea186dd35de",
+    "ea26e640-45be-5fed-9d03-b18363a3b120",
+    "ec8c8c16-1482-5149-87fd-34c4724af0a2",
+    "eedb6500-7e63-5aba-b652-8cfbbf9b798d",
+    "f1337cc9-2c22-570f-8028-6d6cf3d3f36d",
+    "f8567591-2583-55e9-b4a7-cf7fbe15dba9"
+  ],
+  "content_gaps": []
+}
