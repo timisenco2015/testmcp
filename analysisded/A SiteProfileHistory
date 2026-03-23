@@ -1,0 +1,86 @@
+```json
+{
+  "filename": "SiteProfileHistory",
+  "found": true,
+  "summary": "The SiteProfileHistory class is designed to track changes and actions made by users within the system related to site profiles. It involves storing and retrieving historical data of user activities and site modifications.",
+  "purpose": "To maintain a detailed history of user actions and site profile changes for auditing and tracking purposes within the HSPnet system.",
+  "entities": [
+    "SiteProfileHistory",
+    "SiteProfileHistories",
+    "Database",
+    "SqlDataReader",
+    "HSPnetSession"
+  ],
+  "fields": [
+    "ID",
+    "ActionDate",
+    "ScreenSection",
+    "UserAction",
+    "Fields",
+    "Agency",
+    "AgencyName",
+    "LastName",
+    "FirstName",
+    "MiddleName",
+    "Phone",
+    "ByUserID",
+    "ByOriginalUserID",
+    "ByUserSysAdmin",
+    "ActionDateFormatted",
+    "AgencyUserFormatted",
+    "AgencyUserDetailsFormatted"
+  ],
+  "actors": [
+    "User",
+    "System Admin",
+    "HSPnet Support Team"
+  ],
+  "workflows": [
+    {
+      "name": "SiteProfileHistory Retrieval",
+      "steps": [
+        "Initialize database connection",
+        "Execute stored procedure SiteProfileHistorySearch",
+        "Read data using SqlDataReader",
+        "Map data fields to SiteProfileHistory object",
+        "Return list of SiteProfileHistory objects"
+      ]
+    }
+  ],
+  "business_rules": [
+    "Check if the user is a system admin or matches the original user ID for certain actions."
+  ],
+  "validations": [
+    "Ensure UserSession is active before selecting SiteProfileHistory data.",
+    "Verify the presence of necessary fields before processing."
+  ],
+  "calculations": [
+    "Format ActionDate using DateFormatter.",
+    "Format user name using NameFormatter."
+  ],
+  "conditions": [
+    "If ByUserSysAdmin is false, provide specific context for user actions.",
+    "Use alternate language fields if sess.UseAltLanguageFields is true."
+  ],
+  "system_behavior": [
+    "Store detailed information about user actions in the site profile history.",
+    "Provide formatted user and agency details for display."
+  ],
+  "dependencies": [
+    "HSPnet.DataLayer",
+    "HSPnet.UI",
+    "HSPnet.Framework"
+  ],
+  "exceptions": [
+    "Cancel data retrieval if UserSession is null."
+  ],
+  "source_document_ids": [
+    "25f89a24-5eda-5a3f-83df-1de69b12b3f1",
+    "26e09292-d304-55c6-94e5-ef3346453c4b",
+    "7ca6b963-9ae9-5cd3-82d5-f30dcb727ae3",
+    "a8f030c6-90b8-53a1-bb8a-3b7ef33b9488",
+    "e806999c-3a39-5720-9b59-303faebc9eb6"
+  ],
+  "content_gaps": []
+}
+```
