@@ -1,0 +1,148 @@
+```json
+{
+    "filename": "CustomReportRequest",
+    "found": true,
+    "summary": "The Custom Report Request system allows users to customize and generate reports based on various parameters like sites, services, programs, cohorts, terms, courses, status, requested date, and authorization details. It supports different report types, including placement requests, student information, staff data, and site services.",
+    "purpose": "To facilitate the creation and management of custom reports by allowing users to select data fields, filter options, and specify parameters suited to their reporting needs.",
+    "entities": [
+        "CustomReportParameter",
+        "Program",
+        "Site",
+        "Agency",
+        "Department",
+        "Service",
+        "Cohort",
+        "Term",
+        "Course"
+    ],
+    "fields": [
+        "START_DATE",
+        "END_DATE",
+        "PROGRAM_ID_LIST",
+        "SITE_ID_LIST",
+        "SERVICE_ID_LIST",
+        "DEPARTMENT_ID_LIST",
+        "COHORT_ID",
+        "TERM_ID",
+        "COURSE_ID",
+        "DATA_FIELD_LIST",
+        "STUDENT_INFO_LIST",
+        "STUDENT_AUTHORIZATION",
+        "STUDENT_AUTHORIZATION_UPLOAD_FILE",
+        "STATUS_CODE_ID_LIST",
+        "NIS_RELEASED",
+        "IRP_RELEASED",
+        "OTHER_PROGRAMS",
+        "OTHER_SITES"
+    ],
+    "actors": [
+        "UserSession",
+        "requestedByStaff",
+        "PlacementCoord",
+        "DestinationCoord"
+    ],
+    "workflows": [
+        {
+            "name": "SetupPlacementRequests",
+            "steps": [
+                "SetupMyPrograms",
+                "SetupOtherPrograms",
+                "SetupMySites",
+                "SetupOtherSites",
+                "FillProgramDropdown",
+                "FillCohortDropdown",
+                "FillCohortTermDropdown",
+                "FillCourseDropdown"
+            ]
+        },
+        {
+            "name": "SetupSitesServices",
+            "steps": [
+                "SetupSSPAAgencies",
+                "SetupSSPASites",
+                "SetupSSRASites",
+                "SetupSSRAServices",
+                "ShowPASites",
+                "ShowRAServices"
+            ]
+        },
+        {
+            "name": "SetupStudents",
+            "steps": [
+                "FillDepartmentDropdown",
+                "FillProgramDropdown",
+                "FillCohortDropdown",
+                "FillCohortTermDropdown",
+                "FillCourseDropdown"
+            ]
+        },
+        {
+            "name": "HandleUploadedFile",
+            "steps": [
+                "Retrieve file from upload",
+                "Save file to server",
+                "Verify file type and size",
+                "Generate file URL"
+            ]
+        }
+    ],
+    "business_rules": [
+        "Report request must specify at least one program or site",
+        "Authorization fields must be entered if applicable",
+        "Requested date must be valid and cannot be a past date",
+        "File uploads should conform to specific formats"
+    ],
+    "validations": [
+        "RequiredFieldValidator for mandatory fields",
+        "RegularExpressionValidator for date format",
+        "CustomValidator for requested date logic"
+    ],
+    "calculations": [
+        "DateFormatter to format requested dates",
+        "Assignment of status filters based on user access"
+    ],
+    "conditions": [
+        "Enable or disable fields based on user type",
+        "Check file upload presence for authorization"
+    ],
+    "system_behavior": [
+        "Track errors and warnings during report setup",
+        "Switch views and display elements based on report type",
+        "Dynamic loading of JavaScript variables for client-side operations"
+    ],
+    "dependencies": [
+        "HSPnet Framework",
+        "AjaxControlToolkit",
+        "Database connectivity for data retrieval and storage"
+    ],
+    "exceptions": [
+        "File upload errors",
+        "Data validation failures",
+        "Unauthorized access attempts"
+    ],
+    "source_document_ids": [
+        "00aebfc5-778a-5e93-93a2-b6ef20e08d92",
+        "02c69d05-da41-5b68-a303-7131d9dc32d9",
+        "0aad0add-12d9-580c-9fbb-e8dbef303802",
+        "0d74d503-fa57-5afa-9554-3278848c6be4",
+        "13f4dfc6-fc65-5c96-b008-e82ed6f2df16",
+        "1ab5d1d5-c40a-55ab-9359-2f22268dfa88",
+        "1e31a3ec-d9d2-5fe1-8f2b-5481c496bf6a",
+        "1eebbaff-a2c6-5f00-8980-7636869aabf9",
+        "21f03fff-6292-5d05-b95e-4c37fade754b",
+        "25aeac5d-4f58-52dc-a10d-eabe6880367e",
+        "25f136e9-5e29-5466-afff-9e4625237faa",
+        "29af3385-5727-5b7a-8c6f-681180e8c1b5",
+        "318ef578-2009-5071-bfb3-396fb44cedd5",
+        "32972f05-65d3-50e8-a0ec-48147254bc54",
+        "338b6fd4-ac82-5b00-a60e-0f81921d3649",
+        "34aad872-c5b5-5642-99ee-50db4ace0c23",
+        "3a389412-87db-5c88-9e1c-48abb2a0caa8",
+        "3b1d046c-c75d-5e45-b775-0a1437e4fd76",
+        "3bade5a5-9fa5-56dd-8be8-e9fffa3a2b6a",
+        "3bd65a80-1452-51d3-a766-5df574174dab",
+        "3c2d6f53-1ada-58c8-a43e-b0cfb8167288"
+    ],
+    "content_gaps": []
+}
+```
