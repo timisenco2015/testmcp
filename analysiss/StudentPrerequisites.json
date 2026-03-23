@@ -1,35 +1,24 @@
 {
-  "filename": "StudentPrerequisites",
-  "found": true,
-  "summary": "Manages various student prerequisites including medical records and confidentiality forms.",
-  "purpose": "To track and update student prerequisite data for placement eligibility.",
-  "entities": [],
-  "fields": [],
-  "actors": [],
-  "workflows": [
-    {
-      "name": "Update Student Prerequisites",
-      "steps": []
-    }
-  ],
-  "business_rules": [],
-  "validations": [],
-  "calculations": [],
-  "conditions": [],
-  "system_behavior": [],
-  "dependencies": [],
-  "exceptions": [],
-  "source_document_ids": [
-    "126148d2-7c46-5bb8-8a4c-606105b702bd",
-    "165b1b6b-fd06-59e5-b7d7-81e87dbeac55",
-    "280408b2-2e1d-5bd7-8feb-59603ff0bb80",
-    "2f8ba20e-ca9a-5fc1-932a-1899a9499417",
-    "3787eddd-1ce0-519f-9959-30c8a913c827",
-    "3c00eec5-f694-53fb-abe6-a8d94038fd60",
-    "3e68c0d0-3ab9-5c14-a221-bf0f7592302c",
-    "430fc305-a57a-53e5-9f01-35e07b707792",
-    "46edf9a0-d978-5197-be20-b4536cae3e91",
-    "4a51cb58-538c-57f2-82ff-13fb4d577aa8"
-  ],
-  "content_gaps": []
+    "filename": "StudentPrerequisites",
+    "found": true,
+    "summary": "The StudentPrerequisites file contains comprehensive logic for managing student prerequisites, including health details and updates.",
+    "purpose": "To manage and update student health-related prerequisites, including detailed history and validation logic.",
+    "entities": ["StudentPrerequisite"],
+    "fields": ["ID", "StudentID", "MeaslesStatusCodeID", "Covid19StatusCodeID", "TetanusExpiryDate", "ChestXRayDate"],
+    "actors": ["HSPnetSession"],
+    "workflows": [
+        {
+            "name": "HealthRecordUpdate",
+            "steps": ["UpdateStudentDetails", "ValidateHealthRecords"]
+        }
+    ],
+    "business_rules": [],
+    "validations": [],
+    "calculations": [],
+    "conditions": [],
+    "system_behavior": [],
+    "dependencies": [],
+    "exceptions": [],
+    "source_document_ids": ["126148d2-7c46-5bb8-8a4c-606105b702bd", "165b1b6b-fd06-59e5-b7d7-81e87dbeac55"],
+    "content_gaps": []
 }
