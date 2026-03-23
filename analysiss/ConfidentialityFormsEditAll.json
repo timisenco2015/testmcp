@@ -1,57 +1,71 @@
 {
   "filename": "ConfidentialityFormsEditAll",
   "found": true,
-  "summary": "The ConfidentialityFormsEditAll system is designed to manage and edit confidentiality forms associated with student enrollments. It includes functionalities for saving, updating, and navigating through enrollment records based on user inputs.",
-  "purpose": "The purpose of the ConfidentialityFormsEditAll system is to facilitate the management and editing of student confidentiality forms within an educational institution's enrollment process.",
-  "entities": [],
+  "summary": "The ConfidentialityFormsEditAll system is a web-based application for managing confidentiality forms, primarily focusing on enrollment data within educational settings.",
+  "purpose": "Manage and edit confidentiality forms related to student enrollments, including processing data input, updating records, and validating form submissions.",
+  "entities": [
+    "ConfidentialityForms",
+    "Enrollment",
+    "Student",
+    "Agency",
+    "Department",
+    "UserSession"
+  ],
   "fields": [
-    "providerTypeCodeID",
     "agency",
     "dept",
     "dateReceived",
     "formID",
-    "txtNotes",
-    "txtDateReceived",
-    "txtFormID",
-    "txtStudentID",
-    "txtDirty"
+    "providerTypeCode",
+    "notes",
+    "studentID",
+    "commentFilter",
+    "screenMode",
+    "keyword"
   ],
   "actors": [
-    "UserSession",
-    "controller"
+    "User",
+    "Controller",
+    "ScriptManager"
   ],
   "workflows": [
     {
-      "name": "ConfidentialityFormSaveWorkflow",
+      "name": "Edit Confidentiality Form",
       "steps": [
-        "Capture agency and department from request form.",
-        "Check if formID is 0; if true, add new form.",
-        "Update existing form if formID is not 0."
+        "Select form based on enrollment criteria.",
+        "Validate agency and date fields.",
+        "Update or add form based on formID presence.",
+        "Save changes or cancel operation."
       ]
     }
   ],
   "business_rules": [
     "Agency must be specified.",
-    "DateReceived must be valid and mandatory."
+    "Confidentiality form received date is mandatory.",
+    "Form ID must be present to update existing records."
   ],
   "validations": [
-    "Agency must be specified before saving.",
-    "DateReceived must be valid and non-empty."
+    "AgencyRequired - Agency must be specified.",
+    "DateReceivedInvalid - Confidentiality Form Received Date Invalid.",
+    "DateReceivedRequired - Confidentiality Form Received Date is mandatory."
   ],
   "calculations": [],
   "conditions": [
-    "Redirect if no message and error count is less than 1."
+    "isDirty - Determines if changes are made requiring an update.",
+    "EnrollmentID > 0 - Determines editing mode and visibility of control buttons."
   ],
   "system_behavior": [
-    "Redirects to Enrollment.aspx on specific commands.",
-    "Handles Save, SaveAll, SaveEditNext commands with redirection based on conditions."
+    "Redirect upon successful save with no errors.",
+    "Manage visibility of buttons based on enrollment criteria and edit mode.",
+    "Disable fields in readonly mode."
   ],
   "dependencies": [
-    "User session data for operations",
-    "HSPnet.Enrollment filters for navigation"
+    "GridView",
+    "DataLayer.StudentConfidentialityForms",
+    "HSPnetSession"
   ],
   "exceptions": [
-    "Cancel operation if UserSession is null in data source selecting."
+    "Cancel operation if UserSession is null."
   ],
   "source_document_ids": [
     "0a014b00-82da-52a0-adde-50896fa53dda",
