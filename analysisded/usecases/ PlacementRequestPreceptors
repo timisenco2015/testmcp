@@ -1,0 +1,39 @@
+# Module: PlacementRequestPreceptors
+
+## PlacementRequestPreceptors-UC1 — Manage Placement Request Preceptors
+
+- Primary Actor(s): User (Admin, Staff Coordinator)
+- Secondary Actor(s): N/A
+- Trigger: The user decides to manage preceptors for a specific placement request.
+- Description: This use case allows users to view, add, edit, and delete preceptors assigned to placement requests.
+- Preconditions:
+  - The user must have appropriate permissions to access the placement request management system.
+  - The system must be able to access placement request and preceptor data.
+- Postconditions:
+  - Preceptor information is updated in the system for the specific placement request.
+- Main Success Scenario:
+  1. The user selects a placement request.
+  2. The system displays existing preceptors and options to add or modify them.
+  3. The user adds a new preceptor, edits existing preceptor details, or removes a preceptor.
+  4. The system validates the changes and updates the placement request data accordingly.
+  5. The user saves the changes.
+  6. The system confirms the updates and returns to the placement request overview.
+- Extensions:
+  - 3a. The user chooses to distribute hours equally among preceptors:
+    1. The user clicks the "Distribute Equally" button.
+    2. The system calculates and distributes hours among all preceptors.
+    3. The system updates the display with new hour allocations.
+- Exceptions:
+  - E1: Unable to retrieve or update preceptor data due to system error.
+    - The system displays an error message and prompts the user to try again later.
+  - E2: The user attempts to delete a preceptor associated with submitted joint assessments.
+    - The system alerts the user that the preceptor cannot be removed.
+- Business Rules:
+  - BR1: The user cannot remove a preceptor if associated with a submitted joint assessment.
+  - BR2: Distributed hours must not exceed the total available hours.
+- Assumptions:
+  - The system is online and responsive.
+  - User has necessary permissions to manage placement request preceptors.
+- Open Issues:
+  - Handling multiple joint assessments. 
+  - Permissions granularity for specific operations.
