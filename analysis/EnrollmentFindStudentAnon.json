@@ -1,0 +1,69 @@
+{
+  "filename": "EnrollmentFindStudentAnon",
+  "found": true,
+  "summary": "The file is an ASP script written in VBScript that serves the EnrollmentFindStudentAnon screen. It includes server-side scripting to identify the screen name and delegates processing to another script.",
+  "purpose": "To render and manage the anonymous student enrollment screen by invoking standardized screen processing logic through DoScreen.asp.",
+  "entities": [],
+  "fields": [
+    {
+      "name": "strScreenName",
+      "type": "string",
+      "description": "Identifies the screen being presented ('EnrollmentFindStudentAnon')."
+    }
+  ],
+  "actors": [
+    {
+      "name": "Anonymous User",
+      "role": "Person accessing enrollment functionalities without authentication."
+    },
+    {
+      "name": "Server",
+      "role": "Processes the screen logic and presents content."
+    }
+  ],
+  "workflows": [
+    {
+      "name": "Render EnrollmentFindStudentAnon Screen",
+      "steps": [
+        "Initialize screen name variable to 'EnrollmentFindStudentAnon'.",
+        "Buffer the response output.",
+        "Set response to never cache.",
+        "Include and execute DoScreen.asp for further screen logic handling."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Screen identification must be set via strScreenName.",
+    "Session state is disabled for this screen.",
+    "Responses must not be cached."
+  ],
+  "validations": [
+    "No explicit validations are performed in this file."
+  ],
+  "calculations": [],
+  "conditions": [
+    "ENABLESESSIONSTATE is set to False, indicating session persistence is disabled."
+  ],
+  "system_behavior": [
+    "Delegates all display and screen logic to DoScreen.asp using the included directive.",
+    "Ensures response output is buffered and not cached."
+  ],
+  "dependencies": [
+    {
+      "name": "DoScreen.asp",
+      "type": "server-include",
+      "description": "Processes the logic and display of the EnrollmentFindStudentAnon screen."
+    }
+  ],
+  "exceptions": [
+    "No explicit error handling or exceptions defined in this file."
+  ],
+  "source_document_ids": [
+    "1f6a4249-149f-5f8f-8b91-c417cafa285d"
+  ],
+  "content_gaps": [
+    "Actual screen logic and business rules are not defined here but are handled in DoScreen.asp.",
+    "No user interface fields or display information present.",
+    "No validation or error handling logic visible."
+  ]
+}
