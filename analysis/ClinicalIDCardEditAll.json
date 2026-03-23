@@ -1,0 +1,114 @@
+{
+  "filename": "ClinicalIDCardEditAll",
+  "found": true,
+  "summary": "ClinicalIDCardEditAll is a user control in an ASP.NET web application for editing and managing clinical ID card statuses for students enrolled in a program. It offers bulk editing, save, and navigation functionality for ID card issuance, tracking changes, and validating user session and permissions.",
+  "purpose": "To allow authorized users to edit, update, and manage the clinical ID card status, issue date, and notes for multiple students in bulk within an enrollment cohort or term, ensuring all relevant details are captured and saved efficiently.",
+  "entities": [
+    "Enrollment",
+    "Student",
+    "UserSession",
+    "GridViewRow",
+    "HSPnetSession",
+    "StudentPrerequisites"
+  ],
+  "fields": [
+    "CohortID",
+    "TermID",
+    "CourseID",
+    "ShowGrad",
+    "ShowInactive",
+    "ShowWaived",
+    "SectionFilter",
+    "ActionFilter",
+    "keyword",
+    "CampusID",
+    "CommentFilter",
+    "blnReadOnly",
+    "blnStudentMaint",
+    "EnrollmentID",
+    "StartRow",
+    "txtStudentID",
+    "chkIDCard",
+    "txtIDCardIssuedDate",
+    "txtIDCardNotes",
+    "txtDirty"
+  ],
+  "actors": [
+    "Authorized user",
+    "System administrator"
+  ],
+  "workflows": [
+    {
+      "name": "Bulk Clinical ID Card Edit",
+      "steps": [
+        "User accesses the ClinicalIDCardEditAll control, potentially filtered by cohort, term, or course.",
+        "Grid data is loaded and bound with student enrollment data based on session, cohort, term, filters, and page size.",
+        "User edits ID card status, issue date, or notes for individual students.",
+        "The system tracks changes (dirty fields) using a hidden field (txtDirty) per row.",
+        "User saves changes either for all students (Save All) or for a single student (Save).",
+        "If changes are made, StudentPrerequisites.StudentDetailsSafetyIDCardUpdate is called for each dirty row.",
+        "System performs validation and displays warnings if needed.",
+        "Upon successful save, system redirects user to appropriate page based on command (Save All, Save, Cancel, SaveEditNext).",
+        "Fields may be disabled in read-only mode and calendar controls are disabled if not editable."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Grid fields are disabled if blnReadOnly is true.",
+    "Calendar controls for ID card issue date are disabled in read-only mode.",
+    "Save All button is hidden in header if EnrollmentID is set (single edit mode).",
+    "Save and navigation buttons are hidden if the grid row count is below thresholds.",
+    "Only rows marked dirty (with txtDirty) trigger update calls.",
+    "Successful save requires no session warnings."
+  ],
+  "validations": [
+    "ValidationSummary1 control is used for visual validation.",
+    "UserSession must exist; otherwise, ObjectDataSource selection is cancelled.",
+    "Warnings from session block redirect after save."
+  ],
+  "calculations": [
+    "Sort direction and expression determine grid order.",
+    "StartRow and maximumRows are used for pagination."
+  ],
+  "conditions": [
+    "If EnrollmentID != 0, Save All button is hidden; only single edit.",
+    "If EnrollmentID == 0 and grid row count < 14, Save All button is hidden.",
+    "If EnrollmentID == 0 and grid row count < page size, navigation buttons are hidden.",
+    "If blnReadOnly, all edit fields and calendar controls are disabled."
+  ],
+  "system_behavior": [
+    "Tracks and manages dirty fields using hidden fields and JavaScript.",
+    "Registers JavaScript variables for client-side interaction.",
+    "Handles row commands (save, cancel, navigation) and triggers appropriate redirects.",
+    "Binds grid data after command execution if no redirect."
+  ],
+  "dependencies": [
+    "HSPnetSession",
+    "StudentPrerequisites.StudentDetailsSafetyIDCardUpdate",
+    "GridView",
+    "ScriptManager",
+    "HSPnet.DataLayer",
+    "HSPnet.UI.Calendar"
+  ],
+  "exceptions": [
+    "If UserSession is null, grid loading is cancelled.",
+    "If session warnings exist, redirect after save is blocked."
+  ],
+  "source_document_ids": [
+    "034dc1ab-1c57-5e49-b5e9-64d1a3b2120e",
+    "033e5130-f29f-5a53-835a-a8120f31091d",
+    "21877b8b-6df6-5c55-94ec-e74122a90273",
+    "71330c6d-c82c-50c0-9e0a-d6054c1f602e",
+    "78593881-9f9e-5ffd-a1b4-4b2300ecc2a9",
+    "79ec2075-0da9-56ea-849f-70f5ad0aef9b",
+    "7951c292-532f-5f0d-a309-b406520dbf78",
+    "88c25a0e-791c-5150-9e4c-69e955128859",
+    "c0ed251d-2d4f-5a77-a9b7-40989209213d"
+  ],
+  "content_gaps": [
+    "No explicit UI field validation rules (e.g., format or value restrictions) documented.",
+    "No detailed error handling for update failures other than session warnings.",
+    "No information about auditing or logging.",
+    "No description of how concurrency is managed for bulk updates."
+  ]
+}
