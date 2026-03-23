@@ -1,77 +1,95 @@
 {
-    "filename": "RptMnuFixedTermAppointments",
-    "found": true,
-    "summary": "The RptMnuFixedTermAppointments component is a user control for handling fixed term appointment reports. It provides functionality to set start and end dates for reports, validate input, and export data to Excel.",
-    "purpose": "To manage and display fixed term appointment reports, allowing date selection and data export.",
-    "entities": [],
-    "fields": [
-        "txtStartDate",
-        "txtEndDate",
-        "ltlDescription",
-        "ltlOptions",
-        "lblReportHTML"
-    ],
-    "actors": [
-        "UserSession"
-    ],
-    "workflows": [
-        {
-            "name": "Page Pre-Render",
-            "steps": [
-                "Check if UserSession is not null.",
-                "Perform code lookup for report details.",
-                "Set description and options.",
-                "Setup JavaScript variables."
-            ]
-        },
-        {
-            "name": "Export to Excel",
-            "steps": [
-                "Set stored procedure name to ReportFixedTermAppointments.",
-                "Add parameters: SessionID, DateFrom, DateTo.",
-                "Execute database query and retrieve data.",
-                "Output CSV format report.",
-                "Display report HTML if available."
-            ]
-        }
-    ],
-    "business_rules": [
-        "UserSession must be valid to perform code lookup.",
-        "Dates must be entered and validated before exporting."
-    ],
-    "validations": [
-        "RegularExpressionValidator1",
-        "RegularExpressionValidator2",
-        "RequiredFieldValidator for start and end dates",
-        "CustomValidator1"
-    ],
-    "calculations": [],
-    "conditions": [
-        "if UserSession is null, do not perform code lookup.",
-        "if reportHTML is not empty, make pnlReportHTML visible."
-    ],
-    "system_behavior": [
-        "Registers JavaScript strings for client-side execution.",
-        "Handles asynchronous postbacks to update the page without full reload.",
-        "Uses SQL to retrieve and process report data."
-    ],
-    "dependencies": [
-        "HSPnet.DataLayer",
-        "HSPnet.UI",
-        "HSPnet.Framework",
-        "AjaxControlToolkit"
-    ],
-    "exceptions": [
-        "Generated code warnings regarding auto-generated fields that should not be modified manually."
-    ],
-    "source_document_ids": [
-        "04404aaf-ef8b-588b-b962-b44984144897",
-        "0ca8a7f3-8efe-501d-b6d5-c821d83c0204",
-        "0d012883-5763-59a2-b79d-d47392dd5c80",
-        "9ea5c4a6-8319-553d-8727-dbc3e71cb049",
-        "c81b90d9-f8d1-5d11-82cd-350f6e3eb667",
-        "d5e08c92-fad2-50dd-b520-33c58327f163",
-        "ec1cabf0-80d5-5530-adab-02b9bc0631cd"
-    ],
-    "content_gaps": []
+  "filename": "RptMnuFixedTermAppointments",
+  "found": true,
+  "summary": "The \"RptMnuFixedTermAppointments\" page is a web control used for generating reports on fixed-term appointments. It includes functionalities for selecting date ranges, running Excel exports, and displaying the report contents.",
+  "purpose": "Provide a user interface for generating fixed-term appointment reports, including date range selection and export options.",
+  "entities": [],
+  "fields": [
+    {
+      "name": "txtStartDate",
+      "type": "TextBox",
+      "purpose": "Input field for the start date of the report range."
+    },
+    {
+      "name": "txtEndDate",
+      "type": "TextBox",
+      "purpose": "Input field for the end date of the report range."
+    },
+    {
+      "name": "ltlDescription",
+      "type": "Literal",
+      "purpose": "Displays the description of the report."
+    },
+    {
+      "name": "ltlOptions",
+      "type": "Literal",
+      "purpose": "Displays options or notes related to the report."
+    },
+    {
+      "name": "lblReportHTML",
+      "type": "Label",
+      "purpose": "Displays the generated report in HTML format."
+    }
+  ],
+  "actors": [
+    {
+      "name": "User",
+      "role": "Interacts with the report interface to generate and view reports."
+    }
+  ],
+  "workflows": [
+    {
+      "name": "Generate Fixed Term Appointment Report",
+      "steps": [
+        "User selects a start date using txtStartDate.",
+        "User selects an end date using txtEndDate.",
+        "User clicks cmdExcel to generate the report.",
+        "System executes stored procedure 'ReportFixedTermAppointments' with selected dates.",
+        "System outputs report in CSV format and displays as HTML."
+      ]
+    }
+  ],
+  "business_rules": [],
+  "validations": [
+    {
+      "name": "valEditStartDate",
+      "type": "RequiredFieldValidator",
+      "purpose": "Ensures that the start date is entered."
+    },
+    {
+      "name": "valEditEndDate",
+      "type": "RequiredFieldValidator",
+      "purpose": "Ensures that the end date is entered."
+    },
+    {
+      "name": "RegularExpressionValidator1",
+      "type": "RegularExpressionValidator",
+      "purpose": "Validates the format of the start date."
+    },
+    {
+      "name": "RegularExpressionValidator2",
+      "type": "RegularExpressionValidator",
+      "purpose": "Validates the format of the end date."
+    }
+  ],
+  "calculations": [],
+  "conditions": [],
+  "system_behavior": [
+    "Upon loading, the system checks for a valid user session and retrieves report details.",
+    "When Excel export button is clicked, the system calls a stored procedure and processes the output.",
+    "The system sets up JavaScript variables for UI interaction.",
+    "Displays waiting message while report is generated."
+  ],
+  "dependencies": [],
+  "exceptions": [],
+  "source_document_ids": [
+    "04404aaf-ef8b-588b-b962-b44984144897",
+    "0ca8a7f3-8efe-501d-b6d5-c821d83c0204",
+    "0d012883-5763-59a2-b79d-d47392dd5c80",
+    "9ea5c4a6-8319-553d-8727-dbc3e71cb049",
+    "c81b90d9-f8d1-5d11-82cd-350f6e3eb667",
+    "d5e08c92-fad2-50dd-b520-33c58327f163",
+    "ec1cabf0-80d5-5530-adab-02b9bc0631cd"
+  ],
+  "content_gaps": []
 }
