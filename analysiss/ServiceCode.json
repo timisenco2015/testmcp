@@ -1,63 +1,30 @@
 {
     "filename": "ServiceCode",
     "found": true,
-    "summary": "ServiceCode encapsulates the properties and methods related to service codes in the HSPnet framework, including ID, CodeCategoryID, ShortName, Name, Notes, and alternative fields for localization.",
-    "purpose": "To manage and retrieve service codes, along with alternative localization data, within the HSPnet framework.",
-    "entities": [
-        "ServiceCode"
-    ],
-    "fields": [
-        {
-            "name": "ID",
-            "type": "int"
-        },
-        {
-            "name": "CodeCategoryID",
-            "type": "int"
-        },
-        {
-            "name": "ShortName",
-            "type": "string"
-        },
-        {
-            "name": "Name",
-            "type": "string"
-        },
-        {
-            "name": "SortOrder",
-            "type": "int"
-        },
-        {
-            "name": "Notes",
-            "type": "string"
-        },
-        {
-            "name": "NameAlt",
-            "type": "string"
-        },
-        {
-            "name": "NotesAlt",
-            "type": "string"
-        }
-    ],
-    "actors": [],
+    "summary": "The ServiceCode file defines the structure and management of service codes, including their localization, categorization, and listing by different criteria.",
+    "purpose": "To manage service codes, including retrieving, categorizing, and listing these codes based on different criteria and contexts.",
+    "entities": ["ServiceCode"],
+    "fields": ["ID", "CodeCategoryID", "ShortName", "Name", "SortOrder", "Notes", "NameAlt", "NotesAlt"],
+    "actors": ["HSPnetSession"],
     "workflows": [
         {
             "name": "Retrieve Service Codes",
             "steps": [
-                "Initialize session procedure",
-                "Retrieve data from database",
-                "Localize data if necessary",
-                "Close data reader"
+                "Invoke stored procedure to list all service codes.",
+                "Localize service codes based on session settings."
             ]
         }
     ],
-    "business_rules": [],
+    "business_rules": [
+        "Localize service codes if the session is set to an alternate language."
+    ],
     "validations": [],
     "calculations": [],
     "conditions": [],
     "system_behavior": [],
-    "dependencies": [],
+    "dependencies": [
+        "Depends on HSPnet framework for session handling and database operations."
+    ],
     "exceptions": [],
     "source_document_ids": [
         "94f1b055-348d-508a-ae6e-cf7960a8c6a2",
