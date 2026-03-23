@@ -1,78 +1,68 @@
 {
   "filename": "ReportMenu",
   "found": true,
-  "summary": "The document is a C# ASP.NET application code related to the ReportMenu component of an HSPnet web application. It includes user interface controls, event-handling logic, user sessions, and access permissions for generating and displaying various reports related to student and staff management.",
-  "purpose": "The purpose of this document is to define the structure, functionality, and logic for managing the ReportMenu in the HSPnet application, including loading different reports, setting up views, handling user interactions, and managing user roles and permissions.",
-  "entities": [
-    "HSPnet.Framework.HSPnetPage",
-    "UserSession",
-    "AjaxControlToolkit.TabContainer",
-    "System.Web.UI.WebControls.MultiView",
-    "HSPnet.UserControls.ReportMenu"
-  ],
+  "summary": "The ReportMenu system is responsible for managing various reports and the associated user interfaces within the HSPnet platform. It provides functionalities for displaying and interacting with different report views, such as student and staff evaluations, placement schedules, and HR information.",
+  "purpose": "The purpose of the ReportMenu system is to facilitate the navigation and accessibility of multiple reports related to students, staff, placements, and HR information through a tabbed interface. It allows users with different roles and permissions to access specific reports and perform actions based on their privileges.",
+  "entities": [],
   "fields": [
-    "blnPlacingUser",
-    "blnReceivingUser",
-    "blnRCUser",
-    "blnGetsWizards",
-    "TabContainer1",
-    "MultiViewStud_Staff",
+    "UserSession",
     "MultiViewPlcSch",
+    "MultiViewStud_Staff",
     "MultiViewHRInfo",
     "MultiViewSetupProf",
-    "UserSession"
+    "TabContainer1",
+    "TabPanelStud_Staff",
+    "TabPanelPlcSch",
+    "TabPanelHRInformation",
+    "TabPanelSetup_Prof",
+    "TabPanelRept_Wizard",
+    "TabPanelCustomReportQueue"
   ],
   "actors": [
+    "User",
+    "System Administrator",
+    "Staff Admin",
+    "Placement Coordinator",
+    "Receiving Coordinator",
+    "Course Leader",
     "Instructor",
-    "PlacementCoordinator",
-    "StudentMaint",
-    "GroupInstructor",
-    "CourseLeader",
-    "PAPolicy",
-    "Supervisor",
-    "ReceivingCoordinator",
-    "DestinationCoordinator",
-    "DestinationProfileContact",
-    "RAPolicy",
-    "StaffAdmin",
-    "SystemAdministrator"
+    "Student Maintenance"
   ],
   "workflows": [
     {
-      "name": "Loading Student and Staff Reports",
+      "name": "Accessing Reports",
       "steps": [
-        "CheckTabsAccess to determine user permissions.",
-        "LinkChildControls to set up report viewing.",
-        "Load appropriate report based on user actions and visibility settings."
+        "User selects a tab based on the report category (e.g., Students & Staff, Placements & Schedules, HR Information).",
+        "Based on the user's role and configuration settings, only permitted reports are made visible and accessible.",
+        "User clicks on a specific report link, triggering the loading of the corresponding report data and interface."
       ]
     }
   ],
   "business_rules": [
-    "UserSession determines accessible tabs and reports.",
-    "Placing user or RCUser roles are required to access specific reports.",
-    "UseStudentHRInformation config code affects visibility of HR Information tab."
+    "Reports and tabs are enabled or disabled based on user roles and configuration settings.",
+    "Visibility of report links is determined by user permissions and system configurations."
   ],
   "validations": [
-    "checkIncludedList ensures the number of included items is within MAX_INCLUDE_ITEMS.",
-    "checkStartEnd validates that StartDate is earlier than or equal to EndDate."
+    "Ensure user has valid permissions to view the selected report.",
+    "Validate included list of items in reports against maximum allowed items."
   ],
   "calculations": [
-    "resetDates function sets default date values based on active term selection."
+    "Date resets based on session variables for custom date ranges."
   ],
   "conditions": [
-    "TabPanelHRInformation is enabled if UseStudentHRInformation is '1' and user has appropriate roles.",
-    "Student preferences list visibility is conditional upon user roles and program configuration."
+    "If a user is a Placement Coordinator, specific placement-related reports will be enabled.",
+    "If a configuration code is set, additional HR information tabs may be shown to authorized users."
   ],
   "system_behavior": [
-    "TabContainer1 manages tab visibility and events for the user interface.",
-    "Page_Load initializes page settings and user session properties.",
-    "AjaxControlToolkit and MultiView components are used to manage dynamic views and tabs."
+    "Dynamic loading of report views based on user interactions.",
+    "JavaScript management for user interface interactions such as date resets and report validation."
   ],
   "dependencies": [
-    "HSPnet.UserControls.ReportMenu components like RptMnuStudentEvaluations and RptMnuPlcSch_PlcSchedule."
+    "HSPnet LeftNav Master Page",
+    "UserControls ReportMenu components"
   ],
   "exceptions": [
-    "No error-handling logic detected for system failures or unexpected behavior."
+    "If no valid reports are found for a user, navigation is adjusted to skip unavailable views."
   ],
   "source_document_ids": [
     "006af4e4-ad02-56ba-81d5-e20b65992663",
@@ -85,10 +75,8 @@
     "0eaf913d-3ea4-5016-9f1f-2a6f2bba798e",
     "1c84a746-ba00-5fe8-8648-77d8d1afc3ff",
     "1d27b676-fdea-531c-841d-fcc0267280d4",
-    "1f00d7d2-b9b5-5b8c-af78-b136fc18ea97",
     "21b24310-031c-5928-b756-35a80722f14e",
     "21b937a4-474c-5e16-8083-5bf88a24e8fc",
-    "2df0e423-3eaf-54a2-988b-f74c06e10cc4",
     "320020ce-ff3e-5ecb-8146-21e4b147a9e4",
     "324040d9-e301-518f-8bf0-724489ca839a",
     "37fd4f26-7fb3-5955-9f48-c13e035c18d2",
@@ -97,7 +85,6 @@
     "437e1fb6-0f14-50a1-af0f-4341b0972290",
     "466ae457-0b9c-5fc3-845d-3224ed38ba54",
     "46a1c2a6-39ac-5014-9be4-1bd9cb952682",
-    "46c59381-23ba-54f5-9438-175eefb2700f",
     "4ad5ffb7-8907-558d-a774-2c3de9c4d7b6",
     "51927c9c-a6da-59e2-9267-6ba34ae5ca4c",
     "53dd0225-8ca0-5da2-a8eb-8338476da062",
