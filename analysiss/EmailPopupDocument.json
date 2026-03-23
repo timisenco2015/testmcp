@@ -1,3 +1,49 @@
 {
-    "filename": "EmailPopupDocument"
+    "filename": "EmailPopupDocument",
+    "found": true,
+    "summary": "Handles email popup document data including search and deletion operations.",
+    "purpose": "To manage information about email popup documents, allowing for retrieval and deletion based on data identifiers.",
+    "entities": [],
+    "fields": [
+        "ID",
+        "FileName",
+        "FilePath",
+        "Checked"
+    ],
+    "actors": [],
+    "workflows": [
+        {
+            "name": "Search Email Popup Documents",
+            "steps": [
+                "Split DataInfo into email data.",
+                "Construct EmailPopupDocument objects from parsed data.",
+                "Return list of created documents."
+            ]
+        },
+        {
+            "name": "Delete Email Popup Document",
+            "steps": [
+                "Identify document to delete based on ID.",
+                "Delete file and directory if they exist.",
+                "Return remaining data as string."
+            ]
+        }
+    ],
+    "business_rules": [],
+    "validations": [],
+    "calculations": [],
+    "conditions": [
+        "DataInfo is split and processed as a string array."
+    ],
+    "system_behavior": [
+        "Manages email document data as file path strings.",
+        "Allows batch processing of email document information."
+    ],
+    "dependencies": [],
+    "exceptions": [],
+    "source_document_ids": [
+        "7287734e-f13d-550f-9249-4242db620766",
+        "927bc837-5564-5759-9324-27c6d5d7321d"
+    ],
+    "content_gaps": []
 }
