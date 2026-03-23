@@ -1,0 +1,233 @@
+```json
+[
+    {
+        "filename": "CourseAssessment",
+        "found": true,
+        "summary": "The CourseAssessment involves operations such as adding, updating, deleting, and searching assessments for courses. It manages assessment parameters like AssessorTypeCodeID, SubjectTypeCodeID, AssessmentTypeCodeID, and templates. It ensures assessments are opened and closed within specific periods.",
+        "purpose": "To manage course assessments by allowing functionality for adding, updating, and deleting assessments while setting conditions for accessibility.",
+        "entities": ["CourseAssessment", "AssessmentValidationResult"],
+        "fields": [
+            "ID",
+            "CourseID",
+            "AssessmentTemplateCodeID",
+            "AssessorTypeCodeID",
+            "SubjectTypeCodeID",
+            "AssessmentTypeCodeID",
+            "AssessorCanViewSubjectsAnswers",
+            "OpenDaysAfterStart",
+            "CloseDaysAfterEnd",
+            "SubjectCanViewAssessorAnswers",
+            "ViewUntilDaysAfterEnd"
+        ],
+        "actors": [],
+        "workflows": [
+            {
+                "name": "Course Assessment Management",
+                "steps": ["Add Assessment", "Update Assessment", "Delete Assessment", "Search Assessment by ID", "Search Assessment by CourseID", "Validate Assessment"]
+            }
+        ],
+        "business_rules": [
+            "Assessments should be opened for a defined number of days after course start.",
+            "Assessments should be closed for a defined number of days after course end.",
+            "Assessors and subjects have permissions to view each other's answers based on settings."
+        ],
+        "validations": [
+            "Validate interim assessments are settled before final.",
+            "Check if the maximum number of assessments is exceeded."
+        ],
+        "calculations": [],
+        "conditions": [
+            "Course assessments may have different conditions for opening and viewing based on type codes."
+        ],
+        "system_behavior": [
+            "Tracks which users can view or edit assessments."
+        ],
+        "dependencies": [],
+        "exceptions": [],
+        "source_document_ids": [
+            "0c1ddf30-f1e7-51b9-88fc-4ecde3e29648",
+            "211455c7-0731-54d5-ae7f-428ae36f5adf",
+            "2868ba8f-8517-54cb-9965-af3056f02a8d",
+            "441804ae-233d-55f1-bf17-b2afda55fcdf",
+            "7908e8fe-0105-5fbd-a397-ad9c92ca4b5d",
+            "a0d9506b-0c33-5d13-8abf-7c577500d0a3",
+            "b607dc1c-b566-5d8a-b423-eefab6a14ea9",
+            "c8475c24-cc6e-5838-9754-82e7420a0328",
+            "e8acf69f-fa26-5173-8966-b5722ce94765"
+        ],
+        "content_gaps": []
+    },
+    {
+        "filename": "SiteDocument",
+        "found": true,
+        "summary": "The SiteDocument class is a simple data model representing documents associated with a site.",
+        "purpose": "To define data attributes related to site documents in the system.",
+        "entities": ["SiteDocument"],
+        "fields": ["ID", "SiteID"],
+        "actors": [],
+        "workflows": [],
+        "business_rules": [],
+        "validations": [],
+        "calculations": [],
+        "conditions": [],
+        "system_behavior": [],
+        "dependencies": [],
+        "exceptions": [],
+        "source_document_ids": [
+            "a2967f17-a924-5e9c-8b15-d1f7bd028b32"
+        ],
+        "content_gaps": []
+    },
+    {
+        "filename": "WelcomeStaffAdmin",
+        "found": true,
+        "summary": "WelcomeStaffAdmin is a user interface page for staff administrators featuring controls for managing views and handling forms.",
+        "purpose": "To provide a web interface for staff administration tasks with controls for site and discipline filtering.",
+        "entities": [],
+        "fields": [
+            "txtStartDate",
+            "txtEndDate",
+            "ddSite",
+            "ddDiscipline"
+        ],
+        "actors": [],
+        "workflows": [
+            {
+                "name": "Staff Administration Page Load",
+                "steps": ["Load Page", "Initialize View", "Set Default Values", "Fill Dropdowns", "Handle Site and Discipline Changes", "Refresh View Based on Selection"]
+            }
+        ],
+        "business_rules": [
+            "Ensure dates are in correct format using RegularExpressionValidator.",
+            "End date cannot be earlier than start date."
+        ],
+        "validations": [
+            "Check for required fields such as Start and End dates.",
+            "Validate date formats."
+        ],
+        "calculations": [],
+        "conditions": [
+            "Conditional rendering based on the presence of session or site info."
+        ],
+        "system_behavior": [
+            "Displays warnings or errors using panels.",
+            "Incorporates JavaScript for interactive elements."
+        ],
+        "dependencies": [],
+        "exceptions": [],
+        "source_document_ids": [
+            "05db31e4-e8b6-53ee-a6fb-812c106f0134",
+            "100d5925-a5f8-53db-8493-02cddd563eb7",
+            "3c84bade-9671-5fbf-acce-3c87a835e9b4",
+            "4c4b97b8-d242-5261-a515-767a3f7d7a49",
+            "52b5066f-23f6-5d82-96cd-5d51dad3de79",
+            "5bb85da3-f5b4-5753-b07c-9bb2a04eeb89",
+            "5d9b92ea-7c12-5070-8603-977cf14d0e04",
+            "6701b153-5288-59e5-8de9-61b68a1fc292",
+            "6eca1317-c0b2-5225-a9af-f034a722d924",
+            "871df91b-7ba0-558f-83ea-d5be1b0dc8db",
+            "8cea5c3a-2fbf-5206-a0c0-9425a5e14511",
+            "964a48c9-231c-5d58-a44d-3675d949a453",
+            "966ed8d3-a5af-567f-b092-936217777551",
+            "a0c3da28-32a5-5fce-91b2-17274efa016e",
+            "afbb4ec5-43c8-5281-ad2c-4b6cfd23a48e",
+            "b8e79322-9a0e-5fe7-8953-3d05e231f923",
+            "bf423a80-93db-572d-8cb8-c79f04214a93",
+            "ca71b077-cc26-5979-a44f-59700a41316b",
+            "d278278f-d4ec-5f4a-9f29-a02b66773bb9",
+            "db9b35e9-53ca-5eaf-9d75-4f3a72131bc7",
+            "e249a878-c837-5d1c-9a3d-5167df2614fb"
+        ],
+        "content_gaps": []
+    },
+    {
+        "filename": "ServiceCode",
+        "found": true,
+        "summary": "ServiceCode is a class used to manage service codes across different procedures like listing all codes or based on specific courses or timetables.",
+        "purpose": "To provide a structured way to handle service codes within the system for courses and timetables.",
+        "entities": ["ServiceCode"],
+        "fields": [
+            "ID",
+            "CodeCategoryID",
+            "ShortName",
+            "Name",
+            "SortOrder",
+            "Notes",
+            "NameAlt",
+            "NotesAlt"
+        ],
+        "actors": [],
+        "workflows": [
+            {
+                "name": "Service Code Management",
+                "steps": ["List All Service Codes", "List Service Codes by Course ID", "List Service Codes by Timetable ID"]
+            }
+        ],
+        "business_rules": [
+            "Use alternate language fields when applicable.",
+            "Categorization of codes by course or timetable."
+        ],
+        "validations": [],
+        "calculations": [],
+        "conditions": [
+            "Switch between alt language fields based on session settings."
+        ],
+        "system_behavior": [],
+        "dependencies": [],
+        "exceptions": [],
+        "source_document_ids": [
+            "94f1b055-348d-508a-ae6e-cf7960a8c6a2",
+            "e4ebe4b4-6d14-5c3f-b693-61016f765239",
+            "f976b9af-a402-540f-b162-391d578fac7c"
+        ],
+        "content_gaps": []
+    },
+    {
+        "filename": "SiteProfileHistory",
+        "found": true,
+        "summary": "SiteProfileHistory records the history of changes on a site profile including action dates, user actions, and associated details.",
+        "purpose": "To track and manage the changes made to site profiles.",
+        "entities": ["SiteProfileHistory"],
+        "fields": [
+            "ID",
+            "ActionDate",
+            "ScreenSection",
+            "UserAction",
+            "Fields",
+            "Agency",
+            "AgencyName",
+            "LastName",
+            "FirstName",
+            "MiddleName",
+            "Phone",
+            "ByUserID",
+            "ByOriginalUserID",
+            "ByUserSysAdmin"
+        ],
+        "actors": [],
+        "workflows": [
+            {
+                "name": "Site Profile History Management",
+                "steps": ["Search Site Profile History", "Fill Site Profile History List"]
+            }
+        ],
+        "business_rules": [],
+        "validations": [],
+        "calculations": [],
+        "conditions": [
+            "Use alternate language fields when session specifies."
+        ],
+        "system_behavior": [],
+        "dependencies": [],
+        "exceptions": [],
+        "source_document_ids": [
+            "25f89a24-5eda-5a3f-83df-1de69b12b3f1",
+            "26e09292-d304-55c6-94e5-ef3346453c4b",
+            "7ca6b963-9ae9-5cd3-82d5-f30dcb727ae3",
+            "a8f030c6-90b8-53a1-bb8a-3b7ef33b9488",
+            "e806999c-3a39-5720-9b59-303faebc9eb6"
+        ],
+        "content_gaps": []
+    }
+]
+```
