@@ -2,11 +2,13 @@
 {
     "filename": "Discipline",
     "found": true,
-    "summary": "The documents related to the Discipline contain code snippets and method definitions for managing discipline entities within a system. The system utilizes SQL procedures to search and list disciplines and sub-disciplines based on various identifiers. It includes logic for handling permissions and restrictions based on user roles, and provides functionality for retrieving discipline data from the database.",
-    "purpose": "The purpose of the documents is to implement functionality for handling discipline entities in the system, allowing for the management and retrieval of discipline and sub-discipline data, with consideration for user permissions and system constraints.",
+    "summary": "The documents provide various methods for searching and retrieving disciplines and sub-disciplines within the HSPnet system, including filtering by user permissions and skipping non-allowed sub-disciplines.",
+    "purpose": "To manage and retrieve information about disciplines and sub-disciplines within the HSPnet system, and ensure proper access based on user permissions.",
     "entities": [
         "Discipline",
-        "HSPnetSession"
+        "SubDiscipline",
+        "User",
+        "Document"
     ],
     "fields": [
         "DisciplineID",
@@ -14,62 +16,74 @@
         "DisciplineName",
         "SubDisciplineName",
         "UserID",
-        "DocumentID"
+        "DocumentID",
+        "GroupingCode"
     ],
     "actors": [
         "SystemAdministrator",
-        "AssignedUser"
+        "User",
+        "HSPnetSession"
     ],
     "workflows": [
         {
-            "name": "DisciplineSearchSubDisciplineID",
+            "name": "DisciplineSearchUser",
             "steps": [
-                "Set ProcedureName to DisciplineSearchSubDisciplineID",
-                "Add SessionID and SubDisciplineID as parameters",
-                "Execute procedure",
-                "Retrieve results"
+                "Set ProcedureName to DisciplineSearchUser",
+                "Add SessionID and UserID parameters",
+                "Execute data retrieval",
+                "Skip sub-disciplines with GroupingCode starting with XXX unless allowed",
+                "Return list of disciplines"
             ]
         },
         {
             "name": "ETopicDisciplineSearch",
             "steps": [
                 "Set ProcedureName to ETopicDisciplineSearch",
-                "Add ETopicID as parameter",
-                "Execute procedure",
-                "Retrieve and filter results"
+                "Add ETopicID parameter",
+                "Execute data retrieval",
+                "Skip sub-disciplines with GroupingCode starting with XXX unless allowed",
+                "Return list of disciplines"
             ]
         },
         {
             "name": "DocumentSubDisciplineList",
             "steps": [
-                "Set ProcedureName to spName",
-                "Add SessionID and DocumentID as parameters",
-                "Execute procedure",
-                "Retrieve and filter discipline list"
+                "Set ProcedureName dynamically using provided spName",
+                "Add SessionID and DocumentID parameters",
+                "Execute data retrieval",
+                "Skip sub-disciplines with GroupingCode starting with XXX unless allowed",
+                "Return list of disciplines"
+            ]
+        },
+        {
+            "name": "UserAllowedProgramSubDisciplineList",
+            "steps": [
+                "Set ProcedureName to UserAllowedProgramSubDisciplineList",
+                "Add SessionID and UserID parameters",
+                "Execute data retrieval",
+                "Return list of allowed sub-disciplines"
             ]
         }
     ],
     "business_rules": [
-        "Non-sysadmin users skip sub-disciplines with provincial code starting with 'XXX'",
-        "UserID and DocumentID fields are reused for different purposes in various methods"
+        "Skip sub-disciplines with provincial codes starting with XXX unless user is granted access"
     ],
-    "validations": [
-        "Check if GroupingCode is non-empty and starts with 'XXX' for user-specific filtering"
-    ],
+    "validations": [],
     "calculations": [],
     "conditions": [
-        "SystemAdministrator and AssignedUser checks for permission-based actions"
+        "Check for SystemAdministrator and AssignedUserID conditions",
+        "Check for non-empty GroupingCode and its format"
     ],
     "system_behavior": [
-        "String concatenation for DisciplineSubDisciplineID and DisciplineSubDisciplineShort fields",
-        "Use alternative language fields based on settings"
+        "Retrieves data from the database based on the session and provided parameters",
+        "Filters data according to user permissions"
     ],
     "dependencies": [
-        "HSPnet.Framework",
-        "System.Data.SqlClient"
+        "HSPnetSession",
+        "SqlDataReader"
     ],
     "exceptions": [
-        "Return empty list or string in case of error or no results"
+        "Handling empty results when no permissible disciplines are found for a user"
     ],
     "source_document_ids": [
         "178cdac9-9d2c-5fd9-a042-54e7f1b821a1",
@@ -82,6 +96,9 @@
         "a2444365-8f11-5c8e-9cfd-9d4a5c755e42",
         "f78c265c-e67c-5f61-ae74-51c767bed8e5"
     ],
-    "content_gaps": []
+    "content_gaps": [
+        "No specific validations or calculations are defined",
+        "Detailed user role behaviors are not extensively defined"
+    ]
 }
 ```
