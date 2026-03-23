@@ -1,1 +1,37 @@
-[\n    {\n        \"filename\": \"SiteDocument\",\n        \"found\": true,\n        \"summary\": \"The file 'SiteDocument' is part of the namespace 'HSPnet.DataLayer' and defines a class for site documents with fields ID and SiteID.\",\n        \"purpose\": \"To manage site documents within the HSPnet framework.\",\n        \"entities\": [\n            {\n                \"name\": \"SiteDocument\",\n                \"type\": \"class\"\n            }\n        ],\n        \"fields\": [\n            {\n                \"name\": \"ID\",\n                \"type\": \"int\",\n                \"description\": \"A unique identifier for the site document.\"\n            },\n            {\n                \"name\": \"SiteID\",\n                \"type\": \"int\",\n                \"description\": \"References the associated site.\"\n            }\n        ],\n        \"actors\": [],\n        \"workflows\": [],\n        \"business_rules\": [],\n        \"validations\": [],\n        \"calculations\": [],\n        \"conditions\": [],\n        \"system_behavior\": [],\n        \"dependencies\": [\n            \"System\",\n            \"System.Data.SqlClient\",\n            \"System.Collections.Generic\",\n            \"HSPnet.Framework\",\n            \"HSPnet.App_GlobalResources\"\n        ],\n        \"exceptions\": [],\n        \"source_document_ids\": [\n            \"a2967f17-a924-5e9c-8b15-d1f7bd028b32\"\n        ],\n        \"content_gaps\": []\n    },\n    {\n        \"filename\": \"WelcomeStaffAdmin\",\n        \"found\": false,\n        \"summary\": \"\",\n        \"purpose\": \"\",\n        \"entities\": [],\n        \"fields\": [],\n        \"actors\": [],\n        \"workflows\": [],\n        \"business_rules\": [],\n        \"validations\": [],\n        \"calculations\": [],\n        \"conditions\": [],\n
+{
+    "filename": "StudentPrerequisites",
+    "found": true,
+    "summary": "Manages student prerequisites including updating and verifying immunization and health records.",
+    "purpose": "Processes student health requirements ensuring data validity and proper update mechanisms.",
+    "entities": ["StudentPrerequisite"],
+    "fields": [
+        {"name": "ID", "type": "int"},
+        {"name": "StudentID", "type": "int"},
+        {"name": "CRCStatusCodeID", "type": "int"}
+    ],
+    "actors": [],
+    "workflows": [
+        {
+            "name": "UpdatePrerequisiteDetails",
+            "steps": [
+                "Validate prerequisite details for a student.",
+                "Execute corresponding stored procedures to update records."
+            ]
+        }
+    ],
+    "business_rules": [],
+    "validations": [
+        {"field": "Immunization dates", "message": "Dates must not be more than 5 years old."}
+    ],
+    "calculations": [],
+    "conditions": [],
+    "system_behavior": [],
+    "dependencies": ["HSPnet.Framework"],
+    "exceptions": [],
+    "source_document_ids": [
+        "126148d2-7c46-5bb8-8a4c-606105b702bd",
+        "165b1b6b-fd06-59e5-b7d7-81e87dbeac55",
+        "280408b2-2e1d-5bd7-8feb-59603ff0bb80"
+    ],
+    "content_gaps": []
+}
