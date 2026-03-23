@@ -1,0 +1,59 @@
+```json
+{
+  "filename": "QuestionOption",
+  "found": true,
+  "summary": "This document describes the QuestionOption and QuestionOptions classes, which are part of the HSPnet.DataLayer namespace. The classes manage options for questions in the system.",
+  "purpose": "The purpose is to define and manipulate question options for use within the HSPnet application framework.",
+  "entities": [
+    "QuestionOption",
+    "QuestionOptions"
+  ],
+  "fields": [
+    "ID",
+    "QuestionID",
+    "OptionChoiceID",
+    "OptionChoiceName",
+    "SpecifyChoice"
+  ],
+  "actors": [],
+  "workflows": [
+    {
+      "name": "QuestionOptionSearchByQuestion",
+      "steps": [
+        "Initialize list of QuestionOption",
+        "Set database procedure name to 'QuestionOptionSearchByQuestion'",
+        "Add parameters for SessionID, TemplateCode, and QuestionText",
+        "Execute database query and get SqlDataReader",
+        "Read each record from SqlDataReader",
+        "Create a new QuestionOption object for each record",
+        "Set properties ID, QuestionID, OptionChoiceID, OptionChoiceName, SpecifyChoice",
+        "Add QuestionOption object to the list",
+        "Close SqlDataReader",
+        "Return the list of QuestionOption"
+      ]
+    }
+  ],
+  "business_rules": [],
+  "validations": [],
+  "calculations": [],
+  "conditions": [
+    "If using default locale, retrieve OptionChoiceName; else retrieve OptionChoiceNameAlt"
+  ],
+  "system_behavior": [
+    "Retrieves question options based on specified criteria"
+  ],
+  "dependencies": [
+    "System",
+    "System.Data.SqlClient",
+    "System.Collections.Generic",
+    "HSPnet.Framework",
+    "HSPnet.App_GlobalResources",
+    "HSPnet.UI"
+  ],
+  "exceptions": [],
+  "source_document_ids": [
+    "f14b6df3-bd33-5903-9495-ce1d26cffd9e"
+  ],
+  "content_gaps": []
+}
+```
