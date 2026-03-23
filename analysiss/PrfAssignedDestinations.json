@@ -1,0 +1,56 @@
+{
+  "filename": "PrfAssignedDestinations",
+  "found": true,
+  "summary": "The `PrfAssignedDestinations` is a partial class part of the `HSPnet.UserControls.StaffProfile` namespace, designed to manage and present assigned destinations for staff within a web application. It integrates UI controls like GridView and Label to display data and provide user feedback.",
+  "purpose": "To manage and present a list of assigned destinations for staff members, incorporating interaction with user sessions and providing visual feedback on data availability.",
+  "entities": [
+    "PrfAssignedDestinations",
+    "HSPnetSession"
+  ],
+  "fields": [
+    "gvSSDs",
+    "lbNone",
+    "dsAssignedSSD",
+    "UserSession",
+    "StaffID"
+  ],
+  "actors": [
+    "User",
+    "System"
+  ],
+  "workflows": [
+    {
+      "name": "Data Binding for Grid View",
+      "steps": [
+        "GridView is bound to data source dsAssignedSSD.",
+        "On data bound, gvSSDs_DataBound method checks if any rows are present.",
+        "If no rows, lbNone label is made visible."
+      ]
+    }
+  ],
+  "business_rules": [
+    "If UserSession is null, cancel the data selection event."
+  ],
+  "validations": [],
+  "calculations": [],
+  "conditions": [
+    "If gvSSDs has no rows, set lbNone.Visible to true.",
+    "If UserSession is null, cancel the ObjectDataSourceSelecting event."
+  ],
+  "system_behavior": [
+    "Controls user interface elements based on data availability.",
+    "Cancels data selection when user session is not present."
+  ],
+  "dependencies": [
+    "UserSession must be available for data selection.",
+    "StaffID must be set for retrieving assigned destinations."
+  ],
+  "exceptions": [
+    "Data selection is cancelled if user session is unavailable."
+  ],
+  "source_document_ids": [
+    "c6116286-92d6-59d5-b5f1-b04cc9b4da4b",
+    "df3a657b-0474-5728-beab-cf7d71cdcb7f"
+  ],
+  "content_gaps": []
+}
