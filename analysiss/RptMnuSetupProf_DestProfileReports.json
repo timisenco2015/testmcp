@@ -1,0 +1,76 @@
+{
+  "filename": "RptMnuSetupProf_DestProfileReports",
+  "found": true,
+  "summary": "The 'RptMnuSetupProf_DestProfileReports' is a UI component for handling report generation in a web-based application. It includes various controls for user interaction, such as dropdowns, radio buttons, and buttons for executing specific actions related to report generation.",
+  "purpose": "To facilitate the setup and execution of profile reports within the user interface, allowing users to select agencies, sites, and report types.",
+  "entities": [],
+  "fields": [
+    "ddAgency",
+    "ltlSite",
+    "ddSite",
+    "RequiredFieldValidator1",
+    "cmdRunReport",
+    "ValidationSummary1",
+    "Label5",
+    "ltlDescription",
+    "Label6",
+    "ltlOptions",
+    "radCapacityProfile",
+    "radDestinationProfile",
+    "ltlAgency"
+  ],
+  "actors": [
+    "UserSession",
+    "blnRCUser"
+  ],
+  "workflows": [
+    {
+      "name": "Report Generation",
+      "steps": [
+        "User selects agency from 'ddAgency'.",
+        "User selects site from 'ddSite'.",
+        "User chooses report type using 'radCapacityProfile' or 'radDestinationProfile'.",
+        "User clicks 'cmdRunReport' button to generate the report."
+      ]
+    }
+  ],
+  "business_rules": [
+    "If UserSession.PlacingUser, hide 'radDestinationProfile' and show agency and site literals.",
+    "If blnRCUser, hide agency literal and dropdown but show site literal."
+  ],
+  "validations": [
+    "RequiredFieldValidator1 ensures required fields are filled.",
+    "ValidationSummary1 provides a summary of all validation messages."
+  ],
+  "calculations": [],
+  "conditions": [
+    "If UserSession is not null and agency dropdown is visible with no items, populate agency dropdown.",
+    "If UserSession.PlacingUser and agency dropdown is selected with ID 0, clear site dropdown.",
+    "If blnRCUser, populate site dropdown based on agency ID."
+  ],
+  "system_behavior": [
+    "On Page_Load, the radio button text is set based on resource values.",
+    "On Page_PreRender, description and options literals are populated based on session data.",
+    "FillAgencyDropdown populates the agency dropdown from external data sources.",
+    "FillSiteDropdown populates the site dropdown; either clearing it or binding new data based on conditions."
+  ],
+  "dependencies": [
+    "Agencies.AgencySearchReceiving",
+    "Sites.GetByAgencyID",
+    "Dropdown.CurrentID",
+    "PrintJobs.ReportDestinationCapacityCreateJob",
+    "Resources for labels and messages"
+  ],
+  "exceptions": [
+    "If no site is selected, an error message is added to UserSession.Messages preventing report creation."
+  ],
+  "source_document_ids": [
+    "0f383121-b982-5768-892d-cb5b79567f8b",
+    "31a55a9e-d42b-54ba-b767-980bf810649d",
+    "71cd98bb-5192-53b5-803c-b1c93da48917",
+    "9dd48168-f3bf-5704-9ec6-a6621959bfe5",
+    "a4b2f794-9a68-5819-b3a5-33d7e93b71ce",
+    "d046bedc-3db5-53af-9346-ef4f5c107e54"
+  ],
+  "content_gaps": []
+}
