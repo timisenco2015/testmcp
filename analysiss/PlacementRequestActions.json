@@ -1,111 +1,108 @@
 {
-  "filename": "PlacementRequestActions",
-  "found": true,
-  "summary": "PlacementRequestActions involves managing actions on placement requests, including creation, modification, and comment tracking. The actions are performed by agencies and users and involve status changes and comments.",
-  "purpose": "To manage and track actions related to placement requests, including status changes and comments, facilitated by agencies and users.",
-  "entities": [
-    "PlacementRequestAction",
-    "HSPnetSession",
-    "Database",
-    "Phone"
-  ],
-  "fields": [
-    "ID",
-    "ByAgencyID",
-    "ByUserID",
-    "ByOriginalUserID",
-    "ByUserSysAdmin",
-    "ActionDate",
-    "ToStatusCode",
-    "FromCode",
-    "ToCode",
-    "ForOtherPR",
-    "Comments",
-    "Agency",
-    "AgencyName",
-    "LastName",
-    "FirstName",
-    "MiddleName",
-    "Phone",
-    "PreviousPRComment",
-    "PreviousPlacementRequestActionID",
-    "UpdateDate",
-    "FirstCancelOrDeclineDate",
-    "StudentUser",
-    "CreationActionDate",
-    "CreationAgency",
-    "CreationAgencyName",
-    "CreationLastName",
-    "CreationFirstName",
-    "CreationMiddleName",
-    "CreationPhone"
-  ],
-  "actors": [
-    "SystemAdministrator",
-    "StudentUser",
-    "Agency",
-    "User"
-  ],
-  "workflows": [
-    {
-      "name": "Create PlacementRequestAction",
-      "steps": [
-        "Initiate database procedure for PlacementRequestCreationAgencyStudent or PlacementRequestCreationAgency.",
-        "Add relevant parameters for StudentID and PlacementRequestDestinationID or PRD_ID.",
-        "Retrieve data using SqlDataReader and fill the PlacementRequestAction list."
-      ]
-    },
-    {
-      "name": "Update Comments",
-      "steps": [
-        "Initiate database procedure for PlacementRequestCommentsUpdate.",
-        "Add SessionID, ID, and PreviousPRComment as parameters.",
-        "Execute query to update the comment."
-      ]
-    }
-  ],
-  "business_rules": [
-    "If a PlacementRequestAction is flagged as 'Common', it is highlighted if related to a different PRD.",
-    "Student names in history entries older than 7 days are removed.",
-    "If the last history entry has a non-blank Previous PR Comment, the 'Creation' fields are used instead of 'by who' fields."
-  ],
-  "validations": [
-    "Ensure action dates are in the correct format."
-  ],
-  "calculations": [
-    "Determine FirstCancelOrDeclineDate based on FromCode and ToCode logic."
-  ],
-  "conditions": [
-    "If PlacementRequestDestinationID is not equal to PRD_ID and Common is true, the entry is marked for other PR.",
-    "If sess.UseAltLanguageFields is true, alt language fields are used."
-  ],
-  "system_behavior": [
-    "Supports alt language fields for comments and status codes.",
-    "Updates are performed by invoking specific stored procedures with parameters."
-  ],
-  "dependencies": [
-    "Relies on the HSPnetSession for database operations and session maintenance."
-  ],
-  "exceptions": [
-    "Handles null or non-read SqlDataReader gracefully.",
-    "Ensures previous PR comments are carried forward to new entries if the current is blank."
-  ],
-  "source_document_ids": [
-    "15668e77-bc2f-581e-bd57-d8337ecc9d66",
-    "1ca56ea1-79e0-56b6-8e87-8dd87eda550f",
-    "525ccbc0-e131-581b-81b0-db7d84f17043",
-    "5fe8ce0b-eaf4-5899-a353-0651badc303e",
-    "74db0d9b-5eef-5713-b873-03941d0f6af1",
-    "a2a7bbd5-04fc-52e5-a83a-48b1d088480a",
-    "ab1849ca-c1a0-552f-b414-9c97911a4a93",
-    "b3201bff-9bdc-5dd9-8535-6bf2f62af4ab",
-    "b4f5d899-352a-55a4-a1d9-d44dfa592e3f",
-    "c031f48f-d977-5b36-ab97-1e09b98ebcc6",
-    "f3da42af-c2fc-5d94-9911-6782ff19e19c",
-    "f46eead5-84bf-5621-b1c2-ba10274ee6a5",
-    "f71b58b9-f868-5bb6-92a1-d791d1c18fa2"
-  ],
-  "content_gaps": [
-    "No explicit error handling procedures for SqlDataReader exceptions."
-  ]
+    "filename": "PlacementRequestActions",
+    "found": true,
+    "summary": "The PlacementRequestActions is a module that manages the actions and interactions related to placement requests within the HSPnet system.",
+    "purpose": "The purpose of the PlacementRequestActions module is to handle the creation, updating, searching, and archival of placement requests, providing functionalities to track changes and manage comments associated with each request.",
+    "entities": [],
+    "fields": [
+        "ID",
+        "ByAgencyID",
+        "ByUserID",
+        "ByOriginalUserID",
+        "ByUserSysAdmin",
+        "ActionDate",
+        "ToStatusCode",
+        "FromCode",
+        "ToCode",
+        "ForOtherPR",
+        "Comments",
+        "Agency",
+        "AgencyName",
+        "LastName",
+        "FirstName",
+        "MiddleName",
+        "Phone",
+        "PreviousPRComment",
+        "PreviousPlacementRequestActionID",
+        "UpdateDate",
+        "FirstCancelOrDeclineDate",
+        "StudentUser",
+        "CreationActionDate",
+        "CreationAgency",
+        "CreationAgencyName",
+        "CreationLastName",
+        "CreationFirstName",
+        "CreationMiddleName",
+        "CreationPhone"
+    ],
+    "actors": [
+        "HSPnetSession",
+        "Database",
+        "SqlDataReader"
+    ],
+    "workflows": [
+        {
+            "name": "PlacementRequestCreation",
+            "steps": [
+                "Initialize PlacementRequestAction object.",
+                "Set database procedure name.",
+                "Add appropriate parameters to database query.",
+                "Execute database reader for data retrieval.",
+                "Populate PlacementRequestAction object using data reader.",
+                "Close the database reader.",
+                "Return populated PlacementRequestAction object."
+            ]
+        },
+        {
+            "name": "SearchPlacementRequestActions",
+            "steps": [
+                "Initialize new list of PlacementRequestAction.",
+                "Set database procedure name for search.",
+                "Add parameters including PlacementRequestID, DestinationID, etc.",
+                "Execute database reader for data retrieval.",
+                "Iterate through results and populate PlacementRequestAction objects.",
+                "Add objects to list and close reader.",
+                "Return populated list."
+            ]
+        }
+    ],
+    "business_rules": [
+        "Student names are removed from history entries older than 7 days.",
+        "Common entries are highlighted if they belong to a different PRD."
+    ],
+    "validations": [
+        "Ensure ID and placement request destination IDs align."
+    ],
+    "calculations": [],
+    "conditions": [
+        "If PlacementRequestDestinationID is not the same as PRD_ID and is Common, then entry is flagged for other PR."
+    ],
+    "system_behavior": [
+        "Tracks the creation and updates of placement requests.",
+        "Manages archival and search of placement request comments.",
+        "Handles student-specific indicators in the actions."
+    ],
+    "dependencies": [
+        "Relies on HSPnet.Framework for database interactions.",
+        "Uses HSPnet.App_GlobalResources for resource localization."
+    ],
+    "exceptions": [
+        "Handling of unknown changes if comments are missing and system administrator status is true."
+    ],
+    "source_document_ids": [
+        "15668e77-bc2f-581e-bd57-d8337ecc9d66",
+        "1ca56ea1-79e0-56b6-8e87-8dd87eda550f",
+        "525ccbc0-e131-581b-81b0-db7d84f17043",
+        "5fe8ce0b-eaf4-5899-a353-0651badc303e",
+        "74db0d9b-5eef-5713-b873-03941d0f6af1",
+        "a2a7bbd5-04fc-52e5-a83a-48b1d088480a",
+        "ab1849ca-c1a0-552f-b414-9c97911a4a93",
+        "b3201bff-9bdc-5dd9-8535-6bf2f62af4ab",
+        "b4f5d899-352a-55a4-a1d9-d44dfa592e3f",
+        "c031f48f-d977-5b36-ab97-1e09b98ebcc6",
+        "f3da42af-c2fc-5d94-9911-6782ff19e19c",
+        "f46eead5-84bf-5621-b1c2-ba10274ee6a5",
+        "f71b58b9-f868-5bb6-92a1-d791d1c18fa2"
+    ],
+    "content_gaps": []
 }
