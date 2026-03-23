@@ -2,49 +2,59 @@
 {
     "filename": "Localization",
     "found": true,
-    "summary": "Code provides localization functionalities to translate fields, file types, and last login timestamps based on alternative languages.",
-    "purpose": "To enable the translation of UI elements and strings for users utilizing alternative languages.",
-    "entities": [
+    "summary": "The document details the localization functionalities of an application, focusing on translating fields, file types, and login strings based on the user's locale.",
+    "purpose": "To provide methods for dynamically translating interface elements into alternative languages at runtime.",
+    "entities": [],
+    "fields": [
+        "fields",
+        "newValues",
+        "FileType",
+        "FileTypeAlt",
+        "LastLogin"
+    ],
+    "actors": [
         "HSPnetSession"
     ],
-    "fields": [
-        "UseAltLanguageFields"
-    ],
-    "actors": [],
     "workflows": [
         {
-            "name": "Translate Fields",
+            "name": "Field Translation",
             "steps": [
-                "Check if alternative language fields should be used.",
-                "Iterate through fields and update their text based on new values."
+                "Check if alt language fields are used.",
+                "Iterate over fields and assign translated values."
             ]
         },
         {
-            "name": "Translate FileType",
+            "name": "File Type Translation",
             "steps": [
-                "Determine if alternative language fields should be used.",
-                "Return translated file type if applicable."
+                "Check session for language settings.",
+                "Return appropriate file type based on locale."
             ]
         },
         {
-            "name": "Translate Last Login",
+            "name": "Last Login Translation",
             "steps": [
-                "Replace month names in the last login string with translated values if alternative language is used."
+                "Check session for language settings.",
+                "Replace month abbreviations with translated values."
             ]
         }
     ],
-    "business_rules": [],
+    "business_rules": [
+        "Fields and newValues arrays must be of the same size.",
+        "Use alt language if session indicates."
+    ],
     "validations": [],
     "calculations": [],
     "conditions": [
-        "UseAltLanguageFields is true"
+        "UseAltLanguageFields"
     ],
     "system_behavior": [
-        "Modify text of UI fields",
-        "Change file type based on locale",
-        "Translate dates in login strings"
+        "Translates UI elements at the last minute based on session settings."
     ],
-    "dependencies": [],
+    "dependencies": [
+        "System.Web.UI.WebControls",
+        "System.Web.UI",
+        "HSPnet.Framework"
+    ],
     "exceptions": [],
     "source_document_ids": [
         "091e1f17-7a04-5c15-84aa-fe3989a1c114",
