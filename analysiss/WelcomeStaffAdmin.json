@@ -1,47 +1,47 @@
 {
     "filename": "WelcomeStaffAdmin",
     "found": true,
-    "summary": "The WelcomeStaffAdmin page handles administrative tasks for staff, including site dropdowns and calendar controls. It includes validation for start and end dates and utilizes the HSPnet UI framework.",
-    "purpose": "To provide an interface for staff administration, including managing sites and disciplines.",
+    "summary": "This document represents the welcome screen for staff administrators within the HSPnet system. It includes controls for displaying last login information and panels for error and warning messages.",
+    "purpose": "To serve as an administrative interface providing information and interaction controls for staff within HSPnet.",
     "entities": [],
     "fields": [
-        { "name": "txtStartDate", "type": "TextBox" },
-        { "name": "txtEndDate", "type": "TextBox" }
+        "lblLastLogin",
+        "pnlError",
+        "pnlWarning",
+        "lblTitle",
+        "pnlLastLogin"
     ],
-    "actors": [],
+    "actors": [
+        "Staff Administrator"
+    ],
     "workflows": [
         {
-            "name": "Date Selection Workflow",
+            "name": "Welcome Workflow",
             "steps": [
-                "User selects start date.",
-                "User selects end date.",
-                "Validation checks if start date is before end date."
+                "Setup the HSPnet page",
+                "Display last login information",
+                "Handle page messages",
+                "Refresh site data",
+                "Bind discipline data to dropdown"
             ]
         }
     ],
     "business_rules": [],
-    "validations": [
-        {
-            "name": "Date Validation",
-            "description": "Ensures start date is before end date."
-        }
-    ],
+    "validations": [],
     "calculations": [],
     "conditions": [],
-    "system_behavior": [],
-    "dependencies": [],
+    "system_behavior": [
+        "Page scripts include specific JavaScript for staff administration.",
+        "Panels are used to display error and warning messages."
+    ],
+    "dependencies": [
+        "UserSession"
+    ],
     "exceptions": [],
     "source_document_ids": [
         "05db31e4-e8b6-53ee-a6fb-812c106f0134",
-        "100d5925-a5f8-53db-8493-02cddd563eb7",
-        "3c84bade-9671-5fbf-acce-3c87a835e9b4",
-        "4c4b97b8-d242-5261-a515-767a3f7d7a49",
-        "5bb85da3-f5b4-5753-b07c-9bb2a04eeb89",
-        "5d9b92ea-7c12-5070-8603-977cf14d0e04",
-        "6eca1317-c0b2-5225-a9af-f034a722d924",
-        "871df91b-7ba0-558f-83ea-d5be1b0dc8db",
-        "8cea5c3a-2fbf-5206-a0c0-9425a5e14511",
-        "9dc9edf7-a95e-57c9-ae8e-a04ecdfa88be"
+        "bf423a80-93db-572d-8cb8-c79f04214a93",
+        "e249a878-c837-5d1c-9a3d-5167df2614fb"
     ],
     "content_gaps": []
 }
