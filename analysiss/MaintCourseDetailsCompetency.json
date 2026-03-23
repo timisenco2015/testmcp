@@ -1,54 +1,91 @@
 {
   "filename": "MaintCourseDetailsCompetency",
   "found": true,
-  "summary": "The MaintCourseDetailsCompetency file contains code related to managing course competencies within a web application. It includes user interface elements such as a grid view and pop-up panels for displaying and editing competencies.",
-  "purpose": "To facilitate the management and editing of course competencies within the web application.",
-  "entities": ["MaintCourseDetailsCompetency", "HSPnetSession", "CourseCompetency"],
-  "fields": [
-    "updPnlCompetency",
-    "gvwCompetency",
-    "pnlPopup",
-    "updPnlPopup",
-    "btnShowPopup",
-    "mdlDetails",
-    "gvwCompetencyEdit",
-    "dsCompetency"
+  "summary": "The MaintCourseDetailsCompetency class handles user interface elements for managing course competencies in a web application. It includes controls and logic for displaying, editing, and saving competency data via a grid view and modal popups.",
+  "purpose": "To provide a user interface for viewing and managing course competencies, allowing users to edit and save competencies through a structured web component.",
+  "entities": [
+    "MaintCourseDetailsCompetency",
+    "CourseCompetency"
   ],
-  "actors": ["User"],
+  "fields": [
+    {
+      "name": "updPnlCompetency",
+      "type": "System.Web.UI.UpdatePanel"
+    },
+    {
+      "name": "gvwCompetency",
+      "type": "System.Web.UI.WebControls.GridView"
+    },
+    {
+      "name": "pnlPopup",
+      "type": "System.Web.UI.WebControls.Panel"
+    },
+    {
+      "name": "updPnlPopup",
+      "type": "System.Web.UI.UpdatePanel"
+    },
+    {
+      "name": "btnShowPopup",
+      "type": "System.Web.UI.WebControls.Button"
+    },
+    {
+      "name": "mdlDetails",
+      "type": "AjaxControlToolkit.ModalPopupExtender"
+    },
+    {
+      "name": "gvwCompetencyEdit",
+      "type": "System.Web.UI.WebControls.GridView"
+    },
+    {
+      "name": "dsCompetency",
+      "type": "System.Web.UI.WebControls.ObjectDataSource"
+    },
+    {
+      "name": "UserSession",
+      "type": "HSPnetSession"
+    },
+    {
+      "name": "ScreenIsEditable",
+      "type": "Boolean"
+    },
+    {
+      "name": "CourseID",
+      "type": "string"
+    }
+  ],
+  "actors": [
+    "User"
+  ],
   "workflows": [
     {
-      "name": "Competency Management",
+      "name": "Edit Competencies",
       "steps": [
-        "Display competency list in grid view.",
-        "Edit competencies via pop-up.",
-        "Save changes to competencies."
+        "User clicks 'Edit All' button if screen is editable.",
+        "Competency grid view enters edit mode.",
+        "User modifies competency levels using dropdown lists.",
+        "User saves changes, triggering update to Competency list."
       ]
     }
   ],
   "business_rules": [
-    "Data binding for the competencies is dependent on a valid user session and course ID."
+    "Hide 'Edit All' button if the screen is not editable."
   ],
   "validations": [
-    "Ensure user session is available before data operations.",
-    "Hide the 'Edit All' button if the screen is not editable."
+    "Verify UserSession is not null before selecting competencies."
   ],
-  "calculations": [
-    "Update competencies based on user input and save to the database."
-  ],
+  "calculations": [],
   "conditions": [
-    "ScreenIsEditable determines visibility of editing options."
+    "If UserSession is null, cancel data selection."
   ],
   "system_behavior": [
-    "Utilizes UpdatePanel for asynchronous updates.",
-    "Uses QueryString for passing parameters between pages."
+    "Bind glossary hyperlinks to competency grid.",
+    "Redirect user after competencies are updated."
   ],
   "dependencies": [
-    "AjaxControlToolkit for modal pop-ups.",
-    "HSPnet.Framework for query string manipulation."
+    "HSPnetSession",
+    "CompetencyLevels"
   ],
-  "exceptions": [
-    "Cancel data operations if user session is null."
-  ],
+  "exceptions": [],
   "source_document_ids": [
     "30da0bad-a34e-52f2-9a53-62ed0414c4bf",
     "458078bf-ab35-5785-a4a7-9754754243dc",
