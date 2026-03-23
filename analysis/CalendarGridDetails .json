@@ -1,0 +1,132 @@
+{
+  "filename": "CalendarGridDetails",
+  "found": true,
+  "summary": "CalendarGridDetails models the details for scheduled placements or activities, supporting complex scheduling such as two time blocks, variable days/times, and various associated actors. It includes validation, calculated shift lengths, alerts for conflicts/urgency, and rich field-level data extraction from database sources.",
+  "purpose": "To store, retrieve, and manage detailed information for calendar placements, including scheduling, actors, conflicts, alerts, and service-related metadata. Used for data presentation, validation, and workflow automation in placement management systems.",
+  "entities": [
+    "CalendarGridDetail",
+    "CalendarGridDetails",
+    "Instructor",
+    "Site Coordinator",
+    "Department Coordinator"
+  ],
+  "fields": [
+    "PRDID",
+    "StartDate",
+    "EndDate",
+    "StartDateBlock2",
+    "EndDateBlock2",
+    "Has2Blocks",
+    "Days (Monday-Sunday)",
+    "VariousDays",
+    "ShiftCodeID",
+    "Shift",
+    "ShiftCode",
+    "ShiftLength (calculated: DataLayer.Shift.ShiftLength(ShiftCode, StartTime, EndTime))",
+    "StartTime",
+    "EndTime",
+    "VariousTimes",
+    "Course",
+    "GroupSize",
+    "Site",
+    "Service",
+    "Destination",
+    "PlacementRequestID",
+    "ChildList",
+    "Comments",
+    "UrgentAlert",
+    "AltDaysEves",
+    "StartTimeEve",
+    "EndTimeEve",
+    "AltWithAgencyID",
+    "AltWithAgencyShortName",
+    "AltDaysEvesPeriod",
+    "ConflictAlert",
+    "ConflictComments",
+    "ConflictResolved",
+    "SC_ID",
+    "SCLastName",
+    "SCFirstName",
+    "SCEmail",
+    "SCPhone",
+    "DC_ID",
+    "DCLastName",
+    "DCFirstName",
+    "DCEmail",
+    "DCPhone",
+    "InstructorLastName",
+    "InstructorFirstName",
+    "InstructorEmail",
+    "InstructorPhone",
+    "InstructorID"
+  ],
+  "actors": [
+    "Instructor",
+    "Department Coordinator",
+    "Site Coordinator"
+  ],
+  "workflows": [
+    {
+      "name": "GetByID",
+      "steps": [
+        "Accept PRD_ID as input.",
+        "Checks if PRD_ID > 0.",
+        "Sets up database procedure 'CalendarGridDetailsViewDetails' and adds PRD_ID parameter.",
+        "Executes the procedure and reads SqlDataReader.",
+        "Maps database fields to CalendarGridDetail fields using typed getters and masks (e.g., phone mask).",
+        "Performs calculation of ShiftLength.",
+        "Processes ChildList with line breaks.",
+        "Stores and returns CalendarGridDetail in a List."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Has2Blocks is true if EndDateBlock2 is not null.",
+    "AltWithAgency fields are set if alternative agency exists.",
+    "ShiftLength is calculated via DataLayer.Shift.ShiftLength logic.",
+    "ChildList is processed for display formatting (SQL hard-codes newlines)."
+  ],
+  "validations": [
+    "Date block presence via !Database.DateIsNull(EndDateBlock2).",
+    "Boolean flags for day fields (Monday-Sunday) and VariousDays.",
+    "Typed field extraction and validation from database reads."
+  ],
+  "calculations": [
+    "ShiftLength: computed with DataLayer.Shift.ShiftLength(ShiftCode, StartTime, EndTime)."
+  ],
+  "conditions": [
+    "PRD_ID must be greater than zero to trigger retrieval.",
+    "ConflictAlert flags whether placement has a conflict.",
+    "VariousDays/VariousTimes determine schedule flexibility."
+  ],
+  "system_behavior": [
+    "Instantiates Days array with seven elements.",
+    "Maps fields from database to CalendarGridDetail objects.",
+    "Handles urgent and conflict alerts as information fields.",
+    "ChildList lines replaced with HTML <br /> tags for display."
+  ],
+  "dependencies": [
+    "Database procedures (CalendarGridDetailsViewDetails)",
+    "DataLayer.Shift.ShiftLength for shift calculation",
+    "Typed field extractors (sess.DB.GetInt, GetString, GetBoolean, etc.)",
+    "Phone masking utility"
+  ],
+  "exceptions": [
+    "If PRD_ID <= 0, no retrieval is performed.",
+    "ConflictAlert and ConflictResolved flags for unresolved scheduling conflicts."
+  ],
+  "source_document_ids": [
+    "6996bec6-dfba-53d9-be64-cc88af90730b",
+    "aead0fd7-cc68-580f-a52d-b6560eb39a2c",
+    "dbd27517-d7a5-54ea-8611-c76be8d8870b",
+    "e865c63c-b5d8-55e6-96d7-76e09e0ba828",
+    "f353ac10-4798-5876-8036-3b885217a80f"
+  ],
+  "content_gaps": [
+    "No information about UI or external API integration.",
+    "No explicit error handling details beyond PRD_ID check.",
+    "No details on how conflicts are resolved.",
+    "No information on how phone masking works.",
+    "No business logic for repetitive or overlapping placements."
+  ]
+}
