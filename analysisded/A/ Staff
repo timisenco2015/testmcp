@@ -1,0 +1,111 @@
+```json
+{
+  "filename": "Staff",
+  "found": true,
+  "summary": "The Staff documents include a comprehensive set of details related to staff members, their roles, and interactions within the system, including personal information, contact details, roles, permissions, and business rules.",
+  "purpose": "These documents serve to manage and define the roles, permissions, and contact information of staff members within the system, ensuring proper function and workflows are adhered to.",
+  "entities": [
+    "Staff"
+  ],
+  "fields": [
+    "ID",
+    "DepartmentID",
+    "FirstName",
+    "PreferredFirstName",
+    "MiddleName",
+    "LastName",
+    "Email",
+    "SecureEmail",
+    "Address1",
+    "Address2",
+    "City",
+    "Province",
+    "Country",
+    "Phone",
+    "AltPhone",
+    "Fax",
+    "PostalCode",
+    "Title",
+    "EmployeeNumber",
+    "UserID",
+    "SalutationCodeID",
+    "Designation"
+  ],
+  "actors": [
+    "Supervisor",
+    "Instructor",
+    "PlacementCoordinator",
+    "ReceivingCoordinator",
+    "DestinationCoordinator",
+    "DepartmentContact",
+    "StudentMaint"
+  ],
+  "workflows": [
+    {
+      "name": "Staff Update",
+      "steps": [
+        "Validate staff details",
+        "Update contact information",
+        "Manage roles and permissions",
+        "Save changes to database"
+      ]
+    },
+    {
+      "name": "Staff Search",
+      "steps": [
+        "Receive search parameters",
+        "Query database",
+        "Format results",
+        "Return staff list"
+      ]
+    }
+  ],
+  "business_rules": [
+    "Instructor cannot be a course leader without also being an instructor",
+    "If no search criteria is given by PAL users, default permissions are applied"
+  ],
+  "validations": [
+    "Validate phone number",
+    "Check if last name is specified",
+    "Validate email format"
+  ],
+  "calculations": [
+    "Format phone area and number",
+    "Generate formatted full name"
+  ],
+  "conditions": [
+    "If contact info is hidden, clear fields unless user is a sysadmin",
+    "Check for duplicates before saving"
+  ],
+  "system_behavior": [
+    "System caches recent staff profile searches",
+    "Triggers warning messages on certain operations"
+  ],
+  "dependencies": [
+    "Database procedures for staff operations",
+    "HSPnet session management"
+  ],
+  "exceptions": [
+    "Error on invalid phone format",
+    "Failed update due to duplicate entry"
+  ],
+  "source_document_ids": [
+    "005ed131-b8d9-5497-bcb9-229a732199c6",
+    "06840fd2-53ef-5f2c-8902-7d5f8ccc9e75",
+    "0783d086-3de0-5486-b0c4-a3c60b89bfc7",
+    "089da517-873f-5a37-9796-486fcf4d5076",
+    "0bb3867d-ba99-5264-a36f-3af1fc74b7b0",
+    "0c04756b-6fc3-5114-9bcc-4119987bd67c",
+    "0da491ef-95fc-587a-80e4-1b02d6b4c45f",
+    "0eb98929-b96c-5ceb-818f-171714210432",
+    "0fb4ac09-4bba-5cca-9533-fb9946b99b7d",
+    "133281d0-1f4e-5dee-a9d4-5495d1e14e9f",
+    "1771a245-501e-5bd1-bc33-5d049fb6abb6",
+    "262574ed-3fd9-529c-94bd-c3ef75d9d5e3",
+    "49075b5a-73f2-5bbd-bc29-9bf4034f950a",
+    "6c586902-a385-5e2d-80c2-33cf36675a47",
+    "c383d53b-71dc-53e3-b84f-3f4fa2d1b14b"
+  ],
+  "content_gaps": []
+}
+```
