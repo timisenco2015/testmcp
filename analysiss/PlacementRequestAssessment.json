@@ -1,0 +1,152 @@
+{
+  "filename": "PlacementRequestAssessment",
+  "found": true,
+  "summary": "PlacementRequestAssessment is involved in the management of placement requests within an educational framework, involving various entities and workflow processes.",
+  "purpose": "The purpose of the PlacementRequestAssessment is to handle placement requests for assessments, including managing assessments' details, status, and related processes. It involves interactions among students, assessors, and systems to ensure a structured assessment process.",
+  "entities": [
+    "PlacementRequestAssessment",
+    "PlacementRequestAssessmentDistribution"
+  ],
+  "fields": [
+    "ID",
+    "PlacementRequestDestinationID",
+    "AssessorTypeCodeID",
+    "SubjectTypeCodeID",
+    "AssessmentTypeCodeID",
+    "AssessmentTemplateCodeID",
+    "OpenDaysAfterStart",
+    "CloseDaysAfterEnd",
+    "AssessorCanViewSubjectsAnswers",
+    "SubjectCanViewAssessorAnswers",
+    "ViewUntilDaysAfterEnd",
+    "StatusCodeID",
+    "AssessorStaffID",
+    "JointAssessmentID",
+    "AssessorTypeCode",
+    "SubjectTypeCode",
+    "AssessmentTypeCode",
+    "AssessmentTemplateCode",
+    "StatusCode",
+    "DistributionOpenDate",
+    "DistributionCloseDate",
+    "LocalDateTime",
+    "HasAnswers",
+    "FurthestStatusCode",
+    "EarliestStatusCode",
+    "WarningMessage",
+    "StudentID",
+    "StudentLastName",
+    "StudentMiddleName",
+    "StudentFirstName",
+    "AssessorLastName",
+    "AssessorMiddleName",
+    "AssessorFirstName",
+    "AssessorEmail",
+    "AssessorSecureEmail",
+    "AnswerUpdatedOn",
+    "AnswerUpdatedBy",
+    "StaffName",
+    "AssessmentGroupID"
+  ],
+  "actors": [
+    "Assessor",
+    "Student"
+  ],
+  "workflows": [
+    {
+      "name": "PlacementRequestAssessmentAdd",
+      "steps": [
+        "Initialize procedure PlacementRequestAssessmentAdd.",
+        "Add parameters including destination ID and various code IDs.",
+        "Execute query."
+      ]
+    },
+    {
+      "name": "PlacementRequestAssessmentSubmit",
+      "steps": [
+        "Initialize procedure PlacementRequestAssessmentSubmit.",
+        "Read data with SqlDataReader.",
+        "Verify and send emails."
+      ]
+    },
+    {
+      "name": "PlacementRequestAssessmentSearch",
+      "steps": [
+        "Initialize procedure PlacementRequestAssessmentSearch.",
+        "Read and load data into PlacementRequestAssessment class."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Assessors can view subjects' answers based on permissions.",
+    "Subjects can view assessors' answers based on permissions.",
+    "Status codes determine the workflow and visibility of assessment details."
+  ],
+  "validations": [
+    "Ensure distribution open date is before the close date.",
+    "Check interim assessments without final assessments.",
+    "Assessors and supervisors balances."
+  ],
+  "calculations": [
+    "OpenDaysAfterStartFormatted based on conditions.",
+    "CloseDaysAfterEndFormatted based on conditions."
+  ],
+  "conditions": [
+    "If the assessor type code matches the subject type code then formats differ."
+  ],
+  "system_behavior": [
+    "System manages assessments based on submission status and locale preferences.",
+    "System sends emails for joint assessment submissions."
+  ],
+  "dependencies": [
+    "Uses date formatting and locale settings."
+  ],
+  "exceptions": [
+    "Warning for missing required answers.",
+    "Error handling for email not being sent."
+  ],
+  "source_document_ids": [
+    "005c87fb-714e-50ed-8faf-40c408daca74",
+    "032f6810-c71a-5c54-ba5b-c313dc4291fc",
+    "0ce20f7e-771f-5313-be33-5dacec664380",
+    "16734420-6f17-525b-a8de-b9b114ba959c",
+    "17502807-f819-5618-b881-a71e03a013be",
+    "2cd6b58e-5168-5caa-8719-9ae988154dbb",
+    "43f618f4-a010-5e84-a8f0-61ec1b9294be",
+    "4434d4e3-45a0-5518-9a69-784b1d9f2459",
+    "4674c9ae-3ddc-591a-b38f-48a4a0fd3165",
+    "4cea0827-9899-58ff-81c7-57a67a86e19a",
+    "53c69773-3a88-5f0f-bb55-7bd833adfbff",
+    "58de56f4-f49d-5f6c-8edb-83816414b16c",
+    "5fd7ba93-c029-5049-8215-56937ad6d736",
+    "61eae895-844d-5138-8c8b-42ab3d1e6e39",
+    "62b3254c-048b-5a9e-8746-581f048bc85b",
+    "75a8a662-5d9b-5c82-ba3d-02a75187e091",
+    "76de291e-6e35-5988-a355-0cc71bd95090",
+    "78db44f6-7382-53cf-96d1-f9fa45a100ca",
+    "83684bd3-2e8f-5930-8651-47409666c92b",
+    "84ef61a6-2727-5a37-a825-550ad3335665",
+    "887465bb-e7a9-52e4-b8f6-f87de9087cd3",
+    "8ee60226-ecc1-55e7-be5a-55c221377efa",
+    "8fbe5b75-ec7e-522e-a5a0-80b02608ce9e",
+    "9a89fc97-c975-5f99-8cb8-24d01fc873b6",
+    "aad798bf-7750-5911-8b81-5855000a902e",
+    "abfa3aa1-6d37-5153-8fc6-aeb05d09751c",
+    "b23a3611-32cc-5c52-bd13-6939aaed4339",
+    "b3b6a6bb-6b39-5507-9260-09ed473ac9bb",
+    "b3e2860e-93d2-54a3-ba19-1c54dfb93867",
+    "bec56077-e6fd-5042-98d3-8d10177040c2",
+    "c0db76f6-6ce4-5fe4-afde-1c9245c954f1",
+    "c165ef11-1ed6-5dc5-8a24-0fbcce46880b",
+    "c352d7c6-b884-5a28-b2a9-3865cd60b641",
+    "c65141d1-8937-5319-bb23-64dd05fde13f",
+    "cc0e84f1-ee60-57d0-831f-9d0c63ceb373",
+    "d98aaaf8-6996-5511-a16d-60f671c5e71a",
+    "e66d172b-e608-5de0-bca8-c88fabd39b64",
+    "e7b209b0-40d7-5b35-bf5c-bf80cf52983a",
+    "ed334f5b-fa03-5181-bd49-74550608b8e2",
+    "f34850a9-7811-5653-8875-570d012d8f57",
+    "f5a76655-ac6d-53a7-94af-69f932d1182d"
+  ],
+  "content_gaps": []
+}
