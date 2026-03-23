@@ -2,10 +2,12 @@
 {
   "filename": "TimetableRotation",
   "found": true,
-  "summary": "The TimetableRotation system manages scheduling and rotations based on timetables, cohorts, terms, and courses within the application.",
-  "purpose": "To organize and manage timetable rotations which include start dates, end dates, and associated cohort and course information.",
+  "summary": "The TimetableRotation handles the scheduling of timetables and rotations involving cohorts, terms, and courses. It involves data retrieval, validation, addition, update, and deletion of timetable rotation records.",
+  "purpose": "The purpose of TimetableRotation is to manage and manipulate timetable rotation records, ensuring they are consistent and valid within a given timetable framework.",
   "entities": [
-    "TimetableRotation"
+    "TimetableRotation",
+    "HSPnetSession",
+    "SqlDataReader"
   ],
   "fields": [
     "ID",
@@ -26,110 +28,81 @@
     "EndDateFormatted"
   ],
   "actors": [
-    "HSPnetSession"
+    "Database",
+    "UI.DateFormatter",
+    "Resources",
+    "SqlDataReader"
   ],
   "workflows": [
     {
       "name": "GetByTimetableID",
       "steps": [
-        "Set ProcedureName to 'TimetableRotationSearch'",
-        "Add parameter 'TimetableID'",
-        "Execute GetData",
-        "FillList with data reader and list",
-        "Close data reader",
-        "Return list"
-      ]
-    },
-    {
-      "name": "GetHeaderByTimetableID",
-      "steps": [
-        "Set ProcedureName to 'TimetableRotationHeader'",
-        "Add parameter 'TimetableID'",
-        "Execute GetData",
-        "Read data",
-        "Return list"
-      ]
-    },
-    {
-      "name": "TimetableRotationSearchCTC",
-      "steps": [
-        "Set ProcedureName to 'TimetableRotationSearchCTC'",
-        "Add parameters 'CohortID', 'TermID', 'CourseID'",
-        "Execute GetData",
-        "FillList with data reader and list",
-        "Close data reader",
-        "Return list"
-      ]
-    },
-    {
-      "name": "GroupWorksheetRotationCount",
-      "steps": [
-        "Set ProcedureName to 'GroupWorksheetRotationCount'",
-        "Add parameters 'GroupFlag', 'CohortID', 'TermID', 'CourseID'",
-        "Execute GetData",
-        "Read data",
-        "Return entry"
+        "Set procedure name to TimetableRotationSearch.",
+        "Add TimetableID parameter.",
+        "Retrieve data using sess.DB.GetData.",
+        "FillList using data reader.",
+        "Close reader and return list."
       ]
     },
     {
       "name": "Add",
       "steps": [
-        "Validate entry",
-        "Set ProcedureName to 'TimetableRotationAdd'",
-        "Add parameters 'TimetableID', 'StartDate', 'EndDate'",
-        "Execute query"
+        "Check IsValid condition.",
+        "Set procedure name to TimetableRotationAdd.",
+        "Add Timetable ID, StartDate, EndDate parameters.",
+        "Execute query."
       ]
     },
     {
       "name": "Update",
       "steps": [
-        "Validate entry",
-        "Set ProcedureName to 'TimetableRotationUpdate'",
-        "Add parameters 'ID', 'StartDate', 'EndDate'",
-        "Execute query"
+        "Check IsValid condition with non-zero ID.",
+        "Set procedure name to TimetableRotationUpdate.",
+        "Add ID, StartDate, EndDate parameters.",
+        "Execute query."
       ]
     },
     {
       "name": "Delete",
       "steps": [
-        "Validate entry",
-        "Set ProcedureName to 'TimetableRotationDelete'",
-        "Add parameter 'ID'",
-        "Execute query"
+        "Check if ID is non-zero.",
+        "Set procedure name to TimetableRotationDelete.",
+        "Add ID parameter.",
+        "Execute query."
       ]
     }
   ],
   "business_rules": [
-    "Start date must be before End date",
-    "Dates must not be null",
-    "Dates must fall within timetable range"
+    "Rotation dates must not precede course start date.",
+    "Rotation dates must not exceed course end date."
   ],
   "validations": [
-    "Start date required",
-    "End date required",
-    "End date must be after start date",
-    "Rotation dates not before course start date",
-    "Rotation dates not after course end date"
+    "StartDate must not be null.",
+    "EndDate must not be null.",
+    "StartDate must be before EndDate.",
+    "Dates must fall within timetable range."
   ],
-  "calculations": [],
+  "calculations": [
+    "StartDateFormatted calculated using UI.DateFormatter.",
+    "EndDateFormatted calculated using UI.DateFormatter."
+  ],
   "conditions": [
-    "StartDate < TimetableStartDate",
-    "EndDate < TimetableStartDate",
-    "StartDate > TimetableEndDate",
-    "EndDate > TimetableEndDate"
+    "StartDate > EndDate triggers error.",
+    "Rotation dates before timetable start date triggers error.",
+    "Rotation dates after timetable end date triggers error."
   ],
   "system_behavior": [
-    "Format dates using UI.DateFormatter",
-    "Use SqlDataReader for data retrieval",
-    "Set ProcedureName for database operations"
+    "Addition and update actions are conditional on validation success.",
+    "Date formatting applies during data handling."
   ],
   "dependencies": [
-    "HSPnet.Framework",
-    "HSPnet.App_GlobalResources",
-    "System.Data.SqlClient",
-    "System.Collections.Generic"
+    "HSPnetSession for database operations.",
+    "UI.DateFormatter for date formatting.",
+    "Resources for error messages."
   ],
-  "exceptions": [],
+  "exceptions": [
+    "Rotation dates outside the timetable range return false in validation."
+  ],
   "source_document_ids": [
     "46fb1ff1-1d43-5e8f-a9c1-4001efe45eaf",
     "90c7c9c6-9236-54ea-b377-83447ca97722",
