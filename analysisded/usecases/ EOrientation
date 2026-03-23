@@ -1,0 +1,75 @@
+# Module: EOrientation
+
+## EOrientation-UC1 — Course Completion Status
+
+- Primary Actor(s): System
+- Secondary Actor(s): User
+- Trigger: User accesses their list of eOrientation courses.
+- Description: The system displays the status of each eOrientation course, indicating whether it has been completed.
+- Preconditions: User must be logged into the system.
+- Postconditions: User can view their progress on each course.
+- Main Success Scenario:
+  1. User logs into the system.
+  2. User navigates to their courses page.
+  3. System retrieves and displays the status of each course.
+- Extensions: None
+- Exceptions: If the user's session is invalid, the action is canceled.
+- Business Rules: Courses marked as completed set the `_completeFound` flag to true.
+- Assumptions: User has an active session.
+- Open Issues: None
+
+## EOrientation-UC2 — Retake Completed Course
+
+- Primary Actor(s): User
+- Secondary Actor(s): System
+- Trigger: User selects the option to retake a completed course.
+- Description: Allows users to retake a course they have completed.
+- Preconditions: Course must be marked as completed and retake option visible.
+- Postconditions: User is permitted to retake the course.
+- Main Success Scenario:
+  1. User selects a completed course to retake.
+  2. System checks if retake is allowed.
+  3. System prompts user for confirmation.
+  4. User confirms the retake action.
+  5. System registers the retake action and updates user data.
+- Extensions: None
+- Exceptions: If retake conditions are not met, an error message is displayed.
+- Business Rules: A course can be retaken only if it is completed and the user has permission.
+- Assumptions: User has necessary permissions.
+- Open Issues: None
+
+## EOrientation-UC3 — Print Certificate of Completion
+
+- Primary Actor(s): User
+- Secondary Actor(s): System
+- Trigger: User requests to print a certificate for a completed course.
+- Description: Generates and displays a certificate of completion in PDF format.
+- Preconditions: Course must be completed and user session valid.
+- Postconditions: Certificate is presented to the user for printing.
+- Main Success Scenario:
+  1. User selects the option to print certificate.
+  2. System generates the certificate in PDF format.
+  3. If certificate generation is successful, display it to the user.
+- Extensions: None
+- Exceptions: If certificate generation fails, an error message is displayed.
+- Business Rules: Certificate can only be generated if the course is marked completed.
+- Assumptions: User wants a physical or digital copy of the certificate.
+- Open Issues: None
+
+## EOrientation-UC4 — Pre-fill User Credentials for External Site
+
+- Primary Actor(s): System
+- Secondary Actor(s): None
+- Trigger: User navigates to an external site requiring login.
+- Description: Automatically fills user credentials on external site login form.
+- Preconditions: Valid user session with stored credentials.
+- Postconditions: User credentials are filled in the external site form.
+- Main Success Scenario:
+  1. User is redirected to external site.
+  2. System pre-fills the login form with stored user credentials.
+  3. User proceeds to log into the external site.
+- Extensions: If user has content management permissions, the redirect process is handled differently.
+- Exceptions: If credentials are missing or incorrect, login fails.
+- Business Rules: User credentials must be securely handled and only used if the user session is valid.
+- Assumptions: Users interact with external sites frequently requiring same authentication.
+- Open Issues: None
