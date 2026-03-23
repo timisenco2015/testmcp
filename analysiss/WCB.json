@@ -1,82 +1,82 @@
 {
-    "filename": "WCB",
-    "found": true,
-    "summary": "The system is a web-based enrollment management system for handling student records, specifically focusing on WCB (Workers' Compensation Board) status management. It includes features for editing enrollment records, updating WCB status, handling UI controls for grid data, and supporting various user actions like saving and deleting records.",
-    "purpose": "To manage student enrollments and their WCB status within an education or training environment, providing functionalities for data entry, review, and status updates.",
-    "entities": [],
-    "fields": [
-        "txtCourseID",
-        "txtCourseShortName",
-        "txtStudentEmail",
-        "txtStudentName",
-        "txtStudentLastName",
-        "txtStudentFirstName",
-        "txtStudentMiddleName",
-        "txtWCBStatusCodeID",
-        "txtWCBWaiverDate",
-        "txtWCBWaiverNotes",
-        "txtDirty"
-    ],
-    "actors": [
-        "UserSession",
-        "DataLayer.Enrollment"
-    ],
-    "workflows": [
-        {
-            "name": "Enrollment Editing and WCB Management",
-            "steps": [
-                "User accesses the enrollment record through the grid interface.",
-                "User can edit fields such as student name, email, and WCB status.",
-                "User makes changes and either saves or cancels the operations.",
-                "System updates the database with the new information.",
-                "UI reflects changes with updated controls for the user."
-            ]
-        }
-    ],
-    "business_rules": [
-        "Rows are disabled if the student has graduated or is inactive.",
-        "Waived students cannot have certain actions performed."
-    ],
-    "validations": [
-        "ValidationSummary1 control is used for UI validations.",
-        "Data changes are validated before submission."
-    ],
-    "calculations": [],
-    "conditions": [
-        "If RowDisabled is true, certain actions and controls are hidden or disabled."
-    ],
-    "system_behavior": [
-        "Auto-generated fields are used to create UI controls.",
-        "System hides buttons based on row state and user permissions.",
-        "JavaScript functions are embedded for UI interactivity."
-    ],
-    "dependencies": [
-        "HSPnet.UI.HSPnetGridView",
-        "AjaxControlToolkit.ModalPopupExtender"
-    ],
-    "exceptions": [
-        "If UserSession is null, operations like data selection are canceled."
-    ],
-    "source_document_ids": [
-        "0544daa9-2f2a-500d-9cc1-e4bf0006398d",
-        "092ae68d-4058-5ef6-ae91-217ed5823db0",
-        "0c2b3d57-eb00-5bb4-b392-5a826cec80cc",
-        "13c19802-ff30-5df6-ad16-42e3adc06671",
-        "13d91c5a-1f54-56e1-a96a-fbe20c40f8a8",
-        "1bc87996-c740-585f-9b5a-8bdafc5bbe1f",
-        "313ffa16-9aab-54fb-8109-7e2c1c34595e",
-        "43c4a6f9-92a5-52e3-b080-b3d922b00851",
-        "78154c79-c242-52db-a293-1395e647a325",
-        "925a6d8b-6509-5a82-b888-15a3b6e7a39b",
-        "941bcfe7-0462-5de4-99cf-06851773400e",
-        "9a0274fc-d8cb-5cb5-9625-3d475f69abf5",
-        "bc47ff3c-9f39-5610-bb50-72c796c9465b",
-        "c51afa9e-1cf1-53a3-94cc-42f66039bbb6",
-        "c975816e-73bd-52aa-bac6-32d295e0c9f4",
-        "cb68d16f-9f58-59fe-a8b6-fb590a9fc4be",
-        "ebeecbd8-2a3c-5a4c-be82-f833285a7db3",
-        "f5ac631c-4d1b-5378-86f8-0ce89dc58031",
-        "fb76221f-711e-59c8-9437-4e2572b951b0"
-    ],
-    "content_gaps": []
+  "filename": "WCB",
+  "found": true,
+  "summary": "The WCB file is part of the HSPnet.UserControls.Enrollment system and involves various operations related to course enrollments and student data management, including WCB waiver processes.",
+  "purpose": "The purpose of the WCB system is to manage student enrollments and perform operations related to WCB waivers, ensuring accurate data handling and appropriate user interface adjustments based on user interactions and data states.",
+  "entities": [],
+  "fields": [
+    "txtCourseID",
+    "txtCourseShortName",
+    "txtStudentEmail",
+    "txtStudentName",
+    "txtStudentMiddleName",
+    "txtWCBStatusCodeID",
+    "txtWCBWaiverNotes",
+    "txtDirty",
+    "txtMultipleData"
+  ],
+  "actors": [
+    "User",
+    "SystemAdministrator"
+  ],
+  "workflows": [
+    {
+      "name": "Manage Enrollment",
+      "steps": [
+        "Select course and student data.",
+        "Check and change WCB waiver statuses.",
+        "Use the grid for data presentation and interaction.",
+        "Edit or update enrollment details as needed."
+      ]
+    }
+  ],
+  "business_rules": [
+    "WCB waiver status affects button visibility.",
+    "Editable screen if the student is not graduated, inactive, or waived.",
+    "If a row is disabled, editing is not allowed."
+  ],
+  "validations": [
+    "Ensure StudentEmail and StudentName fields are not null.",
+    "The enrollment ID must be greater than zero to unlock certain actions."
+  ],
+  "calculations": [],
+  "conditions": [
+    "RowDisabled if the student is graduated or inactive.",
+    "ActionDisabled if PRExists or WSExists."
+  ],
+  "system_behavior": [
+    "Controls display and behavior based on user session and data context.",
+    "JavaScript is set up dynamically based on grid data interactions.",
+    "The grid sorts data by last name initially if not sorted already."
+  ],
+  "dependencies": [
+    "Depends on user session for data access and operations.",
+    "JavaScript handles client-side dynamics."
+  ],
+  "exceptions": [
+    "Grid hides buttons if data is not editable.",
+    "Cancellation of data operations if user session is null."
+  ],
+  "source_document_ids": [
+    "0544daa9-2f2a-500d-9cc1-e4bf0006398d",
+    "092ae68d-4058-5ef6-ae91-217ed5823db0",
+    "0c2b3d57-eb00-5bb4-b392-5a826cec80cc",
+    "13c19802-ff30-5df6-ad16-42e3adc06671",
+    "13d91c5a-1f54-56e1-a96a-fbe20c40f8a8",
+    "1bc87996-c740-585f-9b5a-8bdafc5bbe1f",
+    "313ffa16-9aab-54fb-8109-7e2c1c34595e",
+    "43c4a6f9-92a5-52e3-b080-b3d922b00851",
+    "78154c79-c242-52db-a293-1395e647a325",
+    "925a6d8b-6509-5a82-b888-15a3b6e7a39b",
+    "941bcfe7-0462-5de4-99cf-06851773400e",
+    "9a0274fc-d8cb-5cb5-9625-3d475f69abf5",
+    "bc47ff3c-9f39-5610-bb50-72c796c9465b",
+    "c51afa9e-1cf1-53a3-94cc-42f66039bbb6",
+    "c975816e-73bd-52aa-bac6-32d295e0c9f4",
+    "cb68d16f-9f58-59fe-a8b6-fb590a9fc4be",
+    "ebeecbd8-2a3c-5a4c-be82-f833285a7db3",
+    "f5ac631c-4d1b-5378-86f8-0ce89dc58031",
+    "fb76221f-711e-59c8-9437-4e2572b951b0"
+  ],
+  "content_gaps": []
 }
