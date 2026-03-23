@@ -1,0 +1,306 @@
+{
+  "filename": "SiteDocument",
+  "found": true,
+  "summary": "SiteDocument is a data model representing a document associated with a site, primarily storing IDs linking it to a site.",
+  "purpose": "To represent and link documents to specific sites within the application.",
+  "entities": [
+    {
+      "name": "SiteDocument",
+      "type": "class"
+    }
+  ],
+  "fields": [
+    {
+      "entity": "SiteDocument",
+      "name": "ID",
+      "type": "int"
+    },
+    {
+      "entity": "SiteDocument",
+      "name": "SiteID",
+      "type": "int"
+    }
+  ],
+  "actors": [],
+  "workflows": [],
+  "business_rules": [],
+  "validations": [],
+  "calculations": [],
+  "conditions": [],
+  "system_behavior": [],
+  "dependencies": [],
+  "exceptions": [],
+  "source_document_ids": [
+    "a2967f17-a924-5e9c-8b15-d1f7bd028b32"
+  ],
+  "content_gaps": []
+}
+
+{
+  "filename": "WelcomeStaffAdmin",
+  "found": true,
+  "summary": "WelcomeStaffAdmin provides staff administrators with a homepage view, including login information, error/warning handling, and filters for site, discipline, and date. Users can view, filter, and interact with employment applications.",
+  "purpose": "To offer an administrative dashboard for staff to review and manage employment applications and see relevant system messages.",
+  "entities": [
+    {
+      "name": "WelcomeStaffAdmin",
+      "type": "class/page"
+    }
+  ],
+  "fields": [
+    { "entity": "WelcomeStaffAdmin", "name": "lblTitle", "type": "Label" },
+    { "entity": "WelcomeStaffAdmin", "name": "ltlLastLogin", "type": "Literal" },
+    { "entity": "WelcomeStaffAdmin", "name": "pnlError", "type": "Panel" },
+    { "entity": "WelcomeStaffAdmin", "name": "pnlWarning", "type": "Panel" },
+    { "entity": "WelcomeStaffAdmin", "name": "ddSite", "type": "DropDownList" },
+    { "entity": "WelcomeStaffAdmin", "name": "ddDiscipline", "type": "DropDownList" },
+    { "entity": "WelcomeStaffAdmin", "name": "txtStartDate", "type": "TextBox" },
+    { "entity": "WelcomeStaffAdmin", "name": "txtEndDate", "type": "TextBox" },
+    { "entity": "WelcomeStaffAdmin", "name": "gvwApplications", "type": "GridView" }
+  ],
+  "actors": [
+    "Staff Administrator"
+  ],
+  "workflows": [
+    {
+      "name": "View and Filter Employment Applications",
+      "steps": [
+        "Load dashboard, display welcome and last login info.",
+        "Choose site and discipline from dropdowns.",
+        "Select date range (start/end date).",
+        "Click refresh or change filter; system binds filtered data to GridView.",
+        "Review applications, including status, email, site, and program information."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Start date is required; validated by RequiredFieldValidator.",
+    "End date is required; validated by RequiredFieldValidator.",
+    "Dates must match regular expressions for valid format.",
+    "End date cannot precede start date; custom validator logic."
+  ],
+  "validations": [
+    "RequiredFieldValidator for start/end date.",
+    "RegularExpressionValidator for date format.",
+    "CustomValidator to ensure start date <= end date."
+  ],
+  "calculations": [],
+  "conditions": [
+    "If SiteID is not provided, show all sites for agency; otherwise, default to provided site.",
+    "If user session is missing, data retrieval is cancelled."
+  ],
+  "system_behavior": [
+    "On page load, setup user context and JavaScript.",
+    "Show error and warning panels as needed.",
+    "GridView displays filtered applications with paging (PageSize = 50).",
+    "Email link setup: If email missing, no icon; otherwise, creates mailto link."
+  ],
+  "dependencies": [
+    "UserSession",
+    "Site dropdown data from Sites.GetByAgencyID",
+    "Discipline dropdown data from Disciplines.DisciplineList"
+  ],
+  "exceptions": [
+    "If user session is missing, data retrieval is cancelled.",
+    "If dates are invalid, error displayed."
+  ],
+  "source_document_ids": [
+    "05db31e4-e8b6-53ee-a6fb-812c106f0134",
+    "100d5925-a5f8-53db-8493-02cddd563eb7",
+    "3c84bade-9671-5fbf-acce-3c87a835e9b4",
+    "4c4b97b8-d242-5261-a515-767a3f7d7a49",
+    "52b5066f-23f6-5d82-96cd-5d51dad3de79",
+    "5bb85da3-f5b4-5753-b07c-9bb2a04eeb89",
+    "5d9b92ea-7c12-5070-8603-977cf14d0e04",
+    "6701b153-5288-59e5-8de9-61b68a1fc292",
+    "871df91b-7ba0-558f-83ea-d5be1b0dc8db",
+    "8cea5c3a-2fbf-5206-a0c0-9425a5e14511",
+    "964a48c9-231c-5d58-a44d-3675d949a453",
+    "966ed8d3-a5af-567f-b092-936217777551",
+    "a0c3da28-32a5-5fce-91b2-17274efa016e",
+    "afbb4ec5-43c8-5281-ad2c-4b6cfd23a48e",
+    "b8e79322-9a0e-5fe7-8953-3d05e231f923",
+    "bf423a80-93db-572d-8cb8-c79f04214a93",
+    "ca71b077-cc26-5979-a44f-59700a41316b",
+    "d278278f-d4ec-5f4a-9f29-a02b66773bb9",
+    "db9b35e9-53ca-5eaf-9d75-4f3a72131bc7",
+    "e249a878-c837-5d1c-9a3d-5167df2614fb"
+  ],
+  "content_gaps": []
+}
+
+{
+  "filename": "ServiceCode",
+  "found": true,
+  "summary": "ServiceCode is a model for representing service codes with attributes for identification, naming, categorization, ordering, notes, and localization.",
+  "purpose": "To provide structured representation and retrieval of service codes and their options for courses/timetables.",
+  "entities": [
+    {
+      "name": "ServiceCode",
+      "type": "class"
+    }
+  ],
+  "fields": [
+    { "entity": "ServiceCode", "name": "ID", "type": "int" },
+    { "entity": "ServiceCode", "name": "CodeCategoryID", "type": "int" },
+    { "entity": "ServiceCode", "name": "ShortName", "type": "string" },
+    { "entity": "ServiceCode", "name": "Name", "type": "string" },
+    { "entity": "ServiceCode", "name": "SortOrder", "type": "int" },
+    { "entity": "ServiceCode", "name": "Notes", "type": "string" },
+    { "entity": "ServiceCode", "name": "NameAlt", "type": "string" },
+    { "entity": "ServiceCode", "name": "NotesAlt", "type": "string" }
+  ],
+  "actors": [],
+  "workflows": [
+    {
+      "name": "Retrieve Service Codes",
+      "steps": [
+        "Call ServiceCodeListAll procedure with SessionID to get all codes.",
+        "Call ServiceCodeASMOptionByCourseID or ServiceCodeASMOptionByTimetableID to get code options."
+      ]
+    }
+  ],
+  "business_rules": [
+    "If alternate language mode is enabled, use alt fields for name/notes."
+  ],
+  "validations": [],
+  "calculations": [],
+  "conditions": [
+    "If Sess.UseAltLanguageFields is true, use alternate texts."
+  ],
+  "system_behavior": [
+    "Procedure calls for list retrieval; localization logic applied per session language."
+  ],
+  "dependencies": [
+    "HSPnetSession (for localization behavior)",
+    "CourseID or TimetableID (for option retrieval)"
+  ],
+  "exceptions": [],
+  "source_document_ids": [
+    "94f1b055-348d-508a-ae6e-cf7960a8c6a2",
+    "e4ebe4b4-6d14-5c3f-b693-61016f765239",
+    "f976b9af-a402-540f-b162-391d578fac7c"
+  ],
+  "content_gaps": []
+}
+
+{
+  "filename": "SiteProfileHistory",
+  "found": true,
+  "summary": "SiteProfileHistory logs changes to site profiles, capturing actions, sections, user details, agency info, and supports localization.",
+  "purpose": "To track and audit changes to site profiles, including who made the change, what was changed, and when.",
+  "entities": [
+    {
+      "name": "SiteProfileHistory",
+      "type": "class"
+    }
+  ],
+  "fields": [
+    { "entity": "SiteProfileHistory", "name": "ID", "type": "int" },
+    { "entity": "SiteProfileHistory", "name": "ActionDate", "type": "DateTime" },
+    { "entity": "SiteProfileHistory", "name": "ScreenSection", "type": "string" },
+    { "entity": "SiteProfileHistory", "name": "UserAction", "type": "string" },
+    { "entity": "SiteProfileHistory", "name": "Fields", "type": "string" },
+    { "entity": "SiteProfileHistory", "name": "Agency", "type": "string" },
+    { "entity": "SiteProfileHistory", "name": "AgencyName", "type": "string" },
+    { "entity": "SiteProfileHistory", "name": "LastName", "type": "string" },
+    { "entity": "SiteProfileHistory", "name": "FirstName", "type": "string" },
+    { "entity": "SiteProfileHistory", "name": "MiddleName", "type": "string" },
+    { "entity": "SiteProfileHistory", "name": "Phone", "type": "Phone" },
+    { "entity": "SiteProfileHistory", "name": "ByUserID", "type": "int" },
+    { "entity": "SiteProfileHistory", "name": "ByOriginalUserID", "type": "int" },
+    { "entity": "SiteProfileHistory", "name": "ByUserSysAdmin", "type": "bool" }
+  ],
+  "actors": [
+    "Site profile editors",
+    "System administrators"
+  ],
+  "workflows": [
+    {
+      "name": "Site Profile Audit Trail",
+      "steps": [
+        "User or admin modifies a site profile.",
+        "SiteProfileHistory records action, section, fields changed, user and agency info.",
+        "System provides formatted audit info (e.g., agency/user details, date, phone)."
+      ]
+    }
+  ],
+  "business_rules": [
+    "If alternate language mode, use alternate fields for screen section, action, and fields."
+  ],
+  "validations": [],
+  "calculations": [],
+  "conditions": [
+    "If user is not sys admin and user IDs differ, prepend 'HSPnet Support Team' caption."
+  ],
+  "system_behavior": [
+    "Audit entries are constructed and formatted for clarity, including tooltips and formatted names."
+  ],
+  "dependencies": [
+    "HSPnetSession (for localization and phone masking)",
+    "Database procedures for retrieval"
+  ],
+  "exceptions": [],
+  "source_document_ids": [
+    "25f89a24-5eda-5a3f-83df-1de69b12b3f1",
+    "26e09292-d304-55c6-94e5-ef3346453c4b",
+    "7ca6b963-9ae9-5cd3-82d5-f30dcb727ae3",
+    "a8f030c6-90b8-53a1-bb8a-3b7ef33b9488",
+    "e806999c-3a39-5720-9b59-303faebc9eb6"
+  ],
+  "content_gaps": []
+}
+
+{
+  "filename": "EmailPopupDocument",
+  "found": true,
+  "summary": "EmailPopupDocument models a document for email popups, including file info and logic for searching and deleting files based on user actions.",
+  "purpose": "To manage email-related files, allowing searching and deletion of documents presented in email popups.",
+  "entities": [
+    {
+      "name": "EmailPopupDocument",
+      "type": "class"
+    }
+  ],
+  "fields": [
+    { "entity": "EmailPopupDocument", "name": "ID", "type": "int" },
+    { "entity": "EmailPopupDocument", "name": "FileName", "type": "string" },
+    { "entity": "EmailPopupDocument", "name": "FilePath", "type": "string" },
+    { "entity": "EmailPopupDocument", "name": "Checked", "type": "Boolean" }
+  ],
+  "actors": [],
+  "workflows": [
+    {
+      "name": "Search and Delete EmailPopupDocuments",
+      "steps": [
+        "Parse DataInfo string to retrieve document objects.",
+        "Present user with file list for selection.",
+        "When user deletes, remove file and folder, update list as needed."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Only valid dataInfo entries (with > separator and two fields) are considered.",
+    "On delete, file and containing folder are removed if possible."
+  ],
+  "validations": [],
+  "calculations": [],
+  "conditions": [
+    "If DataInfo is empty, no documents returned or deleted."
+  ],
+  "system_behavior": [
+    "Handles searching and deletion via string parsing and file operations."
+  ],
+  "dependencies": [
+    "System.IO for file/folder deletion",
+    "DataInfo string format"
+  ],
+  "exceptions": [
+    "If file/folder deletion fails, operation is silently ignored."
+  ],
+  "source_document_ids": [
+    "7287734e-f13d-550f-9249-4242db620766",
+    "927bc837-5564-5759-9324-27c6d5d7321d"
+  ],
+  "content_gaps": []
+}
