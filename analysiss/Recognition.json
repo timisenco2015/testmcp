@@ -1,57 +1,65 @@
 {
   "filename": "Recognition",
   "found": true,
-  "summary": "The Recognition component is a user control within the HSPnet application, designed to manage staff recognition activities. It includes functionality for adding, editing, and deleting recognition activities, using various controls like dropdowns and date fields to capture information.",
-  "purpose": "To provide an interface for managing staff recognition activities within the HSPnet application.",
-  "entities": [
-    "HSPnetSession",
-    "CodeRecord",
-    "StaffRecognitionActivity"
-  ],
+  "summary": "The \"Recognition\" module is part of the HSPnet application, focusing on managing staff recognition activities. It involves displaying recognition details, including activity types, academic appointments, and related comments. The module allows for adding, editing, and deleting recognition entries, with specific UI components like UpdatePanels, Panels, Labels, and ModalPopupExtenders.",
+  "purpose": "To manage and display staff recognition activities within the HSPnet application, providing functionality for viewing, adding, editing, and deleting recognition records.",
+  "entities": [],
   "fields": [
-    "activityTypeCodeID",
-    "academicAppointmentTypeCodeID",
-    "activityTypeComments",
-    "activityDate",
-    "expiryDate",
-    "departmentID",
-    "programID"
+    "updPnlMain",
+    "pnlEmptyData",
+    "lblEmptyData",
+    "cmdAddEmptyData",
+    "txtCalendarPlaceholder",
+    "pnlPopup",
+    "updPnlPopup",
+    "btnShowPopup",
+    "mdlDetails",
+    "ValidationSummary1",
+    "uxDetail",
+    "dsDetail",
+    "dsAcademicAppointment"
   ],
   "actors": [
-    "UserSession",
-    "StaffID"
+    "UserSession"
   ],
   "workflows": [
     {
-      "name": "Add or Edit Recognition Activity",
+      "name": "Recognition Management",
       "steps": [
-        "Select activity type from dropdown.",
-        "Fill in activity date and comments if applicable.",
-        "Submit the data for adding or updating."
+        "Initialize user session and load activity types.",
+        "Display recognition details and handle commands (add, edit, delete).",
+        "Validate inputs and manage data source selections.",
+        "Render UI elements and update JavaScript variables.",
+        "Persist changes and update session cache."
       ]
     }
   ],
   "business_rules": [
-    "Ensure user session exists before performing operations.",
-    "Use different code IDs based on activity types (e.g., OTHER, ACAD)."
+    "ScreenIsEditable determines visibility of controls.",
+    "UserSession presence dictates data operations.",
+    "CodeRecords are used for activity type identification.",
+    "Empty data panels are shown based on GridView row count."
   ],
   "validations": [
-    "Validate that the start date is before the end date."
+    "Date validation using DateFormatter for activity and expiry dates."
   ],
-  "calculations": [],
+  "calculations": [
+    "Date parsing and formatting for activity and expiry dates."
+  ],
   "conditions": [
-    "If no user session, cancel operation.",
-    "Different handling for OTHER and ACAD activity types."
+    "If UserSession is null, data selection operations are canceled.",
+    "If activityTypeCodeID matches _acadAppointmentCodeID, academicAppointmentTypeCodeID is set."
   ],
   "system_behavior": [
-    "JavaScript functions to handle UI behavior and form submission."
+    "Dynamic UI updates using ScriptManager and ClientScript.",
+    "DataSource operations bound to session parameters."
   ],
   "dependencies": [
-    "HSPnet.UI",
-    "AjaxControlToolkit"
+    "AjaxControlToolkit for UI components.",
+    "HSPnet.Session for session management."
   ],
   "exceptions": [
-    "Cancel operation if user session is null."
+    "JavaScript errors related to event validation may occur with EmptyDataTemplate."
   ],
   "source_document_ids": [
     "0a0a7e51-eb8c-5a38-882e-41f4f84bff9a",
@@ -60,10 +68,11 @@
     "383b5bda-617b-5d1a-82a0-b06a071b58b1",
     "43c06007-f867-56a1-a161-1cf216960817",
     "616e0bd3-1e94-592c-987e-cdeb65aae239",
+    "adfee990-7509-5868-89c8-b1bb3482f231",
     "aeed2929-9bf0-577a-bbce-27a0ce038e05",
     "ba0652f1-c58f-530b-ac92-e20fb52ba37f",
-    "b1e469b1-7dff-5198-abbb-f3063aca2b50",
-    "bbb5e1af-f431-527e-9203-b46b0ff8d238"
+    "bbb5e1af-f431-527e-9203-b46b0ff8d238",
+    "b1e469b1-7dff-5198-abbb-f3063aca2b50"
   ],
   "content_gaps": []
 }
