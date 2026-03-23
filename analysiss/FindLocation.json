@@ -1,0 +1,150 @@
+{
+    "filename": "FindLocation",
+    "found": true,
+    "summary": "FindLocation is an ASP.NET page used to locate destinations within the HSPnet application.",
+    "purpose": "To provide a user interface for searching and managing locations, agencies, sites, services, and destinations.",
+    "entities": [],
+    "fields": [
+        "txtKeyword",
+        "ddAgency",
+        "ddGoverningOrg",
+        "ddSiteType",
+        "ddServiceFilter",
+        "ddDisciplineFilter",
+        "hdnSiteAddress1",
+        "hdnSiteAddress2",
+        "hdnCity",
+        "hdnPostalCode",
+        "hdnProvince",
+        "hdnCountry",
+        "hdnSiteContact",
+        "hdnPhone",
+        "hdnFax",
+        "hdnEmail",
+        "hdnTitle"
+    ],
+    "actors": [
+        "HSPnet user",
+        "Placement Coordinator",
+        "Receiving Coordinator",
+        "System Administrator",
+        "Local Administrator"
+    ],
+    "workflows": [
+        {
+            "name": "Search Locations",
+            "steps": [
+                "User enters search criteria using various filters.",
+                "System retrieves matching records.",
+                "Display results with options to view detailed profiles."
+            ]
+        },
+        {
+            "name": "Request New Destination",
+            "steps": [
+                "User fills out request form.",
+                "Validation of required fields.",
+                "Generate and send email with request details."
+            ]
+        }
+    ],
+    "business_rules": [
+        "Only Placement and Receiving Coordinators can view Province dropdown.",
+        "System administrators and local administrators can view location IDs."
+    ],
+    "validations": [
+        "Keyword field cannot be empty.",
+        "Site, Service, and Destination must be specified for request form."
+    ],
+    "calculations": [],
+    "conditions": [
+        "Show IDs checkbox is available to local admins and sysadmins."
+    ],
+    "system_behavior": [
+        "Search results are paginated.",
+        "Email pre-filling options based on agency, site, and service selections."
+    ],
+    "dependencies": [
+        "HSPnet.DataLayer",
+        "HSPnet.Framework"
+    ],
+    "exceptions": [
+        "Orphan destinations are highlighted differently."
+    ],
+    "source_document_ids": [
+        "02e6e50f-a602-5a02-9d8a-c7fbd3e23757",
+        "0410891f-eed7-574c-b3aa-75c356c6b65c",
+        "05045724-1396-5c02-a9ea-08fb040b3996",
+        "0736988c-254c-5030-beaf-d78a2820844f",
+        "098b8f53-fa2d-5832-ad77-8036c9a23719",
+        "12090147-5973-5a99-b9d2-4407234a5e12",
+        "1500a54f-873f-563d-b61e-e2b962deb7dd",
+        "21a3b303-da3b-5399-881d-c742585548b7",
+        "234223ee-168c-5a17-9fa1-4eb62e49e3e9",
+        "268dc34f-ff44-5338-9a6d-530868ae95a9",
+        "26c56d99-801f-568d-b605-497558c3b6f9",
+        "2b95acec-ef64-5808-bbb4-f86a218ecf60",
+        "327a9241-6eac-5e26-b324-91c5444f602d",
+        "3545b8e0-7e8b-57fc-b5ef-609fa381bb01",
+        "361e504b-4c4a-5ff6-9538-9e96a8487a13",
+        "36cec785-4560-5908-963d-a28f79a4b83e",
+        "377845a0-018a-53a1-a323-ee7e063b0792",
+        "39ca451f-8128-51e8-b328-fbf5973ec305",
+        "3c187203-c6f3-5c9b-b1b7-6ae624aa74e0",
+        "406602d4-56e3-5745-ad54-24eeb23be9f4",
+        "41ee0c3c-8694-5d5f-83c9-39d4575c6da3",
+        "43778fcc-c426-5531-833f-4cb826e5f2ec",
+        "4400f608-22cb-5307-bbb2-84870227ddf0",
+        "4404093c-ac06-5489-ad3c-d020e4b0a8f0",
+        "44fc9ac9-91ca-51e7-85db-3332f02945f7",
+        "5448987a-9673-5e0c-b3eb-220ae641b3ae",
+        "587acdfa-51d3-5b64-af67-8916fae8a989",
+        "58b81a71-8bae-5473-9bce-f577c6793905",
+        "5ab2b079-1460-5701-8488-3c25d0eb356e",
+        "5b5007a6-a4e4-5537-b753-3aee128c2230",
+        "5c4029b6-3af1-5d59-bbf4-8f724f025013",
+        "5df1da20-d4b9-5d2f-822e-4b998c7749ac",
+        "6096b120-2cfc-5c33-a643-5a30faf89541",
+        "78e2de30-d0a2-52cc-8cc4-af1917b06935",
+        "7c547818-36ee-5be8-a1b6-ef90db777a07",
+        "7ea8ca52-9a5c-57b2-b37a-f6114606fdbc",
+        "7f967ce3-6822-5696-8e6d-d2683cf25c01",
+        "8e2c91df-2f7b-5e41-8583-1ab70c6fc870",
+        "93d30782-81c5-546d-9be9-eef79c2d47da",
+        "954caa7b-679b-5554-bf5b-56ebac6a1669",
+        "959084af-6ce7-5e06-ab49-c6ea82a55610",
+        "985e6607-0714-50ac-aab3-9a49604e2d66",
+        "9b444dd4-cd54-5950-a5d3-03a1e42cb4b1",
+        "9cef1aae-096a-5e11-8425-d7f94d5e2595",
+        "9d104456-e8c7-5658-8771-d0c3405879a3",
+        "a10e8411-cb8e-5c0b-86ed-4061d43817af",
+        "a2baf42a-a41a-57f6-87d3-aaee7920fbff",
+        "a3b19d79-d261-57c3-9a3b-d2a7a9a400c5",
+        "a881cf15-2b3a-5348-a6b5-33ee5fa6b384",
+        "ae3aace9-1101-5ba0-bd50-a8d4ca1acef3",
+        "b2767741-65d4-5026-85a4-8993859b2240",
+        "b38029d9-107d-512d-8666-4dc013960c22",
+        "b3cfb9ed-9f48-5f9d-ac41-37c5df4e0cbe",
+        "b454e30e-b1df-51fa-97cf-3ebceed1b861",
+        "b75e3b66-16a6-5d37-8171-e80f77273bb8",
+        "b8bf0ada-7730-5fc8-84b1-5f367285dd21",
+        "b8ef50c5-76a5-5b03-9240-95ae5e10b04a",
+        "c4a6823a-9479-5417-bf20-6484ff6e6cf4",
+        "c6ce48f3-7381-52a3-afc2-e4d93ae444a9",
+        "ca2336e0-9af5-5d8d-8a60-9d6b56090951",
+        "cb7e4fe6-d9c6-54bc-b0a0-e18a5ba9d4ed",
+        "d49343e2-2b65-59f4-84c0-9f728c60461d",
+        "d6278b0f-52a9-5058-a662-a13f748d51f7",
+        "dce65e9e-47d5-51b8-ad28-323fb9c9d600",
+        "df10dcd4-92ff-56a5-8719-fc4b4adc7231",
+        "e0c3d1dc-a6c7-50be-9bdc-715ba546883c",
+        "ec63002f-c47c-5ae4-a6e8-496a3c12cb99",
+        "e377a070-6778-54e7-94f9-01998595c257",
+        "fdc7c712-2590-5f69-aafa-83c275620938",
+        "f6e008a0-c404-587d-9dda-135f2eec889b",
+        "f7027ca1-f715-5620-b1e4-75ce39812df9",
+        "f92cdb8d-aa9a-5b1b-befa-173b2c6327bb",
+        "fa13578d-bfcb-54a2-be7a-450c327d494b"
+    ],
+    "content_gaps": []
+}
