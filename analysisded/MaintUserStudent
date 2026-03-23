@@ -2,82 +2,78 @@
 {
     "filename": "MaintUserStudent",
     "found": true,
-    "summary": "The MaintUserStudent manages user accounts for students, offering functionalities to create, update, and validate user information within an educational system. The system provides mechanisms for handling user credentials, particularly focusing on Single Sign-On (SSO) and traditional password approaches.",
-    "purpose": "To manage student user accounts, including creation, updates, password changes, and to facilitate user authentication processes.",
+    "summary": "The MaintUserStudent is a web page used in the HSPnet framework to manage student user accounts. It allows creation, modification, and control over student user details such as account information and password management.",
+    "purpose": "To manage student user accounts, including creation, validation, and password management within the HSPnet system.",
     "entities": [
         "User",
         "Student",
         "Program",
-        "Department"
+        "Department",
+        "SsoSetting"
     ],
     "fields": [
+        "UserId",
         "UserName",
         "Email",
-        "Password",
-        "LastLoginDate",
-        "StudentNumber",
-        "Phone",
-        "SsoUPN",
-        "AgencyName",
-        "ProvinceCode"
+        "active",
+        "UserAccountInfo",
+        "studentinfo",
+        "NewPassword",
+        "ConfirmPassword",
+        "uxSupportComment"
     ],
     "actors": [
-        "UserSession",
-        "SystemAdministrator"
+        "System Administrator",
+        "User"
     ],
     "workflows": [
         {
-            "name": "User Creation",
+            "name": "User Account Management",
             "steps": [
-                "Validate if user already exists.",
-                "Generate new password.",
-                "Add new user to database.",
-                "Send email notification if applicable."
-            ]
-        },
-        {
-            "name": "User Update",
-            "steps": [
-                "Check if user exists.",
-                "Update user details if modifications are required.",
-                "Issue email notifications if changes occur."
+                "Load user information.",
+                "Validate URL hash.",
+                "Edit user information if user exists.",
+                "Save changes with validation.",
+                "Send email notifications if applicable."
             ]
         },
         {
             "name": "Password Change",
             "steps": [
-                "Display change password interface.",
-                "Validate new password strength.",
-                "Update password upon confirmation.",
-                "Send password change confirmation."
+                "Display change password panel.",
+                "Validate new password requirements.",
+                "Save new password and notify user."
             ]
         }
     ],
     "business_rules": [
-        "User must not be a duplicate upon creation.",
-        "SSO settings override traditional user credential management."
+        "UserName must be unique.",
+        "Password must meet complexity requirements.",
+        "SSO users require specific email handling."
     ],
     "validations": [
-        "Email must match a defined format.",
-        "Password must contain at least 12 characters, including symbols, numbers, and uppercase letters."
+        "RequiredFieldValidator for UserName and Email.",
+        "RegularExpressionValidator for Email and Password.",
+        "CompareValidator for Password confirmation."
     ],
     "calculations": [],
     "conditions": [
-        "SSO enabled users do not receive password change emails.",
-        "If SSO is disabled, email notifications can be enabled or disabled."
+        "Show password change button if user is active.",
+        "Hide SSO related sections if SSO not enabled."
     ],
     "system_behavior": [
-        "Handles user account creation, updates, and deletions.",
-        "Integrates with SSO systems for user authentication."
+        "Display user and student information.",
+        "Handle user support comments.",
+        "Send emails based on account creation or password changes."
     ],
     "dependencies": [
-        "HSPnet.DataLayer",
         "HSPnet.Framework",
-        "HSPnet.UI",
-        "System.Web.UI.WebControls"
+        "HSPnet.DataLayer",
+        "HSPnet.UI"
     ],
     "exceptions": [
-        "User account creation fails if email notification settings are incorrect."
+        "Error if UserName already exists.",
+        "No email sent if email template not found."
     ],
     "source_document_ids": [
         "13904179-d5bb-55e5-9d43-9fef1611b632",
