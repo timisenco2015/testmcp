@@ -1,0 +1,51 @@
+# Module: InfectionControl
+
+## InfectionControl-UC1 — Manage Student Enrollment for Infection Control
+
+- Primary Actor(s): 
+  - System Administrator
+  - Enrollment Coordinator
+
+- Secondary Actor(s): 
+  - Student
+
+- Trigger: 
+  - A new enrollment period begins or student's infection control requirements need updating.
+
+- Description: 
+  - This use case manages the enrollment of students for infection control requirements, such as N95 mask fitting and influenza vaccinations, ensuring that students meet necessary prerequisites for clinical practice.
+
+- Preconditions: 
+  - The student must be registered in the system.
+  - The infection control criteria (e.g., N95 mask size, fit test date) must be defined in the system.
+
+- Postconditions: 
+  - The student's respiratory mask and vaccination information are up to date in the system.
+  - The system has a record of the student's compliance with infection control procedures.
+
+- Main Success Scenario: 
+  1. The enrollment coordinator accesses the student enrollment page.
+  2. The coordinator reviews the infection control requirements for each student.
+  3. The coordinator updates the student's records with current N95 mask sizes and fit test dates.
+  4. The system validates and saves the updated information.
+  5. An email is sent to the student confirming the update.
+
+- Extensions:
+  - 3a. If a student's record needs correction, the coordinator can edit directly.
+  - 4a. If validation fails (e.g., fit test expiry date is incorrect), an error message is displayed.
+
+- Exceptions:
+  - System is unavailable.
+  - Database errors occur during enrollment record updates.
+
+- Business Rules:
+  - Fit test date is mandatory if an N95 mask size is specified.
+  - Expiry date must be on or after the fit test completion date.
+  
+- Assumptions:
+  - The coordinator has the necessary system permissions to update student records.
+  - Students have provided all required information for their infection control records.
+
+- Open Issues:
+  - Integration with external systems for automatic vaccination status updates.
+  - Handling of invalid data entries during batch updates.
