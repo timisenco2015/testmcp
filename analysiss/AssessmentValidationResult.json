@@ -1,45 +1,46 @@
 {
-  "filename": "AssessmentValidationResult",
-  "found": true,
-  "summary": "The AssessmentValidationResult class represents a validation result structure for assessing various conditions in an assessment process.",
-  "purpose": "To encapsulate the results of various validation checks during an assessment process, indicating whether specific conditions are met.",
-  "entities": [],
-  "fields": [
-    {
-      "name": "InterimWithoutFinal",
-      "type": "bool",
-      "description": "Indicates whether there is an interim assessment without a final assessment."
-    },
-    {
-      "name": "InstructorsAndSupervisors",
-      "type": "bool",
-      "description": "Indicates whether both instructors and supervisors have been involved in the assessment process."
-    },
-    {
-      "name": "AssessmentMaximumExceeded",
-      "type": "bool",
-      "description": "Indicates whether the maximum allowable assessments have been exceeded."
-    }
-  ],
-  "actors": [],
-  "workflows": [],
-  "business_rules": [],
-  "validations": [
-    "Checks for the presence of an interim assessment without a final assessment.",
-    "Verifies the involvement of both instructors and supervisors in the assessment process.",
-    "Ensures that the number of assessments does not exceed the defined maximum."
-  ],
-  "calculations": [],
-  "conditions": [
-    "Interim assessment exists without a corresponding final assessment.",
-    "Both instructors and supervisors are involved in the assessment.",
-    "Number of assessments should not exceed the maximum limit."
-  ],
-  "system_behavior": [],
-  "dependencies": [],
-  "exceptions": [],
-  "source_document_ids": [
-    "e663d100-85dd-5023-9f4c-94982b490159"
-  ],
-  "content_gaps": []
-}
+    "filename": "AssessmentValidationResult",
+    "found": true,
+    "summary": "The AssessmentValidationResult file defines validation checks used within the HSPnet system for assessing the completion status of courses and student assessments.",
+    "purpose": "To provide validation results for assessments, ensuring compliance with assessment criteria such as interim and final assessment schedules.",
+    "entities": [],
+    "fields": [
+      "InterimWithoutFinal",
+      "InstructorsAndSupervisors",
+      "AssessmentMaximumExceeded"
+    ],
+    "actors": [
+      "Instructor",
+      "Supervisor",
+      "Student"
+    ],
+    "workflows": [
+      {
+        "name": "Assessment Validation Process",
+        "steps": [
+          "Check for presence of interim assessments without final counterparts.",
+          "Validate assessment count against maximum allowable.",
+          "Assess alignment of instructor and supervisor evaluations."
+        ]
+      }
+    ],
+    "business_rules": [
+      "Interim assessments must have corresponding finals.",
+      "Assessment maximums should not be exceeded.",
+      "Instructors and supervisors must submit assessments in alignment."
+    ],
+    "validations": [],
+    "calculations": [],
+    "conditions": [],
+    "system_behavior": [
+      "Validates student assessment submissions.",
+      "Checks for compliance with interim and final assessment requirements.",
+      "Ensures maximum assessment thresholds are not exceeded."
+    ],
+    "dependencies": [],
+    "exceptions": [],
+    "source_document_ids": [
+      "e663d100-85dd-5023-9f4c-94982b490159"
+    ],
+    "content_gaps": []
+  }
