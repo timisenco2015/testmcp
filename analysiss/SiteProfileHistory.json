@@ -1,78 +1,38 @@
 {
     "filename": "SiteProfileHistory",
     "found": true,
-    "summary": "The SiteProfileHistory class logs historical changes to site profiles, capturing user actions, screens affected, and timestamps.",
-    "purpose": "Track and manage the audit trail of modifications made to site profiles in HSPnet.",
+    "summary": "SiteProfileHistory logs actions taken on site profiles, capturing details such as user actions, field changes, and user information.",
+    "purpose": "To maintain a history of changes made to site profiles for audit and user tracking purposes within the HSPnet framework.",
     "entities": [
         "SiteProfileHistory"
     ],
     "fields": [
-        {
-            "name": "ID",
-            "type": "int"
-        },
-        {
-            "name": "ActionDate",
-            "type": "DateTime"
-        },
-        {
-            "name": "ScreenSection",
-            "type": "string"
-        },
-        {
-            "name": "UserAction",
-            "type": "string"
-        },
-        {
-            "name": "Fields",
-            "type": "string"
-        },
-        {
-            "name": "Agency",
-            "type": "string"
-        },
-        {
-            "name": "AgencyName",
-            "type": "string"
-        },
-        {
-            "name": "LastName",
-            "type": "string"
-        },
-        {
-            "name": "FirstName",
-            "type": "string"
-        },
-        {
-            "name": "MiddleName",
-            "type": "string"
-        },
-        {
-            "name": "Phone",
-            "type": "Phone"
-        },
-        {
-            "name": "ByUserID",
-            "type": "int"
-        },
-        {
-            "name": "ByOriginalUserID",
-            "type": "int"
-        },
-        {
-            "name": "ByUserSysAdmin",
-            "type": "bool"
-        }
+        "ID",
+        "ActionDate",
+        "ScreenSection",
+        "UserAction",
+        "Fields",
+        "Agency",
+        "AgencyName",
+        "LastName",
+        "FirstName",
+        "MiddleName",
+        "Phone",
+        "ByUserID",
+        "ByOriginalUserID",
+        "ByUserSysAdmin"
     ],
-    "actors": [],
+    "actors": [
+        "HSPnetSession"
+    ],
     "workflows": [],
     "business_rules": [],
     "validations": [],
     "calculations": [],
-    "conditions": [],
-    "system_behavior": [
-        "Utilizes formatted user details to convey the origin and nature of changes."
+    "conditions": [
+        "Use alternate language data if in alt language mode."
     ],
+    "system_behavior": [],
     "dependencies": [],
     "exceptions": [],
     "source_document_ids": [
