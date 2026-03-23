@@ -2,69 +2,73 @@
 {
   "filename": "Time24Hour",
   "found": true,
-  "summary": "The documents discuss the validation and calculation of time shifts based on 24-hour time format, including methods for determining shift lengths and validating time periods.",
-  "purpose": "To provide a set of methods for calculating shift lengths, validating time formats, determining shift types, and handling special conditions for time periods requiring cross-midnight handling.",
-  "entities": [
-    "Time24Hour",
-    "Resources"
-  ],
-  "fields": [
-    "StartTime",
-    "EndTime",
-    "ShiftCode",
-    "VariousTimes",
-    "ShiftAmendmentsExist"
-  ],
+  "summary": "The Time24Hour class provides methods to validate, convert, and analyze 24-hour time formats for scheduling purposes within a framework. It includes functions to determine the validity of individual times and time periods, convert times to decimal, calculate shift lengths, and determine shift types based on start and end times.",
+  "purpose": "To provide utilities for handling and validating 24-hour time formats and shifts.",
+  "entities": [],
+  "fields": [],
   "actors": [],
   "workflows": [
     {
-      "name": "Shift Calculation",
+      "name": "Validate Time",
       "steps": [
-        "Convert time from HHMM format to decimal.",
-        "Calculate the difference between start and end times.",
-        "Account for shifts crossing midnight."
+        "Check if the time is a 4-digit numeric value.",
+        "Ensure the value is between 0000 and 2400.",
+        "Check last two digits are between 00 and 59."
       ]
     },
     {
-      "name": "Shift Validation",
+      "name": "Validate Time Period",
       "steps": [
-        "Validate the format of time as HHMM.",
-        "Check if the time falls within valid shift codes.",
-        "Determine shift based on comparison of start and end times."
+        "Check if start and end times are valid.",
+        "Determine if period is valid based on comparisons or crossing midnight.",
+        "Check if shift is not more than 12 hours if crossing midnight."
       ]
     },
     {
-      "name": "Time Period Validation",
+      "name": "Convert Time to Decimal",
       "steps": [
-        "Check if start time is before end time.",
-        "Handle special cases where shifts cross midnight and are less than 13 hours."
+        "Check if the time is a valid 4-digit string.",
+        "Convert time to decimal format."
+      ]
+    },
+    {
+      "name": "Calculate Shift Length",
+      "steps": [
+        "Convert start and end times to decimal.",
+        "Calculate the difference in time, considering crossing midnight."
+      ]
+    },
+    {
+      "name": "Determine Shift Type",
+      "steps": [
+        "Use start and end times to determine shift type.",
+        "Consider if shift crosses different time periods."
       ]
     }
   ],
   "business_rules": [
-    "Shift code definitions: D for Day, E for Evening, N for Night.",
-    "12-hour shifts treated as long shifts."
+    "Shift duration of 10 hours or more is classified as a long shift."
   ],
   "validations": [
-    "Format and range checks for 24-hour time.",
-    "Validity checks for shift codes and time periods."
+    "Time must be a valid 24-hour format between 0000 and 2400.",
+    "Shift codes should adhere to predefined format for analysis."
   ],
   "calculations": [
-    "Conversion of HHMM time to decimal.",
-    "Calculation of shift length by comparing start and end time."
+    "Convert 24-hour time to decimal.",
+    "Calculate shift length using decimal time values."
   ],
   "conditions": [
-    "Shift crossing midnight if end < start.",
-    "Shift longer than 10 hours is considered long."
+    "Time period crossing midnight must be validated for shifts."
   ],
   "system_behavior": [
-    "Determines shift type based on the majority of shift time span.",
-    "Handles invalid time periods gracefully."
+    "Returns true for valid time and time periods.",
+    "Uses resource strings to determine shift display."
   ],
-  "dependencies": [],
+  "dependencies": [
+    "HSPnet.App_GlobalResources for resource strings."
+  ],
   "exceptions": [
-    "Invalid time format.",
-    "Invalid time period."
+    "Returns true for time periods even if invalid to avoid additional error handling."
   ],
   "source_document_ids": [
     "004643d1-5348-5058-acfd-8e6b91762bd9",
