@@ -1,0 +1,165 @@
+{
+  "filename": "PlacementRequestSplits",
+  "found": true,
+  "summary": "The PlacementRequestSplits document outlines the structure, functions, and logic for managing placement request splits and associated data within a system, mainly through a series of static methods and classes.",
+  "purpose": "To manage and manipulate data related to placement request splits, including creating, updating, deleting, and formatting information about placement requests, their destinations, and associated actors.",
+  "entities": [],
+  "fields": [
+    "IsEditable",
+    "IsDeletable",
+    "PRD_ID",
+    "PRD_IDFormatted",
+    "ParentPRDID",
+    "PlacementRequestID",
+    "FirstChild",
+    "ShowSortOption",
+    "SupervisorID",
+    "UseSiteInstructor",
+    "HasMultiplePreceptors",
+    "MultiplePreceptorsHoursBalance",
+    "ServiceShortName",
+    "DestinationShortName",
+    "SupervisorName",
+    "SupervisorIcon",
+    "SupervisorToolTip",
+    "StatusCode",
+    "StatusCodeFormatted",
+    "DatesFormatted",
+    "DaysTimeFormatted",
+    "DurationHours",
+    "DurationHoursFormatted",
+    "StudentHoursFormatted",
+    "DurationShifts",
+    "DurationShiftsFormatted",
+    "ShiftLengthFormatted",
+    "SizeFormatted",
+    "AgencyName",
+    "AgencyID",
+    "DeptName",
+    "ProgramName",
+    "CourseName",
+    "CourseShortName",
+    "PRType",
+    "PRDurationHours",
+    "TimetableDurationHours",
+    "TotalHoursMandatory",
+    "TotalDestSizeMandatory",
+    "TotalGroupSize",
+    "TotalHoursOptional",
+    "TotalDestSizeOptional",
+    "FakePRDDestSize",
+    "Icons1",
+    "Icons2",
+    "Service",
+    "ServiceID",
+    "Destination",
+    "DestinationID",
+    "StudentID",
+    "StudentLastName",
+    "StudentFirstName",
+    "StudentMiddleName",
+    "StudentConsentExpiredDate"
+  ],
+  "actors": [
+    "HSPnetSession",
+    "SqlDataReader",
+    "PRD",
+    "Header",
+    "SplitList"
+  ],
+  "workflows": [
+    {
+      "name": "PlacementRequestAddSplit",
+      "steps": [
+        "Set procedure name to 'PlacementRequestAddChild'.",
+        "Add necessary parameters to the session.",
+        "Execute procedure and capture new PRD_ID if successful.",
+        "Handle errors or warnings based on the procedure return value."
+      ]
+    },
+    {
+      "name": "PlacementRequestUpdateDest",
+      "steps": [
+        "Set procedure name to 'PlacementRequestUpdateChild'.",
+        "Add necessary parameters to the session.",
+        "Execute procedure and handle return values for errors or warnings.",
+        "If a print job is created, flag it as 'parameters ready'."
+      ]
+    },
+    {
+      "name": "PlacementRequestSearchSplits",
+      "steps": [
+        "Set procedure name to 'PlacementRequestSearchSplits'.",
+        "Add necessary parameters to the session.",
+        "Retrieve header information and fill PRDList with splits.",
+        "Update header with student info and handle unaccounted students."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Entry is editable if agency, site, service, and destination are enabled.",
+    "PC can delete New children, RC can delete NewD children if entry is editable.",
+    "Hide 'bogus' parent CFO PRs from non-sysadmin users.",
+    "Grey out non-editable rows except for Ref# and icons."
+  ],
+  "validations": [
+    "StatusCode should not be 'DecD', 'DecA', or 'Canc' to perform certain actions.",
+    "Date validation for StartDateBlock2.",
+    "Group size consistency validation."
+  ],
+  "calculations": [
+    "StudentHours = DestGroupSize * DurationHours.",
+    "CFOConfirmedCount = CFOAcceptedCount - confirmed spaces remaining."
+  ],
+  "conditions": [
+    "Role-based visibility control for icons and actions.",
+    "Check for alternate observation or block flags to determine status."
+  ],
+  "system_behavior": [
+    "The system handles database interactions to fetch, update, and manipulate PRD data.",
+    "Icons are dynamically updated based on conditions and statuses."
+  ],
+  "dependencies": [
+    "Dependent on session data and roles for permissions and access control.",
+    "Relies on HSPnet session and database utilities for data fetching and updates."
+  ],
+  "exceptions": [
+    "Error handling for exceeding total group size.",
+    "Warnings for auto-printed documents."
+  ],
+  "source_document_ids": [
+    "00de4958-97ef-51c1-a073-2a7cff6ff045",
+    "02381e7f-6ded-5fd8-8da7-0ea70dcbd8f5",
+    "04b4e466-0786-501e-9891-147fe5d52133",
+    "05f37709-a686-527e-aa76-49cf1d24e8a6",
+    "08079346-1857-5fe3-b181-ba2d4413830d",
+    "08972ef3-dc99-50e9-9ab9-f039750bab9b",
+    "10dc1048-ad47-555a-9665-ae042945d4b2",
+    "168aa7db-630f-5b84-8d26-42194d3efc62",
+    "18e7a7d9-068d-55f7-812a-97c358e34959",
+    "1cda3356-a1c1-580c-a747-63612663949a",
+    "29de5753-15b9-5b68-b939-af84dd640dd7",
+    "33fc678a-96b2-5812-ae00-a2d85f2739fc",
+    "373f43c0-b7b1-5029-b24a-816535d6cc43",
+    "4e8fd1e2-ae5c-58d2-ae71-f12198f6011b",
+    "6b29cc7a-8d68-5ff6-b403-7112dd8ff20f",
+    "7dca84a6-70d9-5495-bf0e-7619022a008f",
+    "7eb37222-f731-51a0-9612-b8bcbcf2bb17",
+    "72e9f38a-0f84-5bdc-bef7-e5a34feaad32",
+    "74a7929a-a442-5c50-ac34-a0fdf9c7fdf2",
+    "7ed5c3b5-fe26-545d-865e-d2e1f618942b",
+    "8e829a8d-f30d-5e4e-ad94-52e62093c3b4",
+    "98bd6e17-a90c-5535-9d71-bab6de6b1492",
+    "a0631020-cc8a-5f63-a0b0-a453f627923b",
+    "bc80c168-02a4-5599-8357-a53d81a9a0d2",
+    "b21ddf8b-a983-5c96-9cdf-dbea253a9a6c",
+    "ddfa0461-5214-587e-8079-da5072248489",
+    "e44e4c83-3a67-5939-85a3-36525dbf0201",
+    "f8a300aa-57b3-57f0-aa34-4e4c7224fd67",
+    "f213c0d1-16c2-5b9e-ac39-bde161e07bb7",
+    "f5fb24b0-5efc-5a91-8dec-e4c04fced0f7",
+    "e739b30f-1fb8-58b1-a9f5-9768a7925ec4",
+    "d8da8c2e-87b9-5c16-94ef-32224b75fe09"
+  ],
+  "content_gaps": []
+}
