@@ -1,0 +1,90 @@
+{
+    "filename": "SiteOpportunity",
+    "found": true,
+    "summary": "The SiteOpportunity files are responsible for managing opportunities related to sites. It includes operations such as retrieving opportunities by site ID or ID, adding, updating, and deleting site opportunities. Additionally, the files involve setting up parameters, handling procedural database operations, and managing UI elements linked to these operations.",
+    "purpose": "To manage opportunities related to sites including retrieving, adding, updating, and deleting site opportunities within a structured workflow, interfaced through a consistent user interface and database operations.",
+    "entities": [],
+    "fields": [
+        {
+            "name": "ID",
+            "type": "int",
+            "description": "Unique identifier for the SiteOpportunity."
+        },
+        {
+            "name": "SiteID",
+            "type": "int",
+            "description": "Identifier for the site related to the opportunity."
+        },
+        {
+            "name": "HeadingID",
+            "type": "int",
+            "description": "Identifier for the heading of the opportunity."
+        },
+        {
+            "name": "Response",
+            "type": "string",
+            "description": "Response or details associated with the site opportunity."
+        },
+        {
+            "name": "SortOrder",
+            "type": "int",
+            "description": "Order of sorting the site opportunities, with -1 as the flag for blank sort order."
+        },
+        {
+            "name": "Description",
+            "type": "string",
+            "description": "Description of the site opportunity."
+        }
+    ],
+    "actors": [
+        {
+            "name": "HSPnetSession",
+            "role": "Manages database operations and session information."
+        }
+    ],
+    "workflows": [
+        {
+            "name": "Manage Site Opportunities",
+            "steps": [
+                "Add a new site opportunity using SiteOpportunitiesAdd procedure.",
+                "Retrieve opportunities by site ID using SiteOpportunitiesSearch procedure.",
+                "Update an existing opportunity using SiteOpportunitiesUpdate procedure.",
+                "Delete an opportunity using SiteOpportunitiesDelete procedure."
+            ]
+        }
+    ],
+    "business_rules": [
+        "SiteID must be valid and non-zero for operations.",
+        "All operations must be performed within a valid database session.",
+        "Response field should not be blank during add or update operations."
+    ],
+    "validations": [
+        {
+            "rule": "Response field must not be blank.",
+            "method": "IsValid method checks if Response is not blank and adds an error if it is."
+        }
+    ],
+    "calculations": [],
+    "conditions": [],
+    "system_behavior": [
+        "Manages adding, updating, and deleting site opportunities.",
+        "Handles database interactions for site opportunities through defined procedures."
+    ],
+    "dependencies": [
+        "Database connection for executing procedural operations.",
+        "HSPnet.UI for UI-related functionalities.",
+        "HSPnet.Framework and HSPnet.App_GlobalResources for resources and framework functionalities."
+    ],
+    "exceptions": [
+        "Invalid ID or SiteID during operations could lead to operation failure.",
+        "Blank Response field triggers an error message."
+    ],
+    "source_document_ids": [
+        "148590b2-a5c1-5ba2-9f76-5946671326da",
+        "18839216-0ce2-5da0-8629-43191022355e",
+        "2e24ba24-238e-539a-9060-ae9c5b2ef73d",
+        "430d8e05-df1d-5100-81dd-8c604142a057",
+        "64109c98-7c33-509c-9bd9-15bb43722cb7"
+    ],
+    "content_gaps": []
+}
