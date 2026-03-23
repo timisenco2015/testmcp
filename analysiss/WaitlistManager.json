@@ -1,0 +1,76 @@
+{
+  "filename": "WaitlistManager",
+  "found": true,
+  "summary": "The WaitlistManager is a web application component for managing education program waitlists. It involves UI elements for displaying and manipulating waitlist data, handling page load and rendering events, and interacting with data through a .NET application.",
+  "purpose": "The primary purpose of the WaitlistManager is to allow users to view, manage, and update the waitlist of education programs within the HSPnet web application framework.",
+  "entities": [],
+  "fields": [
+    "ProgramID",
+    "TermCodeID",
+    "TermYear",
+    "txtWaitlist"
+  ],
+  "actors": [
+    "UserSession"
+  ],
+  "workflows": [
+    {
+      "name": "Page_Load",
+      "steps": [
+        "Validate URL hash using Hashing.ValidateURLHash",
+        "Setup page with SetupHSPnetPage",
+        "Register client script using Page.ClientScript.RegisterClientScriptInclude",
+        "Parse query string parameters for ProgramID, TermCodeID, TermYear",
+        "Call FillListboxes if not postback"
+      ]
+    },
+    {
+      "name": "cmdSaveWaitlist_Click",
+      "steps": [
+        "Update waitlist through StaffPostEducations.StaffPostEducationWaitlistUpdate",
+        "Refresh the view by calling cmdSearch_Click"
+      ]
+    }
+  ],
+  "business_rules": [],
+  "validations": [
+    "Validate URL hash on page load"
+  ],
+  "calculations": [],
+  "conditions": [
+    "If list count is greater than 0 and ltlProgram.Text is empty, set ltlProgram.Text with ProgramName, Term, and TermYear."
+  ],
+  "system_behavior": [
+    "Renders ASP.NET Web Controls for UI interaction",
+    "Handles client-side interactions using JavaScript"
+  ],
+  "dependencies": [
+    "HSPnet.App_GlobalResources",
+    "HSPnet.DataLayer",
+    "HSPnet.UI",
+    "HSPnet.Framework"
+  ],
+  "exceptions": [],
+  "source_document_ids": [
+    "03ce2314-4daf-5832-b334-df96d5992a16",
+    "1489847d-3b57-54a3-b22c-46fa78053be3",
+    "1ec35c50-738f-501b-a12c-0ec112053ba7",
+    "22c12f91-8a39-543e-b2e2-3982fba7d732",
+    "2790a684-efcc-54d0-bae6-dc66650627af",
+    "55043690-e9eb-5027-b13b-4da8329c9d0f",
+    "55d05e99-2485-5099-9096-df94fed5f0f6",
+    "5da3257e-269d-5a69-9cfd-577fbf3b0ee2",
+    "875356e6-bf2f-5dca-a655-a87ed1979197",
+    "88fa82ba-0740-5429-a151-08480d8b17e7",
+    "99b313f8-9d5f-52bf-bc57-a752301f79aa",
+    "a07031cf-d233-58ee-91e0-06682904adf2",
+    "a0a1d45d-e9e6-5946-8165-fe2f6227a5e5",
+    "b46b9983-e6b1-5d06-9dd6-504e56ebf535",
+    "c2dd1f64-0273-54fa-b5eb-50bb39d88051",
+    "da1ec337-9236-57c2-b0f7-b71cbace3632",
+    "ed098029-947c-57ae-9b02-55f61c408c49",
+    "ed963050-bc75-58e0-b4eb-bc2b712b2950",
+    "eed4ca10-a934-5443-b858-22057a0b9cd6"
+  ],
+  "content_gaps": []
+}
