@@ -1,19 +1,76 @@
 {
-  "filename": "MaintTemplates",
-  "found": false,
-  "summary": "",
-  "purpose": "",
-  "entities": [],
-  "fields": [],
-  "actors": [],
-  "workflows": [],
-  "business_rules": [],
-  "validations": [],
-  "calculations": [],
-  "conditions": [],
-  "system_behavior": [],
-  "dependencies": [],
-  "exceptions": [],
-  "source_document_ids": [],
-  "content_gaps": ["No related documents found"]
+    "filename": "MaintTemplates",
+    "found": true,
+    "summary": "The MaintTemplates page is an ASP.NET web page designed to manage templates. It includes functionalities for viewing, adding, editing, and deleting templates. The page utilizes ASP.NET controls and Ajax toolkit to enhance user experience and facilitate template management.",
+    "purpose": "To provide a web interface for managing templates, allowing users to add, edit, and delete templates as needed.",
+    "entities": [],
+    "fields": [
+        "Name",
+        "Template",
+        "TemplateAlt",
+        "ID",
+        "Keyword"
+    ],
+    "actors": [
+        "User"
+    ],
+    "workflows": [
+        {
+            "name": "Manage Templates",
+            "steps": [
+                "Load the page and refresh data.",
+                "Enter a keyword to filter templates.",
+                "Click 'Refresh View' to update the list of templates.",
+                "Select a template to edit or delete.",
+                "Use 'Add' button to create a new template.",
+                "Edit details in the modal popup and save changes.",
+                "Delete a template by confirming the action."
+            ]
+        }
+    ],
+    "business_rules": [
+        "Templates must have a Name, Template, and TemplateAlt.",
+        "ID is auto-generated and used as a primary key.",
+        "Keyword is used for filtering the template list."
+    ],
+    "validations": [
+        "Name must be specified.",
+        "Template must be specified.",
+        "TemplateAlt must be specified."
+    ],
+    "calculations": [],
+    "conditions": [
+        "If keyword is not specified, default to '%'.",
+        "If the page is not a postback, initialize and refresh data."
+    ],
+    "system_behavior": [
+        "Page refreshes data on load and when commanded.",
+        "Modal popup is used for editing and adding templates.",
+        "Errors and warnings are displayed in respective panels."
+    ],
+    "dependencies": [
+        "HSPnet Framework",
+        "ASP.NET Ajax Toolkit"
+    ],
+    "exceptions": [
+        "Handle errors with displaying appropriate error or warning messages."
+    ],
+    "source_document_ids": [
+        "14e0e280-2c2d-50b0-8735-fac94445af98",
+        "15a2499c-b36f-5cb5-a0af-39dcef6a2bab",
+        "1b734f1c-1068-59b4-b016-b11ae3adfb93",
+        "2377ea77-675a-5338-80c4-404c7c8ce394",
+        "300f4930-fd57-58c1-b34f-dbe783d604e4",
+        "35369f5b-a7d5-52fd-a34a-d21c884af64d",
+        "3a6d9f34-ce38-57c6-b094-99062a7d691b",
+        "3e1e1809-0f04-5db7-bab6-a112ea788da5",
+        "44e17d13-2019-5ef3-8ac8-30f94f7f6f5b",
+        "a6a9e09c-d3d9-57a0-a86d-3c36eba4d032",
+        "d55046a9-7bde-584d-a425-c7fec0154ee2",
+        "e0dba9d9-061d-5d27-baeb-0435d5e001c4",
+        "ec5a86d1-de8d-5b9b-96e4-f3d83801977c",
+        "ed97220c-57c7-530e-9c5a-b8742c4bd215",
+        "f67b0c7c-aa47-588a-9091-e0a6a280251f"
+    ],
+    "content_gaps": []
 }
