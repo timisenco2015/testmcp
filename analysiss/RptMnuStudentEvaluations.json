@@ -1,0 +1,88 @@
+{
+    "filename": "RptMnuStudentEvaluations",
+    "found": true,
+    "summary": "RptMnuStudentEvaluations is a component within the HSPnet framework for managing and displaying student evaluations through a web interface. It utilizes ASP.NET Web Controls for UI components and connects to a database to retrieve and display reports.",
+    "purpose": "The primary purpose is to facilitate the presentation of student evaluation reports based on selected department and program criteria, enabling users to generate and view data in HTML or export it to Excel.",
+    "entities": [],
+    "fields": [
+        "ValidationSummary1",
+        "Label3",
+        "ltlDescription",
+        "Label4",
+        "ltlOptions",
+        "valEditEndDate",
+        "CustomValidator1",
+        "ddDepartment",
+        "ddProgram",
+        "cmdRunExcel",
+        "lblPleaseWait",
+        "pnlReportHTML",
+        "lblReportHTML",
+        "btnEndDate",
+        "CalendarExtender2",
+        "RegularExpressionValidator2",
+        "Literal1",
+        "valEditStartDate",
+        "txtEndDate",
+        "btnStartDate",
+        "CalendarExtender1",
+        "RegularExpressionValidator1",
+        "ltlMandatoryStartDate",
+        "Label8",
+        "txtStartDate"
+    ],
+    "actors": [
+        "UserSession",
+        "ScriptMgr"
+    ],
+    "workflows": [
+        {
+            "name": "Generate Student Evaluation Report",
+            "steps": [
+                "User selects department and program from dropdowns.",
+                "Start and end dates are specified using text boxes with calendar extenders.",
+                "Parameters are added to the database session.",
+                "Data is retrieved using SqlDataReader.",
+                "Report HTML is generated and displayed if data exists.",
+                "User has the option to export data to Excel using cmdRunExcel."
+            ]
+        }
+    ],
+    "business_rules": [
+        "Allow all departments/programs if UserSession permits.",
+        "Validate start and end date fields with required field and regular expression validators."
+    ],
+    "validations": [
+        "RequiredFieldValidator ensures start and end dates are provided.",
+        "RegularExpressionValidator checks the date format."
+    ],
+    "calculations": [],
+    "conditions": [
+        "Department and program dropdowns are filled based on the UserSession's permissions.",
+        "Visibility of HTML report panel is conditional on report generation success."
+    ],
+    "system_behavior": [
+        "JavaScript setup for client-side scripting operations.",
+        "Dropdownlists are dynamically filled based on database queries."
+    ],
+    "dependencies": [
+        "Database access through UserSession",
+        "ASP.NET Web Controls for UI components",
+        "AjaxControlToolkit for calendar operations"
+    ],
+    "exceptions": [
+        "Incorrect behavior may occur if auto-generated code is improperly modified."
+    ],
+    "source_document_ids": [
+        "3bda989e-aee9-5cb0-a91b-23b5c507dcce",
+        "61fb9721-4ba7-52db-970a-f961984a3da4",
+        "655270a1-b63f-5095-b8d5-e0786f5a67d5",
+        "6a6d3e5d-65f4-55d0-8a26-bb833decde1d",
+        "8389c636-6a4e-5e20-9527-aa890021a8cc",
+        "9acbebb5-e432-5501-a525-cb5de2c228bd",
+        "b379a95a-4b6c-5652-9bd2-dd11e1be0538",
+        "e2803cea-dae1-5367-9582-0de35ea31cfc",
+        "e317b930-d13f-5511-844e-4de35ee59b82"
+    ],
+    "content_gaps": []
+}
