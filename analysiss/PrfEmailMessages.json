@@ -1,70 +1,62 @@
 {
-  "filename": "PrfEmailMessages",
-  "found": true,
-  "summary": "The PrfEmailMessages file is part of the staff profile user control system, involving email message functionalities such as viewing, editing, adding, and deleting staff messages.",
-  "purpose": "To manage staff email messages within the HSPnet application, allowing users to perform various operations on messages including viewing, editing, adding, and deleting.",
-  "entities": [
-    "StaffMessage",
-    "HSPnetSession",
-    "UserSession"
-  ],
-  "fields": [
-    "StaffID",
-    "TypeCodeID",
-    "CurrentPage",
-    "ScreenIsEditable",
-    "ReadOnly"
-  ],
-  "actors": [
-    "User"
-  ],
-  "workflows": [
-    {
-      "name": "Email Message Management",
-      "steps": [
-        "User selects an action on the email messages such as view, edit, add, or delete.",
-        "The system processes the request based on user session data and inputs.",
-        "Data binding occurs to display and manage message details.",
-        "Appropriate buttons are enabled or disabled based on editability of the screen.",
-        "User actions (add, edit, delete) trigger commands that modify message data."
-      ]
-    }
-  ],
-  "business_rules": [
-    "Screen must be editable for adding new data.",
-    "No data message appears when data grid is empty and screen is editable."
-  ],
-  "validations": [
-    "Page validity is checked before completing add or edit operations.",
-    "User session must be active and valid for data operations."
-  ],
-  "calculations": [],
-  "conditions": [
-    "Visibility of buttons based on screen editability.",
-    "Command names vary depending on the form mode (edit/insert)."
-  ],
-  "system_behavior": [
-    "Auto-generated fields are to be modified in code-behind not designer files.",
-    "Session caching occurs after certain user actions to preserve state."
-  ],
-  "dependencies": [
-    "HSPnet.DataLayer",
-    "HSPnet.Framework",
-    "HSPnet.App_GlobalResources"
-  ],
-  "exceptions": [
-    "Operation cancellation if user session is null or page is invalid."
-  ],
-  "source_document_ids": [
-    "54eb7f90-aa81-5c73-9edf-449b18368886",
-    "747bb576-2d1e-515e-844c-e5b69a297c7f",
-    "766d2735-749a-5eca-9d70-13ff77e83546",
-    "cf2f0c7f-251f-5853-a971-0e529d5cb0f0",
-    "d2df2107-29e7-5d6e-aafe-d55e8532eeca",
-    "edab8455-e683-5ca9-84d6-77349d98c7a5",
-    "f8b1f8d2-c584-576d-b5c1-20135d6f0924"
-  ],
-  "content_gaps": [
-    "The specific details of the data schema for StaffMessage are not provided."
-  ]
+    "filename": "PrfEmailMessages",
+    "found": true,
+    "summary": "The PrfEmailMessages document concerns managing email messages related to staff profiles within a web application. It includes functionality for displaying, editing, inserting, and deleting email messages, with integration for caching and session management.",
+    "purpose": "To provide functionality for managing staff email messages within the web application, including CRUD operations and validation.",
+    "entities": [
+        "PrfEmailMessages"
+    ],
+    "fields": [
+        "mdlDetails",
+        "ValidationSummary1",
+        "uxDetail",
+        "dsStaffMessagesID",
+        "dsType",
+        "updPnlMain",
+        "pnlEmptyData",
+        "lblEmptyData",
+        "cmdAddEmptyData",
+        "gridData"
+    ],
+    "actors": [
+        "Staff",
+        "UserSession"
+    ],
+    "workflows": [
+        {
+            "name": "Email Message Management",
+            "steps": [
+                "Load Page",
+                "Select Email Message",
+                "Insert Email Message",
+                "Update Email Message",
+                "Delete Email Message",
+                "Session Management"
+            ]
+        }
+    ],
+    "business_rules": [],
+    "validations": [
+        "Email type must be selected from dropdown",
+        "Screen is editable based on session state"
+    ],
+    "calculations": [],
+    "conditions": [],
+    "system_behavior": [
+        "Auto-generated fields are modified directly in code-behind",
+        "Redirects on save and delete actions",
+        "Handles objects from data source selecting and updating"
+    ],
+    "dependencies": [],
+    "exceptions": [],
+    "source_document_ids": [
+        "54eb7f90-aa81-5c73-9edf-449b18368886",
+        "747bb576-2d1e-515e-844c-e5b69a297c7f",
+        "766d2735-749a-5eca-9d70-13ff77e83546",
+        "cf2f0c7f-251f-5853-a971-0e529d5cb0f0",
+        "d2df2107-29e7-5d6e-aafe-d55e8532eeca",
+        "edab8455-e683-5ca9-84d6-77349d98c7a5",
+        "f8b1f8d2-c584-576d-b5c1-20135d6f0924"
+    ],
+    "content_gaps": []
 }
