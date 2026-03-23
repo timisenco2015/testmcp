@@ -1,0 +1,90 @@
+{
+  "filename": "RptMnuPlcSch_NISConflictReport",
+  "found": true,
+  "summary": "The RptMnuPlcSch_NISConflictReport is a web user control in the HSPnet system designed to facilitate the generation of NIS conflict reports within a specified date range and term selection. It uses various ASP.NET web controls and leverages the HSPnet session for user-specific data retrieval and report creation.",
+  "purpose": "To generate NIS (Network Integration System) conflict reports for selected terms and date ranges, used primarily for conflict resolution related to student placements and agency interactions.",
+  "entities": [],
+  "fields": [
+    {
+      "name": "ddTerm",
+      "type": "DropDownList",
+      "description": "Dropdown list for selecting the term."
+    },
+    {
+      "name": "txtStartDate",
+      "type": "TextBox",
+      "description": "Textbox for entering the start date."
+    },
+    {
+      "name": "txtEndDate",
+      "type": "TextBox",
+      "description": "Textbox for entering the end date."
+    },
+    {
+      "name": "ddPlacingAgency",
+      "type": "DropDownList",
+      "description": "Dropdown list for selecting the placing agency."
+    },
+    {
+      "name": "cmdRunReport",
+      "type": "Button",
+      "description": "Button to initiate the report generation."
+    }
+  ],
+  "actors": [
+    {
+      "name": "User",
+      "role": "Initiates the report generation process by selecting terms, dates, and agencies."
+    },
+    {
+      "name": "System",
+      "role": "Processes the report generation and interacts with the database to retrieve necessary data."
+    }
+  ],
+  "workflows": [
+    {
+      "name": "Generate NIS Conflict Report",
+      "steps": [
+        "User selects a term from the ddTerm dropdown.",
+        "User enters a start date in the txtStartDate textbox.",
+        "User enters an end date in the txtEndDate textbox.",
+        "User selects a placing agency from the ddPlacingAgency dropdown.",
+        "User clicks the cmdRunReport button to start report generation.",
+        "System validates input and confirms UserSession is active.",
+        "System calls PrintJobs.ReportNISCreateJob with parameters to create the report."
+      ]
+    }
+  ],
+  "business_rules": [
+    "The report can only be generated if the user session is active.",
+    "The placing agency and term must be selected for the report to be generated."
+  ],
+  "validations": [
+    "RegularExpressionValidator1 and RegularExpressionValidator2 ensure date inputs are in the correct format.",
+    "CustomValidator1 may be used for additional validations not specified in retrieved content."
+  ],
+  "calculations": [],
+  "conditions": [],
+  "system_behavior": [
+    "Displays report options and descriptions based on user session and retrieved code records.",
+    "Registers and executes JavaScript for input field interactions and resets.",
+    "Handles asynchronous postbacks for dynamic page updates."
+  ],
+  "dependencies": [
+    "Requires HSPnet session data for report parameters.",
+    "Interacts with database objects via ASP.NET ObjectDataSource controls."
+  ],
+  "exceptions": [
+    "Report generation is cancelled if the UserSession is not active."
+  ],
+  "source_document_ids": [
+    "0660d383-01d9-5c76-9935-f6b35316d409",
+    "16624479-5009-5007-b5a8-8b4aa4f796e6",
+    "3e8c0544-4dd5-51d0-b3e4-7f7ac508aa9c",
+    "a0db8bfc-6471-5bd7-9c0a-b08e381d909f",
+    "b3643e62-6bbf-5d7f-bed5-6931d5d33cf2",
+    "cbfe2d78-ea9b-5311-b8d7-33814cc8c45b",
+    "f96f09fa-4f68-5e2c-8aeb-b3835a373789"
+  ],
+  "content_gaps": []
+}
