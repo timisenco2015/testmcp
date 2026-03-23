@@ -1,0 +1,78 @@
+{
+    "filename": "DateFormatter",
+    "found": true,
+    "summary": "The DateFormatter class is a utility for managing and formatting dates, including day abbreviations and calculating date ranges for different terms (Winter, Spring/Summer, Fall, etc.). It includes functionality to format dates in various forms, parse date strings, and create arrays of reset dates based on term types.",
+    "purpose": "To provide utilities for date formatting, parsing, and management of date ranges associated with specific terms or periods.",
+    "entities": [],
+    "fields": [],
+    "actors": [],
+    "workflows": [
+        {
+            "name": "Format Days",
+            "steps": [
+                "Build short day string using FormatDays.",
+                "Convert abbreviation 'Var' to 'Various' if applicable.",
+                "Convert day abbreviations to 3-letter representations.",
+                "Handle special cases for day ranges.",
+                "Append slash or dash between day abbreviations."
+            ]
+        },
+        {
+            "name": "Build Date Reset Arrays",
+            "steps": [
+                "Initialize default today date range.",
+                "Determine term-specific date ranges (Winter, Spring/Summer, Fall).",
+                "Select custom date if no other options match."
+            ]
+        },
+        {
+            "name": "Parse Date",
+            "steps": [
+                "Check if the date string is empty.",
+                "Try parsing the date string into a DateTime object.",
+                "Return parsed DateTime or a null date if parsing fails."
+            ]
+        }
+    ],
+    "business_rules": [
+        "Use ISO format for date representation: yyyy-MM-dd.",
+        "The maximum future year can be set to 5 years from the current year.",
+        "Specific ranges for terms: Winter (Jan-Apr), Spring/Summer (May-Aug), Fall (Sep-Dec)."
+    ],
+    "validations": [
+        "Check if the date string is empty before parsing.",
+        "Ensure valid date strings parse correctly."
+    ],
+    "calculations": [
+        "Calculate date ranges based on terms (Winter, Spring/Summer, Fall).",
+        "Format dates using specified format strings."
+    ],
+    "conditions": [
+        "If date string is empty, return null date.",
+        "If today is before August 31, use May-Aug range for Spring/Summer term."
+    ],
+    "system_behavior": [
+        "Parses date strings into DateTime objects.",
+        "Formats DateTime objects into strings using various date format patterns."
+    ],
+    "dependencies": [],
+    "exceptions": [],
+    "source_document_ids": [
+        "161e95e0-d0b4-5201-9a83-02e9fe5a2b71",
+        "1837f945-6d14-578c-a28a-2e8fe8bf0897",
+        "19b65ec1-5af5-576c-9011-4632cb8a2c69",
+        "323e2ed8-6e69-5cee-9c59-cdda6cccf0b9",
+        "399d2461-8357-59e6-bf91-2126da512f3d",
+        "3e802cc0-426b-50a6-9820-5c6e7352c86d",
+        "456da831-8176-5449-a7d2-ee139a2a1305",
+        "714b1bf0-71dc-572e-8752-2a7bbd742648",
+        "8237e639-38cf-5ffc-a31c-60344f0268d7",
+        "82b5c808-e0ff-54d2-8ef7-d4d3a4485c57",
+        "8d6cf4e7-d2ad-5a7c-b17f-8cdacf5b9f34",
+        "c9dd6d98-3003-5850-9826-f61d1816875c",
+        "dd7ca3f6-e2fa-5d04-b3a7-6c61ed174505",
+        "f83b2872-138f-51e4-869c-f6dad81d9380",
+        "fc686706-a930-568c-ae62-91b4cb7b66b6"
+    ],
+    "content_gaps": []
+}
