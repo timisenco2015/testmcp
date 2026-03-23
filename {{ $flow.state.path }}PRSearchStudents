@@ -1,0 +1,172 @@
+```json
+{
+  "filename": "PRSearchStudents",
+  "found": true,
+  "summary": "PRSearchStudents is a system used to manage placement requests and student placement data efficiently.",
+  "purpose": "To facilitate the management of placement requests and student assignments within educational institutions.",
+  "entities": [
+    "PRSearchStudent",
+    "AllowedList",
+    "HSPnetSession"
+  ],
+  "fields": [
+    "StudentID",
+    "SiteID",
+    "ServiceID",
+    "DestinationID",
+    "PR_ID",
+    "PRD_ID",
+    "GroupInstructorID",
+    "GroupInstructorLastName",
+    "GroupInstructorFirstName",
+    "GroupInstructorMiddleName",
+    "StartDate",
+    "EndDate",
+    "ProgramShortName",
+    "CourseShortName",
+    "TypeCode",
+    "DurationHours",
+    "ExpectedDurationHours",
+    "StatusCode",
+    "StatusCodeSort",
+    "WithHoldPlacement",
+    "Comments",
+    "Notes"
+  ],
+  "actors": [
+    "Placement Coordinator",
+    "Instructor",
+    "Supervisor",
+    "Student",
+    "System Administrator"
+  ],
+  "workflows": [
+    {
+      "name": "StudentSearchPRHistory",
+      "steps": [
+        "Retrieve allowed locations based on session settings.",
+        "Execute data retrieval using stored procedures.",
+        "Format and order the placement data entries.",
+        "Return the ordered list of PRSearchStudent entries."
+      ]
+    },
+    {
+      "name": "SupervisorSearchPRHistory",
+      "steps": [
+        "Initialize list of PRSearchStudent.",
+        "Use session parameters to query database.",
+        "Sort and retrieve data according to user input.",
+        "Return PR history for supervisor."
+      ]
+    },
+    {
+      "name": "InstructorSearchPRHistory",
+      "steps": [
+        "Check private mode for session.",
+        "Retrieve allowed lists for sites, services, destinations.",
+        "Query database and filter results based on permissions.",
+        "Return formatted list of placement requests."
+      ]
+    },
+    {
+      "name": "DestinationSearchPRHistory",
+      "steps": [
+        "Check private mode for session.",
+        "Retrieve allowed lists for sites, services, destinations.",
+        "Query database and filter results.",
+        "Return destination-specific placement history."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Placement requests must be confirmed (StatusCode == 'Conf') to display.",
+    "Entries are filtered by allowed site, service, destination based on session settings.",
+    "Duration hours cannot be negative and must be within reasonable limits."
+  ],
+  "validations": [
+    "Ensure PRD_ID and StudentID are valid before proceeding.",
+    "Confirm that duration hours are greater than or equal to zero.",
+    "Validate user permissions against allowed locations."
+  ],
+  "calculations": [
+    "Duration hours are calculated based on group size and allocated hours.",
+    "Expected duration hours are adjusted based on observations and group settings."
+  ],
+  "conditions": [
+    "Check if student consent has expired to update visibility.",
+    "Private mode hides unshared placement requests."
+  ],
+  "system_behavior": [
+    "Updates are done via stored procedures in the database.",
+    "Use JavaScript-driven UI actions for client-side interactivity."
+  ],
+  "dependencies": [
+    "Database procedures for data retrieval.",
+    "Session settings for user and role context."
+  ],
+  "exceptions": [
+    "Consent expiration may result in restricted visibility of student data.",
+    "Non-confirmed placements might be hidden from non-administrative users."
+  ],
+  "source_document_ids": [
+    "00c558d6-3cb8-5cac-b6d6-77d2bdd190ac",
+    "02d8b2bf-8f3c-5ef5-9cb2-434dd731b2ad",
+    "0523cc6f-9192-5759-aa6f-86090e2b7e72",
+    "06c02e05-c8e7-577d-ad5c-dcdf6a30b9db",
+    "0caf69ae-55cf-56d7-9111-bb9b62149b26",
+    "2438714e-0dfd-5c78-add5-ded65ca3f3ec",
+    "2581e24b-4e82-518d-955e-16f48a3ecf55",
+    "27583929-5264-5be1-af7e-0af096d1a29b",
+    "2da0ca60-faa0-5306-82ba-86d0a17118c4",
+    "33f21ae8-5d35-5c01-bdd8-976e1265f3eb",
+    "3eaccef2-5ab9-5dd9-9123-ce844e1bc871",
+    "3f5d0bf9-7e53-549e-adbf-52c7047dc5f4",
+    "40b75937-77d8-5191-93f0-f168c464e1bb",
+    "42c7bb02-07af-5c97-ab57-9a7b03a2ae51",
+    "4c4c4757-00d2-52c6-840f-0b5a31a1f72d",
+    "4d774d12-1dce-560c-990d-b991bf9c3ab2",
+    "500be28a-b88d-525a-9063-dedb8686951a",
+    "532536cd-9686-51a0-9240-f6e895456047",
+    "57212c7c-aec1-5f1b-ab2f-adc5e8ae18ec",
+    "594f46a6-4243-5758-8ed5-8abf8831788c",
+    "640346d4-628c-5503-ae92-ecd2f74c3c66",
+    "6b3916ca-ee24-565f-bb7b-fcd7cb66e6fd",
+    "7235f612-63f9-5d1f-bdc3-33f718a9a9d1",
+    "7dc8168f-d743-594d-ad6f-a3dd51419e92",
+    "7e596901-7be2-556f-b0e4-9639c8715420",
+    "7f775bb7-74d2-54d3-825e-4e87a7751432",
+    "837fe075-9946-5454-ae92-ed23bc11a476",
+    "884a9d21-d5dc-55e5-9f45-baecf4a640fa",
+    "8a36dd6e-143c-50de-afd3-f3af7a4994c7",
+    "8dd64499-930f-5166-910f-1877daea337e",
+    "910d8e44-639e-5a35-9b29-0dd68b62e52e",
+    "97c11a04-a72a-59f5-9efd-b1499497f748",
+    "99e91197-a504-561e-824f-d612dc79f6fe",
+    "9fa6acbf-9234-574b-8daf-583051d8c736",
+    "a25f4fea-0456-55d7-b895-db29b6c9cb60",
+    "a28358e6-d1ec-5004-8a9d-34396ded811d",
+    "a671b2c3-4879-5a04-a4ad-b1ec3ce306ac",
+    "a77b5a04-24cc-5d36-a95a-f094570490f6",
+    "adb49846-7450-568e-b406-62d4e84a77a7",
+    "b456c3fd-737a-5e1c-b8cf-9c8362bbbac0",
+    "bfa44007-4e8f-5b77-b6c4-24e319cffcc2",
+    "c14a2546-e23b-5e72-9c17-44da57457511",
+    "c56ee5a0-0f41-568a-881f-2b9fad040eeb",
+    "ca62da68-a950-5714-9ee6-e6d078a631dc",
+    "d5b4870b-e156-569d-bfb1-bb1ad7eec7f0",
+    "da6237dd-563a-5d94-a421-2e14eaeee011",
+    "da707f93-092d-5671-a4e6-616d0e4623e6",
+    "dcc0c611-563a-57ce-942b-a4034c942c74",
+    "e457ff52-2fd1-57ea-a44b-eaae86ccb02d",
+    "e5beed04-c440-5a12-9531-2aa791b57b6d",
+    "efd05936-d3ad-5e2a-ae04-489dd348a07c",
+    "f455feef-cbab-541b-89a1-5aaabf5d13c1",
+    "f5d24cc9-9686-54be-82c8-dbad6168a0cd",
+    "f932c5b4-9dce-59f4-a349-2574eb6fba73"
+  ],
+  "content_gaps": [
+    "No information on user interface design specifics.",
+    "Limited details on integration with other systems."
+  ]
+}
+```
