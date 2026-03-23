@@ -1,19 +1,82 @@
 {
   "filename": "AgencyProfileHistory",
-  "found": false,
-  "summary": "",
-  "purpose": "",
-  "entities": [],
-  "fields": [],
-  "actors": [],
-  "workflows": [],
-  "business_rules": [],
-  "validations": [],
-  "calculations": [],
-  "conditions": [],
-  "system_behavior": [],
-  "dependencies": [],
-  "exceptions": [],
-  "source_document_ids": [],
-  "content_gaps": ["No related documents found"]
+  "found": true,
+  "summary": "AgencyProfileHistory tracks changes and interactions involving an agency's profile within the system.",
+  "purpose": "To manage and maintain historical records of profile changes made by agency users.",
+  "entities": [
+    "AgencyProfileHistory",
+    "Agency",
+    "User",
+    "Phone"
+  ],
+  "fields": [
+    "ID",
+    "ActionDate",
+    "ScreenSection",
+    "UserAction",
+    "Fields",
+    "Agency",
+    "AgencyName",
+    "LastName",
+    "FirstName",
+    "MiddleName",
+    "Phone",
+    "ByUserID",
+    "ByOriginalUserID",
+    "ByUserSysAdmin"
+  ],
+  "actors": [
+    "AgencyUser",
+    "System Administrator"
+  ],
+  "workflows": [
+    {
+      "name": "Select Agency Profile History",
+      "steps": [
+        "Check user session validity",
+        "Configure input parameters",
+        "Execute database query to retrieve history records",
+        "Return list of agency profile history records"
+      ]
+    }
+  ],
+  "business_rules": [
+    "Only allow access if user session is valid"
+  ],
+  "validations": [
+    "Verify AgencyID and UserSession are correctly set"
+  ],
+  "calculations": [
+    {
+      "description": "Format action date",
+      "data_points": [
+        "ActionDate"
+      ]
+    }
+  ],
+  "conditions": [
+    {
+      "description": "Cancel data source selection if user session is null",
+      "logic": "UserSession == null"
+    }
+  ],
+  "system_behavior": [
+    "User actions and profile changes are logged and retrieved from the database"
+  ],
+  "dependencies": [
+    "HSPnetSession",
+    "Database",
+    "Resources"
+  ],
+  "exceptions": [
+    "Invalid user session results in query cancellation"
+  ],
+  "source_document_ids": [
+    "15c94f3f-f742-5810-b434-c20f8ad6b260",
+    "7d79fe20-87f9-5cd7-9bd8-0c268bb0bf53",
+    "9a0cb835-eaac-576f-902b-1c37454bbf0c",
+    "e67d6f27-f1e3-5ea8-8b56-55ef439607e3",
+    "fa907938-cc36-56e5-8ce2-4283ff2a346b"
+  ],
+  "content_gaps": []
 }
