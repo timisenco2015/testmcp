@@ -1,8 +1,8 @@
 {
   "filename": "SiteDetail",
   "found": true,
-  "summary": "The SiteDetail class is part of the HSPnet Data Layer and is responsible for managing site details. It includes methods to add, update, delete, copy, and retrieve site details by site ID or ID. The class handles database operations such as executing queries with stored procedures (SiteDetailsAdd, SiteDetailsUpdate, SiteDetailsDelete, SiteDetailsCopy, SiteDetailsSearch, SiteDetailsSearchID) and manages session parameters.",
-  "purpose": "Manage site detail data including CRUD operations for site details in the HSPnet system.",
+  "summary": "The SiteDetail framework handles operations such as adding, updating, deleting, and retrieving site details, with validation and database interaction mechanisms.",
+  "purpose": "To manage site details in the HSPnet system, including adding, updating, retrieving, and deleting records, and ensuring data consistency and validation.",
   "entities": [],
   "fields": [
     "ID",
@@ -17,40 +17,92 @@
     "WebPage",
     "HeaderChanged"
   ],
-  "actors": ["HSPnetSession"],
+  "actors": [
+    "HSPnetSession",
+    "SqlDataReader"
+  ],
   "workflows": [
     {
-      "name": "Manage Site Details",
+      "name": "Add Site Detail",
       "steps": [
-        "Add Site Detail",
-        "Update Site Detail",
-        "Delete Site Detail",
-        "Copy Site Detail",
-        "Get Site Detail by ID",
-        "Get Site Details by SiteID"
+        "Check if data is valid using IsValid method.",
+        "Set database procedure to 'SiteDetailsAdd'.",
+        "Add parameters (SiteID, HeadingID, Response, SortOrder, SessionID).",
+        "Execute database query."
+      ]
+    },
+    {
+      "name": "Update Site Detail",
+      "steps": [
+        "Check if ID is not zero and data is valid.",
+        "Set database procedure to 'SiteDetailsUpdate'.",
+        "Add parameters (SiteDetailID, HeadingID, Response, SortOrder, SessionID).",
+        "Execute database query."
+      ]
+    },
+    {
+      "name": "Delete Site Detail",
+      "steps": [
+        "Check if ID is not zero.",
+        "Set database procedure to 'SiteDetailsDelete'.",
+        "Add parameters (SiteDetailID, SessionID).",
+        "Execute database query."
+      ]
+    },
+    {
+      "name": "Copy Site Detail",
+      "steps": [
+        "Check if ID is not zero.",
+        "Set database procedure to 'SiteDetailsCopy'.",
+        "Add parameter 'ID'.",
+        "Execute database query."
+      ]
+    },
+    {
+      "name": "Get Site Details by Site ID",
+      "steps": [
+        "Set database procedure to 'SiteDetailsSearch'.",
+        "Add parameter 'SiteID'.",
+        "Retrieve data using SqlDataReader.",
+        "Fill list with retrieved data.",
+        "Close data reader."
+      ]
+    },
+    {
+      "name": "Get Site Detail by ID",
+      "steps": [
+        "Set database procedure to 'SiteDetailsSearchID'.",
+        "Add parameter 'ID'.",
+        "Retrieve data using SqlDataReader.",
+        "Fill list with retrieved data.",
+        "Close data reader."
       ]
     }
   ],
   "business_rules": [
-    "Use procedure names with or without alternate database prefix.",
-    "Translate new lines in response using HSPnet.UI.HTML.",
-    "Do not repeat header entries; set HeaderChanged to true if HeadingID changes.",
-    "Use DescriptionAlt for DescriptionFormatted if UseAltLanguageFields is true.",
-    "Display SortOrder of -1 as blank."
+    "Use DescriptionAlt for formatted description if alternate language fields are used.",
+    "Reset level count when HeadingID changes.",
+    "Set WebPage to true if Description matches WEB_PAGE resource."
   ],
   "validations": [
-    "Check if Response is blank before adding or updating."
+    "Response field should not be blank; otherwise, an error message is added."
   ],
-  "calculations": [],
+  "calculations": [
+    "Translate response new lines into HTML format.",
+    "Set SortOrderFormatted to empty if SortOrder equals -1."
+  ],
   "conditions": [
-    "If ID is not zero, proceed with copy or delete."
+    "Check if the header category has changed since the last entry.",
+    "Use alternate language fields if sess.UseAltLanguageFields is true."
   ],
   "system_behavior": [
-    "Reset level counts when a new header entry is detected.",
-    "Flag entries as WebPage when description matches WEB_PAGE resource."
+    "System executes stored procedures for database operations.",
+    "System adds error messages if validation fails."
   ],
   "dependencies": [
-    "Requires HSPnetSession for database operations."
+    "HSPnetSession",
+    "HSPnet.Framework",
+    "HSPnet.App_GlobalResources"
   ],
   "exceptions": [],
   "source_document_ids": [
