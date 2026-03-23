@@ -1,0 +1,73 @@
+{
+  "filename": "WorksheetSummary",
+  "found": true,
+  "summary": "The WorksheetSummary handles the processing and display of worksheet statistics in different categories including group worksheets, individual worksheets without CFO involvement, and individual worksheets with CFO involvement.",
+  "purpose": "To provide a structured overview of worksheets including those not sent, remaining enrollments, and assignments, assisting in managing and tracking worksheet processing.",
+  "entities": [
+    "WorksheetSummary",
+    "HSPnetSession"
+  ],
+  "fields": [
+    "GWSNotSent",
+    "IWSnonCFONotSent",
+    "IWSCFONotSent",
+    "GWSNotSentWorksheet",
+    "IWSnonCFONotSentWorksheet",
+    "IWSCFONotSentWorksheet",
+    "StudentsRemainingInEnrollment",
+    "EnrollmentsWithRemainingStudents",
+    "GWSAWithRemainingSpaces",
+    "GWSARemainingSpaces",
+    "IWSAWithRemainingSpaces",
+    "IWSARemainingSpaces"
+  ],
+  "actors": [
+    "sess"
+  ],
+  "workflows": [
+    {
+      "name": "Group Worksheet Processing",
+      "steps": [
+        "Retrieve session and parameters.",
+        "Process database records for worksheet counts.",
+        "Iterate through result sets for specific worksheet statistics.",
+        "Generate URLs and controls for displaying results."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Worksheets are processed based on session parameters and course ID when specified.",
+    "Links and UI controls are enabled or disabled based on worksheet counts."
+  ],
+  "validations": [
+    "Check worksheet counts to determine link availability."
+  ],
+  "calculations": [
+    "Count of worksheets not sent (GWS, IWS non-CFO, IWS CFO)."
+  ],
+  "conditions": [
+    "Links are created only if worksheet counts are greater than zero."
+  ],
+  "system_behavior": [
+    "UI elements are disabled if there are no remaining worksheet spaces."
+  ],
+  "dependencies": [
+    "Session ID",
+    "Program ID",
+    "Placement Coordinator ID",
+    "Date range"
+  ],
+  "exceptions": [
+    "If session data or database connection fails, processing cannot occur."
+  ],
+  "source_document_ids": [
+    "0d0d4a25-01d9-5532-85de-c995a74c5771",
+    "427552d8-870f-54ba-89b0-818729aebdc5",
+    "4a307bc0-2073-5538-bd4a-d8df9906ce01",
+    "5bfb04ce-7e2b-5498-9b05-721a52f98908",
+    "868f72c2-e067-5f5c-93ac-88f4a901f2b0",
+    "9f1a6366-8b7f-59e9-8d74-987581d519a2",
+    "d26a66cc-9736-5023-86e4-d26f7b628fce"
+  ],
+  "content_gaps": []
+}
