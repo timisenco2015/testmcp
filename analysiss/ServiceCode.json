@@ -1,44 +1,68 @@
 {
-  "filename": "ServiceCode",
-  "found": true,
-  "summary": "Defines the ServiceCode and ServiceCodes classes for managing service codes and their attributes.",
-  "purpose": "To facilitate the management of service codes, including listing all codes and options based on course or timetable IDs.",
-  "entities": [
-    "ServiceCode"
-  ],
-  "fields": [
-    "ID",
-    "CodeCategoryID",
-    "ShortName",
-    "Name",
-    "SortOrder",
-    "Notes",
-    "NameAlt",
-    "NotesAlt"
-  ],
-  "actors": [
-    "HSPnetSession"
-  ],
-  "workflows": [
-    {
-      "name": "ServiceCode List Workflow",
-      "steps": [
-        "Set procedure name.",
-        "Fetch data using SqlDataReader.",
-        "Read and localize data."
-      ]
-    }
-  ],
-  "business_rules": [],
-  "validations": [],
-  "calculations": [],
-  "conditions": [],
-  "system_behavior": [],
-  "dependencies": [],
-  "exceptions": [],
-  "source_document_ids": [
-    "94f1b055-348d-508a-ae6e-cf7960a8c6a2",
-    "f976b9af-a402-540f-b162-391d578fac7c"
-  ],
-  "content_gaps": []
+    "filename": "ServiceCode",
+    "found": true,
+    "summary": "ServiceCode encapsulates the properties and methods related to service codes in the HSPnet framework, including ID, CodeCategoryID, ShortName, Name, Notes, and alternative fields for localization.",
+    "purpose": "To manage and retrieve service codes, along with alternative localization data, within the HSPnet framework.",
+    "entities": [
+        "ServiceCode"
+    ],
+    "fields": [
+        {
+            "name": "ID",
+            "type": "int"
+        },
+        {
+            "name": "CodeCategoryID",
+            "type": "int"
+        },
+        {
+            "name": "ShortName",
+            "type": "string"
+        },
+        {
+            "name": "Name",
+            "type": "string"
+        },
+        {
+            "name": "SortOrder",
+            "type": "int"
+        },
+        {
+            "name": "Notes",
+            "type": "string"
+        },
+        {
+            "name": "NameAlt",
+            "type": "string"
+        },
+        {
+            "name": "NotesAlt",
+            "type": "string"
+        }
+    ],
+    "actors": [],
+    "workflows": [
+        {
+            "name": "Retrieve Service Codes",
+            "steps": [
+                "Initialize session procedure",
+                "Retrieve data from database",
+                "Localize data if necessary",
+                "Close data reader"
+            ]
+        }
+    ],
+    "business_rules": [],
+    "validations": [],
+    "calculations": [],
+    "conditions": [],
+    "system_behavior": [],
+    "dependencies": [],
+    "exceptions": [],
+    "source_document_ids": [
+        "94f1b055-348d-508a-ae6e-cf7960a8c6a2",
+        "e4ebe4b4-6d14-5c3f-b693-61016f765239",
+        "f976b9af-a402-540f-b162-391d578fac7c"
+    ],
+    "content_gaps": []
 }
