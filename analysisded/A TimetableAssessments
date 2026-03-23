@@ -1,0 +1,90 @@
+```json
+{
+  "filename": "TimetableAssessments",
+  "found": true,
+  "summary": "The document involves a user interface for managing timetable assessments with capabilities for saving, canceling, and managing optional sections.",
+  "purpose": "To provide a web-based interface for managing timetable assessments, including viewing, editing, saving details, and handling optional sections.",
+  "entities": [
+    "TimetableAssessment",
+    "UserSession"
+  ],
+  "fields": [
+    "ddAssessor",
+    "ddAssessmentType",
+    "ddAssessmentTemplate",
+    "ddSubject",
+    "lblErrorCaption",
+    "lblWarningCaption",
+    "lblEmptyData",
+    "chkAssessorCanViewSubjectsAnswers",
+    "chkSubjectsCanViewAssessorAnswers",
+    "txtViewUntilDaysAfterEnd",
+    "txtOpenDaysAfterStart",
+    "txtCloseDaysAfterEnd"
+  ],
+  "actors": [
+    "System Administrator",
+    "Placement Coordinator",
+    "Local Administrator",
+    "User"
+  ],
+  "workflows": [
+    {
+      "name": "Save Assessment",
+      "steps": [
+        "Prepare JavaScript variables",
+        "Execute fvwDetail_ItemCommand for cmdSave",
+        "Parse field values",
+        "Save details"
+      ]
+    },
+    {
+      "name": "Render Form View Details",
+      "steps": [
+        "Initialize and bind dropdowns",
+        "Setup change event handlers",
+        "Call SetupJavaScript"
+      ]
+    }
+  ],
+  "business_rules": [
+    "Show add button if screen is editable",
+    "Use server session to determine access rights"
+  ],
+  "validations": [
+    "Ensure session is not null before data operations",
+    "Confirm before removing access settings"
+  ],
+  "calculations": [],
+  "conditions": [
+    "Check if screen is editable",
+    "Check if rotations exist based on data",
+    "Check UserSession access rights"
+  ],
+  "system_behavior": [
+    "Asynchronous postback handling for updates",
+    "JavaScript initialization during page load"
+  ],
+  "dependencies": [
+    "Existing assessments data",
+    "JavaScriptSerializer for serializing data",
+    "ScreenIsEditable flag"
+  ],
+  "exceptions": [
+    "Cancel operation if user session is null"
+  ],
+  "source_document_ids": [
+    "0781696d-dec4-5dfc-aa58-80ddd173c0ae",
+    "0d330d29-e0a7-5f88-8c71-d32f88b252b0",
+    "0ea3e178-f11b-5ee8-afc8-441e55e2d2f4",
+    "135455cd-1a34-5b2d-b8cc-298a1d98c47e",
+    "14ec7368-e312-5de7-b00e-188a6d5310ef",
+    "1807e536-2914-59f1-a538-b9e127d25f77",
+    "1d7ea219-2359-5da1-9c7b-79cbd696c770",
+    "345a2e51-fcf0-5df0-b1f6-b535c4b757c6",
+    "447b10a9-0558-5d06-9fac-926c94892393",
+    "50cbdfe8-4a64-5c51-ba1e-e88fb00ca8fc"
+  ],
+  "content_gaps": []
+}
+```
