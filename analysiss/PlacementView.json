@@ -1,0 +1,67 @@
+{
+    "filename": "PlacementView",
+    "found": true,
+    "summary": "PlacementView contains information related to placement security access, student and instructor details, and provisioning roles.",
+    "purpose": "To manage and provide information on placement security access and related entities.",
+    "entities": [
+        "PlacementSecurityAccess",
+        "PlacementSecurityAccessInstructor"
+    ],
+    "fields": [
+        "InstructorLastName",
+        "InstructorFirstName",
+        "InstructorEmail",
+        "InstructorReceivingAgencyUniqueID",
+        "StudentLastName",
+        "StudentEmail"
+    ],
+    "actors": [],
+    "workflows": [
+        {
+            "name": "PlacementRequestSearchSecurityAccess",
+            "steps": [
+                "Initialize Database",
+                "Add parameters",
+                "Retrieve data",
+                "Process data into PlacementSecurityAccess objects",
+                "Close reader and return list"
+            ]
+        }
+    ],
+    "business_rules": [
+        "Use student date of birth if configured",
+        "Allow sites to request student number if configured"
+    ],
+    "validations": [],
+    "calculations": [],
+    "conditions": [
+        "useStudentDOB and incStudentNum configuration flags"
+    ],
+    "system_behavior": [],
+    "dependencies": [],
+    "exceptions": [],
+    "source_document_ids": [
+        "01cc3b0d-4b15-55ae-b21a-dcfd328bedb3",
+        "04693d76-c7d8-59b1-969f-eae9531a7d11",
+        "12bf24df-aadb-5b01-bcc4-cd4e7fc21b9c",
+        "1c813d44-bbdc-569d-bb92-a27cfdd5b871",
+        "223e495c-9e48-520d-a4cb-f191aba0d647",
+        "23b7adb4-161d-5d7c-b6fc-ecde06855134",
+        "42426ede-286d-53e6-9f85-fdcc5ce46a93",
+        "528f83df-d17e-57bf-9c04-14f86f22f237",
+        "5f2991f9-2c90-57d2-8d91-312800d5c3ad",
+        "7e2ec14a-824e-5a9c-af05-9d2d84beb856",
+        "8fbf4eab-997b-550c-8336-c1c594cb85ef",
+        "93a94a2b-4d3e-5cc7-9ae0-c014e2dc8d01",
+        "ad6e8275-4a27-5511-adc8-013a85d86da5",
+        "bd4b849a-ef83-58ba-99d0-cb95416c9850",
+        "c85a3ee6-334c-5796-87bd-f553c41bbba3",
+        "cc205717-5bae-5576-b806-221836015f90",
+        "d2278c9f-fd57-5cf3-adaf-5c92d437eb84",
+        "d3e3067b-e74b-5874-80e3-7b04bf8c739b",
+        "e8865b67-a587-5554-8399-b1702575d670",
+        "f5d99fa2-5792-59b2-a533-fac63554a4b0",
+        "fe83ee91-d6de-5db6-b1fc-8ee464c1a57f"
+    ],
+    "content_gaps": []
+}
