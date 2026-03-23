@@ -1,0 +1,78 @@
+```json
+{
+  "filename": "CertificationEditAll",
+  "found": true,
+  "summary": "The CertificationEditAll module handles the management and editing of student certifications within the enrollment system. It provides functionalities for listing, editing, and saving certification details for students.",
+  "purpose": "To manage and edit student certifications within an educational enrollment system, providing functionalities to update, save, and validate certification details.",
+  "entities": [
+    "StudentCertification",
+    "HSPnetSession",
+    "CertificationCodeID",
+    "EnrollmentID",
+    "CohortID",
+    "TermID",
+    "CourseID"
+  ],
+  "fields": [
+    "CertificationNumber",
+    "EffectiveDate",
+    "ExpiryDate",
+    "Status"
+  ],
+  "actors": [
+    "UserSession",
+    "StudentCertifications"
+  ],
+  "workflows": [
+    {
+      "name": "Certification Update",
+      "steps": [
+        "Retrieve student certification details using StudentCertifications.StudentCertificationSearch",
+        "Update certification details based on user input",
+        "Validate and save changes",
+        "Redirect based on the operation outcome"
+      ]
+    }
+  ],
+  "business_rules": [
+    "Certifications must have a unique CertificationNumber",
+    "EffectiveDate cannot be after ExpiryDate"
+  ],
+  "validations": [
+    "Check that EffectiveDate is valid",
+    "Check that ExpiryDate is valid and not before EffectiveDate"
+  ],
+  "calculations": [],
+  "conditions": [
+    "If the EnrollmentID is more than 0, some grid buttons are hidden",
+    "Read-only mode disables editing fields"
+  ],
+  "system_behavior": [
+    "Redirects to Enrollment page after successful save",
+    "Displays error messages if validation fails"
+  ],
+  "dependencies": [
+    "HSPnet.DataLayer",
+    "HSPnet.UI"
+  ],
+  "exceptions": [
+    "Cancel action if UserSession is null",
+    "Handle errors in user input during save operations"
+  ],
+  "source_document_ids": [
+    "1222fbc3-250e-55b4-b8b4-60d60de320ec",
+    "3bb5ea2e-d0be-52b1-b4a7-ed18748f42ee",
+    "3f5aab61-d0b2-52ae-8e24-51a67d881587",
+    "4cc31364-0b64-55f1-883f-a2943ea20c0b",
+    "54b85faf-2d00-5472-a3a0-c1fe681fdc76",
+    "7d7cc830-39b1-5d9d-b489-4575e70780f4",
+    "7f9eb089-a320-5302-9cd0-07bb5ab02b2f",
+    "9b726ecc-2937-5117-b396-fc2a8c916cd5",
+    "9f544382-0164-5431-b438-4d0d8cff18ee",
+    "ab8f2c0f-45fb-5935-b2f8-8684e2c47a4d",
+    "ba60038f-dcfe-595c-8656-14bc8d91cf7a",
+    "fd91bd44-a983-5f4f-899f-9f5aa39bc870"
+  ],
+  "content_gaps": []
+}
+```
