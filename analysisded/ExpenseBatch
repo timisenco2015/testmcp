@@ -1,0 +1,93 @@
+```json
+{
+  "filename": "ExpenseBatch",
+  "found": true,
+  "summary": "The ExpenseBatch module provides functionality for managing expense batch records in a system. This includes operations for adding, updating, deleting, and querying expense batches based on various criteria.",
+  "purpose": "Manage expense batches including creation, updating, retrieval, and deletion based on department and status.",
+  "entities": [],
+  "fields": [
+    "ID",
+    "DepartmentID",
+    "BatchDescription",
+    "BatchDate",
+    "StatusCodeID",
+    "StatusCode",
+    "StatusDescription",
+    "ClosedDate",
+    "BatchNumberFormatted"
+  ],
+  "actors": [
+    "HSPnetSession"
+  ],
+  "workflows": [
+    {
+      "name": "Search Expense Batch",
+      "steps": [
+        "Specify departmentID",
+        "Call ExpenseBatchSearch procedure",
+        "Add departmentID as parameter",
+        "Execute database query",
+        "Retrieve list of batches"
+      ]
+    },
+    {
+      "name": "Add Expense Batch",
+      "steps": [
+        "Specify departmentID, batchDescription, batchDate",
+        "Call ExpenseBatchAdd procedure",
+        "Add parameters: SessionID, DepartmentID, BatchDescription, BatchDate",
+        "Execute database query",
+        "Retrieve generated ID"
+      ]
+    },
+    {
+      "name": "Update Expense Batch",
+      "steps": [
+        "Specify id, batchDescription, batchDate, statusCodeID",
+        "Call ExpenseBatchUpdate procedure",
+        "Add parameters: SessionID, ID, BatchDescription, BatchDate, StatusCodeID",
+        "Execute database query"
+      ]
+    },
+    {
+      "name": "Delete Expense Batch",
+      "steps": [
+        "Specify id",
+        "Call ExpenseBatchDelete procedure",
+        "Add parameters: SessionID, ID",
+        "Execute database query"
+      ]
+    }
+  ],
+  "business_rules": [
+    "BatchNumberFormatted is generated as ID + ' - ' + StatusDescription",
+    "Use alternate language fields if flag is set"
+  ],
+  "validations": [
+    "Ensure ID is provided for update and delete operations",
+    "Ensure departmentID is provided for search operations"
+  ],
+  "calculations": [
+    "BatchNumberFormatted: ID.ToString() + ' - ' + StatusDescription"
+  ],
+  "conditions": [
+    "SearchID returns null if no data is found"
+  ],
+  "system_behavior": [
+    "Closes SQL Reader after operations"
+  ],
+  "dependencies": [
+    "HSPnet.Framework",
+    "System.Data.SqlClient",
+    "HSPnet.App_GlobalResources",
+    "HSPnet.UI"
+  ],
+  "exceptions": [],
+  "source_document_ids": [
+    "060e08d3-49ca-5e40-bea0-849f4e6173e1",
+    "3559737f-0154-520e-be2b-d3dd2c3de539",
+    "b2216e58-a144-55cb-8b87-3da9787fc1d7"
+  ],
+  "content_gaps": []
+}
+```
