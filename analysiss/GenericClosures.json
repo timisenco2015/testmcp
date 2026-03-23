@@ -1,8 +1,8 @@
 {
   "filename": "GenericClosures",
   "found": true,
-  "summary": "The GenericClosures module manages entity closures on different source levels such as Agency, Site, and Destination. It provides functionalities to add, update, and delete closures. The closures include details such as ClosureCodeID, start and end dates, comments, and sub-discipline lists. The module ensures data validation and integrates with a database to perform CRUD operations.",
-  "purpose": "To manage and process entity closures across different hierarchical levels, ensuring valid data entry and database synchronization.",
+  "summary": "The GenericClosures module is a component of a system dealing with the management of closure events. It involves operations like adding, updating, deleting, and searching closures, which are essentially time-bound events, within the context of Site, Agency, or Destination authorities.",
+  "purpose": "The purpose of the GenericClosures module is to handle closure events across different levels of operations (Agency, Site, Destination) within the system. These operations help manage the periods during which certain resources or services are not available.",
   "entities": [
     "GenericClosure",
     "DestinationCode",
@@ -19,68 +19,69 @@
     "SubDisciplineIDList",
     "AppliedAllDestinations",
     "ClosureCode",
-    "SourceLevel"
+    "StartDateFormatted",
+    "EndDateFormatted",
+    "SourceLevel",
+    "SessionID"
   ],
   "actors": [
     "HSPnetSession",
-    "Database"
+    "Database",
+    "SqlDataReader"
   ],
   "workflows": [
     {
-      "name": "Add Closure",
+      "name": "Closure Update",
       "steps": [
-        "Check if SourceLevel is valid",
-        "Parse StartDate and EndDate",
-        "Validate closure attributes",
-        "Prepare database procedure",
-        "Add parameters and execute query"
+        "Parse formatted dates to DateTime objects.",
+        "Validate closure data using IsValid function.",
+        "Determine procedureName and idName based on SourceLevel.",
+        "Execute database procedure to update closure information."
       ]
     },
     {
-      "name": "Update Closure",
+      "name": "Closure Add",
       "steps": [
-        "Check if SourceLevel is valid",
-        "Parse StartDate and EndDate",
-        "Validate closure attributes",
-        "Prepare database procedure",
-        "Add parameters and execute query"
+        "Parse formatted dates to DateTime objects.",
+        "Validate closure data using IsValid function.",
+        "Determine procedureName and parentIDName based on SourceLevel.",
+        "Execute database procedure to add new closure data."
       ]
     },
     {
-      "name": "Delete Closure",
+      "name": "Closure Delete",
       "steps": [
-        "Check if SourceLevel is valid",
-        "Prepare database delete procedure",
-        "Add parameters and execute query"
+        "Determine procedureName and idName based on SourceLevel.",
+        "Execute database procedure to delete closure information."
       ]
     }
   ],
   "business_rules": [
-    "Invalid closures are not processed",
-    "SourceLevel determines the appropriate database procedure"
+    "Different procedures are used for different SourceLevels.",
+    "ClosureCodeID and StartDate are mandatory fields."
   ],
   "validations": [
-    "ClosureCodeID is mandatory",
-    "StartDate and EndDate are mandatory and within allowed range",
-    "StartDate must be less than or equal to EndDate"
+    "closureCodeID must not be null.",
+    "startDate and endDate must not be null.",
+    "startDate and endDate must not exceed a maximum future date (5 years).",
+    "startDate must not be after endDate."
   ],
   "calculations": [],
   "conditions": [
-    "SourceLevel: Agency, Site, Destination"
+    "If SourceLevel is invalid, operations return immediately."
   ],
   "system_behavior": [
-    "Database procedures are dynamically selected based on SourceLevel",
-    "Errors are logged when validations fail",
-    "Closures are added, updated, or deleted in the database"
+    "Executes database stored procedures for data manipulation.",
+    "Parses and formats dates using DateFormatter.",
+    "Validates data using static methods in the GenericClosures class."
   ],
   "dependencies": [
-    "DateFormatter",
     "HSPnetSession",
-    "Database utilities"
+    "Database",
+    "DateFormatter"
   ],
   "exceptions": [
-    "Invalid SourceLevel returns without action",
-    "Validation failures prevent database operations"
+    "Return empty or null on invalid SourceLevel."
   ],
   "source_document_ids": [
     "0abc3c11-26e4-5a20-84e1-8ed3a15da6e6",
