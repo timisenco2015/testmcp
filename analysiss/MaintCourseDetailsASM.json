@@ -1,0 +1,82 @@
+{
+    "filename": "MaintCourseDetailsASM",
+    "found": true,
+    "summary": "The retrieved documents pertain to the `MaintCourseDetailsASM` user control which manages course details and settings in a web application. It handles various UI components such as form views, data sources, modals, checkboxes, dropdowns, and listboxes. The control allows for editing and managing service codes, student permissions, and course settings, with parameters including viewing privileges and allocation rules.",
+    "purpose": "To manage and maintain course details in a web application, allowing for the configuration of various parameters related to courses, student interactions, and associated services through a user interface.",
+    "entities": [],
+    "fields": [
+        "prsAllocatedToCampusOnly",
+        "prsAllocatedToSectionOnly",
+        "maxStudentPRSelections",
+        "specifyDuplicatePRs",
+        "rankWithheldPRs",
+        "viewClassmateStats",
+        "allowAnyDestInSite",
+        "allowedServiceCodeList",
+        "studentsViewPRStatus",
+        "studentsViewDestinations",
+        "allowDuplicateDestinations",
+        "studentsViewAgency",
+        "studentsViewService",
+        "sess",
+        "id",
+        "searchableStatusCodeID"
+    ],
+    "actors": [
+        "UserSession"
+    ],
+    "workflows": [
+        {
+            "name": "Course Details Editing",
+            "steps": [
+                "Load user session and course details.",
+                "Bind data to form view components.",
+                "Allow user interactions through UI controls.",
+                "Capture new values and update on actions like save."
+            ]
+        }
+    ],
+    "business_rules": [
+        "Hide edit button if screen is read-only.",
+        "Display services based on checkbox state.",
+        "Enable controls conditionally based on data availability (e.g., campuses)."
+    ],
+    "validations": [
+        "Check if UserSession is not null before proceeding.",
+        "Validate course details and parameter inputs before updating."
+    ],
+    "calculations": [],
+    "conditions": [
+        "ScreenIsEditable determines if the user can edit.",
+        "Show or hide UI elements based on data properties (e.g., campuses)."
+    ],
+    "system_behavior": [
+        "Redirect on update completion.",
+        "Maintain session data within user interactions.",
+        "Toggle visibility and enable state of controls based on conditions."
+    ],
+    "dependencies": [
+        "HSPnet.Framework",
+        "HSPnet.DataLayer",
+        "HSPnet.UI"
+    ],
+    "exceptions": [
+        "Cancel data selection if the session is invalid or not present."
+    ],
+    "source_document_ids": [
+        "19ba5b49-43f5-5856-9092-d98ec3a45a3d",
+        "20afbbdf-fb36-59e6-ba6d-f0bb3fb3f366",
+        "276f4239-c023-5c91-b800-c2c59dde6d26",
+        "38195de2-0797-5696-bacf-a90a1f022647",
+        "3ed7c95c-8e32-5c5f-80bd-c9c7aa41e63c",
+        "7d90f175-631e-5dcd-a5bb-3bbd77df0029",
+        "9901d22f-c5d7-565d-8933-aa2302643811",
+        "a00fefd5-5d8c-56b4-b409-d5343029c0c5",
+        "ac07fe7c-0519-5ddc-b58a-bd9d0cdbc64b",
+        "d973d89d-0564-5a76-a5f3-503c9a69d325",
+        "e66e2440-1be9-5475-ad84-56928b565a62",
+        "f36fd996-0be8-5cc9-b7fb-84aa593af72f",
+        "f9ed376a-9105-5493-901f-860a57734594"
+    ],
+    "content_gaps": []
+}
