@@ -1,0 +1,79 @@
+{
+  "filename": "DestProfileHistory",
+  "found": true,
+  "summary": "The DestProfileHistory is a user control in ASP.NET that manages the display and interaction with destination profiles within the HSPnet system. It involves the use of session data to filter and present relevant information.",
+  "purpose": "The main purpose of the DestProfileHistory user control is to interface with destination-related data, allowing users to view and interact with historical data associated with a specific destination profile within the HSPnet application.",
+  "entities": [],
+  "fields": [
+    {
+      "name": "UserSession",
+      "type": "HSPnetSession",
+      "description": "Represents the current user's session, used to determine access and filter data."
+    },
+    {
+      "name": "DestID",
+      "type": "int",
+      "description": "Identifies the destination profile being accessed or viewed."
+    },
+    {
+      "name": "Button1",
+      "type": "System.Web.UI.WebControls.Button",
+      "description": "A button control defined for user interaction."
+    },
+    {
+      "name": "Label1",
+      "type": "System.Web.UI.WebControls.Label",
+      "description": "A label control for displaying text."
+    },
+    {
+      "name": "gridData",
+      "type": "System.Web.UI.WebControls.GridView",
+      "description": "A grid view for displaying the list of destination profiles."
+    },
+    {
+      "name": "dsDestProfileHistory",
+      "type": "System.Web.UI.WebControls.ObjectDataSource",
+      "description": "A data source control used to retrieve destination profile history data."
+    }
+  ],
+  "actors": [
+    {
+      "name": "User",
+      "role": "Interacts with the user control to access destination profile history."
+    }
+  ],
+  "workflows": [
+    {
+      "name": "Selecting Destination Profile History",
+      "steps": [
+        "User initiates a request to view destination profile history.",
+        "System checks if UserSession is established.",
+        "If UserSession is null, selection event is cancelled.",
+        "If UserSession is valid, inputs parameters are set using DestID and SessionAgencyID.",
+        "Data is retrieved via the ObjectDataSource and displayed on the gridData."
+      ]
+    }
+  ],
+  "business_rules": [],
+  "validations": [
+    "Ensure UserSession is not null before proceeding with data selection."
+  ],
+  "calculations": [],
+  "conditions": [
+    "Check if UserSession is null to determine if the selection event should be cancelled."
+  ],
+  "system_behavior": [
+    "The system will cancel the data selection event if the UserSession object is null."
+  ],
+  "dependencies": [
+    "UserSession object is used to determine agency-specific data access and filtering."
+  ],
+  "exceptions": [
+    "If UserSession is not established, data retrieval for destination profile history will not occur."
+  ],
+  "source_document_ids": [
+    "26d18152-a8d6-510e-b713-734784713928",
+    "71b67fa5-87fc-5a95-aa14-2eaa59c96551"
+  ],
+  "content_gaps": []
+}
