@@ -1,53 +1,27 @@
 {
     "filename": "SiteRecruitmentResources",
     "found": true,
-    "summary": "The SiteRecruitmentResources document includes functionalities for managing recruitment resources. It provides controls for editing and updating site recruitment details through a web interface.",
-    "purpose": "To facilitate the management and update of recruitment resources and details associated with sites in the HSPnet application.",
-    "entities": [
-        "HSPnetSession",
-        "SiteRecruitmentResources"
-    ],
-    "fields": [
-        "RecruitmentReferenceNumber",
-        "RecruitmentClosed",
-        "WebPage"
-    ],
-    "actors": [
-        "User"
-    ],
+    "summary": "SiteRecruitmentResources is responsible for managing recruitment-related data, including resource IDs and status of recruitment (open or closed) with interaction modal popups designed for engagement.",
+    "purpose": "To manage recruitment resources through a structured form view and provide users with the ability to add, edit, or delete recruitment information along with modality for handling resources.",
+    "entities": [],
+    "fields": ["ID", "webPage", "recruitmentRefNo", "recruitmentClosed"],
+    "actors": ["UserSession"],
     "workflows": [
         {
-            "name": "cmdEdit_click",
+            "name": "Manage Recruitment Resources",
             "steps": [
-                "Switch FormView to edit mode",
-                "Set detail header to 'Edit entry'",
-                "Bind the site detail data source"
-            ]
-        },
-        {
-            "name": "uxDetail_ItemCommand",
-            "steps": [
-                "Retrieve ID from data key",
-                "Get web page, reference number, and closed status",
-                "Update recruitment resources",
-                "Redirect after caching session if not cancelled"
+                "Data bind form view to resources and allows edits.",
+                "Use modal popup for resource details.",
+                "Set recruitment status."
             ]
         }
     ],
-    "business_rules": [],
+    "business_rules": ["Auto-generated fields should be handled with care."],
     "validations": [],
     "calculations": [],
-    "conditions": [
-        "If UserSession is null, cancel data source selection"
-    ],
-    "system_behavior": [
-        "Cache user session",
-        "Redirect with URL hashing"
-    ],
-    "dependencies": [
-        "HSPnet.UI.Links",
-        "HSPnet.Framework.Hashing"
-    ],
+    "conditions": [],
+    "system_behavior": [],
+    "dependencies": ["HSPnetSession", "UserSession"],
     "exceptions": [],
     "source_document_ids": [
         "2d4e39aa-3711-5891-9efb-c1e9d0379093",
