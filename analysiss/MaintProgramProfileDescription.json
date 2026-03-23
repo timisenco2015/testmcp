@@ -1,116 +1,96 @@
 {
-  "filename": "MaintProgramProfileDescription",
-  "found": true,
-  "summary": "The MaintProgramProfileDescription class is a user control that manages the display and editing of program profiles within a grid view and form view. It leverages various ASP.NET controls to facilitate CRUD operations through a user interface, and handles data retrieval through ObjectDataSource controls.",
-  "purpose": "The purpose of the MaintProgramProfileDescription control is to handle the display, addition, modification, and deletion of program profile details in a user-friendly manner, utilizing a grid and form views for data visualization and interaction.",
-  "entities": [
-    "HSPnetSession",
-    "ProgramDetail"
-  ],
-  "fields": [
-    {
-      "name": "UserSession",
-      "type": "HSPnetSession"
-    },
-    {
-      "name": "ScreenIsEditable",
-      "type": "Boolean"
-    },
-    {
-      "name": "ProgramID",
-      "type": "int"
-    },
-    {
-      "name": "ScriptMgr",
-      "type": "ScriptManager"
-    }
-  ],
-  "actors": [
-    {
-      "name": "User",
-      "role": "Interacts with the interface to view, add, edit, or delete program profiles."
-    }
-  ],
-  "workflows": [
-    {
-      "name": "Data Selection",
-      "steps": [
-        "On selecting data, verify the visibility of the control.",
-        "Pass UserSession and ProgramID as input parameters.",
-        "Cancel selection if control is not visible."
-      ]
-    },
-    {
-      "name": "Row Data Binding",
-      "steps": [
-        "Bind data to rows in the grid.",
-        "Set up buttons based on editability.",
-        "Adjust visibility of description panels based on data."
-      ]
-    },
-    {
-      "name": "Row Command Execution",
-      "steps": [
-        "Handle row commands: edit, add, delete.",
-        "Switch to edit mode and bind data for editing.",
-        "Redirect after delete operation."
-      ]
-    },
-    {
-      "name": "Data Addition",
-      "steps": [
-        "Switch to add mode.",
-        "Bind form view to capture new data.",
-        "Show details in modal popup."
-      ]
-    }
-  ],
-  "business_rules": [
-    {
-      "rule": "Cancel data selection if the control is not visible."
-    },
-    {
-      "rule": "Only show empty data panel if grid is empty and screen is editable."
-    }
-  ],
-  "validations": [
-    {
-      "validation": "Ensure 'SortOrder' is not null; default to -1 if empty."
-    }
-  ],
-  "calculations": [],
-  "conditions": [
-    {
-      "condition": "When in edit mode, set up edit and delete buttons.",
-      "description": "Depends on ScreenIsEditable status."
-    }
-  ],
-  "system_behavior": [
-    {
-      "behavior": "Auto-generate fields are transferred to code-behind files for modifications."
-    },
-    {
-      "behavior": "Redirects to MaintProgramProfile page with updated parameters after operations."
-    }
-  ],
-  "dependencies": [
-    {
-      "dependency": "Grid and data binding directly depend on UserSession details and ProgramID."
-    }
-  ],
-  "exceptions": [
-    {
-      "exception": "JavaScript errors related to event validation may occur due to use of EmptyDataTemplate."
-    }
-  ],
-  "source_document_ids": [
-    "03243333-f3df-579f-ad44-5ded284d50a1",
-    "48f3677a-01bd-5710-a3f8-afafe12875d1",
-    "7f195e6b-fcb7-5897-b890-fff56ef4cb54",
-    "928dc17b-7169-5ba0-a6f4-c689fce7ca49",
-    "94ae5bfb-0b66-53f9-b652-bbe29956a6b0",
-    "b2e9809d-c5d7-513c-ae63-d196eb9e2765",
-    "f7b13a6b-513f-55fc-bdbe-90e2121260d0"
-  ],
-  "content_gaps": []
+    "filename": "MaintProgramProfileDescription",
+    "found": true,
+    "summary": "The MaintProgramProfileDescription is a web user control that manages the maintenance of program profile descriptions. It involves various UI components such as GridViews, Panels, Buttons, and ModalPopupExtenders to facilitate operations like adding, editing, and deleting program details.",
+    "purpose": "To provide a user interface for viewing and managing program profile descriptions within a system, allowing users to perform CRUD (Create, Read, Update, and Delete) operations on program details.",
+    "entities": [],
+    "fields": [
+        "gvwProfile",
+        "dsProfile",
+        "pnlPopup",
+        "updPnlPopup",
+        "btnShowPopup",
+        "mdlDetails",
+        "ValidationSummary3",
+        "fvwProfile",
+        "dsHeading"
+    ],
+    "actors": [
+        "UserSession",
+        "ScriptManager"
+    ],
+    "workflows": [
+        {
+            "name": "Selecting Profile",
+            "steps": [
+                "Check if the control is visible.",
+                "Set input parameters for session and program ID.",
+                "Cancel the operation if not visible."
+            ]
+        },
+        {
+            "name": "Row Data Bound Handling",
+            "steps": [
+                "Setup add, edit, and delete buttons depending on row type.",
+                "Toggle visibility of panels based on data conditions."
+            ]
+        },
+        {
+            "name": "Data Bound Handling",
+            "steps": [
+                "Hide 'no data found' button if rows exist and screen is editable.",
+                "Show specific panels if there is no data and the screen is editable."
+            ]
+        },
+        {
+            "name": "Row Command Handling",
+            "steps": [
+                "Execute edit, add, delete commands.",
+                "Redirect after executing commands."
+            ]
+        },
+        {
+            "name": "Add Handling",
+            "steps": [
+                "Switch to add mode.",
+                "Bind form view data.",
+                "Show details popup."
+            ]
+        }
+    ],
+    "business_rules": [
+        "If the control is not visible, selection operations are canceled.",
+        "Different types of buttons are displayed based on the row type and screen editability."
+    ],
+    "validations": [
+        "ValidationSummary3 is used for validating data entry."
+    ],
+    "calculations": [
+        "Sort order is set to -1 if left empty during save operation."
+    ],
+    "conditions": [
+        "Actions are conditional on the visibility of control and row type.",
+        "Conditions are checked for screen editability before showing certain UI elements."
+    ],
+    "system_behavior": [
+        "Responds to user actions by executing corresponding commands and displaying modals as needed."
+    ],
+    "dependencies": [
+        "ProgramDetail class for handling program data.",
+        "UserSession for session management.",
+        "Grid utility for UI operations."
+    ],
+    "exceptions": [
+        "JavaScript errors related to event validation are noted as unexplained when using certain methods."
+    ],
+    "source_document_ids": [
+        "03243333-f3df-579f-ad44-5ded284d50a1",
+        "48f3677a-01bd-5710-a3f8-afafe12875d1",
+        "7f195e6b-fcb7-5897-b890-fff56ef4cb54",
+        "928dc17b-7169-5ba0-a6f4-c689fce7ca49",
+        "94ae5bfb-0b66-53f9-b652-bbe29956a6b0",
+        "b2e9809d-c5d7-513c-ae63-d196eb9e2765",
+        "f7b13a6b-513f-55fc-bdbe-90e2121260d0"
+    ],
+    "content_gaps": []
 }
