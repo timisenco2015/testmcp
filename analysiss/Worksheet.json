@@ -1,140 +1,142 @@
 {
-    "filename": "Worksheet",
-    "found": true,
-    "summary": "The Worksheet module encompasses functionalities related to managing educational timetables and worksheets in an institutional setting.",
-    "purpose": "To facilitate the organization and scheduling of courses, instructors, and campuses using worksheets.",
-    "entities": [],
-    "fields": [
-      "Department",
-      "Program",
-      "Cohort",
-      "Term",
-      "Course",
-      "Site",
-      "Service",
-      "Instructor",
-      "Start Date",
-      "End Date"
-    ],
-    "actors": [
-      "UserSession",
-      "Instructor"
-    ],
-    "workflows": [
-      {
-        "name": "Initialize Worksheet Filters",
-        "steps": [
-          "Retrieve session variables like CohortID, TermID, CourseID.",
-          "Setup dropdowns for department, program, cohort, term, and course.",
-          "Set up filtering options and initialize dropdowns for site, service, instructor, date, campus, section."
-        ]
-      },
-      {
-        "name": "Update Worksheet",
-        "steps": [
-          "Handle dropdown changes in department, program, cohort, term, and course.",
-          "Refresh data by applying new filter values and invoking search functions."
-        ]
-      }
-    ],
-    "business_rules": [
-      "If no entries exist yet, users can copy data from a previous term.",
-      "Filters should be set up correctly to ensure accurate data retrieval."
-    ],
-    "validations": [
-      {
-        "function": "checkTimePeriod",
-        "description": "Ensures the start and end times form a valid time period."
-      },
-      {
-        "function": "checkValidBlock2Dates",
-        "description": "Validates that Block2 dates are correctly formatted and ordered."
-      }
-    ],
-    "calculations": [
-      {
-        "function": "ParseDate",
-        "description": "Parses and returns the date from a string."
-      },
-      {
-        "function": "DaysBetween",
-        "description": "Calculates the number of days between two dates."
-      }
-    ],
-    "conditions": [
-      {
-        "expression": "Session[\"AgencySiteID\"] != null",
-        "description": "Checks if the AgencySiteID is set in the session."
-      }
-    ],
-    "system_behavior": [
-      "Dropdowns dynamically populate based on user session data.",
-      "The UI updates as per dropdown selections and filter applications."
-    ],
-    "dependencies": [
-      "HSPnet.UI",
-      "HSPnet.Framework",
-      "HSPnet.App_GlobalResources"
-    ],
-    "exceptions": [
-      {
-        "type": "Web.UI.WebControls.Error",
-        "description": "Triggers when validation fails for date and time inputs."
-      }
-    ],
-    "source_document_ids": [
-      "011abbc0-f24c-5d08-a05f-028aed346aed",
-      "0321129e-9c2a-59a4-9090-a3e30631328b",
-      "05fd34b7-f61c-5923-8c0b-e37cb7f5d408",
-      "0747010c-494c-54a4-9756-3205ea6c90c5",
-      "08ba0da5-3287-5875-9297-8841c296c403",
-      "0a293ffc-00fb-5377-9781-880e3e3942cc",
-      "1278f277-99db-582f-815b-ac6c745a609a",
-      "131c4e5b-223e-50d9-b904-aa9f94c66f47",
-      "18389237-15b1-52ac-961d-52cbb3b1df72",
-      "1f63e90d-7f25-518b-9eac-8df096c6553b",
-      "2005419c-e073-59da-81eb-bc40a2667b98",
-      "2100b2e1-26a8-5417-81ff-ca992302bf5a",
-      "237808d4-0783-569d-b2d7-3b39d50087e8",
-      "23a03d43-e4e3-518d-ad59-89613d49a674",
-      "2696865c-9998-560c-b8fe-246afca8584b",
-      "298ee305-f80f-5846-8f8e-c9cdd3168037",
-      "2bb30fc4-dd7e-5db0-b018-62e494676825",
-      "2e490a33-5670-5e95-a2c9-f54d2ead3610",
-      "312e6c85-fee6-5f42-b14e-4ccdfbc38d80",
-      "3750410c-09cd-5fbe-863e-7d0f3cf87b7e",
-      "375cfe0d-ae15-5408-80cc-19314c36a438",
-      "5341b3f3-c489-52d3-a4f8-a24584ac7ea1",
-      "56bbaf30-aef2-5fa4-ad5c-44b4d37496cc",
-      "5db18eed-6342-5714-81c9-ab9524a35b47",
-      "5dcf1497-050b-5463-b5be-7b48a446b6c0",
-      "64908ba9-62a0-522b-a38d-7f7f0e9dceab",
-      "6529bcd5-8686-550b-9b62-41f4439716c6",
-      "66e965fb-9f46-5516-9bd2-21ec355674a9",
-      "7bba668c-c4c1-555f-a5f5-674f171c7bad",
-      "7d011b8d-2f67-5af6-9eab-38656af8bae3",
-      "7e5a8a4a-f709-5cde-93d3-29e8126eca35",
-      "81166469-0d78-5b8a-a90b-f99ef89f9f04",
-      "84e1076c-86cc-5ef2-a564-96981ccafeef",
-      "95d2a8df-12cc-5752-b759-18778bce1732",
-      "9d2db3f3-79f0-5a87-85d2-0c4a61e5b57e",
-      "9d9358fc-1ed2-5abe-958b-eb378997a05d",
-      "ac2c849a-909b-5804-ab86-20860b961c3a",
-      "ac6cdeb1-083a-532a-9141-3897e33e0b76",
-      "b7c96375-e24a-5c60-852c-f16fe6b42c30",
-      "bb176902-ba44-5335-aa63-34ab5641593c",
-      "be0533ea-0100-5ae4-9734-e57c5f9ab870",
-      "b45e8ca2-b5ac-5988-b61d-f7aca513cf2b",
-      "b691cd41-8c83-582b-b563-05a9279e3b95",
-      "ccd43391-93da-5184-aabc-7cbaa61cbc34",
-      "cf620681-a948-5fab-bb32-13d689113134",
-      "d0adff1d-db50-587d-b919-9b2c0577f4c9",
-      "d11d721f-6c20-5541-b499-368ab243eebc",
-      "d5dfe3b9-23da-5bef-b990-f3646fae560b",
-      "deaf1648-d4ac-50f4-8228-351a558c3cff",
-      "e28bdde7-867a-5099-8dd1-45cbc89a78b2",
-      "e69cdb9d-f275-5942-b16b-34ed6dd896e5",
-      "e69cdb9d-f275-5942-b16b-34ed6dd896e5"
-    ],
-    "content_gaps": []
-  }
+  "filename": "Worksheet",
+  "found": true,
+  "summary": "The Worksheet file is part of a complex system for managing educational resources and scheduling. It involves filtering and managing data related to courses, instructors, departments, and programs. Various dropdown filters are utilized to customize and refine the data displayed within the worksheet.",
+  "purpose": "To provide a user interface for managing educational scheduling and data filtering involving elements such as courses, departments, cohorts, terms, and instructors.",
+  "entities": [],
+  "fields": [
+    {
+      "name": "ddInstructorFilter",
+      "type": "Dropdown",
+      "functionality": "Select instructor based on session data."
+    },
+    {
+      "name": "ddDateFilter",
+      "type": "Dropdown",
+      "functionality": "Filter by date based on session data."
+    },
+    {
+      "name": "ddCampusFilter",
+      "type": "Dropdown",
+      "functionality": "Select campus based on session data."
+    },
+    {
+      "name": "ddSectionFilter",
+      "type": "Dropdown",
+      "functionality": "Select section based on session data."
+    },
+    {
+      "name": "ddCFOFilter",
+      "type": "Dropdown",
+      "functionality": "Select CFO mode based on session data."
+    }
+  ],
+  "actors": [
+    "UserSession",
+    "HSPnetSession"
+  ],
+  "workflows": [
+    {
+      "name": "Worksheet Management and Filtering",
+      "steps": [
+        "Select values in dropdown filters based on session variables.",
+        "Load CFO dropdown and handle visibility conditions.",
+        "Clear session variables and switch to view state.",
+        "Fill dropdowns with data sources for filtering."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Ensure selected instructors are different for courses."
+  ],
+  "validations": [
+    "Validate that start and end dates are correct and fall within allowed ranges.",
+    "Ensure reply dates are before start dates."
+  ],
+  "calculations": [],
+  "conditions": [
+    "Visibility of CFO filter based on program flags."
+  ],
+  "system_behavior": [
+    "Auto-postback on dropdown changes.",
+    "Use of JavaScript for client-side validation and interaction."
+  ],
+  "dependencies": [
+    "Session management for storing and retrieving filter states.",
+    "Database access for retrieving dropdown data."
+  ],
+  "exceptions": [
+    "Invalid date range handling and error messaging."
+  ],
+  "source_document_ids": [
+    "011abbc0-f24c-5d08-a05f-028aed346aed",
+    "0321129e-9c2a-59a4-9090-a3e30631328b",
+    "05fd34b7-f61c-5923-8c0b-e37cb7f5d408",
+    "0747010c-494c-54a4-9756-3205ea6c90c5",
+    "08ba0da5-3287-5875-9297-8841c296c403",
+    "0a293ffc-00fb-5377-9781-880e3e3942cc",
+    "1278f277-99db-582f-815b-ac6c745a609a",
+    "131c4e5b-223e-50d9-b904-aa9f94c66f47",
+    "18389237-15b1-52ac-961d-52cbb3b1df72",
+    "1f63e90d-7f25-518b-9eac-8df096c6553b",
+    "2005419c-e073-59da-81eb-bc40a2667b98",
+    "2100b2e1-26a8-5417-81ff-ca992302bf5a",
+    "237808d4-0783-569d-b2d7-3b39d50087e8",
+    "23a03d43-e4e3-518d-ad59-89613d49a674",
+    "2696865c-9998-560c-b8fe-246afca8584b",
+    "2bb30fc4-dd7e-5db0-b018-62e494676825",
+    "2e490a33-5670-5e95-a2c9-f54d2ead3610",
+    "2eed65f4-bfc6-570f-b28c-29e661a5e074",
+    "312e6c85-fee6-5f42-b14e-4ccdfbc38d80",
+    "3750410c-09cd-5fbe-863e-7d0f3cf87b7e",
+    "375cfe0d-ae15-5408-80cc-19314c36a438",
+    "3c966bdf-8c72-5a53-97e0-643e5aec6462",
+    "49f643ea-9262-5dc9-b383-f68cd1f3eaac",
+    "5341b3f3-c489-52d3-a4f8-a24584ac7ea1",
+    "56bbaf30-aef2-5fa4-ad5c-44b4d37496cc",
+    "5db18eed-6342-5714-81c9-ab9524a35b47",
+    "5dcf1497-050b-5463-b5be-7b48a446b6c0",
+    "61e2ccd8-0a70-5067-a8d1-dc9a2b6839d9",
+    "61e48694-2861-59fc-977a-42f603ba404e",
+    "64908ba9-62a0-522b-a38d-7f7f0e9dceab",
+    "6529bcd5-8686-550b-9b62-41f4439716c6",
+    "66e965fb-9f46-5516-9bd2-21ec355674a9",
+    "71bf2663-3b45-52c7-a68d-bf01db2d7efa",
+    "71fde6df-4314-5dae-9b68-036c9fcdd286",
+    "770f37d3-2d89-516d-9638-6d0fff209c08",
+    "7bba668c-c4c1-555f-a5f5-674f171c7bad",
+    "7d011b8d-2f67-5af6-9eab-38656af8bae3",
+    "7e5a8a4a-f709-5cde-93d3-29e8126eca35",
+    "81166469-0d78-5b8a-a90b-f99ef89f9f04",
+    "84e1076c-86cc-5ef2-a564-96981ccafeef",
+    "8e5bdb36-dcdd-5136-8753-27c2b830f36b",
+    "92334012-15e7-5790-8281-605088d3d391",
+    "9373983b-0b3f-5ea0-8d60-5dd94a6bb4f7",
+    "95d2a8df-12cc-5752-b759-18778bce1732",
+    "9d2db3f3-79f0-5a87-85d2-0c4a61e5b57e",
+    "9d9358fc-1ed2-5abe-958b-eb378997a05d",
+    "ac2c849a-909b-5804-ab86-20860b961c3a",
+    "ac6cdeb1-083a-532a-9141-3897e33e0b76",
+    "b45e8ca2-b5ac-5988-b61d-f7aca513cf2b",
+    "b691cd41-8c83-582b-b563-05a9279e3b95",
+    "b7c96375-e24a-5c60-852c-f16fe6b42c30",
+    "bb176902-ba44-5335-aa63-34ab5641593c",
+    "be0533ea-0100-5ae4-9734-e57c5f9ab870",
+    "ccd43391-93da-5184-aabc-7cbaa61cbc34",
+    "cf620681-a948-5fab-bb32-13d689113134",
+    "cfb1b1e6-6262-5bdd-8ef8-0480028bdeae",
+    "d0adff1d-db50-587d-b919-9b2c0577f4c9",
+    "d11d721f-6c20-5541-b499-368ab243eebc",
+    "d2552038-112b-582a-8f15-4a62ea317cd8",
+    "d5dfe3b9-23da-5bef-b990-f3646fae560b",
+    "deaf1648-d4ac-50f4-8228-351a558c3cff",
+    "e28bdde7-867a-5099-8dd1-45cbc89a78b2",
+    "e69cdb9d-f275-5942-b16b-34ed6dd896e5",
+    "e6b38d8c-4af0-5307-b375-58736d3d3cc5",
+    "f381311a-a5fd-5365-a6a4-9d1ce0e89b48",
+    "f8641aac-75cb-54b2-bcf9-73f7531fb16a",
+    "fc1b8b0e-5f4d-570c-83e4-378b8eba18e8",
+    "fd2f93ea-9648-5b93-bacb-946aa385303f"
+  ],
+  "content_gaps": []
+}
