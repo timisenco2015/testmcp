@@ -1,8 +1,8 @@
 {
   "filename": "StudentDocument",
   "found": true,
-  "summary": "The StudentDocument system manages documents associated with students, supporting features like document retrieval, updating, and formatting for display and storage.",
-  "purpose": "Manage various types of student documents, including handling anonymous and named documents, and ensuring proper document retrieval and display based on user permissions and document properties.",
+  "summary": "The retrieved documents pertain to the management and handling of student documents within an application, focusing on the creation, update, and deletion processes. Various document types such as anonymous, named, and photo are managed, each with specific behaviors based on privacy and visibility settings.",
+  "purpose": "To manage student documents within the system, allowing for the creation, update, viewing, and deletion of documents, while handling privacy concerns through anonymity settings.",
   "entities": [],
   "fields": [
     "ID",
@@ -20,71 +20,66 @@
     "FirstName",
     "MiddleName",
     "Anonymous",
-    "DeleteAfterDate",
-    "UploadedByStudent",
-    "InternalOnly",
     "DocumentName",
-    "AgencyShortName",
-    "TypeCode",
-    "TypeCodeCode",
-    "UpdatedDetails",
+    "DeleteAfterDate",
+    "InternalOnly",
     "Withhold",
     "ProgramShortName",
     "ProgramName",
-    "Email"
+    "AgencyShortName",
+    "AgencyName",
+    "Email",
+    "Phone"
   ],
   "actors": [
     "HSPnetSession",
-    "StudentDocument",
     "SqlDataReader",
+    "StudentDocument",
     "Codes"
   ],
   "workflows": [
     {
-      "name": "Get Documents by Student ID",
+      "name": "Document Management",
       "steps": [
-        "Set database procedure name to 'StudentDocumentSearch'",
-        "Add session and student ID as parameters",
-        "Execute database procedure",
-        "Retrieve documents and store in list"
-      ]
-    },
-    {
-      "name": "Add Document",
-      "steps": [
-        "Validate document",
-        "Set procedure name to 'StudentDocumentAddDoc'",
-        "Add document details as parameters",
-        "Execute database procedure",
-        "Retrieve document ID"
+        "Check document existence",
+        "Determine document type and anonymity",
+        "If document exists, generate URL link",
+        "Handle anonymous settings and update details",
+        "Add or retrieve student documents",
+        "Delete documents and associated records"
       ]
     }
   ],
   "business_rules": [
-    "Anonymous documents are not displayed if the user is the student unless launched from Student Welcome.",
-    "Remove any anonymous documents from list if viewed by the student."
+    "Anonymity is enforced based on document type.",
+    "Only non-special documents have anonymity settings append (Anonymous or Named).",
+    "File links are only valid if the file exists in the system.",
+    "Documents require a document type setting to be valid."
   ],
   "validations": [
-    "Check if TypeCodeID is set; if not, add error message indicating document type is required."
+    "Document type must be specified.",
+    "File URL and path must be non-empty for valid files.",
+    "Anonymous documents restrict certain user information display."
   ],
   "calculations": [
-    "Anonymous flag determination based on TypeCodeID matching known anon codes.",
-    "UpdatedDetails formatting including update date and user's name and agency."
+    "File size is converted into kilobytes for display."
   ],
-  "conditions": [],
+  "conditions": [
+    "If document is anonymous and uploaded by student, user details are hidden.",
+    "Document must be valid to be added to the system."
+  ],
   "system_behavior": [
-    "Handles retrieval and storage of student documents.",
-    "Formats and displays document details based on document properties and viewing context.",
-    "Supports anonymous and named document handling."
+    "Documents are added or retrieved based on student ID.",
+    "Anonymous documents do not display the uploader's name in certain conditions.",
+    "Specific document types (anon, named, photo) have distinct IDs."
   ],
   "dependencies": [
-    "System.IO for file operations",
-    "HSPnet.UI for name and date formatting",
-    "HSPnet.Framework for session management"
+    "Database procedures like StudentDocumentSearch and StudentDocumentAddDoc.",
+    "Code identifiers for document types."
   ],
   "exceptions": [
-    "Administrative setup error if document type codes are missing",
-    "File or directory deletion failure is ignored as it's considered non-critical"
+    "Administrative setup errors occur if document type codes are not found.",
+    "File deletion attempts ignore exceptions if the file cannot be deleted."
   ],
   "source_document_ids": [
     "01b2d96d-9374-5b54-a36c-ab6050cf40ec",
