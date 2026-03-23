@@ -1,0 +1,94 @@
+{
+  "filename": "StudentExpenseHistory",
+  "found": true,
+  "summary": "StudentExpenseHistory is a user control in the HSPnet system that displays a student's expense history. It retrieves and binds expense history data for a given student, allows printing, and uses a repeater control to render the records.",
+  "purpose": "To provide a user interface component that displays and manages a student's expense receipt history, including viewing and printing functionalities.",
+  "entities": [
+    "Student",
+    "ExpenseReceiptHistory",
+    "HSPnetSession"
+  ],
+  "fields": [
+    {
+      "name": "updPnlMain",
+      "type": "UpdatePanel",
+      "description": "Main update panel for asynchronous updates."
+    },
+    {
+      "name": "cmdPrint",
+      "type": "Button",
+      "description": "Button control for printing the expense history."
+    },
+    {
+      "name": "rprHistory",
+      "type": "Repeater",
+      "description": "Repeater control to display a list of expense history items."
+    },
+    {
+      "name": "dsHistory",
+      "type": "ObjectDataSource",
+      "description": "Data source for retrieving expense history records."
+    },
+    {
+      "name": "UserSession",
+      "type": "HSPnetSession",
+      "description": "Represents the user session context."
+    },
+    {
+      "name": "StudentID",
+      "type": "int",
+      "description": "Represents the unique identifier for a student."
+    }
+  ],
+  "actors": [
+    "User",
+    "System"
+  ],
+  "workflows": [
+    {
+      "name": "Load and Display Student Expense History",
+      "steps": [
+        "Page loads, initializing controls.",
+        "dsHistory_Selecting event occurs: checks UserSession. If session is missing, cancels data retrieval; otherwise, sets session and StudentID parameters.",
+        "Repeater binds data from dsHistory.",
+        "For each history item, rprHistory_ItemDataBound applies alternating row styles.",
+        "User can trigger cmdPrint for printing."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Data retrieval for expense history is cancelled if UserSession is null.",
+    "Styling for rows alternates based on item type."
+  ],
+  "validations": [
+    "UserSession presence is validated before data is retrieved."
+  ],
+  "calculations": [],
+  "conditions": [
+    "Only proceed with expense history retrieval if UserSession is not null.",
+    "Apply alternating styles based on ListItemType."
+  ],
+  "system_behavior": [
+    "Binds data to the repeater and displays expense history records.",
+    "Allows printing of the displayed records.",
+    "Automatically applies row styling for visual distinction."
+  ],
+  "dependencies": [
+    "HSPnetSession object",
+    "ExpenseReceiptHistory data",
+    "ObjectDataSource for data retrieval"
+  ],
+  "exceptions": [
+    "If UserSession is null, data retrieval is cancelled and nothing is displayed."
+  ],
+  "source_document_ids": [
+    "09c54ad1-5ac3-5006-bfd9-26167398de8c",
+    "77e66b60-c432-5291-a4ee-2089d12aff05",
+    "bfd666b6-5aaa-5548-af48-ffafae4c7760"
+  ],
+  "content_gaps": [
+    "Details of the ExpenseReceiptHistory structure are not provided.",
+    "Business rules regarding printing or editing are not detailed.",
+    "Validation rules for other fields if any exist are not specified."
+  ]
+}
