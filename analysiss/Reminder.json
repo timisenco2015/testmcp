@@ -1,0 +1,103 @@
+{
+    "filename": "Reminder",
+    "found": true,
+    "summary": "The Reminder module in HSPnet is designed to manage and schedule email reminders. Users can schedule a reminder by specifying the send date, subject, message, priority, and whether to share it. The system supports editing existing reminders and handles validation for required fields and proper date formats.",
+    "purpose": "The purpose of the Reminder module is to allow users to create, edit, and delete email reminders for placement requests within the HSPnet system. It facilitates communication and timely reminders between users and staff.",
+    "entities": [
+        "Reminder",
+        "User",
+        "Staff",
+        "PlacementRequestReminder"
+    ],
+    "fields": [
+        {"name": "txtSendOn", "type": "TextBox", "validations": ["Required", "RegularExpression"]},
+        {"name": "txtEmailSubject", "type": "TextBox", "validations": ["Required"]},
+        {"name": "txtEmailBody", "type": "TextBox", "validations": ["Required"]},
+        {"name": "dpEmailFrom", "type": "DropDownList"},
+        {"name": "rblPriority", "type": "RadioButtonList"},
+        {"name": "chkShareReminder", "type": "CheckBox"}
+    ],
+    "actors": [
+        {"name": "User"},
+        {"name": "Staff"}
+    ],
+    "workflows": [
+        {
+            "name": "Schedule a Reminder",
+            "steps": [
+                "User fills in send date, subject, email body, selects priority and chooses whether to share.",
+                "User clicks 'Schedule a Reminder'.",
+                "System validates input fields and schedules the reminder, displaying any errors if validation fails."
+            ]
+        },
+        {
+            "name": "Edit Reminder",
+            "steps": [
+                "User selects a reminder to edit.",
+                "User modifies details.",
+                "User clicks 'Update Reminder'.",
+                "System updates the reminder details, after performing necessary validations."
+            ]
+        },
+        {
+            "name": "Cancel Reminder",
+            "steps": [
+                "User selects a reminder to cancel.",
+                "User clicks 'Cancel Reminder'.",
+                "System removes the reminder and notifies the user."
+            ]
+        }
+    ],
+    "business_rules": [
+        "Reminders must have a send date set to tomorrow or later.",
+        "Reminders must have a subject and a body message.",
+        "Priority can be High, Medium, or Low, with Medium set as default.",
+        "Scheduled reminders are associated with a user and can optionally be shared with others."
+    ],
+    "validations": [
+        "Send date must match the specified date format.",
+        "The subject field is required.",
+        "The email body field is required."
+    ],
+    "calculations": [],
+    "conditions": [
+        "If a reminder's email body is empty, the cancel button is hidden.",
+        "If edit mode is active, the user can modify the reminder."
+    ],
+    "system_behavior": [
+        "Displays error messages if validation fails during reminder scheduling.",
+        "Populates email sender dropdown with user's email.",
+        "Changes button visibility based on user input and conditions."
+    ],
+    "dependencies": [
+        "Relies on user session to determine current user.",
+        "Utilizes global resources for localization."
+    ],
+    "exceptions": [
+        "If a send date is set to today or the past, an error message is displayed.",
+        "If required fields are missing, scheduling fails and displays an appropriate message."
+    ],
+    "source_document_ids": [
+        "1758a0f8-0c44-51a9-a65b-a8cee02bf230",
+        "1c570558-1b59-5694-8bba-15fae2e28d71",
+        "2e0f5fab-fd52-56b1-908c-0cf472db31df",
+        "332f7c98-ed5f-5040-b002-4b055293cffc",
+        "408bbb34-e359-527c-84fe-857724423043",
+        "4be74d7d-d0d1-525f-8128-a80302467bd1",
+        "54d92080-c699-5073-9262-e642c517f085",
+        "6ae1b8f2-666c-5834-9a2d-82c26291699a",
+        "89d90e0f-5650-57ea-a100-f4efaccab7e5",
+        "8a1da3a2-e9c3-5f14-abe4-e8e69395fc1c",
+        "b0900149-50a1-52c1-8f7b-34663cdc6e8f",
+        "b9963179-f933-51fd-aa8a-85c9457f28ae",
+        "bc5769e5-a1a8-5059-96d8-57242d86824d",
+        "cbcf35e7-7972-5bd8-b5fc-9acddd899c2b",
+        "cf1d3c04-b3f7-5c15-8c7f-736e35cb0549",
+        "df7ff82d-84dc-5372-9340-8bf0a74be3dd",
+        "e6e18be8-7421-5baf-8b69-0bd04d5037b4",
+        "f6f3ad35-3eaf-5bf5-9616-4b168a0bd469",
+        "f75ad2f8-b503-5c0b-b0c7-d6f3465b80c9",
+        "fab6a7a4-e2c9-52ee-ab20-eb2bdf9295ec"
+    ],
+    "content_gaps": []
+}
