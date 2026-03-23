@@ -2,9 +2,12 @@
 {
   "filename": "StudentPlacement",
   "found": true,
-  "summary": "The document entails the structure and functionality for handling student placements within a system, focusing on a variety of aspects including contacts, schedules, and placements details.",
-  "purpose": "To manage and process student placements effectively by providing a structured approach to handle contact information, scheduling, placement requests, and their associated data.",
-  "entities": [],
+  "summary": "The StudentPlacement module manages student placement activities, including contact information, scheduling, and various checks for changes in placement details.",
+  "purpose": "To facilitate the tracking and management of student placements with detailed contact information, scheduling, and adjustment operations.",
+  "entities": [
+    "StudentPlacement",
+    "StudentPlacements"
+  ],
   "fields": [
     "RefNum",
     "PlacementRequestID",
@@ -52,20 +55,6 @@
     "UrgentAlert",
     "ShowUrgentAlert",
     "DestinationDetails",
-    "SupervisorChanged",
-    "DestinationChanged",
-    "DateChanged",
-    "UpdatedToolTip",
-    "ParentPRDID",
-    "ParentSite",
-    "DurationHours",
-    "DurationShifts",
-    "PRShiftLength",
-    "ContactID",
-    "ContactLastName",
-    "ContactFirstName",
-    "ContactPhone",
-    "ContactEmail",
     "StartDate",
     "EndDate",
     "StartDateBlock2",
@@ -96,48 +85,73 @@
     "Rotations",
     "PRDocumentInfo",
     "AmendmentExists",
+    "ConsentProgramDisciplineSubDisciplineID",
     "WithHoldDestCoordinator",
     "WithHoldDestCoorinatorDays",
     "WithHoldPreceptor",
     "WithHoldPreceptorDays",
     "WithHoldPlacement",
-    "WithHoldPlacementDays",
     "WithHoldInstructor",
     "WithHoldInstructorDays",
-    "ConsentProgramDisciplineSubDisciplineID"
+    "DurationHours",
+    "DurationShifts",
+    "PRShiftLength",
+    "UpdatedToolTip",
+    "ParentPRDID",
+    "ParentSite",
+    "ShiftLength",
+    "ShiftType"
   ],
-  "actors": [],
+  "actors": [
+    "Student",
+    "Instructor",
+    "Supervisor",
+    "Destination Contact",
+    "Service Contact",
+    "Discipline Contact"
+  ],
   "workflows": [
     {
       "name": "Student Placement Retrieval",
       "steps": [
-        "Fetch StudentPlacement by StudentID using HSPnetSession.",
-        "Populate fields based on database retrieval using SqlDataReader.",
-        "Handle contact information with conditional logic based on contact ID values.",
-        "Perform scheduling operations by setting days and times."
+        "Retrieve placement details for a given student ID.",
+        "Check for changes in supervisor, destination, and schedule.",
+        "Parse and assign contact details."
+      ]
+    },
+    {
+      "name": "Contact Information Resolution",
+      "steps": [
+        "Determine effective contact using discipline, destination, service or instructor.",
+        "Return contact details accordingly."
       ]
     }
   ],
-  "business_rules": [],
+  "business_rules": [
+    "Effective contact prioritizes discipline, destination, service, and student instructor.",
+    "Translate 'Group' in placement type if necessary."
+  ],
   "validations": [
-    "Contact information must have valid IDs before fetching details.",
-    "Multiple contact fields such as emails and phones are split using a specific delimiter."
+    "Ensure contact string is formatted correctly before parsing."
   ],
   "calculations": [
-    "ShiftLength calculated based on the ShiftCode, StartTime, and EndTime.",
-    "ShiftType determined by various boolean fields and conditions."
+    "Calculate Shift Length using ShiftCode, StartTime, and EndTime.",
+    "Determine Shift Type based on amendment presence and shift characteristics."
   ],
   "conditions": [
-    "If DisciplineContactID is 0, fallback to next valid contact ID for fetching contact details."
+    "Contact details vary depending on available contact ID.",
+    "Placement type formatting is based on value."
   ],
   "system_behavior": [
-    "The system retrieves and structures data using stored procedures and sessions.",
-    "Phone numbers are consistently masked based on session settings."
+    "Closes data reader after retrieval.",
+    "Retrieves and assigns contact information using session database methods."
   ],
-  "dependencies": [],
+  "dependencies": [
+    "Database access via HSPnet session to retrieve details.",
+    "Contact information parsing requires correct string format."
+  ],
   "exceptions": [
-    "No discipline contact means defaulting to ID 0 and empty contact fields.",
-    "Parsing contact strings into individual fields must handle cases with missing or extra delimiters."
+    "No discipline contact defaults to ID 0 and empty strings."
   ],
   "source_document_ids": [
     "13754ba0-0cd1-58fc-aaf0-9f77bdead41a",
