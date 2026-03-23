@@ -1,0 +1,110 @@
+```json
+{
+  "filename": "PRSearchStudents",
+  "found": true,
+  "summary": "The "PRSearchStudents" document encompasses retrieval and formatting logic for handling Placement Requests (PR) involving students within the HSPnet framework. It details functions for searching and listing historical placements, handling client interactions, and managing data entries regarding placement requests.",
+  "purpose": "To facilitate the management and search of student placement requests within the HSPnet system, which includes handling historical data, formatting, client-side interactions, and database operations related to placement requests.",
+  "entities": [
+    "PRSearchStudent",
+    "AllowedList",
+    "HSPnetSession",
+    "StaffManualPlacement"
+  ],
+  "fields": [
+    "PR_ID",
+    "DestinationID",
+    "SiteID",
+    "ServiceID",
+    "StudentID",
+    "GroupInstructorID",
+    "DurationHours",
+    "ExpectedDurationHours",
+    "StatusCode",
+    "Comments",
+    "Notes"
+  ],
+  "actors": [
+    "PlacementCoordinator",
+    "Instructor",
+    "Supervisor",
+    "Student"
+  ],
+  "workflows": [
+    {
+      "name": "SearchPracticePlc",
+      "steps": [
+        "Initialize allowed locations",
+        "Set procedure name",
+        "Add parameters for StaffID and AgencyID",
+        "Retrieve and process data",
+        "Format and add list entries"
+      ]
+    },
+    {
+      "name": "SupervisorSearchPRHistory",
+      "steps": [
+        "Initialize list",
+        "Set procedure name",
+        "Add parameters for SupervisorID and SessionID",
+        "Sort list based on expression",
+        "Return ordered list"
+      ]
+    },
+    {
+      "name": "StudentSearchPRHistory",
+      "steps": [
+        "Initialize allowed lists",
+        "Set procedure name",
+        "Add parameters for StudentID and SessionID",
+        "Retrieve data and fill list",
+        "Handle archived entries with comment alerts"
+      ]
+    }
+  ],
+  "business_rules": [
+    "Check allowed lists for sites, services, and destinations",
+    "Handle permissions based on session roles",
+    "Format name using UI.NameFormatter depending on instructor IDs"
+  ],
+  "validations": [
+    "Ensure PRD_ID and StudentID are valid before updating",
+    "Validate consent expiration before displaying student data",
+    "Ensure DurationHoursAmended is not less than zero"
+  ],
+  "calculations": [
+    "Calculate perStudentHrs by summing duration hours",
+    "Format DurationHours based on comparison with ExpectedDurationHours"
+  ],
+  "conditions": [
+    "Check for archived status and handle accordingly",
+    "Determine show details based on allowed locations",
+    "Validate privateMode to skip non-compliant entries"
+  ],
+  "system_behavior": [
+    "Use SQL stored procedures for data retrieval",
+    "JavaScript client click logic for opening new windows",
+    "Format dates and codes using UI functions"
+  ],
+  "dependencies": [
+    "HSPnet.Framework",
+    "HSPnet.UI",
+    "HSPnet.App_GlobalResources"
+  ],
+  "exceptions": [
+    "Skip records if not within allowed locations",
+    "Handle missing instructor names by formatting placeholders"
+  ],
+  "source_document_ids": [
+    "00c558d6-3cb8-5cac-b6d6-77d2bdd190ac",
+    "02d8b2bf-8f3c-5ef5-9cb2-434dd731b2ad",
+    "06c02e05-c8e7-577d-ad5c-dcdf6a30b9db",
+    "0caf69ae-55cf-56d7-9111-bb9b62149b26",
+    "2581e24b-4e82-518d-955e-16f48a3ecf55",
+    "3f5d0bf9-7e53-549e-adbf-52c7047dc5f4",
+    "9fa6acbf-9234-574b-8daf-583051d8c736",
+    "b456c3fd-737a-5e1c-b8cf-9c8362bbbac0",
+    "f932c5b4-9dce-59f4-a349-2574eb6fba73"
+  ],
+  "content_gaps": []
+}
+```
