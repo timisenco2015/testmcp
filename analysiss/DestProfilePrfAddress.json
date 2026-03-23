@@ -1,0 +1,74 @@
+{
+  "filename": "DestProfilePrfAddress",
+  "found": true,
+  "summary": "The DestProfilePrfAddress component is a user control in a web application that manages the address data for a destination profile. It includes several web controls such as UpdatePanel, FormView, ObjectDataSource, Panel, and ModalPopupExtender for UI and data operations. It handles tasks related to updating and displaying address information, using both internal and external site addresses.",
+  "purpose": "To manage and display address information for destination profiles, using both internal and external site addresses, and provide interactive UI elements for data manipulation and display.",
+  "entities": [],
+  "fields": [
+    "Address1",
+    "Address2",
+    "City",
+    "Province",
+    "PostalCode",
+    "PhoneArea",
+    "PhoneWithoutArea",
+    "FaxArea",
+    "FaxWithoutArea",
+    "ActivityTypeCodeID",
+    "ExternalSiteID",
+    "AddressOption"
+  ],
+  "actors": ["UserSession"],
+  "workflows": [
+    {
+      "name": "Updating Destination Profile",
+      "steps": [
+        "Retrieve new values from textboxes and dropdowns on the detail view.",
+        "Update cache with user session data.",
+        "Redirect to current page with updated query string."
+      ]
+    },
+    {
+      "name": "Selecting Destination Profile Data",
+      "steps": [
+        "Validate user session.",
+        "Set input parameters for ObjectDataSource.",
+        "Bind data to UI controls."
+      ]
+    }
+  ],
+  "business_rules": [
+    "DC-only user cannot edit gender checkbox.",
+    "Use site address if external site ID is zero, otherwise use external site address."
+  ],
+  "validations": [
+    "Page must be valid before updating details.",
+    "TextBox maxlength set to 2000 characters for comments."
+  ],
+  "calculations": [],
+  "conditions": [
+    "If UserSession is null, cancel data selection.",
+    "Use Phone Mask is enabled or disabled based on user session."
+  ],
+  "system_behavior": [
+    "Handles asynchronous postbacks for dynamic UI updates.",
+    "Registers and executes JavaScript for UI interaction."
+  ],
+  "dependencies": ["HSPnetSession", "DestinationProfile"],
+  "exceptions": [
+    "Cancel data selection if UserSession is null during data binding."
+  ],
+  "source_document_ids": [
+    "188c1954-d837-5e23-9386-bc751e0f19ba",
+    "608324f4-4872-5a18-87d9-1bbaab6fb08a",
+    "7c2e4eb2-8327-5604-8d60-bf8b55a6a2c3",
+    "8344e02a-91b4-5618-bb10-8aa098578dcc",
+    "8e42ba8f-7591-5361-877c-48b4151dbb48",
+    "9971ac1c-c3fb-5bfd-9412-dc0266836cdd",
+    "9d5f21ea-71fd-5ece-b6e3-4dcbe8136b25",
+    "a7a0422c-b8ef-5f57-8bc1-14d145b568cd",
+    "b3da64b1-5093-5f01-8072-208b05b52b55",
+    "e3ac7ba5-f805-50aa-88a9-f1e782eb03e0"
+  ],
+  "content_gaps": []
+}
