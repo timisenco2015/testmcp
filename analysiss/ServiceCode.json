@@ -1,19 +1,48 @@
 {
   "filename": "ServiceCode",
   "found": true,
-  "summary": "The ServiceCode class and related methods provide functionality to manage service codes within the HSPnet system, including retrieving and localizing service codes for given course or timetable IDs.",
-  "purpose": "To manage service codes associated with courses and timetables in HSPnet.",
-  "entities": ["ServiceCode"],
-  "fields": ["ID", "CodeCategoryID", "ShortName", "Name", "SortOrder", "Notes", "NameAlt"],
-  "actors": [],
-  "workflows": [],
+  "summary": "ServiceCode is a class representing a code used within the HSPnet application, associated with different service categories. It handles entries with capabilities for localization and ordering.",
+  "purpose": "To provide a structured representation of service codes used in various operations within HSPnet.",
+  "entities": [
+    "ServiceCode"
+  ],
+  "fields": [
+    "ID",
+    "CodeCategoryID",
+    "ShortName",
+    "Name",
+    "SortOrder",
+    "Notes",
+    "NameAlt"
+  ],
+  "actors": [
+    "HSPnetSession"
+  ],
+  "workflows": [
+    {
+      "name": "Fetch Service Codes",
+      "steps": [
+        "Call procedure to retrieve service codes from database.",
+        "Localize entry names if alternate language is enabled."
+      ]
+    }
+  ],
   "business_rules": [],
   "validations": [],
   "calculations": [],
-  "conditions": [],
+  "conditions": [
+    "Use alternate names if the session is in an alternate language mode."
+  ],
   "system_behavior": [],
-  "dependencies": ["System.Data.SqlClient", "HSPnet.Framework"],
+  "dependencies": [
+    "HSPnet.Framework",
+    "HSPnet.App_GlobalResources"
+  ],
   "exceptions": [],
-  "source_document_ids": ["94f1b055-348d-508a-ae6e-cf7960a8c6a2", "e4ebe4b4-6d14-5c3f-b693-61016f765239", "f976b9af-a402-540f-b162-391d578fac7c"],
+  "source_document_ids": [
+    "94f1b055-348d-508a-ae6e-cf7960a8c6a2",
+    "e4ebe4b4-6d14-5c3f-b693-61016f765239",
+    "f976b9af-a402-540f-b162-391d578fac7c"
+  ],
   "content_gaps": []
 }
