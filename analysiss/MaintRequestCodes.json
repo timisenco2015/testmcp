@@ -1,99 +1,94 @@
 {
-    "filename": "MaintRequestCodes",
-    "found": true,
-    "summary": "The 'MaintRequestCodes' system facilitates the management of request codes within an organizational structure. It involves various user roles, dropdown manipulations, and workflows for adding, editing, deleting, and reactivating request codes based on specific criteria like program or sub-discipline.",
-    "purpose": "To manage request codes efficiently, allowing system administrators and local administrators to add, update, delete, and reactivate codes based on agency, department, program, and discipline.",
-    "entities": [],
-    "fields": [
-        "ddDepartment",
-        "Literal3",
-        "ddProgram",
-        "dvSubDiscipline",
-        "ltDiscipline",
-        "ddDiscipline",
-        "ddPopulationCodeID",
-        "txtPopulationCodeID",
-        "txtProgramID",
-        "txtSubDisciplineID",
-        "rdlRequestCodeType",
-        "txtName",
-        "txtShortName",
-        "txtKeyword",
-        "chkShowInactive"
-    ],
-    "actors": [
-        "SystemAdministrator",
-        "LocalAdministrator",
-        "UserSession"
-    ],
-    "workflows": [
-        {
-            "name": "Manage Request Codes Workflow",
-            "steps": [
-                "Load the page and setup the environment",
-                "Check if user is a system administrator to control visibility of elements",
-                "Fill relevant dropdowns for agency, department, and program",
-                "Edit or add request codes based on user actions",
-                "Refresh data whenever dropdown selections change",
-                "Save, delete, or reactivate request codes based on user commands"
-            ]
-        }
-    ],
-    "business_rules": [
-        "Only SysAdmin has access to RequestCode by Sub Discipline.",
-        "Users cannot add if department or program dropdown is empty.",
-        "Request codes can be managed based on the combination of agency, department, and program."
-    ],
-    "validations": [
-        "Name must be specified",
-        "ShortName must be specified"
-    ],
-    "calculations": [],
-    "conditions": [
-        {
-            "UserSession.SystemAdministrator": "rdlRequestCodeType.Visible = true"
-        },
-        {
-            "ScreenIsEditable": "Grid.HideDetailsViewButtons(uxDetail, [\"cmdSave\"]"
-        }
-    ],
-    "system_behavior": [
-        "Auto-generates fields for UI components.",
-        "Dropdowns load data based on user session and selection."
-    ],
-    "dependencies": [
-        "HSPnet.DataLayer",
-        "HSPnet.App_GlobalResources",
-        "HSPnet.UI"
-    ],
-    "exceptions": [],
-    "source_document_ids": [
-        "02792184-6eec-5609-92b7-c70052be22ea",
-        "09431696-54b9-5841-8c91-77443c7336ad",
-        "143fceb1-c35c-50de-8589-56491841a3ab",
-        "1648e48e-334c-5efb-bff0-6fb260de1894",
-        "2d45df4e-ee90-5aee-be48-79d5e9badc88",
-        "31e13cd3-3fb0-5ec4-ab1f-4f7112ee9402",
-        "39ec28b6-b6e3-5df6-b347-58d9b6aced3e",
-        "3baf3d01-585e-5b99-92b8-98269333183f",
-        "3c9eb029-2162-551f-99c8-e3c980149a19",
-        "4daf83c9-fbbe-5865-91ed-daadea2e8694",
-        "57353ddc-8b8d-5d14-b01f-44e130b26688",
-        "7352d279-7c27-5bd8-bf21-34aa74f78f2b",
-        "83ce0952-ee0c-57f4-83c6-7610e746d2bb",
-        "96834d40-bb55-56ee-8bcc-aa9b2f2beddc",
-        "969b4e9a-9b38-5ecb-88e9-eb6e405b7707",
-        "c4e3185f-70fd-52e8-88dd-5bc4b63da762",
-        "c4fe07d0-3610-5f28-8e6a-58d2a535fe81",
-        "cdf48708-0af8-59ca-8855-c35fc875ce4e",
-        "d31ebb4b-2fb7-5873-9d1e-2cf7361a015c",
-        "df7f0cf4-3f98-535c-9582-24b088024e32",
-        "e39c59c3-54d8-57f7-9615-394bb90d6b79",
-        "ec835073-f623-5da0-a7f8-2fd4d5ce72ec",
-        "f2018ee2-5072-52b7-a673-af23461635ba",
-        "f4a5cc8f-2f89-542f-b38d-1be8f900b78a",
-        "f7c1dc9f-15a6-5361-acbd-0154b63bec56",
-        "fb2b3403-435c-5fb8-a7cb-3224ed199a6c"
-    ],
-    "content_gaps": []
+  "filename": "MaintRequestCodes",
+  "found": true,
+  "summary": "The 'MaintRequestCodes' system manages request codes related to programs and sub-disciplines within an organization. It allows for the creation, editing, deletion, and reactivation of request codes. The system supports administrators in managing these codes through dropdown selections and a grid interface.",
+  "purpose": "To facilitate the management of request codes for programs and sub-disciplines, allowing administrators to perform CRUD operations and ensure data integrity through a controlled UI.",
+  "entities": [
+    "RequestCode",
+    "UserSession"
+  ],
+  "fields": [
+    "RequestCodeID",
+    "ProgramID",
+    "SubDisciplineID",
+    "Name",
+    "ShortName",
+    "PopulationCodeID",
+    "ddPopulationCodeID",
+    "ddAgency",
+    "ddDepartment",
+    "ddProgram",
+    "ddDiscipline",
+    "ddSubDiscipline"
+  ],
+  "actors": [
+    "SystemAdministrator",
+    "LocalAdministrator"
+  ],
+  "workflows": [
+    {
+      "name": "Manage Request Codes",
+      "steps": [
+        "Page Load: Setup and check user access level.",
+        "Select Code Type: 'Program' or 'SubDiscipline'.",
+        "Populate dropdowns based on selections.",
+        "Perform CRUD operations using grid commands.",
+        "Update UI and data bindings upon actions."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Access to request codes depends on user's administrative role.",
+    "Only allow edit if agency matches user's agency.",
+    "Ensure dropdown lists are populated before enabling add operations."
+  ],
+  "validations": [
+    "Name and ShortName fields must be specified.",
+    "Check if valid dropdown selection is made before submission."
+  ],
+  "calculations": [],
+  "conditions": [
+    "Switch visibility of program and sub-discipline sections based on request code type selection."
+  ],
+  "system_behavior": [
+    "Auto-generate UI fields for managing request codes.",
+    "Hide or disable editing controls based on user role and data state."
+  ],
+  "dependencies": [
+    "HSPnet.DataLayer",
+    "HSPnet.UI",
+    "AjaxControlToolkit"
+  ],
+  "exceptions": [
+    "Handle errors through dedicated error panels and avoid user disruption.",
+    "Warn about inactive codes when applicable."
+  ],
+  "source_document_ids": [
+    "02792184-6eec-5609-92b7-c70052be22ea",
+    "09431696-54b9-5841-8c91-77443c7336ad",
+    "143fceb1-c35c-50de-8589-56491841a3ab",
+    "1648e48e-334c-5efb-bff0-6fb260de1894",
+    "2d45df4e-ee90-5aee-be48-79d5e9badc88",
+    "31e13cd3-3fb0-5ec4-ab1f-4f7112ee9402",
+    "39ec28b6-b6e3-5df6-b347-58d9b6aced3e",
+    "3baf3d01-585e-5b99-92b8-98269333183f",
+    "3c9eb029-2162-551f-99c8-e3c980149a19",
+    "4daf83c9-fbbe-5865-91ed-daadea2e8694",
+    "57353ddc-8b8d-5d14-b01f-44e130b26688",
+    "7352d279-7c27-5bd8-bf21-34aa74f78f2b",
+    "83ce0952-ee0c-57f4-83c6-7610e746d2bb",
+    "96834d40-bb55-56ee-8bcc-aa9b2f2beddc",
+    "969b4e9a-9b38-5ecb-88e9-eb6e405b7707",
+    "c4e3185f-70fd-52e8-88dd-5bc4b63da762",
+    "cdf48708-0af8-59ca-8855-c35fc875ce4e",
+    "d31ebb4b-2fb7-5873-9d1e-2cf7361a015c",
+    "df7f0cf4-3f98-535c-9582-24b088024e32",
+    "e39c59c3-54d8-57f7-9615-394bb90d6b79",
+    "ec835073-f623-5da0-a7f8-2fd4d5ce72ec",
+    "f2018ee2-5072-52b7-a673-af23461635ba",
+    "f4a5cc8f-2f89-542f-b38d-1be8f900b78a",
+    "f7c1dc9f-15a6-5361-acbd-0154b63bec56",
+    "fb2b3403-435c-5fb8-a7cb-3224ed199a6c"
+  ],
+  "content_gaps": []
 }
