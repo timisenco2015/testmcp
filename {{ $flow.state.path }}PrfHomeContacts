@@ -1,0 +1,60 @@
+```json
+{
+  "filename": "PrfHomeContacts",
+  "found": true,
+  "summary": "The PrfHomeContacts component is a user control for editing and displaying home contact information within a staff profile. It handles data binding, validation, and trigger logic for user interactions.",
+  "purpose": "To manage the display and manipulation of home contact data in a staff profile interface, enabling viewing, editing, and validation of contact details.",
+  "entities": ["HSPnetSession", "StaffID", "AreaCode"],
+  "fields": ["fvwEditHomeContacts", "ValidationSummary3", "dsStaff", "ScreenIsEditable", "mdlDetails", "pnlPopup", "btnShowPopup"],
+  "actors": ["UserSession", "Grid", "JavaScript", "ScriptManager", "AjaxControlToolkit"],
+  "workflows": [
+    {
+      "name": "Edit Home Contacts",
+      "steps": [
+        "Switch to edit mode using cmdEdit_Click.",
+        "Show details with Grid.ShowDetails.",
+        "Data bind with fvwEditHomeContacts.DataBind."
+      ]
+    },
+    {
+      "name": "Setup JavaScript Variables",
+      "steps": [
+        "Add JavaScript variables for phone fields.",
+        "Register startup script for asynchronous postback."
+      ]
+    }
+  ],
+  "business_rules": [
+    "ScreenIsEditable governs visibility of edit buttons.",
+    "Session is checked before selecting staff data."
+  ],
+  "validations": [
+    "ValidationSummary3 control manages validation summaries."
+  ],
+  "calculations": [],
+  "conditions": [
+    "Check UserSession existence before data selection.",
+    "Visibility of edit controls based on ScreenIsEditable."
+  ],
+  "system_behavior": [
+    "Phone masks are applied or removed based on UserSession settings.",
+    "JavaScript variables are set and registered for page postback."
+  ],
+  "dependencies": [
+    "HSPnet.DataLayer",
+    "HSPnet.Framework",
+    "AjaxControlToolkit.ModalPopupExtender"
+  ],
+  "exceptions": [
+    "Cancel data selection if UserSession is null."
+  ],
+  "source_document_ids": [
+    "169e42e3-a079-5bc4-8262-b3fcec116405",
+    "6d884025-0d5a-56f9-a8ba-ac4f3ee288e1",
+    "82a46566-dafc-5110-8250-43643e741a28",
+    "9bd9c665-faa3-59cd-84ec-bc758083d4b0",
+    "f57a5d86-0ad7-5057-b87f-75763f1cc336"
+  ],
+  "content_gaps": []
+}
+```
