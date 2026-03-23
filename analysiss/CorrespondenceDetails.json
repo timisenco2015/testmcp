@@ -1,8 +1,8 @@
 {
   "filename": "CorrespondenceDetails",
   "found": true,
-  "summary": "The documents describe the CorrespondenceDetails system involving the management of correspondence-related entries in a database. It involves operations such as searching, adding, updating, and deleting correspondence details.",
-  "purpose": "The purpose of these documents is to provide a detailed understanding of the system's management of correspondence entries, including their properties, database mapping, and the workflow for managing them.",
+  "summary": "The CorrespondenceDetails documents describe the structure and functionality of a system for managing correspondence details within the HSPnet framework. The documents outline classes and methods for handling correspondence entries, formatting the display of responses, and validating business logic. Key functionalities include searching, adding, updating, and deleting correspondence details.",
+  "purpose": "The purpose of the CorrespondenceDetails documents is to provide comprehensive functionality for managing the details of correspondences, including entry formatting, validation, and interaction with the database within the HSPnet system.",
   "entities": [
     "CorrespondenceDetail",
     "HSPnetSession",
@@ -33,81 +33,76 @@
     "HeaderChanged"
   ],
   "actors": [
-    "User",
-    "System",
-    "Database"
+    "HSPnetSession"
   ],
   "workflows": [
     {
       "name": "CorrespondenceDetailsSearch",
       "steps": [
-        "Set procedure name to 'CorrespondenceDetailsSearch'",
-        "Add 'CorrespondenceID' parameter",
-        "Execute database procedure",
-        "Fill the list with results"
+        "Initialize a list to store CorrespondenceDetail objects",
+        "Set the stored procedure name to 'CorrespondenceDetailsSearch'",
+        "Add parameter 'CorrespondenceID'",
+        "Execute the stored procedure and obtain a SqlDataReader",
+        "Iterate through the reader and populate the list with CorrespondenceDetail entries",
+        "Return the populated list"
       ]
     },
     {
       "name": "CorrespondenceDetailsAdd",
       "steps": [
-        "Create new CorrespondenceDetail object",
-        "Set properties",
-        "Validate the object",
+        "Instantiate a new CorrespondenceDetail",
+        "Assign field values",
         "Apply business rules",
-        "Set procedure name to 'CorrespondenceDetailsAdd'",
-        "Add parameters",
-        "Execute database procedure"
+        "Validate the entry",
+        "If valid, execute the 'CorrespondenceDetailsAdd' stored procedure with relevant parameters"
       ]
     },
     {
       "name": "CorrespondenceDetailsUpdate",
       "steps": [
-        "Create CorrespondenceDetail object with current ID",
-        "Set properties",
-        "Validate the object",
+        "Instantiate a new CorrespondenceDetail",
+        "Assign field values",
         "Apply business rules",
-        "Set procedure name to 'CorrespondenceDetailsUpdate'",
-        "Add parameters",
-        "Execute database procedure"
+        "Validate the entry",
+        "If valid, execute the 'CorrespondenceDetailsUpdate' stored procedure with relevant parameters"
       ]
     },
     {
       "name": "CorrespondenceDetailsDelete",
       "steps": [
         "Check if ID is greater than 0",
-        "Set procedure name to 'CorrespondenceDetailsDelete'",
-        "Add parameters",
-        "Execute database procedure"
+        "Execute the 'CorrespondenceDetailsDelete' stored procedure with relevant parameters"
       ]
     }
   ],
   "business_rules": [
-    "If not a formal letter and HeadingID equals SignatureImageCodeID, the Response should be set to SignatureImageStaffID.",
-    "Ensure that Response is required based on the type of correspondence."
+    "If entry is not a FormalLetter and HeadingID equals SignatureImageCodeID, set Response to SignatureImageStaffID"
   ],
   "validations": [
-    "Check if Response is not blank for a formal letter.",
-    "Validate SignatureImageStaffID if HeadingID is SignatureImageCodeID."
+    "If FormalLetter and Response is empty, add error message 'Response Required'",
+    "If not FormalLetter and Response is empty and HeadingID is neither BlankRowCodeID nor SignatureImageCodeID, add error message 'Response Required'",
+    "If SignatureImageStaffID is 0 and HeadingID is SignatureImageCodeID, add error message 'Signatory Required'"
   ],
   "calculations": [
-    "Translate new lines in Response to HTML format.",
-    "Format SortOrder as a string or blank if zero.",
-    "Determine numbering character and indent level."
+    "Calculate numbering code and indent level based on NumberingCode and LevelCount"
   ],
   "conditions": [
-    "If the entry description is 'Blank Row', response is formatted as '(Blank Row)'.",
-    "Set font size and style based on description type."
+    "UseAltLanguageFields to translate Description",
+    "HeaderChanged is true if current HeadingID is different from LastHeadingID"
   ],
   "system_behavior": [
-    "Translate Heading to an alternative language if needed."
+    "Translate new lines in Response to HTML format",
+    "Do not repeat header entries",
+    "Reset level counts on new header"
   ],
   "dependencies": [
-    "HSPnet.Framework for database operations",
-    "HSPnet.UI for HTML translations and formatting"
+    "Resources.blank_row",
+    "Resources.Signature_Image",
+    "HSPnet.UI.HTML",
+    "HSPnet.UI.NumberingCodes",
+    "StringUtil"
   ],
-  "exceptions": [
-    "Errors added to session messages if validations fail."
-  ],
+  "exceptions": [],
   "source_document_ids": [
     "02862537-57c3-5554-bb6a-feaf93a4a5ff",
     "12ed0d00-3f3c-5fb8-8302-90c37ea203ff",
