@@ -1,80 +1,71 @@
 {
-    "filename": "StudentEOrientation",
-    "found": true,
-    "summary": "The StudentEOrientation system manages the user's electronic orientation process, including course completion and certificate generation. It allows users to retake courses and view certificates.",
-    "purpose": "To manage electronic orientation for students including course enrollment, completion, retakes, and certificate generation.",
-    "entities": [],
-    "fields": [
-        "UserSession",
-        "StudentID",
-        "pnlEOpeLink",
-        "pnlPrintCertificate",
-        "btnPrintCertificate",
-        "lblPleaseWait",
-        "pnlReportHTML",
-        "lblReportHTML",
-        "gvwCourses",
-        "dsCourses",
-        "data.Status",
-        "data.PRDEndDate",
-        "_completeFound"
-    ],
-    "actors": [
-        "Student",
-        "SystemAdministrator"
-    ],
-    "workflows": [
-        {
-            "name": "Retake Course",
-            "steps": [
-                "Button btnRetake becomes visible if course is completed, allowed to retake, and PRD date is not ended.",
-                "User clicks retake, confirmation prompt appears.",
-                "If confirmed, the retake script is executed."
-            ]
-        },
-        {
-            "name": "Print Certificate",
-            "steps": [
-                "User clicks btnPrintCertificate.",
-                "Report HTML is generated if course is completed.",
-                "Panel with report becomes visible."
-            ]
-        }
-    ],
-    "business_rules": [
-        "Certificate can only be printed if course is completed.",
-        "Retake available only if course is completed and PRD date is valid.",
-        "Panel visibility based on user session and course completion."
-    ],
-    "validations": [
-        "User session must be active for course selection.",
-        "Ensure PRDEndDate is valid before allowing retake."
-    ],
-    "calculations": [],
-    "conditions": [
-        "Check if user is a system administrator or authorized student.",
-        "Check if course status is completed."
-    ],
-    "system_behavior": [
-        "Shows warning if mandatory course has never been accessed.",
-        "Sets CSS class based on course status and due date."
-    ],
-    "dependencies": [
-        "HSPnetSession",
-        "Resources",
-        "HSPnet.Framework.Reporting"
-    ],
-    "exceptions": [
-        "Cancels operation if user session is null.",
-        "Hides panel if user view is switched."
-    ],
-    "source_document_ids": [
-        "1d551419-67cd-5f43-8011-83999159acc3",
-        "352b4554-fa18-59fe-9d11-cd72472ece6f",
-        "5a3fa64d-1a3b-55f2-9b05-c5ebc28ed4f2",
-        "bae687f4-b9a7-5d79-90ae-9e7f13f530db",
-        "d2c9c987-3374-57c1-a05e-ef991253412d",
-        "f38de7e2-d269-5b8b-993d-efc67802180c"
-    ],
-    "content_gaps": []
+  "filename": "StudentEOrientation",
+  "found": true,
+  "summary": "The StudentEOrientation document contains functionality for managing student orientation sessions within a web application. It includes logic for displaying course information, handling retakes of courses, and generating certificates of completion.",
+  "purpose": "To provide an interface for managing student orientations, including the ability to retake courses and print certificates.",
+  "entities": [],
+  "fields": [
+    "UserSession",
+    "StudentID",
+    "PRDEndDate",
+    "CompleteFound",
+    "EOrientationSource"
+  ],
+  "actors": [
+    "Student",
+    "System Administrator"
+  ],
+  "workflows": [
+    {
+      "name": "Retake Course",
+      "steps": [
+        "Check if course is completed",
+        "Display 'Retake' button based on PRDEndDate",
+        "Confirm retake action",
+        "Retake course if confirmed"
+      ]
+    },
+    {
+      "name": "Print Certificate",
+      "steps": [
+        "Generate certificate report",
+        "Display certificate if generation succeeds"
+      ]
+    }
+  ],
+  "business_rules": [
+    "Only allow retake if corresponding PR is not ended",
+    "Certificate is visible only when course is completed"
+  ],
+  "validations": [
+    "Check if UserSession is null",
+    "Ensure StudentID matches session"
+  ],
+  "calculations": [],
+  "conditions": [
+    "UserSession is not null",
+    "Data.Status is Completed",
+    "Can retake course"
+  ],
+  "system_behavior": [
+    "Show retake button if conditions are met",
+    "Open Moodle site on command"
+  ],
+  "dependencies": [
+    "HSPnet.Framework.Reporting",
+    "HSPnet.Session",
+    "Request.Url"
+  ],
+  "exceptions": [
+    "Cancel data selection if UserSession is null"
+  ],
+  "source_document_ids": [
+    "1d551419-67cd-5f43-8011-83999159acc3",
+    "352b4554-fa18-59fe-9d11-cd72472ece6f",
+    "5a3fa64d-1a3b-55f2-9b05-c5ebc28ed4f2",
+    "bae687f4-b9a7-5d79-90ae-9e7f13f530db",
+    "d2c9c987-3374-57c1-a05e-ef991253412d",
+    "f38de7e2-d269-5b8b-993d-efc67802180c"
+  ],
+  "content_gaps": []
 }
