@@ -1,0 +1,50 @@
+{
+  "filename": "CreatePlacementRequest",
+  "found": true,
+  "summary": "The 'CreatePlacementRequest' module is responsible for initiating placement requests within the HSPnet system.",
+  "purpose": "To create and manage placement requests by interacting with various system components and ensuring permissions and validations are met.",
+  "entities": [],
+  "fields": [
+    "strScreenName"
+  ],
+  "actors": [
+    "UserSession",
+    "HSPnetSession",
+    "Database"
+  ],
+  "workflows": [
+    {
+      "name": "Placement Request Creation",
+      "steps": [
+        "Set screen name to 'CreatePlacementRequest'.",
+        "Include virtual script '/HSPnet/DoScreen.asp'."
+      ]
+    }
+  ],
+  "business_rules": [
+    "A placement request must be valid for the user's session and adhere to agency permissions.",
+    "PlacementRequests must comply with set status codes and user types."
+  ],
+  "validations": [
+    "Ensure discipline and sub-discipline fields are correctly populated.",
+    "Check user permissions against site, service, and destination."
+  ],
+  "calculations": [],
+  "conditions": [
+    "UserType specific conditions for access to placement requests.",
+    "Site, Service, and Destination fields must be non-zero for access checks."
+  ],
+  "system_behavior": [
+    "System fetches and sets placement request details based on session parameters.",
+    "Email subject caching for consistent email notifications."
+  ],
+  "dependencies": [],
+  "exceptions": [
+    "Return false if user does not have permission to access the specified site, service, or destination.",
+    "Messages displayed for SQL errors during linkage operations."
+  ],
+  "source_document_ids": [
+    "22479536-89f9-5a3b-9e38-54ef1c92c1cd"
+  ],
+  "content_gaps": []
+}
