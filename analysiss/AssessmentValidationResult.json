@@ -1,8 +1,8 @@
 {
   "filename": "AssessmentValidationResult",
   "found": true,
-  "summary": "AssessmentValidationResult class details various boolean validation properties applicable to an assessment process.",
-  "purpose": "To determine specific validation results related to assessment conditions, such as interim and final assessment statuses, involvement of instructors and supervisors, and maximum assessment limits.",
+  "summary": "The AssessmentValidationResult class represents a validation result structure for assessing various conditions in an assessment process.",
+  "purpose": "To encapsulate the results of various validation checks during an assessment process, indicating whether specific conditions are met.",
   "entities": [],
   "fields": [
     {
@@ -13,27 +13,27 @@
     {
       "name": "InstructorsAndSupervisors",
       "type": "bool",
-      "description": "Indicates the presence of both instructors and supervisors in the assessment process."
+      "description": "Indicates whether both instructors and supervisors have been involved in the assessment process."
     },
     {
       "name": "AssessmentMaximumExceeded",
       "type": "bool",
-      "description": "Indicates if the assessment maximum limit has been exceeded."
+      "description": "Indicates whether the maximum allowable assessments have been exceeded."
     }
   ],
   "actors": [],
   "workflows": [],
   "business_rules": [],
   "validations": [
-    "InterimWithoutFinal identifies if an interim assessment exists without being followed by a final assessment.",
-    "InstructorsAndSupervisors checks the involvement of both instructors and supervisors.",
-    "AssessmentMaximumExceeded checks if the number of assessments has surpassed the allowable limit."
+    "Checks for the presence of an interim assessment without a final assessment.",
+    "Verifies the involvement of both instructors and supervisors in the assessment process.",
+    "Ensures that the number of assessments does not exceed the defined maximum."
   ],
   "calculations": [],
   "conditions": [
-    "InterimWithoutFinal is true if interim assessment exists but a final one does not.",
-    "InstructorsAndSupervisors becomes true if both categories are involved.",
-    "AssessmentMaximumExceeded is true when the assessments exceed the preset limit."
+    "Interim assessment exists without a corresponding final assessment.",
+    "Both instructors and supervisors are involved in the assessment.",
+    "Number of assessments should not exceed the maximum limit."
   ],
   "system_behavior": [],
   "dependencies": [],
