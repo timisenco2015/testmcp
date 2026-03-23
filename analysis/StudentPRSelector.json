@@ -1,0 +1,119 @@
+{
+  "filename": "StudentPRSelector",
+  "found": true,
+  "summary": "StudentPRSelector is a web page and code module within the HSPnet system, designed for managing student placement requests and related preference history. It provides an interface for viewing student profile information, selecting placements, and tracking preference history. The interface displays errors and warnings, and splits functionality across tabbed panels for placement selection and preference history.",
+  "purpose": "To facilitate the selection and management of student placement requests and preferences by authorized users, presenting relevant student information and allowing workflow actions such as placement selection, viewing history, and handling errors/warnings.",
+  "entities": [
+    "Student",
+    "StudentPRSelector",
+    "StudentPlacementSelector",
+    "StudentPRPreferenceHistory",
+    "HSPnetPage"
+  ],
+  "fields": [
+    "StudentID",
+    "TimetableID",
+    "ConfirmedPlacement",
+    "Name",
+    "Email",
+    "Phone",
+    "AltPhone",
+    "AltPhone2"
+  ],
+  "actors": [
+    "Authorized System User",
+    "Student"
+  ],
+  "workflows": [
+    {
+      "name": "Page Load and Initialization",
+      "steps": [
+        "Validate URL hash for security",
+        "Setup HSPnetPage and footer",
+        "Link child controls (placement selector, preference history)",
+        "Register client scripts for editing details"
+      ]
+    },
+    {
+      "name": "Student Profile Header Data Binding",
+      "steps": [
+        "Format and display student name",
+        "Display email with mailto link",
+        "Display phone and alternate phone numbers"
+      ]
+    },
+    {
+      "name": "Placement Selection",
+      "steps": [
+        "Load Placement Selector with user session, student ID, and confirmation state",
+        "Make Placement Selector visible if correct tab is active",
+        "Prepare Preference History control with session, student ID, and timetable ID if correct tab is active"
+      ]
+    },
+    {
+      "name": "Error and Warning Management",
+      "steps": [
+        "Display error and warning panels when messages are present",
+        "Allow user to hide panels using buttons"
+      ]
+    },
+    {
+      "name": "Page Close",
+      "steps": [
+        "Close popup window and finish page session"
+      ]
+    }
+  ],
+  "business_rules": [
+    "Do not allow duplicate ranking values in placement selection.",
+    "Placement selection controls are only loaded when their respective tab panel is active.",
+    "Preference history controls require valid StudentID and TimetableID."
+  ],
+  "validations": [
+    "Rankings must be unique across selection controls (checkRankings JavaScript).",
+    "Input controls validated and reset using JavaScript functions."
+  ],
+  "calculations": [],
+  "conditions": [
+    "TabPanelPlacementSelector must be active to initialize PlacementSelector.",
+    "TabPanelPRPreferenceHistory must be active to initialize PreferenceHistory."
+  ],
+  "system_behavior": [
+    "Page resizes window on load.",
+    "Errors and warnings are shown in panels with controls to hide them.",
+    "Uses AlwaysVisibleControlExtenders to keep error/warning panels visible.",
+    "Placement and preference history controls are dynamically shown/hidden based on tab selection."
+  ],
+  "dependencies": [
+    "HSPnet.Framework.HSPnetPage",
+    "HSPnet.UserControls.StudentPlacementSelector",
+    "HSPnet.UserControls.StudentPRPreferenceHistory",
+    "AjaxControlToolkit",
+    "Global resource files for UI labels/captions"
+  ],
+  "exceptions": [
+    "If child controls are not linked correctly, their queries will not run.",
+    "If student data item is null, profile header will not display information."
+  ],
+  "source_document_ids": [
+    "0e116a30-9f0f-58de-bef5-717a67d58594",
+    "17473837-1078-543f-bbc0-e1621e747ca6",
+    "1d2f33ff-2816-55a6-b2c3-cdf201feedfc",
+    "1f16a144-31db-5681-9e86-10b3373022dc",
+    "24bb389e-4b66-5a16-8549-bb81e3bd3d67",
+    "26433994-1f11-59c7-b412-680534b43b42",
+    "2705dafc-6f84-546f-91d6-d0cef17fde4e",
+    "77c3f9ea-cc3e-576b-9981-29a7d858fee6",
+    "814a37a0-432a-536d-b77f-8fdd0ecc62d9",
+    "866d758b-0a5a-5545-8c48-01d13fead89d",
+    "91a7576f-8112-5ffb-8142-b5722fef6194",
+    "97362ca6-88b8-5513-aebe-2e7709694a9a",
+    "efb2ff08-7d7f-52b2-8279-56283d90ece6"
+  ],
+  "content_gaps": [
+    "Details of actual placement selection workflow and business logic within child user controls are not present. Only interfaces and linkage shown.",
+    "No specific calculation logic found.",
+    "No granular exception handling for business rules shown.",
+    "Some referenced external scripts/resources not included in the documents."
+  ]
+}
