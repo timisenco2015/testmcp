@@ -1,0 +1,68 @@
+{
+  "filename": "GrpInstructorSummary",
+  "found": true,
+  "summary": "The GrpInstructorSummary module is part of a web application developed with ASP.NET. It is designed to present a summary view of group instructor schedules. The module includes functionality for selecting terms and sites, and it refreshes the displayed data based on user interaction.",
+  "purpose": "To provide a summary view of group instructor schedules, allowing users to filter and view data by term and site.",
+  "entities": [],
+  "fields": [
+    "Sess",
+    "PlcAgencyID",
+    "SiteID",
+    "DateFrom",
+    "DateTo"
+  ],
+  "actors": [
+    "UserSession",
+    "HSPnet.LeftNav Master"
+  ],
+  "workflows": [
+    {
+      "name": "Load Page",
+      "steps": [
+        "Setup HSPnet page with master and footer label.",
+        "Check if the page is loaded for the first time (not postback).",
+        "Retrieve and display the agency name from user session.",
+        "Fill dropdown lists for term and site."
+      ]
+    },
+    {
+      "name": "Refresh View",
+      "steps": [
+        "Bind data to the grid.",
+        "Display the count of destinations in a label."
+      ]
+    },
+    {
+      "name": "Select Term",
+      "steps": [
+        "Fill the site dropdown based on selected term.",
+        "Refresh the grid view."
+      ]
+    }
+  ],
+  "business_rules": [],
+  "validations": [],
+  "calculations": [],
+  "conditions": [],
+  "system_behavior": [
+    "AutoPostBack on dropdown selection to update data.",
+    "Data source selection for grid view is based on session and term dates."
+  ],
+  "dependencies": [],
+  "exceptions": [],
+  "source_document_ids": [
+    "0a447560-ee68-5082-aa5a-7e696acb15ca",
+    "26d1ff47-8fd2-542b-b6b7-93307be532ea",
+    "30d893c9-05e3-50d7-9ee3-915fcdeeb72f",
+    "6b8fe723-e8e2-5baf-a82c-b2345eac134b",
+    "8aec5ae0-5d8d-5f78-ba9a-34461b4dfcfd",
+    "8f0932ba-e658-5709-93e4-1dca61fe1914",
+    "a99be5b1-d817-5426-88e3-6161c6e5ae3f",
+    "a9e76a55-e151-5ddd-afdd-f71678de671b",
+    "af7868e8-e329-5bee-87db-d209bfe76dab",
+    "d6ff81cc-93f2-5001-85b6-ce00e67da21b",
+    "e69fbbef-3105-5b4a-941d-a60c2009d415",
+    "e6e1faf7-cb79-54c9-b704-896ae76a8e1d"
+  ],
+  "content_gaps": []
+}
