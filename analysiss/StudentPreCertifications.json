@@ -1,85 +1,60 @@
 {
   "filename": "StudentPreCertifications",
   "found": true,
-  "summary": "The StudentPreCertifications module manages the operations related to student certification records, including adding, editing, deleting, and displaying student certifications. The UI controls consist of a GridView to display existing certifications and a FormView for detailed operations on records.",
-  "purpose": "To facilitate the management of student certification records, allowing users to view, insert, update, and delete certifications within the system.",
-  "entities": [],
+  "summary": "The document set related to 'StudentPreCertifications' appears to involve a web application component handling student certification details, including capabilities for inserting, updating, and viewing student certifications through a user interface. This component supports data-bound controls, validations, session management, and user permissions.",
+  "purpose": "The purpose of the 'StudentPreCertifications' component is to manage student certification records within a web application context. It provides functionality to add, edit, and view certification details while incorporating user session management and permission-based access control.",
+  "entities": [
+    "StudentCertification",
+    "HSPnetSession"
+  ],
   "fields": [
-    {
-      "name": "CertificationCodeID",
-      "type": "DropDownList"
-    },
-    {
-      "name": "StatusCodeID",
-      "type": "DropDownList"
-    },
-    {
-      "name": "ExpiryDate",
-      "type": "DropDownList"
-    },
-    {
-      "name": "EffectiveDate",
-      "type": "Button"
-    }
+    "CertificationCodeID",
+    "StatusCodeID",
+    "StudentID",
+    "SessionID"
   ],
   "actors": [
-    {
-      "role": "UserSession",
-      "description": "Handles the current session information for the user."
-    },
-    {
-      "role": "Grid",
-      "description": "Manages grid-related functionalities."
-    }
+    "UserSession",
+    "Anonymous",
+    "QESEdit"
   ],
   "workflows": [
     {
-      "name": "Manage Student Certifications",
+      "name": "Student Certification Management",
       "steps": [
-        "Display existing certifications using GridView.",
-        "Allow adding of new certifications through FormView.",
-        "Edit existing certifications by switching FormView to Edit mode.",
-        "Delete certifications with appropriate command.",
-        "Validate input data before insert or update operations."
+        "User selects an action (Add/Edit) on the gridData control.",
+        "FormView uxDetail changes mode based on action.",
+        "Control state and available actions are determined by user permissions.",
+        "JavaScript setup is performed for client-side interaction.",
+        "Data is inserted or updated based on form values and user session details.",
+        "Page redirects upon successful data operation."
       ]
     }
   ],
   "business_rules": [
-    "ScreenIsEditable determines whether add and edit operations are allowed.",
-    "Visibility of certain fields depends on user permissions and session details."
+    "Permissions restrict visibility and actions for anonymous users or based on user roles.",
+    "DisclosedRegistrationCodeID dictates visibility of specific information."
   ],
   "validations": [
-    {
-      "condition": "Page.IsValid",
-      "action": "Cancel the insert or update operation if validation fails."
-    }
+    "Page input validation occurs before inserting or updating data."
   ],
-  "calculations": [
-    {
-      "description": "Dynamic loading of JavaScript variables and functions."
-    }
-  ],
+  "calculations": [],
   "conditions": [
-    {
-      "condition": "UserSession.StudentUser && UserSession.StaffID == StudentID",
-      "outcome": "Additional permissions or visibility for student users who are also staff."
-    }
+    "UserSession presence and validity determine data operation eligibility.",
+    "CurrentMode of uxDetail influences user interface and data operations."
   ],
   "system_behavior": [
-    "Auto-generate field modifications for designer to code-behind file transitions.",
-    "Redirect after insert or update operations."
+    "SetupJavaScript configures client-side behaviors including date pickers.",
+    "Data operations (insert/update) involve session-specific parameters.",
+    "Redirection occurs post data operation to maintain application flow."
   ],
   "dependencies": [
-    {
-      "name": "HSPnet.UI.Calendar",
-      "description": "For managing date selections in the user interface."
-    }
+    "HSPnet.Framework",
+    "HSPnet.UI",
+    "HSPnet.DataLayer"
   ],
   "exceptions": [
-    {
-      "exception": "Anonymous access",
-      "handling": "Limits visibility and edit operations"
-    }
+    "Operations are canceled if Page validation fails."
   ],
   "source_document_ids": [
     "1c096ee0-30c7-5ade-8080-86ff9953b982",
