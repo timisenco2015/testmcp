@@ -1,144 +1,287 @@
 {
-  "filename": "ExpenseBatch",
+  "filename": "SiteDocument",
   "found": true,
-  "summary": "The ExpenseBatch component models and manages batches of expenses associated with departments. It supports searching, adding, updating, and deleting expense batches through a set of stored procedures and entity classes.",
-  "purpose": "To facilitate the creation, maintenance, and retrieval of expense batch records linked to departments, allowing for structured tracking and workflow management of expense processing.",
-  "entities": [
-    "ExpenseBatch",
-    "ExpenseBatches"
-  ],
+  "summary": "SiteDocument represents a document associated with a site in the system, holding identifiers for the document and the site.",
+  "purpose": "Track and reference documents attached to a site entity.",
+  "entities": ["SiteDocument"],
   "fields": [
-    {
-      "name": "ID",
-      "type": "int",
-      "description": "Unique identifier for the expense batch."
-    },
-    {
-      "name": "DepartmentID",
-      "type": "int",
-      "description": "Identifier for the related department."
-    },
-    {
-      "name": "BatchDescription",
-      "type": "string",
-      "description": "A textual description of the batch."
-    },
-    {
-      "name": "BatchDate",
-      "type": "DateTime",
-      "description": "The date the batch was created or is effective."
-    },
-    {
-      "name": "StatusCodeID",
-      "type": "int",
-      "description": "ID referencing the batch's workflow status."
-    },
-    {
-      "name": "StatusCode",
-      "type": "string",
-      "description": "The code representing the batch status."
-    },
-    {
-      "name": "StatusDescription",
-      "type": "string",
-      "description": "The description of the batch's status."
-    },
-    {
-      "name": "ClosedDate",
-      "type": "DateTime",
-      "description": "Indicates when the batch was closed, if applicable."
-    },
-    {
-      "name": "BatchNumberFormatted",
-      "type": "string",
-      "description": "A formatted string combining the batch ID and its status description."
-    }
+    { "name": "ID", "type": "int", "description": "Unique identifier for the document." },
+    { "name": "SiteID", "type": "int", "description": "Identifier for the associated site." }
   ],
-  "actors": [
-    "HSPnetSession (system or user session)",
-    "Database (SQL Server via stored procedures)"
+  "actors": [],
+  "workflows": [],
+  "business_rules": [],
+  "validations": [],
+  "calculations": [],
+  "conditions": [],
+  "system_behavior": ["SiteDocument provides an entity to link documents to sites for further operations."],
+  "dependencies": [],
+  "exceptions": [],
+  "source_document_ids": ["a2967f17-a924-5e9c-8b15-d1f7bd028b32"],
+  "content_gaps": []
+}
+
+{
+  "filename": "WelcomeStaffAdmin",
+  "found": true,
+  "summary": "WelcomeStaffAdmin is a web page class providing administrative welcome information, last login details, and error/warning display panels for staff users.",
+  "purpose": "Display welcome and status information, facilitate error and warning handling, and allow selection/filtering of data for staff administration.",
+  "entities": ["WelcomeStaffAdmin"],
+  "fields": [
+    { "name": "lblTitle", "type": "Label", "description": "Main page title label." },
+    { "name": "ltlLastLogin", "type": "Literal", "description": "Displays last login information." },
+    { "name": "pnlLastLogin", "type": "Panel", "description": "Panel holding last login display." },
+    { "name": "pnlError", "type": "Panel", "description": "Panel for error messages." },
+    { "name": "lblErrorCaption", "type": "Label", "description": "Error caption label." },
+    { "name": "lblErrorList", "type": "Label", "description": "List of error messages." },
+    { "name": "cmdHideErrorPanel", "type": "HtmlInputButton", "description": "Button to hide error panel." },
+    { "name": "pnlWarning", "type": "Panel", "description": "Panel for warning messages." },
+    { "name": "lblWarningCaption", "type": "Label", "description": "Warning caption label." },
+    { "name": "lblWarningList", "type": "Label", "description": "List of warning messages." },
+    { "name": "cmdHideWarningPanel", "type": "HtmlInputButton", "description": "Button to hide warning panel." },
+    { "name": "ValidationSummary1", "type": "ValidationSummary", "description": "Aggregates and displays validation messages." }
   ],
+  "actors": ["StaffAdmin"],
   "workflows": [
     {
-      "name": "Search Expense Batches",
+      "name": "Page Load and Display",
       "steps": [
-        "User initiates search by department ID.",
-        "System sets stored procedure to 'ExpenseBatchSearch'.",
-        "System queries database for all batches for the given department in the last year.",
-        "Each result row is mapped to an ExpenseBatch object, with key fields populated.",
-        "BatchNumberFormatted is composed by combining the batch ID and status description."
+        "SetupHSPnetPage with user session and display last login.",
+        "Initialize site and discipline dropdowns on first load.",
+        "Display error/warning panels as needed.",
+        "Register required JavaScript includes."
       ]
-    },
+    }
+  ],
+  "business_rules": [],
+  "validations": [
+    "RequiredFieldValidator for date fields.",
+    "RegularExpressionValidator for date format."
+  ],
+  "calculations": [],
+  "conditions": [
+    "Display panels depending on message visibility.",
+    "Show last login if available."
+  ],
+  "system_behavior": ["Displays staff admin welcome info, last login, error and warning panels, and manages filter controls."],
+  "dependencies": [],
+  "exceptions": [],
+  "source_document_ids": [
+    "05db31e4-e8b6-53ee-a6fb-812c106f0134",
+    "100d5925-a5f8-53db-8493-02cddd563eb7",
+    "3c84bade-9671-5fbf-acce-3c87a835e9b4",
+    "4c4b97b8-d242-5261-a515-767a3f7d7a49",
+    "52b5066f-23f6-5d82-96cd-5d51dad3de79",
+    "54244516-0707-581e-a8ba-9c041ea38366",
+    "5bb85da3-f5b4-5753-b07c-9bb2a04eeb89",
+    "5d9b92ea-7c12-5070-8603-977cf14d0e04",
+    "6701b153-5288-59e5-8de9-61b68a1fc292",
+    "6eca1317-c0b2-5225-a9af-f034a722d924",
+    "871df91b-7ba0-558f-83ea-d5be1b0dc8db",
+    "8cea5c3a-2fbf-5206-a0c0-9425a5e14511",
+    "964a48c9-231c-5d58-a44d-3675d949a453",
+    "966ed8d3-a5af-567f-b092-936217777551",
+    "a0c3da28-32a5-5fce-91b2-17274efa016e",
+    "afbb4ec5-43c8-5281-ad2c-4b6cfd23a48e",
+    "b8e79322-9a0e-5fe7-8953-3d05e231f923",
+    "bf423a80-93db-572d-8cb8-c79f04214a93",
+    "ca71b077-cc26-5979-a44f-59700a41316b",
+    "d278278f-d4ec-5f4a-9f29-a02b66773bb9",
+    "db9b35e9-53ca-5eaf-9d75-4f3a72131bc7",
+    "e249a878-c837-5d1c-9a3d-5167df2614fb"
+  ],
+  "content_gaps": []
+}
+
+{
+  "filename": "ServiceCode",
+  "found": true,
+  "summary": "ServiceCode is an entity representing a coded service with category, localized descriptions, and ordering for use in multiple parts of the system.",
+  "purpose": "Provide standardized codes and descriptions for services, including alternate language support.",
+  "entities": ["ServiceCode"],
+  "fields": [
+    { "name": "ID", "type": "int", "description": "Unique identifier." },
+    { "name": "CodeCategoryID", "type": "int", "description": "Category of the code." },
+    { "name": "ShortName", "type": "string", "description": "Code short name." },
+    { "name": "Name", "type": "string", "description": "Primary description." },
+    { "name": "SortOrder", "type": "int", "description": "Ordering for display." },
+    { "name": "Notes", "type": "string", "description": "Additional notes." },
+    { "name": "NameAlt", "type": "string", "description": "Alternate language description." },
+    { "name": "NotesAlt", "type": "string", "description": "Alternate language notes." }
+  ],
+  "actors": [],
+  "workflows": [
     {
-      "name": "Retrieve Expense Batch By ID",
+      "name": "ServiceCode List Retrieval",
       "steps": [
-        "User or system provides an ExpenseBatch ID.",
-        "System calls 'ExpenseBatchSearchID' stored procedure with the provided ID.",
-        "Database returns matching batch details.",
-        "System populates all entity fields from returned data, including handling alternate language fields for descriptions if needed."
-      ]
-    },
-    {
-      "name": "Add Expense Batch",
-      "steps": [
-        "User provides department ID, batch description, and batch date.",
-        "System sets stored procedure to 'ExpenseBatchAdd' and passes parameters, including current session.",
-        "Database inserts the record and returns the new batch ID."
-      ]
-    },
-    {
-      "name": "Update Expense Batch",
-      "steps": [
-        "User supplies batch ID and updated field values.",
-        "System sets stored procedure to 'ExpenseBatchUpdate' and passes all parameters.",
-        "Database updates the record accordingly."
-      ]
-    },
-    {
-      "name": "Delete Expense Batch",
-      "steps": [
-        "User provides the batch ID.",
-        "System sets stored procedure to 'ExpenseBatchDelete' and passes ID.",
-        "Database deletes the record."
+        "Call ServiceCodeListAll procedure with session.",
+        "Return list of ServiceCode instances, localized as required."
       ]
     }
   ],
   "business_rules": [
-    "BatchNumberFormatted is created as a string concatenating batch ID and status description.",
-    "Status descriptions are language-dependent; alternate language fields may be used based on session settings."
+    "If UseAltLanguageFields is true, localized fields are used."
   ],
-  "validations": [
-    "Batch ID must be a valid int (for update/delete).",
-    "Department ID must be provided (for add/search).",
-    "BatchDate must be a valid DateTime (for add/update).",
-    "StatusCodeID must be valid (for update)."
-  ],
-  "calculations": [
-    "BatchNumberFormatted = ID + ' - ' + StatusDescription"
-  ],
+  "validations": [],
+  "calculations": [],
   "conditions": [
-    "If session is using alternate language fields, use StatusDescriptionAlt; otherwise, use StatusDescription."
+    "Use alt fields depending on session language preference."
   ],
   "system_behavior": [
-    "All CRUD operations are routed via stored procedures.",
-    "All database connections are managed through session-based abstractions."
+    "Provides standardized codes with localization for services.",
+    "Supports multiple retrievals by CourseID or TimetableID."
   ],
-  "dependencies": [
-    "HSPnetSession infrastructure for database access.",
-    "ExpenseBatch stored procedures: ExpenseBatchSearch, ExpenseBatchSearchID, ExpenseBatchAdd, ExpenseBatchUpdate, ExpenseBatchDelete."
+  "dependencies": [],
+  "exceptions": [],
+  "source_document_ids": [
+    "94f1b055-348d-508a-ae6e-cf7960a8c6a2",
+    "e4ebe4b4-6d14-5c3f-b693-61016f765239",
+    "f976b9af-a402-540f-b162-391d578fac7c"
   ],
-  "exceptions": [
-    "If result set is empty, return empty objects/lists.",
-    "If input parameters are invalid, stored procedures may fail or return no result."
+  "content_gaps": []
+}
+
+{
+  "filename": "SiteProfileHistory",
+  "found": true,
+  "summary": "SiteProfileHistory tracks all actions performed on a site profile, including metadata about changes, users, agency, and phone details.",
+  "purpose": "Maintain audit history for site profiles, including user actions, fields changed, and associated agency/user information.",
+  "entities": ["SiteProfileHistory"],
+  "fields": [
+    { "name": "ID", "type": "int", "description": "Unique history identifier." },
+    { "name": "ActionDate", "type": "DateTime", "description": "Date of action." },
+    { "name": "ScreenSection", "type": "string", "description": "Screen section affected." },
+    { "name": "UserAction", "type": "string", "description": "Action performed." },
+    { "name": "Fields", "type": "string", "description": "Fields affected." },
+    { "name": "Agency", "type": "string", "description": "Agency code." },
+    { "name": "AgencyName", "type": "string", "description": "Agency name." },
+    { "name": "LastName", "type": "string", "description": "User last name." },
+    { "name": "FirstName", "type": "string", "description": "User first name." },
+    { "name": "MiddleName", "type": "string", "description": "User middle name." },
+    { "name": "Phone", "type": "Phone", "description": "Phone object for contact." },
+    { "name": "ByUserID", "type": "int", "description": "User ID who performed action." },
+    { "name": "ByOriginalUserID", "type": "int", "description": "Original user ID." },
+    { "name": "ByUserSysAdmin", "type": "bool", "description": "Flag if user is sysadmin." },
+    { "name": "ActionDateFormatted", "type": "string", "description": "Formatted action date." },
+    { "name": "AgencyUserFormatted", "type": "string", "description": "Formatted agency/user summary." },
+    { "name": "AgencyUserDetailsFormatted", "type": "string", "description": "Detailed formatted summary." }
   ],
+  "actors": [],
+  "workflows": [
+    {
+      "name": "Audit Trail Search",
+      "steps": [
+        "Call SiteProfileHistorySearch procedure.",
+        "Return list of SiteProfileHistory instances."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Use alternate language fields if session language preference is set.",
+    "If sysadmin or user ID matches, alternate formatting of user details."
+  ],
+  "validations": [],
+  "calculations": [
+    "ActionDateFormatted, AgencyUserFormatted, AgencyUserDetailsFormatted are calculated properties."
+  ],
+  "conditions": [
+    "Language preference controls field selection."
+  ],
+  "system_behavior": [
+    "Provides audit history of changes to site profiles.",
+    "Formats user/agency details for display."
+  ],
+  "dependencies": [],
+  "exceptions": [],
+  "source_document_ids": [
+    "25f89a24-5eda-5a3f-83df-1de69b12b3f1",
+    "26e09292-d304-55c6-94e5-ef3346453c4b",
+    "7ca6b963-9ae9-5cd3-82d5-f30dcb727ae3",
+    "a8f030c6-90b8-53a1-bb8a-3b7ef33b9488",
+    "e806999c-3a39-5720-9b59-303faebc9eb6"
+  ],
+  "content_gaps": []
+}
+
+{
+  "filename": "EmailPopupDocument",
+  "found": true,
+  "summary": "EmailPopupDocument is an entity for tracking and managing files used in email popups, supporting search and deletion operations.",
+  "purpose": "Allow searching for files associated with popups and deleting individual files or folders.",
+  "entities": ["EmailPopupDocument"],
+  "fields": [
+    { "name": "ID", "type": "int", "description": "Unique document identifier." },
+    { "name": "FileName", "type": "string", "description": "File name." },
+    { "name": "FilePath", "type": "string", "description": "File path." },
+    { "name": "Checked", "type": "Boolean", "description": "Checked/selected status." }
+  ],
+  "actors": [],
+  "workflows": [
+    { "name": "Search", "steps": ["Split DataInfo, parse entries, return list of EmailPopupDocument."] },
+    { "name": "Delete", "steps": ["Split DataInfo, delete file or folder for given ID, return remaining DataInfo."] }
+  ],
+  "business_rules": [],
+  "validations": [],
+  "calculations": [],
+  "conditions": [],
+  "system_behavior": [
+    "Parses delimited strings to extract file info and delete files/folders as required.",
+    "Handles errors silently during file/folder deletion."
+  ],
+  "dependencies": [],
+  "exceptions": [],
+  "source_document_ids": [
+    "7287734e-f13d-550f-9249-4242db620766",
+    "927bc837-5564-5759-9324-27c6d5d7321d"
+  ],
+  "content_gaps": []
+}
+
+{
+  "filename": "ExpenseBatch",
+  "found": true,
+  "summary": "ExpenseBatch represents a batch of expenses grouped by department, including batch status, description, and key dates. It supports adding, updating, deleting, and searching for batches.",
+  "purpose": "Track and manage batches of expenses for departments, allowing audit, update, and workflow on expense batches.",
+  "entities": ["ExpenseBatch"],
+  "fields": [
+    { "name": "ID", "type": "int", "description": "Unique batch identifier." },
+    { "name": "DepartmentID", "type": "int", "description": "Department the batch belongs to." },
+    { "name": "BatchDescription", "type": "string", "description": "Description of the batch." },
+    { "name": "BatchDate", "type": "DateTime", "description": "Date of batch creation." },
+    { "name": "StatusCodeID", "type": "int", "description": "Status code ID." },
+    { "name": "StatusCode", "type": "string", "description": "Status code." },
+    { "name": "StatusDescription", "type": "string", "description": "Status description." },
+    { "name": "ClosedDate", "type": "DateTime", "description": "Date batch was closed." },
+    { "name": "BatchNumberFormatted", "type": "string", "description": "Formatted batch number with status." }
+  ],
+  "actors": [],
+  "workflows": [
+    { "name": "Search", "steps": ["Call ExpenseBatchSearch with department ID, return ExpenseBatch list."] },
+    { "name": "Add", "steps": ["Call ExpenseBatchAdd with department, description, and date, return new batch ID."] },
+    { "name": "Update", "steps": ["Call ExpenseBatchUpdate with batch ID, description, date, and status."] },
+    { "name": "Delete", "steps": ["Call ExpenseBatchDelete with batch ID."] },
+    { "name": "Retrieve by ID", "steps": ["Call ExpenseBatchSearchID with batch ID, return ExpenseBatch instance."] }
+  ],
+  "business_rules": [
+    "Use alternate language for status description if session language is set.",
+    "Batch is uniquely identified and formatted by combining ID and status."
+  ],
+  "validations": [],
+  "calculations": [
+    "BatchNumberFormatted: Combines ID and status description."
+  ],
+  "conditions": [
+    "Session language preference controls status description field."
+  ],
+  "system_behavior": [
+    "Supports searching, adding, updating, deleting expense batches and formatting batch display."
+  ],
+  "dependencies": [],
+  "exceptions": [],
   "source_document_ids": [
     "060e08d3-49ca-5e40-bea0-849f4e6173e1",
     "3559737f-0154-520e-be2b-d3dd2c3de539",
     "b2216e58-a144-55cb-8b87-3da9787fc1d7"
   ],
-  "content_gaps": [
-    "No explicit error handling logic is described.",
-    "No authorization or authentication checks are mentioned.",
-    "No detailed description of all possible status codes or their meanings."
-  ]
+  "content_gaps": []
 }
