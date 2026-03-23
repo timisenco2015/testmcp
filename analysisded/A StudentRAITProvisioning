@@ -1,0 +1,111 @@
+```json
+{
+  "filename": "StudentRAITProvisioning",
+  "found": true,
+  "summary": "StudentRAITProvisioning involves managing and provisioning student data across agencies. It includes operations for searching, adding, updating, and deleting student records, focusing primarily on IT provisioning for students within an organization.",
+  "purpose": "To facilitate management and provisioning of student records and IT access across various agencies and cohorts, ensuring seamless integration and handling of student data.",
+  "entities": [
+    "StudentRAITProvisioning",
+    "StudentITProvisioning",
+    "StudentITProvisioningResult"
+  ],
+  "fields": [
+    "ID",
+    "StudentID",
+    "AgencyID",
+    "AgencyList",
+    "UniqueID",
+    "LoginID",
+    "EmailRequired",
+    "Employee",
+    "Email",
+    "StaffID",
+    "Status",
+    "Msg"
+  ],
+  "actors": [
+    "HSPnetSession",
+    "Database"
+  ],
+  "workflows": [
+    {
+      "name": "StudentDetailsRAITProvisionSearch",
+      "steps": [
+        "Retrieve student RAIT provisions by student ID and staff ID.",
+        "Fill list with data from the database."
+      ]
+    },
+    {
+      "name": "StudentDetailsRAITProvisionAdd",
+      "steps": [
+        "Add student RAIT provisioning details to the database."
+      ]
+    },
+    {
+      "name": "StudentDetailsRAITProvisionUpdate",
+      "steps": [
+        "Update student RAIT provisioning details in the database."
+      ]
+    },
+    {
+      "name": "StudentDetailsRAITProvisionDelete",
+      "steps": [
+        "Delete student RAIT provisioning details from the database."
+      ]
+    },
+    {
+      "name": "StudentDetailsRAITProvisionSearchID",
+      "steps": [
+        "Search for student RAIT provisions by ID."
+      ]
+    },
+    {
+      "name": "StudentDetailsRAITProvisionSearchByCohortID",
+      "steps": [
+        "Search for student RAIT provisions by Cohort ID."
+      ]
+    },
+    {
+      "name": "StudentDetailsRAITProvisionUpdateBatch",
+      "steps": [
+        "Update batch of student RAIT provisions via XML."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Do not execute query if ID is less than or equal to zero."
+  ],
+  "validations": [
+    "Ensure ID and CohortID are greater than zero before searching.",
+    "Check for non-null SQL data readers before processing."
+  ],
+  "calculations": [],
+  "conditions": [
+    "Session ID must be valid and passed as a parameter.",
+    "XML data must be correctly serialized and loaded."
+  ],
+  "system_behavior": [
+    "Database procedures executed via HSPnetSession.",
+    "XML serialization used for batch updates."
+  ],
+  "dependencies": [
+    "System.Data.SqlClient",
+    "System.Xml.Serialization",
+    "HSPnet.Framework"
+  ],
+  "exceptions": [
+    "Handle null SqlDataReader during data retrieval.",
+    "Manage exceptions during XML serialization."
+  ],
+  "source_document_ids": [
+    "17c05ac7-9041-54f5-a021-8370e03196d6",
+    "2d9f59cb-b06e-5f6a-bb64-8cf881440e50",
+    "48f434a6-ff51-5032-b608-59eb57095131",
+    "6c803891-b4ea-5233-852a-b9c0b9dd6e14",
+    "6f76bd23-16fc-54c7-9a8f-334de33f9ff9",
+    "9ac56210-7502-566b-8d78-bf953ef2df4e",
+    "f6b4b128-6ff2-5246-a9ab-77e70f1305eb"
+  ],
+  "content_gaps": []
+}
+```
