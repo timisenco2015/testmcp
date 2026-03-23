@@ -1,93 +1,95 @@
 {
-  "filename": "RptMnuPlcSch_ConfirmLetters",
-  "found": true,
-  "summary": "The system implements a user interface for managing and generating confirmation letters related to placements, courses, and departments. It involves dynamic dropdowns for departments, programs, and terms, checkbox selections for additional options, and a final report generation button.",
-  "purpose": "To facilitate the creation and management of confirmation letters for placement schedules, allowing users to select relevant parameters such as departments, programs, terms, and optional settings before generating the confirmation report.",
-  "entities": [],
-  "fields": [
-    "ddDepartment",
-    "ddProgram",
-    "ddTerm",
-    "ddSender",
-    "chkIncludeHSPnetUsers",
-    "chkccSupervisor",
-    "chkccCourseLeader",
-    "chkccInstructor",
-    "chkIncludeStudentName",
-    "chkIndividualPDF",
-    "ValidationSummary1",
-    "ltlDescription",
-    "ltlOptions",
-    "CustomValidator1",
-    "CustomValidator2"
-  ],
-  "actors": [
-    "UserSession",
-    "ScriptMgr"
-  ],
-  "workflows": [
-    {
-      "name": "Department Selection",
-      "steps": [
-        "User selects a department from the dropdown.",
-        "Programs and terms are dynamically loaded based on the selected department."
-      ]
-    },
-    {
-      "name": "Program Selection",
-      "steps": [
-        "User selects a program from the dropdown.",
-        "Terms are dynamically loaded based on the selected program."
-      ]
-    },
-    {
-      "name": "Run Report",
-      "steps": [
-        "User clicks the 'Run Report' button.",
-        "A confirmation letter creation job is initiated with the selected parameters."
-      ]
-    }
-  ],
-  "business_rules": [
-    {
-      "rule": "Load Departments",
-      "description": "Load all departments if the user has permission to access all; otherwise, load specific departments."
-    },
-    {
-      "rule": "Load Programs",
-      "description": "Load all programs if the user has permission to access all; otherwise, load specific programs."
-    }
-  ],
-  "validations": [
-    "Ensure UserSession is not null before proceeding with data operations.",
-    "Custom validators validate specific fields before report generation."
-  ],
-  "calculations": [],
-  "conditions": [
-    "If UserSession is null, cancel data loading operations for ObjectDataSource."
-  ],
-  "system_behavior": [
-    "The system populates dropdowns based on user selections and permissions.",
-    "The system validates user inputs before initiating report generation."
-  ],
-  "dependencies": [
-    "HSPnetSession for managing user session data.",
-    "ScriptManager for handling JavaScript setup during postbacks."
-  ],
-  "exceptions": [
-    "Cancel data operations if the user session is null."
-  ],
-  "source_document_ids": [
-    "009a0668-9742-5427-a20b-6d28822e7982",
-    "00d20b48-f79f-51de-a1b9-e5e206645789",
-    "174db628-9924-5054-910a-a6e3f428ba4c",
-    "34146395-be81-54d3-98df-80634f7795dc",
-    "47b96f26-7b43-5701-92fb-65c6b00174c6",
-    "4ce8d9c9-22b7-5714-998c-f66ac06b8bc0",
-    "4ef31d9f-f026-5b03-8915-17367c3b69a6",
-    "85bddf0e-4bcb-5d31-9f28-a56334d2c20d",
-    "bbaf4f11-6d2d-5333-b16b-7e9bbb1d6481",
-    "e5553767-dfbf-59f7-b173-dc4aeba8adcb"
-  ],
-  "content_gaps": []
+    "filename": "RptMnuPlcSch_ConfirmLetters",
+    "found": true,
+    "summary": "The document outlines a web control for managing report confirmation letters. It describes dropdown lists for departments, programs, and terms, and includes functionality for report generation settings like including student names and HSPnet users.",
+    "purpose": "The primary purpose of the system is to allow users to configure and generate confirmation letter reports based on selected departments, programs, and terms, with options to customize the report's recipients.",
+    "entities": [],
+    "fields": [
+        "chkIncludeStudentName",
+        "chkccSupervisor",
+        "chkccCourseLeader",
+        "chkccInstructor",
+        "chkIndividualPDF",
+        "Literal5",
+        "ddTerm",
+        "lblCohortsCourses",
+        "UCchoosers",
+        "chkIncludeHSPnetUsers",
+        "ValidationSummary1",
+        "Label5",
+        "ltlDescription",
+        "Label6",
+        "ltlOptions",
+        "Literal2",
+        "ddDepartment",
+        "Literal3",
+        "ddProgram",
+        "dsSender",
+        "ddSender",
+        "CustomValidator1",
+        "CustomValidator2",
+        "cmdRunReport"
+    ],
+    "actors": [
+        "User",
+        "UserSession",
+        "ScriptManager"
+    ],
+    "workflows": [
+        {
+            "name": "Page Load Workflow",
+            "steps": [
+                "Set label texts for cohort and courses.",
+                "Customizes the text for checkboxes based on resources.",
+                "Displays error message if maximum courses are included."
+            ]
+        },
+        {
+            "name": "Report Generation",
+            "steps": [
+                "User selects department, program, and term.",
+                "Options are bound to dropdowns and lists.",
+                "User selects additional options like including student names.",
+                "User clicks 'Run Report'.",
+                "Confirmation letter report is generated."
+            ]
+        }
+    ],
+    "business_rules": [
+        "Auto-generated fields should be moved from designer files to code-behind files if modifications are necessary.",
+        "Departments and programs are bound dynamically based on user permissions and selections."
+    ],
+    "validations": [
+        "CustomValidator2 ensures maximum courses are not exceeded."
+    ],
+    "calculations": [],
+    "conditions": [
+        "If UserSession is null, certain operations like binding data sources are cancelled."
+    ],
+    "system_behavior": [
+        "Initializes dropdown lists and checkboxes.",
+        "Handles page load and pre-render events to set up the report menu."
+    ],
+    "dependencies": [
+        "HSPnet.UI",
+        "HSPnet.Framework",
+        "HSPnet.DataLayer",
+        "HSPnet.App_GlobalResources"
+    ],
+    "exceptions": [
+        "Operations are cancelled if UserSession is null."
+    ],
+    "source_document_ids": [
+        "009a0668-9742-5427-a20b-6d28822e7982",
+        "00d20b48-f79f-51de-a1b9-e5e206645789",
+        "174db628-9924-5054-910a-a6e3f428ba4c",
+        "34146395-be81-54d3-98df-80634f7795dc",
+        "47b96f26-7b43-5701-92fb-65c6b00174c6",
+        "4ce8d9c9-22b7-5714-998c-f66ac06b8bc0",
+        "4ef31d9f-f026-5b03-8915-17367c3b69a6",
+        "85bddf0e-4bcb-5d31-9f28-a56334d2c20d",
+        "bbaf4f11-6d2d-5333-b16b-7e9bbb1d6481",
+        "e5553767-dfbf-59f7-b173-dc4aeba8adcb"
+    ],
+    "content_gaps": []
 }
