@@ -2,72 +2,92 @@
 {
   "filename": "TimetableAssessments",
   "found": true,
-  "summary": "This document appears to be related to the Timetable Assessments component of the HSPnet system, which involves managing and displaying assessment-related information within a timetable context. It includes server-side ASP.NET controls and client-side JavaScript functionalities to handle assessment data and interactions.",
-  "purpose": "The purpose is to handle the assessment lifecycle within a timetable, including creating, updating, and managing assessments and related entities.",
+  "summary": "The Timetable Assessments system manages the configuration, execution, and validation of assessments related to timetables, primarily focusing on user interactions and UI behaviors.",
+  "purpose": "To provide a structured platform for managing student assessments related to specific timetables, allowing users to add, edit, delete, and view assessments with optional sections.",
   "entities": [
-    "Timetable",
-    "Assessment",
-    "Assessor",
-    "Subject",
+    "AssessorTypeCode",
+    "SubjectTypeCode",
+    "AssessmentTypeCode",
     "AssessmentTemplate",
-    "AssessmentType",
+    "TimetableAssessment",
     "UserSession"
   ],
   "fields": [
-    "OpenDaysAfterStart",
-    "CloseDaysAfterEnd",
-    "AssessorCanViewSubjectsAnswers",
-    "SubjectsCanViewAssessorAnswers",
-    "ViewUntilDaysAfterEnd",
-    "OptionAppliedAssessorTypeCodeID",
-    "AssessmentTemplateCodeID",
-    "AssessmentTypeCodeID"
+    "ddAssessor",
+    "chkAssessorCanViewSubjectsAnswers",
+    "spnAssessorCanViewSubjectsAnswers",
+    "ddAssessmentType",
+    "uxCloseDaysAfterCaption",
+    "txtCloseDaysAfterEnd",
+    "txtSavedCloseDaysAfterEnd",
+    "ddAssessmentTemplate",
+    "ddSubject",
+    "spnSubjectsCanViewAssessorAnswers",
+    "chkSubjectsCanViewAssessorAnswers",
+    "trViewUntilDaysAfterEnd",
+    "trOptionalSectionAssessor",
+    "lblOptionalSectionAssesor",
+    "ddOptionalSectionAssessor"
   ],
   "actors": [
-    "System Administrator",
-    "Placement Coordinator",
-    "Local Administrator",
-    "Assessor",
-    "Student"
+    "UserSession",
+    "SystemAdministrator",
+    "PlacementCoordinator",
+    "LocalAdministrator"
   ],
   "workflows": [
     {
-      "name": "Assessment Management",
+      "name": "Adding an Assessment",
       "steps": [
-        "Initialize page with required scripts and validate URL hash.",
-        "Bind data to GridView for displaying assessments.",
-        "Handle commands such as add, edit, and delete on assessments via GridView.",
-        "Perform validation checks before submitting changes.",
-        "Update UI based on user input and system state."
+        "Invoke Add mode in FormView.",
+        "Bind TimetableAssessment to FormView.",
+        "Show the form details for editing."
+      ]
+    },
+    {
+      "name": "Editing an Assessment",
+      "steps": [
+        "Invoke Edit mode in FormView.",
+        "Retrieve and display assessment details.",
+        "Allow changes and save to database on confirmation."
+      ]
+    },
+    {
+      "name": "Deleting an Assessment",
+      "steps": [
+        "Receive delete command with assessment ID.",
+        "Remove assessment entry from database.",
+        "Rebind GridView to refresh data display."
       ]
     }
   ],
   "business_rules": [
-    "Only certain user roles can modify assessment entries.",
-    "Assessments must be linked to valid assessor and subject types."
+    "Mandatory fields must be filled for assessments.",
+    "Only authorized users can edit or delete assessments."
   ],
   "validations": [
-    "Ensure required fields are provided.",
-    "Validate that open and close days are numerical.",
-    "Check if assessments exceed a maximum number."
+    "Text fields for number inputs require integer validation.",
+    "RequiredFieldValidators ensure non-empty mandatory fields.",
+    "CustomValidators check logical conditions like future dates."
   ],
   "calculations": [
-    "Calculate the display of open and close days based on start and end dates."
+    "Calculate future date based on CloseDaysAfterEnd input.",
+    "Determine visibility of UI elements based on user roles."
   ],
   "conditions": [
-    "Screen is editable only if user has appropriate permissions.",
-    "Display optional sections based on conditions checked in JavaScript."
+    "ScreenIsEditable determines if changes can be made based on user roles.",
+    "Warning panels shown based on validation results from assessments."
   ],
   "system_behavior": [
-    "Show or hide panels based on assessment conditions.",
-    "JavaScript functions manage dynamic UI updates."
+    "JavaScript functions manage UI interactions like dropdown changes and form submissions.",
+    "ValidationSummary aggregates errors for display if validation fails."
   ],
   "dependencies": [
-    "JavaScript and ASP.NET controls",
-    "HSPnet Framework"
+    "User session management for determining allowed actions.",
+    "Data retrieval from Timetable and CourseAssessment entities."
   ],
   "exceptions": [
-    "Handle invalid state conditions gracefully in UI interactions."
+    "Cancel command bypasses saving and hides form without changes."
   ],
   "source_document_ids": [
     "0781696d-dec4-5dfc-aa58-80ddd173c0ae",
