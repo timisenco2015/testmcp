@@ -1,48 +1,101 @@
 {
   "filename": "MaintITProvisionRole",
   "found": true,
-  "summary": "The MaintITProvisionRole is a web page for maintaining IT Provision Roles within an organization, allowing users to perform actions such as adding, deleting, and reactivating roles.",
-  "purpose": "To manage IT Provision Roles by providing functionalities to add, edit, delete, and reactivate roles through a web interface.",
-  "entities": [],
+  "summary": "This system handles the management of IT Provision roles, including adding, editing, deleting, and reactivating roles. It integrates with a grid view for data presentation and utilizes session-based access control.",
+  "purpose": "The primary purpose of this system is to provide administrators with a tool to manage IT Provision roles within an organization. It facilitates role operations such as addition, modification, deletion, reactivation, and viewing.",
+  "entities": [
+    "ITProvisionRole"
+  ],
   "fields": [
-    "Name",
-    "ShortName",
-    "AgencyID"
+    {
+      "name": "Name",
+      "type": "string",
+      "required": true
+    },
+    {
+      "name": "ShortName",
+      "type": "string",
+      "required": true
+    },
+    {
+      "name": "AgencyID",
+      "type": "int",
+      "required": true
+    },
+    {
+      "name": "Inactive",
+      "type": "boolean",
+      "required": false
+    }
   ],
   "actors": [
-    "System Administrator",
-    "Local Administrator",
+    "SystemAdministrator",
+    "LocalAdministrator",
     "User"
   ],
   "workflows": [
     {
-      "name": "Role Management",
+      "name": "Adding a New IT Provision Role",
       "steps": [
-        "User initiates an action (Add/Edit/Delete/Reactivate) on a role.",
-        "The system processes the action based on user's permissions.",
-        "Updates are reflected in the data source and UI."
+        "Navigate to the IT Provision Role management page.",
+        "Select 'Add' to initiate a new entry.",
+        "Fill in required fields: Name, ShortName.",
+        "Select relevant Agency.",
+        "Submit the form to create a new role."
+      ]
+    },
+    {
+      "name": "Editing an IT Provision Role",
+      "steps": [
+        "Select a role from the grid to edit.",
+        "Modify the necessary fields.",
+        "Save the changes to update the role entry."
+      ]
+    },
+    {
+      "name": "Deleting an IT Provision Role",
+      "steps": [
+        "Select the role to be deleted.",
+        "Confirm the deletion action.",
+        "The role is marked as inactive."
+      ]
+    },
+    {
+      "name": "Reactivating an IT Provision Role",
+      "steps": [
+        "Select an inactive role.",
+        "Choose the 'Reactivate' option.",
+        "The role is reactivated for use."
       ]
     }
   ],
   "business_rules": [
-    "Only users with System Administrator or Local Administrator roles can edit screens.",
-    "The drop-down menu for agencies is populated only if the user has the appropriate access rights."
+    "Only SystemAdministrators and LocalAdministrators can modify roles.",
+    "Roles cannot be modified if they belong to a different agency than the user's session agency.",
+    "Agency dropdown list is generated based on the user's session agency and role."
   ],
   "validations": [
-    "Name must be specified.",
-    "Short Name must be specified."
+    "Name must be specified and not empty.",
+    "ShortName must be specified and not empty.",
+    "AgencyID must be selected from the dropdown."
   ],
   "calculations": [],
   "conditions": [
-    "If the ITProvisionRoleID is 0, a new role is added; otherwise, the existing role is updated.",
-    "The screen is editable only if the user is a System Administrator or a Local Administrator with matching agency ID."
+    "ScreenIsEditable is true if the user session is a SystemAdministrator or LocalAdministrator and the agency matches.",
+    "IsEditDisabled is true if the role cannot be edited by the current user."
   ],
   "system_behavior": [
-    "Screen becomes editable based on user role and agency match.",
-    "Role data is reloaded upon agency drop-down change or view refresh."
+    "RefreshData binds data to the grid for display.",
+    "CheckScreenAccess checks user permissions before allowing edits.",
+    "PopulateDetails binds data to details view for a specific role."
   ],
-  "dependencies": [],
-  "exceptions": [],
+  "dependencies": [
+    "UserSession for access control and permissions.",
+    "Agency dropdown for agency affiliation."
+  ],
+  "exceptions": [
+    "Functionality is restricted if dropdown lists are empty."
+  ],
   "source_document_ids": [
     "02f12492-5aff-53f0-ab55-03330727f5ab",
     "08570973-6786-5524-89a6-8f6f9f478bb0",
