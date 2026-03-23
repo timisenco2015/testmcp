@@ -2,17 +2,17 @@
 {
   "filename": "StaffProfileHistory",
   "found": true,
-  "summary": "The StaffProfileHistory documents manage the retrieval, processing, and display of staff profile history data within the HSPnet system. This includes handling web page components, data access layers, and UI representations.",
-  "purpose": "Facilitate the search, manipulation, and presentation of staff profile history data, ensuring accurate display and storage within the HSPnet system.",
+  "summary": "The StaffProfileHistory module manages the history of actions and changes related to staff profiles, supporting operations like data retrieval, user access management, and record listing.",
+  "purpose": "To provide functionalities for tracking and displaying the history of staff profile changes and actions in the HSPnet system.",
   "entities": [
-    "StaffProfileHistory",
     "StaffPRHistory",
-    "HSPnetSession"
+    "StaffPRHistoryList",
+    "HSPnetSession",
+    "SqlDataReader"
   ],
   "fields": [
     "ActionDate",
     "ScreenSection",
-    "ScreenSectionUntranslated",
     "UserAction",
     "Fields",
     "Agency",
@@ -26,56 +26,63 @@
     "ByUserSysAdmin"
   ],
   "actors": [
-    "HSPnet UI",
-    "HSPnet.DataLayer",
-    "HSPnet.Framework"
+    "User",
+    "System Administrator"
   ],
   "workflows": [
     {
       "name": "StaffProfileHistorySearch",
       "steps": [
-        "Initialize StaffPRHistoryList",
-        "Call FillList method",
-        "Retrieve data based on StaffID"
+        "Initialize StaffPRHistoryList with session and staff ID.",
+        "Call FillList method to populate data list.",
+        "Execute database procedure to retrieve data.",
+        "Process each record, check FPRE consent, and add to list if criteria met."
       ]
     },
     {
-      "name": "Page Lifecycle",
+      "name": "StaffProfileHistorySearchUserAccess",
       "steps": [
-        "Page_Load",
-        "Page_PreRender",
-        "Page_UnLoad"
+        "Execute database procedure with parameters StaffID and SessionID.",
+        "Read and process each data row.",
+        "Populate StaffPRHistory object properties.",
+        "Add to data list."
       ]
     },
     {
-      "name": "Data Refresh",
+      "name": "Page Load Process",
       "steps": [
-        "cmdRefreshView_Click",
-        "RefreshData"
+        "Initialize page.",
+        "Parse and set StaffID.",
+        "Call RefreshData if StaffID is valid."
       ]
     }
   ],
   "business_rules": [
-    "Exclude certain entries if FPRE consent is not obtained."
+    "FPRE consent is required for certain screen sections.",
+    "User initials are derived from first, middle, and last names.",
+    "User actions are displayed in the preferred language based on session configuration."
   ],
   "validations": [
-    "Ensure StaffID is valid during Page_Load"
+    "Check if SQL data reader is not null before processing.",
+    "Confirm StaffID is numeric and valid during page load."
   ],
   "calculations": [],
   "conditions": [
-    "FPREConsentObtained or ScreenSectionUntranslated not equal to specified values"
+    "FPREConsentObtained determines inclusion of certain entries.",
+    "UseAltLanguageFields conditionally modifies displayed text."
   ],
   "system_behavior": [
-    "Search and retrieve staff profile history",
-    "Display retrieved data in UI components",
-    "Error and warning panels manage page message display"
+    "Displays error and warning messages on the UI.",
+    "Binds data to grid view for visual representation."
   ],
   "dependencies": [
-    "HSPnet.Framework",
-    "SqlDataReader"
+    "HSPnet.Framework.HSPnetPage",
+    "HSPnet.UI.DateFormatter",
+    "HSPnet.DataLayer procedures"
   ],
   "exceptions": [
-    "Handle null or non-existent data during retrieval"
+    "Handle null or invalid data readers gracefully.",
+    "Manage user access permissions during search operations."
   ],
   "source_document_ids": [
     "00fb12a6-eb16-59aa-93ee-d8f6f2a67bbf",
