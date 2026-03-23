@@ -1,69 +1,96 @@
 {
-    "filename": "StudentPreCertifications",
-    "found": true,
-    "summary": "The StudentPreCertifications module manages student certifications, allowing for insertion, updating, and deletion of certification records, with a focus on validating user inputs and ensuring proper session handling.",
-    "purpose": "To manage the certifications of students, including adding new certifications, editing existing ones, and ensuring data integrity through various checks and validations.",
-    "entities": [],
-    "fields": [
-        "CertificationCodeID",
-        "StatusCodeID",
-        "ExpiryCheck",
-        "DisclosedRegistrationCodeID"
-    ],
-    "actors": [
-        "UserSession",
-        "StudentID",
-        "ScriptMgr"
-    ],
-    "workflows": [
-        {
-            "name": "Manage Student Certifications",
-            "steps": [
-                "Initialize the page and setup JavaScript variables.",
-                "Bind data to form components depending on user role and session status.",
-                "Enable editing or insertion mode based on user actions.",
-                "Handle form submission for insert or update actions, validating inputs before sending to the server.",
-                "Redirect to a confirmation or the previous page after successful operation."
-            ]
-        }
-    ],
-    "business_rules": [
-        "Certifications can only be edited by authorized users.",
-        "The effective date must not exceed predefined future years."
-    ],
-    "validations": [
-        "Check if the start date is earlier than the end date.",
-        "Validate that required fields are filled before submission.",
-        "Ensure user has session and authorization to modify data."
-    ],
-    "calculations": [],
-    "conditions": [
-        "If the user is in edit mode, pre-fill fields with existing data.",
-        "Control visibility of data based on user permissions and session variables."
-    ],
-    "system_behavior": [
-        "Displays a modal for detailed entry editing or insertion.",
-        "Binds dropdowns with data sources and handles data operations through server calls."
-    ],
-    "dependencies": [
-        "HSPnetSession",
-        "Grid",
-        "JavaScript",
-        "DateFormatter",
-        "Resources"
-    ],
-    "exceptions": [
-        "Cancel data operation if user session is invalid or unauthorized."
-    ],
-    "source_document_ids": [
-        "1c096ee0-30c7-5ade-8080-86ff9953b982",
-        "4de42f24-da61-5d24-806a-6189d1372af2",
-        "660fbdae-94f0-550f-8327-309a329a996e",
-        "8bcbad5d-7fad-535a-b1db-5074da0d0458",
-        "a377d73c-22d6-5d64-9144-d6c7367e9437",
-        "ac79af56-4f34-5c4f-83a7-2faaffcf8961",
-        "de0024ce-a9b7-5bb6-a782-9bb66f3a7aa2",
-        "eadd81d1-5894-569a-a084-0e0fd290bab4"
-    ],
-    "content_gaps": []
+  "filename": "StudentPreCertifications",
+  "found": true,
+  "summary": "The StudentPreCertifications module manages the operations related to student certification records, including adding, editing, deleting, and displaying student certifications. The UI controls consist of a GridView to display existing certifications and a FormView for detailed operations on records.",
+  "purpose": "To facilitate the management of student certification records, allowing users to view, insert, update, and delete certifications within the system.",
+  "entities": [],
+  "fields": [
+    {
+      "name": "CertificationCodeID",
+      "type": "DropDownList"
+    },
+    {
+      "name": "StatusCodeID",
+      "type": "DropDownList"
+    },
+    {
+      "name": "ExpiryDate",
+      "type": "DropDownList"
+    },
+    {
+      "name": "EffectiveDate",
+      "type": "Button"
+    }
+  ],
+  "actors": [
+    {
+      "role": "UserSession",
+      "description": "Handles the current session information for the user."
+    },
+    {
+      "role": "Grid",
+      "description": "Manages grid-related functionalities."
+    }
+  ],
+  "workflows": [
+    {
+      "name": "Manage Student Certifications",
+      "steps": [
+        "Display existing certifications using GridView.",
+        "Allow adding of new certifications through FormView.",
+        "Edit existing certifications by switching FormView to Edit mode.",
+        "Delete certifications with appropriate command.",
+        "Validate input data before insert or update operations."
+      ]
+    }
+  ],
+  "business_rules": [
+    "ScreenIsEditable determines whether add and edit operations are allowed.",
+    "Visibility of certain fields depends on user permissions and session details."
+  ],
+  "validations": [
+    {
+      "condition": "Page.IsValid",
+      "action": "Cancel the insert or update operation if validation fails."
+    }
+  ],
+  "calculations": [
+    {
+      "description": "Dynamic loading of JavaScript variables and functions."
+    }
+  ],
+  "conditions": [
+    {
+      "condition": "UserSession.StudentUser && UserSession.StaffID == StudentID",
+      "outcome": "Additional permissions or visibility for student users who are also staff."
+    }
+  ],
+  "system_behavior": [
+    "Auto-generate field modifications for designer to code-behind file transitions.",
+    "Redirect after insert or update operations."
+  ],
+  "dependencies": [
+    {
+      "name": "HSPnet.UI.Calendar",
+      "description": "For managing date selections in the user interface."
+    }
+  ],
+  "exceptions": [
+    {
+      "exception": "Anonymous access",
+      "handling": "Limits visibility and edit operations"
+    }
+  ],
+  "source_document_ids": [
+    "1c096ee0-30c7-5ade-8080-86ff9953b982",
+    "4de42f24-da61-5d24-806a-6189d1372af2",
+    "660fbdae-94f0-550f-8327-309a329a996e",
+    "8bcbad5d-7fad-535a-b1db-5074da0d0458",
+    "a377d73c-22d6-5d64-9144-d6c7367e9437",
+    "ac79af56-4f34-5c4f-83a7-2faaffcf8961",
+    "de0024ce-a9b7-5bb6-a782-9bb66f3a7aa2",
+    "eadd81d1-5894-569a-a084-0e0fd290bab4",
+    "ed016384-d421-58fb-b1dd-bd16bf463fff"
+  ],
+  "content_gaps": []
 }
