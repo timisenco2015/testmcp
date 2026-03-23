@@ -1,0 +1,124 @@
+```json
+{
+  "filename": "CourseAssessment",
+  "found": true,
+  "summary": "The CourseAssessment module involves managing and processing course assessments, including adding, updating, deleting, and validating assessments as well as searching for assessments by course or ID.",
+  "purpose": "To handle course assessment operations such as addition, modification, retrieval, and validation to support course management and evaluation.",
+  "entities": [
+    "CourseAssessment",
+    "AssessmentValidationResult"
+  ],
+  "fields": [
+    "ID",
+    "CourseID",
+    "AssessmentTemplateCodeID",
+    "AssessorTypeCodeID",
+    "SubjectTypeCodeID",
+    "AssessmentTypeCodeID",
+    "AssessorCanViewSubjectsAnswers",
+    "OpenDaysAfterStart",
+    "CloseDaysAfterEnd",
+    "SubjectCanViewAssessorAnswers",
+    "ViewUntilDaysAfterEnd",
+    "AssessorTypeCode",
+    "AssessorTypeDescription",
+    "SubjectTypeCode",
+    "SubjectTypeDescription",
+    "AssessmentTypeCode",
+    "AssessmentTypeDescription",
+    "AssessmentTemplateCode",
+    "AssessmentTemplateDescription",
+    "SubjectTypeDescriptionFormatted",
+    "OpenDaysAfterStartFormatted",
+    "CloseDaysAfterEndFormatted",
+    "ViewUntilDaysAfterEndFormatted",
+    "OptionAppliedAssessorTypeCodeID"
+  ],
+  "actors": [
+    "HSPnetSession"
+  ],
+  "workflows": [
+    {
+      "name": "CourseAssessmentAdd",
+      "steps": [
+        "Set ProcedureName to 'CourseAssessmentAdd'",
+        "Add necessary parameters such as SessionID, CourseID, AssessorTypeCodeID, etc.",
+        "Execute the database query"
+      ]
+    },
+    {
+      "name": "CourseAssessmentUpdate",
+      "steps": [
+        "Set ProcedureName to 'CourseAssessmentUpdate'",
+        "Add necessary parameters including ID and other assessment details",
+        "Execute the database query"
+      ]
+    },
+    {
+      "name": "CourseAssessmentDelete",
+      "steps": [
+        "Set ProcedureName to 'CourseAssessmentDelete'",
+        "Add SessionID and ID parameters",
+        "Execute the database query"
+      ]
+    },
+    {
+      "name": "CourseAssessmentValidation",
+      "steps": [
+        "Set ProcedureName to 'CourseAssessmentValidation'",
+        "Add SessionID and CourseID parameters",
+        "Retrieve and evaluate validation results"
+      ]
+    },
+    {
+      "name": "CourseAssessmentSearchID",
+      "steps": [
+        "Set ProcedureName to 'CourseAssessmentSearchID'",
+        "Add SessionID and ID parameters",
+        "Retrieve and parse data into CourseAssessment objects"
+      ]
+    },
+    {
+      "name": "CourseAssessmentSearch",
+      "steps": [
+        "Set ProcedureName to 'CourseAssessmentSearch'",
+        "Add SessionID and CourseID parameters",
+        "Retrieve and parse data into CourseAssessment objects"
+      ]
+    }
+  ],
+  "business_rules": [],
+  "validations": [
+    "Assessment validation checks such as InterimWithoutFinal",
+    "InstructorsAndSupervisors",
+    "AssessmentMaximumExceeded"
+  ],
+  "calculations": [],
+  "conditions": [
+    "Default vs alternative locale descriptions",
+    "Formatting conditions based on OpenDaysAfterStart and CloseDaysAfterEnd values"
+  ],
+  "system_behavior": [
+    "Uses stored procedures for database operations",
+    "Utilizes parameter addition for query execution"
+  ],
+  "dependencies": [
+    "HSPnet.Framework",
+    "HSPnet.App_GlobalResources",
+    "HSPnet.UI"
+  ],
+  "exceptions": [],
+  "source_document_ids": [
+    "0c1ddf30-f1e7-51b9-88fc-4ecde3e29648",
+    "211455c7-0731-54d5-ae7f-428ae36f5adf",
+    "2868ba8f-8517-54cb-9965-af3056f02a8d",
+    "441804ae-233d-55f1-bf17-b2afda55fcdf",
+    "7908e8fe-0105-5fbd-a397-ad9c92ca4b5d",
+    "a0d9506b-0c33-5d13-8abf-7c577500d0a3",
+    "b607dc1c-b566-5d8a-b423-eefab6a14ea9",
+    "c8475c24-cc6e-5838-9754-82e7420a0328",
+    "e8acf69f-fa26-5173-8966-b5722ce94765"
+  ],
+  "content_gaps": []
+}
+```
