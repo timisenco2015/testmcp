@@ -1,0 +1,158 @@
+{
+  "filename": "GenericDocument",
+  "found": true,
+  "summary": "The GenericDocument is a part of a system used to manage documents related to agencies, sites, and other entities within an HSPnet session. It includes functionalities to sort, manage, and access these documents, and integrates with a database for data retrieval and manipulation.",
+  "purpose": "The purpose of GenericDocument is to handle various document-related operations such as retrieval, sorting, validation, and linking within the HSPnet system, which supports healthcare placement networks.",
+  "entities": [],
+  "fields": [
+    {
+      "name": "ID",
+      "type": "int",
+      "description": "Unique identifier for the document."
+    },
+    {
+      "name": "ParentID",
+      "type": "int",
+      "description": "Identifier for the parent entity of the document."
+    },
+    {
+      "name": "TypeCodeID",
+      "type": "int",
+      "description": "Identifier for the type of document."
+    },
+    {
+      "name": "TypeComments",
+      "type": "string",
+      "description": "Comments associated with the document type."
+    },
+    {
+      "name": "FileURL",
+      "type": "string",
+      "description": "URL link to the document."
+    },
+    {
+      "name": "FilePath",
+      "type": "string",
+      "description": "File path of the document in the system."
+    },
+    {
+      "name": "FileSize",
+      "type": "long",
+      "description": "Size of the document file."
+    },
+    {
+      "name": "FileType",
+      "type": "string",
+      "description": "Type of the document file."
+    },
+    {
+      "name": "UpdateDate",
+      "type": "DateTime",
+      "description": "Last update date of the document."
+    },
+    {
+      "name": "ByUserID",
+      "type": "int",
+      "description": "Identifier of the user who last updated the document."
+    },
+    {
+      "name": "DocumentName",
+      "type": "string",
+      "description": "Name of the document."
+    },
+    {
+      "name": "IsApplied",
+      "type": "bool",
+      "description": "Indicates if the document has been applied."
+    },
+    {
+      "name": "SourceLevel",
+      "type": "string",
+      "description": "Source level indication for the document."
+    },
+    {
+      "name": "CanEditRow",
+      "type": "bool",
+      "description": "Indicates if the document row can be edited."
+    }
+  ],
+  "actors": [
+    {
+      "name": "HSPnetSession",
+      "role": "Represents a session of the HSPnet system within which documents are managed."
+    }
+  ],
+  "workflows": [
+    {
+      "name": "Document Retrieval",
+      "steps": [
+        "Initialize session.",
+        "Retrieve documents using stored procedures.",
+        "Apply sorting based on specified parameters."
+      ]
+    },
+    {
+      "name": "Document Validation",
+      "steps": [
+        "Check for required fields.",
+        "Validate document type and name.",
+        "Return validation result."
+      ]
+    },
+    {
+      "name": "Document Deletion",
+      "steps": [
+        "Locate document by ID.",
+        "Delete physical file if exists.",
+        "Remove record from the database."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Documents must have a valid type and name.",
+    "Documents linked to specific agencies or sites must adhere to their respective sort orders."
+  ],
+  "validations": [
+    "Document type and name are mandatory.",
+    "File URL must not be blank if the document ID is specified."
+  ],
+  "calculations": [],
+  "conditions": [
+    "Check if the document is of type 'document' by verifying if the FilePath is not empty.",
+    "Translate file type using localization settings."
+  ],
+  "system_behavior": [
+    "Documents are fetched via stored procedures using specified parameters.",
+    "Documents are sorted based on source levels and specified criteria.",
+    "Documents can be linked and displayed with specific formatting if they are applied."
+  ],
+  "dependencies": [
+    "Database connection for data retrieval and manipulation.",
+    "Localization resources for translating file types and other strings."
+  ],
+  "exceptions": [
+    "If document fields are not valid, an error is added to the session messages."
+  ],
+  "source_document_ids": [
+    "0698ba2c-76e2-5348-9ba7-a2bfb8db076f",
+    "1160f8a9-61da-537f-811f-7c4722a4ba6e",
+    "1e5dc926-2c08-5d0d-bb90-b776cb1ccf63",
+    "217169c4-71b6-591e-8e5c-f9a83c942355",
+    "331d7c6a-adea-5de8-ae16-79d979b515d8",
+    "3779934a-6b41-5aa1-b81a-5047f8a4a16a",
+    "48e7c371-34d2-5e3a-9b7b-ff3db2ca22aa",
+    "4f8d4014-242f-5b22-b3b5-8b1524f11f46",
+    "53eb1f0e-8871-5c32-a117-dfb51d0c56e2",
+    "7a67ab13-79a8-5da4-932f-829371c429ab",
+    "8dab23a1-b93c-5c36-b28c-a57123284bcd",
+    "9bf3e30c-ddcc-5934-8cf1-2fa40c031cf2",
+    "a24be76d-c50b-54af-8fed-4b875f53c71b",
+    "a39164da-6925-532d-8fc5-1713d390780b",
+    "b83a40e1-c536-534d-934e-cf787b3f4e94",
+    "b8a5cb0f-da92-564c-a760-ef6bfa7c5ea2",
+    "c7a79510-34e8-5464-a460-f631bd030153",
+    "f076a8b3-f886-559a-bf67-8ff05f3cebc3",
+    "f80a8941-dfb0-5150-9212-37ea8cc1f373"
+  ],
+  "content_gaps": []
+}
