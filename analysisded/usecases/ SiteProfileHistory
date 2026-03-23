@@ -1,0 +1,78 @@
+# Module: SiteProfileHistory
+
+## SiteProfileHistory-UC1 — View Site Profile History
+
+- Primary Actor(s): User
+- Secondary Actor(s): System Administrator
+- Trigger: User initiates a request to view the site profile history.
+- Description: This use case enables users to view the historical actions taken on a specific site profile, including details such as the action date, user information, and the changes made.
+- Preconditions: 
+  - User must be authenticated.
+  - Site ID must be specified.
+- Postconditions:
+  - User is presented with the site profile history.
+- Main Success Scenario:
+  1. User accesses the site profile history page.
+  2. System fetches history data using `SiteProfileHistorySearch` procedure with provided `SiteID` and `SessionAgencyID`.
+  3. User views the history grid with action details.
+- Extensions:
+  - None
+- Exceptions:
+  - If `UserSession` is not initialized, the request to view history is canceled.
+  - No history available: Display a message indicating no records found.
+- Business Rules:
+  - System restricts users based on their session agency ID.
+- Assumptions:
+  - Users have rights to view history based on their role.
+- Open Issues:
+  - Define access levels and permissions for different user roles.
+
+## SiteProfileHistory-UC2 — Format Action Dates
+
+- Primary Actor(s): System
+- Secondary Actor(s): None
+- Trigger: User views the site profile history grid.
+- Description: Automatically format action dates in the history view into a shorter, user-friendly format.
+- Preconditions:
+  - Retrieve history data successfully.
+- Postconditions:
+  - Action dates are displayed in a formatted, readable style.
+- Main Success Scenario:
+  1. System retrieves raw action date.
+  2. System formats action date using `DateFormatter.FormatDateShort`.
+  3. Formatted date is displayed in the history grid.
+- Extensions:
+  - None
+- Exceptions:
+  - Date parsing error: Display raw date if formatting fails.
+- Business Rules:
+  - Date should be formatted consistently across all entries.
+- Assumptions:
+  - `DateFormatter` utility is functioning correctly.
+- Open Issues:
+  - None
+
+## SiteProfileHistory-UC3 — User Details Formatting
+
+- Primary Actor(s): System
+- Secondary Actor(s): None
+- Trigger: User views site profile history with user details.
+- Description: Retrieve and format user details, including name and phone information, for display in the history.
+- Preconditions:
+  - User details are retrieved from the system.
+- Postconditions:
+  - User details are formatted and displayed.
+- Main Success Scenario:
+  1. System retrieves user name and phone number.
+  2. System formats name using `NameFormatter` and appends agency details.
+  3. Formatted user details displayed in the history grid.
+- Extensions:
+  - None
+- Exceptions:
+  - Missing user details: Display placeholders for missing information.
+- Business Rules:
+  - User details should reflect the agency association.
+- Assumptions:
+  - `NameFormatter` utility provides consistent formatting.
+- Open Issues:
+  - None
