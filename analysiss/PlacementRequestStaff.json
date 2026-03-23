@@ -1,0 +1,48 @@
+{
+  "filename": "PlacementRequestStaff",
+  "found": true,
+  "summary": "Manages staff assignments and operations related to placement requests.",
+  "purpose": "Handle staff operations for placement requests including assignment, overlaps checking, and record management.",
+  "entities": ["PlacementRequestStaff", "Supervisor", "HSPnetSession"],
+  "fields": ["StaffID", "FirstName", "MiddleName", "LastName", "Phone", "AltPhone", "Email", "Fax", "Title", "SalutationCodeID", "Designation", "DurationHours", "StartDate", "EndDate", "SecureEmail"],
+  "actors": ["Supervisor", "Staff"],
+  "workflows": [
+    {
+      "name": "Add Staff to Placement Request",
+      "steps": ["Set procedure name to PlacementRequestAddDC", "Set parameters", "Execute query"]
+    },
+    {
+      "name": "Adjust Staff Hours",
+      "steps": ["Set procedure name to PlacementRequestStaffAdjust", "Set parameters", "Execute query"]
+    },
+    {
+      "name": "Delete Staff Assignment",
+      "steps": ["Set procedure name to PlacementRequestStaffDelete", "Set parameters", "Execute query"]
+    }
+  ],
+  "business_rules": ["Use Precep as StaffTypeCode"],
+  "validations": ["Ensure StaffID is not null", "Ensure dates are valid"],
+  "calculations": ["DurationHours based on assignment", "Distribute hours using declining balance algorithm"],
+  "conditions": ["Check if joint staff ID is provided", "Check supervisor overlaps"],
+  "system_behavior": ["Add or update staff assignments", "Check for staff overlaps"],
+  "dependencies": ["Session handling and connection", "NameFormatter utility"],
+  "exceptions": ["Handle SQL data errors", "Check overlaps and warnings for supervisors"],
+  "source_document_ids": [
+    "12aecd2c-e845-5c90-be91-99a9bb5136c5",
+    "1d06d041-0349-532a-beca-66c897b8fe08",
+    "2908c021-2b00-5399-bfce-0e1472db1d0e",
+    "36f3f2d0-6387-53a9-bfa1-780664f16e0d",
+    "37702e63-76ea-5ca6-9f15-25212a9bbe0d",
+    "4ffe222a-2f20-5107-aa32-7ba36ce16854",
+    "58ef5e48-958b-5bd1-b168-8ed606c6cbe6",
+    "59c83fe9-a151-585d-a1cc-dd8eb4a225ff",
+    "8bbd5198-eacb-5491-b161-6059b58b9003",
+    "926e8aac-95ac-502a-99c0-7a61c9515521",
+    "b6011844-8a54-5c49-b71d-cbde5db3fc05",
+    "ed9f2105-637a-516e-8d04-641cf8ee2943",
+    "f137eb64-938f-52cf-9965-e3d8e454bd7b",
+    "f3ea6d11-36b5-5df0-af99-9a99239aef8a",
+    "fac95236-fe68-50de-b208-1b9cf3ec4849"
+  ],
+  "content_gaps": []
+}
