@@ -1,0 +1,120 @@
+{
+  "filename": "MaintAccountCode",
+  "found": true,
+  "summary": "MaintAccountCode manages account codes for agencies, allowing system and local administrators to add, edit, delete, and view account codes associated with their agency. The UI consists of dropdowns for agency and account code type, a grid displaying code data, and modal popups for editing. Business rules restrict edit access based on user roles and agency assignment.",
+  "purpose": "To enable authorized users to manage account codes (add, edit, delete, view) for their agency, supporting financial or operational categorization in the system.",
+  "entities": [
+    "AccountCodeRecord",
+    "AccountCodes",
+    "Agency",
+    "UserSession"
+  ],
+  "fields": [
+    {
+      "name": "Code",
+      "type": "string",
+      "required": true,
+      "validation": "RequiredFieldValidator"
+    },
+    {
+      "name": "Description",
+      "type": "string",
+      "required": true,
+      "validation": "RequiredFieldValidator"
+    },
+    {
+      "name": "SortOrder",
+      "type": "integer",
+      "required": true,
+      "validation": "RequiredFieldValidator, CompareValidator (must be numeric)"
+    },
+    {
+      "name": "AccountCode",
+      "type": "string",
+      "required": false
+    },
+    {
+      "name": "AgencyID",
+      "type": "integer",
+      "required": true
+    },
+    {
+      "name": "ID",
+      "type": "integer",
+      "required": false
+    }
+  ],
+  "actors": [
+    "System Administrator",
+    "Local Administrator",
+    "ViewOnly User"
+  ],
+  "workflows": [
+    {
+      "name": "Manage Account Code",
+      "steps": [
+        "User accesses MaintAccountCode screen.",
+        "Dropdowns for Agency and Account Code Type are filled based on user role and session.",
+        "Grid displays Account Code entries filtered by agency and type.",
+        "User can Add, Edit, or Delete entries (depending on ScreenIsEditable).",
+        "Add/Edit opens modal DetailsView with required fields (Code, Description, SortOrder).",
+        "Validation is applied.",
+        "On Save, entry is added or updated; on Delete, entry is removed.",
+        "Grid is refreshed."
+      ]
+    }
+  ],
+  "business_rules": [
+    "System Administrator can manage account codes for all agencies.",
+    "Local Administrator can only manage codes for their assigned agency.",
+    "ViewOnly users cannot edit."
+  ],
+  "validations": [
+    "Required fields: Code, Description, SortOrder.",
+    "SortOrder must be an integer."
+  ],
+  "calculations": [],
+  "conditions": [
+    "ScreenIsEditable is true if user is System Administrator or Local Administrator (for own agency)."
+  ],
+  "system_behavior": [
+    "Grid updates in response to add/edit/delete.",
+    "Modal popup is used for details entry.",
+    "Error and warning panels provide user feedback."
+  ],
+  "dependencies": [
+    "AccountCodes data layer",
+    "UserSession for access control",
+    "Agencies data layer",
+    "Dropdown utility"
+  ],
+  "exceptions": [
+    "Non-sysadmin cannot select other agencies.",
+    "Validation errors block saving."
+  ],
+  "source_document_ids": [
+    "187e7e90-6af2-57d4-ac0a-dffa21eba0d6",
+    "1994f226-b4b3-5f02-a86c-601c45f270cf",
+    "1d26994a-bff8-5fc2-97b7-3034e90a2af0",
+    "34dd438c-7016-500d-8cf9-f8e50df86aa0",
+    "475e8271-b3b8-59f9-ac9a-53b1203cdf4e",
+    "4d4cd631-dc61-533b-8792-1a4e231190d2",
+    "53f4025b-8f4f-5149-b270-71819ba63c59",
+    "5c5daa2b-ad99-56a9-a72c-1dce50456b08",
+    "71f97b89-5cf9-5712-8023-313727e4b93b",
+    "784c2c34-59cb-528f-afb9-be8f232bc365",
+    "82ba1f0f-7ea4-5933-8971-d2f103c2bdac",
+    "8cebbe37-cbfc-5c3e-a94a-0ec7993a1c49",
+    "bc6e2175-8b8a-5fa9-b0fb-f4bb48cbc53f",
+    "ccfdc808-1b8d-5063-a3e2-9ecd3c5dd0ae",
+    "ce2cdb6e-0ed3-536e-8056-de1ce4fc7651",
+    "d09c1c47-de80-5cb7-a67d-292aae0827c5",
+    "d0c0234d-971f-5d0f-adaa-4102ff23c7bb",
+    "e2427c2c-f8a7-5a10-ad6a-3ce2c7795672"
+  ],
+  "content_gaps": [
+    "No explicit sample of account code data or grid row structure.",
+    "No description of AccountCodeType values.",
+    "No explicit error messages."
+  ]
+}
