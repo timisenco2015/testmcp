@@ -1,82 +1,93 @@
 {
   "filename": "RptMnuInvoicing",
   "found": true,
-  "summary": "RptMnuInvoicing is a web user control designed for generating invoicing reports in various formats such as CSV based on multiple filters and criteria. The control supports both term-based and date-range options and integrates various agency, department, program, and term selections, alongside options for including specific statuses and details related to invoicing.",
-  "purpose": "The control's purpose is to facilitate dynamic report generation by filtering and compiling data based on user-selected criteria, enabling detailed invoicing and financial analysis.",
-  "entities": [
-    "Agency",
-    "Department",
-    "Program",
-    "Term",
-    "Site",
-    "PlacementRequestType",
-    "CohortCourse"
-  ],
+  "summary": "RptMnuInvoicing is a user control in the HSPnet system which is responsible for generating invoicing reports. It includes functionalities for managing filters, selecting agencies, departments, programs, terms, and other criteria for creating reports.",
+  "purpose": "To facilitate the generation of invoicing reports within the HSPnet system by allowing users to select various filters and criteria.",
+  "entities": [],
   "fields": [
     "PlcAgencyID",
     "DepartmentID",
     "ProgramID",
     "TermID",
     "CohortCourseIDList",
-    "AgencyID",
-    "GoverningOrgIDList",
+    "PRTypeIDList",
     "SiteIDList",
     "IncludeOption",
+    "includeQESPA",
+    "showEachStudent",
+    "invoiceStatusNone",
+    "invoiceStatusSent",
+    "invoiceStatusValidated",
+    "invoiceStatusPaid",
+    "invoiceStatusPaymentReceived",
+    "includeStartBefore",
+    "includeEndAfter",
     "startDate",
     "endDate",
-    "invoiceStatus"
+    "termMode"
   ],
   "actors": [
     "UserSession",
     "Dropdown",
-    "UserReportFilters"
+    "JavaScript",
+    "UserReportFilters",
+    "Agencies",
+    "Departments",
+    "Programs",
+    "Sites",
+    "CodeRecord",
+    "SqlDataReader"
   ],
   "workflows": [
     {
-      "name": "Report Generation",
+      "name": "Generate Invoicing Report",
       "steps": [
-        "Select agency, department, program, and term.",
-        "Choose filter options such as receiving or placing mode.",
-        "Specify date range or term mode.",
-        "Set invoice statuses and saved filters.",
-        "Execute report generation and display output."
+        "Load previous filter values if available.",
+        "Fill dropdowns with data based on selected criteria.",
+        "Select items previously saved in filters.",
+        "Execute report generation logic based on user selections and filters."
       ]
     },
     {
-      "name": "Filter Setup",
+      "name": "Save Report Filters",
       "steps": [
-        "Initialize dropdown lists based on session data.",
-        "Load existing saved filters if available.",
-        "Update filters dynamically through user interaction."
+        "Capture current filter settings.",
+        "Update saved filters in UserReportFilters with current settings."
       ]
     }
   ],
   "business_rules": [
-    "Only user-specific agencies are shown in receiving mode.",
-    "The term mode requires selection of at least one cohort/course.",
-    "Date mode requires both start and end dates to be specified."
+    "In receiving mode, RA dropdown only contains the user's agency.",
+    "Department dropdown contains ALL in receiving mode.",
+    "Program dropdown contains ALL in receiving mode.",
+    "Site list must not be blank.",
+    "Report cannot be generated if no courses are selected in 'term mode'."
   ],
   "validations": [
-    "Start and end dates must be entered in date mode.",
-    "Cohort/course filters cannot exceed the maximum allowed."
+    "Check if start date is provided.",
+    "Check if end date is provided.",
+    "Ensure PRTypeIDList is not empty."
   ],
-  "calculations": [
-    "Report header construction based on selected filters and criteria."
-  ],
+  "calculations": [],
   "conditions": [
-    "ReceivingMode must be true or false.",
-    "IncludeOption can be 0 (confirmed only), 1 (include accepted), or 2 (all except decline/cancel)."
+    "If termMode is true, use term-related filters.",
+    "Select previously saved items using savedFilters dictionary.",
+    "Handle 'IncludeOption' with values 0, 1, 2 for different request types."
   ],
   "system_behavior": [
-    "Dropdowns populate with current session data.",
-    "JavaScript integration for dynamic filter management."
+    "Display filters and dropdowns based on mode (receiving or placing).",
+    "Enable or disable controls based on selections.",
+    "Move selected items to the included list using JavaScript."
   ],
   "dependencies": [
-    "Resources for localization and label texts.",
-    "UserSession API for retrieving session-specific data."
+    "Agencies data for agency dropdown.",
+    "Departments data for department dropdown.",
+    "Programs data for program dropdown.",
+    "Sites data for site chooser."
   ],
   "exceptions": [
-    "Error messages for missing required fields like start and end dates or type selection."
+    "Max courses selection exception based on PrintJobs.MAX_INCLUDE_ITEMS.",
+    "No report generated if criteria are not fulfilled."
   ],
   "source_document_ids": [
     "057bc5e5-28dd-5588-8c7a-0592c332feed",
