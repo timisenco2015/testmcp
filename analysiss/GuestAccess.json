@@ -1,19 +1,75 @@
 {
-  "filename": "GuestAccess",
-  "found": false,
-  "summary": "",
-  "purpose": "",
-  "entities": [],
-  "fields": [],
-  "actors": [],
-  "workflows": [],
-  "business_rules": [],
-  "validations": [],
-  "calculations": [],
-  "conditions": [],
-  "system_behavior": [],
-  "dependencies": [],
-  "exceptions": [],
-  "source_document_ids": [],
-  "content_gaps": ["No related documents found"]
+    "filename": "GuestAccess",
+    "found": true,
+    "summary": "The files related to 'GuestAccess' detail a web-based guest login system implemented in ASP.NET. It involves user authentication with invitation keys and manages user session states, including error handling and user feedback.",
+    "purpose": "The purpose of the GuestAccess system is to allow users to authenticate using a session key, manage user session, and handle cases where logins are invalid or expired.",
+    "entities": [],
+    "fields": [
+        "sessionHash",
+        "user",
+        "pwHashed",
+        "expiryDate",
+        "provinceCode",
+        "errorMsg",
+        "LastTry",
+        "LockedOut",
+        "Inactivated",
+        "authCode",
+        "Captcha"
+    ],
+    "actors": [
+        "User",
+        "System",
+        "Security"
+    ],
+    "workflows": [
+        {
+            "name": "Guest Login",
+            "steps": [
+                "Retrieve session key from query string.",
+                "Search for credentials using session key.",
+                "Check if the invitation is expired.",
+                "Authenticate the user with encrypted credentials.",
+                "Redirect to start screen if login is successful.",
+                "Display error message if login fails or invitation is invalid."
+            ]
+        }
+    ],
+    "business_rules": [
+        "User session key must be present in the query string to proceed.",
+        "Invitation should not be expired at the time of login.",
+        "User must be authenticated with valid credentials."
+    ],
+    "validations": [
+        "Check if the session key is valid and corresponds to the user.",
+        "Verify the expiry date is not past the current date."
+    ],
+    "calculations": [],
+    "conditions": [
+        "If invitation expiry date is in the past, display expiry error message.",
+        "If login fails due to inactivation, override standard error with invitation expiry error."
+    ],
+    "system_behavior": [
+        "Displays the province code in the screen title.",
+        "Sets up footer with copyright and version information.",
+        "Handles user authentication and session management."
+    ],
+    "dependencies": [
+        "HSPnet.Framework",
+        "HSPnet.DataLayer",
+        "HSPnet.App_GlobalResources",
+        "HSPnet.UI"
+    ],
+    "exceptions": [
+        "Invalid session key results in an error.",
+        "Expired invitation displays expiry error message."
+    ],
+    "source_document_ids": [
+        "5484c8c4-06f4-5581-b86e-16bac58259ef",
+        "8ca9c0d8-07f6-5493-b7b4-b61a79ab8f77",
+        "9a74901d-41d8-5a53-bec7-798d824f83fb",
+        "a27aca24-e32e-5057-8c9e-d1d0c280348b",
+        "e27dce77-7a6f-5e07-a995-4254690c2333"
+    ],
+    "content_gaps": []
 }
