@@ -1,65 +1,97 @@
 {
   "filename": "RptMnuPositionUtilizationDetails",
   "found": true,
-  "summary": "The RptMnuPositionUtilizationDetails control allows users to generate detailed reports on position utilization including agency, discipline, and sub-discipline selections.",
-  "purpose": "To provide a detailed report interface for position utilization.",
-  "entities": [],
-  "fields": [
-    "valEditEndDate",
-    "CustomValidator1",
-    "LabelA",
-    "ddPlcAgency",
-    "Label1",
-    "ddDiscipline",
-    "LabelB",
-    "ddSubDiscipline",
-    "cmdRunExcel",
-    "lblPleaseWait",
-    "pnlReportHTML",
-    "lblReportHTML",
-    "ValidationSummary1",
-    "ltlDescription",
-    "ltlOptions",
-    "ltlMandatoryStartDate",
-    "txtEndDate",
-    "btnEndDate",
-    "CalendarExtender2",
-    "RegularExpressionValidator2",
-    "Literal1",
-    "valEditStartDate",
-    "txtStartDate",
-    "btnStartDate",
-    "CalendarExtender1",
-    "RegularExpressionValidator1"
+  "summary": "RptMnuPositionUtilizationDetails is a user control class in the HSPnet application for managing and displaying position utilization details based on selected criteria such as agency, discipline, sub-discipline, and date range. It provides functionality to populate and bind dropdown lists for agencies and disciplines, execute a stored procedure to fetch report data, and output the results in CSV format.",
+  "purpose": "The purpose of the RptMnuPositionUtilizationDetails control is to generate detailed position utilization reports by allowing users to select specific criteria and export the results for further analysis or reporting.",
+  "entities": [
+    "HSPnetSession",
+    "ScriptManager",
+    "Agency",
+    "CodeCategory",
+    "CodeRecord",
+    "SqlDataReader"
   ],
-  "actors": ["UserSession"],
+  "fields": [
+    {
+      "name": "UserSession",
+      "type": "HSPnetSession"
+    },
+    {
+      "name": "ScriptMgr",
+      "type": "ScriptManager"
+    },
+    {
+      "name": "ltlDescription",
+      "type": "Literal"
+    },
+    {
+      "name": "ltlOptions",
+      "type": "Literal"
+    },
+    {
+      "name": "ddPlcAgency",
+      "type": "DropDownList"
+    },
+    {
+      "name": "ddDiscipline",
+      "type": "DropDownList"
+    },
+    {
+      "name": "ddSubDiscipline",
+      "type": "DropDownList"
+    },
+    {
+      "name": "txtStartDate",
+      "type": "TextBox"
+    },
+    {
+      "name": "txtEndDate",
+      "type": "TextBox"
+    },
+    {
+      "name": "lblReportHTML",
+      "type": "Label"
+    }
+  ],
+  "actors": [
+    "User"
+  ],
   "workflows": [
     {
-      "name": "Generate Position Utilization Details Report",
+      "name": "Generate Position Utilization Report",
       "steps": [
-        "User specifies start and end dates",
-        "Select agency, discipline, sub-discipline",
-        "Click cmdRunExcel to generate CSV report",
-        "Displayed report in pnlReportHTML"
+        "User selects Agency, Discipline, Sub-discipline, Start Date, and End Date.",
+        "ScriptManager setups necessary JavaScript variables.",
+        "Dropdowns are populated for agency and discipline based on UserSession data.",
+        "User clicks the 'Run Excel' button to execute the report generation.",
+        "Stored procedure 'ReportPosUtilDetails' is called with parameters.",
+        "Results are retrieved and formatted into CSV.",
+        "Report HTML is displayed to the user."
       ]
     }
   ],
   "business_rules": [
-    "The report is generated based on selected parameters: agency, discipline, sub-discipline, and date range."
+    "Dropdowns should be populated only if they are empty.",
+    "Sub-discipline dropdown should refresh upon discipline change."
   ],
   "validations": [
-    "RequiredFieldValidator for start and end dates",
-    "RegularExpressionValidator for date format"
+    "RequiredFieldValidator for Start Date and End Date.",
+    "RegularExpressionValidator for date format validation."
   ],
   "calculations": [],
   "conditions": [
-    "UserSession must be active for generating reports"
+    "Check if UserSession is not null before performing operations.",
+    "Check if dropdowns are not already populated before data binding."
   ],
   "system_behavior": [
-    "Displays report in HTML format",
-    "Generates CSV output for download"
+    "Registers JavaScript for page elements during async postback.",
+    "Data is retrieved using a stored procedure and displayed as HTML."
   ],
-  "dependencies": [],
+  "dependencies": [
+    "HSPnet.Framework",
+    "HSPnet.DataLayer",
+    "System.Web.UI"
+  ],
   "exceptions": [],
   "source_document_ids": [
     "055c5244-7fe0-5be9-9ce9-dc051a33c0cf",
