@@ -1,59 +1,117 @@
 {
-    "filename": "StudentDetail",
-    "found": true,
-    "summary": "The StudentDetail files primarily manage the structure and logic behind student records including fields such as ID, StudentID, HeadingID, Response, and NumberingCodeID. It provides functions to Add, Update, and Delete student details and contains validation processes for ensuring data integrity.",
-    "purpose": "To manage and manipulate student details, allowing the creation, updating, and deletion of records within the system.",
-    "entities": [],
-    "fields": [
-        "ID",
-        "StudentID",
-        "HeadingID",
-        "Response",
-        "SortOrder",
-        "NumberingCodeID",
-        "Description",
-        "NumberingCode",
-        "SortOrderFormatted",
-        "WebPage",
-        "NumberCharacter",
-        "NumberingIndentLevel",
-        "HeaderChanged",
-        "ResponseFormatted"
-    ],
-    "actors": [],
-    "workflows": [
-        {
-            "name": "StudentDetail Management",
-            "steps": [
-                "Add StudentDetail",
-                "Update StudentDetail",
-                "Delete StudentDetail"
-            ]
-        }
-    ],
-    "business_rules": [],
-    "validations": [
-        "Response cannot be blank"
-    ],
-    "calculations": [
-        "Calculate numbering code and indent level",
-        "Translate new lines in response"
-    ],
-    "conditions": [],
-    "system_behavior": [
-        "Set flag for Web Page entry",
-        "Cache management for repeated queries"
-    ],
-    "dependencies": [],
-    "exceptions": [],
-    "source_document_ids": [
-        "2f3e4027-118a-5b7d-b9cb-e943e460765d",
-        "40112313-8254-5d98-a9db-48f60c3f745b",
-        "6a4590d6-e35b-54f7-b0ba-b9606bcb8172",
-        "6b8b3b7b-d574-599e-a9ea-d1c352f381ba",
-        "94472dd3-e32e-577b-b71c-3f0f4842ec2a",
-        "a279bb52-1482-57d8-aacf-419512574dc5",
-        "f71e11fa-9a45-5a04-a4ae-47c2ecde8a09"
-    ],
-    "content_gaps": []
+  "filename": "StudentDetail",
+  "found": true,
+  "summary": "The StudentDetail class is part of a system designed to manage student-related details. It includes methods for adding, updating, and deleting student details, utilizing a database for storage. The system handles numbering, formatting, and conditional logic for displaying student information.",
+  "purpose": "To manage and manipulate details related to students, including adding, updating, and deleting records in a structured way within a database system.",
+  "entities": [],
+  "fields": [
+    {
+      "name": "ID",
+      "type": "int"
+    },
+    {
+      "name": "StudentID",
+      "type": "int"
+    },
+    {
+      "name": "HeadingID",
+      "type": "int"
+    },
+    {
+      "name": "Response",
+      "type": "string"
+    },
+    {
+      "name": "SortOrder",
+      "type": "int"
+    },
+    {
+      "name": "NumberingCodeID",
+      "type": "int"
+    },
+    {
+      "name": "Description",
+      "type": "string"
+    },
+    {
+      "name": "NumberingCode",
+      "type": "string"
+    },
+    {
+      "name": "SortOrderFormatted",
+      "type": "string"
+    },
+    {
+      "name": "WebPage",
+      "type": "Boolean"
+    },
+    {
+      "name": "NumberCharacter",
+      "type": "string"
+    },
+    {
+      "name": "NumberingIndentLevel",
+      "type": "int"
+    },
+    {
+      "name": "ResponseFormatted",
+      "type": "string"
+    },
+    {
+      "name": "HeaderChanged",
+      "type": "Boolean"
+    }
+  ],
+  "actors": [
+    "HSPnetSession",
+    "StudentDetail"
+  ],
+  "workflows": [
+    {
+      "name": "Manage Student Details",
+      "steps": [
+        "Validate the session data.",
+        "Add new student detail using 'StudentDetailsAdd' stored procedure.",
+        "Update existing student detail using 'StudentDetailsUpdate' stored procedure.",
+        "Delete student detail using 'StudentDetailsDelete' stored procedure."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Do not repeat header entries unless the HeadingID changes.",
+    "Store 0 as a blank entry in SortOrder.",
+    "Translate Description if the session uses alternate language fields."
+  ],
+  "validations": [
+    "Response cannot be blank. If blank, add error message."
+  ],
+  "calculations": [
+    "Calculate numbering code and indent level for each entry."
+  ],
+  "conditions": [
+    "HeaderChanged is set to true if the HeadingID changes.",
+    "WebPage flag is set to true if Description is 'WEB_PAGE'.",
+    "ReleaseEmail and ReleasePhone rights are conditionally set based on placement requests and student statuses."
+  ],
+  "system_behavior": [
+    "Cache student detail data temporarily to improve performance on multiple calls.",
+    "Handle database connections and execute queries for managing student details."
+  ],
+  "dependencies": [
+    "StudentDetail class depends on proper session management through HSPnetSession.",
+    "Procedures 'StudentDetailsAdd', 'StudentDetailsUpdate', and 'StudentDetailsDelete' must exist in the database."
+  ],
+  "exceptions": [
+    "If the Response is blank, the operation is invalid and an error message is added."
+  ],
+  "source_document_ids": [
+    "2f3e4027-118a-5b7d-b9cb-e943e460765d",
+    "40112313-8254-5d98-a9db-48f60c3f745b",
+    "6a4590d6-e35b-54f7-b0ba-b9606bcb8172",
+    "6b8b3b7b-d574-599e-a9ea-d1c352f381ba",
+    "94472dd3-e32e-577b-b71c-3f0f4842ec2a",
+    "a279bb52-1482-57d8-aacf-419512574dc5",
+    "f71e11fa-9a45-5a04-a4ae-47c2ecde8a09"
+  ],
+  "content_gaps": []
 }
