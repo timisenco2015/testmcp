@@ -1,13 +1,13 @@
 {
   "filename": "RptMnuPositionUtilizationSummary",
   "found": true,
-  "summary": "RptMnuPositionUtilizationSummary is a web user control for generating a Position Utilization Summary report. The control provides dropdowns for selecting Placing Agency, Department, Program, as well as date range inputs. It supports data binding for agencies, departments, and programs based on user selections and generates the report using a stored procedure. Input fields are validated using required field validators and regular expression validators, and the report is output as HTML or CSV. The user control handles cascading dropdowns and displays report content dynamically. The workflow involves user interaction, input validation, report generation, and displaying results.",
-  "purpose": "To allow users to generate a Position Utilization Summary report by selecting agency, department, program, and date range; display the report in HTML and provide export functionality.",
+  "summary": "RptMnuPositionUtilizationSummary is a web user control used to drive a position utilization summary report in the HSPnet system. It provides dropdowns for agency, department, and program selection, date range fields, and generates a position utilization summary report, displaying the results in HTML and optionally exporting to Excel. The control handles dynamic population of dropdowns based on user selection, manages validation, and executes a database procedure to retrieve the report data.",
+  "purpose": "To allow users (typically staff) to generate and view a summary report of position utilization filtered by agency, department, program, and date range. The report output can be displayed as HTML or exported to Excel.",
   "entities": [
     "Agency",
     "Department",
     "Program",
-    "UserSession"
+    "Position Utilization Summary Report"
   ],
   "fields": [
     "ddPlcAgency",
@@ -17,70 +17,70 @@
     "txtEndDate",
     "btnStartDate",
     "btnEndDate",
-    "CalendarExtender1",
-    "CalendarExtender2",
     "ltlDescription",
     "ltlOptions",
-    "lblReportHTML",
-    "pnlReportHTML"
+    "lblReportHTML"
   ],
   "actors": [
-    "User",
-    "System"
+    "UserSession",
+    "ScriptManager",
+    "Staff/User"
   ],
   "workflows": [
     {
       "name": "Generate Position Utilization Summary Report",
       "steps": [
-        "User selects Placing Agency (ddPlcAgency).",
-        "System fills Department dropdown based on selected agency.",
-        "User selects Department (ddDepartment).",
-        "System fills Program dropdown based on selected department.",
-        "User selects Program (ddProgram).",
-        "User enters Start Date (txtStartDate) and End Date (txtEndDate).",
-        "Input fields validated (RequiredFieldValidator, RegularExpressionValidator, CustomValidator).",
-        "User clicks export button (cmdRunExcel).",
-        "System executes stored procedure 'ReportPosUtilSummary' and passes parameters: SessionID, DepartmentID, ProgramID, DateFrom, DateTo.",
-        "System generates report output as HTML or CSV.",
-        "System displays report content (lblReportHTML, pnlReportHTML)."
+        "User loads the report menu control.",
+        "Control retrieves and displays description and options for the report.",
+        "Agency dropdown is populated.",
+        "Department dropdown is populated based on selected agency.",
+        "Program dropdown is populated based on selected department.",
+        "User selects values for agency, department, program, and date range.",
+        "Date field JavaScript variables are set for client-side scripting.",
+        "User clicks the 'Run Excel' button.",
+        "Database procedure 'ReportPosUtilSummary' is executed with parameters (SessionID, DepartmentID, ProgramID, DateFrom, DateTo).",
+        "Results are rendered as HTML or CSV.",
+        "HTML report is shown in a designated panel; Excel export is provided."
       ]
     }
   ],
   "business_rules": [
-    "Dropdowns for agency, department, and program are cascaded: agency -> department -> program.",
-    "Program dropdown includes an 'ALL' option at the top.",
-    "Stored procedure 'ReportPosUtilSummary' generates the report."
+    "Only valid date ranges can be entered.",
+    "Dropdowns dynamically filter options based on preceding selections (agency -> department -> program).",
+    "All required fields must be validated before generating the report."
   ],
   "validations": [
-    "RequiredFieldValidator on start and end dates.",
-    "RegularExpressionValidator on date fields.",
-    "CustomValidator for additional input checks.",
-    "ValidationSummary control aggregates validation errors."
+    "RequiredFieldValidator and CustomValidator for date fields",
+    "RegularExpressionValidator for date format",
+    "ValidationSummary for displaying errors"
   ],
-  "calculations": [],
+  "calculations": [
+    "None in user control; report calculations are handled by the stored procedure 'ReportPosUtilSummary' and output formatting by ReportMain.OutputCSV."
+  ],
   "conditions": [
-    "Dropdowns are filled only if UserSession is not null.",
-    "Department and program dropdowns are updated when the agency or department changes."
+    "If user changes agency, department dropdown is refreshed.",
+    "If user changes department, program dropdown is refreshed.",
+    "If dropdowns are empty, populate from database.",
+    "If reportHTML is not empty, display results panel."
   ],
   "system_behavior": [
-    "Fills dropdowns dynamically based on selections.",
-    "Handles async postback for JavaScript setup.",
-    "Displays report content only if output is not empty.",
-    "Exports report in CSV format when the button is clicked."
+    "Dropdowns are populated from database based on user session and selections.",
+    "JavaScript variables are dynamically set for client-side interaction.",
+    "HTML report panel is only visible if report content exists.",
+    "Excel export triggers stored procedure and generates downloadable output."
   ],
   "dependencies": [
-    "UserSession.DB",
-    "Codes.CodeLookupCodes",
+    "HSPnetSession",
     "Agencies.AgencySearchPlacing",
     "Departments.DepartmentList",
     "Programs.ProgramList",
     "Dropdown.CurrentID",
-    "DateFormatter.ParseDate",
     "ReportMain.OutputCSV",
+    "Database procedure: ReportPosUtilSummary",
     "Resources.PositionUtilizationSummary"
   ],
   "exceptions": [
-    "Empty or invalid inputs will prevent report generation (handled by validators)."
+    "If required fields (dates, dropdowns) are missing or invalid, validation errors are displayed and report generation is halted."
   ],
   "source_document_ids": [
     "25fbcf7c-9df8-5317-9ec3-8c1e0c1fbe91",
@@ -95,8 +95,8 @@
     "f7f74fe0-4d69-54d6-9d43-fea2345ef9dc"
   ],
   "content_gaps": [
-    "No complete business logic or stored procedure definition retrieved.",
-    "No UI layout details.",
-    "No report output sample or CSV schema included."
+    "No explicit end-to-end business process description; information is inferred from control logic.",
+    "No details on contents or logic of the stored procedure 'ReportPosUtilSummary'.",
+    "No information on security, user permissions, or error handling beyond field validation."
   ]
 }
