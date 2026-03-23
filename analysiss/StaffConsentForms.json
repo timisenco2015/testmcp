@@ -1,0 +1,105 @@
+{
+  "filename": "StaffConsentForms",
+  "found": true,
+  "summary": "The documents describe the data structure, CRUD operations, and functionality related to Staff Consent Forms in the HSPnet system.",
+  "purpose": "To manage staff consent forms including creating, reading, updating, and deleting operations, ensuring data validation, and handling sessions within the HSPnet application.",
+  "entities": [
+    "StaffConsentForm"
+  ],
+  "fields": [
+    {
+      "name": "ID",
+      "type": "int"
+    },
+    {
+      "name": "StaffID",
+      "type": "int"
+    },
+    {
+      "name": "ProviderID",
+      "type": "int"
+    },
+    {
+      "name": "DateReceived",
+      "type": "DateTime"
+    },
+    {
+      "name": "AgencyID",
+      "type": "int"
+    },
+    {
+      "name": "ProviderTypeCodeID",
+      "type": "int"
+    },
+    {
+      "name": "Notes",
+      "type": "string"
+    },
+    {
+      "name": "Agency",
+      "type": "string"
+    },
+    {
+      "name": "Department",
+      "type": "string"
+    },
+    {
+      "name": "ProviderType",
+      "type": "string"
+    }
+  ],
+  "actors": [
+    "HSPnetSession"
+  ],
+  "workflows": [
+    {
+      "name": "Add Staff Consent Form",
+      "steps": [
+        "Extract AgencyID and ProviderID from ProviderListDept.",
+        "Create StaffConsentForm object.",
+        "Format DateReceived.",
+        "Perform validation on the form.",
+        "Add form data to the database using stored procedure 'StaffConsentFormsAdd'."
+      ]
+    },
+    {
+      "name": "Update Staff Consent Form",
+      "steps": [
+        "Extract AgencyID and ProviderID from ProviderListDept.",
+        "Create StaffConsentForm object.",
+        "Format DateReceived.",
+        "Perform validation on the form.",
+        "Update form data in the database using stored procedure 'StaffConsentFormsUpdate'."
+      ]
+    },
+    {
+      "name": "Delete Staff Consent Form",
+      "steps": [
+        "Check if ID is greater than 0.",
+        "Delete form data from the database using stored procedure 'StaffConsentFormsDelete'."
+      ]
+    }
+  ],
+  "business_rules": [],
+  "validations": [
+    {
+      "description": "DateReceived must not be null; otherwise, add error message 'Consent_Date_Received_is_mandatory'."
+    }
+  ],
+  "calculations": [],
+  "conditions": [],
+  "system_behavior": [
+    "Retrieve list of Staff Consent Forms based on StaffID or ID.",
+    "Handle session and database operations for CRUD actions."
+  ],
+  "dependencies": [],
+  "exceptions": [],
+  "source_document_ids": [
+    "02cf2fd1-5ae1-54ab-97a7-9a7e855a2ef6",
+    "260aeb9d-90de-5f9a-81ce-705fcbd1876c",
+    "66ca4ce7-7638-504b-947d-355dd10d24ef",
+    "b57223f5-9687-52a7-adc8-db44a2d79c71",
+    "ca6ae69d-5ced-51ea-a82f-384c4abc2804"
+  ],
+  "content_gaps": []
+}
