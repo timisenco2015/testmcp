@@ -1,9 +1,15 @@
 {
   "filename": "Utilization",
   "found": true,
-  "summary": "The documents contain class definitions and properties related to the management and scheduling of course terms, shifts, and instructor assignments within a utilization system. It outlines fields necessary for managing placement requests and instructor details.",
-  "purpose": "To provide a structured representation of utilization-related details, especially useful for course and shift management in a system designed for educational placements.",
-  "entities": [],
+  "summary": "The documents provide a detailed description of a class named Utilization, which appears to be part of a larger system handling placement requests and scheduling. The class includes numerous properties and fields concerning instructors, shifts, schedules, and conflicts, indicating it is part of a system that manages educational or training placements.",
+  "purpose": "The purpose of the Utilization class is to manage and handle the scheduling and organization of placement requests, including handling shifts, instructors, and potential conflicts within a training or educational environment.",
+  "entities": [
+    "Utilization",
+    "PlacementRequestSchedule",
+    "Shift",
+    "Instructor",
+    "Supervisor"
+  ],
   "fields": [
     "TermStartDate",
     "TermEndDate",
@@ -21,6 +27,16 @@
     "InstructorEmail",
     "InstructorPhone",
     "InstructorID",
+    "InstructorLastName2",
+    "InstructorFirstName2",
+    "InstructorEmail2",
+    "InstructorPhone2",
+    "InstructorID2",
+    "InstructorLastName3",
+    "InstructorFirstName3",
+    "InstructorEmail3",
+    "InstructorPhone3",
+    "InstructorID3",
     "ConflictAlert",
     "ConflictAlertResolved",
     "HasConflict",
@@ -75,30 +91,52 @@
     "Cohort",
     "Term"
   ],
-  "actors": [],
+  "actors": [
+    "Instructor",
+    "Supervisor"
+  ],
   "workflows": [
     {
-      "name": "Utilization Management",
+      "name": "Schedule Management",
       "steps": [
-        "Define term start and end dates.",
-        "Set course and instructor details.",
-        "Manage shift schedules and codes.",
-        "Handle amendments and alerts for conflicts.",
-        "Format and display instructor names."
+        "Initialize Utilization class",
+        "Set term start and end dates",
+        "Assign course and amendments",
+        "Configure instructor details",
+        "Handle potential conflicts",
+        "Set display settings and alerts",
+        "Manage shift and scheduling details"
       ]
     }
   ],
-  "business_rules": [],
-  "validations": [],
-  "calculations": [
-    "ShiftLength calculated as the number after the first character of ShiftCode.",
-    "NicknameAndID combines Nickname with PRDID.",
-    "InstructorNameFormatted utilizes a name formatter and checks for multiple instructors."
+  "business_rules": [
+    "Amendments must be a list of PlacementRequestSchedule objects.",
+    "Days are represented as a boolean array of size 7.",
+    "ShiftLength is calculated based on the ShiftCode."
   ],
-  "conditions": [],
-  "system_behavior": [],
-  "dependencies": [],
-  "exceptions": [],
+  "validations": [
+    "Ensure valid dates for TermStartDate and TermEndDate.",
+    "Validate instructor contact details including email and phone.",
+    "Check if ConflictAlert is resolved."
+  ],
+  "calculations": [
+    "ShiftLength is determined by ShiftCode, StartTime, and EndTime."
+  ],
+  "conditions": [
+    "Has2Blocks denotes whether two blocks exist in the schedule.",
+    "VariousDays indicates different days are used for scheduling."
+  ],
+  "system_behavior": [
+    "Automatically flags conflicts when AutoFlagConflicts is true.",
+    "Displays urgent and comment alerts based on respective fields."
+  ],
+  "dependencies": [
+    "Depends on PlacementRequestSchedule for amendments.",
+    "Uses HSPnet.Framework and HSPnet.DataLayer libraries."
+  ],
+  "exceptions": [
+    "Handle missing instructor details gracefully."
+  ],
   "source_document_ids": [
     "0fe9440f-0587-5ad9-9fc1-0cc3a0d83a61",
     "71ea2e53-aec5-5d26-a15e-2db888a9e419",
