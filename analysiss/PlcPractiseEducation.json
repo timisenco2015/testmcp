@@ -1,0 +1,62 @@
+{
+    "filename": "PlcPractiseEducation",
+    "found": true,
+    "summary": "The PlcPractiseEducation file is geared towards the management and interaction of staff placement manual operations within HSPnet. It provides functionality for adding, editing, and deleting placement entries, with a focus on user interface controls and data binding.",
+    "purpose": "To facilitate staff placement management through a graphical user interface, enabling additions, edits, and deletions of placement records.",
+    "entities": ["StaffManualPlacement"],
+    "fields": ["ProgramID", "PlacementTypeID", "RcvAgencyID", "SiteID", "ServiceID", "DestinationID"],
+    "actors": ["UserSession"],
+    "workflows": [
+        {
+            "name": "Editing a Placement",
+            "steps": [
+                "Bind data to detail view.",
+                "Switch grid to edit mode.",
+                "Show details modal."
+            ]
+        },
+        {
+            "name": "Adding a Placement",
+            "steps": [
+                "Bind data to detail view.",
+                "Switch grid to add mode.",
+                "Show details modal."
+            ]
+        },
+        {
+            "name": "Deleting a Placement",
+            "steps": [
+                "Delete the placement record.",
+                "Cache user session.",
+                "Redirect to current page."
+            ]
+        }
+    ],
+    "business_rules": [],
+    "validations": [
+        "Verify if Page.IsValid before inserting or updating records."
+    ],
+    "calculations": [],
+    "conditions": [
+        "Check if UserSession is null to cancel data operations."
+    ],
+    "system_behavior": [
+        "Caches user session to maintain state.",
+        "Uses Grid and Dropdown controls for displaying and interacting with placement data."
+    ],
+    "dependencies": [],
+    "exceptions": [],
+    "source_document_ids": [
+        "13842b98-1f3a-51aa-be95-996e6f9652bb",
+        "15625d3e-c6c5-5151-90c1-3d096cf49cb6",
+        "21be580d-23f2-5cc6-9fe8-861be20db702",
+        "2399dfd0-605e-5b4b-b261-40f9b249fa31",
+        "6431a3bf-a06f-5d2f-a997-1df282bb3d22",
+        "71023270-fc03-5fb7-bb86-794893ee02b2",
+        "960041ad-185b-556d-a509-fb0089ff7f71",
+        "a240ab81-3b13-52b2-a9e4-0c5bd6bd36a5",
+        "b6c6fa75-77a1-5a26-a3b5-a0bb34755cc6",
+        "cd09e380-fed7-5246-ac09-997174ac52ce"
+    ],
+    "content_gaps": []
+}
