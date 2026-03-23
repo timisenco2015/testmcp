@@ -1,0 +1,194 @@
+{
+  "filename": "WelcomeInstructor",
+  "found": true,
+  "summary": "The WelcomeInstructor page is part of the HSPnet application designed to manage instructor-related functionalities, including course selection, term management, placements overview, and prerequisite setup.",
+  "purpose": "To provide instructors with a platform to manage their course-related activities and view placement information, while ensuring relevant prerequisites are met and data is refreshed or displayed as needed.",
+  "entities": [
+    "Instructor",
+    "Course",
+    "Term",
+    "Placement",
+    "Prerequisites",
+    "StaffProfile",
+    "Student",
+    "Supervisor"
+  ],
+  "fields": [
+    "courseID",
+    "InstructorID",
+    "sort",
+    "sess",
+    "dateFrom",
+    "dateTo",
+    "includeUnconfirmed",
+    "RcvAgencyFull",
+    "Site",
+    "RefNum",
+    "Status",
+    "SupervisorFirstName",
+    "SupervisorLastName",
+    "RequestName",
+    "PlacementType",
+    "StudentEmail",
+    "StudentPhone",
+    "SupervisorEmail",
+    "SupervisorPhone",
+    "UrgentAlert"
+  ],
+  "actors": [
+    {
+      "name": "Instructor",
+      "role": "Manage placements and courses, view prerequisites."
+    },
+    {
+      "name": "Administrator",
+      "role": "Can switch user perspectives and manage higher-level settings."
+    },
+    {
+      "name": "Student",
+      "role": "Have their details managed under placements."
+    },
+    {
+      "name": "Supervisor",
+      "role": "Responsible for overseeing student placements."
+    }
+  ],
+  "workflows": [
+    {
+      "name": "Course and Term Management",
+      "steps": [
+        "Select course from dropdown.",
+        "Select term from dropdown.",
+        "Refresh data based on course/term change."
+      ]
+    },
+    {
+      "name": "Prerequisite Navigation",
+      "steps": [
+        "Select prerequisite tab.",
+        "Set active view to corresponding prerequisite.",
+        "Load prerequisite data."
+      ]
+    },
+    {
+      "name": "Placement Management",
+      "steps": [
+        "Bind data to placements grid.",
+        "Display placement information as per chosen filters.",
+        "Handle data refresh on view change."
+      ]
+    },
+    {
+      "name": "Session and User Management",
+      "steps": [
+        "Maintain session variables.",
+        "Switch user functionality upon selection.",
+        "Handle log-out."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Display prerequisite tabs based on user permissions.",
+    "Handle data binding for course and term selections.",
+    "Refresh data whenever a drop-down selection changes."
+  ],
+  "validations": [
+    "Ensure course and term selection are valid.",
+    "Confirm user has necessary permissions to view tabs.",
+    "Check session state before operations."
+  ],
+  "calculations": [
+    "Translate rotation dates for display.",
+    "Format placement time and duration."
+  ],
+  "conditions": [
+    "If user session is monitoring, some functionalities are hidden.",
+    "Visibility of buttons depends on user permissions."
+  ],
+  "system_behavior": [
+    "Page load checks for session validity.",
+    "Pre-render setups further emphasize data consistency.",
+    "Client-side scripts manage front-end interactions."
+  ],
+  "dependencies": [
+    "User session data for permissions.",
+    "Course and term database for selections.",
+    "Placement data for grid display."
+  ],
+  "exceptions": [
+    "Error handling for data binding failures.",
+    "URL redirection for session invalidation."
+  ],
+  "source_document_ids": [
+    "044c73b8-8202-5929-9317-7ee7288c94c7",
+    "06beaed6-99ec-5b5f-b882-e31dbb97edb5",
+    "07713c65-8e85-50c2-ba06-2d2d178098be",
+    "0b7f85af-c87f-50be-982e-2981370d4f71",
+    "0e17ad7c-0d24-5638-b4ed-0c5b5690b8ec",
+    "0e1c45a4-68b6-5467-96c8-d794b0e2b57b",
+    "0e4285f3-281a-5002-af78-c53453298c9f",
+    "10609c44-14a0-516c-ac02-ac1f4b9f02cc",
+    "16aac5d0-25e5-51c6-bef2-fd96f54bb50d",
+    "1e6cd094-8690-5980-9e3a-e3fa8a273b89",
+    "23f052b0-9ab8-5a29-8334-eafcefd28a4c",
+    "2dbfad05-e929-515a-89d0-4adac305bedd",
+    "320cbedc-5d07-5f69-b824-db9efe6ca355",
+    "347acedd-c9ce-557e-8ffb-27da41817aaf",
+    "35d60727-e236-54ec-91fc-bfda460a5dbf",
+    "38dc6221-140d-5343-bcde-43cbb4cb3055",
+    "3b13b989-295d-578e-a29f-237ebb1b45e9",
+    "3d90af8b-3370-5111-9f9a-229097a45b40",
+    "3f223d0c-d5b2-5861-976c-2355741e160a",
+    "42ae6469-bf35-5d08-849a-bc3ff1afa080",
+    "442725ae-a901-556f-8256-62dd3f854b14",
+    "47bf95db-7384-59f3-9e24-5a99d5a1bda1",
+    "486d80d8-cb99-5083-9db0-bb72be299108",
+    "4cdcee75-97d7-50d0-8c81-15cbe4fa7ac6",
+    "4cfce2ec-5bb1-570a-bcf9-74fc562ba861",
+    "509e8c1c-59fb-5ec0-8df4-9aff86efdfc5",
+    "53efe811-e4f5-5307-b920-16c9cecdc0f6",
+    "548599a6-ecbb-558b-8717-5c51131decee",
+    "54d94225-1ba4-585e-8374-5f96df82453d",
+    "56883665-c05e-5f1c-8b08-7a3316da6d7a",
+    "5d0240b6-ceef-5738-b517-4e5633f0984b",
+    "5da5c75a-3a60-55b4-b17e-ac841352d715",
+    "60a011e6-19fa-51be-90de-1628945051b3",
+    "65ea5a50-a9a7-556f-9b3e-62dffd83b20c",
+    "6bcc7ba1-dd61-593f-9e51-55ff9d8722c1",
+    "6bd5f821-aa82-5f7a-b49c-24c81d7789ed",
+    "6d4282af-c7c5-582f-be1a-04866685aaef",
+    "6e2b35c4-1fc5-5f96-9a4b-e528860fa747",
+    "769f26ed-9636-5108-90f3-b04419c9e1a8",
+    "7a27c042-9eea-5af8-94eb-03f3e3f20abc",
+    "7c56b881-cb02-5d6a-917f-f0029221ccc0",
+    "8d9b04d5-26e7-58f6-b34d-d719cb9c8330",
+    "91d38fb0-aafb-5c0e-8693-a752789231e3",
+    "954f91da-0c8f-5f61-b60a-ba6ebd9e57de",
+    "971cf950-44b4-59f8-a691-3359a48de9d8",
+    "99d55b8d-fae9-56fb-afdf-408a09c11832",
+    "9dbc8dac-fc9c-58e3-ad27-8295ffa1cb81",
+    "ae56ffdd-69d6-526f-bf76-f57d065ae060",
+    "b1104fdb-d4cd-562a-944c-1253366eab39",
+    "b4a674aa-f1d2-558e-923d-b9314ba04070",
+    "bffaff80-48ef-5ebe-b70c-1901410310f0",
+    "c5c699eb-6c17-554b-a306-26b56c2f17f4",
+    "cdc41e54-e35a-5952-a0bf-5bec2b0c7c17",
+    "cfac7d01-b479-55e6-b17e-34437d510f51",
+    "d4e1a52a-e7ed-5a73-af6a-e4f2701ec0be",
+    "dc96abc1-b21c-5946-b975-7fb3d52fcef6",
+    "e16ba0a5-1457-5d8c-adb9-93f58c22c401",
+    "e1772b23-cd68-5a16-8c06-4bfb846a9b1c",
+    "e1d71f6d-8dfc-5633-8c35-facd97f2d2ca",
+    "e259050c-13ff-5db2-a2fb-cccd45ccab30",
+    "eb3963e0-b50c-5a98-9a90-84d88d55e1c0",
+    "ebc29d2a-6a5a-50e0-ae89-74314bbfd2eb",
+    "edaa5f2e-3f0c-5461-86ce-07cb25c12f1e",
+    "eeba8b03-f06e-5dcc-a6c9-16a2a3fa5188",
+    "eeebded3-6ff2-53ce-908a-cd53d851e2e4",
+    "f2134921-eba1-5c82-ad60-c28217e676fc",
+    "f2c51a12-b58b-52bc-94db-7e9b835a6500",
+    "fc032ace-a38a-5f58-be70-3bb3dcf7e990",
+    "ff23abbb-4a3b-5c61-b456-e90cd8ed06db"
+  ],
+  "content_gaps": []
+}
