@@ -1,43 +1,23 @@
 {
   "filename": "ServiceCode",
   "found": true,
-  "summary": "ServiceCode is a class representing a code used within the HSPnet application, associated with different service categories. It handles entries with capabilities for localization and ordering.",
-  "purpose": "To provide a structured representation of service codes used in various operations within HSPnet.",
-  "entities": [
-    "ServiceCode"
-  ],
-  "fields": [
-    "ID",
-    "CodeCategoryID",
-    "ShortName",
-    "Name",
-    "SortOrder",
-    "Notes",
-    "NameAlt"
-  ],
-  "actors": [
-    "HSPnetSession"
-  ],
+  "summary": "ServiceCode class and related operations are designed to manage service codes within the HSPnet application.",
+  "purpose": "To handle and manipulate service code data, including retrieval and localization based on language settings.",
+  "entities": ["ServiceCode", "ServiceCodes"],
+  "fields": ["ID", "CodeCategoryID", "ShortName", "Name", "SortOrder", "Notes", "NameAlt", "NotesAlt"],
+  "actors": ["HSPnetSession", "SqlDataReader"],
   "workflows": [
     {
-      "name": "Fetch Service Codes",
-      "steps": [
-        "Call procedure to retrieve service codes from database.",
-        "Localize entry names if alternate language is enabled."
-      ]
+      "name": "Service Code List Retrieval",
+      "steps": ["Initialize Service Code", "Bind Data", "Localize Fields"]
     }
   ],
   "business_rules": [],
   "validations": [],
   "calculations": [],
-  "conditions": [
-    "Use alternate names if the session is in an alternate language mode."
-  ],
-  "system_behavior": [],
-  "dependencies": [
-    "HSPnet.Framework",
-    "HSPnet.App_GlobalResources"
-  ],
+  "conditions": [],
+  "system_behavior": ["Localization based on session settings"],
+  "dependencies": ["HSPnet.Framework", "HSPnet.App_GlobalResources"],
   "exceptions": [],
   "source_document_ids": [
     "94f1b055-348d-508a-ae6e-cf7960a8c6a2",
