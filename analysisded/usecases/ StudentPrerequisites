@@ -1,0 +1,95 @@
+# Module: StudentPrerequisites
+
+## StudentPrerequisites-UC1 — Update Student Infection Control Details
+
+- Primary Actor(s): Database System
+- Secondary Actor(s): Student
+- Trigger: Update request for a student's infection control details
+- Description: This use case updates the infection control details for a student in the database.
+- Preconditions: The student must be valid in the current session.
+- Postconditions: The student's infection control details are updated in the database.
+- Main Success Scenario:
+  1. Validate if the student is valid for the current session.
+  2. Prepare procedure `StudentDetailsInfectionUpdate`.
+  3. Add parameters: StudentID, Mask details, InfectionControlSolutionID, StaffID, and SessionID.
+  4. Execute the query.
+- Extensions: None
+- Exceptions: None
+- Business Rules: A valid student session is required for updates.
+- Assumptions: The student data provided is valid and exists in the system.
+- Open Issues: None
+
+## StudentPrerequisites-UC2 — Update Occupational Health Summary
+
+- Primary Actor(s): Database System
+- Secondary Actor(s): Student
+- Trigger: Update request for a student's occupational health summary.
+- Description: This use case updates the occupational health summary for a student.
+- Preconditions: The student must be valid in the current session.
+- Postconditions: The student's occupational health summary is updated in the database.
+- Main Success Scenario:
+  1. Retrieve current student occupational health data.
+  2. Update required fields such as ImmunReqMetDate, MedicalCompleted, and ImmunizationFeePaid.
+  3. Validate if the student is valid for the current session.
+  4. Execute the update operation.
+- Extensions: None
+- Exceptions: None
+- Business Rules: The student's status must meet specific health requirements to consider updates.
+- Assumptions: Health data is accurately reported.
+- Open Issues: None
+
+## StudentPrerequisites-UC3 — Validate Health Details Timing
+
+- Primary Actor(s): System Validation
+- Secondary Actor(s): None
+- Trigger: Validation process for health record updates.
+- Description: Ensures health records do not exceed specified timing thresholds.
+- Preconditions: Health record dates must be entered.
+- Postconditions: Validations ensure the recorded dates meet timing regulations.
+- Main Success Scenario:
+  1. Validate the year of the Varicella and Hepatitis shots.
+  2. Check if the dates exceed a maximum allowable date.
+  3. Return appropriate error messages if validations fail.
+- Extensions: None
+- Exceptions: Dates exceeding limits return specified error messages.
+- Business Rules: Date thresholds are in place to ensure compliance.
+- Assumptions: The maximum date is predefined and enforced by the system.
+- Open Issues: None
+
+## StudentPrerequisites-UC4 — Format and Store Immunization Dates
+
+- Primary Actor(s): System
+- Secondary Actor(s): None
+- Trigger: Formatting triggered when storing immunization dates.
+- Description: This use case formats and stores immunization dates consistently.
+- Preconditions: Immunization dates are inputted.
+- Postconditions: Dates are stored in a formatted short date version.
+- Main Success Scenario:
+  1. Retrieve the immunization date.
+  2. Format the date to a short date format.
+  3. Store the formatted date in the system.
+- Extensions: None
+- Exceptions: Formatting errors are handled by default system error handling.
+- Business Rules: Uniform date formatting across all records.
+- Assumptions: System date formatting libraries are operational.
+- Open Issues: None
+
+## StudentPrerequisites-UC5 — Update Confidentiality Information
+
+- Primary Actor(s): Database System
+- Secondary Actor(s): None
+- Trigger: Update request for confidentiality form details.
+- Description: Updates the confidentiality form details for a student or staff.
+- Preconditions: Valid session and confidentiality details are provided.
+- Postconditions: Confidentiality information is updated in the database.
+- Main Success Scenario:
+  1. Prepare confidentiality update procedure.
+  2. Add necessary confidentiality parameters.
+  3. Execute the query to update the details in the database.
+- Extensions: None
+- Exceptions: None
+- Business Rules: Confidentiality forms must be handled sensitively.
+- Assumptions: Appropriate authority is granted for updates.
+- Open Issues: None
+
+No further use cases were extractable from the provided content.
