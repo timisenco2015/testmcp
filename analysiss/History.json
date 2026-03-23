@@ -1,0 +1,59 @@
+{
+    "filename": "History",
+    "found": true,
+    "summary": "The content describes the implementation of a History user control in a web application, including various UI components, their properties, and event handling methods.",
+    "purpose": "To manage and display historical data related to a specific topic within the web application, including searching and refreshing options.",
+    "entities": [],
+    "fields": [
+        "dsHistoryList",
+        "btnPrintDetails",
+        "spnRefreshBtns",
+        "cmdSearch",
+        "cmdClose",
+        "Literal2",
+        "gridData",
+        "UserSession",
+        "ETopicID",
+        "HistoryType",
+        "DisplayButtons",
+        "pnlRef",
+        "lblRef",
+        "pnlButtons"
+    ],
+    "actors": [],
+    "workflows": [
+        {
+            "name": "SelectHistoryList",
+            "steps": [
+                "Check if UserSession is null, if so, cancel the operation.",
+                "If UserSession exists, set InputParameters for session, ETopicID, and HistoryType.",
+                "Set visibility of spnRefreshBtns and pnlRef based on DisplayButtons property.",
+                "Display reference label using data from ETopics"
+            ]
+        },
+        {
+            "name": "SearchHistory",
+            "steps": [
+                "Cache the UserSession if it is not null.",
+                "Redirect the user based on USE_YARP configuration."
+            ]
+        }
+    ],
+    "business_rules": [],
+    "validations": [],
+    "calculations": [],
+    "conditions": [
+        "If UserSession is null, cancel the selection operation.",
+        "Set visibility of elements based on DisplayButtons."
+    ],
+    "system_behavior": [],
+    "dependencies": [],
+    "exceptions": [],
+    "source_document_ids": [
+        "02ba45dd-d164-55c0-9e4f-fbda82dc0698",
+        "2efb001f-c356-50f9-8c77-ce520e76d7a9",
+        "4e0986a9-1b39-5bca-b65b-d3100ce71ed7",
+        "85d93ae6-2456-56de-b47f-dccedde527a8"
+    ],
+    "content_gaps": []
+}
