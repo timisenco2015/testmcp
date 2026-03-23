@@ -1,0 +1,121 @@
+# Module: WCB
+
+## WCB-UC1 — Manage Enrollment Status
+
+- Primary Actor(s): Enrollment Administrator
+- Secondary Actor(s): None
+- Trigger: An administrator needs to update the enrollment status of a student.
+- Description: The administrator can update various attributes related to a student's enrollment including waiver dates and status codes.
+- Preconditions: The administrator must have access to the enrollment data and the system must not be in read-only mode.
+- Postconditions: The student's enrollment status is updated in the system.
+- Main Success Scenario:
+  1. Administrator accesses the enrollment management screen.
+  2. Enrollment data is displayed.
+  3. Administrator updates the necessary fields including waiver date and status code.
+  4. Administrator saves the changes.
+- Extensions:
+  - If the student is graduated or inactive, the row becomes non-editable.
+  - If the student is waived, other actions are overridden.
+- Exceptions:
+  - Attempt to update when the system is in read-only mode results in an error.
+  - Invalid date format input leads to a validation error.
+- Business Rules:
+  - Only enrolled students can have their status edited unless graduated or inactive.
+  - Waived students have limited actions.
+- Assumptions:
+  - The system will provide feedback if changes are successful.
+- Open Issues:
+  - Determine if email notifications should be sent upon updating a student's status.
+
+## WCB-UC2 — Batch Update of Enrollment Status
+
+- Primary Actor(s): Enrollment Administrator
+- Secondary Actor(s): None
+- Trigger: An administrator initiates a batch update process.
+- Description: The administrator can perform batch updates to student records, such as applying waiver statuses to multiple students simultaneously.
+- Preconditions: The administrator must have proper permissions and the system must not be in read-only mode.
+- Postconditions: Multiple student records are updated successfully.
+- Main Success Scenario:
+  1. Administrator selects multiple records for batch update.
+  2. Administrator applies changes such as waiver status and notes.
+  3. Administrator confirms and executes batch update.
+- Extensions:
+  - If any selected record is ineligible for update (e.g., graduated), it is skipped.
+- Exceptions:
+  - Batch update fails due to system error or invalid input.
+- Business Rules:
+  - Batch updates cannot modify records marked as graduated or inactive.
+- Assumptions:
+  - The system will log all changes made during batch updates.
+- Open Issues:
+  - Determine the threshold for batch update operations to prevent performance issues.
+
+## WCB-UC3 — Search and Filter Enrollment Records
+
+- Primary Actor(s): Enrollment Administrator
+- Secondary Actor(s): None
+- Trigger: An administrator needs to locate specific enrollment records.
+- Description: The administrator uses search and filter functionalities to find enrollment records based on criteria such as section, action, campus, etc.
+- Preconditions: The administrator must have access to the enrollment management screen.
+- Postconditions: The relevant records are displayed based on search criteria.
+- Main Success Scenario:
+  1. Administrator sets search criteria using available filters.
+  2. Administrator executes the search.
+  3. System returns matching records.
+- Extensions:
+  - If no records match, administrator is alerted to adjust search criteria.
+- Exceptions:
+  - Invalid filter criteria result in no records being returned.
+- Business Rules:
+  - Filters include section, action, campus, keyword, graduation status, etc.
+- Assumptions:
+  - Filters are dynamically adjustable by the administrator.
+- Open Issues:
+  - Consider adding more complex filter combinations for advanced searches.
+
+## WCB-UC4 — Enable/Disable Actions Based on Status
+
+- Primary Actor(s): Enrollment Administrator
+- Secondary Actor(s): None
+- Trigger: System detects changes in student status and updates available actions.
+- Description: Actions such as email communication and editing are dynamically enabled or disabled based on student's enrollment status.
+- Preconditions: Enrollment data is being accessed or modified.
+- Postconditions: Buttons and controls are enabled/disabled appropriately based on student status.
+- Main Success Scenario:
+  1. Administrator views student record.
+  2. System checks student status.
+  3. System adjusts available actions based on status (e.g., disable email if inactive).
+- Extensions:
+  - Administrator requests to override settings for special cases.
+- Exceptions:
+  - System fails to update controls due to a script error.
+- Business Rules:
+  - Inactive or graduated students have reduced action capabilities.
+- Assumptions:
+  - Status checks are performed in real-time as data is accessed.
+- Open Issues:
+  - Explore ways to allow temporary overrides of system constraints under special circumstances.
+
+## WCB-UC5 — Display and Edit Student Details
+
+- Primary Actor(s): Enrollment Administrator
+- Secondary Actor(s): None
+- Trigger: Administrator selects a student to view detailed information.
+- Description: Detailed information about a student’s enrollment including waiver notes and dates is displayed and can be edited if permissions allow.
+- Preconditions: Administrator has selected a student record and system is not in read-only mode.
+- Postconditions: Changes made to student details are updated in the system.
+- Main Success Scenario:
+  1. Administrator selects student record.
+  2. Detailed view with editable fields is displayed.
+  3. Administrator makes necessary edits.
+  4. Changes are saved.
+- Extensions:
+  - If the record is read-only, only viewing is allowed.
+- Exceptions:
+  - System permissions prevent editing even if screen indicates editability.
+- Business Rules:
+  - Editable fields depend on student status and administrator permissions.
+- Assumptions:
+  - All changes are logged for audit purposes.
+- Open Issues:
+  - Consider implementing a confirmation prompt for significant changes.
