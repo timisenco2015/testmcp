@@ -1,0 +1,71 @@
+# Module: Localization
+
+## Localization-UC1 — Translate UI Labels to Alternate Language
+
+- Primary Actor(s): System
+- Secondary Actor(s): User Interface
+- Trigger: User session is set to use an alternate language.
+- Description: The system updates UI labels on the screen to their corresponding translations based on the alternate language setting.
+- Preconditions: An array of UI field controls and their corresponding translated text values are available.
+- Postconditions: UI labels and literals are displayed in the alternate language if the setting is enabled.
+- Main Success Scenario:
+  1. Check if alternate language fields setting is enabled.
+  2. Iterate through the array of UI fields.
+  3. Update each field's text to the translated text if the field and translation are not null.
+- Extensions:
+  - If the field is a Literal, update its text directly.
+  - If the field is a Label, update its text directly.
+- Exceptions:
+  - None identified from the content.
+- Business Rules:
+  - The fields and new values arrays must be of the same size.
+- Assumptions:
+  - Literal and Label are the only field types needing text updates.
+- Open Issues:
+  - Handling of other control types.
+
+## Localization-UC2 — Translate File Type Based on Locale
+
+- Primary Actor(s): System
+- Secondary Actor(s): None
+- Trigger: Request to display a file type to the user.
+- Description: The system determines the correct file type label to display based on the user's locale settings.
+- Preconditions: A session object indicating the user's language setting is available.
+- Postconditions: Displays the file type in the appropriate language.
+- Main Success Scenario:
+  1. Check the user's session for alternate language setting.
+  2. If enabled, use the alternate file type label.
+  3. Otherwise, use the default file type label.
+- Extensions:
+  - None identified.
+- Exceptions:
+  - None identified from the content.
+- Business Rules:
+  - Default to English if no alternate language is set.
+- Assumptions:
+  - FileType and FileTypeAlt are valid and correspond to the intended meanings.
+- Open Issues:
+  - None identified.
+
+## Localization-UC3 — Translate Last Login Date
+
+- Primary Actor(s): System
+- Secondary Actor(s): None
+- Trigger: User views the last login date.
+- Description: Adjust the last login date string for display in the user's locale language.
+- Preconditions: A session object with language settings and a last login date string.
+- Postconditions: The last login date is displayed in the appropriate language.
+- Main Success Scenario:
+  1. Retrieve the last login date string.
+  2. Apply locale-specific translations to month abbreviations if alternate language is enabled.
+  3. Display the modified date string.
+- Extensions:
+  - None identified.
+- Exceptions:
+  - None identified from the content.
+- Business Rules:
+  - Only month abbreviations need translation.
+- Assumptions:
+  - The last login string uses standard English month abbreviations.
+- Open Issues:
+  - Handling of date format for non-English locales.
