@@ -1,0 +1,108 @@
+```json
+{
+  "filename": "MaintProgramProfileDetails",
+  "found": true,
+  "summary": "The MaintProgramProfileDetails manages the maintenance and display of program profile details within a web application, particularly focusing on configurations related to user access, contact information, and department details.",
+  "purpose": "To provide a user interface for managing and viewing program profiles, including details such as contact information, departmental settings, and student access provisions.",
+  "entities": ["Program", "HSPnetSession", "UserSession"],
+  "fields": [
+    "ProgramID",
+    "ScreenIsEditable",
+    "AllowStudentAccess",
+    "UseRAITProvisioning",
+    "UsePhoneMask",
+    "UseDepartmentAddress",
+    "UseDepartmentLogo",
+    "EmailMasks",
+    "SharedProfile",
+    "HomeContacts",
+    "Documents",
+    "Orientation",
+    "FormsAndConsent",
+    "Certifications",
+    "SafetyAndSecurity",
+    "InfectionControl",
+    "OccupationalHealth",
+    "SitePrerequisites"
+  ],
+  "actors": ["User", "SysAdmin"],
+  "workflows": [
+    {
+      "name": "ProfileCheckboxCaption",
+      "steps": [
+        "Determine if checkbox is checked or allowed.",
+        "Display text based on the conditions.",
+        "Adjust caption appearance if student update is allowed."
+      ]
+    },
+    {
+      "name": "ProfileCheckBoxEnable",
+      "steps": [
+        "Check if student is allowed to edit.",
+        "Disable checkbox and update caption accordingly.",
+        "Enable checkbox if not allowed."
+      ]
+    },
+    {
+      "name": "SetupJavaScript",
+      "steps": [
+        "Add JavaScript variables for controls.",
+        "Register script for client-side execution."
+      ]
+    },
+    {
+      "name": "uxDetail_ItemCommand",
+      "steps": [
+        "Check command name for 'cmdSave'.",
+        "Retrieve and initialize program data.",
+        "Update program attributes from form inputs.",
+        "Save changes and update session cache.",
+        "Redirect to profile page with appropriate query string."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Hide controls if UseRAITProvisioning is not enabled.",
+    "Disable student access if not allowed by configuration."
+  ],
+  "validations": [
+    "Ensure UserSession is not null before proceeding with operations.",
+    "Cancel operations if the session is unavailable."
+  ],
+  "calculations": [],
+  "conditions": [
+    "Check if user has SysAdmin role to display certain controls.",
+    "Use configuration settings to determine feature availability."
+  ],
+  "system_behavior": [
+    "Adjust UI display based on user roles and permissions.",
+    "Enable or disable form controls based on profile settings."
+  ],
+  "dependencies": [
+    "HSPnet.DataLayer",
+    "HSPnet.Framework",
+    "HSPnet.UI",
+    "HSPnet.App_GlobalResources"
+  ],
+  "exceptions": [
+    "Handle null session states by canceling operations.",
+    "Hide control elements not applicable based on user role and access settings."
+  ],
+  "source_document_ids": [
+    "00fda0b5-4502-5a86-8e65-68ef5b7471ec",
+    "1ee06aa4-7385-5f47-95c8-5b60096554d9",
+    "275910fd-33cf-5963-acac-fe4d146b14d3",
+    "36ef26c4-8f8a-57da-88b1-5376918e78ba",
+    "49962d26-cfdc-55c9-93fe-a4da1853749f",
+    "728c6abb-1942-5b2e-a505-07e5f3262a41",
+    "7a6deaca-0a3d-5220-aeb0-7e7e0dc147cc",
+    "8347f512-cca9-5534-af1a-388d23dbee7d",
+    "90e48d5d-5b74-55d1-991d-ead7c489a5ca",
+    "a565825e-0922-5655-b4ed-73fee3344cb2",
+    "a5ae94a9-163e-5387-9527-4958ddad43b9",
+    "a8a666db-f90a-55c8-aa8e-a44120a04af3",
+    "ebe3732a-40c2-5c04-9193-f2582f7243ff"
+  ],
+  "content_gaps": []
+}
+```
