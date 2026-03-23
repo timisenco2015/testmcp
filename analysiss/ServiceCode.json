@@ -1,49 +1,23 @@
 {
-    "filename": "ServiceCode",
-    "found": true,
-    "summary": "ServiceCode class belongs to the data layer, facilitating operations related to codes used for categorizing services, including internationalization support.",
-    "purpose": "Manage service codes and provide localized options within the application.",
-    "entities": [
-        "ServiceCode"
-    ],
-    "fields": [
-        {"name": "ID", "description": "Identifier for the service code"},
-        {"name": "CodeCategoryID", "description": "Identifier for the code category"},
-        {"name": "ShortName", "description": "Short form of the service code"},
-        {"name": "Name", "description": "Description of the service"},
-        {"name": "SortOrder", "description": "Order of display for codes"},
-        {"name": "Notes", "description": "Additional notes for the service code"},
-        {"name": "NameAlt", "description": "Alternate description for localization"}
-    ],
-    "actors": [
-        "HSPnetSession"
-    ],
-    "workflows": [
-        {
-            "name": "ServiceCodeListAll",
-            "steps": [
-                "Initialize database procedure",
-                "Passing session parameters",
-                "Retrieve and localize service codes",
-                "Output results"
-            ]
-        }
-    ],
-    "business_rules": [
-        "Localized descriptions are used if alternate language fields are enabled"
-    ],
-    "validations": [],
-    "calculations": [],
-    "conditions": [],
-    "system_behavior": [
-        "Retrieve service code data based on session and parameters"
-    ],
-    "dependencies": [
-        "Database procedures for code retrieval"
-    ],
-    "exceptions": [],
-    "source_document_ids": [
-        "94f1b055-348d-508a-ae6e-cf7960a8c6a2"
-    ],
-    "content_gaps": []
+  "filename": "ServiceCode",
+  "found": true,
+  "summary": "ServiceCode class represents service codes used in the HSPnet system with methods to retrieve service codes by course or timetable ID.",
+  "purpose": "Provides a structured representation of service codes and associated metadata.",
+  "entities": ["ServiceCode", "ServiceCodes"],
+  "fields": ["ID", "CodeCategoryID", "ShortName", "Name", "SortOrder", "Notes", "NameAlt", "NotesAlt"],
+  "actors": [],
+  "workflows": [],
+  "business_rules": [],
+  "validations": [],
+  "calculations": [],
+  "conditions": [],
+  "system_behavior": [],
+  "dependencies": ["HSPnetSession"],
+  "exceptions": [],
+  "source_document_ids": [
+    "94f1b055-348d-508a-ae6e-cf7960a8c6a2",
+    "e4ebe4b4-6d14-5c3f-b693-61016f765239",
+    "f976b9af-a402-540f-b162-391d578fac7c"
+  ],
+  "content_gaps": []
 }
