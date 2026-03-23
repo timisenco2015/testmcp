@@ -1,0 +1,103 @@
+{
+  "filename": "ServicePositions",
+  "found": true,
+  "summary": "The ServicePositions file manages service position data including details on positions, associated costs, prerequisites, and pay scales. It is essential for maintaining records of service positions within the HSPnet system.",
+  "purpose": "To handle operations related to service positions including adding, updating, deleting, and displaying information about various service-related positions.",
+  "entities": [],
+  "fields": [
+    "ID", 
+    "ServiceID", 
+    "PositionNumber", 
+    "StatusCodeID", 
+    "FTE", 
+    "DefaultPayScaleCodeID", 
+    "SecondaryPayScaleCodeID", 
+    "DisciplineID", 
+    "SubDisciplineID", 
+    "ClassificationCodeID", 
+    "TypeCodeID", 
+    "PrerequisiteCodeID", 
+    "Comments", 
+    "PositionName", 
+    "PrerequisiteNumber", 
+    "SitePositionNumber", 
+    "SiteCostCentreID1", 
+    "SiteCostCentreID2", 
+    "PayScaleEffectiveDate", 
+    "PreviousPayScaleEffectiveDate"
+  ],
+  "actors": ["HSPnetSession", "UserSession", "SystemAdministrator"],
+  "workflows": [
+    {
+      "name": "Manage Service Positions",
+      "steps": [
+        "Load service positions based on ServiceID.",
+        "Allow editing if the session is editable.",
+        "Add new service position or update existing via form inputs.",
+        "Validate input data before submission.",
+        "Submit data for adding or updating records in database.",
+        "Display updated list of service positions."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Only system administrators can delete service positions.",
+    "Default pay scale updates only if different from previous value.",
+    "Mandatory fields must be filled before adding or updating a position.",
+    "Use alternate language fields if configured."
+  ],
+  "validations": [
+    "Ensure FTE is within the range 0.0 to 1.0.",
+    "Check for duplicate position numbers to avoid conflicts."
+  ],
+  "calculations": [
+    "PositionNumberAndFTE combines PositionNumber with FTE.",
+    "PayScaleFormatted provides formatted pay scale description based on defaults and secondary codes."
+  ],
+  "conditions": [
+    "If no cost centres are defined for an agency, hide the cost centre dropdowns.",
+    "Display warning or error messages based on the status of database operations."
+  ],
+  "system_behavior": [
+    "Sets up dropdowns with pre-defined categories for selections.",
+    "Adjusts visibility of form elements based on user permissions.",
+    "Handles redirection after form submission based on session state."
+  ],
+  "dependencies": [
+    "Uses HSPnet.Framework for database interactions.",
+    "Relies on global resources for multi-language support."
+  ],
+  "exceptions": [
+    "Handle situations where databases return no data gracefully.",
+    "Prevent adding records if session is invalid."
+  ],
+  "source_document_ids": [
+    "0bd9b9ed-495f-5cc0-9ba9-09e3eb1e143c",
+    "0fd6d7d0-88b6-548c-a587-bafe78a01ca5",
+    "11f87bf7-450d-53d4-8fa2-e2b021a59527",
+    "140fb917-f832-5c43-b34e-3dc017ed64ff",
+    "177e235d-9911-5192-af65-d4cf8f00a03f",
+    "21eff7c3-ee3e-5150-a1ed-7648fc3d1f8f",
+    "287e9816-1b58-55ad-88b4-32f77c5c1ac1",
+    "3acedbe7-5345-5357-b406-e3e868e0e551",
+    "47ed1ae7-6dfa-5fbf-802b-4d287c7c7d84",
+    "4906d304-4c52-5379-be42-f26d489278fb",
+    "6fddee32-ce4c-55a7-8f36-1de7943bee4a",
+    "7a670d4b-8dc5-58ad-bf10-4da5bc5d5a89",
+    "7bf5cf43-a5ae-5f70-83f6-a007856b174b",
+    "83cac808-6635-5c43-b139-97e5be01e7d3",
+    "8666dcff-99d8-55b7-b1ae-489953053faf",
+    "8b0e40f4-3af2-57e6-880a-811f38c8be90",
+    "a6caa16d-5227-5c08-9d25-fea1e165c165",
+    "b7c8e5b7-c564-5f59-9300-b0ef324a86fa",
+    "c45bc779-d26f-5fc8-a561-9474b8cea1a7",
+    "cd3d261a-bbf5-5e86-926f-eacd10ead7f4",
+    "d750ac91-d3d8-55ff-bfbb-77e5e1443b7c",
+    "dfbb85d8-a27d-5ca8-b867-8e771683dcbc",
+    "ecd3a39c-e5c8-53dc-b33a-aef915023192",
+    "f423dbeb-4235-5b09-b99c-4cfb2107f4f1",
+    "f9a3fa39-c40c-5bfa-a084-81cd0a7db9e8",
+    "ff89475d-2bf0-5f09-8236-cfc41ebeb69c"
+  ],
+  "content_gaps": []
+}
