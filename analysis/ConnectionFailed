@@ -2,62 +2,53 @@
 {
   "filename": "ConnectionFailed",
   "found": true,
-  "summary": "The 'ConnectionFailed' component is part of the HSPnet web application, responsible for displaying connection failure messages to users. It includes internationalization features supporting English and French languages.",
-  "purpose": "To inform users of a connection failure and display the appropriate error message based on the user's language preference.",
+  "summary": "The content relates to the ConnectionFailed component in an HSPnet web application. This includes HTML and C# code handling connection failure pages in both English and French.",
+  "purpose": "To provide a user interface and experience for handling connection failures in the HSPnet application, supporting both English and French languages.",
   "entities": [],
   "fields": [
     {
       "name": "HeaderEN",
-      "description": "A Panel control for displaying the header in English."
+      "type": "WebControl",
+      "description": "Panel control for English header"
     },
     {
       "name": "HeaderFR",
-      "description": "A Panel control for displaying the header in French."
+      "type": "WebControl",
+      "description": "Panel control for French header"
     },
     {
       "name": "uxErrorMessage",
-      "description": "A Label control for displaying the connection failed error message."
+      "type": "Label",
+      "description": "Label control for displaying connection failure message"
     }
   ],
-  "actors": [
-    {
-      "id": "1",
-      "name": "User",
-      "role": "Interacts with the page by viewing the connection status and language-specific content."
-    }
-  ],
+  "actors": [],
   "workflows": [
     {
-      "name": "Display Connection Failed Message",
+      "name": "Page Load Workflow",
       "steps": [
-        "User visits a page that triggers the ConnectionFailed component.",
-        "The component checks the 'Locale' query string parameter.",
-        "Displays HeaderEN if the locale is 'en-US' or unspecified.",
-        "Displays HeaderFR if the locale is 'fr-CA'.",
-        "Sets the cultural information according to the 'Locale' parameter.",
-        "Displays the connection failed message in the appropriate language."
+        "Determine the locale from the QueryString.",
+        "Set the visibility of HeaderEN and HeaderFR based on the locale."
       ]
     }
   ],
-  "business_rules": [
-    "Display the English header if the locale is 'en-US' or not specified.",
-    "Display the French header if the locale is 'fr-CA'."
+  "business_rules": [],
+  "validations": [],
+  "calculations": [],
+  "conditions": [
+    "HeaderEN is visible when the locale is 'en-US' or not provided.",
+    "HeaderFR is visible when the locale is 'fr-CA'."
   ],
-  "validations": [
+  "system_behavior": [
+    "On page load, the corresponding header panel is displayed based on the locale."
+  ],
+  "dependencies": [
     {
-      "field": "Locale",
-      "condition": "Must be either 'en-US' or 'fr-CA'."
+      "dependency": "Runtime Version",
+      "details": "2.0.50727.8009"
     }
   ],
-  "calculations": [],
-  "conditions": [],
-  "system_behavior": [
-    "Dynamically sets the culture information based on the 'Locale' query string."
-  ],
-  "dependencies": [],
-  "exceptions": [
-    "If the 'Locale' parameter is missing or invalid, the server defaults to 'en-US'."
-  ],
+  "exceptions": [],
   "source_document_ids": [
     "1b519992-db1d-5f57-b018-a0e1befe8491",
     "5ba21fbf-7905-59e7-90cb-c18e7f0bb6fb",
