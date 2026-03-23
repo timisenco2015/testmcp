@@ -1,0 +1,132 @@
+```json
+{
+    "filename": "PlacementRequestStaff",
+    "found": true,
+    "summary": "The PlacementRequestStaff module manages staff-related operations for placement requests, including adding, updating, searching, and deleting staff records associated with placement requests. It handles interactions with the database to manage staff data efficiently.",
+    "purpose": "To facilitate the management of staff data related to placement requests, including adding, updating, retrieving, and deleting staff information.",
+    "entities": [
+        "PlacementRequestStaff"
+    ],
+    "fields": [
+        "ID",
+        "PlacementRequestDestinationID",
+        "StaffID",
+        "StaffNameFormatted",
+        "FirstName",
+        "PreferredFirstName",
+        "MiddleName",
+        "LastName",
+        "StaffAssigned",
+        "StaffTypeCodeID",
+        "StaffTypeCode",
+        "DurationHours",
+        "StartDate",
+        "EndDate",
+        "PRStatus",
+        "Email",
+        "SecureEmail",
+        "Phone",
+        "AltPhone",
+        "Fax",
+        "Title",
+        "SalutationCodeID",
+        "Designation",
+        "ReleaseInfo",
+        "CreatedByQES",
+        "IsHSPnetUser",
+        "ProfileExists",
+        "HomeSiteID",
+        "HomeServiceID",
+        "HomeDestinationID",
+        "AgencyID",
+        "AssessmentAnswersExist",
+        "SubmittedJointAssessment",
+        "JointStaffID",
+        "JointStaffLastName",
+        "JointStaffFirstName",
+        "JointStaffFullName",
+        "AssessmentStatus"
+    ],
+    "actors": [
+        "HSPnetSession"
+    ],
+    "workflows": [
+        {
+            "name": "AddStaff",
+            "steps": [
+                "Set database procedure name to PlacementRequestAddSC",
+                "Add necessary parameters such as PRD_ID, StaffID, etc.",
+                "Execute query"
+            ]
+        },
+        {
+            "name": "UpdateStaff",
+            "steps": [
+                "Set database procedure name to PlacementRequestStaffUpdate",
+                "Add necessary parameters such as PRD_ID, StaffID, etc.",
+                "Execute query"
+            ]
+        },
+        {
+            "name": "DeleteStaff",
+            "steps": [
+                "Set database procedure name to PlacementRequestStaffDelete",
+                "Add necessary parameters such as PRD_ID, ID",
+                "Execute query"
+            ]
+        },
+        {
+            "name": "DistributeHours",
+            "steps": [
+                "Calculate distribution of hours using a declining balance algorithm",
+                "Execute query to update each staff's duration hours"
+            ]
+        }
+    ],
+    "business_rules": [
+        "Ensure unique staff records by ID.",
+        "Duration hours must be non-negative."
+    ],
+    "validations": [
+        "Check if staff ID is valid before operations.",
+        "Validate email format for staff."
+    ],
+    "calculations": [
+        "Calculate total hours from allocated duration hours."
+    ],
+    "conditions": [
+        "If joinStaffID is not zero, ensure overwrite parameter is set."
+    ],
+    "system_behavior": [
+        "Database operations are conducted using stored procedures.",
+        "Session management is performed using HSPnetSession."
+    ],
+    "dependencies": [
+        "HSPnet.Framework",
+        "HSPnet.App_GlobalResources",
+        "HSPnet.UI"
+    ],
+    "exceptions": [
+        "Handle database connection failures gracefully.",
+        "Return errors if stored procedures fail to execute."
+    ],
+    "source_document_ids": [
+        "12aecd2c-e845-5c90-be91-99a9bb5136c5",
+        "1d06d041-0349-532a-beca-66c897b8fe08",
+        "2908c021-2b00-5399-bfce-0e1472db1d0e",
+        "36f3f2d0-6387-53a9-bfa1-780664f16e0d",
+        "37702e63-76ea-5ca6-9f15-25212a9bbe0d",
+        "4ffe222a-2f20-5107-aa32-7ba36ce16854",
+        "58ef5e48-958b-5bd1-b168-8ed606c6cbe6",
+        "59c83fe9-a151-585d-a1cc-dd8eb4a225ff",
+        "8bbd5198-eacb-5491-b161-6059b58b9003",
+        "926e8aac-95ac-502a-99c0-7a61c9515521",
+        "b6011844-8a54-5c49-b71d-cbde5db3fc05",
+        "ed9f2105-637a-516e-8d04-641cf8ee2943",
+        "f137eb64-938f-52cf-9965-e3d8e454bd7b",
+        "f3ea6d11-36b5-5df0-af99-9a99239aef8a",
+        "fac95236-fe68-50de-b208-1b9cf3ec4849"
+    ],
+    "content_gaps": []
+}
+```
