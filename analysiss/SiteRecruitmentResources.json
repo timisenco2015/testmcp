@@ -1,55 +1,64 @@
 {
   "filename": "SiteRecruitmentResources",
   "found": true,
-  "summary": "The SiteRecruitmentResources module is part of the HSPnet system, primarily handling recruitment resource data for sites. It involves user control elements for viewing and editing recruitment data.",
-  "purpose": "To manage recruitment resources for sites including viewing, editing, and updating recruitment details.",
+  "summary": "The SiteRecruitmentResources document provides the implementation details and structure for managing site recruitment resources within a web application. It includes various controls, data binding logic, and user interaction handling mechanisms.",
+  "purpose": "To manage and update recruitment resources for a site within a web application.",
   "entities": [],
   "fields": [
-    "recruitmentRefNo",
-    "recruitmentClosed"
+    "updPnlPopup",
+    "btnShowPopup",
+    "mdlDetails",
+    "ValidationSummary1",
+    "uxDetail",
+    "dsSiteDetail",
+    "updPnlProfile",
+    "fvwProfile",
+    "pnlPopup"
   ],
   "actors": [
-    "UserSession"
+    "System.Web.UI.UpdatePanel",
+    "System.Web.UI.WebControls.Button",
+    "AjaxControlToolkit.ModalPopupExtender",
+    "System.Web.UI.WebControls.ValidationSummary",
+    "System.Web.UI.WebControls.FormView",
+    "System.Web.UI.WebControls.ObjectDataSource",
+    "HSPnetSession",
+    "ScriptManager"
   ],
   "workflows": [
     {
-      "name": "Edit Recruitment Resource",
+      "name": "Recruitment Resource Update",
       "steps": [
-        {
-          "action": "User clicks edit",
-          "result": "uxDetail changes to edit mode"
-        },
-        {
-          "action": "User updates fields",
-          "result": "Fields are populated with new values"
-        },
-        {
-          "action": "User saves changes",
-          "result": "SiteRecruitmentResources are updated"
-        }
+        "Retrieve recruitment reference number and closed status from form.",
+        "Update recruitment resources with session, ID, webpage, reference number, and status.",
+        "Cache the user session and redirect to the maintenance profile page."
+      ]
+    },
+    {
+      "name": "Data Selection",
+      "steps": [
+        "Check if UserSession is null; if so, cancel the operation.",
+        "If UserSession is valid, set input parameters for session and SiteID."
+      ]
+    },
+    {
+      "name": "Edit Command",
+      "steps": [
+        "Change the mode of uxDetail to edit.",
+        "Set the header text for uxDetail.",
+        "Set the default value for site ID and show details in a modal popup."
       ]
     }
   ],
-  "business_rules": [
-    "Session must be active for operations to proceed."
+  "business_rules": [],
+  "validations": [
+    "User session must be valid to proceed with data selection."
   ],
-  "validations": [],
   "calculations": [],
-  "conditions": [
-    "If user session is null, operation is canceled."
-  ],
-  "system_behavior": [
-    "Updates user session cache on non-cancel command",
-    "Redirects to recruitment page if changes are made"
-  ],
-  "dependencies": [
-    "Grid utility",
-    "User control elements",
-    "Session management"
-  ],
-  "exceptions": [
-    "Operation is canceled if UserSession is null during data selection"
-  ],
+  "conditions": [],
+  "system_behavior": [],
+  "dependencies": [],
+  "exceptions": [],
   "source_document_ids": [
     "2d4e39aa-3711-5891-9efb-c1e9d0379093",
     "456dd6b9-b89b-5a65-b681-2aa917a399a8",
