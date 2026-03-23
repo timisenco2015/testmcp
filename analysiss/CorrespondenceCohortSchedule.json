@@ -1,0 +1,88 @@
+{
+  "filename": "CorrespondenceCohortSchedule",
+  "found": true,
+  "summary": "The CorrespondenceCohortSchedule system is designed to manage schedules related to cohort correspondences. It includes functionalities for adding, updating, deleting, and inheriting schedules, as well as searching and retrieving schedule details based on various parameters.",
+  "purpose": "To facilitate the management and tracking of cohort-related correspondences and schedules in an educational setting.",
+  "entities": [],
+  "fields": [
+    "ID",
+    "TimetableID",
+    "CorrespondenceID",
+    "Days",
+    "PeriodCodeID",
+    "CorrespondenceName",
+    "TypeDescription",
+    "PeriodCode",
+    "PeriodDescription",
+    "StartDate",
+    "EndDate",
+    "EndDateBlock2",
+    "DueDate",
+    "DueDateFormatted",
+    "GeneratedDate",
+    "GeneratedDateFormatted",
+    "DepartmentID",
+    "ProgramID",
+    "TermID",
+    "CohortID",
+    "CourseID",
+    "CohortShortName",
+    "TermShortName",
+    "CourseShortName",
+    "Template_Exists",
+    "PRDueDate",
+    "PRDueDateFormatted",
+    "EmailReminderStaffID"
+  ],
+  "actors": [
+    "HSPnetSession"
+  ],
+  "workflows": [
+    {
+      "name": "Schedule Management",
+      "steps": [
+        "Add schedule using CorrespondenceCohortSchedulesAdd",
+        "Update schedule using CorrespondenceCohortSchedulesUpdate",
+        "Delete schedule using CorrespondenceCohortSchedulesDelete",
+        "Inherit schedule using CorrespondenceCohortSchedulesInherit",
+        "Retrieve schedule details using CorrespondenceCohortSchedulesSearch"
+      ]
+    }
+  ],
+  "business_rules": [
+    "DueDate is calculated based on the PeriodCode and Days relative to StartDate/EndDate",
+    "GeneratedDate is formatted using DateFormatter"
+  ],
+  "validations": [
+    "Ensure UUID format for parameters",
+    "UseAltLanguageFields toggles between alternative and default descriptions"
+  ],
+  "calculations": [
+    "DueDate based on PeriodCode and Days",
+    "DueDateFormatted using DateFormatter"
+  ],
+  "conditions": [
+    "PeriodCode options include BEFORESTART, AFTERSTART, BEFOREEND, AFTEREND"
+  ],
+  "system_behavior": [
+    "Executes stored procedures for schedule management tasks",
+    "Handles database interactions using HSPnetSession"
+  ],
+  "dependencies": [
+    "DateFormatter",
+    "Database class for date checks"
+  ],
+  "exceptions": [],
+  "source_document_ids": [
+    "204be1f4-c1fa-56f8-91cd-b3758249e33f",
+    "33d832a4-bb74-5a5d-835e-f94e01397ffb",
+    "3918dc7f-cd8e-5995-ac6a-432e9759a6c7",
+    "569e9f43-60a1-5d78-8717-74853b3f46ee",
+    "72a14d68-4c3f-52e2-a5a1-2b73963dba19",
+    "89ebbfba-d03c-5a75-ade1-82d66ee6e144",
+    "94084fc8-7455-56ac-a80c-9fe271106fe3",
+    "c3c12abc-65a5-527a-8d28-deb355a6905f",
+    "c9aa1c16-7755-54bf-83b3-4900ae8c4591"
+  ],
+  "content_gaps": []
+}
