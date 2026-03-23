@@ -1,12 +1,13 @@
 {
   "filename": "StaffProfileHistory",
   "found": true,
-  "summary": "The StaffProfileHistory system is a module within the HSPnet framework designed to manage and display historical data associated with staff profiles. It involves retrieving and displaying data related to staff profile history, including information like user actions, sections, and personal details of the staff members.",
-  "purpose": "To provide a historical view of actions and changes related to staff profiles within the HSPnet framework, aiding users in tracking changes and maintaining data integrity.",
+  "summary": "The StaffProfileHistory module manages historical data related to staff member profiles, including actions taken, sections modified, and user details involved in each action.",
+  "purpose": "To provide a comprehensive view of the historical changes made to staff profiles, enabling tracking of modifications, maintaining accountability, and supporting audit processes.",
   "entities": [],
   "fields": [
     "ActionDate",
     "ScreenSection",
+    "ScreenSectionUntranslated",
     "UserAction",
     "Fields",
     "Agency",
@@ -17,38 +18,54 @@
     "Phone",
     "ByUserID",
     "ByOriginalUserID",
-    "ByUserSysAdmin",
-    "ScreenSectionUntranslated"
+    "ByUserSysAdmin"
   ],
   "actors": [
     "HSPnetSession",
     "StaffPRHistory",
-    "StaffPRHistoryList"
+    "SqlDataReader"
   ],
   "workflows": [
     {
-      "name": "StaffProfileHistory Retrieval",
+      "name": "StaffProfileHistorySearch",
       "steps": [
-        "Initiate StaffProfileHistorySearch with session and StaffID.",
-        "Fill the StaffPRHistoryList with data from the database.",
-        "Filter entries based on consent and screen section.",
-        "Populate StaffPRHistory objects with retrieved data.",
-        "Return the populated list for display."
+        "Instantiate StaffPRHistoryList with session and StaffID.",
+        "Call FillList to populate Data with StaffPRHistory records.",
+        "Execute stored procedure 'StaffProfileHistorySearch'.",
+        "Add parameters StaffID and SessionID.",
+        "Fetch data using SqlDataReader.",
+        "Iterate through results; filter by 'FPREConsentObtained'.",
+        "Populate StaffPRHistory object fields.",
+        "Add populated StaffPRHistory to Data list."
+      ]
+    },
+    {
+      "name": "RefreshData",
+      "steps": [
+        "Create instance of StaffPRHistoryList.",
+        "Bind Data to gridData for display."
       ]
     }
   ],
   "business_rules": [
-    "If FPRE consent is not obtained, exclude certain entries like Orientation, Certifications, Safety & Security, Infection Control, and Occupational Health."
+    "If FPREConsent is not obtained, exclude specific sections like Orientation, Certifications, etc. from the history display."
   ],
   "validations": [],
   "calculations": [],
-  "conditions": [],
-  "system_behavior": [
-    "Displays historical actions related to staff profiles.",
-    "Supports alternate language fields for display.",
-    "Errors and warnings are managed through panels and labels."
+  "conditions": [
+    "FPREConsentObtained condition determines inclusion of specific sections."
   ],
-  "dependencies": [],
+  "system_behavior": [
+    "Displays historical profile changes in a grid with options for refresh and close.",
+    "Supports multilingual field display based on session settings."
+  ],
+  "dependencies": [
+    "HSPnet.Framework",
+    "HSPnet.DataLayer",
+    "HSPnet.UI",
+    "System.Web.UI",
+    "AjaxControlToolkit"
+  ],
   "exceptions": [],
   "source_document_ids": [
     "00fb12a6-eb16-59aa-93ee-d8f6f2a67bbf",
