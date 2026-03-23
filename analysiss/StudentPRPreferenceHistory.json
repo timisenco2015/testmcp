@@ -1,8 +1,8 @@
 {
   "filename": "StudentPRPreferenceHistory",
   "found": true,
-  "summary": "The `StudentPRPreferenceHistory` is a component related to maintaining and displaying the history of student preferences in the context of a timetable within the HSPnet framework. It involves database interactions for fetching and displaying preference history.",
-  "purpose": "To manage and display student preference history data associated with timetables, enabling users to track changes and actions taken by users or system administrators.",
+  "summary": "The StudentPRPreferenceHistory system is designed to retrieve and display historical preference data for students. It involves creating a list of preference history entries based on student and timetable IDs, and displaying these entries in a grid format.",
+  "purpose": "To manage and display student preference history data, facilitating user interaction with historical preference information in a structured manner.",
   "entities": [],
   "fields": [
     "ActionDate",
@@ -19,36 +19,43 @@
     "ByUserSysAdmin"
   ],
   "actors": [
-    "UserSession",
-    "HSPnetSession"
+    "UserSession"
   ],
   "workflows": [
     {
-      "name": "Data Retrieval and Binding",
+      "name": "Data Binding Workflow",
       "steps": [
-        "Initialize session, student ID, and timetable ID.",
-        "Call FillList() method to populate data.",
-        "Execute stored procedure 'StudentPRPreferenceHistorySearch'.",
-        "Fetch and read data using SqlDataReader.",
-        "Translate data into StudentPRPreferenceHistory objects.",
-        "Bind data to gridData control for UI display."
+        "Check if UserSession is not null",
+        "Instantiate StudentPRPreferenceHistoryList",
+        "Set data source for gridData",
+        "Bind data to gridData"
+      ]
+    },
+    {
+      "name": "FillList Workflow",
+      "steps": [
+        "Initialize an empty list for data",
+        "Set procedure name for database session",
+        "Add parameters StudentID and TimetableID",
+        "Get data from database",
+        "Iterate through data reader",
+        "Populate StudentPRPreferenceHistory entries",
+        "Close database reader"
       ]
     }
   ],
   "business_rules": [],
   "validations": [],
   "calculations": [],
-  "conditions": [
-    "Check if UseAltLanguageFields is true to determine which language fields to use."
-  ],
+  "conditions": [],
   "system_behavior": [
-    "Uses a stored procedure to fetch data based on StudentID and TimetableID.",
-    "Utilizes session-based database interactions."
+    "Uses session variables to interact with database",
+    "Displays data in a grid format",
+    "Supports alternate language fields"
   ],
   "dependencies": [
-    "HSPnet.Framework.HSPnetSession",
-    "HSPnet.UI.DateFormatter",
-    "HSPnet.UI.NameFormatter"
+    "HSPnet Session",
+    "SQL Server Database"
   ],
   "exceptions": [],
   "source_document_ids": [
