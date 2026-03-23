@@ -1,0 +1,66 @@
+{
+    "filename": "HSPnetGridView",
+    "found": true,
+    "summary": "This document provides the implementation details of a custom GridView control in the HSPnet application, which includes paging functionalities such as toggling between showing all records and paged view.",
+    "purpose": "To facilitate advanced paging functionalities in the HSPnet application using a custom GridView control.",
+    "entities": [],
+    "fields": [
+        {"name": "StartRow", "description": "The starting row index of the current page in the grid."},
+        {"name": "PageIndex", "description": "The current page index."},
+        {"name": "PageSize", "description": "The number of records per page."},
+        {"name": "PageCount", "description": "The total number of pages available."}
+    ],
+    "actors": [
+        "System.Web.UI.WebControls.GridView",
+        "LinkButton",
+        "Control",
+        "Label",
+        "Literal"
+    ],
+    "workflows": [
+        {
+            "name": "Paging Workflow",
+            "steps": [
+                "Initialize pager with NextPrevNumericPagerTemplate using current page index and page count.",
+                "Calculate starting and ending page indices to display based on current page index and total page count.",
+                "Create navigation buttons (Next, Previous) and ellipsis buttons for page skipping.",
+                "Toggle paging using predefined default and max page sizes.",
+                "Update the toggle button text based on current paging status."
+            ]
+        }
+    ],
+    "business_rules": [
+        "Paging is toggled by setting the page size to a large value to disable paging or reset to default size for enabling paging.",
+        "The toggle button visibility is dependent on whether the pager is necessary."
+    ],
+    "validations": [
+        "Ensure that the page size does not exceed maxPageSize or fall below defaultPageSize when toggling."
+    ],
+    "calculations": [
+        "Derive the starting page index based on current position minus a specified range.",
+        "Determine if all records are being shown by comparing current page size with default and max sizes."
+    ],
+    "conditions": [
+        "Check if current page size is less than maxPageSize before toggling to 'Show All'.",
+        "If page count is 1 and page size matches default, hide paging toggle button."
+    ],
+    "system_behavior": [
+        "Adjusts the page navigation buttons and their states based on user interaction and page sizes."
+    ],
+    "dependencies": [
+        "Relies on .NET WebForms control structures and event handling.",
+        "Integration with HSPnet application resources and UI components."
+    ],
+    "exceptions": [
+        "If lbTogglePaging is null during caption toggle, the operation is bypassed."
+    ],
+    "source_document_ids": [
+        "0d68b324-d542-5f5c-94ea-1d8b14b0b954",
+        "15d00a66-9ce3-52ef-b0a6-1c6f44395536",
+        "b67f6667-c1c0-574d-83ce-52aff5d9bf7b",
+        "b76073b8-f945-54a7-a489-21d4c53d17e6",
+        "e629e36d-ae75-5762-8018-ef6b59a65b22",
+        "e8c519ff-2768-5da8-85f3-1c0ab0d1ede4"
+    ],
+    "content_gaps": []
+}
