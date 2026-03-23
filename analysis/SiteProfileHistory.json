@@ -1,0 +1,97 @@
+{
+  "filename": "SiteProfileHistory",
+  "found": true,
+  "summary": "SiteProfileHistory tracks and displays actions and changes related to a Site entity. It holds historical data for each site profile update, including who made the change, when, and what was changed. It supports multi-language field representation and formats output for both display and tooltips. The UserControl enables rendering this data in the UI, using a data source with parameters set from the user's session context.",
+  "purpose": "To provide an auditable history of changes to site profiles, including user actions, for display and review within the application. Allows both users and system administrators to view activity history for compliance, traceability, and communication purposes.",
+  "entities": [
+    "SiteProfileHistory",
+    "SiteProfileHistories",
+    "HSPnetSession",
+    "Database"
+  ],
+  "fields": [
+    "ID",
+    "ActionDate",
+    "ScreenSection",
+    "UserAction",
+    "Fields",
+    "Agency",
+    "AgencyName",
+    "LastName",
+    "FirstName",
+    "MiddleName",
+    "Phone",
+    "ByUserID",
+    "ByOriginalUserID",
+    "ByUserSysAdmin"
+  ],
+  "actors": [
+    "User",
+    "System Administrator"
+  ],
+  "workflows": [
+    {
+      "name": "Render Site Profile History (UI)",
+      "steps": [
+        "UserControl receives SiteID and UserSession.",
+        "During data source selection (dsSiteProfileHistory_Selecting), validates if UserSession exists; cancels the request if not.",
+        "If valid, sets data source parameters: SiteID, SessionAgencyID (from session), and session object.",
+        "Data source invokes SiteProfileHistorySearch with provided parameters.",
+        "SiteProfileHistorySearch calls stored procedure SiteProfileHistorySearch with SiteID and SessionAgencyID.",
+        "Database reads result set, constructing SiteProfileHistory objects (using FillList).",
+        "Multi-language support: if session indicates, uses alternate language fields.",
+        "Formatted fields (names, dates, user details) are constructed for display and tooltips.",
+        "Results are bound to the gridData control for user display."
+      ]
+    }
+  ],
+  "business_rules": [
+    "If session.UseAltLanguageFields is true, alternate (localized) fields are used for ScreenSection, UserAction, and Fields.",
+    "AgencyUserFormatted adds support team labeling if the action was not by a sysadmin and a specific user constraint is met.",
+    "AgencyUserDetailsFormatted builds a detailed string including name, agency, and optionally phone if available.",
+    "Only users with a valid session can view Site Profile History."
+  ],
+  "validations": [
+    "UserSession must be present; otherwise, data retrieval is cancelled.",
+    "UUIDs for user IDs must be valid.",
+    "Phone formatting respects session settings."
+  ],
+  "calculations": [
+    "ActionDateFormatted returns a short date string from ActionDate, and can also parse from string to DateTime.",
+    "AgencyUserFormatted computes initials from first, middle, last names and concatenates with agency."
+  ],
+  "conditions": [
+    "If ByUserSysAdmin is false and ByUserID does not equal ByOriginalUserID (or zero-check), prepend support team label.",
+    "If session indicates alternate language, use alternate fields.",
+    "Phone details only appended if phone is non-empty."
+  ],
+  "system_behavior": [
+    "Auto-generates form controls and binds data grid to the profile history search results.",
+    "Provides tooltips and formatted user details for display."
+  ],
+  "dependencies": [
+    "HSPnetSession for session context and language settings.",
+    "Database class for executing stored procedure.",
+    "Phone class for phone formatting.",
+    "DateFormatter for date formatting.",
+    "NameFormatter for name formatting.",
+    "Resource files for localized strings."
+  ],
+  "exceptions": [
+    "UserControl cancels data load if session is missing.",
+    "Failed/invalid UUIDs in data source are excluded.",
+    "If database connection or stored procedure fails, data will not be loaded (handled at db layer)."
+  ],
+  "source_document_ids": [
+    "25f89a24-5eda-5a3f-83df-1de69b12b3f1",
+    "26e09292-d304-55c6-94e5-ef3346453c4b",
+    "7ca6b963-9ae9-5cd3-82d5-f30dcb727ae3",
+    "a8f030c6-90b8-53a1-bb8a-3b7ef33b9488",
+    "e806999c-3a39-5720-9b59-303faebc9eb6"
+  ],
+  "content_gaps": [
+    "The actual database stored procedure SiteProfileHistorySearch is not provided; input/output structure is inferred from code.",
+    "No UI layer markup (e.g., .ascx file content) is shown, only the code-behind.",
+    "Specific details on error handling in the database or UI are not included."
+  ]
+}
