@@ -1,0 +1,163 @@
+{
+  "filename": "Cohorts",
+  "found": true,
+  "summary": "The 'Cohorts' system manages cohort-related data for academic programs, including details about courses, terms, instructors, and scheduling. It handles functionalities like adding, editing, copying, and archiving cohorts, along with managing student enrollment and cohort rotations.",
+  "purpose": "The purpose of the 'Cohorts' system is to facilitate the management of academic cohorts within a program, aiding in both administrative and scheduling tasks.",
+  "entities": [],
+  "fields": [
+    "CohortID",
+    "TermID",
+    "CourseID",
+    "ExpectedEnrollment",
+    "StartDate",
+    "EndDate",
+    "StartDateBlock2",
+    "EndDateBlock2",
+    "ReplyByDate",
+    "ProgramYear",
+    "InstructorID",
+    "InstructorID2",
+    "InstructorID3",
+    "DefaultComments",
+    "NISFlag",
+    "SendAutomaticSupervisorEmail",
+    "AutomaticEmailDate",
+    "UseIndividualWorksheet",
+    "ExcludeInstructorFromITProvRole"
+  ],
+  "actors": [
+    "UserSession",
+    "GridViewRow",
+    "Timetable",
+    "Resource",
+    "Department"
+  ],
+  "workflows": [
+    {
+      "name": "Adding a Cohort",
+      "steps": [
+        "Navigate to Cohort management interface.",
+        "Fill in details like name, term, and expected enrollment.",
+        "Select courses and other related dropdowns.",
+        "Submit the form to create a cohort."
+      ]
+    },
+    {
+      "name": "Editing a Cohort",
+      "steps": [
+        "Select a cohort to edit.",
+        "Modify fields as necessary including dates and enrollments.",
+        "Save changes to update the cohort details."
+      ]
+    },
+    {
+      "name": "Copying a Cohort",
+      "steps": [
+        "Select an existing cohort to copy.",
+        "Choose a new term and modify any necessary details.",
+        "Use the copy function to create a new cohort based on the existing one."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Allow unstructured flag change only if no students are enrolled.",
+    "Ensure date fields have proper validation applied.",
+    "Courses set to use NIS template should not allow certain options."
+  ],
+  "validations": [
+    "Date_ValidationExpression",
+    "Check that start dates are before end dates.",
+    "Validation for automatic email dates to be after the current date."
+  ],
+  "calculations": [
+    "Shift length and duration based on start and end times.",
+    "Calculate total duration from shifts and shift length."
+  ],
+  "conditions": [
+    "If using blocks, specific date fields must be handled.",
+    "Show additional fields if specific program flags are set."
+  ],
+  "system_behavior": [
+    "Hide fields dynamically based on dropdown selections.",
+    "Display warnings when field values are incorrect or outside expected ranges.",
+    "Automatically fill in certain fields based on program configurations."
+  ],
+  "dependencies": [
+    "Program configurations impact available fields.",
+    "User roles determine access to specific cohort management features."
+  ],
+  "exceptions": [
+    "Handle missing term data gracefully with user notifications.",
+    "Notify users if date conflicts occur during scheduling."
+  ],
+  "source_document_ids": [
+    "00fc0ceb-b953-5d52-8d8f-c572de9e3a66",
+    "019c112d-6e59-5189-9a3e-57254e097784",
+    "06c2084b-8093-55fb-b928-8c5ef2067577",
+    "078bfc37-a3ae-5f5b-949c-a07fc996da21",
+    "084eba88-4ce2-51d1-8cc0-22dd06b1303b",
+    "0a34ea2e-e351-52bc-86d1-c8884f488609",
+    "0d5a8e55-be4c-5b6a-88b8-97c20c2a2ee3",
+    "16254ae7-fab9-52d5-8ee3-e5867850c70b",
+    "1a01a4b2-28a1-53dd-8c75-0039e7ddb767",
+    "1da5a8a3-ca87-5f30-89db-4507dd532967",
+    "1f52a75b-75de-5422-a7e4-3a203b4cc7c4",
+    "20d92108-04c3-5000-8339-1ec2674e7a89",
+    "20fde1e7-8bb2-5d72-b274-058fa5791b6f",
+    "241892e9-fb36-51db-bf90-b065a8c04198",
+    "24a0130f-0c1a-596f-935a-57eace62656c",
+    "28fd5340-8c46-5fbd-bdd0-f0ae8a18c960",
+    "29450520-54b1-5731-b7c2-51f82b50f529",
+    "29539958-6ac1-594e-b83a-c9e2f6a41be1",
+    "297a2995-8d9b-5f3d-b2e8-3eebd7ce3396",
+    "29ae6bec-6e28-5026-bead-427be789add1",
+    "2b8b9b63-62c3-5ca4-bad8-caa60a63f640",
+    "2bee4455-75f2-5a87-b182-65129e9c42ff",
+    "2de8eb86-13c0-58a1-957c-9f62b975ce6d",
+    "2f5696f5-0bfc-5f5a-98b9-4dde59f7dd26",
+    "324ebf38-2e60-5fe3-aad3-15e66a0a9c93",
+    "333c4f2e-748b-5aeb-900c-d12b93144632",
+    "33ae78dc-2cd3-5398-a537-5dc7742b4be3",
+    "37577f67-2366-5269-9d00-8a8a59a10064",
+    "3c92d058-0940-5201-ad3f-9ac2a978f770",
+    "3e82f06f-be3f-55f4-958a-74e63d8827f5",
+    "432c89f6-0a9a-5644-9d55-d7a1d405e37a",
+    "433a14c3-6d97-5cea-9f66-47315bcf5d20",
+    "469fdfe5-b21c-5eec-9981-a2d31b1c4871",
+    "47b978fd-d1bd-5435-970c-8620de73fbc7",
+    "485ef4ee-6797-5805-8b7e-d44bbce61558",
+    "4ca6ba51-e741-5c4f-b299-143ed010dd3e",
+    "4cf9ca40-356b-5785-9a4a-9a1a29ae4ab2",
+    "4d304b80-2b8b-5be0-b08d-3187c60f0bf5",
+    "4e553e4b-30ae-5ec9-828c-462293709751",
+    "4e9c9223-5d00-56be-836e-d330961da196",
+    "4ef5cbcf-fb69-5d59-bd8e-5980a841c8b5",
+    "526b3c2a-8c70-54c4-a2df-82846bc3c188",
+    "538437df-c260-5c8f-b3c0-901beef16482",
+    "555c057c-c478-5c49-85fa-9a16a0201fd1",
+    "55858067-37d5-52ed-a777-e617c52f85e7",
+    "5aff316c-cd82-5624-9053-8a3ca2b80d07",
+    "5b69e019-dd9b-5313-9e50-3900277d565c",
+    "5e8203c5-0004-54c0-afcf-5424d382930f",
+    "61a74139-7095-55c7-bd75-5a1c9f3fce31",
+    "634c4583-14ba-5c92-becb-b1f3c32b5aa9",
+    "683701c0-af64-5677-8c22-15d28524e280",
+    "6c194a2c-94a1-506f-a956-761627455bed",
+    "72c3d5d7-fe28-5245-a3ba-d5567f1b7328",
+    "73063998-e3a4-5712-b392-b6389fbe8175",
+    "733711cc-e768-5ab7-99fa-00d6b5f3f407",
+    "73de3e51-9420-555d-8d5e-ce7975f90d59",
+    "8a1764b6-0945-555c-ab82-c3c350e3b576",
+    "8a8a20f1-ba85-55b5-b509-b24cb5a3bc47",
+    "8aed3548-1ce9-519d-9e60-9b25df6f28f8",
+    "9040467b-e0d2-5d1c-839e-884cef5f1b3f",
+    "a0763af9-17ba-59a0-9a37-a70c2045d2a3",
+    "a9d04c1f-fc16-5d6d-8607-bf3756a18443",
+    "ab5aa18e-f6ce-51d4-9217-8ec878a5bb87",
+    "ad9098a1-10ae-5d46-bf2e-3aee05f8d5e1",
+    "b5e910a7-a2bb-5318-bcf3-aa2a9291e22c",
+    "bb50bdc8-4fb3-5c64-9c38-d825eff7fda4",
+    "d69aab77-2251-5b0a-8815-7692cfd56215"
+  ],
+  "content_gaps": []
+}
