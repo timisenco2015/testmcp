@@ -1,0 +1,78 @@
+{
+  "filename": "Email",
+  "found": true,
+  "summary": "The documents provide code and explanations for an email sending system, focusing on how emails are constructed and sent, considerations for attachments, priority settings, and handling of different email types based on user roles.",
+  "purpose": "The purpose of the system is to send emails with various configurations and handle specific business logic regarding email sending based on user roles and system settings.",
+  "entities": [],
+  "fields": [
+    "strTo",
+    "strSubject",
+    "strBody",
+    "emailType",
+    "strFrom",
+    "strBcc",
+    "strCC",
+    "strAttach",
+    "Priority",
+    "strEmailFrom",
+    "strEmailSMTP",
+    "fileNames"
+  ],
+  "actors": [
+    "UserSession"
+  ],
+  "workflows": [
+    {
+      "name": "Send Email",
+      "steps": [
+        "Determine email address to send from based on emailType.",
+        "Build message with MailMessage class.",
+        "Set email priority if specified.",
+        "Add CC and BCC addresses if provided.",
+        "Set email subject and body, including user-specific information if emailType is 'User'.",
+        "Attach files to the email if specified.",
+        "Send email using SmtpClient."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Email attachments should not exceed 15MB.",
+    "Email priority can be High, Low, or Normal.",
+    "Email should include user-specific information in the subject and body if emailType is 'User'."
+  ],
+  "validations": [
+    "Check if email mask is valid.",
+    "Ensure email addresses for To, CC, BCC are valid before sending."
+  ],
+  "calculations": [],
+  "conditions": [
+    "EmailType dictates the From address used.",
+    "Different environment settings (KDC or BCIT) determine how attachments are processed."
+  ],
+  "system_behavior": [
+    "Emails are sent using SMTP protocol.",
+    "Attachments are fetched and attached to emails based on system configuration and environment."
+  ],
+  "dependencies": [
+    "System.Configuration for application settings.",
+    "Network credentials for downloading attachments.",
+    "Regular expressions for email mask validation."
+  ],
+  "exceptions": [
+    "If the OpenRead call results in a 404 error, the email will be sent without the problematic attachment.",
+    "Handle errors in sending emails gracefully to ensure the system continues to operate."
+  ],
+  "source_document_ids": [
+    "0dc8350d-b503-5220-910d-569d32425670",
+    "4f61cf5f-4175-5199-bd3a-ba97b75c44d3",
+    "6198ac49-f0e9-5817-a996-6d377ed8c7cf",
+    "6f412064-6097-55e7-845d-f917339cffe5",
+    "7cac7f65-1be5-5fb6-a7c6-b9e094904215",
+    "82f348d6-7ffb-5b6b-9fb9-3053b4733651",
+    "90b01a8d-2ef7-59c6-b55d-ae99d1f2db34",
+    "c046073a-6b08-57a3-8bb5-fc11eac93126",
+    "e9a9e57a-d7e6-532f-8462-49b09b836a3c",
+    "fff78517-b8bc-5791-9dcc-580b0d75f586"
+  ],
+  "content_gaps": []
+}
