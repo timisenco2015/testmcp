@@ -1,0 +1,108 @@
+# Module: ExpenseBatch
+
+## ExpenseBatch-UC1 — Search Expense Batch by ID
+
+- Primary Actor(s): System Administrator
+- Secondary Actor(s): None
+- Trigger: A search is initiated to find an expense batch by its ID.
+- Description: This use case describes the process of retrieving an expense batch's details using its unique ID.
+- Preconditions:
+  - The system is online and accessible.
+  - The expense batch ID exists in the system.
+- Postconditions:
+  - The details of the expense batch are displayed to the user.
+- Main Success Scenario:
+  1. The system receives a request to search for an expense batch by ID.
+  2. The system queries the database using the provided ID.
+  3. The system retrieves the batch details.
+  4. The system displays the expense batch details to the user.
+- Extensions:
+  - None
+- Exceptions:
+  - If the provided ID does not exist, an error is returned.
+- Business Rules:
+  - The ID must be a valid integer.
+- Assumptions:
+  - Users have the necessary permissions to view batch details.
+- Open Issues:
+  - None
+
+## ExpenseBatch-UC2 — Add New Expense Batch
+
+- Primary Actor(s): System Administrator
+- Secondary Actor(s): None
+- Trigger: A user initiates the process to add a new expense batch.
+- Description: This use case involves adding a new expense batch to the system with necessary details such as department ID, description, and date.
+- Preconditions:
+  - The user is authenticated and has permissions to add new batches.
+- Postconditions:
+  - A new expense batch is created with a unique ID and stored in the system.
+- Main Success Scenario:
+  1. The user provides the department ID, batch description, and date.
+  2. The system assigns a unique ID to the new batch.
+  3. The system stores the new expense batch in the database.
+  4. The system confirms the addition of the new batch to the user.
+- Extensions:
+  - None
+- Exceptions:
+  - If any required information is missing, the system prompts the user to provide it.
+- Business Rules:
+  - Department ID must be associated with an existing department.
+- Assumptions:
+  - There are no constraints on the number of batches that can be created.
+- Open Issues:
+  - None
+
+## ExpenseBatch-UC3 — Update Existing Expense Batch
+
+- Primary Actor(s): System Administrator
+- Secondary Actor(s): None
+- Trigger: A request is made to update the details of an existing expense batch.
+- Description: This use case covers updating an existing expense batch's description, date, or status.
+- Preconditions:
+  - The user has permissions to update batch details.
+  - The batch exists in the system.
+- Postconditions:
+  - The expense batch details are updated in the database.
+- Main Success Scenario:
+  1. The user specifies the batch ID to update.
+  2. The user provides new values for the batch description, date, and status code.
+  3. The system updates the expense batch information in the database.
+  4. The system confirms the update to the user.
+- Extensions:
+  - None
+- Exceptions:
+  - If the batch ID is invalid, an error is returned.
+- Business Rules:
+  - Batch date must be a valid date.
+- Assumptions:
+  - All users understand the impact of changing batch status.
+- Open Issues:
+  - None
+
+## ExpenseBatch-UC4 — Delete Expense Batch
+
+- Primary Actor(s): System Administrator
+- Secondary Actor(s): None
+- Trigger: A request is made to delete an existing expense batch.
+- Description: This use case involves removing an expense batch from the system permanently.
+- Preconditions:
+  - The batch ID exists in the system.
+  - The user has permissions to delete batches.
+- Postconditions:
+  - The expense batch is removed from the system.
+- Main Success Scenario:
+  1. The user specifies the batch ID to be deleted.
+  2. The system confirms the deletion requirement.
+  3. The system deletes the batch from the database.
+  4. The system confirms the deletion to the user.
+- Extensions:
+  - None
+- Exceptions:
+  - If the batch ID is invalid or associated with incomplete processes, an error is returned.
+- Business Rules:
+  - Deletion is final and cannot be reversed.
+- Assumptions:
+  - Users are aware of the consequences of deleting a batch.
+- Open Issues:
+  - None
