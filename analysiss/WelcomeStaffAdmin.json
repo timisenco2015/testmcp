@@ -1,36 +1,31 @@
 {
     "filename": "WelcomeStaffAdmin",
     "found": true,
-    "summary": "WelcomeStaffAdmin manages the staff admin welcome interface.",
-    "purpose": "Facilitates staff administration by providing a dashboard interface with controls for user sessions and data display.",
-    "entities": ["UserSession"],
-    "fields": [
-        "lblTitle",
-        "ltlLastLogin",
-        "txtStartDate",
-        "txtEndDate",
-        "ddSite",
-        "ddDiscipline"
-    ],
-    "actors": ["User"],
+    "summary": "The WelcomeStaffAdmin file is a web page that uses ASP.NET controls for displaying a welcome message to staff administrators in the HSPnet system. It includes functionality for displaying and managing last login information.",
+    "purpose": "To deliver a welcome interface to staff administrators, displaying personalized information such as last login and managing page-level JavaScript resources.",
+    "entities": [],
+    "fields": ["lblTitle", "ltlLastLogin"],
+    "actors": ["UserSession"],
     "workflows": [
         {
-            "name": "Data Refresh",
+            "name": "Page Load",
             "steps": [
-                "Fill Site and Discipline Dropdowns",
-                "Set Start and End Date Defaults",
-                "Bind Data to View"
+                "Setup HSPnet page.",
+                "Register client scripts.",
+                "Display welcome message.",
+                "Show last login information if available."
             ]
         }
     ],
     "business_rules": [],
     "validations": [],
     "calculations": [],
-    "conditions": ["IsPostBack condition manages initial data load."],
+    "conditions": [],
     "system_behavior": [
-        "Page.ClientScript manages inclusion of JavaScript files for session operations."
+        "Uses ASP.NET UpdatePanel for partial page updates.",
+        "Displays personalized welcome message using user session data."
     ],
-    "dependencies": ["Resources"],
+    "dependencies": [],
     "exceptions": [],
     "source_document_ids": [
         "05db31e4-e8b6-53ee-a6fb-812c106f0134",
@@ -42,7 +37,19 @@
         "5bb85da3-f5b4-5753-b07c-9bb2a04eeb89",
         "5d9b92ea-7c12-5070-8603-977cf14d0e04",
         "6701b153-5288-59e5-8de9-61b68a1fc292",
-        "6eca1317-c0b2-5225-a9af-f034a722d924"
+        "6eca1317-c0b2-5225-a9af-f034a722d924",
+        "871df91b-7ba0-558f-83ea-d5be1b0dc8db",
+        "8cea5c3a-2fbf-5206-a0c0-9425a5e14511",
+        "964a48c9-231c-5d58-a44d-3675d949a453",
+        "966ed8d3-a5af-567f-b092-936217777551",
+        "a0c3da28-32a5-5fce-91b2-17274efa016e",
+        "afbb4ec5-43c8-5281-ad2c-4b6cfd23a48e",
+        "b8e79322-9a0e-5fe7-8953-3d05e231f923",
+        "bf423a80-93db-572d-8cb8-c79f04214a93",
+        "ca71b077-cc26-5979-a44f-59700a41316b",
+        "d278278f-d4ec-5f4a-9f29-a02b66773bb9",
+        "db9b35e9-53ca-5eaf-9d75-4f3a72131bc7",
+        "e249a878-c837-5d1c-9a3d-5167df2614fb"
     ],
     "content_gaps": []
 }
