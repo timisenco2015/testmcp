@@ -1,0 +1,132 @@
+# Module: WelcomeSummary
+
+## WelcomeSummary-UC1 — Display Welcome Summary
+
+- Primary Actor(s): User
+- Secondary Actor(s): System Administrator
+- Trigger: A user navigates to the WelcomeSummary page.
+- Description: The system displays the WelcomeSummary page with a main title, help popup, and various links and messages.
+- Preconditions:
+  - The user must have access to the WelcomeSummary page.
+- Postconditions:
+  - The user sees the main title and any warnings or errors relevant to their session.
+- Main Success Scenario:
+  1. The user accesses the WelcomeSummary page.
+  2. The system loads and displays the main title.
+  3. The help popup is available for further information.
+  4. Any warnings or errors are displayed using AlwaysVisibleControlExtenders.
+- Extensions:
+  - None
+- Exceptions:
+  - The page fails to load due to server errors.
+- Business Rules:
+  - AlwaysVisibleControlExtenders must ensure warnings and errors are visible to the user.
+- Assumptions:
+  - The system has the necessary resources and permissions configured correctly.
+- Open Issues:
+  - None
+
+## WelcomeSummary-UC2 — Handle Errors and Warnings
+
+- Primary Actor(s): System Administrator
+- Secondary Actor(s): None
+- Trigger: System detects various states like unbalanced roles or inactive destinations.
+- Description: The system logs errors and warnings based on the state of the user's session.
+- Preconditions:
+  - System must be configured to handle session messages.
+- Postconditions:
+  - Errors and warnings are logged and displayed to the user.
+- Main Success Scenario:
+  1. System checks user session status.
+  2. If an error is detected (e.g., unbalanced roles), it logs an error message.
+  3. If a warning condition is met (e.g., a redirection), it logs a warning message.
+- Extensions:
+  - None
+- Exceptions:
+  - Message logging fails due to system issues.
+- Business Rules:
+  - Error messages should take precedence over warnings.
+- Assumptions:
+  - The messaging system is operational and logging is enabled.
+- Open Issues:
+  - None
+
+## WelcomeSummary-UC3 — Configure and Display Course Data
+
+- Primary Actor(s): User
+- Secondary Actor(s): None
+- Trigger: The user views course-related information on the WelcomeSummary page.
+- Description: The system displays course information such as course name, start date, and associated icons.
+- Preconditions:
+  - Course data must be available in the system.
+- Postconditions:
+  - The user sees detailed course information.
+- Main Success Scenario:
+  1. The system fetches course data for display.
+  2. Course details like short name, start date, and service name are displayed.
+  3. Applicable icons and commands are presented based on the course data.
+- Extensions:
+  - None
+- Exceptions:
+  - Data binding fails due to incorrect formats or missing data.
+- Business Rules:
+  - Data must be correctly formatted and complete for consistent display.
+- Assumptions:
+  - Course data is up-to-date and accurate.
+- Open Issues:
+  - None
+
+## WelcomeSummary-UC4 — Validate Shift and Request Data
+
+- Primary Actor(s): User
+- Secondary Actor(s): None
+- Trigger: User inputs or updates shift and request information.
+- Description: The system validates input data related to shift durations and request reasons.
+- Preconditions:
+  - User has permissions to update shift data.
+- Postconditions:
+  - Valid inputs are processed, and invalid inputs generate error messages.
+- Main Success Scenario:
+  1. User enters shift and request data.
+  2. System validates the shift duration and reason ID.
+  3. For valid data, updates are processed.
+  4. For invalid data, error messages are shown.
+- Extensions:
+  - None
+- Exceptions:
+  - Parsing failures for shift hours or missing reason IDs.
+- Business Rules:
+  - Invalid data must not be processed, and appropriate messages should alert the user.
+- Assumptions:
+  - Input controls are correctly formatted and operational.
+- Open Issues:
+  - None
+
+## WelcomeSummary-UC5 — Print Options and Request Codes
+
+- Primary Actor(s): User
+- Secondary Actor(s): None
+- Trigger: User selects to print or configure request options.
+- Description: The system provides options for printing and managing request actions.
+- Preconditions:
+  - User has request print permissions.
+- Postconditions:
+  - Selected print and request options are configured as desired by the user.
+- Main Success Scenario:
+  1. User selects a print or request management option.
+  2. System presents the relevant options based on user input.
+  3. User finalizes selections, which are applied.
+- Extensions:
+  - None
+- Exceptions:
+  - System errors when printing options are unavailable or fail to load.
+- Business Rules:
+  - User selections must be accurately captured and executed.
+- Assumptions:
+  - Printing functionalities are available and working.
+- Open Issues:
+  - None
+
+---
+
+Note: These use cases were extracted directly from the provided content. If further documents or content are available, please provide them for a more comprehensive analysis.
