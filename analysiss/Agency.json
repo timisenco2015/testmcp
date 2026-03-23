@@ -1,0 +1,123 @@
+{
+  "filename": "Agency",
+  "found": true,
+  "summary": "Agency class handles data related to agencies, including their properties, search, add, update, and delete operations.",
+  "purpose": "To manage agency data and operations within the HSPnet framework.",
+  "entities": [
+    "Agency"
+  ],
+  "fields": [
+    "ID",
+    "Name",
+    "ShortName",
+    "Description",
+    "ReceivingAgency",
+    "PlacingAgency",
+    "Inactive",
+    "Placeholder",
+    "HSPnetMember",
+    "AreaCode",
+    "ContentAuthor",
+    "ContentManager",
+    "AllowPAL",
+    "PreviousName",
+    "PreviousNameEffectiveDate",
+    "UmbrellaAgency",
+    "UmbrellaDescription",
+    "ActiveSitesExist",
+    "ActiveProgramsExist",
+    "ActiveStaffExist",
+    "Address1",
+    "Address2",
+    "City",
+    "Province",
+    "Country",
+    "PostalCode",
+    "Phone",
+    "Fax"
+  ],
+  "actors": [
+    "HSPnetSession",
+    "Database"
+  ],
+  "workflows": [
+    {
+      "name": "AgencySearchPlacing",
+      "steps": [
+        "Initialize procedure AgencySearchPlacing.",
+        "Add parameter MyAgencyID.",
+        "Fill list with data."
+      ]
+    },
+    {
+      "name": "AddAgency",
+      "steps": [
+        "Validate data.",
+        "Apply business rules.",
+        "Initialize procedure AgencyAdd.",
+        "Add parameters.",
+        "Execute query."
+      ]
+    },
+    {
+      "name": "UpdateAgency",
+      "steps": [
+        "Validate data.",
+        "Apply business rules.",
+        "Initialize procedure AgencyUpdate.",
+        "Add parameters.",
+        "Execute query."
+      ]
+    },
+    {
+      "name": "DeleteAgency",
+      "steps": [
+        "Check for active sites and programs.",
+        "Initialize procedure AgencyDelete.",
+        "Add parameters.",
+        "Execute query."
+      ]
+    },
+    {
+      "name": "ReactivateAgency",
+      "steps": [
+        "Initialize procedure AgencyReactivate.",
+        "Add parameters.",
+        "Execute query."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Phone and Fax must be valid.",
+    "Agency must be either Receiving or Placing."
+  ],
+  "validations": [
+    "Name and ShortName are required."
+  ],
+  "calculations": [
+    "Calculate formatted phone numbers."
+  ],
+  "conditions": [],
+  "system_behavior": [
+    "CRUD operations via stored procedures",
+    "Data validation and business rule application"
+  ],
+  "dependencies": [],
+  "exceptions": [],
+  "source_document_ids": [
+    "105eea1f-9379-562a-8b8f-8010cc482a1f",
+    "128b2383-495d-5948-873d-b61a300ee410",
+    "22cfc58f-af31-5486-8813-7c96c51ba2e5",
+    "2b6ec414-aff6-5f2b-9424-07a4f0ce264d",
+    "30e6395f-3c0b-54cd-ac2b-c360d3b63895",
+    "58eb3ded-f5d7-5faa-95e5-c2d76c79bceb",
+    "61811739-c8c6-5f2a-8723-fc76761626a4",
+    "870a9c64-38bf-52ba-9361-95864d4d1358",
+    "944d15a1-e883-5a2a-bd51-f24a5a37bbf2",
+    "a263d568-5718-5826-be7c-5bf07c5aa674",
+    "aa8ae730-b092-502f-8c93-5bd1c4cee6db",
+    "b39b173b-56e7-5a7f-960a-0dc4d4d0085d",
+    "bb724f50-c270-5187-ae2f-3c39634843a3"
+  ],
+  "content_gaps": []
+}
