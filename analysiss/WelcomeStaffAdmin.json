@@ -1,65 +1,69 @@
 {
     "filename": "WelcomeStaffAdmin",
     "found": true,
-    "summary": "This document details elements involved in the Welcome Staff Admin page in the web application. It contains setup elements for page controls related to staff administration, including display elements for user sessions and interactions.",
-    "purpose": "To provide the structure and controls necessary for the staff admin welcome page, including session information and interactive elements.",
+    "summary": "This file includes UI controls and setup for welcoming staff admin with features like site and discipline filters, validation, and displaying submission status.",
+    "purpose": "Provide a user interface for staff administrators to manage employment application details.",
     "entities": [
-        "WelcomeStaffAdmin"
+        "UpdatePanel",
+        "Label",
+        "Panel",
+        "Literal",
+        "GridView",
+        "ObjectDataSource",
+        "Discipline"
     ],
     "fields": [
-        "updPnlMain",
-        "lblTitle",
-        "pnlLastLogin",
-        "Literal5",
-        "ltlLastLogin",
-        "AlwaysVisibleControlExtender1",
-        "AlwaysVisibleControlExtender2",
-        "pnlError",
-        "lblErrorCaption",
-        "lblWarningCaption"
+        "txtStartDate",
+        "txtEndDate",
+        "cmdRefreshView",
+        "ddSite",
+        "ddDiscipline",
+        "chkShowWithdrawn",
+        "ValidationSummary1",
+        "dsEmploymentApplications"
     ],
     "actors": [
-        "UserSession"
+        "UserSession",
+        "EmploymentApplication"
     ],
     "workflows": [
         {
-            "name": "Display User Session Information",
+            "name": "Refresh Data",
             "steps": [
-                "Setup Page",
-                "Load User Session",
-                "Display Last Login",
-                "Handle Page Postback"
+                "Bind data to application grid view"
+            ]
+        },
+        {
+            "name": "Submit Application",
+            "steps": [
+                "Retrieve necessary input from dropdowns and text fields",
+                "Execute selection method in ObjectDataSource"
             ]
         }
     ],
     "business_rules": [],
-    "validations": [],
-    "calculations": [],
-    "conditions": [],
-    "system_behavior": [
-        "Auto-updates the page based on session info",
-        "Displays last login with timezone"
+    "validations": [
+        "Ensure start and end dates are valid and not empty",
+        "Custom validation to ensure end date is after start date"
     ],
-    "dependencies": [],
+    "calculations": [],
+    "conditions": [
+        "Panel visibility depends on error or warning presence"
+    ],
+    "system_behavior": [
+        "Include JavaScript for asynchronous postbacks",
+        "Handle data source events"
+    ],
+    "dependencies": [
+        "HSPnetSession",
+        "JavaScript",
+        "DateFormatter"
+    ],
     "exceptions": [],
     "source_document_ids": [
-        "05db31e4-e8b6-53ee-a6fb-812c106f0134",
-        "100d5925-a5f8-53db-8493-02cddd563eb7",
-        "3c84bade-9671-5fbf-acce-3c87a835e9b4",
-        "4c4b97b8-d242-5261-a515-767a3f7d7a49",
-        "5bb85da3-f5b4-5753-b07c-9bb2a04eeb89",
-        "5d9b92ea-7c12-5070-8603-977cf14d0e04",
-        "6701b153-5288-59e5-8de9-61b68a1fc292",
         "871df91b-7ba0-558f-83ea-d5be1b0dc8db",
-        "964a48c9-231c-5d58-a44d-3675d949a453",
-        "966ed8d3-a5af-567f-b092-936217777551",
-        "a0c3da28-32a5-5fce-91b2-17274efa016e",
-        "afbb4ec5-43c8-5281-ad2c-4b6cfd23a48e",
-        "b8e79322-9a0e-5fe7-8953-3d05e231f923",
-        "bf423a80-93db-572d-8cb8-c79f04214a93",
         "ca71b077-cc26-5979-a44f-59700a41316b",
-        "d278278f-d4ec-5f4a-9f29-a02b66773bb9",
-        "db9b35e9-53ca-5eaf-9d75-4f3a72131bc7",
+        "bf423a80-93db-572d-8cb8-c79f04214a93",
         "e249a878-c837-5d1c-9a3d-5167df2614fb"
     ],
     "content_gaps": []
