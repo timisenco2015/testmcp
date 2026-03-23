@@ -1,118 +1,99 @@
 {
-  "filename": "PrfPortfolio",
-  "found": true,
-  "summary": "The PrfPortfolio file is part of the HSPnet User Controls StaffProfile module. It involves managing staff expertise, interest, skills, and activities via a web interface. The file is connected to various controls and functionalities such as grid views, drop-down lists, and checkboxes for selecting and displaying staff profile data.",
-  "purpose": "To facilitate the management of staff profiles, specifically to handle their expertise, interests, skills, and associated activities using a web-based user interface.",
-  "entities": [],
-  "fields": [
-    "Skill1ID",
-    "Skill2ID",
-    "Skill3ID",
-    "Skill4ID",
-    "Skill5ID",
-    "SkillCode1ID",
-    "SkillCode2ID",
-    "SkillCode3ID",
-    "SkillCode4ID",
-    "SkillCode5ID",
-    "InterestCode1ID",
-    "InterestCode2ID",
-    "InterestCode3ID",
-    "InterestCode4ID",
-    "InterestCode5ID",
-    "Profession1ID",
-    "Profession2ID",
-    "Profession3ID",
-    "Profession4ID",
-    "Profession5ID",
-    "Discipline1ID",
-    "Discipline2ID",
-    "Discipline3ID",
-    "Discipline4ID",
-    "Discipline5ID",
-    "SubDiscipline1ID",
-    "SubDiscipline2ID",
-    "SubDiscipline3ID",
-    "SubDiscipline4ID",
-    "SubDiscipline5ID",
-    "CurrentEmployment1",
-    "CurrentEmployment2",
-    "CurrentEmployment3",
-    "CurrentEmployment4",
-    "CurrentEmployment5",
-    "Comments"
-  ],
-  "actors": [
-    "UserSession",
-    "StaffID"
-  ],
-  "workflows": [
-    {
-      "name": "Manage Staff Profile",
-      "steps": [
-        "Select details from drop-down lists",
-        "Bind data to controls",
-        "Display and edit expertise, interest, and skill details",
-        "Handle add, edit, and delete commands for staff activities",
-        "Save changes and refresh view with updated information"
-      ]
-    }
-  ],
-  "business_rules": [
-    "Auto-generate fields based on user actions",
-    "Ensure ScreenIsEditable condition for showing edit controls",
-    "Bind and select values in drop-downs based on user data",
-    "Display appropriate messages for empty data scenarios"
-  ],
-  "validations": [
-    "Ensure non-empty drop-down selections for skills and interests",
-    "Validate command execution only when Page.IsValid"
-  ],
-  "calculations": [],
-  "conditions": [
-    "UserSession must be active for data operations",
-    "Check for ReadOnly mode to disable editing capabilities"
-  ],
-  "system_behavior": [
-    "Switches between add, edit, and view modes",
-    "Handles file uploads and generates unique paths",
-    "Caches user session for consistent user experience"
-  ],
-  "dependencies": [
-    "Codes.CodeSearch for fetching skill and interest lists",
-    "HSPnetSession for session management"
-  ],
-  "exceptions": [
-    "Cancel operation does not alter current page URL",
-    "Handle file operations safely to avoid file system clutter"
-  ],
-  "source_document_ids": [
-    "09b59ced-81e3-599f-b2a6-373fdb3394d3",
-    "1b27ded6-1453-528a-9acb-64267e71d81d",
-    "25e1196d-ee99-56f1-9a85-5869290dab1d",
-    "2607dfb4-aae8-5315-9a75-1d3d593d01ef",
-    "377d4ed7-e0fa-56ff-b995-1780c3d49486",
-    "3beb5ae5-3e1d-5d91-8c89-112353a12ed4",
-    "3f9c5fc1-d321-5937-85f9-6f1911dc9428",
-    "53986357-ae7b-56f1-b577-467360cdcece",
-    "58a589ca-b1ca-54ca-84e7-590cd9af79b9",
-    "62da293f-82b8-56c7-b387-719a11141a78",
-    "64fbb5f5-bb1d-5639-9000-323635657915",
-    "6993b0a6-12ee-5e4a-987c-3c890917fc88",
-    "6eb05c7b-4a94-5708-ba65-d5acca0f775f",
-    "850e5a39-bffc-5714-8e08-2de5edfab3f9",
-    "86680f03-ae74-52e3-80fb-6fce14bd0263",
-    "8bb1aa73-04f3-568d-9ced-f690a2c2554a",
-    "8e848492-f549-5985-a432-22c3b5812489",
-    "917f7797-6d5c-5d6d-8d05-86f479f6614c",
-    "956cc411-8e3e-5402-bb04-52c1e843009f",
-    "99f62c29-18db-50e6-b501-3e5a866140b9",
-    "c55fc70f-c487-5899-bdb3-c5cb69a2409d",
-    "cc6e1e74-6046-56f8-a7f9-6725ec2e1252",
-    "d352d76b-688b-5de5-96cc-708a5c009577",
-    "f027c18e-3fac-5801-8422-22f7b92465a9",
-    "f11a07b6-16b0-5767-90f8-bc2c03fb49cf",
-    "f25b0d9d-d480-5d0c-9e39-0b20d0a13654"
-  ],
-  "content_gaps": []
+    "filename": "PrfPortfolio",
+    "found": true,
+    "summary": "The PrfPortfolio is a component of the StaffProfile within the HSPnet framework. It manages staff expertise, interests, professions, and activities. The module includes functionalities for data input, validation, and display, often involving dropdown lists, text fields, and checkboxes.",
+    "purpose": "The purpose of PrfPortfolio is to manage and display the professional portfolios of staff members, including their skills, interests, professions, and activities, within the HSPnet platform. It allows for data entry, updates, and display of detailed staff profiles.",
+    "entities": [
+        "StaffExpertiseEdit",
+        "StaffActivity",
+        "CodeRecord",
+        "HSPnetSession"
+    ],
+    "fields": [
+        "SkillCode1ID",
+        "SkillCode2ID",
+        "InterestCode1ID",
+        "InterestCode2ID",
+        "Discipline1ID",
+        "SubDiscipline1ID",
+        "CurrentEmployment1",
+        "Comments",
+        "FileURL",
+        "FileName",
+        "FileSize",
+        "FileType"
+    ],
+    "actors": [
+        "UserSession",
+        "ScriptManager",
+        "Grid",
+        "Dropdown"
+    ],
+    "workflows": [
+        {
+            "name": "Data Binding and Display",
+            "steps": [
+                "Bind data sources to dropdown lists.",
+                "Display skill, interest, and profession details using labels and grids.",
+                "Switch to edit mode if the screen is editable."
+            ]
+        }
+    ],
+    "business_rules": [
+        "Auto-generate controls are not to be modified from the designer file.",
+        "Check for UserSession before selecting data sources."
+    ],
+    "validations": [
+        "FormViewCommandEventArgs ensures commands are valid before proceeding.",
+        "Check for null or empty dropdown values before converting them to integers."
+    ],
+    "calculations": [
+        "Convert dropdown values to integer IDs.",
+        "Handle file uploads, saving them with unique identifiers."
+    ],
+    "conditions": [
+        "Enable editing mode only if the screen is editable.",
+        "Visible controls depend on the ReadOnly property."
+    ],
+    "system_behavior": [
+        "Use auto-generated controls for UI components.",
+        "Setup JavaScript dynamically based on UI state."
+    ],
+    "dependencies": [
+        "HSPnet.DataLayer for data access.",
+        "HSPnet.Framework for core functionality."
+    ],
+    "exceptions": [
+        "Cancel data source selection if UserSession is null.",
+        "Redirect on command completion if cmdCancel is not pressed."
+    ],
+    "source_document_ids": [
+        "09b59ced-81e3-599f-b2a6-373fdb3394d3",
+        "1b27ded6-1453-528a-9acb-64267e71d81d",
+        "25e1196d-ee99-56f1-9a85-5869290dab1d",
+        "2607dfb4-aae8-5315-9a75-1d3d593d01ef",
+        "377d4ed7-e0fa-56ff-b995-1780c3d49486",
+        "3beb5ae5-3e1d-5d91-8c89-112353a12ed4",
+        "3f9c5fc1-d321-5937-85f9-6f1911dc9428",
+        "53986357-ae7b-56f1-b577-467360cdcece",
+        "58a589ca-b1ca-54ca-84e7-590cd9af79b9",
+        "62da293f-82b8-56c7-b387-719a11141a78",
+        "64fbb5f5-bb1d-5639-9000-323635657915",
+        "6993b0a6-12ee-5e4a-987c-3c890917fc88",
+        "6eb05c7b-4a94-5708-ba65-d5acca0f775f",
+        "850e5a39-bffc-5714-8e08-2de5edfab3f9",
+        "86680f03-ae74-52e3-80fb-6fce14bd0263",
+        "8bb1aa73-04f3-568d-9ced-f690a2c2554a",
+        "8e848492-f549-5985-a432-22c3b5812489",
+        "917f7797-6d5c-5d6d-8d05-86f479f6614c",
+        "956cc411-8e3e-5402-bb04-52c1e843009f",
+        "99f62c29-18db-50e6-b501-3e5a866140b9",
+        "c55fc70f-c487-5899-bdb3-c5cb69a2409d",
+        "cc6e1e74-6046-56f8-a7f9-6725ec2e1252",
+        "d352d76b-688b-5de5-96cc-708a5c009577",
+        "f027c18e-3fac-5801-8422-22f7b92465a9",
+        "f11a07b6-16b0-5767-90f8-bc2c03fb49cf",
+        "f25b0d9d-d480-5d0c-9e39-0b20d0a13654"
+    ],
+    "content_gaps": []
 }
