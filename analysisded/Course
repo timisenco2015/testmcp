@@ -1,0 +1,125 @@
+```json
+{
+  "filename": "Course",
+  "found": true,
+  "summary": "The Course system is designed to manage courses related to various departments, including information on course structures, durations, supervision weeks, instructor-to-student ratios, and more. It includes functionalities for defining, updating, deleting, and searching courses, as well as managing associated data such as agency information and requests.",
+  "purpose": "To manage educational courses within a specified framework, allowing instructors and administrators to update, search, and validate course information while maintaining detailed records on course attributes and student activities.",
+  "entities": ["Course", "Department", "DepartmentRequestType"],
+  "fields": [
+    "ID", "DepartmentID", "Name", "ShortName", "Description", "DurationHours", "DurationShifts",
+    "SupervisionWeeks", "ShiftLength", "DefaultTypeCodeID", "Inactive", "CreatedByQES", "ReportCodeID",
+    "UseBlocks", "UseIndividualWorksheet", "InstructorStudentRatio", "Comments", "UseRotations",
+    "IncludeRequests", "IncludeRequestsWithCFO", "IncludeOutOfProvinceCFO", "TypeCode", "ShortType",
+    "PRFormCode", "ProfileExists", "CourseUsesNISTemplate", "IdleCourse", "ExcludeInstructorFromITProvRole",
+    "MaxStudentPRSelections", "SpecifyDuplicatePRs", "RankWithheldPRs", "ViewClassmateStats",
+    "AllowAnyDestInSite", "AllowAnySiteDestInService", "SearchableStatusCodeID", "SearchableStatusCode",
+    "StudentsViewPRStatus", "StudentsViewDestinations", "AllowDuplicateDestinations", "StudentsViewAgency",
+    "StudentsViewService", "CampusesExist", "PRsAllocatedToCampusOnly", "PRsAllocatedToSectionOnly",
+    "RequestType", "PRFormTemplate", "AgencyID", "AgencyShortName", "DepartmentShortName", "CourseType",
+    "ProfileDataExists", "DocumentDataExists", "CompetencyDataExists", "ASMDataExists", "CorrDataExists",
+    "AssessmentDataExists", "ContactDataExists", "AllowStudentActivities", "StudentActivityCutoffDays",
+    "GroupCodeID", "NISTemplateID", "Use3Prefs", "NISFlag", "SupervisorCaptionID"
+  ],
+  "actors": ["HSPnetSession", "SqlDataReader"],
+  "workflows": [
+    {
+      "name": "Add Course",
+      "steps": [
+        "Validate course details.",
+        "Apply business rules.",
+        "Execute DB procedure 'CourseAdd' with parameters."
+      ]
+    },
+    {
+      "name": "Update Course",
+      "steps": [
+        "Validate updated course details.",
+        "Apply business rules.",
+        "Execute DB procedure 'CourseUpdate' with parameters."
+      ]
+    },
+    {
+      "name": "Delete Course",
+      "steps": [
+        "Execute DB procedure 'CourseDelete' with course ID."
+      ]
+    },
+    {
+      "name": "Reactivate Course",
+      "steps": [
+        "Execute DB procedure 'CourseReactivate' with course ID."
+      ]
+    },
+    {
+      "name": "Update Instructor-Student Ratio",
+      "steps": [
+        "Validate ratio format.",
+        "Execute DB procedure 'CourseUpdateRatio' with course ID and ratio."
+      ]
+    },
+    {
+      "name": "Course Search",
+      "steps": [
+        "Set procedure name and parameters.",
+        "Fetch data using SqlDataReader.",
+        "Close reader and return list of courses."
+      ]
+    }
+  ],
+  "business_rules": [
+    "If AllowStudentActivities is false, set StudentActivityCutoffDays to -1.",
+    "DurationHours must be calculated from DurationShifts and ShiftLength if not directly provided."
+  ],
+  "validations": [
+    "Name and ShortName must not be blank.",
+    "DefaultTypeCodeID must be non-zero.",
+    "InstructorStudentRatio must start with '1' and be at least 3 characters long."
+  ],
+  "calculations": [
+    "Calculate DurationHours using DurationShifts and ShiftLength if DurationHours is zero.",
+    "Format UseBlocks attribute based on boolean value."
+  ],
+  "conditions": [
+    "Check if CohortID and TermID are both non-zero before fetching cohort courses."
+  ],
+  "system_behavior": [
+    "Caches course detail data temporarily to avoid redundant database calls on screen refresh.",
+    "Supports multiple identical calls on Course Profile by caching data temporarily."
+  ],
+  "dependencies": [
+    "Uses HSPnet.Framework for database operations.",
+    "Relies on System.Data.SqlClient for reading and manipulating SQL data."
+  ],
+  "exceptions": [
+    "Handles invalid InstructorStudentRatio by notifying user and cancelling update."
+  ],
+  "source_document_ids": [
+    "a96477a1-f81a-563d-910f-781f2eccd6e0",
+    "8c3e07cc-1594-53cb-bb39-a16ca2222667",
+    "4080f062-b582-50fd-b379-e843ecf7eecf",
+    "c5eacc90-1336-567f-a4d7-d62e997947cc",
+    "3175d5ed-950b-5b15-b993-9be68c1cc795",
+    "d51e0b1e-ff38-5ceb-bf93-fb8053a744f3",
+    "d2082233-b56b-549d-8bb5-24e393af3eb6",
+    "113fda5f-b356-500c-b6ba-13a1697099cf",
+    "f8f7bbad-cefb-5731-b42c-d1dc97ac264d",
+    "f44e30f7-3568-5f02-9c6d-42d7675acd48",
+    "ef3d177d-9b5f-5cf3-8084-04fd79c6b210",
+    "34958587-423a-52a0-9a85-bca13184689b",
+    "3bad9a02-3342-505b-a432-9c1890e8609e",
+    "e609dbbf-b08b-5d8f-aadb-d9d4b5fb40e3",
+    "4da5127c-87fe-54d6-9ece-9e9d45dac9ed",
+    "7bad651c-cfd5-5b69-81b5-f442b857734d",
+    "497f9326-eff8-51eb-a7f7-bb67c07aa185",
+    "65f5f8d3-3ba2-5529-8089-938acd1bd636",
+    "1657a581-8112-53fb-9bf4-2f85b175adbe",
+    "e9c1e76e-b034-55c5-8197-719f50ee3ca9",
+    "dea9ffb5-3e1e-507d-b210-dc0339affe73",
+    "313845ef-1113-5324-bce0-553a0449cde4",
+    "a459233f-9ed0-5fa1-9424-55db75f4571b",
+    "1b598bad-8a0a-5651-b3a8-4eead3dfef23",
+    "eb7a2a01-cf08-5bc9-b792-e366690657da"
+  ],
+  "content_gaps": []
+}
+```
