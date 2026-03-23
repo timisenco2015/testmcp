@@ -1,0 +1,123 @@
+{
+  "filename": "PlacingAgencyBreaks",
+  "found": true,
+  "summary": "The documents describe the PlacingAgencyBreak class, which manages breaks associated with agencies in the HSPnet system. The class includes methods for adding, deleting, and updating agency breaks, along with validation checks for the break data.",
+  "purpose": "To manage and operate on agency breaks within the HSPnet system, including operations like addition, deletion, and update of breaks, as well as validation of break-related information.",
+  "entities": [],
+  "fields": [
+    {
+      "name": "ID",
+      "type": "int",
+      "description": "Unique identifier for the PlacingAgencyBreak."
+    },
+    {
+      "name": "ProgramID",
+      "type": "int",
+      "description": "Identifier for the associated program."
+    },
+    {
+      "name": "BreakCodeID",
+      "type": "int",
+      "description": "Identifier for the break code used."
+    },
+    {
+      "name": "StartDate",
+      "type": "DateTime",
+      "description": "Start date of the break."
+    },
+    {
+      "name": "EndDate",
+      "type": "DateTime",
+      "description": "End date of the break."
+    },
+    {
+      "name": "BreakCode",
+      "type": "string",
+      "description": "String representation of the break code."
+    },
+    {
+      "name": "StartDateFormatted",
+      "type": "string",
+      "description": "Formatted start date for display."
+    },
+    {
+      "name": "EndDateFormatted",
+      "type": "string",
+      "description": "Formatted end date for display."
+    }
+  ],
+  "actors": [
+    {
+      "name": "HSPnetSession",
+      "description": "Session object managing database interactions and user session context."
+    }
+  ],
+  "workflows": [
+    {
+      "name": "Add PlacingAgencyBreak",
+      "steps": [
+        "Instantiate a PlacingAgencyBreak object.",
+        "Set BreakCodeID, StartDateFormatted, and EndDateFormatted attributes.",
+        "Validate the PlacingAgencyBreak object.",
+        "If valid, execute database procedure 'PlacingAgencyBreakAdd' using session's database object."
+      ]
+    },
+    {
+      "name": "Delete PlacingAgencyBreak",
+      "steps": [
+        "Check if ID is greater than 0.",
+        "Execute 'PlacingAgencyBreakDelete' using session's database object with ID as a parameter."
+      ]
+    },
+    {
+      "name": "Update PlacingAgencyBreak",
+      "steps": [
+        "Instantiate a PlacingAgencyBreak object.",
+        "Set BreakCodeID, StartDateFormatted, and EndDateFormatted attributes.",
+        "Validate the PlacingAgencyBreak object.",
+        "If valid, execute database procedure 'PlacingAgencyBreakUpdate' using session's database object."
+      ]
+    },
+    {
+      "name": "Search PlacingAgencyBreak",
+      "steps": [
+        "Execute 'PlacingAgencyBreakSearch' using session's database with ProgramID as a parameter.",
+        "If results exist, populate and return a list of PlacingAgencyBreak objects."
+      ]
+    },
+    {
+      "name": "Get PlacingAgencyBreak by ID",
+      "steps": [
+        "Execute 'PlacingAgencyBreakSearchID' using session's database with ID as a parameter.",
+        "If a result is found, populate and return a PlacingAgencyBreak object."
+      ]
+    }
+  ],
+  "business_rules": [],
+  "validations": [
+    {
+      "name": "Validate BreakCodeID",
+      "description": "BreakCodeID must not be a null integer. Otherwise, an error is added to the session messages."
+    },
+    {
+      "name": "Validate StartDate",
+      "description": "StartDate must not be a null date and should not exceed a maximum future date."
+    },
+    {
+      "name": "Validate EndDate",
+      "description": "EndDate must not be a null date and should not exceed a maximum future date, also ensure EndDate is not before StartDate."
+    }
+  ],
+  "calculations": [],
+  "conditions": [],
+  "system_behavior": [],
+  "dependencies": [],
+  "exceptions": [],
+  "source_document_ids": [
+    "365ef63b-b6eb-5a36-b026-b963e6b1da6d",
+    "39a70246-a790-577d-9384-75df3563a2e7",
+    "833fb694-cede-5acb-bcab-9ee1634a481c",
+    "f8f0aa10-0126-54e2-818d-911cf4b966ec"
+  ],
+  "content_gaps": []
+}
