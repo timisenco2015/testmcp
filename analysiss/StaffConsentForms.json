@@ -1,102 +1,81 @@
 {
-    "filename": "StaffConsentForms",
-    "found": true,
-    "summary": "The documents define the structure and operations of the StaffConsentForms within the HSPnet system. They describe methods for searching, adding, updating, and deleting staff consent forms, including the validation of input data.",
-    "purpose": "The purpose of the StaffConsentForms documents is to manage staff consent forms within the HSPnet system, providing operations to create, update, delete, and retrieve consent form data.",
-    "entities": [
-        "StaffConsentForm"
-    ],
-    "fields": [
-        "ID",
-        "StaffID",
-        "ProviderID",
-        "DateReceived",
-        "AgencyID",
-        "ProviderTypeCodeID",
-        "Notes",
-        "Agency",
-        "Department",
-        "ProviderType",
-        "AgencyDepartIDFormatted",
-        "AgencyDepartFormatted",
-        "DateReceivedFormatted"
-    ],
-    "actors": [
-        "HSPnetSession"
-    ],
-    "workflows": [
-        {
-            "name": "Add StaffConsentForm",
-            "steps": [
-                "Retrieve AgencyID and ProviderID from ProviderListDept.",
-                "Validate data with IsValid method.",
-                "Add parameters to the database session.",
-                "Execute database query to insert data."
-            ]
-        },
-        {
-            "name": "Update StaffConsentForm",
-            "steps": [
-                "Retrieve AgencyID and ProviderID from ProviderListDept.",
-                "Validate data with IsValid method.",
-                "Add parameters to the database session.",
-                "Execute database query to update data."
-            ]
-        },
-        {
-            "name": "Delete StaffConsentForm",
-            "steps": [
-                "Check if ID is greater than zero.",
-                "Add ID as parameter to the database session.",
-                "Execute database query to delete data."
-            ]
-        },
-        {
-            "name": "Search StaffConsentForm by ID",
-            "steps": [
-                "Set procedure name as StaffConsentFormsSearchID.",
-                "Add ID parameter to the session.",
-                "Retrieve data using SqlDataReader.",
-                "Fill data into StaffConsentForm objects."
-            ]
-        },
-        {
-            "name": "Search StaffConsentForm by StaffID",
-            "steps": [
-                "Set procedure name as StaffConsentFormsSearch.",
-                "Add StaffID parameter to the session.",
-                "Retrieve data using SqlDataReader.",
-                "Fill data into StaffConsentForm objects."
-            ]
-        }
-    ],
-    "business_rules": [
-        "ID and StaffID must be greater than zero.",
-        "DateReceived cannot be null."
-    ],
-    "validations": [
-        "DateReceived is mandatory.",
-        "IsValid method checks for DateReceived."
-    ],
-    "calculations": [
-        "AgencyDepartIDFormatted is a concatenation of AgencyID and ProviderID.",
-        "AgencyDepartFormatted combines Agency and Department unless Department is null."
-    ],
-    "conditions": [],
-    "system_behavior": [
-        "Executes stored procedures for add, update, delete, and search operations.",
-        "Validates inputs before executing database operations."
-    ],
-    "dependencies": [],
-    "exceptions": [
-        "Add error message when DateReceived is null."
-    ],
-    "source_document_ids": [
-        "02cf2fd1-5ae1-54ab-97a7-9a7e855a2ef6",
-        "260aeb9d-90de-5f9a-81ce-705fcbd1876c",
-        "66ca4ce7-7638-504b-947d-355dd10d24ef",
-        "b57223f5-9687-52a7-adc8-db44a2d79c71",
-        "ca6ae69d-5ced-51ea-a82f-384c4abc2804"
-    ],
-    "content_gaps": []
+  "filename": "StaffConsentForms",
+  "found": true,
+  "summary": "The StaffConsentForms system manages the creation, updating, retrieving, and deletion of staff consent forms, involving details about the staff member, provider, and the agency.",
+  "purpose": "To handle the lifecycle of staff consent forms, ensuring that all necessary data is captured, validated, and stored accurately.",
+  "entities": [],
+  "fields": [
+    "ID",
+    "StaffID",
+    "ProviderID",
+    "DateReceived",
+    "AgencyID",
+    "ProviderTypeCodeID",
+    "Notes",
+    "Agency",
+    "Department",
+    "ProviderType"
+  ],
+  "actors": [
+    "HSPnetSession"
+  ],
+  "workflows": [
+    {
+      "name": "StaffConsentFormsSearchID",
+      "steps": [
+        "Check if ID is greater than 0.",
+        "Set DB procedure name to \"StaffConsentFormsSearchID\".",
+        "Add ID as a parameter.",
+        "Execute query and fill the list with results."
+      ]
+    },
+    {
+      "name": "Add StaffConsentForm",
+      "steps": [
+        "Retrieve AgencyID and ProviderID based on ProviderListDept.",
+        "Create a new StaffConsentForm object.",
+        "Set DateReceivedFormatted and validate.",
+        "Add parameters and execute the \"StaffConsentFormsAdd\" procedure."
+      ]
+    },
+    {
+      "name": "Update StaffConsentForm",
+      "steps": [
+        "Retrieve AgencyID and ProviderID based on ProviderListDept.",
+        "Create a new StaffConsentForm object.",
+        "Set DateReceivedFormatted and validate.",
+        "Add parameters and execute the \"StaffConsentFormsUpdate\" procedure."
+      ]
+    },
+    {
+      "name": "Delete StaffConsentForm",
+      "steps": [
+        "Check if ID is greater than 0.",
+        "Set DB procedure name to \"StaffConsentFormsDelete\".",
+        "Add ID as a parameter and execute the query."
+      ]
+    }
+  ],
+  "business_rules": [
+    "ID must be greater than 0 for search and deletion."
+  ],
+  "validations": [
+    "Date received is mandatory for a valid form."
+  ],
+  "calculations": [],
+  "conditions": [],
+  "system_behavior": [
+    "Uses stored procedures for database operations.",
+    "Handles errors by adding them to session messages."
+  ],
+  "dependencies": [],
+  "exceptions": [],
+  "source_document_ids": [
+    "02cf2fd1-5ae1-54ab-97a7-9a7e855a2ef6",
+    "260aeb9d-90de-5f9a-81ce-705fcbd1876c",
+    "66ca4ce7-7638-504b-947d-355dd10d24ef",
+    "b57223f5-9687-52a7-adc8-db44a2d79c71",
+    "ca6ae69d-5ced-51ea-a82f-384c4abc2804"
+  ],
+  "content_gaps": []
 }
