@@ -1,105 +1,109 @@
 {
-  "filename": "StaffManualPlacements",
-  "found": true,
-  "summary": "The StaffManualPlacements system handles various operations related to staff placements, including adding, updating, searching, and deleting placement records. It involves multiple entities such as programs, agencies, sites, services, and instructors.",
-  "purpose": "To manage and facilitate manual placements of staff across different programs, agencies, and services.",
-  "entities": [
-    "StaffManualPlacement",
-    "HSPnetSession",
-    "Database",
-    "SqlDataReader"
-  ],
-  "fields": [
-    "ID",
-    "StaffID",
-    "ProgramID",
-    "CourseShortName",
-    "PlacementTypeID",
-    "InstructorLastName",
-    "InstructorFirstName",
-    "DurationHours",
-    "GroupSize",
-    "RcvAgencyID",
-    "SiteID",
-    "ServiceID",
-    "DestinationID",
-    "ProgramName",
-    "PlacementType",
-    "RcvAgencyName",
-    "SiteName",
-    "ServiceName",
-    "DestinationName",
-    "StartDateFormatted",
-    "EndDateFormatted",
-    "DurationHoursFormatted",
-    "GroupSizeFormatted"
-  ],
-  "actors": [
-    "Sess (HSPnetSession)"
-  ],
-  "workflows": [
-    {
-      "name": "Add Staff Manual Placement",
-      "steps": [
-        "Initialize StaffManualPlacement object.",
-        "Set placement details such as program, agency, site, etc.",
-        "Validate the placement details.",
-        "If valid, add parameters to the session and execute Add query."
-      ]
-    },
-    {
-      "name": "Update Staff Manual Placement",
-      "steps": [
-        "Initialize StaffManualPlacement object.",
-        "Set updated placement details.",
-        "Validate updated details.",
-        "If valid, add parameters to session and execute Update query."
-      ]
-    },
-    {
-      "name": "Search Staff Manual Placement",
-      "steps": [
-        "Set procedure to StaffManualPlacementSearch.",
-        "Add StaffID and SessionID parameters.",
-        "Fetch data and populate the list of StaffManualPlacements."
-      ]
-    },
-    {
-      "name": "Delete Staff Manual Placement",
-      "steps": [
-        "Check if PlacementID is valid.",
-        "Set procedure to StaffManualPlacementDelete.",
-        "Add SessionID and PlacementID parameters.",
-        "Execute the delete query."
-      ]
-    }
-  ],
-  "business_rules": [
-    "Program must be entered.",
-    "Agency must be specified.",
-    "Hours must be a valid integer.",
-    "Students must be a valid integer."
-  ],
-  "validations": [
-    "Check if ProgramID and RcvAgencyID are valid integers.",
-    "DurationHours and GroupSize must be valid integers."
-  ],
-  "calculations": [],
-  "conditions": [],
-  "system_behavior": [
-    "Validates the placement details before executing database operations.",
-    "Executes stored procedures for adding, updating, and deleting placements."
-  ],
-  "dependencies": [],
-  "exceptions": [],
-  "source_document_ids": [
-    "38d623c0-e374-5e7b-8e2b-e49108c9bfa0",
-    "4c5e8df5-824c-5f70-bc92-41090c1ef323",
-    "5375acad-0b46-55b9-b19e-c4648015704c",
-    "828ddef2-0044-5299-9e29-0321692a048b",
-    "845368ce-d4f3-5c11-b0ed-c7357c837299",
-    "8a0099ac-0317-5364-bb67-74ecdf762383",
-    "e2e119d3-0c14-5ca7-a884-15952a7ec19c"
-  ],
-  "content_gaps": []
+    "filename": "StaffManualPlacements",
+    "found": true,
+    "summary": "The StaffManualPlacements is a system component designed for managing staff placements within the HSPnet framework. It provides functionalities for adding, updating, searching, and deleting staff manual placements through database procedures.",
+    "purpose": "The system is used to manage and process manual placements of staff, including operations like adding, updating, and deleting records, as well as validating and searching for specific placements.",
+    "entities": [
+        "StaffManualPlacement"
+    ],
+    "fields": [
+        "ID",
+        "StaffID",
+        "StartDate",
+        "EndDate",
+        "ProgramID",
+        "CourseShortName",
+        "PlacementTypeID",
+        "InstructorLastName",
+        "InstructorFirstName",
+        "DurationHours",
+        "GroupSize",
+        "RcvAgencyID",
+        "SiteID",
+        "ServiceID",
+        "DestinationID",
+        "ProgramName",
+        "PlacementType",
+        "RcvAgencyName",
+        "SiteName",
+        "ServiceName",
+        "DestinationName"
+    ],
+    "actors": [
+        "HSPnetSession"
+    ],
+    "workflows": [
+        {
+            "name": "StaffManualPlacementAdd",
+            "steps": [
+                "Validate session and placement data",
+                "Set database procedure to StaffManualPlacementAdd",
+                "Add relevant parameters to the session",
+                "Execute database query"
+            ]
+        },
+        {
+            "name": "StaffManualPlacementUpdate",
+            "steps": [
+                "Validate session and placement data",
+                "Set database procedure to StaffManualPlacementUpdate",
+                "Add relevant parameters to the session",
+                "Execute database query"
+            ]
+        },
+        {
+            "name": "StaffManualPlacementDelete",
+            "steps": [
+                "Validate session and PlacementID",
+                "Set database procedure to StaffManualPlacementDelete",
+                "Add PlacementID to the session",
+                "Execute database query"
+            ]
+        },
+        {
+            "name": "StaffManualPlacementSearch",
+            "steps": [
+                "Set database procedure to StaffManualPlacementSearch",
+                "Add StaffID parameter",
+                "Execute database query",
+                "Read and fill results into StaffManualPlacement list"
+            ]
+        }
+    ],
+    "business_rules": [
+        "CourseShortName, DurationHoursFormatted, and GroupSizeFormatted can be empty strings",
+        "ProgramID and RcvAgencyID must not be null",
+        "DurationHours and GroupSize must be valid integers"
+    ],
+    "validations": [
+        "Check if ProgramID is not null",
+        "Check if RcvAgencyID is not null",
+        "Ensure DurationHours is a valid integer",
+        "Ensure GroupSize is a valid integer"
+    ],
+    "calculations": [],
+    "conditions": [
+        "PlacementID must be greater than 0 for deletion"
+    ],
+    "system_behavior": [
+        "Uses stored procedures for database interactions",
+        "Formats date and numeric fields for input and output",
+        "Adds errors to session messages when validations fail"
+    ],
+    "dependencies": [
+        "HSPnet.Framework",
+        "HSPnet.App_GlobalResources",
+        "HSPnet.UI"
+    ],
+    "exceptions": [],
+    "source_document_ids": [
+        "38d623c0-e374-5e7b-8e2b-e49108c9bfa0",
+        "4c5e8df5-824c-5f70-bc92-41090c1ef323",
+        "5375acad-0b46-55b9-b19e-c4648015704c",
+        "828ddef2-0044-5299-9e29-0321692a048b",
+        "845368ce-d4f3-5c11-b0ed-c7357c837299",
+        "8a0099ac-0317-5364-bb67-74ecdf762383",
+        "e2e119d3-0c14-5ca7-a884-15952a7ec19c"
+    ],
+    "content_gaps": []
 }
