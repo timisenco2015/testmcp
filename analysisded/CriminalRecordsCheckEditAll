@@ -2,13 +2,24 @@
 {
   "filename": "CriminalRecordsCheckEditAll",
   "found": true,
-  "summary": "The CriminalRecordsCheckEditAll is part of a web application control used for managing criminal records checks within an enrollment system.",
-  "purpose": "To facilitate editing and management of criminal records checks associated with student enrollments.",
-  "entities": ["StudentPrerequisites", "Enrollment"],
+  "summary": "The document pertains to the CriminalRecordsCheckEditAll user control used in the HSPnet enrollment system, enabling users to edit criminal records checks for student enrollments.",
+  "purpose": "To provide an interface for managing and editing criminal records check information for student enrollment within the HSPnet system.",
+  "entities": [
+    "UserSession",
+    "GridView",
+    "Enrollment",
+    "CRCStatus",
+    "StudentPrerequisites",
+    "DataLayer"
+  ],
   "fields": [
+    "ValidationSummary1",
+    "gridDataEdit",
+    "dsCRC",
+    "EnrollmentID",
+    "CourseID",
     "CohortID",
     "TermID",
-    "CourseID",
     "ShowGrad",
     "ShowInactive",
     "ShowWaived",
@@ -18,63 +29,58 @@
     "CampusID",
     "CommentFilter",
     "StartRow",
-    "CRCStatusCodeID",
-    "CRCStatusDate",
-    "CRCStatusNotes",
     "txtDirty",
-    "txtStudentID"
+    "txtStudentID",
+    "ddCRCStatus",
+    "txtCRCStatusDate",
+    "txtCRCStatusNotes"
   ],
-  "actors": ["UserSession", "ScriptMgr"],
+  "actors": [
+    "User",
+    "Administrator"
+  ],
   "workflows": [
     {
-      "name": "gridDataEdit_RowCommand",
+      "name": "Edit Criminal Records",
       "steps": [
-        "Check the command name from the event",
-        "Update student details if dirty",
-        "Redirect upon save command"
-      ]
-    },
-    {
-      "name": "gridDataEdit_RowDataBound",
-      "steps": [
-        "Hide certain buttons based on EnrollmentID",
-        "Bind data if in edit mode"
-      ]
-    },
-    {
-      "name": "gridDataEdit_DataBound",
-      "steps": [
-        "Hide buttons if EnrollmentID is greater than zero",
-        "Hide header buttons if less than 14 rows"
+        "Load gridDataEdit with student enrollment data.",
+        "Filter records based on conditions like ShowGrad, ShowInactive, etc.",
+        "Modify CRCStatus, CRCStatusDate, and CRCStatusNotes for selected students.",
+        "Use JavaScript to manage dirty fields and interactions.",
+        "Process commands like cmdSaveAll, cmdSave, and cmdSaveEditNext."
       ]
     }
   ],
   "business_rules": [
-    "Visibility of buttons depends on EnrollmentID and row count",
-    "Data binding controlled by current enrollment status"
+    "Only administrators can edit CRC information.",
+    "Records must be marked dirty before they can be saved.",
+    "Ensure valid entries in CRCStatus dropdown."
   ],
   "validations": [
-    "Ensure UserSession is not null",
-    "Check if data is marked as dirty before updates"
+    "ValidationSummary1 ensures required fields are provided.",
+    "Check for valid session object before any data operation."
   ],
   "calculations": [
-    "Determine sorting direction based on gridDataEdit"
+    "Determine sort direction based on gridDataEdit.SortDirection."
   ],
   "conditions": [
-    "If EnrollmentID is greater than zero",
-    "If gridDataEdit.Rows.Count is less than 14"
+    "UserSession must be active.",
+    "EnrollmentID > 0 to display certain controls.",
+    "Hide buttons depending on ReadOnly status."
   ],
   "system_behavior": [
-    "Redirect to appropriate pages based on command execution results",
-    "Bind data to grid view when necessary"
+    "Generate URIs based on filter criteria.",
+    "Redirect responses based on command execution results.",
+    "Set grid to ReadOnly depending on user access."
   ],
   "dependencies": [
-    "UserSession instance",
-    "ScriptManager for asynchronous operations"
+    "HSPnet.DataLayer",
+    "HSPnet.UI",
+    "HSPnet.Framework"
   ],
   "exceptions": [
-    "Cancel data source selection if UserSession is null",
-    "Check warnings from UserSession.Messages to determine redirect"
+    "Cancel operation if UserSession is null.",
+    "Handle warnings through UserSession.Messages."
   ],
   "source_document_ids": [
     "03144aa6-93b7-599f-b8e0-5588317ba19b",
@@ -87,6 +93,8 @@
     "f1a93269-4cd6-5f47-93a1-f9f2e4730224",
     "f3ce8c3c-3cd0-531b-a85e-f90764dac0e2"
   ],
-  "content_gaps": []
+  "content_gaps": [
+    "No detailed user permissions or additional business rules."
+  ]
 }
 ```
