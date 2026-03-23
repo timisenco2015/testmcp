@@ -1,0 +1,125 @@
+```json
+{
+  "filename": "GenericDocument",
+  "found": true,
+  "summary": "The GenericDocument class handles document management within the HSPnet framework, including functionalities for adding, deleting, and retrieving documents from the database.",
+  "purpose": "Manage and operate on documents within the HSPnet system, providing functionalities to add, delete, and retrieve documents, along with URL generation for accessibility.",
+  "entities": [
+    "GenericDocument",
+    "GenericDocuments"
+  ],
+  "fields": [
+    "ID",
+    "ParentID",
+    "TypeCodeID",
+    "TypeComments",
+    "FileURL",
+    "FilePath",
+    "FileSize",
+    "FileType",
+    "FileTypeAlt",
+    "UpdateDate",
+    "ByUserID",
+    "LastName",
+    "FirstName",
+    "MiddleName",
+    "AgencyShortName",
+    "TypeCode",
+    "DocumentName",
+    "AllowAllSubDisciplines",
+    "SubDisciplineIDList",
+    "IsApplied",
+    "SourceLevel",
+    "CanEditRow",
+    "AgencyName",
+    "Phone",
+    "Email",
+    "DisciplineFormatted",
+    "DisciplineListingAll",
+    "UpdateDateFormatted",
+    "EmailFormatted",
+    "Section"
+  ],
+  "actors": [
+    "HSPnetSession",
+    "SqlDataReader"
+  ],
+  "workflows": [
+    {
+      "name": "Add Document",
+      "steps": [
+        "Validate session and document",
+        "Set stored procedure and parameters",
+        "Execute query to add document",
+        "Retrieve new document ID"
+      ]
+    },
+    {
+      "name": "Delete Document",
+      "steps": [
+        "Check document ID",
+        "Delete file from system",
+        "Remove database record"
+      ]
+    },
+    {
+      "name": "Retrieve Documents",
+      "steps": [
+        "Set stored procedure and parameters",
+        "Execute query to retrieve document list",
+        "Process and return document information"
+      ]
+    }
+  ],
+  "business_rules": [
+    "Document must have a FileURL when ID is 0",
+    "TypeCodeID must be set",
+    "DocumentName must not be empty"
+  ],
+  "validations": [
+    "Check for blank FileURL",
+    "Ensure TypeCodeID is provided",
+    "Validate DocumentName is not empty"
+  ],
+  "calculations": [
+    "File size conversion to kilobytes in FileURL generation"
+  ],
+  "conditions": [
+    "IsDocumentType based on non-empty FilePath",
+    "FileURL based on document type and existence"
+  ],
+  "system_behavior": [
+    "URL generation with title and format information",
+    "Document sorting based on Section"
+  ],
+  "dependencies": [
+    "HSPnet.Framework",
+    "HSPnet.App_GlobalResources"
+  ],
+  "exceptions": [
+    "File deletion may fail silently"
+  ],
+  "source_document_ids": [
+    "0698ba2c-76e2-5348-9ba7-a2bfb8db076f",
+    "1160f8a9-61da-537f-811f-7c4722a4ba6e",
+    "1e5dc926-2c08-5d0d-bb90-b776cb1ccf63",
+    "217169c4-71b6-591e-8e5c-f9a83c942355",
+    "331d7c6a-adea-5de8-ae16-79d979b515d8",
+    "3779934a-6b41-5aa1-b81a-5047f8a4a16a",
+    "48e7c371-34d2-5e3a-9b7b-ff3db2ca22aa",
+    "4f8d4014-242f-5b22-b3b5-8b1524f11f46",
+    "53eb1f0e-8871-5c32-a117-dfb51d0c56e2",
+    "7a67ab13-79a8-5da4-932f-829371c429ab",
+    "8dab23a1-b93c-5c36-b28c-a57123284bcd",
+    "9bf3e30c-ddcc-5934-8cf1-2fa40c031cf2",
+    "a24be76d-c50b-54af-8fed-4b875f53c71b",
+    "a39164da-6925-532d-8fc5-1713d390780b",
+    "b83a40e1-c536-534d-934e-cf787b3f4e94",
+    "b8a5cb0f-da92-564c-a760-ef6bfa7c5ea2",
+    "c7a79510-34e8-5464-a460-f631bd030153",
+    "f076a8b3-f886-559a-bf67-8ff05f3cebc3",
+    "f80a8941-dfb0-5150-9212-37ea8cc1f373"
+  ],
+  "content_gaps": []
+}
+```
