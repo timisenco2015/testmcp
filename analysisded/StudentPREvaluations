@@ -1,0 +1,102 @@
+```json
+{
+  "filename": "StudentPREvaluations",
+  "found": true,
+  "summary": "The StudentPREvaluations module is part of HSPnet's data layer, responsible for managing student placement evaluations including adding, updating, deleting, and searching evaluations.",
+  "purpose": "To manage student placement evaluations including adding, updating, deleting, and searching evaluations by student ID or other criteria.",
+  "entities": [
+    "StudentPREvaluation",
+    "StudentPREvaluations"
+  ],
+  "fields": [
+    "ID",
+    "StudentID",
+    "PlacementRequestDestinationID",
+    "RequirementCodeID",
+    "RequirementCode",
+    "Requirement",
+    "StatusCodeID",
+    "StatusCode",
+    "Status",
+    "EvaluationDate",
+    "Comment",
+    "EvaluationDateFormatted"
+  ],
+  "actors": [
+    "HSPnetSession",
+    "SqlDataReader"
+  ],
+  "workflows": [
+    {
+      "name": "Add Evaluation",
+      "steps": [
+        "Check placementRequestDestinationID is not 0",
+        "Set procedure name to StudentPREvaluationAdd",
+        "Add necessary parameters including studentID and statusCodeID",
+        "Execute query"
+      ]
+    },
+    {
+      "name": "Update Evaluation",
+      "steps": [
+        "Set procedure name to StudentPREvaluationUpdate",
+        "Add necessary parameters including ID, requirementCodeID, evaluationDate",
+        "Execute query"
+      ]
+    },
+    {
+      "name": "Delete Evaluation",
+      "steps": [
+        "Set procedure name to StudentPREvaluationDelete",
+        "Add necessary parameters including ID",
+        "Execute query"
+      ]
+    },
+    {
+      "name": "Search by ID",
+      "steps": [
+        "Check ID is not 0",
+        "Set procedure name to StudentPREvaluationSearchID",
+        "Add parameter ID",
+        "Retrieve data using SqlDataReader",
+        "Close reader"
+      ]
+    },
+    {
+      "name": "Search Evaluations",
+      "steps": [
+        "Set procedure name to StudentPREvaluationSearch",
+        "Add parameters including studentID and PRD_ID",
+        "Retrieve data using SqlDataReader",
+        "Close reader"
+      ]
+    }
+  ],
+  "business_rules": [
+    "placementRequestDestinationID must not be 0"
+  ],
+  "validations": [
+    "Check if DateIsNull for EvaluationDate and return formatted date accordingly"
+  ],
+  "calculations": [],
+  "conditions": [
+    "If UseAltLanguageFields use alternative fields for Requirement and Status"
+  ],
+  "system_behavior": [
+    "Format date using DateFormatter",
+    "Use SqlDataReader for data retrieval"
+  ],
+  "dependencies": [
+    "HSPnet.Framework",
+    "HSPnet.App_GlobalResources"
+  ],
+  "exceptions": [],
+  "source_document_ids": [
+    "01cd3571-7cb0-59a2-9dc9-3cfe59c70c16",
+    "56d84a2a-569d-54a7-b5f6-1218e1c8e2a2",
+    "5b81fdfd-afce-5e3f-b9d3-8e9c3aa67b6b",
+    "67156d01-61ca-579d-95d2-6630f61eb16f"
+  ],
+  "content_gaps": []
+}
+```
