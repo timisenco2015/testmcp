@@ -1,15 +1,23 @@
 {
   "filename": "EmailPopupDocument",
   "found": true,
-  "summary": "Manages email attachments and popup documents.",
-  "purpose": "Handles storage and retrieval of email documents with popup management.",
-  "entities": ["EmailPopupDocument", "EmailPopupDocuments"],
-  "fields": ["ID", "FileName", "FilePath"],
+  "summary": "Defines popup documents related to emails, including operations like deletion.",
+  "purpose": "To manage email attachments in a structured manner with functionalities for file operations.",
+  "entities": ["EmailPopupDocument"],
+  "fields": [
+    {"name": "ID", "type": "int"},
+    {"name": "FileName", "type": "string"},
+    {"name": "FilePath", "type": "string"},
+    {"name": "Checked", "type": "bool"}
+  ],
   "actors": [],
   "workflows": [
     {
-      "name": "Document Management",
-      "steps": ["Search document info", "Create document instances", "Delete documents"]
+      "name": "EmailDocumentManagement",
+      "steps": [
+        {"step": "Parse email attachments information."},
+        {"step": "Delete specified document by its ID."}
+      ]
     }
   ],
   "business_rules": [],
@@ -19,6 +27,9 @@
   "system_behavior": [],
   "dependencies": [],
   "exceptions": [],
-  "source_document_ids": ["7287734e-f13d-550f-9249-4242db620766","927bc837-5564-5759-9324-27c6d5d7321d"],
-  "content_gaps": ["Limited context on business logic."]
+  "source_document_ids": [
+    "7287734e-f13d-550f-9249-4242db620766",
+    "927bc837-5564-5759-9324-27c6d5d7321d"
+  ],
+  "content_gaps": []
 }
