@@ -1,42 +1,33 @@
 {
-    "filename": "ServiceCode",
-    "found": true,
-    "summary": "ServiceCode refers to the management of service codes, each with a unique ID, category ID, short name, and description, as well as optional notes and alternative language fields.",
-    "purpose": "To manage service codes used within the system, including their localization and retrieval.",
-    "entities": [],
-    "fields": [
-        "ID",
-        "CodeCategoryID",
-        "ShortName",
-        "Name",
-        "SortOrder",
-        "Notes",
-        "NameAlt",
-        "NotesAlt"
-    ],
-    "actors": [],
-    "workflows": [
-        {
-            "name": "ServiceCodeListAll",
-            "steps": [
-                "Call ServiceCodeListAll procedure.",
-                "Retrieve data and populate ServiceCode list.",
-                "Localize entries if needed.",
-                "Return the populated list."
-            ]
-        }
-    ],
-    "business_rules": [],
-    "validations": [],
-    "calculations": [],
-    "conditions": [],
-    "system_behavior": [],
-    "dependencies": [],
-    "exceptions": [],
-    "source_document_ids": [
-        "94f1b055-348d-508a-ae6e-cf7960a8c6a2",
-        "e4ebe4b4-6d14-5c3f-b693-61016f765239",
-        "f976b9af-a402-540f-b162-391d578fac7c"
-    ],
-    "content_gaps": []
+  "filename": "ServiceCode",
+  "found": true,
+  "summary": "ServiceCode class provides functionalities for retrieving service codes and their related information.",
+  "purpose": "Handle retrieval and localization of service codes by category.",
+  "entities": [
+    {
+      "name": "ServiceCode",
+      "attributes": ["ID", "CodeCategoryID", "ShortName", "Name", "SortOrder", "Notes", "NameAlt", "NotesAlt"]
+    }
+  ],
+  "fields": ["ID", "CodeCategoryID", "ShortName", "Name", "SortOrder", "Notes", "NameAlt", "NotesAlt"],
+  "actors": [],
+  "workflows": [
+    {
+      "name": "Retrieve Service Codes",
+      "steps": [
+        "Execute stored procedure to get service codes.",
+        "Read data from the database.",
+        "Localize data if alternate language fields are active."
+      ]
+    }
+  ],
+  "business_rules": [],
+  "validations": [],
+  "calculations": [],
+  "conditions": [],
+  "system_behavior": [],
+  "dependencies": [],
+  "exceptions": [],
+  "source_document_ids": ["94f1b055-348d-508a-ae6e-cf7960a8c6a2", "e4ebe4b4-6d14-5c3f-b693-61016f765239", "f976b9af-a402-540f-b162-391d578fac7c"],
+  "content_gaps": []
 }
