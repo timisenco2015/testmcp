@@ -2,60 +2,62 @@
 {
   "filename": "MaintClinicalPracticeCodes",
   "found": true,
-  "summary": "The document details the management interface for Clinical Practice Codes, involving UI controls and backend processes for handling agency, department, and program data.",
-  "purpose": "To provide a user interface and backend logic for managing Clinical Practice Codes within an organization.",
+  "summary": "Maintenance of Clinical Practice Codes in HSPnet.",
+  "purpose": "Manage Clinical Practice Codes including adding, editing, deleting, and reactivating codes.",
   "entities": [
     "ClinicalPracticeCode",
-    "UserSession",
-    "Agencies",
-    "Departments",
-    "Programs"
+    "UserSession"
   ],
   "fields": [
+    "ID",
     "Name",
     "ShortName",
-    "ID",
-    "ProgramID",
-    "AgencyID",
-    "DepartmentID"
+    "ProgramID"
   ],
   "actors": [
-    "UserSession",
-    "HSPnetPage"
+    "UserSession.SystemAdministrator",
+    "UserSession.LocalAdministrator",
+    "UserSession"
   ],
   "workflows": [
     {
-      "name": "Add/Edit Clinical Practice Code",
+      "name": "Add/Edit Clinical Practice Codes",
       "steps": [
-        "Check user access",
-        "Fill dropdowns with current agency, department, program",
-        "Render UI controls",
-        "Handle data operations on user commands"
+        "Enter Name and ShortName",
+        "Save changes"
+      ]
+    },
+    {
+      "name": "Delete/Reactivate Clinical Practice Codes",
+      "steps": [
+        "Select code to delete/reactivate",
+        "Execute delete/reactivate command"
       ]
     }
   ],
   "business_rules": [
-    "Only editable if user has agency and department access",
-    "Validation applies on Name and ShortName"
+    "Screen is editable based on user roles and dropdown selections"
   ],
   "validations": [
-    "Required fields: Name, ShortName"
+    "Name must be specified",
+    "ShortName must be specified"
   ],
   "calculations": [],
   "conditions": [
-    "Screen editable only if department and program dropdowns have entries"
+    "ScreenIsEditable: Check based on user roles and dropdown selections"
   ],
   "system_behavior": [
-    "Show/hide detail panels based on user actions",
-    "Bind data to UI components",
-    "Trigger updates on dropdown change"
+    "Displays error and warning messages",
+    "Refreshes data after operations",
+    "Binds data for viewing and editing"
   ],
   "dependencies": [
-    "HSPnet.Framework",
-    "HSPnet.DataLayer",
-    "System.Web.UI"
+    "Dropdown selections",
+    "User roles"
   ],
-  "exceptions": [],
+  "exceptions": [
+    "Handle no data found scenarios"
+  ],
   "source_document_ids": [
     "1a77e7da-0f92-5a0c-8fae-71056a1a8094",
     "2459a248-75cd-5726-acb7-2dac9c032ca2",
