@@ -1,0 +1,46 @@
+```json
+{
+  "filename": "CostCentre",
+  "found": true,
+  "summary": "The CostCentre documents describe the setup and retrieval of cost center records using a database in the HSPnet system. It includes the use of a stored procedure to obtain data related to cost centers, defining various attributes for each record.",
+  "purpose": "To manage and retrieve cost center-related data for sessions within the HSPnet system by leveraging stored procedures and structured classes.",
+  "entities": ["CostCentreRecord"],
+  "fields": [
+    "PlacingAgency", "Department", "Program", "Discipline", "SubDiscipline", "ReceivingAgency", 
+    "Site", "Portfolio", "Service", "Destination", "CostCentre", "CostCentreDescription", 
+    "PRType", "StartDate", "EndDate", "Status", "Course", "ProgramYear", "ReferenceNumber", 
+    "CFO", "PRCount", "StudentCount", "PRHours", "StudentHours"
+  ],
+  "actors": [],
+  "workflows": [
+    {
+      "name": "GetCostCentre",
+      "steps": [
+        "Connect to database using HSPnetSession",
+        "Execute stored procedure 'PlacementCostCentre' with parameters",
+        "Retrieve and read data using SqlDataReader",
+        "Map data to CostCentreRecord objects",
+        "Return list of CostCentreRecord"
+      ]
+    }
+  ],
+  "business_rules": [],
+  "validations": [],
+  "calculations": [],
+  "conditions": [],
+  "system_behavior": [
+    "Uses a stored procedure for data retrieval",
+    "Maps database results to structured class objects"
+  ],
+  "dependencies": ["HSPnetSession", "SqlDataReader"],
+  "exceptions": [],
+  "source_document_ids": [
+    "20ac8054-536e-5203-b33d-7db2b2dc2359",
+    "2c04f259-cf58-5d95-803c-8ebf16840f6c",
+    "97bc3ba9-9fe4-52b1-8847-dce2198e0aee",
+    "dd965b0f-f9cf-57eb-a3f8-32b3b97a6d1a",
+    "e1ac7e41-5e9e-5f16-baa0-29d05a70f976"
+  ],
+  "content_gaps": []
+}
+```
