@@ -1,0 +1,99 @@
+# Module: RAContacts
+
+## RAContacts-UC1 — Manage Service Contact
+
+- Primary Actor(s): UserSession Local Administrator, UserSession NIS Agency
+- Secondary Actor(s): User
+- Trigger: User logs in and accesses the service contact management section.
+- Description: Allow authorized users to manage service contact details, including adding new contacts and modifying existing ones.
+- Preconditions: User must have valid login credentials and appropriate permissions.
+- Postconditions: Service contact details are saved and updated in the system.
+- Main Success Scenario:
+  1. User logs in.
+  2. Accesses the RAContacts module.
+  3. Modifies service contact details.
+  4. Saves changes.
+- Extensions:
+  - If the user is not a Local Administrator or NIS Agency user, fields are read-only.
+- Exceptions:
+  - Unauthorized access attempt; user is redirected.
+- Business Rules:
+  - Service contact information must be accurate.
+  - Contact change history must be logged.
+- Assumptions:
+  - Users have necessary permissions.
+- Open Issues:
+  - Need clarification on additional security considerations.
+
+## RAContacts-UC2 — Manage Destination Contact
+
+- Primary Actor(s): UserSession Local Administrator, UserSession NIS Agency
+- Secondary Actor(s): User
+- Trigger: User accesses the destination contact management section.
+- Description: Authorized users manage destination contacts, including details modification.
+- Preconditions: User must have valid login credentials and permissions.
+- Postconditions: Destination contact details are saved and updated in the system.
+- Main Success Scenario:
+  1. User logs in.
+  2. Accesses the destination contact section.
+  3. Updates destination contact information.
+  4. Saves changes.
+- Extensions:
+  - Users from specific agencies may have additional permissions to edit contact details.
+- Exceptions:
+  - Unauthorized access attempt; user is notified.
+- Business Rules:
+  - Destination contact information accuracy is critical.
+- Assumptions:
+  - Permissions are correctly configured.
+- Open Issues:
+  - Determine user feedback on contact management usability.
+
+## RAContacts-UC3 — Supervisor Contact Management
+
+- Primary Actor(s): UserSession Supervisor, UserSession Placement Coordinator
+- Secondary Actor(s): User
+- Trigger: User accesses supervisor contact management.
+- Description: Supervisors and coordinators manage supervisor contact details.
+- Preconditions: User must be logged in with appropriate permissions.
+- Postconditions: Supervisor contact details updated and saved.
+- Main Success Scenario:
+  1. User logs in.
+  2. Navigates to supervisor contact section.
+  3. Modifies or reviews supervisor details.
+  4. Saves changes.
+- Extensions:
+  - If multiple supervisors, additional navigation options are available.
+- Exceptions:
+  - Unbalanced hours warning for supervisors.
+- Business Rules:
+  - Supervisor details must be correct and comply with internal policies.
+  - User feedback on assessments is considered.
+- Assumptions:
+  - Supervisors understand the assessment process.
+- Open Issues:
+  - Implementation of a joint assessment submission process.
+
+## RAContacts-UC4 — Student Instructor Contact Management
+
+- Primary Actor(s): UserSession Local Administrator
+- Secondary Actor(s): User
+- Trigger: User accesses student instructor contact management.
+- Description: Manage student instructor contact details by authorized personnel.
+- Preconditions: User must be logged in with required permissions.
+- Postconditions: Student instructor contact details are updated.
+- Main Success Scenario:
+  1. User logs in.
+  2. Accesses student instructor section.
+  3. Updates instructor details.
+  4. Saves changes.
+- Extensions:
+  - Special permissions may be granted based on agency status.
+- Exceptions:
+  - Contact data release if user is from the same agency as the instructor.
+- Business Rules:
+  - Instructor contact must be up-to-date.
+- Assumptions:
+  - Users understand contact management protocols.
+- Open Issues:
+  - Evaluate contact management efficiency.
