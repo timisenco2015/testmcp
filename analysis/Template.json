@@ -1,0 +1,105 @@
+{
+  "filename": "Template",
+  "found": true,
+  "summary": "The Template system in HSPnet manages various templates including email templates and records for interaction with the database. The system allows for lookup, addition, deletion, and updating of template records through stored procedures. Templates can be searched by name or ID and have alternate language fields.",
+  "purpose": "To manage and manipulate templates within the HSPnet system for various purposes such as email communication and data management.",
+  "entities": [
+    "Template",
+    "TemplateRecord",
+    "EmailTemplate"
+  ],
+  "fields": [
+    "ID",
+    "Name",
+    "Template",
+    "TemplateAlt",
+    "EmailJobID"
+  ],
+  "actors": [
+    "HSPnetSession"
+  ],
+  "workflows": [
+    {
+      "name": "Template Lookup",
+      "steps": [
+        "Set ProcedureName to TemplateLookup",
+        "AddParameter Name",
+        "Get data using sess.DB.GetData",
+        "Return Template or TemplateAlt based on 'UseAltLanguageFields'"
+      ]
+    },
+    {
+      "name": "Email Template Lookup",
+      "steps": [
+        "Set ProcedureName to EmailTemplateLookup",
+        "AddParameter EmailJobID and Name",
+        "Get data using sess.DB.GetData",
+        "Return Template"
+      ]
+    },
+    {
+      "name": "Add Template",
+      "steps": [
+        "Validate TemplateRecord",
+        "Set ProcedureName to TemplateAdd",
+        "AddParameter Name, Template, TemplateAlt",
+        "Execute sess.DB.ExecuteQuery"
+      ]
+    },
+    {
+      "name": "Update Template",
+      "steps": [
+        "Validate TemplateRecord",
+        "Set ProcedureName to TemplateUpdate",
+        "AddParameter ID, Name, Template, TemplateAlt",
+        "Execute sess.DB.ExecuteQuery"
+      ]
+    },
+    {
+      "name": "Delete Template",
+      "steps": [
+        "Check if ID is not 0",
+        "Set ProcedureName to TemplateDelete",
+        "AddParameter ID",
+        "Execute sess.DB.ExecuteQuery"
+      ]
+    },
+    {
+      "name": "Template Search by ID",
+      "steps": [
+        "Set ProcedureName to TemplateSearchID",
+        "AddParameter ID",
+        "Get data using sess.DB.GetData",
+        "Return TemplateRecord details"
+      ]
+    }
+  ],
+  "business_rules": [
+    "Template records must have a specified Name, Template, and TemplateAlt.",
+    "Operations only happen if the record is valid."
+  ],
+  "validations": [
+    "Name must be specified.",
+    "Template and TemplateAlt must be specified."
+  ],
+  "calculations": [],
+  "conditions": [
+    "If UseAltLanguageFields is true, return TemplateAlt.",
+    "Operations like update and delete only if ID is not 0."
+  ],
+  "system_behavior": [
+    "Enables storing and retrieving templates from the database.",
+    "Allows alternate language handling for templates."
+  ],
+  "dependencies": [],
+  "exceptions": [
+    "Returns error messages when Name or Template fields are blank."
+  ],
+  "source_document_ids": [
+    "156f7bb4-239b-5738-9da1-127c4d695c5e",
+    "1b53fa2c-2784-5783-924e-bb067eb93762",
+    "6144a446-e628-5045-9fcb-aea6c174dfd6",
+    "f2ad8956-a80a-5c7e-9d6d-22067b6cdfe9"
+  ],
+  "content_gaps": []
+}
