@@ -1,19 +1,21 @@
 {
     "filename": "AdHocQuery",
     "found": true,
-    "summary": "The AdHocQuery class provides functionality to convert SQL data into an HTML table format. It includes methods for generating header and footer rows and formatting data rows using System.Text.StringBuilder.",
-    "purpose": "To render SQL query results as an HTML table for display purposes.",
-    "entities": [],
+    "summary": "This document describes the AdHocQuery class designed to convert SQL data into HTML tables for display purposes. It includes methods for formatting data rows, header rows, and final table output.",
+    "purpose": "Convert SQL query results into HTML tables for display within HSPnet applications.",
+    "entities": [
+        "AdHocQuery"
+    ],
     "fields": [],
     "actors": [],
     "workflows": [
         {
-            "name": "Convert DataReader to HTML",
+            "name": "Ad Hoc Query Workflow",
             "steps": [
-                "Read data from SqlDataReader.",
-                "Generate HTML headers for data fields.",
-                "Iterate over each data row and format with HTML.",
-                "Append footer to complete the HTML table."
+                "Execute SQL query",
+                "Format data into HTML rows",
+                "Append header and footer rows",
+                "Return HTML table representation"
             ]
         }
     ],
@@ -21,11 +23,14 @@
     "validations": [],
     "calculations": [],
     "conditions": [],
-    "system_behavior": [],
-    "dependencies": [],
+    "system_behavior": [
+        "Uses string builders to compile HTML output from data."
+    ],
+    "dependencies": [
+        "SqlDataReader"
+    ],
     "exceptions": [],
     "source_document_ids": [
-        "20140dcf-7d8e-51f1-86ab-4b5a291db2b2",
         "2878adb2-c26b-5d41-a6a4-d9f5a2c2c782"
     ],
     "content_gaps": []
