@@ -1,0 +1,162 @@
+{
+  "filename": "PlacementRequestOffers",
+  "found": true,
+  "summary": "The documents provide a detailed structure and functionality of the PlacementRequestOffers in the HSPnet system. This includes attributes, methods for managing placement requests, and business logic for formatting and handling placement data.",
+  "purpose": "The purpose of the PlacementRequestOffers class is to manage and process placement requests within the HSPnet system, including the creation, reading, updating, and deletion of placement offer entries.",
+  "entities": [
+    "PlacementRequestOffer"
+  ],
+  "fields": [
+    "ID",
+    "PlacementRequestDestinationID",
+    "NumStudents",
+    "SentDate",
+    "Comments",
+    "SiteID",
+    "ServiceID",
+    "DestinationID",
+    "StartDate",
+    "EndDate",
+    "SupervisorID",
+    "SupervisorID2",
+    "AgencyID",
+    "AgencyShortName",
+    "SiteName",
+    "SiteShortName",
+    "ServiceShortName",
+    "DestinationShortName",
+    "DestinationName",
+    "RequestCodeFormatted",
+    "SupervisorLastName",
+    "SupervisorFirstName",
+    "SupervisorMiddleName",
+    "SupervisorLastName2",
+    "SupervisorFirstName2",
+    "SupervisorMiddleName2",
+    "RotationIndicator",
+    "AcceptedPRList",
+    "CancelledPRList",
+    "OtherPRList",
+    "ServiceHSPnetUser",
+    "StartDateFormatted",
+    "EndDateFormatted",
+    "LocationFormatted",
+    "DatesFormatted",
+    "StudentsFormatted",
+    "StatusFormatted",
+    "RotationIndicatorFormatted",
+    "Disabled",
+    "AcceptedCount",
+    "CancelledCount",
+    "OtherCount"
+  ],
+  "actors": [
+    "HSPnetSession",
+    "SqlDataReader"
+  ],
+  "workflows": [
+    {
+      "name": "SearchPlacementRequests",
+      "steps": [
+        "Initialize a list of PlacementRequestOffer.",
+        "Set ProcedureName to 'PlacementRequestOffersSearch'.",
+        "Add parameter PRD_ID.",
+        "Get data using SqlDataReader.",
+        "Read each entry and populate PlacementRequestOffer fields.",
+        "Format dates and rotation indicators.",
+        "Handle and format location and status strings.",
+        "Add entry to the list.",
+        "Close reader and return the list."
+      ]
+    },
+    {
+      "name": "AddPlacementRequest",
+      "steps": [
+        "Set ProcedureName to 'PlacementRequestOffersAdd'.",
+        "Add necessary parameters including PRD_ID and site details.",
+        "Execute query."
+      ]
+    },
+    {
+      "name": "DeletePlacementRequest",
+      "steps": [
+        "Set ProcedureName to 'PlacementRequestOffersDelete'.",
+        "Add parameters SessionID and ID.",
+        "Execute query."
+      ]
+    },
+    {
+      "name": "UpdatePlacementRequest",
+      "steps": [
+        "Set ProcedureName to 'PlacementRequestOffersUpdate'.",
+        "Add parameters including SessionID and updated details.",
+        "Execute query."
+      ]
+    },
+    {
+      "name": "AcceptPlacementRequest",
+      "steps": [
+        "Set ProcedureName to 'PlacementRequestOffersAccept'.",
+        "Add parameters including PRD_ID and reason code.",
+        "Execute query."
+      ]
+    },
+    {
+      "name": "CopyPlacementRequest",
+      "steps": [
+        "Set ProcedureName to 'PlacementRequestOffersCopy'.",
+        "Add parameter ID.",
+        "Execute query."
+      ]
+    },
+    {
+      "name": "MovePlacementRequest",
+      "steps": [
+        "Set ProcedureName to 'PlacementRequestOffersMoved'.",
+        "Add parameter PlacementRequestDestinationID.",
+        "Execute query."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Placement requests are formatted with specific status and location strings based on agency, site, and service IDs.",
+    "Rotation indicators are shown as 'R' followed by the indicator number or 'Not Applicable'.",
+    "Comments are truncated to 200 characters if longer."
+  ],
+  "validations": [
+    "Validating if dates are null before formatting status.",
+    "Checking if comments are non-blank and different from default before displaying."
+  ],
+  "calculations": [
+    "AcceptedCount, CancelledCount, and OtherCount are calculated by splitting respective PR lists by commas and counting the elements."
+  ],
+  "conditions": [
+    "Conditions determine how status and location strings are formatted based on agency, site, and service comparison."
+  ],
+  "system_behavior": [
+    "Uses HSPnetSession to manage database procedures and parameters.",
+    "Formats dates using DateFormatter and handles name formatting via NameFormatter."
+  ],
+  "dependencies": [
+    "HSPnet.Framework",
+    "HSPnet.UI",
+    "System.Data.SqlClient"
+  ],
+  "exceptions": [],
+  "source_document_ids": [
+    "08ff4f52-7075-5898-8fb6-823909cdbb4c",
+    "2ba83982-560f-51a8-9f08-088729ff904d",
+    "409f4e89-6af1-5495-a94a-e1813fcf3464",
+    "4fc2d289-3d0d-51f3-9e4f-b7cf19c8e1d6",
+    "7e1acba9-f1b0-52db-8c83-8550d7fd9333",
+    "cff867f7-340f-5135-982f-fbaf7e6521e5",
+    "da6423a9-7ec6-5304-9805-28245767dde5",
+    "dc650e84-f267-52c9-9b9a-aaadbfcc333e",
+    "dc87e20b-16db-5464-9e3c-01db737653fe",
+    "e46cf5c8-755b-54ba-bf0d-376a505ccf37"
+  ],
+  "content_gaps": [
+    "Details on error handling and specific exceptions are not provided.",
+    "Specific business rules for when and why requests can be accepted, deleted, or moved are not detailed."
+  ]
+}
