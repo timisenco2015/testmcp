@@ -1,93 +1,74 @@
 {
-    "filename": "MaintCampus",
-    "found": true,
-    "summary": "The MaintCampus system is designed as a web application for managing campus records. It includes functionalities for viewing, adding, editing, deleting, and reactivating campus data. The application employs ASP.NET web controls, data binding, and event handling to facilitate management operations.",
-    "purpose": "To manage campus data by allowing users to add, edit, delete, and view records in a web-based interface.",
-    "entities": [
-        "Campus",
-        "UserSession"
-    ],
-    "fields": [
-        {
-            "name": "Name",
-            "type": "string",
-            "validations": ["Required", "Max length 50"]
-        },
-        {
-            "name": "ShortName",
-            "type": "string",
-            "validations": ["Required", "Max length 10"]
-        },
-        {
-            "name": "ID",
-            "type": "integer",
-            "usage": "Hidden"
-        },
-        {
-            "name": "Inactive",
-            "type": "boolean"
-        }
-    ],
-    "actors": [
-        "System Administrator",
-        "Local Administrator"
-    ],
-    "workflows": [
-        {
-            "name": "Manage Campus Records",
-            "steps": [
-                "User selects a department from the dropdown.",
-                "System refreshes data based on selection.",
-                "User can choose to add, edit, or delete campus records.",
-                "System validates inputs and updates database accordingly.",
-                "Changes are reflected in the grid view."
-            ]
-        }
-    ],
-    "business_rules": [
-        "Only users with proper access rights can modify campus data."
-    ],
-    "validations": [
-        "Name and ShortName are required fields.",
-        "Maximum length for Name is 50 characters.",
-        "Maximum length for ShortName is 10 characters."
-    ],
-    "calculations": [],
-    "conditions": [
-        "The screen is editable only if user has appropriate permissions.",
-        "Dropdown selections trigger data refresh."
-    ],
-    "system_behavior": [
-        "Auto-populates agency and department dropdowns on page load.",
-        "Grid view updates dynamically upon data changes."
-    ],
-    "dependencies": [
-        "HSPnet.DataLayer",
-        "HSPnet.App_GlobalResources"
-    ],
-    "exceptions": [
-        "If user does not have edit rights, edit buttons are disabled.",
-        "Error and warning panels display messages based on system events."
-    ],
-    "source_document_ids": [
-        "0d9437d3-0b37-5803-a5c1-2c5219b2bd25",
-        "17fec33a-41bb-5988-8b25-4e180e1aad6a",
-        "22128af3-5be6-5054-84d2-f266aceab7ea",
-        "2fb393a6-f0f0-5d00-84b0-a714e446997a",
-        "39c78b9e-0e97-56ef-beb4-7888f4c68ca6",
-        "3cc7a3c5-0127-55c9-888e-c5e3a5eaf8f8",
-        "513c2a99-7fe1-5f28-b2a1-705215296db3",
-        "61f8f0ca-19ba-562a-a3b2-f510ac019797",
-        "9c2a7b46-1e65-5178-a2d2-07e885faccb4",
-        "9e662116-da42-5465-8ce4-b75765ea9c4a",
-        "b280ccab-6156-5f54-8afe-7f5293e3a1cb",
-        "bbad919b-7208-5e2c-9ab4-2ae59084fdfd",
-        "d06f3606-807e-5be1-bfa0-f2d775c7c381",
-        "de47dd4c-d67e-5924-be3f-c1c764db836b",
-        "dee73270-3b9b-5bb3-afbf-be933126db8f",
-        "df12fff5-ba28-5f57-b202-05995953ca5b",
-        "e5da22b4-9b44-5c6b-9782-28647ae5c38d",
-        "f698e36b-7543-56f8-84d8-8557c95f16b8"
-    ],
-    "content_gaps": []
+  "filename": "MaintCampus",
+  "found": true,
+  "summary": "The MaintCampus application is a user interface component designed to manage campus-related data within the HSPnet system. It includes functionality for adding, editing, deleting, and reactivating campus entries. The system is designed using ASP.NET Web Forms with various server controls, including GridView and DetailsView for data display and interaction.",
+  "purpose": "The purpose of the MaintCampus application is to provide an interface for managing campus information, allowing users with appropriate permissions to view, add, edit, delete, or reactivate campus records. The application ensures data integrity and user access control.",
+  "entities": ["Campus", "UserSession"],
+  "fields": [
+    "Name",
+    "ShortName",
+    "ID",
+    "DepartmentID",
+    "Inactive",
+    "AgencyID"
+  ],
+  "actors": ["SystemAdministrator", "LocalAdministrator"],
+  "workflows": [
+    {
+      "name": "Modify Campus Data",
+      "steps": [
+        "Check screen access permissions.",
+        "Display current list of campuses in gridData.",
+        "Handle gridData_RowCommand for adding, editing, deleting, or reactivating entries.",
+        "Update data in response to user actions.",
+        "Display details in dvwDetail for editing."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Only users with appropriate permissions can modify data.",
+    "ScreenIsEditable is determined by user session and agency ID."
+  ],
+  "validations": [
+    "Name and ShortName fields are required.",
+    "Input values are validated before saving."
+  ],
+  "calculations": [],
+  "conditions": [
+    "If not IsPostBack, initialize dropdowns and focus on agency selection.",
+    "Reactivate button appears only for inactive campuses.",
+    "Delete button appears only for active campuses."
+  ],
+  "system_behavior": [
+    "The system retrieves and binds data to gridData and dvwDetail upon page load and data changes.",
+    "Error and warning messages are displayed using pnlError and pnlWarning."
+  ],
+  "dependencies": [
+    "Dropdown utilities for managing selection.",
+    "Agencies and Departments data sources for dropdowns."
+  ],
+  "exceptions": [
+    "Handle null entries when editing non-existent campuses."
+  ],
+  "source_document_ids": [
+    "0d9437d3-0b37-5803-a5c1-2c5219b2bd25",
+    "17fec33a-41bb-5988-8b25-4e180e1aad6a",
+    "22128af3-5be6-5054-84d2-f266aceab7ea",
+    "2fb393a6-f0f0-5d00-84b0-a714e446997a",
+    "39c78b9e-0e97-56ef-beb4-7888f4c68ca6",
+    "3cc7a3c5-0127-55c9-888e-c5e3a5eaf8f8",
+    "513c2a99-7fe1-5f28-b2a1-705215296db3",
+    "61f8f0ca-19ba-562a-a3b2-f510ac019797",
+    "9c2a7b46-1e65-5178-a2d2-07e885faccb4",
+    "9e662116-da42-5465-8ce4-b75765ea9c4a",
+    "b280ccab-6156-5f54-8afe-7f5293e3a1cb",
+    "bbad919b-7208-5e2c-9ab4-2ae59084fdfd",
+    "d06f3606-807e-5be1-bfa0-f2d775c7c381",
+    "de47dd4c-d67e-5924-be3f-c1c764db836b",
+    "dee73270-3b9b-5bb3-afbf-be933126db8f",
+    "df12fff5-ba28-5f57-b202-05995953ca5b",
+    "e5da22b4-9b44-5c6b-9782-28647ae5c38d",
+    "f698e36b-7543-56f8-84d8-8557c95f16b8"
+  ],
+  "content_gaps": []
 }
