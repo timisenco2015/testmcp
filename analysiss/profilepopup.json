@@ -1,8 +1,8 @@
 {
   "filename": "profilepopup",
   "found": true,
-  "summary": "The script defines a function called profilePopup that handles profile icon updates based on profile existence. It updates icon images for profiles and opens a new window with a specified URL.",
-  "purpose": "To manage and update profile icons and handle profile navigation within a web application interface.",
+  "summary": "The 'profilePopup' function manages the display of profile icons and opens new windows based on profile status.",
+  "purpose": "To display profile icons according to their existence status and open a new window with a specified URL.",
   "entities": [],
   "fields": [
     "PRD",
@@ -19,38 +19,32 @@
   "actors": [],
   "workflows": [
     {
-      "name": "Profile Icon Update and Navigation",
+      "name": "profilePopup Function Execution",
       "steps": [
-        "Check the value of document.frmMain.txtLastProfile.value.",
-        "If old value is not -1, update icon for the old profile.",
-        "Check if old profile exists; update icon src accordingly.",
-        "Set document.frmMain.txtLastProfile.value to PRD.",
-        "Retrieve the icon for the new profile using PRD.",
-        "Check if new profile exists; update icon src accordingly.",
-        "Open a new window with the specified URL."
+        "Retrieve the previous profile using 'txtLastProfile'.",
+        "Check if an icon for the previous profile exists.",
+        "Determine the existence status of the previous profile and update the icon accordingly.",
+        "Update 'txtLastProfile' to the current PRD.",
+        "Check if an icon for the current profile exists.",
+        "Determine the existence status of the current profile and update the icon accordingly.",
+        "Open a new window with the provided URL."
       ]
     }
   ],
-  "business_rules": [
-    "Use 'images/profileexists.gif' for existing profiles.",
-    "Use 'images/profile.gif' for non-existing profiles.",
-    "Use 'images/profileexistsopen.gif' when opening existing profiles.",
-    "Use 'images/profileopen.gif' when opening non-existing profiles."
-  ],
+  "business_rules": [],
   "validations": [],
   "calculations": [],
   "conditions": [
-    "old != -1",
-    "profileExists == 1"
+    "if(old != -1)",
+    "if(icon)",
+    "if(profileExists == 1)"
   ],
   "system_behavior": [
-    "Updates profile icons based on existence and navigation.",
-    "Opens a new browser window with the given URL."
+    "Updates profile icon to indicate existence status.",
+    "Opens a new window with the specified URL."
   ],
   "dependencies": [],
   "exceptions": [],
-  "source_document_ids": [
-    "e0d5a3e6-672e-5964-865f-04dbf8499263"
-  ],
+  "source_document_ids": ["e0d5a3e6-672e-5964-865f-04dbf8499263"],
   "content_gaps": []
 }
