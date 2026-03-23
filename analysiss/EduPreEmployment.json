@@ -1,0 +1,81 @@
+{
+  "filename": "EduPreEmployment",
+  "found": true,
+  "summary": "The EduPreEmployment document is a user control designed to handle the educational pre-employment processes for staff within the HSPnet system. It offers various functionalities including adding, editing, and deleting educational records, managing user sessions, and ensuring data validation.",
+  "purpose": "The purpose of the EduPreEmployment user control is to facilitate the management and operation of educational pre-employment details for staff members within the HSPnet platform.",
+  "entities": [],
+  "fields": [
+    "pnlPopup",
+    "updPnlPopup",
+    "btnShowPopup",
+    "mdlDetails",
+    "ValidationSummary1",
+    "uxDetail",
+    "dsSESearchID",
+    "cmdAddEmptyData",
+    "txtCalendarPlaceholder",
+    "calCalendarPlaceholder",
+    "gridData",
+    "dsSESearch",
+    "dsGraduationConfirmed"
+  ],
+  "actors": [
+    "UserSession",
+    "StaffID",
+    "ScreenIsEditable",
+    "ScriptMgr",
+    "CurrentPage"
+  ],
+  "workflows": [
+    {
+      "name": "Handling Grid Commands",
+      "steps": [
+        "Check if 'no data found' add button should be visible.",
+        "Handle add command using HandleAdd method.",
+        "Edit command updates the dsSESearchID.",
+        "Delete command deletes row.",
+        "Redirect to current page on action completion."
+      ]
+    },
+    {
+      "name": "Detail View Operations",
+      "steps": [
+        "Data bound event sets dropdown states.",
+        "PreRender event configures button visibility and field states.",
+        "Setup JavaScript variables and event handlers."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Show 'no data found' add button if no rows exist and the screen is editable."
+  ],
+  "validations": [
+    "JavaScript validation for event handling in asynchronous postbacks.",
+    "Ensure Page.IsValid before updating program ID."
+  ],
+  "calculations": [],
+  "conditions": [
+    "If the GridView has no rows and the screen is editable, show pnlEmptyData."
+  ],
+  "system_behavior": [
+    "Redirection to the current page after certain operations.",
+    "Hiding details from the user interface when necessary."
+  ],
+  "dependencies": [],
+  "exceptions": [
+    "User session is null during object data source selecting which results in cancellation."
+  ],
+  "source_document_ids": [
+    "0c2b9be9-c864-517d-ae75-e0ddeb66607b",
+    "195a5148-b7e1-5efb-96c9-d8be4e09ab00",
+    "24748eec-7430-5b92-b9f5-ad20ea18b2f1",
+    "46ba7b74-98e7-5c56-a9ac-e25be194f85f",
+    "69805ae6-f121-535a-a243-9992a7eba4b5",
+    "82a3ef01-ada9-5a4e-9c51-a2227a30e3f0",
+    "91c94592-34a1-5782-8e1a-33edc1acd08f",
+    "acb24035-733c-5a4c-b074-821300037012",
+    "eebe96ec-033f-5d23-b5ad-b8f7e92e754a",
+    "fa189062-4df8-56bf-b708-811d8d1ad337"
+  ],
+  "content_gaps": []
+}
