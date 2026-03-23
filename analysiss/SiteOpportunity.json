@@ -1,0 +1,135 @@
+{
+  "filename": "SiteOpportunity",
+  "found": true,
+  "summary": "The documents describe the operations, data structure, and business logic for managing Site Opportunities in the HSPnet system. It includes methods for retrieving, adding, updating, and deleting site opportunities, as well as validation and data formatting functionalities.",
+  "purpose": "To manage site opportunities within the HSPnet system, allowing users to perform CRUD operations and ensuring data integrity through validations.",
+  "entities": [],
+  "fields": [
+    {
+      "name": "ID",
+      "type": "int"
+    },
+    {
+      "name": "SiteID",
+      "type": "int"
+    },
+    {
+      "name": "HeadingID",
+      "type": "int"
+    },
+    {
+      "name": "Response",
+      "type": "string"
+    },
+    {
+      "name": "SortOrder",
+      "type": "int"
+    },
+    {
+      "name": "Description",
+      "type": "string"
+    },
+    {
+      "name": "DescriptionAlt",
+      "type": "string"
+    },
+    {
+      "name": "DescriptionFormatted",
+      "type": "string"
+    },
+    {
+      "name": "SortOrderFormatted",
+      "type": "string"
+    },
+    {
+      "name": "WebPage",
+      "type": "Boolean"
+    },
+    {
+      "name": "HeaderChanged",
+      "type": "Boolean"
+    }
+  ],
+  "actors": [],
+  "workflows": [
+    {
+      "name": "GetByID",
+      "steps": [
+        "Set procedure name to 'SiteOpportunitiesSearchID'.",
+        "Add parameter 'ID'.",
+        "Execute query and retrieve data reader.",
+        "Use FillList() to process data and close reader."
+      ]
+    },
+    {
+      "name": "GetBySiteID",
+      "steps": [
+        "Set procedure name to 'SiteOpportunitiesSearch'.",
+        "Add parameter 'SiteID'.",
+        "Execute query and retrieve data reader.",
+        "Use FillList() to process data and close reader."
+      ]
+    },
+    {
+      "name": "Add",
+      "steps": [
+        "Check if the object is valid using IsValid().",
+        "Set procedure name to 'SiteOpportunitiesAdd'.",
+        "Add parameters 'SiteID', 'HeadingID', 'Response', 'SortOrder'.",
+        "Execute query."
+      ]
+    },
+    {
+      "name": "Update",
+      "steps": [
+        "Check if ID is not zero and object is valid using IsValid().",
+        "Set procedure name to 'SiteOpportunitiesUpdate'.",
+        "Add parameters 'SiteOpportunitiesID', 'HeadingID', 'Response', 'SortOrder'.",
+        "Execute query."
+      ]
+    },
+    {
+      "name": "Delete",
+      "steps": [
+        "Check if ID is not zero.",
+        "Set procedure name to 'SiteOpportunitiesDelete'.",
+        "Add parameter 'SiteOpportunitiesID'.",
+        "Execute query."
+      ]
+    }
+  ],
+  "business_rules": [],
+  "validations": [
+    {
+      "condition": "Response is not blank.",
+      "action": "Add error message 'CourseDetail_ResponseBlank' and return false.",
+      "method": "IsValid"
+    }
+  ],
+  "calculations": [],
+  "conditions": [
+    {
+      "description": "If entry.HeadingID is different from LastHeadingID, set 'HeaderChanged' to true and reset level counts."
+    },
+    {
+      "description": "If entry.SortOrder equals -1, set 'SortOrder' to 0 and 'SortOrderFormatted' to empty string."
+    },
+    {
+      "description": "If entry.Description equals Resources.WEB_PAGE, set 'WebPage' to true."
+    }
+  ],
+  "system_behavior": [
+    "Fills the list with SiteOpportunity entries from the data reader in FillList() method.",
+    "Converts 'Response' field to formatted output using 'ResponseFormatted'."
+  ],
+  "dependencies": [],
+  "exceptions": [],
+  "source_document_ids": [
+    "148590b2-a5c1-5ba2-9f76-5946671326da",
+    "18839216-0ce2-5da0-8629-43191022355e",
+    "2e24ba24-238e-539a-9060-ae9c5b2ef73d",
+    "430d8e05-df1d-5100-81dd-8c604142a057",
+    "64109c98-7c33-509c-9bd9-15bb43722cb7"
+  ],
+  "content_gaps": []
+}
