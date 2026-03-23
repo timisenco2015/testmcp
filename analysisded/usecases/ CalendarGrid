@@ -1,0 +1,117 @@
+# Module: CalendarGrid
+
+## CalendarGrid-UC1 — View and Filter PRs
+
+- Primary Actor(s): Instructor
+- Secondary Actor(s): Student
+- Trigger: User accesses the CalendarGrid page.
+- Description: Allows users to view and filter placement requests (PRs) based on various criteria such as instructor mode or student mode.
+- Preconditions: User is logged in and has access to the placement request data.
+- Postconditions: User can see filtered PRs as per their mode and selection.
+- Main Success Scenario:
+  1. User selects the view PR dropdown.
+  2. System applies default filter based on user type.
+  3. Displays PRs according to selected filter.
+- Extensions:
+  - Instructor can filter by "My Groups".
+  - Students have a default view for selected PR.
+- Exceptions:
+  - PR data is not available for the selected filter.
+- Business Rules:
+  - Instructor mode defaults to viewing "My Groups".
+- Assumptions:
+  - Users have the necessary permissions to view PRs.
+- Open Issues:
+  - Clarify user access levels for different filter options.
+
+## CalendarGrid-UC2 — Placement Request Conflict Alert
+
+- Primary Actor(s): Calendar Administrator
+- Secondary Actor(s): Instructor
+- Trigger: Administrator checks for conflicts in PRs.
+- Description: System alerts administrators about conflicts in placement requests using HyperLink and visual indicators.
+- Preconditions: Placement requests with potential schedule conflicts exist.
+- Postconditions: Administrator is alerted to potential conflicts and can take corrective action.
+- Main Success Scenario:
+  1. Administrator clicks on conflict alert.
+  2. System shows detailed conflict information.
+  3. Administrator reviews and addresses conflicts.
+- Extensions:
+  - View alerts by priority of conflicts.
+- Exceptions:
+  - Conflicts data is unavailable or not updated.
+- Business Rules:
+  - Conflicts need to be resolved to ensure smooth scheduling.
+- Assumptions:
+  - System has up-to-date conflict information.
+- Open Issues:
+  - Determine criteria for conflict prioritization.
+
+## CalendarGrid-UC3 — Night Shift Detection
+
+- Primary Actor(s): Calendar Administrator
+- Secondary Actor(s): Instructor
+- Trigger: System evaluates Utilization data for night shifts.
+- Description: System detects and flags night shifts in the utilization schedule.
+- Preconditions: Night shifts are defined in utilization schedules.
+- Postconditions: Night shifts are identified and flagged for review.
+- Main Success Scenario:
+  1. System evaluates utilization schedule.
+  2. Detects and flags night shifts.
+  3. Provides alerts if night shifts are evaluated during amendments.
+- Extensions:
+  - Show additional details for flagged night shifts.
+- Exceptions:
+  - Night shift detection fails due to incorrect data.
+- Business Rules:
+  - Night shifts must be accurately identified to prevent scheduling errors.
+- Assumptions:
+  - Shift data is accurately maintained and accessible.
+- Open Issues:
+  - Define "night shift" parameters more clearly.
+
+## CalendarGrid-UC4 — Time Formatting and Validation
+
+- Primary Actor(s): Calendar Administrator
+- Secondary Actor(s): Instructor
+- Trigger: User inputs or updates shift times in the CalendarGrid.
+- Description: System formats and validates shift times according to predefined rules.
+- Preconditions: Shift time data is available for formatting and validation.
+- Postconditions: Shift times are formatted and validated successfully.
+- Main Success Scenario:
+  1. User inputs start and end times.
+  2. System validates against predefined format.
+  3. Confirms or prompts for correction on validation failure.
+- Extensions:
+  - Provide feedback on incorrect time formats.
+- Exceptions:
+  - Time format rules change unexpectedly.
+- Business Rules:
+  - Adhere to 24-hour time format validation.
+- Assumptions:
+  - Users understand and follow the time format requirements.
+- Open Issues:
+  - Evaluate the need for more flexible time formats.
+
+## CalendarGrid-UC5 — Group Visibility Configuration
+
+- Primary Actor(s): Department Administrator
+- Secondary Actor(s): Instructor
+- Trigger: System configures visibility of groups in CalendarGrid.
+- Description: Determines visibility settings based on user's department and groups for instructors.
+- Preconditions: Department visibility rules are defined.
+- Postconditions: Users see appropriate group visibility settings.
+- Main Success Scenario:
+  1. User accesses groups visibility settings.
+  2. Configures visibility based on department permissions.
+  3. Saves and applies visibility configurations.
+- Extensions:
+  - Visibility settings for cross-departmental groups.
+- Exceptions:
+  - Visibility settings not applied correctly.
+- Business Rules:
+  - Department permissions dictate group visibility.
+- Assumptions:
+  - Visibility rules are correctly set up and maintained.
+- Open Issues:
+  - Clarify inter-departmental visibility permissions.
