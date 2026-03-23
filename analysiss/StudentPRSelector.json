@@ -1,63 +1,64 @@
 {
   "filename": "StudentPRSelector",
   "found": true,
-  "summary": "The StudentPRSelector module is part of the HSPnet framework and includes components for student profile management and placement selection within a web application.",
-  "purpose": "To manage and display student profile information and facilitate the selection of placements for students.",
-  "entities": [],
+  "summary": "The StudentPRSelector is part of a web application intended for managing student placement and preference history. It includes error and warning panels, a placement selector, and a preference history component, all integrated into a web form.",
+  "purpose": "To manage student placement requests and preferences within the HSPnet framework, offering functionalities for student profile viewing, email linking, and data presentation.",
+  "entities": ["Student", "Placement", "Preference"],
   "fields": [
-    "lblErrorCaption",
-    "lblErrorList",
-    "cmdHideErrorPanel",
-    "pnlWarning",
-    "lblWarningCaption",
-    "lblWarningList",
-    "cmdHideWarningPanel",
-    "fvwStudentProfileHeader",
-    "dsDetail",
-    "uxEmail"
+    "ID",
+    "Email",
+    "Phone",
+    "AltPhone",
+    "AltPhone2",
+    "Name",
+    "StudentID",
+    "TimetableID",
+    "ConfirmedPlacement"
   ],
-  "actors": [
-    "UserSession",
-    "Student",
-    "ScriptManagerMaster"
-  ],
+  "actors": ["User", "System Admin"],
   "workflows": [
     {
-      "name": "Student Profile Display",
+      "name": "Student Placement Selection",
       "steps": [
-        "Load student data using fvwStudentProfileHeader.",
-        "Bind data to UI components like uxEmail and litName."
-      ]
-    },
-    {
-      "name": "Placement Selection",
-      "steps": [
-        "User navigates to TabPanelPlacementSelector.",
-        "UCPlacementSelector is configured and displayed."
+        "Load student profile data",
+        "Display error or warning if necessary",
+        "Allow adjustments in student placement preferences",
+        "Submit or reset placement selections"
       ]
     }
   ],
   "business_rules": [
-    "Ensure unique rankings in selection process.",
-    "Reset placement selector filters when requested."
+    {
+      "rule": "Ensure no duplicate rankings in placements",
+      "condition": "Multiple placements selected"
+    }
   ],
   "validations": [
-    "Ensure all rankings are unique before submission."
+    {
+      "validation": "Check that no two placements have the same ranking",
+      "method": "JavaScript function checkRankings"
+    }
   ],
   "calculations": [],
   "conditions": [
-    "Check if UserSession is valid.",
-    "Verify if TabContainer1 is active for correct display."
+    {
+      "condition": "The system verifies if the fields meet the required criteria before submission"
+    }
   ],
   "system_behavior": [
-    "Error and warning panels are managed by an always visible control extender.",
-    "JavaScript provides interactive functionality for form elements and validation."
+    {
+      "behavior": "Displays error and warning panels dynamically based on user actions"
+    }
   ],
   "dependencies": [
-    "HSPnet.DataLayer for data operations.",
-    "HSPnet.UserControls for custom UI components."
+    "HSPnet.DataLayer",
+    "HSPnet.Framework"
   ],
-  "exceptions": [],
+  "exceptions": [
+    {
+      "exception": "Invalid user session or URL hash causes restricted access"
+    }
+  ],
   "source_document_ids": [
     "0e116a30-9f0f-58de-bef5-717a67d58594",
     "17473837-1078-543f-bbc0-e1621e747ca6",
