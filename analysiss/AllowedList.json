@@ -1,14 +1,14 @@
 {
   "filename": "AllowedList",
   "found": true,
-  "summary": "The AllowedList manages a collection of allowed locations based on the session and location type parameters. It includes functionality to retrieve locations allowed for a particular session and to verify if a specific ID is within the allowed list.",
-  "purpose": "To handle and verify a list of allowed locations for sessions based on specified location types.",
+  "summary": "The AllowedList module contains logic for managing and validating lists of allowed items based on session data and location type.",
+  "purpose": "The purpose of the AllowedList module is to determine and manage permitted locations and validate IDs against these allowed lists during system sessions.",
   "entities": [],
   "fields": [
     {
       "name": "Code",
       "type": "string",
-      "description": "Represents the code of the allowed location, or 'ALL' for unrestricted."
+      "description": "Represents a unique identifier code for each allowed entry."
     }
   ],
   "actors": [
@@ -18,43 +18,43 @@
     {
       "name": "SessionAllowedLocations",
       "steps": [
-        "Initialize a list to store allowed locations.",
-        "Set the database procedure name to 'SessionAllowedLocations'.",
-        "Add 'LocType' and 'SessionID' as parameters to the database procedure.",
-        "Execute the procedure and fetch data using a SqlDataReader.",
-        "Loop through the data reader results.",
-        "If the ID from the database is -1, add a location with code 'ALL' and break.",
-        "Otherwise, add the location ID to the list.",
-        "Return the list of allowed locations."
+        "Initialize an empty list of AllowedList.",
+        "Set the stored procedure name to 'SessionAllowedLocations'.",
+        "Add location type and session ID as parameters.",
+        "Execute the stored procedure to get data.",
+        "Read each entry from the data reader.",
+        "If the entry ID is -1, add a generic 'ALL' entry and break.",
+        "Otherwise, add the specific entry ID.",
+        "Close the data reader and return the list."
       ]
     },
     {
       "name": "CheckAllowedList",
       "steps": [
-        "Initialize a boolean return value as false.",
-        "Loop through each entry in the list of allowed locations.",
-        "If an entry code is 'ALL' or matches the ID, set return value to true and break.",
-        "Return the boolean result."
+        "Initialize return value to false.",
+        "Iterate over each allowed entry in the list.",
+        "If the entry code matches 'ALL' or the specific ID, set return to true and break.",
+        "Return the result."
       ]
     }
   ],
   "business_rules": [
-    "If ID is -1, it represents 'ALL' locations being allowed.",
-    "A location is allowed if its code matches the 'ID' or if the code is 'ALL'."
+    "If the database returns an ID of -1, it equates to allowing all entries."
   ],
   "validations": [],
   "calculations": [],
   "conditions": [
-    "If an ID from the database equals -1, it signifies all locations are allowed and the list entry code is set to 'ALL'.",
-    "If a location's entry code matches 'ID', it is considered allowed."
+    "If Sess.DB.GetInt(dr, 'ID') is -1, the entry code is set to a generic 'ALL'.",
+    "If allowed.Code matches 'ALL' or the specific ID, then the result is true in CheckAllowedList."
   ],
   "system_behavior": [
-    "Retrieve allowed locations based on session and location type.",
-    "Check if a particular ID is in the allowed list."
+    "Allowed entries are managed and validated through stored procedures within the database session.",
+    "System allows handling of generic 'ALL' cases to grant universal access."
   ],
   "dependencies": [
-    "Resources.ALL",
-    "HSPnetSession.DB"
+    "HSPnetSession.DB",
+    "HSPnet.App_GlobalResources",
+    "System.Data.SqlClient"
   ],
   "exceptions": [],
   "source_document_ids": [
