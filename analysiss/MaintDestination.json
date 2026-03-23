@@ -1,52 +1,140 @@
 {
   "filename": "MaintDestination",
   "found": true,
-  "summary": "The document provides details of UI controls used in a web application, including their types and auto-generated nature.",
-  "purpose": "The purpose is to define UI elements and their properties for web application development.",
+  "summary": "The MaintDestination module manages various aspects of destinations within the HSPnet system. It offers functionalities for managing destination contacts, viewing and editing details, and handling user permissions related to destination management.",
+  "purpose": "This module is designed to facilitate the management of destination data, including viewing, editing, and maintaining contacts, and ensuring compliance with data standards and user permissions for system administrators and local administrators.",
   "entities": [],
   "fields": [
+    "txtPhone",
+    "txtFaxArea",
+    "txtFax",
+    "ValidationSummary1",
+    "uxDetail",
+    "dsDestinations",
+    "dsDestination",
+    "updPnlMain",
+    "Label1",
+    "hlDataStandards",
+    "ltlNewFeature",
+    "pnlError",
+    "lblErrorCaption",
+    "lblErrorList",
+    "cmdHideErrorPanel",
+    "pnlWarning",
+    "lblWarningCaption",
+    "lblWarningList",
+    "cmdHideWarningPanel",
+    "txtDefaultAreaCode",
+    "CurrentViewLabel",
+    "pnlCurrentView",
+    "Literal1",
+    "ddAgency",
+    "Literal2",
+    "ddSite",
+    "Literal3",
+    "ddService",
+    "Literal4",
+    "txtKeyword",
+    "chkShowInactive",
+    "cmdRefreshView",
+    "Panel1",
+    "lblnon_HSP_net_user",
+    "gridData"
+  ],
+  "actors": [
+    "UserSession",
+    "ScreenIsEditable",
+    "blnCanEditDest"
+  ],
+  "workflows": [
     {
-      "name": "txtKeyword",
-      "type": "TextBox",
-      "description": "A textbox for entering keywords."
+      "name": "Page Load",
+      "steps": [
+        "Setup HSPnet Page",
+        "Register Client Script",
+        "Check Screen Access",
+        "Fill agency, site, and service dropdowns"
+      ]
     },
     {
-      "name": "chkShowInactive",
-      "type": "CheckBox",
-      "description": "A checkbox for toggling the visibility of inactive items."
+      "name": "Refresh Data",
+      "steps": [
+        "Check Screen Access",
+        "Rebind data to grid",
+        "Update user session variables"
+      ]
     },
     {
-      "name": "cmdRefreshView",
-      "type": "Button",
-      "description": "A button to refresh the view."
-    },
-    {
-      "name": "Panel1",
-      "type": "Panel",
-      "description": "A panel control used for containing other controls."
-    },
-    {
-      "name": "lblnon_HSP_net_user",
-      "type": "Label",
-      "description": "A label displaying user information."
-    },
-    {
-      "name": "gridData",
-      "type": "Grid",
-      "description": "A grid control displaying data."
+      "name": "Form View Command",
+      "steps": [
+        "Handle different command names and execute corresponding actions",
+        "Add, edit, reactivate, or delete destination records"
+      ]
     }
   ],
-  "actors": [],
-  "workflows": [],
   "business_rules": [],
-  "validations": [],
+  "validations": [
+    {
+      "name": "Phone Validation",
+      "details": "Ensures that the phone number is valid and formatted correctly based on the area code and number."
+    },
+    {
+      "name": "Department Validation",
+      "details": "Checks if the department is specified when adding a new contact."
+    },
+    "First and last name must be specified for a new contact."
+  ],
   "calculations": [],
   "conditions": [],
-  "system_behavior": [],
+  "system_behavior": [
+    "Handles user permissions based on system and local administrator statuses.",
+    "Displays appropriate content based on user session data and permissions.",
+    "Manages visibility and interactivity of UI components based on conditions."
+  ],
   "dependencies": [],
-  "exceptions": [],
+  "exceptions": [
+    "If the query parameters for site or service are empty, use default user session values."
+  ],
   "source_document_ids": [
-    "84348727-ba98-5252-8278-2fc0c0c05ef5"
+    "00ff3bd5-c5de-5c26-b05e-892ba2ec3103",
+    "07e5d9e9-a580-5d41-872e-147b94fcac27",
+    "09fabe12-f0fd-5b18-990d-4937d55878aa",
+    "0e0f78cf-3dad-5687-adaa-02942efd37b1",
+    "121101cf-ddc9-5ed6-ad71-6d90756f6c23",
+    "2020f3e4-ea1c-5e41-afcd-d89463d33330",
+    "209c3c7b-c2cb-5565-8d6b-34eb41496def",
+    "2613cd83-1e90-5ed9-810c-c5231ba0aae5",
+    "26b3f542-9a2d-5a62-b9fa-253527ad374f",
+    "2cd47aeb-9ae2-5176-8671-c76e1ec584cc",
+    "3bb819d9-7efa-5f74-9c22-8327d3340321",
+    "3bdb94b4-e955-5f07-b6af-dbf20878d5cf",
+    "4251c969-1658-5ae3-8666-d5c2bed71da0",
+    "4ab3dac9-dfad-5916-9844-ce64d1b250d9",
+    "558ffcc3-a2a9-56ed-ab5c-0a6a7830ded1",
+    "630c8893-c08a-5b6a-a923-b44b95a3833e",
+    "6646e49b-5251-5e7a-80f0-6997615f53f4",
+    "6bfe2f23-efb1-555c-a3da-200d1e5267a6",
+    "822c863e-a878-5c9b-ac38-beebb59ba5f8",
+    "84348727-ba98-5252-8278-2fc0c0c05ef5",
+    "85c741f8-0d96-5224-8c76-3ea62508dd6b",
+    "882081c1-d81f-56e8-a057-f305f4233dd6",
+    "92b7aa5a-241a-5ab4-bcfa-a0e5b3f98617",
+    "9acd04f8-ceda-5ab7-980b-d1ed5c1fb3e2",
+    "9b4ece80-4d76-554b-a673-fb48760b3db3",
+    "a1a4d5e7-cac0-5ccc-93fa-6293c96b5f0f",
+    "adf9ecad-2bc3-5fd7-bcda-5b7bdbb8b6d4",
+    "b7328b3b-fcd8-55df-a7ad-072dca694164",
+    "b94a81a4-b755-5677-80f1-65416761f31b",
+    "cd081abc-cee2-5f49-a9e9-aeb968829a72",
+    "d45039d6-9f3e-5535-825f-6765a752c67d",
+    "d7f0b4d7-06b4-52ad-bb17-5cc7b95183c4",
+    "d8a08e6c-b2a7-50a1-ad12-fcb7f4469811",
+    "dc2e6dad-6d42-500e-8851-f1ffaa09d113",
+    "e44f464f-a39f-5b5f-b909-68856ce59081",
+    "e9542b33-9cec-51b9-877d-721b6b0c0462",
+    "f18f4b21-5aae-59e2-ad77-9929d97438fa",
+    "f68ab320-4f63-5894-8409-7637e458432e",
+    "f92d9144-d105-5e89-8cef-b3eeb1420c90"
   ],
   "content_gaps": []
 }
