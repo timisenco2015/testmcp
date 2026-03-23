@@ -1,0 +1,114 @@
+```json
+{
+  "filename": "StudentTrainingPrograms",
+  "found": true,
+  "summary": "The documents describe the structure and operations related to managing student training programs within a system. It includes methods for adding, updating, searching, and managing these programs.",
+  "purpose": "To manage and maintain the records of student training programs including adding new records, updating existing records, and handling the program lifecycle.",
+  "entities": [
+    "StudentTrainingProgram",
+    "HSPnetSession"
+  ],
+  "fields": [
+    "ID",
+    "StudentID",
+    "ProgramID",
+    "DepartmentShortName",
+    "ProgramShortName",
+    "StageCodeID",
+    "StageDescription",
+    "AgencyID",
+    "AgencyShortName",
+    "StartDate",
+    "EndDate",
+    "Comments",
+    "Inactive",
+    "StartDateFormatted",
+    "EndDateFormatted",
+    "ProgramNameFormatted"
+  ],
+  "actors": [
+    "User",
+    "System"
+  ],
+  "workflows": [
+    {
+      "name": "Add Training Program",
+      "steps": [
+        "Initialize session and parameters.",
+        "Set database procedure name to StudentDetailsTrainingProgramAdd.",
+        "Execute query to add program details."
+      ]
+    },
+    {
+      "name": "Update Training Program",
+      "steps": [
+        "Initialize session and parameters.",
+        "Set database procedure name to StudentDetailsTrainingProgramUpdate.",
+        "Execute query to update program details."
+      ]
+    },
+    {
+      "name": "Search Training Program",
+      "steps": [
+        "Initialize session and parameters.",
+        "Set database procedure name to StudentDetailsTrainingProgramSearchID.",
+        "Execute query to retrieve program details."
+      ]
+    },
+    {
+      "name": "Inactivate Training Program",
+      "steps": [
+        "Initialize session and parameters.",
+        "Set database procedure name to StudentDetailsTrainingProgramInactivate.",
+        "Execute query to inactivate the program."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Program records must include start and end dates which cannot be null.",
+    "Inactive programs can be included or excluded based on a parameter."
+  ],
+  "validations": [
+    "Ensure program start and end dates are valid dates.",
+    "Validate presence of essential fields like ProgramID and StudentID."
+  ],
+  "calculations": [
+    "StartDateFormatted is a short date format of StartDate.",
+    "EndDateFormatted is a short date format of EndDate.",
+    "ProgramNameFormatted is a concatenation of DepartmentShortName and ProgramShortName."
+  ],
+  "conditions": [
+    "If UserSession is null, operations are canceled.",
+    "Different database procedures are executed based on the CRUD operation being performed."
+  ],
+  "system_behavior": [
+    "User interface reacts to form mode changes (Insert, Edit).",
+    "Grid data updates reflect changes in program status."
+  ],
+  "dependencies": [
+    "Database connection and procedures.",
+    "ASP.NET web controls for UI interaction."
+  ],
+  "exceptions": [
+    "Database connection failures.",
+    "Invalid date formats or missing required field values."
+  ],
+  "source_document_ids": [
+    "0278f2e1-15e1-52a6-99a7-f338f943183e",
+    "05b14484-f473-554e-9329-5cd197d38538",
+    "094a255c-158e-5673-8035-49c3b8079045",
+    "2fb139b8-0210-50a6-828e-fa15412ab2af",
+    "4e4c7fe5-d241-55f0-8891-b5d1a1f0eb5c",
+    "5cea2d81-d05c-5e38-b063-5a61480d3ddc",
+    "6d23c568-767a-5d73-9902-2960157889ee",
+    "6fd4dd72-e302-5556-b966-7ec54d109472",
+    "7c178050-5e50-5ab3-b00e-2b86e7608f3b",
+    "aa5bf129-3c5f-592b-916d-25fefa436a58",
+    "c0e203b7-40a3-5fc8-a207-6b367df9d40e",
+    "f17f9152-f9ac-5e33-83b8-670178cb8f58",
+    "f1f0d3cc-fb97-524b-a5db-24f7339be1de",
+    "f598e46d-3a3a-509d-b28e-2ef02bc8fa36"
+  ],
+  "content_gaps": []
+}
+```
