@@ -1,0 +1,83 @@
+```json
+{
+  "filename": "AgencyProfileHistory",
+  "found": true,
+  "summary": "The AgencyProfileHistory is a system module that manages and tracks historical changes and actions related to agency profiles within the HSPnet platform.",
+  "purpose": "To provide an interface and back-end functionality for viewing and managing the history of changes associated with agency profiles.",
+  "entities": [
+    "AgencyProfileHistory",
+    "Database",
+    "HSPnetSession"
+  ],
+  "fields": [
+    "ID",
+    "ActionDate",
+    "ScreenSection",
+    "UserAction",
+    "Fields",
+    "Agency",
+    "AgencyName",
+    "LastName",
+    "FirstName",
+    "MiddleName",
+    "Phone",
+    "ByUserID",
+    "ByOriginalUserID",
+    "ByUserSysAdmin"
+  ],
+  "actors": [
+    "System Administrator",
+    "Agency User"
+  ],
+  "workflows": [
+    {
+      "name": "View Agency Profile History",
+      "steps": [
+        "User accesses history interface.",
+        "System retrieves historical data using stored procedures.",
+        "History details displayed in a grid view."
+      ]
+    },
+    {
+      "name": "Populate Agency Profile History",
+      "steps": [
+        "System listens for changes in agency profiles.",
+        "Changes are logged into history database.",
+        "History is available for user queries."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Only authorized users can view agency profile histories.",
+    "Changes are logged in both default and alternative languages if applicable."
+  ],
+  "validations": [
+    "Ensure UserSession is active before data retrieval.",
+    "Validate AgencyID and SessionAgencyID parameters."
+  ],
+  "calculations": [],
+  "conditions": [
+    "If UseAltLanguageFields is true, retrieve alternate language fields."
+  ],
+  "system_behavior": [
+    "Auto-generates tooltip and formatted strings for display.",
+    "Provides a web user control to interface with the data."
+  ],
+  "dependencies": [
+    "HSPnet.Framework",
+    "HSPnet.DataLayer",
+    "HSPnet.App_GlobalResources"
+  ],
+  "exceptions": [
+    "Cancel data retrieval if UserSession is null."
+  ],
+  "source_document_ids": [
+    "15c94f3f-f742-5810-b434-c20f8ad6b260",
+    "7d79fe20-87f9-5cd7-9bd8-0c268bb0bf53",
+    "9a0cb835-eaac-576f-902b-1c37454bbf0c",
+    "e67d6f27-f1e3-5ea8-8b56-55ef439607e3",
+    "fa907938-cc36-56e5-8ce2-4283ff2a346b"
+  ],
+  "content_gaps": []
+}
+```
