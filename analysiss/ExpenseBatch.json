@@ -1,37 +1,33 @@
 {
-    "filename": "ExpenseBatch",
-    "found": true,
-    "summary": "Represents the batch processing of expenses within departmental operations.",
-    "purpose": "To manage expense batches for departments, including searching, adding, updating, and deleting operations.",
-    "entities": ["ExpenseBatch"],
-    "fields": [
-        "ID",
-        "DepartmentID",
-        "BatchDescription",
-        "BatchDate",
-        "StatusCodeID",
-        "StatusCode",
-        "StatusDescription",
-        "ClosedDate",
-        "BatchNumberFormatted"
-    ],
-    "actors": [],
-    "workflows": [],
-    "business_rules": [],
-    "validations": [],
-    "calculations": ["BatchNumberFormatted"],
-    "conditions": [],
-    "system_behavior": [
-        "Add expense batch",
-        "Update expense batch",
-        "Delete expense batch"
-    ],
-    "dependencies": [],
-    "exceptions": [],
-    "source_document_ids": [
-        "060e08d3-49ca-5e40-bea0-849f4e6173e1",
-        "3559737f-0154-520e-be2b-d3dd2c3de539",
-        "b2216e58-a144-55cb-8b87-3da9787fc1d7"
-    ],
-    "content_gaps": []
+  "filename": "ExpenseBatch",
+  "found": true,
+  "summary": "Management of expense batches for departmental expenses.",
+  "purpose": "Add, update, and delete expense batches for departments.",
+  "entities": ["ExpenseBatch"],
+  "fields": ["ID", "DepartmentID", "BatchDescription", "BatchDate", "StatusCodeID"],
+  "actors": [],
+  "workflows": [
+    {
+      "name": "Expense Batch Operations",
+      "steps": [
+        "Search for batches",
+        "Add new batch",
+        "Update existing batch",
+        "Delete batch"
+      ]
+    }
+  ],
+  "business_rules": [],
+  "validations": [],
+  "calculations": [],
+  "conditions": [],
+  "system_behavior": [],
+  "dependencies": [],
+  "exceptions": [],
+  "source_document_ids": [
+    "060e08d3-49ca-5e40-bea0-849f4e6173e1",
+    "3559737f-0154-520e-be2b-d3dd2c3de539",
+    "b2216e58-a144-55cb-8b87-3da9787fc1d7"
+  ],
+  "content_gaps": []
 }
