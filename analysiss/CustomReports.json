@@ -1,0 +1,104 @@
+{
+  "filename": "CustomReports",
+  "found": true,
+  "summary": "The CustomReports module handles the creation, management, and processing of custom reports within the system. It includes functionality for adding, updating, searching, and managing custom reports and their parameters.",
+  "purpose": "To enable users to request, create, and manage custom reports, facilitating data retrieval and distribution according to user-specified parameters.",
+  "entities": [],
+  "fields": [
+    "ID",
+    "RequestedByUserID",
+    "ReportTypeCodeID",
+    "ReportTypeComments",
+    "Purpose",
+    "Audience",
+    "RequestedByDate",
+    "Comments",
+    "CreatedDate",
+    "LastUpdateDate",
+    "LastUpdateByUserID",
+    "ReturnedToUserDate",
+    "PastDetails",
+    "StatusCodeID",
+    "FileURL",
+    "FilePath",
+    "FileSize",
+    "FileType",
+    "FileTypeAlt",
+    "FileUpdateDate",
+    "ByUserId",
+    "LastName",
+    "FirstName",
+    "MiddleName",
+    "Status",
+    "RequestedByAgency",
+    "RequestedByDepartment",
+    "RequestedByEmail",
+    "ParameterList"
+  ],
+  "actors": [
+    "User",
+    "Sysadmin"
+  ],
+  "workflows": [
+    {
+      "name": "Custom Report Request Workflow",
+      "steps": [
+        "User requests a custom report with specified parameters.",
+        "System validates the request.",
+        "If valid, the request is saved, and an ID is generated.",
+        "The user may update the report details or parameters.",
+        "System processes the report and updates status.",
+        "Completed reports are available for download."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Reports must be associated with a user ID and a report type.",
+    "Only active reports are processed and made available for download."
+  ],
+  "validations": [
+    "Check if required fields such as RequestedByUserID are present.",
+    "Validate report parameters and ensure they conform to expected formats."
+  ],
+  "calculations": [
+    "Calculate report creation and update dates.",
+    "Determine previous terms based on today's date for date range calculations."
+  ],
+  "conditions": [
+    "The report request can be made for 'Today', 'CurrentTerm', 'PastTerm', 'PastYear', or 'PreviousYears' timeframes.",
+    "ReturnedToUser is true if ReturnedToUserDate is not null."
+  ],
+  "system_behavior": [
+    "System sends email notifications for important updates, such as when a report is uploaded or completed.",
+    "File management includes creating and deleting files associated with reports."
+  ],
+  "dependencies": [
+    "Depends on user management for validation of requesting users.",
+    "Database operations for storing and retrieving report details."
+  ],
+  "exceptions": [
+    "Requests can be canceled by the user or refused by sysadmin."
+  ],
+  "source_document_ids": [
+    "132be9d9-0ab9-5355-af6c-608ff561a77d",
+    "1744f290-c8d5-5f64-be14-14ad185a12ed",
+    "1ccc9e21-60c2-5ef7-8c04-3fd740c1d498",
+    "1e6887f9-2fe7-5b89-b57d-1e67d9800af3",
+    "29ced8f0-f8b4-5981-ab51-50fcb0ca67e3",
+    "3d03bf43-48c1-528c-82b9-26b9821f9cfe",
+    "3dd96cf6-446d-5681-a73f-7c5414cff50e",
+    "58f66194-5411-5bff-ac3f-2c4e31920a1a",
+    "6c0ae209-9319-5c6a-bb2b-00022e80701b",
+    "ac63d459-5a21-5ebb-a8a6-f6fd776553ab",
+    "b039d0d4-8c57-5af1-ad3c-34c5ca06e76d",
+    "b3c191b5-276f-56ac-86fa-70953a75044a",
+    "c1a120c4-ca5b-5666-888c-1e5d50c546ea",
+    "d10b05a2-efa3-57ff-a59c-46b97bb2f88f",
+    "db01691d-1bdd-55a1-aef7-e492acf94fe4",
+    "e6ecf84d-68f6-5fde-bad1-54e653a398ec",
+    "f568b951-92bb-5296-bdf7-fc5f83285c34",
+    "fd2349bf-80f2-5a79-8560-2c501fd39b45",
+    "fd6708a7-4fd2-50c3-9779-bce5557c1ee1"
+  ],
+  "content_gaps": []
+}
