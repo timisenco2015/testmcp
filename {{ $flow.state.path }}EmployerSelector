@@ -1,0 +1,104 @@
+```json
+{
+    "filename": "EmployerSelector",
+    "found": true,
+    "summary": "The EmployerSelector component is a user control within the HSPnet system that facilitates the process of selecting and managing employment applications. It interfaces with a GridView for displaying employment applications, allows user interactions such as adding, withdrawing, or deleting applications, and supports data binding and validation.",
+    "purpose": "The purpose of the EmployerSelector is to manage the display and interaction of employment applications in a web environment, enhancing user experience through various controls and data management capabilities.",
+    "entities": [
+        "EmployerSelector",
+        "EmploymentApplication",
+        "GridView",
+        "UserSession",
+        "HSPnetSession"
+    ],
+    "fields": [
+        "Literal10",
+        "uxCityNameContains",
+        "Literal9",
+        "uxRegion",
+        "cmdSearch",
+        "uxPlacements",
+        "ValidationSummary2",
+        "Label1",
+        "Literal5",
+        "uxTotalSites",
+        "Literal7",
+        "uxAgencySiteContains",
+        "Literal2",
+        "uxSavedChoices",
+        "pnlSearchArea",
+        "dsSavedChoices",
+        "dsPlacements",
+        "dsRegions"
+    ],
+    "actors": [
+        "User",
+        "System.Web.UI.WebControls",
+        "HSPnet.UI.HSPnetGridView",
+        "HSPnet.DataLayer.EmploymentApplications",
+        "HSPnet.Framework"
+    ],
+    "workflows": [
+        {
+            "name": "Page_Load Workflow",
+            "steps": [
+                "Check if Page is a PostBack",
+                "Set uxPlacements visibility to false"
+            ]
+        },
+        {
+            "name": "cmdSearch_Click Workflow",
+            "steps": [
+                "Set uxPlacements visibility to true",
+                "Bind data to uxPlacements"
+            ]
+        },
+        {
+            "name": "uxPlacements_RowCommand Workflow",
+            "steps": [
+                "Check command name",
+                "Add or remove employment application",
+                "Refresh data"
+            ]
+        }
+    ],
+    "business_rules": [
+        "Auto-generated fields must be moved to code-behind files for modifications.",
+        "Hide certain controls based on user permissions or application status."
+    ],
+    "validations": [
+        "ValidationSummary2 control for validating user inputs.",
+        "UserSession must not be null for data operations."
+    ],
+    "calculations": [
+        "Total sites calculated by the count of site search recruitment results."
+    ],
+    "conditions": [
+        "If UserSession is null, cancel data operations.",
+        "If SiteName matches previous entries, display in gray."
+    ],
+    "system_behavior": [
+        "Automatically binds data to GridView controls.",
+        "Handles exceptions in data operations gracefully by cancelling actions when conditions are not met."
+    ],
+    "dependencies": [
+        "HSPnet.DataLayer for data operations and entity manipulations.",
+        "HSPnet.Framework for URL hashing and session management."
+    ],
+    "exceptions": [
+        "Cancel data operations if UserSession is null."
+    ],
+    "source_document_ids": [
+        "03fb348a-b850-5571-b590-7b855ebd878e",
+        "22b50668-1953-5d21-a511-ac1c39fd49d5",
+        "4bd3a7b4-6445-5cd2-b7fb-62f1c82d630a",
+        "501f8372-1fee-50a1-9587-ca253f9cdadb",
+        "59409830-c777-5159-b7f3-28c8a8d9ada5",
+        "645f0d95-f7e7-53aa-87b0-734768d731f6",
+        "6f553d2c-f923-52c1-97bf-dac2f239f186",
+        "ab95efd6-00ad-5902-a875-0a15ecc3ea9c",
+        "effa0842-dfb4-56ec-a599-fe6f565ba857"
+    ],
+    "content_gaps": []
+}
+```
