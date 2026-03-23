@@ -1,0 +1,106 @@
+{
+    "filename": "ReportMain",
+    "found": true,
+    "summary": "The ReportMain system handles report generation, export, and email functionalities with extensive error handling and parameter configurations. It supports multiple file types and formats for exporting reports, including CSV, RTF, TXT, DOC, and PDF. The system ensures the correct setup of database connections and report parameters, including handling exceptions and ensuring proper resource cleanup.",
+    "purpose": "To generate, export, and manage reports in various formats and handle email notifications with flexible parameter settings and error handling.",
+    "entities": [],
+    "fields": [
+        "GeneratedReportFolder",
+        "OutputType",
+        "ReportDescription",
+        "LinkText",
+        "DeletePrefix",
+        "Parameters",
+        "PRFormParameters",
+        "ReportName",
+        "OutputType"
+    ],
+    "actors": [
+        "HSPnetSession",
+        "SqlDataReader"
+    ],
+    "workflows": [
+        {
+            "name": "Generate and Export Report",
+            "steps": [
+                "Initialize CRAXDRT.Application",
+                "OpenReport with specified ReportName",
+                "Set up database login details for each report table",
+                "Log on to each table in any subreport",
+                "Set export format based on OutputType",
+                "Set export destination to disk file",
+                "Export the report",
+                "Convert RTF to plain text if required",
+                "Return success or failure message"
+            ]
+        },
+        {
+            "name": "Delete Old Files",
+            "steps": [
+                "Set cutoff date as current date minus one day",
+                "List all files with the specified prefix",
+                "Delete files older than cutoff date"
+            ]
+        }
+    ],
+    "business_rules": [
+        "Default to CSV format if not specified",
+        "Fallback to generic error message if unknown error occurs",
+        "Use alternative report file if alt locale is set and file exists"
+    ],
+    "validations": [
+        "Check if report and its database tables are null",
+        "Validate email addresses before sending emails"
+    ],
+    "calculations": [
+        "Generate unique file name with Hashing.GenerateFileName()",
+        "Convert date and time to appropriate format"
+    ],
+    "conditions": [
+        "Use alternative report file if available for session's locale",
+        "Convert RTF output to plain text for email notifications"
+    ],
+    "system_behavior": [
+        "Exports reports to specified format and location",
+        "Sends email notifications if email data are valid",
+        "Handles exceptions in file operations and database connectivity",
+        "Deletes files older than one day with specified prefix"
+    ],
+    "dependencies": [
+        "CRAXDRT library for report generation",
+        "HSPnet.Framework utilities",
+        "System.Web for HTTP context operations",
+        "System.IO for file operations",
+        "System.Drawing for image processing"
+    ],
+    "exceptions": [
+        "ReportStatus.CanNotOpen",
+        "ReportStatus.CanNotConnect",
+        "ReportStatus.CanNotExport",
+        "ReportStatus.InvalidParameter"
+    ],
+    "source_document_ids": [
+        "0177a3e3-8d82-5b0d-aa2e-192b42d8e49e",
+        "0806879e-fe1d-586e-86da-964a067fbf2f",
+        "0846d6db-bb75-53e4-9e0e-3e9a9c93bd21",
+        "10209df8-af9c-5801-bbaa-95f961292f74",
+        "12bc0abb-f682-5074-a921-8a307dbfe808",
+        "221dfdec-5c19-5fed-a757-a1287d51335c",
+        "4187ccfa-5baf-58e9-a7e4-b23202284330",
+        "57c16556-9694-513d-a9ef-059803f72f67",
+        "6cdc17e8-7413-55e1-a82b-3a5c5ca7447f",
+        "7d306321-28fd-5641-9917-05711d57ff07",
+        "845a678a-81a3-54e0-ae69-4b178abcf86b",
+        "87e8ff6b-e23d-5a83-894d-3ed031717e66",
+        "898dbf05-f759-5dd5-a023-c55ba1c37009",
+        "9a9ff2ab-cc21-5e91-9a14-fad237310208",
+        "a07d2267-dd90-5c26-b0f2-26d11b4beb15",
+        "a416f7aa-b2ba-5f4a-b38b-ac52c68a420c",
+        "a8dba462-ca0b-5679-bc83-89513b99c6d4",
+        "b7c290ae-ffb8-564b-abe2-abc262eba5cf",
+        "b8d7f304-9016-5e18-a53a-ea9b5468313a",
+        "c41df46d-9d3b-5805-90cc-f91f8ffbd4d9",
+        "fc3f91d2-88d6-5b4f-9b33-298ce4344ddd"
+    ],
+    "content_gaps": []
+}
