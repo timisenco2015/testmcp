@@ -2,12 +2,12 @@
 {
   "filename": "PlacementRequestStaff",
   "found": true,
-  "summary": "Documentation and procedures related to the management of PlacementRequestStaff in the HSPnet system.",
-  "purpose": "Manage placement staff assignments, including adding, updating, and verifying placement requests and associated staff details.",
+  "summary": "The PlacementRequestStaff system handles operations related to managing staff assignments for placement requests, including adding, updating, deleting, and searching for staff associated with placement requests.",
+  "purpose": "To manage and process staff assignments for placement requests, ensuring proper handling of supervisor and service contact information, and facilitating workflow operations such as adding, updating, and deleting staff data.",
   "entities": [
     "PlacementRequestStaff",
     "HSPnetSession",
-    "SqlDataReader"
+    "Phone"
   ],
   "fields": [
     "ID",
@@ -18,6 +18,13 @@
     "PreferredFirstName",
     "MiddleName",
     "LastName",
+    "StaffAssigned",
+    "StaffTypeCodeID",
+    "StaffTypeCode",
+    "DurationHours",
+    "StartDate",
+    "EndDate",
+    "PRStatus",
     "Email",
     "SecureEmail",
     "Phone",
@@ -26,100 +33,71 @@
     "Title",
     "SalutationCodeID",
     "Designation",
-    "DurationHours",
-    "StartDate",
-    "EndDate",
-    "PRStatus",
+    "ReleaseInfo",
+    "CreatedByQES",
+    "IsHSPnetUser",
+    "ProfileExists",
+    "HomeSiteID",
+    "HomeServiceID",
+    "HomeDestinationID",
+    "AgencyID",
     "AssessmentAnswersExist",
     "SubmittedJointAssessment",
     "JointStaffID",
     "JointStaffLastName",
     "JointStaffFirstName",
-    "AgencyID",
-    "HomeSiteID",
-    "HomeServiceID",
-    "HomeDestinationID",
-    "IsHSPnetUser",
-    "ProfileExists",
-    "ReleaseInfo",
-    "StaffAssigned",
-    "StaffTypeCodeID",
-    "StaffTypeCode"
+    "JointStaffFullName",
+    "AssessmentStatus"
   ],
   "actors": [
     "Supervisor",
-    "Service Contact",
-    "Destination Contact"
+    "ServiceContact"
   ],
   "workflows": [
     {
       "name": "Add Supervisor",
       "steps": [
-        "Set ProcedureName to 'PlacementRequestAddSup'",
-        "Add parameters: SessionID, PRD_ID, DepartmentID, FirstName, MiddleName, LastName, Phone, AltPhone, Email, Fax, Title, SalutationCodeID, Designation",
-        "Execute query"
-      ]
-    },
-    {
-      "name": "Add Service Contact",
-      "steps": [
-        "Set ProcedureName to 'PlacementRequestAddSC'",
-        "Add parameters: SessionID, PRD_ID, DepartmentID, FirstName, MiddleName, LastName, Phone, AltPhone, Email, Fax, Title, SalutationCodeID, Designation",
-        "Execute query"
-      ]
-    },
-    {
-      "name": "Add Destination Contact",
-      "steps": [
-        "Set ProcedureName to 'PlacementRequestAddDC'",
-        "Add parameters: SessionID, PRD_ID, DepartmentID, FirstName, MiddleName, LastName, Phone, AltPhone, Email, Fax, Title, SalutationCodeID, Designation",
-        "Execute query"
-      ]
-    },
-    {
-      "name": "Update Supervisor",
-      "steps": [
-        "Set ProcedureName to 'PlacementRequestUpdateSupervisor'",
-        "Add parameters: SessionID, PRD_ID, SupervisorID",
-        "Execute query"
+        "Set procedure name to PlacementRequestAddSup",
+        "Add necessary parameters",
+        "Execute the query"
       ]
     },
     {
       "name": "Check Overlaps",
       "steps": [
-        "Set ProcedureName to 'PlacementRequestSupervisorAssigned'",
-        "Add parameter: PRD_ID",
-        "Execute query and check for overlaps"
+        "Set procedure name to PlacementRequestSupervisorAssigned",
+        "Execute reader",
+        "Check for overlaps",
+        "Close reader"
+      ]
+    },
+    {
+      "name": "Add Destination Contact",
+      "steps": [
+        "Set procedure name to PlacementRequestAddDC",
+        "Add necessary parameters",
+        "Execute the query"
       ]
     }
   ],
-  "business_rules": [
-    "StaffType must be 'Precep' for certain operations",
-    "Overwrite and JointStaffID conditions apply if JointStaffID is not 0"
-  ],
+  "business_rules": [],
   "validations": [
-    "Ensure email and phone numbers are correctly formatted",
-    "Check if supervisor overlaps exist"
+    "Check for overlaps in supervisor assignments"
   ],
   "calculations": [
-    "Calculate allocated and total hours",
-    "Use a declining balance algorithm to distribute hours"
+    "Calculate increment and distribute hours without rounding errors"
   ],
-  "conditions": [
-    "JoinStaffID != 0 implies additional parameters for joint staff"
-  ],
+  "conditions": [],
   "system_behavior": [
-    "Interfaces with SQL database to manage staff and placement requests",
-    "Locks and unlocks supervisor records based on action"
+    "Distribute hours using a declining balance algorithm",
+    "Perform SQL operations through specific stored procedures"
   ],
   "dependencies": [
-    "HSPnet.Framework",
-    "HSPnet.App_GlobalResources",
-    "HSPnet.UI"
+    "Relies on HSPnetSession for database operations",
+    "Uses NameFormatter for formatting staff names"
   ],
   "exceptions": [
-    "Handle null SqlDataReader instances",
-    "Warnings for supervisor overlap"
+    "Handle null or empty results during database reads"
   ],
   "source_document_ids": [
     "12aecd2c-e845-5c90-be91-99a9bb5136c5",
@@ -135,7 +113,6 @@
     "b6011844-8a54-5c49-b71d-cbde5db3fc05",
     "ed9f2105-637a-516e-8d04-641cf8ee2943",
     "f137eb64-938f-52cf-9965-e3d8e454bd7b",
-    "f3ea6d11-36b5-5df0-af99-9a99239aef8a",
     "fac95236-fe68-50de-b208-1b9cf3ec4849"
   ],
   "content_gaps": []
