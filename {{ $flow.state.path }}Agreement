@@ -1,0 +1,152 @@
+```json
+{
+  "filename": "Agreement",
+  "found": true,
+  "summary": "The documents primarily focus on the functionality and attributes surrounding the Agreement entity within the system, detailing methods for managing agreements, including searching, updating, deleting, and managing templates and statuses.",
+  "purpose": "To facilitate the management of agreements within a software platform, providing methods for creating, reviewing, updating, and organizing agreements and their templates.",
+  "entities": [
+    "Agreement",
+    "ItemList",
+    "CodeRecord"
+  ],
+  "fields": [
+    "ID",
+    "DescriptionCodeID",
+    "TemplateID",
+    "StatusCodeID",
+    "NextSteps",
+    "SourceIsTemplate",
+    "TemplateUnchanged",
+    "LastUpdated",
+    "LastReview",
+    "NextReview",
+    "ContentUserID1",
+    "ContentUserID2",
+    "ContentUserID3",
+    "StatusChangeText",
+    "AppliedAllDepartments",
+    "AppliedAllPrograms",
+    "AppliedAllSites",
+    "AppliedAllServices",
+    "AppliedAllDestinations",
+    "StatusComments",
+    "PRDID",
+    "Printed",
+    "Deleted",
+    "ExpiryDate",
+    "PRComments",
+    "Ref",
+    "TypeID",
+    "RAPAID",
+    "Type",
+    "AADescription",
+    "AgencyAppliedTo",
+    "SiteAppliedTo",
+    "ProgAppliedTo",
+    "StatusDescription",
+    "IsStatusSubscriber",
+    "AgreementExists",
+    "Inactive",
+    "SiteListing",
+    "OtherSourceDescription",
+    "AppliedAllDepartmentsFormatted",
+    "AppliedAllProgramsFormatted",
+    "AppliedAllSitesFormatted",
+    "AppliedAllServicesFormatted",
+    "AppliedAllDestinationsFormatted",
+    "LastUpdatedFormatted",
+    "LastReviewFormatted",
+    "NextReviewFormatted",
+    "ExpiryDateFormatted",
+    "TemplateNavigateUrl",
+    "TemplateImageUrl",
+    "TemplateToolTip",
+    "HistoryNavigateUrl",
+    "HistoryImageUrl",
+    "HistoryToolTip",
+    "StatusSubscriberImageUrl",
+    "StatusSubscriberToolTip",
+    "btnToggleClientClick",
+    "ShowMinus",
+    "DetailType",
+    "Detail"
+  ],
+  "actors": [
+    "HSPnetSession",
+    "SqlDataReader"
+  ],
+  "workflows": [
+    {
+      "name": "Agreement Search",
+      "steps": [
+        "Initialize parameters for search (sessionID, newFlag, pending, etc.)",
+        "Execute search query using parameters",
+        "Retrieve data and check for agreement existence",
+        "Format and return list of agreements"
+      ]
+    },
+    {
+      "name": "Agreement Update",
+      "steps": [
+        "Initialize update parameters (sessionID, agreementID, nextReview, etc.)",
+        "Execute update procedure",
+        "Return success status"
+      ]
+    },
+    {
+      "name": "Agreement Delete",
+      "steps": [
+        "Initialize delete parameters (ID)",
+        "Execute delete procedure",
+        "Return success status"
+      ]
+    }
+  ],
+  "business_rules": [
+    "Users can edit agreements if they have specific permissions",
+    "Agreements are searchable based on various statuses (new, pending, signed, etc.)",
+    "Expired agreements are highlighted differently"
+  ],
+  "validations": [
+    "Check if agreement exists before updating",
+    "Ensure IDs are valid before proceeding with delete operations"
+  ],
+  "calculations": [
+    "Format dates for display",
+    "Determine visibility of agreement based on status and permissions"
+  ],
+  "conditions": [
+    "AgreementExists = true",
+    "Inactive = false"
+  ],
+  "system_behavior": [
+    "Provides tooltips and icons based on agreement status",
+    "Allows template modification if agreement is not inactive"
+  ],
+  "dependencies": [
+    "Requires database connection for retrieving and updating agreements",
+    "Utilizes external resources for tooltips and images"
+  ],
+  "exceptions": [
+    "Handle null data readers in database processes",
+    "Ensure proper session handling when executing data operations"
+  ],
+  "source_document_ids": [
+    "1ba6c2bc-e058-582c-85e1-da0f1117a1a5",
+    "47f70ad1-b18e-5473-8ebf-54139a777c97",
+    "4d0ef014-7317-5b4c-a4f6-587459047fa7",
+    "5b6a46c1-b06a-50b1-a02a-47ae2ae590b6",
+    "70cf9f1b-b2d9-528b-bb1e-c5103c91e4cb",
+    "869ab082-89f6-570e-95e1-6c4d91e50e5f",
+    "a27a9ba0-0123-5e16-89fb-06298cc5e3c7",
+    "ab02f0fe-64a1-50ae-9817-49e2ea01f820",
+    "af126836-92db-5d5d-85b8-1923b5b2c2b3",
+    "b13ec003-a70a-5232-87ba-00c851d73e6c",
+    "be77c228-d99c-596b-9485-d9da1c6f0f77",
+    "de2a08e8-d6bc-5ab3-9c82-2e440b60d63b",
+    "e6c1f06f-4f8d-5387-9611-c0fc85c6d4a3",
+    "efeb4660-bca5-57e3-b5c9-03c0e3a96fd6"
+  ],
+  "content_gaps": []
+}
+```
