@@ -1,0 +1,129 @@
+{
+  "filename": "Assessments",
+  "found": true,
+  "summary": "The 'Assessments' content appears to describe a web-based assessment management system for placement requests in an organization, involving assessors, subjects, and various assessment types and templates. It includes functionalities such as viewing, editing, adding, and deleting assessments, as well as distributing assessments to users.",
+  "purpose": "The purpose is to manage placement request assessments including their setup, distribution, and validation within a web application. It facilitates the interaction of different actors such as assessors and subjects, and provides a framework for capturing and processing assessment-related data.",
+  "entities": [
+    "PlacementRequestAssessment",
+    "CodeRecord",
+    "AssessmentSection",
+    "AssessmentTemplate",
+    "HSPnetSession",
+    "Grid",
+    "JavaScriptSerializer",
+    "ScriptManager",
+    "FormViewCommandEventArgs",
+    "GridViewRowEventArgs",
+    "AssessmentValidationResult"
+  ],
+  "fields": [
+    "AssessorTypeCodeID",
+    "SubjectTypeCodeID",
+    "AssessmentTypeCodeID",
+    "AssessmentTemplateCodeID",
+    "OpenDaysAfterStart",
+    "CloseDaysAfterEnd",
+    "AssessorCanViewSubjectsAnswers",
+    "SubjectsCanViewAssessorAnswers",
+    "ViewUntilDaysAfterEnd",
+    "OptionAppliedAssessorTypeCodeID",
+    "FurthestStatusCode",
+    "HasAnswers",
+    "LocalDateTime",
+    "DistributionCloseDate",
+    "CreatedByQES",
+    "PlcAgencyID"
+  ],
+  "actors": [
+    "Assessor",
+    "Subject",
+    "UserSession",
+    "SysAdmin",
+    "PlacingUser",
+    "Agency"
+  ],
+  "workflows": [
+    {
+      "name": "EditAssessment",
+      "steps": [
+        "Switch to Edit Mode",
+        "Bind data to form",
+        "Handle form submit"
+      ]
+    },
+    {
+      "name": "AddAssessment",
+      "steps": [
+        "Switch to Add Mode",
+        "Initialize new assessment",
+        "Bind data to form",
+        "Handle form submission"
+      ]
+    },
+    {
+      "name": "DeleteAssessment",
+      "steps": [
+        "Identify assessment to delete",
+        "Remove assessment from records"
+      ]
+    },
+    {
+      "name": "DistributeAssessment",
+      "steps": [
+        "Select assessments to distribute",
+        "Assign to user based on criteria"
+      ]
+    }
+  ],
+  "business_rules": [
+    "Assessors cannot view subject answers if they are students.",
+    "An assessment cannot be edited after the distribution closure grace period.",
+    "Assessments should not exceed a certain maximum set by the agency."
+  ],
+  "validations": [
+    "Ensure interim assessments are followed by final assessments.",
+    "Verify that instructors and supervisors are correctly assigned.",
+    "Check that assessment number does not exceed the maximum limit."
+  ],
+  "calculations": [
+    "Calculate open and close days relative to the placement start and end dates."
+  ],
+  "conditions": [
+    "Assessments cannot be edited if they have been distributed and the grace period has elapsed."
+  ],
+  "system_behavior": [
+    "Disable form elements if an assessment has furthest status code or answers.",
+    "Auto-generate JavaScript variables for client-side logic.",
+    "Ensure asynchronous postbacks are correctly handled with ScriptManager."
+  ],
+  "dependencies": [
+    "JavaScript for client-side interaction.",
+    "ASP.NET Web Forms framework for UI components."
+  ],
+  "exceptions": [
+    "JavaScript errors related to event validation in GridView.",
+    "Data binding errors when retrieving non-existing templates."
+  ],
+  "source_document_ids": [
+    "07ce22d1-66c5-5b31-9bc8-aa1f1f77575f",
+    "3c0508c5-47df-5e32-8aaf-51601cc0c255",
+    "42bbf66d-a119-51e8-8898-524ff5246e2c",
+    "4d9416be-2e62-5c65-bc3b-5ddd3bcb5683",
+    "4e9db10d-fe98-57e0-aa70-1fed5a4949d9",
+    "5068bf5a-84a7-5a5e-8178-04af225fdca1",
+    "542051be-bbdb-5a3b-a42d-4a962e991bab",
+    "62bb41f6-0ff2-50e6-a9d4-797011ac38b9",
+    "6a9b6baf-8840-541b-90ce-9680205031ae",
+    "827f39b7-7353-5990-aa2a-2dd719038432",
+    "87da379c-8ee9-5c7a-a10c-486c95844fb8",
+    "88f2360b-989c-51be-b063-95ced0e47774",
+    "a6235eb7-0735-5323-816c-49bac8dd18c1",
+    "a8f27541-2253-52d5-bc19-673ce0bf21e7",
+    "a90c138a-bc14-518d-8b8d-93479ebaa46a",
+    "b3b30a82-33fd-5291-9858-5c7e6deb3dca",
+    "bc017622-58db-5f94-9b40-580a577366f5",
+    "ce4a408b-bf44-5929-b708-e1c68d340bf2",
+    "ecb628ff-8410-52a8-838a-911f35a32892"
+  ],
+  "content_gaps": []
+}
