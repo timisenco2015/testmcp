@@ -1,0 +1,121 @@
+# Module: CourseAssessment
+
+## CourseAssessment-UC1 — Add Course Assessment
+
+- Primary Actor(s): System
+- Secondary Actor(s): Assessor
+- Trigger: Assessor initiates adding a new course assessment.
+- Description: Adds a new course assessment to the system.
+- Preconditions: User must be authenticated and authorized to add assessments.
+- Postconditions: A new course assessment entry is created in the system.
+- Main Success Scenario:
+  1. Assessor provides necessary assessment details.
+  2. System executes the `CourseAssessmentAdd` procedure with provided parameters.
+  3. System confirms successful addition of the assessment.
+- Extensions:
+  - None
+- Exceptions:
+  - Database connection error.
+  - Missing necessary input parameters.
+- Business Rules:
+  - AssessorTypeCodeID, SubjectTypeCodeID, AssessmentTypeCodeID, AssessmentTemplateCodeID must be valid.
+- Assumptions:
+  - System has a valid connection to the database.
+- Open Issues:
+  - None
+
+## CourseAssessment-UC2 — Update Course Assessment
+
+- Primary Actor(s): System
+- Secondary Actor(s): Assessor
+- Trigger: Assessor initiates updating an existing course assessment.
+- Description: Updates the details of an existing course assessment.
+- Preconditions: The course assessment exists in the system.
+- Postconditions: The course assessment details are updated in the system.
+- Main Success Scenario:
+  1. Assessor provides updated assessment details.
+  2. System executes the `CourseAssessmentUpdate` procedure with provided parameters.
+  3. System confirms successful update of the assessment.
+- Extensions:
+  - None
+- Exceptions:
+  - Database connection error.
+  - Invalid assessment ID.
+- Business Rules:
+  - AssessorTypeCodeID, SubjectTypeCodeID, AssessmentTypeCodeID, AssessmentTemplateCodeID must be valid.
+- Assumptions:
+  - System has a valid connection to the database.
+- Open Issues:
+  - None
+
+## CourseAssessment-UC3 — Search Course Assessment by ID
+
+- Primary Actor(s): System
+- Secondary Actor(s): Assessor
+- Trigger: Assessor searches for a course assessment by ID.
+- Description: Retrieves the details of a course assessment using its ID.
+- Preconditions: The course assessment ID is valid.
+- Postconditions: The details of the course assessment are retrieved.
+- Main Success Scenario:
+  1. Assessor inputs the assessment ID.
+  2. System executes the `CourseAssessmentSearchID` procedure.
+  3. System returns the details of the assessment.
+- Extensions:
+  - None
+- Exceptions:
+  - Database connection error.
+  - Invalid assessment ID.
+- Business Rules:
+  - Assessment ID must exist in the system.
+- Assumptions:
+  - System has a valid connection to the database.
+- Open Issues:
+  - None
+
+## CourseAssessment-UC4 — Delete Course Assessment
+
+- Primary Actor(s): System
+- Secondary Actor(s): Assessor
+- Trigger: Assessor initiates deletion of a course assessment.
+- Description: Deletes an existing course assessment from the system.
+- Preconditions: The course assessment exists in the system.
+- Postconditions: The course assessment is removed from the system.
+- Main Success Scenario:
+  1. Assessor specifies the assessment ID for deletion.
+  2. System executes the `CourseAssessmentDelete` procedure.
+  3. System confirms successful deletion of the assessment.
+- Extensions:
+  - None
+- Exceptions:
+  - Database connection error.
+  - Invalid assessment ID.
+- Business Rules:
+  - Assessment ID must exist in the system.
+- Assumptions:
+  - System has a valid connection to the database.
+- Open Issues:
+  - None
+
+## CourseAssessment-UC5 — Validate Course Assessment
+
+- Primary Actor(s): System
+- Secondary Actor(s): Assessor
+- Trigger: Assessor requests validation of a course assessment.
+- Description: Validates a course assessment for compliance with business rules.
+- Preconditions: The course assessment exists.
+- Postconditions: Validation results are generated.
+- Main Success Scenario:
+  1. Assessor provides the course ID for validation.
+  2. System executes the `CourseAssessmentValidation` procedure.
+  3. System returns the validation results.
+- Extensions:
+  - None
+- Exceptions:
+  - Database connection error.
+  - Invalid course ID.
+- Business Rules:
+  - Validation checks include interim assessments without final and maximum exceeded limits.
+- Assumptions:
+  - System has a valid connection to the database.
+- Open Issues:
+  - None
