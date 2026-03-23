@@ -1,62 +1,63 @@
 {
   "filename": "SiteRecruitmentResources",
   "found": true,
-  "summary": "The SiteRecruitmentResources document provides the implementation details and structure for managing site recruitment resources within a web application. It includes various controls, data binding logic, and user interaction handling mechanisms.",
-  "purpose": "To manage and update recruitment resources for a site within a web application.",
+  "summary": "The SiteRecruitmentResources manage recruitment resources within the HSPnet application, leveraging various UI components and controls for interaction and data handling. It supports functionalities such as viewing, editing, and updating recruitment details.",
+  "purpose": "To provide a user interface for managing site recruitment resources, including displaying details, editing records, and handling recruitment statuses.",
   "entities": [],
   "fields": [
-    "updPnlPopup",
-    "btnShowPopup",
-    "mdlDetails",
-    "ValidationSummary1",
-    "uxDetail",
-    "dsSiteDetail",
-    "updPnlProfile",
-    "fvwProfile",
-    "pnlPopup"
+    {
+      "name": "RecruitmentReferenceNumber",
+      "type": "String",
+      "description": "A unique reference number for the recruitment."
+    },
+    {
+      "name": "RecruitmentClosed",
+      "type": "Boolean",
+      "description": "A status indicating whether the recruitment is closed."
+    },
+    {
+      "name": "SiteID",
+      "type": "Integer",
+      "description": "The unique identifier for the site."
+    },
+    {
+      "name": "WebPage",
+      "type": "String",
+      "description": "The URL or identifier for the webpage related to the recruitment resources."
+    }
   ],
   "actors": [
-    "System.Web.UI.UpdatePanel",
-    "System.Web.UI.WebControls.Button",
-    "AjaxControlToolkit.ModalPopupExtender",
-    "System.Web.UI.WebControls.ValidationSummary",
-    "System.Web.UI.WebControls.FormView",
-    "System.Web.UI.WebControls.ObjectDataSource",
-    "HSPnetSession",
-    "ScriptManager"
+    {
+      "name": "User",
+      "description": "The end user interacting with the SiteRecruitmentResources interface."
+    }
   ],
   "workflows": [
     {
-      "name": "Recruitment Resource Update",
+      "name": "Edit Recruitment",
       "steps": [
-        "Retrieve recruitment reference number and closed status from form.",
-        "Update recruitment resources with session, ID, webpage, reference number, and status.",
-        "Cache the user session and redirect to the maintenance profile page."
-      ]
-    },
-    {
-      "name": "Data Selection",
-      "steps": [
-        "Check if UserSession is null; if so, cancel the operation.",
-        "If UserSession is valid, set input parameters for session and SiteID."
-      ]
-    },
-    {
-      "name": "Edit Command",
-      "steps": [
-        "Change the mode of uxDetail to edit.",
-        "Set the header text for uxDetail.",
-        "Set the default value for site ID and show details in a modal popup."
+        "User clicks on the edit button to modify recruitment details.",
+        "The uxDetail control switches to edit mode.",
+        "The user makes changes to the recruitment reference number or status.",
+        "User saves the changes which are then updated in the database."
       ]
     }
   ],
-  "business_rules": [],
+  "business_rules": [
+    "The recruitment status can only be updated if the user has editing permissions."
+  ],
   "validations": [
-    "User session must be valid to proceed with data selection."
+    "Check if the UserSession is valid before allowing database operations.",
+    "Ensure recruitment reference number is a valid string."
   ],
   "calculations": [],
-  "conditions": [],
-  "system_behavior": [],
+  "conditions": [
+    "If UserSession is null, cancel database selection operations."
+  ],
+  "system_behavior": [
+    "The system updates the recruitment details in the database when saved.",
+    "Pop-up modal for details is displayed using AjaxControlToolkit."
+  ],
   "dependencies": [],
   "exceptions": [],
   "source_document_ids": [
