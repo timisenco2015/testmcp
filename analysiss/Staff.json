@@ -1,0 +1,119 @@
+{
+  "filename": "Staff",
+  "found": true,
+  "summary": "The 'Staff' content details a comprehensive system for managing staff information, including their personal details, roles, permissions, and related workflows within an organization. It focuses on staff roles, department associations, and permissions and procedures for managing staff accounts.",
+  "purpose": "The main purpose of the 'Staff' system is to manage and maintain a detailed record of staff information, roles, permissions, and departmental associations. It aims to streamline the processes related to staff administration, including adding, updating, deactivating, and searching staff records.",
+  "entities": [
+    "Staff",
+    "HSPnetSession"
+  ],
+  "fields": [
+    "ID",
+    "FirstName",
+    "PreferredFirstName",
+    "MiddleName",
+    "LastName",
+    "Email",
+    "SecureEmail",
+    "Phone",
+    "AltPhone",
+    "Fax",
+    "Title",
+    "DepartmentID",
+    "EmployeeNumber",
+    "Address1",
+    "Address2",
+    "City",
+    "Province",
+    "Country",
+    "PostalCode",
+    "DayMonthOfBirth",
+    "RegistrationNumber",
+    "SalutationCodeID",
+    "Designation",
+    "AgencyID"
+  ],
+  "actors": [
+    "SystemAdministrator",
+    "LocalAdministrator",
+    "ReceivingCoordinator",
+    "PlacementCoordinator",
+    "Supervisor",
+    "Instructor",
+    "StaffAdmin",
+    "StaffApplicant",
+    "ITProvisioning"
+  ],
+  "workflows": [
+    {
+      "name": "Staff Search",
+      "steps": [
+        "Add parameters for search criteria",
+        "Execute search procedure",
+        "Retrieve and format results",
+        "Return staff list"
+      ]
+    },
+    {
+      "name": "Staff Update",
+      "steps": [
+        "Check for errors",
+        "Apply business rules",
+        "Update necessary fields",
+        "Execute update procedure",
+        "Check for warnings",
+        "Close database reader"
+      ]
+    }
+  ],
+  "business_rules": [
+    "Staff roles and permissions must be clearly defined.",
+    "All phone numbers must be valid.",
+    "Duplicate entries should be checked before adding staff.",
+    "Staff must belong to a department."
+  ],
+  "validations": [
+    "Ensure phone numbers are valid.",
+    "Check for duplicate staff before adding.",
+    "Verify required fields such as 'LastName' and 'DepartmentID' are not blank."
+  ],
+  "calculations": [
+    "Format phone numbers with area codes.",
+    "Calculate formatted names using preferred names."
+  ],
+  "conditions": [
+    "Check if staff is inactive before deactivation.",
+    "Check if staff role allows certain permissions."
+  ],
+  "system_behavior": [
+    "Allow administrators to manage staff accounts.",
+    "Provide warnings if changes affect username.",
+    "Cache staff profile data for efficiency."
+  ],
+  "dependencies": [
+    "HSPnetSession database operations",
+    "UI NameFormatter for formatting names"
+  ],
+  "exceptions": [
+    "Error messages for invalid phone numbers.",
+    "Warnings for duplicate entries."
+  ],
+  "source_document_ids": [
+    "005ed131-b8d9-5497-bcb9-229a732199c6",
+    "06840fd2-53ef-5f2c-8902-7d5f8ccc9e75",
+    "0783d086-3de0-5486-b0c4-a3c60b89bfc7",
+    "089da517-873f-5a37-9796-486fcf4d5076",
+    "0bb3867d-ba99-5264-a36f-3af1fc74b7b0",
+    "0c04756b-6fc3-5114-9bcc-4119987bd67c",
+    "0da491ef-95fc-587a-80e4-1b02d6b4c45f",
+    "0eb98929-b96c-5ceb-818f-171714210432",
+    "0fb4ac09-4bba-5cca-9533-fb9946b99b7d",
+    "133281d0-1f4e-5dee-a9d4-5495d1e14e9f",
+    "13846eee-673d-57b2-9c9e-1ec226091464",
+    "1771a245-501e-5bd1-bc33-5d049fb6abb6",
+    "19a17c93-dca2-5635-a774-921edcaef050",
+    "1b359fa7-742d-5927-8b47-0d3d8f25b0f5",
+    "1cab6529-f0e8-55fa-9706-8ad70bfebe6e"
+  ],
+  "content_gaps": []
+}
