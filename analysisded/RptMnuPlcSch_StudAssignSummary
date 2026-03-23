@@ -1,0 +1,99 @@
+```json
+{
+  "filename": "RptMnuPlcSch_StudAssignSummary",
+  "found": true,
+  "summary": "RptMnuPlcSch_StudAssignSummary is a user control part of the HSPnet application designed to generate reports on student assignment summaries within various programs and departments.",
+  "purpose": "The purpose of the RptMnuPlcSch_StudAssignSummary is to facilitate the creation and customization of student assignment summary reports based on selected criteria such as campus, department, program, cohort, and preferences for contact and scheduling information.",
+  "entities": [
+    "Student",
+    "Department",
+    "Program",
+    "Cohort",
+    "Campus",
+    "UserSession",
+    "Progs",
+    "PrintJobs"
+  ],
+  "fields": [
+    "chkIncDestAddressComments",
+    "chkShowDestPhone",
+    "chkIncludeStudentContactInfo",
+    "chkIncludeAdvancedStudentContactInfo",
+    "chkIncludeInternalComment",
+    "chkIncludeShiftSchedule",
+    "ddCampus",
+    "radSinglePDFFile",
+    "radIndividualPDFfile",
+    "radPageBreakStudents",
+    "chkShowPreceptor",
+    "chkShowPreceptorPhone",
+    "chkShowDC",
+    "chkShowDCPhone",
+    "ddDepartment",
+    "ddProgram",
+    "ddCohort"
+  ],
+  "actors": [
+    "User",
+    "Supervisor",
+    "Instructor",
+    "Course Leader"
+  ],
+  "workflows": [
+    {
+      "name": "Report Generation",
+      "steps": [
+        "Select Campus from ddCampus dropdown",
+        "Select Department from ddDepartment dropdown",
+        "Select Program from ddProgram dropdown",
+        "Select Cohort from ddCohort dropdown",
+        "Choose report options (PDF type, page breaks, inclusion of contact info)",
+        "Run report via cmdRunReport button"
+      ]
+    }
+  ],
+  "business_rules": [
+    "If UserSession.AllowAllDepartments, list all departments; otherwise list according to User's agency.",
+    "If UserSession.AllowAllPrograms, list all programs; otherwise limit to those within selected department."
+  ],
+  "validations": [
+    "CustomValidator1 and CustomValidator2 for report field validations",
+    "Validate UserSession before performing data source operations"
+  ],
+  "calculations": [
+    "Include conditions to determine if preceptor and contact information should be shown",
+    "Determine whether to include internal comments based on program permissions"
+  ],
+  "conditions": [
+    "Only run report if UserSession is available",
+    "Enable or disable comments based on program permissions and user roles"
+  ],
+  "system_behavior": [
+    "Setup and register JavaScript variables for client-side functionalities",
+    "Populate dropdowns with appropriate options based on UserSession details"
+  ],
+  "dependencies": [
+    "HSPnet.App_GlobalResources",
+    "HSPnet.DataLayer",
+    "HSPnet.UI",
+    "HSPnet.Framework"
+  ],
+  "exceptions": [
+    "Cancel ObjectDataSource operation if UserSession is null"
+  ],
+  "source_document_ids": [
+    "356c1064-9115-56e8-adb5-8c6fe23ae6a7",
+    "3d9cb1a9-3d70-5c0b-9bd9-541016341ba1",
+    "57087af6-f3eb-5354-88f4-1ffa087455d7",
+    "974f558a-3330-593b-9081-438928972c37",
+    "a64c13fa-381e-54e0-b417-464521f8b180",
+    "de5e1343-1da4-5ef1-ab94-f739c03afdd4",
+    "df93da5d-fc37-558b-942c-0368e8c1bddb",
+    "eb5a794a-50ff-5eb9-ae29-3d857af335fc",
+    "f1e24206-327e-552e-9001-346c5779d7db",
+    "f3d88fc0-b3c4-5184-bd9c-7401a953bcf2",
+    "f95ddbc3-e09d-517c-931a-fbb7943deb38"
+  ],
+  "content_gaps": []
+}
+```
