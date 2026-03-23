@@ -1,56 +1,74 @@
 {
   "filename": "ProfileHistory",
   "found": true,
-  "summary": "The ProfileHistory feature in the HSPnet application manages the display and filtering of staff profile records based on different sections. It includes functionalities for selecting different sections such as post-employment education, training, documents, etc., and updating the display accordingly.",
-  "purpose": "The purpose of the ProfileHistory feature is to allow users to view and manage different sections of staff profile records in a structured and filtered manner.",
+  "summary": "The ProfileHistory component is a part of the HSPnet system designed to handle and display staff profile history. It interacts with user sessions, staff data, and provides a user interface for filtering and displaying different sections of staff history.",
+  "purpose": "To manage and display different sections of a staff member's profile history within the HSPnet system.",
   "entities": [],
   "fields": [
-    "pnlButtons",
-    "btnPrintDetails",
-    "lblScreenSection",
-    "ddScreenSection",
-    "Literal2",
-    "gridData",
+    {
+      "name": "pnlButtons",
+      "type": "Panel"
+    },
+    {
+      "name": "btnPrintDetails",
+      "type": "HtmlInputButton"
+    },
+    {
+      "name": "lblScreenSection",
+      "type": "Label"
+    },
+    {
+      "name": "ddScreenSection",
+      "type": "DropDownList"
+    },
+    {
+      "name": "gridData",
+      "type": "GridView"
+    }
+  ],
+  "actors": [
     "UserSession",
     "StaffID",
     "ScreenIsEditable",
     "ScriptMgr",
     "CurrentPage"
   ],
-  "actors": [],
   "workflows": [
     {
-      "name": "Display and Filter Staff Profile",
+      "name": "DataBinding Workflow",
       "steps": [
-        "Initialize UserSession and StaffID.",
-        "Retrieve StaffPRHistoryList based on UserSession and StaffID.",
-        "Check if the screen section (selected item) is null; if so, set to 'ALL'.",
-        "Update lblScreenSection with the section label.",
-        "Clear and repopulate ddScreenSection dropdown with applicable sections.",
-        "Bind filtered data to gridData."
+        "Check if UserSession is not null.",
+        "Create StaffPRHistoryList with UserSession and StaffID.",
+        "Determine the screen section from the selected DropDownList item.",
+        "Set lblScreenSection text with section label.",
+        "Clear DropDownList items.",
+        "Add 'ALL' item to DropDownList.",
+        "Check for existence of data entries and add respective items to DropDownList.",
+        "Set GridData source based on selected screenSection and bind the data."
       ]
     }
   ],
   "business_rules": [
-    "The section dropdown is populated only with available sections based on the user's data.",
-    "The default dropdown value is 'ALL' if no section is selected."
+    "DropDownList ddScreenSection is populated based on available data types."
   ],
-  "validations": [],
+  "validations": [
+    "Check if UserSession is not null before proceeding.",
+    "Validate screenSection value to decide data filtering logic."
+  ],
   "calculations": [],
   "conditions": [
-    "If item is null, screenSection is set to 'ALL'.",
-    "Sections are added to ddScreenSection only if EntryExistsOfType returns true."
+    "If selected screenSection is 'ALL', all data entries are displayed.",
+    "Otherwise, filter data entries by the specified screenSection."
   ],
   "system_behavior": [
-    "Displays staff profile records filtered by selected section.",
-    "Allows printing of details through btnPrintDetails."
+    "Populates user interface elements with relevant data sections based on user selection.",
+    "Ensures interface updates accurately reflect data state."
   ],
   "dependencies": [
     "HSPnetSession",
-    "StaffPRHistoryList",
-    "ScriptManager",
-    "ListItem",
-    "Resources"
+    "HSPnet.DataLayer",
+    "HSPnet.UI",
+    "HSPnet.Framework"
   ],
   "exceptions": [],
   "source_document_ids": [
