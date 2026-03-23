@@ -1,0 +1,169 @@
+{
+    "filename": "CriminalRecordsCheckEditAll",
+    "found": true,
+    "summary": "The CriminalRecordsCheckEditAll is a part of the HSPnet UserControls for Enrollment that handles the display and management of criminal records checks for student enrollments. It involves validation, data binding, and update operations on a web UI grid.",
+    "purpose": "To manage the display, sorting, editing, and saving of criminal records check data for enrollments within a web application, ensuring that the data can be viewed and edited by authorized users.",
+    "entities": [],
+    "fields": [
+        {
+            "name": "ValidationSummary1",
+            "type": "ValidationSummary",
+            "description": "Displays validation errors."
+        },
+        {
+            "name": "gridDataEdit",
+            "type": "GridView",
+            "description": "Displays criminal records check data for editing."
+        },
+        {
+            "name": "dsCRC",
+            "type": "ObjectDataSource",
+            "description": "Data source for criminal records check data."
+        },
+        {
+            "name": "UserSession",
+            "type": "HSPnetSession",
+            "description": "Holds user session data."
+        },
+        {
+            "name": "ScriptMgr",
+            "type": "ScriptManager",
+            "description": "Manages client-side script for Web Forms."
+        },
+        {
+            "name": "CohortID",
+            "type": "int",
+            "description": "Identifier for the cohort."
+        },
+        {
+            "name": "TermID",
+            "type": "int",
+            "description": "Identifier for the term."
+        },
+        {
+            "name": "CourseID",
+            "type": "int",
+            "description": "Identifier for the course."
+        },
+        {
+            "name": "ShowGrad",
+            "type": "Boolean",
+            "description": "Indicates whether to show graduated records."
+        },
+        {
+            "name": "ShowInactive",
+            "type": "Boolean",
+            "description": "Indicates whether to show inactive records."
+        },
+        {
+            "name": "ShowWaived",
+            "type": "Boolean",
+            "description": "Indicates whether to show waived records."
+        },
+        {
+            "name": "SectionFilter",
+            "type": "string",
+            "description": "Filter for section."
+        },
+        {
+            "name": "ActionFilter",
+            "type": "string",
+            "description": "Filter for action."
+        },
+        {
+            "name": "keyword",
+            "type": "string",
+            "description": "Keyword filter."
+        },
+        {
+            "name": "CampusID",
+            "type": "int",
+            "description": "Identifier for the campus."
+        },
+        {
+            "name": "CommentFilter",
+            "type": "string",
+            "description": "Filter for comments."
+        },
+        {
+            "name": "blnReadOnly",
+            "type": "Boolean",
+            "description": "Indicates if the data is read-only."
+        },
+        {
+            "name": "blnStudentMaint",
+            "type": "Boolean",
+            "description": "Indicates if the student maintenance mode is active."
+        },
+        {
+            "name": "EnrollmentID",
+            "type": "int",
+            "description": "Identifier for the enrollment."
+        },
+        {
+            "name": "StartRow",
+            "type": "int",
+            "description": "Starting row for pagination."
+        }
+    ],
+    "actors": [],
+    "workflows": [
+        {
+            "name": "Data Binding and Validation",
+            "steps": [
+                "Bind data to gridDataEdit if not in async postback.",
+                "Register JavaScript variables for client-side use.",
+                "Cancel data source selection if no user session.",
+                "Setup object data source inputs based on session and filters."
+            ]
+        },
+        {
+            "name": "Row Command Execution",
+            "steps": [
+                "Execute command based on command name.",
+                "Update student details for 'cmdSaveAll' and 'cmdSave'.",
+                "Redirect based on command execution and warnings."
+            ]
+        },
+        {
+            "name": "Row Data Binding",
+            "steps": [
+                "Bind dropdown for CRCStatus based on data item.",
+                "Hide buttons based on read-only status and row type."
+            ]
+        }
+    ],
+    "business_rules": [],
+    "validations": [
+        "Ensure UserSession is valid before data operations.",
+        "Grid controls hide save buttons when in add or single edit mode."
+    ],
+    "calculations": [],
+    "conditions": [
+        "Check if EnrollmentID is greater than 0 to set row to edit state.",
+        "Hide buttons based on blnReadOnly and number of rows."
+    ],
+    "system_behavior": [
+        "GridView binds data during asynchronous and non-asynchronous postbacks.",
+        "JavaScript variables are registered based on postback type."
+    ],
+    "dependencies": [
+        "Uses HSPnet session to manage user-specific operations.",
+        "Relies on grid data binding and dropdown data sources."
+    ],
+    "exceptions": [
+        "Data source selection is cancelled if user session is null."
+    ],
+    "source_document_ids": [
+        "03144aa6-93b7-599f-b8e0-5588317ba19b",
+        "48902891-c057-57e5-9068-3b1307b2dffd",
+        "6918cccf-5e9d-514f-b001-797e2af8307f",
+        "b2bd51ac-3047-55c8-af59-4f8eed91961b",
+        "bd4a4fa1-d3ef-5764-b65e-7bf1cb6bbc30",
+        "c5efee46-5e88-55df-947d-7fe86465a805",
+        "d9e68048-669a-5e6a-b9fe-b5fe6ff4416e",
+        "f1a93269-4cd6-5f47-93a1-f9f2e4730224",
+        "f3ce8c3c-3cd0-531b-a85e-f90764dac0e2"
+    ],
+    "content_gaps": []
+}
