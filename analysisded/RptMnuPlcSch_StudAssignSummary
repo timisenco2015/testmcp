@@ -2,17 +2,15 @@
 {
   "filename": "RptMnuPlcSch_StudAssignSummary",
   "found": true,
-  "summary": "RptMnuPlcSch_StudAssignSummary is a user control part of the HSPnet application designed to generate reports on student assignment summaries within various programs and departments.",
-  "purpose": "The purpose of the RptMnuPlcSch_StudAssignSummary is to facilitate the creation and customization of student assignment summary reports based on selected criteria such as campus, department, program, cohort, and preferences for contact and scheduling information.",
+  "summary": "RptMnuPlcSch_StudAssignSummary is a component of the HSPnet application dealing with student assignment summaries within a placement schedule. It includes controls for displaying and modifying information about students, campuses, programs, cohorts, and departments.",
+  "purpose": "The component is designed to generate reports on student placement schedules, including various details such as contact information, shift schedules, and other student-specific data.",
   "entities": [
     "Student",
+    "Preceptor",
     "Department",
     "Program",
     "Cohort",
-    "Campus",
-    "UserSession",
-    "Progs",
-    "PrintJobs"
+    "Campus"
   ],
   "fields": [
     "chkIncDestAddressComments",
@@ -21,65 +19,59 @@
     "chkIncludeAdvancedStudentContactInfo",
     "chkIncludeInternalComment",
     "chkIncludeShiftSchedule",
+    "ddDepartment",
+    "ddProgram",
     "ddCampus",
+    "ddCohort",
     "radSinglePDFFile",
     "radIndividualPDFfile",
     "radPageBreakStudents",
     "chkShowPreceptor",
     "chkShowPreceptorPhone",
     "chkShowDC",
-    "chkShowDCPhone",
-    "ddDepartment",
-    "ddProgram",
-    "ddCohort"
+    "chkShowDCPhone"
   ],
   "actors": [
-    "User",
-    "Supervisor",
-    "Instructor",
-    "Course Leader"
+    "UserSession",
+    "ScriptMgr"
   ],
   "workflows": [
     {
       "name": "Report Generation",
       "steps": [
-        "Select Campus from ddCampus dropdown",
-        "Select Department from ddDepartment dropdown",
-        "Select Program from ddProgram dropdown",
-        "Select Cohort from ddCohort dropdown",
-        "Choose report options (PDF type, page breaks, inclusion of contact info)",
-        "Run report via cmdRunReport button"
+        "Page Load: Initialize controls and load department/program/cohort lists.",
+        "Populate Dropdowns: Fill department, program, and cohort dropdowns based on user session data.",
+        "Check Program Permission: Determine permissions for viewing/editing specific student data.",
+        "Run Report: Generate the report based on selected options, including PDF format, included details, and scheduling data."
       ]
     }
   ],
   "business_rules": [
-    "If UserSession.AllowAllDepartments, list all departments; otherwise list according to User's agency.",
-    "If UserSession.AllowAllPrograms, list all programs; otherwise limit to those within selected department."
+    "Department and program lists are populated based on user session permissions.",
+    "Report must adhere to maximum allowable items as determined by system settings."
   ],
   "validations": [
-    "CustomValidator1 and CustomValidator2 for report field validations",
-    "Validate UserSession before performing data source operations"
+    "CustomValidator1 and CustomValidator2 are used to validate report parameters."
   ],
   "calculations": [
-    "Include conditions to determine if preceptor and contact information should be shown",
-    "Determine whether to include internal comments based on program permissions"
+    "Calculate inclusion of items based on PrintJobs.MAX_INCLUDE_ITEMS."
   ],
   "conditions": [
-    "Only run report if UserSession is available",
-    "Enable or disable comments based on program permissions and user roles"
+    "UserSession must be valid for campus selection.",
+    "Selected program ID must be greater than zero for permission check."
   ],
   "system_behavior": [
-    "Setup and register JavaScript variables for client-side functionalities",
-    "Populate dropdowns with appropriate options based on UserSession details"
+    "JavaScript setup for client-side interaction.",
+    "Dropdowns are dynamically populated based on user session."
   ],
   "dependencies": [
-    "HSPnet.App_GlobalResources",
     "HSPnet.DataLayer",
-    "HSPnet.UI",
-    "HSPnet.Framework"
+    "HSPnet.Framework",
+    "HSPnet.UI"
   ],
   "exceptions": [
-    "Cancel ObjectDataSource operation if UserSession is null"
+    "Report generation fails if maximum items are exceeded.",
+    "Campus data selection is canceled if UserSession is null."
   ],
   "source_document_ids": [
     "356c1064-9115-56e8-adb5-8c6fe23ae6a7",
