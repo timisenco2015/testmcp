@@ -1,10 +1,11 @@
 {
     "filename": "CertificationEditAll",
     "found": true,
-    "summary": "The 'CertificationEditAll' component is a part of the HSPnet system, used to manage and update student certifications in a grid format. It allows for operations such as saving certification details and updating statuses. The component uses various controls for input and display, such as GridView and ObjectDataSource.",
-    "purpose": "To facilitate the management and editing of student certifications within an enrollment system, allowing for batch updates and individual record editing.",
+    "summary": "The CertificationEditAll component is a web-based user control designed to manage the editing of certification records in a system. It provides functionalities to view, edit, and save certification details for students within an enrollment module.",
+    "purpose": "To facilitate the management and editing of student certification details within a larger enrollment system, providing administrative users with tools to update certifications efficiently.",
     "entities": [],
     "fields": [
+        "UserSession",
         "CohortID",
         "TermID",
         "CourseID",
@@ -17,52 +18,60 @@
         "CampusID",
         "CommentFilter",
         "blnReadOnly",
+        "blnStudentMaint",
+        "blnGotoOutbox",
+        "blnGotoGWS",
+        "blnGotoIWS",
+        "CourseLst",
         "CertificationCodeID",
         "EnrollmentID",
         "StartRow"
     ],
     "actors": [
+        "System Administrator",
         "UserSession"
     ],
     "workflows": [
         {
             "name": "Save Certification Details",
             "steps": [
-                "Check if grid rows are dirty.",
-                "Update certification details using StudentDetailsCertificateUpdate.",
-                "Redirect based on error messages."
-            ]
-        },
-        {
-            "name": "Data Selecting",
-            "steps": [
-                "Check UserSession existence.",
-                "Set InputParameters for ObjectDataSource."
+                "Initialize redirect and hasMessage flags",
+                "Iterate through grid rows to check 'isDirty' state",
+                "If 'isDirty', update certification details for the student",
+                "Set redirect flag based on error messages",
+                "If redirect, navigate to Enrollment page with query parameters"
             ]
         }
     ],
-    "business_rules": [],
+    "business_rules": [
+        "If in Add or single Edit mode, hide the Save All button",
+        "If EnrollmentID is zero, make certain header controls invisible based on conditions",
+        "If less than 14 rows, hide Save All and Cancel buttons"
+    ],
     "validations": [
-        "Check if Effective Date is valid.",
-        "Check if Expiry Date is valid.",
-        "Ensure Expiry Date is on or after Effective Date."
+        "Effective Date Invalid",
+        "Expiry Date Invalid",
+        "Expiry Date must be on or after Effective Date"
     ],
     "calculations": [],
     "conditions": [
-        "If EnrollmentID is 0, specific panels are hidden.",
-        "If grid row count is less than grid page size, certain buttons are hidden."
+        "ShowGrad is true or false",
+        "ShowInactive is true or false",
+        "ShowWaived is true or false"
     ],
     "system_behavior": [
-        "Hides buttons conditionally based on user permissions.",
-        "Disables edit fields if read-only flag is set.",
-        "Registers JavaScript variables for client-side validation."
+        "Loads student certifications from the database if not already loaded",
+        "Disables certain user interface elements if blnReadOnly is true",
+        "Binds grid data during data selection"
     ],
     "dependencies": [
-        "HSPnet.UI",
-        "HSPnet.DataLayer"
+        "StudentCertifications.StudentCertificationSearch",
+        "StudentCertifications.StudentDetailsCertificateUpdate",
+        "Grid methods for data retrieval",
+        "UserSession for session-based operations"
     ],
     "exceptions": [
-        "Cancel data retrieval if UserSession is null."
+        "Cancel data loading if UserSession is null"
     ],
     "source_document_ids": [
         "1222fbc3-250e-55b4-b8b4-60d60de320ec",
