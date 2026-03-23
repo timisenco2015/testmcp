@@ -1,63 +1,86 @@
 {
   "filename": "PrfProfile",
   "found": true,
-  "summary": "The 'PrfProfile' is a user control for managing staff profiles in a web application. It includes UI elements for viewing and editing profile details such as work schedule, licensure codes, and personal information. The control uses various components such as FormView, ObjectDataSource, and CascadingDropDowns to handle data display and interaction.",
-  "purpose": "The purpose of 'PrfProfile' is to allow authorized users to view, edit, and manage staff profiles within a web-based platform, providing access to specific details and enabling profile updates while adhering to user permissions.",
+  "summary": "The PrfProfile document is a part of the StaffProfile UserControls, providing a user interface for managing staff profiles, including their work schedules, licensure information, and session management.",
+  "purpose": "To offer a web-based interface for updating and viewing staff profile details, controlling user permissions, and managing licensure-related data.",
   "entities": [],
   "fields": [
-    "workScheduleCodeID",
-    "licensureCodeID",
-    "licensureRestrictionCodeID",
-    "profileNameFormatted",
-    "registrationNumber",
-    "licensureDateFormatted"
+    "uxDetail",
+    "dsWorkSchedule",
+    "dsLicensureCode",
+    "dsLicensureRestrictions",
+    "updPnlMain",
+    "fvwProfile",
+    "dsProfile",
+    "pnlPopup",
+    "updPnlPopup",
+    "btnShowPopup",
+    "mdlDetails",
+    "ValidationSummary1",
+    "CurrentPage",
+    "UserSession",
+    "StaffID",
+    "ScreenIsEditable",
+    "DCOnly",
+    "CLOnly",
+    "ThisIsMe",
+    "homeSiteID",
+    "homeServiceID",
+    "homeDestID",
+    "SubDisciplineID",
+    "cmdEdit",
+    "cmdSave"
   ],
-  "actors": ["UserSession", "Staff"],
+  "actors": [
+    "System.Web.UI.UserControl",
+    "AjaxControlToolkit.CascadingDropDown",
+    "Grid",
+    "DropDownList",
+    "TextBox",
+    "CheckBox",
+    "LinkButton",
+    "HyperLink",
+    "FormViewCommandEventArgs"
+  ],
   "workflows": [
     {
-      "name": "Edit Staff Profile",
+      "name": "Profile Editing",
       "steps": [
-        "Switch to edit mode when edit command is triggered.",
-        "Populate form fields with current staff profile data.",
-        "Allow data entry and validation.",
-        "Save updates and redirect to appropriate page."
+        "User clicks 'Edit' on the profile page.",
+        "Grid switches to edit mode.",
+        "User makes changes and clicks 'Save'.",
+        "Profile updates with changes."
       ]
     },
     {
-      "name": "Select Work Schedule",
+      "name": "Workflow Initialization",
       "steps": [
-        "Provide dropdown to select work schedule.",
-        "Update profile based on user selection."
+        "Load profile data.",
+        "Initialize session and controls.",
+        "Bind data to FormView."
       ]
     }
   ],
   "business_rules": [
-    "Only authorized users can edit profiles.",
-    "Profiles must be viewed using the SessionHash and AgencyID.",
-    "Certain fields are disabled if not editable."
+    "If UserSession is null, data operations are canceled.",
+    "Licensure fields are hidden in DC Lite unless it's the user's own profile.",
+    "Visibility of elements depends on user permissions."
   ],
   "validations": [
-    "Ensure all required fields are filled before saving.",
-    "Validate the licensure date and registration number formats."
+    "ValidationSummary1 control is used for displaying validation messages.",
+    "Input parameters are validated before use in data operations."
   ],
   "calculations": [],
   "conditions": [
-    "If user is a Destination Coordinator and not an Administrator, restrict data access.",
-    "Hide licensure details if not the user's own profile."
+    "if (UserSession == null) { e.Cancel = true; }",
+    "if (Request.QueryString['CanEditProfile'] == '1' && !ThisIsMe) { c.Visible = false; }"
   ],
   "system_behavior": [
-    "Load user session details.",
-    "Disable fields when the profile is not in edit mode.",
-    "Use CascadingDropDowns to maintain logical data relationships."
+    "CascadingDropdowns are replaced or disabled based on user session.",
+    "Licensure and signature fields are dynamically managed based on context."
   ],
-  "dependencies": [
-    "HSPnetSession object for managing user sessions.",
-    "AjaxControlToolkit for handling dropdown and popup behaviors."
-  ],
-  "exceptions": [
-    "Cancel data loading if UserSession is null.",
-    "Prevent profile edits if user lacks proper authorization."
-  ],
+  "dependencies": [],
+  "exceptions": [],
   "source_document_ids": [
     "377929ef-5881-52d7-8eee-df8231a3eb9c",
     "4174bb45-88a5-58d1-8539-106daee11a0c",
