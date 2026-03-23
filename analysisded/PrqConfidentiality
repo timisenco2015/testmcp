@@ -1,79 +1,93 @@
 ```json
 {
-  "filename": "PrqConfidentiality",
-  "found": true,
-  "summary": "The PrqConfidentiality module is a web user control for managing staff confidentiality forms within the HSPnet system. It primarily deals with displaying and modifying confidentiality-related records for staff, utilizing a combination of ASP.NET controls and custom grid functionalities.",
-  "purpose": "To manage, display, and edit staff confidentiality forms and prerequisites in a web interface, ensuring session and user permissions are accounted for.",
-  "entities": [
-    "HSPnetSession",
-    "StaffConsentForm",
-    "StudentPrerequisite",
-    "FormView",
-    "GridView"
-  ],
-  "fields": [
-    "StaffID",
-    "DisplayFPREConf",
-    "Inactive",
-    "Disabled",
-    "ConfOtherScreenIsEditable",
-    "ReadOnly",
-    "CurrentPage"
-  ],
-  "actors": [
-    "System.Web.UI.UserControl",
-    "ScriptManager"
-  ],
-  "workflows": [
-    {
-      "name": "Manage Confidentiality",
-      "steps": [
-        "Display confidentiality data using FormView and GridView.",
-        "Edit or add new confidentiality records when allowed.",
-        "Delete records through command execution.",
-        "Update user session cache after data operations.",
-        "Redirect as necessary for navigation continuity."
-      ]
-    }
-  ],
-  "business_rules": [],
-  "validations": [
-    "Ensure Page.IsValid before inserting or updating.",
-    "Cancel data operations if UserSession is null."
-  ],
-  "calculations": [],
-  "conditions": [
-    "btnSave.Visible is controlled by ScreenIsEditable property.",
-    "GridViewRowType determines action button visibility."
-  ],
-  "system_behavior": [
-    "Switch between add, edit, and view modes based on user actions.",
-    "Control visibility of UI elements depending on user permissions."
-  ],
-  "dependencies": [
-    "HSPnet.DataLayer",
-    "HSPnet.Framework",
-    "AjaxControlToolkit"
-  ],
-  "exceptions": [
-    "Redirect to CurrentPage on operation completion.",
-    "Disable edit fields when user lacks permission."
-  ],
-  "source_document_ids": [
-    "0d4e87ce-2e16-5c73-84e0-09c65d8fc606",
-    "174d9d0f-ce2e-5960-8ae4-9cb7cea2b69c",
-    "394cf0db-34a1-5c0d-8c95-e9a869be8474",
-    "53c676b1-3666-531c-99d8-07286415ae44",
-    "5d945a78-3a22-57dc-b784-12b93fe18fa6",
-    "760bb462-8bc1-5511-b952-66bdb50b8808",
-    "7efb356a-8088-5921-925a-52b238f52a90",
-    "8ccb4372-39b7-5df4-98bf-412d765c1706",
-    "ae311fd0-c1ae-5a84-9986-101a7bf00625",
-    "bd3c9440-fc84-508e-b6cb-264a233ad0b9",
-    "ee41efa9-58a0-5aa3-8b98-4ba6013c1503",
-    "fce69528-fdc6-5f52-a776-71ea295ff9b2",
-    "fdb7707a-363b-572f-8aee-438d2b3c1096"
-  ],
-  "content_gaps": []
+    "filename": "PrqConfidentiality",
+    "found": true,
+    "summary": "The `PrqConfidentiality` class is a web user control for managing staff confidentiality consent forms within the HSPnet system.",
+    "purpose": "To provide an interface for viewing, editing, and managing staff confidentiality consent forms.",
+    "entities": [
+        "PrqConfidentiality",
+        "HSPnetSession",
+        "StudentPrerequisite",
+        "StaffConsentForm"
+    ],
+    "fields": [
+        "UserSession",
+        "StaffID",
+        "ScreenIsEditable",
+        "DisplayFPREConf",
+        "Inactive",
+        "Disabled",
+        "ConfOtherScreenIsEditable",
+        "ReadOnly",
+        "ScriptMgr",
+        "CurrentPage"
+    ],
+    "actors": [
+        "User"
+    ],
+    "workflows": [
+        {
+            "name": "Prerequisites View",
+            "steps": [
+                "Page_PreRender sets visibility of fvwStudentPrerequisites based on DisplayFPREConf.",
+                "dsStudentPrerequisites_Selecting checks UserSession and cancels selection if null.",
+                "fvwStudentPrerequisites_DataBound manages edit button setup."
+            ]
+        },
+        {
+            "name": "Consent Detail Management",
+            "steps": [
+                "uxDetailConsent_PreRender manages visibility and command settings of save button.",
+                "uxDetailConsent_ItemInserting and ItemUpdating cancel operations if page is not valid."
+            ]
+        },
+        {
+            "name": "Confidentiality Others Management",
+            "steps": [
+                "gvwConfOther_RowDataBound sets up edit and delete buttons.",
+                "gvwConfOther_RowCommand handles add, edit, delete commands.",
+                "uxDetailConfOthers_ItemInserting ensures dropdown values are set before inserting."
+            ]
+        }
+    ],
+    "business_rules": [
+        "StudentPrerequisite confidentiality form visibility is tied to data.ConfidentialityForm.",
+        "Consent fields are disabled if Disabled or !ScreenIsEditable."
+    ],
+    "validations": [
+        "Cancel data operations if Page.IsValid is false."
+    ],
+    "calculations": [],
+    "conditions": [
+        "Check if UserSession is null to cancel data operations."
+    ],
+    "system_behavior": [
+        "Redirect to current page after caching user session post-insert/update.",
+        "Disable calendar functionalities if conditions are not met for editing."
+    ],
+    "dependencies": [
+        "HSPnetSession",
+        "Grid",
+        "QueryString",
+        "HSPnet.UI.Calendar",
+        "AjaxControlToolkit"
+    ],
+    "exceptions": [],
+    "source_document_ids": [
+        "0d4e87ce-2e16-5c73-84e0-09c65d8fc606",
+        "174d9d0f-ce2e-5960-8ae4-9cb7cea2b69c",
+        "394cf0db-34a1-5c0d-8c95-e9a869be8474",
+        "53c676b1-3666-531c-99d8-07286415ae44",
+        "5d945a78-3a22-57dc-b784-12b93fe18fa6",
+        "760bb462-8bc1-5511-b952-66bdb50b8808",
+        "7efb356a-8088-5921-925a-52b238f52a90",
+        "8ccb4372-39b7-5df4-98bf-412d765c1706",
+        "ae311fd0-c1ae-5a84-9986-101a7bf00625",
+        "bd3c9440-fc84-508e-b6cb-264a233ad0b9",
+        "ee41efa9-58a0-5aa3-8b98-4ba6013c1503",
+        "fce69528-fdc6-5f52-a776-71ea295ff9b2",
+        "fdb7707a-363b-572f-8aee-438d2b3c1096"
+    ],
+    "content_gaps": []
 }
 ```
