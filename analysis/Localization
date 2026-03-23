@@ -1,57 +1,66 @@
 ```json
 {
-  "filename": "Localization",
-  "found": true,
-  "summary": "The retrieved document describes a class named Localization aimed at providing localization functionalities within a system. It offers methods to translate the text of UI elements, determine the appropriate file type based on locale, and translate date strings for the last login.",
-  "purpose": "The Localization class is designed to manage translations in the system, ensuring that UI elements are displayed in the correct language, file types are appropriately localized, and date strings are accurate according to the user's locale.",
-  "entities": [],
-  "fields": [
-    "UseAltLanguageFields",
-    "fields",
-    "newValues",
-    "FileType",
-    "FileTypeAlt",
-    "LastLogin"
-  ],
-  "actors": ["HSPnetSession"],
-  "workflows": [
-    {
-      "name": "Translate UI Fields",
-      "steps": [
-        "Check if alternative language fields should be used.",
-        "Iterate over UI controls.",
-        "If control is a Literal or Label, update its text using the corresponding new value."
-      ]
-    },
-    {
-      "name": "Localized File Type Determination",
-      "steps": [
-        "Check if alternative language fields should be used.",
-        "Return the appropriate file type string based on the language preference."
-      ]
-    }
-  ],
-  "business_rules": [
-    "The fields and newValues arrays must be of the same size.",
-    "If UseAltLanguageFields is true, the alternative language version should be used."
-  ],
-  "validations": [],
-  "calculations": [],
-  "conditions": [
-    "If fields[i] is not null and newValues[i] is not null, assign text.",
-    "If UseAltLanguageFields is true, use alternative language values."
-  ],
-  "system_behavior": [
-    "Modifies UI element text for localization.",
-    "Determines file type string based on session language preference.",
-    "Translates date strings in the last login information according to locale."
-  ],
-  "dependencies": ["HSPnetSession"],
-  "exceptions": [],
-  "source_document_ids": [
-    "091e1f17-7a04-5c15-84aa-fe3989a1c114",
-    "d455ebdd-4f2d-5324-b3c7-aad9a078d149"
-  ],
-  "content_gaps": []
+    "filename": "Localization",
+    "found": true,
+    "summary": "The document provides functionalities related to localization within the HSPnet framework, primarily focusing on translating field labels, file types, and date-time strings based on language preferences.",
+    "purpose": "The purpose of this document is to implement localization features, allowing for dynamic translation of UI elements and file types based on user language settings.",
+    "entities": [],
+    "fields": [
+        "UseAltLanguageFields",
+        "fields",
+        "newValues",
+        "sess",
+        "FileType",
+        "FileTypeAlt",
+        "LastLogin"
+    ],
+    "actors": [],
+    "workflows": [
+        {
+            "name": "Translate Fields Workflow",
+            "steps": [
+                "Check if alternate language fields are enabled.",
+                "Iterate through the fields and new values.",
+                "Translate labels and literals on screens."
+            ]
+        },
+        {
+            "name": "Translate File Type Workflow",
+            "steps": [
+                "Check session settings for alternate language fields.",
+                "Return the appropriate file type based on language settings."
+            ]
+        },
+        {
+            "name": "Translate Last Login Workflow",
+            "steps": [
+                "Check if alternate language fields are enabled.",
+                "Translate date and month names in the last login string."
+            ]
+        }
+    ],
+    "business_rules": [
+        "Fields and newValues arrays must be of the same size.",
+        "Translation is performed only if UseAltLanguageFields is true."
+    ],
+    "validations": [],
+    "calculations": [],
+    "conditions": [
+        "UseAltLanguageFields is set to true to perform translations."
+    ],
+    "system_behavior": [],
+    "dependencies": [
+        "System.Web.UI.WebControls",
+        "System.Web.UI",
+        "HSPnet.Framework"
+    ],
+    "exceptions": [
+        "Fields or newValues containing null entries will not be translated."
+    ],
+    "source_document_ids": [
+        "091e1f17-7a04-5c15-84aa-fe3989a1c114",
+        "d455ebdd-4f2d-5324-b3c7-aad9a078d149"
+    ],
+    "content_gaps": []
 }
 ```
