@@ -1,0 +1,92 @@
+```json
+{
+  "filename": "EmailRequestContactChange",
+  "found": true,
+  "summary": "The document outlines the structure and behavior of the EmailRequestContactChange page used for sending emails related to contact changes in a system. It includes UI control definitions, validations, and methods for handling email sending operations.",
+  "purpose": "To facilitate sending email requests for contact changes within the HSPnet system, ensuring that necessary validations and proper formatting are applied to emails.",
+  "entities": ["HSPnet", "EmailRequestContactChange"],
+  "fields": [
+    "ltlExistingDC",
+    "ltlSelectedAttachments",
+    "ltlEmailTo",
+    "ltlPhone",
+    "txtEmail",
+    "hdnUserName",
+    "hdnASSD",
+    "hdnDDCName",
+    "txtEmailTo",
+    "txtEmailCc",
+    "txtEmailBcc",
+    "ltlEmailSubject",
+    "txtEmailBody",
+    "txtSignature",
+    "cmdSend",
+    "cmdClose"
+  ],
+  "actors": ["UserSession", "Staff", "Destinations", "Service"],
+  "workflows": [
+    {
+      "name": "Send Email Workflow",
+      "steps": [
+        "Check email validity using validEmail() function.",
+        "Verify recipients using hasEmails() function.",
+        "Prepare email body with placeholders replaced.",
+        "Send email using SendMail method."
+      ]
+    }
+  ],
+  "business_rules": [],
+  "validations": [
+    "Check if email body is empty.",
+    "Validate email addresses using a regular expression.",
+    "Ensure at least one recipient is specified."
+  ],
+  "calculations": [],
+  "conditions": [
+    "ShowTo, ShowCc, and ShowBcc controls visibility based on query parameters.",
+    "Attachments visibility based on AttachURL existence."
+  ],
+  "system_behavior": [
+    "Auto-generate fields for UI controls.",
+    "Use of JavaScript for client-side validation and UI behavior."
+  ],
+  "dependencies": [
+    "HSPnet Framework",
+    "System.Web.UI Controls",
+    "AjaxControlToolkit",
+    "Email sent functionality via UserSession."
+  ],
+  "exceptions": [
+    "Handle null or empty email recipients.",
+    "Alert on invalid email format."
+  ],
+  "source_document_ids": [
+    "00da2927-1cf9-5b2d-9916-87d63acf55c6",
+    "11c780bb-9f04-5b53-a38a-b4be8977a602",
+    "28d3fcfb-445d-502c-9ffe-44fb42fd9913",
+    "2ded6dd3-59bd-5ebb-89f8-20234daaad5b",
+    "31c6b8c0-1270-53b9-b295-980e39d23ff6",
+    "56e920d4-e743-556a-8543-3af1518fe82d",
+    "5b1b3af1-8cfe-58bb-b334-cc5092184997",
+    "62628f40-d7b9-5c5f-a83b-98c323087a6d",
+    "655c4214-d60f-5081-9186-0efa797fe115",
+    "6dd4bf96-f0ce-5b47-ae53-cea067fcd855",
+    "7224a57d-c639-5dcb-9426-08412cfd0ee5",
+    "7a2dc3b1-1451-5408-b0e7-f8b5c1ebee60",
+    "7e889202-141c-590f-8aed-150d32a161ea",
+    "868409ef-7018-5ea4-a160-a98d4aa9c259",
+    "8d491627-78d1-5c7c-a8bf-6902d8a82663",
+    "943561ee-9a7f-560a-9c62-13bec506fd3c",
+    "9586e847-26cb-5081-b86d-eac745262a2b",
+    "980a26f2-be94-595d-9280-62037b7d812d",
+    "bbf94926-95b8-5003-b2f5-3789c65e48ce",
+    "caf9b3b5-1c6c-5b99-926f-f227e109750d",
+    "e298db5f-658f-5fb6-b9f7-a4297d846829",
+    "e44d9918-2199-589e-af3f-9a54d69ed717",
+    "e796c0d4-1b4e-5521-8cf9-a072024aa15a",
+    "fa1764cc-1564-5428-89c6-46fb50366002",
+    "fe3f633e-2dd6-514e-b2e0-9f6dc1b20fe3"
+  ],
+  "content_gaps": []
+}
+```
