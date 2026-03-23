@@ -1,19 +1,53 @@
 {
   "filename": "SiteProfileHistory",
   "found": true,
-  "summary": "The SiteProfileHistory class records history of actions related to site profiles, including changes made by users and their associated details.",
-  "purpose": "To track changes and maintain history of site profiles in HSPnet.",
-  "entities": ["SiteProfileHistory"],
-  "fields": ["ID", "ActionDate", "ScreenSection", "UserAction", "Fields", "Agency", "AgencyName", "LastName", "FirstName", "MiddleName", "ByUserID", "ByOriginalUserID", "ByUserSysAdmin"],
-  "actors": [],
-  "workflows": [],
-  "business_rules": [],
+  "summary": "SiteProfileHistory logs the changes to site profiles, capturing details like action date, involved user, and the type of change made, often used for auditing purposes.",
+  "purpose": "To maintain a history of changes made to site profiles, useful for tracking and auditing within the HSPnet system.",
+  "entities": [
+    "SiteProfileHistory"
+  ],
+  "fields": [
+    "ID",
+    "ActionDate",
+    "ScreenSection",
+    "UserAction",
+    "Fields",
+    "Agency",
+    "AgencyName",
+    "LastName",
+    "FirstName",
+    "MiddleName",
+    "ByUserID"
+  ],
+  "actors": [
+    "HSPnetSession"
+  ],
+  "workflows": [
+    {
+      "name": "Log Site Profile Change",
+      "steps": [
+        "Record action details when a change is made to a site profile.",
+        "Format user details for display."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Ensure that user session data is valid before logging."
+  ],
   "validations": [],
   "calculations": [],
   "conditions": [],
   "system_behavior": [],
-  "dependencies": ["System.Data.SqlClient", "HSPnet.Framework"],
+  "dependencies": [
+    "HSPnet.Framework"
+  ],
   "exceptions": [],
-  "source_document_ids": ["25f89a24-5eda-5a3f-83df-1de69b12b3f1", "26e09292-d304-55c6-94e5-ef3346453c4b", "7ca6b963-9ae9-5cd3-82d5-f30dcb727ae3", "a8f030c6-90b8-53a1-bb8a-3b7ef33b9488", "e806999c-3a39-5720-9b59-303faebc9eb6"],
+  "source_document_ids": [
+    "25f89a24-5eda-5a3f-83df-1de69b12b3f1",
+    "26e09292-d304-55c6-94e5-ef3346453c4b",
+    "7ca6b963-9ae9-5cd3-82d5-f30dcb727ae3",
+    "a8f030c6-90b8-53a1-bb8a-3b7ef33b9488",
+    "e806999c-3a39-5720-9b59-303faebc9eb6"
+  ],
   "content_gaps": []
 }
