@@ -1,0 +1,81 @@
+{
+  "filename": "RptMnuPlcSch_ConfirmLetters",
+  "found": true,
+  "summary": "RptMnuPlcSch_ConfirmLetters is a user control within the HSPnet system designed to manage confirmation letter reports. It includes functionalities to set up user interface controls and execute report generation tasks, integrating various dropdowns and user selections.",
+  "purpose": "The purpose of the RptMnuPlcSch_ConfirmLetters control is to allow users to configure and generate confirmation letter reports within the HSPnet environment. It offers options to include various participant roles and customize report outputs.",
+  "entities": [],
+  "fields": [
+    "ddDepartment",
+    "ddProgram",
+    "ddTerm",
+    "lblCohortsCourses",
+    "ltlDescription",
+    "ltlOptions",
+    "ddSender",
+    "chkIncludeHSPnetUsers",
+    "chkccSupervisor",
+    "chkccCourseLeader",
+    "chkccInstructor",
+    "chkIncludeStudentName",
+    "chkIndividualPDF",
+    "CustomValidator1",
+    "CustomValidator2",
+    "ValidationSummary1"
+  ],
+  "actors": [
+    "User",
+    "UserSession"
+  ],
+  "workflows": [
+    {
+      "name": "Generate Report Workflow",
+      "steps": [
+        "Page Load: Setup labels and validate user session.",
+        "Fill department dropdown based on user session.",
+        "Fill program dropdown based on selected department.",
+        "Fill term dropdown based on selected program.",
+        "User selects report parameters including roles to CC and whether to include student names.",
+        "User clicks 'Run Report' button.",
+        "Report job is created using current selections and session details."
+      ]
+    }
+  ],
+  "business_rules": [
+    "If UserSession allows all departments or programs, populate dropdowns with all available options.",
+    "Restrict dropdown selections based on session permissions."
+  ],
+  "validations": [
+    "CustomValidator1",
+    "CustomValidator2",
+    "Ensure UserSession is active before proceeding with data operations."
+  ],
+  "calculations": [],
+  "conditions": [
+    "UserSession must not be null to proceed with report generation."
+  ],
+  "system_behavior": [
+    "Populate dropdowns depending on user session's permissions and current selections.",
+    "Trigger report generation process when 'Run Report' is clicked."
+  ],
+  "dependencies": [
+    "HSPnetSession",
+    "ScriptManager",
+    "UserControls.ReportMenu"
+  ],
+  "exceptions": [
+    "Cancel data operations if UserSession is null."
+  ],
+  "source_document_ids": [
+    "009a0668-9742-5427-a20b-6d28822e7982",
+    "00d20b48-f79f-51de-a1b9-e5e206645789",
+    "174db628-9924-5054-910a-a6e3f428ba4c",
+    "34146395-be81-54d3-98df-80634f7795dc",
+    "47b96f26-7b43-5701-92fb-65c6b00174c6",
+    "4ce8d9c9-22b7-5714-998c-f66ac06b8bc0",
+    "4ef31d9f-f026-5b03-8915-17367c3b69a6",
+    "85bddf0e-4bcb-5d31-9f28-a56334d2c20d",
+    "bbaf4f11-6d2d-5333-b16b-7e9bbb1d6481",
+    "e5553767-dfbf-59f7-b173-dc4aeba8adcb"
+  ],
+  "content_gaps": []
+}
