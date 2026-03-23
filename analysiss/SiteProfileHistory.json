@@ -1,19 +1,23 @@
 {
     "filename": "SiteProfileHistory",
     "found": true,
-    "summary": "The 'SiteProfileHistory' file includes classes for managing and retrieving site profile history details.",
-    "purpose": "To maintain and access historical changes made to site profiles.",
+    "summary": "SiteProfileHistory and SiteProfileHistories classes handle retrieval and processing of historical profile data for sites.",
+    "purpose": "To manage and provide historical site profile actions and events.",
     "entities": ["SiteProfileHistory", "SiteProfileHistories"],
     "fields": ["ID", "ActionDate", "ScreenSection", "UserAction", "Fields", "Agency", "AgencyName", "LastName", "FirstName", "MiddleName", "Phone", "ByUserID", "ByOriginalUserID", "ByUserSysAdmin"],
     "actors": [],
-    "workflows": [],
+    "workflows": [
+        {
+            "name": "Retrieve Site Profile History",
+            "steps": ["Connect to database", "Execute stored procedure", "Fetch and process results", "Return site profile history"]
+        }
+    ],
     "business_rules": [],
-    "validations": ["Date formatting and validation for user updates."],
-    "calculations": [],
-    "conditions": [],
-    "system_behavior": ["Tracks site profile changes and user actions."],
+    "validations": [],
+    "calculations": ["Format action and agency user details"],
+    "conditions": ["Check if user is a system admin", "Use alternative language if specified"],
+    "system_behavior": ["Fetch site profile history", "Format details for user and action date"],
     "dependencies": [],
     "exceptions": [],
-    "source_document_ids": ["25f89a24-5eda-5a3f-83df-1de69b12b3f1", "26e09292-d304-55c6-94e5-ef3346453c4b", "7ca6b963-9ae9-5cd3-82d5-f30dcb727ae3", "a8f030c6-90b8-53a1-bb8a-3b7ef33b9488", "e806999c-3a39-5720-9b59-303faebc9eb6"],
-    "content_gaps": []
+    "source_document_ids": ["25f89a24-5eda-5a3f-83df-1de69b12b3f1", "26e09292-d304-55c6-94e5-ef3346453c4b", "7ca6b963-9ae9-5cd3-82d5-f30dcb727ae3", "a8f030c6-90b8-53a1-bb8a-3b7ef33b9488", "e806999c-3a39-5720-9b59-303faebc9eb6"]
 }
