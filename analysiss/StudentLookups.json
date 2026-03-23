@@ -1,0 +1,42 @@
+{
+    "filename": "StudentLookups",
+    "found": true,
+    "summary": "This document provides the implementation details of the 'Student Lookups' web service. The service offers functionalities related to fetching original HSPnet IDs for students using certain input parameters.",
+    "purpose": "The purpose of this web service is to provide student lookups specifically for AJAX Toolkit Cascading DropDowns. It helps in retrieving student ID information using various parameters for identification.",
+    "entities": [],
+    "fields": [],
+    "actors": [],
+    "workflows": [
+        {
+            "name": "GetOriginalHSPnetIDs",
+            "steps": [
+                "Accept input parameters: firstName, lastName, altStudentNumber, altAgencyID, sessionHash.",
+                "Retrieve the session ID using sessionHash.",
+                "Check session validity using stored procedure 'SessionIsValid' with sessionID.",
+                "If session is valid, retrieve a list of original HSPnet IDs using student details.",
+                "Serialize the list of student IDs into JSON format and write to response.",
+                "If session is invalid, return an empty JSON array."
+            ]
+        }
+    ],
+    "business_rules": [],
+    "validations": [],
+    "calculations": [],
+    "conditions": [],
+    "system_behavior": [
+        "Uses HSPnet.DataLayer and HSPnet.Framework for database operations.",
+        "Provides a web service for handling AJAX-related student lookup requests."
+    ],
+    "dependencies": [
+        "HSPnetSession.GetSessionIDFromHash",
+        "HSPnetSession.GetDatabase",
+        "Students.OriginalHSPnetIdList"
+    ],
+    "exceptions": [
+        "Returns an empty JSON array if the session is not valid."
+    ],
+    "source_document_ids": [
+        "5318e204-a8be-52b2-81ca-d9eb15ed30d6"
+    ],
+    "content_gaps": []
+}
