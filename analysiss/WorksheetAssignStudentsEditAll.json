@@ -1,0 +1,117 @@
+{
+  "filename": "WorksheetAssignStudentsEditAll",
+  "found": true,
+  "summary": "The WorksheetAssignStudentsEditAll is a web application page designed for assigning students within a worksheet framework. It handles complex assignments using various criteria such as department, program, cohort, term, and course parameters. The page allows for sorting and filtering of assignments and provides functionalities for editing and confirming student assignments.",
+  "purpose": "To facilitate the assignment and editing of student placements across various educational programs and terms.",
+  "entities": [
+    "WorksheetAssignSearchCriteria",
+    "WorksheetAssignedStudent",
+    "WorksheetGroup",
+    "UserSession"
+  ],
+  "fields": [
+    "_groupFlag",
+    "_departmentID",
+    "_programID",
+    "_cohortID",
+    "_termID",
+    "_courseID",
+    "_showConfirmed",
+    "_block",
+    "_assignmentSortOrder",
+    "_sort",
+    "_asc",
+    "_section",
+    "_campusID",
+    "_showPreferences",
+    "_showSitePrerequisites",
+    "_searchCriteria",
+    "_useCFO",
+    "_cfoMode",
+    "_courseUsesBlocks",
+    "_startRow",
+    "_totalCount",
+    "_keyword",
+    "_editFlag"
+  ],
+  "actors": [
+    "UserSession",
+    "Admin/Editor"
+  ],
+  "workflows": [
+    {
+      "name": "ManageStudentAssignments",
+      "steps": [
+        "Page_Load: Set up page and retrieve query parameters",
+        "SearchWorksheetAssignStudents: Search and bind data based on criteria",
+        "gridDataEdit_RowDataBound: Bind row data for assignment editing",
+        "gridDataEdit_RowCommand: Handle commands like saving edits",
+        "SaveWorksheetGroup: Save assignment changes to the database",
+        "Page_PreRender: Process page messages",
+        "Page_UnLoad: Finish session tasks"
+      ]
+    }
+  ],
+  "business_rules": [
+    "Assignments can be confirmed or edited based on the current session's permissions.",
+    "Sorting and filtering are available based on various assignment parameters.",
+    "Session variables determine display configurations and sorting order."
+  ],
+  "validations": [
+    "Ensure UserSession is valid before proceeding with data operations.",
+    "Validate query string parameters before using them."
+  ],
+  "calculations": [
+    "Determine start row and page size based on data count and edit mode.",
+    "Calculate pagination based on total count and page size."
+  ],
+  "conditions": [
+    "Display panels based on session variables and user actions.",
+    "Handle different assignment sort orders like ASSD, StartDate, etc.",
+    "Determine visibility of blocks based on course settings."
+  ],
+  "system_behavior": [
+    "Loads JavaScript required for assignment functionality.",
+    "Handles asynchronous updates and maintains session integrity."
+  ],
+  "dependencies": [
+    "SessionConstants",
+    "WorksheetGroups",
+    "Resources",
+    "HSPnet framework and components"
+  ],
+  "exceptions": [
+    "Handle missing or invalid session scenarios.",
+    "Provide warnings and errors for data integrity issues."
+  ],
+  "source_document_ids": [
+    "0fd56451-7a7a-514b-8562-e05661f7da8b",
+    "13d624f6-8a1e-51c2-b61b-8bdefb1a25f7",
+    "189cc445-802a-52d1-a779-e23c56c98841",
+    "24a07949-e064-510a-9c4a-b4ab97b84a13",
+    "3332ab47-aa05-5a62-a96e-01d828e95ba0",
+    "335d5584-8fb5-5cf7-9eac-a9c7565713e6",
+    "4129de3d-73f9-5442-a1b5-14207df2dfc1",
+    "41680f7e-3423-5c75-ace0-6e48b911401d",
+    "531f0772-39a4-52a4-864f-97a6a4197163",
+    "5a633baa-c86b-5f26-8e57-26d2a5a3493d",
+    "60806c46-224d-540d-8bb9-23676b57cfa4",
+    "66798cb0-95e7-53f5-9544-41b524b4440b",
+    "684c52dd-5527-5cc8-b1cf-88936baa0acd",
+    "69a505b9-2d46-54f5-932e-9e23fe54f5f2",
+    "741c2cd0-01d0-5ce1-914f-d6e555276f70",
+    "875b4446-0fca-5db0-98c9-8b00a0e8f792",
+    "965409db-88cb-595b-8b25-7d471a50e74e",
+    "99fc0f70-794d-5412-8c97-d48ce9e14de6",
+    "a1c2d02d-fa39-56cb-9473-c03642e35899",
+    "b222b1b8-9d1f-59c4-9e56-7298cdf7b75d",
+    "b700274f-8afc-5f76-b869-ec6732a91c11",
+    "b70e8a1d-c7fc-50df-b502-3126efd048ee",
+    "c90023bf-c61d-58d4-bbf4-f9d7bb90e808",
+    "ce511939-c097-5c34-bdbc-7511c4ab29a9",
+    "d6f69159-0e37-527f-a2a2-8b7432379c61",
+    "dc3da06c-ac1b-5a30-992d-76bc7ffd6816",
+    "ed2812d5-f552-5fea-a01f-26bfc90f279f"
+  ],
+  "content_gaps": []
+}
