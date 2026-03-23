@@ -1,32 +1,65 @@
 {
     "filename": "SiteProfileHistory",
     "found": true,
-    "summary": "Defines the SiteProfileHistory class and methods for retrieving site profile history.",
-    "purpose": "To manage historical records associated with site profiles.",
-    "entities": [],
+    "summary": "SiteProfileHistory manages records of changes and actions associated with site profiles, providing detailed user and action history.",
+    "purpose": "To track and store historical changes made to site profiles, including user actions and associated details.",
+    "entities": [
+        {
+            "name": "SiteProfileHistory",
+            "attributes": [
+                "ID",
+                "ActionDate",
+                "ScreenSection",
+                "UserAction",
+                "Fields",
+                "Agency",
+                "AgencyName",
+                "LastName",
+                "FirstName",
+                "MiddleName",
+                "Phone",
+                "ByUserID",
+                "ByOriginalUserID",
+                "ByUserSysAdmin"
+            ]
+        }
+    ],
     "fields": [
-        {"name": "ID", "type": "int"},
-        {"name": "ActionDate", "type": "DateTime"},
-        {"name": "ScreenSection", "type": "string"},
-        {"name": "UserAction", "type": "string"},
-        {"name": "Fields", "type": "string"},
-        {"name": "Agency", "type": "string"},
-        {"name": "AgencyName", "type": "string"},
-        {"name": "LastName", "type": "string"},
-        {"name": "FirstName", "type": "string"},
-        {"name": "MiddleName", "type": "string"},
-        {"name": "Phone", "type": "Phone"},
-        {"name": "ByUserID", "type": "int"},
-        {"name": "ByOriginalUserID", "type": "int"},
-        {"name": "ByUserSysAdmin", "type": "bool"}
+        "ID",
+        "ActionDate",
+        "ScreenSection",
+        "UserAction",
+        "Fields",
+        "Agency",
+        "AgencyName",
+        "LastName",
+        "FirstName",
+        "MiddleName",
+        "Phone"
     ],
     "actors": [],
-    "workflows": [],
+    "workflows": [
+        {
+            "name": "Site Profile History Retrieval",
+            "steps": [
+                "Query database for historical records based on SiteID and SessionAgencyID.",
+                "Fill list with retrieved records and return to caller."
+            ]
+        }
+    ],
     "business_rules": [],
     "validations": [],
     "calculations": [],
-    "conditions": [],
-    "system_behavior": [],
+    "conditions": [
+        {
+            "name": "User Action Filtering",
+            "description": "Use alternate language fields if session indicates alternate language usage."
+        }
+    ],
+    "system_behavior": [
+        "Retrieves and formats site profile history records.",
+        "Provides detailed formatting for user actions and agency details."
+    ],
     "dependencies": [],
     "exceptions": [],
     "source_document_ids": [
