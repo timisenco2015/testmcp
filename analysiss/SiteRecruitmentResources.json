@@ -1,0 +1,60 @@
+{
+  "filename": "SiteRecruitmentResources",
+  "found": true,
+  "summary": "The SiteRecruitmentResources module is part of the HSPnet system, primarily handling recruitment resource data for sites. It involves user control elements for viewing and editing recruitment data.",
+  "purpose": "To manage recruitment resources for sites including viewing, editing, and updating recruitment details.",
+  "entities": [],
+  "fields": [
+    "recruitmentRefNo",
+    "recruitmentClosed"
+  ],
+  "actors": [
+    "UserSession"
+  ],
+  "workflows": [
+    {
+      "name": "Edit Recruitment Resource",
+      "steps": [
+        {
+          "action": "User clicks edit",
+          "result": "uxDetail changes to edit mode"
+        },
+        {
+          "action": "User updates fields",
+          "result": "Fields are populated with new values"
+        },
+        {
+          "action": "User saves changes",
+          "result": "SiteRecruitmentResources are updated"
+        }
+      ]
+    }
+  ],
+  "business_rules": [
+    "Session must be active for operations to proceed."
+  ],
+  "validations": [],
+  "calculations": [],
+  "conditions": [
+    "If user session is null, operation is canceled."
+  ],
+  "system_behavior": [
+    "Updates user session cache on non-cancel command",
+    "Redirects to recruitment page if changes are made"
+  ],
+  "dependencies": [
+    "Grid utility",
+    "User control elements",
+    "Session management"
+  ],
+  "exceptions": [
+    "Operation is canceled if UserSession is null during data selection"
+  ],
+  "source_document_ids": [
+    "2d4e39aa-3711-5891-9efb-c1e9d0379093",
+    "456dd6b9-b89b-5a65-b681-2aa917a399a8",
+    "a61db9ae-f959-5975-ac27-4e818c75be32",
+    "cb4e80a6-37e6-5555-bfe5-d164c8ef5f87"
+  ],
+  "content_gaps": []
+}
