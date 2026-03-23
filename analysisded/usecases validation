@@ -1,142 +1,110 @@
 # Module: validation
 
-## validation-UC1 — Numeric Validation
+## validation-UC1 — Validate Numeric Input
 
-- Primary Actor(s): User
-- Secondary Actor(s): System
-- Trigger: User inputs a value where numeric verification is required.
-- Description: Ensures that a given input string contains only numeric characters.
+- Primary Actor(s): System
+- Secondary Actor(s): None
+- Trigger: User inputs data that needs numeric validation.
+- Description: The system validates if the input data consists only of numeric characters.
 - Preconditions: Input data is provided by the user.
-- Postconditions: Returns true if the data is numeric; otherwise, false.
+- Postconditions: Returns true if the data is numeric, false otherwise.
 - Main Success Scenario:
-  1. User inputs a value.
-  2. System iterates through each character of the input.
+  1. User inputs data.
+  2. System checks each character in the data.
   3. System confirms all characters are numeric.
-- Extensions:
-  - None
-- Exceptions:
-  - Non-numeric characters are present in the input.
-- Business Rules:
-  - Only characters '0' to '9' are valid.
-- Assumptions:
-  - Input is a string.
-- Open Issues:
-  - None
+- Extensions: None
+- Exceptions: Input contains non-numeric characters.
+- Business Rules: Valid numeric characters include "0123456789".
+- Assumptions: Input data is a string.
+- Open Issues: None
 
-## validation-UC2 — Email Validation
+## validation-UC2 — Validate Email Format
 
-- Primary Actor(s): User
-- Secondary Actor(s): System
+- Primary Actor(s): System
+- Secondary Actor(s): None
 - Trigger: User inputs an email address.
-- Description: Validates the format of an email address.
-- Preconditions: Input email is provided by the user.
-- Postconditions: Returns true if the email is valid; otherwise, false.
+- Description: The system validates if the email format is correct without illegal characters.
+- Preconditions: Input email address is provided by the user.
+- Postconditions: Returns true if the email format is valid, false otherwise.
 - Main Success Scenario:
-  1. User inputs an email address.
-  2. System checks the email against regular expressions for validity.
-  3. System ensures no illegal characters are present.
-- Extensions:
-  - None
-- Exceptions:
-  - Email does not match the valid pattern.
-- Business Rules:
-  - Email must contain '@' and a domain.
-  - No illegal characters as defined in specification.
-- Assumptions:
-  - Email is in string format.
-- Open Issues:
-  - None
+  1. User inputs email address.
+  2. System checks the format against an email regex.
+  3. System checks for illegal characters.
+- Extensions: None
+- Exceptions: Email does not match the regex or contains illegal characters.
+- Business Rules: Email must match the pattern /^.+@.+\..{2,3}$/ and not contain specific illegal characters.
+- Assumptions: Input data is a string.
+- Open Issues: None
 
-## validation-UC3 — Digit and Letter Validation
+## validation-UC3 — Validate Alphanumeric Combination
 
-- Primary Actor(s): User
-- Secondary Actor(s): System
-- Trigger: User inputs a string requiring alphanumeric verification.
-- Description: Ensures that a string contains at least one digit and one letter.
-- Preconditions: Input string is provided by the user.
-- Postconditions: Returns true if the string contains both a digit and a letter; otherwise, false.
+- Primary Actor(s): System
+- Secondary Actor(s): None
+- Trigger: User inputs data expected to contain both digits and letters.
+- Description: The system checks if the input contains at least one digit and one letter.
+- Preconditions: Input data is provided by the user.
+- Postconditions: Returns true if both a digit and a letter are present, false otherwise.
 - Main Success Scenario:
-  1. User inputs a string.
-  2. System checks each character for digits and letters.
-  3. System confirms presence of at least one digit and one letter.
-- Extensions:
-  - None
-- Exceptions:
-  - String lacks either a digit or a letter.
-- Business Rules:
-  - Input must contain at least one digit and one alphabetic character.
-- Assumptions:
-  - Input is a non-empty string.
-- Open Issues:
-  - None
+  1. User inputs data.
+  2. System checks for the presence of digits.
+  3. System checks for the presence of letters.
+- Extensions: None
+- Exceptions: Input does not contain a digit or a letter.
+- Business Rules: None
+- Assumptions: Input data is a string.
+- Open Issues: None
 
-## validation-UC4 — Phone Number Validation
+## validation-UC4 — Validate Phone Number
 
-- Primary Actor(s): User
-- Secondary Actor(s): System
+- Primary Actor(s): System
+- Secondary Actor(s): None
 - Trigger: User inputs a phone number.
-- Description: Validates the format of a phone number.
-- Preconditions: Phone number is provided by the user.
-- Postconditions: Returns true if the phone number is valid; otherwise, false.
+- Description: The system validates if the phone number format is correct based on length and numeric characters.
+- Preconditions: Input phone number is provided by the user.
+- Postconditions: Returns true if the phone number is valid, false otherwise.
 - Main Success Scenario:
-  1. User inputs a phone number.
-  2. System checks if the input is numeric.
-  3. System verifies correct length and format.
-- Extensions:
-  - For 7-digit numbers: Input should be entirely numeric.
-  - For 8-digit numbers: Input should follow the pattern: 3 digits, non-numeric separator, 4 digits.
-- Exceptions:
-  - Invalid phone number format.
-- Business Rules:
-  - 7-digit and certain 8-digit formats are acceptable.
-- Assumptions:
-  - Phone number is a string.
-- Open Issues:
-  - None
+  1. User inputs phone number.
+  2. System checks length and numeric values.
+  3. System confirms valid phone number structure.
+- Extensions: 8-digit phone numbers with a specific format are supported.
+- Exceptions: Phone number does not meet format or length criteria.
+- Business Rules: 7-digit numbers must be fully numeric; 8-digit numbers must have a specific format.
+- Assumptions: Input data is a string.
+- Open Issues: None
 
-## validation-UC5 — Date Validation
+## validation-UC5 — Validate Date Format
 
-- Primary Actor(s): User
-- Secondary Actor(s): System
+- Primary Actor(s): System
+- Secondary Actor(s): None
 - Trigger: User inputs a date.
-- Description: Validates the format and logical consistency of a date.
-- Preconditions: Date is provided by the user.
-- Postconditions: Returns true if the date is valid; otherwise, false.
+- Description: The system validates if the date format is correct, including month, day, and year checks.
+- Preconditions: Input date is provided by the user.
+- Postconditions: Returns true if the date is valid according to set rules, false otherwise.
 - Main Success Scenario:
-  1. User inputs a date.
-  2. System verifies format, including spaces and slashes.
-  3. System checks month abbreviation and logical day/year configuration.
-- Extensions:
-  - Leap year considerations for February.
-- Exceptions:
-  - Invalid date format or logical inconsistencies.
-- Business Rules:
-  - Valid months must be represented in three-letter abbreviations.
-  - Leap year rules apply.
-- Assumptions:
-  - Input is close to the expected date format.
-- Open Issues:
-  - None
+  1. User inputs date.
+  2. System checks for valid month.
+  3. System checks day and year.
+  4. System uses leap year calculations if needed.
+- Extensions: None
+- Exceptions: Date does not match expected format or criteria.
+- Business Rules: Accepts format "MMM DD/YY" with specific month abbreviations.
+- Assumptions: Input data is a string.
+- Open Issues: None
 
-## validation-UC6 — Date Parsing
+## validation-UC6 — Parse Date
 
-- Primary Actor(s): User
-- Secondary Actor(s): System
-- Trigger: User inputs a date.
-- Description: Parses a date into a standardized format.
-- Preconditions: Date is provided by the user in an acceptable format.
-- Postconditions: Returns a parsed date object or zero if parsing fails.
+- Primary Actor(s): System
+- Secondary Actor(s): None
+- Trigger: User inputs a date to be parsed.
+- Description: The system parses the input date into a timestamp.
+- Preconditions: Valid date is provided.
+- Postconditions: Returns the parsed timestamp or 0 if unsuccessful.
 - Main Success Scenario:
-  1. User inputs a date string.
-  2. System verifies format including separators.
-  3. System converts date into a standard format.
-- Extensions:
-  - Handling of two-digit year to full year conversion.
-- Exceptions:
-  - Incorrectly formatted input results in zero.
-- Business Rules:
-  - Date must include a month abbreviation and a year.
-- Assumptions:
-  - Input is a string containing a date.
-- Open Issues:
-  - None
+  1. User inputs date.
+  2. System adjusts year for century.
+  3. System parses date and returns a timestamp.
+- Extensions: None
+- Exceptions: Date parsing fails.
+- Business Rules: Properly formats year based on the last two digits.
+- Assumptions: Input data is a string.
+- Open Issues: None
