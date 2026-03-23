@@ -1,124 +1,107 @@
 {
-  "filename": "MaintUserStudent",
-  "found": true,
-  "summary": "The document details the functionalities and controls associated with maintaining student user accounts in the HSPnet system. It includes operations for creating, updating, and managing user information, including password changes and email notifications.",
-  "purpose": "The purpose of the MaintUserStudent document is to manage user accounts for students, including creation, modification, validation, and communication processes within the HSPnet system.",
-  "entities": [],
-  "fields": [
-    "UserName",
-    "Email",
-    "active",
-    "NewPassword",
-    "ConfirmPassword",
-    "uxSupportComment",
-    "uxLastLoginDate"
-  ],
-  "actors": [
-    "UserSession",
-    "Students",
-    "Users",
-    "Program",
-    "Department",
-    "SsoSetting",
-    "_user"
-  ],
-  "workflows": [
-    {
-      "name": "Create Student User",
-      "steps": [
-        "Check for duplicate user",
-        "Generate new password",
-        "Add student user",
-        "Send email notification if applicable"
-      ]
-    },
-    {
-      "name": "Update Student User",
-      "steps": [
-        "Check for duplicate user",
-        "Update student user information",
-        "Send email notification on change if applicable"
-      ]
-    },
-    {
-      "name": "Change Password",
-      "steps": [
-        "Display change password panel",
-        "Validate new password",
-        "Apply new password",
-        "Send notification if applicable"
-      ]
-    },
-    {
-      "name": "User Support Comment",
-      "steps": [
-        "Display support comment panel",
-        "Update support comment",
-        "Save changes"
-      ]
-    }
-  ],
-  "business_rules": [
-    "User creation requires uniqueness of username",
-    "Email notification depends on system settings and user session"
-  ],
-  "validations": [
-    "Email format validation using regular expression",
-    "Required fields validation for UserName and Email",
-    "Password complexity validation (letters, digits, symbols)",
-    "Password confirmation match validation"
-  ],
-  "calculations": [],
-  "conditions": [
-    "User is considered active if checkbox 'active' is checked",
-    "Changes are saved only if validations pass"
-  ],
-  "system_behavior": [
-    "The system sends emails using predefined templates",
-    "Changes are reflected after user session validation",
-    "Visual elements such as error and warning panels can be toggled"
-  ],
-  "dependencies": [
-    "HSPnet.DataLayer namespace for accessing student data",
-    "HSPnet.App_GlobalResources for resources and localization",
-    "AjaxControlToolkit for UI control enhancements"
-  ],
-  "exceptions": [
-    "Error message is displayed if user creation or update fails due to existing username",
-    "Notification failure is recorded if email sending fails"
-  ],
-  "source_document_ids": [
-    "13904179-d5bb-55e5-9d43-9fef1611b632",
-    "224f728f-3ae6-53bd-b95b-01fd101bdfe1",
-    "30248b28-9842-5c89-8b64-3e674d6908b9",
-    "43c702a2-3d68-5b86-bf4e-3b5087b0afb3",
-    "5703b7da-43af-5893-846b-e32538180b65",
-    "5957d5d4-983a-57ee-a317-833304ff5c89",
-    "68609d13-6af5-530c-b2e7-3ac55c05f4e9",
-    "6ab17ca5-55da-57e8-b68d-a8bcc7df2b7d",
-    "74297a68-a5ad-5989-8278-2c4ea6854d4e",
-    "75e090f0-fb15-5a38-8bb0-e856f0bd000e",
-    "76c063a8-5dba-5343-bf19-bb2cd62eb6c7",
-    "813fa68a-f310-5f73-8487-82c5cb9a1874",
-    "8537e2d2-0388-5db7-b7e9-c952d685194c",
-    "8730c522-94d1-5f0b-b214-752f0edf9dd2",
-    "8a03c14f-bd98-5852-b4c2-b42e98c359ee",
-    "8c115e6a-464e-5023-bdcc-2dfa2763abbc",
-    "902a156f-44f3-5957-a786-d35501fed86a",
-    "918a1d06-0e67-57c3-9221-76e0919b2dac",
-    "929bdb04-c9a4-5945-9958-bca0be11ffe4",
-    "92d59647-893b-5737-8171-30314019c75a",
-    "9fb37fe8-1b5f-50fd-971e-e10bacb82beb",
-    "a569e5b8-f252-5b51-a590-f0bc568e0edd",
-    "a5e5d162-977e-5f05-857b-cc82559fbc3a",
-    "b0d6eaeb-35e2-53f4-adea-8ff6ba87316d",
-    "b9e9ac5e-f783-56bc-b49a-ee38077e1465",
-    "bde62aab-a9ef-56ae-9cad-6d2dca2510ca",
-    "bf971e77-15db-5db1-aab6-671964188ab3",
-    "c02ec1e6-1f43-554c-8e20-5335f7f28cbe",
-    "cc86480f-4063-5d24-8d97-deaeedc50020",
-    "d3874c34-5b8e-5715-b795-989c80025c4c",
-    "efb41c90-de10-5643-8d0c-5d250fc6b860"
-  ],
-  "content_gaps": []
+    "filename": "MaintUserStudent",
+    "found": true,
+    "summary": "The 'MaintUserStudent' document provides a detailed account management system for student users, including functionalities for creating, updating, and managing student user accounts within the HSPnet framework.",
+    "purpose": "To manage student user accounts, including creation, password management, SSO integration, and support mechanisms.",
+    "entities": ["User", "Student", "UserSession", "Program", "Department", "SsoSetting"],
+    "fields": [
+        "UserName",
+        "Email",
+        "active",
+        "NewPassword",
+        "ConfirmPassword",
+        "uxSupportComment",
+        "uxSupportCommentDate"
+    ],
+    "actors": ["UserSession", "SystemAdministrator", "FirstStudent"],
+    "workflows": [
+        {
+            "name": "User Account Creation",
+            "steps": [
+                "Check if user ID already exists.",
+                "Generate new password.",
+                "If SSO is enabled, configure SSO settings.",
+                "Add student user with provided details.",
+                "Send email notification upon successful creation."
+            ]
+        },
+        {
+            "name": "User Account Update",
+            "steps": [
+                "Verify existing user details.",
+                "Update student user information.",
+                "Issue warnings based on SSO configuration."
+            ]
+        },
+        {
+            "name": "Password Change",
+            "steps": [
+                "Display change password form.",
+                "Validate password strength.",
+                "Save new password upon confirmation."
+            ]
+        }
+    ],
+    "business_rules": [
+        "Ensure email follows specified validation expressions.",
+        "User creation and update must check for duplicates.",
+        "Passwords must meet strength criteria including length, numeric, and symbolic characters."
+    ],
+    "validations": [
+        "Email validation using RegularExpressionValidator.",
+        "RequiredFieldValidator for mandatory fields such as Email, UserName, and Password.",
+        "Password strength validation using ajaxToolkit:PasswordStrength."
+    ],
+    "calculations": [],
+    "conditions": [
+        "If UserId is 0, treat as new user creation.",
+        "SSO settings determine if email notifications are issued."
+    ],
+    "system_behavior": [
+        "Display error or warning panels based on user actions.",
+        "Enable or disable account features based on user status and administrative permissions."
+    ],
+    "dependencies": [
+        "HSPnet.Framework",
+        "HSPnet.DataLayer",
+        "AjaxControlToolkit"
+    ],
+    "exceptions": [
+        "Handle email sending failures during account creation.",
+        "Warn when modifying SSO configured users without necessary SSO identifiers."
+    ],
+    "source_document_ids": [
+        "13904179-d5bb-55e5-9d43-9fef1611b632",
+        "224f728f-3ae6-53bd-b95b-01fd101bdfe1",
+        "30248b28-9842-5c89-8b64-3e674d6908b9",
+        "43c702a2-3d68-5b86-bf4e-3b5087b0afb3",
+        "5703b7da-43af-5893-846b-e32538180b65",
+        "5957d5d4-983a-57ee-a317-833304ff5c89",
+        "68609d13-6af5-530c-b2e7-3ac55c05f4e9",
+        "6ab17ca5-55da-57e8-b68d-a8bcc7df2b7d",
+        "74297a68-a5ad-5989-8278-2c4ea6854d4e",
+        "75e090f0-fb15-5a38-8bb0-e856f0bd000e",
+        "76c063a8-5dba-5343-bf19-bb2cd62eb6c7",
+        "813fa68a-f310-5f73-8487-82c5cb9a1874",
+        "8537e2d2-0388-5db7-b7e9-c952d685194c",
+        "8730c522-94d1-5f0b-b214-752f0edf9dd2",
+        "8a03c14f-bd98-5852-b4c2-b42e98c359ee",
+        "8c115e6a-464e-5023-bdcc-2dfa2763abbc",
+        "902a156f-44f3-5957-a786-d35501fed86a",
+        "918a1d06-0e67-57c3-9221-76e0919b2dac",
+        "929bdb04-c9a4-5945-9958-bca0be11ffe4",
+        "92d59647-893b-5737-8171-30314019c75a",
+        "9fb37fe8-1b5f-50fd-971e-e10bacb82beb",
+        "a569e5b8-f252-5b51-a590-f0bc568e0edd",
+        "a5e5d162-977e-5f05-857b-cc82559fbc3a",
+        "b0d6eaeb-35e2-53f4-adea-8ff6ba87316d",
+        "b9e9ac5e-f783-56bc-b49a-ee38077e1465",
+        "bde62aab-a9ef-56ae-9cad-6d2dca2510ca",
+        "bf971e77-15db-5db1-aab6-671964188ab3",
+        "c02ec1e6-1f43-554c-8e20-5335f7f28cbe",
+        "cc86480f-4063-5d24-8d97-deaeedc50020",
+        "d3874c34-5b8e-5715-b795-989c80025c4c",
+        "efb41c90-de10-5643-8d0c-5d250fc6b860"
+    ],
+    "content_gaps": []
 }
