@@ -1,0 +1,61 @@
+{
+  "filename": "TotalYearType",
+  "found": true,
+  "summary": "The TotalYearType is a programmatic utility class primarily used for handling and organizing `TotalYearData`, representing various year-based data configurations. It includes methods for generating lists of year data, identifying terms based on dates, and managing term indices.",
+  "purpose": "The purpose of the TotalYearType is to manage various lists and configurations of year-related data, provide mechanisms to identify current and next terms, and support other year-based operations in an application context.",
+  "entities": [],
+  "fields": [
+    {
+      "name": "Code",
+      "description": "A string representing the code of TotalYearData.",
+      "type": "string"
+    },
+    {
+      "name": "Value",
+      "description": "A string representing the value associated with the code of TotalYearData.",
+      "type": "string"
+    }
+  ],
+  "actors": [],
+  "workflows": [
+    {
+      "name": "DetermineCurrentAndNextTerms",
+      "steps": [
+        "Check today's date.",
+        "Compare the date against predefined period ranges for Winter, SpringSummer, Fall terms.",
+        "Return the current term index based on the matching period."
+      ]
+    },
+    {
+      "name": "GenerateTotalYearLists",
+      "steps": [
+        "Check session language settings.",
+        "Generate a list of TotalYearData with codes and values based on the session setting.",
+        "Return the list."
+      ]
+    }
+  ],
+  "business_rules": [],
+  "validations": [],
+  "calculations": [],
+  "conditions": [
+    "If today's date is between January 1st and April 30th, the term is Winter.",
+    "If today's date is between May 1st and August 31st, the term is SpringSummer.",
+    "If today's date is between September 1st and December 31st, the term is Fall."
+  ],
+  "system_behavior": [
+    "TotalYearType class manages year-related data configurations and term determinations.",
+    "Provides utility methods to generate lists of year data based on current settings."
+  ],
+  "dependencies": [],
+  "exceptions": [],
+  "source_document_ids": [
+    "0ce7ca58-db52-5d4f-8a1e-39ab85a8d0e1",
+    "0e5b73ea-da3b-561c-b2e0-b429209c85a7",
+    "c28e3fc1-af93-57bc-8519-4d8c020770bc",
+    "d9cfdde7-002e-5b05-86fc-a399645b823e",
+    "ef83b823-c3fd-5dda-bf6d-daa0cbe0e26d",
+    "f7b3bad1-91f7-56aa-95c5-abfda83180a8"
+  ],
+  "content_gaps": []
+}
