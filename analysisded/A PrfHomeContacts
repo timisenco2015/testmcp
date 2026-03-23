@@ -1,0 +1,75 @@
+```json
+{
+  "filename": "PrfHomeContacts",
+  "found": true,
+  "summary": "The PrfHomeContacts component is a user control within the HSPnet system designed to handle staff profile home contact information. It provides functionalities for viewing, editing, and validating home contact details such as phone numbers, addresses, and other related fields.",
+  "purpose": "The component manages the display and editing of home contact information for staff profiles within the HSPnet system, including functionalities for data binding, rendering, validation, and user session management.",
+  "entities": [
+    "PrfHomeContacts",
+    "HSPnetSession",
+    "Grid",
+    "Phone"
+  ],
+  "fields": [
+    "fvwEditHomeContacts",
+    "mdlDetails",
+    "ValidationSummary3",
+    "dsStaff",
+    "AreaCode",
+    "CurrentPage",
+    "ScreenIsEditable"
+  ],
+  "actors": [
+    "UserSession"
+  ],
+  "workflows": [
+    {
+      "name": "Edit Home Contacts",
+      "steps": [
+        "Switch to edit mode",
+        "Show details in modal",
+        "Bind data",
+        "Toggle save button visibility based on editable state"
+      ]
+    },
+    {
+      "name": "Remove Phone Mask",
+      "steps": [
+        "Check UserSession for phone mask usage",
+        "Remove phone mask from phone number fields if not used",
+        "Setup JavaScript with relevant variables"
+      ]
+    }
+  ],
+  "business_rules": [
+    "Phone validation depends on UserSession setting",
+    "Visibility of edit/save controls based on ScreenIsEditable"
+  ],
+  "validations": [
+    "Ensure phone numbers format using JavaScript masking",
+    "Validate fields during form view updates"
+  ],
+  "calculations": [],
+  "conditions": [
+    "ScreenIsEditable determines button visibility",
+    "UserSession existence for data source operations"
+  ],
+  "system_behavior": [
+    "Bind data when switching modes",
+    "Manage JavaScript variables for client-side usage",
+    "Redirect after updating contact information"
+  ],
+  "dependencies": [],
+  "exceptions": [
+    "Cancel data source operations if UserSession is null"
+  ],
+  "source_document_ids": [
+    "169e42e3-a079-5bc4-8262-b3fcec116405",
+    "6d884025-0d5a-56f9-a8ba-ac4f3ee288e1",
+    "82a46566-dafc-5110-8250-43643e741a28",
+    "9bd9c665-faa3-59cd-84ec-bc758083d4b0",
+    "f57a5d86-0ad7-5057-b87f-75763f1cc336"
+  ],
+  "content_gaps": []
+}
+```
