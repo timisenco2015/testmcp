@@ -1,19 +1,18 @@
 {
   "filename": "ClearData",
   "found": true,
-  "summary": "The document is a VBScript ASP page that aims to display or process a screen identified by the name \"ClearData\".",
-  "purpose": "To serve or process the screen 'ClearData' using the DoScreen ASP resource.",
+  "summary": "The ClearData file contains server-side VBScript code that sets various HTTP response properties such as buffering and expiration. It defines a screen name variable and includes an external ASP file for additional processing.",
+  "purpose": "To set up and manage HTTP response properties and process the ClearData screen using additional logic from an included ASP file.",
   "entities": [],
   "fields": ["strScreenName"],
   "actors": [],
   "workflows": [
     {
-      "name": "Display or process ClearData screen",
+      "name": "ClearData Screen Processing",
       "steps": [
-        "Set VBScript language and disable session state.",
-        "Set response buffer to true and expire immediately.",
-        "Declare and set strScreenName variable to 'ClearData'.",
-        "Include and execute the DoScreen ASP file."
+        "Set response buffering and expiration properties.",
+        "Assign 'ClearData' to a screen name variable.",
+        "Include external ASP logic for further processing."
       ]
     }
   ],
@@ -22,13 +21,13 @@
   "calculations": [],
   "conditions": [],
   "system_behavior": [
-    "The script sets HTTP response behaviors like buffering and expiration.",
-    "It uses the DoScreen ASP file for further processing or display."
+    "The system sets the response to buffer and prevents caching by setting expiration to -1.",
+    "Utilizes the 'strScreenName' variable in subsequent scripts or processes."
   ],
-  "dependencies": [
-    "DoScreen.asp"
-  ],
+  "dependencies": [],
   "exceptions": [],
-  "source_document_ids": ["23a8e3f4-4949-56f0-a8cc-5efb270eaa69"],
+  "source_document_ids": [
+    "23a8e3f4-4949-56f0-a8cc-5efb270eaa69"
+  ],
   "content_gaps": []
 }
