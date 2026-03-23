@@ -1,1 +1,78 @@
-ewogICJmaWxlbmFtZSI6ICJTdGFmZlByb2ZpbGUiLAogICJmb3VuZCI6IGZhbHNlLAogICJzdW1tYXJ5IjogIiIsCiAgInB1cnBvc2UiOiAiIiwKICAiZW50aXRpZXMiOiBbXSwKICAiZmllbGRzIjogW10sCiAgImFjdG9ycyI6IFtdLAogICJ3b3JrZmxvd3MiOiBbXSwKICAiYnVzaW5lc3NfcnVsZXMiOiBbXSwKICAidmFsaWRhdGlvbnMiOiBbXSwKICAiY2FsY3VsYXRpb25zIjogW10sCiAgImNvbmRpdGlvbnMiOiBbXSwKICAic3lzdGVtX2JlaGF2aW9yIjogW10sCiAgImRlcGVuZGVuY2llcyI6IFtdLAogICJleGNlcHRpb25zIjogW10sCiAgInNvdXJjZV9kb2N1bWVudF9pZHMiOiBbXSwKICAiY29udGVudF9nYXBzIjogWyJObyByZWxhdGVkIGRvY3VtZW50cyBmb3VuZCJdCn0=
+{
+    "filename": "StaffProfile",
+    "found": true,
+    "summary": "The StaffProfile module is responsible for managing and updating staff profiles, including their licensure information, restrictions, comments, and existence checks for various staff attributes.",
+    "purpose": "To maintain and manage comprehensive profiles for staff, ensuring that all relevant information is accurately recorded and updated.",
+    "entities": [],
+    "fields": [
+        "ID", "StaffID", "WorkScheduleCodeID", "LastUpdated", "HomeSiteID", "HomeServiceID", "HomeDestinationID", "DisciplineID", "LicensureCodeID", "LicensureDate", "LicensureRestrictionCodeID", "RestrictionNotes", "RegistrationNumber", "Comments", "ProfileExists", "EducationPreExists", "EducationPostExists", "PlacementsExists", "HomeContactsExists", "ConsentExists", "CertificationExists", "SafetyExists", "InfectionExists", "ImmunizationExists", "PortfolioExists", "OrientationExists", "EOrientationExists", "AllowEOrientation", "DocumentsExists", "TrainingExists", "RequirementsExists", "StaffMessagesExists", "RecognitionExists", "RAITProvisionExists", "LicensureDateFormatted", "CommentsFormatted"
+    ],
+    "actors": [
+        "HSPnetSession", "StaffProfile"
+    ],
+    "workflows": [
+        {
+            "name": "Update Staff Profile",
+            "steps": [
+                "Initialize StaffProfile object",
+                "Set session database procedure name to 'StaffProfileUpdate'",
+                "Add session ID parameter",
+                "Add StaffID parameter",
+                "Add WorkScheduleCodeID parameter",
+                "Add HomeSiteID parameter",
+                "Add HomeServiceID parameter",
+                "Add HomeDestinationID parameter",
+                "Add DisciplineID parameter",
+                "Add LicensureCodeID parameter",
+                "Add LicensureDate parameter",
+                "Add LicensureRestrictionCodeID parameter",
+                "Add RestrictionNotes parameter",
+                "Add RegistrationNumber parameter",
+                "Execute query"
+            ]
+        },
+        {
+            "name": "Search Profile Sections",
+            "steps": [
+                "Initialize StaffProfile object",
+                "Set session database procedure name to 'StaffSearchProfileSections'",
+                "Add StaffID parameter",
+                "Add SessionID parameter",
+                "Execute data retrieval query",
+                "Read data",
+                "Populate StaffProfile attributes",
+                "Close data reader",
+                "Return profile entry"
+            ]
+        },
+        {
+            "name": "Update Expertise Comments",
+            "steps": [
+                "Set session database procedure name to 'StaffExpertiseUpdateComment'",
+                "Add SessionID parameter",
+                "Add StaffID parameter",
+                "Add Comments parameter",
+                "Execute query"
+            ]
+        }
+    ],
+    "business_rules": [],
+    "validations": [],
+    "calculations": [],
+    "conditions": [],
+    "system_behavior": [
+        "The system uses SQL procedures to manage staff profiles and related data updates.",
+        "Boolean checks are performed to determine the existence of staff profile attributes."
+    ],
+    "dependencies": [],
+    "exceptions": [],
+    "source_document_ids": [
+        "30332a7e-830e-5e71-af1b-87c52d115e44",
+        "539058fe-c9c1-58ae-976d-2935668dcf43",
+        "8715975e-d448-5924-a523-10ef663f76e8",
+        "95e1bfcf-879a-56bb-8c4e-a8d112b91ebd",
+        "a010c9b6-fe97-5b26-9af2-4e96a18882e0",
+        "bbd39b44-ca1a-57a4-beb7-ec4eab3d934f"
+    ],
+    "content_gaps": []
+}
