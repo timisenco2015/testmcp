@@ -1,0 +1,81 @@
+{
+  "filename": "StudentProfileHistory",
+  "found": true,
+  "summary": "The StudentProfileHistory manages the history of student profiles, differentiating between cohort and non-cohort views. It involves database operations to retrieve and display profile history entries. It includes UI components for managing and displaying profile sections, and controls for user interactions such as refreshing views and handling errors.",
+  "purpose": "The purpose of the StudentProfileHistory is to maintain and display the history of changes made to student profiles, with functionalities for user interaction and administrative controls.",
+  "entities": [],
+  "fields": [
+    "ActionDate",
+    "ScreenSection",
+    "ScreenSectionUntranslated",
+    "UserAction",
+    "Fields",
+    "Agency",
+    "AgencyName",
+    "LastName",
+    "FirstName",
+    "MiddleName",
+    "Phone",
+    "StudentUser",
+    "TimetableID",
+    "ByUserID",
+    "ByOriginalUserID",
+    "ByUserSysAdmin"
+  ],
+  "actors": [],
+  "workflows": [
+    {
+      "name": "Student Profile Loading",
+      "steps": [
+        "Initialize the page and setup for the StudentProfileHistory.",
+        "Check the cohort history flag and adjust the UI accordingly.",
+        "Retrieve student details using StudentID.",
+        "Bind data to UI components for display."
+      ]
+    }
+  ],
+  "business_rules": [
+    "If HR Information tab is visible, show all entries; otherwise, show all entries except HR."
+  ],
+  "validations": [],
+  "calculations": [],
+  "conditions": [
+    "CohortHistory determines if only enrollment entries are shown.",
+    "ScreenSection selection determines which entries are displayed."
+  ],
+  "system_behavior": [
+    "Form submission and button click events trigger data refresh and specific actions.",
+    "UI components visually hide or show sections based on conditions."
+  ],
+  "dependencies": [],
+  "exceptions": [],
+  "source_document_ids": [
+    "00a748ca-1c82-5ded-8892-163aaea8c680",
+    "1f845a9e-7f7a-51b9-b55e-74d3f01d96ad",
+    "24d9562e-9da1-5a5c-9033-d8fc96552bf7",
+    "33e313f7-4ae5-5e2f-ac36-3e850128749b",
+    "49ae1269-eff1-5b07-89b7-350079255dc6",
+    "585e0e0b-d27d-510b-bf9d-f7e6970b9c7e",
+    "5b8a29ca-bdde-562b-89f0-498d7fd4d3f5",
+    "5e7b47b4-c74f-59d1-8efc-f8b7ee942d64",
+    "679e01c5-eb5c-58e0-a406-8db753cd95c5",
+    "761d0849-c77c-5c36-a24f-2230f7acff53",
+    "7ec3e76e-499d-5059-afac-a6cb54dc8c67",
+    "86c54dfd-b73c-5c51-801d-93452b316bc0",
+    "8730f230-a1b0-5fc1-8326-f4153223c1f2",
+    "9512ff85-dd41-578f-8e8d-c48cdac4e586",
+    "a6f73f26-8870-5d8a-b67f-96e1544442fb",
+    "a75f5936-8b5d-568b-8abf-365f339435ab",
+    "aebc1002-3332-58af-ac5d-4ecc8ec016dd",
+    "b735ccd5-d652-582e-982d-82a55c53c34b",
+    "bf441800-6e7d-5da1-a443-241d4719337a",
+    "c2fc2bc7-3b33-5c16-b550-e332b0b82839",
+    "c9a4c2d2-368d-5142-b7fa-f4402057bc9d",
+    "cbd33bb2-73b6-5d75-bbb0-8ba89f2fb457",
+    "ccd2c10e-29ee-5cec-bc8b-ff177b8d121f",
+    "d8425419-c112-5483-82f4-224df1fa80bc",
+    "f86a19bd-acf2-50c0-8b34-f2e88b878170",
+    "fa2debb5-07f5-5b93-be63-863700d8155a"
+  ],
+  "content_gaps": []
+}
