@@ -1,0 +1,75 @@
+```json
+{
+  "filename": "StudentPreCertifications",
+  "found": true,
+  "summary": "The StudentPreCertifications system is a web-based user interface dealing with student certification processes. It uses various controls like panels, update panels, buttons, and grids to facilitate tasks such as inserting, updating, and deleting student certification records.",
+  "purpose": "To manage student certification records, including inserting, updating, and deleting certifications through a web interface.",
+  "entities": ["StudentCertification", "UserSession", "CertificationCodeID", "StatusCodeID", "ScriptManager"],
+  "fields": ["pnlPopup", "updPnlPopup", "btnShowPopup", "mdlDetails", "ValidationSummary1", "uxDetail", "dsStudentCertification", "dsStdCertifications", "dsStatus", "dsExpiryDate", "gridData"],
+  "actors": ["GridViewCommandEventArgs", "FormViewInsertEventArgs", "FormViewUpdateEventArgs", "ObjectDataSourceSelectingEventArgs", "ObjectDataSourceMethodEventArgs"],
+  "workflows": [
+    {
+      "name": "Row Command",
+      "steps": [
+        "Switch based on command name (cmdAdd, cmdEdit, cmdDelete)",
+        "Change mode of uxDetail to Insert or Edit",
+        "Show details using modal popup"
+      ]
+    },
+    {
+      "name": "Data Binding",
+      "steps": [
+        "Select using dsStudentCertifications_Selecting",
+        "Bind data to gridData_RowDataBound",
+        "Process no data message using gridData_DataBound"
+      ]
+    },
+    {
+      "name": "Inserting and Updating",
+      "steps": [
+        "Handle uxDetail_ItemInserting and uxDetail_ItemUpdating events",
+        "Use values from dropdown lists for CertificationCodeID and StatusCodeID",
+        "Redirect after inserting or updating"
+      ]
+    }
+  ],
+  "business_rules": [
+    "Auto-generated fields must be moved from designer file to code-behind file prior to modification.",
+    "Only show Disclosed Registration ID when ITProvisioning is true."
+  ],
+  "validations": [
+    "Ensure page validity before insert or update operations.",
+    "Cancel operation if page is not valid."
+  ],
+  "calculations": [
+    "Calculate MaxDate using current date + Max_Future_Years.",
+    "Select values through Dropdown.SelectValue using CertificationCodeID and StatusCodeID."
+  ],
+  "conditions": [
+    "Anonymous users have restricted access for certain functions.",
+    "Conditions to show/hide registration code based on ITProvisioning."
+  ],
+  "system_behavior": [
+    "Handle JavaScript setups based on async or client postbacks.",
+    "Handle data binding and visibility based on user permissions."
+  ],
+  "dependencies": [
+    "HSPnet.App_GlobalResources",
+    "HSPnet.DataLayer",
+    "HSPnet.UI"
+  ],
+  "exceptions": [],
+  "source_document_ids": [
+    "1c096ee0-30c7-5ade-8080-86ff9953b982",
+    "4de42f24-da61-5d24-806a-6189d1372af2",
+    "660fbdae-94f0-550f-8327-309a329a996e",
+    "8bcbad5d-7fad-535a-b1db-5074da0d0458",
+    "a377d73c-22d6-5d64-9144-d6c7367e9437",
+    "ac79af56-4f34-5c4f-83a7-2faaffcf8961",
+    "de0024ce-a9b7-5bb6-a782-9bb66f3a7aa2",
+    "eadd81d1-5894-569a-a084-0e0fd290bab4",
+    "ed016384-d421-58fb-b1dd-bd16bf463fff"
+  ],
+  "content_gaps": []
+}
+```
