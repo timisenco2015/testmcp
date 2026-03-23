@@ -2,8 +2,8 @@
 {
   "filename": "TimetableRotation",
   "found": true,
-  "summary": "The system deals with a class called TimetableRotation, which handles operations related to timetable data, such as adding, updating, deleting, and fetching timetable rotations based on various parameters and criteria.",
-  "purpose": "The purpose of the TimetableRotation system is to manage timetable entries and rotations, providing functionalities to retrieve and manipulate these data entries within specified constraints and conditions.",
+  "summary": "The retrieved content describes operations and attributes related to the management of timetable rotations in an educational system.",
+  "purpose": "To manage and maintain timetable rotations, including adding, updating, and validating entries within the system.",
   "entities": [
     "TimetableRotation",
     "HSPnetSession"
@@ -33,56 +33,73 @@
     {
       "name": "GetByTimetableID",
       "steps": [
-        "Set procedure name to TimetableRotationSearch",
-        "Add TimetableID as a parameter",
-        "Fetch data using GetData",
-        "Fill list with data",
-        "Close data reader"
+        "Set procedure name to 'TimetableRotationSearch'.",
+        "Add 'TimetableID' parameter.",
+        "Retrieve data using SqlDataReader.",
+        "Fill list with retrieved data."
+      ]
+    },
+    {
+      "name": "GetHeaderByTimetableID",
+      "steps": [
+        "Set procedure name to 'TimetableRotationHeader'.",
+        "Add 'TimetableID' parameter.",
+        "Retrieve and process data using SqlDataReader."
       ]
     },
     {
       "name": "Add TimetableRotation",
       "steps": [
-        "Validate entry with IsValid",
-        "Set procedure name to TimetableRotationAdd",
-        "Add parameters: TimetableID, StartDate, EndDate",
-        "Execute query"
+        "Validate entry using IsValid.",
+        "Set procedure name to 'TimetableRotationAdd'.",
+        "Add necessary parameters.",
+        "Execute query to add rotation."
+      ]
+    },
+    {
+      "name": "Update TimetableRotation",
+      "steps": [
+        "Check if ID is non-zero and entry is valid.",
+        "Set procedure name to 'TimetableRotationUpdate'.",
+        "Add necessary parameters.",
+        "Execute query to update rotation."
       ]
     },
     {
       "name": "Delete TimetableRotation",
       "steps": [
-        "Check if ID is not zero",
-        "Set procedure name to TimetableRotationDelete",
-        "Add ID as a parameter",
-        "Execute query"
+        "Check if ID is non-zero.",
+        "Set procedure name to 'TimetableRotationDelete'.",
+        "Add 'ID' parameter.",
+        "Execute query to delete rotation."
       ]
     }
   ],
-  "business_rules": [],
+  "business_rules": [
+    "Timetable is validated to ensure start and end dates are within course duration.",
+    "Dates should not be null."
+  ],
   "validations": [
-    "StartDate must not be null",
-    "EndDate must not be null",
-    "StartDate must not be after EndDate",
-    "StartDate and EndDate must fall within timetable range"
+    "Start and end dates cannot be null.",
+    "Start date must be before end date.",
+    "Dates must be within timetable range."
   ],
   "calculations": [
-    "StartDateFormatted using FormatDateShort",
-    "EndDateFormatted using FormatDateShort"
+    "Date formatted for display using UI.DateFormatter."
   ],
   "conditions": [
-    "Dates not before and not after timetable range"
+    "Start date > End date",
+    "Start or end date not within timetable range"
   ],
   "system_behavior": [
-    "Construct and manipulate TimetableRotation objects",
-    "Integrate with HSPnet framework for database operations",
-    "Use formatted dates for display"
+    "Add, update, and delete operations for timetable rotations."
   ],
   "dependencies": [
-    "HSPnet.Framework",
-    "System.Data.SqlClient"
+    "Uses HSPnetSession for database operations."
   ],
-  "exceptions": [],
+  "exceptions": [
+    "Error messages shown if validation fails."
+  ],
   "source_document_ids": [
     "46fb1ff1-1d43-5e8f-a9c1-4001efe45eaf",
     "90c7c9c6-9236-54ea-b377-83447ca97722",
