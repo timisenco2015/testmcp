@@ -1,19 +1,60 @@
 {
-        "filename": "MaintCourseDetailsCompetency",
-        "found": false,
-        "summary": "",
-        "purpose": "",
-        "entities": [],
-        "fields": [],
-        "actors": [],
-        "workflows": [],
-        "business_rules": [],
-        "validations": [],
-        "calculations": [],
-        "conditions": [],
-        "system_behavior": [],
-        "dependencies": [],
-        "exceptions": [],
-        "source_document_ids": [],
-        "content_gaps": ["No related documents found"]
+  "filename": "MaintCourseDetailsCompetency",
+  "found": true,
+  "summary": "The MaintCourseDetailsCompetency file contains code related to managing course competencies within a web application. It includes user interface elements such as a grid view and pop-up panels for displaying and editing competencies.",
+  "purpose": "To facilitate the management and editing of course competencies within the web application.",
+  "entities": ["MaintCourseDetailsCompetency", "HSPnetSession", "CourseCompetency"],
+  "fields": [
+    "updPnlCompetency",
+    "gvwCompetency",
+    "pnlPopup",
+    "updPnlPopup",
+    "btnShowPopup",
+    "mdlDetails",
+    "gvwCompetencyEdit",
+    "dsCompetency"
+  ],
+  "actors": ["User"],
+  "workflows": [
+    {
+      "name": "Competency Management",
+      "steps": [
+        "Display competency list in grid view.",
+        "Edit competencies via pop-up.",
+        "Save changes to competencies."
+      ]
     }
+  ],
+  "business_rules": [
+    "Data binding for the competencies is dependent on a valid user session and course ID."
+  ],
+  "validations": [
+    "Ensure user session is available before data operations.",
+    "Hide the 'Edit All' button if the screen is not editable."
+  ],
+  "calculations": [
+    "Update competencies based on user input and save to the database."
+  ],
+  "conditions": [
+    "ScreenIsEditable determines visibility of editing options."
+  ],
+  "system_behavior": [
+    "Utilizes UpdatePanel for asynchronous updates.",
+    "Uses QueryString for passing parameters between pages."
+  ],
+  "dependencies": [
+    "AjaxControlToolkit for modal pop-ups.",
+    "HSPnet.Framework for query string manipulation."
+  ],
+  "exceptions": [
+    "Cancel data operations if user session is null."
+  ],
+  "source_document_ids": [
+    "30da0bad-a34e-52f2-9a53-62ed0414c4bf",
+    "458078bf-ab35-5785-a4a7-9754754243dc",
+    "51182d66-8706-5cdc-a381-47a0cd5d10ee",
+    "61861f73-9373-5f5b-bc46-f839651ee5d2",
+    "ed62da10-cafd-5ccc-a3b6-83f28a00f0c7"
+  ],
+  "content_gaps": []
+}
