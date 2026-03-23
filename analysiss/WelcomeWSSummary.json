@@ -1,19 +1,101 @@
 {
     "filename": "WelcomeWSSummary",
-    "found": false,
-    "summary": "",
-    "purpose": "",
-    "entities": [],
-    "fields": [],
-    "actors": [],
-    "workflows": [],
-    "business_rules": [],
-    "validations": [],
+    "found": true,
+    "summary": "The WelcomeWSSummary page is a component of the HSPnet system that serves as a summary or overview page for worksheets related to specific statuses like Group Worksheet (GWS), Individual Worksheet (IWS), and Student Enrollment (STUENROL). The page includes functionalities for displaying error and warning messages, navigating to various worksheets using buttons, and executing commands based on user interactions with the interface components.",
+    "purpose": "The purpose of the WelcomeWSSummary page is to provide a user interface for accessing and interacting with various worksheet summaries and functionalities within the HSPnet system, effectively managing user sessions and page navigation.",
+    "entities": [
+        "HSPnetPage",
+        "UserSession",
+        "QueryString",
+        "Resources"
+    ],
+    "fields": [
+        "lblTitle",
+        "AlwaysVisibleControlExtender1",
+        "AlwaysVisibleControlExtender2",
+        "pnlError",
+        "lblErrorCaption",
+        "lblErrorList",
+        "cmdHideErrorPanel",
+        "pnlWarning",
+        "lblWarningCaption",
+        "lblWarningList",
+        "cmdHideWarningPanel",
+        "gvwWorksheets",
+        "dsWorksheets",
+        "cmdPrintDetails",
+        "cmdSearch",
+        "cmdClose",
+        "lblFooter"
+    ],
+    "actors": [
+        "User"
+    ],
+    "workflows": [
+        {
+            "name": "Worksheet Navigation",
+            "steps": [
+                "User clicks a button to view a specific worksheet.",
+                "System determines the query string and stat parameters.",
+                "Page navigates to the appropriate worksheet based on stat.",
+                "JavaScript updates the window location if opener exists."
+            ]
+        },
+        {
+            "name": "Page Load",
+            "steps": [
+                "Validate URL hash using Hashing.",
+                "Initialize HSPnetPage setup.",
+                "Determine the stat from query string.",
+                "Select parameters for worksheet based on stat."
+            ]
+        },
+        {
+            "name": "Message Handling",
+            "steps": [
+                "Process error and warning messages before page render.",
+                "Hide panels via button interaction."
+            ]
+        }
+    ],
+    "business_rules": [
+        "Auto-generated fields must be modified in code-behind files.",
+        "Stat must default to GWS if query string is empty."
+    ],
+    "validations": [
+        "Hashing.ValidateURLHash ensures URL integrity.",
+        "Button interactions require validation except for cmdClose."
+    ],
     "calculations": [],
-    "conditions": [],
-    "system_behavior": [],
-    "dependencies": [],
+    "conditions": [
+        "Stat derived from query string or defaults to GWS if null.",
+        "Worksheet navigation and button configurations vary based on stat."
+    ],
+    "system_behavior": [
+        "Dynamic navigation based on user session.",
+        "JavaScript execution for window location change.",
+        "Resource-based text updates for UI elements."
+    ],
+    "dependencies": [
+        "HSPnet.DataLayer for worksheet data operations.",
+        "AjaxControlToolkit for visibility control extenders."
+    ],
     "exceptions": [],
-    "source_document_ids": [],
-    "content_gaps": ["No related documents found"]
+    "source_document_ids": [
+        "004e7c14-3956-5f2f-a1da-292438225527",
+        "0734fdab-9b18-594b-8e49-d91cfd4eb79a",
+        "10fc6a1b-eff8-5e7f-ad83-62e6130ee15a",
+        "1ded65f0-7373-51f1-a4e2-4ed18318c3ff",
+        "3424eae8-146a-5b1f-9ea5-44b93406cae3",
+        "37e33f2a-bd66-5789-b64d-41aa0b7d5bec",
+        "4738b75e-95f1-5e18-bb8b-70ebd0aae373",
+        "5e1b8914-ce16-5efd-8cfd-f9111db0daa7",
+        "601ef489-66d7-506f-b2d9-6acccda287dd",
+        "a8344fb8-7388-5410-a9f9-3a6018f58149",
+        "eee033b8-4821-57be-b8cd-a9ff4839e8f8",
+        "f5624f38-afe5-567b-8446-2b85d42ad221",
+        "fd5b6cca-9e82-57c5-ad47-4013eba6fa87",
+        "fff96b42-38f4-5c69-9b4f-d355ae5a08c0"
+    ],
+    "content_gaps": []
 }
