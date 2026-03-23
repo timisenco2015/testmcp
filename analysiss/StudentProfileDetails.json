@@ -1,11 +1,19 @@
 {
   "filename": "StudentProfileDetails",
   "found": true,
-  "summary": "The StudentProfileDetails component handles the display and management of student profile details within the HSPnet web application. It involves user controls, data binding, and user session management.",
-  "purpose": "To manage the display, addition, editing, and deletion of student profiles within a web interface while ensuring proper data binding and user session control.",
+  "summary": "The 'StudentProfileDetails' documents describe a web user control for managing student profile information. This control has features enabling data display, edit, and addition within a web context, involving UI components such as panels, labels, and buttons. The documents detail the structure and behavior of various HTML and server controls as part of profile management workflows.",
+  "purpose": "To manage and display student profile information in a web application.",
   "entities": [],
   "fields": [
-    "lblEmptyData",
+    "pnlDescription",
+    "pnlDescriptionSortOrder",
+    "pnlDescriptionButton",
+    "lblResponse",
+    "hlResponse",
+    "lblNumber",
+    "ScreenIsEditable",
+    "ProfilePrivacyLabel",
+    "fvwProfile",
     "cmdAddEmptyData",
     "gvwProfile",
     "dsProfile",
@@ -14,64 +22,54 @@
     "btnShowPopup",
     "mdlDetails",
     "ValidationSummary3",
-    "fvwProfile",
     "lblProfilePrivacy",
     "pnlEmptyData",
-    "lblResponse"
+    "lblEmptyData",
+    "cmdAddEmptyData",
+    "updPnlProfile"
   ],
   "actors": [
     "UserSession",
     "StudentDetail",
-    "GridViewRow",
-    "GridView",
-    "FormView",
-    "DropDownList",
-    "Codes"
+    "Grid",
+    "Dropdown"
   ],
   "workflows": [
     {
-      "name": "Profile Management",
+      "name": "Display and Manage Student Profiles",
       "steps": [
-        "Check if header has changed to control visibility of panels.",
-        "Set hyperlink visibility for web page entries.",
-        "Indent labels based on numbering level.",
-        "Handle data binding and redirect actions on page load and commands.",
-        "Setup header and data row buttons for editing, deleting, and adding.",
-        "Handle row command actions and corresponding data operations.",
-        "Display appropriate modals or controls based on data bound state."
+        "Page loads and checks UserSession.",
+        "Data source 'dsProfile' retrieves student profile data.",
+        "GridView 'gvwProfile' binds data and displays rows.",
+        "Handlers for edit, add, and delete commands on gvwProfile.",
+        "FormView 'fvwProfile' facilitates data edit and add workflows.",
+        "Commands are executed (e.g., cmdEdit, cmdAdd, cmdDelete).",
+        "Data is persisted via StudentDetail operations."
       ]
     }
   ],
   "business_rules": [
-    "Headers should not repeat on subsequent rows if unchanged.",
-    "Empty data template should trigger JavaScript validation for events.",
-    "Only editable screens can display 'no data found' add button."
+    "Headers are not repeated for subsequent rows if unchanged.",
+    "Web page entries use hyperlinks while non-web entries use labels.",
+    "No data found button only appears if the screen is editable and no rows exist."
   ],
-  "validations": [
-    "Check for non-empty sorting order values or set default.",
-    "Ensure dropdown selections are properly populated and selected.",
-    "Validate session existence before performing data operations."
-  ],
+  "validations": [],
   "calculations": [],
   "conditions": [
-    "Check if screen is editable before adding buttons.",
-    "Verify if the data row or header type to execute appropriate setup.",
-    "Detect if data item count is greater than zero or in insert mode."
+    "HeaderChanged determines the visibility of header panels.",
+    "WebPage determines if response is a hyperlink or label.",
+    "ScreenIsEditable conditionally displays edit controls."
   ],
   "system_behavior": [
-    "Automatically redirect user to the profile page after operations.",
-    "Caches user session data to maintain session state.",
-    "Hides detail panels if not in edit mode."
+    "Auto-generation of controls such as labels and panels.",
+    "Data binding and redirection based on user commands."
   ],
   "dependencies": [
+    "HSPnet.DataLayer",
     "HSPnet.UI",
-    "HSPnet.Framework",
-    "HSPnet.App_GlobalResources",
-    "HSPnet.DataLayer"
+    "HSPnet.App_GlobalResources"
   ],
-  "exceptions": [
-    "Cancel selection if user session is null."
-  ],
+  "exceptions": [],
   "source_document_ids": [
     "0886e342-e286-540c-a284-e8064601ab20",
     "32a0200a-7434-5d0c-97d6-3565f27cc4b4",
