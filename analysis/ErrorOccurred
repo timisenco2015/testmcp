@@ -1,21 +1,53 @@
 ```json
 {
   "filename": "ErrorOccurred",
-  "found": false,
-  "summary": "",
-  "purpose": "",
+  "found": true,
+  "summary": "The ErrorOccurred module handles error displays for a web application, managing locale-specific behavior and messaging based on configuration settings.",
+  "purpose": "To display error messages to users, with localization based on user settings and configuration-driven content.",
   "entities": [],
-  "fields": [],
+  "fields": [
+    "HeaderEN",
+    "HeaderFR",
+    "uxErrorMessage"
+  ],
   "actors": [],
-  "workflows": [],
-  "business_rules": [],
-  "validations": [],
+  "workflows": [
+    {
+      "name": "Error Handling",
+      "steps": [
+        "Determine locale from query string.",
+        "Set content visibility based on locale.",
+        "Retrieve error email and subject from configuration.",
+        "Display appropriate error message based on the HttpRequestValidationException query parameter."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Use the default locale 'en-US' if no locale is specified.",
+    "Email address in error messages is configurable through web.config."
+  ],
+  "validations": [
+    "Check if locale is 'en-US' or not specified."
+  ],
   "calculations": [],
-  "conditions": [],
-  "system_behavior": [],
-  "dependencies": [],
+  "conditions": [
+    "If HttpRequestValidationException query parameter is '1', use specific error message."
+  ],
+  "system_behavior": [
+    "Switches between English and French headers based on locale.",
+    "Displays error message with email and subject from configuration."
+  ],
+  "dependencies": [
+    "ConfigurationManager for accessing app settings.",
+    "Resources for error message content."
+  ],
   "exceptions": [],
-  "source_document_ids": [],
-  "content_gaps": ["No related documents found"]
+  "source_document_ids": [
+    "061d570b-3af2-5dc8-9639-8df86256fbfd",
+    "745fd8a6-9d74-5b61-a2f4-678706f9e330",
+    "b91b73c2-09c1-55dc-8f24-5033abbc7c12",
+    "b9f61ea8-4e71-5ce8-9493-99a77994d0b6"
+  ],
+  "content_gaps": []
 }
 ```
