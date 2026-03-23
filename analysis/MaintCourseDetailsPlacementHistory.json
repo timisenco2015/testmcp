@@ -1,96 +1,99 @@
 {
   "filename": "MaintCourseDetailsPlacementHistory",
   "found": true,
-  "summary": "MaintCourseDetailsPlacementHistory is an ASP.NET Web UserControl for displaying the placement history of a course. It provides a GridView interface, data source management, and session-based selection logic for presenting placement-related data tied to a specific course.",
-  "purpose": "To display and manage the placement history data for a given course in a web application, ensuring that only authorized session users can access and interact with the placement data.",
+  "summary": "MaintCourseDetailsPlacementHistory is a user control in the HSPnet system, designed to display and manage placement history details for a given course. It interfaces with a data source and provides a grid view of placements, with sorting and conditional data retrieval based on user session and course context.",
+  "purpose": "To present a course's placement history in a sortable grid, ensuring data visibility is conditioned on user authentication/session and the specified course ID. Used within web pages to support administrative review and management.",
   "entities": [
     "Course",
-    "PlacementHistory",
+    "Placement",
     "UserSession"
   ],
   "fields": [
     {
       "name": "Panel1",
       "type": "Panel",
-      "description": "A UI container panel."
+      "purpose": "Container for UI elements"
     },
     {
       "name": "Label1",
       "type": "Label",
-      "description": "A label for displaying text or titles."
+      "purpose": "Displays text or headings"
     },
     {
       "name": "uxMaster",
       "type": "GridView",
-      "description": "Grid to display placement history entries, sorted by TTStartDate descending on initial load."
+      "purpose": "Displays placement history data in a grid"
     },
     {
       "name": "dsMaster",
       "type": "ObjectDataSource",
-      "description": "Data source control for fetching placement history data."
+      "purpose": "Supplies data for the GridView"
     },
     {
       "name": "UserSession",
-      "type": "HSPnetSession",
-      "description": "Session object holding user and context information."
+      "type": "Session",
+      "purpose": "Stores user session details"
     },
     {
       "name": "CourseID",
       "type": "string",
-      "description": "The identifier for the course whose placement history is displayed."
+      "purpose": "Identifies the course for which placement history is shown"
     }
   ],
   "actors": [
-    "End User (with valid UserSession)"
+    "Authenticated User (via UserSession)",
+    "System (ASP.NET Web Control)"
   ],
   "workflows": [
     {
-      "name": "Display Placement History",
+      "name": "Page Load",
       "steps": [
-        "Page loads MaintCourseDetailsPlacementHistory user control.",
-        "If not a postback, uxMaster GridView is sorted by TTStartDate in descending order.",
-        "When dsMaster (ObjectDataSource) performs selection, check if UserSession exists.",
-        "If no UserSession, cancel data selection.",
-        "If UserSession exists, pass UserSession and CourseID as input parameters for data fetching.",
-        "Placement history data is fetched and rendered in uxMaster GridView."
+        "Triggered when the user control loads",
+        "If not a postback, sorts the GridView (uxMaster) by TTStartDate descending"
+      ]
+    },
+    {
+      "name": "Data Selection",
+      "steps": [
+        "ObjectDataSource (dsMaster) triggers Selecting event",
+        "Checks if UserSession is null",
+        "If null, cancels data retrieval",
+        "If valid, sets input parameters for session and courseID, enabling secure and scoped data retrieval"
       ]
     }
   ],
   "business_rules": [
-    "Placement history data can only be accessed if UserSession is valid.",
-    "Placement history is specific to the provided CourseID."
+    "Placement history should only be visible when there is a valid UserSession.",
+    "Placement data is filtered by CourseID."
   ],
   "validations": [
-    "UserSession presence is checked before data retrieval.",
-    "CourseID must be provided to retrieve relevant data."
+    "UserSession must not be null to retrieve placement data."
   ],
   "calculations": [
-    "GridView is sorted by TTStartDate in descending order upon initial page load."
+    "GridView (uxMaster) is sorted by TTStartDate in descending order on initial load."
   ],
   "conditions": [
-    "Page load is not a postback",
-    "UserSession is null: cancel data selection",
-    "UserSession is present: allow data retrieval"
+    "Data is only retrieved if UserSession exists.",
+    "Data is filtered by CourseID parameter."
   ],
   "system_behavior": [
-    "Prevents selection of data if user is not authenticated or session has expired.",
-    "Automatically sorts placement history by start date latest-first on initial load."
+    "Auto-generates UI fields for Panel, Label, GridView, and ObjectDataSource.",
+    "Cancels ObjectDataSource selection if UserSession is not valid."
   ],
   "dependencies": [
-    "ObjectDataSource control for retrieving data",
-    "HSPnetSession for context and authorization",
-    "GridView for data display"
+    "HSPnetSession",
+    "CourseID input",
+    "System.Web.UI.WebControls"
   ],
   "exceptions": [
-    "If UserSession is not set, ObjectDataSource selection is cancelled and data is not shown."
+    "Selection is cancelled (e.Cancel = true) if UserSession is missing."
   ],
   "source_document_ids": [
     "6b468cf5-f5c2-5134-93f6-3d3a23bb37b0",
     "86cabaa7-c5d5-5565-9fc5-2a42f41498e6"
   ],
   "content_gaps": [
-    "Business rules for data update, edit, or delete are not defined.",
-    "Details on which placement fields are displayed in uxMaster GridView are not provided.",
-    "No explicit description of what constitutes PlacementHistory data beyond StartDate sorting."
+    "No details about what fields are displayed in the GridView beyond sort key (TTStartDate).",
+    "No explicit mapping of placement fields, business logic for row selection, or error handling beyond session validation."
   ]
 }
