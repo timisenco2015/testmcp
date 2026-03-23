@@ -1,0 +1,97 @@
+```json
+{
+  "filename": "PersonLookup",
+  "found": true,
+  "summary": "The PersonLookup page is part of the HSPnet system, designed to facilitate searching and managing personal profiles within an organization, using web controls and scripting for dynamic operations.",
+  "purpose": "To search for and manage personal profiles within the HSPnet system, providing functionalities to display, edit, and process person data.",
+  "entities": [
+    "Person",
+    "UserSession",
+    "ProfileIcon"
+  ],
+  "fields": [
+    "StaffID",
+    "StudentID",
+    "Roles",
+    "LastName",
+    "FirstNameIncludingPreferred",
+    "PrevLastName",
+    "AgencyDepartmentFormatted"
+  ],
+  "actors": [
+    "UserSession",
+    "System Administrator",
+    "Staff",
+    "Student"
+  ],
+  "workflows": [
+    {
+      "name": "Search Workflow",
+      "steps": [
+        "Enter search query in 'txtQuery'.",
+        "Press 'cmdSearch' button to initiate search.",
+        "Data binding occurs with 'uxMaster'."
+      ]
+    },
+    {
+      "name": "Profile Management",
+      "steps": [
+        "Handle email icons via 'SetupEmailIcon'.",
+        "Handle profile icons via 'SetupProfileIcon'.",
+        "Manage visibility depending on role and permissions."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Emails are not shown for hidden info or if user is a student unless allowed.",
+    "Profiles are highlighted based on session state and user permissions."
+  ],
+  "validations": [
+    {
+      "name": "Required Field Validator",
+      "description": "Ensures 'txtQuery' is not empty before submission."
+    }
+  ],
+  "calculations": [],
+  "conditions": [
+    "Check if 'UserSession.SystemAdministrator' to bypass infoHidden conditions.",
+    "If 'Request.QueryString["PA"]' is '1', adapt interface for Placement Agency."
+  ],
+  "system_behavior": [
+    "Auto-generation of web control fields.",
+    "Dynamic JavaScript setup for initialization and client-side actions.",
+    "Highlighting of profile icons based on ViewState data."
+  ],
+  "dependencies": [
+    "HSPnet.Framework",
+    "System.Web.UI",
+    "HSPnet.DataLayer",
+    "HSPnet.App_GlobalResources"
+  ],
+  "exceptions": [
+    "Errors managed through UI panels and messages, e.g., 'pnlError', 'lblErrorList'."
+  ],
+  "source_document_ids": [
+    "117be637-65c1-565e-89b0-977f997dd239",
+    "1870e1b8-b75a-58ce-8571-23dda91e26d5",
+    "1ebb1a0c-261f-5bd5-aa68-bed6fd72afcf",
+    "267fb8df-52be-563e-a155-f932556f8b46",
+    "3a16d9e0-d032-541e-b6c8-f72be3f3f6ea",
+    "432e074f-5967-5e3a-b626-1c5374c0c9d5",
+    "43cdfad3-2731-5d3a-924d-d051420879f0",
+    "6af8a834-c9c9-59e5-a9be-42de1655d226",
+    "93ce3c75-902f-5019-ba81-3e4452017662",
+    "a7102962-59bf-57dd-8f44-b3298103f058",
+    "a8303814-89e0-575b-960d-08fef6b9875d",
+    "ac7612fe-becf-5375-a2c5-37985ed28d78",
+    "b982794e-99b8-5064-8102-f70a8585c59f",
+    "bab75735-5716-55e3-8e8f-9116662f5abd",
+    "d273e52d-4bfd-588a-8461-dbaf1ca741fe",
+    "d9d39c2c-c286-5d34-812e-72fa5f79cb77",
+    "e526b529-ca5a-5256-bc27-c8b2ff0c8086",
+    "ee0f8ceb-7906-5bb6-ad11-09c2ed0053bc",
+    "f39311cb-60d3-5466-a204-86e2cd03fd26"
+  ],
+  "content_gaps": []
+}
+```
