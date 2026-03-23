@@ -1,0 +1,109 @@
+```json
+{
+  "filename": "RptMnuStudentEvaluations",
+  "found": true,
+  "summary": "RptMnuStudentEvaluations is a user control designed for managing and displaying student evaluation reports. It provides functionality for setting date ranges, selecting departments and programs, and generating reports in various formats.",
+  "purpose": "The primary purpose of the RptMnuStudentEvaluations is to facilitate the generation and display of student evaluation reports within certain date ranges and for specific departments and programs.",
+  "entities": [
+    "UserSession",
+    "Department",
+    "Program",
+    "ReportMain",
+    "SqlDataReader",
+    "CodeRecord",
+    "HSPnetSession",
+    "Button",
+    "Label",
+    "DropDownList",
+    "TextBox",
+    "Literal",
+    "LinkButton",
+    "Panel"
+  ],
+  "fields": [
+    "ValidationSummary1",
+    "Label3",
+    "ltlDescription",
+    "Label4",
+    "ltlOptions",
+    "LabelA",
+    "ddDepartment",
+    "LabelB",
+    "ddProgram",
+    "cmdRunExcel",
+    "lblPleaseWait",
+    "pnlReportHTML",
+    "lblReportHTML",
+    "btnEndDate",
+    "CalendarExtender2",
+    "RegularExpressionValidator2",
+    "Literal1",
+    "valEditStartDate",
+    "valEditEndDate",
+    "CustomValidator1",
+    "CalendarExtender1",
+    "RegularExpressionValidator1",
+    "ltlMandatoryStartDate",
+    "Label8",
+    "txtEndDate",
+    "btnStartDate"
+  ],
+  "actors": [
+    "ScriptManager",
+    "Page",
+    "UserSession"
+  ],
+  "workflows": [
+    {
+      "name": "Generate Student Evaluations Report",
+      "steps": [
+        "Select department and program from dropdowns.",
+        "Enter start date and end date.",
+        "Click 'Run Excel' to generate the report.",
+        "Display report in HTML or CSV format."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Department and program must be selected to run a report.",
+    "Start date and end date are mandatory for generating a report.",
+    "UserSession must be active to perform operations."
+  ],
+  "validations": [
+    "Regular expressions for date formats.",
+    "Required field validators for date inputs."
+  ],
+  "calculations": [
+    "Parse date formats for start and end dates.",
+    "Generate HTML or CSV report based on data retrieved."
+  ],
+  "conditions": [
+    "If UserSession is null, certain operations cannot be performed.",
+    "pnlReportHTML visibility depends on report HTML content availability."
+  ],
+  "system_behavior": [
+    "Auto-generated fields require moving declarations to code-behind to modify.",
+    "JavaScript setup for date fields on asynchronous postbacks."
+  ],
+  "dependencies": [
+    "AjaxControlToolkit for Calendar control.",
+    "DataLayer for database operations."
+  ],
+  "exceptions": [
+    "Incorrect behavior if auto-generated code is changed without moving to code-behind.",
+    "Handling empty report cases."
+  ],
+  "source_document_ids": [
+    "3bda989e-aee9-5cb0-a91b-23b5c507dcce",
+    "61fb9721-4ba7-52db-970a-f961984a3da4",
+    "655270a1-b63f-5095-b8d5-e0786f5a67d5",
+    "6a6d3e5d-65f4-55d0-8a26-bb833decde1d",
+    "8389c636-6a4e-5e20-9527-aa890021a8cc",
+    "9acbebb5-e432-5501-a525-cb5de2c228bd",
+    "b379a95a-4b6c-5652-9bd2-dd11e1be0538",
+    "e2803cea-dae1-5367-9582-0de35ea31cfc",
+    "e317b930-d13f-5511-844e-4de35ee59b82"
+  ],
+  "content_gaps": []
+}
+```
