@@ -1,32 +1,35 @@
 {
     "filename": "WelcomeStaffAdmin",
     "found": true,
-    "summary": "WelcomeStaffAdmin is a web page facilitating interaction with staff administrators, offering controls and validators for date fields.",
-    "purpose": "To manage staff administrative actions and display relevant data using ASP.NET web controls.",
+    "summary": "WelcomeStaffAdmin manages the staff administrative interface, providing functionalities like last login display and site-disbursement dropdowns.",
+    "purpose": "To facilitate administrative tasks for staff members within the HSPnet system.",
     "entities": [],
-    "fields": ["valEndDate", "txtEndDate", "btnEndDateCalendar", "CalendarExtender2"],
-    "actors": [],
-    "workflows": [{
-        "name": "Data Population",
-        "steps": ["FillSiteDropdown", "FillDisciplineDropdown", "RefreshData"]
-    }],
-    "business_rules": [],
-    "validations": ["valEndDate", "RegularExpressionValidator1"],
+    "fields": ["ddlSite", "ddlDiscipline"],
+    "actors": ["UserSession"],
+    "workflows": [
+        {
+            "name": "Initial Page Load",
+            "steps": [
+                "Load last login information.",
+                "Prepare site and discipline dropdowns.",
+                "Display the main interface for staff."
+            ]
+        }
+    ],
+    "business_rules": [
+        "Page must display last login information if available.",
+        "Dropdowns must be filled with valid site and discipline data."
+    ],
+    "validations": ["Check presence of UserSession before actions."],
     "calculations": [],
-    "conditions": [],
-    "system_behavior": [],
-    "dependencies": [],
-    "exceptions": [],
+    "conditions": ["UserSession must be valid for data fetching."],
+    "system_behavior": ["Dropdowns are dynamically populated based on session data."],
+    "dependencies": ["HSPnet Framework"],
+    "exceptions": ["Cancelling data load if session data is missing."],
     "source_document_ids": [
-        "05db31e4-e8b6-53ee-a6fb-812c106f0134",
-        "100d5925-a5f8-53db-8493-02cddd563eb7",
-        "3c84bade-9671-5fbf-acce-3c87a835e9b4",
-        "4c4b97b8-d242-5261-a515-767a3f7d7a49",
-        "52b5066f-23f6-5d82-96cd-5d51dad3de79",
-        "5bb85da3-f5b4-5753-b07c-9bb2a04eeb89",
-        "5d9b92ea-7c12-5070-8603-977cf14d0e04",
-        "54244516-0707-581e-a8ba-9c041ea38366",
-        "6701b153-5288-59e5-8de9-61b68a1fc292"
+        "bf423a80-93db-572d-8cb8-c79f04214a93",
+        "ca71b077-cc26-5979-a44f-59700a41316b",
+        "e249a878-c837-5d1c-9a3d-5167df2614fb"
     ],
     "content_gaps": []
 }
