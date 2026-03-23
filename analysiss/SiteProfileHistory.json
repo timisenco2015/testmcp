@@ -1,11 +1,9 @@
 {
     "filename": "SiteProfileHistory",
     "found": true,
-    "summary": "The SiteProfileHistory document is concerned with tracking changes and actions on site profiles. It includes details on user actions, agency interactions, and user information and supports localized fields.",
-    "purpose": "To provide a comprehensive record of actions taken on site profiles within the application, along with user and agency information.",
-    "entities": [
-        "SiteProfileHistory"
-    ],
+    "summary": "Handles tracking of site profile changes with attributes like action date, user actions, and contact details.",
+    "purpose": "Provide functionalities to track and detail the history of changes made to site profiles.",
+    "entities": ["SiteProfileHistory", "SiteProfileHistories"],
     "fields": [
         "ID",
         "ActionDate",
@@ -22,39 +20,22 @@
         "ByOriginalUserID",
         "ByUserSysAdmin"
     ],
-    "actors": [
-        "HSPnetSession",
-        "SiteProfileHistory"
-    ],
-    "workflows": [
-        {
-            "name": "Site Profile Action Tracking",
-            "steps": [
-                "Log User Action",
-                "Format Agency User Details"
-            ]
-        }
-    ],
-    "business_rules": [
-        "Use alt language fields if configured"
-    ],
+    "actors": [],
+    "workflows": [],
+    "business_rules": [],
     "validations": [],
-    "calculations": [
-        "AgencyUserFormatted"
-    ],
+    "calculations": [],
     "conditions": [],
-    "system_behavior": [
-        "Records are logged with session-specific data",
-        "Supports formatting for user display"
+    "system_behavior": [],
+    "dependencies": [
+        "HSPnetSession",
+        "Database",
+        "DateFormatter"
     ],
-    "dependencies": [],
     "exceptions": [],
     "source_document_ids": [
-        "25f89a24-5eda-5a3f-83df-1de69b12b3f1",
-        "26e09292-d304-55c6-94e5-ef3346453c4b",
         "7ca6b963-9ae9-5cd3-82d5-f30dcb727ae3",
-        "a8f030c6-90b8-53a1-bb8a-3b7ef33b9488",
-        "e806999c-3a39-5720-9b59-303faebc9eb6"
+        "a8f030c6-90b8-53a1-bb8a-3b7ef33b9488"
     ],
     "content_gaps": []
 }
