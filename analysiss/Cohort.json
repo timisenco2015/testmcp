@@ -1,0 +1,119 @@
+{
+    "filename": "Cohort",
+    "found": true,
+    "summary": "The Cohort class defines the attributes and behaviors of a cohort in the system, including properties, methods for data management, and business logic for operations such as adding, updating, deleting, copying, and archiving cohorts. It interacts with a database through stored procedures and maintains integrity through validations.",
+    "purpose": "To manage cohort information within an educational or training program database system, allowing for operations such as creation, updating, deletion, and querying of cohort data while ensuring data integrity and validity.",
+    "entities": [],
+    "fields": [
+        "ID",
+        "ProgramID",
+        "Name",
+        "ShortName",
+        "ShortNameUnformatted",
+        "Description",
+        "Inactive",
+        "CreatedByQES",
+        "HideCourses",
+        "Unstructured",
+        "TotalYears",
+        "IDFormatted",
+        "CohortInfo",
+        "TimetableEntryExists",
+        "ExpectedEnrollment",
+        "ExpectedEndDate"
+    ],
+    "actors": ["HSPnetSession"],
+    "workflows": [
+        {
+            "name": "Add Cohort",
+            "steps": [
+                "Validate input fields.",
+                "Set stored procedure to CohortAdd.",
+                "Add parameters (ProgramID, Name, ShortName, Description, Unstructured, ExpectedEnrollment, ExpectedEndDate).",
+                "Execute query."
+            ]
+        },
+        {
+            "name": "Update Cohort",
+            "steps": [
+                "Validate input fields.",
+                "Set stored procedure to CohortUpdate.",
+                "Add parameters (ID, Name, ShortName, Description, Unstructured, ExpectedEnrollment, ExpectedEndDate).",
+                "Execute query."
+            ]
+        },
+        {
+            "name": "Delete Cohort",
+            "steps": [
+                "Check if ID is not 0.",
+                "Set stored procedure to CohortDelete.",
+                "Add parameters (CohortID, SessionID).",
+                "Execute query."
+            ]
+        },
+        {
+            "name": "Copy Cohort",
+            "steps": [
+                "Check if ID is not 0 and if cohort is valid.",
+                "Set stored procedure to CohortCopy.",
+                "Add parameters (SourceCohortID, TargetTermID, NewName, NewShortName, SessionID, ExpectedEnrollment, ExpectedEndDate).",
+                "Execute query."
+            ]
+        },
+        {
+            "name": "Archive Cohort",
+            "steps": [
+                "Check if ID is not 0.",
+                "Set stored procedure to CohortHideCourses.",
+                "Add parameter CohortID.",
+                "Execute query."
+            ]
+        },
+        {
+            "name": "UnArchive Cohort",
+            "steps": [
+                "Check if ID is not 0.",
+                "Set stored procedure to CohortShowCourses.",
+                "Add parameter CohortID.",
+                "Execute query."
+            ]
+        }
+    ],
+    "business_rules": [
+        "Validate cohort name must be specified.",
+        "Validate short name must be specified.",
+        "Translate total years of 0 to null."
+    ],
+    "validations": [
+        "Check if name is not blank.",
+        "Check if short name is not blank."
+    ],
+    "calculations": [],
+    "conditions": [
+        "If program ID is not 0, perform database operations.",
+        "If cohort ID is not 0, proceed with operations."
+    ],
+    "system_behavior": [
+        "Creates, updates, deletes, or archives cohort entries in the database.",
+        "Ensures data integrity through validation methods.",
+        "Uses stored procedures for database operations."
+    ],
+    "dependencies": ["Resources", "StringUtil", "HSPnetSession"],
+    "exceptions": [
+        "Returns false if cohort ID is invalid during operations.",
+        "Adds error message if validation fails."
+    ],
+    "source_document_ids": [
+        "02bd92c3-159e-531a-9456-c2b9d176f79d",
+        "1bf6a62d-9056-5057-a512-61cb3e89f439",
+        "6cffad27-0d17-5fb1-b5f3-05a156cf93b6",
+        "afcdd9ee-7dae-5ac8-aba2-8ca264b4c6b8",
+        "c3ff9e9d-d807-5930-96df-a5a67d521376",
+        "ca0e2c97-b9a0-5487-83ec-994a85d4a612",
+        "d5823397-d3a3-5d0a-b4cf-0bf3c2d77008",
+        "d6c1869f-bf70-5904-8b13-c894338f7525",
+        "e2fc2ec7-ce99-50c0-bdab-803fbd2f20f8",
+        "e5df3ec3-3873-5605-ad7e-66df59db89d0"
+    ],
+    "content_gaps": []
+}
