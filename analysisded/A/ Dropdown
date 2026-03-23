@@ -1,0 +1,46 @@
+```json
+{
+  "filename": "Dropdown",
+  "found": true,
+  "summary": "This content provides static utility methods for managing DropDownList controls in a web application, including selection, resetting, and modifying items.",
+  "purpose": "The purpose is to facilitate operations on DropDownList controls such as selecting values, resetting selections, and managing items including adding and removing items dynamically.",
+  "entities": ["DropDownList", "ListItem"],
+  "fields": ["SelectedValue", "Text", "Value"],
+  "actors": [],
+  "workflows": [
+    {
+      "name": "Select and Manage Dropdown",
+      "steps": [
+        "CurrentID checks if SelectedValue is empty or converts it to int.",
+        "ResetSelection clears any selection.",
+        "SelectValue iterates items to match and select by value.",
+        "SelectText iterates items to match and select by text.",
+        "GetValueFromText retrieves a value matching the given text.",
+        "AddMissingItem adds an item if it does not exist but is selected.",
+        "RemoveDropdownItems clears all but selected item."
+      ]
+    }
+  ],
+  "business_rules": [],
+  "validations": [
+    "Ensure SelectedValue is convertible to int."
+  ],
+  "calculations": [],
+  "conditions": [
+    "Check if SelectedValue is null or empty.",
+    "Iterate items to match specified Value or Text."
+  ],
+  "system_behavior": [
+    "ClearSelection resets dropdown state.",
+    "Insert new ListItem at the start of items if missing.",
+    "Retain only selected item in RemoveDropdownItems."
+  ],
+  "dependencies": ["System", "System.Web.UI.WebControls"],
+  "exceptions": [],
+  "source_document_ids": [
+    "4932af9e-8856-543f-aabd-eda4a1892b14",
+    "8f9ddc83-418d-555f-8e3a-607b693b467b"
+  ],
+  "content_gaps": []
+}
+```
