@@ -1,59 +1,62 @@
 {
   "filename": "PrintJobReportParameters",
   "found": true,
-  "summary": "The PrintJobReportParameters class is designed to handle the retrieval and processing of parameters associated with print jobs in the system. It interacts with the database to obtain parameter data and reformats it for use in application workflows.",
-  "purpose": "To manage and retrieve parameters related to print jobs, format parameter lists for processing, and ensure proper deletion of print job entries once processed.",
+  "summary": "The document defines classes and methods for handling print job report parameters within the HSPnet system.",
+  "purpose": "To manage and process parameters related to print jobs in the HSPnet application.",
   "entities": [],
   "fields": [
     {
       "name": "ParamName",
       "type": "string",
-      "description": "The name of the print job parameter."
+      "description": "Name of the parameter."
     },
     {
       "name": "ParamValue",
       "type": "string",
-      "description": "The value of the print job parameter."
+      "description": "Value of the parameter."
     }
   ],
   "actors": [
-    "HSPnetSession"
+    "HSPnetSession",
+    "SqlDataReader"
   ],
   "workflows": [
     {
       "name": "PrintJobPRDList",
       "steps": [
-        "Retrieve all parameters for a given PrintJobID using PrintJobGetAllParameters.",
-        "Concatenate parameter values with the name 'PRD_ID' into a single list string.",
-        "Delete the print job entry after processing parameters."
+        "Retrieve all parameters for the given PrintJobID using PrintJobGetAllParameters.",
+        "Iterate over each parameter.",
+        "Check if the parameter name is PRD_ID and append its value to the return string.",
+        "Delete the print job using PrintJobDelete.",
+        "Return the concatenated parameter values."
+      ]
+    },
+    {
+      "name": "PrintJobGetAllParameters",
+      "steps": [
+        "Set the stored procedure name to PrintJobGetAllParameters.",
+        "Add PrintJobID as a parameter.",
+        "Execute the stored procedure to get data.",
+        "Read through the data and create PrintJobReportParameter objects for each.",
+        "Add each parameter object to a list.",
+        "Return the list of parameters."
       ]
     }
   ],
-  "business_rules": [
-    "Only parameters with the name 'PRD_ID' are concatenated and returned."
-  ],
+  "business_rules": [],
   "validations": [],
-  "calculations": [
-    {
-      "description": "Concatenate ParamValue for all entries with ParamName 'PRD_ID' into a single string separated by commas."
-    }
-  ],
-  "conditions": [
-    {
-      "description": "Check if the ParamName is 'PRD_ID' before concatenating."
-    }
-  ],
+  "calculations": [],
+  "conditions": [],
   "system_behavior": [
-    "Deletes the print job entry after processing the parameters."
+    "Executes stored procedures to retrieve parameter data.",
+    "Processes and concatenates parameter values."
   ],
   "dependencies": [
-    "HSPnetSession.DB must provide access to a database connection capable of executing stored procedures."
+    "HSPnet.Framework",
+    "HSPnet.App_GlobalResources",
+    "HSPnet.UI"
   ],
-  "exceptions": [
-    {
-      "description": "Ensure proper handling if the SqlDataReader is null or no parameters are returned."
-    }
-  ],
+  "exceptions": [],
   "source_document_ids": [
     "faae6a37-2792-5c44-b13b-78975dd8061e"
   ],
