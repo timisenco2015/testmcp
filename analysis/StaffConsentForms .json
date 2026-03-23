@@ -1,0 +1,120 @@
+{
+  "filename": "StaffConsentForms",
+  "found": true,
+  "summary": "StaffConsentForms define the storage and processing workflow for staff consent documentation, including creation, retrieval, update, and deletion of consent records for staff associated with a provider/agency. The business logic handles validation, database transaction procedures, and manages relationships between staff, providers, agencies, and consent details.",
+  "purpose": "To manage the lifecycle of consent forms for staff, ensuring accurate recording of consent dates, responsible entities, and supporting information. The forms link staff to agency/provider, record received consent, and provide mechanisms to add, update, search, and delete consent form records.",
+  "entities": [
+    "StaffConsentForm",
+    "Staff",
+    "Provider",
+    "Agency"
+  ],
+  "fields": [
+    "ID",
+    "StaffID",
+    "ProviderID",
+    "DateReceived",
+    "AgencyID",
+    "ProviderTypeCodeID",
+    "Notes",
+    "Agency",
+    "Department",
+    "ProviderType",
+    "AgencyDepartIDFormatted",
+    "AgencyDepartFormatted",
+    "DateReceivedFormatted"
+  ],
+  "actors": [
+    "HSPnetSession (application/session)",
+    "Database (DB layer)",
+    "System (automated validations, workflows)"
+  ],
+  "workflows": [
+    {
+      "name": "Add Staff Consent Form",
+      "steps": [
+        "Parse ProviderListDept to extract AgencyID and ProviderID.",
+        "Instantiate StaffConsentForm object.",
+        "Set DateReceivedFormatted.",
+        "Validate consent form (check DateReceived not null).",
+        "If valid, set up stored procedure 'StaffConsentFormsAdd'.",
+        "Add parameters: SessionID, StaffID, AgencyID, ProviderID, DateReceived, ProviderTypeCodeID, Notes.",
+        "Execute database query."
+      ]
+    },
+    {
+      "name": "Update Staff Consent Form",
+      "steps": [
+        "Parse ProviderListDept for AgencyID and ProviderID.",
+        "Instantiate StaffConsentForm object.",
+        "Set DateReceivedFormatted.",
+        "Validate form.",
+        "If valid, set up stored procedure 'StaffConsentFormsUpdate'.",
+        "Add parameters: SessionID, ID, AgencyID, ProviderID, DateReceived, ProviderTypeCodeID, Notes.",
+        "Execute database query."
+      ]
+    },
+    {
+      "name": "Delete Staff Consent Form",
+      "steps": [
+        "Check if ID > 0.",
+        "Set up stored procedure 'StaffConsentFormsDelete'.",
+        "Add parameters: SessionID, ID.",
+        "Execute database query."
+      ]
+    },
+    {
+      "name": "Search Staff Consent Forms By StaffID or ID",
+      "steps": [
+        "Set up stored procedure 'StaffConsentFormsSearch' or 'StaffConsentFormsSearchID'.",
+        "Add parameters: StaffID or ID, SessionID.",
+        "Execute query and read results.",
+        "Fill StaffConsentForm list from database records."
+      ]
+    }
+  ],
+  "business_rules": [
+    "DateReceived is mandatory; validation fails if missing.",
+    "Only run queries with positive ID values.",
+    "ProviderListDept must be parsable into AgencyID and ProviderID."
+  ],
+  "validations": [
+    "When adding/updating, DateReceived must not be null or invalid.",
+    "AgencyID and ProviderID must be integer values parsed from ProviderListDept."
+  ],
+  "calculations": [
+    "AgencyDepartIDFormatted: AgencyID + '/' + ProviderID.",
+    "AgencyDepartFormatted: Agency + ' / ' + Department (or ALL if department is empty).",
+    "DateReceivedFormatted: short date format of DateReceived."
+  ],
+  "conditions": [
+    "Use alternate ProviderType field if UseAltLanguageFields is true."
+  ],
+  "system_behavior": [
+    "Stored procedures for add, update, delete, and search.",
+    "Error messages added to session if validation fails.",
+    "Records read from database and transformed into StaffConsentForm objects."
+  ],
+  "dependencies": [
+    "DateFormatter for formatting/parsing dates.",
+    "Database access layer for CRUD operations.",
+    "Session state for error reporting and alternate language field support."
+  ],
+  "exceptions": [
+    "Validation error if DateReceived is missing.",
+    "Skip database query if ID is invalid (<= 0)."
+  ],
+  "source_document_ids": [
+    "02cf2fd1-5ae1-54ab-97a7-9a7e855a2ef6",
+    "260aeb9d-90de-5f9a-81ce-705fcbd1876c",
+    "66ca4ce7-7638-504b-947d-355dd10d24ef",
+    "b57223f5-9687-52a7-adc8-db44a2d79c71",
+    "ca6ae69d-5ced-51ea-a82f-384c4abc2804"
+  ],
+  "content_gaps": [
+    "No explicit user interface or error handling flow beyond validation.",
+    "Details of how 'Notes' is used or validated are not provided.",
+    "No description of session management or authentication requirements.",
+    "No information about concurrency, transactions, or audit."
+  ]
+}
