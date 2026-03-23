@@ -1,50 +1,50 @@
 {
-  "filename": "HSPnetDropDownList",
-  "found": true,
-  "summary": "The HSPnetDropDownList is a custom implementation of a DropDownList control in a web application. It includes features for highlighting the dropdown list items based on selection and providing an 'ALL' option.",
-  "purpose": "The purpose of the HSPnetDropDownList is to provide a dropdown list with custom behavior for highlighting selected items and handling an optional 'ALL' selection.",
-  "entities": [],
-  "fields": [
-    {
-      "name": "ALL",
-      "type": "Boolean",
-      "description": "Determines if the 'ALL' option is included in the dropdown."
-    },
-    {
-      "name": "FirstItemIsALL",
-      "type": "Boolean",
-      "description": "Indicates if the first item in the dropdown is the 'ALL' option."
-    }
-  ],
-  "actors": [],
-  "workflows": [
-    {
-      "name": "Dropdown Rendering",
-      "steps": [
-        "OnPreRender: Remove existing color styles.",
-        "Check if the selected index is greater than 0.",
-        "If selected index > 0, set dropdown color to red.",
-        "Else, set dropdown color to black.",
-        "If ALL is set, insert 'ALL' as first item on DataBound."
-      ]
-    }
-  ],
-  "business_rules": [],
-  "validations": [],
-  "calculations": [],
-  "conditions": [
-    "If ALL is true, 'ALL' is inserted as the first item.",
-    "Selected index > 0 sets dropdown color to red."
-  ],
-  "system_behavior": [
-    "The dropdown's appearance changes based on the selected item.",
-    "The 'ALL' option can be included based on the ALL property."
-  ],
-  "dependencies": [],
-  "exceptions": [],
-  "source_document_ids": [
-    "0308ea81-1239-5a09-b3ba-967392b5ac86",
-    "6c19a916-eff0-5a39-a66f-abacd800cca4"
-  ],
-  "content_gaps": []
+    "filename": "HSPnetDropDownList",
+    "found": true,
+    "summary": "The HSPnetDropDownList is a customized DropDownList control used in web applications to manage the display and behavior of dropdown lists with integrated features like CSS styling based on selection.",
+    "purpose": "To provide a dropdown list control that supports special functionalities like displaying an 'ALL' option, highlighting selected items, and changing styles based on selection.",
+    "entities": [],
+    "fields": [
+        "SelectedIndex",
+        "Attributes.CssStyle",
+        "Items",
+        "ALL",
+        "FirstItemIsALL"
+    ],
+    "actors": [],
+    "workflows": [
+        {
+            "name": "Highlight Selected Option",
+            "steps": [
+                "Check if the selected index is greater than 0",
+                "If true, apply red color style to the dropdown",
+                "Else, apply black color style"
+            ]
+        },
+        {
+            "name": "Insert ALL Option",
+            "steps": [
+                "Check if the ALL property is true",
+                "Insert 'ALL' option with a value of '0' at the top of the list"
+            ]
+        }
+    ],
+    "business_rules": [
+        "The first item in the dropdown is always the 'ALL' option",
+        "The select element is highlighted red if an option other than 'ALL' is selected"
+    ],
+    "validations": [],
+    "calculations": [],
+    "conditions": [],
+    "system_behavior": [
+        "On PreRender: Adjusts the style of the dropdown based on the selected item",
+        "On DataBound: Inserts an 'ALL' option if the ALL property is true"
+    ],
+    "dependencies": [],
+    "exceptions": [],
+    "source_document_ids": [
+        "0308ea81-1239-5a09-b3ba-967392b5ac86",
+        "6c19a916-eff0-5a39-a66f-abacd800cca4"
+    ],
+    "content_gaps": []
 }
