@@ -1,61 +1,62 @@
 {
-    "filename": "TimetableAssessments",
-    "found": true,
-    "summary": "This document outlines functionality for managing timetable assessments, including UI elements for interacting with assessment data, validation routines, and JavaScript behaviors.",
-    "purpose": "Manage assessments linked to specific timetables within HSPnet, including adding, editing, deleting, and validating assessments.",
-    "entities": [],
-    "fields": [
-        "ddlAssessor",
-        "ddlAssessmentType",
-        "ddlAssessmentTemplate",
-        "ddlOptionalSectionAssessor",
-        "txtOpenDaysAfterStart",
-        "txtCloseDaysAfterEnd",
-        "chkAssessorCanViewSubjectsAnswers",
-        "chkSubjectsCanViewAssessorAnswers",
-        "txtViewUntilDaysAfterEnd"
-    ],
-    "actors": [
-        "Assessor",
-        "Subject"
-    ],
-    "workflows": [
-        {
-            "name": "Assessment Management Workflow",
-            "steps": [
-                "Load timetable assessments data",
-                "Execute validation checks",
-                "Manage assessment entries",
-                "Show/hide UI elements based on input",
-                "Save or cancel assessment changes",
-                "Handle JavaScript events for UI controls"
-            ]
-        }
-    ],
-    "business_rules": [
-        "Ensure interim assessments without final assessments are flagged.",
-        "Limit assessments exceeding maximum thresholds."
-    ],
-    "validations": [
-        "Required fields must be specified for assessments.",
-        "Numeric fields must contain valid numbers."
-    ],
-    "calculations": [],
-    "conditions": [
-        "Show/hide fields based on assessment type and template selections."
-    ],
-    "system_behavior": [
-        "Scripts handle JavaScript interactions within the page.",
-        "Error panels display validation messages."
-    ],
-    "dependencies": [
-        "UserSession"
-    ],
-    "exceptions": [
-        "JavaScript functions manage various conditions within the page."
-    ],
-    "source_document_ids": [
-        "528d9fc6-cb63-5c52-9327-f323552f37e3"
-    ],
-    "content_gaps": []
+  "filename": "TimetableAssessments",
+  "found": true,
+  "summary": "Focuses on managing timetable assessments, including validations, data binding, and editing.",
+  "purpose": "To facilitate the creation and management of assessments linked to timetables.",
+  "entities": ["TimetableAssessment"],
+  "fields": [],
+  "actors": ["User"],
+  "workflows": [
+    {
+      "name": "Assessment Management",
+      "steps": [
+        "Load page and validate URL hash",
+        "Pre-render page checks and setup",
+        "Handle grid view actions (edit, add, delete)"
+      ]
+    }
+  ],
+  "business_rules": [],
+  "validations": [
+    "Interim assessment must have a corresponding final assessment."
+  ],
+  "calculations": [],
+  "conditions": [],
+  "system_behavior": ["Manages user interface for timetable-based assessments."],
+  "dependencies": [],
+  "exceptions": [],
+  "source_document_ids": [
+    "0781696d-dec4-5dfc-aa58-80ddd173c0ae",
+    "0d330d29-e0a7-5f88-8c71-d32f88b252b0",
+    "0ea3e178-f11b-5ee8-afc8-441e55e2d2f4",
+    "135455cd-1a34-5b2d-b8cc-298a1d98c47e",
+    "14ec7368-e312-5de7-b00e-188a6d5310ef",
+    "1807e536-2914-59f1-a538-b9e127d25f77",
+    "1d7ea219-2359-5da1-9c7b-79cbd696c770",
+    "345a2e51-fcf0-5df0-b1f6-b535c4b757c6",
+    "447b10a9-0558-5d06-9fac-926c94892393",
+    "528d9fc6-cb63-5c52-9327-f323552f37e3",
+    "61fa5351-3118-588b-a4f0-3147cd92841a",
+    "6f04742e-ad06-58cf-af37-b3ae7ebe39cc",
+    "6f1aa10e-0697-5c9e-8e0a-182b597a2d3e",
+    "707335b9-f19a-5366-959c-4872a99363e8",
+    "727a0287-de95-52fe-a841-7f49f9958884",
+    "734dd83e-2a57-578d-9891-96f90686f95e",
+    "7a89081a-a4a0-569f-8bc4-676ec99f7dcb",
+    "7ab03f3d-3b63-594e-a3ac-ea304249c66a",
+    "7afa582c-d2e5-5803-b315-7f8f63d1bc7e",
+    "7bb40b95-0bb5-5f6d-91ca-bbcb527d60ff",
+    "824387dc-2c7b-5cca-96a6-bfab53dbaeee",
+    "9ff99ed6-d3d2-55bd-a19b-ea38ec6c20be",
+    "a1b432d1-2597-591b-a1a7-80d7b39db2b7",
+    "b0600110-1773-5335-a423-4e456e7b615b",
+    "b66763e8-1cd7-5741-9b81-95c511b8cf64",
+    "c55e37c8-0668-52c9-8860-02706d05d1c5",
+    "c8e37d14-9d6e-5d5f-a710-581fe5dfd958",
+    "dd0997ef-5454-5014-9d78-fa20aed967eb",
+    "e506841f-d914-5482-b64c-7deca11f392a",
+    "ed5d2f45-0dea-5606-bc98-3a7d2c634bf5",
+    "ede3c463-e1b7-551c-bad2-e5db6d44165e"
+  ],
+  "content_gaps": []
 }
