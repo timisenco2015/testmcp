@@ -1,0 +1,94 @@
+{
+    "filename": "HSPnetPage",
+    "found": true,
+    "summary": "The HSPnetPage involves a comprehensive setup and management of session data, JavaScript assets, Google Analytics integration, and locale settings relevant to the user sessions. The page ensures that sessions are checked and maintained actively while also managing warnings related to session timeouts.",
+    "purpose": "The primary purpose of the HSPnetPage is to handle user session management, incorporate global scripting and styling assets, initialize culture settings, and facilitate the rendering of user-specific navigation based on session information.",
+    "entities": [],
+    "fields": [
+        "locale",
+        "startTime",
+        "sessHash",
+        "sessID",
+        "tRemain",
+        "mRefRate",
+        "sRefRate",
+        "toNoti",
+        "timedOutPage",
+        "sWarnTlt",
+        "btnRstTxt",
+        "btnClsTxt"
+    ],
+    "actors": [
+        "UserSession",
+        "HSPnetSession",
+        "HSPnet.LeftNav",
+        "Label"
+    ],
+    "workflows": [
+        {
+            "name": "Session Check and Management",
+            "steps": [
+                "Retrieve session from cache or initialize a new session.",
+                "Validate session; redirect if invalid.",
+                "Check session regularly via AJAX to maintain activity.",
+                "Reset session counters based on timeout warnings."
+            ]
+        },
+        {
+            "name": "Setup Page Interface",
+            "steps": [
+                "Load global and page-specific JavaScript and CSS.",
+                "Initialize culture based on session or defaults.",
+                "Configure user navigation based on session role and preferences."
+            ]
+        }
+    ],
+    "business_rules": [
+        "Session must be validated upon page access.",
+        "Timeout settings are dependent on warning and session refresh settings.",
+        "Google Analytics is set up if tracking ID is available."
+    ],
+    "validations": [
+        "Validate URL Hash except for certain pages (e.g., login).",
+        "Check for a valid session or redirect to timed-out page."
+    ],
+    "calculations": [
+        "Calculate `mRefRate` based on session timeouts.",
+        "Determine `rRate` for session refresh calls."
+    ],
+    "conditions": [
+        "If locale is not defined in the URL, attempt to fetch from database.",
+        "Check if session is valid and redirect if not."
+    ],
+    "system_behavior": [
+        "Add Google Analytics scripts dynamically if tracking ID exists.",
+        "Initialize culture settings upon page initialization."
+    ],
+    "dependencies": [
+        "JavaScript libraries for session management and UI interactions.",
+        "HSPnetSession utilities for session handling."
+    ],
+    "exceptions": [
+        "If session cannot be validated, the user is redirected to the timeout page.",
+        "Session warnings and errors must be displayed when appropriate."
+    ],
+    "source_document_ids": [
+        "0ee086d5-89d6-5440-a0a6-686260aed1f4",
+        "2373ec79-6866-56a1-837e-d3403d10a7b4",
+        "2bcd34ca-5cee-5358-adbc-68b322109145",
+        "53cafdc0-a333-5e33-933d-26d6cac03076",
+        "7e50f82e-3695-57a9-9c22-a650c409487c",
+        "8a1256a3-5e6b-58af-8b4b-04b58c03ba90",
+        "9209aa18-88da-5c49-b249-d35848c83573",
+        "9f1c50b3-651c-5567-8096-01c320921ab1",
+        "b80cf35c-9c50-57b7-b095-dcb02d3faafd",
+        "bb719b99-2365-5e7f-bd35-d5eac24f7021",
+        "bda188df-8072-5ec2-86b5-033fa6c2dd5d",
+        "ca5f378e-75b1-5212-8a2f-0f7f0bbd8d8b",
+        "cbc63dc3-e24a-52f8-9e84-08ee0543ad7e",
+        "d87d2c06-83d9-5d66-bf4b-ee4896445906",
+        "f146810a-5074-5d12-8c8a-c31f9ad0a12b",
+        "fb853967-a63f-52f7-a60f-4f37548220ed"
+    ],
+    "content_gaps": []
+}
