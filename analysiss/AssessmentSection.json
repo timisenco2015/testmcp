@@ -1,85 +1,89 @@
 {
-    "filename": "AssessmentSection",
-    "found": true,
-    "summary": "The AssessmentSection is a structured component within a system that handles and manages data related to assessment sections. It provides functionalities to perform various operations like searching assessment sections by template or name, and handling placement request assessment sections.",
-    "purpose": "The purpose of AssessmentSection is to manage and operate various functions related to assessment sections within the system, including fetching, updating, and organizing assessment data.",
-    "entities": [],
-    "fields": [
-        "ID",
-        "TemplateCodeID",
-        "AssessmentHeaderID",
-        "SectionName",
-        "SectionNameAlt",
-        "SectionTitle",
-        "SectionTitleAlt",
-        "SectionSubHeading",
-        "SectionSubHeadingAlt",
-        "SortOrder",
-        "AppliedAssessorTypeCodeID",
-        "AppliedAssessmentTypeCodeID",
-        "AssessAssessmentSubjectCodeID",
-        "RequiredAnswerMissing",
-        "HasQuestion",
-        "Optional"
-    ],
-    "actors": [],
-    "workflows": [
-        {
-            "name": "PlacementRequestAssessmentSectionsCombinedView",
-            "steps": [
-                "Initialize a list of AssessmentSection.",
-                "Set the procedure name as 'PlacementRequestAssessmentSectionsCombinedView'.",
-                "Add parameters: SessionID and PlacementRequestAssessmentID.",
-                "Execute the procedure and retrieve data.",
-                "For each record, create an AssessmentSection entry with retrieved data.",
-                "Add each entry to the list.",
-                "Return the list."
-            ]
-        },
-        {
-            "name": "AssessmentSectionSearchByTemplate",
-            "steps": [
-                "Initialize a list of AssessmentSection.",
-                "Set the procedure name as 'AssessmentSectionSearchByTemplate'.",
-                "Add parameters: SessionID, TemplateCode, OptionalOnly.",
-                "Execute the procedure and retrieve data.",
-                "For each record, create an AssessmentSection entry with retrieved data.",
-                "Add each entry to the list.",
-                "Return the list."
-            ]
-        },
-        {
-            "name": "AssessmentSectionSearchByName",
-            "steps": [
-                "Initialize an AssessmentSection entry.",
-                "Set the procedure name as 'AssessmentSectionSearchByName'.",
-                "Add parameters: SessionID, TemplateCode, SectionName.",
-                "Execute the procedure and retrieve data.",
-                "If a record is found, populate the entry with retrieved data.",
-                "Return the entry."
-            ]
-        }
-    ],
-    "business_rules": [],
-    "validations": [
-        "Ensure TemplateCode is provided when searching by template.",
-        "Ensure SectionName is provided when searching by name."
-    ],
-    "calculations": [],
-    "conditions": [],
-    "system_behavior": [
-        "Fetches and processes assessment section data based on provided parameters.",
-        "Handles optional and required fields in assessments."
-    ],
-    "dependencies": [],
-    "exceptions": [],
-    "source_document_ids": [
-        "12829377-323e-5201-92f6-9dd6121c41b5",
-        "1fad974b-0542-5bf6-95b3-62f38b35534d",
-        "42b5c7b0-b2b6-56a1-bf42-ad4ac12326fe",
-        "703a60e8-c91f-57c4-a59f-8aa3d597a3ed",
-        "b9658191-1656-58c7-8163-c8fb411cfd47",
-        "e5734b7a-dd59-506b-bcf7-adc663cdd8db"
-    ],
-    "content_gaps": []
+  "filename": "AssessmentSection",
+  "found": true,
+  "summary": "The AssessmentSection functionality deals with managing sections within assessments. It includes operations for retrieving and processing assessment section data based on various parameters such as template codes and section names. The data retrieved includes section names, titles, subheadings, sort order, and various code IDs.",
+  "purpose": "To manage and retrieve specific sections within assessments for placement requests, allowing for structured data retrieval and processing.",
+  "entities": [
+    "AssessmentSection",
+    "HSPnetSession"
+  ],
+  "fields": [
+    "ID",
+    "TemplateCodeID",
+    "AssessmentHeaderID",
+    "SectionName",
+    "SectionNameAlt",
+    "SectionTitle",
+    "SectionTitleAlt",
+    "SectionSubHeading",
+    "SectionSubHeadingAlt",
+    "SortOrder",
+    "AppliedAssessorTypeCodeID",
+    "AppliedAssessmentTypeCodeID",
+    "AssessAssessmentSubjectCodeID",
+    "RequiredAnswerMissing",
+    "HasQuestion",
+    "Optional"
+  ],
+  "actors": [
+    "HSPnetSession"
+  ],
+  "workflows": [
+    {
+      "name": "PlacementRequestAssessmentSections",
+      "steps": [
+        "Initialize HSPnetSession",
+        "Set procedure name to 'PlacementRequestAssessmentSections'",
+        "Add SessionID and PlacementRequestAssessmentID parameters",
+        "Execute procedure and read data",
+        "For each record, populate AssessmentSection fields",
+        "Close data reader and return list of AssessmentSections"
+      ]
+    },
+    {
+      "name": "AssessmentSectionSearchByTemplate",
+      "steps": [
+        "Initialize HSPnetSession",
+        "Set procedure name to 'AssessmentSectionSearchByTemplate'",
+        "Add SessionID, TemplateCode, and OptionalOnly parameters",
+        "Execute procedure and read data",
+        "For each record, populate AssessmentSection fields",
+        "Close data reader and return list of AssessmentSections"
+      ]
+    },
+    {
+      "name": "AssessmentSectionSearchByName",
+      "steps": [
+        "Initialize HSPnetSession",
+        "Set procedure name to 'AssessmentSectionSearchByName'",
+        "Add SessionID, TemplateCode, and SectionName parameters",
+        "Execute procedure and read data",
+        "Populate AssessmentSection fields based on locale",
+        "Close data reader and return AssessmentSection"
+      ]
+    }
+  ],
+  "business_rules": [],
+  "validations": [],
+  "calculations": [],
+  "conditions": [],
+  "system_behavior": [
+    "Retrieves assessment section data from the database using specified procedures.",
+    "Handles localization by selecting alternate names and headings based on session locale.",
+    "Combines results into structured lists or single entries depending on the operation."
+  ],
+  "dependencies": [
+    "HSPnetSession",
+    "SqlDataReader"
+  ],
+  "exceptions": [],
+  "source_document_ids": [
+    "12829377-323e-5201-92f6-9dd6121c41b5",
+    "1fad974b-0542-5bf6-95b3-62f38b35534d",
+    "42b5c7b0-b2b6-56a1-bf42-ad4ac12326fe",
+    "703a60e8-c91f-57c4-a59f-8aa3d597a3ed",
+    "b9658191-1656-58c7-8163-c8fb411cfd47",
+    "e5734b7a-dd59-506b-bcf7-adc663cdd8db"
+  ],
+  "content_gaps": []
 }
