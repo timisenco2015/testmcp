@@ -1,93 +1,64 @@
 {
   "filename": "UserFavLocations",
   "found": true,
-  "summary": "UserFavLocations is a web-based interface designed to manage and view users' favorite locations within the HSPnet application. It supports viewing, modifying, and saving lists of included and not included locations.",
-  "purpose": "To allow users to manage their list of favorite and non-favorite locations within the system.",
+  "summary": "The UserFavLocations module in HSPnet appears to manage a user's favorite locations, allowing display and modification of a list of agencies. It incorporates a user interface with panels for viewing and editing these lists along with controls for displaying errors and warnings.",
+  "purpose": "To manage and display a user's favorite locations in the system, providing functionality to view, add, or remove agencies from a favorites list.",
   "entities": [],
   "fields": [
-    {
-      "name": "ViewAllMode",
-      "type": "string",
-      "description": "Query string parameter to determine the view mode."
-    },
-    {
-      "name": "StandAloneMode",
-      "type": "string",
-      "description": "Query string parameter to determine if the application is running in standalone mode."
-    },
-    {
-      "name": "lbNotIncluded",
-      "type": "listbox",
-      "description": "List box for agencies not marked as favorites."
-    },
-    {
-      "name": "lbIncluded",
-      "type": "listbox",
-      "description": "List box for agencies marked as favorites."
-    }
+    "lbNotIncluded",
+    "lbIncluded",
+    "txtIncluded",
+    "pnlError",
+    "pnlWarning",
+    "pnlViewRAQ",
+    "pnlViewALL",
+    "pnlRAQModeChanged",
+    "pnlViewAllMode",
+    "lblErrorCaption",
+    "lblErrorList",
+    "lblWarningCaption",
+    "lblWarningList",
+    "lblFooter",
+    "cmdHideErrorPanel",
+    "cmdHideWarningPanel"
   ],
   "actors": [
-    {
-      "name": "UserSession",
-      "role": "Represents the current user's session."
-    }
+    "User",
+    "System Administrator"
   ],
   "workflows": [
     {
-      "name": "LoadLists",
+      "name": "Manage Favorite Locations",
       "steps": [
-        "Retrieve agencies not marked as favorites.",
-        "Bind agencies to lbNotIncluded.",
-        "Retrieve agencies marked as favorites.",
-        "Bind agencies to lbIncluded."
-      ]
-    },
-    {
-      "name": "cmdSave_Click",
-      "steps": [
-        "Update user's favorite agencies based on lbIncluded.",
-        "Reload the lists of agencies."
-      ]
-    },
-    {
-      "name": "cmdViewRAQ_Click",
-      "steps": [
-        "Hide pnlViewRAQ.",
-        "Show pnlViewALL.",
-        "Indicate RAQ mode change."
-      ]
-    },
-    {
-      "name": "cmdViewALL_Click",
-      "steps": [
-        "Show pnlViewRAQ.",
-        "Hide pnlViewALL.",
-        "Indicate RAQ mode change."
+        "Load default agency lists into 'Not Included' and 'Included' sections on page load.",
+        "User can move agencies between the lists using Add/Remove buttons.",
+        "Invoke server-side logic to update user's favorite list on save action.",
+        "Display errors or warnings during interactions using dedicated panels."
       ]
     }
   ],
   "business_rules": [
-    "If StandAloneMode is not '1', it defaults to '0'."
+    "Auto-generated fields must be modified in the code-behind files."
   ],
-  "validations": [
-    "Ensure that StandAloneMode is either '0' or '1'."
-  ],
+  "validations": [],
   "calculations": [],
   "conditions": [
-    "When in standalone mode and ViewAllMode is '1', pnlViewALL is hidden.",
-    "When not in standalone mode, the opposite view panel is hidden."
+    "If StandAloneMode is not '1', default to '0'.",
+    "Switch display mode between RAQ and ALL based on user interaction or predefined mode."
   ],
   "system_behavior": [
-    "Handles page load by setting up the HSPnet page and loading lists.",
-    "Processes page messages on Page_PreRender.",
-    "Updates user's favorite list on save.",
-    "Switches panels on view mode changes."
+    "Uses AJAX for always visible control extenders.",
+    "Executes JavaScript for dynamic list manipulation."
   ],
   "dependencies": [
-    "Framework.Hashing for URL validation.",
-    "HSPnet.DataLayer for data access."
+    "Agencies.AgencySearchNotFav(UserSession)",
+    "Agencies.AgencySearchFav(UserSession)",
+    "HSPnet.WebServices.ASSDLookups.ClearASSDCache(UserSession.SessionHash)"
   ],
-  "exceptions": [],
+  "exceptions": [
+    "Issues with modifying designer files in code-behind can cause incorrect behavior.",
+    "Cache not cleared might display outdated data."
+  ],
   "source_document_ids": [
     "0e0ce165-1ac6-5b86-9ab8-bee8b49aa587",
     "0ead2eb4-ca22-5079-a649-abe77331e906",
@@ -107,7 +78,5 @@
     "faa7e728-71cc-5378-9924-ee141aed52c1",
     "fd307450-c534-5c7f-bee0-e2544a6f1a88"
   ],
-  "content_gaps": [
-    "Detailed error handling is not described."
-  ]
+  "content_gaps": []
 }
