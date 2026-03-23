@@ -1,0 +1,82 @@
+{
+  "filename": "StudentConsent",
+  "found": true,
+  "summary": "The StudentConsent component is a part of the HSPnet system designed to manage student consent information. It interacts with various user interface elements to display and update student data, including email and phone release options and the use of an assessment module.",
+  "purpose": "Developed as a web control in ASP.NET, the StudentConsent component ensures that student consent records are handled properly, allowing actions like viewing and updating relevant consent details.",
+  "entities": [
+    "StudentConsent",
+    "UserSession",
+    "Student",
+    "FormView",
+    "Literal",
+    "Control",
+    "LinkButton",
+    "HyperLink",
+    "CheckBox",
+    "ObjectDataSource",
+    "ModalPopupExtender",
+    "ValidationSummary",
+    "Panel",
+    "UpdatePanel",
+    "Button"
+  ],
+  "fields": [
+    "UserSession",
+    "StudentID",
+    "Email",
+    "Phone",
+    "DepartmentUseAssessmentModule"
+  ],
+  "actors": [
+    "User",
+    "System"
+  ],
+  "workflows": [
+    {
+      "name": "View and Edit Student Consent",
+      "steps": [
+        "Load StudentConsent control.",
+        "Check if UserSession is active.",
+        "Display student email and phone consent options if available.",
+        "Toggle the visibility of assessment module field based on department settings.",
+        "Handle edit actions on consent details.",
+        "Show additional help information through linked resources."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Cancel data selection if UserSession is not active.",
+    "Email and phone details are displayed using a formatted caption.",
+    "Assessment module field visibility depends on department settings.",
+    "Edit controls are hidden if the user is in a view-only mode."
+  ],
+  "validations": [
+    "Check if UserSession is active before proceeding with data operations.",
+    "Ensure email or phone data is non-null before attempting to display it."
+  ],
+  "calculations": [],
+  "conditions": [],
+  "system_behavior": [
+    "Cancels data operation if no UserSession exists.",
+    "Uses literal controls to dynamically display student information.",
+    "Utilizes modal popups for detail viewing and editing."
+  ],
+  "dependencies": [
+    "HSPnet.Framework",
+    "HSPnet.DataLayer",
+    "HSPnet.UI",
+    "System.Web.UI"
+  ],
+  "exceptions": [
+    "Data selection or editing actions are canceled if the UserSession is null or in view-only mode."
+  ],
+  "source_document_ids": [
+    "10e87b00-c7c6-5d9d-9127-72558e261541",
+    "63cbd7a9-aede-5eed-bcee-47edf62d186c",
+    "9be42c2f-f86d-5a66-839b-5922233ccecc",
+    "dda86bc3-8f7e-5b75-955e-503eaf5ebcd0",
+    "f3d480ed-b61b-5d0b-80f3-74ddb580b9ea",
+    "fee14d56-b81a-504e-9372-0c6637ddff3d"
+  ],
+  "content_gaps": []
+}
