@@ -1,0 +1,156 @@
+{
+    "filename": "PlacementRequestInformation",
+    "found": true,
+    "summary": "The PlacementRequestInformation provides detailed workflow and status management for placement requests. It includes conditions for handling different statuses such as upcoming, accepted, declined, and confirmed. The process involves checks for supervisor assignment, student placement status, instructor presence, and various status codes.",
+    "purpose": "To manage and track the status and actions related to placement requests within the system, facilitating efficient placement operations, alerts, and notifications.",
+    "entities": [
+        "PlacementRequestInformation",
+        "UserIgnoredPR",
+        "WelcomeStatistics",
+        "AllowedList",
+        "PlacementRequestStaff"
+    ],
+    "fields": [
+        "PRD_ID",
+        "PlacementRequestID",
+        "ParentPRDID",
+        "StatusCodeID",
+        "SiteID",
+        "ServiceID",
+        "DestinationID",
+        "SupervisorID",
+        "ConditionCodeID",
+        "Comments",
+        "StartDate",
+        "EndDate",
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+        "Sunday",
+        "VariousDays",
+        "StartTime",
+        "EndTime",
+        "VariousTimes",
+        "GroupFlag",
+        "SharedRotation",
+        "StudentPlaceholder",
+        "ConditionDescription",
+        "UrgentAlert"
+    ],
+    "actors": [
+        "ReceivingCoordinator",
+        "DestinationCoordinator",
+        "Supervisor",
+        "StudentPlaceholder"
+    ],
+    "workflows": [
+        {
+            "name": "Placement Request Evaluation",
+            "steps": [
+                "Initialize PlacementRequestInformation entry",
+                "Check status code for 'pending', 'accepted', 'confirmed', 'declined', or 'canceled'",
+                "Evaluate student assignment status - confirm if placeholder or actual student",
+                "Check instructor and supervisor assignment",
+                "Process alerts and urgent notifications based on conditions and comments",
+                "Update statistics for placement processing"
+            ]
+        }
+    ],
+    "business_rules": [
+        "Placement requests with status 'Pending' need confirmation within 7 days.",
+        "Requests marked 'Confirmed' require instructor assignment unless flagged otherwise.",
+        "Requests 'Declined' or 'Canceled' are hidden from active views."
+    ],
+    "validations": [
+        "Confirm valid entries for status updates before processing.",
+        "Ensure student and supervisor assignments are complete for confirmed requests."
+    ],
+    "calculations": [
+        "Days and shifts calculation based on start and end time for placements."
+    ],
+    "conditions": [
+        "Alerts are triggered based on conflict detection.",
+        "Urgent alerts are displayed if conditions are met."
+    ],
+    "system_behavior": [
+        "Release status is determined by agency flags and action dates.",
+        "Notifications are sent for status changes and upcoming actions."
+    ],
+    "dependencies": [
+        "StatusCodeFormatter for managing and formatting status codes.",
+        "AllowedLists for access control based on roles and locations."
+    ],
+    "exceptions": [
+        "Requests without supervisor are flagged for attention.",
+        "Incomplete records are marked unscheduled."
+    ],
+    "source_document_ids": [
+        "01819921-84c9-54e7-9b50-e32a1cd64eae",
+        "05caaf1e-ae99-5042-95c1-b4b46616de9b",
+        "068cd88b-13e8-528d-b5da-eb695592b013",
+        "070ad101-0bb5-5ca5-b17d-3d2ba1472dbf",
+        "0d7399c6-53bd-5f81-9385-c15fa6c9a9f3",
+        "0e8615f9-6562-5edf-a435-c2bdea14c81d",
+        "0efca5fa-2e85-5b24-bbfe-3d308d767a37",
+        "0f71e41a-0b3f-5cda-8685-4eaa3c157d62",
+        "102e97c5-7f99-5ec1-bbaa-d71a003234f0",
+        "108774eb-682b-5da3-a89e-fccf6a711e79",
+        "1456f857-adbe-5a74-bc1d-7b80e8917329",
+        "151fc77a-fc28-5a11-974d-d3ac8ec6f1d2",
+        "16688a57-8a01-5d4d-8340-aae46f33a747",
+        "188118a4-2890-535e-a499-d427c0126c12",
+        "18819709-aa05-5f33-8efa-f38e98a17f2c",
+        "19cff1d4-6a2a-594a-91dd-0bc5a4a9643e",
+        "19d166c0-2f8d-51ce-b811-aec4c7dcaf6d",
+        "1a05014d-5b1e-544f-baf1-fb5b806bb884",
+        "1c500221-10fc-56ae-8869-e9648a97da14",
+        "1fe2ea35-e2e5-5307-9ddb-434fb8983589",
+        "2237485a-878d-589d-b401-8a5b2aff9062",
+        "245afc0e-26d2-5e76-8162-2993225a915f",
+        "25ae38ba-e6b8-5415-bb1b-a2dc652f12a0",
+        "28386072-fd01-5571-8090-4e5d6cd56a88",
+        "2aa68442-b642-576a-bde1-35d5cf2ec35e",
+        "2d121a1e-a24e-500b-a3b4-bd92512f82e6",
+        "3133871f-b06b-5ff6-8a08-a80aa0b5992a",
+        "362d719d-2b6b-526f-b919-2d6832c20109",
+        "365ca374-d1b8-5c0e-aceb-c53f1e033242",
+        "36e7b02b-e6dd-56c0-9223-0771a6140d75",
+        "3777df1b-7d65-5306-99c8-f6a4a6807708",
+        "386653d9-ce2b-509a-a463-8816cc1e9623",
+        "38b474eb-a705-58ac-809c-f70fa19a4aaf",
+        "38d204f8-0932-5e03-a0e2-b7ef2c6ea5a3",
+        "3b7584c9-b219-5d1c-b697-7091ae5951d8",
+        "3c24cdbd-f20f-5b86-bd19-1e00a6ee4abc",
+        "3d298c9f-af16-5cda-9507-f28d2647cfaf",
+        "3f15490f-e2b6-5d0c-9cc2-4389b2229f27",
+        "405a275e-3003-5311-9c68-d2ad710f7e9b",
+        "40e5cf78-18fd-50e1-aa5a-926f21c75d95",
+        "4214cfd3-23de-5fea-8e29-e3a3fac28aa9",
+        "424ec71d-ce26-5fce-a77c-a66742e77d24",
+        "4463bec1-1293-5667-b1b5-c69c60469a7c",
+        "45212abe-1ede-5011-a265-3ce55a018564",
+        "4577ba2f-1d05-58e6-9121-8b024a224dd8",
+        "4858a477-31a7-591d-8dcb-b0cbaf186274",
+        "4a6e27d8-1f79-5595-9c35-ab4aa751448f",
+        "4ca6d387-9512-5a25-8ce7-7c6a525ea097",
+        "4d62ad0e-491d-594f-9696-8f12da90e53d",
+        "4dd91bb6-6e6e-53a9-a044-cc49d8bd899d",
+        "532b52dd-2a8f-515b-bc65-cb8136eab89b",
+        "55708edc-6cba-57bc-83e6-655359d6e26f",
+        "5d4d0070-d296-5254-a68c-c221c933058a",
+        "6c5e605d-81cd-58a7-862e-9980477ef7fc",
+        "74916a0c-2e8d-5a16-aaad-23df09f07e6c",
+        "761669fd-425b-5eba-8dd5-7661413a2248",
+        "7969f453-04ca-539e-965f-3da3bb9626e5",
+        "7ea7384c-0bf5-592a-adf2-4369e8c44f6e",
+        "821c31bf-833a-5f4e-b008-34a79e7d72f8",
+        "87798a86-db76-5e4d-9de6-8af5c45533a7",
+        "909c2d1b-2462-536a-a775-a34ec668baad",
+        "9934f1e0-3fc7-5701-a67b-00ea2cf06688",
+        "f65919ef-eccf-5520-908e-46cf47a67d1f"
+    ],
+    "content_gaps": []
+}
