@@ -1,0 +1,58 @@
+# Module: ErrorOccurred
+
+## ErrorOccurred-UC1 — Handle Error Locale
+
+- Primary Actor(s): System
+- Secondary Actor(s): User
+- Trigger: A page error occurs, and the page loads.
+- Description: The system determines the locale from the query string (`Locale`) and sets the visibility of language-specific headers accordingly. The error message email address is customized based on the locale.
+- Preconditions: The page is loaded due to an error, and the locale is set either to the default or specified in the query string.
+- Postconditions: The appropriate header is visible based on the locale, and the error message includes a customized email address.
+- Main Success Scenario:
+  1. The system reads the `Locale` from the query string.
+  2. The system sets the visibility of either `HeaderEN` or `HeaderFR`.
+  3. The system retrieves the error email configuration based on the locale.
+  4. The system sets the error message text with the configured email.
+- Extensions:
+  - If `Locale` is `en-US` or empty, use default settings for English locale.
+  - If `Locale` is different, use alternate settings for French locale.
+- Exceptions: None
+- Business Rules: The email address for error messages is retrieved from configuration settings and differs based on locale.
+- Assumptions: The system has access to configuration settings for email addresses.
+- Open Issues: None
+
+## ErrorOccurred-UC2 — Display HttpRequestValidationException Message
+
+- Primary Actor(s): System
+- Secondary Actor(s): User
+- Trigger: A HttpRequestValidationException occurs.
+- Description: The system checks if a `HttpRequestValidationException` has been flagged in the query string and displays the corresponding message.
+- Preconditions: The query string includes `HttpRequestValidationException=1`.
+- Postconditions: The error message displayed is specific to `HttpRequestValidationException`.
+- Main Success Scenario:
+  1. The system checks the query string for `HttpRequestValidationException`.
+  2. The system formats the error message specific to `HttpRequestValidationException`.
+  3. The system displays the error message to the user.
+- Extensions: None
+- Exceptions: None
+- Business Rules: Error messages should be specific and contextual to the type of error encountered.
+- Assumptions: The system has access to a resource file containing exception-specific messages.
+- Open Issues: None
+
+## ErrorOccurred-UC3 — Initialize Culture
+
+- Primary Actor(s): System
+- Secondary Actor(s): None
+- Trigger: Page initialization process starts.
+- Description: The system initializes the culture settings based on the `Locale` parameter, affecting UI and thread culture settings.
+- Preconditions: The `Locale` parameter is present in the query string.
+- Postconditions: The thread's current UI culture and current culture are set according to the provided locale.
+- Main Success Scenario:
+  1. The system reads the `Locale` from the query string.
+  2. The system sets the thread's current UI culture to match the locale.
+  3. The system sets the thread's current culture to match the locale.
+- Extensions: None
+- Exceptions: None
+- Business Rules: Culture settings must be initialized during page load to reflect the correct language and regional settings.
+- Assumptions: The locale provided is valid and supported by the system.
+- Open Issues: None
