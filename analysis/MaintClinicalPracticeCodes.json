@@ -1,0 +1,108 @@
+{
+  "filename": "MaintClinicalPracticeCodes",
+  "found": true,
+  "summary": "The MaintClinicalPracticeCodes module manages the maintenance of Clinical Practice Codes, including add, edit, delete, and reactivate actions. Screen access is governed by user role and dropdown selections. The interface uses ASP.NET WebForms with dropdowns for Agency, Department, and Program, and a GridView listing codes. Validation and error handling are present. Data is fetched and bound from an ObjectDataSource, supporting filtration by keywords and showing inactive codes.",
+  "purpose": "To allow authorized users to manage Clinical Practice Codes for training/clinical programs, including viewing, editing, adding, deleting (inactivating), and reactivating codes. Filtering and validation mechanisms ensure accurate and restricted access.",
+  "entities": [
+    "ClinicalPracticeCode",
+    "Agency",
+    "Department",
+    "Program",
+    "UserSession",
+    "GridData"
+  ],
+  "fields": [
+    "ID",
+    "Name",
+    "ShortName",
+    "Inactive",
+    "AgencyID",
+    "DepartmentID",
+    "ProgramID"
+  ],
+  "actors": [
+    "SystemAdministrator",
+    "LocalAdministrator",
+    "User"
+  ],
+  "workflows": [
+    {
+      "name": "Manage Clinical Practice Codes",
+      "steps": [
+        "Screen loads and dropdowns for Agency, Department, and Program are populated.",
+        "User selects Agency, Department, and Program (with changes updating options and grid).",
+        "GridView lists codes, with add/edit/delete/reactivate depending on user access.",
+        "Add/Edit opens DetailsView in modal popup for entry and validation.",
+        "Delete marks code as inactive; Reactivate restores inactive code.",
+        "Validation and error/warning panels display relevant messages.",
+        "Refresh button re-binds grid data reflecting current filters and selections."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Add/Edit/Delete/Reactivate is allowed only if Department and Program dropdowns are not empty.",
+    "System Administrators can edit only in their Agency.",
+    "Local Administrators need explicit Department access.",
+    "ViewOnly users cannot modify data.",
+    "Code Name and ShortName are required and validated."
+  ],
+  "validations": [
+    "RequiredFieldValidator for Name and ShortName in DetailsView.",
+    "ValidationSummary consolidates validation messages.",
+    "Page.IsValid must be true before save/update."
+  ],
+  "calculations": [],
+  "conditions": [
+    "ScreenIsEditable is set based on role and dropdown state.",
+    "Add/Edit/Delete/Reactivate actions check ScreenIsEditable and user access.",
+    "Filters: keyword text, show inactive codes, dropdown selections."
+  ],
+  "system_behavior": [
+    "UpdatePanel enables partial page updates.",
+    "GridView commands trigger modal details and updates.",
+    "ObjectDataSource fetches and filters data based on parameters.",
+    "Panels for error and warning messages are shown/hidden as needed."
+  ],
+  "dependencies": [
+    "HSPnet.DataLayer.ClinicalPracticeCodes",
+    "Agencies",
+    "Departments",
+    "Programs",
+    "Dropdown",
+    "Grid",
+    "AjaxControlToolkit",
+    "ASP.NET WebForms"
+  ],
+  "exceptions": [
+    "DetailsView entry is null or invalid.",
+    "No Department or Program items available disables add/edit.",
+    "Attempt to edit without access is blocked."
+  ],
+  "source_document_ids": [
+    "1a77e7da-0f92-5a0c-8fae-71056a1a8094",
+    "2459a248-75cd-5726-acb7-2dac9c032ca2",
+    "2ab1fcc0-9f43-53e9-978e-dcb85b0368fd",
+    "36d4cd2b-4173-5197-9ef8-9a9e9696c813",
+    "37466f25-8263-5776-a737-d52f76a046b1",
+    "4639e39b-7c86-556c-a963-f1ebf07e430b",
+    "4f4ab970-b52f-50ad-970a-d15854034368",
+    "66ee2caa-af22-5133-b58c-335f3ff230b3",
+    "73d157d0-8704-5483-ba18-f07f908e37d9",
+    "7504ddba-c6ea-55cb-aa68-ce5b6da217be",
+    "884295cf-808e-5138-a00a-1c5eefd94ac3",
+    "96e1ad39-6796-5cd5-93ba-39eff14ddd5b",
+    "b427c6f5-5ce5-51da-8532-a9a794e7d965",
+    "c612f387-b77d-58d2-989e-f664f6bc89b0",
+    "d8353f31-27ad-5b3f-92ff-904167fdf1f0",
+    "dcb5aa7a-ecd8-5c97-863a-c610eda590af",
+    "e2b74601-147d-56af-9611-3fc5231f8c19",
+    "e68883dd-3062-567f-9a34-df0037ce41d0",
+    "f5d8614c-459e-5bc5-b8e9-e46671dc220b",
+    "fdc8515b-714d-5285-95af-55c30bd0e56a"
+  ],
+  "content_gaps": [
+    "No explicit database schema or full data model for ClinicalPracticeCode.",
+    "No error handling implementation details (only UI reference).",
+    "No full localization resource details (resource keys referenced)."
+  ]
+}
