@@ -1,26 +1,46 @@
 {
     "filename": "ServiceCode",
     "found": true,
-    "summary": "Defines the ServiceCode class and methods for retrieving service codes from a database.",
-    "purpose": "To manage service codes and their retrieval by course or timetable IDs.",
-    "entities": [],
+    "summary": "The ServiceCode file defines the structure and retrieval logic for service codes within the application, including localized data handling.",
+    "purpose": "To manage and provide access to service codes, facilitating both default and alternate language support.",
+    "entities": [
+        {
+            "name": "ServiceCode",
+            "attributes": [
+                "ID",
+                "CodeCategoryID",
+                "ShortName",
+                "Name",
+                "SortOrder",
+                "Notes",
+                "NameAlt"
+            ]
+        }
+    ],
     "fields": [
-        {"name": "ID", "type": "int"},
-        {"name": "CodeCategoryID", "type": "int"},
-        {"name": "ShortName", "type": "string"},
-        {"name": "Name", "type": "string"},
-        {"name": "SortOrder", "type": "int"},
-        {"name": "Notes", "type": "string"},
-        {"name": "NameAlt", "type": "string"},
-        {"name": "NotesAlt", "type": "string"}
+        "ID",
+        "CodeCategoryID",
+        "ShortName",
+        "Name",
+        "SortOrder",
+        "Notes",
+        "NameAlt"
     ],
     "actors": [],
     "workflows": [],
-    "business_rules": [],
+    "business_rules": [
+        {
+            "name": "Localization Rule",
+            "description": "Switch to alternate language fields if enabled in session."
+        }
+    ],
     "validations": [],
     "calculations": [],
     "conditions": [],
-    "system_behavior": [],
+    "system_behavior": [
+        "Retrieves service codes from the database based on various criteria.",
+        "Supports localization by substituting alternate language data when necessary."
+    ],
     "dependencies": [],
     "exceptions": [],
     "source_document_ids": [
