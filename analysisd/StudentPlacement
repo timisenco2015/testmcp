@@ -1,0 +1,107 @@
+```json
+{
+    "filename": "StudentPlacement",
+    "found": true,
+    "summary": "The document provides the structure and logic for managing student placements, including contact details, scheduling, and various conditions or exceptions affecting placements.",
+    "purpose": "To manage and administer student placements effectively within an educational or training context.",
+    "entities": [
+        "StudentPlacement",
+        "StudentPlacements",
+        "HSPnetSession"
+    ],
+    "fields": [
+        "RefNum",
+        "PlacementRequestID",
+        "Course",
+        "CourseID",
+        "CourseProfileURL",
+        "GroupSize",
+        "PlacementType",
+        "StartDate",
+        "EndDate",
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+        "Sunday",
+        "UrgentAlert",
+        "ShowUrgentAlert",
+        "DestinationDetails",
+        "SupervisorChanged",
+        "DestinationChanged",
+        "DateChanged",
+        "DCLastName",
+        "DCFirstName",
+        "DCPhone",
+        "DCEmail"
+    ],
+    "actors": [
+        "Student",
+        "Instructor",
+        "Supervisor",
+        "Coordinator"
+    ],
+    "workflows": [
+        {
+            "name": "GetByStudentID",
+            "steps": [
+                "Initialize list",
+                "ProcedureName set to 'StudentWelcomeSearch'",
+                "Add parameters StudentID and SessionID",
+                "Retrieve data using SqlDataReader",
+                "Populate StudentPlacement objects",
+                "Close reader and return list"
+            ]
+        }
+    ],
+    "business_rules": [
+        "If ParentPRDID is not 0, set ParentSite",
+        "Translate 'Group' in PlacementType if necessary"
+    ],
+    "validations": [
+        "Check if DisciplineContact string is not empty before parsing",
+        "Ensure ContactPieces length is 5 before assignment"
+    ],
+    "calculations": [
+        "ShiftLength calculated from ShiftCode, StartTime, EndTime",
+        "ShiftType calculated based on AmendmentExists and VariousTimes"
+    ],
+    "conditions": [
+        "If Session is not null, use PhoneMask",
+        "If ContactID is Discipline, then use DisciplineContact"
+    ],
+    "system_behavior": [
+        "Creates new Phone objects based on session settings",
+        "Parses |-delimited contact information"
+    ],
+    "dependencies": [
+        "HSPnet Framework",
+        "SqlDataReader interactions"
+    ],
+    "exceptions": [
+        "Handle empty contact details by returning empty or default values"
+    ],
+    "source_document_ids": [
+        "13754ba0-0cd1-58fc-aaf0-9f77bdead41a",
+        "1fe44a71-e0ec-5642-8364-a9f7defcda23",
+        "3069f2b6-de96-5c67-9ff5-8f544e54b24d",
+        "431bb39d-62a8-5104-af2a-f4229b600d9c",
+        "4872b15a-c61e-50ec-b14f-da63562f0760",
+        "4d6aac00-225a-58cc-a108-ab1356f27bed",
+        "56e8b149-cfa7-5da1-8c13-e2dd539dcb41",
+        "5a58a882-6c87-568b-94a6-5e68a1818f53",
+        "7089d310-e6f9-58d9-b14d-c2e9962ab6a5",
+        "7a92b0ba-b24d-5409-8c95-1c6eaae855b0",
+        "84901fb3-ce76-5c54-8108-4c431567e49d",
+        "a57418a3-bf90-5f91-8db4-bbd9e3c99c93",
+        "b4f0a6eb-abe7-585a-8c8d-b1707a94c494",
+        "c4bec497-8f8b-5855-8cce-570a38b07086",
+        "dfa34330-104e-5f92-a207-379a3c1e0368",
+        "f475f0b9-66a0-53d6-bce5-d7bfcfc9100e",
+        "f4b87423-7f59-518a-b2eb-941d05cc8696"
+    ],
+    "content_gaps": []
+}
+```
