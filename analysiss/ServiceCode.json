@@ -1,33 +1,30 @@
 {
   "filename": "ServiceCode",
   "found": true,
-  "summary": "ServiceCode class provides functionalities for retrieving service codes and their related information.",
-  "purpose": "Handle retrieval and localization of service codes by category.",
-  "entities": [
-    {
-      "name": "ServiceCode",
-      "attributes": ["ID", "CodeCategoryID", "ShortName", "Name", "SortOrder", "Notes", "NameAlt", "NotesAlt"]
-    }
-  ],
+  "summary": "ServiceCode management within HSPnet.",
+  "purpose": "To handle retrieval and localization of service codes used in the system.",
+  "entities": ["ServiceCode", "ServiceCodes"],
   "fields": ["ID", "CodeCategoryID", "ShortName", "Name", "SortOrder", "Notes", "NameAlt", "NotesAlt"],
-  "actors": [],
+  "actors": ["System Administrator"],
   "workflows": [
     {
-      "name": "Retrieve Service Codes",
+      "name": "Service Code Retrieval",
       "steps": [
-        "Execute stored procedure to get service codes.",
-        "Read data from the database.",
-        "Localize data if alternate language fields are active."
+        "Invoke stored procedure to list all service codes.",
+        "Read data from SQL DataReader.",
+        "Localize entries if an alternate language is used."
       ]
     }
   ],
   "business_rules": [],
   "validations": [],
   "calculations": [],
-  "conditions": [],
+  "conditions": [
+    "Check if alternate language fields should be used."
+  ],
   "system_behavior": [],
   "dependencies": [],
   "exceptions": [],
-  "source_document_ids": ["94f1b055-348d-508a-ae6e-cf7960a8c6a2", "e4ebe4b4-6d14-5c3f-b693-61016f765239", "f976b9af-a402-540f-b162-391d578fac7c"],
+  "source_document_ids": ["94f1b055-348d-508a-ae6e-cf7960a8c6a2", "e4ebe4b4-6d14-5c3f-b693-61016f765239"],
   "content_gaps": []
 }
