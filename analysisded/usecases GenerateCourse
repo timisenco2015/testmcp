@@ -1,0 +1,117 @@
+# Module: GenerateCourse
+
+## GenerateCourse-UC1 — Generate Correspondence
+
+- Primary Actor(s): User
+- Secondary Actor(s): System Administrator, Local Administrator
+- Trigger: User clicks the "Generate" button to start the correspondence generation process.
+- Description: This use case describes the process of generating correspondence documents for selected requests or recipient lists.
+- Preconditions:
+  - User must have the necessary permissions (Placement Coordinator, Receiving Coordinator, or System Administrator).
+  - Relevant dropdown lists (Department, Program, Term) must be populated.
+  - User session must be active.
+- Postconditions:
+  - Correspondence data is saved, and correspondence documents are generated in the selected format.
+- Main Success Scenario:
+  1. User selects requests or generates a recipient list.
+  2. User chooses output format (PDF, RTF, XLS, etc.).
+  3. System validates selected filters, dates, and other parameters.
+  4. User initiates the generation process by clicking the "Generate" button.
+  5. System saves correspondence run variables.
+  6. System generates correspondence documents based on the selected options.
+  7. Documents are displayed or saved for review.
+- Extensions:
+  - User can choose to include additional contact information for addressees.
+  - User can opt to separate student pages in correspondence.
+- Exceptions:
+  - Errors in input validation (e.g., incorrect date format).
+  - Missing permissions for the user role.
+- Business Rules:
+  - Permissions based on user roles define which actions are allowed (e.g., visibility of email options).
+- Assumptions:
+  - User has a clear understanding of the correspondence generation process.
+- Open Issues:
+  - None identified.
+
+## GenerateCourse-UC2 — Populate Dropdowns
+
+- Primary Actor(s): System
+- Secondary Actor(s): User
+- Trigger: Page load or change event in relevant dropdowns.
+- Description: This use case describes how the system populates dropdown lists based on user session and selected options.
+- Preconditions:
+  - User session must be active.
+  - Department and Program IDs must be available.
+- Postconditions:
+  - Dropdown lists are filled with corresponding data for user selection.
+- Main Success Scenario:
+  1. On page load, system checks user session and permissions.
+  2. System populates department dropdown based on agency ID.
+  3. System populates program dropdown based on department selection.
+  4. System populates term dropdown based on program selection.
+  5. System updates choosers based on user selections.
+- Extensions:
+  - Dropdown lists can be disabled if course/cohort IDs are predefined (e.g., from query string).
+- Exceptions:
+  - Missing user session or agency details.
+- Business Rules:
+  - Only accessible departments and programs are shown based on user permissions.
+  - Term dropdown is populated only when program is selected.
+- Assumptions:
+  - User will primarily interact with dropdowns for selection.
+- Open Issues:
+  - None identified.
+
+## GenerateCourse-UC3 — Setup JavaScript
+
+- Primary Actor(s): System
+- Secondary Actor(s): User
+- Trigger: Page pre-render event.
+- Description: This use case describes how the system sets up JavaScript variables for dynamic page behavior.
+- Preconditions:
+  - User session is active.
+  - Necessary controls are initialized.
+- Postconditions:
+  - JavaScript variables are set for page interaction.
+- Main Success Scenario:
+  1. During page pre-render, system prepares JavaScript variables.
+  2. JavaScript functions for dynamic behavior, such as date setting and correspondence popup, are set.
+  3. System registers JavaScript with page context for async postbacks.
+- Extensions:
+  - JavaScript updates during dropdown changes or form submissions.
+- Exceptions:
+  - JavaScript errors if variables are incorrectly configured.
+- Business Rules:
+  - JavaScript runs on client-side to improve user interaction efficiency.
+- Assumptions:
+  - Browser compatibility for JavaScript execution.
+- Open Issues:
+  - None identified.
+
+## GenerateCourse-UC4 — Save Run Variables
+
+- Primary Actor(s): System
+- Secondary Actor(s): User
+- Trigger: Correspondence generation process.
+- Description: This use case details the saving of run variables during correspondence generation.
+- Preconditions:
+  - Correspondence generation is initiated.
+- Postconditions:
+  - Run variables are saved into the system for tracking and reporting.
+- Main Success Scenario:
+  1. System collects input from various controls and user selections.
+  2. System validates input data.
+  3. System saves run variables to track correspondence generation settings.
+  4. System continues with document generation if no errors are found.
+- Extensions:
+  - Customized signature and contact information can be included.
+- Exceptions:
+  - Errors in input data, such as invalid selections or missing mandatory fields.
+- Business Rules:
+  - Only validated data is saved for correspondence records.
+- Assumptions:
+  - User provides correct and complete input data.
+- Open Issues:
+  - None identified.
+
+These use cases address the core functionality of the GenerateCourse module, outlining the main interactions and system behaviors strictly based on the provided document contents.
