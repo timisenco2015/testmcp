@@ -1,0 +1,113 @@
+{
+  "filename": "StudentRAITProvisioning",
+  "found": true,
+  "summary": "The StudentRAITProvisioning files detail a system for managing student-related data such as student details and provisioning through various procedures implemented in a database. The operations involve searching, adding, updating, deleting, and batch updating student information using structured methods within a database context.",
+  "purpose": "The purpose of StudentRAITProvisioning is to systematically manage and provision student information through database operations for enhanced student record-keeping and service delivery.",
+  "entities": [
+    {
+      "name": "StudentRAITProvisioning",
+      "description": "Represents the provisioning information for a student including agency associations, login details, and contact information."
+    },
+    {
+      "name": "StudentITProvisioning",
+      "description": "Used for IT-related student provisioning, providing serialized and XML supported data structures."
+    }
+  ],
+  "fields": [
+    "ID",
+    "StudentID",
+    "AgencyID",
+    "AgencyList",
+    "UniqueID",
+    "LoginID",
+    "EmailRequired",
+    "Employee",
+    "Email",
+    "StaffID",
+    "Status",
+    "Msg"
+  ],
+  "actors": [
+    "HSPnetSession",
+    "Database"
+  ],
+  "workflows": [
+    {
+      "name": "Search Student Provisioning",
+      "steps": [
+        "Initialize database session.",
+        "Set stored procedure to 'StudentDetailsRAITProvisionSearch'.",
+        "Add parameters: SessID, StudentID, StaffID.",
+        "Execute and retrieve data from the database.",
+        "Convert data to StudentRAITProvisioning objects."
+      ]
+    },
+    {
+      "name": "Add Student Provisioning",
+      "steps": [
+        "Initialize database session.",
+        "Set stored procedure to 'StudentDetailsRAITProvisionAdd'.",
+        "Add parameters for student provisioning details.",
+        "Execute the query to insert the record."
+      ]
+    },
+    {
+      "name": "Update Student Provisioning",
+      "steps": [
+        "Initialize database session.",
+        "Set stored procedure to 'StudentDetailsRAITProvisionUpdate'.",
+        "Add parameters for updated provisioning details.",
+        "Execute the query to update the record."
+      ]
+    },
+    {
+      "name": "Delete Student Provisioning",
+      "steps": [
+        "Initialize database session.",
+        "Set stored procedure to 'StudentDetailsRAITProvisionDelete'.",
+        "Add ID parameter of the record to delete.",
+        "Execute the query for deletion."
+      ]
+    },
+    {
+      "name": "Batch Update IT Provisioning",
+      "steps": [
+        "Serialize StudentITProvisioning list to XML.",
+        "Set stored procedure to 'StudentDetailsRAITProvisionUpdateBatch'.",
+        "Add parameters for session ID and XML data.",
+        "Execute and convert data to StudentITProvisioningResult objects."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Do not execute search queries if the ID is not greater than 0."
+  ],
+  "validations": [
+    "Ensure data retrieved and inserted matches expected types and constraints."
+  ],
+  "calculations": [],
+  "conditions": [
+    "Check ID and CohortID are greater than 0 before executing search queries."
+  ],
+  "system_behavior": [
+    "Executes database procedures for student provisioning management.",
+    "Handles data transformation between database records and application objects."
+  ],
+  "dependencies": [
+    "System.Data.SqlClient",
+    "System.Xml.Serialization"
+  ],
+  "exceptions": [
+    "No action or database query executed if the provided IDs do not meet specified conditions."
+  ],
+  "source_document_ids": [
+    "17c05ac7-9041-54f5-a021-8370e03196d6",
+    "2d9f59cb-b06e-5f6a-bb64-8cf881440e50",
+    "48f434a6-ff51-5032-b608-59eb57095131",
+    "6c803891-b4ea-5233-852a-b9c0b9dd6e14",
+    "6f76bd23-16fc-54c7-9a8f-334de33f9ff9",
+    "9ac56210-7502-566b-8d78-bf953ef2df4e",
+    "f6b4b128-6ff2-5246-a9ab-77e70f1305eb"
+  ],
+  "content_gaps": []
+}
