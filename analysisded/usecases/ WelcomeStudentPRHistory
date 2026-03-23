@@ -1,0 +1,58 @@
+# Module: WelcomeStudentPRHistory
+
+## WelcomeStudentPRHistory-UC1 — Display Student PR History
+
+- Primary Actor(s): Student, School Administration
+- Secondary Actor(s): None
+- Trigger: A student or administrator initiates a request to view the student's Placement Record (PR) history.
+- Description: This use case allows users to view a history of confirmed and unconfirmed placement records for a student, including their details and status.
+- Preconditions:
+  - The user must have a valid session.
+  - The student must exist in the system.
+- Postconditions:
+  - The user can view the list of the student's placement records, sorted and filtered as required.
+- Main Success Scenario:
+  1. The user logs into the system.
+  2. The user navigates to the PR History section.
+  3. The system retrieves the student's PR history.
+  4. The system displays confirmed and unconfirmed PR records in separate lists.
+  5. The user can sort records by date, course, or status.
+- Extensions:
+  - The system supports sorting by different fields and directions.
+- Exceptions:
+  - If the user session is invalid, prompt for login.
+  - If the student ID is invalid, display an error message.
+- Business Rules:
+  - Only records with an end date on or after the current date are displayed in the future section.
+  - Records can be confirmed or unconfirmed based on status codes.
+- Assumptions:
+  - User permissions are managed elsewhere in the system.
+- Open Issues:
+  - How should the system handle PR records with missing end dates?
+
+## WelcomeStudentPRHistory-UC2 — Print PR History
+
+- Primary Actor(s): Student, School Administration
+- Secondary Actor(s): None
+- Trigger: A user clicks on the "Print" button to generate a PR history report.
+- Description: This use case allows users to print the student's PR history in PDF format.
+- Preconditions:
+  - The user must have a valid session.
+  - The student must exist in the system.
+  - There must be accessible print functionality.
+- Postconditions:
+  - The user receives a PDF report of the student's PR history.
+- Main Success Scenario:
+  1. The user clicks the "Print" button.
+  2. The system generates a PDF report for the student's PR history.
+  3. The system displays the PDF report to the user or prints it directly.
+- Extensions:
+  - The report can be viewed online or sent to a connected printer.
+- Exceptions:
+  - If the report generation fails, an error message is displayed.
+- Business Rules:
+  - The report format and content are standardized for consistency.
+- Assumptions:
+  - Necessary report templates and resources are preconfigured.
+- Open Issues:
+  - How should report errors be handled (e.g., retries, logging)?
