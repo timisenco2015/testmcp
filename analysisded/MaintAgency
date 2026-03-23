@@ -1,0 +1,104 @@
+```json
+{
+  "filename": "MaintAgency",
+  "found": true,
+  "summary": "The MaintAgency module is part of the HSPnet framework. It facilitates the management of agency data within the system, including creating, editing, deleting, and reactivating agency profiles. It incorporates functionalities for handling agency details, such as contact information, membership status, and operational roles. Additionally, it features validation rules and client-side scripting for managing user interactions and data integrity.",
+  "purpose": "To manage agency profiles, including details such as contact information, member rights, and access within HSPnet. It provides workflows for adding, editing, deleting, and reactivating agencies, as well as validating data inputs.",
+  "entities": [
+    "Agency",
+    "UserSession",
+    "Grid"
+  ],
+  "fields": [
+    "Name",
+    "ShortName",
+    "PreviousName",
+    "PreviousNameEffectiveDate",
+    "AreaCode",
+    "ReceivingAgency",
+    "PlacingAgency",
+    "HSPnetMember",
+    "ContentAuthor",
+    "ContentManager",
+    "AllowPAL",
+    "UmbrellaAgency",
+    "UmbrellaDescription",
+    "Address1",
+    "Address2",
+    "City",
+    "Province",
+    "PostalCode",
+    "Phone",
+    "Fax"
+  ],
+  "actors": [
+    "SystemAdministrator",
+    "AgencyDataStandards",
+    "Members"
+  ],
+  "workflows": [
+    {
+      "name": "Manage Agency Profiles",
+      "steps": [
+        "Load agency data on page load.",
+        "Validate input fields such as Name and ShortName using required field validators.",
+        "Enable or disable content controls based on HSPnet membership status.",
+        "Add new agency profiles using cmdAdd command.",
+        "Edit existing agency profiles using cmdEdit command.",
+        "Delete agency profiles using cmdDelete command.",
+        "Reactivate agency profiles using cmdReactivate command.",
+        "Refresh data based on current view settings."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Agencies must have specified Names and ShortNames.",
+    "Phone and Fax fields must conform to specified masks.",
+    "HSPnet membership status affects the availability of certain content controls."
+  ],
+  "validations": [
+    "Required field validators for Name and ShortName.",
+    "Regular expression validation for date fields.",
+    "Custom validators for phone and fax inputs."
+  ],
+  "calculations": [],
+  "conditions": [
+    "Check HSPnet membership to enable content controls.",
+    "Conditions for displaying phone area code based on phone mask usage.",
+    "Display conditions for inactive agency rows."
+  ],
+  "system_behavior": [
+    "JavaScript toggles fields based on user input.",
+    "Pages auto-refresh upon certain triggers.",
+    "Details views are shown or hidden based on commands."
+  ],
+  "dependencies": [
+    "HSPnet.Framework",
+    "HSPnet.DataLayer",
+    "HSPnet.UI"
+  ],
+  "exceptions": [
+    "Handling errors in agency deletion.",
+    "Exceptions when agency data does not conform to standards.",
+    "Handling of null or empty help texts."
+  ],
+  "source_document_ids": [
+    "00ec5cb3-a3dd-53cb-9fa9-8d07e4f006b3",
+    "0e632aa7-655e-543b-8f47-0840911d51d7",
+    "15460aec-5b15-5e89-a50c-8d99228e2efd",
+    "1c33a9f1-ecf8-5654-8e6e-cc8a92ddb739",
+    "2533eaf3-fadd-5d05-9ca7-41b293700245",
+    "2a3bdfa1-f264-58c5-95b0-d746ee239db5",
+    "2cacb6cc-d5b3-5603-9530-92ccf064266f",
+    "2d06f9cb-6a06-565d-b8db-6c1b9f89828c",
+    "2d88d0e1-9f79-52ca-8dd2-e2fbfc99d4dc",
+    "3564fbf6-e9f9-51f9-a991-fcb4e1ac5cea",
+    "4014ebbf-5d91-50d7-b875-2fa0cb83e10a",
+    "40474778-bbae-57ce-85d4-84c0c62b8116",
+    "4c95cb48-2ec4-5bdf-816b-462f5bc84b4b",
+    "51931559-b52b-5465-9920-f10f88125f12",
+    "53edb692-5c5b-502e-94b8-315ac3d1679b"
+  ],
+  "content_gaps": []
+}
+```
