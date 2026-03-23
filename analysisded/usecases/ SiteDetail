@@ -1,0 +1,115 @@
+# Module: SiteDetail
+
+## SiteDetail-UC1 — Add Site Detail
+
+- Primary Actor(s): System Administrator
+- Secondary Actor(s): None
+- Trigger: The system administrator initiates the process to add a new site detail.
+- Description: This use case describes how to add a new site detail record into the system.
+- Preconditions:
+  - The user must be authenticated as a System Administrator.
+  - The session must be valid.
+- Postconditions:
+  - A new site detail record is added to the database.
+- Main Success Scenario:
+  1. System administrator accesses the site detail addition interface.
+  2. System administrator inputs the necessary fields such as SiteID, HeadingID, Response, and SortOrder.
+  3. The system validates the input data.
+  4. If valid, the system executes the `SiteDetailsAdd` stored procedure to insert the new site detail.
+  5. The system confirms the addition of the new site detail.
+- Extensions:
+  - 3a. The system detects that the Response is blank:
+    - 3a1. The system displays an error message indicating that the response cannot be blank.
+- Exceptions:
+  - If the session is invalid, the system will not allow the addition process to proceed.
+- Business Rules:
+  - A blank Response field is not allowed.
+- Assumptions:
+  - User interface handles data input for site detail addition.
+- Open Issues:
+  - None.
+
+## SiteDetail-UC2 — Update Site Detail
+
+- Primary Actor(s): System Administrator
+- Secondary Actor(s): None
+- Trigger: The system administrator initiates the process to update an existing site detail.
+- Description: This use case describes how to update an existing site detail record in the system.
+- Preconditions:
+  - The user must be authenticated as a System Administrator.
+  - The site detail record must exist in the database.
+- Postconditions:
+  - The specific site detail record is updated in the database.
+- Main Success Scenario:
+  1. System administrator accesses the site detail update interface.
+  2. System administrator modifies fields such as HeadingID, Response, and SortOrder.
+  3. The system validates the updated data.
+  4. If valid, the system executes the `SiteDetailsUpdate` stored procedure to update the site detail.
+  5. The system confirms the update of the site detail.
+- Extensions:
+  - 3a. The system detects that the Response is blank:
+    - 3a1. The system displays an error message indicating that the response cannot be blank.
+- Exceptions:
+  - If the site detail ID is invalid or does not exist, the system will not allow the update process to proceed.
+- Business Rules:
+  - The Response field must not be blank.
+- Assumptions:
+  - User interface handles data input for site detail updates.
+- Open Issues:
+  - None.
+
+## SiteDetail-UC3 — Delete Site Detail
+
+- Primary Actor(s): System Administrator
+- Secondary Actor(s): None
+- Trigger: The system administrator initiates the process to delete a site detail.
+- Description: This use case describes how to delete an existing site detail record from the system.
+- Preconditions:
+  - The user must be authenticated as a System Administrator.
+  - The site detail record must exist in the database.
+- Postconditions:
+  - The specified site detail record is removed from the database.
+- Main Success Scenario:
+  1. System administrator accesses the site detail deletion interface.
+  2. System administrator selects the site detail record to be deleted.
+  3. The system validates the existence of the site detail ID.
+  4. The system executes the `SiteDetailsDelete` stored procedure to delete the site detail.
+  5. The system confirms the deletion of the site detail.
+- Extensions:
+  - None.
+- Exceptions:
+  - If the site detail ID is invalid or does not exist, the system will not allow the deletion process to proceed.
+- Business Rules:
+  - None.
+- Assumptions:
+  - User interface allows selection of site detail records for deletion.
+- Open Issues:
+  - None.
+
+## SiteDetail-UC4 — Copy Site Detail
+
+- Primary Actor(s): System Administrator
+- Secondary Actor(s): None
+- Trigger: The system administrator initiates the process to copy an existing site detail.
+- Description: This use case describes how to create a duplicate of an existing site detail record in the system.
+- Preconditions:
+  - The user must be authenticated as a System Administrator.
+  - The site detail record must exist in the database.
+- Postconditions:
+  - A duplicated site detail record is created in the database.
+- Main Success Scenario:
+  1. System administrator accesses the site detail copy interface.
+  2. System administrator selects the site detail record to be copied.
+  3. The system validates the existence of the site detail ID.
+  4. The system executes the `SiteDetailsCopy` stored procedure to duplicate the site detail.
+  5. The system confirms the creation of the copied site detail.
+- Extensions:
+  - None.
+- Exceptions:
+  - If the site detail ID is invalid or does not exist, the system will not allow the copy process to proceed.
+- Business Rules:
+  - None.
+- Assumptions:
+  - User interface provides functionality for copying site detail records.
+- Open Issues:
+  - None.
