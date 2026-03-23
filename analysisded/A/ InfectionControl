@@ -1,0 +1,93 @@
+```json
+{
+  "filename": "InfectionControl",
+  "found": true,
+  "summary": "The InfectionControl component is part of HSPnet's enrollment management system, focusing on managing student prerequisite data related to respiratory masks and control panels. It involves various UI controls and elements, facilitating operations like data editing, validation, and workflow management.",
+  "purpose": "To manage and control infection-related data for student enrollments, ensuring proper data handling, validation, and updates within the HSPnet system.",
+  "entities": [
+    "System.Web.UI.WebControls.Panel", 
+    "System.Web.UI.UpdatePanel", 
+    "System.Web.UI.WebControls.Button", 
+    "AjaxControlToolkit.ModalPopupExtender", 
+    "GridViewRow", 
+    "DataLayer.Enrollment"
+  ],
+  "fields": [
+    "N95MaskSizeCodeID", 
+    "N95MaskAltSizeCodeID", 
+    "StudentEmail", 
+    "StudentNameFormatted", 
+    "FitTestMaskSizeErrMsg", 
+    "FitTestInvalid", 
+    "FitTestExpiryInvalid", 
+    "FitTestExpiryDateErrMsg"
+  ],
+  "actors": [
+    "UserSession"
+  ],
+  "workflows": [
+    {
+      "name": "gridData_RowCommand",
+      "steps": [
+        "Evaluate command",
+        "Execute Enrollments operations ('cmdUnwaive', 'cmdEdit', 'cmdDelete', etc.)",
+        "Bind data to grid"
+      ]
+    },
+    {
+      "name": "gridDataEdit_RowCommand",
+      "steps": [
+        "Evaluate command",
+        "Update student respiratory mask details",
+        "Bind grid data"
+      ]
+    }
+  ],
+  "business_rules": [
+    "Enrollment management rules based on student cohorts and mask size validations"
+  ],
+  "validations": [
+    "FitTestDate is required if Mask Size is specified",
+    "FitTestDate is not valid"
+  ],
+  "calculations": [],
+  "conditions": [
+    "CheckScreenAccess based on graduation, inactivity, and waiver status"
+  ],
+  "system_behavior": [
+    "Toggle UI control visibility based on conditions",
+    "Enable or disable buttons and fields based on user permissions and data states"
+  ],
+  "dependencies": [
+    "HSPnet.DataLayer", 
+    "HSPnet.UI", 
+    "HSPnet.App_GlobalResources"
+  ],
+  "exceptions": [
+    "Cancel operations if UserSession is null"
+  ],
+  "source_document_ids": [
+    "1b3592c9-095a-5400-87b5-b4e0b2639ac2",
+    "30574f3a-491b-5d6d-be00-23b99be20a49",
+    "32e706a0-2fb0-5820-a939-fd70f6c472d4",
+    "5b114886-5f18-57c7-a866-3e93f979791d",
+    "5f189a9e-ce38-5ca4-a3b1-ebdd1cbffc68",
+    "617dab02-492d-5fbb-81f6-16a8d35be6e6",
+    "65f9a15c-62cd-50cc-b18a-2c98d3be15ea",
+    "7144ac07-3248-5d33-86aa-6857d1103b68",
+    "7176119b-1224-584f-b928-3476fc11827b",
+    "71aff2f5-6784-5dcc-ad78-5496178816b9",
+    "7e2bbcc7-1c8d-5de1-94dd-e58edf369af3",
+    "96b67ace-803f-57f4-8ad3-577dee53c2ac",
+    "9b6cb07c-c039-50b6-b1ae-89d6a257b172",
+    "b2d7d48b-6d74-5b30-a41f-457bc42e8859",
+    "c3f7475f-0b7f-5ad5-b1de-24d2276a5455",
+    "cc517e6a-5fd0-54b0-a8a9-631419ac5bf9",
+    "de1c27cd-a3dd-5b5b-83a8-d8282910d95b",
+    "eda4d3a3-2dae-5d78-94d1-e2e54f12a2c5",
+    "ef53f6bb-25bf-5af3-8ee5-ded3737c10a3",
+    "f30a8bef-70a8-5b75-a827-0c2c3dc51a86"
+  ],
+  "content_gaps": []
+}
+```
