@@ -1,0 +1,131 @@
+```json
+{
+  "filename": "FindLocationForWorksheet",
+  "found": true,
+  "summary": "The 'FindLocationForWorksheet' class is a web page component designed to facilitate the search and management of locations for worksheets within the HSPnet system. This class involves user interactions for searching, printing, clearing, creating, and selecting locations, agencies, services, and other related entities.",
+  "purpose": "The purpose of the 'FindLocationForWorksheet' is to allow users to find, manage, and create worksheet entries based on selected locations and related criteria in the HSPnet system.",
+  "entities": [
+    "Worksheet",
+    "Location",
+    "Agency",
+    "Service",
+    "Destination",
+    "Region",
+    "Province",
+    "Discipline"
+  ],
+  "fields": [
+    "WorksheetID",
+    "CFOFlag",
+    "GWSFlag",
+    "txtKeyword",
+    "ddAgency",
+    "ddGoverningOrg",
+    "ddSiteType",
+    "ddServiceFilter",
+    "ddRegion",
+    "ddProvinceFilter",
+    "ddDisciplineFilter",
+    "chkIncludeCity",
+    "chkIncludeAddress",
+    "lblMatches",
+    "cmdClear",
+    "cmdSearch",
+    "cmdCreate",
+    "cmdPrint"
+  ],
+  "actors": [
+    "User",
+    "HSPnet Framework",
+    "HSPnet DataLayer",
+    "HSPnet WebServices"
+  ],
+  "workflows": [
+    {
+      "name": "Search Locations",
+      "steps": [
+        "User enters search criteria in the provided fields.",
+        "User clicks the search button.",
+        "System retrieves and displays matching locations in a grid."
+      ]
+    },
+    {
+      "name": "Create Worksheet",
+      "steps": [
+        "User selects locations from the grid.",
+        "User clicks the create button.",
+        "System creates worksheet entries for the selected locations."
+      ]
+    },
+    {
+      "name": "Clear Search",
+      "steps": [
+        "User clicks the clear button.",
+        "System resets search fields and results."
+      ]
+    }
+  ],
+  "business_rules": [
+    "A worksheet ID and CFO flag must be provided to use the create function.",
+    "If the group size field is hidden, it defaults to 1."
+  ],
+  "validations": [
+    "Keyword field must be filled.",
+    "Group size must be a number if provided.",
+    "A group size must be entered if using the template option.",
+    "Validation occurs on the client-side using custom validators."
+  ],
+  "calculations": [
+    "Calculate the number of matches found (lblMatches)."
+  ],
+  "conditions": [
+    "GWSFlag determines if the group size field is visible.",
+    "If the query string GWS is '1', GWSFlag is true."
+  ],
+  "system_behavior": [
+    "Setup JavaScript variables for use in the page.",
+    "Handle page index changes for grid data views.",
+    "Clear cached ASSD list when creating worksheets."
+  ],
+  "dependencies": [
+    "HSPnet Framework",
+    "HSPnet DataLayer",
+    "HSPnet WebServices"
+  ],
+  "exceptions": [
+    "Handle scenarios where WorksheetID or CFOFlag is not provided."
+  ],
+  "source_document_ids": [
+    "0176c680-d043-50cd-be84-810b9401ca4d",
+    "03390d5d-ec3d-55eb-bff3-cba2dbd1b246",
+    "053b5717-2acf-59f7-9163-abe991148b67",
+    "0dd7cd0d-2cbf-5782-86d1-f2be26bf0bbe",
+    "13fa92a9-f429-5cb6-9cbd-3c88732aa5bc",
+    "241b58a3-1f5e-5f69-bc89-4fe78108573d",
+    "26e28072-71f0-53e1-9791-63f7de682466",
+    "45de5522-32eb-5a87-8edc-5d699d153dab",
+    "4c55c8aa-4cac-588b-a6fd-a740c81f9808",
+    "4faeb7ba-4c89-5e62-a00b-c8a40782f01f",
+    "5d250228-2982-5245-80e4-0ce0ab4d04b5",
+    "5fcbfe6a-9f61-5170-be0d-16eacc6a7001",
+    "6b473dde-bf18-59ee-a5a6-3a8dbe3274a4",
+    "7de49aad-0888-574a-9d95-9c3d50c6ffda",
+    "80166401-2bc6-5aee-a816-5afefcef1717",
+    "810b3899-1eff-5479-be21-638dc4b04ba2",
+    "864717f5-e4db-56fc-b7fb-41b7b7f53d54",
+    "8ac0b000-856b-52fa-a0cd-d3dc0eb82072",
+    "8d730e3e-7cc0-554e-b14d-0f1a09df33f2",
+    "a00242d2-3405-5e54-946b-65f3cf6a3ac4",
+    "b5eef186-7bdd-59d5-b85d-e05e630f7e9c",
+    "cdd03bf2-5f2f-5b34-9a10-1d8d280138e0",
+    "cf3d5e55-cee1-5841-b770-5c0d94a350c9",
+    "d5f24882-02cb-56ef-b582-1b8adeb57a5c",
+    "e1a4ba6c-9dbb-536b-ae95-71d25de835fc",
+    "e8b44847-b94c-5b36-86fb-6593c2f83973",
+    "e99c8dbf-87b7-5245-ba1d-2cc1c2532ebe",
+    "faf4f79b-857c-56c1-898e-40a1ec9716ca",
+    "fccc1c70-95f6-5ea8-86ed-eae47887742a"
+  ],
+  "content_gaps": []
+}
+```
