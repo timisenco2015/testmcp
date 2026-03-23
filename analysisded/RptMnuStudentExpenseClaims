@@ -1,0 +1,65 @@
+```json
+{
+  "filename": "RptMnuStudentExpenseClaims",
+  "found": true,
+  "summary": "This document describes the implementation of the Student Expense Claims report menu in a web application. It includes the setup of web controls and validation processes for generating reports based on user-selected date ranges.",
+  "purpose": "To provide a user interface for generating student expense claims reports based on selected date ranges, allowing export to Excel and viewing in HTML format.",
+  "entities": [
+    "RptMenuStudentExpenseClaims",
+    "UserSession"
+  ],
+  "fields": [
+    "txtStartDate",
+    "txtEndDate",
+    "lblPleaseWait",
+    "pnlReportHTML",
+    "lblReportHTML",
+    "UserSession.DB.ProcedureName"
+  ],
+  "actors": ["UserSession"],
+  "workflows": [
+    {
+      "name": "Generate Student Expense Claims Report",
+      "steps": [
+        "User selects start and end dates.",
+        "User triggers report generation with cmdExcel_Click.",
+        "Data is retrieved using specified parameters from the database.",
+        "Report is outputted as CSV and displayed as HTML if successful."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Report generation requires valid start and end dates provided by user.",
+    "The application must set 'ReportExpenseClaims' as the procedure name in UserSession.DB."
+  ],
+  "validations": [
+    "Required field validation for start and end dates.",
+    "Custom validation rules applied via RegularExpressionValidator controls."
+  ],
+  "calculations": [],
+  "conditions": [
+    "Check if UserSession is not null during Page_PreRender to setup descriptions and options.",
+    "Ensure reportHTML is not empty before making pnlReportHTML visible."
+  ],
+  "system_behavior": [
+    "SetupJavaScript registers custom JavaScript variables for client-side use.",
+    "Page_PreRender sets up JavaScript and prepares the UI based on session data."
+  ],
+  "dependencies": [
+    "HSPnet.DataLayer",
+    "System.Web.UI.WebControls",
+    "AjaxControlToolkit"
+  ],
+  "exceptions": [],
+  "source_document_ids": [
+    "19337665-e6bd-5713-ba62-180392c8029d",
+    "1b2d6645-74c0-5299-9566-d4433b271b22",
+    "5baea157-4983-50d5-b671-80793ab49f3f",
+    "80155d16-438e-5de0-ab39-3e4b43c6f418",
+    "ac5d8735-dd99-563a-bb99-459e4d14fe0e",
+    "bfeb29c9-94a9-5797-99dd-70841f0bdab5",
+    "f1857ca1-28c6-5af4-8f9c-75ee69a66441"
+  ],
+  "content_gaps": []
+}
+```
