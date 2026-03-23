@@ -1,0 +1,43 @@
+{
+  "filename": "DoScreen",
+  "found": true,
+  "summary": "The 'DoScreen' process involves obtaining and processing screen-related requests, ultimately redirecting or displaying HTML content based on the response.",
+  "purpose": "The purpose of the 'DoScreen' process is to handle screen-related requests and return either a redirection URL or HTML content for display.",
+  "entities": [],
+  "fields": [],
+  "actors": [],
+  "workflows": [
+    {
+      "name": "DoScreen Processing",
+      "steps": [
+        "Initialize Server.ScriptTimeout to 600 seconds.",
+        "Create an object for 'HSPnetDev.Factory'.",
+        "Call 'DoScreen' method with parameters (screen name, request, server, aliases).",
+        "Check the response prefix.",
+        "If response starts with 'Redirect', extract server name and port.",
+        "Construct the new URL and redirect.",
+        "If response does not start with 'Redirect', write the response as HTML."
+      ]
+    }
+  ],
+  "business_rules": [],
+  "validations": [],
+  "calculations": [],
+  "conditions": [
+    "If the response starts with 'Redirect', construct and redirect to a new URL.",
+    "If the response does not start with 'Redirect', write the response as HTML."
+  ],
+  "system_behavior": [
+    "Handles requests and processes them to provide either redirection or HTML content.",
+    "Uses request and server variables for constructing URLs."
+  ],
+  "dependencies": [
+    "Relies on 'HSPnetDev.Factory' object.",
+    "Depends on server variables 'SERVER_NAME' and 'SERVER_PORT'."
+  ],
+  "exceptions": [],
+  "source_document_ids": [
+    "31bbc2c2-3647-53f5-8908-f9ee7c80a70e"
+  ],
+  "content_gaps": []
+}
