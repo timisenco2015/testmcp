@@ -1,39 +1,44 @@
 {
   "filename": "ServiceCode",
   "found": true,
-  "summary": "This document outlines the structure and operations related to service codes.",
-  "purpose": "To define and manage service codes within the application, including parameters like CodeCategoryID and Name.",
+  "summary": "Defines the ServiceCode and ServiceCodes classes for managing service codes and their attributes.",
+  "purpose": "To facilitate the management of service codes, including listing all codes and options based on course or timetable IDs.",
   "entities": [
-    {
-      "name": "ServiceCode",
-      "type": "class"
-    }
+    "ServiceCode"
   ],
   "fields": [
+    "ID",
+    "CodeCategoryID",
+    "ShortName",
+    "Name",
+    "SortOrder",
+    "Notes",
+    "NameAlt",
+    "NotesAlt"
+  ],
+  "actors": [
+    "HSPnetSession"
+  ],
+  "workflows": [
     {
-      "name": "ID",
-      "type": "int"
-    },
-    {
-      "name": "CodeCategoryID",
-      "type": "int"
-    },
-    {
-      "name": "ShortName",
-      "type": "string"
+      "name": "ServiceCode List Workflow",
+      "steps": [
+        "Set procedure name.",
+        "Fetch data using SqlDataReader.",
+        "Read and localize data."
+      ]
     }
   ],
-  "actors": [],
-  "workflows": [],
   "business_rules": [],
   "validations": [],
   "calculations": [],
   "conditions": [],
-  "system_behavior": [
-    "Handles retrieval and localization of service codes."
-  ],
+  "system_behavior": [],
   "dependencies": [],
   "exceptions": [],
-  "source_document_ids": ["94f1b055-348d-508a-ae6e-cf7960a8c6a2", "e4ebe4b4-6d14-5c3f-b693-61016f765239", "f976b9af-a402-540f-b162-391d578fac7c"],
+  "source_document_ids": [
+    "94f1b055-348d-508a-ae6e-cf7960a8c6a2",
+    "f976b9af-a402-540f-b162-391d578fac7c"
+  ],
   "content_gaps": []
 }
