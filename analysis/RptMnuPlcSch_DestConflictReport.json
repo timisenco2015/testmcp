@@ -1,0 +1,121 @@
+{
+  "filename": "RptMnuPlcSch_DestConflictReport",
+  "found": true,
+  "summary": "The RptMnuPlcSch_DestConflictReport is an ASP.NET UserControl for generating a Destination Conflict Report in a system called HSPnet. It presents a UI for selecting Placing and Receiving Agencies, Term, Start/End Dates, and report type filters. The control validates input, binds dropdowns and chooser lists, and triggers report creation workflows.",
+  "purpose": "To allow users to create destination conflict reports for placements with options to filter by Placing Agencies, Receiving Agencies, term, date range, and group types. It validates user input, manages agency selection, and executes the report workflow.",
+  "entities": [
+    "Placing Agency",
+    "Receiving Agency",
+    "UserSession",
+    "Report Job",
+    "Term"
+  ],
+  "fields": [
+    "UCchoosersPlcAgency (included and not included agency lists)",
+    "UCchoosersRcvAgency (included and not included agency lists)",
+    "ddTerm",
+    "txtStartDate",
+    "txtEndDate",
+    "radAll_Types",
+    "radGroups_Only",
+    "radNon_Groups_Only",
+    "chkPageBreakSites",
+    "ltlDescription",
+    "ltlOptions"
+  ],
+  "actors": [
+    "User",
+    "System (HSPnet)",
+    "ScriptManager"
+  ],
+  "workflows": [
+    {
+      "name": "Initialize UserControl",
+      "steps": [
+        "Page_Load event sets up validators and binds ddTerm dropdown with term values.",
+        "If not postback, agency chooser lists are populated."
+      ]
+    },
+    {
+      "name": "Agency Chooser Binding",
+      "steps": [
+        "UCchoosersPlcAgency.NotIncludedList populated with Placing Agencies.",
+        "UCchoosersRcvAgency.NotIncludedList populated with Receiving Agencies.",
+        "Lists bound with agency ID and ShortName."
+      ]
+    },
+    {
+      "name": "Report Creation",
+      "steps": [
+        "cmdRunReport_Click event processes user selections.",
+        "Determines IncludeOption (ALL, GROUP, NONGROUP) via radio buttons.",
+        "Calls PrintJobs.ReportConflictCreateJob with parameters: UserSession, StartDate, EndDate, Agency lists, PageBreakSites, IncludeOption, Term."
+      ]
+    },
+    {
+      "name": "JavaScript Setup",
+      "steps": [
+        "SetupJavaScript method declares client-side variables and runs resetDates.",
+        "Registers script via ScriptManager or Page.ClientScript depending on postback mode."
+      ]
+    }
+  ],
+  "business_rules": [
+    "CustomValidator3: Error if maximum Placing Agencies exceeded.",
+    "CustomValidator4: Error if maximum Receiving Agencies exceeded.",
+    "Only valid UUIDs accepted for agency lists.",
+    "dsAgencySearchReceiving_Selecting cancels if UserSession is null."
+  ],
+  "validations": [
+    "ValidationSummary1 displays validation errors.",
+    "CustomValidator1-4 provide custom error messages.",
+    "RegularExpressionValidator1/2 validate date format.",
+    "dsAgencySearchReceiving_Selecting validates UserSession presence."
+  ],
+  "calculations": [
+    "Maximum number for included agencies derived from PrintJobs.MAX_INCLUDE_ITEMS."
+  ],
+  "conditions": [
+    "If IsPostBack is false, perform initial dropdown/list binding.",
+    "If ScriptMgr.IsInAsyncPostBack, use ScriptManager for JS setup; else, use ClientScript.",
+    "If UserSession is null, cancel agency receiving search."
+  ],
+  "system_behavior": [
+    "Auto-generates fields for UI controls.",
+    "Moves field declaration to code-behind for modifications.",
+    "Binds controls dynamically based on UserSession and agency search results.",
+    "Sets up client-side JavaScript for UI interaction."
+  ],
+  "dependencies": [
+    "HSPnet.DataLayer",
+    "HSPnet.App_GlobalResources",
+    "HSPnet.Framework",
+    "PrintJobs.ReportConflictCreateJob",
+    "Agencies.AgencySearchPlacing",
+    "Agencies.AgencySearchReceiving",
+    "Codes.CodeLookupCodes",
+    "ScriptManager"
+  ],
+  "exceptions": [
+    "If UserSession is null, cancels agency search datasource event.",
+    "If maximum agencies exceeded, prevents report creation and shows error."
+  ],
+  "source_document_ids": [
+    "0e31d40a-9633-54b8-93c7-a97faca14f96",
+    "19af1ae4-74d5-589a-bfe9-4d126314cd86",
+    "694ae729-5505-5dec-a725-eb371594f3e2",
+    "6aa02bb8-1947-5250-bf3b-a3c66c7661c9",
+    "a10851d9-c38b-5ad7-a4eb-d1e6c24e2844",
+    "a628f1a9-9f26-5bf4-b4eb-8364aa9467a6",
+    "b704610b-290b-58fa-98b2-2223df050579",
+    "bf45053b-2c38-58e5-a430-ad8ca24b404d",
+    "d2b89fa7-b27e-598f-babd-14528c7c7cc9",
+    "e7de563e-2624-5e1b-a706-ae19e4429669"
+  ],
+  "content_gaps": [
+    "No detailed UI layout or markup.",
+    "Business logic for PrintJobs.ReportConflictCreateJob is not exposed.",
+    "Descriptions/notes for report options come from external codes table.",
+    "Limited insight into error handling for other exceptions."
+  ]
+}
