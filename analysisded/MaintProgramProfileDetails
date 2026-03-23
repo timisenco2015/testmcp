@@ -2,83 +2,70 @@
 {
   "filename": "MaintProgramProfileDetails",
   "found": true,
-  "summary": "The MaintProgramProfileDetails controls and manages the display and interaction with program profile details for educational programs in a web application. This includes handling user permissions, displaying and editing program information, and ensuring the UI adheres to the configurations set within the system.",
-  "purpose": "To provide a web-based interface for managing and displaying program profile details, including user permissions and configuration settings.",
+  "summary": "The MaintProgramProfileDetails is a user control component in a web application, primarily dealing with viewing and editing program profiles, including various settings related to student access, departmental addresses, and RAIT provisioning.",
+  "purpose": "To manage and display the details of program profiles including user access permissions and program-specific settings within a web application.",
   "entities": [
     "Program",
-    "UserSession",
-    "ObjectDataSource",
-    "FormView",
-    "ScriptManager",
-    "HtmlControl",
-    "CheckBox",
-    "Label",
-    "Phone",
-    "Panel",
-    "ModalPopupExtender"
+    "HSPnetSession"
   ],
   "fields": [
     "ProgramID",
-    "UsePhoneMask",
+    "ScreenIsEditable",
     "AllowStudentAccess",
-    "UseRAITProvisioning",
-    "ScreenIsEditable"
+    "UseRAITProvisioning"
   ],
-  "actors": [],
+  "actors": [
+    "System.Web.UI.UserControl",
+    "ScriptManager"
+  ],
   "workflows": [
     {
-      "name": "Profile Data Display",
+      "name": "Profile Selection",
       "steps": [
-        "Check user permissions",
-        "Load program data",
-        "Apply visibility rules based on user role",
-        "Render data on UI"
+        "Check visibility of profile.",
+        "Set session and program ID.",
+        "Cancel if not visible."
       ]
     },
     {
-      "name": "Profile Data Edit",
+      "name": "Profile Data Binding",
       "steps": [
-        "Enable edit mode",
-        "Populate fields with current data",
-        "Submit changes",
-        "Validate input",
-        "Update data source",
-        "Refresh UI"
+        "Check if data and row exist.",
+        "Update labels with department or program data.",
+        "Configure visibility based on RAIT provisioning."
+      ]
+    },
+    {
+      "name": "Editing Profile Details",
+      "steps": [
+        "Switch to edit mode.",
+        "Update form fields based on user input.",
+        "Save and update program details."
       ]
     }
   ],
   "business_rules": [
-    "Hide controls if student access is not permitted",
-    "Disable checkbox if feature is already allowed",
-    "Hide email mask fields unless user is SysAdmin"
+    "Use department address if specified.",
+    "Only show email masks to system administrators.",
+    "Disable controls if student access is pre-existing."
   ],
   "validations": [
-    "Ensure data item is not null before processing",
-    "Cancel operation if UserSession is null"
+    "Ensure HSPnetSession is not null before executing data source actions."
   ],
   "calculations": [],
   "conditions": [
-    {
-      "description": "Check if UseRAITProvisioning is enabled",
-      "result": "Determine visibility of RAIT controls"
-    },
-    {
-      "description": "Check if user role is SysAdmin",
-      "result": "Show/Hide email mask controls"
-    }
+    "If UseRAITProvisioning is true, additional fields are displayed.",
+    "Visibility of RAIT controls depends on configuration settings."
   ],
   "system_behavior": [
-    "Auto-generate controls' declarations",
-    "Register JavaScript for client-side interactions"
+    "Auto-hide specific interface elements based on user role and access configurations."
   ],
   "dependencies": [
     "HSPnet.DataLayer",
-    "HSPnet.Framework",
-    "HSPnet.UI",
-    "HSPnet.App_GlobalResources"
+    "HSPnet.Framework"
   ],
   "exceptions": [
-    "Operation cancelation when UserSession is null"
+    "Cancel data source selection when session is null."
   ],
   "source_document_ids": [
     "00fda0b5-4502-5a86-8e65-68ef5b7471ec",
