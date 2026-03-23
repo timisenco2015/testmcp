@@ -2,11 +2,11 @@
 {
   "filename": "StudentTrainingPrograms",
   "found": true,
-  "summary": "The documents describe the structure and operations related to managing student training programs within a system. It includes methods for adding, updating, searching, and managing these programs.",
-  "purpose": "To manage and maintain the records of student training programs including adding new records, updating existing records, and handling the program lifecycle.",
+  "summary": "The Student Training Programs module manages student training program details, including adding, updating, searching, and inactivating programs associated with students.",
+  "purpose": "The purpose is to track and manage student training program involvement, including start and end dates, program and agency details, and comments.",
   "entities": [
     "StudentTrainingProgram",
-    "HSPnetSession"
+    "Student"
   ],
   "fields": [
     "ID",
@@ -27,71 +27,61 @@
     "ProgramNameFormatted"
   ],
   "actors": [
-    "User",
-    "System"
+    "HSPnetSession",
+    "UserSession"
   ],
   "workflows": [
     {
-      "name": "Add Training Program",
+      "name": "Add Student Training Program",
       "steps": [
-        "Initialize session and parameters.",
-        "Set database procedure name to StudentDetailsTrainingProgramAdd.",
-        "Execute query to add program details."
+        "Collect session and program details.",
+        "Call procedure 'StudentDetailsTrainingProgramAdd'.",
+        "Execute database query."
       ]
     },
     {
-      "name": "Update Training Program",
+      "name": "Update Student Training Program",
       "steps": [
-        "Initialize session and parameters.",
-        "Set database procedure name to StudentDetailsTrainingProgramUpdate.",
-        "Execute query to update program details."
+        "Collect session and updated program details.",
+        "Call procedure 'StudentDetailsTrainingProgramUpdate'.",
+        "Execute database query."
       ]
     },
     {
-      "name": "Search Training Program",
+      "name": "Inactivate Student Training Program",
       "steps": [
-        "Initialize session and parameters.",
-        "Set database procedure name to StudentDetailsTrainingProgramSearchID.",
-        "Execute query to retrieve program details."
-      ]
-    },
-    {
-      "name": "Inactivate Training Program",
-      "steps": [
-        "Initialize session and parameters.",
-        "Set database procedure name to StudentDetailsTrainingProgramInactivate.",
-        "Execute query to inactivate the program."
+        "Collect session and program ID.",
+        "Set inactivation status.",
+        "Call procedure 'StudentDetailsTrainingProgramInactivate'.",
+        "Execute database query."
       ]
     }
   ],
   "business_rules": [
-    "Program records must include start and end dates which cannot be null.",
-    "Inactive programs can be included or excluded based on a parameter."
+    "Programs should have formatted names using department and program short names.",
+    "Inactive programs should not allow edits."
   ],
   "validations": [
-    "Ensure program start and end dates are valid dates.",
-    "Validate presence of essential fields like ProgramID and StudentID."
+    "Ensure start and end dates are properly formatted.",
+    "Text length validation on comments (max 1000 characters)"
   ],
   "calculations": [
-    "StartDateFormatted is a short date format of StartDate.",
-    "EndDateFormatted is a short date format of EndDate.",
-    "ProgramNameFormatted is a concatenation of DepartmentShortName and ProgramShortName."
+    "Formatted start and end dates using short format.",
+    "Program name formatted as 'DepartmentShortName / ProgramShortName'."
   ],
   "conditions": [
-    "If UserSession is null, operations are canceled.",
-    "Different database procedures are executed based on the CRUD operation being performed."
+    "Use alternative language fields if 'UseAltLanguageFields' is true."
   ],
   "system_behavior": [
-    "User interface reacts to form mode changes (Insert, Edit).",
-    "Grid data updates reflect changes in program status."
+    "Database operations are performed via stored procedures.",
+    "Formats dates for display."
   ],
   "dependencies": [
-    "Database connection and procedures.",
-    "ASP.NET web controls for UI interaction."
+    "DateFormatter",
+    "Database connectors"
   ],
   "exceptions": [
-    "Database connection failures.",
-    "Invalid date formats or missing required field values."
+    "Handle null results from database queries by skipping list additions."
   ],
   "source_document_ids": [
     "0278f2e1-15e1-52a6-99a7-f338f943183e",
