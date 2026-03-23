@@ -1,39 +1,30 @@
 {
   "filename": "ServiceCode",
   "found": true,
-  "summary": "Define service codes used within the HSPnet system, supporting alternate language options.",
-  "purpose": "To manage and retrieve service codes and descriptions categorized under HSPnet services.",
-  "entities": [],
-  "fields": [
-    {"name": "ID", "type": "int"},
-    {"name": "CodeCategoryID", "type": "int"},
-    {"name": "ShortName", "type": "string"},
-    {"name": "Name", "type": "string"},
-    {"name": "SortOrder", "type": "int"},
-    {"name": "Notes", "type": "string"},
-    {"name": "NameAlt", "type": "string"},
-    {"name": "NotesAlt", "type": "string"}
-  ],
+  "summary": "ServiceCode class manages Service Code entities, allowing for list retrieval and localization.",
+  "purpose": "Supports operations related to service codes within a session in HSPnet, including listing and localization.",
+  "entities": ["ServiceCode"],
+  "fields": ["ID", "CodeCategoryID", "ShortName", "Name", "SortOrder", "Notes", "NameAlt"],
   "actors": [],
   "workflows": [
     {
-      "name": "Retrieve Service Codes",
+      "name": "Service Code List Retrieval",
       "steps": [
-        "Execute ServiceCodeListAll for all service codes.",
-        "Localize service code if alt language is used."
+        "Retrieve all service codes through ServiceCodeListAll procedure.",
+        "Localize service codes based on session language preference."
       ]
     }
   ],
   "business_rules": [
-    "Use alternative descriptions if alt language mode is active."
+    {
+      "name": "Localization",
+      "description": "Service codes are localized based on the session's language settings."
+    }
   ],
   "validations": [],
   "calculations": [],
   "conditions": [],
-  "system_behavior": [
-    "Uses SQL procedures to fetch service code data.",
-    "Supports localization based on session settings."
-  ],
+  "system_behavior": [],
   "dependencies": [],
   "exceptions": [],
   "source_document_ids": [
