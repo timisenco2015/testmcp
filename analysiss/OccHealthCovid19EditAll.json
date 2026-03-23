@@ -1,0 +1,110 @@
+{
+  "filename": "OccHealthCovid19EditAll",
+  "found": true,
+  "summary": "The document represents a web user control for managing COVID-19 immunization status within a health enrollment application. It provides functionality for editing, saving, and managing COVID-19 related data for student records.",
+  "purpose": "To facilitate the management and update of COVID-19 immunization status for students through a web-based interface.",
+  "entities": [],
+  "fields": [
+    {
+      "name": "CohortID",
+      "description": "Identifier for the cohort."
+    },
+    {
+      "name": "TermID",
+      "description": "Identifier for the term of study."
+    },
+    {
+      "name": "CourseID",
+      "description": "Identifier for the course."
+    },
+    {
+      "name": "CampusID",
+      "description": "Identifier for the campus."
+    },
+    {
+      "name": "SectionFilter",
+      "description": "Filter applied for section."
+    },
+    {
+      "name": "ActionFilter",
+      "description": "Filter for action types."
+    },
+    {
+      "name": "keyword",
+      "description": "Keyword used in search."
+    },
+    {
+      "name": "CommentFilter",
+      "description": "Filter applied to comments."
+    },
+    {
+      "name": "Covid19StatusCode",
+      "description": "Status code related to COVID-19 immunization."
+    },
+    {
+      "name": "StartRow",
+      "description": "Row to start pagination from."
+    }
+  ],
+  "actors": [
+    {
+      "name": "User",
+      "description": "Interacts with the web control to manage student immunization records."
+    },
+    {
+      "name": "System",
+      "description": "Facilitates data binding, updates, and redirects based on user actions."
+    }
+  ],
+  "workflows": [
+    {
+      "name": "Editing COVID-19 Immunizations",
+      "steps": [
+        "User accesses the edit page for managing COVID-19 immunizations.",
+        "User selects a student record to edit.",
+        "User updates COVID-19 status code and administration dates.",
+        "User saves changes, which triggers the update function.",
+        "System validates changes and provides warnings if necessary.",
+        "User confirms update and redirects to applicable page based on selection."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Only users with appropriate session rights can proceed with editing."
+  ],
+  "validations": [
+    "Ensure that the user session is active before performing operations.",
+    "Check if COVID-19 status codes are properly loaded and bound to the dropdown."
+  ],
+  "calculations": [
+    "Determine sort direction and expression based on user settings."
+  ],
+  "conditions": [
+    "Redirect occurs only if there are no warnings."
+  ],
+  "system_behavior": [
+    "Page binds data and controls visibility of buttons based on data row type.",
+    "Grid control updates are conditional based on user edits and status codes.",
+    "JavaScript is registered for client-side handling of dropdown changes."
+  ],
+  "dependencies": [
+    "Relies on HSPnet session for user identification and filter parameters."
+  ],
+  "exceptions": [
+    "Cancel operation triggered upon session failure or specific user actions."
+  ],
+  "source_document_ids": [
+    "06e2e9ed-ebdd-5547-9a0c-219b584c48ae",
+    "143fdc7a-d898-5a9b-8dbd-b47fad5d0b00",
+    "18eaa6ad-6eed-5cb5-865f-e5eec73c04e9",
+    "366016b8-f724-57c1-b741-5d9efdcc3e33",
+    "4598f494-d843-5f0f-b2de-16515df02cae",
+    "46ee21a0-e72d-5c1f-a281-3dfee91fc2bc",
+    "6e2a90ee-eb68-5337-b5a2-27c7f3e073d3",
+    "7dbe6d0f-2ed4-5ea8-9917-4e5340974f3b",
+    "8c02040d-79a4-5397-9623-15b26dd614dd",
+    "8dc4641e-f5cc-519d-912d-d898aeabffd0",
+    "d8c9fbc6-4afb-5409-a674-d18cf91e4c29"
+  ],
+  "content_gaps": []
+}
