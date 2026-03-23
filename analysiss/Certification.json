@@ -1,98 +1,98 @@
 {
   "filename": "Certification",
   "found": true,
-  "summary": "The 'Certification' documents provide detailed information about student and staff health prerequisites and certifications needed for placement. These include immunization records, respiratory mask fitting, confidentiality forms, and various health status codes.",
-  "purpose": "The purpose is to maintain accurate and updated records of certifications and health prerequisites for students and staff involved in health placements.",
+  "summary": "The Certification module manages student certifications within an enrollment platform. It includes functionalities for searching and updating certification details, filtering data based on cohort, term, and course, and handling user interactions with certifications.",
+  "purpose": "To enable efficient management of student certifications by providing functionalities for search, update, and data filtering based on specific criteria such as cohort, term, and course.",
   "entities": [
-    "StudentPrerequisite",
-    "SiteDocument",
-    "WelcomeStaffAdmin",
-    "ServiceCode",
-    "SiteProfileHistory",
-    "EmailPopupDocument",
-    "CostCentre",
-    "ExpenseBatch",
-    "TimetableAssessments",
-    "AdHocQuery"
+    "StudentCertification",
+    "Enrollment",
+    "UserSession",
+    "Course"
   ],
   "fields": [
-    "ID",
+    "CertificationCodeID",
+    "EffectiveDate",
+    "ExpiryDate",
+    "StatusCodeID",
+    "CertificationNumber",
     "StudentID",
-    "CRCStatusCodeID",
-    "IDCard",
-    "WCBWaiver",
-    "ConfidentialityForm",
-    "UseAssessmentModule",
-    "DepartmentUseAssessmentModule",
-    "N95MaskSizeCodeID",
-    "N95MaskAltSizeCodeID",
-    "N95MaskFitTestExpiryDate",
-    "TetanusExpiryDate",
-    "TdapImmunity",
-    "PolioImmunity",
-    "MeaslesStatusCodeID",
-    "Covid19StatusCodeID",
-    "RubellaStatusCodeID",
-    "VaricellaStatusCodeID",
-    "InfluenzaStatusCodeID",
-    "ChestXRayDate",
-    "ChestXRayResultsCodeID",
-    "HepBFirstShotDate",
-    "HepBSecondShotDate",
-    "HepBThirdShotDate",
-    "HepABResultsCodeID",
-    "ImmunizationNotes",
-    "InfectionControlSolutionID",
-    "N95MaskFitNotes"
+    "StudentLastName",
+    "StudentFirstName",
+    "StudentMiddleName",
+    "CampusID",
+    "SectionFilter",
+    "ActionFilter",
+    "keyword"
   ],
-  "actors": ["HSPnetSession", "Database", "StudentPrerequisite"],
+  "actors": [
+    "UserSession",
+    "DataLayer.Enrollment"
+  ],
   "workflows": [
     {
-      "name": "Student Certification Update",
+      "name": "Student Certification Update Workflow",
       "steps": [
-        "Retrieve student data using StudentID.",
-        "Validate certification data.",
-        "Update certification records in the database.",
-        "Handle exceptions or invalid data entries."
+        "Select certification to edit.",
+        "Modify certification details like Effective Date, Expiry Date, Status.",
+        "Save changes individually or save all changes."
+      ]
+    },
+    {
+      "name": "Certification Data Filtering",
+      "steps": [
+        "Apply filters based on CohortID, TermID, CourseID.",
+        "Execute search operation to retrieve filtered data."
       ]
     }
   ],
   "business_rules": [
-    "Ensure certification data is updated annually.",
-    "Validate expiration dates of certifications."
+    "RowDisabled: Determines if a student's record is editable based on graduation, inactivity, or other criteria.",
+    "ScreenIsEditable: Controls whether the certification screen is editable."
   ],
   "validations": [
-    "Confirm valid dates for all prerequisite fields.",
-    "Ensure health status codes are correctly assigned."
+    "Ensure Effective Date and Expiry Date are valid before saving.",
+    "Validate certification number and status code for each student."
   ],
-  "calculations": [],
+  "calculations": [
+    "Formulate certification display details using effective dates and expiry dates."
+  ],
   "conditions": [
-    "Expiration dates older than five years are flagged.",
-    "Certain status codes trigger specific alerts or actions."
+    "Check for graduation or inactivity to determine RowDisabled state.",
+    "Match session parameters for filtering data."
   ],
   "system_behavior": [
-    "Automatically refresh certification data view upon updates.",
-    "Provide visibility controls over student assessments."
+    "Auto-populate certification fields based on current data.",
+    "Bind data grid with filtered certification data."
   ],
   "dependencies": [
-    "Student IDs and health certification data must be correctly linked.",
-    "Health and certification data depend on accurate date calculations."
+    "UserSession object"
   ],
   "exceptions": [
-    "Data entry exceeds allowable date range.",
-    "Inadequate certification details trigger error messages."
+    "User session error on data source selection."
   ],
   "source_document_ids": [
-    "a2967f17-a924-5e9c-8b15-d1f7bd028b32",
-    "05db31e4-e8b6-53ee-a6fb-812c106f0134",
-    "94f1b055-348d-508a-ae6e-cf7960a8c6a2",
-    "25f89a24-5eda-5a3f-83df-1de69b12b3f1",
-    "7287734e-f13d-550f-9249-4242db620766",
-    "20ac8054-536e-5203-b33d-7db2b2dc2359",
-    "060e08d3-49ca-5e40-bea0-849f4e6173e1",
-    "0781696d-dec4-5dfc-aa58-80ddd173c0ae",
-    "20140dcf-7d8e-51f1-86ab-4b5a291db2b2",
-    "126148d2-7c46-5bb8-8a4c-606105b702bd"
+    "0b6c1fb2-e22c-597e-a6f4-8f5c8ed509ba",
+    "1f166565-7d2c-5efe-bffc-555502bc291e",
+    "2c5521fb-9cce-53b6-85ee-c530915ffdae",
+    "482d8825-40b8-5076-b359-3126e55a5315",
+    "5f57bb23-1301-5d4f-8b02-7edea8c4f120",
+    "635c4054-4af8-56b2-a570-f93c6f618bd2",
+    "661fe366-cc0f-5099-873e-9a7c221b1253",
+    "72653c75-1e96-5a3f-953d-eff0b9a28ddb",
+    "7aed8d77-5858-580a-b065-5648a7bbdcd1",
+    "7c4b0483-9c19-5402-a5c8-07b0a479f0aa",
+    "7f22a5f8-51d9-578b-b522-7db41312f762",
+    "89c0c87c-4ae1-517d-9c05-5545cc5684e2",
+    "ac64d0ea-e6c3-5d6e-b132-41ee4b907d6c",
+    "be3bdf77-ae6f-52ad-8f1a-ae132681a947",
+    "c08d1211-fc9e-5ff5-9b9b-787cb51d5952",
+    "c90283b8-0de1-59a0-819b-d2bd261b06eb",
+    "ce96ef3c-9f64-5255-adfb-c1be4993969b",
+    "d0f786f8-c45c-5c35-9d51-525bbed2aee2",
+    "d99bff9e-80b4-5b44-bb7d-4b2d774e5e1b",
+    "dc3f6c8e-ace9-58d5-a2c2-4e27444fe214",
+    "f1a59f6d-e8fb-566d-a597-80e950e2a7da",
+    "f86a614b-b017-5360-90e9-8c476e9369ac"
   ],
   "content_gaps": []
 }
