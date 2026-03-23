@@ -1,0 +1,97 @@
+```json
+{
+  "filename": "MaintGoverningOrg",
+  "found": true,
+  "summary": "The MaintGoverningOrg provides a user interface for managing governing organizations within the HSPnet system. It includes functionalities for viewing, adding, editing, deleting, and reactivating entries. The interface uses ASP.NET controls, ensuring data validation and maintaining user interaction through AJAX.",
+  "purpose": "To manage governing organizations, allowing for CRUD operations as well as data validation and user-friendly interaction through server-side scripts and client-side JavaScript.",
+  "entities": [
+    "GoverningOrg",
+    "UserSession",
+    "Grid",
+    "Phone"
+  ],
+  "fields": [
+    "ID",
+    "Name",
+    "ShortName",
+    "PreviousName",
+    "PreviousNameEffectiveDate",
+    "Address1",
+    "Address2",
+    "City",
+    "Province",
+    "PostalCode",
+    "Phone",
+    "Fax"
+  ],
+  "actors": [
+    "User",
+    "System Administrator"
+  ],
+  "workflows": [
+    {
+      "name": "Manage Governing Organization",
+      "steps": [
+        "Load GoverningOrg management page.",
+        "Perform CRUD operations on organizations.",
+        "Enter data in required fields.",
+        "Validate phone and fax numbers.",
+        "Handle add/edit/delete actions.",
+        "Reactivate inactive records."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Ensure Name and ShortName are specified on add/update.",
+    "Allow reactivation of previously inactive records.",
+    "Data entries are validated before saving."
+  ],
+  "validations": [
+    "IsValidPhone for phone numbers.",
+    "RegularExpressionValidator for date formatting."
+  ],
+  "calculations": [],
+  "conditions": [
+    "If the user is not a System Administrator or in ViewOnly mode, the screen is read-only.",
+    "Phone validation is conditional based on UsePhoneMask setting."
+  ],
+  "system_behavior": [
+    "JavaScript files are dynamically included for phone validation.",
+    "AJAX controls maintain form visibility and client-side interactions.",
+    "Error and warning panels are updated based on user actions and validations."
+  ],
+  "dependencies": [
+    "AJAXControlToolkit",
+    "HSPnet.Framework",
+    "HSPnet.UI",
+    "Resources:Resources"
+  ],
+  "exceptions": [
+    "Cannot_Delete_Organization error when deletion fails."
+  ],
+  "source_document_ids": [
+    "064ee812-6a9e-513f-830a-cdf02a947bcb",
+    "0bbfc55c-4e37-5195-9c61-06b1b8bbb59a",
+    "0f83fafd-cd79-59fa-a23f-09de153cfaa4",
+    "29468167-d473-5cf7-929e-9df67d7f2beb",
+    "31e628c6-8463-5f57-b846-2eb33136cfe6",
+    "3d1f42de-c51a-5625-9520-3f5ed219012f",
+    "4f7edf0a-2f0b-560d-8ff2-b03f7a2982d3",
+    "59ef3d25-a882-5c86-975e-d2e1c44e9230",
+    "5aa6bea1-1faa-5e57-a784-644389bf5365",
+    "619d6734-d0c9-52c0-8d5c-0976e4edf2a0",
+    "7d6f3b52-1161-5de0-b716-7e830b7ace9f",
+    "7f1c0e15-b484-5ae2-84f2-f93564a400c6",
+    "b2792b6a-5f2f-588d-adca-cf130db38ac3",
+    "c92121f4-6b7c-5000-a75a-ee150930c7bd",
+    "d1cc81b5-4c5a-5911-a244-9601ac1d16e1",
+    "d9e8164c-d9a7-5a21-8d85-18b9deff580b",
+    "debf1ec2-971e-5b87-89a0-33f3741080e7",
+    "e46eaa7e-8653-50c2-8226-2abfecb10ee3",
+    "e5d9461e-eb36-5b05-9bd2-a5c07722db93",
+    "eabe1def-39a0-5ddd-a649-fb02b97bb993",
+    "f926bedd-b133-5a25-9a43-11f99a1d4714"
+  ],
+  "content_gaps": []
+}
+```
