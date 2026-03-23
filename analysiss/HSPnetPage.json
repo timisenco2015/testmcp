@@ -1,72 +1,78 @@
 {
   "filename": "HSPnetPage",
   "found": true,
-  "summary": "The HSPnetPage system is designed for managing user sessions, handling errors and warnings, and providing a consistent user interface across the application. It incorporates session timeout mechanisms, error handling, and includes scripts for enhancing user interface interactions. The page setup includes adding stylesheets and JavaScript for session management and Google Analytics.",
-  "purpose": "The purpose of the HSPnetPage is to provide a structured approach to handling sessions, user interface elements, and integrated functionalities such as Google Analytics tracking within the HSPnet framework.",
+  "summary": "HSPnetPage is a web application page that handles user sessions, localization, and includes various JavaScript and CSS assets for user interaction and appearance. The page manages session timeouts and warnings, integrates Google Analytics, and ensures the UI is properly styled using multiple CSS files.",
+  "purpose": "To provide a web page that manages user sessions, handles timeouts, and applies consistent styling and functionality across the application using external scripts and stylesheets.",
   "entities": [],
   "fields": [
-    "locale",
-    "startTime",
+    "sessionHash",
     "sessID",
     "tRemain",
-    "intCId",
-    "intMid",
-    "int60Id",
-    "intLId",
-    "actInt"
+    "locale",
+    "startTime"
   ],
   "actors": [
-    "UserSession",
     "HSPnetSession",
-    "Page",
-    "Master"
+    "UserSession",
+    "Master",
+    "FooterLabel",
+    "sess"
   ],
   "workflows": [
     {
       "name": "Session Management",
       "steps": [
-        "Check session validity",
-        "Initialize session locale",
-        "Handle session timeout",
-        "Manage session dialog display"
+        "Initialize culture based on locale from URL or database.",
+        "Set up user session if not already initiated or valid.",
+        "Redirect to timed out page if session is invalid."
+      ]
+    },
+    {
+      "name": "Session Timeout Handling",
+      "steps": [
+        "Check session on intervals.",
+        "Display warnings for sessions nearing expiration.",
+        "Reset session or logout upon timeout."
       ]
     },
     {
       "name": "Page Setup",
       "steps": [
-        "Add JavaScript and stylesheets",
-        "Setup Google Analytics",
-        "Initialize menus",
-        "Process error and warning panels"
+        "Include global assets such as CSS and JS files.",
+        "Integrate Google Analytics if tracking ID is present.",
+        "Build left navigation and initialize menus."
       ]
     }
   ],
   "business_rules": [
-    "If TimeOutSecond is less than TimeOutWarningSeconds, timeout defaults to 1800 seconds."
+    "If no valid locale is found in URL, retrieve it from the database or use a default.",
+    "Redirect user if session is not valid.",
+    "Warn user when session is close to timing out."
   ],
   "validations": [
-    "Validate URL Hash for certain pages.",
-    "Session must be valid to avoid redirection."
+    "Check if the user session is valid.",
+    "Validate URL hash for security."
   ],
   "calculations": [
-    "Calculate remaining session time in seconds."
+    "Calculate session timeout rates based on configuration.",
+    "Calculate offsets for warning panels if errors exist."
   ],
   "conditions": [
-    "Check if session is valid; if not, redirect to Timedout.aspx.",
-    "If the session is switched for viewing only, append read-only monitoring note."
+    "Display timeout warning if session is close to expiring.",
+    "Redirect if session becomes invalid."
   ],
   "system_behavior": [
-    "Load and apply culture settings based on session or URL query.",
-    "Clear intervals using a Set to manage running intervals.",
-    "Display session timeout warnings using dialogs."
+    "Displays a dialog warning the user when their session is about to expire.",
+    "Clears all intervals upon session expiration or reset."
   ],
   "dependencies": [
-    "HSPnetSession for session management",
-    "Resources for localization and text content",
-    "ConfigurationManager for retrieving Google Analytics ID."
+    "External CSS files for styling.",
+    "JavaScript files for session management and UI behaviors.",
+    "Google Analytics for tracking user interactions."
   ],
   "exceptions": [
-    "If no valid locale is found, use the default locale."
+    "Locale is not found in URL or database, use default.",
+    "Session becomes invalid during operation, redirect user."
   ],
   "source_document_ids": [
     "0ee086d5-89d6-5440-a0a6-686260aed1f4",
