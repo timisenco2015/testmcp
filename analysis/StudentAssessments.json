@@ -1,0 +1,82 @@
+{
+  "filename": "StudentAssessments",
+  "found": true,
+  "summary": "Student assessments involve managing and viewing assessment templates, distribution dates, and providing reports on student performance. The system facilitates interactions with various assessment-related entities like courses and placement requests.",
+  "purpose": "Student assessments are designed to track and evaluate student performance over courses through various assessment templates and types. The system handles distribution of assessments, viewing privileges, and allows for generating assessment reports.",
+  "entities": [],
+  "fields": [
+    {
+      "name": "StudentID",
+      "type": "int"
+    },
+    {
+      "name": "StudentFirstName",
+      "type": "string"
+    },
+    {
+      "name": "StudentLastName",
+      "type": "string"
+    },
+    {
+      "name": "StudentNumber",
+      "type": "string"
+    }
+  ],
+  "actors": [
+    {
+      "name": "UserSession",
+      "role": "Handles user session management including student and staff interactions."
+    }
+  ],
+  "workflows": [
+    {
+      "name": "Assessment Report Generation",
+      "steps": [
+        "Select course and assessment template.",
+        "Generate CSV report based on selected parameters.",
+        "Provide download link for generated report."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Only editable screens for system administrators, placement coordinators, and local administrators.",
+    "Assessments viewable by students if distributed within specific date range."
+  ],
+  "validations": [
+    "Start date must not be after end date.",
+    "Required fields must not be empty."
+  ],
+  "calculations": [],
+  "conditions": [
+    "Screen is editable when user is not view-only and holds specific administrative roles.",
+    "Assessments are open if distribution open date is in the past relative to local date."
+  ],
+  "system_behavior": [
+    "Displays and sorts assessment data based on user selection.",
+    "Generates report and handles file download."
+  ],
+  "dependencies": [
+    "Uses UserSession to manage user-related data and access."
+  ],
+  "exceptions": [
+    "Handle database connection issues affecting data retrieval.",
+    "Ensure valid date operations to prevent logical errors."
+  ],
+  "source_document_ids": [
+    "152ea2b5-0e47-54c6-8fb4-1a593694fcc8",
+    "18975034-34fd-5ada-aa15-e50aa6f01e3e",
+    "36f2e201-e23a-5fe0-9463-2e5a123b82a0",
+    "3c098c58-04d7-5414-a6d4-a1ba81476378",
+    "4d41ad30-7063-547a-9863-14aebb19422d",
+    "69831e90-452c-5743-bfaa-01f63b4ad32f",
+    "7ede13bb-194a-50e2-a7de-6226265ab73c",
+    "90af7c25-e487-5a6c-a1e6-4933afcd9bcc",
+    "98dd668c-090d-5b92-9788-74e88e707c80",
+    "b28d3385-e44b-58d2-84ae-9e419d465d40",
+    "c2f8b2a8-5360-55a2-bde9-e69d2d6fb8ab",
+    "c37b919e-11d5-5a05-bc71-2f3d96c4f0c3",
+    "f4bf0152-9368-52ef-933c-c706b30572ac",
+    "fffbac8e-91eb-58e2-8bd4-87894276ec1b"
+  ],
+  "content_gaps": []
+}
