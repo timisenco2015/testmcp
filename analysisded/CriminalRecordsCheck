@@ -2,76 +2,121 @@
 {
   "filename": "CriminalRecordsCheck",
   "found": true,
-  "summary": "The CriminalRecordsCheck module handles the management and verification of student criminal records related to course enrollment within HSPnet. It involves operations such as sorting, filtering, editing, and updating student records, with various control elements and business logic applied throughout the user interface.",
-  "purpose": "To manage and monitor student criminal records checks as part of the enrollment process, ensuring compliance and safeguarding within the educational context.",
+  "summary": "The CriminalRecordsCheck is a user control for managing enrollments, particularly related to Criminal Records Checks within the HSPnet system. It provides functionality for viewing, sorting, editing, and managing enrollment data via a web interface.",
+  "purpose": "To facilitate the management and maintenance of student enrollment records with respect to the criminal records checking process.",
   "entities": [
-    "Enrollment",
+    "DataLayer.Enrollment",
     "Course",
-    "Student",
-    "CRCStatus"
+    "GridViewRow",
+    "CodeRecord",
+    "UserSession",
+    "HSPnetGridView",
+    "UpdatePanel",
+    "Panel"
   ],
   "fields": [
     "CohortID",
     "TermID",
     "CourseID",
-    "CampusID",
-    "Keyword",
+    "ShowGrad",
+    "ShowInactive",
+    "ShowWaived",
     "SectionFilter",
     "ActionFilter",
+    "keyword",
+    "CampusID",
     "CommentFilter",
+    "blnReadOnly",
+    "blnStudentMaint",
+    "blnGotoOutbox",
+    "blnGotoGWS",
+    "blnGotoIWS",
+    "CourseLst",
+    "StartRow",
+    "AllowStudentAccess",
+    "CRCStatusList",
     "CRCStatusDate",
     "CRCStatusCodeID",
-    "CRCStatusNotes"
+    "CRCStatusNotes",
+    "EnrollmentID"
   ],
   "actors": [
-    "UserSession",
-    "Administrator",
-    "Student",
-    "System"
+    "System.Web.UI.ScriptManager",
+    "System.Web.UI.WebControls.Button",
+    "System.Web.UI.WebControls.GridView",
+    "System.Web.UI.WebControls.DropDownList",
+    "System.Web.UI.WebControls.HiddenField"
   ],
   "workflows": [
     {
-      "name": "Manage Criminal Records Check",
+      "name": "Sort",
       "steps": [
-        "Initialize session variables",
-        "Filter and sort student records",
-        "Edit and update CRC status",
-        "Submit changes",
-        "Error handling and validation"
+        "Accept sorting parameters.",
+        "Sort gridData using parameters."
+      ]
+    },
+    {
+      "name": "Page Load",
+      "steps": [
+        "Check if page is loaded for the first time.",
+        "Fill action dropdown.",
+        "Sort gridData by LastName if not sorted."
+      ]
+    },
+    {
+      "name": "CheckScreenAccess",
+      "steps": [
+        "Set RowDisabled based on record attributes.",
+        "Override actions if waived.",
+        "Set ScreenIsEditable based on conditions."
+      ]
+    },
+    {
+      "name": "gridData_RowDataBound",
+      "steps": [
+        "Setup controls and visibility based on enrollment data."
+      ]
+    },
+    {
+      "name": "FindEntryToEdit",
+      "steps": [
+        "Locate entry in gridData.",
+        "Bind data to gridDataEdit if entry found."
+      ]
+    },
+    {
+      "name": "gridDataEdit_RowCommand",
+      "steps": [
+        "Handle commands like SaveAll, Save on grid row editing."
       ]
     }
   ],
   "business_rules": [
-    "Waived actions override other operations",
-    "Graduated or inactive students have restricted actions",
-    "Read-only mode disables edit and update functions"
+    "RowDisabled if data.Graduated or data.Inactive.",
+    "ActionDisabled if RowDisabled or specific conditions."
   ],
   "validations": [
-    "Check if UserSession is active",
-    "Verify essential fields are populated",
-    "Validate date formats"
+    "Ensure UserSession is not null during data selection.",
+    "ValidationSummary in the user interface for error display."
   ],
   "calculations": [
-    "Determine CRCStatus based on dropdown selection",
-    "Set grid row index and data binding parameters"
+    "Calculate visibility of certain UI elements based on enrollment statuses."
   ],
   "conditions": [
-    "RowDisabled is true if student is graduated or inactive",
-    "ScreenIsEditable depends on waiver status and read-only flag"
+    "ScreenIsEditable is false if blnReadOnly is true.",
+    "ActionDisabled if RowDisabled or enrollment flags are true."
   ],
   "system_behavior": [
-    "Dynamic data binding of grid elements",
-    "JavaScript enabled actions for client-side operations",
-    "Conditional visibility of UI controls"
+    "Auto-generates field controls.",
+    "Manages JavaScript and client-side scripting for interactivity."
   ],
   "dependencies": [
-    "HSPnet.DataLayer",
     "HSPnet.Framework",
-    "System.Web.UI.WebControls"
+    "HSPnet.DataLayer",
+    "HSPnet.UI"
   ],
   "exceptions": [
-    "Session timeout handling",
-    "Database error management on data operations"
+    "SQL errors trigger session caching and redirect actions."
   ],
   "source_document_ids": [
     "018b4cb0-466e-546e-a4f6-9cbe2f0bfd5a",
