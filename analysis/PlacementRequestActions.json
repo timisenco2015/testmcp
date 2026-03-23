@@ -1,12 +1,13 @@
 {
   "filename": "PlacementRequestActions",
   "found": true,
-  "summary": "PlacementRequestActions manages the history and actions associated with a Placement Request. It aggregates actions such as creation, status changes, and comment updates, records actors and agencies involved, and exposes workflows for searching, archiving, and updating comments.",
-  "purpose": "To record, retrieve, and manage the history and actions performed on placement requests, including status changes, comments, and actor details. It provides mechanisms for search, archive, and comment update workflows.",
+  "summary": "PlacementRequestActions manages the history, workflow, and audit information for Placement Requests, tracking actions, comments, status changes, and user/agency metadata. It includes creation, updates, status transitions, and comment archiving, supporting multi-agency and student-specific actions.",
+  "purpose": "To track, display, and manage the history of Placement Request actions, including status transitions, comments, and associated user/agency metadata for workflow and audit purposes.",
   "entities": [
     "PlacementRequestAction",
     "Agency",
     "User",
+    "Student",
     "Phone"
   ],
   "fields": [
@@ -38,87 +39,72 @@
     "CreationLastName",
     "CreationFirstName",
     "CreationMiddleName",
-    "CreationPhone"
+    "CreationPhone",
+    "PlacementRequestDestinationID",
+    "Common"
   ],
   "actors": [
+    "Agency User",
     "System Administrator",
-    "Agency",
-    "Student User",
-    "Support Team"
+    "Student"
   ],
   "workflows": [
     {
-      "name": "PlacementRequestAction Search",
+      "name": "Placement Request Action Record",
       "steps": [
-        "Configure the database procedure name to 'PlacementRequestActionsSearch'",
-        "Add parameters: PlacementRequestID, DestinationID, SessionAgencyID, FromArchive, SessionID",
-        "Execute procedure to fetch data",
-        "Iterate rows, create PlacementRequestAction objects, populate fields from DB",
-        "If entry is flagged 'Common' and for another PR, mark ForOtherPR true",
-        "Calculate FirstCancelOrDeclineDate for each entry if applicable",
-        "Close data reader and return list"
-      ]
-    },
-    {
-      "name": "Comment Update",
-      "steps": [
-        "Configure the database procedure name to 'PlacementRequestCommentsUpdate'",
-        "Add parameters: SessionID, ID, PreviousPRComment",
-        "Execute procedure to update comment"
-      ]
-    },
-    {
-      "name": "Archive Search",
-      "steps": [
-        "Call SearchArchive method with parameters (session, PlacementRequestID, PRD_ID, sessionAgencyID)",
-        "Set fromArchive = true"
-      ]
-    },
-    {
-      "name": "Comment Search",
-      "steps": [
-        "Configure the database procedure name to 'PlacementRequestCommentsSearch'",
-        "Add parameters: PlacementRequestID, DestinationID, SessionID",
-        "Execute procedure and create PlacementRequestAction entries"
+        "Create PlacementRequestAction using PlacementRequestCreationAgency or PlacementRequestCreationAgencyStudent.",
+        "FillList method populates PlacementRequestAction fields from database via SqlDataReader.",
+        "Actions are appended to a list corresponding to Placement Request history.",
+        "Special handling for 'Common' flag and PlacementRequestDestinationID to mark ForOtherPR.",
+        "Identify the first ActionDate where status transitions to 'Canc' or 'DecA' (cancellation/decline) and propagate to entire list.",
+        "On comment changes, shift PreviousPRComment and related fields down the list to maintain historical accuracy.",
+        "Archived comments and actions can be searched via SearchArchive, SearchComments, SearchCommentsByID.",
+        "UpdatePreviousPRComment procedure allows updating of comments."
       ]
     }
   ],
   "business_rules": [
     "FromCode and ToCode are always English status codes.",
-    "If the System Administrator and Comments is empty, set Comments to 'Unknown Change'.",
-    "If entry is flagged 'Common' for a different PRD, set ForOtherPR true.",
-    "StudentUser flag is used to indicate actions performed by students.",
-    "Housekeeping removes student names from some history entries if older than STUDENT_HOUSEKEEPING_DAYS.",
-    "During creation, use 'Creation' fields for the first comment if it exists."
+    "If Comments are missing and user is SystemAdministrator, default to 'Unknown Change'.",
+    "If entry flagged 'Common' and PlacementRequestDestinationID differs from current PRD_ID, set ForOtherPR=true.",
+    "StudentUser flag triggers special icon and formats.",
+    "If the first PlacementRequestAction has a comment, override user/agency fields with creation fields for accuracy.",
+    "When shifting comments, only remove the first comment if it is not blank."
   ],
   "validations": [
-    "Check if PlacementRequestDestinationID matches PRD_ID when determining 'Common'.",
-    "Check for null or empty values in Comments and PreviousPRComment fields.",
-    "Validate uuid format when retrieving related keys."
+    "PlacementRequestDestinationID validation for 'Common' flag.",
+    "Null/empty checks for Comments and PreviousPRComment.",
+    "Validation of status codes during status change logic.",
+    "Validation of phone formatting via UsePhoneMask."
   ],
   "calculations": [
-    "FirstCancelOrDeclineDate is computed when an entry transitions from non-cancel/decline to cancel/decline status codes.",
-    "PreviousPRComment is rippled down from previous entries if applicable."
+    "Propagation of FirstCancelOrDeclineDate when status transitions to cancellation/decline.",
+    "Formatting of names and dates for display.",
+    "Student indicator added based on StudentUser flag."
   ],
   "conditions": [
-    "Use translated fields for Comments if sess.UseAltLanguageFields = true.",
-    "If entry.StudentUser = true, present student indicator."
+    "If PlacementRequestDestinationID != PRD_ID and Common, entry.ForOtherPR = true.",
+    "If PreviousPRComment is blank, propagate comments down the history list and remove the first entry.",
+    "If user is SystemAdministrator and Comments are empty, set Comments = 'Unknown Change'."
   ],
   "system_behavior": [
-    "Procedures are used for data retrieval and updates (Search, Archive, Comment Update).",
-    "Comments and status codes are managed and optionally translated.",
-    "Name formatting helpers produce formatted user/agency representations for display.",
-    "Indicators shown for student users and switched users."
+    "Search methods employ stored procedures to retrieve PlacementRequestAction history and comments.",
+    "FillList method reads and populates data from SqlDataReader for each action.",
+    "Entries can be added, searched (including archive), updated (comments), and formatted for display.",
+    "Common entries across PRDs are flagged for highlighting.",
+    "Change tracking for user/agency and comments supports auditing and display."
   ],
   "dependencies": [
-    "Database connection and stored procedures: PlacementRequestActionsSearch, PlacementRequestCommentsUpdate, PlacementRequestCommentsSearch.",
-    "HSPnetSession context for DB access and field translation.",
-    "Phone, NameFormatter, DateFormatter classes/utilities."
+    "Database access via HSPnetSession and DB procedures.",
+    "SqlDataReader for reading PlacementRequestAction data.",
+    "StatusCodeFormatter for translation of status codes.",
+    "NameFormatter and DateFormatter for display formatting.",
+    "Phone and Resources objects for phone formatting/localization."
   ],
   "exceptions": [
-    "If Comments is empty for a System Administrator, label as 'Unknown Change'.",
-    "If entries have PreviousPRComment blank, chain and ripple down comments from previous actions.",
-    "Casting errors in keys, handled by regex enforcement for uuid format."
+    "If Comments are missing and not SystemAdministrator, entry.Comments remains blank.",
+    "If PreviousPRComment is blank at creation, comment propagation alters history sequence.",
+    "If database access or formatting fails, entry population may be incomplete."
   ],
   "source_document_ids": [
     "15668e77-bc2f-581e-bd57-d8337ecc9d66",
@@ -136,8 +122,10 @@
     "f71b58b9-f868-5bb6-92a1-d791d1c18fa2"
   ],
   "content_gaps": [
-    "Exact field definitions and UI display logic are inferred from code, business context not explicit.",
-    "Stored procedures and DB schemas are referenced but not fully present.",
-    "Translation mechanisms and language switching for fields are referenced but details not included."
+    "No detailed user interface behavior is described.",
+    "Error handling or logging not fully specified.",
+    "Business logic for all possible status codes is not exhaustively covered.",
+    "No schema or data type definitions beyond field names/types.",
+    "No description of how permissions are enforced."
   ]
 }
