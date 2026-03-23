@@ -1,0 +1,88 @@
+```json
+{
+    "filename": "GenerateCourse",
+    "found": true,
+    "summary": "The GenerateCourse module handles the generation of correspondence documents for courses and cohorts within an educational system. It includes functionalities for selecting participants and formatting the output document.",
+    "purpose": "To manage the creation and generation of correspondence documents for selected courses and cohorts, enabling administrators to configure document settings and output formats.",
+    "entities": [
+        "UserSession",
+        "CorrespondenceID",
+        "FormalLetter",
+        "Outbox",
+        "ForPlacingAgency",
+        "ProgramID"
+    ],
+    "fields": [
+        "txtRequestDestID",
+        "OutputFormat",
+        "ddDepartment",
+        "ddProgram",
+        "ddTerm",
+        "cklStatus",
+        "txtCorDate",
+        "ddDateSource"
+    ],
+    "actors": [
+        "SystemAdministrator",
+        "LocalAdministrator",
+        "PlacementCoordinator",
+        "ReceivingCoordinator"
+    ],
+    "workflows": [
+        {
+            "name": "Generate Correspondence",
+            "steps": [
+                "Load page and initialize user session.",
+                "Select department, program, and term from dropdowns.",
+                "Choose correspondence format options (PDF, MultiPDF, etc.).",
+                "Select status filters and additional options like including logos.",
+                "Save run variables and confirm no errors.",
+                "Generate correspondence with selected options."
+            ]
+        }
+    ],
+    "business_rules": [
+        "Only system administrators or authorized local administrators can make certain email-related elements visible.",
+        "Correspondence generation can be based on predefined departments and programs within user restrictions."
+    ],
+    "validations": [
+        "Check if RawData is not '-1' or empty.",
+        "Validate CorDate against potential null or incorrect formatting.",
+        "Ensure a valid OutputFormat is selected."
+    ],
+    "calculations": [
+        "ProgramID determination from dropdown based on user session data.",
+        "Date calculations for correspondence based on user input and system defaults."
+    ],
+    "conditions": [
+        "Outbox mode alters text and options available on the UI.",
+        "Conditions are applied based on whether the correspondence is a formal letter or not."
+    ],
+    "system_behavior": [
+        "Loads dropdown data based on user permissions and preselected values.",
+        "Maintains state across page loads with potential postback handling."
+    ],
+    "dependencies": [
+        "CorrespondenceDetails.CorrespondenceDetailsSearch",
+        "Departments.DepartmentSearchAgency",
+        "Programs.ProgramSearchDepartment"
+    ],
+    "exceptions": [
+        "Cancel data operations if user session is null or invalid.",
+        "Prompt error messages if validations fail during variable saving."
+    ],
+    "source_document_ids": [
+        "02e09e81-5a82-5c62-bb4c-751a99905bb1",
+        "0321a006-38ab-51ee-a500-fd1823b05e12",
+        "0b974889-fe04-5c13-bba1-3eadbc18ca4f",
+        "18308b20-af1e-5dd4-b3e2-0545c7e7cc7d",
+        "18592d00-fbc1-5793-8804-5fd12e935ec1",
+        "2430cc81-e3e2-5cde-bc18-3a6c0fc86998",
+        "3fc75726-4e03-5ead-b26d-84c149ab87ec",
+        "67247769-28f5-5533-ad6d-7bbfcec68836",
+        "82f90f7d-802d-5544-a68f-fa1d7464a2dc",
+        "88c9934f-e904-5a4d-a01a-9fb24a804ba8"
+    ],
+    "content_gaps": []
+}
+```
