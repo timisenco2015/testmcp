@@ -1,19 +1,90 @@
 {
   "filename": "MaintHeader",
-  "found": false,
-  "summary": "",
-  "purpose": "",
+  "found": true,
+  "summary": "The MaintHeader page is part of the HSPnet web application. It is responsible for managing header entries, involving tasks like adding, editing, and deleting entries associated with specific code categories.",
+  "purpose": "The purpose of the MaintHeader page is to provide a user interface for managing header information, allowing users to maintain entries and associate them with specific categories.",
   "entities": [],
-  "fields": [],
-  "actors": [],
-  "workflows": [],
-  "business_rules": [],
-  "validations": [],
+  "fields": [
+    "CodeCategoryID",
+    "Description",
+    "SortOrder",
+    "Notes",
+    "DescriptionAlt",
+    "NotesAlt",
+    "ID"
+  ],
+  "actors": [
+    "UserSession"
+  ],
+  "workflows": [
+    {
+      "name": "Adding or Editing a Header Entry",
+      "steps": [
+        "User selects a category from the ddCategory dropdown.",
+        "User inputs or edits the description in the txtDescription textbox.",
+        "User inputs or edits the sort order in the txtSortOrder textbox.",
+        "User inputs or edits notes in the txtNotes textbox.",
+        "User inputs or edits the alternative description and notes in the txtDescriptionAlt and txtNotesAlt textboxes.",
+        "If CodeID is 0, a new entry is added. Otherwise, the existing entry is updated."
+      ]
+    },
+    {
+      "name": "Refreshing Data",
+      "steps": [
+        "User changes the selected category in the ddCategory dropdown.",
+        "The RefreshData method is called to update the displayed data."
+      ]
+    },
+    {
+      "name": "Handling Grid Row Commands",
+      "steps": [
+        "The gridData_RowCommand method listens for commands like cmdAdd, cmdEdit, cmdDelete.",
+        "For cmdAdd, the page switches to add mode and shows details.",
+        "For cmdEdit, the page switches to edit mode, populates details, and shows them.",
+        "For cmdDelete, the specified entry is deleted."
+      ]
+    }
+  ],
+  "business_rules": [
+    "SortOrder must be specified.",
+    "Description must be specified."
+  ],
+  "validations": [
+    "Ensure Description is not empty.",
+    "Ensure SortOrder is a numeric value."
+  ],
   "calculations": [],
   "conditions": [],
-  "system_behavior": [],
-  "dependencies": [],
-  "exceptions": [],
-  "source_document_ids": [],
-  "content_gaps": ["No related documents found"]
+  "system_behavior": [
+    "Populate categories dropdown on page load.",
+    "Hide error and warning panels by default."
+  ],
+  "dependencies": [
+    "HSPnet.DataLayer",
+    "HSPnet.App_GlobalResources",
+    "HSPnet.UI",
+    "AjaxControlToolkit"
+  ],
+  "exceptions": [
+    "Error messages are displayed in the pnlError or pnlWarning panels."
+  ],
+  "source_document_ids": [
+    "17573629-fc68-5f42-b565-917e28b84faa",
+    "2caff133-8bbd-5011-8a3b-7fb443284278",
+    "3076d78c-c785-59e1-820b-8840aed69c87",
+    "351786a4-f9f9-5797-98ad-359f599e971d",
+    "498cacf3-765f-5467-b045-368b09fb090c",
+    "64353cd9-6722-5484-8e8d-c0767ea9fe7d",
+    "664b678f-b00c-520b-a03b-1fc4f118d1f5",
+    "a654e298-a030-50c9-a705-946aa9158a19",
+    "a925e273-97fe-52d6-bd75-b7654bbbdbf6",
+    "b4878e1f-4514-5989-9de4-94c4d87772a4",
+    "be5a5a8a-8b0c-50d6-a1b8-bd03011680a2",
+    "d0129c71-e615-5c4d-8cd1-e95964aca46d",
+    "d539d220-a6a7-528b-989a-7e0a651e4854",
+    "d6a933f1-d150-5c8f-8e32-1ba7f0d56f1e",
+    "e0d165cf-b0c0-59c2-8bfc-9ded50e39496",
+    "e68e3f94-bad6-5dc8-aea0-c3ed8ba71609"
+  ],
+  "content_gaps": []
 }
