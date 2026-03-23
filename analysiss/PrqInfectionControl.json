@@ -1,0 +1,79 @@
+{
+  "filename": "PrqInfectionControl",
+  "found": true,
+  "summary": "The 'PrqInfectionControl' system handles the management of infection control solutions and prerequisites related to N95 masks, including selection, updating, and validation of mask fit test dates and sizes.",
+  "purpose": "To facilitate and manage infection control prerequisites for staff, ensuring compliance with safety standards by handling mask sizes, fit test dates, and solutions.",
+  "entities": [
+    "HSPnetSession",
+    "UserSession",
+    "StaffID",
+    "StudentPrerequisite",
+    "Dropdown",
+    "Grid",
+    "Localization"
+  ],
+  "fields": [
+    "N95MaskSizeCodeID",
+    "N95MaskFitTestExpiryDateCheckID",
+    "InfectionControlSolutionID",
+    "UserSession.SessionID",
+    "CurrentPage"
+  ],
+  "actors": [
+    "User",
+    "Staff"
+  ],
+  "workflows": [
+    {
+      "name": "Update Infection Control Data",
+      "steps": [
+        "Select N95 mask size from dropdown",
+        "Select mask fit test date from calendar",
+        "Select infection control solution from dropdown",
+        "Click save to update data",
+        "Validate page and handle errors",
+        "Redirect to current page"
+      ]
+    }
+  ],
+  "business_rules": [
+    "Screen must be editable for updates to be visible",
+    "Disable edit fields if screen is not editable"
+  ],
+  "validations": [
+    "Ensure all prerequisites are validated before update",
+    "Check if user session is valid"
+  ],
+  "calculations": [
+    "Determine N95MaskSizeUnknownCodeID from dropdown",
+    "Format dates using DateFormatter"
+  ],
+  "conditions": [
+    "If UserSession is null, cancel operation",
+    "If screen is not editable, disable fields"
+  ],
+  "system_behavior": [
+    "Setup JavaScript for dropdown and date controls",
+    "Handle postback async scripts for dynamic updates"
+  ],
+  "dependencies": [
+    "Localization for translating fields",
+    "Grid for managing display and edit modes"
+  ],
+  "exceptions": [
+    "Cancel operation if UserSession is null",
+    "Page.IsValid must be true to proceed with updates"
+  ],
+  "source_document_ids": [
+    "01fe3713-34c6-500c-8b65-27c16564a27f",
+    "149e21e8-595c-51f4-8086-e16cc58a5504",
+    "33933bd4-e9bf-5d7d-b5a8-794aec40e44a",
+    "4b3c0f26-a6ec-57a7-8ea1-0e711e78de41",
+    "6ed5b6eb-6645-5b00-97b6-9d5764f1d6c8",
+    "995a2b70-b687-59cd-8af3-da4f48146471",
+    "9ac127f8-5dcb-5da8-964b-f4299741a1e5",
+    "e0e5bd13-8195-5f29-8017-ba0ebdb9dc0b",
+    "e22263e2-49a2-51b9-aae5-938c46bdac03"
+  ],
+  "content_gaps": []
+}
