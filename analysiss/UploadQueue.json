@@ -1,0 +1,95 @@
+{
+  "filename": "UploadQueue",
+  "found": true,
+  "summary": "The 'UploadQueue' system facilitates managing jobs related to data uploads, allowing users to view, process, and reject uploads through a web interface. It integrates user and agency selection for filtering purposes.",
+  "purpose": "To manage and process data uploads in an organizational setting, providing tools for tracking, processing, and reviewing uploaded data.",
+  "entities": [],
+  "fields": [
+    "ddUser",
+    "Literal4",
+    "radModeUnProcessed",
+    "radModeProcessed",
+    "radModeRejected",
+    "chkShowDetails",
+    "Literal1",
+    "radTypeStudents",
+    "radTypeStaff",
+    "Literal2",
+    "ddAgency",
+    "Literal3",
+    "cmdRefreshView",
+    "rprUploadJob",
+    "dsAgency",
+    "dsUser",
+    "dsUploadJob",
+    "Label1",
+    "AlwaysVisibleControlExtender1",
+    "AlwaysVisibleControlExtender2",
+    "pnlError",
+    "lblErrorCaption",
+    "lblErrorList",
+    "cmdHideErrorPanel",
+    "pnlWarning",
+    "lblWarningCaption",
+    "lblWarningList",
+    "cmdHideWarningPanel",
+    "pnlCurrentView",
+    "CurrentViewLabel"
+  ],
+  "actors": [
+    "UserSession"
+  ],
+  "workflows": [
+    {
+      "name": "Upload Processing",
+      "steps": [
+        "User selects the type of upload (Students/Staff).",
+        "User selects the agency and user from dropdown lists.",
+        "User views the list of uploads to be processed.",
+        "User changes the status of uploads using provided buttons (Processed, UnProcessed, Rejected).",
+        "Interface refreshes to show updated status."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Processed uploads have their buttons for marking as 'Processed' or 'Rejected' hidden.",
+    "UnProcessed uploads can be marked as 'Processed'.",
+    "Rejected uploads are skipped in further processing unless reconsidered."
+  ],
+  "validations": [],
+  "calculations": [],
+  "conditions": [
+    "If 'radModeRejected' is checked, the 'IncludeMode' is set to 'Rejected'. Otherwise, it is set to 'UnProcessed' or 'Processed' based on radio button selection."
+  ],
+  "system_behavior": [
+    "The system refreshes the data view upon status change.",
+    "Hides or shows details based on the checkbox selection."
+  ],
+  "dependencies": [
+    "HSPnet.App_GlobalResources",
+    "HSPnet.DataLayer",
+    "HSPnet.UI",
+    "HSPnet.Framework"
+  ],
+  "exceptions": [],
+  "source_document_ids": [
+    "0987c228-e0f6-586d-ab74-15c123829600",
+    "27d36a9a-f442-5736-8562-f005eece8324",
+    "3dbf5d92-8605-55d6-9c57-3868c5796726",
+    "53414f92-4ef1-5ead-9562-81d0aaecdefb",
+    "54e1b678-dc7c-51d9-97d9-7ed7a3899de9",
+    "616a176f-22a9-5e83-a360-a686b60a4741",
+    "65b05d53-b925-51c5-8876-772773a36959",
+    "7cd7b1ac-6865-556c-b343-8552c3de9759",
+    "82656168-b897-5eb3-b526-45d974c6d063",
+    "91c64078-c230-594b-b784-bfe0636b9196",
+    "97b75643-51f4-5f7e-af2b-5c50354867ed",
+    "99b2e812-7075-5c4c-bb11-0fbb51fef03b",
+    "a4fdcff0-383d-5d3e-a38e-08492f00110f",
+    "bfe4b73a-8645-598c-8d1f-e7b06c1f25e9",
+    "dd268abd-bb5b-5e59-a482-0e3d7db4a8c6",
+    "e0331a8d-412d-5247-9e72-f5b9a95f9722",
+    "eec65c61-de56-51a8-a629-496a0b8e2b97"
+  ],
+  "content_gaps": []
+}
