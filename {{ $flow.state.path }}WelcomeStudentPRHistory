@@ -1,0 +1,66 @@
+```json
+{
+  "filename": "WelcomeStudentPRHistory",
+  "found": true,
+  "summary": "WelcomeStudentPRHistory is a user control in the HSPnet application for managing and displaying student practice record history. It organizes and displays confirmed and non-confirmed practice records for students.",
+  "purpose": "The control is designed to present a student's practice record history, allowing for sorting and filtering of confirmed and future records.",
+  "entities": [
+    "HSPnetSession",
+    "PRSearchStudent"
+  ],
+  "fields": [
+    "StudentID",
+    "WarnStudentHours",
+    "PRSSLst",
+    "ConfLst",
+    "NotConfLst"
+  ],
+  "actors": [
+    "UserSession"
+  ],
+  "workflows": [
+    {
+      "name": "Data Binding",
+      "steps": [
+        "Clear lists ConfLst and NotConfLst.",
+        "Retrieve student practice history data.",
+        "Sort data into confirmed and non-confirmed lists.",
+        "Display data by binding to repeaters."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Show future placement if PR is confirmed and withheld for students.",
+    "Display non-confirmed PRs only with end dates on or after today."
+  ],
+  "validations": [
+    "Verify non-empty UserSession."
+  ],
+  "calculations": [],
+  "conditions": [
+    "Check if PREndDate is greater than or equal to current date.",
+    "Check if PR.StatusCode is confirmed."
+  ],
+  "system_behavior": [
+    "Toggle visibility of panels based on data availability.",
+    "Handle sorting and command events for repeaters."
+  ],
+  "dependencies": [
+    "HSPnet.DataLayer",
+    "HSPnet.Framework"
+  ],
+  "exceptions": [],
+  "source_document_ids": [
+    "12ba6e83-f3d6-5440-80b0-094b8dd27a8c",
+    "4b55d321-598f-5a5c-8961-7fdbb26b88ee",
+    "50d4f5e4-f91a-593e-8a8c-aa3bb34fd9e4",
+    "6019bf51-f18b-5910-b6c0-554223de3d34",
+    "744e71ce-a9b4-5f0d-8d5e-ad5eb299e926",
+    "7511ee31-26f4-503a-96f2-db189be44f23",
+    "9ed2db53-9513-50d3-8315-e09fdbcfcff2",
+    "e7f3e571-0be7-5e57-a718-566cc76242c0",
+    "f9a68402-d4e7-54d9-9d56-4c41aefcb777"
+  ],
+  "content_gaps": []
+}
+```
