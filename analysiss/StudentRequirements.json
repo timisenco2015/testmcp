@@ -1,8 +1,8 @@
 {
   "filename": "StudentRequirements",
   "found": true,
-  "summary": "The StudentRequirements document is defined within a web application context, implemented using ASP.NET technologies. It involves user interface components for managing student requirements, utilizing controls such as GridView, FormView, and ObjectDataSource. The primary operations facilitated by this system are the creation, editing, and deletion of student requirements, leveraging user session data and permission settings.",
-  "purpose": "The purpose of the StudentRequirements document is to manage and handle operations related to student requirement data within a web application developed in ASP.NET. This includes displaying data, handling user interactions, and processing updates through the UI.",
+  "summary": "The StudentRequirements system manages student-related data using ASP.NET controls and handles operations like adding, editing, and deleting student records.",
+  "purpose": "To manage and display student requirements data using a web-based interface.",
   "entities": [],
   "fields": [
     "dsStudentRequirements",
@@ -17,50 +17,35 @@
     "dsStdCompliance"
   ],
   "actors": [
-    "User",
-    "Grid",
-    "ScriptManager",
-    "DataLayer"
+    "UserSession"
   ],
   "workflows": [
     {
       "name": "Manage Student Requirements",
       "steps": [
-        "User accesses the page with student requirements.",
-        "Data is retrieved from the database using dsStudentRequirements.",
-        "Grid displays data with options to add, edit, or delete entries.",
-        "User interacts with the grid to perform add/edit/delete operations.",
-        "On 'Add', a new entry form is displayed.",
-        "On 'Edit', the entry is loaded for modification.",
-        "On 'Delete', the entry is removed from the database.",
-        "Changes are validated and processed through the server.",
-        "The view is updated reflecting current data state."
+        "User interacts with the gridData to add, edit, or delete student records.",
+        "Add button setup in gridData if screen is editable.",
+        "Edit and delete buttons setup based on screen editability.",
+        "Data bound and 'no data found' message adjusted for read-only view.",
+        "Row commands handled for add, edit, and delete operations.",
+        "Details are shown in modal popup extender.",
+        "JavaScript setup for client-side interactions.",
+        "Changes committed to data layer upon operation completion."
       ]
     }
   ],
-  "business_rules": [
-    "ScreenIsEditable flag dictates if add/edit/delete buttons are enabled.",
-    "ReadOnly flag ensures UI prevents data modifications when set.",
-    "UserSession must be active to perform CRUD operations."
-  ],
+  "business_rules": [],
   "validations": [
-    "Page validation before insert or update via uxDetail_ItemInserting and uxDetail_ItemUpdating.",
-    "JavaScript ensures proper client-side validations."
+    "Cancel operation if Page.IsValid is false during insert or update."
   ],
   "calculations": [],
-  "conditions": [
-    "If GridViewRowEventArgs.RowType is DataRow, setup edit and delete buttons.",
-    "If UserSession is null, cancel data selection."
-  ],
+  "conditions": [],
   "system_behavior": [
-    "Grid.SetupAddButton and Grid.SetupEditButton control UI button appearances.",
-    "JavaScript variables are managed on async postbacks for dynamic interactions.",
-    "On inserting or updating data, user is redirected after action completion."
+    "ObjectDataSource operations are cancelled if UserSession is null.",
+    "Redirect occurs after operations are completed."
   ],
   "dependencies": [],
-  "exceptions": [
-    "If UserSession is null during data operations, custom cancel operations to prevent invalid data handling."
-  ],
+  "exceptions": [],
   "source_document_ids": [
     "4122a11c-8c1f-5f68-94e8-1ade088d7994",
     "4407cd0b-6c74-53cf-8955-6b46443bccd5",
