@@ -1,0 +1,124 @@
+{
+    "filename": "UploadJobs",
+    "found": true,
+    "summary": "The UploadJobs system manages the upload and handling of different job types within an organization. This includes adding, deleting, and searching for jobs related to various entities like students and staff.",
+    "purpose": "To facilitate the management of upload jobs with different characteristics and requirements, ensuring data is correctly handled, validated, and maintained within the system.",
+    "entities": [
+        "UploadJob",
+        "HSPnetSession",
+        "Phone",
+        "SqlDataReader",
+        "Database"
+    ],
+    "fields": [
+        "ID",
+        "UserID",
+        "UploadTypeCodeID",
+        "UploadType",
+        "AgencyID",
+        "DepartmentID",
+        "FileURL",
+        "FilePath",
+        "FileSize",
+        "FileType",
+        "FileTypeAlt",
+        "ReadyDate",
+        "ReviewedDate",
+        "ProcessedDate",
+        "Comments",
+        "StudentConsentProgramID",
+        "RejectedDate",
+        "ProgramID",
+        "CohortID",
+        "TermID",
+        "CourseID",
+        "Agency",
+        "FirstName",
+        "MiddleName",
+        "LastName",
+        "Department",
+        "Program",
+        "Cohort",
+        "Term",
+        "Course",
+        "Phone",
+        "Fax",
+        "Email",
+        "IsHSPnetUser",
+        "StaffID",
+        "StudentConsentProgram"
+    ],
+    "actors": [
+        "UploadJob",
+        "Users",
+        "HSPnetSession"
+    ],
+    "workflows": [
+        {
+            "name": "Add UploadJob",
+            "steps": [
+                "Create a new UploadJob instance",
+                "Populate fields with data",
+                "Validate the session",
+                "Execute 'UploadJobAdd' procedure",
+                "Return the UploadJobID"
+            ]
+        },
+        {
+            "name": "Delete UploadJob",
+            "steps": [
+                "Retrieve UploadJob by ID",
+                "Delete file and folder associated",
+                "Execute 'UploadJobDelete' procedure"
+            ]
+        },
+        {
+            "name": "Search UploadJobs",
+            "steps": [
+                "Set procedure name to 'UploadJobSearch'",
+                "Add search parameters",
+                "Execute the stored procedure",
+                "Return list of UploadJobs"
+            ]
+        }
+    ],
+    "business_rules": [
+        "UploadType must be either 'STUDENTS' or 'STAFF'.",
+        "FileURL and FilePath must not be blank."
+    ],
+    "validations": [
+        "If FileURL or FilePath is blank, an error message is added to the session.",
+        "Invalid upload file types are rejected with an error."
+    ],
+    "calculations": [
+        "Format file size in KBytes for display.",
+        "Calculate formatted name using the NameFormatter."
+    ],
+    "conditions": [
+        "If FileURL is non-empty and file exists, format FileURL for displaying."
+    ],
+    "system_behavior": [
+        "Handles adding, searching, and deleting of UploadJobs.",
+        "Manages files and folders associated with UploadJobs."
+    ],
+    "dependencies": [
+        "HSPnet.Framework",
+        "HSPnet.App_GlobalResources",
+        "HSPnet.UI"
+    ],
+    "exceptions": [
+        "File and folder deletion exceptions are ignored."
+    ],
+    "source_document_ids": [
+        "2e33e3e2-7f26-5fe3-a987-57ec2a8df086",
+        "3f6d388b-870b-504e-9a4e-a31c3c360ed3",
+        "423f5a48-ac64-5928-bd43-4bdeba863c0d",
+        "70719146-2ba9-528e-a6ac-035f2bb1d684",
+        "800ecb7a-5d71-5744-88c4-d92f3782477b",
+        "8c4f6c82-0732-5d7f-b456-62904df5e099",
+        "cb3476a7-af74-56df-bd4f-c3057f74728a",
+        "e302e522-3d1a-5728-8c92-8bb5212411ea",
+        "f0283360-a78e-5daf-9542-fc9522c13709"
+    ],
+    "content_gaps": []
+}
