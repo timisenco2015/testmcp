@@ -1,0 +1,75 @@
+{
+  "filename": "CascadingDropdown",
+  "found": true,
+  "summary": "The CascadingDropdown class provides a utility method for replacing a dropdown control with static text in web UI scenarios, specifically when cascading dropdowns are disabled and their value should not be displayed as selectable.",
+  "purpose": "To manage visibility of dropdowns and their corresponding static text representations within a web user interface, especially to handle cases where disabled dropdowns are not loaded and should instead show their selected value as static text.",
+  "entities": [
+    "CascadingDropdown",
+    "WebControl",
+    "DropDownList",
+    "Literal",
+    "Control"
+  ],
+  "fields": [
+    {
+      "name": "container",
+      "type": "WebControl",
+      "description": "Parent control containing dropdown and static text controls."
+    },
+    {
+      "name": "dropdownName",
+      "type": "string",
+      "description": "The ID of the dropdown control to be replaced."
+    },
+    {
+      "name": "literalName",
+      "type": "string",
+      "description": "The ID of the Literal control to display static text."
+    }
+  ],
+  "actors": [
+    "Web UI developer",
+    "End user interacting with dropdowns"
+  ],
+  "workflows": [
+    {
+      "name": "Replace Dropdown With Static Text",
+      "steps": [
+        "Locate the dropdown control by its name within the container.",
+        "If found, set dropdown control visibility to false.",
+        "Locate the static text (Literal) control by its name within the container.",
+        "If found, set Literal control visibility to true."
+      ]
+    }
+  ],
+  "business_rules": [
+    "If a cascading dropdown is disabled and not loaded, its selected value should not be displayed as selectable but as static text."
+  ],
+  "validations": [
+    "Check if the dropdown control exists before setting visibility.",
+    "Check if the static text (Literal) control exists before setting visibility."
+  ],
+  "calculations": [],
+  "conditions": [
+    "Dropdown must be disabled and not loaded to trigger replacement."
+  ],
+  "system_behavior": [
+    "Dropdown control becomes invisible when replaced.",
+    "Literal control becomes visible to show static text."
+  ],
+  "dependencies": [
+    "System.Web.UI.WebControls",
+    "Control identification by name within container"
+  ],
+  "exceptions": [
+    "If control is not found by name, no visibility changes occur."
+  ],
+  "source_document_ids": [
+    "ab488001-c80b-573f-ba1f-c96832ea12ad"
+  ],
+  "content_gaps": [
+    "No information on how the static text value is set.",
+    "No details on use cases beyond disabled dropdown scenarios.",
+    "No explanation for error handling if controls are not present."
+  ]
+}
