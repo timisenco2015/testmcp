@@ -1,0 +1,108 @@
+```json
+{
+  "filename": "Recognition",
+  "found": true,
+  "summary": "The Recognition module is a user control within the HSPnet application, tasked with handling staff profile recognition activities. It involves displaying, adding, editing, and deleting recognition activities for staff members.",
+  "purpose": "To manage recognition activities related to staff profiles, allowing for tracking and modification of various types of recognition such as academic appointments and other activity types.",
+  "entities": [
+    "Recognition",
+    "HSPnetSession",
+    "CodeRecord",
+    "StaffRecognitionActivity"
+  ],
+  "fields": [
+    "updPnlMain",
+    "pnlEmptyData",
+    "lblEmptyData",
+    "cmdAddEmptyData",
+    "txtCalendarPlaceholder",
+    "calCalendarPlaceholder",
+    "gridData",
+    "dsMaster",
+    "pnlPopup",
+    "updPnlPopup",
+    "btnShowPopup",
+    "mdlDetails",
+    "ValidationSummary1",
+    "uxDetail",
+    "dsDetail",
+    "dsAcademicAppointment"
+  ],
+  "actors": [
+    "User",
+    "System.Web.UI",
+    "AjaxControlToolkit"
+  ],
+  "workflows": [
+    {
+      "name": "Page Load",
+      "steps": [
+        "Load user session",
+        "Retrieve recognition activity types",
+        "Identify specific code IDs (OTHER, ACAD)"
+      ]
+    },
+    {
+      "name": "Item Command",
+      "steps": [
+        "Handle Save Command",
+        "Validate input fields",
+        "Parse activity date and expiry date",
+        "Add or update activity",
+        "Redirect to the current page"
+      ]
+    },
+    {
+      "name": "Row Command",
+      "steps": [
+        "Handle Add Command",
+        "Switch to edit mode",
+        "Show details"
+      ]
+    }
+  ],
+  "business_rules": [
+    "Access requires valid user session",
+    "Screen should be editable",
+    "Certain button visibility based on edit permissions"
+  ],
+  "validations": [
+    "Ensure date fields are correctly parsed",
+    "Check if session is available before data operations"
+  ],
+  "calculations": [
+    "Determining code IDs based on recognition activity types"
+  ],
+  "conditions": [
+    "ScreenIsEditable determines control visibility",
+    "Check user session status for data operations"
+  ],
+  "system_behavior": [
+    "JavaScript initialization for client-side interactions",
+    "Handling asynchronous postback script registrations"
+  ],
+  "dependencies": [
+    "System.Web.UI",
+    "AjaxControlToolkit",
+    "HSPnet.DataLayer"
+  ],
+  "exceptions": [
+    "Cancel operations if user session is null",
+    "Hide specific rows based on user agency"
+  ],
+  "source_document_ids": [
+    "0a0a7e51-eb8c-5a38-882e-41f4f84bff9a",
+    "19f37882-9042-571b-a655-e9376ac8ff17",
+    "1e67d3f5-437b-5805-8910-1530eaae20f5",
+    "383b5bda-617b-5d1a-82a0-b06a071b58b1",
+    "43c06007-f867-56a1-a161-1cf216960817",
+    "616e0bd3-1e94-592c-987e-cdeb65aae239",
+    "adfee990-7509-5868-89c8-b1bb3482f231",
+    "aeed2929-9bf0-577a-bbce-27a0ce038e05",
+    "b1e469b1-7dff-5198-abbb-f3063aca2b50",
+    "ba0652f1-c58f-530b-ac92-e20fb52ba37f",
+    "bbb5e1af-f431-527e-9203-b46b0ff8d238"
+  ],
+  "content_gaps": []
+}
+```
