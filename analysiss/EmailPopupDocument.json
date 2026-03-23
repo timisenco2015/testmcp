@@ -1,44 +1,21 @@
 {
     "filename": "EmailPopupDocument",
     "found": true,
-    "summary": "EmailPopupDocument represents documents used in email popups, including metadata like file name and path.",
-    "purpose": "To manage and display documents in email popups within the HSPnet framework.",
-    "entities": [],
-    "fields": [
-        {
-            "name": "ID",
-            "description": "Unique identifier for the email popup document."
-        },
-        {
-            "name": "FileName",
-            "description": "Name of the file associated with the email popup document."
-        },
-        {
-            "name": "FilePath",
-            "description": "Path where the file is stored."
-        },
-        {
-            "name": "Checked",
-            "description": "Boolean flag indicating whether the document is checked."
-        }
-    ],
+    "summary": "EmailPopupDocument and associated classes manage email popup documents, including file handling within the system.",
+    "purpose": "To handle email document data, file paths, and deletion operations within the system.",
+    "entities": ["EmailPopupDocument", "EmailPopupDocuments"],
+    "fields": ["ID", "FileName", "FilePath", "Checked"],
     "actors": [],
-    "workflows": [
-        {
-            "name": "Email Document Management",
-            "steps": [
-                "Search for documents using specified data information.",
-                "Delete documents by file path and manage associated directories."
-            ]
-        }
+    "workflows": [],
+    "business_rules": [
+        "Delete operation removes files and directories associated with the document"
     ],
-    "business_rules": [],
     "validations": [],
     "calculations": [],
     "conditions": [],
-    "system_behavior": [],
-    "dependencies": [],
-    "exceptions": [],
-    "source_document_ids": ["7287734e-f13d-550f-9249-4242db620766", "927bc837-5564-5759-9324-27c6d5d7321d"],
+    "system_behavior": ["Managing document files and directories"],
+    "dependencies": ["Path", "File", "Directory"],
+    "exceptions": ["File deletion errors"],
+    "source_document_ids": ["727a0287-de95-52fe-a841-7f49f9958884", "927bc837-5564-5759-9324-27c6d5d7321d"],
     "content_gaps": []
 }
