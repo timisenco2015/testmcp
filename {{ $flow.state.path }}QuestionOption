@@ -1,0 +1,55 @@
+```json
+{
+  "filename": "QuestionOption",
+  "found": true,
+  "summary": "The document details the structure and functionality of the QuestionOption and QuestionOptions classes, which are part of HSPnet's data layer for handling question options in a system.",
+  "purpose": "To manage question options in HSPnet, including searching and retrieving options associated with specific questions.",
+  "entities": [
+    "QuestionOption",
+    "QuestionOptions"
+  ],
+  "fields": [
+    "ID",
+    "QuestionID",
+    "OptionChoiceID",
+    "OptionChoiceName",
+    "SpecifyChoice"
+  ],
+  "actors": [
+    "HSPnetSession",
+    "SqlDataReader"
+  ],
+  "workflows": [
+    {
+      "name": "QuestionOptionSearchByQuestion",
+      "steps": [
+        "Initialize a list of QuestionOption.",
+        "Set procedure name to 'QuestionOptionSearchByQuestion'.",
+        "Add 'SessionID', 'TemplateCode', and 'QuestionText' as parameters.",
+        "Retrieve data using SqlDataReader.",
+        "Iterate through data and populate QuestionOption list.",
+        "Close the data reader.",
+        "Return populated list."
+      ]
+    }
+  ],
+  "business_rules": [],
+  "validations": [],
+  "calculations": [],
+  "conditions": [],
+  "system_behavior": [],
+  "dependencies": [
+    "System",
+    "System.Data.SqlClient",
+    "System.Collections.Generic",
+    "HSPnet.Framework",
+    "HSPnet.App_GlobalResources",
+    "HSPnet.UI"
+  ],
+  "exceptions": [],
+  "source_document_ids": [
+    "f14b6df3-bd33-5903-9495-ce1d26cffd9e"
+  ],
+  "content_gaps": []
+}
+```
