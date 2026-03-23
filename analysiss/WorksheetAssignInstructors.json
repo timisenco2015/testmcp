@@ -1,0 +1,165 @@
+{
+  "filename": "WorksheetAssignInstructors",
+  "found": true,
+  "summary": "The 'WorksheetAssignInstructors' content is aimed at managing instructor assignments within a worksheet interface. It includes functionalities for filtering, selecting, editing, and submitting instructor-related data as part of a web application interface. The content provides details on the controls and workflow for managing instructor assignments, including dropdown filters and session variables.",
+  "purpose": "To facilitate the management and assignment of instructors through a web-based worksheet interface, allowing for selection, filtering, and updating of instructor data.",
+  "entities": [],
+  "fields": [
+    {
+      "name": "ddInstructorFilter",
+      "type": "DropDownList",
+      "remarks": "Control for selecting instructor filters."
+    },
+    {
+      "name": "ddDateFilter",
+      "type": "DropDownList",
+      "remarks": "Control for selecting date filters."
+    },
+    {
+      "name": "ddCityFilter",
+      "type": "DropDownList",
+      "remarks": "Control for selecting city filters."
+    },
+    {
+      "name": "ddGoverningOrganizationFilter",
+      "type": "DropDownList",
+      "remarks": "Control for selecting governing organization filters."
+    },
+    {
+      "name": "ddSiteFilter",
+      "type": "DropDownList",
+      "remarks": "Control for selecting site filters."
+    },
+    {
+      "name": "ddServiceCodeFilter",
+      "type": "DropDownList",
+      "remarks": "Control for selecting service code filters."
+    },
+    {
+      "name": "cmdSubmit",
+      "type": "Button",
+      "remarks": "Button for submitting actions tied to instructor assignments."
+    },
+    {
+      "name": "uxDetail",
+      "type": "FormView",
+      "remarks": "Form view for detailed instructor data items."
+    },
+    {
+      "name": "rprMaster",
+      "type": "Repeater",
+      "remarks": "Repeater control for listing instructor items."
+    },
+    {
+      "name": "Session",
+      "type": "Object",
+      "remarks": "Session object to store variables for user session continuity."
+    }
+  ],
+  "actors": [
+    {
+      "name": "UserSession",
+      "role": "Represents the user's session throughout the application, holding relevant session data such as filters and permissions."
+    },
+    {
+      "name": "WorksheetAssignedInstructors",
+      "role": "Controller to manage instructor assignments within the worksheet."
+    },
+    {
+      "name": "DropdownList",
+      "role": "UI component for selecting options from a list, used for various filters."
+    }
+  ],
+  "workflows": [
+    {
+      "name": "Edit Instructor Assignments",
+      "steps": [
+        "Trigger 'cmdEditAll_Click' event.",
+        "Redirect to 'WorksheetAssignInstructorsEditAll.aspx' with relevant query string parameters.",
+        "Initialize controls like dropdown filters and session variables."
+      ]
+    },
+    {
+      "name": "Submit Instructor Action",
+      "steps": [
+        "Trigger 'cmdSubmit_Click' event.",
+        "Execute action depending on the selection, e.g., move offers.",
+        "Redirect user to the appropriate page after processing."
+      ]
+    },
+    {
+      "name": "Toggle Visibility",
+      "steps": [
+        "Evaluate 'ReadOnly' and 'GroupFlag' states.",
+        "Adjust visibility of controls like checkboxes and labels accordingly.",
+        "Bind data sources to UI elements if applicable."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Instructor dropdowns are hidden if a Site Instructor exists or has been requested.",
+    "Read-only mode restricts interaction with certain elements, e.g., disabling checkboxes."
+  ],
+  "validations": [
+    "Validate presence of UserSession before proceeding with operations.",
+    "Ensure filters like 'InstructorFilter', 'DateFilter', are set correctly from session variables."
+  ],
+  "calculations": [
+    "Calculate totals for groups, accepted, assigned, and remaining instructors."
+  ],
+  "conditions": [
+    "Conditionally show/hide elements based on 'GroupFlag' and 'ReadOnly' states.",
+    "Use 'Session' values to determine filter defaults and visibility."
+  ],
+  "system_behavior": [
+    "System manages UI updates through async postbacks via ScriptManager integration.",
+    "On redirection, session variables are stored to maintain state."
+  ],
+  "dependencies": [
+    "System.Web.UI.WebControls namespace for UI controls.",
+    "AjaxControlToolkit for modal popups."
+  ],
+  "exceptions": [
+    "Cancel data selection if 'UserSession' is null.",
+    "Handle navigation redirects cautiously to prevent loss of session state."
+  ],
+  "source_document_ids": [
+    "03498d74-e591-5303-bfbb-c0fa1871935f",
+    "06db7704-2e4d-513f-9143-1555d2adaf3d",
+    "0e883249-679d-561b-bd89-5762962fa547",
+    "195e88cd-c9dc-5d1c-b6cf-61da0b54fc6c",
+    "1d95ff1a-8a95-5fa5-9a92-5ac6a96914ea",
+    "30bb3e68-95f2-5bb0-802b-27205012e8d7",
+    "31e183ed-453c-56e3-bdb5-4bc52d312ff8",
+    "39bbb8f9-2764-549a-aa6d-b53b754bf579",
+    "39cab55d-0e76-5cd7-93f8-e21b15404a32",
+    "3a57cef8-9843-576c-a68f-e9ffe572baba",
+    "3b71c1c8-ddf5-5a91-b210-2f906128dac1",
+    "3c6213fa-5583-55cd-8ede-e42614266c1d",
+    "3d6e2a79-71a3-5bc0-b418-52b1e1d377e3",
+    "42e264d5-2b7c-5fc0-9570-248f5689de8b",
+    "57e86ea2-4c3f-566f-ac15-ed462539c94f",
+    "592aec4d-fbfd-5671-ad04-548089b0fbc6",
+    "5f585fd7-e731-5c57-9125-69ac8be9d0d9",
+    "8dd9567c-1ba7-5dbb-bc25-85df3e736b52",
+    "9151be68-78c5-51ec-a71e-361fe22cc259",
+    "917bc4c7-ba3f-5484-9cc6-6574fe4eef38",
+    "94e85626-3dbb-53d9-8e51-aa60fd17b70e",
+    "97b18293-21ae-5284-8393-7d2946c78b83",
+    "a2ccb033-e7f7-517a-8bff-e86de79eb2f0",
+    "a42637a1-5470-5791-8a7e-1f750d42b4e7",
+    "a52410b7-562e-5f08-8fa2-1877788ad917",
+    "aaf94416-bd42-5139-a9ce-14017bed9a45",
+    "abc29e0e-0111-58e2-a905-cffd7a6b5b41",
+    "b1b0ed05-6221-5637-81c4-9c9c1c6bc8bb",
+    "bc4c531c-a416-579a-a0c7-9d7b7c695bd7",
+    "c32d2b1a-5fd1-55c9-a2c0-bdba1e9cfc72",
+    "c8fdd4f9-903f-5642-b5d6-15af4a1d546a",
+    "cb5b3595-d9de-5a90-b1b5-148c98ae977e",
+    "cd1e151c-b2a0-515d-8946-4ed087b33af6",
+    "e2fcaebe-6c55-5cff-b83b-705ac917ee84",
+    "ecd248f0-ebaa-5fe7-b1d6-cc2b2c0e030d",
+    "f23e2582-40fd-586e-88cb-7e4db1a0754f"
+  ],
+  "content_gaps": []
+}
