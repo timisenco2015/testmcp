@@ -1,0 +1,301 @@
+{
+  "files": [
+    {
+      "filename": "SiteDocument",
+      "found": true,
+      "summary": "SiteDocument is a class representing the relationship between a document and a site in the HSPnet system. It mainly tracks IDs for reference without business logic.",
+      "purpose": "To associate documents with sites for organization, retrieval, and management within HSPnet.",
+      "entities": [
+        "SiteDocument"
+      ],
+      "fields": [
+        "ID (int)",
+        "SiteID (int)"
+      ],
+      "actors": [],
+      "workflows": [],
+      "business_rules": [],
+      "validations": [],
+      "calculations": [],
+      "conditions": [],
+      "system_behavior": [],
+      "dependencies": [],
+      "exceptions": [],
+      "source_document_ids": [
+        "a2967f17-a924-5e9c-8b15-d1f7bd028b32"
+      ],
+      "content_gaps": [
+        "No workflow or usage logic present; only a class definition."
+      ]
+    },
+    {
+      "filename": "WelcomeStaffAdmin",
+      "found": true,
+      "summary": "WelcomeStaffAdmin is an ASP.NET page that welcomes staff and provides last login information, date filters, site and discipline selection, and displays submitted employment applications with validation and filtering.",
+      "purpose": "To welcome staff and act as an entry point for employment application review with filtering options and validation.",
+      "entities": [
+        "WelcomeStaffAdmin",
+        "EmploymentApplication"
+      ],
+      "fields": [
+        "lblTitle",
+        "pnlLastLogin",
+        "ltlLastLogin",
+        "txtStartDate",
+        "txtEndDate",
+        "ddSite (DropDownList)",
+        "ddDiscipline (DropDownList)",
+        "gvwApplications (GridView)",
+        "dsEmploymentApplications (ObjectDataSource)"
+      ],
+      "actors": [
+        "StaffAdmin user"
+      ],
+      "workflows": [
+        {
+          "name": "View Employment Application Submissions",
+          "steps": [
+            "Staff arrives at WelcomeStaffAdmin page.",
+            "System displays a personalized welcome and last login info.",
+            "Staff uses dropdowns to filter by Site and Discipline.",
+            "Staff enters Start and End Date filters.",
+            "System validates required date fields and date format.",
+            "System ensures End Date is not before Start Date.",
+            "Staff may show/hide withdrawn applications by checkbox.",
+            "Staff clicks to refresh view; data grid shows matching applications with fields for name (with email), program, site, status, withdrawn date."
+          ]
+        }
+      ],
+      "business_rules": [
+        "End Date must not be before Start Date.",
+        "Start Date and End Date are required."
+      ],
+      "validations": [
+        "RequiredFieldValidator on Start Date and End Date.",
+        "RegularExpressionValidator on date input format.",
+        "CustomValidator ensures End Date not before Start Date."
+      ],
+      "calculations": [],
+      "conditions": [
+        "Display withdrawn applications if checkbox is checked."
+      ],
+      "system_behavior": [
+        "Grid supports paging, shows up to 50 records per page.",
+        "No data message if no results.",
+        "Data is refreshed when filters or criteria change."
+      ],
+      "dependencies": [
+        "Dropdowns populated by Sites.GetByAgencyID and Disciplines.DisciplineList.",
+        "Employs Session and User information for personalized content and security.",
+        "Uses AjaxControlToolkit extensions for UI elements."
+      ],
+      "exceptions": [
+        "Initial population uses current AgencyID. If a SiteID is in query string, defaults to that site."
+      ],
+      "source_document_ids": [
+        "05db31e4-e8b6-53ee-a6fb-812c106f0134",
+        "100d5925-a5f8-53db-8493-02cddd563eb7",
+        "3c84bade-9671-5fbf-acce-3c87a835e9b4",
+        "4c4b97b8-d242-5261-a515-767a3f7d7a49",
+        "52b5066f-23f6-5d82-96cd-5d51dad3de79",
+        "5bb85da3-f5b4-5753-b07c-9bb2a04eeb89",
+        "5d9b92ea-7c12-5070-8603-977cf14d0e04",
+        "6701b153-5288-59e5-8de9-61b68a1fc292",
+        "871df91b-7ba0-558f-83ea-d5be1b0dc8db",
+        "8cea5c3a-2fbf-5206-a0c0-9425a5e14511",
+        "964a48c9-231c-5d58-a44d-3675d949a453",
+        "966ed8d3-a5af-567f-b092-936217777551",
+        "a0c3da28-32a5-5fce-91b2-17274efa016e",
+        "afbb4ec5-43c8-5281-ad2c-4b6cfd23a48e",
+        "b8e79322-9a0e-5fe7-8953-3d05e231f923",
+        "bf423a80-93db-572d-8cb8-c79f04214a93",
+        "ca71b077-cc26-5979-a44f-59700a41316b",
+        "d278278f-d4ec-5f4a-9f29-a02b66773bb9",
+        "db9b35e9-53ca-5eaf-9d75-4f3a72131bc7",
+        "e249a878-c837-5d1c-9a3d-5167df2614fb"
+      ],
+      "content_gaps": []
+    },
+    {
+      "filename": "ServiceCode",
+      "found": true,
+      "summary": "ServiceCode defines a code system with categories, names, and sorting for use in HSPnet. ServiceCodes are loaded by stored procedures and support alternate language fields.",
+      "purpose": "To manage and retrieve lists of service codes, which are key for categorizing, selecting, and localizing services within HSPnet workflows.",
+      "entities": [
+        "ServiceCode"
+      ],
+      "fields": [
+        "ID (int)",
+        "CodeCategoryID (int)",
+        "ShortName (string)",
+        "Name (string)",
+        "SortOrder (int)",
+        "Notes (string)",
+        "NameAlt (string)",
+        "NotesAlt (string)"
+      ],
+      "actors": [],
+      "workflows": [
+        {
+          "name": "List Service Codes",
+          "steps": [
+            "Call ServiceCodeListAll with user session.",
+            "Call database procedure ServiceCodeListAll.",
+            "Read and localize codes as needed.",
+            "Return list to caller."
+          ]
+        },
+        {
+          "name": "List ASM Service Codes by Course or Timetable",
+          "steps": [
+            "Call ServiceCodeASMOptionByCourseID or ServiceCodeASMOptionByTimetableID.",
+            "Pass session and relevant ID as parameters.",
+            "Load data from stored procedures, localize, and return."
+          ]
+        }
+      ],
+      "business_rules": [
+        "If alt-language mode is active, use alt-language fields."
+      ],
+      "validations": [],
+      "calculations": [],
+      "conditions": [],
+      "system_behavior": [
+        "Service codes are sorted as defined by SortOrder.",
+        "Notes and alternate descriptions/fields supported."
+      ],
+      "dependencies": [
+        "Database stored procedures: ServiceCodeListAll, ServiceCodeASMOptionByCourseID, ServiceCodeASMOptionByTimetableID."
+      ],
+      "exceptions": [],
+      "source_document_ids": [
+        "94f1b055-348d-508a-ae6e-cf7960a8c6a2",
+        "e4ebe4b4-6d14-5c3f-b693-61016f765239",
+        "f976b9af-a402-540f-b162-391d578fac7c"
+      ],
+      "content_gaps": []
+    },
+    {
+      "filename": "SiteProfileHistory",
+      "found": true,
+      "summary": "SiteProfileHistory records and displays historical changes to site profiles. Each entry logs who made a change, when, what section, what kind of action, what fields, and agency details.",
+      "purpose": "To provide a searchable, displayable audit/history of changes made to site profiles, supporting accountability, traceability, and review.",
+      "entities": [
+        "SiteProfileHistory"
+      ],
+      "fields": [
+        "ID (int)",
+        "ActionDate (DateTime)",
+        "ScreenSection (string)",
+        "UserAction (string)",
+        "Fields (string)",
+        "Agency (string)",
+        "AgencyName (string)",
+        "LastName (string)",
+        "FirstName (string)",
+        "MiddleName (string)",
+        "Phone (Phone)",
+        "ByUserID (int)",
+        "ByOriginalUserID (int)",
+        "ByUserSysAdmin (bool)",
+        "ActionDateFormatted (string)",
+        "AgencyUserFormatted (string)",
+        "AgencyUserDetailsFormatted (string)"
+      ],
+      "actors": [
+        "System User",
+        "SysAdmin"
+      ],
+      "workflows": [
+        {
+          "name": "Site Profile History Search",
+          "steps": [
+            "User triggers a search with SiteID and SessionAgencyID.",
+            "System runs SiteProfileHistorySearch stored procedure.",
+            "Results are displayed in a grid."
+          ]
+        }
+      ],
+      "business_rules": [
+        "If UseAltLanguageFields is active, alt-language field variants are used.",
+        "SysAdmin/original user handling for audit trail."
+      ],
+      "validations": [],
+      "calculations": [
+        "Formatted agency user details are generated for tooltip display."
+      ],
+      "conditions": [],
+      "system_behavior": [
+        "Displays audit entries with details for name, agency, phone.",
+        "Shows support/special handling if performed by a sysadmin."
+      ],
+      "dependencies": [
+        "SiteProfileHistorySearch stored procedure.",
+        "Phone and NameFormatter utilities."
+      ],
+      "exceptions": [],
+      "source_document_ids": [
+        "25f89a24-5eda-5a3f-83df-1de69b12b3f1",
+        "26e09292-d304-55c6-94e5-ef3346453c4b",
+        "7ca6b963-9ae9-5cd3-82d5-f30dcb727ae3",
+        "a8f030c6-90b8-53a1-bb8a-3b7ef33b9488",
+        "e806999c-3a39-5720-9b59-303faebc9eb6"
+      ],
+      "content_gaps": []
+    },
+    {
+      "filename": "EmailPopupDocument",
+      "found": true,
+      "summary": "EmailPopupDocument represents an email-related file (name and path) used in popup dialogs, with support for searching and deleting files, typically as part of email workflows.",
+      "purpose": "Encapsulate file data for popup-based email attachments or linked files, with utility for parsing file info and deleting files from disk.",
+      "entities": [
+        "EmailPopupDocument"
+      ],
+      "fields": [
+        "ID (int)",
+        "FileName (string)",
+        "FilePath (string)",
+        "Checked (bool)"
+      ],
+      "actors": [],
+      "workflows": [
+        {
+          "name": "Search for EmailPopupDocuments",
+          "steps": [
+            "Input DataInfo string (pipe and > delimited).",
+            "Parse data into file entries.",
+            "Return file entry list."
+          ]
+        },
+        {
+          "name": "Delete an EmailPopupDocument",
+          "steps": [
+            "Locate entry by array ID.",
+            "Delete physical file and directory if exists.",
+            "Return updated DataInfo string without deleted entry."
+          ]
+        }
+      ],
+      "business_rules": [],
+      "validations": [],
+      "calculations": [],
+      "conditions": [],
+      "system_behavior": [
+        "File deletion attempts are wrapped in try/catch to silently continue on error."
+      ],
+      "dependencies": [
+        "System.IO for file/directory manipulation."
+      ],
+      "exceptions": [
+        "Exceptions in file operations are swallowed (not raised)."
+      ],
+      "source_document_ids": [
+        "7287734e-f13d-550f-9249-4242db620766",
+        "927bc837-5564-5759-9324-27c6d5d7321d"
+      ],
+      "content_gaps": [
+        "Does not specify interface or UI triggering email popup or file selection."
+      ]
+    }
+  ]
+}
