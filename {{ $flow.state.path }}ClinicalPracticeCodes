@@ -1,0 +1,95 @@
+```json
+{
+  "filename": "ClinicalPracticeCodes",
+  "found": true,
+  "summary": "The ClinicalPracticeCodes documents define and manage clinical practice codes within a program, including operations for adding, updating, deleting, and reactivating entries.",
+  "purpose": "To manage clinical practice codes associated with programs and students, including CRUD (Create, Read, Update, Delete) operations and validations.",
+  "entities": [
+    "ClinicalPracticeCode"
+  ],
+  "fields": [
+    "ID",
+    "ProgramID",
+    "Name",
+    "ShortName",
+    "Inactive"
+  ],
+  "actors": [
+    "HSPnetSession",
+    "Database"
+  ],
+  "workflows": [
+    {
+      "name": "Add Clinical Practice Code",
+      "steps": [
+        "Validate code using IsValid method",
+        "Set Database procedure to ClinicalPracticeCodeAdd",
+        "Add parameters ProgramID, Name, ShortName",
+        "Execute database query"
+      ]
+    },
+    {
+      "name": "Update Clinical Practice Code",
+      "steps": [
+        "Check if ID is non-zero and validate using IsValid method",
+        "Set Database procedure to ClinicalPracticeCodeUpdate",
+        "Add parameters ID, Name, ShortName",
+        "Execute database query"
+      ]
+    },
+    {
+      "name": "Delete Clinical Practice Code",
+      "steps": [
+        "Set Database procedure to ClinicalPracticeCodeDelete",
+        "Add parameter ID",
+        "Execute database query"
+      ]
+    },
+    {
+      "name": "Reactivate Clinical Practice Code",
+      "steps": [
+        "Set Database procedure to ClinicalPracticeCodeReactivate",
+        "Add parameter ID",
+        "Execute database query"
+      ]
+    },
+    {
+      "name": "Search Clinical Practice Code for Student",
+      "steps": [
+        "Set Database procedure to ClinicalPracticeCodeSearchStudent",
+        "Add parameter StudentID",
+        "Retrieve data using SqlDataReader",
+        "Fill list with ClinicalPracticeCode entries"
+      ]
+    },
+    {
+      "name": "Search Clinical Practice Code for Program",
+      "steps": [
+        "Set Database procedure to ClinicalPracticeCodeSearchProgram",
+        "Add parameters ProgramID, ShowInactive, textContains",
+        "Retrieve data using SqlDataReader",
+        "Fill list with ClinicalPracticeCode entries"
+      ]
+    }
+  ],
+  "business_rules": [],
+  "validations": [
+    "Name must be specified",
+    "ShortName must be specified"
+  ],
+  "calculations": [],
+  "conditions": [],
+  "system_behavior": [],
+  "dependencies": [
+    "HSPnet.Framework",
+    "HSPnet.App_GlobalResources"
+  ],
+  "exceptions": [],
+  "source_document_ids": [
+    "09b8daec-a933-5e6b-b231-4d178784b73f",
+    "8d64c60c-eea5-5a32-8758-268715c5cd97",
+    "a76658a5-bb41-56c9-aa1b-e44948df78bb"
+  ],
+  "content_gaps": []
+}
+```
