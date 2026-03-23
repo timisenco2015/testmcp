@@ -1,0 +1,78 @@
+```json
+{
+  "filename": "StudentRAITProvisioning",
+  "found": true,
+  "summary": "The StudentRAITProvisioning system manages student information with respect to their agency provisioning through various operations including searching, adding, updating, and deleting records. The system interacts with a database to ensure the proper provisioning and management of student data.",
+  "purpose": "To facilitate the management of student agency provisioning, including searching, adding, updating, and deleting student records.",
+  "entities": ["StudentRAITProvisioning", "StudentITProvisioning", "StudentITProvisioningResult"],
+  "fields": [
+    {"name": "ID", "type": "int"},
+    {"name": "StudentID", "type": "int"},
+    {"name": "AgencyID", "type": "int"},
+    {"name": "AgencyList", "type": "string"},
+    {"name": "UniqueID", "type": "string"},
+    {"name": "LoginID", "type": "string"},
+    {"name": "EmailRequired", "type": "Boolean"},
+    {"name": "Employee", "type": "Boolean"},
+    {"name": "Email", "type": "string"},
+    {"name": "StaffID", "type": "int"},
+    {"name": "Status", "type": "int"},
+    {"name": "Msg", "type": "string"}
+  ],
+  "actors": ["HSPnetSession"],
+  "workflows": [
+    {
+      "name": "Search Student Provisioning",
+      "steps": [
+        "Procedure 'StudentDetailsRAITProvisionSearch' executed with StudentID and StaffID.",
+        "Database queries information and fills the list with StudentRAITProvisioning entities."
+      ]
+    },
+    {
+      "name": "Add Student Provisioning",
+      "steps": [
+        "Procedure 'StudentDetailsRAITProvisionAdd' executed with StudentID, AgencyID, UniqueID, LoginID, EmailRequired, Employee, Email, StaffID.",
+        "Database executes query to insert new provisioning details."
+      ]
+    },
+    {
+      "name": "Update Student Provisioning",
+      "steps": [
+        "Procedure 'StudentDetailsRAITProvisionUpdate' executed with ID, AgencyID, UniqueID, LoginID, EmailRequired, Employee, Email.",
+        "Database executes query to update existing student provisioning details."
+      ]
+    },
+    {
+      "name": "Delete Student Provisioning",
+      "steps": [
+        "Procedure 'StudentDetailsRAITProvisionDelete' executed with ID.",
+        "Database executes query to delete provisioning details if ID is valid."
+      ]
+    },
+    {
+      "name": "Update Batch Provisioning",
+      "steps": [
+        "Procedure 'StudentDetailsRAITProvisionUpdateBatch' executed with ITProvXML.",
+        "Database processes batch update through XML data."
+      ]
+    }
+  ],
+  "business_rules": ["Don't run queries with invalid IDs or CohortIDs as they will not return rows."],
+  "validations": ["Ensure email and login ID are provided for provisioning", "Check that ID is valid for updates and deletions"],
+  "calculations": [],
+  "conditions": [],
+  "system_behavior": ["System serializes and deserializes XML data for batch operations", "Database transactions are managed through HSPnetSession"],
+  "dependencies": ["HSPnet Framework", "SqlDataReader for database interactions", "XML serialization for batch processing"],
+  "exceptions": ["No rows returned for invalid IDs or CohortIDs"],
+  "source_document_ids": [
+    "17c05ac7-9041-54f5-a021-8370e03196d6",
+    "2d9f59cb-b06e-5f6a-bb64-8cf881440e50",
+    "48f434a6-ff51-5032-b608-59eb57095131",
+    "6c803891-b4ea-5233-852a-b9c0b9dd6e14",
+    "6f76bd23-16fc-54c7-9a8f-334de33f9ff9",
+    "9ac56210-7502-566b-8d78-bf953ef2df4e",
+    "f6b4b128-6ff2-5246-a9ab-77e70f1305eb"
+  ],
+  "content_gaps": []
+}
+```
