@@ -1,136 +1,122 @@
 {
-  "filename": "RptMnuInvoicing",
-  "found": true,
-  "summary": "RptMnuInvoicing is a user control in the HSPnet system which is responsible for generating invoicing reports. It includes functionalities for managing filters, selecting agencies, departments, programs, terms, and other criteria for creating reports.",
-  "purpose": "To facilitate the generation of invoicing reports within the HSPnet system by allowing users to select various filters and criteria.",
-  "entities": [],
-  "fields": [
-    "PlcAgencyID",
-    "DepartmentID",
-    "ProgramID",
-    "TermID",
-    "CohortCourseIDList",
-    "PRTypeIDList",
-    "SiteIDList",
-    "IncludeOption",
-    "includeQESPA",
-    "showEachStudent",
-    "invoiceStatusNone",
-    "invoiceStatusSent",
-    "invoiceStatusValidated",
-    "invoiceStatusPaid",
-    "invoiceStatusPaymentReceived",
-    "includeStartBefore",
-    "includeEndAfter",
-    "startDate",
-    "endDate",
-    "termMode"
-  ],
-  "actors": [
-    "UserSession",
-    "Dropdown",
-    "JavaScript",
-    "UserReportFilters",
-    "Agencies",
-    "Departments",
-    "Programs",
-    "Sites",
-    "CodeRecord",
-    "SqlDataReader"
-  ],
-  "workflows": [
-    {
-      "name": "Generate Invoicing Report",
-      "steps": [
-        "Load previous filter values if available.",
-        "Fill dropdowns with data based on selected criteria.",
-        "Select items previously saved in filters.",
-        "Execute report generation logic based on user selections and filters."
-      ]
-    },
-    {
-      "name": "Save Report Filters",
-      "steps": [
-        "Capture current filter settings.",
-        "Update saved filters in UserReportFilters with current settings."
-      ]
-    }
-  ],
-  "business_rules": [
-    "In receiving mode, RA dropdown only contains the user's agency.",
-    "Department dropdown contains ALL in receiving mode.",
-    "Program dropdown contains ALL in receiving mode.",
-    "Site list must not be blank.",
-    "Report cannot be generated if no courses are selected in 'term mode'."
-  ],
-  "validations": [
-    "Check if start date is provided.",
-    "Check if end date is provided.",
-    "Ensure PRTypeIDList is not empty."
-  ],
-  "calculations": [],
-  "conditions": [
-    "If termMode is true, use term-related filters.",
-    "Select previously saved items using savedFilters dictionary.",
-    "Handle 'IncludeOption' with values 0, 1, 2 for different request types."
-  ],
-  "system_behavior": [
-    "Display filters and dropdowns based on mode (receiving or placing).",
-    "Enable or disable controls based on selections.",
-    "Move selected items to the included list using JavaScript."
-  ],
-  "dependencies": [
-    "Agencies data for agency dropdown.",
-    "Departments data for department dropdown.",
-    "Programs data for program dropdown.",
-    "Sites data for site chooser."
-  ],
-  "exceptions": [
-    "Max courses selection exception based on PrintJobs.MAX_INCLUDE_ITEMS.",
-    "No report generated if criteria are not fulfilled."
-  ],
-  "source_document_ids": [
-    "057bc5e5-28dd-5588-8c7a-0592c332feed",
-    "23724209-6da4-5b73-8468-bc7c3a6f341a",
-    "2b561829-9afd-57a8-8df3-d917c428ba88",
-    "2fd6a32b-5d2b-5645-8397-b66ea1d404fb",
-    "3bac11d5-bc9f-5667-aa3c-927677b4fc61",
-    "3cc50521-e713-5ad9-a315-e0f2597ac9bb",
-    "3ce16935-4941-50aa-bcf5-5ea6e3b360e9",
-    "4485e4c4-6694-5219-aa17-646e805f5d65",
-    "482fa800-177c-5f8b-933b-35312a57fef7",
-    "4eebe7cc-7f96-5819-b58c-141971a3b10a",
-    "533b23d2-d085-5f30-b357-8c5866f12ba1",
-    "5ddf4f4e-a818-5766-934f-1f394c5e9d60",
-    "811e282c-aa10-528f-9f41-40dbbc52964e",
-    "8e8cfae4-63fc-54d6-bace-51ec8491889c",
-    "9946539b-5324-5eda-afd6-9cd2520f0ea5",
-    "a5135645-b71f-5103-a2c4-3ab569b80a86",
-    "ab18385b-ddea-5cfc-9ab0-96402bfbf4d9",
-    "b239a9e1-e92d-584d-b709-b07784067e1f",
-    "b308e180-c36e-532d-b00e-8cc3764821e1",
-    "b482adfe-08c6-5697-8083-2ee8d1960598",
-    "b62d41fe-a78e-5d26-811c-5cde4042928c",
-    "b817e93d-d627-5bd3-8c96-236a139cb5bb",
-    "b94cf52f-cf82-592d-8b27-4784b9825def",
-    "bc4fbe73-069d-5afc-9a15-4d10c7b5e827",
-    "c1ea850e-ea56-5dc4-9ed6-82a33055dc10",
-    "c2296e24-0711-5fbf-b0e8-31fd819e93b9",
-    "c832d5d7-356c-5772-ba94-7f63a50c0ef2",
-    "ce361d6e-6ce1-516d-a9db-a671b1898fd5",
-    "d11ab245-e71e-5361-9adc-06904cf92cd0",
-    "d489ca74-e0e7-512b-bd41-6d2353dc0b23",
-    "d7e4b710-c209-5989-ad43-e2b065adc55b",
-    "dac2226b-a0b6-5a47-9496-25b7a98ee976",
-    "ddc8d6cd-1557-5353-8a68-8b8e246f80fc",
-    "df6957f9-6c11-5df2-aa28-bdf92e49c871",
-    "e3bb635f-165b-5882-8dbf-fe188bc2e461",
-    "e5367e57-00e0-56c4-84f6-b99ecd6ca0bb",
-    "e83422db-c229-5319-9bcf-939c224fce1c",
-    "e8f13745-f699-5846-9a88-c2764e476778",
-    "f265a6a7-0e77-5510-a316-07391d430818",
-    "fa6c44ed-fb30-5bbb-8f39-676f097584d7",
-    "fdad9901-92b1-5276-8fae-06e8c7b14d51"
-  ],
-  "content_gaps": []
+    "filename": "RptMnuInvoicing",
+    "found": true,
+    "summary": "RptMnuInvoicing is a system module designed to handle invoicing functionalities within the HSPnet application. It includes controls and methods for managing report filters related to invoicing and supports operations like dropdown management, CSV report generation, and filter updates.",
+    "purpose": "The purpose of RptMnuInvoicing is to facilitate the creation and management of invoicing reports, including the selection of various report parameters and filters for accurate report generation.",
+    "entities": [],
+    "fields": [
+        "AgencyID",
+        "PlcAgencyID",
+        "DepartmentID",
+        "ProgramID",
+        "TermID",
+        "CohortIDList",
+        "CourseIDList",
+        "IncludeOption",
+        "GoverningOrgIDList",
+        "SiteIDList",
+        "showEachStudent",
+        "includeQESPA",
+        "invoiceStatusNone",
+        "invoiceStatusSent",
+        "invoiceStatusValidated",
+        "invoiceStatusPaid",
+        "invoiceStatusPaymentReceived",
+        "includeStartBefore",
+        "includeEndAfter",
+        "PRTypeIDList",
+        "startDate",
+        "endDate"
+    ],
+    "actors": [
+        "UserSession"
+    ],
+    "workflows": [
+        {
+            "name": "RptMnuInvoicing Workflow",
+            "steps": [
+                "Page Load: Initialize session, load controls and saved filters.",
+                "PreRender: Set up session-dependent controls and update display properties.",
+                "Agency Dropdown: Populate based on session user and mode.",
+                "Department Dropdown: Populate based on selected agency.",
+                "Program Dropdown: Populate based on selected department.",
+                "Term Dropdown: Populate based on selected program.",
+                "Type of Placement Dropdown: Manage placement type selections.",
+                "Site Chooser: Select sites based on agency.",
+                "Run Report: Validate inputs and execute report generation."
+            ]
+        }
+    ],
+    "business_rules": [
+        "In receiving mode, RA dropdown contains user's agency only.",
+        "Department dropdown includes all departments in receiving mode.",
+        "Program dropdown includes all programs in receiving mode.",
+        "Report generation requires start and end dates or selection of cohorts/courses."
+    ],
+    "validations": [
+        "Ensure start and end dates are provided in date mode.",
+        "Check selected cohorts/courses for term mode."
+    ],
+    "calculations": [
+        "Header construction based on selected agency, department, program, and term."
+    ],
+    "conditions": [
+        "If receiving mode, use date filters.",
+        "If termMode is True, use term selection; else use date range."
+    ],
+    "system_behavior": [
+        "Updates session filters with user selections.",
+        "Generates CSV output based on selected parameters."
+    ],
+    "dependencies": [
+        "UserSession for accessing user-specific data.",
+        "Dropdown utility functions for managing dropdown selections."
+    ],
+    "exceptions": [
+        "Error messages for missing required fields such as start/end date or cohort/course selection."
+    ],
+    "source_document_ids": [
+        "057bc5e5-28dd-5588-8c7a-0592c332feed",
+        "23724209-6da4-5b73-8468-bc7c3a6f341a",
+        "2b561829-9afd-57a8-8df3-d917c428ba88",
+        "2fd6a32b-5d2b-5645-8397-b66ea1d404fb",
+        "3bac11d5-bc9f-5667-aa3c-927677b4fc61",
+        "3cc50521-e713-5ad9-a315-e0f2597ac9bb",
+        "3ce16935-4941-50aa-bcf5-5ea6e3b360e9",
+        "4485e4c4-6694-5219-aa17-646e805f5d65",
+        "482fa800-177c-5f8b-933b-35312a57fef7",
+        "4eebe7cc-7f96-5819-b58c-141971a3b10a",
+        "533b23d2-d085-5f30-b357-8c5866f12ba1",
+        "5ddf4f4e-a818-5766-934f-1f394c5e9d60",
+        "811e282c-aa10-528f-9f41-40dbbc52964e",
+        "8e8cfae4-63fc-54d6-bace-51ec8491889c",
+        "9946539b-5324-5eda-afd6-9cd2520f0ea5",
+        "a5135645-b71f-5103-a2c4-3ab569b80a86",
+        "ab18385b-ddea-5cfc-9ab0-96402bfbf4d9",
+        "b239a9e1-e92d-584d-b709-b07784067e1f",
+        "b308e180-c36e-532d-b00e-8cc3764821e1",
+        "b482adfe-08c6-5697-8083-2ee8d1960598",
+        "b62d41fe-a78e-5d26-811c-5cde4042928c",
+        "b817e93d-d627-5bd3-8c96-236a139cb5bb",
+        "b94cf52f-cf82-592d-8b27-4784b9825def",
+        "bc4fbe73-069d-5afc-9a15-4d10c7b5e827",
+        "c1ea850e-ea56-5dc4-9ed6-82a33055dc10",
+        "c2296e24-0711-5fbf-b0e8-31fd819e93b9",
+        "c832d5d7-356c-5772-ba94-7f63a50c0ef2",
+        "ce361d6e-6ce1-516d-a9db-a671b1898fd5",
+        "d11ab245-e71e-5361-9adc-06904cf92cd0",
+        "d489ca74-e0e7-512b-bd41-6d2353dc0b23",
+        "d7e4b710-c209-5989-ad43-e2b065adc55b",
+        "dac2226b-a0b6-5a47-9496-25b7a98ee976",
+        "ddc8d6cd-1557-5353-8a68-8b8e246f80fc",
+        "df6957f9-6c11-5df2-aa28-bdf92e49c871",
+        "e3bb635f-165b-5882-8dbf-fe188bc2e461",
+        "e5367e57-00e0-56c4-84f6-b99ecd6ca0bb",
+        "e83422db-c229-5319-9bcf-939c224fce1c",
+        "e8f13745-f699-5846-9a88-c2764e476778",
+        "f265a6a7-0e77-5510-a316-07391d430818",
+        "fa6c44ed-fb30-5bbb-8f39-676f097584d7",
+        "fdad9901-92b1-5276-8fae-06e8c7b14d51"
+    ],
+    "content_gaps": []
 }
