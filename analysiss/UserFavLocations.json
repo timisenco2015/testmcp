@@ -1,64 +1,88 @@
 {
   "filename": "UserFavLocations",
   "found": true,
-  "summary": "The UserFavLocations module in HSPnet appears to manage a user's favorite locations, allowing display and modification of a list of agencies. It incorporates a user interface with panels for viewing and editing these lists along with controls for displaying errors and warnings.",
-  "purpose": "To manage and display a user's favorite locations in the system, providing functionality to view, add, or remove agencies from a favorites list.",
+  "summary": "The UserFavLocations document corresponds to a web page component within the HSPnet system, designed to manage user favorite locations with respect to certain agencies. It involves UI components for adding and removing items from a list of favorite locations and provides options for viewing modes.",
+  "purpose": "To facilitate users in managing and viewing their favorite agency locations, providing different viewing modes and controls for including or excluding locations.",
   "entities": [],
   "fields": [
-    "lbNotIncluded",
-    "lbIncluded",
-    "txtIncluded",
+    "AlwaysVisibleControlExtender",
     "pnlError",
-    "pnlWarning",
-    "pnlViewRAQ",
-    "pnlViewALL",
-    "pnlRAQModeChanged",
-    "pnlViewAllMode",
     "lblErrorCaption",
     "lblErrorList",
+    "cmdHideErrorPanel",
+    "pnlWarning",
     "lblWarningCaption",
     "lblWarningList",
-    "lblFooter",
-    "cmdHideErrorPanel",
-    "cmdHideWarningPanel"
+    "cmdHideWarningPanel",
+    "cmdRemoveAll",
+    "cmdSave",
+    "cmdClose",
+    "txtIncluded",
+    "pnlRAQModeChanged",
+    "Label9",
+    "frmMain",
+    "ScriptManagerMaster",
+    "Label1",
+    "pnlViewAllMode",
+    "Label7",
+    "pnlViewRAQ",
+    "cmdViewRAQ",
+    "Label4",
+    "pnlViewALL",
+    "cmdViewALL",
+    "Label5",
+    "Label6",
+    "Label2",
+    "lbNotIncluded",
+    "cmdAddAll",
+    "cmdAdd",
+    "Button1",
+    "Label3",
+    "lbIncluded"
   ],
   "actors": [
-    "User",
-    "System Administrator"
+    "UserSession"
   ],
   "workflows": [
     {
-      "name": "Manage Favorite Locations",
+      "name": "Page Load",
       "steps": [
-        "Load default agency lists into 'Not Included' and 'Included' sections on page load.",
-        "User can move agencies between the lists using Add/Remove buttons.",
-        "Invoke server-side logic to update user's favorite list on save action.",
-        "Display errors or warnings during interactions using dedicated panels."
+        "Validate URL hash",
+        "Setup HSPnet page",
+        "Check and set ViewAllMode and StandAloneMode",
+        "Adjust panel visibility based on modes",
+        "Load lists of favorite and non-favorite locations"
+      ]
+    },
+    {
+      "name": "Save Changes",
+      "steps": [
+        "Update favorite locations in the database",
+        "Reload location lists",
+        "Clear ASSD cache"
       ]
     }
   ],
-  "business_rules": [
-    "Auto-generated fields must be modified in the code-behind files."
+  "business_rules": [],
+  "validations": [
+    "URL hash validation"
   ],
-  "validations": [],
   "calculations": [],
   "conditions": [
-    "If StandAloneMode is not '1', default to '0'.",
-    "Switch display mode between RAQ and ALL based on user interaction or predefined mode."
+    "If StandAloneMode is not '1', it defaults to '0'",
+    "If StandAloneMode is '1', pnlViewAllMode is hidden",
+    "If ViewAllMode is '1', pnlViewALL is hidden; otherwise, pnlViewRAQ is hidden"
   ],
   "system_behavior": [
-    "Uses AJAX for always visible control extenders.",
-    "Executes JavaScript for dynamic list manipulation."
+    "Auto-generate fields if not present in code-behind",
+    "Move fields between server lists based on user interaction"
   ],
   "dependencies": [
-    "Agencies.AgencySearchNotFav(UserSession)",
-    "Agencies.AgencySearchFav(UserSession)",
-    "HSPnet.WebServices.ASSDLookups.ClearASSDCache(UserSession.SessionHash)"
+    "Agencies.AgencySearchNotFav",
+    "Agencies.AgencySearchFav",
+    "HSPnet.WebServices.ASSDLookups"
   ],
-  "exceptions": [
-    "Issues with modifying designer files in code-behind can cause incorrect behavior.",
-    "Cache not cleared might display outdated data."
-  ],
+  "exceptions": [],
   "source_document_ids": [
     "0e0ce165-1ac6-5b86-9ab8-bee8b49aa587",
     "0ead2eb4-ca22-5079-a649-abe77331e906",
