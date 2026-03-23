@@ -1,0 +1,90 @@
+{
+  "filename": "Localization",
+  "found": true,
+  "summary": "The content is a .NET class for managing localization, specifically adapting user interface text based on language settings. It allows for translating labels and literals and adjusting date formats based on local preferences.",
+  "purpose": "To provide localization support within an application by dynamically adjusting displayed content according to the user's language preferences.",
+  "entities": [],
+  "fields": [
+    {
+      "name": "fields",
+      "type": "Control[]",
+      "description": "Array of UI controls to be localized."
+    },
+    {
+      "name": "newValues",
+      "type": "string[]",
+      "description": "Array of translated values corresponding to the fields array."
+    },
+    {
+      "name": "UseAltLanguageFields",
+      "type": "Boolean",
+      "description": "Flag indicating whether to use alternative language fields."
+    },
+    {
+      "name": "FileType",
+      "type": "string",
+      "description": "The file type in the default language."
+    },
+    {
+      "name": "FileTypeAlt",
+      "type": "string",
+      "description": "The file type in the alternative language."
+    },
+    {
+      "name": "LastLogin",
+      "type": "string",
+      "description": "The last login date string to be localized."
+    }
+  ],
+  "actors": [
+    {
+      "name": "HSPnetSession",
+      "role": "Provides session-based information about language preferences."
+    }
+  ],
+  "workflows": [
+    {
+      "name": "Translate Fields",
+      "steps": [
+        "Check if UseAltLanguageFields is true.",
+        "Iterate over each field and corresponding new value.",
+        "If the field is a Literal, set its Text to the new value.",
+        "If the field is a Label, set its Text to the new value."
+      ]
+    },
+    {
+      "name": "Translate File Type",
+      "steps": [
+        "Check if UseAltLanguageFields is true in session.",
+        "Return FileTypeAlt if true, otherwise return FileType."
+      ]
+    },
+    {
+      "name": "Translate Last Login",
+      "steps": [
+        "Check if UseAltLanguageFields is true in session.",
+        "Replace English month abbreviations in LastLogin with localized equivalents."
+      ]
+    }
+  ],
+  "business_rules": [],
+  "validations": [],
+  "calculations": [],
+  "conditions": [
+    {
+      "condition": "UseAltLanguageFields is true",
+      "action": "Perform localization of fields or file types."
+    }
+  ],
+  "system_behavior": [
+    "Adjusts UI elements based on session language preferences.",
+    "Supports dynamic localization with minimal changes to business logic."
+  ],
+  "dependencies": [],
+  "exceptions": [],
+  "source_document_ids": [
+    "091e1f17-7a04-5c15-84aa-fe3989a1c114",
+    "d455ebdd-4f2d-5324-b3c7-aad9a078d149"
+  ],
+  "content_gaps": []
+}
