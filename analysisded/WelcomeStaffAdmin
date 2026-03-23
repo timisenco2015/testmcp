@@ -2,99 +2,78 @@
 {
   "filename": "WelcomeStaffAdmin",
   "found": true,
-  "summary": "The 'WelcomeStaffAdmin' document provides an interface for managing staff-related administration tasks in a web application. It includes controls for filtering data by site and discipline, date handling, validation, and viewing employment applications. It also incorporates mechanisms for error and warning display.",
-  "purpose": "To provide a user interface for managing staff-related administrative tasks, including filtering and viewing employment applications, handling date inputs, and displaying alerts.",
-  "entities": [],
+  "summary": "WelcomeStaffAdmin is an administrative page in the HSPnet application, responsible for managing student employment applications. It features functionality for filtering and displaying applications based on various criteria such as site, discipline, and date range.",
+  "purpose": "To allow staff administrators to manage and view student employment applications effectively.",
+  "entities": [
+    "WelcomeStaffAdmin",
+    "EmploymentApplications",
+    "UserSession"
+  ],
   "fields": [
     "txtStartDate",
     "txtEndDate",
     "ddSite",
     "ddDiscipline",
     "chkShowWithdrawn",
-    "cmdRefreshView",
-    "lblErrorList",
-    "lblWarningList",
-    "gvwApplications",
-    "dsEmploymentApplications"
+    "gvwApplications"
   ],
-  "actors": [],
+  "actors": [
+    "Staff Administrator",
+    "UserSession"
+  ],
   "workflows": [
     {
-      "name": "Load Page",
+      "name": "View Employment Applications",
       "steps": [
-        "Check if it's not a postback.",
-        "Load site and discipline dropdowns.",
-        "Set default start and end dates.",
-        "Refresh data."
-      ]
-    },
-    {
-      "name": "Date Validation",
-      "steps": [
-        "Parse start and end date values.",
-        "Check if StartDate is greater than EndDate.",
-        "Set validation result accordingly."
-      ]
-    },
-    {
-      "name": "Handle Site Change",
-      "steps": [
-        "Trigger data refresh when site selection changes."
-      ]
-    },
-    {
-      "name": "Handle Discipline Change",
-      "steps": [
-        "Trigger data refresh when discipline selection changes."
-      ]
-    },
-    {
-      "name": "Refresh View",
-      "steps": [
-        "Rebind application data grid."
+        "Load WelcomeStaffAdmin page.",
+        "Select site and discipline from dropdowns.",
+        "Enter date range using CalendarExtender.",
+        "Click 'Refresh View' to filter applications.",
+        "View applications in grid."
       ]
     }
   ],
-  "business_rules": [],
+  "business_rules": [
+    "Site and discipline dropdown lists are populated from database."
+  ],
   "validations": [
     {
       "field": "txtStartDate",
-      "type": "RegularExpressionValidator",
-      "expression": "Date_ValidationExpression"
+      "type": "RequiredFieldValidator",
+      "message": "Start date is required."
     },
     {
       "field": "txtEndDate",
       "type": "RegularExpressionValidator",
+      "message": "End date is invalid.",
       "expression": "Date_ValidationExpression"
     },
     {
-      "field": "txtStartDate",
-      "type": "RequiredFieldValidator"
-    },
-    {
       "field": "txtEndDate",
-      "type": "RequiredFieldValidator"
-    },
-    {
       "type": "CustomValidator",
-      "function": "checkStartEnd"
+      "message": "End date must be after start date.",
+      "method": "checkStartEnd"
     }
   ],
   "calculations": [],
-  "conditions": [],
+  "conditions": [
+    "Start date must be before or equal to end date."
+  ],
   "system_behavior": [
-    "Load site dropdown options based on agency ID.",
-    "Load discipline dropdown options.",
-    "Show error or warning panels based on system state.",
-    "Trigger refresh on site or discipline changes."
+    "Auto-generate fields from designer file.",
+    "Bind data sources and refresh views."
   ],
   "dependencies": [
-    "AjaxControlToolkit",
-    "HSPnet.DataLayer",
-    "HSPnet.App_GlobalResources",
+    "HSPnet.UI",
+    "HSPnet.LeftNav",
     "HSPnet.Framework"
   ],
-  "exceptions": [],
+  "exceptions": [
+    {
+      "condition": "Dates not correctly selected",
+      "response": "Show validation message."
+    }
+  ],
   "source_document_ids": [
     "05db31e4-e8b6-53ee-a6fb-812c106f0134",
     "100d5925-a5f8-53db-8493-02cddd563eb7",
