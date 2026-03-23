@@ -1,0 +1,91 @@
+# Module: default
+
+## default-UC1 — User Authentication Process
+
+- Primary Actor(s): User
+- Secondary Actor(s): System
+- Trigger: User navigates to the login page.
+- Description: The user enters their credentials to authenticate and gain access to the system.
+- Preconditions: 
+  - User must have a valid user ID and password.
+  - The login page is accessible.
+- Postconditions: 
+  - The user is successfully logged into the system.
+  - If required, the user completes additional authentication steps.
+- Main Success Scenario:
+  1. User enters their User ID and Password.
+  2. System validates the credentials.
+  3. If credentials are correct, the system logs the user in.
+  4. If multi-factor authentication is required, the user is prompted to enter an authentication code.
+  5. User enters the authentication code, and the system validates it.
+  6. Upon successful verification, the user is redirected to their start screen.
+- Extensions:
+  - 3a. Incorrect credentials:
+    - 3a1. System displays an error message.
+    - 3a2. User can try again or choose to reset their password.
+  - 4a. Multi-factor authentication is required:
+    - 4a1. System sends an authentication code to the user.
+    - 4a2. User enters the authentication code.
+    - 4a3. Steps 5 and 6 are followed.
+- Exceptions:
+  - User account is locked or inactive.
+  - Login attempts exceed allowed retries.
+- Business Rules:
+  - Authentication must comply with security protocols.
+  - Multi-factor authentication when necessary.
+- Assumptions:
+  - Users remember their login credentials.
+- Open Issues:
+  - None identified.
+
+## default-UC2 — Language and Locale Management
+
+- Primary Actor(s): User
+- Secondary Actor(s): System
+- Trigger: User accesses the system interface.
+- Description: The system manages language and locale display settings based on user preferences or default settings.
+- Preconditions:
+  - User session is initialized.
+- Postconditions:
+  - The interface displays content in the correct language and locale.
+- Main Success Scenario:
+  1. System checks user locale preferences.
+  2. Based on the preferences, the correct language header is displayed.
+  3. If no preferences set, default locale settings are applied.
+- Extensions:
+  - 3a. User changes locale settings during the session:
+    - 3a1. System updates the interface to reflect the new language preferences.
+- Exceptions:
+  - None noted.
+- Business Rules:
+  - Locale settings default to English if no preferences are specified.
+- Assumptions:
+  - System has locale information for users.
+- Open Issues:
+  - None identified.
+
+## default-UC3 — Error and Downtime Notifications
+
+- Primary Actor(s): System
+- Secondary Actor(s): User
+- Trigger: System detects an error or planned downtime.
+- Description: The system displays appropriate notifications to users about errors or planned maintenance.
+- Preconditions:
+  - Error or downtime is predetermined or detected by the system.
+- Postconditions:
+  - Users are informed about the error or downtime.
+- Main Success Scenario:
+  1. System identifies a downtime period or error condition.
+  2. System sets appropriate messages in relevant interface areas.
+  3. User sees the notification on their interface.
+- Extensions:
+  - None noted.
+- Exceptions:
+  - None noted.
+- Business Rules:
+  - Downtime notifications should be scheduled for Sundays between 8 and 8:30 PM.
+  - Error messages should be clear and guide users on next steps.
+- Assumptions:
+  - System can determine and schedule downtimes in advance.
+- Open Issues:
+  - None identified.
