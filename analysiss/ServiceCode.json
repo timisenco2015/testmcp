@@ -1,32 +1,35 @@
 {
-  "filename": "ServiceCode",
-  "found": true,
-  "summary": "The ServiceCode class handles service codes with attributes such as ID, CodeCategoryID, ShortName, Name, etc.",
-  "purpose": "Manage service codes and provide options for service codes by course or timetable ID.",
-  "entities": [],
-  "fields": [
-    {
-      "name": "ID",
-      "type": "int"
-    },
-    {
-      "name": "CodeCategoryID",
-      "type": "int"
-    }
-  ],
-  "actors": [],
-  "workflows": [],
-  "business_rules": [],
-  "validations": [],
-  "calculations": [],
-  "conditions": [],
-  "system_behavior": [],
-  "dependencies": [],
-  "exceptions": [],
-  "source_document_ids": [
-    "94f1b055-348d-508a-ae6e-cf7960a8c6a2",
-    "e4ebe4b4-6d14-5c3f-b693-61016f765239",
-    "f976b9af-a402-540f-b162-391d578fac7c"
-  ],
-  "content_gaps": []
+    "filename": "ServiceCode",
+    "found": true,
+    "summary": "Defines Service Codes that categorize services within HSPnet.",
+    "purpose": "Used for categorizing and managing various service codes for educational operations.",
+    "entities": ["ServiceCode"],
+    "fields": [
+        "ID",
+        "CodeCategoryID",
+        "ShortName",
+        "Name",
+        "SortOrder",
+        "Notes",
+        "NameAlt",
+        "NotesAlt"
+    ],
+    "actors": [],
+    "workflows": [],
+    "business_rules": [],
+    "validations": [],
+    "calculations": ["Localize"],
+    "conditions": ["UseAltLanguageFields"],
+    "system_behavior": [
+        "Retrieve service code lists",
+        "Close data reader"
+    ],
+    "dependencies": [],
+    "exceptions": [],
+    "source_document_ids": [
+        "94f1b055-348d-508a-ae6e-cf7960a8c6a2",
+        "e4ebe4b4-6d14-5c3f-b693-61016f765239",
+        "f976b9af-a402-540f-b162-391d578fac7c"
+    ],
+    "content_gaps": []
 }
