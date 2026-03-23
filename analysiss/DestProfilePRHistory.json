@@ -1,87 +1,67 @@
 {
     "filename": "DestProfilePRHistory",
     "found": true,
-    "summary": "The code is a part of a web application user control named 'DestProfilePRHistory', primarily dealing with the handling and display of profile history data within the HSPnet system. It manages data binding, user interactions on history records, and ensures proper data visibility based on user roles.",
-    "purpose": "To manage and display profile history records in a web application, allowing interactions like viewing details, printing, and handling data binding to present relevant information to authorized users.",
+    "summary": "The DestProfilePRHistory is a web user control in the HSPnet application. It handles displaying and interacting with instructor PR (Professional Record) history. The control includes functionalities such as searching, displaying details, and printing reports related to the instructor's PR history.",
+    "purpose": "To manage and display the history of instructor professional records within the HSPnet application.",
     "entities": [],
     "fields": [
-        {
-            "name": "UserSession",
-            "type": "HSPnetSession",
-            "description": "Stores session information for the current user."
-        },
-        {
-            "name": "DestinationCodeID",
-            "type": "int",
-            "description": "Identifier for the destination code associated with the session."
-        },
-        {
-            "name": "ScreenIsEditable",
-            "type": "Boolean",
-            "description": "Indicates whether the screen is editable."
-        },
-        {
-            "name": "ScriptMgr",
-            "type": "ScriptManager",
-            "description": "Manages client script for AJAX-enabled web pages."
-        },
-        {
-            "name": "CurrentPage",
-            "type": "string",
-            "description": "The identifier or name of the current page."
-        },
-        {
-            "name": "PrivateMode",
-            "type": "bool",
-            "description": "Indicates whether only instructor history for allowed ASSD/Disciplines is shown."
-        }
+        "UserSession",
+        "DestinationCodeID",
+        "ScreenIsEditable",
+        "ScriptMgr",
+        "CurrentPage",
+        "PrivateMode"
     ],
-    "actors": [
-        "User",
-        "System"
-    ],
+    "actors": [],
     "workflows": [
         {
-            "name": "Item Command Handling",
+            "name": "PR History Item Command Handling",
             "steps": [
-                "Detect command name from user interaction.",
-                "Execute a switch case based on command name.",
-                "For specific commands, like 'cmdDetails', toggle CSS classes to reflect the state change.",
-                "Rebind data if required for certain commands."
+                "Listen for commands from the PR history repeater item.",
+                "Data-bind the repeater on specific commands (cmdStart, cmdCourse, cmdToSite, cmdStatus).",
+                "Toggle CSS class for cmdDetails button based on current state."
+            ]
+        },
+        {
+            "name": "Page Load",
+            "steps": [
+                "Initialize session and prepare UI components on page load."
+            ]
+        },
+        {
+            "name": "Data Selection",
+            "steps": [
+                "On data selection, check for user session availability.",
+                "If session is available, provide session and other related parameters for data retrieval."
             ]
         },
         {
             "name": "Item Data Binding",
             "steps": [
-                "Check the item type in the repeater.",
-                "Retrieve and handle data for each item.",
-                "Set visibility and appearance based on data properties like 'Archived' or 'ParentPRDID'.",
-                "Adjust HTML attributes and visibility."
+                "Bind data to UI controls depending on the item type.",
+                "Modify visibility and CSS styles of controls based on conditions like alternate observation and item data."
             ]
         }
     ],
-    "business_rules": [
-        "Items are bound and displayed in a repeater control based on user session data.",
-        "Command names dictate user interactions and trigger specific system behaviors.",
-        "CSS classes are used to visually indicate the state or action of a button."
-    ],
-    "validations": [
-        "Ensure UserSession is not null before proceeding with data selection actions."
-    ],
+    "business_rules": [],
+    "validations": [],
     "calculations": [],
     "conditions": [
-        "e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem",
-        "data.ParentPRDID > 0",
-        "data.PR_ID > 0 && !UserSession.CourseLeaderOnly"
+        "User session should be available for data selection.",
+        "PR ID should be greater than 0 and user should not be 'Course Leader Only' for cmdDetails to be visible.",
+        "trRow and other rows visibility depend on the ParentPRDID and whether the item is an alternating item."
     ],
     "system_behavior": [
-        "Data binding and control visibility are dynamically managed based on the user session and data states.",
-        "The system toggles CSS classes to indicate detailed views on user interaction."
+        "Repeater data binding and command handling are central to interaction.",
+        "Visibility of UI components depends on user roles and permissions.",
+        "CSS classes toggle to display different icons based on actions."
     ],
-    "dependencies": [],
-    "exceptions": [
-        "If UserSession is null during data selection, the operation is cancelled."
+    "dependencies": [
+        "HSPnet.DataLayer",
+        "HSPnet.UI",
+        "HSPnet.Framework"
     ],
+    "exceptions": [],
     "source_document_ids": [
         "50df5d60-d9d8-5a43-9eca-503b5d44d69c",
         "533ecbc2-3c0f-55aa-afeb-718fdee68645",
