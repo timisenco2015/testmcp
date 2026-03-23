@@ -1,45 +1,23 @@
 {
-  "filename": "AdHocQuery",
-  "found": true,
-  "summary": "The documents describe a .NET system class `AdHocQuery` which converts `SqlDataReader` results into an HTML table representation. This process includes generating HTML for headers, data rows, and table footers.",
-  "purpose": "To transform data fetched through `SqlDataReader` into a structured HTML table format for display purposes.",
-  "entities": [],
-  "fields": [],
-  "actors": [],
-  "workflows": [
-    {
-      "name": "Transform SQL Data to HTML Table",
-      "steps": [
-        "Check if `SqlDataReader` has rows using `dr.HasRows`.",
-        "Generate HTML header row using column names from `SqlDataReader`.",
-        "Iterate over each data row in `SqlDataReader`.",
-        "For each data row, check for null values and append either the value or 'NULL' to the HTML.",
-        "After processing all rows, append a HTML footer to close the table."
-      ]
-    }
-  ],
-  "business_rules": [],
-  "validations": [],
-  "calculations": [],
-  "conditions": [],
-  "system_behavior": [
-    "Utilizes StringBuilder for efficient string manipulations.",
-    "Checks for null values in data rows and substitutes with 'NULL'.",
-    "Generates a complete HTML table structure with headers and data rows."
-  ],
-  "dependencies": [
-    "System.Data",
-    "System.Data.SqlClient",
-    "HSPnet.Framework",
-    "System.Text"
-  ],
-  "exceptions": [
-    "Potential null reference when accessing `SqlDataReader` fields without checking for existence.",
-    "If `SqlDataReader` is empty, only the table structure will be returned without data rows."
-  ],
-  "source_document_ids": [
-    "20140dcf-7d8e-51f1-86ab-4b5a291db2b2",
-    "2878adb2-c26b-5d41-a6a4-d9f5a2c2c782"
-  ],
-  "content_gaps": []
+    "filename": "AdHocQuery",
+    "found": true,
+    "summary": "AdHocQuery class manages SQL data retrieval in HTML table format, providing header, data row, and footer structure.",
+    "purpose": "To convert SQL data into an HTML table format for presentation purposes.",
+    "entities": ["AdHocQuery"],
+    "fields": [],
+    "actors": [],
+    "workflows": [
+        {
+            "name": "Convert SQL Data to HTML Table",
+            "steps": ["Begin HTML table", "Add header row", "Add data rows", "Close HTML table"]
+        }
+    ],
+    "business_rules": [],
+    "validations": [],
+    "calculations": [],
+    "conditions": [],
+    "system_behavior": ["Formats SQL data into structured HTML table for display"],
+    "dependencies": [],
+    "exceptions": [],
+    "source_document_ids": ["20140dcf-7d8e-51f1-86ab-4b5a291db2b2", "2878adb2-c26b-5d41-a6a4-d9f5a2c2c782"]
 }
