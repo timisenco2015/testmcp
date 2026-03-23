@@ -1,0 +1,88 @@
+```json
+{
+    "filename": "SiteProfileHistory",
+    "found": true,
+    "summary": "The SiteProfileHistory class and its associated functionalities manage the historical records of site profile actions, including user interactions, and data retrieval operations in HSPnet.",
+    "purpose": "To provide a structure and mechanism for recording site profile actions and interactions within HSPnet, facilitating tracking and history management.",
+    "entities": [
+        "SiteProfileHistory",
+        "SiteProfileHistories",
+        "HSPnetSession",
+        "Database",
+        "SqlDataReader",
+        "Phone"
+    ],
+    "fields": [
+        "ID",
+        "ActionDate",
+        "ScreenSection",
+        "UserAction",
+        "Fields",
+        "Agency",
+        "AgencyName",
+        "LastName",
+        "FirstName",
+        "MiddleName",
+        "Phone",
+        "ByUserID",
+        "ByOriginalUserID",
+        "ByUserSysAdmin",
+        "ActionDateFormatted",
+        "AgencyUserFormatted",
+        "AgencyUserDetailsFormatted"
+    ],
+    "actors": [
+        "User",
+        "SysAdmin"
+    ],
+    "workflows": [
+        {
+            "name": "SiteProfileHistorySearch",
+            "steps": [
+                "Initialize database connection using HSPnetSession.",
+                "Set ProcedureName to 'SiteProfileHistorySearch'.",
+                "Add parameters: SiteID and SessionAgencyID.",
+                "Execute query and fetch data using SqlDataReader.",
+                "Populate SiteProfileHistory objects and return list."
+            ]
+        }
+    ],
+    "business_rules": [
+        "Users who are not SysAdmin and have differing IDs from original are formatted with support team notation.",
+        "Formatted names include agency and partial names."
+    ],
+    "validations": [
+        "Check if UserSession is null before proceeding with data source selection.",
+        "Ensure IDs match for non-sysadmin users in formatted output."
+    ],
+    "calculations": [
+        "ActionDateFormatted: Format date using DateFormatter.",
+        "AgencyUserFormatted: Concatenate agency and initials."
+    ],
+    "conditions": [
+        "Use alternate language fields based on session settings.",
+        "Avoid action when UserSession is null."
+    ],
+    "system_behavior": [
+        "Display tooltip details for agency user.",
+        "Handle data retrieval through stored procedure call."
+    ],
+    "dependencies": [
+        "HSPnet.Framework",
+        "HSPnet.App_GlobalResources",
+        "System.Data.SqlClient",
+        "System.Web.UI.WebControls"
+    ],
+    "exceptions": [
+        "Data access exceptions with SqlDataReader."
+    ],
+    "source_document_ids": [
+        "25f89a24-5eda-5a3f-83df-1de69b12b3f1",
+        "26e09292-d304-55c6-94e5-ef3346453c4b",
+        "7ca6b963-9ae9-5cd3-82d5-f30dcb727ae3",
+        "a8f030c6-90b8-53a1-bb8a-3b7ef33b9488",
+        "e806999c-3a39-5720-9b59-303faebc9eb6"
+    ],
+    "content_gaps": []
+}
+```
