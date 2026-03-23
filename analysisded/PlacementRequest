@@ -1,0 +1,93 @@
+```json
+{
+  "filename": "PlacementRequest",
+  "found": true,
+  "summary": "The PlacementRequest module in HSPnet involves the management, validation, and processing of placement requests. It includes procedures to check user site and service access, determine request validity, and manage the linking and unlinking of requests.",
+  "purpose": "To manage and process placement requests within the HSPnet system, providing functionalities for validation, linking, unlinking, email notifications, and checking shared cohorts.",
+  "entities": [
+    "PlacementRequestDestination",
+    "HSPnetSession",
+    "Database"
+  ],
+  "fields": [
+    "PRD_ID",
+    "PlcAgencyID",
+    "DepartmentID",
+    "ProgramID",
+    "CourseID",
+    "TypeCodeID",
+    "StartDate",
+    "EndDate",
+    "RcvAgencyID",
+    "SiteID",
+    "ServiceID",
+    "DestinationID"
+  ],
+  "actors": [
+    "User",
+    "Database Administrator"
+  ],
+  "workflows": [
+    {
+      "name": "Validate Placement Request",
+      "steps": [
+        "Check user site access",
+        "Check service access",
+        "Check destination access",
+        "Execute PlacementRequestSearch procedure"
+      ]
+    },
+    {
+      "name": "Manage Placement Request Link",
+      "steps": [
+        "Execute PlacementRequestLink procedure",
+        "Check for SQL errors",
+        "Return link status"
+      ]
+    },
+    {
+      "name": "Get Key Information",
+      "steps": [
+        "Execute PlacementRequestKeyInfo procedure",
+        "Retrieve key information fields"
+      ]
+    }
+  ],
+  "business_rules": [
+    "UserType check determines access",
+    "Non-accessible sites/services return false"
+  ],
+  "validations": [
+    "IsValidForMe checks user type and access"
+  ],
+  "calculations": [
+    "Determine HSPnet term start and end dates"
+  ],
+  "conditions": [
+    "OnlyNISUnreleased and OnlyIRPUnreleased control filtering"
+  ],
+  "system_behavior": [
+    "Caches email subject for session",
+    "Uses stored procedures for data operations"
+  ],
+  "dependencies": [
+    "HSPnet.Framework",
+    "App_GlobalResources"
+  ],
+  "exceptions": [
+    "SQL error during linking",
+    "Failed procedure execution"
+  ],
+  "source_document_ids": [
+    "15235962-0eeb-54d6-9f5b-edaa8346fba6",
+    "2863538b-bf60-5073-9b7e-57f298db10c3",
+    "6f227eaa-3683-5739-afe9-487f394da6a5",
+    "7bf65f3a-18ba-59ea-a095-7c407497e073",
+    "81316798-3a13-5f76-9b1e-b67132235ac3",
+    "997cb356-368b-5cdf-9a5c-0127f4c1a775",
+    "a2e4f80e-043b-5cf1-88a3-43acc007d683",
+    "f9d5bf7f-30f8-5e4e-9b6b-4f26d2988793"
+  ],
+  "content_gaps": []
+}
+```
