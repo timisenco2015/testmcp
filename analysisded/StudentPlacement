@@ -1,0 +1,148 @@
+```json
+{
+  "filename": "StudentPlacement",
+  "found": true,
+  "summary": "The content pertains to the Student Placement system, involving the processes, data fields, and system behaviors associated with managing and organizing student placements. It includes a comprehensive structure for managing contact information, placement details, and validation processes.",
+  "purpose": "The purpose of the Student Placement system is to facilitate the organization and management of student placements through systematic processing of placement requests, contact management, and integration of session-specific preferences and constraints.",
+  "entities": [],
+  "fields": [
+    "RefNum",
+    "PlacementRequestID",
+    "Course",
+    "CourseID",
+    "CourseProfileURL",
+    "GroupSize",
+    "ConfirmedInBlock2",
+    "PlacementType",
+    "PlacementTypeFormatted",
+    "GroupInstructorID",
+    "GroupInstructorLastName",
+    "GroupInstructorFirstName",
+    "GroupInstructorPhone",
+    "GroupInstructorEmail",
+    "SupervisorID",
+    "SupervisorLastName",
+    "SupervisorFirstName",
+    "SupervisorPhone",
+    "SupervisorEmail",
+    "MultipleSupNames",
+    "MultipleSupIDs",
+    "MultipleSupPhones",
+    "DestinationContactID",
+    "DestinationContactLastName",
+    "DestinationContactFirstName",
+    "DestinationContactPhone",
+    "DestinationContactEmail",
+    "ServiceContactID",
+    "ServiceContactLastName",
+    "ServiceContactFirstName",
+    "ServiceContactPhone",
+    "ServiceContactEmail",
+    "DisciplineContactID",
+    "DisciplineContactLastName",
+    "DisciplineContactFirstName",
+    "DisciplineContactPhone",
+    "DisciplineContactEmail",
+    "RequestName",
+    "ITRoleName",
+    "RAITProvision",
+    "Comments",
+    "UrgentAlert",
+    "ShowUrgentAlert",
+    "DestinationDetails",
+    "StartDate",
+    "EndDate",
+    "StartDateBlock2",
+    "EndDateBlock2",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+    "Sunday",
+    "VariousDays",
+    "ShiftCodeID",
+    "ShiftCode",
+    "StartTime",
+    "EndTime",
+    "VariousTimes",
+    "RcvAgency",
+    "Site",
+    "SiteID",
+    "Service",
+    "Destination",
+    "DestinationCodeID",
+    "RcvAgencyFull",
+    "SiteProfileExists",
+    "PlcAgency",
+    "Program",
+    "Rotations",
+    "PRDocumentInfo",
+    "AmendmentExists",
+    "ConsentProgramDisciplineSubDisciplineID",
+    "WithHoldDestCoordinator",
+    "WithHoldDestCoorinatorDays",
+    "WithHoldPreceptor"
+  ],
+  "actors": [],
+  "workflows": [
+    {
+      "name": "Student Placement Retrieval",
+      "steps": [
+        "Retrieve placement data using student ID from the database.",
+        "Parse contact details for discipline, student instructor, and service contacts.",
+        "Calculate and format placement type and shift details.",
+        "Store and display relevant placement and contact information."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Use phone masking for all phone numbers when the session setting mandates it.",
+    "Translate 'Group' placement type based on session language settings."
+  ],
+  "validations": [
+    "Ensure contact pieces have the correct data length before processing.",
+    "Check for non-empty strings before parsing and converting data."
+  ],
+  "calculations": [
+    "Shift length is calculated based on shift code, start time, and end time.",
+    "Shift type determined by amendment existence, various times flag, and shift code."
+  ],
+  "conditions": [
+    "Effective contact is prioritized as: Discipline > Student Instructor > Destination > Service.",
+    "Default contact fields to empty or zero if no contact information is found."
+  ],
+  "system_behavior": [
+    "Maintain session-specific behaviors like language translations and phone masking.",
+    "When supervisor, destination, or date changes, update tooltips for user alerts."
+  ],
+  "dependencies": [
+    "Session settings determine language and masking behaviors.",
+    "Database connection for retrieving and storing placement data."
+  ],
+  "exceptions": [
+    "Handle null or empty discipline contact details gracefully."
+  ],
+  "source_document_ids": [
+    "13754ba0-0cd1-58fc-aaf0-9f77bdead41a",
+    "1fe44a71-e0ec-5642-8364-a9f7defcda23",
+    "3069f2b6-de96-5c67-9ff5-8f544e54b24d",
+    "431bb39d-62a8-5104-af2a-f4229b600d9c",
+    "4872b15a-c61e-50ec-b14f-da63562f0760",
+    "4d6aac00-225a-58cc-a108-ab1356f27bed",
+    "56e8b149-cfa7-5da1-8c13-e2dd539dcb41",
+    "5a58a882-6c87-568b-94a6-5e68a1818f53",
+    "7089d310-e6f9-58d9-b14d-c2e9962ab6a5",
+    "7a92b0ba-b24d-5409-8c95-1c6eaae855b0",
+    "84901fb3-ce76-5c54-8108-4c431567e49d",
+    "a57418a3-bf90-5f91-8db4-bbd9e3c99c93",
+    "b4f0a6eb-abe7-585a-8c8d-b1707a94c494",
+    "c4bec497-8f8b-5855-8cce-570a38b07086",
+    "dfa34330-104e-5f92-a207-379a3c1e0368",
+    "f475f0b9-66a0-53d6-bce5-d7bfcfc9100e",
+    "f4b87423-7f59-518a-b2eb-941d05cc8696"
+  ],
+  "content_gaps": []
+}
+```
