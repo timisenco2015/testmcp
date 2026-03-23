@@ -1,9 +1,19 @@
 {
   "filename": "RptMnuPositionUtilizationSummary",
   "found": true,
-  "summary": "The RptMnuPositionUtilizationSummary control is used to generate reports on position utilization. It allows users to specify start and end dates, select agency, department, and program, and provides validation for input fields. Reports can be generated in CSV format.",
-  "purpose": "To provide a user interface for generating position utilization summary reports.",
-  "entities": [],
+  "summary": "The RptMnuPositionUtilizationSummary is a web user control designed to facilitate the generation of position utilization reports. It integrates various components and workflows to allow users to specify parameters such as agency, department, program, and date range to produce a summary report in HTML and CSV formats.",
+  "purpose": "To provide a user interface for generating and viewing position utilization summaries based on selected criteria.",
+  "entities": [
+    "HSPnetSession",
+    "Agency",
+    "Department",
+    "Program",
+    "ScriptManager",
+    "SqlDataReader",
+    "Dropdown",
+    "DateFormatter",
+    "ReportMain"
+  ],
   "fields": [
     "valEditEndDate",
     "CustomValidator1",
@@ -18,48 +28,64 @@
     "pnlReportHTML",
     "lblReportHTML",
     "ValidationSummary1",
+    "Label3",
     "ltlDescription",
+    "Label4",
     "ltlOptions",
+    "Label7",
+    "txtStartDate",
+    "btnStartDate",
+    "CalendarExtender1",
+    "RegularExpressionValidator1",
     "ltlMandatoryStartDate",
+    "Label8",
     "txtEndDate",
     "btnEndDate",
     "CalendarExtender2",
     "RegularExpressionValidator2",
     "Literal1",
-    "valEditStartDate",
-    "txtStartDate",
-    "btnStartDate",
-    "CalendarExtender1",
-    "RegularExpressionValidator1"
+    "valEditStartDate"
   ],
-  "actors": ["UserSession"],
+  "actors": [
+    "User",
+    "UserSession"
+  ],
   "workflows": [
     {
-      "name": "Generate Position Utilization Summary Report",
+      "name": "Generate Position Utilization Report",
       "steps": [
-        "User specifies start and end dates",
-        "Select agency, department, and program",
-        "Click cmdRunExcel to generate CSV report",
-        "Displayed report in pnlReportHTML"
+        "Page_Load event initializes components.",
+        "Page_PreRender event checks UserSession and prepares JavaScript variables.",
+        "ddPlcAgency_Change updates department and program dropdowns.",
+        "ddDepartment_Change updates program dropdown.",
+        "cmdExcel_Click executes report generation using parameters.",
+        "Output report as HTML and CSV on completion."
       ]
     }
   ],
   "business_rules": [
-    "The report is generated based on selected parameters: agency, department, program, and date range."
+    "FillAgencyDropdown only when there are no items in the dropdown.",
+    "FillDepartmentDropdown when the agency changes or when no items are present.",
+    "FillProgramDropdown when the department changes or when no items are present.",
+    "Use stored procedure 'ReportPosUtilSummary' for report generation."
   ],
   "validations": [
-    "RequiredFieldValidator for start and end dates",
-    "RegularExpressionValidator for date format"
+    "RequiredFieldValidator for start and end date.",
+    "RegularExpressionValidator for date format validation."
   ],
   "calculations": [],
   "conditions": [
-    "UserSession must be active for generating reports"
+    "If UserSession is not null, proceed with report setup."
   ],
   "system_behavior": [
-    "Displays report in HTML format",
-    "Generates CSV output for download"
+    "Registers JavaScript for client-side functionality based on postback type.",
+    "Binds data to dropdown lists based on user selection."
   ],
-  "dependencies": [],
+  "dependencies": [
+    "HSPnet.DataLayer for database interaction.",
+    "HSPnet.Framework for UI components.",
+    "HSPnet.UI for user interface helpers."
+  ],
   "exceptions": [],
   "source_document_ids": [
     "25fbcf7c-9df8-5317-9ec3-8c1e0c1fbe91",
@@ -73,5 +99,5 @@
     "ea1cc4de-2c4d-56e3-a187-add44607a06a",
     "f7f74fe0-4d69-54d6-9d43-fea2345ef9dc"
   ],
-  "content_gaps": []
+  "content_gaps": ["Some details regarding calculations or exceptions may be missing."]
 }
