@@ -1,0 +1,76 @@
+{
+  "filename": "StudentEmployerAgency",
+  "found": true,
+  "summary": "The StudentEmployerAgency file details the data model and operations related to managing student-employer agency relationships in the HSPnet system. It includes methods for adding, updating, searching, and inactivating records, along with the necessary database interactions such as setting stored procedure names and adding parameters.",
+  "purpose": "To manage and maintain the relationships between students and their corresponding employer agencies, facilitating operations such as adding, updating, searching, and inactivating entries within the system.",
+  "entities": [],
+  "fields": [
+    "ID",
+    "StudentID",
+    "AgencyID",
+    "AgencyShortName",
+    "SiteID",
+    "SiteName",
+    "EmployeeNumber",
+    "Inactive",
+    "CurrentEmployer"
+  ],
+  "actors": [
+    "HSPnetSession",
+    "StudentEmployerAgency",
+    "StudentEmployerAgencies"
+  ],
+  "workflows": [
+    {
+      "name": "Add StudentEmployerAgency Entry",
+      "steps": [
+        "Set procedure name to 'StudentDetailsEmployerAgencyAdd'.",
+        "Add parameters: SessionID, StudentID, AgencyID, SiteID, EmployeeNumber.",
+        "Execute query."
+      ]
+    },
+    {
+      "name": "Update StudentEmployerAgency Entry",
+      "steps": [
+        "Set procedure name to 'StudentDetailsEmployerAgencyUpdate'.",
+        "Add parameters: SessionID, ID, AgencyID, SiteID, EmployeeNumber.",
+        "Execute query."
+      ]
+    },
+    {
+      "name": "Inactivate StudentEmployerAgency Entry",
+      "steps": [
+        "Set procedure name to 'StudentDetailsEmployerAgencyInactivate'.",
+        "Add parameters: SessionID, ID, Inactivate.",
+        "Execute query."
+      ]
+    },
+    {
+      "name": "Search StudentEmployerAgency by ID",
+      "steps": [
+        "Set procedure name to 'StudentDetailsEmployerAgencySearchID'.",
+        "Add parameter: ID.",
+        "Execute query and fetch results."
+      ]
+    }
+  ],
+  "business_rules": [
+    "If 'CurrentEmployer' is true, AgencyShortName, SiteName, and EmployeeNumber are highlighted in bold."
+  ],
+  "validations": [],
+  "calculations": [],
+  "conditions": [],
+  "system_behavior": [
+    "Manages student-employer agency relationships through a series of database operations using stored procedures.",
+    "Utilizes sessions for database interactions to ensure the context is maintained."
+  ],
+  "dependencies": [],
+  "exceptions": [],
+  "source_document_ids": [
+    "13425584-faf3-508c-8c06-b13315a76688",
+    "7c74344c-8662-5d1a-b05a-aa5414527465",
+    "9de0dd6f-4677-5763-86a0-2f3ade1c9059",
+    "a08ec6ad-7405-58ca-bfdd-55ef7baf9c7f"
+  ],
+  "content_gaps": []
+}
