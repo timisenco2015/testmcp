@@ -1,0 +1,119 @@
+```json
+{
+  "filename": "CriminalRecordsCheck",
+  "found": true,
+  "summary": "The CriminalRecordsCheck is a component of the HSPnet system, primarily used for managing enrollment data concerning student criminal record checks. It integrates various user controls, data layers, and frameworks to provide a comprehensive management interface.",
+  "purpose": "To facilitate the management and review of student criminal records within the enrollment framework, allowing administrators to view, edit, and confirm status changes efficiently.",
+  "entities": [
+    "Enrollment",
+    "UserSession",
+    "Course",
+    "CRCStatusList"
+  ],
+  "fields": [
+    "CohortID",
+    "TermID",
+    "CourseID",
+    "ShowGrad",
+    "ShowInactive",
+    "ShowWaived",
+    "SectionFilter",
+    "ActionFilter",
+    "keyword",
+    "CampusID",
+    "CommentFilter",
+    "blnReadOnly",
+    "blnStudentMaint",
+    "blnGotoOutbox",
+    "blnGotoGWS",
+    "blnGotoIWS",
+    "CourseLst",
+    "CourseIDLst",
+    "CourseShortNameLst",
+    "StartRow",
+    "AllowStudentAccess"
+  ],
+  "actors": [
+    "System Administrator",
+    "Student",
+    "Enrollment Manager"
+  ],
+  "workflows": [
+    {
+      "name": "Sort Enrollment Data",
+      "steps": [
+        "Initiate Sort with provided parameters",
+        "Apply sorting order",
+        "Refresh data grid"
+      ]
+    },
+    {
+      "name": "Edit Criminal Record Entry",
+      "steps": [
+        "Select entry using Enrollment ID",
+        "Modify details in grid",
+        "Save or cancel changes"
+      ]
+    },
+    {
+      "name": "Toggle Paging",
+      "steps": [
+        "Click paging command button",
+        "Adjust data grid display settings",
+        "Rebind data"
+      ]
+    }
+  ],
+  "business_rules": [
+    "Enable editing only when screen is not read-only.",
+    "Disable actions if student has graduated or is inactive unless waived.",
+    "Restrict email function based on student access"
+  ],
+  "validations": [
+    "Ensure cohort, term, and course IDs are valid.",
+    "Check for presence and format of student email and names.",
+    "Verify CRC status codes and notes"
+  ],
+  "calculations": [],
+  "conditions": [
+    "RowDisabled condition based on graduation or inactivity.",
+    "ActionDisabled based on enrollment presence"
+  ],
+  "system_behavior": [
+    "Data binding on grid operations.",
+    "JavaScript interactions for UI updates.",
+    "Use of session variables to maintain state"
+  ],
+  "dependencies": [
+    "HSPnet Framework",
+    "System Web UI",
+    "AjaxControlToolkit"
+  ],
+  "exceptions": [
+    "Cancellation during data source operation when session is null.",
+    "Response redirections on database errors"
+  ],
+  "source_document_ids": [
+    "018b4cb0-466e-546e-a4f6-9cbe2f0bfd5a",
+    "101a207a-a9ca-56b1-a511-aab50a2218d6",
+    "168a0c21-10c4-5784-a580-35079238da5a",
+    "2ed829a3-3cf1-5949-849e-274011b559a0",
+    "389b25e5-d7df-5b4a-8c40-fb9820024171",
+    "45404fbd-9796-50a4-83ff-8c6a48e8d8c1",
+    "4dfebe4c-dec8-57fc-8712-0020b7d7b520",
+    "5596fbc8-189b-53c3-9f85-25fc45cb92e4",
+    "694b55ed-27fa-5dd7-ad5a-2db4e5fa7ba0",
+    "6b7e0909-6d2c-579d-8787-4e2fed76ee92",
+    "6fb73049-f9d7-5a55-b7af-cb26fbe583be",
+    "77c5461b-f5b6-5a35-a92f-a70ac5613ded",
+    "7a26bb82-edb5-5587-b904-d4f8c060f724",
+    "8329dfcd-065e-5763-8523-f9570e7e933c",
+    "87c40865-d3ff-51eb-b678-274bbab39799",
+    "a9d65bae-4caa-5d4c-9c8a-c5d706318435",
+    "c1d5289b-847a-5e2f-b368-f5041a9d3377",
+    "c494ef9c-ebce-5597-88c3-d89f1be09e16",
+    "c6b757f7-4f28-56d1-af24-b5ce8f83dca9"
+  ],
+  "content_gaps": []
+}
+```
