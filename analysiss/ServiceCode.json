@@ -1,44 +1,28 @@
 {
     "filename": "ServiceCode",
     "found": true,
-    "summary": "The ServiceCode entity represents service codes within HSPnet, detailing categories, descriptions, sort orders, and localization options.",
-    "purpose": "Manage and retrieve service codes associated with courses and timetables in HSPnet.",
+    "summary": "Defines ServiceCode class and operations for retrieving service codes from the database based on various criteria.",
+    "purpose": "To facilitate the management and retrieval of service codes within the system.",
     "entities": [
-        "ServiceCode",
-        "ServiceCodes"
+        {
+            "name": "ServiceCode",
+            "fields": [
+                "ID",
+                "CodeCategoryID",
+                "ShortName",
+                "Name",
+                "SortOrder",
+                "Notes",
+                "NameAlt",
+                "NotesAlt"
+            ]
+        }
     ],
     "fields": [
         {
-            "name": "ID",
-            "type": "int"
-        },
-        {
-            "name": "CodeCategoryID",
-            "type": "int"
-        },
-        {
-            "name": "ShortName",
-            "type": "string"
-        },
-        {
-            "name": "Name",
-            "type": "string"
-        },
-        {
-            "name": "SortOrder",
-            "type": "int"
-        },
-        {
-            "name": "Notes",
-            "type": "string"
-        },
-        {
-            "name": "NameAlt",
-            "type": "string"
-        },
-        {
-            "name": "NotesAlt",
-            "type": "string"
+            "name": "ServiceCode",
+            "type": "class",
+            "description": "Represents a service code with associated details."
         }
     ],
     "actors": [],
@@ -47,9 +31,7 @@
     "validations": [],
     "calculations": [],
     "conditions": [],
-    "system_behavior": [
-        "Localization behavior switches service code descriptions based on session language settings."
-    ],
+    "system_behavior": [],
     "dependencies": [],
     "exceptions": [],
     "source_document_ids": [
