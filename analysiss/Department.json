@@ -1,0 +1,151 @@
+{
+  "filename": "Department",
+  "found": true,
+  "summary": "The Department file appears to manage and interact with department data within an organization or system, utilizing various database operations and attributes.",
+  "purpose": "To facilitate department data management, including searching, updating, and retrieving department-related information while ensuring appropriate data privacy and role-based access.",
+  "entities": [],
+  "fields": [
+    "ID",
+    "AgencyID",
+    "Name",
+    "ShortName",
+    "Description",
+    "Inactive",
+    "UseShiftCodes",
+    "Email",
+    "ReleasePCInfo",
+    "ReleaseInstructorInfo",
+    "ReleaseRCInfo",
+    "ReleaseDCInfo",
+    "ReleaseSupervisorInfo",
+    "SupervisorCaptionID",
+    "UseOrientationDates",
+    "ReleaseStudentMaintInfo",
+    "ReleaseDPCInfo",
+    "ReleaseGroupInstructorInfo",
+    "UseFacultyPrerequisites",
+    "TrackSupervisorWeeks",
+    "TrackRecognition",
+    "UseAssessmentModule",
+    "ReleaseStudentEmail",
+    "ReleaseStudentDOB",
+    "ReleaseRAPolInfo",
+    "ReleasePAPolInfo",
+    "ReleaseStaffAdminInfo",
+    "ReleaseCourseLeaderInfo",
+    "ContactID1",
+    "ContactID2",
+    "AllowCorrespondenceEmail",
+    "AllowCorrScheduling",
+    "AllowSeeingOtherGroups",
+    "AllowQESAccess",
+    "DCRequireEmailForStaff",
+    "RequireEmailForStaff",
+    "AllowInstructorsEOrientation",
+    "AllowCLViewStaffProfiles",
+    "StudentNumberTemplate",
+    "SupervisorCaption",
+    "SupervisorCaptionAlt",
+    "Address1",
+    "Address2",
+    "City",
+    "Province",
+    "Country",
+    "PostalCode",
+    "Phone",
+    "Fax",
+    "AreaCode",
+    "ProfileExists",
+    "DocumentDataExists",
+    "CS1Email",
+    "CS2Email",
+    "CS1SecureEmail",
+    "CS2SecureEmail",
+    "ContactNames",
+    "AgencyName",
+    "AgencyShortName",
+    "ActiveProgramsExist",
+    "ActiveStaffExist"
+  ],
+  "actors": [
+    "HSPnetSession",
+    "Department"
+  ],
+  "workflows": [
+    {
+      "name": "Department Search by Agency",
+      "steps": [
+        "Invoke DepartmentSearchAgency with agencyID, showInactive, and textContains parameters.",
+        "Database procedure 'DepartmentSearchAgency' is called.",
+        "Parameters are added to the procedure.",
+        "Execute procedure and handle results using SqlDataReader.",
+        "Populate List<Department> from the reader."
+      ]
+    },
+    {
+      "name": "Update Department",
+      "steps": [
+        "Check if department data is valid.",
+        "Prepare SQL procedure 'DepartmentUpdate'.",
+        "Add necessary parameters to the procedure.",
+        "Execute the procedure for department update."
+      ]
+    },
+    {
+      "name": "Email Department Contact",
+      "steps": [
+        "Prepare email template by replacing placeholders with department-specific details.",
+        "Send email using HSPnet.Framework.Email with subject and body."
+      ]
+    }
+  ],
+  "business_rules": [],
+  "validations": [
+    "Department name must be specified.",
+    "Department short name must be specified.",
+    "Phone numbers must be valid.",
+    "Fax numbers must be valid."
+  ],
+  "calculations": [],
+  "conditions": [],
+  "system_behavior": [
+    "FillList method processes SqlDataReader to populate Department data.",
+    "Release flags determine the visibility of specific department information."
+  ],
+  "dependencies": [],
+  "exceptions": [
+    "Handles missing data gracefully, such as defaulting to agency area codes if phone numbers are blank."
+  ],
+  "source_document_ids": [
+    "003e9ccf-b76e-5681-9ada-cf3ee0bd0a65",
+    "0d598c42-b9d0-509c-9a2c-1ab47a47e58a",
+    "0fe35b9a-cd41-53c4-b2fa-a7e649e40d9d",
+    "19468a7f-d43c-5e44-a5e3-3c11cb4b13dd",
+    "2db6c40b-b105-56ea-9a39-19ed55837557",
+    "30f7996e-e72d-50e7-99e9-dd264a8c53df",
+    "408d8671-d155-59a4-9224-e10f80278510",
+    "40dd5484-4dc2-58f6-b609-614d157cc9fb",
+    "467dbd61-5c17-58ce-8d36-7e157c6e1cbd",
+    "46a1bdf5-0ec8-58cf-adb1-5ff395a0a150",
+    "6a49662c-8925-57d1-88b4-2760f3e0ea65",
+    "745a10d0-3e9a-57b6-aa55-f7cb81c1068f",
+    "86f5afac-0a2b-5626-a598-87a9b9eeec4c",
+    "880a0627-767b-557e-ba9b-db73e51fbef5",
+    "93108737-9ec6-5ed6-ace2-5fbfe9d0075d",
+    "9c21d7d8-8f42-5cb8-acd6-f7f998efa95f",
+    "a90fae13-8d50-59ba-9647-42f9e66bd734",
+    "ae260ed2-1b4d-5bea-a738-ab7782df51a4",
+    "b4752244-49ff-512b-980d-30032f9f78c7",
+    "b699727f-e4a5-54d5-815e-387007eefbcf",
+    "b6b59ece-0807-5fde-af06-556c51663605",
+    "be229e1b-9171-51b3-9d16-bda27fb4facb",
+    "c38d0c55-649e-517b-8fe0-b3aea7cccbf5",
+    "d0c645d7-76b0-5ebc-bdbe-e5dca297fbfd",
+    "d95d8ab2-d8bf-573c-ae8e-4a23d4d81903",
+    "dae7f66b-0d2e-5afa-82fd-854eed73a2c6",
+    "ec419605-fc90-5655-8484-94ec511d6231",
+    "ee848489-1b50-5fe4-b6dd-a3bdca82b530",
+    "fa66553c-6e4e-5120-9ff9-f13c4f72b9ee"
+  ],
+  "content_gaps": []
+}
