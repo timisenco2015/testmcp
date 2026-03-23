@@ -1,0 +1,33 @@
+# Module: CustomReportParameters
+
+## CustomReportParameters-UC1 — Retrieve Custom Report Parameters
+
+- Primary Actor(s): System User
+- Secondary Actor(s): Database
+- Trigger: A request is made to retrieve parameters for a specific custom report.
+- Description: This use case describes the retrieval of custom report parameters from the database using the provided custom report ID.
+- Preconditions: 
+  - A valid HSPnet session is established.
+  - The custom report ID is available.
+- Postconditions:
+  - The list of parameters for the specified custom report is retrieved and returned to the user.
+- Main Success Scenario:
+  1. The system receives a request to retrieve parameters for a specified custom report.
+  2. The system sets the stored procedure name to "CustomReportGetParameters."
+  3. The system adds the custom report ID as a parameter to the database query.
+  4. The system executes the query and retrieves a data reader object.
+  5. The system iterates through the data reader to create `CustomReportParameter` objects.
+  6. Each parameter object is populated with details like ID, CustomReportID, ParamName, and ParamValue from the database.
+  7. All parameter objects are added to a list.
+  8. The system closes the data reader.
+  9. The list of parameters is returned to the user.
+- Extensions:
+  - If no parameters are found, an empty list is returned.
+- Exceptions:
+  - Database connection issues or errors in executing the query.
+- Business Rules:
+  - The operation is read-only and does not alter any data.
+- Assumptions:
+  - The custom report exists in the system.
+- Open Issues:
+  - Handling of potential security concerns during database operations.
