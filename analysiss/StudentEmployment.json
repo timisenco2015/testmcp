@@ -1,63 +1,89 @@
 {
-  "filename": "StudentEmployment",
-  "found": true,
-  "summary": "The content defines a StudentEmployment user control in a web application, including setup of web controls, data sources, and event handling for displaying and interacting with student employment data.",
-  "purpose": "To manage and display student employment information within a web application, providing interfaces for viewing and interacting with employment details.",
-  "entities": [],
-  "fields": [
-    "rprStudEmployment",
-    "dsGridData",
-    "UserSession",
-    "StudentID",
-    "AlternateObservation"
-  ],
-  "actors": [
-    "UserSession"
-  ],
-  "workflows": [
-    {
-      "name": "DataBinding",
-      "steps": [
-        "Check if UserSession is available.",
-        "Bind session and student ID as input parameters for data selection.",
-        "Handle item data binding for different list item types."
-      ]
-    },
-    {
-      "name": "ItemDataBound",
-      "steps": [
-        "Handle header item type to set supervisor caption.",
-        "Determine visibility of control based on ParentPRDID.",
-        "Configure link buttons and tool tips with placement details."
-      ]
-    }
-  ],
-  "business_rules": [
-    "Data selection is canceled if UserSession is null.",
-    "Visibility of specific controls depends on data item's ParentPRDID."
-  ],
-  "validations": [],
-  "calculations": [],
-  "conditions": [
-    "PRSS.ParentPRDID > 0",
-    "PRSS.PR_ID == 0 || PRSS.PlcAgencyID != UserSession.AgencyID",
-    "e.Item.ItemType == ListItemType.Footer"
-  ],
-  "system_behavior": [
-    "Auto-generated fields are protected and require manual updates in code-behind for changes."
-  ],
-  "dependencies": [
-    "HSPnet.DataLayer",
-    "HSPnet.Framework",
-    "HSPnet.App_GlobalResources"
-  ],
-  "exceptions": [
-    "Data selection is canceled if UserSession is missing."
-  ],
-  "source_document_ids": [
-    "008173b2-fa40-51c1-9f67-806ecc8e7c57",
-    "7c838bae-40e5-59c1-9a8e-2f9278f8d26c",
-    "ec370be1-d0e6-5139-9978-3552ffe80644"
-  ],
-  "content_gaps": []
+    "filename": "StudentEmployment",
+    "found": true,
+    "summary": "The retrieved content relates to a .NET web control class `StudentEmployment` used in the HSPnet application. It is responsible for handling student employment data and interactions, such as viewing placement request details and managing data bindings. The content includes definitions for web controls like `Repeater` and `ObjectDataSource`, user session handling, and dynamic UI adjustments.",
+    "purpose": "To facilitate the display and interaction with student employment data in a web application interface, providing functionalities such as viewing details and handling user sessions.",
+    "entities": [],
+    "fields": [
+        {
+            "name": "rprStudEmployment",
+            "type": "Repeater",
+            "description": "A repeater control for displaying student employment records."
+        },
+        {
+            "name": "dsGridData",
+            "type": "ObjectDataSource",
+            "description": "Data source control for binding data to UI components."
+        },
+        {
+            "name": "UserSession",
+            "type": "HSPnetSession",
+            "description": "Session object containing user-specific data and permissions."
+        },
+        {
+            "name": "StudentID",
+            "type": "int",
+            "description": "Identifier for the student whose employment data is being handled."
+        },
+        {
+            "name": "AlternateObservation",
+            "type": "Boolean",
+            "description": "Indicates whether an alternate observation mode is active."
+        }
+    ],
+    "actors": [
+        {
+            "name": "User",
+            "role": "Interacts with the StudentEmployment UI to view and manage student employment data."
+        }
+    ],
+    "workflows": [
+        {
+            "name": "Data Binding Workflow",
+            "steps": [
+                "Invoke DataBind method to bind data to the UI.",
+                "Check UserSession in dsGridData_Selecting event to cancel or proceed with data selection.",
+                "Assign UserSession and StudentID to input parameters for data selection."
+            ]
+        },
+        {
+            "name": "Item Data Binding Workflow",
+            "steps": [
+                "Handle ItemDataBound event to set up UI elements.",
+                "Adjust visibility and behavior of controls based on data from PRSearchStudent object."
+            ]
+        }
+    ],
+    "business_rules": [
+        "Session must be active for data selection in dsGridData_Selecting event.",
+        "Command button visibility depends on placement request and user session data."
+    ],
+    "validations": [
+        "Check for null UserSession before proceeding with data operations.",
+        "Ensure PRD_ID and placement agency match before displaying details."
+    ],
+    "calculations": [],
+    "conditions": [
+        "If UserSession is null, cancel data selection.",
+        "If PRSS.ParentPRDID is greater than 0, make certain controls visible."
+    ],
+    "system_behavior": [
+        "Session management impacts data selection and control visibility.",
+        "Dynamic adjustment of UI elements based on alternating item types and user permissions."
+    ],
+    "dependencies": [
+        "HSPnet.App_GlobalResources",
+        "HSPnet.DataLayer",
+        "HSPnet.UI",
+        "HSPnet.Framework"
+    ],
+    "exceptions": [
+        "Data selection cancelled if session is null."
+    ],
+    "source_document_ids": [
+        "008173b2-fa40-51c1-9f67-806ecc8e7c57",
+        "7c838bae-40e5-59c1-9a8e-2f9278f8d26c",
+        "ec370be1-d0e6-5139-9978-3552ffe80644"
+    ],
+    "content_gaps": []
 }
