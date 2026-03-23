@@ -1,0 +1,132 @@
+{
+  "filename": "Correspondence",
+  "found": true,
+  "summary": "The 'Correspondence' module in the HSPnet system is responsible for managing correspondence data and related operations. It involves generating, updating, searching, and managing correspondences with various attributes.",
+  "purpose": "To facilitate the management of correspondences within the HSPnet framework, providing functionalities for CRUD operations and viewing correspondence data.",
+  "entities": [],
+  "fields": [
+    "ID",
+    "TypeCodeID",
+    "CorrespondenceName",
+    "DepartmentID",
+    "LastUpdated",
+    "ContentUserID1",
+    "ContentUserID2",
+    "ContentUserID3",
+    "Comments",
+    "ForPlacingAgency",
+    "UseFreeForm",
+    "Type",
+    "SortOrder",
+    "LastGenerated",
+    "Author1",
+    "Ref",
+    "SummaryExists",
+    "ContentExists",
+    "DataExists",
+    "HelpNavigateUrl",
+    "BlankRowCodeID",
+    "SignatureImageCodeID",
+    "btnToggleClientClick",
+    "Template_Add",
+    "Template_Exists",
+    "Template_History",
+    "ShowMinus",
+    "SharedDepartments"
+  ],
+  "actors": [],
+  "workflows": [
+    {
+      "name": "Initialize Correspondence Groups",
+      "steps": [
+        "Initialize correspondence groups based on row indexes stored in cookies.",
+        "Toggle correspondence details visibility based on group state retrieved from cookies."
+      ]
+    },
+    {
+      "name": "Add Correspondence",
+      "steps": [
+        "Use the CorrespondenceAdd stored procedure.",
+        "Parameters: SessionID, TypeCodeID.",
+        "Retrieve the new CorrespondenceID."
+      ]
+    },
+    {
+      "name": "Update Correspondence",
+      "steps": [
+        "Use the CorrespondenceUpdate stored procedure.",
+        "Parameters: SessionID, CorrespondenceID, CorrespondenceName, ContentUserIDs, Comments, ForPlacingAgency, UseFreeForm, SharedDepartments."
+      ]
+    },
+    {
+      "name": "Search Correspondences",
+      "steps": [
+        "Use the CorrespondenceSearch stored procedure.",
+        "Retrieve correspondences based on criteria like TypeCodeID, ContentAuthorID, DepartmentID.",
+        "Display correspondences in a list."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Correspondence for placing agency cannot be for receiving agency.",
+    "Formal letters cannot use free-form templates.",
+    "Toggle visibility of correspondence details based on stored cookie values."
+  ],
+  "validations": [
+    "Verify TypeCodeID is greater than zero for DetailType fields.",
+    "Ensure CorrespondenceID is greater than zero for deletion actions."
+  ],
+  "calculations": [
+    "DetailType calculated as TypeCodeID > 0.",
+    "ForReceivingAgency calculated as not ForPlacingAgency."
+  ],
+  "conditions": [
+    "Check if ContentUserID is greater than zero before retrieving user details.",
+    "Check for PostBack events to fill dropdowns on initial load."
+  ],
+  "system_behavior": [
+    "Auto-generate correspondence identifiers and sort orders.",
+    "Allow toggling of correspondence details for display expansion/collapse.",
+    "Execute stored procedures for data operations with session-based parameters."
+  ],
+  "dependencies": [
+    "HSPnet.Framework",
+    "HSPnet.DataLayer",
+    "HSPnet.UI",
+    "HSPnet.App_GlobalResources"
+  ],
+  "exceptions": [],
+  "source_document_ids": [
+    "01c3eb10-e3ac-5e0f-9ddb-9a4888cfb030",
+    "0af661be-9e8f-5492-bf09-bf9776aeccef",
+    "0de448ca-50a5-5ca2-8ce6-e43537151847",
+    "1087bb5d-b902-570d-9945-e076dd970bd3",
+    "13441924-8b80-50be-afde-701a679381ef",
+    "15d84bbf-b290-5771-a53e-11fcbada6309",
+    "1b60c3c0-8373-5424-89b1-829c1b4f9dce",
+    "2235a55a-ab72-5182-aa66-d102ab96d401",
+    "228e14c3-d627-510c-a8a4-194c15f63391",
+    "3407f1fb-7fe5-5a59-9ed2-a1e61abc1f35",
+    "3ff17098-8631-53a8-b67a-4a55bb482c1e",
+    "42ad2f97-a071-5b1d-a802-60e4b15d2679",
+    "442207d9-4c02-5756-8b56-e2a5da78ff28",
+    "4d0a03cf-f80f-5c8e-9878-de65e1a0bf9e",
+    "54a0d2ad-db96-5c6a-993e-d63e3f5773ae",
+    "5ae5ccd8-2a99-5898-b1a3-5ff4bf858023",
+    "82563365-4385-5324-95a2-4cae2b867c32",
+    "957fb2bb-d97b-5ae1-9973-3395d6fd1e8b",
+    "95a5c7a7-dadd-55e2-ac19-b49ac1c6bb2a",
+    "9e3f1b5a-60ae-5bdf-bdde-31e1df32bb3e",
+    "a63492aa-930f-5e1d-a0c2-91db87b5927f",
+    "c3ef01da-2807-54ac-971c-90261e0d50da",
+    "d4bc3160-6d25-5048-93f1-dbcb95ceedc8",
+    "db102397-d246-5deb-bfb1-0e96e5d11d6f",
+    "db7047f7-461f-578b-b163-704a0808a787",
+    "db84763b-9b48-5ba1-b7c1-8d8cc4b02810",
+    "de2777a4-828c-52c6-9074-ef337daa3536",
+    "ef5331d7-7e15-50e5-8236-6467938d7fc1",
+    "f486d8b8-6e3b-5bfa-b433-a0252e43364b",
+    "f84d5731-52ba-5caa-b56e-da9b4fba3ac3"
+  ],
+  "content_gaps": []
+}
