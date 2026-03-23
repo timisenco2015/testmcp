@@ -1,0 +1,86 @@
+```json
+{
+    "filename": "Staff",
+    "found": true,
+    "summary": "The retrieved documents provide a comprehensive insight into the management and operations of staff roles within an organization. It details the various attributes and functionalities associated with staff members, including roles, permissions, and contact details. The documents highlight the business rules, workflows, and system behaviors necessary for managing staff data effectively.",
+    "purpose": "To outline the structure, roles, responsibilities, and management processes associated with staff members within the organization. This serves as a guide for implementing and maintaining staff-related functionalities in the system.",
+    "entities": ["Staff"],
+    "fields": [
+        "ID",
+        "FirstName",
+        "LastName",
+        "Email",
+        "Phone",
+        "DepartmentID",
+        "Position",
+        "Supervisor",
+        "CreatedByQES",
+        "HSPnetUser",
+        "Role",
+        "ActiveStatus",
+        "DefaultSignature",
+        "Roles",
+        "Licensure",
+        "RegistrationNumber"
+    ],
+    "actors": [
+        "Staff",
+        "Supervisor",
+        "Instructor",
+        "System Administrator",
+        "Local Administrator",
+        "Placement Coordinator",
+        "Receiving Coordinator"
+    ],
+    "workflows": [
+        {
+            "name": "Staff Management",
+            "steps": [
+                "Add Staff - Utilizing various methods and parameter settings.",
+                "Update Staff - Modify staff details, applying business rules before saving.",
+                "Search Staff - Various filters and criteria for searching staff within the system.",
+                "Deactivate/Activate Staff - Changing the active status of staff with specific conditions.",
+                "Assign Roles - Assigning roles like Supervisor, Coordinator, Instructor, etc."
+            ]
+        }
+    ],
+    "business_rules": [
+        "Apply business rules before any data is saved.",
+        "Check for duplicate staff entries before adding new entries.",
+        "Certain roles cannot be assigned without specific conditions being met (e.g., Course Leader must also be an Instructor)."
+    ],
+    "validations": [
+        "Ensure all fields have valid entries (e.g. non-empty, valid phone number).",
+        "Check if the staff's department is specified before processing."
+    ],
+    "calculations": [
+        "Formatted names, emails, and phone numbers for display.",
+        "Computed roles based on assigned roles and conditions."
+    ],
+    "conditions": [
+        "A staff member cannot be a course leader without also being an instructor.",
+        "Allow assigning students only if the person is a Course Leader."
+    ],
+    "system_behavior": [
+        "Caches staff profile data briefly to improve performance.",
+        "Executes stored procedures for staff data operations.",
+        "Closes database readers after operations to free resources."
+    ],
+    "dependencies": [
+        "Database tables for staff information.",
+        "Stored procedures for CRUD operations."
+    ],
+    "exceptions": [
+        "Display error messages when saved data do not meet validation criteria.",
+        "Warn if updates result in staff user ID being disabled due to lack of roles."
+    ],
+    "source_document_ids": [
+        "005ed131-b8d9-5497-bcb9-229a732199c6",
+        "06840fd2-53ef-5f2c-8902-7d5f8ccc9e75",
+        "0783d086-3de0-5486-b0c4-a3c60b89bfc7",
+        "089da517-873f-5a37-9796-486fcf4d5076",
+        "0bb3867d-ba99-5264-a36f-3af1fc74b7b0"
+    ],
+    "content_gaps": []
+}
+```
