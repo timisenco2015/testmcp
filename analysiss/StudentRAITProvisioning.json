@@ -1,0 +1,94 @@
+{
+  "filename": "StudentRAITProvisioning",
+  "found": true,
+  "summary": "The StudentRAITProvisioning system manages student provisioning related to RAIT and involves various functionalities such as searching, adding, updating, and deleting student provisioning entries.",
+  "purpose": "To manage student provisioning in the RAIT system, enabling operations like search, add, update, and delete through database procedures.",
+  "entities": ["StudentRAITProvisioning", "StudentITProvisioning", "StudentITProvisioningResult"],
+  "fields": [
+    {"name": "ID", "type": "int"},
+    {"name": "StudentID", "type": "int"},
+    {"name": "AgencyID", "type": "int"},
+    {"name": "AgencyList", "type": "string"},
+    {"name": "UniqueID", "type": "string"},
+    {"name": "LoginID", "type": "string"},
+    {"name": "EmailRequired", "type": "Boolean"},
+    {"name": "Employee", "type": "Boolean"},
+    {"name": "Email", "type": "string"},
+    {"name": "StaffID", "type": "int"},
+    {"name": "Status", "type": "int"},
+    {"name": "Msg", "type": "string"}
+  ],
+  "actors": ["HSPnetSession"],
+  "workflows": [
+    {
+      "name": "Student Provisioning Search",
+      "steps": [
+        "Set procedure name to StudentDetailsRAITProvisionSearch",
+        "Add parameters: SessionID, StudentID, StaffID",
+        "Execute GetData to retrieve data"
+      ]
+    },
+    {
+      "name": "Student Provisioning Add",
+      "steps": [
+        "Set procedure name to StudentDetailsRAITProvisionAdd",
+        "Add parameters: SessionID, StudentID, AgencyID, UniqueID, LoginID, EmailRequired, Employee, Email, StaffID",
+        "Execute ExecuteQuery to add entry"
+      ]
+    },
+    {
+      "name": "Student Provisioning Update",
+      "steps": [
+        "Set procedure name to StudentDetailsRAITProvisionUpdate",
+        "Add parameters: SessionID, ID, AgencyID, UniqueID, LoginID, EmailRequired, Employee, Email",
+        "Execute ExecuteQuery to update entry"
+      ]
+    },
+    {
+      "name": "Student Provisioning Delete",
+      "steps": [
+        "Set procedure name to StudentDetailsRAITProvisionDelete",
+        "Add parameters: SessionID, ID",
+        "Execute ExecuteQuery to delete entry"
+      ]
+    },
+    {
+      "name": "Batch Update",
+      "steps": [
+        "Serialize student provisioning list to XML",
+        "Set procedure name to StudentDetailsRAITProvisionUpdateBatch",
+        "Add parameters: SessionID, ITProvXML",
+        "Execute GetData and process results"
+      ]
+    }
+  ],
+  "business_rules": [
+    "Cannot run queries if ID or CohortID is less than or equal to 0."
+  ],
+  "validations": [
+    "Ensure ID and CohortID are greater than 0 before executing search queries."
+  ],
+  "calculations": [],
+  "conditions": [],
+  "system_behavior": [
+    "Retrieves student provisioning information based on parameters provided.",
+    "Adds new student provisioning entries to the database.",
+    "Updates existing student provisioning entries based on ID.",
+    "Deletes student provisioning entries based on ID.",
+    "Processes batch updates using XML serialization."
+  ],
+  "dependencies": ["HSPnetSession", "Database"],
+  "exceptions": [
+    "No data will be processed if ID or CohortID is invalid."
+  ],
+  "source_document_ids": [
+    "17c05ac7-9041-54f5-a021-8370e03196d6",
+    "2d9f59cb-b06e-5f6a-bb64-8cf881440e50",
+    "48f434a6-ff51-5032-b608-59eb57095131",
+    "6c803891-b4ea-5233-852a-b9c0b9dd6e14",
+    "6f76bd23-16fc-54c7-9a8f-334de33f9ff9",
+    "9ac56210-7502-566b-8d78-bf953ef2df4e",
+    "f6b4b128-6ff2-5246-a9ab-77e70f1305eb"
+  ],
+  "content_gaps": []
+}
