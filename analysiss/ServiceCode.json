@@ -1,48 +1,24 @@
 {
   "filename": "ServiceCode",
   "found": true,
-  "summary": "Defines service codes with properties and methods to manipulate them within the database.",
-  "purpose": "To list, retrieve, and manipulate service codes within the HSPNet system.",
-  "entities": [
-    "ServiceCode",
-    "ServiceCodes"
-  ],
-  "fields": [
-    "ID",
-    "CodeCategoryID",
-    "ShortName",
-    "Name",
-    "SortOrder",
-    "Notes",
-    "NameAlt",
-    "NotesAlt"
-  ],
+  "summary": "Handles service code operations within HSPnet.",
+  "purpose": "Manage service codes for courses and timetables.",
+  "entities": ["ServiceCode", "ServiceCodes"],
+  "fields": ["ID", "CodeCategoryID", "ShortName", "Name", "SortOrder", "Notes", "NameAlt"],
   "actors": [],
   "workflows": [
     {
-      "name": "Service Code Management",
-      "steps": [
-        "List all service codes",
-        "Retrieve service codes by Course ID",
-        "Retrieve service codes by Timetable ID"
-      ]
+      "name": "Fetch Service Codes",
+      "steps": ["Set procedure to ServiceCodeListAll", "Add session parameter", "Return list"]
     }
   ],
-  "business_rules": [
-    "Use alt-language fields if in alt language mode"
-  ],
+  "business_rules": ["Use alt-language fields if necessary"],
   "validations": [],
   "calculations": [],
   "conditions": [],
-  "system_behavior": [
-    "Accesses database using stored procedures"
-  ],
+  "system_behavior": ["Localize service codes based on session settings"],
   "dependencies": [],
   "exceptions": [],
-  "source_document_ids": [
-    "94f1b055-348d-508a-ae6e-cf7960a8c6a2",
-    "e4ebe4b4-6d14-5c3f-b693-61016f765239",
-    "f976b9af-a402-540f-b162-391d578fac7c"
-  ],
+  "source_document_ids": ["94f1b055-348d-508a-ae6e-cf7960a8c6a2", "e4ebe4b4-6d14-5c3f-b693-61016f765239", "f976b9af-a402-540f-b162-391d578fac7c"],
   "content_gaps": []
 }
