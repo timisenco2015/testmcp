@@ -1,57 +1,68 @@
 {
     "filename": "RptMnuFixedTermAppointments",
     "found": true,
-    "summary": "The `RptMnuFixedTermAppointments` user control in the HSPnet application is responsible for generating reports of fixed-term appointments. It utilizes a variety of UI controls and validators to ensure proper user input and provides the ability to export data to Excel.",
-    "purpose": "To facilitate the generation and export of reports on fixed-term appointments within the HSPnet application environment.",
+    "summary": "The RptMnuFixedTermAppointments component is a user control for handling fixed term appointment reports. It provides functionality to set start and end dates for reports, validate input, and export data to Excel.",
+    "purpose": "To manage and display fixed term appointment reports, allowing date selection and data export.",
     "entities": [],
     "fields": [
-        "ltlDescription",
-        "ltlOptions",
         "txtStartDate",
         "txtEndDate",
+        "ltlDescription",
+        "ltlOptions",
         "lblReportHTML"
     ],
     "actors": [
-        "User"
+        "UserSession"
     ],
     "workflows": [
         {
-            "name": "Generate Fixed Term Appointment Report",
+            "name": "Page Pre-Render",
             "steps": [
-                "User navigates to the RptMnuFixedTermAppointments control.",
-                "User inputs start and end dates for the report using txtStartDate and txtEndDate fields.",
-                "User clicks the button to run the report.",
-                "The system validates the input dates using RegularExpressionValidators and RequiredFieldValidators.",
-                "If valid, the system calls the stored procedure 'ReportFixedTermAppointments' with the provided date range.",
-                "The system generates and displays the report.",
-                "User can export the report to Excel by clicking the Excel export button."
+                "Check if UserSession is not null.",
+                "Perform code lookup for report details.",
+                "Set description and options.",
+                "Setup JavaScript variables."
+            ]
+        },
+        {
+            "name": "Export to Excel",
+            "steps": [
+                "Set stored procedure name to ReportFixedTermAppointments.",
+                "Add parameters: SessionID, DateFrom, DateTo.",
+                "Execute database query and retrieve data.",
+                "Output CSV format report.",
+                "Display report HTML if available."
             ]
         }
     ],
     "business_rules": [
-        "Stored procedure 'ReportFixedTermAppointments' must be executed to fetch the report data."
+        "UserSession must be valid to perform code lookup.",
+        "Dates must be entered and validated before exporting."
     ],
     "validations": [
-        "Date fields (Start and End dates) must be validated for correct format using RegularExpressionValidators.",
-        "Both Start and End dates are mandatory fields, enforced by RequiredFieldValidators."
+        "RegularExpressionValidator1",
+        "RegularExpressionValidator2",
+        "RequiredFieldValidator for start and end dates",
+        "CustomValidator1"
     ],
     "calculations": [],
     "conditions": [
-        "The report generation is contingent on valid date inputs."
+        "if UserSession is null, do not perform code lookup.",
+        "if reportHTML is not empty, make pnlReportHTML visible."
     ],
     "system_behavior": [
-        "Renders UI components for report options and descriptions.",
-        "Registers and executes JavaScript for date fields and validation.",
-        "Fetches report data based on user session and date parameters.",
-        "Displays report in HTML format on the UI if data is retrieved successfully."
+        "Registers JavaScript strings for client-side execution.",
+        "Handles asynchronous postbacks to update the page without full reload.",
+        "Uses SQL to retrieve and process report data."
     ],
     "dependencies": [
-        "UserSession object for session management.",
-        "Stored procedure 'ReportFixedTermAppointments' for data retrieval."
+        "HSPnet.DataLayer",
+        "HSPnet.UI",
+        "HSPnet.Framework",
+        "AjaxControlToolkit"
     ],
     "exceptions": [
-        "Invalid dates input will prevent report generation.",
-        "Empty reportHTML will not display a report."
+        "Generated code warnings regarding auto-generated fields that should not be modified manually."
     ],
     "source_document_ids": [
         "04404aaf-ef8b-588b-b962-b44984144897",
