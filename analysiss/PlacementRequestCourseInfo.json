@@ -1,0 +1,125 @@
+{
+  "filename": "PlacementRequestCourseInfo",
+  "found": true,
+  "summary": "The PlacementRequestCourseInfo class provides mechanisms to retrieve and populate details about course placement requests from a database session. It includes properties to store course-specific data such as ID, name, description, and various settings related to the placement context.",
+  "purpose": "The purpose of PlacementRequestCourseInfo is to facilitate the retrieval and manipulation of data regarding course placement requests within a system, by interacting with a database to fill in details for specific course entries.",
+  "entities": [],
+  "fields": [
+    "ID", 
+    "DepartmentID", 
+    "Name", 
+    "ShortName", 
+    "Description", 
+    "DurationHours", 
+    "DurationShifts", 
+    "ShiftLength", 
+    "DefaultTypeCodeID", 
+    "Inactive", 
+    "CreatedByQES", 
+    "ReportCodeID", 
+    "UseBlocks", 
+    "InstructorStudentRatio", 
+    "Comments", 
+    "UseRotations", 
+    "IncludeRequestsWithCFO", 
+    "MaxStudentPRSelections", 
+    "SpecifyDuplicatePRs", 
+    "RankWithheldPRs", 
+    "ViewClassmateStats", 
+    "AllowAnyDestInSite", 
+    "ProgramID", 
+    "ProgramName", 
+    "ProgramShortName", 
+    "IRPParticipant", 
+    "NISParticipant", 
+    "UseAltShifts", 
+    "AgencyID", 
+    "AgencyName", 
+    "AgencyShortName", 
+    "DeptName", 
+    "DeptShortName", 
+    "StartDate", 
+    "EndDate", 
+    "PlacementType", 
+    "ProjectTitle", 
+    "CohortName", 
+    "CohortShortName", 
+    "StartDateBlock2", 
+    "EndDateBlock2", 
+    "TypeCodeID", 
+    "HoldUntilDate", 
+    "TotalYears", 
+    "ProgramYear", 
+    "QESCohort", 
+    "PACanClearConflicts", 
+    "UseOrientationDates", 
+    "CourseProfileExists", 
+    "DisciplineID", 
+    "CohortID", 
+    "TermID", 
+    "CourseID", 
+    "TimetableDurationHours", 
+    "CourseDocumentExists", 
+    "ProgramProfileExists", 
+    "SubDisciplineID", 
+    "EnrolledStudentCount", 
+    "TrackSupervisorWeeks", 
+    "TrackRecognition", 
+    "Discipline", 
+    "SubDiscipline", 
+    "TimetableAssessmentExists", 
+    "CourseAssessmentExists", 
+    "TimetableID"
+  ],
+  "actors": [
+    "HSPnetSession",
+    "SqlDataReader"
+  ],
+  "workflows": [
+    {
+      "name": "Get Placement Request Course Info",
+      "steps": [
+        "Invoke GetInfo method with session and PRD_ID",
+        "Set procedure name in session DB to PlacementRequestCourseInfo",
+        "Add parameter PRD_ID to session DB",
+        "Execute session DB to get data reader",
+        "If data reader is not null and has rows, call FillPlacementRequestCourseInfo",
+        "Close data reader in session DB",
+        "Return populated PlacementRequestCourse entry"
+      ]
+    },
+    {
+      "name": "Fill Placement Request Course Info",
+      "steps": [
+        "Retrieve and set all course information fields from data reader"
+      ]
+    }
+  ],
+  "business_rules": [
+    "If a course name is specified as 'Unknown' but was created by QES, translate it to a known resource value"
+  ],
+  "validations": [],
+  "calculations": [],
+  "conditions": [
+    "Checking if data reader is not null and has rows",
+    "Conditionally set Discipline and SubDiscipline based on UseAltLanguageFields setting"
+  ],
+  "system_behavior": [
+    "Interacts with database to retrieve course information using stored procedures and parameters",
+    "Populates course information entities with data from database"
+  ],
+  "dependencies": [
+    "HSPnetSession for database interactions",
+    "Resources for localized strings"
+  ],
+  "exceptions": [],
+  "source_document_ids": [
+    "064b04cb-b743-52f4-95ef-a7f51e9c815c",
+    "09b3ddfe-794a-5d4d-8fa4-47606ec6f3e0",
+    "39aa6aa8-8698-5329-a2f6-52c41f6f9ef4",
+    "88ab116c-781d-5c28-b0e1-6b734f3a5681",
+    "a8aaace9-2d9b-5ab5-9778-656cf5ada1a2",
+    "d9f3a939-8cac-544c-b633-371c02044560"
+  ],
+  "content_gaps": []
+}
