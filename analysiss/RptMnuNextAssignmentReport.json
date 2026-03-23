@@ -1,19 +1,40 @@
 {
   "filename": "RptMnuNextAssignmentReport",
   "found": true,
-  "summary": "The RptMnuNextAssignmentReport is a web user control implemented in C# as part of the HSPnet system. It generates a report detailing the next assignments based on specified parameters.",
-  "purpose": "To facilitate the generation and display of a 'Next Assignment Report' within a web application, allowing users to select parameters and view the report in HTML or download it as an Excel file.",
+  "summary": "The RptMnuNextAssignmentReport is a user control component designed to generate and manage the 'Next Assignment Report' within a web application. It utilizes user session data to fetch and display relevant report details and options. The component facilitates interaction with various UI elements and backend data procedures to generate report outputs in HTML and CSV formats.",
+  "purpose": "The main purpose of the RptMnuNextAssignmentReport is to provide users with a detailed view and export of upcoming assignments through a specialized report. It allows users to define report parameters, run reports, and download outputs as CSV files.",
   "entities": [],
   "fields": [
-    "UserSession",
-    "ScriptMgr",
-    "UCchoosersRcvAgency",
-    "txtStartDate",
-    "txtEndDate",
-    "lblReportHTML",
-    "pnlReportHTML",
-    "cmdRunExcel",
-    "lblPleaseWait"
+    {
+      "name": "txtStartDate",
+      "type": "TextBox",
+      "description": "Input field for entering the start date of the report period."
+    },
+    {
+      "name": "txtEndDate",
+      "type": "TextBox",
+      "description": "Input field for entering the end date of the report period."
+    },
+    {
+      "name": "ltlDescription",
+      "type": "Literal",
+      "description": "Displays the description of the report."
+    },
+    {
+      "name": "ltlOptions",
+      "type": "Literal",
+      "description": "Displays additional notes or options for the report."
+    },
+    {
+      "name": "pnlReportHTML",
+      "type": "Panel",
+      "description": "Panel to display the report in HTML format when generated."
+    },
+    {
+      "name": "lblReportHTML",
+      "type": "Label",
+      "description": "Label to hold and display the generated report's HTML content."
+    }
   ],
   "actors": [
     "User",
@@ -21,41 +42,60 @@
   ],
   "workflows": [
     {
-      "name": "Generate Next Assignment Report",
+      "name": "Generate Report",
       "steps": [
-        "User loads the report page.",
-        "User selects the start and end dates using calendar controls.",
-        "System verifies the selected dates with validators.",
-        "User selects agencies to be included in the report.",
-        "User clicks 'Run Excel' to generate the report.",
-        "System calls the stored procedure 'ReportGoneTo' with parameters.",
-        "System fetches data using SqlDataReader.",
-        "System formats data into a CSV report.",
-        "System displays the report in HTML and offers an Excel download."
+        "User sets start and end date using txtStartDate and txtEndDate fields.",
+        "User selects agencies from UCchoosersRcvAgency.",
+        "User clicks cmdRunExcel to initiate report generation.",
+        "System validates inputs and parameters.",
+        "System executes a database procedure to fetch report data.",
+        "System generates report output in CSV format.",
+        "System displays the report in pnlReportHTML if successful."
       ]
     }
   ],
   "business_rules": [
-    "Dates must be valid and within the expected range."
+    "The report can only be generated if both start and end dates are provided.",
+    "A list of receiving agencies must be selected before running the report."
   ],
   "validations": [
-    "RegularExpressionValidator1",
-    "RequiredFieldValidator valEditStartDate",
-    "RequiredFieldValidator valEditEndDate"
+    {
+      "field": "txtStartDate",
+      "validator": "RegularExpressionValidator1",
+      "description": "Ensures the start date is in the correct format."
+    },
+    {
+      "field": "txtEndDate",
+      "validator": "RegularExpressionValidator2",
+      "description": "Ensures the end date is in the correct format."
+    },
+    {
+      "field": "txtStartDate",
+      "validator": "RequiredFieldValidator",
+      "description": "Ensures the start date is provided."
+    },
+    {
+      "field": "txtEndDate",
+      "validator": "RequiredFieldValidator",
+      "description": "Ensures the end date is provided."
+    }
   ],
   "calculations": [],
-  "conditions": [],
+  "conditions": [
+    "If the report generation is initiated during an asynchronous postback, the JavaScript variables are registered using ScriptManager."
+  ],
   "system_behavior": [
-    "On async postback, JavaScript setup is initiated.",
-    "On 'Run Excel' button click, parameters are set and the report is generated."
+    "The system registers JavaScript variables related to input field IDs during pre-render.",
+    "If the report generation procedure returns data, the system outputs the report in CSV format and displays it in the HTML panel."
   ],
   "dependencies": [
-    "HSPnetSession",
-    "ScriptManager",
-    "SqlDataReader",
-    "DateFormatter"
+    "HSPnetSession for user session management.",
+    "Database stored procedures for report data retrieval.",
+    "JavaScript functions for client-side scripting and interaction."
   ],
-  "exceptions": [],
+  "exceptions": [
+    "If SQL data reader returns no data, the report is not generated."
+  ],
   "source_document_ids": [
     "211fb8e7-8c48-50f7-ab84-5ce082f240f7",
     "4a35c40e-827e-5e32-99bd-831eda73a9d9",
@@ -66,5 +106,7 @@
     "e41929ce-b138-5dfe-8b0c-7efddd30fef2",
     "f4c12dce-3136-519f-955a-9b1360ada872"
   ],
-  "content_gaps": []
+  "content_gaps": [
+    "Detailed error handling behaviors are not fully described."
+  ]
 }
