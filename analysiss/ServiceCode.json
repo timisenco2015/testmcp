@@ -1,24 +1,42 @@
 {
     "filename": "ServiceCode",
     "found": true,
-    "summary": "ServiceCode is a sealed class containing properties and methods for managing service codes within the HSPnet framework, including options related to courses and timetables.",
-    "purpose": "Manage and retrieve service codes associated with courses and timetables.",
-    "entities": ["ServiceCode", "ServiceCodes"],
-    "fields": ["ID", "CodeCategoryID", "ShortName", "Name", "SortOrder", "Notes", "NameAlt"],
-    "actors": ["System"],
+    "summary": "ServiceCode class and related methods manage code categorizations used in services for different course and timetable contexts.",
+    "purpose": "To categorize service codes and manage their attributes for educational services.",
+    "entities": ["ServiceCode"],
+    "fields": ["ID", "CodeCategoryID", "ShortName", "Name", "SortOrder", "Notes", "NameAlt", "NotesAlt"],
+    "actors": ["HSPnetSession"],
     "workflows": [
         {
-            "name": "Service Code Retrieval",
-            "steps": ["Initialize session", "Retrieve service codes", "Localize codes based on language preference"]
+            "name": "Fetch Service Code List",
+            "steps": [
+                "Set procedure name for listing all service codes",
+                "Fetch data using session ID",
+                "Localize entries based on language settings",
+                "Add entries to list"
+            ]
+        },
+        {
+            "name": "Fetch Service Code by Course or Timetable",
+            "steps": [
+                "Set procedure name based on context",
+                "Fetch data using session ID and context ID",
+                "Localize entries",
+                "Add entries to list"
+            ]
         }
     ],
-    "business_rules": [],
+    "business_rules": ["Localization based on session settings"],
     "validations": [],
     "calculations": [],
-    "conditions": ["Language preference affects code description"],
-    "system_behavior": ["Service code management"],
+    "conditions": ["Localization impacts entry names"],
+    "system_behavior": ["Fetches and localizes service codes"],
     "dependencies": [],
     "exceptions": [],
-    "source_document_ids": ["94f1b055-348d-508a-ae6e-cf7960a8c6a2", "e4ebe4b4-6d14-5c3f-b693-61016f765239", "f976b9af-a402-540f-b162-391d578fac7c"],
+    "source_document_ids": [
+        "94f1b055-348d-508a-ae6e-cf7960a8c6a2",
+        "e4ebe4b4-6d14-5c3f-b693-61016f765239",
+        "f976b9af-a402-540f-b162-391d578fac7c"
+    ],
     "content_gaps": []
 }
