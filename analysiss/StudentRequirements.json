@@ -1,0 +1,75 @@
+{
+    "filename": "StudentRequirements",
+    "found": true,
+    "summary": "The StudentRequirements user control manages the display, selection, and operation interactions for student requirements. It includes features for adding, editing, deleting, and displaying student requirement details using grid and form views.",
+    "purpose": "To facilitate the management of student requirements through a web-based interface, allowing users to add, edit, update, and delete student requirements.",
+    "entities": [],
+    "fields": [
+        "dsStudentRequirements",
+        "pnlPopup",
+        "updPnlPopup",
+        "btnShowPopup",
+        "mdlDetails",
+        "ValidationSummary1",
+        "uxDetail",
+        "dsStudentRequirement",
+        "dsStdRequirements",
+        "dsStdCompliance",
+        "updPnlMain",
+        "Label4",
+        "gridData"
+    ],
+    "actors": [
+        "User",
+        "HSPnetSession"
+    ],
+    "workflows": [
+        {
+            "name": "Manage Student Requirements",
+            "steps": [
+                "User views student requirements in a grid.",
+                "User can add a new requirement using add button.",
+                "User can edit an existing requirement by clicking edit.",
+                "User can delete a requirement using delete button.",
+                "User can view requirement details in a popup."
+            ]
+        }
+    ],
+    "business_rules": [
+        "ScreenIsEditable conditionally enables/disables editing capabilities.",
+        "User session must be active to perform operations."
+    ],
+    "validations": [
+        "Ensure required fields are not empty.",
+        "Prevent operations if page is not valid."
+    ],
+    "calculations": [],
+    "conditions": [
+        "if ScreenIsEditable is true, allow modifications",
+        "if UserSession is null, cancel data operations"
+    ],
+    "system_behavior": [
+        "Shows add, edit, delete buttons based on screen state.",
+        "Handles data binding and row command events."
+    ],
+    "dependencies": [
+        "HSPnet.DataLayer",
+        "HSPnet.UI",
+        "HSPnet.Framework"
+    ],
+    "exceptions": [
+        "Operation canceled if user session is null.",
+        "Invalid operations are not processed."
+    ],
+    "source_document_ids": [
+        "4122a11c-8c1f-5f68-94e8-1ade088d7994",
+        "4407cd0b-6c74-53cf-8955-6b46443bccd5",
+        "48b27d18-7e40-599a-9419-7b1d271c5a2d",
+        "5ba94543-26ab-50a3-8179-33b193de1cb7",
+        "62257616-f12c-5489-a594-a88097975427",
+        "6916d255-1a80-583c-83cb-d1e4b75da273",
+        "80d01418-e62f-5665-a312-b4c141d2851a",
+        "dcb9fe4a-ec1f-5af8-86c9-c8916ca6cead"
+    ],
+    "content_gaps": []
+}
