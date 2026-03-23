@@ -1,0 +1,124 @@
+```json
+{
+  "filename": "PrfPortfolio",
+  "found": true,
+  "summary": "The PrfPortfolio is a web-based user control component in the HSPnet system designed for managing staff profiles, focusing on their expertise, interests, and professional activities. It leverages various ASP.NET controls and AjaxControlToolkit components for interactive user interface functionalities.",
+  "purpose": "To manage and display staff expertise, interests, and professional activities within the HSPnet system.",
+  "entities": [
+    "StaffExpertiseEdit",
+    "StaffActivity",
+    "UserSession",
+    "Grid",
+    "Dropdown",
+    "ScriptManager"
+  ],
+  "fields": [
+    "InterestCodeID",
+    "ProfessionID",
+    "DisciplineID",
+    "SubDisciplineID",
+    "SkillCodeID",
+    "ActivityRoleCodeID",
+    "ActivityTypeCodeID",
+    "KeywordCodeID"
+  ],
+  "actors": [
+    "UserSession",
+    "Grid",
+    "ScriptManager",
+    "StaffActivity",
+    "Dropdown",
+    "FormView",
+    "GridView",
+    "LinkButton",
+    "Panel",
+    "Button"
+  ],
+  "workflows": [
+    {
+      "name": "Edit Workflow",
+      "steps": [
+        "User clicks edit button",
+        "System checks if screen is editable",
+        "Loads expertise and interest data codes",
+        "Binds data to form view and switches to edit mode"
+      ]
+    },
+    {
+      "name": "Add Activity",
+      "steps": [
+        "User initiates add command",
+        "System loads activity keyword codes",
+        "Binds data to form view and switches to add mode"
+      ]
+    },
+    {
+      "name": "File Upload",
+      "steps": [
+        "User uploads a file",
+        "System saves file to server",
+        "Stores metadata in user session",
+        "Handles potential file type and size validations"
+      ]
+    }
+  ],
+  "business_rules": [
+    "Screen can be editable or read-only based on user session",
+    "Files are saved in a unique folder for each upload"
+  ],
+  "validations": [
+    "Check if user session is valid",
+    "Validate non-empty dropdown selections",
+    "Ensure form data is correctly bound"
+  ],
+  "calculations": [],
+  "conditions": [
+    "Screen must be editable for save actions",
+    "If dropdown value is empty, default to 0"
+  ],
+  "system_behavior": [
+    "Session caching for user data",
+    "Dynamic data binding and display in UI forms",
+    "JavaScript for interactive UI manipulation"
+  ],
+  "dependencies": [
+    "HSPnetSession",
+    "AjaxControlToolkit",
+    "System.Web.UI",
+    "HSPnet.DataLayer",
+    "HSPnet.Framework"
+  ],
+  "exceptions": [
+    "Failed file uploads",
+    "Null reference in session checks",
+    "JavaScript errors in async postbacks"
+  ],
+  "source_document_ids": [
+    "09b59ced-81e3-599f-b2a6-373fdb3394d3",
+    "1b27ded6-1453-528a-9acb-64267e71d81d",
+    "25e1196d-ee99-56f1-9a85-5869290dab1d",
+    "2607dfb4-aae8-5315-9a75-1d3d593d01ef",
+    "377d4ed7-e0fa-56ff-b995-1780c3d49486",
+    "3beb5ae5-3e1d-5d91-8c89-112353a12ed4",
+    "3f9c5fc1-d321-5937-85f9-6f1911dc9428",
+    "53986357-ae7b-56f1-b577-467360cdcece",
+    "58a589ca-b1ca-54ca-84e7-590cd9af79b9",
+    "62da293f-82b8-56c7-b387-719a11141a78",
+    "64fbb5f5-bb1d-5639-9000-323635657915",
+    "6993b0a6-12ee-5e4a-987c-3c890917fc88",
+    "6eb05c7b-4a94-5708-ba65-d5acca0f775f",
+    "850e5a39-bffc-5714-8e08-2de5edfab3f9",
+    "86680f03-ae74-52e3-80fb-6fce14bd0263",
+    "8bb1aa73-04f3-568d-9ced-f690a2c2554a",
+    "8e848492-f549-5985-a432-22c3b5812489",
+    "917f7797-6d5c-5d6d-8d05-86f479f6614c",
+    "956cc411-8e3e-5402-bb04-52c1e843009f",
+    "99f62c29-18db-50e6-b501-3e5a866140b9",
+    "cc6e1e74-6046-56f8-a7f9-6725ec2e1252",
+    "f027c18e-3fac-5801-8422-22f7b92465a9",
+    "f11a07b6-16b0-5767-90f8-bc2c03fb49cf",
+    "f25b0d9d-d480-5d0c-9e39-0b20d0a13654"
+  ],
+  "content_gaps": []
+}
+```
