@@ -1,0 +1,68 @@
+# Module: RequestCodes
+
+## RequestCodes-UC1 — Manage Request Codes
+
+- Primary Actor(s): System Administrator
+- Secondary Actor(s): None
+- Trigger: An update or query operation is needed concerning request codes.
+- Description: System administrators can manage request codes through various operations such as adding, updating, deleting, reactivating, and searching for request codes.
+- Preconditions: User must have administrative privileges. Relevant request codes must exist in the database for any operation other than adding.
+- Postconditions: Request codes are consistently maintained and updated in the system.
+- Main Success Scenario:
+  1. Administrator accesses the request code management interface.
+  2. Administrator selects an operation: add, update, delete, reactivate, or search.
+  3. Administrator provides the necessary details such as ProgramID, SubDisciplineID, Name, ShortName, etc.
+  4. System processes the operation using the appropriate procedure.
+  5. System confirms the operation's success and updates the request codes accordingly.
+- Extensions:
+  - 3a. If searching, administrator can filter request codes using multiple parameters such as ProgramID, SubDisciplineID, and keyword.
+  - 3b. Administrator can specify whether to show inactive request codes.
+- Exceptions:
+  - 3.1 If the request code ID is invalid or not provided, the system prompts the administrator to enter a valid ID.
+  - 3.2 If the name or short name is blank, the system raises an error message.
+- Business Rules: Names and ShortNames must not be blank. The system uses alternative language fields if configured to run in a different language mode.
+- Assumptions: System supports multiple languages for request codes. Administrators are trained to perform operations.
+- Open Issues: None identified.
+
+## RequestCodes-UC2 — Search Request Codes
+
+- Primary Actor(s): System User
+- Secondary Actor(s): None
+- Trigger: User initiates a search operation for request codes.
+- Description: Users can search for specific request codes using various filters such as ProgramID, SubDisciplineID, and keywords.
+- Preconditions: User must be authenticated and authorized to access request code data.
+- Postconditions: User receives a list of request codes that match the search criteria.
+- Main Success Scenario:
+  1. User accesses the request code search interface.
+  2. User enters search criteria: ProgramID, SubDisciplineID, keyword, etc.
+  3. System retrieves matching request codes from the database.
+  4. System displays the list of matching request codes to the user.
+- Extensions:
+  - 2a. User can choose to include inactive request codes in the search results.
+- Exceptions:
+  - 3.1 If no request codes match the search criteria, the system informs the user.
+- Business Rules: Search operations are case-insensitive and may optionally include inactive entries.
+- Assumptions: Users have a basic understanding of the request codes they are searching for.
+- Open Issues: None identified.
+
+## RequestCodes-UC3 — Modify Request Codes
+
+- Primary Actor(s): System Administrator
+- Secondary Actor(s): None
+- Trigger: An update operation is initiated on an existing request code.
+- Description: Administrators can update the details of a request code, including Name, ShortName, and PopulationCodeID.
+- Preconditions: Request code must exist in the system, and the user must have administrative privileges.
+- Postconditions: The request code is updated in the system with the new details.
+- Main Success Scenario:
+  1. Administrator selects a request code to modify.
+  2. Administrator updates the necessary fields.
+  3. System validates the inputs for completeness and correctness.
+  4. System updates the request code in the database.
+  5. System confirms the update to the administrator.
+- Extensions:
+  - 3a. If the PopulationCodeID is not provided, the system defaults it to 0.
+- Exceptions:
+  - 3.1 If the validation fails, the system provides feedback on which fields are incorrect or missing.
+- Business Rules: Only non-blank names and short names are valid.
+- Assumptions: The system provides immediate feedback for incorrect entries.
+- Open Issues: None identified.
