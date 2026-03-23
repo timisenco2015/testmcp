@@ -1,0 +1,95 @@
+{
+  "filename": "StudentEOrientation",
+  "found": true,
+  "summary": "StudentEOrientation is a user control managing student access and completion of online orientation courses. It interfaces with course data, tracks completion, supports certificate generation, and handles retake logic with UI controls, system business rules, and session-based permissions.",
+  "purpose": "To provide students with access to EOrientation courses, monitor completion status, allow certificate printing upon completion, and regulate retake functionality based on system and user conditions.",
+  "entities": [
+    "ETopicCourse",
+    "HSPnetSession"
+  ],
+  "fields": [
+    "PRDEndDate",
+    "Status",
+    "CourseID",
+    "StudentID",
+    "DateAccessedFormatted",
+    "DueDate",
+    "Required"
+  ],
+  "actors": [
+    "StudentUser",
+    "SystemAdministrator"
+  ],
+  "workflows": [
+    {
+      "name": "Course Completion and Certificate Printing",
+      "steps": [
+        "Student accesses the EOrientation via provided link.",
+        "Course completion is monitored via Status and PRDEndDate.",
+        "When a course is completed, certificate printing UI is shown.",
+        "Student clicks 'Print Certificate' button.",
+        "System generates and displays HTML report of certificate."
+      ]
+    },
+    {
+      "name": "Retake Course",
+      "steps": [
+        "If course is completed and retake is allowed, 'Retake' button is visible.",
+        "Student clicks retake button.",
+        "Client-side confirmation and triggers Moodle site window open.",
+        "Retake command executed and course retake initiated for student."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Course retake allowed only if course is completed and corresponding PR is not ended.",
+    "Retake button visibility depends on CanRetakeCourse() condition and PRDEndDate ticks comparison.",
+    "Certificate can be printed only if course completion is found (_completeFound = true).",
+    "UI panels visibility depends on user session parameters (e.g., SwitchUserViewOnly, completion status)."
+  ],
+  "validations": [
+    "PRDEndDate is checked for valid comparison using ticks.",
+    "Session existence is required for ObjectDataSourceSelecting; if no session, operation is cancelled.",
+    "Retake action is confirmed via client dialog."
+  ],
+  "calculations": [
+    "PRDEndDate.Ticks compared to constant ticks value (599266080000000000) to determine validity.",
+    "DueDate comparisons to current date for error/warning display."
+  ],
+  "conditions": [
+    "Show warning if course is mandatory and never accessed.",
+    "Show error if course is mandatory, not completed, due soon, and PR is active.",
+    "Panels and controls visible depending on user session parameters."
+  ],
+  "system_behavior": [
+    "Opens Moodle site in new window for course retake.",
+    "Registers client-side scripts for UI actions.",
+    "Displays certificate report HTML in the panel after successful generation.",
+    "DataBind operations refresh UI after retake."
+  ],
+  "dependencies": [
+    "Relies on HSPnetSession for session and permission logic.",
+    "Relies on ETopicCourse for course data and status.",
+    "Uses HSPnet.Framework.Reporting for certificate generation.",
+    "Uses UI controls (GridView, Panel, Button, Label, ObjectDataSource)."
+  ],
+  "exceptions": [
+    "If UserSession is null, course selection operation is cancelled.",
+    "Certificate not shown if _completeFound is false.",
+    "Retake not allowed if PRDEndDate is invalid."
+  ],
+  "source_document_ids": [
+    "1d551419-67cd-5f43-8011-83999159acc3",
+    "352b4554-fa18-59fe-9d11-cd72472ece6f",
+    "5a3fa64d-1a3b-55f2-9b05-c5ebc28ed4f2",
+    "bae687f4-b9a7-5d79-90ae-9e7f13f530db",
+    "d2c9c987-3374-57c1-a05e-ef991253412d",
+    "f38de7e2-d269-5b8b-993d-efc67802180c"
+  ],
+  "content_gaps": [
+    "Course data model details (ETopicCourse) are referenced but not fully specified.",
+    "Certificate generation logic references external reporting system and resources, not documented.",
+    "UI markup and detailed user interface flow not present.",
+    "Error handling for report generation and retake is only partially shown."
+  ]
+}
