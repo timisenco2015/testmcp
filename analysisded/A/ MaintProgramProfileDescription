@@ -1,0 +1,63 @@
+```json
+{
+  "filename": "MaintProgramProfileDescription",
+  "found": true,
+  "summary": "The MaintProgramProfileDescription is a user control for maintaining program profiles, supporting operations such as viewing, adding, editing, and deleting program details.",
+  "purpose": "To facilitate the management of program profiles within a web application, including operations to display, add, edit, and delete program details.",
+  "entities": [
+    "HSPnetSession",
+    "ProgramDetail"
+  ],
+  "fields": [
+    "UserSession",
+    "ScreenIsEditable",
+    "ProgramID",
+    "ScriptMgr"
+  ],
+  "actors": [],
+  "workflows": [
+    {
+      "name": "Profile Management",
+      "steps": [
+        "Profile data is selected or canceled based on visibility.",
+        "Add, edit, or delete operations are handled via grid commands.",
+        "Profile is displayed in GridView with add/edit/delete buttons.",
+        "Redirect after operations."
+      ]
+    }
+  ],
+  "business_rules": [
+    "If profile is not visible, data selection is canceled.",
+    "Set up 'no data found' button only when the screen is editable."
+  ],
+  "validations": [
+    "ValidationSummary3 used for managing data entry errors."
+  ],
+  "calculations": [],
+  "conditions": [
+    "Conditionally set parameters based on session visibility.",
+    "Check if the SortOrder is empty and set to default value."
+  ],
+  "system_behavior": [
+    "Setup Add/Edit/Delete buttons based on row type.",
+    "Show modal details on specific commands."
+  ],
+  "dependencies": [
+    "System.Web.UI.WebControls",
+    "AjaxControlToolkit"
+  ],
+  "exceptions": [
+    "Auto-generated fields should be modified in code-behind, not designer files."
+  ],
+  "source_document_ids": [
+    "03243333-f3df-579f-ad44-5ded284d50a1",
+    "48f3677a-01bd-5710-a3f8-afafe12875d1",
+    "7f195e6b-fcb7-5897-b890-fff56ef4cb54",
+    "928dc17b-7169-5ba0-a6f4-c689fce7ca49",
+    "94ae5bfb-0b66-53f9-b652-bbe29956a6b0",
+    "b2e9809d-c5d7-513c-ae63-d196eb9e2765",
+    "f7b13a6b-513f-55fc-bdbe-90e2121260d0"
+  ],
+  "content_gaps": []
+}
+```
