@@ -1,34 +1,90 @@
 ```json
 {
-  "filename": "ServiceCode",
-  "found": true,
-  "summary": "Implementation and management of service codes within the HSPnet system.",
-  "purpose": "To manage and retrieve service codes with localization support.",
-  "entities": ["ServiceCode"],
-  "fields": ["ID", "CodeCategoryID", "ShortName", "Name", "SortOrder", "Notes", "NameAlt", "NotesAlt"],
-  "actors": ["HSPnetSession"],
-  "workflows": [
-    {
-      "name": "ServiceCodeListAll",
-      "steps": ["Retrieve all service codes", "Localize entries based on session settings", "Return list"]
-    },
-    {
-      "name": "ServiceCodeASMOptionByCourseID",
-      "steps": ["Retrieve service codes by CourseID", "Localize entries", "Return list"]
-    },
-    {
-      "name": "ServiceCodeASMOptionByTimetableID",
-      "steps": ["Retrieve service codes by TimetableID", "Localize entries", "Return list"]
-    }
-  ],
-  "business_rules": ["Use alt-language data if session is in alt language mode"],
-  "validations": [],
-  "calculations": [],
-  "conditions": ["If session is in alt language mode, use NameAlt"],
-  "system_behavior": ["Retrieves and localizes service code data"],
-  "dependencies": ["HSPnet.Framework", "HSPnet.App_GlobalResources", "HSPnet.UI"],
-  "exceptions": [],
-  "source_document_ids": ["94f1b055-348d-508a-ae6e-cf7960a8c6a2", "e4ebe4b4-6d14-5c3f-b693-61016f765239", "f976b9af-a402-540f-b162-391d578fac7c"],
-  "content_gaps": []
+    "filename": "ServiceCode",
+    "found": true,
+    "summary": "ServiceCode management and localization within HSPnet.DataLayer.",
+    "purpose": "To manage and retrieve service codes with localization support.",
+    "entities": [
+        "ServiceCode"
+    ],
+    "fields": [
+        "ID",
+        "CodeCategoryID",
+        "ShortName",
+        "Name",
+        "SortOrder",
+        "Notes",
+        "NameAlt",
+        "NotesAlt"
+    ],
+    "actors": [
+        "HSPnetSession"
+    ],
+    "workflows": [
+        {
+            "name": "ServiceCodeListAll",
+            "steps": [
+                "Initialize list",
+                "Set procedure name",
+                "Add session ID parameter",
+                "Fetch data",
+                "Read and localize entries",
+                "Add entries to list",
+                "Close reader"
+            ]
+        },
+        {
+            "name": "ServiceCodeASMOptionByCourseID",
+            "steps": [
+                "Initialize list",
+                "Set procedure name",
+                "Add parameters (SessionID, CourseID)",
+                "Fetch data",
+                "Read and localize entries",
+                "Add entries to list",
+                "Close reader"
+            ]
+        },
+        {
+            "name": "ServiceCodeASMOptionByTimetableID",
+            "steps": [
+                "Initialize list",
+                "Set procedure name",
+                "Add parameters (SessionID, TimetableID)",
+                "Fetch data",
+                "Read and localize entries",
+                "Add entries to list",
+                "Close reader"
+            ]
+        }
+    ],
+    "business_rules": [
+        "Use alt-language data if in alt language mode"
+    ],
+    "validations": [],
+    "calculations": [],
+    "conditions": [
+        "Check if SqlDataReader is not null"
+    ],
+    "system_behavior": [
+        "Fetch data using stored procedures",
+        "Localize names based on session settings"
+    ],
+    "dependencies": [
+        "System",
+        "System.Data.SqlClient",
+        "System.Collections.Generic",
+        "System.Web",
+        "HSPnet.Framework",
+        "HSPnet.App_GlobalResources",
+        "HSPnet.UI"
+    ],
+    "exceptions": [],
+    "source_document_ids": [
+        "94f1b055-348d-508a-ae6e-cf7960a8c6a2",
+        "e4ebe4b4-6d14-5c3f-b693-61016f765239",
+        "f976b9af-a402-540f-b162-391d578fac7c"
+    ],
+    "content_gaps": []
 }
 ```
