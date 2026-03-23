@@ -1,104 +1,95 @@
 {
-  "filename": "ProgramCourseInfo",
-  "found": true,
-  "summary": "The ProgramCourseInfo class is part of the HSPnet.UserControls.PlacementRequestDetails namespace and manages various aspects of program course information within the system. It includes functionality for loading, displaying, editing, and saving program and course details related to placement requests.",
-  "purpose": "The purpose of ProgramCourseInfo is to manage program and course information in relation to placement requests, enabling the setup, display, and modification of related data such as course names, program types, duration, and placements.",
-  "entities": [],
-  "fields": [
-    "ValidationSummary1",
-    "Label3",
-    "uxProgramName",
-    "hlProgramName",
-    "ddQESProgram",
-    "uxProgramYear",
-    "Label1",
-    "uxCohortName",
-    "cmdToEnrollment",
-    "Label2",
-    "ddPlacementType",
-    "uxPlacementTypeMandatory",
-    "txtCurrentPRType",
-    "Label5",
-    "pnlQESDuration",
-    "txtQESDuration",
-    "Literal3",
-    "trQESCohort",
-    "Literal1",
-    "Literal2",
-    "trProjectTitle",
-    "uxProjectTitleCaption",
-    "txtProjectTitle",
-    "pnlSaveCancel",
-    "cmdSave",
-    "cmdCancel"
-  ],
-  "actors": [
-    "UserSession",
-    "ScriptManager",
-    "PlacementRequestCourse",
-    "PlacementRequestDestination"
-  ],
-  "workflows": [
-    {
-      "name": "Course Setup and Display",
-      "steps": [
-        "Load user session and check for editable screen conditions.",
-        "Setup and bind data to various controls such as Program, Course, Cohort, Placement Type, and Duration.",
-        "Handle control visibility and interactivity based on user permissions and data conditions.",
-        "Provide links to detailed views when applicable and manage hyperlink states."
-      ]
-    }
-  ],
-  "business_rules": [
-    "Course hyperlinks are only active if a profile exists or the user can edit.",
-    "Save/Cancel buttons are visible if any data fields are editable.",
-    "Display program and placement type as mandatory when applicable.",
-    "Ensure duration values are positive and non-zero when edited."
-  ],
-  "validations": [
-    "Validate that course duration hours are not negative or zero.",
-    "Ensure course names and other mandatory fields are not empty during edit sessions."
-  ],
-  "calculations": [],
-  "conditions": [
-    "Conditions on visibility of placement and program types based on user permissions.",
-    "Rendering of editable fields dependent on user type and screen state."
-  ],
-  "system_behavior": [
-    "Dynamic control of UI elements like hyperlinks and buttons based on session data and user roles.",
-    "Javascript initialization and execution for client-side components.",
-    "Server-side handling for button click events to process updates and redirections."
-  ],
-  "dependencies": [
-    "HSPnet.Session",
-    "HSPnet.Framework",
-    "HSPnet.UI",
-    "HSPnet.DataLayer",
-    "System.Web.UI"
-  ],
-  "exceptions": [
-    "Display error messages for invalid duration entries.",
-    "Handle non-existent course profiles gracefully by disabling related links."
-  ],
-  "source_document_ids": [
-    "0778789b-7256-59e4-87c5-b1867a768f7c",
-    "09c98e50-e0d9-5edb-80cb-5f349bfac047",
-    "14ef33ed-11cb-5814-a733-2cc56a78e86d",
-    "1f6a974f-7391-5bbd-a2f5-227d32ed2eb1",
-    "287844b3-f374-5bec-ba34-3023d0227055",
-    "2a186397-c2cc-5bb9-b408-d3c7b85d5aef",
-    "2c2016dd-3c71-5411-af1c-d2d77eabd3a0",
-    "3abee0a0-e49d-5ce1-805f-82d995041e93",
-    "3e720b43-d116-5e23-980e-6d41b0fa0a0b",
-    "44c7ee66-49ea-5044-9b9c-a9be7b9c6f79",
-    "4b6bc373-9d14-502d-8858-b509b938adbf",
-    "7fdd5f7b-89f2-5261-be30-a94c54db6ef8",
-    "875ec8bd-01c7-514b-b737-eab8d883b84c",
-    "9009dca9-37dc-53cb-be19-d1d62d8b7d1d",
-    "904bbcd1-aa79-53f3-bdda-e7c0c564a8f9",
-    "a18efb32-051a-5ae7-92e1-a46e9a365983",
-    "ce3878f1-9215-58a8-8ec1-ff3cee5377f4",
-    "f45bf552-66c8-5d4d-9fea-0b87c49c52e1"
-  ],
-  "content_gaps": []
+    "filename": "ProgramCourseInfo",
+    "found": true,
+    "summary": "The ProgramCourseInfo handles the details of program courses within a placement request system. It consists of UI controls for displaying and editing course details, handling user permissions, and managing navigation through course-related actions.",
+    "purpose": "Facilitates the management and display of program course information within a placement request context, allowing for CRUD operations, navigation, and user interaction.",
+    "entities": [
+        "HSPnetSession",
+        "PlacementRequestCourse",
+        "PlacementRequestDestination",
+        "UserType"
+    ],
+    "fields": [
+        "ValidationSummary1",
+        "Label3",
+        "uxProgramName",
+        "hlProgramName",
+        "ddQESProgram",
+        "uxProgramYear",
+        "uxCohortName",
+        "cmdToEnrollment",
+        "ddPlacementType",
+        "uxPlacementTypeMandatory",
+        "txtCurrentPRType",
+        "pnlQESDuration",
+        "txtQESDuration",
+        "hlDurationHelp",
+        "uxDuration",
+        "txtProjectTitle",
+        "pnlSaveCancel",
+        "cmdSave",
+        "cmdCancel",
+        "trQESCohort",
+        "uxProjectTitleCaption"
+    ],
+    "actors": [
+        "UserSession",
+        "ScriptManager",
+        "UserAllowedProgram"
+    ],
+    "workflows": [
+        {
+            "name": "Course Navigation and Editing",
+            "steps": [
+                "On page load, setup program, course, placement type, cohort, and duration information using the Setup functions.",
+                "If QESEdit is enabled, user can edit fields; if not, fields are displayed as read-only.",
+                "Upon saving or canceling, actions are handled via cmdSave or cmdCancel events."
+            ]
+        }
+    ],
+    "business_rules": [
+        "Course link becomes a hyperlink if a profile exists or profile screen is editable.",
+        "Save/cancel panel only visible if screen is editable and specific controls are visible and enabled."
+    ],
+    "validations": [
+        "Ensure QES course name is not blank during an edit.",
+        "Duration must be a positive decimal number."
+    ],
+    "calculations": [
+        "Calculate course duration in hours."
+    ],
+    "conditions": [
+        "Check if the page is loaded for the first time using ViewState[\"FirstLoad\"].",
+        "Visibility of cmdToEnrollment depends on user's role and session variables."
+    ],
+    "system_behavior": [
+        "SetupJavaScript function registers JavaScript variables for client-side interaction.",
+        "Page redirection is handled by the redirect function when changes are confirmed."
+    ],
+    "dependencies": [
+        "HSPnet.DataLayer for database access.",
+        "HSPnet.Framework for query string management."
+    ],
+    "exceptions": [],
+    "source_document_ids": [
+        "0778789b-7256-59e4-87c5-b1867a768f7c",
+        "09c98e50-e0d9-5edb-80cb-5f349bfac047",
+        "14ef33ed-11cb-5814-a733-2cc56a78e86d",
+        "1f6a974f-7391-5bbd-a2f5-227d32ed2eb1",
+        "287844b3-f374-5bec-ba34-3023d0227055",
+        "2a186397-c2cc-5bb9-b408-d3c7b85d5aef",
+        "2c2016dd-3c71-5411-af1c-d2d77eabd3a0",
+        "3abee0a0-e49d-5ce1-805f-82d995041e93",
+        "3e720b43-d116-5e23-980e-6d41b0fa0a0b",
+        "44c7ee66-49ea-5044-9b9c-a9be7b9c6f79",
+        "4b6bc373-9d14-502d-8858-b509b938adbf",
+        "7fdd5f7b-89f2-5261-be30-a94c54db6ef8",
+        "875ec8bd-01c7-514b-b737-eab8d883b84c",
+        "9009dca9-37dc-53cb-be19-d1d62d8b7d1d",
+        "904bbcd1-aa79-53f3-bdda-e7c0c564a8f9",
+        "a18efb32-051a-5ae7-92e1-a46e9a365983",
+        "ce3878f1-9215-58a8-8ec1-ff3cee5377f4",
+        "f45bf552-66c8-5d4d-9fea-0b87c49c52e1"
+    ],
+    "content_gaps": []
 }
