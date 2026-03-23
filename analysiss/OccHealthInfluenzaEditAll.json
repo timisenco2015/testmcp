@@ -1,24 +1,83 @@
 {
   "filename": "OccHealthInfluenzaEditAll",
   "found": true,
-  "summary": "OccHealthInfluenzaEditAll is a user control for managing influenza immunization records in a GridView environment. It provides functionality to update immunization status and seasonal details, handle grid data operations, and manage JavaScript for client-side interactions.",
-  "purpose": "To facilitate the management and updating of occupational health influenza immunization records.",
-  "entities": ["InfluenzaStatusCodeList", "ImmunFluSeasonList"],
-  "fields": ["txtDirty", "ddInfluenzaStatusCode", "ddImmunFluSeason", "ShowGrad", "ShowInactive", "ShowWaived", "SectionFilter", "ActionFilter", "keyword", "CampusID", "CommentFilter"],
-  "actors": ["UserSession"],
+  "summary": "The OccHealthInfluenzaEditAll control is a user interface component for managing influenza vaccination information within an enrollment system. It involves handling user interactions, server-side processing, and data binding related to influenza immunization status and season selection.",
+  "purpose": "To manage influenza vaccination records for students, allowing for updating and displaying immunization status and corresponding seasons in a grid view.",
+  "entities": [],
+  "fields": [
+    {"name": "CohortID", "type": "int"},
+    {"name": "TermID", "type": "int"},
+    {"name": "CourseID", "type": "int"},
+    {"name": "ShowGrad", "type": "Boolean"},
+    {"name": "ShowInactive", "type": "Boolean"},
+    {"name": "ShowWaived", "type": "Boolean"},
+    {"name": "SectionFilter", "type": "string"},
+    {"name": "ActionFilter", "type": "string"},
+    {"name": "keyword", "type": "string"},
+    {"name": "CampusID", "type": "int"},
+    {"name": "CommentFilter", "type": "string"},
+    {"name": "blnReadOnly", "type": "Boolean"},
+    {"name": "blnStudentMaint", "type": "Boolean"},
+    {"name": "H1N1", "type": "Boolean"},
+    {"name": "EnrollmentID", "type": "int"},
+    {"name": "StartRow", "type": "int"}
+  ],
+  "actors": [
+    "UserSession",
+    "GridViewRow",
+    "Panel",
+    "DropDownList",
+    "ScriptManager",
+    "Literal"
+  ],
   "workflows": [
     {
-      "name": "Influenza Immunization Update",
-      "steps": ["Data retrieval", "Status update", "GridView rendering", "JavaScript setup"]
+      "name": "Save Changes Workflow",
+      "steps": [
+        "User modifies influenza status or season in the grid.",
+        "If modification occurs, mark the row as dirty.",
+        "Upon save command, update the database with new entries.",
+        "Redirect based on successful update or show warnings."
+      ]
     }
   ],
-  "business_rules": ["Hide buttons when enrollment ID is zero"],
-  "validations": ["ValidationSummary1 control"],
-  "calculations": ["Year calculations based on influenza admin date"],
-  "conditions": ["Check if gridDataEdit row is dirty"],
-  "system_behavior": ["Enable/disable fields based on enrollment state"],
-  "dependencies": ["HSPnetSession", "GridView", "DropDownList"],
-  "exceptions": ["Cancel operation if UserSession is null"],
-  "source_document_ids": ["0d476473-6083-5f51-ba86-86994f8d2005", "1fc2d4a3-13a1-5a93-b0e7-3dbe8577eae0", "3ad241b8-d5da-5077-8e72-14c0dd19a4ca", "4f9ede21-00b0-5e79-a78d-a1cb6db32417", "5127230e-5edc-5e20-8eb4-b402fb0accf8", "5bde432b-bbc5-5f1a-8483-b259a3286565", "731359ca-b860-5846-a8d7-78d1407d0624", "8b2eca1a-596e-54f9-a666-769d9733955d", "91574ad3-0aee-544a-bbf5-981a307edc3d"],
+  "business_rules": [
+    "If EnrollmentID is zero, hide certain UI elements when less than 14 rows exist.",
+    "Show or hide elements based on read-only status."
+  ],
+  "validations": [
+    "Ensure UserSession is valid before processing.",
+    "Validate input parameters on data source selection."
+  ],
+  "calculations": [
+    "Calculate the next year for influenza administration date."
+  ],
+  "conditions": [
+    "If H1N1 is true, utilize specific logic for dropdown value selection."
+  ],
+  "system_behavior": [
+    "Registers JavaScript variables for client-side processing.",
+    "Binds data to controls dynamically based on user interaction."
+  ],
+  "dependencies": [
+    "GridView control to display and interact with data.",
+    "DataLayer.Enrollment for interfacing with enrollment records."
+  ],
+  "exceptions": [
+    "Cancel data selection if UserSession is null."
+  ],
+  "source_document_ids": [
+    "0d476473-6083-5f51-ba86-86994f8d2005",
+    "1fc2d4a3-13a1-5a93-b0e7-3dbe8577eae0",
+    "3ad241b8-d5da-5077-8e72-14c0dd19a4ca",
+    "4f9ede21-00b0-5e79-a78d-a1cb6db32417",
+    "5127230e-5edc-5e20-8eb4-b402fb0accf8",
+    "5bde432b-bbc5-5f1a-8483-b259a3286565",
+    "731359ca-b860-5846-a8d7-78d1407d0624",
+    "8b2eca1a-596e-54f9-a666-769d9733955d",
+    "91574ad3-0aee-544a-bbf5-981a307edc3d",
+    "9592a93f-9975-5c09-9744-cbd341298017",
+    "a49ab0c1-e5ed-53e8-a380-021afe551cd6"
+  ],
   "content_gaps": []
 }
