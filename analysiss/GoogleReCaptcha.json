@@ -1,0 +1,100 @@
+{
+  "filename": "GoogleReCaptcha",
+  "found": true,
+  "summary": "The documents collectively describe the implementation of Google ReCaptcha in an ASP.NET web application. It involves server-side verification of the ReCaptcha response, localization handling, and integration with the HSPnet system.",
+  "purpose": "To secure an ASP.NET application using Google ReCaptcha by verifying human interaction on forms.",
+  "entities": [],
+  "fields": [
+    {
+      "name": "HeaderEN",
+      "type": "System.Web.UI.WebControls.Panel",
+      "description": "English header panel for the web page."
+    },
+    {
+      "name": "HeaderFR",
+      "type": "System.Web.UI.WebControls.Panel",
+      "description": "French header panel for the web page."
+    },
+    {
+      "name": "form1",
+      "type": "System.Web.UI.HtmlControls.HtmlForm",
+      "description": "Form control that contains the ReCaptcha and submission button."
+    },
+    {
+      "name": "Label1",
+      "type": "System.Web.UI.WebControls.Label",
+      "description": "Label for displaying the captcha description."
+    },
+    {
+      "name": "button1",
+      "type": "System.Web.UI.HtmlControls.HtmlInputSubmit",
+      "description": "Submit button for the form."
+    },
+    {
+      "name": "recaptchaToken",
+      "type": "hidden input",
+      "description": "Field to store the ReCaptcha token after successful client-side verification."
+    },
+    {
+      "name": "siteKey",
+      "type": "string",
+      "description": "Google ReCaptcha site key used for token validation."
+    }
+  ],
+  "actors": [
+    "User",
+    "HSPnetSession",
+    "GoogleServer"
+  ],
+  "workflows": [
+    {
+      "name": "ReCaptcha Verification Workflow",
+      "steps": [
+        "User interacts with ReCaptcha widget on the web form.",
+        "ReCaptcha widget generates a token upon successful completion.",
+        "Token is sent to the server via a hidden form field upon form submission.",
+        "Server verifies the token with Google's ReCaptcha API.",
+        "If verification succeeds, user session is validated and redirected to the HSPnet start screen.",
+        "If user session is invalid, redirect to TimedOut page.",
+        "If token verification fails, user is redirected back to the ReCaptcha page."
+      ]
+    }
+  ],
+  "business_rules": [
+    "If the user session is not valid, redirect to a TimedOut page.",
+    "Use different headers depending on the user's locale."
+  ],
+  "validations": [
+    "Perform client-side and server-side verification of the ReCaptcha token.",
+    "Ensure the ReCaptcha token is valid and not expired."
+  ],
+  "calculations": [],
+  "conditions": [
+    "User session validity is checked before redirecting to the start screen.",
+    "Locale is determined either from the URL query string or from the user session."
+  ],
+  "system_behavior": [
+    "The system supports localization by switching headers based on the user's locale.",
+    "Clears session info once the information is consumed.",
+    "Handles ReCaptcha token expiration and errors using callbacks."
+  ],
+  "dependencies": [
+    "Google ReCaptcha API",
+    "HSPnet system configurations",
+    "ASP.NET Web Forms framework"
+  ],
+  "exceptions": [
+    "Invalid or expired ReCaptcha token results in redirecting back to the ReCaptcha page.",
+    "Absence of valid locale defaults to the default locale settings."
+  ],
+  "source_document_ids": [
+    "1cb7d1f1-d078-5cdc-b069-2bd9f27930af",
+    "25d0b12f-59ca-5905-97d3-9aef47b10e4c",
+    "60e6d2c7-bc97-54cf-bb4e-80a110cabe69",
+    "9469f292-f5d9-5bbb-ab4c-e8bc138792cb",
+    "c2ac9e42-87ef-5a47-872b-1499666fb616",
+    "eae7bf29-58bc-5d1a-81a5-36824662ba18",
+    "fc9e508a-7bcd-5d08-8cad-540ecb437e4e"
+  ],
+  "content_gaps": []
+}
