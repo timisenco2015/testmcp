@@ -1,0 +1,140 @@
+{
+  "filename": "StaffManualPlacements",
+  "found": true,
+  "summary": "The StaffManualPlacements module manages the manual creation, update, search, and deletion of staff placement records. It defines the data structure, validation logic, and business rules for placement operations, and interacts with the database via stored procedures.",
+  "purpose": "To allow authorized users to manually add, update, search, and delete staff placement records in the system, ensuring data integrity and adherence to validation and business requirements.",
+  "entities": [
+    "StaffManualPlacement"
+  ],
+  "fields": [
+    "ID",
+    "StaffID",
+    "StartDate",
+    "EndDate",
+    "ProgramID",
+    "CourseShortName",
+    "PlacementTypeID",
+    "InstructorLastName",
+    "InstructorFirstName",
+    "DurationHours",
+    "GroupSize",
+    "RcvAgencyID",
+    "SiteID",
+    "ServiceID",
+    "DestinationID",
+    "ProgramName",
+    "PlacementType",
+    "RcvAgencyName",
+    "SiteName",
+    "ServiceName",
+    "DestinationName",
+    "StartDateFormatted",
+    "EndDateFormatted",
+    "DurationHoursFormatted",
+    "GroupSizeFormatted"
+  ],
+  "actors": [
+    "HSPnetSession (system/actor handling session, validation, and DB calls)",
+    "Authorized Staff (user role)"
+  ],
+  "workflows": [
+    {
+      "name": "Add Staff Manual Placement",
+      "steps": [
+        "Instantiate StaffManualPlacement object.",
+        "Set field values (StaffID, ProgramID, RcvAgencyID, SiteID, ServiceID, DestinationID, CourseShortName, PlacementTypeID, StartDateFormatted, EndDateFormatted, DurationHoursFormatted, GroupSizeFormatted, InstructorLastName, InstructorFirstName).",
+        "Validate StaffManualPlacement with IsValid(Sess).",
+        "If valid, set procedure name 'StaffManualPlacementAdd'.",
+        "Add parameters for all fields to Sess.DB.",
+        "Execute database query."
+      ]
+    },
+    {
+      "name": "Update Staff Manual Placement",
+      "steps": [
+        "Instantiate StaffManualPlacement object.",
+        "Set relevant field values (ProgramID, RcvAgencyID, SiteID, ServiceID, DestinationID, CourseShortName, PlacementTypeID, StartDateFormatted, EndDateFormatted, DurationHoursFormatted, GroupSizeFormatted, InstructorLastName, InstructorFirstName).",
+        "Validate StaffManualPlacement with IsValid(Sess).",
+        "If valid, set procedure name 'StaffManualPlacementUpdate'.",
+        "Add parameters for all fields and PlacementID to Sess.DB.",
+        "Execute database query."
+      ]
+    },
+    {
+      "name": "Delete Staff Manual Placement",
+      "steps": [
+        "Check PlacementID > 0.",
+        "Set procedure name 'StaffManualPlacementDelete'.",
+        "Add SessionID and PlacementID as parameters.",
+        "Execute database query."
+      ]
+    },
+    {
+      "name": "Search Staff Manual Placements",
+      "steps": [
+        "Set procedure name 'StaffManualPlacementSearch'.",
+        "Add StaffID and SessionID parameters.",
+        "Retrieve data via Sess.DB.GetData().",
+        "Iterate results, fill StaffManualPlacement objects, return list."
+      ]
+    },
+    {
+      "name": "Search Staff Manual Placement by ID",
+      "steps": [
+        "If ID > 0, set procedure name 'StaffManualPlacementSearchID'.",
+        "Add ID parameter.",
+        "Retrieve data and fill StaffManualPlacement objects."
+      ]
+    }
+  ],
+  "business_rules": [
+    "ProgramID must not be Database.NullInt.",
+    "RcvAgencyID must not be Database.NullInt.",
+    "DurationHours must be a valid integer.",
+    "GroupSize must be a valid integer."
+  ],
+  "validations": [
+    "ProgramID required (error: Program must be entered).",
+    "RcvAgencyID required (error: Agency must be specified).",
+    "DurationHours must be a valid integer (error: Hours must be a valid integer).",
+    "GroupSize must be a valid integer (error: Students must be a valid integer)."
+  ],
+  "calculations": [
+    "DurationHoursFormatted returns '' if DurationHours == -1, else formatted string.",
+    "GroupSizeFormatted is the string representation of GroupSize."
+  ],
+  "conditions": [
+    "Only add/update/delete if IsValid returns true.",
+    "Only delete/search by ID if ID > 0."
+  ],
+  "system_behavior": [
+    "Uses stored procedures for database operations.",
+    "Validates input fields before performing add/update operations.",
+    "Returns appropriate error messages for validation failures.",
+    "Fills StaffManualPlacement objects from database query results."
+  ],
+  "dependencies": [
+    "Database interaction via Sess.DB.",
+    "Resources for error messages.",
+    "DateFormatter utility."
+  ],
+  "exceptions": [
+    "Validation failures halt workflow and return error messages.",
+    "Invalid or empty IDs prevent delete/search operations."
+  ],
+  "source_document_ids": [
+    "38d623c0-e374-5e7b-8e2b-e49108c9bfa0",
+    "4c5e8df5-824c-5f70-bc92-41090c1ef323",
+    "5375acad-0b46-55b9-b19e-c4648015704c",
+    "828ddef2-0044-5299-9e29-0321692a048b",
+    "845368ce-d4f3-5c11-b0ed-c7357c837299",
+    "8a0099ac-0317-5364-bb67-74ecdf762383",
+    "e2e119d3-0c14-5ca7-a884-15952a7ec19c"
+  ],
+  "content_gaps": [
+    "No explicit authorization checks described.",
+    "No UI/UX workflow or error handling beyond DB and validation logic.",
+    "No details on concurrency, locking, or performance.",
+    "No information about historical recording or audit trails."
+  ]
+}
