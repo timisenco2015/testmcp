@@ -1,22 +1,27 @@
 {
     "filename": "EmailPopupDocument",
     "found": true,
-    "summary": "EmailPopupDocument is used to handle email popup related operations.",
-    "purpose": "Facilitates the management and deletion of email popup files in the system.",
-    "entities": [],
-    "fields": [
-        { "name": "ID", "type": "int", "description": "Identifier for the email popup document." },
-        { "name": "FileName", "type": "string", "description": "Name of the email file." },
-        { "name": "FilePath", "type": "string", "description": "Path where the email file is stored." }
-    ],
+    "summary": "EmailPopupDocument manages email-related document metadata.",
+    "purpose": "Stores and manages data related to email popups, including file paths and names.",
+    "entities": ["EmailPopupDocument"],
+    "fields": ["ID", "FileName", "FilePath", "Checked"],
     "actors": [],
-    "workflows": [],
+    "workflows": [
+        {
+            "name": "Document Search",
+            "steps": [
+                "Split DataInfo string",
+                "Create EmailPopupDocument instances",
+                "Add to list"
+            ]
+        }
+    ],
     "business_rules": [],
     "validations": [],
     "calculations": [],
     "conditions": [],
     "system_behavior": [],
-    "dependencies": [],
+    "dependencies": ["System.IO"],
     "exceptions": [],
     "source_document_ids": [
         "7287734e-f13d-550f-9249-4242db620766",
