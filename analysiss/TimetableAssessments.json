@@ -1,1 +1,39 @@
-{"filename":"TimetableAssessments","found":true,"summary":"Manages timetable assessment functionalities.","purpose":"To provide functionality for managing assessments associated with timetables within the educational system.","entities":["TimetableAssessment"],"fields":[],"actors":[],"workflows":[{"name":"Timetable Assessment Management","steps":["Load page","Setup assessments","Handle CRUD operations"]}],"business_rules":[],"validations":[{"control":"txtOpenDaysAfterStart","validator":"RequiredFieldValidator1"}],"calculations":[],"conditions":[],"system_behavior":["Dynamic loading of assessments based on department and timetables"],"dependencies":["System.Data.SqlClient","HSPnet.Framework"],"exceptions":[],"source_document_ids":["0781696d-dec4-5dfc-aa58-80ddd173c0ae","0d330d29-e0a7-5f88-8c71-d32f88b252b0"],"content_gaps":[]}
+{
+  "TimetableAssessments": {
+    "filename": "TimetableAssessments",
+    "found": true,
+    "summary": "Manages student assessments tied to specific timetables.",
+    "purpose": "To organize and manage assessments assigned to students based on timetable data.",
+    "entities": ["TimetableAssessment"],
+    "fields": [
+      {"name": "ID", "type": "int"},
+      {"name": "AssessorTypeCodeID", "type": "int"},
+      {"name": "SubjectTypeCodeID", "type": "int"},
+      {"name": "AssessmentTypeCodeID", "type": "int"},
+      {"name": "AssessmentTemplateCodeID", "type": "int"}
+    ],
+    "actors": ["Assessor", "Subject"],
+    "workflows": [
+      {
+        "name": "Manage Assessments",
+        "steps": [
+          "Load and bind timetable assessments data.",
+          "Edit or add assessments using structured forms.",
+          "Validate and save changes to the database."
+        ]
+      }
+    ],
+    "business_rules": [],
+    "validations": [],
+    "calculations": [],
+    "conditions": [],
+    "system_behavior": [],
+    "dependencies": [],
+    "exceptions": [],
+    "source_document_ids": [
+      "0781696d-dec4-5dfc-aa58-80ddd173c0ae",
+      "528d9fc6-cb63-5c52-9327-f323552f37e3"
+    ],
+    "content_gaps": []
+  }
+}
