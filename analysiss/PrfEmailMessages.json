@@ -1,62 +1,91 @@
 {
-    "filename": "PrfEmailMessages",
-    "found": true,
-    "summary": "The PrfEmailMessages document concerns managing email messages related to staff profiles within a web application. It includes functionality for displaying, editing, inserting, and deleting email messages, with integration for caching and session management.",
-    "purpose": "To provide functionality for managing staff email messages within the web application, including CRUD operations and validation.",
-    "entities": [
-        "PrfEmailMessages"
-    ],
-    "fields": [
-        "mdlDetails",
-        "ValidationSummary1",
-        "uxDetail",
-        "dsStaffMessagesID",
-        "dsType",
-        "updPnlMain",
-        "pnlEmptyData",
-        "lblEmptyData",
-        "cmdAddEmptyData",
-        "gridData"
-    ],
-    "actors": [
-        "Staff",
-        "UserSession"
-    ],
-    "workflows": [
-        {
-            "name": "Email Message Management",
-            "steps": [
-                "Load Page",
-                "Select Email Message",
-                "Insert Email Message",
-                "Update Email Message",
-                "Delete Email Message",
-                "Session Management"
-            ]
-        }
-    ],
-    "business_rules": [],
-    "validations": [
-        "Email type must be selected from dropdown",
-        "Screen is editable based on session state"
-    ],
-    "calculations": [],
-    "conditions": [],
-    "system_behavior": [
-        "Auto-generated fields are modified directly in code-behind",
-        "Redirects on save and delete actions",
-        "Handles objects from data source selecting and updating"
-    ],
-    "dependencies": [],
-    "exceptions": [],
-    "source_document_ids": [
-        "54eb7f90-aa81-5c73-9edf-449b18368886",
-        "747bb576-2d1e-515e-844c-e5b69a297c7f",
-        "766d2735-749a-5eca-9d70-13ff77e83546",
-        "cf2f0c7f-251f-5853-a971-0e529d5cb0f0",
-        "d2df2107-29e7-5d6e-aafe-d55e8532eeca",
-        "edab8455-e683-5ca9-84d6-77349d98c7a5",
-        "f8b1f8d2-c584-576d-b5c1-20135d6f0924"
-    ],
-    "content_gaps": []
+  "filename": "PrfEmailMessages",
+  "found": true,
+  "summary": "The PrfEmailMessages document relates to managing staff messages in a web application using ASP.NET. It includes user controls for the staff profile, specifically for handling email messages. The document discusses the setup of controls for displaying, editing, inserting, and deleting staff messages.",
+  "purpose": "To provide functionality for managing staff email messages within the web application, allowing users to add, edit, and delete messages, and handle data operations with validation and session management.",
+  "entities": [],
+  "fields": [
+    {
+      "name": "mdlDetails",
+      "type": "AjaxControlToolkit.ModalPopupExtender",
+      "description": "Provides functionality for modal popup on the webpage."
+    },
+    {
+      "name": "ValidationSummary1",
+      "type": "System.Web.UI.WebControls.ValidationSummary",
+      "description": "Displays a summary of validation errors in the page."
+    },
+    {
+      "name": "uxDetail",
+      "type": "System.Web.UI.WebControls.FormView",
+      "description": "FormView control for displaying detailed information of a single staff message."
+    },
+    {
+      "name": "dsStaffMessagesID",
+      "type": "System.Web.UI.WebControls.ObjectDataSource",
+      "description": "Data source for retrieving staff messages based on ID."
+    },
+    {
+      "name": "dsType",
+      "type": "System.Web.UI.WebControls.ObjectDataSource",
+      "description": "Data source for handling message types."
+    }
+  ],
+  "actors": [
+    {
+      "name": "UserSession",
+      "role": "Represents the session for the current user interacting with the web application."
+    },
+    {
+      "name": "StaffID",
+      "role": "Identifier for staff members managing messages."
+    }
+  ],
+  "workflows": [
+    {
+      "name": "Staff Messages Management",
+      "steps": [
+        "Load user session and initialize controls.",
+        "Bind data to the FormView uxDetail for displaying details.",
+        "Handle insert, update, and delete operations via commands.",
+        "Redirect user after operations to maintain session continuity."
+      ]
+    }
+  ],
+  "business_rules": [],
+  "validations": [
+    {
+      "condition": "Page.IsValid",
+      "description": "Ensures page validation passes before proceeding with insert or update operations."
+    }
+  ],
+  "calculations": [],
+  "conditions": [
+    {
+      "description": "ScreenIsEditable determines if the user can perform edit operations."
+    },
+    {
+      "description": "Grid sets up buttons based on edit permissions."
+    }
+  ],
+  "system_behavior": [
+    {
+      "description": "Disables edit fields if the screen is not editable."
+    },
+    {
+      "description": "Caches user session after data operations."
+    }
+  ],
+  "dependencies": [],
+  "exceptions": [],
+  "source_document_ids": [
+    "54eb7f90-aa81-5c73-9edf-449b18368886",
+    "747bb576-2d1e-515e-844c-e5b69a297c7f",
+    "766d2735-749a-5eca-9d70-13ff77e83546",
+    "cf2f0c7f-251f-5853-a971-0e529d5cb0f0",
+    "d2df2107-29e7-5d6e-aafe-d55e8532eeca",
+    "edab8455-e683-5ca9-84d6-77349d98c7a5",
+    "f8b1f8d2-c584-576d-b5c1-20135d6f0924"
+  ],
+  "content_gaps": []
 }
