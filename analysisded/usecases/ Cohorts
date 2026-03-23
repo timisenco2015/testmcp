@@ -1,0 +1,86 @@
+# Module: Cohorts
+
+## Cohorts-UC1 — Manage Cohort Dates
+- Primary Actor(s): System Administrator
+- Secondary Actor(s): End User
+- Trigger: User checks a date input checkbox.
+- Description: When the checkbox is checked, the system sets date-related fields based on user input and verifies the dates.
+- Preconditions: User is on the cohort management screen and has necessary permissions.
+- Postconditions: Dates are validated and saved, or errors are displayed.
+- Main Success Scenario:
+  1. User checks the checkbox for editing dates.
+  2. System retrieves and validates the end date.
+  3. System displays the validated date or an error message.
+- Extensions: None.
+- Exceptions: If date validation fails, an error message is displayed.
+- Business Rules: Date input must be in the specified format.
+- Assumptions: User inputs a valid date.
+- Open Issues: None.
+
+## Cohorts-UC2 — Cohort Selection and Display
+- Primary Actor(s): System Administrator
+- Secondary Actor(s): End User
+- Trigger: Page load or user interaction.
+- Description: Cohorts are loaded and displayed in a dropdown list for selection.
+- Preconditions: Cohorts data exists in the system.
+- Postconditions: Cohorts are displayed for user selection.
+- Main Success Scenario:
+  1. System retrieves cohorts data from the database.
+  2. System populates the dropdown list with available cohorts.
+  3. User selects a cohort from the list.
+- Extensions: Additional cohorts can be added.
+- Exceptions: If no cohort data exists, dropdown remains empty.
+- Business Rules: Dropdown list must be populated with valid cohort names.
+- Assumptions: Cohorts are preloaded in the database.
+- Open Issues: None.
+
+## Cohorts-UC3 — Enrollment and End Date Entry
+- Primary Actor(s): System Administrator
+- Secondary Actor(s): End User
+- Trigger: User selects cohort management options.
+- Description: User enters expected enrollment and end date for cohorts.
+- Preconditions: Cohort management feature is enabled.
+- Postconditions: Enrollment and end date are stored and used for planning.
+- Main Success Scenario:
+  1. User enters expected enrollment and end date.
+  2. System validates and saves the data.
+  3. System updates enrollment planning fields.
+- Extensions: None.
+- Exceptions: Invalid enrollment or date entry results in an error message.
+- Business Rules: Enrollment must be a positive integer; end date must be a valid date.
+- Assumptions: User has correct permissions.
+- Open Issues: None.
+
+## Cohorts-UC4 — Cohort Copy Functionality
+- Primary Actor(s): System Administrator
+- Secondary Actor(s): End User
+- Trigger: User selects to copy cohort data.
+- Description: User can copy an existing cohort to create a new one with similar attributes.
+- Preconditions: Existing cohorts are available for copying.
+- Postconditions: New cohort is created based on existing cohort data.
+- Main Success Scenario:
+  1. User selects an existing cohort to copy.
+  2. User enters details for the new cohort.
+  3. System copies existing data to create a new cohort.
+- Extensions: None.
+- Exceptions: If no cohort data is selected, copying cannot proceed.
+- Business Rules: User must have permissions to copy cohort data.
+- Assumptions: Cohorts are properly configured in the system.
+- Open Issues: None.
+
+## Cohorts-UC5 — Error and Warning Management
+- Primary Actor(s): System Administrator
+- Secondary Actor(s): End User
+- Trigger: System detects validation errors or warnings.
+- Description: The system displays errors or warnings related to cohort data.
+- Preconditions: User is interacting with cohort management features.
+- Postconditions: Errors or warnings are displayed for corrective action.
+- Main Success Scenario:
+  1. System detects an error or warning.
+  2. System displays the error or warning message.
+  3. User takes corrective action.
+- Extensions: None.
+- Exceptions: None.
+- Business Rules: Error messages should be clear and actionable.
+- Assumptions: System has error detection capabilities.
+- Open Issues: None.
