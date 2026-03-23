@@ -1,0 +1,80 @@
+Here is the JSON output for the filename "EOrientation":
+
+```json
+{
+  "filename": "EOrientation",
+  "found": true,
+  "summary": "The document includes details related to student immunization, confidentiality, and various health mandates with statuses, dates, and related code IDs.",
+  "purpose": "To manage student prerequisites and health requirements.",
+  "entities": [],
+  "fields": [
+    "VaricellaStatusCodeDesc",
+    "FluStatusCodeDesc",
+    "ChestXRayStatusCodeDesc",
+    "HepAGResultsCodeDesc",
+    "Step1StatusCodeDesc",
+    "Step2StatusCodeDesc",
+    "InfluenzaAdminDateDD",
+    "HepBFirstShotDate",
+    "HepBSecondShotDate",
+    "HepBThirdShotDate",
+    "HepABTestDate",
+    "PolioReinforcingDoseDate",
+    "MeaslesAdminDate",
+    "RubellaAdminDate",
+    "MumpsAdminDate",
+    "TetanusAdminDate",
+    "N95MaskFitTestDate"
+  ],
+  "actors": [
+    "Student",
+    "Staff",
+    "HSPnetSession"
+  ],
+  "workflows": [
+    {
+      "name": "StudentDetailsSafetyUpdate",
+      "steps": [
+        "Validate prerequisite information.",
+        "Update database with safety details.",
+        "Execute query."
+      ]
+    }
+  ],
+  "business_rules": [
+    "If the N95 mask size is specified, the fit test date must be provided.",
+    "Expiry date must be specified if expiry years are given.",
+    "Health status code entails completion of related data and tests."
+  ],
+  "validations": [
+    "Check for date validity and completeness for various health requirements.",
+    "Ensure expiry dates are on or after complete dates."
+  ],
+  "calculations": [],
+  "conditions": [
+    "If COVID-19 status code is encountered, corresponding data must be checked.",
+    "Dates exceeding five years must be flagged."
+  ],
+  "system_behavior": [],
+  "dependencies": [
+    "Database connection for data retrieval and update.",
+    "Valid session management."
+  ],
+  "exceptions": [
+    "Invalid date formats will raise errors.",
+    "Missing required fields will halt processing."
+  ],
+  "source_document_ids": [
+    "f1337cc9-2c22-570f-8028-6d6cf3d3f36d",
+    "9dc9edf7-a95e-57c9-ae8e-a04ecdfa88be",
+    "dadce6a1-e08f-5117-9767-bb9b5e83fef7",
+    "9c001d9f-6b5e-5efb-bae5-beec7494b84c",
+    "b017c1aa-ba9e-5224-b66a-42e4768ed23b",
+    "ebc8c8c16-1482-5149-87fd-34c4724af0a2",
+    "eldb6500-7e63-5aba-b652-8cfbbf9b798d"
+  ],
+  "content_gaps": []
+}
+```
+
+If additional files need to be processed similarly, please specify the filename or let me know how you would like to proceed.
