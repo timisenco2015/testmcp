@@ -1,8 +1,8 @@
 {
   "filename": "PlacementRequest",
   "found": true,
-  "summary": "The 'PlacementRequest' system is designed to manage and facilitate the placement and linking of requests within the HSPnet framework. It involves various operations such as validating, linking, and unlinking placement requests. The system supports users with different roles and provides functionality to manage shared cohorts and archived or deleted requests.",
-  "purpose": "To manage placement requests for agencies and ensure proper validation, linking, and archiving within the HSPnet framework, facilitating the placement of students or professionals.",
+  "summary": "The PlacementRequest file documents interactions with a database to retrieve, check, and manage placement request details within the HSPnet system.",
+  "purpose": "It is designed to facilitate operations related to placement requests, including querying, linking, unlinking, and verification of such requests within an educational or health placement framework.",
   "entities": [],
   "fields": [
     "PRD_ID",
@@ -17,78 +17,61 @@
     "SiteID",
     "ServiceID",
     "DestinationID",
-    "RcvAgencyName",
-    "SiteShortName",
-    "ServiceShortName",
-    "DestinationShortName",
     "Discipline",
     "SubDiscipline"
   ],
   "actors": [
-    "HSPnetSession",
-    "Database",
-    "PlacementRequestDestination"
+    "HSPnet.Framework.Database",
+    "HSPnet.Framework.HSPnetSession",
+    "SqlDataReader"
   ],
   "workflows": [
     {
-      "name": "PlacementRequest Validation",
+      "name": "IsValidForMe",
       "steps": [
-        "Check user type and agency",
-        "Validate site, service, and destination access",
-        "Call 'PlacementRequestSearch' procedure",
-        "Validate against database for existing request"
+        "Check user type and agency status.",
+        "Verify SiteID, ServiceID, and DestinationID against user permissions.",
+        "Execute PlacementRequestSearch procedure.",
+        "Add necessary parameters.",
+        "Determine validity and return status."
       ]
     },
     {
-      "name": "PlacementRequest Linking",
+      "name": "PlacementRequestLink",
       "steps": [
-        "Set procedure to 'PlacementRequestLink'",
-        "Execute query with session and PR list",
-        "Check for SQL errors and log warnings or errors"
-      ]
-    },
-    {
-      "name": "PlacementRequest Unlinking",
-      "steps": [
-        "Set procedure to 'PlacementRequestUnLink'",
-        "Execute query with session and PR ID"
-      ]
-    },
-    {
-      "name": "Check Shared Cohort",
-      "steps": [
-        "Set procedure to 'QESCheckOldRuleCohort'",
-        "Check database for 'SharedCohort' value"
+        "Set procedure name.",
+        "Add SessionID and PRList parameters.",
+        "Execute query.",
+        "Check for SQL errors, returning false if occurred."
       ]
     }
   ],
   "business_rules": [
-    "Placement requests must pass validation checks for user type and associated agencies",
-    "Site, service, and destination must not be blank for access validations",
-    "Linking and unlinking operations should handle SQL errors gracefully"
+    "Non-NIS/IRP users must have site, service, and destination checked first.",
+    "Procedure for checking deleted or archived requests is called only if valid ID exists."
   ],
   "validations": [
-    "Validate site access if user type is 1 or 2",
-    "Validate service access if user type is 1 or 2",
-    "Validate destination access if user type is 1 or 2"
+    "Check if read data includes a valid ID.",
+    "Ensure Site, Service, and Destination IDs are non-zero for access verification.",
+    "Validate whether placement request is shared within a cohort."
   ],
-  "calculations": [
-    "Determine HSPnet term start and end dates based on month"
-  ],
+  "calculations": [],
   "conditions": [
-    "UserType condition for validation",
-    "Check if ‘SharedCohort’ is not zero"
+    "User type is either 1 or 2.",
+    "Session is not associated with NIS or IRP agencies.",
+    "ID checks ensure participation in certain processes."
   ],
   "system_behavior": [
-    "Caches email subjects to ensure consistency across session",
-    "Uses stored procedures for database interactions"
+    "Performs multiple database operations like searching, linking, and unlinking.",
+    "Caches email subjects for consistent email notifications."
   ],
   "dependencies": [
-    "Requires HSPnet framework and resources",
-    "Depends on database stored procedures for operation"
+    "Relies on the HSPnet system's database for executing stored procedures.",
+    "Requires session data for specific operations."
   ],
   "exceptions": [
-    "Handle SQL errors during linking and provide appropriate error messages"
+    "SQL errors during linking operations return a false status and log an error.",
+    "Conditions not met in user checks lead to direct false return."
   ],
   "source_document_ids": [
     "15235962-0eeb-54d6-9f5b-edaa8346fba6",
