@@ -1,19 +1,62 @@
 {
     "filename": "SiteProfileHistory",
     "found": true,
-    "summary": "SiteProfileHistory is associated with tracking changes and actions related to site profiles, including user actions and formatted details.",
-    "purpose": "To record and format historical actions on site profiles, including user and agency information.",
-    "entities": ["SiteProfileHistory", "SiteProfileHistories"],
-    "fields": ["ID", "ActionDate", "ScreenSection", "UserAction", "Fields", "Agency", "AgencyName", "LastName", "FirstName", "MiddleName", "Phone", "ByUserID", "ByOriginalUserID", "ByUserSysAdmin", "ActionDateFormatted", "AgencyUserFormatted", "AgencyUserDetailsFormatted"],
-    "actors": [],
-    "workflows": [],
+    "summary": "Tracks changes made to site profiles, including user actions, date of changes, and affected fields. Supports querying by site and session agency.",
+    "purpose": "To provide a historical record of changes to site profiles for auditing and tracking purposes.",
+    "entities": [
+        "SiteProfileHistory",
+        "HSPnetSession"
+    ],
+    "fields": [
+        "ID",
+        "ActionDate",
+        "ScreenSection",
+        "UserAction",
+        "Fields",
+        "Agency",
+        "AgencyName",
+        "LastName",
+        "FirstName",
+        "MiddleName",
+        "Phone",
+        "ByUserID",
+        "ByOriginalUserID",
+        "ByUserSysAdmin"
+    ],
+    "actors": [
+        "Site Administrator"
+    ],
+    "workflows": [
+        {
+            "name": "Search Site Profile History",
+            "steps": [
+                "Set stored procedure for database query.",
+                "Add necessary parameters like SiteID and SessionAgencyID.",
+                "Read and map results to SiteProfileHistory objects.",
+                "Return list of site profile history entries."
+            ]
+        }
+    ],
     "business_rules": [],
     "validations": [],
-    "calculations": [],
+    "calculations": [
+        "Format ActionDate to a short date string for display."
+    ],
     "conditions": [],
-    "system_behavior": ["Formatting dates and names", "Database interactions"],
-    "dependencies": ["HSPnetSession", "Resources", "NameFormatter", "Database"],
+    "system_behavior": [
+        "Display the name and contact details of the user who made changes."
+    ],
+    "dependencies": [
+        "HSPnet.Framework",
+        "Phone"
+    ],
     "exceptions": [],
-    "source_document_ids": ["25f89a24-5eda-5a3f-83df-1de69b12b3f1", "26e09292-d304-55c6-94e5-ef3346453c4b", "7ca6b963-9ae9-5cd3-82d5-f30dcb727ae3"],
+    "source_document_ids": [
+        "25f89a24-5eda-5a3f-83df-1de69b12b3f1",
+        "26e09292-d304-55c6-94e5-ef3346453c4b",
+        "7ca6b963-9ae9-5cd3-82d5-f30dcb727ae3",
+        "a8f030c6-90b8-53a1-bb8a-3b7ef33b9488",
+        "e806999c-3a39-5720-9b59-303faebc9eb6"
+    ],
     "content_gaps": []
 }
