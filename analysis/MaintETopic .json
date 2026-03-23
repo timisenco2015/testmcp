@@ -1,0 +1,131 @@
+{
+  "filename": "MaintETopic",
+  "found": true,
+  "summary": "MaintETopic is a web-based maintenance interface for managing electronic topics (eTopics) associated with courses, disciplines, and sites. It uses a tabbed layout to present Summary, Application, and History (Status and Application) information. It integrates user session permissions, controls screen editability, and provides validation, error, and warning handling, as well as navigation and data-binding for user controls.",
+  "purpose": "To enable users to view, create, and maintain eTopics, and to review their application history and status changes within an organization. The interface exposes various controls for filtering by topic, course, discipline, and site, in addition to allowing authorized users to edit details.",
+  "entities": [
+    "UserSession",
+    "ETopic",
+    "Course",
+    "Discipline",
+    "Site"
+  ],
+  "fields": [
+    "TopicName",
+    "CourseName",
+    "Ref",
+    "SiteAppliedTo",
+    "DiscAppliedTo",
+    "ETopicID",
+    "CourseID"
+  ],
+  "actors": [
+    "Authenticated User",
+    "Administrator"
+  ],
+  "workflows": [
+    {
+      "name": "Load eTopic Page",
+      "steps": [
+        "Validate URL hash and authenticate user session.",
+        "Setup page and register JavaScript includes.",
+        "Read query string for CurrentPage, CourseID, and ETopicID.",
+        "If IDs are missing, show error and hide topic info panel.",
+        "If IDs exist, populate hidden field and retrieve eTopic data object.",
+        "Check user permissions (edit vs. view-only) based on user session and eTopic.",
+        "Display fields for topic, course, reference, site(s), and discipline(s).",
+        "Configure tab visibility and active tab based on CurrentPage."
+      ]
+    },
+    {
+      "name": "Tab Navigation",
+      "steps": [
+        "If Summary tab is active, call LoadSummary (bind UCSummary control).",
+        "If Application tab is active, call LoadApplication (bind UCApplication control).",
+        "If History tab is active, evaluate subtab (StatusHistory/ApplicationHistory) and bind appropriate control."
+      ]
+    },
+    {
+      "name": "Access and State Validation",
+      "steps": [
+        "If user is in CMOrientation and belongs to the same agency and is not view-only, mark screen as editable.",
+        "Update tab headers to show status/application existence flags.",
+        "Prepare UI panels for errors and warnings."
+      ]
+    },
+    {
+      "name": "History Review",
+      "steps": [
+        "Load status and application history based on user action.",
+        "Display relevant history in the appropriate subtab and control.",
+        "Set visibility and context for embedded user controls."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Screen is editable only if (UserSession.CMOrientation) and (UserSession.AgencyID == _eTopic.AgencyID) and (user is not view-only).",
+    "If no valid ETopicID or CourseID is provided, the eTopic information panel is hidden and an error is displayed.",
+    "Tab header text updates to show existence flags if status or application records exist."
+  ],
+  "validations": [
+    "URL hash validation on page load.",
+    "Check for valid ETopicID and CourseID.",
+    "Check that IDs conform to UUID format where required.",
+    "Only users meeting edit rules may edit; others are view-only."
+  ],
+  "calculations": [],
+  "conditions": [
+    "Active tab changes trigger data reload for the appropriate panel/user control.",
+    "History view (status or application) depends on user navigation.",
+    "Visibility of error/warning panels depends on system state and validation results."
+  ],
+  "system_behavior": [
+    "Page initializes with tabs; each tab contains a user control for part of the eTopic data.",
+    "AJAX and JavaScript enhance UI (tab navigation, always-visible controls, etc.).",
+    "Error and warning panels display messages relevant to validation or runtime exceptions.",
+    "System handles data binding and sets visibility of user controls based on context."
+  ],
+  "dependencies": [
+    "DataLayer.ETopics.ETopicInfo for data retrieval.",
+    "UserControls: MaintETopic.Summary, MaintETopic.Application, MaintETopic.History.",
+    "AjaxControlToolkit for tabbed UI.",
+    "Session-based permission and messaging subsystems.",
+    "ScriptManager for client-side scripting support."
+  ],
+  "exceptions": [
+    "If CourseID and ETopicID are both missing or invalid, the page renders an error and hides the topic info.",
+    "If a tab is activated that does not match available views, defaults to Summary.",
+    "Failed data retrieval or binding sets error messages and hides affected controls."
+  ],
+  "source_document_ids": [
+    "01137285-ad84-5978-a781-9292657a75e2",
+    "01a41286-20b2-5b46-be41-d0da32d82cf5",
+    "0b39173d-3285-55d1-ab01-969d9f8f33b8",
+    "0c93c44a-3932-577b-b583-81f83a47e0be",
+    "2a192151-c8ff-5548-89b8-64a4c63b86d6",
+    "36ca406f-fc95-5e67-b69e-ce4a81113107",
+    "3cb332ee-7ecc-55b3-8952-11771fed3c87",
+    "60c02817-81c1-5a11-8713-e16aae331b07",
+    "699f7e67-523e-5e4f-aee1-47f296630850",
+    "75baf221-1e8f-5455-867b-ee0c3aaf7efa",
+    "8ffb3beb-5546-55cd-a5d3-dd3a660fd78d",
+    "9962ee8f-9846-5d28-ae48-5840bea10bf0",
+    "9be71b19-9830-5a17-8c70-63022a371191",
+    "ab3712e2-666b-59cf-870a-7c9ccf3058a8",
+    "b9c511d3-d580-5d56-b8a1-819ea68b264a",
+    "c89e32ad-af1e-5e92-b7f5-047091804a5f",
+    "cd30bdcb-4b58-5e41-9ade-de1370896270",
+    "d329e846-a1b8-5680-95a2-99217ebfb25b",
+    "d36fe8c5-bcf7-5ac3-ba82-04828b4b6dd7",
+    "d561c3b3-bc4f-52ad-8803-031b03a5e5f0",
+    "e6ee9752-549a-5368-8405-6f7cb460569d",
+    "ee1ec47b-5760-54c4-8d00-06b2ad942575",
+    "f7a6b819-ee29-5ae6-b83e-0e6232c6052c"
+  ],
+  "content_gaps": [
+    "Specific details about the inner logic of user controls (UCSummary, UCApplication, UCHistory) were not available.",
+    "Data schema for ETopic, Summary, Application, and History objects is partially inferred from control field names.",
+    "Error and warning handling is described in general; details of message text or localization are not available.",
+    "JavaScript/CSS specifics (e.g., for tab behavior) are referenced but not included in full."
+  ]
+}
