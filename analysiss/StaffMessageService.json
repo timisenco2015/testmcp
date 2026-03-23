@@ -1,0 +1,56 @@
+{
+  "filename": "StaffMessageService",
+  "found": true,
+  "summary": "The StaffMessageService is a web service for retrieving staff messages based on a given ID.",
+  "purpose": "To provide functionality for retrieving the text of a staff message using its ID through a web service.",
+  "entities": [
+    "StaffMessage"
+  ],
+  "fields": [
+    "sessionHash",
+    "id",
+    "Message"
+  ],
+  "actors": [
+    "StaffMessageService"
+  ],
+  "workflows": [
+    {
+      "name": "Retrieve Staff Message by ID",
+      "steps": [
+        "Receive sessionHash and id as parameters.",
+        "Convert sessionHash to sessionID using HSPnetSession.GetSessionIDFromHash.",
+        "Search for the staff message using StaffMessages.StaffMessagesSearchID with sessionID and id.",
+        "If the message is found, return the message text.",
+        "If no message is found, return an empty string."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Staff messages are retrieved only if a valid sessionHash and ID are provided."
+  ],
+  "validations": [
+    "Check if the staff message exists after searching with sessionID and id."
+  ],
+  "calculations": [
+    "Conversion of sessionHash to sessionID."
+  ],
+  "conditions": [
+    "If msg is not null, return msg.Message.",
+    "If msg is null, return String.Empty."
+  ],
+  "system_behavior": [
+    "The service caches the staff message retrieval response for 60 seconds."
+  ],
+  "dependencies": [
+    "HSPnetSession",
+    "StaffMessages"
+  ],
+  "exceptions": [
+    "Returns an empty string if no staff message is found for the given ID."
+  ],
+  "source_document_ids": [
+    "60df7613-1790-5d7c-8456-92d9d6e26b19"
+  ],
+  "content_gaps": []
+}
