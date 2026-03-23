@@ -1,0 +1,113 @@
+# Module: HomeDestLookups
+
+## HomeDestLookups-UC1 — Retrieve Home Sites
+- Primary Actor(s): User
+- Secondary Actor(s): System
+- Trigger: User selects a category from the AJAX toolkit cascading dropdown.
+- Description: Retrieves a list of home sites based on the selected category values.
+- Preconditions: User has access to the system.
+- Postconditions: Matching home site details are displayed in the dropdown.
+- Main Success Scenario:
+  1. User selects a category in the dropdown.
+  2. The system fetches the corresponding site list using the selected category.
+  3. Home site details are populated in the dropdown.
+- Extensions:
+  - None.
+- Exceptions:
+  - If the category does not provide valid site information, no data is returned.
+- Business Rules:
+  - Site information should be retrieved within a 60-second cache duration.
+- Assumptions:
+  - User session is valid.
+- Open Issues:
+  - None.
+
+## HomeDestLookups-UC2 — Retrieve Home Destinations by Service
+- Primary Actor(s): User
+- Secondary Actor(s): System
+- Trigger: User selects knownCategoryValues and contextKey.
+- Description: Provides destinations linked by the selected service.
+- Preconditions: User has selected appropriate service keys.
+- Postconditions: Displays associated destination information.
+- Main Success Scenario:
+  1. User inputs knownCategoryValues.
+  2. System parses the service ID and retrieves matching destinations.
+  3. Destination data is updated in the dropdown.
+- Extensions:
+  - None.
+- Exceptions:
+  - Service ID not found results in a null response.
+- Business Rules:
+  - Destination lookup should respect agency-specific filters.
+- Assumptions:
+  - Service keys provide valid category mappings.
+- Open Issues:
+  - None.
+
+## HomeDestLookups-UC3 — Retrieve Home Destinations by Agency
+- Primary Actor(s): User
+- Secondary Actor(s): System
+- Trigger: User requests destination lists within their agency.
+- Description: Provides a comprehensive list of destinations for an agency.
+- Preconditions: User is part of the agency.
+- Postconditions: User views destinations linked to their agency.
+- Main Success Scenario:
+  1. User initiates a destination lookup by agency.
+  2. System verifies agency membership.
+  3. Destinations are fetched and displayed.
+- Extensions:
+  - None.
+- Exceptions:
+  - Invalid agencyID returns an empty list.
+- Business Rules:
+  - Agency destinations lookup should include user-specific filters.
+- Assumptions:
+  - User session contains valid agency information.
+- Open Issues:
+  - None.
+
+## HomeDestLookups-UC4 — Retrieve Home Services Linked to Site
+- Primary Actor(s): User
+- Secondary Actor(s): System
+- Trigger: User selects knownCategoryValues and site information.
+- Description: Retrieves services provided at a specified site.
+- Preconditions: User has site-related access.
+- Postconditions: Services are displayed under the site category.
+- Main Success Scenario:
+  1. User selects site information.
+  2. System retrieves services linked to the site.
+  3. Services list is populated for user selection.
+- Extensions:
+  - None.
+- Exceptions:
+  - SiteID mismatch results in no service retrieval.
+- Business Rules:
+  - Service lookups should account for site-specific configurations.
+- Assumptions:
+  - Selected site has service data available.
+- Open Issues:
+  - None.
+
+## HomeDestLookups-UC5 — Retrieve Sites by Agency ID
+- Primary Actor(s): User
+- Secondary Actor(s): System
+- Trigger: User requests site information for a specific agency.
+- Description: Fetches sites associated with the selected agency ID.
+- Preconditions: Valid agency ID is provided.
+- Postconditions: Sites under the agency are displayed.
+- Main Success Scenario:
+  1. User enters agencyID.
+  2. System retrieves sites linked to agencyID.
+  3. Sites information is displayed for user interaction.
+- Extensions:
+  - None.
+- Exceptions:
+  - Invalid agencyID returns null or empty list.
+- Business Rules:
+  - Site retrieval must adhere to agency-specific configurations.
+- Assumptions:
+  - Valid agency data in user session.
+- Open Issues:
+  - None.
+
+(If more use cases exist, continue in similar format)
