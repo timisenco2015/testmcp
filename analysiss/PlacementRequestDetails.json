@@ -1,0 +1,100 @@
+{
+  "filename": "PlacementRequestDetails",
+  "found": true,
+  "summary": "The PlacementRequestDetails page supports the management and viewing of placement requests in HSPnet. It includes various user interface components for handling details about contacts, programs, students, placements, comments, documents, assessments, and history. It offers controls like panels, literals, labels, buttons, and hyperlinks for interacting with placement request data.",
+  "purpose": "To manage and display detailed information about placement requests, including controls for editing, navigating, and interacting with different aspects of a placement request.",
+  "entities": [],
+  "fields": [
+    "lblWarningCaption",
+    "lblWarningList",
+    "cmdHideWarningPanel",
+    "lblPleaseWait",
+    "lblReportHTML",
+    "cmdPrint",
+    "cmdPrintForm",
+    "pnlWarning",
+    "pnlReportHTML",
+    "uxStatus",
+    "uxDates",
+    "spnSubtitle",
+    "imgReadOnlyLocked",
+    "ltlHeaderID",
+    "ltlHeaderAgencyName",
+    "ltlHeaderRcvAgencyName",
+    "ltlHeaderDestinationDetails",
+    "ltlHeaderRequestCode"
+  ],
+  "actors": [
+    "UserSession",
+    "HSPnet.PlacementRequestDetails",
+    "PlacementRequestDestination",
+    "PlacementRequestCourse",
+    "PlacementRequestStudentInfo",
+    "AjaxControlToolkit.TabPanel"
+  ],
+  "workflows": [
+    {
+      "name": "Display Placement Request Details",
+      "steps": [
+        "Load page with relevant placement request data.",
+        "Setup session user roles and permissions.",
+        "Display placement request details including students, program, and status.",
+        "Enable or disable tabs and controls based on user permissions and request status.",
+        "Provide interaction controls for editing, printing, and navigating through the tabs."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Only users with the appropriate permissions can edit placement requests.",
+    "Placement requests older than 18 months are read-only unless accessed by a system administrator.",
+    "The status of the placement request influences what data is visible and editable.",
+    "If the request was created by QES and is not part of a shared cohort, changes can be made."
+  ],
+  "validations": [
+    "Time periods and shift codes must be valid and within expected ranges.",
+    "Dates such as start and end dates, reply dates, and orientation dates have interdependencies and validation rules.",
+    "Assessment templates and types influence which sections are displayed and required."
+  ],
+  "calculations": [
+    "Shift duration is calculated based on number of shifts and shift length.",
+    "Block and date validations calculate differences to ensure logical time sequences."
+  ],
+  "conditions": [
+    "Visibility and functionality of controls depend on user roles, request status, and specific tab context.",
+    "Editability of fields is influenced by session parameters and request details."
+  ],
+  "system_behavior": [
+    "Tabs and controls are dynamically enabled or disabled based on user roles and specific conditions.",
+    "Panel and control visibility adapts to the session user permissions and active tab context.",
+    "User feedback and messages are displayed based on interactions and session data."
+  ],
+  "dependencies": [
+    "Interdependent controls such as dates, shifts, and user permissions.",
+    "Access to session and query parameters for dynamic page setup and validation."
+  ],
+  "exceptions": [
+    "Rendering errors and toggling visibility when invalid parameters are encountered.",
+    "Errors in date calculations or validations are captured and communicated to the user."
+  ],
+  "source_document_ids": [
+    "00d268f0-1cb4-5563-a7b4-a363ab4d0db5",
+    "04bc3b0d-516a-5ec7-8872-df47f50699c3",
+    "07104b83-1689-5758-af57-5626db405496",
+    "0fb92401-99e9-55ff-bba6-e0194b670e3a",
+    "0fc8659a-4510-5f5c-ba99-810b7803bcd0",
+    "1210304d-eabf-5a98-b912-a8977fda7161",
+    "12b3f789-1f98-5e5a-965c-ab2bf365ddd2",
+    "133cf2e1-00a9-5e05-af8a-091f92a9b9fd",
+    "137aacc6-9f4f-596e-b6ae-d6d0725516e7",
+    "1aaa5977-9ce9-5e8b-b18d-5c351a38d5c0",
+    "1af2cfbe-7305-53b1-a3a3-3009fa59bfa1",
+    "1fd8582b-ad35-5dd1-b5b1-d38c9fe2937f",
+    "2bed2731-ae24-5b55-875c-1a333a774724",
+    "3eb850aa-a175-53ca-9164-1a2086779606",
+    "4f4a3d1b-8fc2-542d-854d-f5e5515a2eff",
+    "5ea72b11-42e3-5bcf-bda9-f60964adfc19",
+    "c67f01c5-4bfc-5a82-bb7d-47b905eb82c4",
+    "e7c3f60d-8a90-5494-81eb-e05c4fdeb322"
+  ],
+  "content_gaps": []
+}
