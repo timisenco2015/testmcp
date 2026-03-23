@@ -1,0 +1,54 @@
+```json
+{
+  "filename": "HomeDestLookups",
+  "found": true,
+  "summary": "Web service for retrieving home destination data for AJAX cascading dropdowns.",
+  "purpose": "Provide home destination data for AJAX Toolkit dropdowns.",
+  "entities": ["Site", "Destination", "Service"],
+  "fields": ["ID", "Name", "SiteShortName", "ServiceShortName", "ShortName"],
+  "actors": ["System.Web.Services.WebService"],
+  "workflows": [
+    {
+      "name": "GetHomeSites",
+      "steps": ["SiteSearchAgency", "Parse contextKey", "Return values"]
+    },
+    {
+      "name": "GetHomeDest",
+      "steps": ["ParseKnownCategoryValuesString", "Convert category", "Return values"]
+    },
+    {
+      "name": "GetHomeDestListByService",
+      "steps": ["Parse knownCategoryValues", "Convert category", "Return values"]
+    },
+    {
+      "name": "GetHomeServices",
+      "steps": ["ParseKnownCategoryValuesString", "Convert category", "Return values"]
+    },
+    {
+      "name": "GetHomeSrvListBySite",
+      "steps": ["Parse knownCategoryValues", "Convert category", "Return values"]
+    },
+    {
+      "name": "GetHomeSitesByAgencyID",
+      "steps": ["GetByAgencyID", "Parse contextKey", "Return values"]
+    }
+  ],
+  "business_rules": ["Process only valid category values"],
+  "validations": ["Check if knownCategoryValues contains category"],
+  "calculations": ["Convert category to integer", "Session ID parsing"],
+  "conditions": ["Check for empty contextKey"],
+  "system_behavior": ["BufferResponse", "CacheDuration"],
+  "dependencies": ["HSPnet.DataLayer", "HSPnet.Framework"],
+  "exceptions": ["Return null for invalid inputs"],
+  "source_document_ids": [
+    "04d9347e-c6fb-5dcf-9a02-c8941c1681e7",
+    "0e716145-06b7-5a04-9263-c438f660b7e7",
+    "3624f1ca-9731-57f7-a4bd-052d3d6d911b",
+    "4eb6638e-6b2b-5a4e-812b-566260145aab",
+    "7898228d-c130-5d4e-9ad3-e07affe6eff1",
+    "c7d9bf63-18aa-5f02-aba3-2247696b6b60",
+    "cf113f09-95bc-5de2-a3f3-c10fccc9ab45"
+  ],
+  "content_gaps": []
+}
+```
