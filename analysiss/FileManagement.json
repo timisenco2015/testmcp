@@ -1,0 +1,62 @@
+{
+  "filename": "FileManagement",
+  "found": true,
+  "summary": "The FileManagement class handles file uploads, ensuring they are saved in a unique folder with options for anonymizing file names and handling image data. It includes file size validation and JPEG format checks.",
+  "purpose": "To manage the uploading and saving of files in a web application, with specific handling for anonymizing file names and processing image data.",
+  "entities": [],
+  "fields": [
+    "MAX_FILE_SIZE",
+    "FileName",
+    "FileURL",
+    "FileSize",
+    "FileType",
+    "imgBinaryData"
+  ],
+  "actors": [],
+  "workflows": [
+    {
+      "name": "Handle Uploaded File",
+      "steps": [
+        "Check if file is posted and has content.",
+        "Validate file size against MAX_FILE_SIZE.",
+        "Perform JPEG format validation if imgData is true.",
+        "Construct a new file name, optionally anonymizing it.",
+        "Create a new folder using a GUID.",
+        "Save the file to the new folder.",
+        "Set the full file name and return its relative URL.",
+        "Store image binary data if imgData is true."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Files exceeding MAX_FILE_SIZE cannot be uploaded.",
+    "Anonymize file names if the anonymize flag is true.",
+    "JPEG files must not be in 32bpp CMYK format."
+  ],
+  "validations": [
+    "File size check against MAX_FILE_SIZE.",
+    "JPEG format validation for 32bpp CMYK."
+  ],
+  "calculations": [
+    "Generate unique file folder using GUID.",
+    "Append current date and time to anonymized file names."
+  ],
+  "conditions": [
+    "f.PostedFile != null && f.PostedFile.ContentLength != 0",
+    "f.PostedFile.ContentLength > MAX_FILE_SIZE",
+    "imgData == true",
+    "anonymize == true"
+  ],
+  "system_behavior": [
+    "Create directory for file storage.",
+    "Save file in the specified location.",
+    "Return file URL relative to the application base folder."
+  ],
+  "dependencies": [],
+  "exceptions": [],
+  "source_document_ids": [
+    "da2ce0ba-079c-5f6f-b3bb-69c301a7a436",
+    "f6a09360-1b4d-53cd-b8ba-a7d25f53e1c5"
+  ],
+  "content_gaps": []
+}
