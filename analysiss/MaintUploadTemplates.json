@@ -1,68 +1,93 @@
 {
-    "filename": "MaintUploadTemplates",
-    "found": true,
-    "summary": "The MaintUploadTemplates file is part of a system for managing upload templates, particularly for handling file uploads in various formats to a database. It provides the framework and validation rules for uploading data related to student, health, and employment information.",
-    "purpose": "This file serves as a backend framework for managing data uploads, including templates for student records, health requirements, and employment data. It provides functions for data validation, error handling, and interaction with database procedures.",
-    "entities": ["UploadTemplateHeader", "UploadTempDetail", "UploadTemplates", "UploadTempDetails"],
-    "fields": [
-        "ID", "LastName", "FirstName", "PreferredFirstName", "MiddleName", "StudentNumber", "Gender", "BirthMonth", "BirthDay", "ExpectedEndDate", "Salutation", "Email", "AltEmail",
-        "Phone", "AltPhone", "AltPhone2", "Campus", "Address1", "Address2", "City", "Province", "PostalCode", "AltStudentNumber", "AltStudentNumberPA", "SAMConsent", "Comment",
-        "Cert", "CertNum", "CertStatus", "CertEffectiveDate", "CertExpiredDate", "CRCStatus", "CRCDate", "CRCNotes", "CICStatus", "CICDate", "CICNotes", "WCBStatus", "WCBDate",
-        "WCBNotes", "Section", "SsoUPN", "EmployerAgency", "EmployerSite", "EmployeeNumber", "Covid19Status", "Covid19Date1", "Covid19Date2", "Covid19Date3", "Covid19RequirementMet",
-        "Covid19Source", "OrientProvider", "OrientDate", "OrientContent", "OrientContentSource", "OrientNotes", "OtherFormsAgencyDept", "OtherFormsDateReceived", "OtherFormsType",
-        "OtherFormsNotes", "RespMaskSize", "RespAltMaskSize", "RespMaskFitTestCompleted", "RespMaskFitTestExpires", "RespMaskSolutionUsed", "RespMaskNotes", "OccHealthReqStatus",
-        "OccHealthReqStatusDate", "OccHealthReqNotes", "OccHealthReqMedicalCompleted", "OccHealthReqMedicalCompletedDate", "OccHealthReqImmunizationFeePaid", "OccHealthReqImmunizationFeeDate",
-        "SitePreRequirements", "SitePreReqCompliance", "SitePreReqComments", "RAITProvisionAgencyShortName", "RAITProvisionLoginID", "RAITProvisionEmailRequired", "RAITProvisionEmployee",
-        "RAITProvisionEmail", "Status", "Message"
-    ],
-    "actors": ["System Administrator", "Local Administrator", "Student Maintainer"],
-    "workflows": [
-        {
-            "name": "Upload Workflow",
-            "steps": [
-                "Create temporary tables using session data.",
-                "Validate each column based on predefined criteria.",
-                "Send data to the database using stored procedures.",
-                "Provide feedback on the status including errors or warnings.",
-                "Process uploads, updating contact information and student records."
-            ]
-        }
-    ],
-    "business_rules": [
-        "Only system administrators, local administrators, or student maintainers can view and modify templates.",
-        "Templates must initially support specific formats such as Excel; CSV support is deprecated.",
-        "All student numbers must match a predefined template if exists.",
-        "Columns such as LastName, FirstName, and StudentNumber are mandatory and must be visible."
-    ],
-    "validations": [
-        "Phone numbers must be formatted as 999-999-9999.",
-        "Emails must be valid according to predefined email validation rules.",
-        "Student numbers cannot be less than 3 digits."
-    ],
-    "calculations": [],
-    "conditions": [
-        "Templates can be updated or deleted if ID is not zero.",
-        "Dropdown selections must be valid before submission."
-    ],
-    "system_behavior": [
-        "Shows warning messages if data doesn't meet business rules.",
-        "Displays error messages upon incorrect data submission.",
-        "Supports automated status updates based on template validity."
-    ],
-    "dependencies": [
-        "Database procedures like UploadTemplateAdd, UploadTemplateUpdate are invoked for data management.",
-        "AjaxControlToolkit for UI enhancements like modal popups."
-    ],
-    "exceptions": [
-        "Data upload fails if required fields are left blank.",
-        "Display icons with errors if the template is invalid or fields don't match."
-    ],
-    "source_document_ids": [
-        "0b4d7100-dd2c-5299-ac56-c9a2a5d6ea31", "0c4da539-7638-5d2b-994f-1a28caf276b8", "2452fc83-705e-5ccc-88d4-9d1f96c1acfb", "36bae1a6-33ed-5cd5-8346-6b03f5e4c51e",
-        "3b7cb03c-32e0-50ca-978d-fe6279e4666f", "40fa639a-f5b7-5d69-aa44-2627b6b4aa67", "418268d4-2876-5828-8005-5594a831e27e", "4ddc3871-620d-518a-b0ee-901810d02e59",
-        "661ebacd-b24b-53ae-9054-f99c38c46489", "8800a6b4-2932-5656-b57f-daa7ede563bd", "9036e64d-570e-5d22-8a59-b9522f1c6a1a", "a16f8604-9ff7-51e8-ba6a-e862b6027d5a",
-        "a5ff5374-e43e-51af-adfe-13cae180d0a8", "b4aae9b4-6902-5843-8b91-5ef5d24a9887", "b7287609-aa55-583e-a8e5-b4ef5f48758c", "b781fa2a-fd54-5ee9-b1e1-bfa95f55ab94",
-        "baa21dd9-5580-5403-b973-1ddefabdbaa3", "d1aa9b40-7998-578c-b104-0c4aefa594c9"
-    ],
-    "content_gaps": []
+  "filename": "MaintUploadTemplates",
+  "found": true,
+  "summary": "MaintUploadTemplates is a web application page intended to manage upload templates for agencies and departments. It primarily supports interactions with an ASP.NET web interface for template management, including selecting, adding, editing, and deleting templates.",
+  "purpose": "To provide a user interface for managing upload templates within an organization, facilitating the selection and modification of templates for different agencies and departments.",
+  "entities": [
+    "UploadTemplateHeader",
+    "Agencies",
+    "Departments",
+    "Dropdown"
+  ],
+  "fields": [
+    {
+      "name": "txtName",
+      "type": "TextBox",
+      "validation": [
+        "RequiredFieldValidator"
+      ]
+    },
+    {
+      "name": "txtHeaderRows",
+      "type": "TextBox",
+      "validation": [
+        "RequiredFieldValidator",
+        "CompareValidator"
+      ]
+    },
+    {
+      "name": "ddAgency",
+      "type": "DropDownList"
+    },
+    {
+      "name": "ddDepartment",
+      "type": "DropDownList"
+    }
+  ],
+  "actors": [
+    "UserSession",
+    "Grid"
+  ],
+  "workflows": [
+    {
+      "name": "Manage Upload Templates",
+      "steps": [
+        "Page loads and initializes session.",
+        "Agency dropdown is filled from the session or return parameters.",
+        "Department dropdown is populated based on selected agency.",
+        "Users can add a new template, edit an existing template, or delete a template."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Templates are associated with specific agencies and departments.",
+    "Templates must have a name and header rows specified.",
+    "Header rows must be a positive integer."
+  ],
+  "validations": [
+    "Name field is required.",
+    "Header rows field is required and must be greater than zero."
+  ],
+  "calculations": [],
+  "conditions": [],
+  "system_behavior": [
+    "Upon selection of an agency, the department dropdown updates.",
+    "Data grid refreshes with changes to agency or department selection."
+  ],
+  "dependencies": [],
+  "exceptions": [
+    "Handle missing data gracefully with warning messages.",
+    "Ensure correct user session association."
+  ],
+  "source_document_ids": [
+    "0b4d7100-dd2c-5299-ac56-c9a2a5d6ea31",
+    "0c4da539-7638-5d2b-994f-1a28caf276b8",
+    "2452fc83-705e-5ccc-88d4-9d1f96c1acfb",
+    "36bae1a6-33ed-5cd5-8346-6b03f5e4c51e",
+    "3b7cb03c-32e0-50ca-978d-fe6279e4666f",
+    "40fa639a-f5b7-5d69-aa44-2627b6b4aa67",
+    "418268d4-2876-5828-8005-5594a831e27e",
+    "4ddc3871-620d-518a-b0ee-901810d02e59",
+    "661ebacd-b24b-53ae-9054-f99c38c46489",
+    "8800a6b4-2932-5656-b57f-daa7ede563bd",
+    "9036e64d-570e-5d22-8a59-b9522f1c6a1a",
+    "a16f8604-9ff7-51e8-ba6a-e862b6027d5a",
+    "a5ff5374-e43e-51af-adfe-13cae180d0a8",
+    "b4aae9b4-6902-5843-8b91-5ef5d24a9887",
+    "b7287609-aa55-583e-a8e5-b4ef5f48758c",
+    "b781fa2a-fd54-5ee9-b1e1-bfa95f55ab94",
+    "baa21dd9-5580-5403-b973-1ddefabdbaa3",
+    "d1aa9b40-7998-578c-b104-0c4aefa594c9"
+  ],
+  "content_gaps": []
 }
