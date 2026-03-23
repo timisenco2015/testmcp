@@ -1,0 +1,100 @@
+{
+  "filename": "UserIgnoredPR",
+  "found": true,
+  "summary": "UserIgnoredPR manages the functionality for users to ignore Placement Requests within a welcome screen context. It tracks ignore actions, durations, restoration dates, and allows searching, adding, and deleting such records for users.",
+  "purpose": "To allow system users to temporarily ignore Placement Requests (PRs) presented in a welcome screen, record the details of ignored PRs, and provide workflows for searching, adding, and deleting these records. It also manages restoration dates and their presentation.",
+  "entities": [
+    "UserIgnoredPR",
+    "PlacementRequestDestination",
+    "HSPnetSession"
+  ],
+  "fields": [
+    "ID",
+    "UserID",
+    "WelcomeScreenStat",
+    "PlacementRequestDestinationID",
+    "DateIgnored",
+    "NumDays",
+    "RestorationDate",
+    "RestorationDateFormatted",
+    "RestorationDateIsTomorrow",
+    "AgencyProgram",
+    "ASSD"
+  ],
+  "actors": [
+    "System User",
+    "HSPnetSession"
+  ],
+  "workflows": [
+    {
+      "name": "Search UserIgnoredPRs",
+      "steps": [
+        "Receive welcomeScreenStat and optional sort expression.",
+        "Parse sort expression and determine order (asc/desc).",
+        "Set database procedure to 'UserIgnoredPRsSearch'.",
+        "Add parameters: SessionID, WelcomeScreenStat, Sort, Asc.",
+        "Execute DB procedure and fetch records.",
+        "For each record, create UserIgnoredPR entity and populate fields.",
+        "Format restoration date; if it matches tomorrow, set flag and formatted value appropriately.",
+        "Return list of UserIgnoredPRs."
+      ]
+    },
+    {
+      "name": "Add UserIgnoredPR",
+      "steps": [
+        "Receive stat, PRD_ID, numDays.",
+        "Set database procedure to 'UserIgnoredPRsAdd'.",
+        "Add parameters: SessionID, WelcomeScreenStat, PlacementRequestDestinationID, NumDays.",
+        "Execute DB procedure.",
+        "Read results: PrintJobID, Printed, Retval.",
+        "Return PlacementRequestStatusResults."
+      ]
+    },
+    {
+      "name": "Delete UserIgnoredPR Stat",
+      "steps": [
+        "Receive stat, PRD_ID.",
+        "Set database procedure to 'UserIgnoredPRsDeleteStat'.",
+        "Add parameters: SessionID, WelcomeScreenStat, PlacementRequestDestinationID.",
+        "Execute DB procedure to delete record."
+      ]
+    }
+  ],
+  "business_rules": [
+    "RestorationDateFormatted is set to a special value if RestorationDate is tomorrow.",
+    "Ignored PRs are tracked by user, stat, destination, and duration.",
+    "Deletion is explicit via stat and placement request destination."
+  ],
+  "validations": [
+    "RestorationDate comparison against DateTime.Today.AddDays(1) to determine if the restoration is tomorrow.",
+    "DateIgnored is checked for date match (year, month, day) against restoration date."
+  ],
+  "calculations": [
+    "restorationDateNoTime = new DateTime(entry.RestorationDate.Year, entry.RestorationDate.Month, entry.RestorationDate.Day)",
+    "restorationDateNoTime == DateTime.Today.AddDays(1) sets RestorationDateIsTomorrow"
+  ],
+  "conditions": [
+    "If RestorationDate is tomorrow, RestorationDateIsTomorrow is true and RestorationDateFormatted is set to Resources.Next_day.",
+    "Otherwise, RestorationDateIsTomorrow is false and RestorationDateFormatted uses DateFormatter.FormatDateShort."
+  ],
+  "system_behavior": [
+    "System tracks ignored PRs per user and context.",
+    "System displays restoration date as formatted label; if tomorrow, uses special text.",
+    "Provides business workflow APIs for search, add, and delete actions."
+  ],
+  "dependencies": [
+    "HSPnetSession for database transactions.",
+    "Resources.Next_day for special restoration date display.",
+    "DateFormatter.FormatDateShort for generic date formatting."
+  ],
+  "exceptions": [
+    "If DB reader is null (no results), no entries are processed.",
+    "If restoration date is not a valid date, formatted value may fallback."
+  ],
+  "source_document_ids": [
+    "7369da1f-6deb-5320-b43a-b59e5b2f1548",
+    "8cf961e9-5785-56f9-94aa-f56c159e07a3",
+    "8ddcf201-dc7b-5b53-a14d-8b4338a51159"
+  ],
+  "content_gaps": []
+}
