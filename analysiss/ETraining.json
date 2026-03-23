@@ -1,68 +1,75 @@
 {
   "filename": "ETraining",
   "found": true,
-  "summary": "The ETraining system integrates with an external training platform, likely Moodle, to authenticate users and redirect them based on their session data and locale settings.",
-  "purpose": "To manage user authentication and redirection to an external training module.",
+  "summary": "The ETraining document is part of a web application that handles user authentication and redirection to a training platform. It includes server-side code-behind logic and HTML form elements for capturing user credentials and handling secure submissions.",
+  "purpose": "ETraining is designed to authenticate users and redirect them to a designated training URL, possibly a Moodle training platform, based on user sessions and locale settings.",
   "entities": [],
   "fields": [
     {
       "name": "form1",
-      "type": "HtmlForm",
-      "description": "Main form for submitting user credentials."
+      "description": "HTML form element used for submission",
+      "type": "HtmlForm"
     },
     {
       "name": "username",
-      "type": "HiddenField",
-      "description": "Stores the username, constructed from the user's province code and user ID."
+      "description": "Hidden field for username",
+      "type": "HiddenField"
     },
     {
       "name": "password",
-      "type": "HiddenField",
-      "description": "Stores the session ID as a password for authentication."
+      "description": "Hidden field for password",
+      "type": "HiddenField"
     },
     {
       "name": "Submit",
-      "type": "HtmlInputSubmit",
-      "description": "Submit button styled for user interaction."
+      "description": "Input element for submission with specific styling",
+      "type": "HtmlInputSubmit"
     }
   ],
   "actors": [
     {
       "name": "UserSession",
-      "role": "Holds session information for the user, including session ID and locale."
+      "description": "Represents the user's session including session ID, locale, province code, and user ID."
     }
   ],
   "workflows": [
     {
-      "name": "User Authentication and Moodle Redirection",
+      "name": "User Authentication and Redirection",
       "steps": [
-        "UserSession is checked for a valid session ID.",
-        "Form action URL is set to login endpoint of MoodleTrainingURL with optional locale parameter for French.",
-        "Username is set using a combination of ProvinceCode and UserID.",
-        "Password is set using the SessionID.",
-        "Submit button label is localized.",
-        "If session ID is invalid, redirect to Timedout.aspx with session query string."
+        "Check if UserSession.SessionID is greater than 0",
+        "Set the form action to a Moodle Training URL",
+        "Append a language parameter for French if UserSession.Locale is 'fr-CA'",
+        "Set the username and password hidden fields",
+        "Set the value of the Submit element",
+        "Redirect to Timedout.aspx if the session ID is not valid"
       ]
     }
   ],
-  "business_rules": [
-    "User must have a valid session ID to proceed.",
-    "Form action URL is dynamically constructed based on user locale settings."
-  ],
+  "business_rules": [],
   "validations": [],
   "calculations": [],
   "conditions": [
-    "Check if UserSession.SessionID > 0 for valid session.",
-    "If UserSession.Locale is 'fr-CA', append language parameter to login URL."
+    {
+      "check": "UserSession.SessionID > 0",
+      "result": "Continue with redirection"
+    },
+    {
+      "check": "UserSession.Locale == 'fr-CA'",
+      "result": "Append French language parameter to URL"
+    },
+    {
+      "check": "Else",
+      "result": "Redirect to Timedout.aspx"
+    }
   ],
   "system_behavior": [
-    "Redirect user to Timedout.aspx if session is invalid.",
-    "Dynamically construct login URL based on configuration and session data."
+    "Generates a web interface for user login and redirection",
+    "Manages session-based authentication flows"
   ],
   "dependencies": [
-    "HSPnet.App_GlobalResources",
-    "HSPnet.DataLayer",
-    "HSPnet.Framework"
+    "HSPnet.Framework.HSPnetPage",
+    "Resources.HSPnet_TrainingAccess",
+    "Codes.CodeLookup"
   ],
   "exceptions": [],
   "source_document_ids": [
@@ -70,5 +77,8 @@
     "86cd53c5-70bf-5e02-8226-8ad1950f1227",
     "ab6b4918-dda1-5bb1-967a-0888f7105486"
   ],
-  "content_gaps": []
+  "content_gaps": [
+    "Details on Codes.CodeLookup functionality",
+    "Explanation on Resources.HSPnet_TrainingAccess usage"
+  ]
 }
