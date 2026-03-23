@@ -1,0 +1,31 @@
+# Module: QuestionOption
+
+## QuestionOption-UC1 — Search Question Options by Question
+
+- Primary Actor(s): System Administrator
+- Secondary Actor(s): Database Administrator
+- Trigger: User initiates a search for question options based on question text.
+- Description: This use case describes the process of searching for available question options by a specific question text and template code.
+- Preconditions:
+  - The user must have an active session.
+  - The database must be accessible and operational.
+- Postconditions:
+  - A list of matching question options is retrieved and presented to the user.
+- Main Success Scenario:
+  1. User inputs the template code and question text.
+  2. System calls the stored procedure `QuestionOptionSearchByQuestion` in the database.
+  3. System passes the session ID, template code, and question text as parameters.
+  4. System retrieves the data using a SQL data reader.
+  5. System populates a list with the retrieved question options, including ID, question ID, option choice ID, option choice name, and specify choice flag.
+  6. The data reader is closed, and the list is returned to the user interface.
+- Extensions:
+  - If the session is not using the default locale, the `OptionChoiceNameAlt` is retrieved instead of `OptionChoiceName`.
+- Exceptions:
+  - Database connection cannot be established.
+  - SQL execution errors.
+- Business Rules:
+  - Data retrieval is based on the `QuestionOptionSearchByQuestion` stored procedure.
+- Assumptions:
+  - The stored procedure and required database fields are correctly defined and operational.
+- Open Issues:
+  - None.
