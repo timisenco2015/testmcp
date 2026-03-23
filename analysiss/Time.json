@@ -1,0 +1,32 @@
+{
+  "filename": "Time",
+  "found": true,
+  "summary": "Time validation and conversion functions implemented in JavaScript.",
+  "purpose": "To verify and convert time values, ensuring they meet specific conditions for operations like shift scheduling.",
+  "entities": [],
+  "fields": [],
+  "actors": [],
+  "workflows": [],
+  "business_rules": [
+    "Time must be a valid four-digit number between 0000 and 2400.",
+    "StartTime should be less than or equal to EndTime unless it crosses over midnight with specific constraints.",
+    "Shift code validations dictate permissible time ranges for different shifts."
+  ],
+  "validations": [
+    "Check if the time is within the valid range of 00 to 24 hours.",
+    "Validate if the minutes part is less than 60.",
+    "Ensure that the difference between StartTime and EndTime does not exceed 13 hours when crossing over midnight."
+  ],
+  "calculations": [
+    "Time24ToDecimal converts a time representation into a decimal format by dividing hours and converting minutes into fractional hours.",
+    "toSeconds converts time values into equivalent decimal hour format."
+  ],
+  "conditions": [],
+  "system_behavior": [],
+  "dependencies": [],
+  "exceptions": [],
+  "source_document_ids": [
+    "16c99051-e877-5f50-88f4-dc772644a5ac"
+  ],
+  "content_gaps": []
+}
