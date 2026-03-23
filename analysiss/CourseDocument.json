@@ -1,0 +1,82 @@
+{
+  "filename": "CourseDocument",
+  "found": true,
+  "summary": "The CourseDocument module handles the management of course-related documents. It includes functionalities for creating, updating, deleting, and retrieving course documents along with their associated metadata.",
+  "purpose": "To manage documents related to courses within the HSPnet system, facilitating storage, retrieval, and management of document metadata.",
+  "entities": [],
+  "fields": [
+    "ID",
+    "CourseID",
+    "TypeCodeID",
+    "TypeComments",
+    "FileURL",
+    "FilePath",
+    "FileSize",
+    "FileType",
+    "FileTypeAlt",
+    "UpdateDate",
+    "ByUserID",
+    "LastName",
+    "FirstName",
+    "MiddleName",
+    "TypeCode",
+    "UpdatedDetails",
+    "DocumentName",
+    "Code",
+    "AgencyShortName",
+    "AgencyName",
+    "Phone",
+    "Email",
+    "UpdateDateFormatted",
+    "EmailFormatted",
+    "AgencyUserFormatted",
+    "AgencyUserDetailsFormatted"
+  ],
+  "actors": [
+    "HSPnetSession"
+  ],
+  "workflows": [
+    {
+      "name": "Add Course Document",
+      "steps": [
+        "Validate if the document is valid using IsValid method.",
+        "Set the database procedure to 'CourseDocumentAddDoc'.",
+        "Add required parameters such as SessionID, CourseDocumentID, etc.",
+        "Execute the query to add the document."
+      ]
+    },
+    {
+      "name": "Delete Course Document",
+      "steps": [
+        "Check if the ID is greater than 0.",
+        "Attempt to delete the file and directory.",
+        "Set the database procedure to 'CourseDocumentDelete'.",
+        "Add DocumentID parameter.",
+        "Execute the query to delete the document."
+      ]
+    }
+  ],
+  "business_rules": [],
+  "validations": [
+    "Document must have a TypeCodeID greater than 0."
+  ],
+  "calculations": [],
+  "conditions": [],
+  "system_behavior": [
+    "Converts file URL to a link in the UI if the file exists.",
+    "Displays 'Document Not Found' if the file URL is non-blank but the file does not exist."
+  ],
+  "dependencies": [],
+  "exceptions": [
+    "Exceptions in file and directory deletion are ignored."
+  ],
+  "source_document_ids": [
+    "072418f2-c5d1-5431-be3d-3807b5f97794",
+    "24e353dd-023b-543d-baf3-f6e2cd9d4cdd",
+    "2bffddc9-2d7a-53bb-bca3-97057e225d9f",
+    "5966ff92-1f55-5c4f-8de7-b1145ba7a295",
+    "6775a1bf-e500-5369-8629-d8daef043230",
+    "7e50a4a3-80f5-5fb9-9e6e-e16ca95f42c7"
+  ],
+  "content_gaps": []
+}
