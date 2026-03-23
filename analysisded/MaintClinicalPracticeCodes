@@ -2,23 +2,20 @@
 {
   "filename": "MaintClinicalPracticeCodes",
   "found": true,
-  "summary": "The document outlines the functionality for maintaining clinical practice codes, including adding, editing, deleting, and reactivating codes.",
-  "purpose": "To provide a user interface for managing clinical practice codes within the HSPnet system. This includes functions for adding, updating, deleting, and reactivating codes while ensuring proper validation and data management.",
+  "summary": "The document outlines the functionalities for maintaining clinical practice codes within a system, including adding, editing, updating, deleting, and reactivating codes.",
+  "purpose": "To facilitate the management and operational workflow of clinical practice codes within a system.",
   "entities": [
     "ClinicalPracticeCode",
     "UserSession",
-    "Agencies",
-    "Departments",
-    "Programs"
+    "Agency",
+    "Department",
+    "Program"
   ],
   "fields": [
     "ID",
     "Name",
     "ShortName",
-    "ProgramID",
-    "UserSession",
-    "AgencyID",
-    "DepartmentID"
+    "Inactive"
   ],
   "actors": [
     "SystemAdministrator",
@@ -27,59 +24,49 @@
   ],
   "workflows": [
     {
-      "name": "Add/Edit Clinical Practice Code",
+      "name": "Manage Clinical Practice Codes",
       "steps": [
-        "Retrieve data from text boxes",
-        "Determine if entry is new or existing",
-        "Add or update based on ID",
-        "Refresh view"
+        "Add new ClinicalPracticeCode",
+        "Edit existing ClinicalPracticeCode",
+        "Delete ClinicalPracticeCode",
+        "Reactivate ClinicalPracticeCode",
+        "Refresh data view"
       ]
     },
     {
-      "name": "Delete Clinical Practice Code",
+      "name": "Dropdown Management",
       "steps": [
-        "Retrieve ID from command argument",
-        "Execute delete operation",
-        "Refresh view"
-      ]
-    },
-    {
-      "name": "Reactivate Clinical Practice Code",
-      "steps": [
-        "Retrieve ID from command argument",
-        "Execute reactivate operation",
-        "Refresh view"
-      ]
-    },
-    {
-      "name": "Dropdown Change Handling",
-      "steps": [
-        "Update dependent dropdown lists",
-        "Refresh data"
+        "Populate agency dropdown",
+        "Populate department dropdown based on agency",
+        "Populate program dropdown based on department"
       ]
     }
   ],
-  "business_rules": [],
+  "business_rules": [
+    "Screen is only editable if user is a System or Local Administrator and has access to the agency or department.",
+    "Fields 'Name' and 'ShortName' are mandatory for adding or editing ClinicalPracticeCodes."
+  ],
   "validations": [
     "Name must be specified",
-    "ShortName must be specified",
-    "Check screen access before allowing operations"
+    "ShortName must be specified"
   ],
   "calculations": [],
   "conditions": [
-    "Screen is editable only if user has appropriate permissions",
-    "Disable add if department or program dropdown is empty"
+    "Check if Page.IsValid before executing save command",
+    "Screen editability depends on system roles and dropdown selections"
   ],
   "system_behavior": [
-    "Display error and warning panels",
-    "Auto postback on dropdown changes",
-    "Modal popup for details editing"
+    "Grid handles command execution based on user actions such as Add, Edit, Delete, and Reactivate.",
+    "UpdatePanel ensures conditional updates of data views."
   ],
   "dependencies": [
     "HSPnet.DataLayer",
     "HSPnet.UI"
   ],
-  "exceptions": [],
+  "exceptions": [
+    "Handle screen errors and display warning messages.",
+    "Reactivate button setup depends on user role and screen editability."
+  ],
   "source_document_ids": [
     "1a77e7da-0f92-5a0c-8fae-71056a1a8094",
     "2459a248-75cd-5726-acb7-2dac9c032ca2",
