@@ -1,8 +1,8 @@
 {
   "filename": "CorrespondenceGeneratedQueue",
   "found": true,
-  "summary": "The CorrespondenceGeneratedQueue is a system designed to manage and process correspondence within the HSPnet application. Its main functionality revolves around handling reports, email communications, and various user interactions within a web-based UI system.",
-  "purpose": "The primary purpose of the CorrespondenceGeneratedQueue is to manage the scheduling and processing of reports and correspondence generated within the system. It provides functionalities for viewing, delivering, and managing reports, as well as handling email communication.",
+  "summary": "The CorrespondenceGeneratedQueue manages the processing and display of scheduled correspondence within the HSPnet application. It includes controls for filtering, viewing, and interacting with scheduled reports. The system utilizes a combination of server-side C# code and client-side JavaScript for functionality.",
+  "purpose": "To manage and display scheduled correspondence data, enabling users to filter, view, and interact with reports efficiently.",
   "entities": [],
   "fields": [
     "lblTitle",
@@ -49,65 +49,50 @@
     "lblAction",
     "ddAction",
     "cmdSubmit",
-    "dsReportQ",
-    "ID",
-    "RecipientID",
-    "GroupIndex"
+    "dsReportQ"
   ],
   "actors": [
-    "UserSession",
-    "PrintJobs",
-    "Dropdown",
-    "StaffController",
-    "PageMethods",
-    "Resources"
+    "User",
+    "Admin"
   ],
   "workflows": [
     {
-      "name": "Report Viewing and Emailing",
+      "name": "Report Handling",
       "steps": [
-        "Load the page and initialize view settings based on session variables.",
-        "Select reports using checkboxes and control parameters.",
-        "Submit actions such as marking reports as viewed, delivered, or emailing.",
-        "Use JavaScript methods to manage UI interactions like expanding or collapsing report details.",
-        "Handle errors and warnings using panels and labels."
-      ]
-    },
-    {
-      "name": "Data Binding and Refresh",
-      "steps": [
-        "Refresh data based on user actions or page events.",
-        "Bind data from ObjectDataSource to UI components.",
-        "Update view based on selected filters and actions."
+        "User selects reports via checkboxes.",
+        "User chooses action from dropdown (e.g., mark as delivered, email).",
+        "User clicks submit, triggering server-side processing.",
+        "Reports are updated and view is refreshed."
       ]
     }
   ],
   "business_rules": [
-    "Reports must be marked as delivered or viewed based on user input.",
-    "Emails must go to default or selected recipients.",
-    "Users must be able to toggle visibility of report details."
+    "Reports must be selected in order to perform an action.",
+    "Email actions require valid recipients."
   ],
   "validations": [
-    "Ensure all selected reports have a recipient before emailing.",
-    "Validate if reports can be marked as delivered based on status."
+    "Ensure at least one report is selected before submission.",
+    "Verify recipient is set before sending an email."
   ],
-  "calculations": [],
+  "calculations": [
+    "Count of delivered and undelivered reports."
+  ],
   "conditions": [
-    "Check for post-back to determine if page elements need refreshing.",
-    "Toggle report group visibility based on user actions and session cookies."
+    "If no user is selected, hide user-specific controls.",
+    "If email is required and no recipient exists, show warning."
   ],
   "system_behavior": [
-    "Autogenerate fields and controls based on designer configurations.",
-    "Use JavaScript to manage UI interactions."
+    "Dynamically update UI based on report status.",
+    "Persist user preferences for report views using session."
   ],
   "dependencies": [
-    "Resources for labels and text.",
-    "JavaScript for dynamic UI actions.",
-    "UserSession for maintaining session state."
+    "System.Web.UI",
+    "AjaxControlToolkit",
+    "HSPnet.DataLayer"
   ],
   "exceptions": [
-    "Handle null or undefined options when iterating through checkbox lists.",
-    "Display warnings if no recipients are available for emails."
+    "Display error message if report submission fails.",
+    "Show alert if email recipient is missing."
   ],
   "source_document_ids": [
     "0812fa0f-005d-5484-935c-70402bbec108",
@@ -119,8 +104,10 @@
     "171024da-2269-56b7-8d30-37d94ebaf992",
     "30a4fb54-7523-5c74-81de-ddf922ffad8c",
     "3723bba5-e806-5535-bf6d-c39dc0059e5a",
+    "422a6c2b-1246-5db2-a9e1-2e0a1946583f",
     "6a1c167a-8bfa-5ab1-9bbc-3b5e3601a5ba",
     "6f0fa6c8-24c1-508a-8bdd-5e95f3a1ebb3",
+    "78ae47f6-ea13-50ea-a026-9d5315a6973c",
     "7ce9f839-fb82-5e05-a26f-f43237ebbe42",
     "7d5aa6a0-a117-568c-99f5-58e67d4e91ad",
     "80e61ba8-2c45-5cbb-8a7a-4f3c7470b2e2",
