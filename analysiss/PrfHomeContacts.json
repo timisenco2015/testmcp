@@ -1,55 +1,66 @@
 {
   "filename": "PrfHomeContacts",
   "found": true,
-  "summary": "The PrfHomeContacts documents pertain to a user control in a web application for managing home contact details within staff profiles. This includes form views for editing and displaying data, pop-up interfaces, data sources, validation summaries, and scripts for handling user interactions and data binding.",
-  "purpose": "To manage and display home contact details for staff members within a web application, allowing for interaction and data manipulation through form views and modal popups.",
+  "summary": "PrfHomeContacts is a user control for managing staff home contact details in a web application. It includes features for editing, saving, and validating contact information.",
+  "purpose": "The purpose of PrfHomeContacts is to manage staff home contact information within the web application, allowing editing and validation of data through various controls and objects.",
   "entities": [],
   "fields": [
-    "ValidationSummary3",
-    "fvwEditHomeContacts",
-    "dsStaff",
-    "pnlPopup",
-    "btnShowPopup",
-    "mdlDetails"
+    {
+      "name": "ValidationSummary3",
+      "description": "A validation summary control for displaying validation messages."
+    },
+    {
+      "name": "fvwEditHomeContacts",
+      "description": "A FormView control used for editing home contact details."
+    },
+    {
+      "name": "dsStaff",
+      "description": "An ObjectDataSource control for staff data retrieval."
+    },
+    {
+      "name": "UserSession",
+      "description": "HSPnet session information for the current user."
+    },
+    {
+      "name": "StaffID",
+      "description": "Identifier for a staff member."
+    },
+    {
+      "name": "ScreenIsEditable",
+      "description": "Indicates whether the screen is editable."
+    }
   ],
-  "actors": [
-    "UserSession",
-    "ScriptManager"
-  ],
+  "actors": [],
   "workflows": [
     {
       "name": "Edit Home Contacts",
       "steps": [
-        "fvwEditHomeContacts_PreRender",
-        "cmdEdit_Click",
-        "fvwEditHomeContacts_DataBound",
-        "fvwEditHomeContacts_ItemUpdating",
-        "fvwEditHomeContacts_ItemUpdated"
+        "Pre-render checks visibility of the save button based on edibility.",
+        "Removes phone masks if user session indicates.",
+        "Setup JavaScript variables for phone fields.",
+        "Data binding and item updating processes based on session details."
       ]
     }
   ],
   "business_rules": [
-    "ScreenIsEditable determines if the Edit Button is visible.",
-    "UserSession must be present to continue with data selection."
+    "Contact details are editable if 'ScreenIsEditable' is true.",
+    "Validation is conditioned on 'UsePhoneMask'."
   ],
   "validations": [
-    "Phone mask validation is conditional upon UserSession.UsePhoneMask."
+    "Phone fields are conditionally masked based on session settings.",
+    "Country field defaults to session country code if empty."
   ],
   "calculations": [],
-  "conditions": [
-    "If UserSession is null, data selection is canceled.",
-    "If fvwEditHomeContacts.Row.RowType is DataRow, the country code is set."
-  ],
+  "conditions": [],
   "system_behavior": [
-    "JavaScript and script managers handle dynamic client-side interactions.",
-    "Data binding is used to refresh and update user interface components."
+    "Disables edit fields if screen is not editable.",
+    "Uses AjaxControlToolkit for modal popups and validation summaries."
   ],
   "dependencies": [
-    "Relies on user session for validation and data retrieval."
+    "HSPnet session for contextual information",
+    "JavaScript for UI interactions"
   ],
-  "exceptions": [
-    "Changes in auto-generated code could be lost upon regeneration."
-  ],
+  "exceptions": [],
   "source_document_ids": [
     "169e42e3-a079-5bc4-8262-b3fcec116405",
     "6d884025-0d5a-56f9-a8ba-ac4f3ee288e1",
