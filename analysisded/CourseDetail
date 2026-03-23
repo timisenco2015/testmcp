@@ -2,8 +2,8 @@
 {
   "filename": "CourseDetail",
   "found": true,
-  "summary": "The CourseDetail system manages course details, including adding, updating, deleting, copying, and retrieving course detail records. It handles the data for courses, headings, numbering codes, and descriptions.",
-  "purpose": "To provide a mechanism for managing detailed course-related information within the HSPnet framework.",
+  "summary": "The CourseDetail module handles operations related to course details in the system, including CRUD operations and formatting processes.",
+  "purpose": "To manage course details including add, update, delete, and copy operations, and to facilitate formatted display of course data.",
   "entities": [
     "CourseDetail"
   ],
@@ -30,84 +30,66 @@
   ],
   "workflows": [
     {
-      "name": "Add CourseDetail",
+      "name": "Add Course Detail",
       "steps": [
-        "Validate response.",
-        "Set procedure name to CourseDetailsAdd.",
-        "Add parameters for CourseID, HeadingID, Response, SortOrder, and NumberingCodeID.",
+        "Check if course detail is valid.",
+        "Set ProcedureName to 'CourseDetailsAdd'.",
+        "Add parameters (CourseID, HeadingID, Response, SortOrder, NumberingCodeID).",
         "Execute query."
       ]
     },
     {
-      "name": "Update CourseDetail",
+      "name": "Update Course Detail",
       "steps": [
-        "Check ID validity and validate response.",
-        "Set procedure name to CourseDetailsUpdate.",
-        "Add parameters for CourseDetailID, HeadingID, Response, SortOrder, and NumberingCodeID.",
+        "Check if course detail is valid and ID is not zero.",
+        "Set ProcedureName to 'CourseDetailsUpdate'.",
+        "Add parameters (CourseDetailID, HeadingID, Response, SortOrder, NumberingCodeID).",
         "Execute query."
       ]
     },
     {
-      "name": "Delete CourseDetail",
+      "name": "Delete Course Detail",
       "steps": [
         "Check if ID is not zero.",
-        "Set procedure name to CourseDetailsDelete.",
-        "Add parameter for CourseDetailID.",
+        "Set ProcedureName to 'CourseDetailsDelete'.",
+        "Add parameter (CourseDetailID).",
         "Execute query."
       ]
     },
     {
-      "name": "Copy CourseDetail",
+      "name": "Copy Course Detail",
       "steps": [
         "Check if ID is not zero.",
-        "Set procedure name to CourseDetailsCopy.",
-        "Add parameter for ID.",
+        "Set ProcedureName to 'CourseDetailsCopy'.",
+        "Add parameter (ID).",
         "Execute query."
-      ]
-    },
-    {
-      "name": "Retrieve CourseDetail by CourseID",
-      "steps": [
-        "Set procedure name to CourseDetailsSearch.",
-        "Add parameter for CourseID.",
-        "Get data using SqlDataReader.",
-        "Fill list with course details.",
-        "Close reader."
-      ]
-    },
-    {
-      "name": "Retrieve CourseDetail by ID",
-      "steps": [
-        "Set procedure name to CourseDetailsSearchID.",
-        "Add parameter for ID.",
-        "Get data using SqlDataReader.",
-        "Fill list with course details.",
-        "Close reader."
       ]
     }
   ],
   "business_rules": [
-    "Use alternate language fields if enabled.",
-    "Reset level counts for new headings."
+    "Use DescriptionAlt field when UseAltLanguageFields is true.",
+    "Reset level counts on header change."
   ],
   "validations": [
     "Response must not be blank."
   ],
   "calculations": [
-    "Calculate numbering character and indent level based on numbering code."
+    "Calculate numbering character based on NumberingCode."
   ],
   "conditions": [
-    "Response should be formatted if HSPnet.UI.HTML.translateNewLines is enabled.",
-    "SortOrder displayed as 0 if -1 is set."
+    "HeaderChanged is true when HeadingID differs from LastHeadingID.",
+    "Display SortOrder as blank if it equals -1."
   ],
   "system_behavior": [
-    "Automatically reset counts of levels when a new header is detected."
+    "Header entries are not repeated.",
+    "WebPage flag is set based on Description matching a specific resource."
   ],
   "dependencies": [
-    "HSPnet.Framework",
-    "HSPnet.App_GlobalResources"
+    "HSPnet.UI.NumberingCodes for formatting operations."
   ],
-  "exceptions": [],
+  "exceptions": [
+    "No specific exceptions documented."
+  ],
   "source_document_ids": [
     "4c927f86-38fd-569d-993c-ecb14b1c2eb8",
     "4f923d1d-c9d2-5122-97b1-feb4c28153ef",
