@@ -1,0 +1,126 @@
+{
+    "filename": "StaffPostEducation",
+    "found": true,
+    "summary": "The StaffPostEducation system appears to handle various functionalities related to staff education post-registration processes, including managing costs, waitlists, program tracking, and updating educational records.",
+    "purpose": "The purpose of the StaffPostEducation system is to manage and track educational activities and costs associated with staff members, providing functionalities for adding, updating, deleting records, and searching for education details.",
+    "entities": [
+        "StaffPostEducation",
+        "StaffPostEducationCost"
+    ],
+    "fields": [
+        "ID",
+        "StaffID",
+        "ProgramID",
+        "StudentNumber",
+        "GraduationDate",
+        "GraduationConfirmed",
+        "ConsentObtained",
+        "DeliveryMethodCodeID",
+        "TermCodeID",
+        "TermYear",
+        "Registered",
+        "WaitlistOrder",
+        "SponsorshipApproved",
+        "AgencyID",
+        "DepartmentID",
+        "EmploymentProgram",
+        "DeliveryMethod",
+        "Term",
+        "WaitlistTotal",
+        "CostTypeCodeID",
+        "CostTypeDesc",
+        "CostTypeComment",
+        "CostTypeCategoryID",
+        "CostTypeCategory",
+        "CostDate",
+        "Wages",
+        "Benefits",
+        "FiscalYear",
+        "CostCentreID",
+        "CostCentreCode",
+        "CostCentreDesc",
+        "ExpenseCodeID",
+        "ExpenseCode",
+        "ExpenseCodeDesc",
+        "Reference"
+    ],
+    "actors": [
+        "HSPnetSession"
+    ],
+    "workflows": [
+        {
+            "name": "StaffPostEducationWaitlist",
+            "steps": [
+                "Set ProcedureName to 'StaffPostEducationWaitlist'",
+                "Add ProgramID, TermCodeID, TermYear, OnList as parameters",
+                "Execute query and fetch results"
+            ]
+        },
+        {
+            "name": "StaffPostEducationUpdate",
+            "steps": [
+                "Set ProcedureName to 'StaffPostEducationUpdate'",
+                "Add various parameters including EducationID, ProgramID, StudentNumber etc.",
+                "Execute update action"
+            ]
+        },
+        {
+            "name": "StaffPostEducationCostUpdate",
+            "steps": [
+                "Set ProcedureName to 'StaffPostEducationCostUpdate'",
+                "Add parameters including StaffPostEducationCostID, CostTypeCodeID, ProgramID etc.",
+                "Execute cost update action"
+            ]
+        }
+    ],
+    "business_rules": [
+        "If WaitlistAction is true, TermCodeID and TermYear must be specified.",
+        "ConsentObtained requires a non-blank StudentNumber.",
+        "Certain fields must be specified for validation, e.g., ProgramID, CostCentreID when ExpenseCodeID is provided."
+    ],
+    "validations": [
+        "ID must not be -99 for certain operations.",
+        "Program must be specified for valid entry.",
+        "Cost Date must be specified for valid cost entry."
+    ],
+    "calculations": [
+        "Wages formatted as currency (C2).",
+        "Benefits formatted as currency (C2).",
+        "GraduationDateFormatted using DateFormatter.",
+        "WaitlistOrderFormatted showing waitlist position."
+    ],
+    "conditions": [
+        "IsValid checks fields like ProgramID and CostDate for validity.",
+        "Valid session check required for operations using Sess."
+    ],
+    "system_behavior": [
+        "System handles database operations using Sess object as intermediary.",
+        "Reacts to validation results by showing messages via Sess.Messages."
+    ],
+    "dependencies": [
+        "Database operations dependent on HSPnetSession and associated methods."
+    ],
+    "exceptions": [
+        "SessionID and relevant IDs must be valid to prevent errors in database operations."
+    ],
+    "source_document_ids": [
+        "1e364444-4741-572d-bec0-adcb5f2cb2a6",
+        "3bccd068-72a1-5c55-993a-5af6d1bb05cb",
+        "42f1a8a5-4845-5f86-ab27-881660d1c075",
+        "57f52140-5c18-5770-89db-6c28d5069f38",
+        "685a9e18-9d81-5e92-a77c-8c27e4b56499",
+        "6e235d3b-2616-5306-ab66-3ca19fb0e20f",
+        "70535daa-1582-5374-8648-df35362f847e",
+        "74ac5b99-61bf-5b30-9246-bd6d651ca71a",
+        "7a2d4b96-0a6d-59ef-9150-c4d6e9bd436f",
+        "8fdda025-cf98-5976-8c74-9c6dc6f90021",
+        "9f583053-f2c2-533a-a9a3-865fe910cbeb",
+        "ab0e61b7-9265-5f23-a118-81011d648b24",
+        "b2a34661-7669-5125-bdf8-57022ff7305a",
+        "cb40729c-83ea-57d6-a6e2-cf101a6910c6",
+        "e3a79724-cfd0-5d99-b981-f8a28944b389",
+        "eb649537-4591-51c0-be62-d6749a3cb287",
+        "feafa95d-dc2c-5d0d-b00a-179d49242a1f"
+    ],
+    "content_gaps": []
+}
