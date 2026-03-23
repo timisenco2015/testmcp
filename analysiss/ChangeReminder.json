@@ -1,77 +1,92 @@
 {
-  "filename": "ChangeReminder",
-  "found": true,
-  "summary": "The documents related to 'ChangeReminder' primarily deal with the functionality of changing a forgotten password security question. It includes server-side and client-side validation scripts, user interface elements such as text boxes, labels, panels, buttons, and validators associated with the reminder question change process. The system ensures validations for the current password, reminder question selection or entry, and answer length. The process includes ASP.NET controls and Ajax extensions for dynamic web page behavior.",
-  "purpose": "To enable users to change their forgotten password security question with validations and error handling using web forms in an ASP.NET application.",
-  "entities": [],
-  "fields": [
-    "txtCurrentPassword",
-    "ddReminderQuestion",
-    "txtReminderQuestion",
-    "txtAnswer"
-  ],
-  "actors": [
-    "UserSession"
-  ],
-  "workflows": [
-    {
-      "name": "Change Forgotten Password Question",
-      "steps": [
-        "User loads the ChangeReminder webpage.",
-        "The page initializes and sets up necessary JavaScript and UI components.",
-        "User either selects a reminder question from a dropdown or enters a custom question.",
-        "User provides an answer and current password.",
-        "Client-side and server-side validations are performed.",
-        "If valid, the reminder question and answer are saved.",
-        "Success message is shown, and page redirects to 'Tools.aspx'."
-      ]
-    }
-  ],
-  "business_rules": [
-    "The reminder question must be either selected or at least 10 characters long if entered manually.",
-    "The answer must be at least 4 characters long.",
-    "The current password must be provided and validated."
-  ],
-  "validations": [
-    "checkddReminderQuestion: Ensures a selection is made in the reminder question dropdown.",
-    "checkdtxtReminderQuestion: Ensures manual entry of reminder question is at least 10 characters.",
-    "RequiredFieldValidator1: Checks txtAnswer is at least 4 characters.",
-    "valCurrentPassword: Ensures the current password is entered."
-  ],
-  "calculations": [],
-  "conditions": [
-    "If ddReminderQuestion is visible, it takes focus; otherwise, txtReminderQuestion takes focus.",
-    "If user selects a question, ddReminderQuestion is used; if entered manually, txtReminderQuestion is used."
-  ],
-  "system_behavior": [
-    "Dynamic UI updates using AjaxControlToolkit for visibility and error panels.",
-    "Validation messages are added to UserSession.Messages for errors.",
-    "JavaScript registration for client-side dynamic behaviors."
-  ],
-  "dependencies": [
-    "HSPnet.Framework for page setup and user session management.",
-    "HSPnet.DataLayer for interaction with reminder questions data source."
-  ],
-  "exceptions": [
-    "Incorrect behavior or errors if validations fail or fields are empty."
-  ],
-  "source_document_ids": [
-    "2fbaadc3-eb80-5e9e-ac49-dba30f26288a",
-    "4e6e142b-e1ab-5f96-ba73-808a0d1c698b",
-    "767c15ef-f476-5c98-91bc-3f95d7350ed5",
-    "83f54738-9cfa-514b-bf24-0c4b4b2566d3",
-    "89904825-6cba-5a60-8822-647152e512d3",
-    "8d1b638d-22da-531e-b776-73e184438a26",
-    "8fbf861e-d1f2-5001-acff-45e8273568f2",
-    "9299c9cf-7777-5502-b1ea-56c160f7c849",
-    "93a5ebbb-37c9-5a96-a1f2-eef013c1ca41",
-    "9b8aee2e-79c3-50a7-ac7b-68caa420aee4",
-    "ae270b85-b4ce-50b6-9e8a-c795c6e2fd31",
-    "b36d50f2-a803-56c3-8666-2a4c3e749776",
-    "cdd043c2-a9f5-53d3-96cf-91659e67c436",
-    "daa85fb0-f3f8-5228-b52b-975142309c9d",
-    "e7014932-5cf1-5ea2-be92-89c1799d6be0",
-    "f4c20f8d-c554-5be3-b467-bb0dae73bbd8"
-  ],
-  "content_gaps": []
+    "filename": "ChangeReminder",
+    "found": true,
+    "summary": "The ChangeReminder functionality revolves around managing and verifying password reminder questions. It includes a UI for users to change their forgotten password question, ensuring the input meets specific validation criteria.",
+    "purpose": "To facilitate the process of changing a forgotten password question through a user interface, ensuring valid and secure input.",
+    "entities": [],
+    "fields": [
+        {
+            "name": "txtCurrentPassword",
+            "type": "TextBox",
+            "description": "Field for entering the current password."
+        },
+        {
+            "name": "txtReminderQuestion",
+            "type": "TextBox",
+            "description": "Field for entering a custom reminder question."
+        },
+        {
+            "name": "ddReminderQuestion",
+            "type": "DropDownList",
+            "description": "Dropdown to select a predefined reminder question."
+        },
+        {
+            "name": "txtAnswer",
+            "type": "TextBox",
+            "description": "Field for entering the answer to the reminder question."
+        }
+    ],
+    "actors": [
+        "User"
+    ],
+    "workflows": [
+        {
+            "name": "Change Forgotten Password Question",
+            "steps": [
+                "User navigates to the Change Reminder page.",
+                "User enters the current password.",
+                "User selects a reminder question from the dropdown or opts to enter a custom reminder question.",
+                "User provides an answer to the reminder question.",
+                "User submits the form.",
+                "System validates the input.",
+                "On success, the system updates the reminder question.",
+                "On failure, error or warning messages are displayed."
+            ]
+        }
+    ],
+    "business_rules": [
+        "Reminder question should be at least 10 characters long if entered manually.",
+        "Answer must be at least 4 characters long."
+    ],
+    "validations": [
+        "Validation on the reminder question to ensure it's either selected from the dropdown or the custom input has at least 10 characters.",
+        "Validation to ensure the answer is at least 4 characters long.",
+        "Validation to ensure the current password field is filled."
+    ],
+    "calculations": [],
+    "conditions": [
+        "If a custom reminder question is entered, it must be visible and not empty.",
+        "If using dropdown, ensure a valid selection is made."
+    ],
+    "system_behavior": [
+        "Upon successful validation, redirect the user to a confirmation or main tools page.",
+        "Display error messages if validation fails."
+    ],
+    "dependencies": [
+        "Resources for localized strings.",
+        "Session management for user identification."
+    ],
+    "exceptions": [
+        "Incorrect or missing current password.",
+        "Invalid reminder question or answer according to the business rules."
+    ],
+    "source_document_ids": [
+        "2fbaadc3-eb80-5e9e-ac49-dba30f26288a",
+        "4e6e142b-e1ab-5f96-ba73-808a0d1c698b",
+        "767c15ef-f476-5c98-91bc-3f95d7350ed5",
+        "83f54738-9cfa-514b-bf24-0c4b4b2566d3",
+        "89904825-6cba-5a60-8822-647152e512d3",
+        "8d1b638d-22da-531e-b776-73e184438a26",
+        "8fbf861e-d1f2-5001-acff-45e8273568f2",
+        "9299c9cf-7777-5502-b1ea-56c160f7c849",
+        "93a5ebbb-37c9-5a96-a1f2-eef013c1ca41",
+        "9b8aee2e-79c3-50a7-ac7b-68caa420aee4",
+        "ae270b85-b4ce-50b6-9e8a-c795c6e2fd31",
+        "b36d50f2-a803-56c3-8666-2a4c3e749776",
+        "cdd043c2-a9f5-53d3-96cf-91659e67c436",
+        "daa85fb0-f3f8-5228-b52b-975142309c9d",
+        "e7014932-5cf1-5ea2-be92-89c1799d6be0",
+        "f4c20f8d-c554-5be3-b467-bb0dae73bbd8"
+    ],
+    "content_gaps": []
 }
