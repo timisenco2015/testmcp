@@ -1,0 +1,176 @@
+# Module: PlacementRequestPreceptors
+
+## PlacementRequestPreceptors-UC1 — Assign Preceptor to Placement Request
+
+- Primary Actor(s):
+  - Placement Coordinator
+  - Staff Information System (SIS)
+
+- Secondary Actor(s):
+  - HSPnet Framework
+
+- Trigger:
+  - A placement request needs assignment of a preceptor.
+
+- Description:
+  - Assign a primary preceptor to a placement request and optionally a joint preceptor, considering assessment answers and department use of assessment modules.
+
+- Preconditions:
+  - The placement request must exist in the system.
+  - User must have rights to edit the placement request.
+
+- Postconditions:
+  - The preceptor(s) is assigned to the placement request.
+
+- Main Success Scenario:
+  1. The user opens the placement request detail.
+  2. User selects a preceptor from the dropdown list.
+  3. If necessary, a joint preceptor is also selected.
+  4. System validates the selection based on existing assessment answers.
+  5. The system updates the placement request with the selected preceptor(s).
+
+- Extensions:
+  - If joint preceptor assessments require overwriting, user confirmation is requested.
+
+- Exceptions:
+  - If a joint assessment is already submitted, the supervisor cannot be removed.
+  - If assessments exist and a supervisor change is attempted, user confirmation is required to delete assessments.
+
+- Business Rules:
+  - Preceptor change may require confirmation if it affects existing assessments.
+  - Preceptors cannot be removed if joint assessments are submitted.
+
+- Assumptions:
+  - The department may or may not use assessment modules.
+  - User is aware of the impacts of changing preceptors on existing assessments.
+
+- Open Issues:
+  - None identified.
+
+## PlacementRequestPreceptors-UC2 — Manage Preceptor Hours
+
+- Primary Actor(s):
+  - Placement Coordinator
+
+- Secondary Actor(s):
+  - System
+
+- Trigger:
+  - Need to allocate or adjust hours assigned to preceptors.
+
+- Description:
+  - Adjust the hours allocated to each preceptor to ensure balanced scheduling and task distribution.
+
+- Preconditions:
+  - Preceptors are assigned to the placement request.
+  - The system is aware of total and assigned hours.
+
+- Postconditions:
+  - Hours are adjusted and saved in the system.
+
+- Main Success Scenario:
+  1. User navigates to the preceptor management section.
+  2. User views allocated and total hours.
+  3. User selects "Adjust Hours" option.
+  4. User inputs new hours allocation.
+  5. System validates and saves changes.
+
+- Extensions:
+  - If "Distribute Equally" is selected, hours are distributed evenly among preceptors.
+
+- Exceptions:
+  - If the user inputs invalid hours format, system prompts for correction.
+
+- Business Rules:
+  - Adjustments must not exceed the total available hours.
+  - Adjustments must be positive and in valid format.
+
+- Assumptions:
+  - User understands the implications of hour adjustments.
+
+- Open Issues:
+  - None identified.
+
+## PlacementRequestPreceptors-UC3 — Confirm and Save Changes
+
+- Primary Actor(s):
+  - Placement Coordinator
+
+- Secondary Actor(s):
+  - System
+
+- Trigger:
+  - User attempts to save or confirm changes related to preceptor assignments and hours.
+
+- Description:
+  - Ensures that changes are reviewed and confirmed before finalizing.
+
+- Preconditions:
+  - Changes have been made to the placement request details.
+
+- Postconditions:
+  - Changes are successfully saved in the system.
+
+- Main Success Scenario:
+  1. User reviews modifications in the placement request detail.
+  2. User clicks "Save".
+  3. System validates all inputs and prompts if any discrepancies.
+  4. User confirms necessary prompts.
+  5. System saves changes and updates the database.
+
+- Extensions:
+  - User can cancel changes and the system reverts to previous state.
+
+- Exceptions:
+  - System detects validation errors and prevents save until corrected.
+
+- Business Rules:
+  - All mandatory fields must be filled.
+  - Confirmations are required when overwriting existing data.
+
+- Assumptions:
+  - User has completed all necessary changes before saving.
+
+- Open Issues:
+  - None identified.
+
+## PlacementRequestPreceptors-UC4 — Handle Error and Warning Messages
+
+- Primary Actor(s):
+  - System
+
+- Secondary Actor(s):
+  - Placement Coordinator
+
+- Trigger:
+  - Errors or warnings arise during operation.
+
+- Description:
+  - Displays error and warning messages to guide users on necessary actions.
+
+- Preconditions:
+  - System detects errors or conditions that may lead to warnings.
+
+- Postconditions:
+  - User is informed and can take corrective action.
+
+- Main Success Scenario:
+  1. System detects an issue.
+  2. A panel displays the error or warning message.
+  3. User acknowledges message.
+  4. User takes corrective action.
+
+- Extensions:
+  - User can hide message panels if desired.
+
+- Exceptions:
+  - None identified.
+
+- Business Rules:
+  - Error messages are shown prominently and must be acknowledged.
+
+- Assumptions:
+  - Users will take appropriate actions based on error/warning messages.
+
+- Open Issues:
+  - None identified.
