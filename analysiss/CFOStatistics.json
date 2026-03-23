@@ -1,0 +1,67 @@
+{
+  "filename": "CFOStatistics",
+  "found": true,
+  "summary": "This document contains the logic for managing CFO statistics, including functions for checking and updating the placement request information, sorting statistics by agency, program, and course, and retrieving course information.",
+  "purpose": "To manage and update CFO statistics related to placement requests, ensuring accurate tracking and classification.",
+  "entities": [
+    "CFOSummary",
+    "PlacementRequestInformation"
+  ],
+  "fields": [
+    "ProgramID",
+    "CourseID",
+    "Pending",
+    "PendingEmpty",
+    "RedirEmpty",
+    "Accepted",
+    "Confirmed",
+    "CancDecA",
+    "PRD_ID",
+    "AgencyID",
+    "DepartmentID",
+    "DisciplineID",
+    "SubDisciplineID",
+    "ProgramShortName",
+    "CourseShortName",
+    "AgencyShortName"
+  ],
+  "actors": [
+    "HSPnetSession",
+    "PlacementRequestInfo"
+  ],
+  "workflows": [
+    {
+      "name": "CheckCFO",
+      "steps": [
+        "Try to find program in list",
+        "If not found, add it to list",
+        "Allocate stat in correct slot"
+      ]
+    }
+  ],
+  "business_rules": [
+    "Sort statistics by agency, program, and course."
+  ],
+  "validations": [
+    "Ensure the program and course IDs match."
+  ],
+  "calculations": [],
+  "conditions": [
+    "If placement request is in receiving mode, skip if not in user's allowed list."
+  ],
+  "system_behavior": [
+    "Sorts data for display.",
+    "Accumulates CFO summary counts."
+  ],
+  "dependencies": [],
+  "exceptions": [
+    "Skip placement requests created by Move Offers."
+  ],
+  "source_document_ids": [
+    "22f33a3e-b261-547f-9425-e512842260bf",
+    "3bcadb7e-acf2-57ad-9657-eca1100a1d31",
+    "be77ec9e-bdd2-5fa0-962c-c3dd26231f6c",
+    "de6857b3-b0fd-508c-a332-415e71007b11"
+  ],
+  "content_gaps": []
+}
