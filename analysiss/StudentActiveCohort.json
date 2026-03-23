@@ -1,12 +1,9 @@
 {
   "filename": "StudentActiveCohort",
   "found": true,
-  "summary": "The `StudentActiveCohort` system is designed to manage the association of students with active cohorts, including managing course assignments and cohort details.",
-  "purpose": "To facilitate the assignment and management of active courses and cohorts for students within the system.",
-  "entities": [
-    "StudentActiveCohort",
-    "StudentActiveCohorts"
-  ],
+  "summary": "The documents describe the implementation of a StudentActiveCohort system, which manages student cohort assignments, enrollments, and unassignments within a database. Key functionalities include retrieving and displaying active cohorts for students, managing courses within cohorts, and handling student removal from cohorts.",
+  "purpose": "To manage and track the cohort assignments and course enrollments of students within a system, enabling the retrieval of active cohorts and facilitating database operations related to student cohorts.",
+  "entities": [],
   "fields": [
     "DepartmentID",
     "DepartmentShortName",
@@ -24,51 +21,48 @@
     "CourseID",
     "CourseName"
   ],
-  "actors": [
-    "HSPnetSession"
-  ],
+  "actors": [],
   "workflows": [
     {
-      "name": "StudentSearchActiveCohorts",
+      "name": "Retrieve Active Cohorts",
       "steps": [
-        "Initialize a list to store StudentActiveCohort entries.",
-        "Set database procedure name to 'StudentSearchActiveCohorts'.",
-        "Add SessionID and StudentID parameters to the database.",
-        "Retrieve data using a SqlDataReader.",
-        "For each record in the result set, create a StudentActiveCohort entry and populate its fields.",
-        "Add entries with non-zero AssignedCourses or UnassignedCourses to the list.",
-        "Close the database reader and return the list."
+        "Set stored procedure to StudentSearchActiveCohorts.",
+        "Add parameters for SessionID and StudentID.",
+        "Retrieve data using SqlDataReader.",
+        "Parse each record into a StudentActiveCohort entry.",
+        "Close SqlDataReader.",
+        "Return the list of StudentActiveCohort entries."
       ]
     },
     {
-      "name": "StudentRemoveFromCohort",
+      "name": "Remove Student From Cohort",
       "steps": [
-        "Initialize a list to store StudentActiveCohort entries.",
-        "Set database procedure name to 'StudentRemoveFromCohort'.",
-        "Add SessionID, StudentID, and CohortID parameters to the database.",
-        "Retrieve data using a SqlDataReader.",
-        "Process the data if available.",
-        "Close the database reader and return the list."
+        "Set stored procedure to StudentRemoveFromCohort.",
+        "Add parameters for SessionID, StudentID, and CohortID.",
+        "Retrieve and process data using SqlDataReader.",
+        "Parse relevant records into StudentActiveCohort entries.",
+        "Close SqlDataReader.",
+        "Return the updated list of StudentActiveCohort entries."
       ]
     }
   ],
-  "business_rules": [
-    "Skip past all record sets that don't pertain to courses when retrieving data.",
-    "Only add entries to the list if AssignedCourses or UnassignedCourses are non-zero."
-  ],
+  "business_rules": [],
   "validations": [],
   "calculations": [
     "UnassignedCourses = EnrolledCourses - AssignedCourses"
   ],
   "conditions": [
-    "Only entries with AssignedCourses or UnassignedCourses not equal to zero are added to the list."
+    "Skip all-zero entries for AssignedCourses and UnassignedCourses."
   ],
   "system_behavior": [
-    "Able to search and manage student active cohort assignments.",
-    "Facilitates removal of students from cohorts."
+    "The system utilizes a stored procedure approach to query and manipulate student cohort data.",
+    "Data retrieval is managed through SqlDataReader with parameterized SQL to ensure security and integrity.",
+    "Course data is processed and populated into dedicated StudentActiveCohort objects for further manipulation."
   ],
   "dependencies": [],
-  "exceptions": [],
+  "exceptions": [
+    "All-zero entries for AssignedCourses and UnassignedCourses are skipped during processing."
+  ],
   "source_document_ids": [
     "24eaf078-e391-5240-9a2b-f1e669753812",
     "8027c505-01e5-5861-af3d-ec417f2e1383",
