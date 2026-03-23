@@ -2,8 +2,8 @@
 {
   "filename": "CourseAssessment",
   "found": true,
-  "summary": "The CourseAssessment module involves managing and processing course assessments, including adding, updating, deleting, and validating assessments as well as searching for assessments by course or ID.",
-  "purpose": "To handle course assessment operations such as addition, modification, retrieval, and validation to support course management and evaluation.",
+  "summary": "The Course Assessment module involves managing assessments linked to courses, allowing for CRUD operations such as adding, updating, searching, and deleting assessments. The module also includes validation and format adjustments based on various parameters and conditions.",
+  "purpose": "The system is designed to handle different types of assessments within courses, streamline the retrieval and updating of assessment data using database procedures, and ensure proper access control and data visibility between assessors and subjects.",
   "entities": [
     "CourseAssessment",
     "AssessmentValidationResult"
@@ -32,7 +32,10 @@
     "OpenDaysAfterStartFormatted",
     "CloseDaysAfterEndFormatted",
     "ViewUntilDaysAfterEndFormatted",
-    "OptionAppliedAssessorTypeCodeID"
+    "OptionAppliedAssessorTypeCodeID",
+    "InterimWithoutFinal",
+    "InstructorsAndSupervisors",
+    "AssessmentMaximumExceeded"
   ],
   "actors": [
     "HSPnetSession"
@@ -42,65 +45,67 @@
       "name": "CourseAssessmentAdd",
       "steps": [
         "Set ProcedureName to 'CourseAssessmentAdd'",
-        "Add necessary parameters such as SessionID, CourseID, AssessorTypeCodeID, etc.",
-        "Execute the database query"
+        "Add required parameters including SessionID, CourseID, and various CodeIDs",
+        "Execute query to add new assessment"
       ]
     },
     {
       "name": "CourseAssessmentUpdate",
       "steps": [
         "Set ProcedureName to 'CourseAssessmentUpdate'",
-        "Add necessary parameters including ID and other assessment details",
-        "Execute the database query"
+        "Add required parameters including SessionID, ID, and various CodeIDs",
+        "Execute query to update existing assessment"
       ]
     },
     {
       "name": "CourseAssessmentDelete",
       "steps": [
         "Set ProcedureName to 'CourseAssessmentDelete'",
-        "Add SessionID and ID parameters",
-        "Execute the database query"
-      ]
-    },
-    {
-      "name": "CourseAssessmentValidation",
-      "steps": [
-        "Set ProcedureName to 'CourseAssessmentValidation'",
-        "Add SessionID and CourseID parameters",
-        "Retrieve and evaluate validation results"
+        "Add ID and SessionID parameters",
+        "Execute query to delete the assessment"
       ]
     },
     {
       "name": "CourseAssessmentSearchID",
       "steps": [
         "Set ProcedureName to 'CourseAssessmentSearchID'",
-        "Add SessionID and ID parameters",
-        "Retrieve and parse data into CourseAssessment objects"
+        "Add ID and SessionID parameters",
+        "Execute query to retrieve assessment details by ID"
       ]
     },
     {
       "name": "CourseAssessmentSearch",
       "steps": [
         "Set ProcedureName to 'CourseAssessmentSearch'",
-        "Add SessionID and CourseID parameters",
-        "Retrieve and parse data into CourseAssessment objects"
+        "Add CourseID and SessionID parameters",
+        "Execute query to retrieve all assessments for the course"
+      ]
+    },
+    {
+      "name": "CourseAssessmentValidation",
+      "steps": [
+        "Set ProcedureName to 'CourseAssessmentValidation'",
+        "Add CourseID and SessionID parameters",
+        "Execute query to perform assessment validation"
       ]
     }
   ],
   "business_rules": [],
   "validations": [
-    "Assessment validation checks such as InterimWithoutFinal",
-    "InstructorsAndSupervisors",
-    "AssessmentMaximumExceeded"
+    "Check if InterimWithoutFinal is true or false",
+    "Ensure InstructorsAndSupervisors flag is set correctly",
+    "Check for AssessmentMaximumExceeded condition"
   ],
   "calculations": [],
   "conditions": [
-    "Default vs alternative locale descriptions",
-    "Formatting conditions based on OpenDaysAfterStart and CloseDaysAfterEnd values"
+    "Check if AssessorTypeCode equals SubjectTypeCode to format descriptions",
+    "Adjust formatted display of OpenDaysAfterStart based on its value",
+    "Adjust formatted display of CloseDaysAfterEnd based on its value"
   ],
   "system_behavior": [
-    "Uses stored procedures for database operations",
-    "Utilizes parameter addition for query execution"
+    "Use default locale for description retrieval where applicable",
+    "Store procedure name and parameters for database execution",
+    "Return result lists from search functions"
   ],
   "dependencies": [
     "HSPnet.Framework",
