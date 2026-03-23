@@ -1,0 +1,93 @@
+{
+  "filename": "OccHealth",
+  "found": true,
+  "summary": "The OccHealth module is part of the larger HSPnet enrollment system, focusing on managing occupational health requirements for student enrollments. It includes functionalities for displaying, editing, and managing student information related to occupational health compliance.",
+  "purpose": "To manage and track occupational health requirements for student enrollments within the HSPnet system.",
+  "entities": [
+    "DataLayer.Enrollment",
+    "GridViewRow"
+  ],
+  "fields": [
+    "EnrollmentID",
+    "StudentID",
+    "StudentLastName",
+    "StudentFirstName",
+    "StudentMiddleName",
+    "OccHealthReqMetStatusCodeID",
+    "ImmunReqMetDate",
+    "ImmunReqMetNotes",
+    "MedicalCompleted",
+    "ImmunizationFeePaid"
+  ],
+  "actors": [
+    "UserSession",
+    "StudentPrerequisites",
+    "Enrollments"
+  ],
+  "workflows": [
+    {
+      "name": "Edit Student Entry",
+      "steps": [
+        "Find enrollment entry by ID",
+        "Bind data to grid",
+        "Show modal for editing"
+      ]
+    },
+    {
+      "name": "Update Occupational Health Details",
+      "steps": [
+        "Capture changes in data grid",
+        "Invoke update function with new data",
+        "Rebind grid data"
+      ]
+    }
+  ],
+  "business_rules": [
+    "Only allow edits if RowDisabled is false and user has access",
+    "Override actions if waived",
+    "Sort enrollments by LastName if not already sorted"
+  ],
+  "validations": [
+    "Check if UserSession is not null before proceeding",
+    "Ensure gridDataEdit row count is less than 14 to hide buttons"
+  ],
+  "calculations": [
+    "Determine button visibility based on read-only status and row counts"
+  ],
+  "conditions": [
+    "RowDisabled condition based on graduation or inactivity",
+    "AllowStudentAccess field determines access controls"
+  ],
+  "system_behavior": [
+    "Auto-generate UI controls for grid and panels",
+    "Use JavaScript to handle client-side interactions"
+  ],
+  "dependencies": [
+    "HSPnet framework and data layer",
+    "ASP.NET WebForms controls"
+  ],
+  "exceptions": [
+    "Cancel operations if UserSession is null"
+  ],
+  "source_document_ids": [
+    "131d3a65-829a-5bfd-8c2a-1a81b804dc2f",
+    "16639118-8e4f-5bc0-9217-5eff2ca32126",
+    "2a288297-7a07-5a95-93d2-e3ddd38dece7",
+    "2fe94c0c-ad91-5b06-80f5-77e59f5000d2",
+    "37402cf0-4eea-5364-9855-7a3f120a8d14",
+    "5786373a-a7f0-551a-b03f-0dfcf0ee9c17",
+    "6141a339-6ea5-51de-a57d-a59f6a0fbd73",
+    "682512d1-392f-562f-a60d-1f9c89b19071",
+    "7988d538-54d3-5ca8-9ef0-061bf9618f30",
+    "7b63f4a4-1e0c-5b10-b3e3-6b7aac849e36",
+    "7fefa61c-9cfe-55f1-9b50-febedbe46318",
+    "89124961-3dd3-53a6-9b57-069261cca36e",
+    "947127bd-2ef7-5274-b61b-f34b65774c9f",
+    "9b9696af-de00-56b8-a6ec-f64b7febde3e",
+    "cba622fd-6755-55cd-b5fd-aa9a38bddec2",
+    "e01535a4-5702-5fa8-8dd6-c8bb9609547f",
+    "e8e5db16-578b-533f-9b0d-c3eb7d478fab",
+    "f6c55d2b-8a2d-5997-bb38-1d9b6558321b"
+  ],
+  "content_gaps": []
+}
