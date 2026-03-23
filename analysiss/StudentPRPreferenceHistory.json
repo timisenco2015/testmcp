@@ -1,0 +1,63 @@
+{
+  "filename": "StudentPRPreferenceHistory",
+  "found": true,
+  "summary": "The `StudentPRPreferenceHistory` is a component related to maintaining and displaying the history of student preferences in the context of a timetable within the HSPnet framework. It involves database interactions for fetching and displaying preference history.",
+  "purpose": "To manage and display student preference history data associated with timetables, enabling users to track changes and actions taken by users or system administrators.",
+  "entities": [],
+  "fields": [
+    "ActionDate",
+    "UserAction",
+    "Fields",
+    "Agency",
+    "AgencyName",
+    "LastName",
+    "FirstName",
+    "MiddleName",
+    "Phone",
+    "ByUserID",
+    "ByOriginalUserID",
+    "ByUserSysAdmin"
+  ],
+  "actors": [
+    "UserSession",
+    "HSPnetSession"
+  ],
+  "workflows": [
+    {
+      "name": "Data Retrieval and Binding",
+      "steps": [
+        "Initialize session, student ID, and timetable ID.",
+        "Call FillList() method to populate data.",
+        "Execute stored procedure 'StudentPRPreferenceHistorySearch'.",
+        "Fetch and read data using SqlDataReader.",
+        "Translate data into StudentPRPreferenceHistory objects.",
+        "Bind data to gridData control for UI display."
+      ]
+    }
+  ],
+  "business_rules": [],
+  "validations": [],
+  "calculations": [],
+  "conditions": [
+    "Check if UseAltLanguageFields is true to determine which language fields to use."
+  ],
+  "system_behavior": [
+    "Uses a stored procedure to fetch data based on StudentID and TimetableID.",
+    "Utilizes session-based database interactions."
+  ],
+  "dependencies": [
+    "HSPnet.Framework.HSPnetSession",
+    "HSPnet.UI.DateFormatter",
+    "HSPnet.UI.NameFormatter"
+  ],
+  "exceptions": [],
+  "source_document_ids": [
+    "2a97839e-e587-5578-b410-3fe85b82ac9d",
+    "7c5c7ce0-724a-5180-a21e-d6a78fecdcc2",
+    "813205d4-c68b-597a-b3de-41d71ee0b297",
+    "9c1e83a9-b5d4-5a73-bebf-4e12d887fabb",
+    "d2874a40-f481-562a-90f4-f4b2674c1b9c",
+    "f30f483e-99cb-55d6-9d46-ea1985730f13"
+  ],
+  "content_gaps": []
+}
