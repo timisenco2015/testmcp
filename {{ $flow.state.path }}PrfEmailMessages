@@ -1,0 +1,97 @@
+```json
+{
+    "filename": "PrfEmailMessages",
+    "found": true,
+    "summary": "The PrfEmailMessages component handles the management of staff messages within the HSPnet user interface, allowing operations such as adding, editing, deleting, and displaying message data through web controls.",
+    "purpose": "To provide a user interface component for managing staff messages, including viewing, adding, updating, and deleting staff messages.",
+    "entities": [
+        "StaffMessage",
+        "UserSession",
+        "HSPnetSession"
+    ],
+    "fields": [
+        "TypeCodeID",
+        "ID",
+        "CurrentPage",
+        "UserSession",
+        "ScreenIsEditable"
+    ],
+    "actors": [
+        "User",
+        "System"
+    ],
+    "workflows": [
+        {
+            "name": "Displaying Message Details",
+            "steps": [
+                "Bind data to uxDetail control",
+                "Format fields based on data type",
+                "Display message details in FormView"
+            ]
+        },
+        {
+            "name": "Adding a Message",
+            "steps": [
+                "Click add button",
+                "Switch to add mode",
+                "Show details in modal",
+                "Save new message"
+            ]
+        },
+        {
+            "name": "Editing a Message",
+            "steps": [
+                "Click edit button",
+                "Switch to edit mode",
+                "Show details in modal",
+                "Update message"
+            ]
+        },
+        {
+            "name": "Deleting a Message",
+            "steps": [
+                "Click delete button",
+                "Confirm deletion",
+                "Remove message from database",
+                "Refresh interface"
+            ]
+        }
+    ],
+    "business_rules": [
+        "User must have an active session to perform operations",
+        "Screen must be editable to enable add/edit functionalities"
+    ],
+    "validations": [
+        "Ensure all required fields are filled before submission",
+        "Check user session validity before data operations"
+    ],
+    "calculations": [],
+    "conditions": [
+        "If ScreenIsEditable is true, enable edit functionalities",
+        "Show add button if no data is present and screen is editable"
+    ],
+    "system_behavior": [
+        "Cache user session after data operations",
+        "Redirect back to current page after insertion or update"
+    ],
+    "dependencies": [
+        "AjaxControlToolkit",
+        "HSPnet.DataLayer",
+        "System.Web.UI"
+    ],
+    "exceptions": [
+        "Handle null user session by cancelling operations",
+        "Prevent operations if page validation fails"
+    ],
+    "source_document_ids": [
+        "54eb7f90-aa81-5c73-9edf-449b18368886",
+        "747bb576-2d1e-515e-844c-e5b69a297c7f",
+        "766d2735-749a-5eca-9d70-13ff77e83546",
+        "cf2f0c7f-251f-5853-a971-0e529d5cb0f0",
+        "d2df2107-29e7-5d6e-aafe-d55e8532eeca",
+        "edab8455-e683-5ca9-84d6-77349d98c7a5",
+        "f8b1f8d2-c584-576d-b5c1-20135d6f0924"
+    ],
+    "content_gaps": []
+}
+```
