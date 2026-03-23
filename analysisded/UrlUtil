@@ -1,0 +1,70 @@
+```json
+{
+    "filename": "UrlUtil",
+    "found": true,
+    "summary": "UrlUtil provides utility functions for manipulating URLs, adding CSS links, and creating popup anchors for web pages.",
+    "purpose": "To enhance web page functionality by providing utility methods for URL manipulation and HTML element creation.",
+    "entities": [],
+    "fields": [],
+    "actors": [],
+    "workflows": [
+        {
+            "name": "ReplacePound",
+            "steps": [
+                "Check if input is null.",
+                "Replace '#' with 'No'."
+            ]
+        },
+        {
+            "name": "AddCssLink",
+            "steps": [
+                "Check if header is not null.",
+                "Create HtmlLink element.",
+                "Set Href with css URL and version number.",
+                "Add 'type' and 'rel' attributes.",
+                "Add link to header controls."
+            ]
+        },
+        {
+            "name": "PopupAnchor",
+            "steps": [
+                "Check if pageFileName is not null.",
+                "Initialize StringBuilder with pageFileName.",
+                "Append parameters to StringBuilder if any.",
+                "Generate HTML anchor tag with JavaScript newWindow function."
+            ]
+        },
+        {
+            "name": "MaintStaffProfilePopup",
+            "steps": [
+                "Check if session is not null.",
+                "Initialize dictionary with session details and staff ID.",
+                "Add 'DefaultTab' if provided.",
+                "Return a URL anchor using PopupAnchor method."
+            ]
+        }
+    ],
+    "business_rules": [],
+    "validations": [
+        "Check for null values in input parameters."
+    ],
+    "calculations": [],
+    "conditions": [],
+    "system_behavior": [
+        "Generate HTML/CSS elements dynamically.",
+        "Hash URL strings for enhanced URL security."
+    ],
+    "dependencies": [
+        "HSPnet.Framework",
+        "System.Web.UI.HtmlControls"
+    ],
+    "exceptions": [
+        "Returns null if input parameters are invalid."
+    ],
+    "source_document_ids": [
+        "017a74a7-ce03-5d8f-9bea-77f345fffab8",
+        "711a11f0-be35-5585-b048-c24bede82b01"
+    ],
+    "content_gaps": []
+}
+```
