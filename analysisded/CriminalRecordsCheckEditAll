@@ -1,0 +1,84 @@
+```json
+{
+  "filename": "CriminalRecordsCheckEditAll",
+  "found": true,
+  "summary": "The document provides the implementation details of the 'CriminalRecordsCheckEditAll' user control in the HSPnet system. This control is responsible for editing and displaying criminal record checks for student enrollments within a grid-based web interface.",
+  "purpose": "To facilitate the editing and display of criminal records checks for enrollments in an educational or health institution management system.",
+  "entities": ["HSPnetSession", "ScriptManager", "GridView", "ObjectDataSource", "Panel"],
+  "fields": [
+    "UserSession",
+    "CohortID",
+    "TermID",
+    "CourseID",
+    "ShowGrad",
+    "ShowInactive",
+    "ShowWaived",
+    "SectionFilter",
+    "ActionFilter",
+    "keyword",
+    "CampusID",
+    "CommentFilter",
+    "blnReadOnly",
+    "blnStudentMaint",
+    "EnrollmentID",
+    "StartRow"
+  ],
+  "actors": [],
+  "workflows": [
+    {
+      "name": "Data Binding",
+      "steps": [
+        "Check if UserSession is null and cancel the operation if true.",
+        "Populate input parameters with user session and various filter criteria.",
+        "Execute the selection and bind results to gridDataEdit."
+      ]
+    },
+    {
+      "name": "Row Command Handling",
+      "steps": [
+        "Handle commands like 'cmdSaveAll', 'cmdSaveEditNext', and 'cmdSave'.",
+        "Update student CRC details using inputs from grid cells.",
+        "Check for warnings; redirect or break based on their presence."
+      ]
+    },
+    {
+      "name": "Rendering",
+      "steps": [
+        "Handle DataBound event by hiding certain panel buttons based on conditions.",
+        "Disable edit fields if in read-only mode.",
+        "Add blank entries to dropdown lists conditionally."
+      ]
+    }
+  ],
+  "business_rules": [],
+  "validations": [
+    "Ensure UserSession is not null before proceeding with data operations."
+  ],
+  "calculations": [],
+  "conditions": [
+    "EnrollmentID checks to control visibility of UI elements.",
+    "Check if 'isDirty' flag is true to determine if an update is necessary."
+  ],
+  "system_behavior": [
+    "Automatically hide UI elements based on enrollment and pagination details.",
+    "Toggle visibility of save controls conditionally."
+  ],
+  "dependencies": [
+    "Depends on HSPnetSession for user session data.",
+    "Relies on ObjectDataSource for data operations."
+  ],
+  "exceptions": [],
+  "source_document_ids": [
+    "03144aa6-93b7-599f-b8e0-5588317ba19b",
+    "48902891-c057-57e5-9068-3b1307b2dffd",
+    "6918cccf-5e9d-514f-b001-797e2af8307f",
+    "b2bd51ac-3047-55c8-af59-4f8eed91961b",
+    "bd4a4fa1-d3ef-5764-b65e-7bf1cb6bbc30",
+    "c5efee46-5e88-55df-947d-7fe86465a805",
+    "d9e68048-669a-5e6a-b9fe-b5fe6ff4416e",
+    "f1a93269-4cd6-5f47-93a1-f9f2e4730224",
+    "f3ce8c3c-3cd0-531b-a85e-f90764dac0e2"
+  ],
+  "content_gaps": []
+}
+```
