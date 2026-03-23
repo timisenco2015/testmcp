@@ -1,18 +1,46 @@
 {
     "filename": "EmailPopupDocument",
     "found": true,
-    "summary": "The EmailPopupDocument class manages documents related to email popups, including file paths and names.",
-    "purpose": "To handle document metadata and operations related to email popups.",
-    "entities": ["EmailPopupDocument"],
-    "fields": ["ID", "FileName", "FilePath", "Checked"],
+    "summary": "Manages email popups and handles their related actions like search and delete.",
+    "purpose": "To manage email popup documents, providing functions to search and delete them.",
+    "entities": [
+        "HSPnet.Framework",
+        "System.IO"
+    ],
+    "fields": [
+        {
+            "name": "ID",
+            "type": "int"
+        },
+        {
+            "name": "FileName",
+            "type": "string"
+        },
+        {
+            "name": "FilePath",
+            "type": "string"
+        }
+    ],
     "actors": [],
-    "workflows": [],
+    "workflows": [
+        {
+            "name": "Search",
+            "steps": [
+                "Split incoming data",
+                "Add to list if valid"
+            ]
+        }
+    ],
     "business_rules": [],
     "validations": [],
     "calculations": [],
     "conditions": [],
-    "system_behavior": [],
-    "dependencies": [],
+    "system_behavior": [
+        "Handles search and deletion of email popup documents."
+    ],
+    "dependencies": [
+        "System.IO"
+    ],
     "exceptions": [],
     "source_document_ids": [
         "7287734e-f13d-550f-9249-4242db620766",
