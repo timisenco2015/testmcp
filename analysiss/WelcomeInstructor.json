@@ -1,14 +1,16 @@
 {
   "filename": "WelcomeInstructor",
   "found": true,
-  "summary": "The WelcomeInstructor file serves as a web page for managing instructor resources and their interaction with the HSPnet system. It includes functionality for instructors to switch user profiles, view placements, access orientation materials, handle prerequisites, and manage scheduling and notifications.",
-  "purpose": "To provide instructors with tools and interfaces to manage their profiles, placements, schedules, and prerequisites within the HSPnet system.",
+  "summary": "The WelcomeInstructor page is part of the HSPnet framework and facilitates the management and interaction of instructors with the system. It includes functionality for managing instructor profiles, accessing course and term information, handling placement details, prerequisites, and generating reports. It is integrated with the HSPnet framework for global resource handling and session management.",
+  "purpose": "To provide instructors with a comprehensive portal within HSPnet for managing placements, prerequisites, and their profile settings.",
   "entities": [
-    "WelcomeInstructor",
-    "Staff",
-    "InstructorPlacement",
-    "Program",
-    "Course"
+    "Instructor",
+    "Course",
+    "Term",
+    "Placement",
+    "Prerequisite",
+    "StaffProfile",
+    "UserSession"
   ],
   "fields": [
     "Service",
@@ -20,54 +22,83 @@
     "Dates",
     "Shift",
     "Hours",
-    "Days"
+    "Days",
+    "PlacementInformation",
+    "Agency",
+    "Site",
+    "Supervisor",
+    "Rotations",
+    "Course",
+    "Student",
+    "UrgentAlert",
+    "ConditionAlert",
+    "CommentAlert"
   ],
   "actors": [
     "Instructor",
-    "Supervisors",
-    "Students"
+    "Supervisor",
+    "Staff",
+    "Student",
+    "System Administrator",
+    "Local Administrator",
+    "Staff Administrator"
   ],
   "workflows": [
     {
-      "name": "Instructor Profile Management",
+      "name": "Instructor Placement Management",
       "steps": [
-        "User logs in to HSPnet",
-        "Accesses WelcomeInstructor page",
-        "Switches user profile if necessary",
-        "Manages placements through the provided tools",
-        "Updates scheduling and prerequisites"
+        "Load instructor page with session data",
+        "Select course and term from dropdowns",
+        "View placements and manage details",
+        "Access prerequisites and update status",
+        "Generate reports based on selected criteria"
+      ]
+    },
+    {
+      "name": "User Session Management",
+      "steps": [
+        "Validate session via URL hash",
+        "Switch user context if authorized",
+        "Manage session data for reporting and preprocessing",
+        "Logout and clear session data"
       ]
     }
   ],
   "business_rules": [
-    "Instructors can access prerequisites and manage them only if they have been granted the required permissions.",
-    "Placements can be viewed and managed based on terms, courses, and confirmation statuses."
+    "Instructors are only allowed to view and manage placements if authorized.",
+    "Prerequisites can be navigated through a tabbed interface and depend on session data.",
+    "Placements can only be printed by users with the proper permissions.",
+    "System administrators have broader permissions across the platform."
   ],
   "validations": [
-    "Ensure user session is active before accessing page functionalities.",
-    "Validate placement reference numbers before processing scheduling data."
+    "Check if user session is valid before allowing access",
+    "Validate dropdown selections for courses and terms",
+    "Ensure prerequisites are visible only if applicable for the session"
   ],
   "calculations": [
-    "Calculate shifts and hours based on placement data.",
-    "Determine display text for status updates using predefined resource strings."
+    "Calculate placement durations based on hours and shifts",
+    "Determine visibility of placement options based on session attributes",
+    "Parse and format rotation strings in the report"
   ],
   "conditions": [
-    "If user is a system administrator, additional functionalities are unlocked.",
-    "If placements are unconfirmed, they are highlighted separately."
+    "User session must be active to access placement details",
+    "Courses and terms must be selected for report generation",
+    "Prerequisite tabs are dependant on user session attributes"
   ],
   "system_behavior": [
-    "Automatically updates the list of placements and terms based on user interactions.",
-    "Displays error or warning panels when specific conditions are met.",
-    "Supports dynamic switching of user profiles."
+    "System hides certain UI elements based on session state",
+    "ScriptManager facilitates AJAX updates and control visibility",
+    "Reports are generated dynamically based on user input"
   ],
   "dependencies": [
-    "HSPnet DataLayer for fetching and updating placement data",
-    "Resource files for localized strings",
-    "AjaxControlToolkit for enhanced UI components"
+    "UserSession for session tracking",
+    "Global resources for localization",
+    "AjaxControlToolkit for UI interactions"
   ],
   "exceptions": [
-    "Navigation errors are handled with redirects to default pages.",
-    "Inactive sessions are flagged and access is restricted."
+    "Session expiration results in user redirection",
+    "Invalid session data prevents access to the instructor portal",
+    "Failed report generation displays an error message"
   ],
   "source_document_ids": [
     "044c73b8-8202-5929-9317-7ee7288c94c7",
@@ -84,7 +115,7 @@
     "2dbfad05-e929-515a-89d0-4adac305bedd",
     "320cbedc-5d07-5f69-b824-db9efe6ca355",
     "347acedd-c9ce-557e-8ffb-27da41817aaf",
-    "347acedd-c9ce-557e-8ffb-27da41817aaf",
+    "35d60727-e236-54ec-91fc-bfda460a5dbf",
     "38dc6221-140d-5343-bcde-43cbb4cb3055",
     "3b13b989-295d-578e-a29f-237ebb1b45e9",
     "3d90af8b-3370-5111-9f9a-229097a45b40",
@@ -93,10 +124,14 @@
     "442725ae-a901-556f-8256-62dd3f854b14",
     "47bf95db-7384-59f3-9e24-5a99d5a1bda1",
     "486d80d8-cb99-5083-9db0-bb72be299108",
+    "4cdcee75-97d7-50d0-8c81-15cbe4fa7ac6",
+    "4cfce2ec-5bb1-570a-bcf9-74fc562ba861",
     "509e8c1c-59fb-5ec0-8df4-9aff86efdfc5",
     "53efe811-e4f5-5307-b920-16c9cecdc0f6",
     "548599a6-ecbb-558b-8717-5c51131decee",
     "54d94225-1ba4-585e-8374-5f96df82453d",
+    "55f4cf79-39f2-52e2-8526-f180c52b6a21",
+    "56883665-c05e-5f1c-8b08-7a3316da6d7a",
     "5d0240b6-ceef-5738-b517-4e5633f0984b",
     "5da5c75a-3a60-55b4-b17e-ac841352d715",
     "60a011e6-19fa-51be-90de-1628945051b3",
@@ -118,7 +153,6 @@
     "b1104fdb-d4cd-562a-944c-1253366eab39",
     "b4a674aa-f1d2-558e-923d-b9314ba04070",
     "bffaff80-48ef-5ebe-b70c-1901410310f0",
-    "c5c699eb-6c17-554b-a306-26b56c2f17f4",
     "cdc41e54-e35a-5952-a0bf-5bec2b0c7c17",
     "cfac7d01-b479-55e6-b17e-34437d510f51",
     "d4e1a52a-e7ed-5a73-af6a-e4f2701ec0be",
