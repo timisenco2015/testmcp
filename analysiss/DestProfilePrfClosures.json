@@ -1,60 +1,87 @@
 {
   "filename": "DestProfilePrfClosures",
   "found": true,
-  "summary": "The retrieved documents provide details on various user controls and data handling processes in a web application, specifically focusing on destination profile closures. This includes data-binding, user session management, and user interface interactions.",
-  "purpose": "To manage destination profile closures within an application interface, handling user interactions and data updates.",
+  "summary": "The DestProfilePrfClosures module handles operations related to destination profile closures such as selecting, inserting, updating, and deleting closure records. It involves user session management, data binding, and interface controls.",
+  "purpose": "To manage closures associated with destination profiles, ensuring data consistency and providing user interface controls for inserting, updating, and deleting closure records.",
   "entities": [],
   "fields": [
-    "UserSession",
-    "SessionID",
-    "SourceLevel",
-    "ParentID",
-    "ClosureCodeID",
-    "StartDate",
-    "EndDate",
-    "Comment",
-    "AllowAllSubDisciplines",
-    "SubDiscIDList",
-    "CurrentMode",
-    "ScreenIsEditable",
-    "CurrentPage",
-    "RestrictedSubDisciplines"
+    {
+      "name": "Sess",
+      "description": "User session associated with operations",
+      "type": "UserSession",
+      "used_in": [
+        "dsDestClosure_Updating",
+        "dsDestClosure_Selecting"
+      ]
+    },
+    {
+      "name": "SourceLevel",
+      "description": "The level of source for the operation, set to 'Destination'",
+      "type": "Enum",
+      "used_in": [
+        "dsDestClosure_Updating",
+        "dsDestClosure_Selecting"
+      ]
+    },
+    {
+      "name": "ParentID",
+      "description": "The ID of the destination",
+      "type": "int",
+      "used_in": [
+        "dsDestClosure_Inserting"
+      ]
+    },
+    {
+      "name": "ClosureCodeID",
+      "description": "ID for closure code",
+      "type": "int",
+      "used_in": [
+        "uxDetail_ItemInserting"
+      ]
+    }
   ],
   "actors": [
-    "User",
-    "System"
+    {
+      "name": "UserSession",
+      "role": "Handles user authentication and session management"
+    }
   ],
   "workflows": [
     {
-      "name": "Data Selection and Updating",
+      "name": "Manage Destination Profile Closures",
       "steps": [
-        "dsDestClosure_Updating: Update destination closure data with user session information.",
-        "dsDisciplineFilter_Selecting: Select discipline filter based on user session availability.",
-        "dsDestClosures_Selecting: Select destination closures; cancel if user session is unavailable.",
-        "uxDetail_ItemCommand: Handle 'Insert' or 'Update' commands on user detail form."
+        "Initialize user session and check permissions.",
+        "Bind data to controls and setup interface elements.",
+        "Allow user to insert or update closure records.",
+        "Handle data submission and perform validation.",
+        "Save changes to database and update session cache."
       ]
     }
   ],
   "business_rules": [
-    "User session must be valid to proceed with selecting or updating data.",
-    "If 'Insert' command is triggered, user input validations must pass; otherwise, cancel the operation."
+    "Closure records must be associated with a valid session.",
+    "Only authorized users can insert or update records.",
+    "All closure operations are tied to a specific source level of 'Destination'."
   ],
   "validations": [
-    "Page.IsValid check before proceeding with item insertion or updating."
+    "Ensure SessionID is valid before proceeding with data operations.",
+    "Validate presence of required fields before inserting or updating."
   ],
   "calculations": [],
   "conditions": [
-    "Screen is editable",
-    "User session is valid",
-    "Command name is 'Insert' or 'Update'"
+    "UserSession must be active for any operation to be executed.",
+    "If UserSession is null, data operations are canceled."
   ],
   "system_behavior": [
-    "Manage updates and selection of data based on user session status.",
-    "Provide UI components for selecting and showing data details."
+    "Display relevant UI controls based on user permissions.",
+    "Update session cache after successful operations."
   ],
-  "dependencies": [],
+  "dependencies": [
+    "HSPnet.Framework for Grid and Dropdown utilities.",
+    "AjaxControlToolkit for dynamic UI elements."
+  ],
   "exceptions": [
-    "Cancel data selection or update if user session is null."
+    "JavaScript validation errors during event handling."
   ],
   "source_document_ids": [
     "1b9b1fb6-0487-5b3a-885d-cccd86895125",
