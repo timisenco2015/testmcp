@@ -1,0 +1,87 @@
+# Module: CertificationEditAll
+
+## CertificationEditAll-UC1 — Manage Student Certification
+
+- Primary Actor(s): System Administrator
+- Secondary Actor(s): Student
+- Trigger: A request to update or view certification details for a student.
+- Description: This use case allows the system administrator to manage student certifications, including updating details and viewing existing certifications.
+- Preconditions:
+  - The user must have a valid session.
+  - The student certifications must exist in the database.
+- Postconditions:
+  - Student certification details are updated.
+  - The system provides feedback on the success or failure of the operation.
+- Main Success Scenario:
+  1. User selects a student from the list to view or update certification details.
+  2. System displays the current certification details.
+  3. User updates the certification information (e.g., effective date, expiry date, certification number, status).
+  4. User submits the changes.
+  5. System validates the changes.
+  6. System updates the certification details in the database.
+  7. System redirects the user to the main certification page with a success message.
+- Extensions:
+  - 3a. If the certification number is missing, the system prompts the user to enter it.
+  - 6a. If validation fails, the system highlights errors and does not update the database.
+- Exceptions:
+  - If there is a database connectivity issue, an error message is displayed, and changes are not saved.
+- Business Rules:
+  - Certification effective date must be before the expiry date.
+  - Only system administrators can modify certification details.
+- Assumptions:
+  - The database is accessible and operational.
+  - The interface supports displaying, entering, and submitting data.
+- Open Issues:
+  - Need confirmation on whether additional fields are to be managed (e.g., certification authority). 
+
+## CertificationEditAll-UC2 — View Certification List
+
+- Primary Actor(s): System Administrator
+- Secondary Actor(s): None
+- Trigger: A request to view all student certifications.
+- Description: This use case enables the system administrator to view a list of all student certifications.
+- Preconditions:
+  - The user must have a valid session.
+- Postconditions:
+  - A list of certifications is displayed to the user.
+- Main Success Scenario:
+  1. User accesses the certification list page.
+  2. System retrieves all certifications from the database.
+  3. System displays the list of certifications in a grid.
+- Extensions:
+  - None
+- Exceptions:
+  - If no certifications exist, the system displays a message stating no records found.
+- Business Rules:
+  - Only system administrators can view the full list of certifications.
+- Assumptions:
+  - The system supports grid display of data.
+- Open Issues:
+  - Need to determine if filtering options should be available for the list view. 
+
+## CertificationEditAll-UC3 — Validate Certification Dates
+
+- Primary Actor(s): System
+- Secondary Actor(s): None
+- Trigger: Submission of updated certification data.
+- Description: This use case involves the system automatically validating the dates for student certifications.
+- Preconditions:
+  - User has entered new effective or expiry dates.
+- Postconditions:
+  - System confirms validity of entered dates.
+- Main Success Scenario:
+  1. User enters effective and expiry dates for a certification.
+  2. System checks that the effective date is before the expiry date.
+  3. If valid, system proceeds with the update.
+- Extensions:
+  - None
+- Exceptions:
+  - If dates are invalid, a specific error message is shown, and the update is not processed.
+- Business Rules:
+  - Expiry date must be on or after the effective date.
+- Assumptions:
+  - The system provides feedback for date errors immediately.
+- Open Issues:
+  - Confirm the handling process for timezone differences, if applicable. 
+
+Each use case is derived from the functionalities and operations described within the retrieved document content, ensuring completeness and accuracy based on available information.
