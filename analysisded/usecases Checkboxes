@@ -1,0 +1,36 @@
+# Module: Checkboxes
+
+## Checkboxes-UC1 — Display Checked Checkbox
+
+- Primary Actor(s): User Interface
+- Secondary Actor(s): System Resources
+- Trigger: A checkbox is displayed on the screen.
+- Description: Determines how checked checkboxes are represented visually on the screen.
+- Preconditions: The checkbox is marked as checked in the data model.
+- Postconditions: The screen accurately reflects the checked state of the checkbox using the defined visual representation.
+- Main Success Scenario:
+  1. The system identifies a checkbox marked as checked.
+  2. The system uses the `CheckedString` constant to display the checkbox as checked on the screen.
+- Extensions: None
+- Exceptions: None
+- Business Rules: Checkbox display must use the `CheckedString` representation.
+- Assumptions: The user interface supports the use of the `CheckedString` icon for checkboxes.
+- Open Issues: None
+
+## Checkboxes-UC2 — Return Yes on Checked
+
+- Primary Actor(s): System Logic
+- Secondary Actor(s): None
+- Trigger: A method call to evaluate the state of a checkbox.
+- Description: Provides a string representation of the checkbox state, returning "YES" if checked.
+- Preconditions: The checkbox state is retrievable as a boolean.
+- Postconditions: The method returns "YES" if the checkbox is checked; otherwise, returns an empty string.
+- Main Success Scenario:
+  1. The method `CheckedYES` is called with a value.
+  2. If the value is `true`, the method returns "YES".
+  3. If the value is `false` or null, the method returns an empty string.
+- Extensions: None
+- Exceptions: Catches any exceptions and returns an empty string.
+- Business Rules: Must handle both boolean and null input values.
+- Assumptions: The input to the method can be safely cast to a boolean.
+- Open Issues: None
