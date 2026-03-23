@@ -1,70 +1,59 @@
 {
-  "filename": "SiteRecruitmentResources",
-  "found": true,
-  "summary": "The SiteRecruitmentResources manage recruitment resources within the HSPnet application, leveraging various UI components and controls for interaction and data handling. It supports functionalities such as viewing, editing, and updating recruitment details.",
-  "purpose": "To provide a user interface for managing site recruitment resources, including displaying details, editing records, and handling recruitment statuses.",
-  "entities": [],
-  "fields": [
-    {
-      "name": "RecruitmentReferenceNumber",
-      "type": "String",
-      "description": "A unique reference number for the recruitment."
-    },
-    {
-      "name": "RecruitmentClosed",
-      "type": "Boolean",
-      "description": "A status indicating whether the recruitment is closed."
-    },
-    {
-      "name": "SiteID",
-      "type": "Integer",
-      "description": "The unique identifier for the site."
-    },
-    {
-      "name": "WebPage",
-      "type": "String",
-      "description": "The URL or identifier for the webpage related to the recruitment resources."
-    }
-  ],
-  "actors": [
-    {
-      "name": "User",
-      "description": "The end user interacting with the SiteRecruitmentResources interface."
-    }
-  ],
-  "workflows": [
-    {
-      "name": "Edit Recruitment",
-      "steps": [
-        "User clicks on the edit button to modify recruitment details.",
-        "The uxDetail control switches to edit mode.",
-        "The user makes changes to the recruitment reference number or status.",
-        "User saves the changes which are then updated in the database."
-      ]
-    }
-  ],
-  "business_rules": [
-    "The recruitment status can only be updated if the user has editing permissions."
-  ],
-  "validations": [
-    "Check if the UserSession is valid before allowing database operations.",
-    "Ensure recruitment reference number is a valid string."
-  ],
-  "calculations": [],
-  "conditions": [
-    "If UserSession is null, cancel database selection operations."
-  ],
-  "system_behavior": [
-    "The system updates the recruitment details in the database when saved.",
-    "Pop-up modal for details is displayed using AjaxControlToolkit."
-  ],
-  "dependencies": [],
-  "exceptions": [],
-  "source_document_ids": [
-    "2d4e39aa-3711-5891-9efb-c1e9d0379093",
-    "456dd6b9-b89b-5a65-b681-2aa917a399a8",
-    "a61db9ae-f959-5975-ac27-4e818c75be32",
-    "cb4e80a6-37e6-5555-bfe5-d164c8ef5f87"
-  ],
-  "content_gaps": []
+    "filename": "SiteRecruitmentResources",
+    "found": true,
+    "summary": "The SiteRecruitmentResources document includes functionalities for managing recruitment resources. It provides controls for editing and updating site recruitment details through a web interface.",
+    "purpose": "To facilitate the management and update of recruitment resources and details associated with sites in the HSPnet application.",
+    "entities": [
+        "HSPnetSession",
+        "SiteRecruitmentResources"
+    ],
+    "fields": [
+        "RecruitmentReferenceNumber",
+        "RecruitmentClosed",
+        "WebPage"
+    ],
+    "actors": [
+        "User"
+    ],
+    "workflows": [
+        {
+            "name": "cmdEdit_click",
+            "steps": [
+                "Switch FormView to edit mode",
+                "Set detail header to 'Edit entry'",
+                "Bind the site detail data source"
+            ]
+        },
+        {
+            "name": "uxDetail_ItemCommand",
+            "steps": [
+                "Retrieve ID from data key",
+                "Get web page, reference number, and closed status",
+                "Update recruitment resources",
+                "Redirect after caching session if not cancelled"
+            ]
+        }
+    ],
+    "business_rules": [],
+    "validations": [],
+    "calculations": [],
+    "conditions": [
+        "If UserSession is null, cancel data source selection"
+    ],
+    "system_behavior": [
+        "Cache user session",
+        "Redirect with URL hashing"
+    ],
+    "dependencies": [
+        "HSPnet.UI.Links",
+        "HSPnet.Framework.Hashing"
+    ],
+    "exceptions": [],
+    "source_document_ids": [
+        "2d4e39aa-3711-5891-9efb-c1e9d0379093",
+        "456dd6b9-b89b-5a65-b681-2aa917a399a8",
+        "a61db9ae-f959-5975-ac27-4e818c75be32",
+        "cb4e80a6-37e6-5555-bfe5-d164c8ef5f87"
+    ],
+    "content_gaps": []
 }
