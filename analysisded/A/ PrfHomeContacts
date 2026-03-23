@@ -1,0 +1,84 @@
+```json
+{
+  "filename": "PrfHomeContacts",
+  "found": true,
+  "summary": "PrfHomeContacts is a user control within the HSPnet application designed for managing staff profile home contact information, including phone numbers and area codes.",
+  "purpose": "To facilitate the viewing, editing, and updating of home contact information for staff profiles within the HSPnet system.",
+  "entities": [
+    "PrfHomeContacts",
+    "HSPnetSession",
+    "StaffID",
+    "AreaCode",
+    "ScreenIsEditable",
+    "ScriptManager",
+    "CurrentPage"
+  ],
+  "fields": [
+    "fvwHomeContacts",
+    "pnlPopup",
+    "btnShowPopup",
+    "mdlDetails",
+    "ValidationSummary3",
+    "fvwEditHomeContacts",
+    "dsStaff"
+  ],
+  "actors": ["UserSession"],
+  "workflows": [
+    {
+      "name": "Edit Home Contacts",
+      "steps": [
+        "Grid.SwitchToEditMode(fvwEditHomeContacts)",
+        "Grid.ShowDetails(fvwEditHomeContacts, mdlDetails)",
+        "DataBind form view"
+      ]
+    },
+    {
+      "name": "Select Staff Data",
+      "steps": [
+        "Check if UserSession is null; cancel operation if true",
+        "Set input parameters for ObjectDataSource"
+      ]
+    },
+    {
+      "name": "Update Home Contacts",
+      "steps": [
+        "Update FormView with new values",
+        "Cache user session",
+        "Redirect to current page with updated query string"
+      ]
+    }
+  ],
+  "business_rules": [
+    "ScreenIsEditable dictates visibility of edit buttons",
+    "Remove phone masks if UserSession.UsePhoneMask is false"
+  ],
+  "validations": [
+    "Phone validation enabled/disabled based on UserSession.UsePhoneMask",
+    "Ensure country code is set for home contact"
+  ],
+  "calculations": [],
+  "conditions": [
+    "Check if session is null to cancel data selection",
+    "Control visibility of edit buttons based on ScreenIsEditable"
+  ],
+  "system_behavior": [
+    "JavaScript variables setup for client-side operations",
+    "Async post-back checks for script registration"
+  ],
+  "dependencies": [
+    "HSPnet.DataLayer",
+    "HSPnet.UI",
+    "HSPnet.Framework",
+    "AjaxControlToolkit"
+  ],
+  "exceptions": [],
+  "source_document_ids": [
+    "169e42e3-a079-5bc4-8262-b3fcec116405",
+    "6d884025-0d5a-56f9-a8ba-ac4f3ee288e1",
+    "82a46566-dafc-5110-8250-43643e741a28",
+    "9bd9c665-faa3-59cd-84ec-bc758083d4b0",
+    "f57a5d86-0ad7-5057-b87f-75763f1cc336"
+  ],
+  "content_gaps": []
+}
+```
