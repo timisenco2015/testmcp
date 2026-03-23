@@ -1,53 +1,125 @@
 {
   "filename": "RptMnuStudentEvaluations",
   "found": true,
-  "summary": "The RptMnuStudentEvaluations manages user interface for reporting student evaluations.",
-  "purpose": "To facilitate report generation and provide UI for filtering and exporting student evaluations.",
-  "entities": ["RptMnuStudentEvaluations", "Department", "Program"],
+  "summary": "RptMnuStudentEvaluations is a part of the HSPnet.UserControls.ReportMenu namespace, designed to handle student evaluations through web controls and dynamic dropdowns, leveraging AJAX and validation mechanisms.",
+  "purpose": "The purpose of RptMnuStudentEvaluations is to facilitate the generation and display of student evaluation reports by managing department and program selection, handling date inputs, and processing data retrieval for report generation.",
+  "entities": [],
   "fields": [
-      {"name": "ValidationSummary1", "type": "ValidationSummary"},
-      {"name": "Label3", "type": "Label"},
-      {"name": "ltlDescription", "type": "Literal"},
-      {"name": "ddDepartment", "type": "DropDownList"},
-      {"name": "ddProgram", "type": "DropDownList"},
-      {"name": "cmdRunExcel", "type": "Button"}
-    ],
-  "actors": ["UserSession"],
+    "ValidationSummary1",
+    "Label3",
+    "ltlDescription",
+    "Label4",
+    "ltlOptions",
+    "LabelA",
+    "ddDepartment",
+    "LabelB",
+    "ddProgram",
+    "cmdRunExcel",
+    "lblPleaseWait",
+    "pnlReportHTML",
+    "lblReportHTML",
+    "btnEndDate",
+    "CalendarExtender2",
+    "RegularExpressionValidator2",
+    "Literal1",
+    "valEditStartDate",
+    "valEditEndDate",
+    "CustomValidator1",
+    "CalendarExtender1",
+    "RegularExpressionValidator1",
+    "ltlMandatoryStartDate",
+    "Label8",
+    "txtEndDate",
+    "btnEndDate",
+    "txtStartDate",
+    "btnStartDate"
+  ],
+  "actors": [
+    "UserSession",
+    "ScriptMgr"
+  ],
   "workflows": [
-      {
-        "name": "Generate Report",
-        "steps": [
-          "Set parameters for session and filter criteria",
-          "Invoke ReportStudentEvaluations stored procedure",
-          "Output report HTML"
-        ]
-      }
-    ],
-  "business_rules": [],
+    {
+      "name": "Page_Load",
+      "steps": [
+        "Initialize page components and load data as needed"
+      ]
+    },
+    {
+      "name": "Page_PreRender",
+      "steps": [
+        "Check if UserSession is not null",
+        "Lookup code for 'ReportDetails' and 'Student Evaluations'",
+        "Set ltlDescription and ltlOptions",
+        "Setup JavaScript",
+        "FillDepartmentDropdown",
+        "FillProgramDropdown"
+      ]
+    },
+    {
+      "name": "ddDepartment_Change",
+      "steps": [
+        "Trigger FillProgramDropdown"
+      ]
+    },
+    {
+      "name": "cmdExcel_Click",
+      "steps": [
+        "Set procedure name to 'ReportStudentEvaluations'",
+        "Add parameters: SessionID, DepartmentID, ProgramID",
+        "Retrieve and process data for report generation"
+      ]
+    }
+  ],
+  "business_rules": [
+    {
+      "description": "Departments are loaded depending on user permissions",
+      "implication": "Department dropdown is populated with allowed values"
+    },
+    {
+      "description": "Programs are dependent on selected department",
+      "implication": "Automatically update programs based on department selection"
+    }
+  ],
   "validations": [
-      {
-        "name": "Start and End Date Validation",
-        "description": "Required Validators for start and end date fields."
-      }
-    ],
+    "RequiredFieldValidator for StartDate",
+    "RequiredFieldValidator for EndDate",
+    "Custom validation for EndDate",
+    "RegularExpressionValidator for date format"
+  ],
   "calculations": [],
-  "conditions": [],
+  "conditions": [
+    "UserSession must not be null for dropdowns to fill",
+    "ScriptMgr's IsInAsyncPostBack impacts JavaScript registration"
+  ],
   "system_behavior": [
-      "Dropdown selections trigger update of linked program list.",
-      "Session parameters determine available report options."
-    ],
-  "dependencies": [],
-  "exceptions": [],
+    "Displays report after successful data retrieval",
+    "Handles dynamic dropdown data binding",
+    "Utilizes AJAX for calendar extenders"
+  ],
+  "dependencies": [
+    "HSPnetSession",
+    "JsClientScriptManager",
+    "Dropdown utilities",
+    "AjaxControlToolkit",
+    "SQL Data access"
+  ],
+  "exceptions": [
+    {
+      "description": "Invalid date format",
+      "handling": "Notify user through validator feedback"
+    }
+  ],
   "source_document_ids": [
-      "3bda989e-aee9-5cb0-a91b-23b5c507dcce",
-      "61fb9721-4ba7-52db-970a-f961984a3da4",
-      "655270a1-b63f-5095-b8d5-e0786f5a67d5",
-      "6a6d3e5d-65f4-55d0-8a26-bb833decde1d",
-      "8389c636-6a4e-5e20-9527-aa890021a8cc",
-      "9acbebb5-e432-5501-a525-cb5de2c228bd",
-      "b379a95a-4b6c-5652-9bd2-dd11e1be0538",
-      "e2803cea-dae1-5367-9582-0de35ea31cfc",
-      "e317b930-d13f-5511-844e-4de35ee59b82"
-    ],
+    "3bda989e-aee9-5cb0-a91b-23b5c507dcce",
+    "61fb9721-4ba7-52db-970a-f961984a3da4",
+    "655270a1-b63f-5095-b8d5-e0786f5a67d5",
+    "6a6d3e5d-65f4-55d0-8a26-bb833decde1d",
+    "8389c636-6a4e-5e20-9527-aa890021a8cc",
+    "9acbebb5-e432-5501-a525-cb5de2c228bd",
+    "b379a95a-4b6c-5652-9bd2-dd11e1be0538",
+    "e2803cea-dae1-5367-9582-0de35ea31cfc",
+    "e317b930-d13f-5511-844e-4de35ee59b82"
+  ],
   "content_gaps": []
 }
