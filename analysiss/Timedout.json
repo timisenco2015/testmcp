@@ -1,0 +1,65 @@
+{
+  "filename": "Timedout",
+  "found": true,
+  "summary": "The 'Timedout' page handles user session timeouts, providing messages based on session and portal URL availability.",
+  "purpose": "To manage and display user session timeout messages in a web application.",
+  "entities": [],
+  "fields": [
+    "LtrTimedOutWithoutPortalUrl",
+    "pLine3",
+    "LtrTimedOutLine2",
+    "pLinePortalURL",
+    "LtrTimedOutPortalUrl",
+    "pLineWithoutPortalURL",
+    "LtrTimedOutHeader",
+    "pLine2",
+    "LtrTimedOutLine1",
+    "form1"
+  ],
+  "actors": [
+    "User",
+    "System"
+  ],
+  "workflows": [
+    {
+      "name": "User Session Timeout Handling",
+      "steps": [
+        "Initialize page with session state disabled.",
+        "Check for 'redirUrl' query parameter.",
+        "Based on 'redirUrl', update visibility and text of HTML elements accordingly.",
+        "If 'redirUrl' is not present, check user session and SSO token.",
+        "Display portal URL if SSO token and portal URL are valid.",
+        "Display logout message if session has timed out."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Page should initialize with session state disabled.",
+    "HTML and literal controls are auto-generated and should be modified within the code-behind file."
+  ],
+  "validations": [],
+  "calculations": [],
+  "conditions": [
+    "If 'redirUrl' is present, display specific logout message.",
+    "If 'UserSession.SsoToken' is not null, evaluate 'UserSession.SsoPortalUrl'.",
+    "Show portal URL message if 'SsoPortalUrl' is valid.",
+    "Display timeout messages if session is invalid."
+  ],
+  "system_behavior": [
+    "Auto-generates UI controls.",
+    "Handles visibility of UI elements based on session state."
+  ],
+  "dependencies": [],
+  "exceptions": [
+    "Missing 'redirUrl' or 'UserSession' results in displaying general timeout messages."
+  ],
+  "source_document_ids": [
+    "548d218d-c674-5381-9920-1d5e1cc68a5d",
+    "6ce6a7ad-9613-5964-ab4d-8cd7469384a4",
+    "70388840-268c-5fa5-b882-02cee174e9b4",
+    "9107d3fd-e7db-52a4-8ed5-f573a7f20237",
+    "b7f9693d-c90c-5012-9977-560abcb1592d",
+    "f34e3c98-7654-5d52-91ee-ebf7b5347625"
+  ],
+  "content_gaps": []
+}
