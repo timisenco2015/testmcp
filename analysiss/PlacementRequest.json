@@ -1,87 +1,19 @@
 {
   "filename": "PlacementRequest",
-  "found": true,
-  "summary": "The PlacementRequest file documents interactions with a database to retrieve, check, and manage placement request details within the HSPnet system.",
-  "purpose": "It is designed to facilitate operations related to placement requests, including querying, linking, unlinking, and verification of such requests within an educational or health placement framework.",
+  "found": false,
+  "summary": "",
+  "purpose": "",
   "entities": [],
-  "fields": [
-    "PRD_ID",
-    "PlcAgencyID",
-    "DepartmentID",
-    "ProgramID",
-    "CourseID",
-    "TypeCodeID",
-    "StartDate",
-    "EndDate",
-    "RcvAgencyID",
-    "SiteID",
-    "ServiceID",
-    "DestinationID",
-    "Discipline",
-    "SubDiscipline"
-  ],
-  "actors": [
-    "HSPnet.Framework.Database",
-    "HSPnet.Framework.HSPnetSession",
-    "SqlDataReader"
-  ],
-  "workflows": [
-    {
-      "name": "IsValidForMe",
-      "steps": [
-        "Check user type and agency status.",
-        "Verify SiteID, ServiceID, and DestinationID against user permissions.",
-        "Execute PlacementRequestSearch procedure.",
-        "Add necessary parameters.",
-        "Determine validity and return status."
-      ]
-    },
-    {
-      "name": "PlacementRequestLink",
-      "steps": [
-        "Set procedure name.",
-        "Add SessionID and PRList parameters.",
-        "Execute query.",
-        "Check for SQL errors, returning false if occurred."
-      ]
-    }
-  ],
-  "business_rules": [
-    "Non-NIS/IRP users must have site, service, and destination checked first.",
-    "Procedure for checking deleted or archived requests is called only if valid ID exists."
-  ],
-  "validations": [
-    "Check if read data includes a valid ID.",
-    "Ensure Site, Service, and Destination IDs are non-zero for access verification.",
-    "Validate whether placement request is shared within a cohort."
-  ],
+  "fields": [],
+  "actors": [],
+  "workflows": [],
+  "business_rules": [],
+  "validations": [],
   "calculations": [],
-  "conditions": [
-    "User type is either 1 or 2.",
-    "Session is not associated with NIS or IRP agencies.",
-    "ID checks ensure participation in certain processes."
-  ],
-  "system_behavior": [
-    "Performs multiple database operations like searching, linking, and unlinking.",
-    "Caches email subjects for consistent email notifications."
-  ],
-  "dependencies": [
-    "Relies on the HSPnet system's database for executing stored procedures.",
-    "Requires session data for specific operations."
-  ],
-  "exceptions": [
-    "SQL errors during linking operations return a false status and log an error.",
-    "Conditions not met in user checks lead to direct false return."
-  ],
-  "source_document_ids": [
-    "15235962-0eeb-54d6-9f5b-edaa8346fba6",
-    "2863538b-bf60-5073-9b7e-57f298db10c3",
-    "6f227eaa-3683-5739-afe9-487f394da6a5",
-    "7bf65f3a-18ba-59ea-a095-7c407497e073",
-    "81316798-3a13-5f76-9b1e-b67132235ac3",
-    "997cb356-368b-5cdf-9a5c-0127f4c1a775",
-    "a2e4f80e-043b-5cf1-88a3-43acc007d683",
-    "f9d5bf7f-30f8-5e4e-9b6b-4f26d2988793"
-  ],
-  "content_gaps": []
+  "conditions": [],
+  "system_behavior": [],
+  "dependencies": [],
+  "exceptions": [],
+  "source_document_ids": [],
+  "content_gaps": ["No related documents found"]
 }
