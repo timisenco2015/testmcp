@@ -1,0 +1,85 @@
+{
+    "filename": "PrqSafety",
+    "found": true,
+    "summary": "PrqSafety is a user control for managing staff profiles, including data binding and event handling for prerequisites, status changes, and related UI components.",
+    "purpose": "The purpose of the PrqSafety module is to manage and display staff profile information, handle prerequisites, update status codes, and ensure data validation and UI interactions accordingly.",
+    "entities": [
+        "HSPnetSession",
+        "StudentPrerequisite"
+    ],
+    "fields": [
+        {
+            "name": "UserSession",
+            "type": "HSPnetSession"
+        },
+        {
+            "name": "StaffID",
+            "type": "int"
+        },
+        {
+            "name": "ScreenIsEditable",
+            "type": "Boolean"
+        },
+        {
+            "name": "Inactive",
+            "type": "Boolean"
+        },
+        {
+            "name": "Disabled",
+            "type": "Boolean"
+        },
+        {
+            "name": "CurrentPage",
+            "type": "string"
+        }
+    ],
+    "actors": [],
+    "workflows": [
+        {
+            "name": "Data Binding and Status Handling",
+            "steps": [
+                "Initialize user session and staff ID.",
+                "Bind data to controls.",
+                "Handle data binding for prerequisites.",
+                "Update visible controls based on conditions.",
+                "Validate fields and update status codes."
+            ]
+        }
+    ],
+    "business_rules": [
+        "UI controls must only be editable if the screen is marked as editable and not disabled.",
+        "Status view controls are visible only if specific conditions are met (e.g., date fields are not null)."
+    ],
+    "validations": [
+        "Check if Page.IsValid before updating.",
+        "Cancel operations if required conditions are not met."
+    ],
+    "calculations": [],
+    "conditions": [
+        "If a control is null, check if the data's CRCStatus or IDCard is valid to display the control.",
+        "Visibility of controls based on data condition checks."
+    ],
+    "system_behavior": [
+        "Switch between edit and view modes for form controls.",
+        "Trigger JavaScript upon page postbacks to manage control states.",
+        "Update and redirect page upon successful data update."
+    ],
+    "dependencies": [
+        "Relies on the HSPnet framework for session and data management.",
+        "Utilizes ObjectDataSource for data operations."
+    ],
+    "exceptions": [
+        "Cancel operations if user session is null."
+    ],
+    "source_document_ids": [
+        "163c5aa3-3241-525a-881d-61d0f4ff555c",
+        "30764942-4928-5935-8440-7ac232cb7064",
+        "3731d87d-f344-5fd7-8d01-82a114b6b138",
+        "6c4cd8fd-8b5b-5f3e-9378-26b23d55653b",
+        "8eea8467-9be9-5eda-bc9b-45667e476073",
+        "a5bd5eb2-59f8-5386-87cd-1656f67399ea",
+        "fa40d021-e1ad-5271-9ced-743f9ba60a61",
+        "ff98e23d-1d78-5e36-8c62-b5ca96810aa8"
+    ],
+    "content_gaps": []
+}
