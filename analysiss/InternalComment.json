@@ -1,0 +1,80 @@
+{
+    "filename": "InternalComment",
+    "found": true,
+    "summary": "The component manages an enrollment grid with functionalities for selecting and editing entries. It includes features for checkbox selection, email generation, client-side JavaScript setup, and handling of various grid commands like editing, saving, and deleting entries.",
+    "purpose": "To manage and interact with enrollment data in a grid format, allowing users to perform actions such as selecting multiple entries, editing entries, sending emails, and handling visibility of controls based on user permissions and conditions.",
+    "entities": [],
+    "fields": [
+        "gridData",
+        "gridDataEdit",
+        "ddAction",
+        "cmdSubmit",
+        "cmdSelectAll",
+        "cmdSelectNone"
+    ],
+    "actors": [
+        "UserSession"
+    ],
+    "workflows": [
+        {
+            "name": "Manage Enrollment Grid",
+            "steps": [
+                "Load and display enrollment data in gridData.",
+                "Allow user selection of grid rows using checkboxes.",
+                "Provide options to edit individual or all entries.",
+                "Submit actions via cmdSubmit to update data or send emails."
+            ]
+        }
+    ],
+    "business_rules": [
+        "If the user is read-only, hide edit buttons.",
+        "Enable/disable checkboxes based on row conditions.",
+        "Handle actions based on dropdown selections like sending emails or clearing comments."
+    ],
+    "validations": [
+        "Ensure UserSession is active before proceeding with data operations."
+    ],
+    "calculations": [],
+    "conditions": [
+        "Check if rows are editable based on user permissions and row states.",
+        "Toggle visibility of controls based on conditions like enrollment ID presence and grid row count."
+    ],
+    "system_behavior": [
+        "Registers client-side JavaScript to handle dynamic updates and interactions.",
+        "Toggles paging and sorting of grid data.",
+        "Handles grid commands for operations like editing, saving, and deleting entries."
+    ],
+    "dependencies": [
+        "JavaScript functions for client-side operations",
+        "ASP.NET GridView and control libraries",
+        "HSPnet.DataLayer for data access"
+    ],
+    "exceptions": [
+        "Cancellation of operations if UserSession is null."
+    ],
+    "source_document_ids": [
+        "04965b7a-4275-53fd-b149-bf143b8c4f53",
+        "053668a9-9927-5cb8-83fa-822946a81b83",
+        "11fe5e58-006f-583d-abcf-95409d8dabca",
+        "1ccb2a3f-509d-5ddd-89b0-59c72dd7e651",
+        "2001ba2a-f113-5487-b1bd-7fceb41af683",
+        "2c50e2c3-80e7-5085-b249-e345010a9714",
+        "54603e54-b0ac-58bc-a3a9-f8e53c4578ee",
+        "6644429c-29ed-5a3b-8707-991eb640b3e0",
+        "7039e74e-3dd5-5818-9efc-6d0779508556",
+        "733eb713-181a-54c7-9d68-bb467df02294",
+        "7b9ea55c-4095-56fc-bbd8-92d1f58af5bf",
+        "7f2ac55c-f57a-538e-a7bf-816ca64fd392",
+        "8d6c9a1d-6eea-55fb-b51b-6534016e8cb1",
+        "994d0f11-647f-50b3-90a3-b945f2e81948",
+        "a0d1da35-6edf-56d8-87f2-7dd0ae5e3ca0",
+        "a4c63f61-731c-5d2a-b34e-2e8af2796985",
+        "cc13a3b3-d057-53e8-a74b-fd6f9a971008",
+        "d6812130-b2bd-5bb9-a437-f73146092cce",
+        "d868676a-ad9f-5e95-9a13-9c128aa2b4c5",
+        "daa243c7-181f-5183-81e4-1180ce356378",
+        "de696735-6ea2-5d9d-8134-72ed68a9d27b",
+        "f599885f-8653-5ab2-ba42-cd4c9252637b"
+    ],
+    "content_gaps": []
+}
