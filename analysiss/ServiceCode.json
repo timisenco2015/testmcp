@@ -1,59 +1,37 @@
 {
   "filename": "ServiceCode",
   "found": true,
-  "summary": "Manages service codes and related data for courses and timetables.",
-  "purpose": "To handle all service code operations including retrieval by course ID and timetable ID.",
-  "entities": [
-    {
-      "name": "ServiceCode",
-      "attributes": [
-        "ID",
-        "CodeCategoryID",
-        "ShortName",
-        "Name",
-        "SortOrder",
-        "Notes",
-        "NameAlt",
-        "NotesAlt"
-      ]
-    }
-  ],
+  "summary": "The ServiceCode class manages service codes, including methods to retrieve codes by various identifiers such as CourseID and TimetableID. It handles multiple language fields.",
+  "purpose": "To manage and retrieve service code information based on different criteria.",
+  "entities": ["ServiceCode"],
   "fields": [
-    "CodeCategoryID",
-    "ShortName",
-    "Name",
-    "SortOrder",
-    "Notes"
+    {"name": "ID", "type": "int"},
+    {"name": "CodeCategoryID", "type": "int"},
+    {"name": "ShortName", "type": "string"},
+    {"name": "Name", "type": "string"},
+    {"name": "SortOrder", "type": "int"},
+    {"name": "Notes", "type": "string"},
+    {"name": "NameAlt", "type": "string"},
+    {"name": "NotesAlt", "type": "string"}
   ],
-  "actors": ["HSPnetSession"],
+  "actors": [],
   "workflows": [
     {
-      "name": "Retrieve Service Codes By Course ID",
+      "name": "Retrieve Service Codes",
       "steps": [
-        "Set procedure name to ServiceCodeASMOptionByCourseID",
-        "Add parameters SessionID, CourseID",
-        "Execute query and return results"
-      ]
-    },
-    {
-      "name": "Retrieve Service Codes By Timetable ID",
-      "steps": [
-        "Set procedure name to ServiceCodeASMOptionByTimetableID",
-        "Add parameters SessionID, TimetableID",
-        "Execute query and return results"
+        "Execute stored procedure to get service codes.",
+        "Parse data from database result set.",
+        "Localize name and notes fields if alternate language is used."
       ]
     }
   ],
-  "business_rules": [
-    {
-      "name": "Localization Rule",
-      "description": "Use alternative language fields if session setting is enabled."
-    }
-  ],
+  "business_rules": [],
   "validations": [],
   "calculations": [],
   "conditions": [],
-  "system_behavior": [],
+  "system_behavior": [
+    "Handles multiple language fields and switches based on session settings."
+  ],
   "dependencies": [],
   "exceptions": [],
   "source_document_ids": [
