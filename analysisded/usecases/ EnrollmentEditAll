@@ -1,0 +1,58 @@
+# Module: EnrollmentEditAll
+
+## EnrollmentEditAll-UC1 — Load User Controls Based on Screen Mode
+
+- Primary Actor(s): System
+- Secondary Actor(s): None
+- Trigger: A request to load user controls is initiated with a specified screen mode.
+- Description: Based on the screen mode, the corresponding set of user controls is loaded and displayed. Each control is linked to a specific functionality related to student enrollment.
+- Preconditions: The system has identified the screen mode and necessary user session data is available.
+- Postconditions: The appropriate user controls are visible and populated with relevant data.
+- Main Success Scenario:
+  1. The system identifies the screen mode from the request.
+  2. The system clears any existing user session data from all controls.
+  3. Based on the screen mode, the system loads the relevant user controls.
+  4. Data relevant to the screen mode is fetched and bound to the respective controls.
+  5. The controls are made visible on the user interface.
+- Extensions:
+  - If the screen mode is `'Enrollment.Prefs'`, load `UCPreferencesEditAll`.
+  - If the screen mode is `'Enrollment.Conf'`, load `UCConfirmedEditAll`.
+  - If the screen mode is `'Enrollment.CRC'`, load `UCCriminalRecordsCheckEditAll`.
+  - If the screen mode is `'Enrollment.IDCard'`, load `UCClinicalIDCardEditAll`.
+  - Similar extensions exist for other screen modes such as WCB, OccHealth, etc.
+- Exceptions:
+  - If the screen mode is invalid or not recognized, a default or error state is shown.
+- Business Rules: 
+  - User controls are loaded only if the session has relevant data.
+  - Certain fields and controls are enabled/disabled based on user permissions.
+- Assumptions:
+  - Screen mode strings are predefined and recognized by the system.
+  - User session is intact and valid during the control loading process.
+- Open Issues:
+  - Clarification needed on handling unrecognized screen modes.
+
+## EnrollmentEditAll-UC2 — Modify Display Settings Based on User Permissions
+
+- Primary Actor(s): System
+- Secondary Actor(s): User
+- Trigger: User accesses the enrollment settings page.
+- Description: Display settings are modified based on user permissions, such as Student Maintenance or Placement Coordinator roles.
+- Preconditions: User session is active, and the user has logged in with specific roles.
+- Postconditions: The display reflects user-specific settings, enabling or restricting access to certain controls.
+- Main Success Scenario:
+  1. The system retrieves the user's role and permissions.
+  2. The system sets visibility and accessibility of controls based on retrieved permissions.
+  3. If the user is a Placement Coordinator, they have full access.
+  4. If the user is in Student Maintenance, they have partial access to modify settings.
+  5. Display is reflected according to the role-based settings.
+- Extensions:
+  - If the user is a Placement Coordinator, all controls are editable.
+  - If the user is in a read-only role, controls are disabled.
+- Exceptions:
+  - If user role data is missing or corrupted, default to a safe read-only state.
+- Business Rules:
+  - Only authorized users can modify enrollment settings.
+- Assumptions:
+  - User role data is correctly stored in the session.
+- Open Issues:
+  - None identified.
