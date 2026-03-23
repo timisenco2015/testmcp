@@ -1,32 +1,31 @@
 {
-  "filename": "ServiceCode",
-  "found": true,
-  "summary": "Defines service codes and retrieval methods.",
-  "purpose": "Manages the service codes used for categorizing and sorting.",
-  "entities": ["ServiceCode", "ServiceCodes"],
-  "fields": ["ID", "CodeCategoryID", "ShortName", "Name", "SortOrder", "Notes", "NameAlt", "NotesAlt"],
-  "actors": [],
-  "workflows": [
-    {
-      "name": "Service Code Retrieval",
-      "steps": [
-        "Initialize database procedure for listing all service codes",
-        "Bind service code data to ServiceCode objects",
-        "Localize if necessary"
-      ]
-    }
-  ],
-  "business_rules": [],
-  "validations": [],
-  "calculations": [],
-  "conditions": [],
-  "system_behavior": ["Localize service codes based on session settings"],
-  "dependencies": [],
-  "exceptions": [],
-  "source_document_ids": [
-    "94f1b055-348d-508a-ae6e-cf7960a8c6a2",
-    "e4ebe4b4-6d14-5c3f-b693-61016f765239",
-    "f976b9af-a402-540f-b162-391d578fac7c"
-  ],
-  "content_gaps": []
+    "filename": "ServiceCode",
+    "found": true,
+    "summary": "ServiceCode class encapsulates attributes and operations related to the service codes used in courses and timetables, including their retrieval and localization.",
+    "purpose": "To handle service code data management for academic courses and timetables, supporting multilingual functionality.",
+    "entities": ["ServiceCode"],
+    "fields": ["ID", "CodeCategoryID", "ShortName", "Name", "SortOrder", "Notes", "NameAlt"],
+    "actors": ["Database Administrator", "Application Developer"],
+    "workflows": [
+        {
+            "name": "Service Code Retrieval Workflow",
+            "steps": [
+                "Invoke procedure ServiceCodeListAll.",
+                "Retrieve and store service code details."
+            ]
+        }
+    ],
+    "business_rules": [],
+    "validations": [],
+    "calculations": [],
+    "conditions": [],
+    "system_behavior": [
+        {
+            "behavior": "Use alt-language data in alt-language mode."
+        }
+    ],
+    "dependencies": ["HSPnetSession for database procedures"],
+    "exceptions": [],
+    "source_document_ids": ["94f1b055-348d-508a-ae6e-cf7960a8c6a2", "e4ebe4b4-6d14-5c3f-b693-61016f765239"],
+    "content_gaps": []
 }
