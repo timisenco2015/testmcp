@@ -1,1 +1,0 @@
-I'm here to help with that! Please provide the documentation and implementation artifacts related to the UC-QES-01 Quick Entry Screen so I can analyze them and generate the business use case for you.
