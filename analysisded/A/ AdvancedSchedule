@@ -1,0 +1,82 @@
+```json
+{
+  "filename": "AdvancedSchedule",
+  "found": true,
+  "summary": "The AdvancedSchedule module is a part of the HSPnet system, designed to manage scheduling for placements. It includes functionalities for viewing, editing, and managing placement schedules, including handling of duration, shifts, group sizes, and instructors.",
+  "purpose": "To manage and organize advanced scheduling and placement requests within the HSPnet framework, including functionalities for viewing, editing schedules, and managing different parameters such as durations, shifts, and group sizes.",
+  "entities": [
+    "AdvancedSchedule",
+    "UserSession",
+    "PlacementRequestSplits",
+    "PRD",
+    "Resources",
+    "HSPnetSession"
+  ],
+  "fields": [
+    "txtStartDate",
+    "txtEndDate",
+    "txtDurationHours",
+    "txtShiftLength",
+    "lblErrorList",
+    "lblWarningList",
+    "ltlHeaderRefNum",
+    "cmdSearch",
+    "cmdClose"
+  ],
+  "actors": [
+    "User",
+    "Placement Coordinator",
+    "Receiving Coordinator",
+    "Destination Coordinator"
+  ],
+  "workflows": [
+    {
+      "name": "Schedule Management",
+      "steps": [
+        "Page_Load: Initialize scheduling page with user session.",
+        "ProcessQueryString: Parse query strings to determine user type and mode.",
+        "Setup: Configure UI elements based on user permissions and modes.",
+        "doSearch: Execute search for placement schedules.",
+        "uxDetail_ItemCommand: Handle user commands for adding/editing placements.",
+        "SetupDuration: Configure duration fields and calculations."
+      ]
+    }
+  ],
+  "business_rules": [
+    "PRD_ID cannot be zero during edit operations.",
+    "Users without cloning permissions cannot clone requests.",
+    "DC users cannot save if destination is blank."
+  ],
+  "validations": [
+    "Check if duration fields are numeric and within range.",
+    "Ensure start date is before end date.",
+    "Validate if block dates are within allowable range."
+  ],
+  "calculations": [
+    "Calculate duration based on number of shifts and shift length.",
+    "Validate number of hours for mandatory and optional rotations."
+  ],
+  "conditions": [
+    "If user is a DC-only user, additional restrictions are applied.",
+    "Users can switch modes between Inbox and Outbox."
+  ],
+  "system_behavior": [
+    "SwitchConfirmation function to confirm user actions during switching.",
+    "JavaScript functions to handle client-side validations and interactions."
+  ],
+  "dependencies": [
+    "Uses HSPnet.Framework for session and query handling.",
+    "Relies on external resources and scripts for client-side operations."
+  ],
+  "exceptions": [
+    "Redirects to error pages if invalid PRD_ID is provided.",
+    "Handles exceptions in date entry and missing fields."
+  ],
+  "source_document_ids": [
+    "document-1",
+    "document-2",
+    "document-3"
+  ],
+  "content_gaps": []
+}
+```
