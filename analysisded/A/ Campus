@@ -1,0 +1,102 @@
+```json
+{
+  "filename": "Campus",
+  "found": true,
+  "summary": "The Campus module manages campus entities, including listing, searching, adding, updating, deleting, and reactivating campuses. It interacts with a database through stored procedures to perform these operations.",
+  "purpose": "The purpose of the Campus module is to facilitate CRUD (Create, Read, Update, Delete) operations for campus entities within the HSPnet system, ensuring that users can manage campus data effectively.",
+  "entities": [
+    "Campus",
+    "Campuses"
+  ],
+  "fields": [
+    "ID",
+    "DepartmentID",
+    "Name",
+    "ShortName",
+    "Inactive"
+  ],
+  "actors": [
+    "HSPnetSession"
+  ],
+  "workflows": [
+    {
+      "name": "CampusListUser",
+      "steps": [
+        "Initialize a list to store campus entities.",
+        "Set stored procedure name to 'CampusListUser'.",
+        "Add session parameter.",
+        "Execute procedure and read data.",
+        "Populate campus list with retrieved data."
+      ]
+    },
+    {
+      "name": "CampusSearch",
+      "steps": [
+        "Initialize a list to store campus entities.",
+        "Set stored procedure name to 'CampusSearch'.",
+        "Add DepartmentID and ShowInactive parameters.",
+        "Execute procedure and read data.",
+        "Populate campus list with retrieved data."
+      ]
+    },
+    {
+      "name": "Add",
+      "steps": [
+        "Validate campus data.",
+        "Set stored procedure name to 'CampusAdd'.",
+        "Add parameters for DepartmentID, Name, and ShortName.",
+        "Execute query."
+      ]
+    },
+    {
+      "name": "Update",
+      "steps": [
+        "Check if ID is valid and validate data.",
+        "Set stored procedure name to 'CampusUpdate'.",
+        "Add parameters for CampusID, Name, and ShortName.",
+        "Execute query."
+      ]
+    },
+    {
+      "name": "Delete",
+      "steps": [
+        "Check if ID is valid.",
+        "Set stored procedure name to 'CampusDelete'.",
+        "Add parameter for CampusID.",
+        "Execute query."
+      ]
+    },
+    {
+      "name": "Reactivate",
+      "steps": [
+        "Check if ID is valid.",
+        "Set stored procedure name to 'CampusReactivate'.",
+        "Add parameter for CampusID.",
+        "Execute query."
+      ]
+    }
+  ],
+  "business_rules": [],
+  "validations": [
+    "Name must be specified.",
+    "ShortName must be specified."
+  ],
+  "calculations": [],
+  "conditions": [],
+  "system_behavior": [
+    "Fetches data using SqlDataReader.",
+    "Handles data reading within while loops.",
+    "Executes stored procedures to manage campus data."
+  ],
+  "dependencies": [],
+  "exceptions": [],
+  "source_document_ids": [
+    "47fdc9c1-6b4d-50f5-b96e-80ada41cec6d",
+    "844e5aa5-d344-5c9d-a62a-3e13b838452e",
+    "9fcbb2df-d48c-5ce1-b55c-482a76623ec1",
+    "dcfefc89-b1aa-5e84-94be-c9f61882ab47",
+    "de5b2efa-73ec-5f81-9787-416a16319ad3"
+  ],
+  "content_gaps": []
+}
+```
