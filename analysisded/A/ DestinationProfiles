@@ -1,0 +1,123 @@
+```json
+{
+  "filename": "DestinationProfiles",
+  "found": true,
+  "summary": "This dataset pertains to managing profiles of destination sites, their capacities, scheduling, and availability within a given framework. It includes various entities and attributes related to site address, activity scheduling, and capacity utilization.",
+  "purpose": "To manage destination profiles including their availability, capacity utilization, and scheduling based on various external and internal site parameters.",
+  "entities": [
+    "DestinationProfile",
+    "CapacityUtilizationDisplay",
+    "Closure",
+    "HSPnetSession",
+    "Database",
+    "PlacementRequestDestination",
+    "PlacementRequestSchedule"
+  ],
+  "fields": [
+    "ID",
+    "DestinationCodeID",
+    "UnitManagerID",
+    "Address1",
+    "Address2",
+    "City",
+    "Province",
+    "PostalCode",
+    "Country",
+    "Phone",
+    "Fax",
+    "ActivityCount",
+    "ActivityTypeCodeID",
+    "SevenBy24",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+    "Sunday",
+    "StartTime",
+    "EndTime",
+    "MaxLearners",
+    "ExternalSiteID",
+    "ClosureComments"
+  ],
+  "actors": [
+    "HSPnetSession"
+  ],
+  "workflows": [
+    {
+      "name": "DestinationProfileMaxLearnersUpdate",
+      "steps": [
+        "Retrieve current session",
+        "Validate MaxLearners field",
+        "Update database with new MaxLearners value"
+      ]
+    },
+    {
+      "name": "DestinationAvailability",
+      "steps": [
+        "Retrieve closure dates and calculate availability from DateFrom to DateTo",
+        "Set availability flags based on provided parameters"
+      ]
+    }
+  ],
+  "business_rules": [
+    "If SevenBy24 is true, site-specific day availability settings are ignored",
+    "Address fields are cleared if UseSiteAddress is true"
+  ],
+  "validations": [
+    "Phone and Fax numbers must be valid",
+    "Start and End times must be valid"
+  ],
+  "calculations": [
+    "ShiftTotal = GrpDayCount[i] + GrpEveCount[i]",
+    "Non-group spaces are calculated by checking date availability within NonGrpUtilLst"
+  ],
+  "conditions": [
+    "Destination availability depends on day of the week and closure settings",
+    "If UseSiteAddress is selected but site has no address, an error is returned"
+  ],
+  "system_behavior": [
+    "Retrieves and updates data using stored procedures",
+    "Handles data formatting for UI display"
+  ],
+  "dependencies": [
+    "HSPnet.Framework",
+    "HSPnet.App_GlobalResources",
+    "HSPnet.UI"
+  ],
+  "exceptions": [
+    "Site has no address",
+    "Start and end times are invalid"
+  ],
+  "source_document_ids": [
+    "02cdf8bc-d344-5cbf-bbc3-e5c7cde7a496",
+    "102d9d7d-3b7e-59d4-8f8e-97e8ff830328",
+    "121cc8c1-db85-5218-955e-97f3e77dd809",
+    "16d47e17-60e4-5ede-91d0-455ea00378a7",
+    "1705f786-82ed-5835-9abf-201358735a52",
+    "18540c6b-46d6-58fc-9844-d00f71a89ffd",
+    "1df5e592-873c-5da3-9572-392c957e0ee9",
+    "26ef27d8-584e-570c-8478-608523e521ba",
+    "5bbbefbf-724f-51ab-8c7c-5c887ebd4a0b",
+    "620613f4-08fd-5119-b07b-f94efb84b7c9",
+    "700607da-111f-5187-9211-3fea7186acaf",
+    "780d0f5c-58cd-54e0-a6d7-d35a677c8a6c",
+    "841dce0a-259d-5d0f-8b83-a6ad0e642d11",
+    "96f04421-065b-55c2-bcea-d3b07316b7bb",
+    "9b290321-3edf-5792-bfff-392f932bf92f",
+    "9f26ab19-8213-5bcf-92de-1afd7ae9ae49",
+    "aaac6caa-f4f9-516f-a9fd-c7d8bb443820",
+    "cfe11dc7-27b7-5f3e-b511-325aa02fec2e",
+    "d213617c-bff6-5e5b-9139-bb2dcf0849c2",
+    "de9601f5-a091-505a-b236-1dcb082cd73b",
+    "e2353ef6-70f2-5597-89e1-5c6d46ffcefa",
+    "e7befec3-5b16-528c-bbe4-6531fa8cb58a",
+    "effe8b72-416e-521c-be7e-074d056c9f04",
+    "f5180264-a36b-5894-bcef-fc2019b7b889",
+    "fde428b9-3b48-58d5-88d1-c380da1963ec",
+    "f91f5f9e-8e69-5913-9797-bae656ec992a"
+  ],
+  "content_gaps": []
+}
+```
