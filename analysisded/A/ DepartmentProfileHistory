@@ -1,0 +1,71 @@
+```json
+{
+  "filename": "DepartmentProfileHistory",
+  "found": true,
+  "summary": "The DepartmentProfileHistory is a data structure and related logic for managing and retrieving historical data about department profiles within the HSPnet framework.",
+  "purpose": "To store and handle the historical actions related to department profiles, facilitating data retrieval and display for administrative purposes.",
+  "entities": [
+    "DepartmentProfileHistory",
+    "DepartmentProfileHistories",
+    "HSPnetSession",
+    "Database",
+    "SqlDataReader"
+  ],
+  "fields": [
+    "ID",
+    "ActionDate",
+    "ScreenSection",
+    "UserAction",
+    "Fields",
+    "Agency",
+    "AgencyName",
+    "LastName",
+    "FirstName",
+    "MiddleName",
+    "Phone",
+    "ByUserID",
+    "ByOriginalUserID",
+    "ByUserSysAdmin"
+  ],
+  "actors": [],
+  "workflows": [
+    {
+      "name": "DepartmentProfileHistorySearch",
+      "steps": [
+        "Initialize Database with HSPnetSession",
+        "Set stored procedure name 'DepartmentProfileHistorySearch'",
+        "Add parameters: DepartmentID, SessionAgencyID",
+        "Execute procedure and read data",
+        "Fill list with DepartmentProfileHistory entries",
+        "Close reader and return list"
+      ]
+    }
+  ],
+  "business_rules": [],
+  "validations": [],
+  "calculations": [],
+  "conditions": [
+    "if (!this.ByUserSysAdmin && !this.ByUserID.Equals((this.ByOriginalUserID == 0) ? this.ByUserID : this.ByOriginalUserID))"
+  ],
+  "system_behavior": [],
+  "dependencies": [
+    "System.Data.SqlClient",
+    "HSPnet.Framework",
+    "HSPnet.App_GlobalResources",
+    "HSPnet.UI",
+    "System.Web.UI.WebControls",
+    "System.ComponentModel"
+  ],
+  "exceptions": [
+    "if (UserSession == null) { e.Cancel = true; }"
+  ],
+  "source_document_ids": [
+    "1394dcfe-e4e2-509d-8cb0-183a0f999dfe",
+    "1fd3930a-84b5-58dd-94c9-8beb5d2374a7",
+    "4101680e-459c-5e5f-92f6-4a08f414be43",
+    "af82ca62-6b8c-552b-8174-a9fb2f5a3634",
+    "d7c77cc0-5a35-5805-be5b-9e25df97826f"
+  ],
+  "content_gaps": []
+}
+```
