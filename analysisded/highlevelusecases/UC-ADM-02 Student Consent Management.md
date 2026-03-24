@@ -1,1 +1,0 @@
-I'm here to generate a business use case for a specific scenario based on documentation and source code artifacts. Please provide me with the necessary documentation and implementation details related to the UC-ADM-02 Student Consent Management scenario, so I can proceed with the analysis and creation of the use case.

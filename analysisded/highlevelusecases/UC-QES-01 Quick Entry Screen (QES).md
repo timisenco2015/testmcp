@@ -1,1 +1,0 @@
-I'm ready to help! Please provide the documentation and implementation artifacts so I can analyze them and generate the high-level enterprise use case for the scenario UC-QES-01 Quick Entry Screen (QES).

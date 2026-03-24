@@ -1,1 +1,0 @@
-To generate high-level use cases, please provide a scenario or specific details or context related to the business capability or workflow you want to develop a use case for.
