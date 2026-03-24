@@ -1,0 +1,1 @@
+I am ready to assist with generating a high-level use case based on the scenario UC-STU-02 Assigning Supervisors / Preceptors. Please provide the relevant documentation and implementation artifacts through retrieval so I can begin the analysis.
