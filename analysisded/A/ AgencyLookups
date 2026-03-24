@@ -1,0 +1,96 @@
+```json
+{
+  "filename": "AgencyLookups",
+  "found": true,
+  "summary": "The AgencyLookups service provides methods for retrieving various entities such as agencies, departments, programs, sites, and staff based on certain criteria via cascading dropdowns using AJAX Toolkit.",
+  "purpose": "To facilitate dynamic selection and retrieval of entities related to agencies for web applications using AJAX cascading dropdowns.",
+  "entities": ["Agency", "Department", "Program", "Site", "Staff"],
+  "fields": ["ShortName", "ID", "AgencyID", "DepartmentID", "ProvincialForm", "DisplayName", "AgencyDepartFormatted", "NameFormatted"],
+  "actors": ["Users", "Agencies", "Departments", "Programs", "StaffController", "Sites"],
+  "workflows": [
+    {
+      "name": "GetAllAgencies",
+      "steps": [
+        "Retrieve list of all agencies",
+        "Populate cascading dropdowns with agency names and IDs"
+      ]
+    },
+    {
+      "name": "DepartmentSearchAgency",
+      "steps": [
+        "Parse known category values",
+        "Fetch departments based on agency",
+        "Populate dropdown with department names and IDs"
+      ]
+    },
+    {
+      "name": "SiteSearchOrientationProvider",
+      "steps": [
+        "Verify agency presence",
+        "Search sites by agency ID",
+        "Populate dropdown with site names and IDs"
+      ]
+    },
+    {
+      "name": "StaffSearchByAgencyDept",
+      "steps": [
+        "Parse known category values",
+        "Fetch staff based on agency and department",
+        "Filter based on system administrator role",
+        "Populate dropdown with staff names and IDs"
+      ]
+    }
+  ],
+  "business_rules": [
+    "Ensure agency is present in category values for site search",
+    "Use session hash for agency placement search",
+    "Set default dropdown value when count is one"
+  ],
+  "validations": [
+    "Check if contextKey is empty before setting default",
+    "Validate agency presence in category values",
+    "Verify session ID through hash"
+  ],
+  "calculations": [
+    "Parse sessionID from hash",
+    "Convert IDs from string to integer using TryParse"
+  ],
+  "conditions": [
+    "Check for agency in category",
+    "Determine dropdown default based on contextKey"
+  ],
+  "system_behavior": [
+    "Buffer response for web methods",
+    "Cache duration set to 60 seconds",
+    "Use AJAX Toolkit for cascading dropdowns"
+  ],
+  "dependencies": [
+    "HSPnet.DataLayer",
+    "AjaxControlToolkit",
+    "System.Web.Services"
+  ],
+  "exceptions": [
+    "Return null if required keys are missing in knownCategoryValues",
+    "Handle missing agency by returning null"
+  ],
+  "source_document_ids": [
+    "0107714b-f711-5251-b15e-d752c5fb10d8",
+    "03fbad6c-df36-5987-af63-4d84f1d3d56e",
+    "2b3a08cc-503c-55b7-969a-b40bf4b47a8a",
+    "4512fca3-20bf-573f-b95b-925c3ef83172",
+    "4767f1e6-0812-556c-97ad-3371425c3bdf",
+    "4b35ba62-f3af-58a1-8dd8-d70347205dad",
+    "74ad7044-7f2f-59f3-ad32-6dcb275c7341",
+    "99232436-fae3-542f-a028-03d4b29ccaad",
+    "a66a7324-8d68-53d3-8fd2-038902a7b1a0",
+    "abbe85f9-cd5b-577f-9197-35e3af112a02",
+    "abed2e73-1f00-5917-b553-13bbc29173e7",
+    "b16cd9e4-54a6-5b55-973d-4bb2d1a0a678",
+    "b5ca40eb-9004-5518-8ed7-10f3a6f7e28e",
+    "c09cfb10-4320-5426-b281-697fb1aecc76",
+    "c30937d4-70d0-5a0f-8e1f-07dfbd957337",
+    "f5e8c5a1-6234-583c-9344-84ebe274b92d"
+  ],
+  "content_gaps": []
+}
+```
