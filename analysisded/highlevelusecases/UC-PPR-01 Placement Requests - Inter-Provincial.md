@@ -1,0 +1,1 @@
+Please provide the documentation and implementation artifacts to proceed with generating the high-level business use case for the scenario "UC-PPR-01 Placement Requests - Inter-Provincial".
