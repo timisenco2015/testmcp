@@ -1,0 +1,103 @@
+```json
+{
+  "filename": "DestinationContacts",
+  "found": true,
+  "summary": "The source code for managing destination contacts involves CRUD operations using database procedures. It includes functionality for adding, updating, searching, and deleting contacts within the HSPnet system, with support for alternate language fields and formatted output for emails and names.",
+  "purpose": "To manage destination contacts within the HSPnet system, including operations for selecting, adding, updating, and deleting contact information.",
+  "entities": [
+    "DestinationContact",
+    "HSPnetSession",
+    "SqlDataReader",
+    "Database"
+  ],
+  "fields": [
+    "ID",
+    "DestinationCodeID",
+    "StaffID",
+    "StaffTypeCodeID",
+    "DisciplineID",
+    "SubDisciplineID",
+    "Service",
+    "AgencyID",
+    "ContactType",
+    "ReleaseInfo",
+    "Salutation",
+    "Discipline",
+    "SubDiscipline",
+    "EmailLinkFormatted",
+    "EmailClientClick"
+  ],
+  "actors": [],
+  "workflows": [
+    {
+      "name": "DestinationProfileContacts",
+      "steps": [
+        "Procedure calls 'DestinationProfileContacts'",
+        "Read service and agency ID",
+        "Format email client click functionality"
+      ]
+    },
+    {
+      "name": "AdditionalContactSearch",
+      "steps": [
+        "Procedure calls 'AdditionalContactSearch'",
+        "Read multiple fields including IDs and discipline information",
+        "Add entries to list"
+      ]
+    },
+    {
+      "name": "AdditionalContactAdd",
+      "steps": [
+        "Check validity of DestinationContact",
+        "Procedure calls 'AdditionalContactAdd'",
+        "Execute database query"
+      ]
+    },
+    {
+      "name": "AdditionalContactUpdate",
+      "steps": [
+        "Check validity of DestinationContact",
+        "Procedure calls 'AdditionalContactUpdate'",
+        "Execute database query"
+      ]
+    },
+    {
+      "name": "Delete",
+      "steps": [
+        "Procedure calls 'AdditionalContactDelete'",
+        "Execute database query"
+      ]
+    }
+  ],
+  "business_rules": [
+    "Ensure StaffType and StaffID are specified",
+    "Use alternate language fields if session specifies"
+  ],
+  "validations": [
+    "Validation of contact's completeness and correctness"
+  ],
+  "calculations": [],
+  "conditions": [
+    "Session uses alternate language fields",
+    "StaffID must not be null"
+  ],
+  "system_behavior": [],
+  "dependencies": [
+    "SqlDataReader",
+    "HSPnetSession",
+    "Database procedures"
+  ],
+  "exceptions": [
+    "Error handling for null StaffType and StaffID"
+  ],
+  "source_document_ids": [
+    "375ceeba-605a-5d52-bd14-eacbc047699a",
+    "65179020-b7c5-5cc6-b4db-494ac5105ffb",
+    "8aafacda-cb5d-5bab-9cb4-9e5035bb1a49",
+    "e70b8f5e-c832-5b25-a0d8-fa52c570cd50",
+    "eb897c7a-543f-5fdb-8913-2703d0a5394a",
+    "f766d01f-55de-5baf-aece-a3252e261f0e"
+  ],
+  "content_gaps": []
+}
+```
