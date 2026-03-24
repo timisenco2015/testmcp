@@ -1,1 +1,0 @@
-I'm ready to help. Please provide the retrieved documentation and implementation artifacts to analyze and generate the high-level use case for the UC-SITE-02 Location Lookup Feature.

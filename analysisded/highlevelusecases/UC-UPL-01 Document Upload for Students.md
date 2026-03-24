@@ -1,1 +1,0 @@
-I'm ready to help you generate high-level use cases. Please provide the retrieved documentation and any implementation artifacts related to the scenario, and I'll assist you with the analysis and use case generation.

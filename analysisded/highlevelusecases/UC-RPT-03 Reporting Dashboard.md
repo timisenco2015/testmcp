@@ -1,1 +1,0 @@
-The task requires retrieved documentation and implementation artifacts to generate high-level use cases. Please provide the necessary documentation and implementation artifacts for scenario UC-RPT-03 Reporting Dashboard so that I can proceed with the analysis and generation of the use case.

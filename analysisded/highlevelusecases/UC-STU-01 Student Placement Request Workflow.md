@@ -1,1 +1,0 @@
-I'm ready to assist. To proceed, please provide the necessary documentation and implementation artifacts related to the scenario UC-STU-01 Student Placement Request Workflow.

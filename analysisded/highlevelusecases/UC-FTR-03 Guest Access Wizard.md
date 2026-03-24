@@ -1,1 +1,0 @@
-I'm unable to complete the task without specific data from the retrieved documentation and implementation artifacts regarding the UC-FTR-03 Guest Access Wizard scenario. Please provide the necessary documentation and source code information so I can proceed with generating the use case.

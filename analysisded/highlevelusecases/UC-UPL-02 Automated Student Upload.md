@@ -1,1 +1,0 @@
-I'm ready to assist you with generating high-level use cases. Please provide the necessary documentation and implementation artifacts for the scenario "UC-UPL-02 Automated Student Upload" so I can analyze them and generate the required use case.

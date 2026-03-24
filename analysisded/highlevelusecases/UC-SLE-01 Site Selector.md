@@ -1,1 +1,0 @@
-I'm ready to generate a high-level use case based on the UC-SLE-01 Site Selector scenario. Please provide the necessary documentation and implementation artifacts for the analysis.

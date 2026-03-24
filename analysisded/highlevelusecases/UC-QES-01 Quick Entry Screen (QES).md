@@ -1,1 +1,0 @@
-I'm ready to assist with generating high-level use cases based on specific input material. Please provide the necessary documentation and implementation artifacts for the scenario UC-QES-01 Quick Entry Screen (QES).
