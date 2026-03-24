@@ -1,0 +1,1 @@
+Please provide the specific scenario or context for which you need a high-level use case generated, along with any relevant documentation or implementation artifacts.
