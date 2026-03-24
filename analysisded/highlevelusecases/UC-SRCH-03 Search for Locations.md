@@ -1,0 +1,1 @@
+I need the documentation and implementation artifacts related to the scenario UC-SRCH-03 Search for Locations to analyze and generate the required use case. Please provide access to the relevant files or information.
