@@ -1,0 +1,1 @@
+I'm sorry, but I require the specific input materials and retrieval context to generate the high-level use cases for the scenario "UC-PLC-03 Bulk Placement Offer Creation." Please provide any relevant documentation and implementation artifacts available via retrieval.
