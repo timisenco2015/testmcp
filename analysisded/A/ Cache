@@ -1,0 +1,59 @@
+```json
+{
+  "filename": "Cache",
+  "found": true,
+  "summary": "The source code involves a caching framework implemented in C# with various classes for cache management. It includes core functionalities for a general cache, size-limited cache, and auto-expiry capabilities.",
+  "purpose": "To provide a caching mechanism with options for size limitation and automatic expiry of cache entries to optimize resource usage and performance.",
+  "entities": [
+    "Cache",
+    "SizeLimitedCache",
+    "AutoExpiryCache",
+    "CacheValue"
+  ],
+  "fields": [
+    "_LastCacheAccess",
+    "_MaxSize",
+    "_NumberOfExpiryRuns",
+    "_ExpiryInterval",
+    "_MaxEntryAge",
+    "_Quit",
+    "_RestartWait",
+    "_WaitLock",
+    "_ValueCache",
+    "_IndexList"
+  ],
+  "actors": [],
+  "workflows": [],
+  "business_rules": [
+    "Cache items expire automatically based on specified max age or size constraints.",
+    "UpdateElementAccess should adjust the last accessed position of the cache elements in the list.",
+    "Invalidate method should remove a cache entry and update the list if it's accessed past its expiry."
+  ],
+  "validations": [],
+  "calculations": [],
+  "conditions": [],
+  "system_behavior": [
+    "Caches entries and manages access times.",
+    "Auto-expiry involves a separate thread that periodically removes expired entries.",
+    "Size limiting restricts the number of entries, expiring older ones if necessary."
+  ],
+  "dependencies": [
+    "System",
+    "System.Collections.Generic",
+    "System.Linq",
+    "System.Threading"
+  ],
+  "exceptions": [
+    "Thread may need to be forcefully aborted if it doesn't join within a specified timeout during disposal."
+  ],
+  "source_document_ids": [
+    "36bf374e-af2a-541e-a0cc-cf639c4ad9ba",
+    "37c441c8-b10a-5436-90c9-e9971f137ac4",
+    "48a7f2cd-a61b-5e87-b1d5-09b2fb8e040b",
+    "7f872446-c92e-5a06-a9fb-d76b2fb7a477",
+    "c80e17bf-cfe1-52cf-b78a-b78c20b8ad80",
+    "d723b41c-4e5f-5e41-ba4d-51bb91e970fd"
+  ],
+  "content_gaps": []
+}
+```
