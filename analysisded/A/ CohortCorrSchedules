@@ -1,0 +1,106 @@
+```json
+{
+  "filename": "CohortCorrSchedules",
+  "found": true,
+  "summary": "The CohortCorrSchedules is part of a web application within the HSPnet namespace designed to manage and display correspondence schedules related to course timetables. It involves web controls for user interaction and data manipulation.",
+  "purpose": "To manage correspondence generation schedules within educational settings, allowing users to view, edit, add, and delete schedule items within a web-based interface.",
+  "entities": [
+    "CohortCorrSchedules",
+    "Timetable",
+    "CorrespondenceCohortSchedule",
+    "Correspondences",
+    "Codes",
+    "Staff"
+  ],
+  "fields": [
+    "Head1",
+    "frmMain",
+    "ScriptManagerMaster",
+    "updPnlCorr",
+    "lblMainTitle",
+    "uxTermName",
+    "uxStartDate",
+    "uxEndDate",
+    "cmdPrintDetails",
+    "cmdSearch",
+    "cmdClose",
+    "pnlEmptyData",
+    "gvwCorr"
+  ],
+  "actors": [
+    "UserSession"
+  ],
+  "workflows": [
+    {
+      "name": "Page Load",
+      "steps": [
+        "Validate URL hash",
+        "Setup page header",
+        "Bind data to grid"
+      ]
+    },
+    {
+      "name": "Form View Item Command",
+      "steps": [
+        "Save schedule",
+        "Redirect page"
+      ]
+    },
+    {
+      "name": "Grid View Row Command",
+      "steps": [
+        "Edit mode switch",
+        "Add new item",
+        "Delete item"
+      ]
+    }
+  ],
+  "business_rules": [
+    "Screen is editable if user is not view-only and not course-leader-only.",
+    "Schedules inherit if Request.QueryString['Inherit'] equals '1'."
+  ],
+  "validations": [
+    "Ensure 'Days' field is a number",
+    "Require 'Days' field"
+  ],
+  "calculations": [],
+  "conditions": [
+    "If no data found, show add button."
+  ],
+  "system_behavior": [
+    "Auto-generates fields",
+    "Manages web controls using ASP.NET",
+    "Handles page load, pre-render, and unload events"
+  ],
+  "dependencies": [
+    "HSPnet.DataLayer",
+    "HSPnet.Framework",
+    "AjaxControlToolkit"
+  ],
+  "exceptions": [
+    "Handles empty data scenarios"
+  ],
+  "source_document_ids": [
+    "16c5fa89-674d-5eb3-a759-62d579e9e324",
+    "23907c29-2a3f-5428-8b13-b44b0553be6b",
+    "2bcd18cf-d8e2-5ea1-9ec5-7676eeccb9d9",
+    "3d6d621c-f67b-5860-be87-d3ef07db9f7d",
+    "492f20e5-272f-5b07-a9b0-142135736463",
+    "49527ab2-be1e-561e-ac70-a990d58eb453",
+    "545cbebb-670f-5690-97a5-d477b29ac084",
+    "661cffc1-c9b4-5c74-a9ac-2c287db62130",
+    "6fb776fa-e6df-5ac8-860e-b28e2d460ca7",
+    "861aa692-2619-58e3-815b-8bef9d2933e6",
+    "906c1234-c35f-5550-a105-0ea1b272134b",
+    "97a7dece-8c9b-54d5-b53a-1973c56994a6",
+    "ab4d4006-60bb-5a77-aa98-42cb368d143a",
+    "b1c5a313-bab5-58d7-a25f-fea7d88c3ce5",
+    "b65096c1-35e2-539d-89ee-69015a510e5d",
+    "b7c7487d-55be-5e3b-a9a7-c8ed76365e89",
+    "cfb9772e-11b2-5b32-a987-35704877fe4b",
+    "ebcd282c-ab7a-543f-98ba-0a42fef151eb",
+    "fa48dc0e-a877-5eff-a4cb-1cfb638fc298"
+  ],
+  "content_gaps": []
+}
+```
