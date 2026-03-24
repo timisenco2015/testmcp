@@ -1,0 +1,3 @@
+I'm here to assist you in generating a high-level enterprise use case based on the retrieved documentation and implementation artifacts. Let's begin by analyzing the documentation and implementation details related to the scenario "UC-STU-04 Student Self-Assessment Submission" for the system's capabilities and workflows.
+
+To proceed, I'll need to review both the documentation and any available implementation artifacts relevant to this scenario. Please ensure these files are accessible so that I can create an accurate and comprehensive use case.
