@@ -1,0 +1,1 @@
+I'm unable to process the request without the specific input materials, such as documentation and implementation artifacts, related to the scenario. Please provide the necessary context or files.
