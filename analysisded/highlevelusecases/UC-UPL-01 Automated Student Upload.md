@@ -8,86 +8,98 @@ AI Agent
 
 Date Created:
 
-2023-10-04
+2023-11-26
 
 Primary Actor:
 
-Student Administrator
+Student Administrator (SA)
 
 Secondary Actor(s):
 
-System Administrator
+System Administrator (SysAdmin)
 
 Trigger:
 
-Student Administrator initiates the upload of student data.
+The daily need to update the student database with new or modified student records.
 
 Description:
 
-The Student Administrator wants to upload student information so that the data is processed and saved in the system automatically.
+The Student Administrator wants to automate the process of uploading student information so that the student database is consistently updated without manual intervention.
 
 Preconditions:
 
-• System access permissions are verified.
-• Student data file complies with the required format.
+• Student Administrator has authenticated access to the system.
+• The input data file with student information is prepared in the required format.
 
 Postconditions
 
 Success:
 
-Students' data is successfully uploaded and stored in the system database.
+The student records are successfully updated in the database.
 
 Failure:
 
-Upload fails, and an error message is provided to the Student Administrator.
+The student records are not updated, and an error log is generated.
 
 Main Success Scenario (Happy Path)
 
-1. Student Administrator selects the student upload function from the system interface.
-2. Student Administrator uploads the student data file.
-3. System validates the file format and content.
-4. System processes the data and updates the student records in the database.
-5. System confirms the successful upload to the Student Administrator.
+1. Student Administrator initiates the automated student upload process.
+2. System validates the input data file format and checks for errors.
+3. System processes the file and updates the student database accordingly.
+4. System generates a confirmation report of successful upload.
 
 Use case ends.
 
 Alternate / Exception Flows
 
-1a. File format is incorrect.
-1a1. System alerts the Student Administrator of the format issue.
-1a2. Resume flow at Step 2 after correction.
+2a. Invalid file format or corrupted data detected.
+2a1. System generates an error log detailing the issue.
+2a2. Resume flow at Step 1.
 
-1b. Data upload process fails.
-1b1. System provides an error message with details.
-1b2. Resume flow at Step 2 after issue resolution.
+3a. Database connection failure.
+3a1. System logs the error and informs the Student Administrator.
+3a2. Resume flow at Step 1.
 
 Business Rules
 
-• Uploaded data must adhere to the system's predefined structure.
-• Only authorized personnel can perform data uploads.
+• The input file must adhere to predefined validation rules regarding format and content.
+• Updates are performed only if new records differ from existing database entries.
 
 Notes
 
-• Relevant documentation insights indicate student data must be in CSV format.
-• Implementation insights from the source code show validation scripts in uploadHandler.js verify file format and perform database transactions.
+• Relevant documentation insights indicate the process requires specific validations on input data format.
+• Relevant implementation insights from the source code in the database through retrieval show error handling mechanisms are in place for upload failures.
 
 Relevant Source Files
 
-studentUploadGuide.pdf
-uploadSpecification.docx
+student_upload_process.docx
+
+validation_rules.pdf
 
 Relevant Source Code Files
 
-uploadHandler.js
-databaseUpdateService.cs
+uploadService.cs
+
+dataValidation.js
+
+errorHandling.ts
 
 SourceCodeFiles Output
 
 {
+
 "scenario": "UC-UPL-01 Automated Student Upload",
-"dateCreated": "2023-10-04",
+
+"dateCreated": "2023-11-26",
+
 "sourceCodeFiles": [
-"uploadHandler.js",
-"databaseUpdateService.cs"
+
+"uploadService.cs",
+
+"dataValidation.js",
+
+"errorHandling.ts"
+
 ],
+
 }
