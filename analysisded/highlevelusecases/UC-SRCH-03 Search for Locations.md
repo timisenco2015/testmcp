@@ -1,0 +1,1 @@
+I need specific documentation and implementation details from the retrieval process in order to generate the required high-level business use case for the scenario UC-SRCH-03 Search for Locations. Please provide access to documentation and source code files.
