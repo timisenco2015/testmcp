@@ -1,0 +1,78 @@
+```json
+{
+  "filename": "DestProfilePlcCpIndividual",
+  "found": true,
+  "summary": "The codebase for 'DestProfilePlcCpIndividual' is a web control for handling individual placement capacities within the HSPnet system. It includes functionality for UI controls and backend logic for managing user sessions and data access.",
+  "purpose": "To manage and display individual placement capacities in a web application, allowing for user interaction and data manipulation via controls and session management.",
+  "entities": [
+    "DestinationCapacity",
+    "UserSession",
+    "QueryString"
+  ],
+  "fields": [
+    "UserSession",
+    "DestID",
+    "ScreenIsEditable",
+    "CurrentPage",
+    "ContextDisciplineID",
+    "blnDC",
+    "blnGridReadOnly"
+  ],
+  "actors": [
+    "System Administrator"
+  ],
+  "workflows": [
+    {
+      "name": "Item Command Handling",
+      "steps": [
+        "Detect item command via RepeaterCommandEventArgs.",
+        "Switch case on command name.",
+        "Handle 'cmdDelete' by invoking DestinationCapacity.DestinationCapacityDelete."
+      ]
+    },
+    {
+      "name": "Data Selection",
+      "steps": [
+        "Check if UserSession is null; if so, cancel operation.",
+        "Set input parameters for data selection.",
+        "Verify screen access via CheckScreenAccess method."
+      ]
+    }
+  ],
+  "business_rules": [
+    "When UserSession is null, operations are canceled.",
+    "Visibility of controls is determined by user session and editability."
+  ],
+  "validations": [
+    "Check if UserSession is null before proceeding with data operations."
+  ],
+  "calculations": [
+    "Determine row visibility and styling based on item type and conditions."
+  ],
+  "conditions": [
+    "UserSession presence and type.",
+    "ScreenIsEditable flag."
+  ],
+  "system_behavior": [
+    "Auto-generated controls are linked to UI elements such as labels and hyperlinked reports."
+  ],
+  "dependencies": [
+    "HSPnet.DataLayer",
+    "HSPnet.Framework",
+    "HSPnet.App_GlobalResources"
+  ],
+  "exceptions": [
+    "None explicitly listed, implicit in canceling operations when UserSession is null."
+  ],
+  "source_document_ids": [
+    "565b47b5-3c01-5ff2-ac0a-dd9383d2e663",
+    "5aec6b9a-2b88-5152-93cf-b22988722637",
+    "7e62463e-357a-57b5-89c3-fadce8961ffb",
+    "c8ad4323-ca91-57da-b15f-b15f6553762f",
+    "cbe7297e-4071-5d66-8b44-92f196588a3a",
+    "e8854e43-8a7c-5519-a3fc-0862639abfa8",
+    "f4f23eee-7c52-5918-825f-d3e621e9a882"
+  ],
+  "content_gaps": []
+}
+```
