@@ -1,0 +1,105 @@
+```json
+{
+    "filename": "CertificationEditAll",
+    "found": true,
+    "summary": "The CertificationEditAll control is part of the HSPnet enrollment system, allowing management and update of certifications for students within a grid view. It handles events related to saving, editing, and navigating through certifications.",
+    "purpose": "To provide a user interface component for editing, saving, and managing student certifications within the HSPnet enrollment system.",
+    "entities": [
+        "StudentCertification",
+        "UserSession",
+        "GridViewRow",
+        "GridViewCommandEventArgs",
+        "HSPnetSession"
+    ],
+    "fields": [
+        "CohortID",
+        "TermID",
+        "CourseID",
+        "ShowGrad",
+        "ShowInactive",
+        "ShowWaived",
+        "SectionFilter",
+        "ActionFilter",
+        "keyword",
+        "CampusID",
+        "CommentFilter",
+        "EnrollmentID",
+        "CertificationCodeID",
+        "StartRow",
+        "blnReadOnly",
+        "CertificationNumber",
+        "EffectiveDate",
+        "ExpiryDate"
+    ],
+    "actors": [
+        "User",
+        "SystemAdministrator"
+    ],
+    "workflows": [
+        {
+            "name": "SaveAll",
+            "steps": [
+                "Iterate through each row in gridDataEdit",
+                "Check if row is dirty",
+                "Update student certification details",
+                "Validate changes",
+                "Redirect if no errors"
+            ]
+        },
+        {
+            "name": "SaveEditNext",
+            "steps": [
+                "Save current changes",
+                "Redirect to next certification for editing"
+            ]
+        }
+    ],
+    "business_rules": [
+        "Only allow saving and editing if UserSession is not null",
+        "Hide 'Save All' button if EnrollmentID is not zero",
+        "Don't allow certification editing if not in Administrator mode"
+    ],
+    "validations": [
+        "Ensure effective date is formatted correctly",
+        "Check expiry date is on or after effective date",
+        "Verify input fields are non-null"
+    ],
+    "calculations": [],
+    "conditions": [
+        {
+            "name": "Redirect Condition",
+            "condition": "No messages and error count is less than 1"
+        },
+        {
+            "name": "Show Condition",
+            "condition": "ShowGrad, ShowInact, ShowWaived based on boolean flags"
+        }
+    ],
+    "system_behavior": [
+        "Grid hides buttons based on enrollment and read-only state",
+        "JavaScript manages dirty state of form fields"
+    ],
+    "dependencies": [
+        "HSPnet.DataLayer",
+        "HSPnet.Framework"
+    ],
+    "exceptions": [
+        "Cancel data fetch if UserSession is null"
+    ],
+    "source_document_ids": [
+        "1222fbc3-250e-55b4-b8b4-60d60de320ec",
+        "3bb5ea2e-d0be-52b1-b4a7-ed18748f42ee",
+        "3f5aab61-d0b2-52ae-8e24-51a67d881587",
+        "4cc31364-0b64-55f1-883f-a2943ea20c0b",
+        "54b85faf-2d00-5472-a3a0-c1fe681fdc76",
+        "7d7cc830-39b1-5d9d-b489-4575e70780f4",
+        "7f9eb089-a320-5302-9cd0-07bb5ab02b2f",
+        "9b726ecc-2937-5117-b396-fc2a8c916cd5",
+        "9f544382-0164-5431-b438-4d0d8cff18ee",
+        "ab8f2c0f-45fb-5935-b2f8-8684e2c47a4d",
+        "ba60038f-dcfe-595c-8656-14bc8d91cf7a",
+        "fd91bd44-a983-5f4f-899f-9f5aa39bc870"
+    ],
+    "content_gaps": []
+}
+```
