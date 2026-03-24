@@ -1,0 +1,1 @@
+I'm ready to help with that. However, to provide you with the high-level use case for "UC-DIS-01 Discipline Contact Setup," I need access to documentation and implementation artifacts relevant to this scenario. Could you please provide the necessary input material or let me know how I can retrieve it?
