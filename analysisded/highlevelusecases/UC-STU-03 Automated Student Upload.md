@@ -1,1 +1,0 @@
-I'm ready to generate a high-level enterprise use case from the scenario. Please provide the relevant documentation and implementation artifacts for analysis.

@@ -1,1 +1,0 @@
-I'm ready to assist with generating high-level use cases. However, I require the actual documentation and implementation artifacts via retrieval to analyze the scenario for UC-RPT-02 Placement Cycle Overview. Please provide those materials so I can proceed with the analysis and generate the appropriate use case.

@@ -1,1 +1,0 @@
-I'm ready to assist you in generating a high-level enterprise use case. Please provide the necessary documentation and implementation artifacts so that I can analyze them and proceed with the task.
