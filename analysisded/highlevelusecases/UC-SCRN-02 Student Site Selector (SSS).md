@@ -1,0 +1,1 @@
+I'm ready to assist, but I need the documentation and implementation artifacts for the UC-SCRN-02 Student Site Selector (SSS) scenario to proceed. Could you please provide the relevant documents or describe how I might access them?
