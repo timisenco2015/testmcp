@@ -1,0 +1,100 @@
+```json
+{
+  "filename": "CalendarGridNonGrp",
+  "found": true,
+  "summary": "The CalendarGridNonGrp source code is part of a web application, likely focused on managing or displaying scheduling data related to placement requests and shifts within a calendar grid format.",
+  "purpose": "To handle scheduling and management of placement requests in a calendar view, allowing for manipulation of shifts and associated details within a web application.",
+  "entities": [
+    "PlacementRequest",
+    "PlacementRequestSchedule",
+    "Utilization",
+    "DestinationProfile",
+    "Staff",
+    "UserSession"
+  ],
+  "fields": [
+    "ShiftCode",
+    "ShiftDate",
+    "StartDate",
+    "EndDate",
+    "SupervisorID",
+    "Nickname",
+    "PRDID",
+    "DisplayedHours",
+    "CourseHours",
+    "ShiftLength"
+  ],
+  "actors": [
+    "PlacementCoordinator",
+    "CourseLeader",
+    "NIS_Agency",
+    "IRP_Agency"
+  ],
+  "workflows": [
+    {
+      "name": "ManagePlacementRequests",
+      "steps": [
+        "Load shift data",
+        "Render calendar grid",
+        "Allow shift editing",
+        "Update placement request info"
+      ]
+    },
+    {
+      "name": "ShiftOperations",
+      "steps": [
+        "Add new shift",
+        "Edit existing shift",
+        "Delete shift",
+        "Switch shift timing"
+      ]
+    },
+    {
+      "name": "PrintOperations",
+      "steps": [
+        "Generate print preview",
+        "Print current view",
+        "Handle print form submissions"
+      ]
+    }
+  ],
+  "business_rules": [
+    "Shift length must be less than or equal to 8 hours for certain operations.",
+    "Certain controls are hidden based on user type and permissions.",
+    "Supervisor dropdown visibility is dependent on the user's capability to edit."
+  ],
+  "validations": [
+    "Shift start and end times must adhere to specified format.",
+    "Placement request details must be valid before submission."
+  ],
+  "calculations": [
+    "Determine earliest start date and latest end date for calendar rendering."
+  ],
+  "conditions": [
+    "ReadOnly users have limited interactivity.",
+    "An editable request can trigger additional UI elements."
+  ],
+  "system_behavior": [
+    "Dynamic UI rendering based on user permissions and session data.",
+    "JavaScript functions handle client-side interactivity."
+  ],
+  "dependencies": [
+    "HSPnet.DataLayer",
+    "HSPnet.Framework",
+    "UserSession for session management"
+  ],
+  "exceptions": [
+    "Handle invalid dates for shift operations.",
+    "Prevent unauthorized data modifications based on user roles."
+  ],
+  "source_document_ids": [
+    "01ac7d2b-6a5a-572b-8e7c-965e15fa6441",
+    "033521ef-22cf-5e60-9eaf-b32d7829dfde",
+    "036aefba-2ec6-5b45-a9d2-d67fd51262b4",
+    "03724d05-e3c9-5507-8da3-29991e41755d",
+    "0b7ca4ae-63f3-5c75-8081-f572bca5d6f0",
+    "1e118f72-6717-57db-9614-7e554fe370ef"
+  ],
+  "content_gaps": []
+}
+```
