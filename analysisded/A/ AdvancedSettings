@@ -1,0 +1,65 @@
+```json
+{
+  "filename": "AdvancedSettings",
+  "found": true,
+  "summary": "The AdvancedSettings controls advanced security configuration options, allowing toggling of multi-factor authentication (MFA) and CAPTCHA for agencies and departments within the HSPnet application.",
+  "purpose": "To manage and save advanced security settings such as multi-factor authentication and CAPTCHA visibility and settings for specific agencies or departments.",
+  "entities": ["AdvancedSettings", "AdvancedSecuritySetting"],
+  "fields": [
+    "lblAdvancedSecurity",
+    "hdnAdvancedSecurityId",
+    "chkUseMFA",
+    "chkUseCaptcha",
+    "AgencyID",
+    "DepartmentID",
+    "UserSession"
+  ],
+  "actors": ["SystemAdministrator", "UserSession"],
+  "workflows": [
+    {
+      "name": "loadAdvancedSecurityInfo",
+      "steps": [
+        "Check AgencyID or DepartmentID",
+        "Retrieve security settings from database",
+        "Determine security setting level",
+        "Set checkbox states based on retrieved settings"
+      ]
+    },
+    {
+      "name": "saveAdvancedSecurityInfo",
+      "steps": [
+        "Verify advanced security ID",
+        "Delete or save based on checkbox states",
+        "Update settings for agency or department"
+      ]
+    }
+  ],
+  "business_rules": [],
+  "validations": [
+    "Verify if user is System Administrator",
+    "Ensure correct AgencyID or DepartmentID is provided"
+  ],
+  "calculations": [],
+  "conditions": [
+    "If definedInOtherLevel or User is not System Administrator",
+    "If MFA or CAPTCHA needs to be saved or removed"
+  ],
+  "system_behavior": [
+    "Disables controls if settings are defined in another level",
+    "Saves advanced security information accordingly"
+  ],
+  "dependencies": [
+    "AdvancedSecuritySettingsActions.Save",
+    "AdvancedSecuritySettingsActions.Delete",
+    "AdvancedSecuritySettingsActions.AdvancedSecuritySettingSearch"
+  ],
+  "exceptions": [],
+  "source_document_ids": [
+    "0aadc98b-857e-5a81-bf64-c3c31b940bb8",
+    "3fc59b61-4e28-520e-be50-9c706b68f725",
+    "cdce2e7d-0080-561d-9656-99df4dbd002d",
+    "f3006f5c-0783-5792-8a86-8d8cbde8b41a"
+  ],
+  "content_gaps": []
+}
+```
