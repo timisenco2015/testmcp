@@ -1,1 +1,0 @@
-I'm unable to generate high-level use cases without the specific documentation and implementation artifacts. Please provide the documentation and implementation artifacts for scenario UC-RPT-01 Placement Requests - Advanced Schedule, and I will be able to assist you further.
