@@ -1,0 +1,52 @@
+```json
+{
+  "filename": "DestProfilePlcCpMaximum",
+  "found": true,
+  "summary": "This code pertains to the `DestProfilePlcCpMaximum` user control within the HSPnet application, handling various UI elements and data interactions for managing destination profiles.",
+  "purpose": "To manage and display destination profile data, providing a UI for editing and viewing profiles within the HSPnet system.",
+  "entities": ["HSPnetSession", "UserSession", "DestID", "ScreenIsEditable", "CurrentPage"],
+  "fields": ["updPnlMain", "fvwDestinationProfile", "dsDestinationProfile", "pnlPopup", "updPnlPopup", "btnShowPopup", "mdlDetails", "ValidationSummary1", "uxDetail"],
+  "actors": [],
+  "workflows": [
+    {
+      "name": "Updating Destination Profile",
+      "steps": [
+        "dsDestinationProfile_Updating: Updates the destination profile with session information.",
+        "CacheUserSession: Caches the user session.",
+        "Redirect: Redirects to the current page with updated query string."
+      ]
+    },
+    {
+      "name": "PreRender Setup",
+      "steps": [
+        "Checks if ScreenIsEditable to set visibility.",
+        "Configures hyperlink for glossary view.",
+        "Handles pre-render logic for Edit and Insert modes."
+      ]
+    }
+  ],
+  "business_rules": [],
+  "validations": [],
+  "calculations": [],
+  "conditions": [],
+  "system_behavior": [
+    "Auto-generated controls for UI elements.",
+    "Handles pre-render configurations based on session and edit permissions.",
+    "Redirects and updates parameters for destination profiles."
+  ],
+  "dependencies": [
+    "HSPnet.Framework",
+    "HSPnet.DataLayer",
+    "HSPnet.App_GlobalResources"
+  ],
+  "exceptions": [],
+  "source_document_ids": [
+    "08a2b470-29ae-543f-84d5-b488aac17ae8",
+    "23aa90cc-da5f-5fa9-9b84-77c37ca33b4b",
+    "2f249763-242b-5e04-bb03-ede2d00befe0",
+    "3ffc9376-6f97-5d48-9ba0-494868e51468",
+    "9ae1aa2a-a51e-5e3f-aa31-409ff0851476"
+  ],
+  "content_gaps": []
+}
+```
