@@ -1,1 +1,0 @@
-I'm ready to help with that. Could you please provide the necessary documentation and implementation artifacts for analysis?
