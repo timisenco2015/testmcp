@@ -1,0 +1,79 @@
+```json
+{
+  "filename": "DestProfileContacts",
+  "found": true,
+  "summary": "The code manages the privacy settings and interactions of destination profiles and contacts within a web application.",
+  "purpose": "To control user interactions and privacy settings for destination profiles and contacts in a web interface.",
+  "entities": ["DestinationProfile", "DestinationContact", "UserSession", "Grid"],
+  "fields": [
+    "hdnDCInfoWithHoldId",
+    "hdnPreceptorWithHoldId",
+    "txtDCInfoWithHoldDays",
+    "txtPreceptorWithHoldDays",
+    "chkDCInfoWithHold",
+    "chkPreceptorWithHold",
+    "chkDCInfoWithHoldAlways",
+    "chkPreceptorWithHoldAlways"
+  ],
+  "actors": ["UserSession", "DestProfile"],
+  "workflows": [
+    {
+      "name": "ManageDestinationContactPrivacy",
+      "steps": [
+        "Fetch destination profiles using ParentID and UserSession",
+        "Control visibility and editability based on ScreenIsEditable flag",
+        "Handle checkbox and text field interactions based on user input",
+        "Process add/update/delete operations for privacy settings"
+      ]
+    },
+    {
+      "name": "HandleContactOperations",
+      "steps": [
+        "Check if entry exists by fetching contact privacy info",
+        "Switch modes between adding/editing/deleting contacts",
+        "Redirect or update interface based on session cache"
+      ]
+    }
+  ],
+  "business_rules": [
+    "Privacy is enforced through checkbox selections.",
+    "Contact type codes are fetched from predefined system codes.",
+    "Negative withholding days imply indefinite privacy withholding."
+  ],
+  "validations": [
+    "Ensure withholding days are non-negative unless indefinite withholding is indicated.",
+    "Validate checkbox selections before processing privacy settings.",
+    "Validation logic is attached to text change events."
+  ],
+  "calculations": [
+    "Determine ContactTypeCodeID using system code search.",
+    "Compute withhold days based on checkbox selections."
+  ],
+  "conditions": [
+    "Editability is controlled by ScreenIsEditable flag.",
+    "Privacy operations contingent on UserSession being active."
+  ],
+  "system_behavior": [
+    "Utilizes asynchronous postbacks for JavaScript integration.",
+    "Interacts with ObjectDataSource for data management."
+  ],
+  "dependencies": [
+    "System.Web.UI",
+    "HSPnet.App_GlobalResources",
+    "DestinationProfiles for profile searches"
+  ],
+  "exceptions": [
+    "Handle cases where UserSession is null to prevent operations",
+    "Ensure valid entries in dropdown selections during contact operations"
+  ],
+  "source_document_ids": [
+    "01ace461-2772-553a-91f0-41130836b3ee",
+    "02d9e7b8-950b-5c14-8185-0291a43612e3",
+    "20fdba42-ac47-5bdf-82a6-6318e870f143",
+    "3ba5050c-4e62-5fe7-94d8-0461a263c1f3",
+    "42763e7c-a806-58b4-8842-44a11a0e78d8",
+    "444bbf99-4e3e-5a85-b241-befb99ce10fc"
+  ],
+  "content_gaps": []
+}
+```
