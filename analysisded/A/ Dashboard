@@ -1,0 +1,47 @@
+```json
+{
+  "filename": "Dashboard",
+  "found": true,
+  "summary": "The Dashboard Web Service interacts with cost center records, allowing authenticated users to retrieve lists of cost centers based on specific parameters.",
+  "purpose": "Provides a web service for retrieving cost center records after user authentication.",
+  "entities": ["CostCentreRecord", "HSPnetSession"],
+  "fields": ["user", "pw", "StartDate", "EndDate", "PlacingAgencies", "Discipline", "SubDiscipline", "Site", "Service", "Destination", "PRStatus"],
+  "actors": ["Authenticated Users"],
+  "workflows": [
+    {
+      "name": "Retrieve Cost Centre Records",
+      "steps": [
+        "Authenticate user via Security.Login",
+        "Initialize HSPnet session",
+        "Parse input parameters",
+        "Retrieve cost centre records"
+      ]
+    }
+  ],
+  "business_rules": [
+    "Unauthenticated requests receive error messages",
+    "PRStatus defaults to 'Conf' if not provided"
+  ],
+  "validations": [
+    "Validate user authentication",
+    "Check if sessionID is greater than 0",
+    "Parse dates StartDate and EndDate"
+  ],
+  "calculations": [],
+  "conditions": [],
+  "system_behavior": [
+    "Logs out the session if authentication fails",
+    "Caches response data for up to 60 seconds"
+  ],
+  "dependencies": [
+    "HSPnet.DataLayer",
+    "HSPnet.Framework",
+    "HSPnet.UI"
+  ],
+  "exceptions": [
+    "Authentication errors result in an empty list with error messages"
+  ],
+  "source_document_ids": ["3444651f-50ec-50c3-a8db-6b45ac17f736", "db4ee731-cf05-5538-b326-ca41c811bb24"],
+  "content_gaps": []
+}
+```
