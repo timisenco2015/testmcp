@@ -1,0 +1,1 @@
+I'm here to help. Please provide the necessary input materials for the scenario "UC-STU-07 Reactivated Placement" so I can assist you in generating the high-level use case.
