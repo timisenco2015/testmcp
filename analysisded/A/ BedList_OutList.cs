@@ -1,0 +1,70 @@
+```json
+{
+    "filename": "BedList_OutList.cs",
+    "found": true,
+    "summary": "The file defines several classes related to bed management in a system. It includes data management for bed lists, user interface components to display bed lists, and serialization details for the dataset.",
+    "purpose": "To manage and display bed-related information through various classes and methods, providing facilities for refreshment, configuration, and UI interaction.",
+    "entities": [
+        "BRBED_BedList",
+        "UIBED_BedList",
+        "BedList_OutList",
+        "BedList_OutDataTable",
+        "ReportHeaderDataTable"
+    ],
+    "fields": [
+        "_beds",
+        "_bedListConfig",
+        "_debg",
+        "WPEventIn_Label",
+        "WPEvent_Label",
+        "BedList",
+        "l_BedList",
+        "l_BedListTitle",
+        "MsgBox",
+        "l_BedIDV",
+        "sortField",
+        "sortDirection",
+        "tableBedList_Out",
+        "tableReportHeader"
+    ],
+    "actors": [],
+    "workflows": [],
+    "business_rules": [],
+    "validations": [],
+    "calculations": [],
+    "conditions": [],
+    "system_behavior": [
+        "create",
+        "update",
+        "fetch",
+        "transform",
+        "serialize"
+    ],
+    "dependencies": [
+        "System",
+        "System.Data",
+        "System.Xml",
+        "System.IO",
+        "System.Configuration",
+        "Microsoft.Data.SqlXml",
+        "Sectorlynx.BaseCommon",
+        "Sectorlynx.Common_Party",
+        "Sectorlynx.Common_Data",
+        "Sectorlynx.Common_Bed",
+        "Sectorlynx.Common_DataTypes",
+        "Sectorlynx.CommonMaterial",
+        "Sectorlynx.BaseDataAccess",
+        "Sectorlynx.BaseEnvironment",
+        "Sectorlynx.ExtendedBusinessRules",
+        "Sectorlynx.BaseBusinessRules",
+        "System.Web",
+        "System.Web.UI",
+        "System.ComponentModel",
+        "System.Drawing",
+        "System.Reflection",
+        "System.Runtime.Serialization"
+    ],
+    "exceptions": [],
+    "content_gaps": []
+}
+```
