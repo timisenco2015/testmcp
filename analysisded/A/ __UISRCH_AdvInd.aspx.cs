@@ -2,70 +2,127 @@
 {
   "filename": "__UISRCH_AdvInd.aspx.cs",
   "found": true,
-  "summary": "The documents comprise various elements of a web application for advanced individual search, dealing with UI components and validation controls.",
-  "purpose": "Provide an advanced search interface for querying individual records, including patient details and identifiers.",
+  "summary": "The document contains code for an advanced search form in a web application, focused on searching individual records. It involves web controls, validators, and event handlers.",
+  "purpose": "To facilitate advanced search functionalities within a web application for individual records.",
   "entities": [
-    "UISRCH_AdvInd",
-    "UISRCH_AdvInd_Extended"
+    "UISRCH_AdvInd_Extended",
+    "UISRCH_AdvInd"
   ],
   "fields": [
-    "PID_5_PatientName",
-    "PID_7_DateTimeOfBirth",
+    "l_NumberDependants",
+    "NumberDependants",
+    "l_PrimaryLanguage",
+    "PrimaryLanguage",
+    "l_SecondaryLanguage",
+    "SecondaryLanguage",
+    "l_EmploymentStatus",
+    "EmploymentStatus",
+    "l_EducationStatus",
+    "EducationStatus",
+    "l_LivingArrangement",
+    "LivingArrangement",
+    "l_ResidentialStatus",
+    "ResidentialStatus",
+    "l_AboriginalStatus",
+    "AboriginalStatus",
+    "SR5000_ID_Other",
+    "PID_3_PatientIdentiferList",
+    "DLN",
+    "LocalId",
+    "PassportNumber",
+    "OtherId",
+    "l_LegalStatus",
+    "LegalStatus",
+    "l_CustodyGuardianship",
+    "CustodyGuardianship",
+    "l_PID_5_PatientName",
+    "PID_5_PatientName_XPN_GivenName",
+    "PID_5_PatientName_XPN_MiddleInitialOrName",
+    "PID_5_PatientName_XPN_FamilylastName_PID5",
+    "PID_5_PatientName_XPN_Suffix",
+    "l_PID_7_DateTimeOfBirth",
+    "l_PID_8_Sex",
     "PID_8_Sex",
+    "l_PID_19_SsnNumberPatient",
     "PID_19_SsnNumberPatient",
-    "PID_3_PatientIdentiferList"
+    "l_PID_20_DriversLicenseNumberPatient",
+    "PID_20_DriversLicenseNumberPatient_DLN_DriversLicenseNumber",
+    "l_PID_3_PatientIdentifierList",
+    "PID_3_PatientIdentiferList",
+    "l_PID_11_PatientAddress_XAD_StreetAddress",
+    "PID_11_PatientAddress_XAD_StreetAddress",
+    "l_PID_11_PatientAddress_XAD_City",
+    "PID_11_PatientAddress_XAD_City",
+    "l_PID_11_PatientAddress_XAD_StateOrProvince",
+    "PID_11_PatientAddress_XAD_StateOrProvince",
+    "l_PID_11_PatientAddress_XAD_ZipOrPostalCode",
+    "PID_11_PatientAddress_XAD_ZipOrPostalCode",
+    "l_PID_11_PatientAddress_XAD_Country",
+    "PID_11_PatientAddress_XAD_Country",
+    "l_PID_13_PhoneNumberHome",
+    "PID_13_PhoneNumberHome_XTN_AreaCityCode",
+    "PID_13_PhoneNumberHome_XTN_PhoneNumber",
+    "l_PID_14_PhoneNumberBusiness",
+    "PID_14_PhoneNumberBusiness_XTN_AreaCityCode",
+    "PID_14_PhoneNumberBusiness_XTN_PhoneNumber",
+    "l_SR5000_ID_HairColor",
+    "SR5000_ID_HairColor",
+    "l_SR5000_ID_EyeColor",
+    "SR5000_ID_EyeColor",
+    "l_SR5000_ID_Height",
+    "l_SR5000_ID_Weight",
+    "l_Applied",
+    "SR5000_ID_Tatoo",
+    "l_SR5000_ID_Idio",
+    "SR5000_ID_Idio",
+    "l_PID_15_PrimaryLanguage",
+    "PID_15_PrimaryLanguage",
+    "l_PID_16_MaritalStatus",
+    "PID_16_MaritalStatus",
+    "l_PID_17_Religion",
+    "PID_17_Religion",
+    "l_Literacy",
+    "Literacy",
+    "l_Education",
+    "Education",
+    "l_Employment",
+    "Employment",
+    "l_PID_26_Citizenship",
+    "PID_26_Citizenship",
+    "l_PID_28_Nationality",
+    "PID_28_Nationality",
+    "l_PID_29_PatientDeathDateAndTime",
+    "Dependents",
+    "PID_7_DateTimeOfBirth",
+    "PID_29_PatientDeathDateAndTime",
+    "WPEventIn_Label",
+    "WPEvent_Label",
+    "MsgBox"
   ],
   "actors": [],
-  "workflows": [
-    {
-      "name": "Basic Search",
-      "steps": [
-        "Click l_BasicSearch",
-        "Handle control in VCVCTL"
-      ]
-    },
-    {
-      "name": "Advanced Organization Search",
-      "steps": [
-        "Click l_AdvanceOrganization",
-        "Handle control in VCVCTL"
-      ]
-    },
-    {
-      "name": "Advanced Affiliate Search",
-      "steps": [
-        "Click l_AdvanceAffiliate",
-        "Handle control in VCVCTL"
-      ]
-    },
-    {
-      "name": "Advanced Non-client Search",
-      "steps": [
-        "Click l_AdvanceNonClient",
-        "Handle control in VCVCTL"
-      ]
-    },
-    {
-      "name": "Execute Search",
-      "steps": [
-        "Click b_DoSearch",
-        "Handle control in VCVCTL"
-      ]
-    }
-  ],
+  "workflows": [],
   "business_rules": [],
   "validations": [
-    "v_PID_19_SsnNumberPatient",
     "v_AllFieldsValidator",
     "v_PID_7_DateTimeOfBirth_Day",
-    "v_PID_7_DateTimeOfBirth_Year"
+    "v_PID_7_DateTimeOfBirth_Year",
+    "v_PID_19_SsnNumberPatient",
+    "v_PID_3_PatientIdentiferList",
+    "v_ValidationSummary",
+    "v_PID_5_PatientName_XPN_GivenName",
+    "v_PID_5_PatientName_XPN_MiddleInitialOrName",
+    "v_PID_5_PatientName_XPN_FamilylastName_PID5",
+    "v_PatientAKAs",
+    "v_SR5000_ID_Other",
+    "v_PID_13_PhoneNumberHome_XTN_AreaCityCode",
+    "v_PID_13_PhoneNumberHome_XTN_PhoneNumber",
+    "v_PID_14_PhoneNumberBusiness_XTN_AreaCityCode",
+    "v_PID_14_PhoneNumberBusiness_XTN_PhoneNumber",
+    "v_PID_11_PatientAddress_XAD_ZipOrPostalCode"
   ],
   "calculations": [],
   "conditions": [],
-  "system_behavior": [
-    "Page loads with validation checks against user input",
-    "UI elements initialize and interact through event handlers"
-  ],
+  "system_behavior": [],
   "dependencies": [
     "Sectorlynx.BaseViewControl",
     "Sectorlynx.BaseCommon"
