@@ -1,71 +1,63 @@
 ```json
 {
-  "filename": "__UICRET_CreateTarget.aspx",
-  "found": true,
-  "summary": "The file '__UICRET_CreateTarget.aspx' is an ASP.NET web page designed for creating target individuals and non-clients. It includes several visual and scripting components necessary for its operation.",
-  "purpose": "The file appears to create web interfaces for entering new individual client information and managing non-client creation functionalities, using both server-side and client-side logic.",
-  "entities": [
-    "WebUI.UICRET_CretNonClient",
-    "WebUI.UICRET_CreateTarget",
-    "SLCase.UICRET_CreateTarget_Extended"
-  ],
-  "fields": [
-    "__EVENTTARGET",
-    "__EVENTARGUMENT",
-    "Hidden1",
-    "Hidden2",
-    "MsgBox",
-    "Org_Id",
-    "l_NID_3_NonClientInput",
-    "PID_7_DateTimeOfBirth",
-    "PID_7_DateTimeOfBirth_Year",
-    "PID_7_DateTimeOfBirth_Month",
-    "PID_7_DateTimeOfBirth_Day"
-  ],
-  "actors": [],
-  "workflows": [
-    {
-      "name": "DateOfBirthConstruction",
-      "steps": [
-        "Initialize DateTimeOfBirth",
-        "Add Year to DateTimeOfBirth",
-        "Add Month to DateTimeOfBirth",
-        "Add Day to DateTimeOfBirth"
-      ]
-    }
-  ],
-  "business_rules": [],
-  "validations": [
-    "ValidatorEnable for PID_7_DateTimeOfBirth"
-  ],
-  "calculations": [],
-  "conditions": [
-    "if field.PID_7_DateTimeOfBirth_Year.value != """,
-    "if field.PID_7_DateTimeOfBirth_Month.selectedIndex.value != null && field.PID_7_DateTimeOfBirth_Month.selectedIndex.value != """,
-    "if field.PID_7_DateTimeOfBirth_Day.value != """,
-    "if dayValue == "1" || dayValue == "2" || dayValue == "3" || dayValue == "4""
-  ],
-  "system_behavior": [],
-  "dependencies": [
-    "System",
-    "System.Collections",
-    "System.ComponentModel",
-    "System.Data",
-    "System.Drawing",
-    "System.Web",
-    "System.Web.SessionState",
-    "System.Web.UI",
-    "System.Web.UI.WebControls",
-    "System.Web.UI.HtmlControls",
-    "System.Reflection",
-    "System.Xml",
-    "System.IO",
-    "Sectorlynx.BaseViewControl",
-    "Sectorlynx.BaseCommon",
-    "System.Text.RegularExpressions",
-    "Microsoft.Web.UI.WebControls, Version=1.0.2.226"
-  ],
-  "exceptions": [],
-  "content_gaps": []
+    "filename": "__UICRET_CreateTarget.aspx",
+    "found": true,
+    "summary": "The file contains HTML and ASP.NET code for a web page related to creating client and non-client targets, featuring inline JavaScript for date validation and event handling.",
+    "purpose": "The purpose of the file is to provide a user interface for creating new individuals, both clients and non-clients, with functionalities for handling date input and event management.",
+    "entities": [
+        {
+            "name": "UICRET_CreateTarget",
+            "type": "class",
+            "purpose": "User interface for entering a new individual.",
+            "namespace": "WebUI"
+        },
+        {
+            "name": "UICRET_CretNonClient",
+            "type": "class",
+            "namespace": "WebUI"
+        },
+        {
+            "name": "UICRET_CreateTarget_Extended",
+            "type": "class",
+            "namespace": "SLCase"
+        }
+    ],
+    "fields": [
+        "PID_7_DateTimeOfBirth",
+        "PID_7_DateTimeOfBirth_Year",
+        "PID_7_DateTimeOfBirth_Month",
+        "PID_7_DateTimeOfBirth_Day"
+    ],
+    "actors": [],
+    "workflows": [
+        {
+            "name": "DoDate",
+            "steps": [
+                "Initialize DateTimeOfBirth as empty.",
+                "Check if PID_7_DateTimeOfBirth_Year is not empty and append it to DateTimeOfBirth.",
+                "Check if PID_7_DateTimeOfBirth_Month selected value is not null or empty and append it.",
+                "Check if PID_7_DateTimeOfBirth_Day is not empty and append it."
+            ]
+        }
+    ],
+    "business_rules": [],
+    "validations": [
+        "ValidatorEnable(v_PID_7_DateTimeOfBirth, true)"
+    ],
+    "calculations": [],
+    "conditions": [
+        "PID_7_DateTimeOfBirth_Year.value != ''",
+        "PID_7_DateTimeOfBirth_Month[field.PID_7_DateTimeOfBirth_Month.selectedIndex].value != ''",
+        "PID_7_DateTimeOfBirth_Day.value != ''"
+    ],
+    "system_behavior": [],
+    "dependencies": [
+        "System",
+        "Sectorlynx.BaseViewControl",
+        "Sectorlynx.BaseCommon",
+        "Microsoft.Web.UI.WebControls"
+    ],
+    "exceptions": [],
+    "content_gaps": []
 }
 ```
