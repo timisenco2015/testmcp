@@ -2,49 +2,74 @@
 {
   "filename": "__package__.js",
   "found": true,
-  "summary": "The file provides methods for managing JavaScript modules in a browser environment using the Dojo framework. It includes functions to start or find modules, handle module loading, and configuration settings.",
-  "purpose": "The file is designed to facilitate loading, managing, and configuring JavaScript modules in a browser environment using the Dojo framework.",
-  "entities": [],
-  "fields": [],
+  "summary": "The file implements package and module handling in a browser environment, primarily for managing Dojo packages and modules.",
+  "purpose": "To provide functionality for creating and managing packages and modules within a browser-centric environment, including configuration handling for scripts loaded via URLs.",
+  "entities": [
+    "dojo.hostenv",
+    "djConfig",
+    "document",
+    "window"
+  ],
+  "fields": [
+    "loaded_modules_",
+    "modules_",
+    "loading_modules_",
+    "addedToLoadingCount",
+    "pkgFileName",
+    "baseScriptUri",
+    "baseRelativePath"
+  ],
   "actors": [],
   "workflows": [
     {
-      "name": "Load and Initialize Module",
+      "name": "startPackage",
       "steps": [
-        "startPackage(packname)",
-        "findModule(modulename, must_exist)",
-        "loadPath"
+        "Split package name into symbols",
+        "Remove trailing asterisk if present",
+        "Evaluate object path"
+      ]
+    },
+    {
+      "name": "findModule",
+      "steps": [
+        "Check loaded modules cache",
+        "Evaluate object path for module",
+        "Handle non-existing modules per must_exist flag"
       ]
     }
   ],
-  "business_rules": [],
+  "business_rules": [
+    "If must_exist is true and the module is not found, raise an error",
+    "Package name with a trailing asterisk is truncated before processing"
+  ],
   "validations": [],
   "calculations": [],
   "conditions": [
-    "if(syms[syms.length-1]=='*')",
-    "if(must_exist)",
-    "if(typeof window=='undefined')",
-    "if(djConfig.allowQueryConfig)",
-    "if((sp[0].length > 9)&&(sp[0].substr(0, 9) == 'djConfig.'))",
-    "if((djConfig['baseScriptUri'] == '')||(djConfig['baseRelativePath'] == ''))"
+    "Check if window is undefined and raise error",
+    "Check if module is loaded in cache",
+    "Check if module exists after loading attempt"
   ],
   "system_behavior": [
-    "Create module path",
-    "Evaluate object path",
-    "Check module cache",
-    "Raise error",
-    "Load JavaScript file",
-    "Set configuration from query string"
+    "Create package objects at each level",
+    "Return module objects",
+    "Load paths for modules",
+    "Raise errors for undefined modules or missing window object"
   ],
   "dependencies": [
     "dojo.evalObjPath",
     "dojo.raise",
+    "navigator.userAgent",
+    "navigator.appVersion",
     "document.getElementsByTagName"
   ],
   "exceptions": [
-    "dojo.raise when window object is not present",
-    "dojo.raise when module does not exist"
+    "Throw error if window object is missing",
+    "Raise error if module cannot be loaded and must_exist is true",
+    "Raise error if module is not defined after loading"
   ],
-  "content_gaps": []
+  "content_gaps": [
+    "No documentation for dj_undef function usage",
+    "Incompletely documented fields in djConfig"
+  ]
 }
 ```
