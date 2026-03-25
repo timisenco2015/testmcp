@@ -2,99 +2,74 @@
 {
   "filename": "__UIDTLS_DtlsInd.aspx",
   "found": true,
-  "summary": "The UIDTLS_DtlsInd.aspx file is a web application page used for displaying and managing client details and extended information. It is part of the SLCase and WebUI namespaces, involving various user interactions for updating, adding, or unbanning clients.",
-  "purpose": "To provide a user interface for viewing and updating client or individual details, including demographics, identifiers, relationships, and other personal information such as hair color, eye color, and more.",
+  "summary": "The page __UIDTLS_DtlsInd.aspx is designed as a user interface for displaying and managing client details, including demographics, identifiers, and relationships. It supports viewing and updating client information, as well as handling events related to the data grid for relationships.",
+  "purpose": "To provide a user interface for managing detailed information about individuals, including demographic data, identifiers, and relationships. It allows users to view, update, or create new client entries.",
   "entities": [
-    "Client",
-    "Patient",
-    "Individual"
+    "UIDTLS_DtlsInd",
+    "VCVCTL_ViewController",
+    "ID_Other",
+    "Client_Photo"
   ],
   "fields": [
-    "PatientName",
-    "DateTimeOfBirth",
-    "Sex",
-    "SsnNumberPatient",
+    "PID_5_PatientName",
+    "PID_8_Sex",
+    "PatientAKAs",
+    "PID_7_DateTimeOfBirth",
+    "Age",
+    "PID_19_SsnNumberPatient",
     "PatientPHN",
-    "MaritalStatus",
-    "EmploymentStatus",
-    "EducationStatus",
-    "NumberDependants",
-    "ResidentialStatus",
-    "PrimaryLanguage",
-    "SecondaryLanguage",
-    "RequireInterpreter",
-    "AboriginalStatus",
-    "LivingArrangement",
-    "LegalStatus",
-    "CustodyGuardianship",
-    "EligibilityDetermination",
-    "VocationalStatus",
-    "HairColour",
-    "EyeColour",
-    "Height",
-    "Weight",
-    "Tattoos",
-    "Piercings",
-    "Race",
-    "OtherIdentifier"
+    "ID_HairColour",
+    "ID_EyeColour",
+    "ID_Height",
+    "ID_Weight",
+    "ID_Tattoos",
+    "ID_Piercings",
+    "PID_10_Race"
   ],
   "actors": [
-    "User",
-    "Programmer",
-    "System"
+    "User"
   ],
   "workflows": [
     {
-      "name": "Client Management",
+      "name": "Age Calculation",
       "steps": [
-        "User navigates to the client details page.",
-        "User can click on 'Edit Client' to update information.",
-        "User can click on 'New Client' to add a new individual.",
-        "User can attempt to 'Unban Client' if previously banned."
+        "Split the birth date string into components.",
+        "Determine current date.",
+        "Calculate the age based on year, month, and day."
       ]
     },
     {
-      "name": "Data Grid Actions",
+      "name": "Viewing Relationships",
       "steps": [
-        "Display relationships in a data grid.",
-        "Allow paging and sorting of relationship entries.",
-        "Format dates for display in the data grid.",
-        "Click events on 'View' button to inspect relationships."
+        "Load the relationships data grid.",
+        "Implement paging and sorting.",
+        "Format start and end dates."
       ]
     }
   ],
   "business_rules": [
-    "If the model data is empty, the client is not in context; disable the 'New' button.",
-    "Enable 'Unban' button if the client is temporarily or permanently banned.",
-    "Use server-side controls to manage form events and updates."
+    "New client cannot be added if context already exists.",
+    "Unban button is enabled only if permanent or temporary ban is true."
   ],
-  "validations": [
-    "Validate age calculation based on birth date.",
-    "Enable input validations for required fields using HTML and ASP.net controls.",
-    "Server-side validation errors are captured in a message box."
-  ],
+  "validations": [],
   "calculations": [
-    "Calculate the age based on the current date and the date of birth."
+    "Age is calculated by comparing the current date with the birth date."
   ],
   "conditions": [
-    "IF month of birth is greater than the current month, THEN subtract one year from age.",
-    "IF day of birth is greater than current day in the birth month, THEN subtract one year from age."
+    "Check if current month is less than birth month for age calculation.",
+    "Enable unban button based on ban status."
   ],
   "system_behavior": [
-    "Server-side controls manage event lifecycle for input updates.",
-    "Page load initializes views and configures event listeners.",
-    "JavaScript is used for event interaction on the client-side."
+    "Load page and initialize components.",
+    "Enable paging and sorting for Relationships data grid."
   ],
   "dependencies": [
-    "SLCase",
-    "WebUI",
+    "ASP.NET Web Controls",
     "Sectorlynx.BaseViewControl",
-    "System.Web",
-    "System.Web.UI.WebControls"
+    "JavaScript Functions"
   ],
   "exceptions": [
-    "Handle exceptions for invalid date parsing during age calculation.",
-    "Display exceptions in a hidden message box on the page."
+    "Handle exceptions during date parsing and event handling."
   ],
   "content_gaps": []
 }
