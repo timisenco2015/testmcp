@@ -2,8 +2,8 @@
 {
   "filename": "__UIDTLS_DtlsInd.aspx.cs",
   "found": true,
-  "summary": "The file defines a web user interface for viewing individual and non-client details, utilizing ASP.NET classes and components.",
-  "purpose": "The primary purpose of the file is to provide a user interface for displaying individual and non-client details with ASP.NET controls.",
+  "summary": "The file contains classes that define web interfaces for viewing details about individuals and non-clients, including hidden fields and scripted events.",
+  "purpose": "To provide user interfaces for viewing client and non-client details.",
   "entities": [
     "UIDTLS_DtlsInd",
     "UIDTLS_DtlsNonClient"
@@ -36,7 +36,6 @@
     "l_Name",
     "b_Add",
     "b_Transfer",
-    "WPEvent_Label",
     "l_NonClientDetails",
     "MsgBox",
     "NID_2_NonClientContactPerson_XPN_GivenName",
@@ -52,21 +51,34 @@
     "l_NID_2_NonClientLocation_PhoneNumberMobile_XTN_Label"
   ],
   "actors": [],
-  "workflows": [],
+  "workflows": [
+    {
+      "name": "WebPageLoad",
+      "steps": [
+        "Load hidden fields",
+        "Execute JavaScript event handlers"
+      ]
+    }
+  ],
   "business_rules": [],
   "validations": [],
   "calculations": [],
-  "conditions": [],
+  "conditions": [
+    "WebPage auto event wireup: false"
+  ],
   "system_behavior": [
-    "Update",
-    "Add",
-    "Transfer"
+    "Render web page",
+    "Send form data",
+    "Handle button click events"
   ],
   "dependencies": [
-    "System.Web.UI.HtmlControls",
-    "System.Web.UI.WebControls"
+    "StyleSheets",
+    "JavaScript scripts"
   ],
   "exceptions": [],
-  "content_gaps": []
+  "content_gaps": [
+    "Missing detailed method implementations",
+    "External library behavior not defined"
+  ]
 }
 ```
