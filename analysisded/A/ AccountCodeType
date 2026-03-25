@@ -1,0 +1,56 @@
+```json
+{
+  "filename": "AccountCodeType",
+  "found": true,
+  "summary": "The document outlines the structure and logic for managing account codes within a software system. It includes a nested class for holding account code data and a method for generating a list of account codes based on user roles.",
+  "purpose": "To manage and provide access to different types of account codes, such as cost centers, expense codes, and portfolios, within the HSPnet system.",
+  "entities": [
+    "AccountCodeType",
+    "AccountCodeData"
+  ],
+  "fields": [
+    {
+      "name": "Code",
+      "type": "string"
+    },
+    {
+      "name": "Value",
+      "type": "string"
+    }
+  ],
+  "actors": [
+    "SystemAdministrator",
+    "Users"
+  ],
+  "workflows": [
+    {
+      "name": "Generate Account Code List",
+      "steps": [
+        "Check if user is a system administrator.",
+        "If true, add cost centers and expense codes to list.",
+        "Add portfolios to list for all users.",
+        "Return list of account codes."
+      ]
+    }
+  ],
+  "business_rules": [
+    "Only system administrators have access to cost centers and expense codes.",
+    "All users have access to portfolios."
+  ],
+  "validations": [],
+  "calculations": [],
+  "conditions": [],
+  "system_behavior": [
+    "Role-based access control to account codes."
+  ],
+  "dependencies": [
+    "HSPnetSession",
+    "Resources"
+  ],
+  "exceptions": [],
+  "source_document_ids": [
+    "2ad2bb0c-558e-58e1-8f7c-ee3517b3588f"
+  ],
+  "content_gaps": []
+}
+```
