@@ -1,1 +1,0 @@
-I'm ready to assist you in generating a high-level business use case for the given scenario: "UC-UPL-01 Automated Student Upload." Please provide any retrieved documentation or implementation artifacts you have so I can analyze them and generate the use case accordingly.

@@ -1,1 +1,0 @@
-I'm ready to help with that. Could you first provide the necessary documentation and implementation artifacts related to the scenario UC-STU-02 Automated Student Upload? I need this information to proceed with the analysis and generate the use case.

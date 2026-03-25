@@ -1,1 +1,0 @@
-I can help with that. Could you please provide the documentation and implementation artifacts related to the scenario UC-PRO-03 Placement Coordination?
