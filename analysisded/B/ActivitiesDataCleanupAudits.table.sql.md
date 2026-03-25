@@ -1,0 +1,62 @@
+```json
+{
+  "filename": "ActivitiesDataCleanupAudits.table.sql",
+  "found": true,
+  "summary": "The file defines SQL table schemas for data cleanup audit records related to activities and activity relations.",
+  "purpose": "The file is used to create tables for storing audit records of data cleanup activities and relationships.",
+  "entities": [
+    "ActivitiesDataCleanupAudits",
+    "ActivityRelationsDataCleanupAudits"
+  ],
+  "fields": [
+    "id",
+    "fk_primaryKey",
+    "fk_Auditors",
+    "action_cd",
+    "actionDate",
+    "actionReason",
+    "activityName",
+    "activityClass_cd",
+    "activityType_cd",
+    "activityMood_cd",
+    "activityStatus_cd",
+    "activityMethod_cd",
+    "activityDescription",
+    "activityDate",
+    "criticalDate",
+    "activityReason_cd",
+    "priority_cd",
+    "confidentiality_cd",
+    "activityAlert_cd",
+    "observationText",
+    "intervenForm_cd",
+    "intervenQuantity",
+    "intervenQuanUnit",
+    "intervenRoute_cd",
+    "intervenRateQuan",
+    "intervenRateUnit",
+    "intervenStrength",
+    "intervenStrengthUnit",
+    "timeStamp_sys",
+    "fk_Activities_A",
+    "fk_Activities_B",
+    "relation_AB",
+    "relation_BA",
+    "startDate",
+    "endDate",
+    "status_cd"
+  ],
+  "actors": [],
+  "workflows": [],
+  "business_rules": [],
+  "validations": [],
+  "calculations": [],
+  "conditions": [],
+  "system_behavior": [
+    "create"
+  ],
+  "dependencies": [],
+  "exceptions": [],
+  "content_gaps": []
+}
+```
