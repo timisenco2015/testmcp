@@ -2,10 +2,9 @@
 {
   "filename": "__UISRCH_AdvInd.aspx",
   "found": true,
-  "summary": "The document outlines an advanced individual search form interface used within a web application for searching individual records.",
-  "purpose": "To provide a web interface for advanced searching of individual records, capturing and validating various demographic and personal details.",
-  "entities": [],
-  "fields": [
+  "summary": "This document contains the advanced search form for individual records, which allows users to filter and search based on various criteria such as legal status, custody, and demographic details.",
+  "purpose": "The purpose of this document is to provide an advanced search interface for finding individual records, particularly for managing and retrieving specific client details within a system.",
+  "entities": [
     "Legal Status",
     "Custody/Guardianship",
     "Eligibility Determination",
@@ -15,93 +14,71 @@
     "Primary Language",
     "Secondary Language",
     "Require Interpreter",
+    "Marital Status",
     "Number of Dependants",
     "Employment Status",
     "Education Status",
-    "Marital Status",
-    "Aboriginal Origin",
-    "PHN",
-    "SIN",
-    "DLN",
-    "Local ID",
-    "Passport Number",
-    "Other Id",
-    "Individual Name",
-    "Patient BirthDate",
-    "Ethnicity",
-    "Hair Colour",
-    "Eye Colour",
+    "Aboriginal Status",
+    "Hair Color",
+    "Eye Color",
     "Height",
     "Weight",
     "Tattoos",
     "Piercings",
-    "Aliases",
+    "Ethnicity",
     "Gender"
   ],
-  "actors": [],
+  "fields": [
+    "PID_5_PatientName_XPN_GivenName",
+    "PID_5_PatientName_XPN_MiddleInitialOrName",
+    "PID_5_PatientName_XPN_FamilylastName_PID5",
+    "PID_7_DateTimeOfBirth",
+    "PID_8_Sex",
+    "PID_19_SsnNumberPatient",
+    "PID_3_PatientIdentiferList",
+    "DLN",
+    "LocalId",
+    "PassportNumber",
+    "OtherId"
+  ],
+  "actors": [
+    "System.Web.UI.WebControls"
+  ],
   "workflows": [
     {
-      "name": "DoDate",
+      "name": "Advance Search Execution",
       "steps": [
-        "Initialize DateTimeOfBirth",
-        "Check if year is available, add to DateTimeOfBirth",
-        "Check if month is selected, add to DateTimeOfBirth",
-        "Check if day is available, add to DateTimeOfBirth",
-        "Assign DateTimeOfBirth to field"
-      ]
-    },
-    {
-      "name": "Page_Load",
-      "steps": [
-        "Check if postback condition is false",
-        "Process Model Data",
-        "Initialize view with model data"
+        "Load Page",
+        "Initialize Components",
+        "Perform Search"
       ]
     }
   ],
-  "business_rules": [],
+  "business_rules": [
+    "Form validation ensures at least one field is entered before submission."
+  ],
   "validations": [
-    {
-      "id": "v_AllFieldsValidator",
-      "message": "You must enter at least one field."
-    },
-    {
-      "id": "v_PID_7_DateTimeOfBirth_Day",
-      "message": "Birth day must be between 1 and 31."
-    },
-    {
-      "id": "v_PID_7_DateTimeOfBirth_Year",
-      "message": "Birth year must be between 1000 and 2100."
-    },
-    {
-      "id": "v_PID_19_SsnNumberPatient",
-      "message": "Incorrect social insurance number format."
-    },
-    {
-      "id": "v_PID_3_PatientIdentiferList",
-      "message": "Incorrect PHN number format."
-    },
-    {
-      "id": "v_PID_5_PatientName_XPN_GivenName",
-      "message": "Given Name: Invalid Format"
-    },
-    {
-      "id": "v_PID_5_PatientName_XPN_MiddleInitialOrName",
-      "message": "Middle Name: Invalid Format"
-    },
-    {
-      "id": "v_PID_5_PatientName_XPN_FamilylastName_PID5",
-      "message": "Last Name: Invalid Format"
-    }
+    "PID_7_DateTimeOfBirth_Day must be between 1 and 31.",
+    "PID_7_DateTimeOfBirth_Year must be between 1000 and 2100.",
+    "SR5000_ID_Other format validation.",
+    "Social insurance number format validation."
   ],
-  "calculations": [],
-  "conditions": [],
+  "calculations": [
+    "Datetime of Birth is constructed from separate year, month, and day inputs."
+  ],
+  "conditions": [
+    "Only postback actions trigger search processing."
+  ],
   "system_behavior": [
-    "Handle control events",
-    "Initialize components on page load"
+    "Displays popup confirmation upon search action."
   ],
-  "dependencies": [],
-  "exceptions": [],
+  "dependencies": [
+    "JavaScript scripts for UI behavior and validation.",
+    "CSS stylesheets for page styling."
+  ],
+  "exceptions": [
+    "Error handling for invalid inputs on form submission."
+  ],
   "content_gaps": []
 }
 ```
