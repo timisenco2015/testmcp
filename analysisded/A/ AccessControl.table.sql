@@ -2,35 +2,15 @@
 {
   "filename": "AccessControl.table.sql",
   "found": true,
-  "summary": "The 'AccessControl' table is defined with columns for id, caption, read access, write access, and a timestamp for internal record locking.",
-  "purpose": "To manage access control by defining read and write permissions and to track modifications with a timestamp for locking errors.",
+  "summary": "The dataset contains SQL statements for creating the AccessControl table with columns for maintaining access rights and internal timestamp for error trapping.",
+  "purpose": "To define the structure of an AccessControl table aimed at managing read and write access with an internal timestamp for record lock error trapping.",
   "entities": [],
   "fields": [
-    {
-      "name": "id",
-      "type": "INT",
-      "description": "Unique identifier for access control entry"
-    },
-    {
-      "name": "caption",
-      "type": "VARCHAR(50)",
-      "description": "Description or label for the access control entry"
-    },
-    {
-      "name": "readAcc",
-      "type": "BIT",
-      "description": "Indicator if read access is granted"
-    },
-    {
-      "name": "writeAcc",
-      "type": "BIT",
-      "description": "Indicator if write access is granted"
-    },
-    {
-      "name": "timeStamp_sys",
-      "type": "TIMESTAMP",
-      "description": "Timestamp for internal record lock error trapping"
-    }
+    "id",
+    "caption",
+    "readAcc",
+    "writeAcc",
+    "timeStamp_sys"
   ],
   "actors": [],
   "workflows": [],
